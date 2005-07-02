@@ -1,0 +1,15 @@
+{
+  try {
+    return ((GroovyObject)getClazz().newInstance());
+  }
+ catch (  Exception e) {
+    Throwable targetException=null;
+    if (e instanceof InvocationTargetException) {
+      targetException=((InvocationTargetException)e).getTargetException();
+    }
+ else {
+      targetException=e;
+    }
+    throw new NewInstanceCreationException("Could not create a new instance of class [" + getClazz().getName() + "]!",targetException);
+  }
+}

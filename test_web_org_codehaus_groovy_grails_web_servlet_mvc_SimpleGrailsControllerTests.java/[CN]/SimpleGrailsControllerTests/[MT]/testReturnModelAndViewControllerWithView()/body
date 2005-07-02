@@ -1,0 +1,4 @@
+{
+  ModelAndView modelAndView=execute("/returnModelAndView/withView",null);
+  assertNotNull(modelAndView);
+}

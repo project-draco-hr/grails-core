@@ -1,0 +1,9 @@
+{
+  ModelAndView modelAndView=execute("/parameter",null);
+  assertNotNull(modelAndView);
+  assertEquals("someView",modelAndView.getViewName());
+  assertNotNull(modelAndView.getModel().get("request"));
+  assertTrue(modelAndView.getModel().get("request") instanceof HttpServletRequest);
+  assertNotNull(modelAndView.getModel().get("response"));
+  assertTrue(modelAndView.getModel().get("response") instanceof HttpServletResponse);
+}

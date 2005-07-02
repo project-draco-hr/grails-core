@@ -1,0 +1,23 @@
+{
+  super();
+  this.cl=new GroovyClassLoader();
+  for (int i=0; resources != null && i < resources.length; i++) {
+    try {
+      cl.parseClass(resources[i].getFile());
+    }
+ catch (    CompilationFailedException e) {
+      throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error in file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
+    }
+  }
+  Class[] classes=cl.getLoadedClasses();
+  this.controllerMap=new HashMap();
+  for (int i=0; i < classes.length; i++) {
+    if (classes[i].getName().endsWith(DefaultGrailsControllerClass.CONTROLLER)) {
+      GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
+      if (grailsControllerClass.getAvailable()) {
+        this.controllerMap.put(grailsControllerClass.getName().substring(0,1).toLowerCase() + grailsControllerClass.getName().substring(1),grailsControllerClass);
+      }
+    }
+  }
+  this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
+}

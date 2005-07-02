@@ -1,0 +1,11 @@
+{
+  return new BeanReference(){
+    public Bean getBean(){
+      return bean;
+    }
+    public String getBeanName(){
+      return beanName;
+    }
+  }
+;
+}

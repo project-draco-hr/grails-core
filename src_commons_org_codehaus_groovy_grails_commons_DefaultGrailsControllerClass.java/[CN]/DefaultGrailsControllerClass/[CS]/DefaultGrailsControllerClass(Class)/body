@@ -1,0 +1,25 @@
+{
+  super(clazz,CONTROLLER);
+  String uri=SLASH + getName().substring(0,1).toLowerCase() + getName().substring(1,getName().length());
+  String defaultClosureName=(String)getPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  this.viewNames=new HashMap();
+  this.uri2closureMap=new HashMap();
+  PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
+  for (int i=0; i < propertyDescriptors.length; i++) {
+    PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
+    if (propertyDescriptor.getPropertyType().equals(Closure.class)) {
+      this.viewNames.put(propertyDescriptor.getName(),getPropertyValue(propertyDescriptor.getName() + VIEW,String.class));
+      Closure closure=(Closure)getPropertyValue(propertyDescriptor.getName(),Closure.class);
+      if (closure != null) {
+        this.uri2closureMap.put(uri + SLASH + propertyDescriptor.getName(),propertyDescriptor.getName());
+        if (defaultClosureName != null && defaultClosureName.equals(propertyDescriptor.getName())) {
+          this.uri2closureMap.put(uri,propertyDescriptor.getName());
+        }
+      }
+    }
+  }
+  if (this.uri2closureMap.size() == 1) {
+    this.uri2closureMap.put(uri,this.uri2closureMap.values().iterator().next());
+  }
+  this.uris=(String[])this.uri2closureMap.keySet().toArray(new String[this.uri2closureMap.size()]);
+}

@@ -1,0 +1,37 @@
+{
+  Collection beanReferences=null;
+  Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
+  simpleGrailsController.setAutowire("byType");
+  beanReferences.add(SpringConfigUtils.createBeanReference("simpleGrailsController",simpleGrailsController));
+  Bean internalResourceViewResolver=SpringConfigUtils.createSingletonBean(InternalResourceViewResolver.class);
+  internalResourceViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/jsp/"));
+  internalResourceViewResolver.setProperty("suffix",SpringConfigUtils.createLiteralValue(".jsp"));
+  beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",internalResourceViewResolver));
+  Bean simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(SimpleUrlHandlerMapping.class);
+  simpleUrlHandlerMapping.setProperty("mappings",SpringConfigUtils.createLiteralValue("/*=simpleGrailsController"));
+  beanReferences.add(SpringConfigUtils.createBeanReference("handlerMapping",simpleUrlHandlerMapping));
+  GrailsControllerClass[] simpleControllers=application.getControllers();
+  for (int i=0; i < simpleControllers.length; i++) {
+    GrailsControllerClass simpleController=simpleControllers[i];
+    if (!simpleController.getAvailable()) {
+      continue;
+    }
+    String name=simpleController.getName().substring(0,1).toLowerCase() + simpleController.getName().substring(1);
+    Bean controllerClass=SpringConfigUtils.createSingletonBean(MethodInvokingFactoryBean.class);
+    controllerClass.setProperty("targetObject",SpringConfigUtils.createBeanReference("grailsApplication"));
+    controllerClass.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getController"));
+    controllerClass.setProperty("arguments",SpringConfigUtils.createLiteralValue(name));
+    beanReferences.add(SpringConfigUtils.createBeanReference(name + "ControllerClass",controllerClass));
+    Bean controller=SpringConfigUtils.createSingletonBean();
+    controller.setFactoryBean(SpringConfigUtils.createBeanReference(name + "ControllerClass"));
+    controller.setFactoryMethod("newInstance");
+    if (simpleController.byType()) {
+      controller.setAutowire("byType");
+    }
+ else     if (simpleController.byName()) {
+      controller.setAutowire("byName");
+    }
+    beanReferences.add(SpringConfigUtils.createBeanReference(name + "Controller",controller));
+  }
+  return beanReferences;
+}

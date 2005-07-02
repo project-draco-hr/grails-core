@@ -1,0 +1,6 @@
+{
+  if (this.groovyFiles == null || groovyFiles.length == 0) {
+    throw new IllegalStateException("Groovy files are not defined!");
+  }
+  this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles);
+}

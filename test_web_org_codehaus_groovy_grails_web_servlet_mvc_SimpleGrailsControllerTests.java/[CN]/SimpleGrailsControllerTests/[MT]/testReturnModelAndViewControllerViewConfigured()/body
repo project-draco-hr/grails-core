@@ -1,0 +1,5 @@
+{
+  ModelAndView modelAndView=execute("/returnModelAndView/viewConfigured",null);
+  assertNotNull(modelAndView);
+  assertEquals("someOtherView",modelAndView.getViewName());
+}

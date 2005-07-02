@@ -1,0 +1,8 @@
+{
+  if (getReference().isReadableProperty(name) && getReference().getPropertyType(name).equals(type)) {
+    return getReference().getPropertyValue(name);
+  }
+ else {
+    return null;
+  }
+}

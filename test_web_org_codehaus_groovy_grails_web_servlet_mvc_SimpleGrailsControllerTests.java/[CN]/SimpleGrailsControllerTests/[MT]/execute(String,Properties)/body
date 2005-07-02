@@ -1,0 +1,12 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest("GET",uri);
+  if (parameters != null) {
+    for (Iterator iter=parameters.keySet().iterator(); iter.hasNext(); ) {
+      String paramName=(String)iter.next();
+      String paramValue=parameters.getProperty(paramName);
+      request.addParameter(paramName,paramValue);
+    }
+  }
+  MockHttpServletResponse response=new MockHttpServletResponse();
+  return controller.handleRequest(request,response);
+}

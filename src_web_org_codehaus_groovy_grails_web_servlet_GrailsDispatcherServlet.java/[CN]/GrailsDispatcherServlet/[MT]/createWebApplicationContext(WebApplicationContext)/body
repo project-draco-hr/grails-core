@@ -1,0 +1,4 @@
+{
+  SpringConfig springConfig=new SpringConfig(application);
+  return new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),StringUtils.tokenizeToStringArray(getContextConfigLocation(),ConfigurableWebApplicationContext.CONFIG_LOCATION_DELIMITERS));
+}

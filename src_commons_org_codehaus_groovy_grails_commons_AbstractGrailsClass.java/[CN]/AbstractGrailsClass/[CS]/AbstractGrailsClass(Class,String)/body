@@ -1,0 +1,12 @@
+{
+  super();
+  setClazz(clazz);
+  this.reference=new BeanWrapperImpl(newInstance());
+  this.fullName=getShortClassname(clazz);
+  if (trailingName == null || trailingName.length() == 0) {
+    this.name=fullName;
+  }
+ else {
+    this.name=this.fullName.substring(0,this.fullName.length() - trailingName.length());
+  }
+}

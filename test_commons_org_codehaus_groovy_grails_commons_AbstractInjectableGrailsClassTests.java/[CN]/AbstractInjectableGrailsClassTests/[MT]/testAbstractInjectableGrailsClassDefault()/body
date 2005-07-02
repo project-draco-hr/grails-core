@@ -1,0 +1,9 @@
+{
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Class clazz=cl.parseClass("class TestService { }");
+  InjectableGrailsClass grailsClass=new AbstractInjectableGrailsClass(clazz,"Service"){
+  }
+;
+  assertTrue(grailsClass.byType());
+  assertFalse(grailsClass.byName());
+}

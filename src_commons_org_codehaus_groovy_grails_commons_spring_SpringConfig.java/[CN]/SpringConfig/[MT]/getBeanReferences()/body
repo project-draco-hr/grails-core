@@ -1,5 +1,7 @@
 {
-  Collection beanReferences=null;
+  Collection beanReferences=new ArrayList();
+  StringBuffer urlMappings=new StringBuffer();
+  Assert.notNull(application);
   Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
   simpleGrailsController.setAutowire("byType");
   beanReferences.add(SpringConfigUtils.createBeanReference("simpleGrailsController",simpleGrailsController));

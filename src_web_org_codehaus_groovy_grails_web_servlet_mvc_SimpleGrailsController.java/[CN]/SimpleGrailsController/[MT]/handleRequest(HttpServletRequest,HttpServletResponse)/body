@@ -35,7 +35,7 @@
   }
  else   if (returnValue instanceof Map) {
     if (viewNameBlank) {
-      throw new NoViewNameDefinedException("Map instance returned by and view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
+      throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
     }
  else {
       return new ModelAndView(viewName,(Map)returnValue);

@@ -1,3 +1,3 @@
 {
-  return this.delegate.getParameterMap().entrySet();
+  return getRequest().getParameterMap().entrySet();
 }

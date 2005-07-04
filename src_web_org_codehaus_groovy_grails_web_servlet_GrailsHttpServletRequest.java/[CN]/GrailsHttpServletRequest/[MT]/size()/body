@@ -1,3 +1,3 @@
 {
-  return this.delegate.getParameterMap().size();
+  return getRequest().getParameterMap().size();
 }

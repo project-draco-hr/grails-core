@@ -1,3 +1,3 @@
 {
-  return this.delegate.getParameterMap().containsValue(value);
+  return getRequest().getParameterMap().containsValue(value);
 }

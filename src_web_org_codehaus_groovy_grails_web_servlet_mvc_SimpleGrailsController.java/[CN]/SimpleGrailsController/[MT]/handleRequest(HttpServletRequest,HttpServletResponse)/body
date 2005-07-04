@@ -12,7 +12,7 @@
   if (closurePropertyName == null) {
     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
   }
-  String viewName=controllerClass.getViewName(closurePropertyName);
+  String viewName=controllerClass.getViewName(uri);
   boolean viewNameBlank=(viewName == null || viewName.length() == 0);
   Closure closure=(Closure)controller.getProperty(closurePropertyName);
   Object returnValue=null;

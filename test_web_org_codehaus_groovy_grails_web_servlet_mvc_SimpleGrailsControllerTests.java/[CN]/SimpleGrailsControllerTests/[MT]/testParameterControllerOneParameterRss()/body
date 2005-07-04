@@ -1,0 +1,7 @@
+{
+  ModelAndView modelAndView=execute("/parameter/oneParameter/rss",null);
+  assertNotNull(modelAndView);
+  assertEquals("someOtherRssView",modelAndView.getViewName());
+  assertNotNull(modelAndView.getModel().get("request"));
+  assertTrue(modelAndView.getModel().get("request") instanceof HttpServletRequest);
+}

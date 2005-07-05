@@ -1,0 +1,18 @@
+{
+  parse("ajax{ element(id:\"test\") { } }");
+  try {
+    parse("ajax{ test(id:\"test\") { } }");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  try {
+    parse("element{ test(id:\"test\") { } }");
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+  parse("ajax{ element(id:\"test\") { testTag {} } }");
+  parse("ajax() { element(id:\"test\") { testTag {} }; element(id:\"test2\") {}  }");
+  parse("ajax { object(id:\"test\") { testTag {} }; object(id:\"test2\") {}  }");
+}

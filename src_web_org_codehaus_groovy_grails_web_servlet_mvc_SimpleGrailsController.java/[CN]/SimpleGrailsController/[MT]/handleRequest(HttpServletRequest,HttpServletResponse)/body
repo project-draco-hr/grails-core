@@ -1,5 +1,8 @@
 {
-  String uri=this.urlPathHelper.getLookupPathForRequest(request);
+  String uri=this.urlPathHelper.getRequestUri(request);
+  if (uri.indexOf("?") > -1) {
+    uri=uri.substring(0,uri.indexOf("?"));
+  }
   GrailsControllerClass controllerClass=this.application.getControllerByURI(uri);
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");

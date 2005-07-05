@@ -1,13 +1,11 @@
 {
   String uri=this.urlPathHelper.getLookupPathForRequest(request);
-  String[] uriParts=StringUtils.tokenizeToStringArray(uri,SLASH,true,true);
-  String controllerName=uriParts[0];
-  GrailsControllerClass controllerClass=this.application.getController(controllerName);
+  GrailsControllerClass controllerClass=this.application.getControllerByURI(uri);
   if (controllerClass == null) {
-    String fullControllerName=controllerName.substring(0,1).toUpperCase() + controllerName.substring(1) + DefaultGrailsControllerClass.CONTROLLER;
-    throw new UnknownControllerException("Controller named [" + controllerName + "] could not be found. Make sure ["+ fullControllerName+ "] is defined and available!");
+    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  GroovyObject controller=(GroovyObject)this.applicationContext.getBean(controllerName + DefaultGrailsControllerClass.CONTROLLER);
+  String controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  GroovyObject controller=(GroovyObject)this.applicationContext.getBean(controllerClass.getFullName());
   String closurePropertyName=controllerClass.getClosurePropertyName(uri);
   if (closurePropertyName == null) {
     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");

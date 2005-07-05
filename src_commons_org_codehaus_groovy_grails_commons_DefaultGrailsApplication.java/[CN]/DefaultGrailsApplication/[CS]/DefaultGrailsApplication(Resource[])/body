@@ -15,7 +15,7 @@
     if (classes[i].getName().endsWith(DefaultGrailsControllerClass.CONTROLLER)) {
       GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
       if (grailsControllerClass.getAvailable()) {
-        this.controllerMap.put(grailsControllerClass.getName().substring(0,1).toLowerCase() + grailsControllerClass.getName().substring(1),grailsControllerClass);
+        this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
       }
     }
   }

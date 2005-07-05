@@ -1,4 +1,4 @@
 {
-  ModelAndView modelAndView=execute("/returnModelAndView/withView",null);
+  ModelAndView modelAndView=execute("/org/codehaus/groovy/grails/web/servlet/mvc/returnModelAndView/withView",null);
   assertNotNull(modelAndView);
 }

@@ -1,6 +1,6 @@
 {
   super(clazz,CONTROLLER);
-  String uri=SLASH + getName().substring(0,1).toLowerCase() + getName().substring(1,getName().length());
+  String uri=SLASH + (StringUtils.isNotBlank(getPackageName()) ? getPackageName().replace('.','/') + SLASH : "") + WordUtils.uncapitalize(getName());
   String defaultClosureName=(String)getPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   Collection closureNames=new ArrayList();
   this.viewNames=new HashMap();

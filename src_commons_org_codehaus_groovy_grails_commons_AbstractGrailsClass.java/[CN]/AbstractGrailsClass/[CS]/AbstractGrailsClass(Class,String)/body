@@ -2,11 +2,13 @@
   super();
   setClazz(clazz);
   this.reference=new BeanWrapperImpl(newInstance());
-  this.fullName=getShortClassname(clazz);
-  if (trailingName == null || trailingName.length() == 0) {
+  this.fullName=clazz.getName();
+  this.packageName=ClassUtils.getPackageName(clazz);
+  if (StringUtils.isBlank(trailingName)) {
     this.name=fullName;
   }
  else {
-    this.name=this.fullName.substring(0,this.fullName.length() - trailingName.length());
+    String shortName=getShortClassname(clazz);
+    this.name=shortName.substring(0,shortName.length() - trailingName.length());
   }
 }

@@ -1,5 +1,5 @@
 {
-  String uri=this.urlPathHelper.getRequestUri(request);
+  String uri=this.urlPathHelper.getLookupPathForRequest(request);
   if (uri.indexOf("?") > -1) {
     uri=uri.substring(0,uri.indexOf("?"));
   }

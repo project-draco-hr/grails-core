@@ -1,4 +1,5 @@
 {
   this.delegate.setContentType(contentType);
+  this.delegate.setCharacterEncoding(characterEncoding);
   return this.delegate.getWriter();
 }

@@ -1,0 +1,33 @@
+{
+  super(clazz,"");
+  PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
+  this.propertyMap=new HashMap();
+  for (int i=0; i < propertyDescriptors.length; i++) {
+    PropertyDescriptor descriptor=propertyDescriptors[i];
+    if (!descriptor.getName().equals(GrailsDomainClassProperty.META_CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.NOT_PERSISTANT)&& !descriptor.getName().equals(GrailsDomainClassProperty.NOT_REQUIRED)) {
+      GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
+      this.propertyMap.put(property.getName(),property);
+      if (property.isIdentity()) {
+        this.identifier=property;
+      }
+ else       if (property.getName().equals(GrailsDomainClassProperty.VERSION)) {
+        this.version=property;
+      }
+    }
+  }
+  if (this.identifier == null) {
+    throw new GrailsDomainException("Identity property not found, but required in domain class [" + getFullName() + "]");
+  }
+  if (this.version == null) {
+    throw new GrailsDomainException("Version property not found, but required in domain class [" + getFullName() + "]");
+  }
+  this.properties=(GrailsDomainClassProperty[])this.propertyMap.values().toArray(new GrailsDomainClassProperty[this.propertyMap.size()]);
+  Collection tempList=new ArrayList();
+  for (Iterator i=this.propertyMap.values().iterator(); i.hasNext(); ) {
+    GrailsDomainClassProperty currentProp=(GrailsDomainClassProperty)i.next();
+    if (currentProp.isPersistant() && !currentProp.isIdentity() && !currentProp.getName().equals(GrailsDomainClassProperty.VERSION)) {
+      tempList.add(currentProp);
+    }
+  }
+  this.persistantProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+}

@@ -1,0 +1,15 @@
+{
+  HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
+  GroovyObject obj=(GroovyObject)template.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      List results=session.createQuery("from org.codehaus.groovy.grails.domain.Test1 where id = '1'").list();
+      if (results.size() > 0) {
+        return results.get(0);
+      }
+      return null;
+    }
+  }
+);
+  assertNotNull(obj);
+  assertEquals("Joe",obj.getProperty("firstName"));
+}

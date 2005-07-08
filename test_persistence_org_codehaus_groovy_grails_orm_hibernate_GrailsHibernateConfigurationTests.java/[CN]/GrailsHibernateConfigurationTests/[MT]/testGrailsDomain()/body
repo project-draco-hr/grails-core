@@ -1,0 +1,4 @@
+{
+  GrailsDomainClass[] domainClasses=grailsDomain.getGrailsDomainClasses();
+  assertEquals(2,domainClasses.length);
+}

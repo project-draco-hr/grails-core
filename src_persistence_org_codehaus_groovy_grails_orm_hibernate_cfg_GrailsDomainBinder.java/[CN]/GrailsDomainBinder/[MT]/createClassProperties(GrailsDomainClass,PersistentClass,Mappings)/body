@@ -1,0 +1,27 @@
+{
+  GrailsDomainClassProperty[] persistantProperties=domainClass.getPersistantProperties();
+  String entityName=persistentClass.getEntityName();
+  Table table=persistentClass.getTable();
+  for (int i=0; i < persistantProperties.length; i++) {
+    GrailsDomainClassProperty currentGrailsProp=persistantProperties[i];
+    Value value=null;
+    if (currentGrailsProp.isManyToOne()) {
+      value=new ManyToOne(table);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,mappings);
+    }
+ else     if (currentGrailsProp.isOneToOne()) {
+      value=new OneToOne(table,persistentClass);
+      bindOneToOne(currentGrailsProp,(OneToOne)value,mappings);
+    }
+ else     if (currentGrailsProp.isOneToMany()) {
+      value=new OneToMany(persistentClass);
+      bindOneToMany(currentGrailsProp,(OneToMany)value,mappings);
+    }
+ else {
+      value=new SimpleValue(table);
+      bindSimpleValue(persistantProperties[i],(SimpleValue)value,mappings);
+    }
+    Property property=createProperty(value,persistentClass,persistantProperties[i],mappings);
+    persistentClass.addProperty(property);
+  }
+}

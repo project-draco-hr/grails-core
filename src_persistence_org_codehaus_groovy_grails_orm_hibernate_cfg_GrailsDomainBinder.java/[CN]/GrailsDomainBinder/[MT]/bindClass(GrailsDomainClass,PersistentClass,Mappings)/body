@@ -1,0 +1,12 @@
+{
+  persistentClass.setLazy(true);
+  persistentClass.setEntityName(domainClass.getFullName());
+  persistentClass.setProxyInterfaceName(domainClass.getFullName());
+  persistentClass.setClassName(domainClass.getFullName());
+  persistentClass.setDynamicInsert(false);
+  persistentClass.setDynamicUpdate(false);
+  persistentClass.setSelectBeforeUpdate(false);
+  if (mappings.isAutoImport() && persistentClass.getEntityName().indexOf('.') > 0) {
+    mappings.addImport(persistentClass.getEntityName(),StringHelper.unqualify(persistentClass.getEntityName()));
+  }
+}

@@ -1,0 +1,6 @@
+{
+  RootClass root=new RootClass();
+  bindClass(domainClass,root,mappings);
+  bindRootPersistentClassCommonValues(domainClass,root,mappings);
+  mappings.addClass(root);
+}

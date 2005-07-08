@@ -1,0 +1,8 @@
+{
+  simpleValue.setTypeName(grailsProp.getType().getName());
+  Column column=new Column();
+  column.setValue(simpleValue);
+  bindColumn(grailsProp,column);
+  simpleValue.addColumn(column);
+  simpleValue.getTable().addColumn(column);
+}

@@ -1,0 +1,4 @@
+{
+  column.setNullable(!grailsProp.isRequired());
+  column.setName(grailsProp.getFieldName());
+}

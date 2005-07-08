@@ -1,0 +1,10 @@
+{
+  SimpleValue id=new SimpleValue(entity.getTable());
+  entity.setIdentifier(id);
+  bindSimpleValue(identifier,id,mappings);
+  Property prop=new Property();
+  prop.setValue(id);
+  bindProperty(identifier,prop,mappings);
+  entity.setIdentifierProperty(prop);
+  id.getTable().setIdentifierValue(id);
+}

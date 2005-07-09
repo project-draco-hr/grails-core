@@ -1,0 +1,9 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("decision",new Object());
+  try {
+    new State("myDecisionState",attributes);
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

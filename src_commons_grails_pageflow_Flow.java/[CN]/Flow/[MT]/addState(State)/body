@@ -1,0 +1,10 @@
+{
+  Assert.notNull(state);
+  for (Iterator iter=this.states.iterator(); iter.hasNext(); ) {
+    State tmpState=(State)iter.next();
+    if (tmpState.getId().equals(state.getId())) {
+      throw new IllegalArgumentException("Flow already has a state with id [" + tmpState.getId() + "]!");
+    }
+  }
+  this.states.add(state);
+}

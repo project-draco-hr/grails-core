@@ -1,0 +1,10 @@
+{
+  State state=new State("test");
+  state.setActionClass(Object.class);
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

@@ -1,0 +1,22 @@
+{
+  if (getCurrent() == null) {
+    throw new IllegalArgumentException("call to [" + name + "] with value ["+ value+ "] is not supported!");
+  }
+ else   if (getCurrent() instanceof Flow) {
+    throw new IllegalArgumentException("State [" + name + "] requires one of these attributes: [action, view, decision, subflow]!");
+  }
+ else   if (getCurrent() instanceof State) {
+    if (value == null) {
+      throw new IllegalArgumentException("Target state id is required as value for transition [" + name + "], state ["+ ((State)getCurrent()).getId()+ "]!");
+    }
+ else     if (!(value instanceof String)) {
+      throw new IllegalArgumentException("Target state id must be a string value for transition [" + name + "], state ["+ ((State)getCurrent()).getId()+ "]!");
+    }
+ else {
+      return new Transition((State)getCurrent(),name.toString(),value.toString());
+    }
+  }
+ else {
+    throw new IllegalArgumentException("[" + name + "] not allowed as child!");
+  }
+}

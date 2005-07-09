@@ -1,0 +1,10 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("subflow",new Object());
+  try {
+    new State("mySubflowState",attributes);
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

@@ -1,0 +1,12 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("subflow","expression");
+  attributes.put("mapper",Object.class);
+  State state=new State("mySubflowState",attributes);
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (FLOW.equals(name)) {
+    return new Flow();
+  }
+ else {
+    throw new IllegalArgumentException("call to [" + name + "] without attributes is not supported!");
+  }
+}

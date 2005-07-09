@@ -1,0 +1,14 @@
+{
+  if (parent == null) {
+    return;
+  }
+  if (parent instanceof Flow && child instanceof State) {
+    ((Flow)parent).addState((State)child);
+  }
+ else   if (parent instanceof State && child instanceof Transition) {
+    ((State)parent).addTransition((Transition)child);
+  }
+ else {
+    throw new IllegalArgumentException("No parent/child relationship between classes [" + parent.getClass().getName() + "] (parent) and ["+ child.getClass().getName()+ "] (child)!");
+  }
+}

@@ -1,0 +1,11 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("properties",new HashMap());
+  State state=new State("myAction",attributes);
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

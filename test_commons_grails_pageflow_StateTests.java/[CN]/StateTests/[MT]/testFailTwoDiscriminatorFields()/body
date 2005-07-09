@@ -1,0 +1,11 @@
+{
+  State state=new State("test");
+  state.setActionClass(Object.class);
+  state.setViewName("test");
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

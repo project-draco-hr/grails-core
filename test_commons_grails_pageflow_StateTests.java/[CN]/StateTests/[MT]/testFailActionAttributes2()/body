@@ -1,0 +1,11 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("action",FormAction.class);
+  attributes.put("properties",new ArrayList());
+  try {
+    new State("myAction",attributes);
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

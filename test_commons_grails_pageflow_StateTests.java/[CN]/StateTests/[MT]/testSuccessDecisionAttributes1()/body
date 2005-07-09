@@ -1,0 +1,8 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("decision","expression");
+  attributes.put("trueState","someState");
+  attributes.put("falseState","someOtherState");
+  State state=new State("myDecisionState",attributes);
+  state.validate();
+}

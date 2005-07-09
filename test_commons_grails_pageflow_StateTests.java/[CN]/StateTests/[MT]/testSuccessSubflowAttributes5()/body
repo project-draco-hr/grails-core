@@ -1,0 +1,15 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("subflow","someFlow");
+  attributes.put("mapper",new FlowAttributeMapper(){
+    public Map createSubflowInput(    RequestContext arg0){
+      return null;
+    }
+    public void mapSubflowOutput(    RequestContext arg0){
+    }
+  }
+);
+  attributes.put("properties",null);
+  State state=new State("mySubflowState",attributes);
+  state.validate();
+}

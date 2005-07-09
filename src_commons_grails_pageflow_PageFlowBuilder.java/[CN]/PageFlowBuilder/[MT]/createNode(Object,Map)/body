@@ -1,0 +1,17 @@
+{
+  if (getCurrent() == null) {
+    throw new IllegalArgumentException("Call to [" + name + "] with attributes ["+ attributes+ "] is not supported!");
+  }
+ else   if (getCurrent() instanceof Flow) {
+    if (StringUtils.isBlank((String)name)) {
+      throw new IllegalArgumentException("State id is required!");
+    }
+    return new State((String)name,attributes);
+  }
+ else   if (getCurrent() instanceof State) {
+    throw new IllegalArgumentException("Call to [" + name + "] with attributes is not allowed!");
+  }
+ else {
+    throw new IllegalArgumentException("[" + name + "] not allowed a child!");
+  }
+}

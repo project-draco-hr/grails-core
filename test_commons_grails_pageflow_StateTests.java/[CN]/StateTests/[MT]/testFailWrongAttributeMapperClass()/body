@@ -1,0 +1,10 @@
+{
+  State state=new State("test");
+  state.setAttributeMapperClass(Object.class);
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

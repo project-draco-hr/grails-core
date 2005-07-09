@@ -1,0 +1,10 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("action",new Object());
+  try {
+    new State("myAction",attributes);
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

@@ -1,0 +1,11 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("view","someView");
+  attributes.put("model",new ArrayList());
+  try {
+    new State("myViewState",attributes);
+    fail();
+  }
+ catch (  IllegalArgumentException e) {
+  }
+}

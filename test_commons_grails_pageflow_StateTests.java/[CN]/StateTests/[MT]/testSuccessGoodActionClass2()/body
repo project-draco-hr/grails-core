@@ -1,0 +1,10 @@
+{
+  State state=new State("test");
+  state.setActionClass(new Object(){
+    public String execute(    RequestContext context){
+      return null;
+    }
+  }
+.getClass());
+  state.validate();
+}

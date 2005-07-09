@@ -1,0 +1,12 @@
+{
+  Map attributes=new HashMap();
+  attributes.put("decision","expression");
+  attributes.put("trueState","someState");
+  State state=new State("myDecisionState",attributes);
+  try {
+    state.validate();
+    fail();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

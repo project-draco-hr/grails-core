@@ -1,0 +1,5 @@
+{
+  this(model);
+  Assert.notNull(viewName);
+  this.viewName=viewName;
+}

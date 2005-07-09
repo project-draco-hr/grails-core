@@ -1,0 +1,15 @@
+{
+  Map tmpModel=new HashMap(requestContext.getModel());
+  if (this.model != null) {
+    for (Iterator iter=this.model.entrySet().iterator(); iter.hasNext(); ) {
+      Map.Entry entry=(Map.Entry)iter.next();
+      if (entry.getValue() != null && entry.getValue() instanceof Closure) {
+        tmpModel.put(entry.getKey(),((Closure)entry.getValue()).call(new Object[]{requestContext}));
+      }
+ else {
+        tmpModel.put(entry.getKey(),entry.getValue());
+      }
+    }
+  }
+  return new ViewDescriptor(viewName,tmpModel);
+}

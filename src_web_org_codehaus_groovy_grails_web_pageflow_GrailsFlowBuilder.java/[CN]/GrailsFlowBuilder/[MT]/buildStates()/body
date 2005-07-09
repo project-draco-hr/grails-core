@@ -1,0 +1,62 @@
+{
+  GroovyObject pageFlow=(GroovyObject)this.applicationContext.getBean(pageFlowClass.getFullName());
+  Assert.notNull(pageFlow);
+  Flow flow=(Flow)pageFlow.getProperty(FLOW);
+  Assert.notNull(flow);
+  for (Iterator iter=flow.getStates().iterator(); iter.hasNext(); ) {
+    State state=(State)iter.next();
+    if (state.isActionState()) {
+      Action action=null;
+      if (state.getAction() != null) {
+        action=state.getAction();
+      }
+ else       if (state.getActionClass() != null) {
+        if (Action.class.isAssignableFrom(state.getActionClass())) {
+          action=(Action)BeanUtils.instantiateClass(state.getActionClass());
+        }
+ else {
+          throw new UnsupportedOperationException("None " + Action.class.getName() + " action classes are not yet supported!");
+        }
+        if (state.getActionProperties() != null) {
+          BeanWrapper beanWrapper=new BeanWrapperImpl(action);
+          for (Iterator iter2=state.getActionProperties().entrySet().iterator(); iter2.hasNext(); ) {
+            Map.Entry entry=(Map.Entry)iter2.next();
+            beanWrapper.setPropertyValue((String)entry.getKey(),entry.getValue());
+          }
+        }
+      }
+ else       if (state.getActionClosure() != null) {
+        action=new ClosureAction(this.pageFlowClass.getFlowId(),state.getId(),state.getActionClosure());
+      }
+ else       if (state.getActionFormDetails() != null) {
+        action=new FormAction();
+        BeanWrapper beanWrapper=new BeanWrapperImpl(action);
+        for (Iterator iter2=state.getActionFormDetails().entrySet().iterator(); iter2.hasNext(); ) {
+          Map.Entry entry=(Map.Entry)iter2.next();
+          beanWrapper.setPropertyValue((String)entry.getKey(),entry.getValue());
+        }
+      }
+ else {
+        throw new UnsupportedOperationException();
+      }
+      addActionState(state.getId(),action,getTransitions(state.getTransitions()));
+    }
+ else     if (state.isViewState()) {
+      if (state.getViewName() != null) {
+        addViewState(state.getId(),new ModelViewDescriptorCreator(state.getViewName(),state.getViewModel()),getTransitions(state.getTransitions()),new HashMap());
+      }
+ else       if (state.getViewClosure() != null) {
+        throw new UnsupportedOperationException("View closures are not yet supported!");
+      }
+    }
+ else     if (state.isDecisionState()) {
+      throw new UnsupportedOperationException("Decision states are not yet supported!");
+    }
+ else     if (state.isSubflowState()) {
+      throw new UnsupportedOperationException("Subflow states are not yet supported!");
+    }
+ else {
+      throw new UnsupportedOperationException();
+    }
+  }
+}

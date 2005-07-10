@@ -1,0 +1,7 @@
+{
+  super(clazz,PAGE_FLOW);
+  if (getPropertyValue(FLOW,Flow.class) == null) {
+    throw new RequiredPropertyMissingException("On class [" + clazz.getName() + "] required property ["+ FLOW+ "] of type ["+ Flow.class.getName()+ "] is not present!");
+  }
+  this.uri=(StringUtils.isNotBlank(getPackageName()) ? SLASH + getPackageName().replace('.','/') : "") + SLASH + WordUtils.uncapitalize(getName());
+}

@@ -124,7 +124,7 @@
         decisionTrueStateId=(String)entry.getValue();
       }
  else {
-        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] attribute ["+ TRUE_STATE+ "] on state ["+ id+ "]!");
+        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] for attribute ["+ TRUE_STATE+ "] on state ["+ id+ "]!");
       }
     }
  else     if (FALSE_STATE.equals(entry.getKey())) {
@@ -135,7 +135,18 @@
         decisionFalseStateId=(String)entry.getValue();
       }
  else {
-        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] attribute ["+ FALSE_STATE+ "] on state ["+ id+ "]!");
+        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] for attribute ["+ FALSE_STATE+ "] on state ["+ id+ "]!");
+      }
+    }
+ else     if (METHOD.equals(entry.getKey())) {
+      if (entry.getValue() == null) {
+        throw new IllegalArgumentException("Value for property [" + METHOD + "] on state ["+ id+ "] must not be null!");
+      }
+ else       if (entry.getValue() instanceof String) {
+        actionMethod=(String)entry.getValue();
+      }
+ else {
+        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] for attribute ["+ METHOD+ "] on state ["+ id+ "]!");
       }
     }
  else {

@@ -27,12 +27,6 @@
  else     if (attributeMapperClass != null && (subFlowInput != null || subFlowOutput != null || attributeMapper != null)) {
       throw new IllegalStateException("subflow input and subflow output and attribute mapper class must be null if attribute mapper class is set!");
     }
- else     if (StringUtils.isBlank(decisionTrueStateId)) {
-      throw new IllegalStateException("Decision true state id must be set!");
-    }
- else     if (StringUtils.isBlank(decisionFalseStateId)) {
-      throw new IllegalStateException("Decision false state id must be set!");
-    }
   }
   if (actionClass != null) {
     if (!Action.class.isAssignableFrom(actionClass) && !ClassUtils.hasMethod(actionClass,"execute",new Class[]{RequestContext.class})) {

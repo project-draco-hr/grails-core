@@ -1,7 +1,0 @@
-{
-  this.domain=domain;
-  GrailsDomainClass[] existingDomainClasses=this.domain.getGrailsDomainClasses();
-  for (int i=0; i < existingDomainClasses.length; i++) {
-    addDomainClass(existingDomainClasses[i]);
-  }
-}

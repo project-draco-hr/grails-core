@@ -1,5 +1,5 @@
 {
-  Thread.currentThread().setContextClassLoader(this.domain.getGrailsApplication().getClassLoader());
+  Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
   for (Iterator i=this.domainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass domainClass=(GrailsDomainClass)i.next();
     GrailsDomainBinder.bindClass(domainClass,super.createMappings());

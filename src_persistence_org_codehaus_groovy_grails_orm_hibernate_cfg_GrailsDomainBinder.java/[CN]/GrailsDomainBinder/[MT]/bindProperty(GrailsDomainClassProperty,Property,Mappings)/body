@@ -3,6 +3,6 @@
   prop.setInsertable(true);
   prop.setUpdateable(true);
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
-  prop.setOptional(!grailsProperty.isRequired());
+  prop.setOptional(grailsProperty.isOptional());
   prop.setLazy(true);
 }

@@ -1,0 +1,8 @@
+{
+  if (this.propertyMap.containsKey(name)) {
+    return (GrailsDomainClassProperty)this.propertyMap.get(name);
+  }
+ else {
+    throw new InvalidPropertyException("No property found for name [" + name + "]");
+  }
+}

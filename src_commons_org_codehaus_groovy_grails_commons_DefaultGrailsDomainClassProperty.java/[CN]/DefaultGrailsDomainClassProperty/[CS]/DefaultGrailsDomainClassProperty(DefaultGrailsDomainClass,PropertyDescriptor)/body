@@ -1,0 +1,37 @@
+{
+  this.owner=owner;
+  this.descriptor=descriptor;
+  this.optional=false;
+  this.persistant=true;
+  this.name=this.descriptor.getName();
+  this.type=this.descriptor.getPropertyType();
+  this.identity=this.descriptor.getName().equals(IDENTITY);
+  List optionalProps=null;
+  List transientProps=null;
+  optionalProps=(List)owner.getPropertyValue(OPTIONAL,List.class);
+  transientProps=(List)owner.getPropertyValue(TRANSIENT,List.class);
+  if (optionalProps != null) {
+    for (Iterator i=optionalProps.iterator(); i.hasNext(); ) {
+      Object currentObj=i.next();
+      if (currentObj instanceof String) {
+        String propertyName=(String)currentObj;
+        if (propertyName.equals(this.name)) {
+          this.optional=true;
+          break;
+        }
+      }
+    }
+  }
+  if (transientProps != null) {
+    for (Iterator i=transientProps.iterator(); i.hasNext(); ) {
+      Object currentObj=i.next();
+      if (currentObj instanceof String) {
+        String propertyName=(String)currentObj;
+        if (propertyName.equals(this.name)) {
+          this.persistant=false;
+          break;
+        }
+      }
+    }
+  }
+}

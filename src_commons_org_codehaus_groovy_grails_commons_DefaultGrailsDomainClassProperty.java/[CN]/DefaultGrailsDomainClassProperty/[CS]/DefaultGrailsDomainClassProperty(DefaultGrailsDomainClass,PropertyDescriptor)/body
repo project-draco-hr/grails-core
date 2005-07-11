@@ -10,6 +10,11 @@
   List transientProps=null;
   optionalProps=(List)owner.getPropertyValue(OPTIONAL,List.class);
   transientProps=(List)owner.getPropertyValue(TRANSIENT,List.class);
+  List evanescent=(List)owner.getPropertyValue(EVANESCENT,List.class);
+  if (evanescent != null) {
+    if (transientProps == null)     transientProps=new ArrayList();
+    transientProps.addAll(evanescent);
+  }
   if (optionalProps != null) {
     for (Iterator i=optionalProps.iterator(); i.hasNext(); ) {
       Object currentObj=i.next();

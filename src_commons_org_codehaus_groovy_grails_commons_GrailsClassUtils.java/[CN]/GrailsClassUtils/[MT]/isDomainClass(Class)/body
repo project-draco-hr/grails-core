@@ -1,0 +1,16 @@
+{
+  try {
+    clazz.getDeclaredField(GrailsDomainClassProperty.IDENTITY);
+    clazz.getDeclaredField(GrailsDomainClassProperty.VERSION);
+    if (Closure.class.isAssignableFrom(clazz)) {
+      return false;
+    }
+    return true;
+  }
+ catch (  SecurityException e) {
+    return false;
+  }
+catch (  NoSuchFieldException e) {
+    return false;
+  }
+}

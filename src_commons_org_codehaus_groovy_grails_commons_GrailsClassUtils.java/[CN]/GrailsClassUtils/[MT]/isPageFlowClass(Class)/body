@@ -1,0 +1,3 @@
+{
+  return clazz.getName().endsWith(DefaultGrailsPageFlowClass.PAGE_FLOW) && !Closure.class.isAssignableFrom(clazz);
+}

@@ -35,7 +35,7 @@
         action=new AnnotatedAction(new ClosureAction(this.pageFlowClass.getFlowId(),state.getId(),state.getActionClosure()));
       }
  else       if (state.getActionFormDetails() != null) {
-        FormAction formAction=new FormAction();
+        GrailsFormAction formAction=new GrailsFormAction();
         BeanWrapper beanWrapper=new BeanWrapperImpl(formAction);
         for (Iterator iter2=state.getActionFormDetails().entrySet().iterator(); iter2.hasNext(); ) {
           Map.Entry entry=(Map.Entry)iter2.next();
@@ -45,6 +45,9 @@
         action=new AnnotatedAction(formAction);
         if (state.getActionMethod() != null) {
           action.setProperty(METHOD,state.getActionMethod());
+        }
+ else {
+          action.setProperty(METHOD,BIND_AND_VALIDATE);
         }
       }
  else {

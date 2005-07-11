@@ -1,9 +1,0 @@
-{
-  if (this.groovyFiles == null || groovyFiles.length == 0) {
-    throw new IllegalStateException("Groovy files are not defined!");
-  }
-  if (this.grailsApplication == null) {
-    throw new IllegalStateException("A GrailsDomain requires a GrailsApplication instance");
-  }
-  this.grailsDomain=new DefaultGrailsDomain(this.grailsApplication,this.groovyFiles);
-}

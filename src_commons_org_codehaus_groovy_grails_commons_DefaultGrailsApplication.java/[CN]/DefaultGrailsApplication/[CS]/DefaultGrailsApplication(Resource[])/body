@@ -10,16 +10,23 @@
     }
   }
   Class[] classes=cl.getLoadedClasses();
+  this.domainMap=new HashMap();
+  for (int i=0; i < classes.length; i++) {
+    if (GrailsClassUtils.isDomainClass(classes[i])) {
+      GrailsDomainClass grailsDomainClass=new DefaultGrailsDomainClass(classes[i]);
+      this.domainMap.put(grailsDomainClass.getName().substring(0,1).toLowerCase() + grailsDomainClass.getName().substring(1),grailsDomainClass);
+    }
+  }
   this.controllerMap=new HashMap();
   this.pageFlowMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
-    if (classes[i].getName().endsWith(DefaultGrailsControllerClass.CONTROLLER)) {
+    if (GrailsClassUtils.isControllerClass(classes[i])) {
       GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
       if (grailsControllerClass.getAvailable()) {
         this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
       }
     }
- else     if (classes[i].getName().endsWith(DefaultGrailsPageFlowClass.PAGE_FLOW)) {
+ else     if (GrailsClassUtils.isPageFlowClass(classes[i])) {
       GrailsPageFlowClass grailsPageFlowClass=new DefaultGrailsPageFlowClass(classes[i]);
       if (grailsPageFlowClass.getAvailable()) {
         this.pageFlowMap.put(grailsPageFlowClass.getFullName(),grailsPageFlowClass);
@@ -28,4 +35,5 @@
   }
   this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
+  this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
 }

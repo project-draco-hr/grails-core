@@ -3,6 +3,16 @@
     return getReference().getPropertyValue(name);
   }
  else {
-    return null;
+    try {
+      Field field=getReference().getWrappedClass().getField(name);
+      if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers()) && field.getType().equals(type)) {
+        return field.get(getReference().getWrappedInstance());
+      }
+    }
+ catch (    NoSuchFieldException e) {
+    }
+catch (    IllegalAccessException e) {
+    }
   }
+  return null;
 }

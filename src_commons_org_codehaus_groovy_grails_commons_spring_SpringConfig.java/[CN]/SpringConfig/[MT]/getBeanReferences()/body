@@ -1,6 +1,6 @@
 {
   Collection beanReferences=new ArrayList();
-  StringBuffer urlMappings=new StringBuffer();
+  Map urlMappings=new HashMap();
   Assert.notNull(application);
   GrailsPageFlowClass[] pageFlows=application.getPageFlows();
   for (int i=0; i < pageFlows.length; i++) {
@@ -30,10 +30,7 @@
     Bean flowController=SpringConfigUtils.createSingletonBean(FlowController.class);
     flowController.setProperty("flow",flowFactoryBean);
     beanReferences.add(SpringConfigUtils.createBeanReference(pageFlow.getFullName() + "Controller",flowController));
-    urlMappings.append(pageFlow.getUri());
-    urlMappings.append("=");
-    urlMappings.append(pageFlow.getFullName());
-    urlMappings.append("Controller\n");
+    urlMappings.put(pageFlow.getUri(),pageFlow.getFullName() + "Controller");
   }
   Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
   simpleGrailsController.setAutowire("byType");
@@ -69,14 +66,11 @@
     }
     beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName(),controller));
     for (int x=0; x < simpleController.getURIs().length; x++) {
-      urlMappings.append(simpleController.getURIs()[x]);
-      urlMappings.append("=simpleGrailsController\n");
+      urlMappings.put(simpleController.getURIs()[x],"simpleGrailsController");
     }
   }
   if (simpleUrlHandlerMapping != null) {
-    System.out.println(urlMappings.toString());
-    urlMappings.setLength(urlMappings.length() - "\n".length());
-    simpleUrlHandlerMapping.setProperty("mappings",SpringConfigUtils.createLiteralValue(urlMappings.toString()));
+    simpleUrlHandlerMapping.setProperty("mappings",SpringConfigUtils.createProperties(urlMappings));
   }
   return beanReferences;
 }

@@ -1,0 +1,7 @@
+{
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Thread.currentThread().setContextClassLoader(cl);
+  Class c1=cl.loadClass("org.codehaus.groovy.grails.domain.OneToManyTest1");
+  Class c2=cl.loadClass("org.codehaus.groovy.grails.domain.OneToManyTest2");
+  c1.newInstance();
+}

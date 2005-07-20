@@ -1,5 +1,5 @@
 {
-  this.owner=owner;
+  this.domainClass=domainClass;
   this.descriptor=descriptor;
   this.optional=false;
   this.persistant=true;
@@ -8,9 +8,9 @@
   this.identity=this.descriptor.getName().equals(IDENTITY);
   List optionalProps=null;
   List transientProps=null;
-  optionalProps=(List)owner.getPropertyValue(OPTIONAL,List.class);
-  transientProps=(List)owner.getPropertyValue(TRANSIENT,List.class);
-  List evanescent=(List)owner.getPropertyValue(EVANESCENT,List.class);
+  optionalProps=(List)domainClass.getPropertyValue(OPTIONAL,List.class);
+  transientProps=(List)domainClass.getPropertyValue(TRANSIENT,List.class);
+  List evanescent=(List)domainClass.getPropertyValue(EVANESCENT,List.class);
   if (evanescent != null) {
     if (transientProps == null)     transientProps=new ArrayList();
     transientProps.addAll(evanescent);

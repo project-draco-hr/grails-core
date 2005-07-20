@@ -1,0 +1,24 @@
+{
+  Class propType=property.getType();
+  Map relatedClassRelationships=(Map)GrailsClassUtils.getPropertyValue(propType,GrailsDomainClassProperty.RELATIONSHIPS,Map.class);
+  Class relatedClassPropertyType=null;
+  if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
+    String relatedClassPropertyName=null;
+    for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
+      String currentKey=(String)i.next();
+      Class currentClass=(Class)relatedClassRelationships.get(currentKey);
+      if (property.getDomainClass().getClazz().getName().equals(currentClass.getName())) {
+        relatedClassPropertyName=currentKey;
+        break;
+      }
+    }
+    relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
+  }
+  if (relatedClassPropertyType == null) {
+    PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(propType,getClazz());
+    if (descriptors.length == 1) {
+      relatedClassPropertyType=descriptors[0].getPropertyType();
+    }
+  }
+  establishDomainClassRelationshipToType(property,relatedClassPropertyType);
+}

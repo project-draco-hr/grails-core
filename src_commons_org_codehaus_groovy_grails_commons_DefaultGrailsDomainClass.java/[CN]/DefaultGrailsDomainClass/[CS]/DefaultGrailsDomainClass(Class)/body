@@ -2,6 +2,10 @@
   super(clazz,"");
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
   this.propertyMap=new HashMap();
+  this.relationshipMap=(Map)getPropertyValue(GrailsDomainClassProperty.RELATIONSHIPS,Map.class);
+  if (this.relationshipMap == null) {
+    this.relationshipMap=new HashMap();
+  }
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor descriptor=propertyDescriptors[i];
     if (!descriptor.getName().equals(GrailsDomainClassProperty.META_CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.TRANSIENT)&& !descriptor.getName().equals(GrailsDomainClassProperty.OPTIONAL)) {
@@ -30,4 +34,5 @@
     }
   }
   this.persistantProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+  establishRelationships();
 }

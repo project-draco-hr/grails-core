@@ -1,0 +1,36 @@
+{
+  Class relatedClassType=getRelatedClassType(property.getName());
+  if (relatedClassType != null) {
+    if (GrailsClassUtils.isDomainClass(relatedClassType)) {
+      Map relatedClassRelationships=(Map)GrailsClassUtils.getPropertyValue(relatedClassType,GrailsDomainClassProperty.RELATIONSHIPS,Map.class);
+      Class relatedClassPropertyType=null;
+      if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
+        String relatedClassPropertyName=null;
+        for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
+          String currentKey=(String)i.next();
+          Class currentClass=(Class)relatedClassRelationships.get(currentKey);
+          if (currentClass.getName().equals(getClazz().getName())) {
+            relatedClassPropertyName=currentKey;
+            break;
+          }
+        }
+        if (relatedClassPropertyName != null) {
+          relatedClassPropertyType=GrailsClassUtils.getProperyType(relatedClassType,relatedClassPropertyName);
+        }
+      }
+      if (relatedClassPropertyType == null) {
+        PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz());
+        if (descriptors.length == 1) {
+          relatedClassPropertyType=descriptors[0].getPropertyType();
+        }
+      }
+      establishRelationshipForSetToType(property,relatedClassPropertyType);
+    }
+ else {
+      property.setPersistant(false);
+    }
+  }
+ else {
+    property.setPersistant(false);
+  }
+}

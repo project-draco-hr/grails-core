@@ -1,0 +1,11 @@
+{
+  if (relatedClassPropertyType == null) {
+    property.setOneToMany(true);
+  }
+ else   if (relatedClassPropertyType.equals(Set.class)) {
+    property.setManyToMany(true);
+  }
+ else   if (GrailsClassUtils.isDomainClass(relatedClassPropertyType)) {
+    property.setOneToMany(true);
+  }
+}

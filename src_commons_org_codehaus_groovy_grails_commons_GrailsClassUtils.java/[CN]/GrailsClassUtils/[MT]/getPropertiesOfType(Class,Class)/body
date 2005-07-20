@@ -1,0 +1,21 @@
+{
+  if (clazz == null || propertyType == null)   return new PropertyDescriptor[0];
+  Set properties=new HashSet();
+  try {
+    BeanWrapper wrapper=(BeanWrapper)beanWrapperInstances.get(clazz.getName());
+    if (wrapper == null) {
+      wrapper=new BeanWrapperImpl(clazz.newInstance());
+      beanWrapperInstances.put(clazz.getName(),wrapper);
+    }
+    PropertyDescriptor[] descriptors=wrapper.getPropertyDescriptors();
+    for (int i=0; i < descriptors.length; i++) {
+      if (descriptors[i].getPropertyType().equals(propertyType)) {
+        properties.add(descriptors[i]);
+      }
+    }
+  }
+ catch (  Exception e) {
+    return new PropertyDescriptor[0];
+  }
+  return (PropertyDescriptor[])properties.toArray(new PropertyDescriptor[properties.size()]);
+}

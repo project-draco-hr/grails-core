@@ -1,0 +1,14 @@
+{
+  if (clazz == null || StringUtils.isBlank(propertyName))   return null;
+  try {
+    BeanWrapper wrapper=(BeanWrapper)beanWrapperInstances.get(clazz.getName());
+    if (wrapper == null) {
+      wrapper=new BeanWrapperImpl(clazz.newInstance());
+      beanWrapperInstances.put(clazz.getName(),wrapper);
+    }
+    return wrapper.getPropertyValue(propertyName);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

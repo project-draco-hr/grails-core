@@ -3,7 +3,7 @@
   attributes.put("subflow",new Object());
   try {
     new State("mySubflowState",attributes);
-    fail();
+    fail("State ctor should have thrown IllegalArgumentException");
   }
  catch (  IllegalArgumentException e) {
   }

@@ -4,7 +4,7 @@
   State state=new State("myAction",attributes);
   try {
     state.validate();
-    fail();
+    fail("validate should have thrown IllegalStateException");
   }
  catch (  IllegalStateException e) {
   }

@@ -4,6 +4,7 @@
   attributes.put("falseState",new Object());
   try {
     new State("myDecisionState",attributes);
+    fail("State ctor should have thrown IllegalArgumentException");
   }
  catch (  IllegalArgumentException e) {
   }

@@ -4,7 +4,7 @@
   state.setViewName("test");
   try {
     state.validate();
-    fail();
+    fail("validate should have thrown IllegalStateException");
   }
  catch (  IllegalStateException e) {
   }

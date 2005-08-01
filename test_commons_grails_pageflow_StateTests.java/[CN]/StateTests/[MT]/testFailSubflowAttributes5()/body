@@ -5,7 +5,7 @@
   State state=new State("mySubflowState",attributes);
   try {
     state.validate();
-    fail();
+    fail("State validate should have thrown IllegalStateException");
   }
  catch (  IllegalStateException e) {
   }

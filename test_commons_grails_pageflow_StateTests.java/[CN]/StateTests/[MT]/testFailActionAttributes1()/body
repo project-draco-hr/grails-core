@@ -3,7 +3,7 @@
   attributes.put("action",new Object());
   try {
     new State("myAction",attributes);
-    fail();
+    fail("State ctor should have thrown IllegalArgumentException");
   }
  catch (  IllegalArgumentException e) {
   }

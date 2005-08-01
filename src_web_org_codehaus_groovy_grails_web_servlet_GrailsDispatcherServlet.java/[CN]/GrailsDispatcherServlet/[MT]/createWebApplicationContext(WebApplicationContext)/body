@@ -1,10 +1,9 @@
 {
+  String[] locations=null;
+  if (null != getContextConfigLocation()) {
+    locations=StringUtils.tokenizeToStringArray(getContextConfigLocation(),ConfigurableWebApplicationContext.CONFIG_LOCATION_DELIMITERS);
+  }
   GrailsApplication application=(GrailsApplication)parent.getBean(GRAILS_APPLICATION_ID,GrailsApplication.class);
   SpringConfig springConfig=new SpringConfig(application);
-  if (getContextConfigLocation() != null) {
-    return new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),StringUtils.tokenizeToStringArray(getContextConfigLocation(),ConfigurableWebApplicationContext.CONFIG_LOCATION_DELIMITERS));
-  }
- else {
-    return new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),null);
-  }
+  return new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),locations);
 }

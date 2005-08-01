@@ -4,7 +4,7 @@
   attributes.put("input",new Object());
   try {
     new State("mySubflowState",attributes);
-    fail();
+    fail("State ctor should have thrown IllegalArgumentException");
   }
  catch (  IllegalArgumentException e) {
   }

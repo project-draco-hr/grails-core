@@ -4,6 +4,7 @@
     if (StringUtils.isBlank(flowExecutionId)) {
       String resetValue=(String)event.getParameter(RESET_PARAMETER);
       if (StringUtils.isNotBlank(resetValue) && TRUE.equals(resetValue)) {
+        ((ServletEvent)event).getRequest().setAttribute(RESET_PARAMETER,TRUE);
         return null;
       }
       Cookie[] cookies=((ServletEvent)event).getRequest().getCookies();

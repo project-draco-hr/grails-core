@@ -33,8 +33,14 @@
     }
   }
 );
-  if (created[0]) {
-    Cookie flowExecutionIdCookie=new Cookie(FLOW_EXECUTION_ID_COOKIE_NAME,(String)viewDescriptor.getAttribute(FLOW_EXECUTION_ID_ATTRIBUTE));
+  Cookie flowExecutionIdCookie=null;
+  if (request.getAttribute(RESET_PARAMETER) != null && request.getAttribute(RESET_PARAMETER).equals(TRUE)) {
+    flowExecutionIdCookie=new Cookie(FLOW_EXECUTION_ID_COOKIE_NAME,"");
+  }
+ else   if (created[0]) {
+    flowExecutionIdCookie=new Cookie(FLOW_EXECUTION_ID_COOKIE_NAME,(String)viewDescriptor.getAttribute(FLOW_EXECUTION_ID_ATTRIBUTE));
+  }
+  if (flowExecutionIdCookie != null) {
     response.addCookie(flowExecutionIdCookie);
   }
   return viewDescriptor;

@@ -1,0 +1,29 @@
+{
+  if (event instanceof ServletEvent) {
+    String flowExecutionId=super.getFlowExecutionId(event);
+    if (StringUtils.isBlank(flowExecutionId)) {
+      String resetValue=(String)event.getParameter(RESET_PARAMETER);
+      if (StringUtils.isNotBlank(resetValue) && TRUE.equals(resetValue)) {
+        return null;
+      }
+      Cookie[] cookies=((ServletEvent)event).getRequest().getCookies();
+      for (int i=0; cookies != null && i < cookies.length; i++) {
+        if (FLOW_EXECUTION_ID_COOKIE_NAME.equals(cookies[i].getName())) {
+          if (StringUtils.isNotBlank(cookies[i].getValue())) {
+            return cookies[i].getValue();
+          }
+ else {
+            return null;
+          }
+        }
+      }
+      return null;
+    }
+ else {
+      return flowExecutionId;
+    }
+  }
+ else {
+    return super.getFlowExecutionId(event);
+  }
+}

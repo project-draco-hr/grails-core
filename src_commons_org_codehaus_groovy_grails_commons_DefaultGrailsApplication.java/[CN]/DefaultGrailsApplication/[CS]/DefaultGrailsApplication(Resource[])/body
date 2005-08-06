@@ -19,7 +19,11 @@
   }
   this.controllerMap=new HashMap();
   this.pageFlowMap=new HashMap();
+  this.serviceMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
+    if (Modifier.isAbstract(classes[i].getModifiers())) {
+      continue;
+    }
     if (GrailsClassUtils.isControllerClass(classes[i])) {
       GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
       if (grailsControllerClass.getAvailable()) {
@@ -43,8 +47,13 @@
         }
       }
     }
+ else     if (GrailsClassUtils.isService(classes[i])) {
+      GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(classes[i]);
+      serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
+    }
   }
   this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
   this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
+  this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
 }

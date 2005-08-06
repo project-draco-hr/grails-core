@@ -1,0 +1,3 @@
+{
+  return clazz.getName().endsWith(DefaultGrailsServiceClass.SERVICE) && !Closure.class.isAssignableFrom(clazz);
+}

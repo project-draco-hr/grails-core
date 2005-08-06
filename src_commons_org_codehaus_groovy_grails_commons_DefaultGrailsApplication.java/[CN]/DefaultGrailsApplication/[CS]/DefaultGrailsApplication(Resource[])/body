@@ -32,6 +32,17 @@
         this.pageFlowMap.put(grailsPageFlowClass.getFullName(),grailsPageFlowClass);
       }
     }
+ else     if (GrailsClassUtils.isDataSource(classes[i])) {
+      GrailsDataSource tmpDataSource=new DefaultGrailsDataSource(classes[i]);
+      if (tmpDataSource.getAvailable()) {
+        if (dataSource == null) {
+          dataSource=tmpDataSource;
+        }
+ else {
+          throw new MoreThanOneActiveDataSourceException("More than one active data source is configured!");
+        }
+      }
+    }
   }
   this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));

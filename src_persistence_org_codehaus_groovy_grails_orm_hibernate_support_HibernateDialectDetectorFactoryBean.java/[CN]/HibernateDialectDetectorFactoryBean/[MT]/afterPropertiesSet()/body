@@ -1,0 +1,13 @@
+{
+  if (this.dataSource == null) {
+    throw new IllegalStateException("Data source is not set!");
+  }
+  if (this.vendorNameDialectMappings == null) {
+    throw new IllegalStateException("Vendor name/dialect mappings are not set!");
+  }
+  String dbName=(String)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseProductName");
+  this.hibernateDialectClassName=this.vendorNameDialectMappings.getProperty(dbName);
+  if (StringUtils.isBlank(this.hibernateDialectClassName)) {
+    throw new CouldNotDetermineHibernateDialectException("Could not determine Hibernate dialect for database name [" + dbName + "]!");
+  }
+}

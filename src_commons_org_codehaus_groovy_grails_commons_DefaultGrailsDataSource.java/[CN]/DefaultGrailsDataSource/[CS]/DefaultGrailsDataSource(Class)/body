@@ -1,0 +1,30 @@
+{
+  super(clazz,DATA_SOURCE);
+  if (getPropertyValue(POOLING,boolean.class) != null) {
+    this.pooled=getPropertyValue(POOLING,boolean.class).equals(Boolean.TRUE) ? true : false;
+  }
+  if (getPropertyValue(DRIVER_CLASS_NAME,String.class) != null) {
+    this.driverClassName=(String)getPropertyValue(DRIVER_CLASS_NAME,String.class);
+  }
+ else {
+    throw new DataSourceRequiredPropertyMissingException("Required property [" + DRIVER_CLASS_NAME + "] is missing on ["+ getFullName()+ "]!");
+  }
+  if (getPropertyValue(URL,String.class) != null) {
+    this.url=(String)getPropertyValue(URL,String.class);
+  }
+ else {
+    throw new DataSourceRequiredPropertyMissingException("Required property [" + URL + "] is missing on ["+ getFullName()+ "]!");
+  }
+  if (getPropertyValue(USERNAME,String.class) != null) {
+    this.username=(String)getPropertyValue(USERNAME,String.class);
+  }
+ else {
+    throw new DataSourceRequiredPropertyMissingException("Required property [" + USERNAME + "] is missing on ["+ getFullName()+ "]!");
+  }
+  if (getPropertyValue(PASSWORD,String.class) != null) {
+    this.password=(String)getPropertyValue(PASSWORD,String.class);
+  }
+ else {
+    throw new DataSourceRequiredPropertyMissingException("Required property [" + PASSWORD + "] is missing on ["+ getFullName()+ "]!");
+  }
+}

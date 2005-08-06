@@ -27,12 +27,15 @@
     flowBuilder.setProperty("pageFlowClass",SpringConfigUtils.createBeanReference(pageFlow.getFullName() + "Class"));
     Bean flowFactoryBean=SpringConfigUtils.createSingletonBean(FlowFactoryBean.class);
     flowFactoryBean.setProperty("flowBuilder",flowBuilder);
-    Bean flowExecutionManager=SpringConfigUtils.createSingletonBean(GrailsServletFlowExecutionManager.class);
-    flowExecutionManager.setProperty("flow",flowFactoryBean);
-    Bean flowController=SpringConfigUtils.createSingletonBean(FlowController.class);
-    flowController.setProperty("flowExecutionManager",flowExecutionManager);
-    beanReferences.add(SpringConfigUtils.createBeanReference(pageFlow.getFullName() + "Controller",flowController));
-    urlMappings.put(pageFlow.getUri(),pageFlow.getFullName() + "Controller");
+    beanReferences.add(SpringConfigUtils.createBeanReference(pageFlow.getFlowId(),flowFactoryBean));
+    if (pageFlow.getAccessible()) {
+      Bean flowExecutionManager=SpringConfigUtils.createSingletonBean(GrailsServletFlowExecutionManager.class);
+      flowExecutionManager.setProperty("flow",SpringConfigUtils.createBeanReference(pageFlow.getFlowId()));
+      Bean flowController=SpringConfigUtils.createSingletonBean(FlowController.class);
+      flowController.setProperty("flowExecutionManager",flowExecutionManager);
+      beanReferences.add(SpringConfigUtils.createBeanReference(pageFlow.getFullName() + "Controller",flowController));
+      urlMappings.put(pageFlow.getUri(),pageFlow.getFullName() + "Controller");
+    }
   }
   Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
   simpleGrailsController.setAutowire("byType");

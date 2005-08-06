@@ -5,7 +5,7 @@
  else   if (getCurrent() instanceof Flow) {
     throw new IllegalArgumentException("State [" + name + "] requires one of these attributes: [action, view, decision, subflow]!");
   }
- else   if (getCurrent() instanceof State) {
+ else   if (getCurrent() instanceof State && !((State)getCurrent()).isEndState()) {
     if (value == null) {
       throw new IllegalArgumentException("Target state id is required as value for transition [" + name + "], state ["+ ((State)getCurrent()).getId()+ "]!");
     }
@@ -15,6 +15,9 @@
  else {
       return new Transition((State)getCurrent(),name.toString(),value.toString());
     }
+  }
+ else   if (getCurrent() instanceof State && ((State)getCurrent()).isEndState()) {
+    throw new IllegalArgumentException("No transitions allowed for end state [" + ((State)getCurrent()).getId() + "]!");
   }
  else {
     throw new IllegalArgumentException("[" + name + "] not allowed as child!");

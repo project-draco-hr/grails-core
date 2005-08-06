@@ -14,18 +14,23 @@
       oneNotNull=fields[i] != null;
     }
   }
-  if (!oneNotNull) {
-    throw new IllegalStateException("Could not determine state type, no descriminator field was specified!");
-  }
-  if (isDecisionState()) {
+  if (isSubflowState()) {
     if ((subFlowInput != null || subFlowOutput != null) && (attributeMapper != null || attributeMapperClass != null)) {
-      throw new IllegalStateException("attribute mapper and attribute mapper class must be null is either subflow input or subflow output are set!");
+      throw new IllegalStateException("attribute mapper and attribute mapper class must be null if either subflow input or subflow output are set!");
     }
  else     if (attributeMapper != null && (subFlowInput != null || subFlowOutput != null || attributeMapperClass != null)) {
       throw new IllegalStateException("subflow input and subflow output and attribute mapper class must be null if attribute mapper is set!");
     }
  else     if (attributeMapperClass != null && (subFlowInput != null || subFlowOutput != null || attributeMapper != null)) {
       throw new IllegalStateException("subflow input and subflow output and attribute mapper class must be null if attribute mapper class is set!");
+    }
+  }
+  if (isDecisionState()) {
+    if (StringUtils.isBlank(decisionTrueStateId)) {
+      throw new IllegalStateException("Decision true state id must be set!");
+    }
+ else     if (StringUtils.isBlank(decisionFalseStateId)) {
+      throw new IllegalStateException("Decision false state id must be set!");
     }
   }
   if (actionClass != null) {

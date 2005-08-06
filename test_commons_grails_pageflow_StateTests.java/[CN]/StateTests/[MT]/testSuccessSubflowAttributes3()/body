@@ -6,4 +6,9 @@
 );
   State state=new State("mySubflowState",attributes);
   state.validate();
+  assertEquals(false,state.isViewState());
+  assertEquals(false,state.isActionState());
+  assertEquals(false,state.isDecisionState());
+  assertEquals(false,state.isEndState());
+  assertEquals(true,state.isSubflowState());
 }

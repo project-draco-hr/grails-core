@@ -1,9 +1,0 @@
-{
-  State state=new State("test");
-  try {
-    state.validate();
-    fail("validate should have thrown IllegalStateException");
-  }
- catch (  IllegalStateException e) {
-  }
-}

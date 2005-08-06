@@ -149,6 +149,17 @@
         throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] for attribute ["+ METHOD+ "] on state ["+ id+ "]!");
       }
     }
+ else     if (END.equals(entry.getKey())) {
+      if (entry.getValue() == null) {
+        throw new IllegalArgumentException("Value for property [" + END + "] on state ["+ id+ "] must not be null!");
+      }
+ else       if (entry.getValue() instanceof Boolean) {
+        endState=((Boolean)entry.getValue()).booleanValue();
+      }
+ else {
+        throw new IllegalArgumentException("Unsupported type [" + entry.getValue().getClass().getName() + "] for attribute ["+ END+ "] on state ["+ id+ "]!");
+      }
+    }
  else {
       throw new IllegalArgumentException("Unknow property [" + entry.getValue() + "] on state ["+ id+ "]!");
     }

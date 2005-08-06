@@ -5,4 +5,9 @@
   attributes.put("falseState","someOtherState");
   State state=new State("myDecisionState",attributes);
   state.validate();
+  assertEquals(false,state.isViewState());
+  assertEquals(false,state.isActionState());
+  assertEquals(true,state.isDecisionState());
+  assertEquals(false,state.isEndState());
+  assertEquals(false,state.isSubflowState());
 }

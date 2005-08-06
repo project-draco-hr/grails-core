@@ -1,6 +1,9 @@
 {
   final boolean[] created=new boolean[1];
+  final boolean[] sessionEnded=new boolean[1];
+  final State[] stateEntered=new State[1];
   created[0]=false;
+  sessionEnded[0]=false;
   ViewDescriptor viewDescriptor=super.handle(request,response,new FlowExecutionListener(){
     public void created(    FlowExecutionContext context){
       created[0]=true;
@@ -10,8 +13,10 @@
     public void resumed(    RequestContext context){
     }
     public void sessionEnded(    RequestContext context,    FlowSession endedSession){
+      sessionEnded[0]=true;
     }
     public void stateEntered(    RequestContext context,    State previousState,    State state){
+      stateEntered[0]=state;
     }
     public void eventSignaled(    RequestContext context){
     }
@@ -33,8 +38,11 @@
     }
   }
 );
+  if (viewDescriptor == null) {
+    throw new NoViewDefinedException("No view defined for state [" + stateEntered[0].getId() + "]!");
+  }
   Cookie flowExecutionIdCookie=null;
-  if (request.getAttribute(RESET_PARAMETER) != null && request.getAttribute(RESET_PARAMETER).equals(TRUE)) {
+  if (sessionEnded[0] || (request.getAttribute(RESET_PARAMETER) != null && request.getAttribute(RESET_PARAMETER).equals(TRUE))) {
     flowExecutionIdCookie=new Cookie(FLOW_EXECUTION_ID_COOKIE_NAME,"");
   }
  else   if (created[0]) {

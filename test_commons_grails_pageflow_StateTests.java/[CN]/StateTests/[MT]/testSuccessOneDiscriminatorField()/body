@@ -2,4 +2,9 @@
   State state=new State("test");
   state.setViewName("test");
   state.validate();
+  assertEquals(true,state.isViewState());
+  assertEquals(false,state.isActionState());
+  assertEquals(false,state.isDecisionState());
+  assertEquals(false,state.isEndState());
+  assertEquals(false,state.isSubflowState());
 }

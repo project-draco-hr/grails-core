@@ -4,4 +4,9 @@
   attributes.put("properties",null);
   State state=new State("myAction",attributes);
   state.validate();
+  assertEquals(false,state.isViewState());
+  assertEquals(true,state.isActionState());
+  assertEquals(false,state.isDecisionState());
+  assertEquals(false,state.isEndState());
+  assertEquals(false,state.isSubflowState());
 }

@@ -1,11 +1,10 @@
 {
   Map attributes=new HashMap();
-  attributes.put("subflow","someFlow");
-  State state=new State("mySubflowState",attributes);
+  State state=new State("myEndState",attributes);
   state.validate();
   assertEquals(false,state.isViewState());
   assertEquals(false,state.isActionState());
   assertEquals(false,state.isDecisionState());
-  assertEquals(false,state.isEndState());
-  assertEquals(true,state.isSubflowState());
+  assertEquals(true,state.isEndState());
+  assertEquals(false,state.isSubflowState());
 }

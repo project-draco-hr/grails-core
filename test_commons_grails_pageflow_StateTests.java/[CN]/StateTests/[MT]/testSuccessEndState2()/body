@@ -1,12 +1,12 @@
 {
   Map attributes=new HashMap();
   attributes.put("view","someView");
-  attributes.put("model",new HashMap());
-  State state=new State("myViewState",attributes);
+  attributes.put("end",Boolean.TRUE);
+  State state=new State("myEndState",attributes);
   state.validate();
-  assertEquals(true,state.isViewState());
+  assertEquals(false,state.isViewState());
   assertEquals(false,state.isActionState());
   assertEquals(false,state.isDecisionState());
-  assertEquals(false,state.isEndState());
+  assertEquals(true,state.isEndState());
   assertEquals(false,state.isSubflowState());
 }

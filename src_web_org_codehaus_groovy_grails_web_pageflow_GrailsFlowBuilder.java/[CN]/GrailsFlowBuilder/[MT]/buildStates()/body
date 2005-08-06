@@ -32,7 +32,16 @@
       }
  else       if (state.getActionFormDetails() != null) {
         GrailsFormAction formAction=new GrailsFormAction();
-        new BeanWrapperImpl(formAction).setPropertyValues(state.getActionFormDetails());
+        BeanWrapper beanWrapper=new BeanWrapperImpl(formAction);
+        for (Iterator iter2=state.getActionFormDetails().entrySet().iterator(); iter2.hasNext(); ) {
+          Map.Entry entry=(Map.Entry)iter2.next();
+          if (VALIDATOR.equals(entry.getKey()) && entry.getValue() instanceof Closure) {
+            beanWrapper.setPropertyValue((String)entry.getKey(),new ClosureValidator(((Closure)entry.getValue())));
+          }
+ else {
+            beanWrapper.setPropertyValue((String)entry.getKey(),entry.getValue());
+          }
+        }
         formAction.afterPropertiesSet();
         action=new AnnotatedAction(formAction);
         if (state.getActionMethod() != null) {

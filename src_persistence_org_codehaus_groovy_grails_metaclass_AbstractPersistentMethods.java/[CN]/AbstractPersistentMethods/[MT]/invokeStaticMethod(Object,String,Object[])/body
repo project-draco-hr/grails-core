@@ -1,0 +1,9 @@
+{
+  for (Iterator iter=this.staticMethodInvocations.iterator(); iter.hasNext(); ) {
+    StaticMethodInvocation methodInvocation=(StaticMethodInvocation)iter.next();
+    if (methodInvocation.isMethodMatch(methodName)) {
+      return methodInvocation.invoke(methodName,arguments);
+    }
+  }
+  return super.invokeStaticMethod(object,methodName,arguments);
+}

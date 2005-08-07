@@ -1,0 +1,11 @@
+{
+  if (arguments != null && arguments.length == 0) {
+    for (Iterator iter=this.dynamicMethodInvocations.iterator(); iter.hasNext(); ) {
+      DynamicMethodInvocation methodInvocation=(DynamicMethodInvocation)iter.next();
+      if (methodInvocation.getMethodName().equals(methodName)) {
+        return methodInvocation.invoke(object);
+      }
+    }
+  }
+  return super.invokeMethod(object,methodName,arguments);
+}

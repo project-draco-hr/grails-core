@@ -1,0 +1,7 @@
+{
+  super(InvokerHelper.getInstance().getMetaRegistry(),theClass);
+  this.dynamicMethodInvocations=new ArrayList();
+  this.staticMethodInvocations=new ArrayList();
+  registry.setMetaClass(theClass,this);
+  registerMethodInvocations();
+}

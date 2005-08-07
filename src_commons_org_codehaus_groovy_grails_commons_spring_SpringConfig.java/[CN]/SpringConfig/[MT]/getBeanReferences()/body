@@ -140,6 +140,25 @@
   Bean transactionManager=SpringConfigUtils.createSingletonBean(HibernateTransactionManager.class);
   transactionManager.setProperty("sessionFactory",SpringConfigUtils.createBeanReference("sessionFactory"));
   beanReferences.add(SpringConfigUtils.createBeanReference("transactionManager",transactionManager));
+  Bean classLoader=SpringConfigUtils.createSingletonBean(MethodInvokingFactoryBean.class);
+  classLoader.setProperty("targetObject",SpringConfigUtils.createBeanReference("grailsApplication"));
+  classLoader.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getClassLoader"));
+  Bean classEditor=SpringConfigUtils.createSingletonBean(ClassEditor.class);
+  classEditor.setProperty("classLoader",classLoader);
+  Bean propertyEditors=SpringConfigUtils.createSingletonBean(CustomEditorConfigurer.class);
+  Map customEditors=new HashMap();
+  customEditors.put(SpringConfigUtils.createLiteralValue("java.lang.Class"),classEditor);
+  propertyEditors.setProperty("customEditors",SpringConfigUtils.createMap(customEditors));
+  beanReferences.add(SpringConfigUtils.createBeanReference("customEditors",propertyEditors));
+  GrailsDomainClass[] grailsDomainClasses=application.getGrailsDomainClasses();
+  for (int i=0; i < grailsDomainClasses.length; i++) {
+    GrailsDomainClass grailsDomainClass=grailsDomainClasses[i];
+    Collection constructorArguments=new ArrayList();
+    constructorArguments.add(SpringConfigUtils.createLiteralValue(grailsDomainClass.getClazz().getName()));
+    constructorArguments.add(SpringConfigUtils.createBeanReference("sessionFactory"));
+    Bean hibernatePersistentMethods=SpringConfigUtils.createSingletonBean(HibernatePersistentMethods.class,constructorArguments);
+    beanReferences.add(SpringConfigUtils.createBeanReference(grailsDomainClass.getFullName() + "PersistentMethods",hibernatePersistentMethods));
+  }
   GrailsServiceClass[] serviceClasses=application.getGrailsServiceClasses();
   for (int i=0; i < serviceClasses.length; i++) {
     GrailsServiceClass grailsServiceClass=serviceClasses[i];

@@ -1,0 +1,6 @@
+{
+  if (this.sessionFactory == null) {
+    throw new IllegalStateException("Session factory is required!");
+  }
+  return new HibernateTemplate(this.sessionFactory);
+}

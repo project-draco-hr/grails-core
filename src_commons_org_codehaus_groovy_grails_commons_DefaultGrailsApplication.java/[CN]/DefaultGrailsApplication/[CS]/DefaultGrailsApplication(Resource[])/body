@@ -1,8 +1,10 @@
 {
   super();
+  log.debug("Loading Grails application.");
   this.cl=new GroovyClassLoader();
   for (int i=0; resources != null && i < resources.length; i++) {
     try {
+      log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
       cl.parseClass(resources[i].getFile());
     }
  catch (    CompilationFailedException e) {
@@ -11,10 +13,20 @@
   }
   Class[] classes=cl.getLoadedClasses();
   this.domainMap=new HashMap();
+  log.debug("Going to inspect domain classes.");
   for (int i=0; i < classes.length; i++) {
+    log.debug("Inspecting [" + classes[i].getName() + "]");
+    if (Modifier.isAbstract(classes[i].getModifiers())) {
+      log.debug("[" + classes[i].getName() + "] is abstract.");
+      continue;
+    }
     if (GrailsClassUtils.isDomainClass(classes[i])) {
+      log.debug("[" + classes[i].getName() + "] is a domain class.");
       GrailsDomainClass grailsDomainClass=new DefaultGrailsDomainClass(classes[i]);
       this.domainMap.put(grailsDomainClass.getName().substring(0,1).toLowerCase() + grailsDomainClass.getName().substring(1),grailsDomainClass);
+    }
+ else {
+      log.debug("[" + classes[i].getName() + "] is not a domain class.");
     }
   }
   this.controllerMap=new HashMap();

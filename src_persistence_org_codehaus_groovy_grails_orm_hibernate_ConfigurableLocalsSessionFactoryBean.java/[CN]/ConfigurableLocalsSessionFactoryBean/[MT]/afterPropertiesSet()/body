@@ -1,0 +1,11 @@
+{
+  ClassLoader originalClassLoader=null;
+  if (this.classLoader != null) {
+    originalClassLoader=Thread.currentThread().getContextClassLoader();
+    Thread.currentThread().setContextClassLoader(this.classLoader);
+  }
+  super.afterPropertiesSet();
+  if (originalClassLoader != null) {
+    Thread.currentThread().setContextClassLoader(originalClassLoader);
+  }
+}

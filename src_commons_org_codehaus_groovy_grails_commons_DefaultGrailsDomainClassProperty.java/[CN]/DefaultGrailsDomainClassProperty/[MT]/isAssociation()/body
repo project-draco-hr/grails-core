@@ -1,0 +1,4 @@
+{
+  if (isOneToMany() || isOneToOne() || isManyToOne()|| isManyToMany())   return true;
+ else   return false;
+}

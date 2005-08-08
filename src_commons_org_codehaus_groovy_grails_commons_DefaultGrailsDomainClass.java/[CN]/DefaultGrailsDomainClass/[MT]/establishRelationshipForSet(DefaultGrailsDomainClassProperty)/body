@@ -1,6 +1,7 @@
 {
   Class relatedClassType=getRelatedClassType(property.getName());
   if (relatedClassType != null) {
+    property.setReferencedPropertyType(relatedClassType);
     if (GrailsClassUtils.isDomainClass(relatedClassType)) {
       Map relatedClassRelationships=(Map)GrailsClassUtils.getPropertyValue(relatedClassType,GrailsDomainClassProperty.RELATIONSHIPS,Map.class);
       Class relatedClassPropertyType=null;

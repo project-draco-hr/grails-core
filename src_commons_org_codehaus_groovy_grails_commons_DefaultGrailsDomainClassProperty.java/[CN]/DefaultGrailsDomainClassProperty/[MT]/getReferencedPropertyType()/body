@@ -1,0 +1,8 @@
+{
+  if (this.type.equals(Set.class) && this.referencedPropertyType != null) {
+    return this.referencedPropertyType;
+  }
+ else {
+    return getType();
+  }
+}

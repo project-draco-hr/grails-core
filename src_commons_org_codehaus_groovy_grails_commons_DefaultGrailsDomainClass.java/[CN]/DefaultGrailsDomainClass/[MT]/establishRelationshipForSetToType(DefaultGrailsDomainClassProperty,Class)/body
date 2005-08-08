@@ -1,11 +1,14 @@
 {
   if (relatedClassPropertyType == null) {
     property.setOneToMany(true);
+    property.setBidirectional(false);
   }
  else   if (relatedClassPropertyType.equals(Set.class)) {
     property.setManyToMany(true);
+    property.setBidirectional(true);
   }
  else   if (GrailsClassUtils.isDomainClass(relatedClassPropertyType)) {
     property.setOneToMany(true);
+    property.setBidirectional(true);
   }
 }

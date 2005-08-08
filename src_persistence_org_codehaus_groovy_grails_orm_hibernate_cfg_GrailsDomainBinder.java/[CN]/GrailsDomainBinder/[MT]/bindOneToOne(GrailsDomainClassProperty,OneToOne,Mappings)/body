@@ -1,2 +1,9 @@
 {
+  bindSimpleValue(property,oneToOne,mappings);
+  oneToOne.setForeignKeyType(ForeignKeyDirection.FOREIGN_KEY_TO_PARENT);
+  oneToOne.setForeignKeyName(property.getFieldName() + FOREIGN_KEY_SUFFIX);
+  oneToOne.setFetchMode(FetchMode.DEFAULT);
+  oneToOne.setLazy(true);
+  oneToOne.setPropertyName(property.getName());
+  oneToOne.setReferencedEntityName(property.getType().getName());
 }

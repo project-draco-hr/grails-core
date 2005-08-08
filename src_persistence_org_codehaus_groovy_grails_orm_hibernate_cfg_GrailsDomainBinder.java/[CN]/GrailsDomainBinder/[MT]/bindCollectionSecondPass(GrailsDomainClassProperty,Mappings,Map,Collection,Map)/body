@@ -1,0 +1,31 @@
+{
+  if (collection.isOneToMany()) {
+    OneToMany oneToMany=(OneToMany)collection.getElement();
+    String associatedClassName=oneToMany.getReferencedEntityName();
+    PersistentClass persistentClass=(PersistentClass)persistentClasses.get(associatedClassName);
+    if (persistentClass == null) {
+      throw new MappingException("Association references unmapped class: " + oneToMany.getReferencedEntityName());
+    }
+    oneToMany.setAssociatedClass(persistentClass);
+    collection.setCollectionTable(persistentClass.getTable());
+    LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
+  }
+  KeyValue keyValue;
+  String propertyRef=collection.getReferencedPropertyName();
+  if (propertyRef == null) {
+    keyValue=collection.getOwner().getIdentifier();
+  }
+ else {
+    keyValue=(KeyValue)collection.getOwner().getProperty(propertyRef).getValue();
+  }
+  DependantValue key=new DependantValue(collection.getCollectionTable(),keyValue);
+  bindSimpleValue(property,key,mappings);
+  collection.setKey(key);
+  key.setNullable(false);
+  key.setUpdateable(false);
+  if (property.isManyToMany()) {
+    ManyToOne element=new ManyToOne(collection.getCollectionTable());
+    collection.setElement(element);
+    bindManyToOne(property,element,mappings);
+  }
+}

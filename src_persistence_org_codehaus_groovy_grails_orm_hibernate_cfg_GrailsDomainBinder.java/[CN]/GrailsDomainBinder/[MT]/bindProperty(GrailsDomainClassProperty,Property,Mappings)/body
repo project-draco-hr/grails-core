@@ -4,5 +4,6 @@
   prop.setUpdateable(true);
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());
+  prop.setCascade("all");
   prop.setLazy(true);
 }

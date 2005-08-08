@@ -1,6 +1,15 @@
 {
   SimpleValue id=new SimpleValue(entity.getTable());
   entity.setIdentifier(id);
+  id.setIdentifierGeneratorStrategy("native");
+  Properties params=new Properties();
+  if (mappings.getSchemaName() != null) {
+    params.setProperty(PersistentIdentifierGenerator.SCHEMA,mappings.getSchemaName());
+  }
+  if (mappings.getCatalogName() != null) {
+    params.setProperty(PersistentIdentifierGenerator.CATALOG,mappings.getCatalogName());
+  }
+  id.setIdentifierGeneratorProperties(params);
   bindSimpleValue(identifier,id,mappings);
   Property prop=new Property();
   prop.setValue(id);

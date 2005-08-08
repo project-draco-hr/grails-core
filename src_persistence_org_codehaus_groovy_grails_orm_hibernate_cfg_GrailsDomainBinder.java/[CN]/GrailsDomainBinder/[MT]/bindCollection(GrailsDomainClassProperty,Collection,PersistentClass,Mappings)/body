@@ -1,0 +1,15 @@
+{
+  collection.setRole(StringHelper.qualify(property.getDomainClass().getName(),property.getName()));
+  collection.setFetchMode(FetchMode.DEFAULT);
+  if (property.isOneToMany()) {
+    OneToMany oneToMany=new OneToMany(collection.getOwner());
+    collection.setElement(oneToMany);
+    bindOneToMany(property,oneToMany,mappings);
+  }
+ else {
+    String tableName=property.getReferencedDomainClass().getName();
+    Table table=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
+    collection.setCollectionTable(table);
+  }
+  mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection));
+}

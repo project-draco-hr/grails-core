@@ -1,3 +1,7 @@
 {
-  return this.configuration;
+  Configuration config=super.newConfiguration();
+  if (config instanceof GrailsDomainConfiguration) {
+    ((GrailsDomainConfiguration)config).setGrailsApplication(this.grailsApplication);
+  }
+  return config;
 }

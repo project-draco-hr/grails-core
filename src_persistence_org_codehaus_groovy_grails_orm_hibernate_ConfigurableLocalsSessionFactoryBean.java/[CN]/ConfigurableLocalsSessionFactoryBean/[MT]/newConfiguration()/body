@@ -1,7 +1,5 @@
 {
-  Configuration config=super.newConfiguration();
-  if (config instanceof GrailsDomainConfiguration) {
-    ((GrailsDomainConfiguration)config).setGrailsApplication(this.grailsApplication);
-  }
+  DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
+  config.setGrailsApplication(grailsApplication);
   return config;
 }

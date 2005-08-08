@@ -1,0 +1,6 @@
+{
+  super(theClass);
+  addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader));
+  addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader,Pattern.compile("^findAll$")));
+}

@@ -1,4 +1,0 @@
-{
-  addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory));
-  addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory));
-}

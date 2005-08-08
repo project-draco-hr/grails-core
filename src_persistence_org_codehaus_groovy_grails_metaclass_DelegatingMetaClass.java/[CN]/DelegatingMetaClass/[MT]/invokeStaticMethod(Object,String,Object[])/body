@@ -1,0 +1,10 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  Object returnValue=this.persistentMethods.invokeStaticMethod(target,methodName,arguments,callback);
+  if (callback.isInvoked()) {
+    return returnValue;
+  }
+ else {
+    return super.invokeStaticMethod(target,methodName,arguments);
+  }
+}

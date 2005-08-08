@@ -1,0 +1,5 @@
+{
+  super(InvokerHelper.getInstance().getMetaRegistry(),clazz);
+  this.persistentMethods=persistentMethods;
+  registry.setMetaClass(clazz,this);
+}

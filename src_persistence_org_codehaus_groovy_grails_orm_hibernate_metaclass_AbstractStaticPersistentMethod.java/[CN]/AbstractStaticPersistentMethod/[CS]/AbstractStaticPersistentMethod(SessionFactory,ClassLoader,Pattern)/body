@@ -1,0 +1,6 @@
+{
+  super();
+  setPattern(pattern);
+  this.sessionFactory=sessionFactory;
+  this.classLoader=classLoader;
+}

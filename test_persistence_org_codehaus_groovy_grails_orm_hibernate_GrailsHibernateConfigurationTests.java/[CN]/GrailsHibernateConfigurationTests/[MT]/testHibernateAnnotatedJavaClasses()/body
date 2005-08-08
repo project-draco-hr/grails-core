@@ -1,7 +1,0 @@
-{
-  HibernateOne2One one2one=new HibernateOne2One();
-  HibernateOne2One2 one2one2=new HibernateOne2One2();
-  one2one.setOther(one2one2);
-  HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
-  template.save(one2one);
-}

@@ -23,7 +23,7 @@
     if (GrailsClassUtils.isDomainClass(classes[i])) {
       log.debug("[" + classes[i].getName() + "] is a domain class.");
       GrailsDomainClass grailsDomainClass=new DefaultGrailsDomainClass(classes[i]);
-      this.domainMap.put(grailsDomainClass.getName().substring(0,1).toLowerCase() + grailsDomainClass.getName().substring(1),grailsDomainClass);
+      this.domainMap.put(grailsDomainClass.getFullName(),grailsDomainClass);
     }
  else {
       log.debug("[" + classes[i].getName() + "] is not a domain class.");
@@ -68,4 +68,5 @@
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
   this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
   this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
+  configureDomainClassRelationships();
 }

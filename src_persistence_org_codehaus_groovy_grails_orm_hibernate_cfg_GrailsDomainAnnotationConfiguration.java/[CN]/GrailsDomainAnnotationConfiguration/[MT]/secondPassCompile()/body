@@ -1,12 +1,8 @@
 {
-  if (configLocked) {
-    return;
-  }
+  Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
   for (Iterator i=this.domainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass domainClass=(GrailsDomainClass)i.next();
-    log.debug("Configuring domain class [" + domainClass.getFullName() + "] in Hibernate.");
     GrailsDomainBinder.bindClass(domainClass,super.createMappings());
   }
   super.secondPassCompile();
-  configLocked=true;
 }

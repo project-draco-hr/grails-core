@@ -1,0 +1,5 @@
+{
+  ClassLoader cl=Thread.currentThread().getContextClassLoader();
+  URL url=cl.getResource("groovy/lang/Order.groovy");
+  assertNotNull(url);
+}

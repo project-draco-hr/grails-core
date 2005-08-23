@@ -4,13 +4,13 @@
     parse("ajax{ test(id:\"test\") { } }");
     fail();
   }
- catch (  IllegalArgumentException e) {
+ catch (  InvokerInvocationException e) {
   }
   try {
     parse("element{ test(id:\"test\") { } }");
     fail();
   }
- catch (  IllegalArgumentException e) {
+ catch (  InvokerInvocationException e) {
   }
   parse("ajax{ element(id:\"test\") { testTag {} } }");
   parse("ajax() { element(id:\"test\") { testTag {} }; element(id:\"test2\") {}  }");

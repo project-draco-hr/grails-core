@@ -1,4 +1,15 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
+  gcl.setResourceLoader(new GroovyResourceLoader(){
+    public File loadGroovyFile(    String filename){
+      if ("Order".equals(filename)) {
+        return new File("test/commons/groovy/lang/Order.groovy");
+      }
+ else {
+        return null;
+      }
+    }
+  }
+);
   gcl.parseClass(new File("test/commons/groovy/lang/OrderService.groovy"));
 }

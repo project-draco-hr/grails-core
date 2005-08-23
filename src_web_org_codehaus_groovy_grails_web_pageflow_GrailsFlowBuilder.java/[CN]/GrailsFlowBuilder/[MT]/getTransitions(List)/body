@@ -3,8 +3,7 @@
   int i=0;
   for (Iterator iter2=transitions.iterator(); iter2.hasNext(); i++) {
     Transition transition=(Transition)iter2.next();
-    TransitionCriteria transitionCriteria=TransitionCriteriaFactory.eventId(transition.getName());
-    transitionArray[i]=new org.springframework.webflow.Transition(transitionCriteria,transition.getTargetStateId());
+    transitionArray[i]=on(transition.getName(),transition.getTargetStateId());
   }
   return transitionArray;
 }

@@ -69,20 +69,20 @@
     }
  else     if (state.isSubflowState()) {
       if (state.getSubFlowInput() != null || state.getSubFlowOutput() != null) {
-        addSubFlowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),new ClosureFlowAttributeMapper(this.pageFlowClass.getFlowId(),state.getId(),state.getSubFlowInput(),state.getSubFlowOutput()),getTransitions(state.getTransitions()));
+        addSubflowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),new ClosureFlowAttributeMapper(this.pageFlowClass.getFlowId(),state.getId(),state.getSubFlowInput(),state.getSubFlowOutput()),getTransitions(state.getTransitions()));
       }
  else       if (state.getAttributeMapper() != null) {
-        addSubFlowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),state.getAttributeMapper(),getTransitions(state.getTransitions()));
+        addSubflowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),state.getAttributeMapper(),getTransitions(state.getTransitions()));
       }
  else       if (state.getAttributeMapperClass() != null) {
         FlowAttributeMapper flowAttributeMapper=(FlowAttributeMapper)BeanUtils.instantiateClass(state.getAttributeMapperClass());
         if (state.getAttributeMapperProperties() != null) {
           new BeanWrapperImpl(flowAttributeMapper).setPropertyValues(state.getAttributeMapperProperties());
         }
-        addSubFlowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),flowAttributeMapper,getTransitions(state.getTransitions()));
+        addSubflowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),flowAttributeMapper,getTransitions(state.getTransitions()));
       }
  else {
-        addSubFlowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),getTransitions(state.getTransitions()));
+        addSubflowState(state.getId(),getFlowServiceLocator().getFlow(state.getSubFlowId()),getTransitions(state.getTransitions()));
       }
     }
  else     if (state.isEndState()) {

@@ -1,0 +1,5 @@
+{
+  super(clazz);
+  Assert.notNull(beanFactory,"Bean factory should not be null!");
+  this.beanFactory=beanFactory;
+}

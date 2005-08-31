@@ -1,4 +1,4 @@
 {
-  getHibernateTemplate().save(target);
+  getHibernateTemplate().saveOrUpdate(target);
   return null;
 }

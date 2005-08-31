@@ -2,5 +2,11 @@
   super(theClass);
   addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
+  addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader,Pattern.compile("^findAll$")));
+  addStaticMethodInvocation(new FindByPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new ListOrderByPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new ListPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new FindWherePersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new GetPersistentMethod(sessionFactory,classLoader));
 }

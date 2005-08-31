@@ -1,0 +1,9 @@
+{
+  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      Criteria crit=session.createCriteria(clazz);
+      return crit.add(Expression.allEq(queryMap)).list();
+    }
+  }
+);
+}

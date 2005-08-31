@@ -1,0 +1,16 @@
+{
+  if (arguments.length == 0) {
+    return super.getHibernateTemplate().loadAll(clazz);
+  }
+ else {
+    Object arg=arguments[0];
+    if (!(arg instanceof Integer))     throw new MissingMethodException(METHOD_PATTERN,clazz,arguments);
+    final int max=((Integer)arg).intValue();
+    return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        return session.createCriteria(clazz).setMaxResults(max).list();
+      }
+    }
+);
+  }
+}

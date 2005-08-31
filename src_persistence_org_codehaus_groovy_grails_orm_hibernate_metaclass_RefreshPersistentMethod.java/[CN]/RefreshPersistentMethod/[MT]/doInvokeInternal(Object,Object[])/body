@@ -1,0 +1,4 @@
+{
+  super.getHibernateTemplate().refresh(target);
+  return null;
+}

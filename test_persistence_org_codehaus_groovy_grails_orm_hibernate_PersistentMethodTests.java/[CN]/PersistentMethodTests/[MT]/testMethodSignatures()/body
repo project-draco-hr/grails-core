@@ -1,0 +1,6 @@
+{
+  FindByPersistentMethod findBy=new FindByPersistentMethod(null,new GroovyClassLoader());
+  assertTrue(findBy.isMethodMatch("findByFirstName"));
+  assertTrue(findBy.isMethodMatch("findByFirstNameAndLastName"));
+  assertFalse(findBy.isMethodMatch("rubbish"));
+}

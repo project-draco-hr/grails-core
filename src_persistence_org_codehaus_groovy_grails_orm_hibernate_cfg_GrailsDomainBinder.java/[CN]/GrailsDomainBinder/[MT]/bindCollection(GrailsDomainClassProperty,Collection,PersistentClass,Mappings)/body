@@ -11,4 +11,5 @@
     Table table=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
     collection.setCollectionTable(table);
   }
+  mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection));
 }

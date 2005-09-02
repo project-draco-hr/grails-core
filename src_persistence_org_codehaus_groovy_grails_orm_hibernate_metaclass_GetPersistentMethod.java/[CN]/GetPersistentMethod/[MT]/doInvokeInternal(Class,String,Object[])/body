@@ -1,6 +1,6 @@
 {
-  if (arguments.length == 0)   throw new MissingMethodException(METHOD_PATTERN,clazz,arguments);
+  if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
   Object arg=arguments[0];
-  if (!(arg instanceof Integer))   throw new MissingMethodException(METHOD_PATTERN,clazz,arguments);
-  return super.getHibernateTemplate().get(clazz,(Integer)arg);
+  if (!(arg instanceof Long))   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
+  return super.getHibernateTemplate().get(clazz,(Long)arg);
 }

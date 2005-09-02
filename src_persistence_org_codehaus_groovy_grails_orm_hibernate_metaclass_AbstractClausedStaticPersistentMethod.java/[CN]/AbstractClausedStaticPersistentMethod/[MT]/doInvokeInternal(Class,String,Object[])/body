@@ -1,16 +1,17 @@
 {
   Matcher match=super.getPattern().matcher(methodName);
+  match.find();
   String[] clauses;
   String clauseSequence=match.group(2);
-  if (clauseSequence.matches("[\\w+][" + this.clause + "][\\w+]")) {
+  if (clauseSequence.matches("(\\w+)(" + this.clause + ")(\\w+)")) {
     clauses=clauseSequence.split(this.clause);
     for (int i=0; i < clauses.length; i++) {
-      clauses[i]=clauses[i].substring(0,0).toLowerCase() + clauses[i].substring(1);
+      clauses[i]=clauses[i].substring(0,1).toLowerCase() + clauses[i].substring(1);
     }
   }
  else {
     clauses=new String[1];
-    clauses[0]=clauseSequence.substring(0,0).toLowerCase() + clauseSequence.substring(1);
+    clauses[0]=clauseSequence.substring(0,1).toLowerCase() + clauseSequence.substring(1);
   }
   if (clauses.length != arguments.length)   throw new MissingMethodException(methodName,clazz,arguments);
   final Map queryMap=createQueryMap(clauses,arguments);

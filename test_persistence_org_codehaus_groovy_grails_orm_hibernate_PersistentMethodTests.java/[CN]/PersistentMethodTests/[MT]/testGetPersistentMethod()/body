@@ -1,0 +1,18 @@
+{
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
+  GroovyObject obj=domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("firstName","fred");
+  obj.setProperty("lastName","flintstone");
+  obj.invokeMethod("save",null);
+  GroovyObject obj2=domainClass.newInstance();
+  obj2.setProperty("id",new Long(2));
+  obj2.setProperty("firstName","wilma");
+  obj2.setProperty("lastName","flintstone");
+  obj2.invokeMethod("save",null);
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"get",new Object[]{new Long(2)});
+  assertNotNull(returnValue);
+  assertEquals(returnValue.getClass(),domainClass.getClazz());
+  GroovyObject groovyReturn=(GroovyObject)returnValue;
+  assertEquals("wilma",groovyReturn.getProperty("firstName"));
+}

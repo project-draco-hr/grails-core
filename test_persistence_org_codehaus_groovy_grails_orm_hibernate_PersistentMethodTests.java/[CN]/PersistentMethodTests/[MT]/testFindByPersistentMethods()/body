@@ -1,0 +1,31 @@
+{
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
+  GroovyObject obj=domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("firstName","fred");
+  obj.setProperty("lastName","flintstone");
+  obj.invokeMethod("save",null);
+  GroovyObject obj2=domainClass.newInstance();
+  obj2.setProperty("id",new Long(2));
+  obj2.setProperty("firstName","wilma");
+  obj2.setProperty("lastName","flintstone");
+  obj2.invokeMethod("save",null);
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findByFirstName",new Object[]{"fred"});
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  List returnList=(List)returnValue;
+  assertEquals(1,returnList.size());
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findByFirstNameAndLastName",new Object[]{"fred","flintstone"});
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  returnList=(List)returnValue;
+  assertEquals(1,returnList.size());
+  Map queryMap=new HashMap();
+  queryMap.put("firstName","wilma");
+  queryMap.put("lastName","flintstone");
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findWhere",new Object[]{queryMap});
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  returnList=(List)returnValue;
+  assertEquals(1,returnList.size());
+}

@@ -1,0 +1,36 @@
+{
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
+  GroovyObject obj=domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("firstName","fred");
+  obj.setProperty("lastName","flintstone");
+  obj.invokeMethod("save",null);
+  GroovyObject obj2=domainClass.newInstance();
+  obj2.setProperty("id",new Long(2));
+  obj2.setProperty("firstName","wilma");
+  obj2.setProperty("lastName","flintstone");
+  obj2.invokeMethod("save",null);
+  GroovyObject obj3=domainClass.newInstance();
+  obj3.setProperty("id",new Long(3));
+  obj3.setProperty("firstName","dino");
+  obj3.setProperty("lastName","dinosaur");
+  obj3.invokeMethod("save",null);
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"list",null);
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  List returnList=(List)returnValue;
+  assertEquals(3,returnList.size());
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"list",new Object[]{new Integer(1)});
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  returnList=(List)returnValue;
+  assertEquals(1,returnList.size());
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"listOrderByFirstName",new Object[]{});
+  assertNotNull(returnValue);
+  assertTrue(returnValue instanceof List);
+  returnList=(List)returnValue;
+  obj=(GroovyObject)returnList.get(0);
+  obj2=(GroovyObject)returnList.get(1);
+  assertEquals("dino",obj.getProperty("firstName"));
+  assertEquals("fred",obj2.getProperty("firstName"));
+}

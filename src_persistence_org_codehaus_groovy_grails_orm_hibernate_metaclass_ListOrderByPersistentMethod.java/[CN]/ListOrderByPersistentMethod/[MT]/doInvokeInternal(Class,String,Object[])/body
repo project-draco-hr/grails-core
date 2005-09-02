@@ -1,7 +1,8 @@
 {
   Matcher match=getPattern().matcher(methodName);
+  match.find();
   String nameInSignature=match.group(2);
-  final String propertyName=nameInSignature.substring(0,0).toLowerCase() + nameInSignature.substring(1);
+  final String propertyName=nameInSignature.substring(0,1).toLowerCase() + nameInSignature.substring(1);
   int temp=-1;
   if (arguments.length > 0) {
     Object arg=arguments[0];

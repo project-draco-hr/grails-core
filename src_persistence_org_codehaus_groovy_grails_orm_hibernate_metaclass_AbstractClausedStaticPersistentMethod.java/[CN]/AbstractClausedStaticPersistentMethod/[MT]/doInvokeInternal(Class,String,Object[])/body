@@ -1,19 +1,42 @@
 {
+  List expressions=new ArrayList();
   Matcher match=super.getPattern().matcher(methodName);
   match.find();
-  String[] clauses;
-  String clauseSequence=match.group(2);
-  if (clauseSequence.matches("(\\w+)(" + this.clause + ")(\\w+)")) {
-    clauses=clauseSequence.split(this.clause);
-    for (int i=0; i < clauses.length; i++) {
-      clauses[i]=clauses[i].substring(0,1).toLowerCase() + clauses[i].substring(1);
+  String[] queryParameters=null;
+  int totalRequiredArguments=0;
+  String querySequence=match.group(2);
+  boolean containsOperator=false;
+  for (int i=0; i < operators.length; i++) {
+    if (querySequence.matches("(\\w+)(" + this.operators[i] + ")(\\w+)")) {
+      containsOperator=true;
+      operatorInUse=this.operators[i];
+      queryParameters=querySequence.split(this.operators[i]);
+      int argumentCursor=0;
+      for (int j=0; j < queryParameters.length; j++) {
+        GrailsMethodExpression currentExpression=GrailsMethodExpression.create(queryParameters[j]);
+        totalRequiredArguments+=currentExpression.argumentsRequired;
+        Object[] currentArguments=new Object[currentExpression.argumentsRequired];
+        if ((argumentCursor + currentExpression.argumentsRequired) > arguments.length)         throw new MissingMethodException(methodName,clazz,arguments);
+        for (int k=0; k < currentExpression.argumentsRequired; k++, argumentCursor++) {
+          currentArguments[k]=arguments[argumentCursor];
+        }
+        currentExpression.setArguments(currentArguments);
+        expressions.add(currentExpression);
+      }
+      break;
     }
   }
- else {
-    clauses=new String[1];
-    clauses[0]=clauseSequence.substring(0,1).toLowerCase() + clauseSequence.substring(1);
+  if (!containsOperator) {
+    GrailsMethodExpression solo=GrailsMethodExpression.create(querySequence);
+    if (solo.argumentsRequired != arguments.length)     throw new MissingMethodException(methodName,clazz,arguments);
+    totalRequiredArguments+=solo.argumentsRequired;
+    Object[] soloArgs=new Object[solo.argumentsRequired];
+    for (int i=0; i < solo.argumentsRequired; i++) {
+      soloArgs[i]=arguments[i];
+    }
+    solo.setArguments(soloArgs);
+    expressions.add(solo);
   }
-  if (clauses.length != arguments.length)   throw new MissingMethodException(methodName,clazz,arguments);
-  final Map queryMap=createQueryMap(clauses,arguments);
-  return doInvokeInternalWithQueryMap(clazz,methodName,arguments,queryMap);
+  if (totalRequiredArguments != arguments.length)   throw new MissingMethodException(methodName,clazz,arguments);
+  return doInvokeInternalWithExpressions(clazz,methodName,arguments,expressions);
 }

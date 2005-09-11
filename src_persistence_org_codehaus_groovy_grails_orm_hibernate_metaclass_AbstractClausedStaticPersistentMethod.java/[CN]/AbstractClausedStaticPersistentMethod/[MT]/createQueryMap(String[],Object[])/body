@@ -1,7 +1,0 @@
-{
-  Map queryMap=new HashMap();
-  for (int i=0; i < clauses.length; i++) {
-    queryMap.put(clauses[i],arguments[i]);
-  }
-  return queryMap;
-}

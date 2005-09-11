@@ -1,0 +1,4 @@
+{
+  if (arguments.length != argumentsRequired)   throw new IllegalArgumentException("Expression '" + this.type + "' requires "+ argumentsRequired+ " arguments");
+  this.arguments=arguments;
+}

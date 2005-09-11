@@ -1,0 +1,15 @@
+{
+  if (arguments.length == 0)   throw new MissingMethodException(methodName,clazz,arguments);
+  final Object arg=arguments[0];
+  if (clazz.isInstance(arg.getClass())) {
+    return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        Example example=Example.create(arg).ignoreCase();
+        Criteria crit=session.createCriteria(clazz);
+        return crit.add(example).list();
+      }
+    }
+);
+  }
+  throw new MissingMethodException(methodName,clazz,arguments);
+}

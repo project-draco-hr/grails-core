@@ -54,4 +54,16 @@
   assertTrue(returnValue instanceof List);
   returnList=(List)returnValue;
   assertEquals(1,returnList.size());
+  try {
+    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByLastNameLike",new Object[]{new Boolean(false)});
+    fail("Should have thrown an exception for invalid arguments");
+  }
+ catch (  MissingMethodException mme) {
+  }
+  try {
+    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeBetween",new Object[]{new Integer(10)});
+    fail("Should have thrown an exception for invalid argument count");
+  }
+ catch (  MissingMethodException mme) {
+  }
 }

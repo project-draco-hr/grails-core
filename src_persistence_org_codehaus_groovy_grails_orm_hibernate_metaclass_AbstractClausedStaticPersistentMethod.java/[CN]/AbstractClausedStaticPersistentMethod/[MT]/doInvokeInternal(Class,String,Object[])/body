@@ -7,36 +7,52 @@
   String querySequence=match.group(2);
   boolean containsOperator=false;
   for (int i=0; i < operators.length; i++) {
-    if (querySequence.matches("(\\w+)(" + this.operators[i] + ")(\\w+)")) {
+    Matcher currentMatcher=operatorPatterns[i].matcher(querySequence);
+    if (currentMatcher.find()) {
       containsOperator=true;
       operatorInUse=this.operators[i];
-      queryParameters=querySequence.split(this.operators[i]);
+      queryParameters=new String[2];
+      queryParameters[0]=currentMatcher.group(1);
+      queryParameters[1]=currentMatcher.group(3) + currentMatcher.group(4);
       int argumentCursor=0;
       for (int j=0; j < queryParameters.length; j++) {
-        GrailsMethodExpression currentExpression=GrailsMethodExpression.create(queryParameters[j]);
+        GrailsMethodExpression currentExpression=GrailsMethodExpression.create(this.application,clazz,queryParameters[j]);
         totalRequiredArguments+=currentExpression.argumentsRequired;
         Object[] currentArguments=new Object[currentExpression.argumentsRequired];
         if ((argumentCursor + currentExpression.argumentsRequired) > arguments.length)         throw new MissingMethodException(methodName,clazz,arguments);
         for (int k=0; k < currentExpression.argumentsRequired; k++, argumentCursor++) {
           currentArguments[k]=arguments[argumentCursor];
         }
-        currentExpression.setArguments(currentArguments);
+        try {
+          currentExpression.setArguments(currentArguments);
+        }
+ catch (        IllegalArgumentException iae) {
+          LOG.debug(iae.getMessage(),iae);
+          throw new MissingMethodException(methodName,clazz,arguments);
+        }
         expressions.add(currentExpression);
       }
       break;
     }
   }
   if (!containsOperator) {
-    GrailsMethodExpression solo=GrailsMethodExpression.create(querySequence);
+    GrailsMethodExpression solo=GrailsMethodExpression.create(this.application,clazz,querySequence);
     if (solo.argumentsRequired != arguments.length)     throw new MissingMethodException(methodName,clazz,arguments);
     totalRequiredArguments+=solo.argumentsRequired;
     Object[] soloArgs=new Object[solo.argumentsRequired];
     for (int i=0; i < solo.argumentsRequired; i++) {
       soloArgs[i]=arguments[i];
     }
-    solo.setArguments(soloArgs);
+    try {
+      solo.setArguments(soloArgs);
+    }
+ catch (    IllegalArgumentException iae) {
+      LOG.debug(iae.getMessage(),iae);
+      throw new MissingMethodException(methodName,clazz,arguments);
+    }
     expressions.add(solo);
   }
   if (totalRequiredArguments != arguments.length)   throw new MissingMethodException(methodName,clazz,arguments);
+  LOG.debug("Calculated expressions: " + expressions);
   return doInvokeInternalWithExpressions(clazz,methodName,arguments,expressions);
 }

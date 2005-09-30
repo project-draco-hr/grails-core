@@ -1,0 +1,9 @@
+{
+  StringBuffer buf=new StringBuffer("[GrailsMethodExpression] ");
+  buf.append(propertyName).append(" ").append(type).append(" ");
+  for (int i=0; i < arguments.length; i++) {
+    buf.append(arguments[i]);
+    if (i != arguments.length)     buf.append(" and ");
+  }
+  return buf.toString();
+}

@@ -1,0 +1,5 @@
+{
+  String layoutName=page.getProperty("meta.layout");
+  if (StringUtils.isBlank(layoutName))   return super.getDecorator(request,page);
+  return getNamedDecorator(request,layoutName);
+}

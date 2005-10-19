@@ -1,0 +1,16 @@
+{
+  if (decoratorMap.containsKey(name)) {
+    return (Decorator)decoratorMap.get(name);
+  }
+ else {
+    String decoratorName=name;
+    if (!name.matches("(.+)(\\.)(\\w{2}|\\w{3})")) {
+      name+=DEFAULT_VIEW_TYPE;
+    }
+    String decoratorPage=DEFAULT_DECORATOR_PATH + '/' + name;
+    if (LOG.isInfoEnabled())     LOG.info("Using decorator " + decoratorPage);
+    Decorator d=new DefaultDecorator(decoratorName,decoratorPage,Collections.EMPTY_MAP);
+    decoratorMap.put(decoratorName,d);
+    return d;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (this.criteria == null)   return false;
+  if (!isInsideLogicalExpression() && !(this.parent instanceof Proxy) && this.parent != null)   return false;
+  return true;
+}

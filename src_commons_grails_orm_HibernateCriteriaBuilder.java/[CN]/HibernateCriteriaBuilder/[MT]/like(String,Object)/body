@@ -1,0 +1,13 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [like] with propertyName [" + propertyName + "] and value ["+ value+ "] not allowed here."));
+  }
+  Criterion c=Restrictions.like(propertyName,value);
+  if (isInsideLogicalExpression()) {
+    this.logicalExpressionArgs.add(c);
+  }
+ else {
+    this.criteria.add(c);
+  }
+  return c;
+}

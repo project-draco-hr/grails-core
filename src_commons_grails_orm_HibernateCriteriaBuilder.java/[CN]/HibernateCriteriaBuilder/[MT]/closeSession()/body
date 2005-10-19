@@ -1,0 +1,8 @@
+{
+  if (this.session != null && this.session.isOpen()) {
+    this.session.close();
+  }
+  if (this.criteria != null) {
+    this.criteria=null;
+  }
+}

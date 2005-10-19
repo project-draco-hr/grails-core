@@ -1,0 +1,7 @@
+{
+  if (this.logicalExpressions.size() > 0) {
+    String currentLogicalExpression=(String)this.logicalExpressions.get(this.logicalExpressions.size() - 1);
+    if (currentLogicalExpression.equals(AND) || currentLogicalExpression.equals(OR) || currentLogicalExpression.equals(NOT))     return true;
+  }
+  return false;
+}

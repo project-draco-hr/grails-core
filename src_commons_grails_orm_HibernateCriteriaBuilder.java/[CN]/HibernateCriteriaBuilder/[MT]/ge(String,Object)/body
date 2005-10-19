@@ -1,0 +1,13 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [ge] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
+  }
+  Criterion c=Restrictions.ge(propertyName,propertyValue);
+  if (isInsideLogicalExpression()) {
+    this.logicalExpressionArgs.add(c);
+  }
+ else {
+    this.criteria.add(c);
+  }
+  return c;
+}

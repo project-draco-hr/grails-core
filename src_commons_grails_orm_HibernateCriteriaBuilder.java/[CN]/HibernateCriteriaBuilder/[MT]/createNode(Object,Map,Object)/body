@@ -1,0 +1,50 @@
+{
+  if (this.criteria == null)   throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+  Criterion c=null;
+  if (name.equals(ID_EQUALS)) {
+    c=Restrictions.idEq(value);
+  }
+ else {
+    if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {
+      if (!(value instanceof String))       throwRuntimeException(new IllegalArgumentException("call to [" + name + "] with value ["+ value+ "] requires a String value."));
+      if (name.equals(IS_NULL)) {
+        c=Restrictions.isNull((String)value);
+      }
+ else       if (name.equals(IS_NOT_NULL)) {
+        c=Restrictions.isNotNull((String)value);
+      }
+ else       if (name.equals(IS_EMPTY)) {
+        c=Restrictions.isEmpty((String)value);
+        this.criteria.add(c);
+      }
+ else       if (name.equals(IS_NOT_EMPTY)) {
+        c=Restrictions.isNotEmpty((String)value);
+        this.criteria.add(c);
+      }
+    }
+  }
+  if (c != null) {
+    if (isInsideLogicalExpression()) {
+      this.logicalExpressionArgs.add(c);
+    }
+ else {
+      this.criteria.add(c);
+    }
+    return c;
+  }
+ else {
+    String nameString=(String)name;
+    nameString=SETTER_PREFIX + nameString.substring(0,1).toUpperCase() + nameString.substring(1);
+    if (parent instanceof Proxy) {
+      try {
+        criteriaProxy.invokeMethod(nameString,value);
+        return this.criteria;
+      }
+ catch (      MissingMethodException mme) {
+        throwRuntimeException(new MissingMethodException(nameString,getClass(),new Object[]{value}));
+      }
+    }
+    throwRuntimeException(new MissingMethodException(nameString,getClass(),new Object[]{value}));
+  }
+  return c;
+}

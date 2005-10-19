@@ -1,0 +1,19 @@
+{
+  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(GET_CALL)) {
+    if (this.criteria != null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    if (name.equals(GET_CALL))     this.uniqueResult=true;
+    this.session=sessionFactory.openSession();
+    this.criteria=this.session.createCriteria(targetClass);
+    this.criteriaProxy=new Proxy();
+    this.criteriaProxy.setAdaptee(this.criteria);
+    this.parent=resultProxy;
+    return resultProxy;
+  }
+ else   if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
+    if (this.criteria == null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    this.logicalExpressions.add(name);
+    return name;
+  }
+  closeSession();
+  throw new MissingMethodException((String)name,getClass(),new Object[]{});
+}

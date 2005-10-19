@@ -1,0 +1,13 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [between] with propertyName [" + propertyName + "]  not allowed here."));
+  }
+  Criterion c=Restrictions.between(propertyName,lo,hi);
+  if (isInsideLogicalExpression()) {
+    this.logicalExpressionArgs.add(c);
+  }
+ else {
+    this.criteria.add(c);
+  }
+  return c;
+}

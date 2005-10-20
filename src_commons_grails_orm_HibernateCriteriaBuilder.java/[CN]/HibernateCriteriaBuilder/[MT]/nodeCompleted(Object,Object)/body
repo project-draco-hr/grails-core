@@ -7,7 +7,9 @@
       resultProxy.setAdaptee(this.criteria.uniqueResult());
     }
     this.criteria=null;
-    this.session.close();
+    if (!this.participate) {
+      this.session.close();
+    }
   }
  else   if (node.equals(AND) || node.equals(OR)) {
     if (this.logicalExpressionArgs.size() < 2)     throwRuntimeException(new IllegalArgumentException("Logical expression [" + node + "] must contain at least 2 expressions"));

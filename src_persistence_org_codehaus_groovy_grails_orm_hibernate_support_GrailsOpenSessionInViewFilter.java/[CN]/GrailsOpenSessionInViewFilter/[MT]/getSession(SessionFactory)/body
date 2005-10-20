@@ -1,0 +1,5 @@
+{
+  Session session=SessionFactoryUtils.getSession(sessionFactory,true);
+  session.setFlushMode(FlushMode.AUTO);
+  return session;
+}

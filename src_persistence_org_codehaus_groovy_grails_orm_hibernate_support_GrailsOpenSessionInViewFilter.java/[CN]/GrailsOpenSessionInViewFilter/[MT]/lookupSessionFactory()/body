@@ -1,0 +1,8 @@
+{
+  WebApplicationContext parent=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  GrailsApplication application=(GrailsApplication)parent.getBean(GRAILS_APPLICATION_ID,GrailsApplication.class);
+  SpringConfig springConfig=new SpringConfig(application);
+  ApplicationContext context=new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),parent);
+  getServletContext().setAttribute(GRAILS_APPLICATION_CONTEXT,context);
+  return (SessionFactory)context.getBean(getSessionFactoryBeanName(),SessionFactory.class);
+}

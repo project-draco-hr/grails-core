@@ -1,0 +1,9 @@
+{
+  for (Iterator keyIter=model.keySet().iterator(); keyIter.hasNext(); ) {
+    Object current=keyIter.next();
+    Object modelObject=model.get(current);
+    if (modelObject instanceof Proxy) {
+      model.put(current,((Proxy)modelObject).getAdaptee());
+    }
+  }
+}

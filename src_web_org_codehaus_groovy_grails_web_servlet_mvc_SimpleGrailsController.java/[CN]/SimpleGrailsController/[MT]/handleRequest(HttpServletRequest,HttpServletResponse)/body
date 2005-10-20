@@ -35,6 +35,7 @@
     }
   }
  else   if (returnValue instanceof Map) {
+    removeProxiesFromModelObjects((Map)returnValue);
     if (viewNameBlank) {
       throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
     }
@@ -44,6 +45,7 @@
   }
  else   if (returnValue instanceof ModelAndView) {
     ModelAndView modelAndView=(ModelAndView)returnValue;
+    removeProxiesFromModelObjects(modelAndView.getModel());
     if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
       if (viewNameBlank) {
         throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");

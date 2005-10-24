@@ -1,0 +1,9 @@
+{
+  if (session == null || session.isNew())   return Collections.EMPTY_SET;
+  Set keySet=new HashSet();
+  for (Enumeration e=session.getAttributeNames(); e.hasMoreElements(); ) {
+    String current=(String)e.nextElement();
+    keySet.add(current);
+  }
+  return keySet;
+}

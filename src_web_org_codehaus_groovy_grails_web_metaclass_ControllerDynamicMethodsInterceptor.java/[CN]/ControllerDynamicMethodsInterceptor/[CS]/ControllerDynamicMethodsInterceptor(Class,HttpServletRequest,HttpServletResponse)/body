@@ -1,0 +1,5 @@
+{
+  super(theClass);
+  addDynamicProperty(new GetParamsDynamicProperty(request,response));
+  addDynamicProperty(new GetSessionDynamicProperty(request,response));
+}

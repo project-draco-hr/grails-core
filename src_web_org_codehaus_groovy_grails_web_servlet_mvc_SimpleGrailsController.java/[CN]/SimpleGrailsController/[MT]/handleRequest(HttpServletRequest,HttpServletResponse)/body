@@ -9,6 +9,9 @@
   }
   String controllerName=WordUtils.uncapitalize(controllerClass.getName());
   GroovyObject controller=(GroovyObject)this.applicationContext.getBean(controllerClass.getFullName());
+  ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(controller.getClass());
+  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(controller.getClass(),request,response));
+  controller.setMetaClass(pmc);
   String closurePropertyName=controllerClass.getClosurePropertyName(uri);
   if (closurePropertyName == null) {
     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");

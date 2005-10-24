@@ -1,0 +1,4 @@
+{
+  Closure init=getInitClosure();
+  init.call(new Object[]{servletContext});
+}

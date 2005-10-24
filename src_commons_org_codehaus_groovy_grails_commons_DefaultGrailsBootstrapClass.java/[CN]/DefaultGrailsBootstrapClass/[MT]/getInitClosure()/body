@@ -1,0 +1,7 @@
+{
+  Object obj=getReference().getPropertyValue(INIT_CLOSURE);
+  if (obj instanceof Closure) {
+    return (Closure)obj;
+  }
+  return BLANK_CLOSURE;
+}

@@ -66,6 +66,7 @@
   this.controllerMap=new HashMap();
   this.pageFlowMap=new HashMap();
   this.serviceMap=new HashMap();
+  this.bootstrapMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
     if (Modifier.isAbstract(classes[i].getModifiers())) {
       continue;
@@ -97,10 +98,15 @@
       GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(classes[i]);
       serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
     }
+ else     if (GrailsClassUtils.isBootstrapClass(classes[i])) {
+      GrailsBootstrapClass grailsBootstrapClass=new DefaultGrailsBootstrapClass(classes[i]);
+      this.bootstrapMap.put(grailsBootstrapClass.getFullName(),grailsBootstrapClass);
+    }
   }
   this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
   this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
   this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
+  this.bootstrapClasses=((GrailsBootstrapClass[])this.bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
   configureDomainClassRelationships();
 }

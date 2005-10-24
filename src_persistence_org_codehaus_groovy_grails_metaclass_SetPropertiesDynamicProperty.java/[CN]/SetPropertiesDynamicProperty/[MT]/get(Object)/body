@@ -1,0 +1,4 @@
+{
+  BeanWrapper bean=new BeanWrapperImpl(object);
+  return bean.getPropertyDescriptors();
+}

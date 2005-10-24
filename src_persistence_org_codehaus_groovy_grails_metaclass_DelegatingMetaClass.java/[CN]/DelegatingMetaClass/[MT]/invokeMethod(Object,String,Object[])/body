@@ -1,6 +1,6 @@
 {
   InvocationCallback callback=new InvocationCallback();
-  Object returnValue=this.persistentMethods.invokeMethod(target,methodName,arguments,callback);
+  Object returnValue=this.dynamicMethods.invokeMethod(target,methodName,arguments,callback);
   if (callback.isInvoked()) {
     return returnValue;
   }

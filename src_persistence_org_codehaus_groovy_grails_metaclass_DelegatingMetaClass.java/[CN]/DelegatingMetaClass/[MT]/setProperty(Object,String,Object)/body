@@ -1,0 +1,7 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  this.dynamicMethods.setProperty(object,property,newValue,callback);
+  if (!callback.isInvoked()) {
+    super.setProperty(object,property,newValue);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  Object returnValue=super.getProperty(object,property,callback);
+  if (callback.isInvoked()) {
+    doGet=false;
+    return returnValue;
+  }
+ else {
+    doGet=true;
+    return null;
+  }
+}

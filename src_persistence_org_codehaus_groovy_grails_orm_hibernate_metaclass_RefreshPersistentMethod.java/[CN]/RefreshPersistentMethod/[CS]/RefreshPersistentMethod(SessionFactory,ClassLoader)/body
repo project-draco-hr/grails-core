@@ -1,4 +1,3 @@
 {
-  super(sessionFactory,classLoader);
-  setMethodName(METHOD_SIGNATURE);
+  super(METHOD_SIGNATURE,sessionFactory,classLoader);
 }

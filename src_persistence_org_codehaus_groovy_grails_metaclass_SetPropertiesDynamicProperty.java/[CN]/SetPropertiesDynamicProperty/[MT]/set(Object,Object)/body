@@ -11,7 +11,7 @@
         Ognl.setValue(propertyName,object,propertyValue);
       }
  catch (      OgnlException e) {
-        if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "'");
+        if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "':"+ e.getMessage(),e);
       }
     }
   }

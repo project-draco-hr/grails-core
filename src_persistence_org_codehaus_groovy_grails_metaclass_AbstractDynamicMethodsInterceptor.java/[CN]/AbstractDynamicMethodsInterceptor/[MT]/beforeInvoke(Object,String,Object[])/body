@@ -1,6 +1,6 @@
 {
   InvocationCallback callback=new InvocationCallback();
-  Object returnValue=super.invokeMethod(target,methodName,arguments,callback);
+  this.returnValue=super.invokeMethod(target,methodName,arguments,callback);
   if (callback.isInvoked()) {
     doInvoke=false;
     return returnValue;

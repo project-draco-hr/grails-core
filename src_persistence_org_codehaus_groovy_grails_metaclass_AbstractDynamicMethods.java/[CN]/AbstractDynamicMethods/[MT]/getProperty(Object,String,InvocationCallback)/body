@@ -1,10 +1,8 @@
 {
-  for (Iterator iter=this.dynamicProperties.iterator(); iter.hasNext(); ) {
-    DynamicProperty getter=(DynamicProperty)iter.next();
-    if (getter.isPropertyMatch(propertyName)) {
-      callback.markInvoked();
-      return getter.get(object);
-    }
+  DynamicProperty getter=(DynamicProperty)this.dynamicProperties.get(propertyName);
+  if (getter != null && getter.isPropertyMatch(propertyName)) {
+    callback.markInvoked();
+    return getter.get(object);
   }
   return null;
 }

@@ -1,9 +1,7 @@
 {
-  for (Iterator iter=this.dynamicProperties.iterator(); iter.hasNext(); ) {
-    DynamicProperty property=(DynamicProperty)iter.next();
-    if (property.isPropertyMatch(propertyName)) {
-      callback.markInvoked();
-      property.set(object,newValue);
-    }
+  DynamicProperty setter=(DynamicProperty)this.dynamicProperties.get(propertyName);
+  if (setter != null && setter.isPropertyMatch(propertyName)) {
+    callback.markInvoked();
+    setter.set(object,newValue);
   }
 }

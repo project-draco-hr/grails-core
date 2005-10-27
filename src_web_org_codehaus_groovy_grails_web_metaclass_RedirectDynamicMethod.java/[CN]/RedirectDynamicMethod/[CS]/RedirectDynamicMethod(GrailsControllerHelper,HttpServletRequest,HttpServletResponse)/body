@@ -1,0 +1,5 @@
+{
+  super(METHOD_SIGNATURE,request,response);
+  if (helper == null)   throw new IllegalStateException("Constructor argument 'helper' cannot be null");
+  this.helper=helper;
+}

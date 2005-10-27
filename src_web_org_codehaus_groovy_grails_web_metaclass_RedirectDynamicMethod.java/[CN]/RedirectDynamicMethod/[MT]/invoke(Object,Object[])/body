@@ -1,0 +1,52 @@
+{
+  if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  Object actionRef;
+  Map params=null;
+  GroovyObject targetGo=(GroovyObject)target;
+  if (arguments[0] instanceof Map) {
+    Map argMap=(Map)arguments[0];
+    actionRef=argMap.get(ARGUMENT_ACTION);
+    params=(Map)argMap.get(ARGUMENT_PARAMS);
+  }
+ else {
+    actionRef=arguments[0];
+    if (arguments.length > 1) {
+      if (arguments[1] instanceof Map) {
+        params=(Map)arguments[1];
+      }
+    }
+  }
+  if (actionRef instanceof String) {
+    String uri=(String)actionRef;
+    if (params != null) {
+      return helper.handleURI(uri,this.request,this.response,params);
+    }
+ else {
+      return helper.handleURI(uri,this.request,this.response);
+    }
+  }
+ else   if (actionRef instanceof Closure) {
+    Closure c=(Closure)actionRef;
+    String closureName=GrailsClassUtils.getPropertyDescriptorForValue(target,c).getName();
+    GrailsControllerClass controllerClass=helper.getControllerClassByName(target.getClass().getName());
+    String viewName=controllerClass.getViewByName(closureName);
+    if (params != null) {
+      ProxyMetaClass metaClass=(ProxyMetaClass)targetGo.getMetaClass();
+      ControllerDynamicMethodsInterceptor interceptor=(ControllerDynamicMethodsInterceptor)metaClass.getInterceptor();
+      GetParamsDynamicProperty paramsProp=(GetParamsDynamicProperty)interceptor.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME);
+      paramsProp.addParams(params);
+    }
+    Object returnValue;
+    if (c.getParameterTypes().length == 1) {
+      returnValue=c.call(new GrailsHttpServletRequest(request));
+    }
+ else     if (c.getParameterTypes().length == 2) {
+      returnValue=c.call(new Object[]{new GrailsHttpServletRequest(request),new GrailsHttpServletResponse(response)});
+    }
+ else {
+      throw new IncompatibleParameterCountException("Closure on property [" + c + "] in ["+ target.getClass()+ "] has an incompatible parameter count ["+ c.getParameterTypes().length+ "]! Supported values are 0 to 2.");
+    }
+    return helper.handleActionResponse(controllerClass,returnValue,closureName,viewName);
+  }
+  throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+}

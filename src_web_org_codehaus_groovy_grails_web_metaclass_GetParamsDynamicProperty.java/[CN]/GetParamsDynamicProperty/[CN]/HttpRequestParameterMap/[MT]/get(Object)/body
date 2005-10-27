@@ -1,7 +1,0 @@
-{
-  if (!(key instanceof String))   throw new IllegalArgumentException("Request parameter key '" + key + "' must be a string value");
-  String[] valueArray=(String[])parameterMap.get(key);
-  if (valueArray == null)   return null;
-  if (valueArray.length == 1)   return request.getParameter((String)key);
-  return parameterMap.get(key);
-}

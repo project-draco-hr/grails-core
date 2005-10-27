@@ -1,0 +1,5 @@
+{
+  if (!(key instanceof String))   throw new IllegalArgumentException("Parameter key '" + key + "' must be a string value");
+  controllerParamsMap.put(key,value);
+  return value;
+}

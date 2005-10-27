@@ -9,7 +9,6 @@
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  String controllerName=WordUtils.uncapitalize(controllerClass.getName());
   GroovyObject controller=getControllerInstance(controllerClass);
   try {
     ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(controller.getClass());
@@ -17,6 +16,17 @@
     if (params != null && !params.isEmpty()) {
       GetParamsDynamicProperty paramsProp=(GetParamsDynamicProperty)interceptor.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME);
       paramsProp.addParams(params);
+    }
+    if (!this.chainModel.isEmpty()) {
+      GenericDynamicProperty chainProperty=(GenericDynamicProperty)interceptor.getDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL);
+      if (chainProperty == null) {
+        interceptor.addDynamicProperty(new GenericDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL,Map.class,this.chainModel,false));
+      }
+ else {
+        Map chainPropertyModel=(Map)chainProperty.getValue();
+        chainPropertyModel.putAll(this.chainModel);
+        this.chainModel=chainPropertyModel;
+      }
     }
     pmc.setInterceptor(interceptor);
     controller.setMetaClass(pmc);

@@ -14,12 +14,24 @@
       throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
     }
  else {
-      return new ModelAndView(viewName,(Map)returnValue);
+      Map returnMap=(Map)returnValue;
+      if (!this.chainModel.isEmpty()) {
+        this.chainModel.putAll(returnMap);
+        return new ModelAndView(viewName,this.chainModel);
+      }
+ else {
+        return new ModelAndView(viewName,returnMap);
+      }
     }
   }
  else   if (returnValue instanceof ModelAndView) {
     ModelAndView modelAndView=(ModelAndView)returnValue;
-    removeProxiesFromModelObjects(modelAndView.getModel());
+    Map modelMap=modelAndView.getModel();
+    removeProxiesFromModelObjects(modelMap);
+    if (!this.chainModel.isEmpty()) {
+      this.chainModel.putAll(modelMap);
+      modelAndView.addAllObjects(this.chainModel);
+    }
     if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
       if (viewNameBlank) {
         throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");

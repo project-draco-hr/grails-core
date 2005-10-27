@@ -1,0 +1,4 @@
+{
+  if (classes == null)   throw new IllegalArgumentException("Constructor argument 'classes' cannot be null");
+  configureLoadedClasses(classes);
+}

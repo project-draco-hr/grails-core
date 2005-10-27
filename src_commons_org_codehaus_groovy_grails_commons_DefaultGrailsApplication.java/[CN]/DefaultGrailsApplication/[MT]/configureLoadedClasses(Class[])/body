@@ -1,0 +1,65 @@
+{
+  this.domainMap=new HashMap();
+  log.debug("Going to inspect domain classes.");
+  for (int i=0; i < classes.length; i++) {
+    log.debug("Inspecting [" + classes[i].getName() + "]");
+    if (Modifier.isAbstract(classes[i].getModifiers())) {
+      log.debug("[" + classes[i].getName() + "] is abstract.");
+      continue;
+    }
+    if (GrailsClassUtils.isDomainClass(classes[i])) {
+      log.debug("[" + classes[i].getName() + "] is a domain class.");
+      GrailsDomainClass grailsDomainClass=new DefaultGrailsDomainClass(classes[i]);
+      this.domainMap.put(grailsDomainClass.getFullName(),grailsDomainClass);
+    }
+ else {
+      log.debug("[" + classes[i].getName() + "] is not a domain class.");
+    }
+  }
+  this.controllerMap=new HashMap();
+  this.pageFlowMap=new HashMap();
+  this.serviceMap=new HashMap();
+  this.bootstrapMap=new HashMap();
+  for (int i=0; i < classes.length; i++) {
+    if (Modifier.isAbstract(classes[i].getModifiers())) {
+      continue;
+    }
+    if (GrailsClassUtils.isControllerClass(classes[i])) {
+      GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
+      if (grailsControllerClass.getAvailable()) {
+        this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
+      }
+    }
+ else     if (GrailsClassUtils.isPageFlowClass(classes[i])) {
+      GrailsPageFlowClass grailsPageFlowClass=new DefaultGrailsPageFlowClass(classes[i]);
+      if (grailsPageFlowClass.getAvailable()) {
+        this.pageFlowMap.put(grailsPageFlowClass.getFullName(),grailsPageFlowClass);
+      }
+    }
+ else     if (GrailsClassUtils.isDataSource(classes[i])) {
+      GrailsDataSource tmpDataSource=new DefaultGrailsDataSource(classes[i]);
+      if (tmpDataSource.getAvailable()) {
+        if (dataSource == null) {
+          dataSource=tmpDataSource;
+        }
+ else {
+          throw new MoreThanOneActiveDataSourceException("More than one active data source is configured!");
+        }
+      }
+    }
+ else     if (GrailsClassUtils.isService(classes[i])) {
+      GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(classes[i]);
+      serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
+    }
+ else     if (GrailsClassUtils.isBootstrapClass(classes[i])) {
+      GrailsBootstrapClass grailsBootstrapClass=new DefaultGrailsBootstrapClass(classes[i]);
+      this.bootstrapMap.put(grailsBootstrapClass.getFullName(),grailsBootstrapClass);
+    }
+  }
+  this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
+  this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
+  this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
+  this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
+  this.bootstrapClasses=((GrailsBootstrapClass[])this.bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
+  configureDomainClassRelationships();
+}

@@ -4,10 +4,8 @@
   MockHttpServletResponse response=new MockHttpServletResponse();
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "def testMethod() {\n" + "}\n"+ "}");
-  ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
-  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(groovyClass,request,response));
-  GroovyObject go=(GroovyObject)groovyClass.newInstance();
-  go.setMetaClass(pmc);
+  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass});
+  GroovyObject go=configureDynamicGO(groovyClass,application,request,response);
   try {
     Object params=go.getProperty("params");
     assertNotNull(params);

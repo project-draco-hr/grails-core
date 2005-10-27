@@ -1,0 +1,34 @@
+{
+  boolean viewNameBlank=(viewName == null || viewName.length() == 0);
+  if (returnValue == null) {
+    if (viewNameBlank) {
+      return null;
+    }
+ else {
+      return new ModelAndView(viewName);
+    }
+  }
+ else   if (returnValue instanceof Map) {
+    removeProxiesFromModelObjects((Map)returnValue);
+    if (viewNameBlank) {
+      throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
+    }
+ else {
+      return new ModelAndView(viewName,(Map)returnValue);
+    }
+  }
+ else   if (returnValue instanceof ModelAndView) {
+    ModelAndView modelAndView=(ModelAndView)returnValue;
+    removeProxiesFromModelObjects(modelAndView.getModel());
+    if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
+      if (viewNameBlank) {
+        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
+      }
+ else {
+        modelAndView.setViewName(viewName);
+      }
+    }
+    return modelAndView;
+  }
+  throw new UnsupportedReturnValueException("Return value [" + returnValue + "] is not supported for closure property ["+ closurePropertyName+ "] in controller ["+ controllerClass.getFullName()+ "]!");
+}

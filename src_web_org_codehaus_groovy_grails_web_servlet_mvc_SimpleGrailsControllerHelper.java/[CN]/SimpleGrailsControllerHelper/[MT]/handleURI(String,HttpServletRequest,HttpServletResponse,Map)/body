@@ -1,0 +1,44 @@
+{
+  if (uri == null)   throw new IllegalArgumentException("Controller URI [" + uri + "] cannot be null!");
+  if (uri.indexOf("?") > -1) {
+    uri=uri.substring(0,uri.indexOf("?"));
+  }
+  if (!uri.startsWith("/"))   uri='/' + uri;
+  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 2);
+  GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  if (controllerClass == null) {
+    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
+  }
+  String controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  GroovyObject controller=getControllerInstance(controllerClass);
+  try {
+    ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(controller.getClass());
+    ControllerDynamicMethodsInterceptor interceptor=new ControllerDynamicMethodsInterceptor(controller.getClass(),this,request,response);
+    if (params != null && !params.isEmpty()) {
+      GetParamsDynamicProperty paramsProp=(GetParamsDynamicProperty)interceptor.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME);
+      paramsProp.addParams(params);
+    }
+    pmc.setInterceptor(interceptor);
+    controller.setMetaClass(pmc);
+  }
+ catch (  IntrospectionException ie) {
+    throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);
+  }
+  String closurePropertyName=controllerClass.getClosurePropertyName(uri);
+  if (closurePropertyName == null) {
+    throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
+  }
+  String viewName=controllerClass.getViewByURI(uri);
+  Closure closure=(Closure)controller.getProperty(closurePropertyName);
+  Object returnValue=null;
+  if (closure.getParameterTypes().length == 1) {
+    returnValue=closure.call(new GrailsHttpServletRequest(request));
+  }
+ else   if (closure.getParameterTypes().length == 2) {
+    returnValue=closure.call(new Object[]{new GrailsHttpServletRequest(request),new GrailsHttpServletResponse(response)});
+  }
+ else {
+    throw new IncompatibleParameterCountException("Closure on property [" + closurePropertyName + "] in ["+ controllerClass.getFullName()+ "] has an incompatible parameter count ["+ closure.getParameterTypes().length+ "]! Supported values are 0 and 2.");
+  }
+  return handleActionResponse(controllerClass,returnValue,closurePropertyName,viewName);
+}

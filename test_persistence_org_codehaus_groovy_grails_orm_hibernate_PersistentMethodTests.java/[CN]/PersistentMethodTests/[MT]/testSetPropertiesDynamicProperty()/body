@@ -4,7 +4,8 @@
   MockHttpServletResponse response=new MockHttpServletResponse();
   Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property domainClass\n" + "def testMethod() {\n"+ "domainClass.properties = this.params;\n"+ "}\n"+ "}");
   ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
-  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(groovyClass,request,response));
+  GrailsControllerHelper helper=new SimpleGrailsControllerHelper(this.grailsApplication,this.applicationContext);
+  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(groovyClass,helper,request,response));
   GroovyObject go=(GroovyObject)groovyClass.newInstance();
   go.setMetaClass(pmc);
   GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");

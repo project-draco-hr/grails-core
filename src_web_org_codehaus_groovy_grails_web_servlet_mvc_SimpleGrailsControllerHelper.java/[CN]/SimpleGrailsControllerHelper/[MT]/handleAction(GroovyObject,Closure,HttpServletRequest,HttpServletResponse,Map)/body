@@ -1,0 +1,44 @@
+{
+  try {
+    ControllerDynamicMethodsInterceptor interceptor;
+    if (!controller.getMetaClass().getClass().equals(PropertyAccessProxyMetaClass.class)) {
+      ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(controller.getClass());
+      interceptor=new ControllerDynamicMethodsInterceptor(controller.getClass(),this,request,response);
+      pmc.setInterceptor(interceptor);
+      controller.setMetaClass(pmc);
+    }
+ else {
+      ProxyMetaClass pmc=(ProxyMetaClass)controller.getMetaClass();
+      interceptor=(ControllerDynamicMethodsInterceptor)pmc.getInterceptor();
+    }
+    if (params != null && !params.isEmpty()) {
+      GetParamsDynamicProperty paramsProp=(GetParamsDynamicProperty)interceptor.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME);
+      paramsProp.addParams(params);
+    }
+    if (!this.chainModel.isEmpty()) {
+      GenericDynamicProperty chainProperty=(GenericDynamicProperty)interceptor.getDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL);
+      if (chainProperty == null) {
+        interceptor.addDynamicProperty(new GenericDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL,Map.class,this.chainModel,false));
+      }
+ else {
+        Map chainPropertyModel=(Map)chainProperty.getValue();
+        chainPropertyModel.putAll(this.chainModel);
+        this.chainModel=chainPropertyModel;
+      }
+    }
+  }
+ catch (  IntrospectionException ie) {
+    throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);
+  }
+  Object returnValue=null;
+  if (action.getParameterTypes().length == 1) {
+    returnValue=action.call(new GrailsHttpServletRequest(request));
+  }
+ else   if (action.getParameterTypes().length == 2) {
+    returnValue=action.call(new Object[]{new GrailsHttpServletRequest(request),new GrailsHttpServletResponse(response)});
+  }
+ else {
+    throw new IncompatibleParameterCountException("Closure on property [" + action + "] in ["+ controller.getClass()+ "] has an incompatible parameter count ["+ action.getParameterTypes().length+ "]! Supported values are 0 and 2.");
+  }
+  return returnValue;
+}

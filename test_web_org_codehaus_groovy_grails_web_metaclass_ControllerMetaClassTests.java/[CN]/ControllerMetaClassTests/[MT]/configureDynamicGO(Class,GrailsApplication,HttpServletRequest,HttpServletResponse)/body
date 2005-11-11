@@ -4,8 +4,8 @@
   BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
   context.registerBeanDefinition(groovyClass.getName(),bd);
   GrailsControllerHelper helper=new SimpleGrailsControllerHelper(application,context);
-  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(groovyClass,helper,request,response));
   GroovyObject go=(GroovyObject)groovyClass.newInstance();
+  pmc.setInterceptor(new ControllerDynamicMethodsInterceptor(go,helper,request,response));
   go.setMetaClass(pmc);
   return go;
 }

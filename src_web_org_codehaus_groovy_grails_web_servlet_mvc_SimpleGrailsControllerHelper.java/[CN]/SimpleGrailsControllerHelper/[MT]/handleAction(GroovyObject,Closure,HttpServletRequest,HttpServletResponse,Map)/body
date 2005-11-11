@@ -2,10 +2,7 @@
   try {
     ControllerDynamicMethodsInterceptor interceptor;
     if (!controller.getMetaClass().getClass().equals(PropertyAccessProxyMetaClass.class)) {
-      ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(controller.getClass());
-      interceptor=new ControllerDynamicMethodsInterceptor(controller.getClass(),this,request,response);
-      pmc.setInterceptor(interceptor);
-      controller.setMetaClass(pmc);
+      interceptor=new ControllerDynamicMethodsInterceptor(controller,this,request,response);
     }
  else {
       ProxyMetaClass pmc=(ProxyMetaClass)controller.getMetaClass();

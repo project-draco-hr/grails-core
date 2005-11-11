@@ -1,0 +1,17 @@
+{
+  Errors errors=new BindException(target,target.getClass().getName());
+  validator.validate(target,errors);
+  Boolean hasErrors=new Boolean(errors.hasErrors());
+  GenericDynamicProperty hasErrorsProperty=new GenericDynamicProperty(HAS_ERRORS_PROPERTY,Boolean.class,hasErrors,true);
+  GenericDynamicProperty errorsProperty=new GenericDynamicProperty(ERRORS_PROPERTY,List.class,errors.getAllErrors(),true);
+  DynamicMethods interceptor;
+  try {
+    interceptor=new DefaultGroovyDynamicMethodsInterceptor((GroovyObject)target);
+    interceptor.addDynamicProperty(hasErrorsProperty);
+    interceptor.addDynamicProperty(errorsProperty);
+  }
+ catch (  IntrospectionException e) {
+    throw new GrailsDomainException("Introspection exception validating object [" + target + "] or class ["+ target.getClass()+ "]: "+ e.getMessage(),e);
+  }
+  return hasErrors;
+}

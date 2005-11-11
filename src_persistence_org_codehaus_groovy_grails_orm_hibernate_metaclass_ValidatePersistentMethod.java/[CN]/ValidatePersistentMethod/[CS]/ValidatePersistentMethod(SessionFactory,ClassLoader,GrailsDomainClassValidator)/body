@@ -1,0 +1,5 @@
+{
+  super(METHOD_NAME,sessionFactory,classLoader);
+  if (validator == null)   throw new IllegalArgumentException("Constructor argument 'validator' cannot be null");
+  this.validator=validator;
+}

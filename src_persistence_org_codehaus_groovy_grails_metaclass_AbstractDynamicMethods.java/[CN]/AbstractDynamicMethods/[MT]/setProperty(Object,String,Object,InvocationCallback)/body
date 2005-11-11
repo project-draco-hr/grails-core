@@ -1,7 +1,0 @@
-{
-  DynamicProperty setter=(DynamicProperty)this.dynamicProperties.get(propertyName);
-  if (setter != null && setter.isPropertyMatch(propertyName)) {
-    callback.markInvoked();
-    setter.set(object,newValue);
-  }
-}

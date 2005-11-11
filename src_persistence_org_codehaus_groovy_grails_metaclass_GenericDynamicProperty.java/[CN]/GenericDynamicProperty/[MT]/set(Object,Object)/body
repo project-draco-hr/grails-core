@@ -1,9 +1,0 @@
-{
-  if (!readyOnly) {
-    if (newValue.getClass().isAssignableFrom(this.type))     this.value=newValue;
- else     throw new MissingPropertyException("Property '" + this.getPropertyName() + "' for object '"+ object.getClass()+ "' cannot be set with value '"+ newValue+ "'. Incorrect type.",object.getClass());
-  }
- else {
-    throw new MissingPropertyException("Property '" + this.getPropertyName() + "' for object '"+ object.getClass()+ "' is read-only!",object.getClass());
-  }
-}

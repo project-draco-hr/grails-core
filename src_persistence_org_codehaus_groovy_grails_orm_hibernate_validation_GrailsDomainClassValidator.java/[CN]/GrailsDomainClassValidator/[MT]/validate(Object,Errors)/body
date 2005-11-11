@@ -1,0 +1,9 @@
+{
+  for (Iterator i=constrainedProperties.iterator(); i.hasNext(); ) {
+    ConstrainedProperty c=(ConstrainedProperty)i.next();
+    if (c instanceof ConstrainedPersistentProperty) {
+      ((ConstrainedPersistentProperty)c).setHibernateTemplate(this.template);
+    }
+    c.validate(obj,errors);
+  }
+}

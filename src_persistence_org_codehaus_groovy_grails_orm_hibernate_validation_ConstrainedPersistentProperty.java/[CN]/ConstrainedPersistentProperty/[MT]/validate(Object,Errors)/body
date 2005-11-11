@@ -1,0 +1,13 @@
+{
+  for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
+    Constraint c=(Constraint)i.next();
+    if (c instanceof PersistentConstraint) {
+      PersistentConstraint pc=(PersistentConstraint)c;
+      pc.setHibernateTemplate(this.hibernateTemplate);
+      pc.validate(propertyValue,errors);
+    }
+ else {
+      c.validate(propertyValue,errors);
+    }
+  }
+}

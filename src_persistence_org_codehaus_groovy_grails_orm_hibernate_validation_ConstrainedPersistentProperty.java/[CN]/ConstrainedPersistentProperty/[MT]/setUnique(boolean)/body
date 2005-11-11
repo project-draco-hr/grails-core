@@ -1,0 +1,13 @@
+{
+  Constraint c=(Constraint)this.appliedConstraints.get(UNIQUE_CONSTRAINT);
+  if (c != null) {
+    c.setParameter(new Boolean(unique));
+  }
+ else {
+    c=new UniqueConstraint();
+    c.setOwningClass(this.owningClass);
+    c.setPropertyName(this.propertyName);
+    c.setParameter(new Boolean(unique));
+    this.appliedConstraints.put(UNIQUE_CONSTRAINT,c);
+  }
+}

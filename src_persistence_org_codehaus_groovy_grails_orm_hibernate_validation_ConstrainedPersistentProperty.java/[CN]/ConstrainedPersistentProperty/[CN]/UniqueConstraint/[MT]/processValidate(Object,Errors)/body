@@ -1,0 +1,14 @@
+{
+  if (unique) {
+    List results=this.constraintHibernateTemplate.executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        return session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue)).list();
+      }
+    }
+);
+    if (results.size() > 0) {
+      Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+      super.rejectValue(errors,UNIQUE_CONSTRAINT,args,MessageFormat.format(DEFAULT_NOT_UNIQUE_MESSAGE,args));
+    }
+  }
+}

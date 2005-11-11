@@ -1,0 +1,10 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  super.setProperty(object,property,newValue,callback);
+  if (callback.isInvoked()) {
+    doSet=false;
+  }
+ else {
+    doSet=true;
+  }
+}

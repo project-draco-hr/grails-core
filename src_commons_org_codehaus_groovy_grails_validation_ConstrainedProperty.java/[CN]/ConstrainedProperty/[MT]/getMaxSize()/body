@@ -1,0 +1,5 @@
+{
+  MaxSizeConstraint c=(MaxSizeConstraint)this.appliedConstraints.get(MAX_SIZE_CONSTRAINT);
+  if (c == null)   return Integer.MAX_VALUE;
+  return c.getMaxSize();
+}

@@ -1,0 +1,6 @@
+{
+  if (!this.constraintParameter.equals(propertyValue)) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,constraintParameter};
+    super.rejectValue(errors,NOT_EQUAL_CONSTRAINT,args,MessageFormat.format(DEFAULT_NOT_EQUAL_MESSAGE,args));
+  }
+}

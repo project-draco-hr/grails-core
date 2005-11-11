@@ -1,0 +1,25 @@
+{
+  if (!propertyType.equals(min.getClass())) {
+    throw new MissingPropertyException(MIN_CONSTRAINT,propertyType);
+  }
+  if (min == null) {
+    this.appliedConstraints.remove(MIN_CONSTRAINT);
+    return;
+  }
+  Range r=getRange();
+  if (r != null) {
+    LOG.warn("Range constraint already set ignoring constraint [" + MIN_CONSTRAINT + "] for value ["+ min+ "]");
+    return;
+  }
+  Constraint c=(MinConstraint)this.appliedConstraints.get(MIN_CONSTRAINT);
+  if (c != null) {
+    c.setParameter(min);
+  }
+ else {
+    c=new MinConstraint();
+    c.setOwningClass(this.owningClass);
+    c.setPropertyName(this.propertyName);
+    c.setParameter(min);
+    this.appliedConstraints.put(MIN_CONSTRAINT,c);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (!this.range.contains(propertyValue)) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
+    super.rejectValue(errors,RANGE_CONSTRAINT,args,MessageFormat.format(DEFAULT_INVALID_RANGE_MESSAGE,args));
+  }
+}

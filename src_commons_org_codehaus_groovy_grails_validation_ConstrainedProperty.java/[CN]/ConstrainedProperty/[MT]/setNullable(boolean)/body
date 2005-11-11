@@ -1,0 +1,12 @@
+{
+  if (nullable) {
+    this.appliedConstraints.remove(NULLABLE_CONSTRAINT);
+  }
+ else {
+    Constraint c=new NullableConstraint();
+    c.setOwningClass(owningClass);
+    c.setPropertyName(propertyName);
+    c.setParameter(new Boolean(nullable));
+    this.appliedConstraints.put(NULLABLE_CONSTRAINT,c);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (!nullable && propertyValue == null) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
+    super.rejectValue(errors,NULLABLE_CONSTRAINT,args,MessageFormat.format(DEFAULT_NULL_MESSAGE,args));
+  }
+}

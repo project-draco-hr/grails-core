@@ -1,0 +1,26 @@
+{
+  if (this.appliedConstraints.containsKey(MAX_CONSTRAINT)) {
+    LOG.warn("Setting range constraint on property [" + propertyName + "] of class ["+ owningClass+ "] forced removal of max constraint");
+    this.appliedConstraints.remove(MAX_CONSTRAINT);
+  }
+  if (this.appliedConstraints.containsKey(MIN_CONSTRAINT)) {
+    LOG.warn("Setting range constraint on property [" + propertyName + "] of class ["+ owningClass+ "] forced removal of min constraint");
+    this.appliedConstraints.remove(MIN_CONSTRAINT);
+  }
+  if (range == null) {
+    this.appliedConstraints.remove(RANGE_CONSTRAINT);
+  }
+ else {
+    Constraint c=(Constraint)this.appliedConstraints.get(RANGE_CONSTRAINT);
+    if (c != null) {
+      c.setParameter(range);
+    }
+ else {
+      c=new RangeConstraint();
+      c.setOwningClass(this.owningClass);
+      c.setPropertyName(this.propertyName);
+      c.setParameter(range);
+      this.appliedConstraints.put(RANGE_CONSTRAINT,c);
+    }
+  }
+}

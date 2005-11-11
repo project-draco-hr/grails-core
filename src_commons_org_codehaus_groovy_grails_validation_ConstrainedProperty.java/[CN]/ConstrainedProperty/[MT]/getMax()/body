@@ -1,0 +1,13 @@
+{
+  MaxConstraint c=(MaxConstraint)this.appliedConstraints.get(MAX_CONSTRAINT);
+  if (c == null) {
+    Range r=getRange();
+    if (r == null) {
+      return null;
+    }
+ else {
+      return r.getTo();
+    }
+  }
+  return c.getMaxValue();
+}

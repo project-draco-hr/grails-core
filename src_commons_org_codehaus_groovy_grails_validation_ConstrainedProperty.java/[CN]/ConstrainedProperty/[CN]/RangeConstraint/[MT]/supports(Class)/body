@@ -1,0 +1,4 @@
+{
+  if (type == null)   return false;
+  return Comparable.class.isAssignableFrom(type) || Number.class.isAssignableFrom(type);
+}

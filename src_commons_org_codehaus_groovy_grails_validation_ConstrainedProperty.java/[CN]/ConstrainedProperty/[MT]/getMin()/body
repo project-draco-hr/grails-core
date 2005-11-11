@@ -1,0 +1,13 @@
+{
+  MinConstraint c=(MinConstraint)this.appliedConstraints.get(MIN_CONSTRAINT);
+  if (c == null) {
+    Range r=getRange();
+    if (r == null) {
+      return null;
+    }
+ else {
+      return r.getFrom();
+    }
+  }
+  return c.getMinValue();
+}

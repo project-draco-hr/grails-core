@@ -1,0 +1,21 @@
+{
+  if (!String.class.isInstance(propertyType)) {
+    throw new MissingPropertyException("Matches constraint can only be applied to a String property",MATCHES_CONSTRAINT,owningClass);
+  }
+  Constraint c=(Constraint)this.appliedConstraints.get(MATCHES_CONSTRAINT);
+  if (regex == null) {
+    this.appliedConstraints.remove(MATCHES_CONSTRAINT);
+  }
+ else {
+    if (c != null) {
+      c.setParameter(regex);
+    }
+ else {
+      c=new MatchesConstraint();
+      c.setOwningClass(this.owningClass);
+      c.setPropertyName(this.propertyName);
+      c.setParameter(regex);
+      this.appliedConstraints.put(MATCHES_CONSTRAINT,c);
+    }
+  }
+}

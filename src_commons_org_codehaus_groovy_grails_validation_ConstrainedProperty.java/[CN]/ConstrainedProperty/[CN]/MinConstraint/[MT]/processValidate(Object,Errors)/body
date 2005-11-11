@@ -1,0 +1,6 @@
+{
+  if (minValue.compareTo((Comparable)propertyValue) < 0) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,minValue};
+    super.rejectValue(errors,MIN_CONSTRAINT,args,MessageFormat.format(DEFAULT_INVALID_MIN_MESSAGE,args));
+  }
+}

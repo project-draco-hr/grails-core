@@ -1,0 +1,5 @@
+{
+  super();
+  this.target=target;
+  this.bean=new BeanWrapperImpl(target);
+}

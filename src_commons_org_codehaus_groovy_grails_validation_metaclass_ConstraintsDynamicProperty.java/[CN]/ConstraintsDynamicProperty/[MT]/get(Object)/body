@@ -1,0 +1,8 @@
+{
+  BeanWrapper bean=new BeanWrapperImpl(object);
+  Closure c=(Closure)bean.getPropertyValue(PROPERTY_NAME);
+  ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
+  c.setDelegate(delegate);
+  c.call();
+  return delegate.getConstrainedProperties();
+}

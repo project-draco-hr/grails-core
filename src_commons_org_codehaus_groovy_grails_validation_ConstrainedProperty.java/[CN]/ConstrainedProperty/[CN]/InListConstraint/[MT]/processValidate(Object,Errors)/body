@@ -1,0 +1,6 @@
+{
+  if (!this.list.contains(propertyValue)) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,list};
+    super.rejectValue(errors,IN_LIST_CONSTRAINT,args,MessageFormat.format(DEFAULT_NOT_IN_LIST_MESSAGE,args));
+  }
+}

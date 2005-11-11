@@ -1,0 +1,24 @@
+{
+  if (constraints.containsKey(constraintName)) {
+    if (constrainingValue == null) {
+      this.appliedConstraints.remove(constraintName);
+    }
+ else {
+      Class constraintClass=(Class)constraints.get(constraintName);
+      try {
+        Constraint c=(Constraint)constraintClass.newInstance();
+        c.setOwningClass(this.owningClass);
+        c.setPropertyName(this.propertyName);
+        c.setParameter(constrainingValue);
+        this.appliedConstraints.put(constraintName,c);
+      }
+ catch (      Exception e) {
+        LOG.error("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage(),e);
+        throw new ConstraintException("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage());
+      }
+    }
+  }
+ else {
+    throw new ConstraintException("Constraint [" + constraintName + "] is not supported for property ["+ propertyName+ "] of class ["+ owningClass+ "] with type ["+ propertyType+ "]");
+  }
+}

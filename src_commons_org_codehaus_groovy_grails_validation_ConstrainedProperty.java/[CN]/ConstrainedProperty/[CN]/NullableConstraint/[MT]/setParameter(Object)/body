@@ -1,0 +1,5 @@
+{
+  if (!(constraintParameter instanceof Boolean))   throw new IllegalArgumentException("Parameter for constraint [" + NULLABLE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
+  this.nullable=((Boolean)constraintParameter).booleanValue();
+  super.setParameter(constraintParameter);
+}

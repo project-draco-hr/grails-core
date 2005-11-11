@@ -1,0 +1,12 @@
+{
+  if (!constraints.containsKey(constraintName))   return false;
+  Class constraintClass=(Class)constraints.get(constraintName);
+  try {
+    Constraint c=(Constraint)constraintClass.newInstance();
+    return c.supports(propertyType);
+  }
+ catch (  Exception e) {
+    LOG.error("Exception thrown instantiating constraint [" + constraintName + "] to class ["+ owningClass+ "]",e);
+    throw new ConstraintException("Exception thrown instantiating  constraint [" + constraintName + "] to class ["+ owningClass+ "]");
+  }
+}

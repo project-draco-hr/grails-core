@@ -1,0 +1,8 @@
+{
+  if (!String.class.isInstance(propertyType) || !propertyType.isArray()) {
+    throw new MissingPropertyException("Length constraint only applies to a String or Array property",LENGTH_CONSTRAINT,owningClass);
+  }
+  SizeConstraint c=(SizeConstraint)this.appliedConstraints.get(LENGTH_CONSTRAINT);
+  if (c == null)   return null;
+  return c.getSizeRange();
+}

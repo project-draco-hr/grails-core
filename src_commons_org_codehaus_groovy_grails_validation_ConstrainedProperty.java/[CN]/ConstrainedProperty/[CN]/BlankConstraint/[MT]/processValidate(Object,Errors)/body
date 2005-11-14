@@ -1,8 +1,10 @@
 {
   if (!blank) {
-    if (StringUtils.isBlank((String)propertyValue)) {
-      Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
-      super.rejectValue(errors,BLANK_CONSTRAINT,args,MessageFormat.format(DEFAULT_BLANK_MESSAGE,args));
+    if (propertyValue instanceof String) {
+      if (StringUtils.isBlank((String)propertyValue)) {
+        Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
+        super.rejectValue(errors,BLANK_CONSTRAINT,args,MessageFormat.format(DEFAULT_BLANK_MESSAGE,args));
+      }
     }
   }
 }

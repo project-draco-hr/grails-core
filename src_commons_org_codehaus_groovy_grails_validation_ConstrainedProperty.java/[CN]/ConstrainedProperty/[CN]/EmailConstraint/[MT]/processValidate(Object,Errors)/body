@@ -3,7 +3,7 @@
     EmailValidator emailValidator=EmailValidator.getInstance();
     if (!emailValidator.isValid(propertyValue.toString())) {
       Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
-      super.rejectValue(errors,EMAIL_CONSTRAINT,args,MessageFormat.format(DEFAULT_INVALID_EMAIL_MESSAGE,args));
+      super.rejectValue(errors,EMAIL_CONSTRAINT + INVALID_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_EMAIL_MESSAGE,args));
     }
   }
 }

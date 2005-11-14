@@ -1,6 +1,6 @@
 {
   if (maxValue.compareTo((Comparable)propertyValue) > 0) {
     Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,maxValue};
-    super.rejectValue(errors,MAX_CONSTRAINT,args,MessageFormat.format(DEFAULT_INVALID_MAX_MESSAGE,args));
+    super.rejectValue(errors,MAX_CONSTRAINT + INVALID_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MAX_MESSAGE,args));
   }
 }

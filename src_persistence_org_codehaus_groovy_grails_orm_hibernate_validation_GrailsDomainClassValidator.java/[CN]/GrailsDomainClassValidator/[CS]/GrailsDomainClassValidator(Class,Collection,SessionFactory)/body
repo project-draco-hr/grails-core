@@ -1,9 +1,0 @@
-{
-  super();
-  if (targetClass == null)   throw new IllegalArgumentException("Constructor argument 'targetClass' cannot be null");
-  if (constrainedProperties == null)   throw new IllegalArgumentException("Constructor argument 'constrainedProperties' cannot be null");
-  if (template == null)   throw new IllegalArgumentException("Constructor argument 'template' cannot be null");
-  this.targetClass=targetClass;
-  this.constrainedProperties=constrainedProperties;
-  this.template=new HibernateTemplate(sessionFactory);
-}

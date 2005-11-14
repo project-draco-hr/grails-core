@@ -1,9 +1,8 @@
 {
+  BeanWrapper bean=new BeanWrapperImpl(obj);
   for (Iterator i=constrainedProperties.iterator(); i.hasNext(); ) {
-    ConstrainedProperty c=(ConstrainedProperty)i.next();
-    if (c instanceof ConstrainedPersistentProperty) {
-      ((ConstrainedPersistentProperty)c).setHibernateTemplate(this.template);
-    }
-    c.validate(obj,errors);
+    ConstrainedPersistentProperty c=(ConstrainedPersistentProperty)i.next();
+    c.setHibernateTemplate(this.template);
+    c.validate(bean.getPropertyValue(c.getPropertyName()),errors);
   }
 }

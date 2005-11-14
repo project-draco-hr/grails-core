@@ -1,8 +1,8 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
   final Object arg=arguments[0];
-  if (arg instanceof Long) {
-    return super.getHibernateTemplate().get(clazz,(Long)arg);
+  if (arg instanceof Number) {
+    return super.getHibernateTemplate().get(clazz,new Long(arg.toString()));
   }
  else   if (clazz.isInstance(arg.getClass())) {
     return super.getHibernateTemplate().execute(new HibernateCallback(){

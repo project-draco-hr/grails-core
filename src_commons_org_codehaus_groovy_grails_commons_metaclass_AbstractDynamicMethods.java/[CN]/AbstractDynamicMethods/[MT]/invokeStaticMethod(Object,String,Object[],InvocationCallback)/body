@@ -1,7 +1,14 @@
 {
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ Arrays.toString(arguments)+ "]");
+    LOG.trace("[DynamicMethods] Registered dynamic static methods: [" + this.staticMethodInvocations + "]");
+  }
   for (Iterator iter=this.staticMethodInvocations.iterator(); iter.hasNext(); ) {
     StaticMethodInvocation methodInvocation=(StaticMethodInvocation)iter.next();
     if (methodInvocation.isMethodMatch(methodName)) {
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("[DynamicMethods] Static method matched, marking and invoking");
+      }
       callBack.markInvoked();
       return methodInvocation.invoke(this.clazz,methodName,arguments);
     }

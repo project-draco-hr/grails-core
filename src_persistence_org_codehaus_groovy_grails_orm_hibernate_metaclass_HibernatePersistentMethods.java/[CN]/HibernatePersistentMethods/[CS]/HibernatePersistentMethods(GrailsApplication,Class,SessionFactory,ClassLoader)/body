@@ -3,9 +3,7 @@
   addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));
-  GrailsDomainClass domainClass=application.getGrailsDomainClass(theClass.getName());
-  GrailsDomainClassValidator validator=new GrailsDomainClassValidator(theClass,domainClass.getConstrainedProperties().values(),sessionFactory);
-  addDynamicMethodInvocation(new ValidatePersistentMethod(sessionFactory,classLoader,validator));
+  addDynamicMethodInvocation(new ValidatePersistentMethod(sessionFactory,classLoader,application));
   addStaticMethodInvocation(new FindPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader,Pattern.compile("^findAll$")));
   addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));

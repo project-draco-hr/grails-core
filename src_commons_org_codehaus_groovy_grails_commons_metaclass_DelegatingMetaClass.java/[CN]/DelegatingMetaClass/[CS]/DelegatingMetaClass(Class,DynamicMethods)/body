@@ -1,5 +1,3 @@
 {
-  super(InvokerHelper.getInstance().getMetaRegistry(),clazz);
-  this.dynamicMethods=dynamicMethods;
-  registry.setMetaClass(clazz,this);
+  this(clazz,dynamicMethods,true);
 }

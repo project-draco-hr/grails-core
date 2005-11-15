@@ -9,7 +9,7 @@
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  GroovyObject controller=getControllerInstance(controllerClass);
+  GroovyObject controller=controllerClass.newInstance();
   String closurePropertyName=controllerClass.getClosurePropertyName(uri);
   if (closurePropertyName == null) {
     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");

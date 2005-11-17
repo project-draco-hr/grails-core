@@ -4,7 +4,7 @@
   MockHttpServletResponse response=new MockHttpServletResponse();
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "def testMethod() {\n" + "}\n"+ "}");
-  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass});
+  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass},gcl);
   GroovyObject go=configureDynamicGO(groovyClass,application,request,response);
   try {
     Object params=go.getProperty("params");

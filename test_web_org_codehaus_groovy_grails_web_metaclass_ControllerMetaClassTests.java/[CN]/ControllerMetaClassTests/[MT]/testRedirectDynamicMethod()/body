@@ -5,7 +5,7 @@
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property next = {\n" + "return ['success':this.params['testParam2']]"+ "}\n"+ "@Property list = {\n"+ "return redirect(action:this.next,params:['testParam2':'testValue2'])\n"+ "}\n"+ "}");
   Class secondController=gcl.parseClass("class SecondController {\n" + "@Property list = {\n" + "return redirect(action:'test/list',params:['testParam2':'testValue2'])\n"+ "}\n"+ "}");
-  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass,secondController});
+  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass,secondController},gcl);
   GroovyObject go=configureDynamicGO(groovyClass,application,request,response);
   GroovyObject go2=configureDynamicGO(secondController,application,request,response);
   try {

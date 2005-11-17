@@ -1,5 +1,5 @@
 {
-  Class clazz=cl.parseClass("class UserTest { @Property int id; @Property int version; @Property List transients = [ \"age\" ]; @Property List optional  = [ \"lastName\" ]; @Property String firstName; @Property String lastName; @Property java.util.Date age; }");
+  Class clazz=cl.parseClass("class UserTest { @Property int id; @Property int version; @Property List transients = [ \"age\" ]; @Property List optionals  = [ \"lastName\" ]; @Property String firstName; @Property String lastName; @Property java.util.Date age; }");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(clazz);
   assertEquals("UserTest",domainClass.getName());
   assertNotNull(domainClass.getIdentifier());

@@ -1,10 +1,12 @@
 {
   GrailsDomainClass c1dc=new DefaultGrailsDomainClass(relClass);
   GrailsDomainClass c2dc=new DefaultGrailsDomainClass(manyToManyClass);
+  assertTrue(c1dc.getPropertyByName("manys").isPersistant());
   assertTrue(c1dc.getPropertyByName("manys").isManyToMany());
   assertFalse(c1dc.getPropertyByName("manys").isOneToMany());
   assertFalse(c1dc.getPropertyByName("manys").isManyToOne());
   assertFalse(c1dc.getPropertyByName("manys").isOneToOne());
+  assertTrue(c2dc.getPropertyByName("manys").isPersistant());
   assertTrue(c2dc.getPropertyByName("manys").isManyToMany());
   assertFalse(c2dc.getPropertyByName("manys").isManyToOne());
   assertFalse(c2dc.getPropertyByName("manys").isOneToOne());

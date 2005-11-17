@@ -1,5 +1,6 @@
 {
   SpringConfig springConfig=new SpringConfig(grailsApplication);
   ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),super.applicationContext);
+  System.out.println("Loaded app context: " + appCtx.getDisplayName());
   super.onSetUp();
 }

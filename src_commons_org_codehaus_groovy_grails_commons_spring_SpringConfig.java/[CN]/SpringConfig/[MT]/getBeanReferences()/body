@@ -113,6 +113,7 @@
   }
   Map vendorNameDialectMappings=new HashMap();
   vendorNameDialectMappings.put("HSQL Database Engine",HSQLDialect.class.getName());
+  vendorNameDialectMappings.put("MySQL",MySQLDialect.class.getName());
   Bean dialectDetector=SpringConfigUtils.createSingletonBean(HibernateDialectDetectorFactoryBean.class);
   dialectDetector.setProperty("dataSource",SpringConfigUtils.createBeanReference("dataSource"));
   dialectDetector.setProperty("vendorNameDialectMappings",SpringConfigUtils.createProperties(vendorNameDialectMappings));

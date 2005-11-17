@@ -4,6 +4,9 @@
   prop.setUpdateable(true);
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());
-  prop.setCascade("all");
+  if (grailsProperty.isAssociation()) {
+    prop.setCascade("all");
+    if (LOG.isTraceEnabled())     LOG.trace("[GrailsDomainBinder] Set cascading strategy on property [" + grailsProperty.getName() + "] to [all]");
+  }
   prop.setLazy(true);
 }

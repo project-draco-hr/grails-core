@@ -1,5 +1,5 @@
 {
-  if (domainClass.newInstance().getClass().getSuperclass() == java.lang.Object.class) {
+  if (domainClass.getClazz().getSuperclass() == java.lang.Object.class) {
     bindRoot(domainClass,mappings);
   }
  else {

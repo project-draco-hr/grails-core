@@ -1,10 +1,16 @@
 {
   if (grailsProp.isAssociation()) {
-    column.setName(grailsProp.getFieldName() + FOREIGN_KEY_SUFFIX);
+    if (grailsProp.isOneToMany() && grailsProp.isBidirectional()) {
+      column.setName(grailsProp.getDomainClass().getTableName() + FOREIGN_KEY_SUFFIX);
+    }
+ else {
+      column.setName(grailsProp.getFieldName() + FOREIGN_KEY_SUFFIX);
+    }
     column.setNullable(true);
   }
  else {
     column.setNullable(grailsProp.isOptional());
     column.setName(grailsProp.getFieldName());
   }
+  if (LOG.isTraceEnabled())   LOG.trace("[GrailsDomainBinder] bound property [" + grailsProp + "] to column name ["+ column.getName()+ "]");
 }

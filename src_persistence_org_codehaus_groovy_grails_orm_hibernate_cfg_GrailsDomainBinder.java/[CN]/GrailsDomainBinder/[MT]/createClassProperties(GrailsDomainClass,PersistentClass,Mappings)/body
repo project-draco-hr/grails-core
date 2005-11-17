@@ -3,6 +3,11 @@
   Table table=persistentClass.getTable();
   for (int i=0; i < persistantProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistantProperties[i];
+    if (currentGrailsProp.isManyToOne() && currentGrailsProp.isBidirectional()) {
+      GrailsDomainClassProperty otherSide=currentGrailsProp.getOtherSide();
+      if (otherSide.isOneToMany())       continue;
+    }
+    if (LOG.isTraceEnabled())     LOG.trace("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     if (collectionType != null) {
@@ -22,7 +27,9 @@
       value=new SimpleValue(table);
       bindSimpleValue(persistantProperties[i],(SimpleValue)value,mappings);
     }
-    Property property=createProperty(value,persistentClass,persistantProperties[i],mappings);
-    persistentClass.addProperty(property);
+    if (value != null) {
+      Property property=createProperty(value,persistentClass,persistantProperties[i],mappings);
+      persistentClass.addProperty(property);
+    }
   }
 }

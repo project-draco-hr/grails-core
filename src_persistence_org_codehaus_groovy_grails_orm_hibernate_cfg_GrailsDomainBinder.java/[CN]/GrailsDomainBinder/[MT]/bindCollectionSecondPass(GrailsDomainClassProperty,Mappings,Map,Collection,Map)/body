@@ -18,7 +18,9 @@
  else {
     keyValue=(KeyValue)collection.getOwner().getProperty(propertyRef).getValue();
   }
+  keyValue.setTypeUsingReflection(property.getReferencedDomainClass().getName(),collection.getReferencedPropertyName());
   DependantValue key=new DependantValue(collection.getCollectionTable(),keyValue);
+  key.setTypeUsingReflection(property.getReferencedDomainClass().getName(),collection.getReferencedPropertyName());
   bindSimpleValue(property,key,mappings);
   collection.setKey(key);
   key.setNullable(false);
@@ -27,5 +29,16 @@
     ManyToOne element=new ManyToOne(collection.getCollectionTable());
     collection.setElement(element);
     bindManyToOne(property,element,mappings);
+  }
+ else   if (property.isOneToMany()) {
+    String entityName=((OneToMany)collection.getElement()).getReferencedEntityName();
+    PersistentClass referenced=mappings.getClass(entityName);
+    Backref prop=new Backref();
+    prop.setName('_' + property.getName() + "Backref");
+    prop.setUpdateable(false);
+    prop.setSelectable(false);
+    prop.setCollectionRole(collection.getRole());
+    prop.setValue(collection.getKey());
+    referenced.addProperty(prop);
   }
 }

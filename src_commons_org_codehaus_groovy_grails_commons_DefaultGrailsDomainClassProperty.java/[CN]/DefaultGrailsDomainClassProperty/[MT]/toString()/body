@@ -1,0 +1,16 @@
+{
+  String assType=null;
+  if (isManyToMany()) {
+    assType="many-to-many";
+  }
+ else   if (isOneToMany()) {
+    assType="one-to-many";
+  }
+ else   if (isOneToOne()) {
+    assType="one-to-one";
+  }
+ else   if (isManyToOne()) {
+    assType="many-to-one";
+  }
+  return new ToStringBuilder(this).append("name",this.name).append("type",this.type).append("persistent",isPersistant()).append("optional",isOptional()).append("association",isAssociation()).append("bidirectional",isBidirectional()).append("association-type",assType).toString();
+}

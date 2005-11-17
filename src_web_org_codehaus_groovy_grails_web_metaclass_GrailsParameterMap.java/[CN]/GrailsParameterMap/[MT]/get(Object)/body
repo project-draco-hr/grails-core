@@ -6,7 +6,9 @@
  else {
     String[] valueArray=(String[])parameterMap.get(key);
     if (valueArray == null)     return null;
-    if (valueArray.length == 1)     return request.getParameter((String)key);
+    if (valueArray.length == 1) {
+      return valueArray[0];
+    }
     return parameterMap.get(key);
   }
 }

@@ -1,13 +1,16 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
   gcl.setResourceLoader(new GroovyResourceLoader(){
-    public File loadGroovySource(    String filename){
+    public File loadGroovyFile(    String filename){
       if ("Order".equals(filename)) {
         return new File("test/commons/groovy/lang/Order.groovy");
       }
  else {
         return null;
       }
+    }
+    public URL loadGroovySource(    String filename) throws MalformedURLException {
+      return null;
     }
   }
 );

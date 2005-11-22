@@ -1,4 +1,0 @@
-{
-  if (!value.getClass().isAssignableFrom(this.type))   throw new IllegalArgumentException("Cannot set value [" + this.value + "] to value ["+ value+ "] for type ["+ this.type+ "]");
-  this.value=value;
-}

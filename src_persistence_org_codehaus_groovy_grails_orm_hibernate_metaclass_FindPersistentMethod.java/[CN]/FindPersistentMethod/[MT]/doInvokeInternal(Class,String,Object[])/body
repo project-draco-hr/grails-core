@@ -1,7 +1,53 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(methodName,clazz,arguments);
   final Object arg=arguments[0];
-  if (clazz.isInstance(arg.getClass())) {
+  if (arg instanceof String) {
+    final String query=(String)arg;
+    if (!query.matches("from " + clazz.getName() + ".*")) {
+      throw new GrailsQueryException("Invalid query [" + query + "] for domain class ["+ clazz+ "]");
+    }
+    return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        Query q=session.createQuery(query);
+        Object[] queryArgs=null;
+        int max=-1;
+        if (arguments.length > 1) {
+          if (arguments[1] instanceof List) {
+            queryArgs=((List)arguments[1]).toArray();
+          }
+ else           if (arguments[1].getClass().isArray()) {
+            queryArgs=(Object[])arguments[1];
+          }
+        }
+        max=retrieveMaxValue(arguments);
+        if (queryArgs != null) {
+          for (int i=0; i < queryArgs.length; i++) {
+            q.setParameter(i,queryArgs[i]);
+          }
+        }
+        if (max > -1) {
+          q.setMaxResults(max);
+        }
+        return q.list();
+      }
+      private int retrieveMaxValue(      Object[] arguments){
+        int max=-1;
+        if (arguments.length > 1) {
+          if (arguments[1] instanceof Integer) {
+            max=((Integer)arguments[1]).intValue();
+          }
+          if (arguments.length > 2) {
+            if (arguments[2] instanceof Integer) {
+              max=((Integer)arguments[2]).intValue();
+            }
+          }
+        }
+        return max;
+      }
+    }
+);
+  }
+  if (clazz.isAssignableFrom(arg.getClass())) {
     return super.getHibernateTemplate().executeFind(new HibernateCallback(){
       public Object doInHibernate(      Session session) throws HibernateException, SQLException {
         Example example=Example.create(arg).ignoreCase();

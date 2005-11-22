@@ -1,4 +1,29 @@
 {
-  getHibernateTemplate().saveOrUpdate(target);
-  return null;
+  Errors errors=new BindException(target,target.getClass().getName());
+  Validator validator=application.getGrailsDomainClass(target.getClass().getName()).getValidator();
+  boolean doValidation=true;
+  if (arguments.length > 0) {
+    if (arguments[0] instanceof Boolean) {
+      doValidation=((Boolean)arguments[0]).booleanValue();
+    }
+  }
+  Boolean success=new Boolean(true);
+  if (doValidation) {
+    if (validator != null) {
+      validator.validate(target,errors);
+      if (errors.hasErrors()) {
+        success=new Boolean(!errors.hasErrors());
+        DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
+        metaClass.setProperty(target,DomainClassMethods.HAS_ERRORS_PROPERTY,success);
+        metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors.getAllErrors());
+      }
+ else {
+        getHibernateTemplate().saveOrUpdate(target);
+      }
+    }
+  }
+ else {
+    getHibernateTemplate().saveOrUpdate(target);
+  }
+  return success;
 }

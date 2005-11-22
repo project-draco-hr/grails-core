@@ -2,7 +2,7 @@
   GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
   GroovyObject obj=domainClass.newInstance();
   obj.setProperty("id",new Long(1));
-  obj.setProperty("firstName","fred");
+  obj.setProperty("firstName","fr");
   obj.setProperty("lastName","flintstone");
   obj.invokeMethod("validate",null);
   List errors=(List)obj.getProperty("errors");

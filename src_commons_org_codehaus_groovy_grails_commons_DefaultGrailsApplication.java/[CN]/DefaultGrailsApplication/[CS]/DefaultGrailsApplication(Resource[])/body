@@ -3,7 +3,7 @@
   log.debug("Loading Grails application.");
   final Collection loadedResources=new ArrayList();
   GroovyResourceLoader resourceLoader=new GroovyResourceLoader(){
-    public File loadGroovyFile(    String resource){
+    public URL loadGroovySource(    String resource){
       String filename=resource.replace('.','/') + ".groovy";
       Resource foundResource=null;
       for (int i=0; resources != null && i < resources.length; i++) {
@@ -19,7 +19,7 @@
       try {
         if (foundResource != null) {
           loadedResources.add(foundResource);
-          return foundResource.getFile();
+          return foundResource.getURL();
         }
  else {
           return null;
@@ -29,22 +29,26 @@
         throw new RuntimeException(e);
       }
     }
+    public File loadGroovyFile(    String resource){
+      return new File(loadGroovySource(resource).getFile());
+    }
   }
 ;
   this.cl=new GroovyClassLoader();
   this.cl.setResourceLoader(resourceLoader);
   for (int i=0; resources != null && i < resources.length; i++) {
-    try {
-      log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
-      if (!loadedResources.contains(resources[i])) {
+    log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
+    if (!loadedResources.contains(resources[i])) {
+      try {
         cl.parseClass(resources[i].getFile());
       }
-    }
- catch (    CompilationFailedException e) {
-      throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error in file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
+ catch (      CompilationFailedException e) {
+        throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error parsing file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
+      }
     }
   }
-  Class[] classes=cl.getLoadedClasses();
+  if (log.isDebugEnabled())   log.debug("loaded classes: [" + Arrays.toString(this.cl.getLoadedClasses()) + "]");
+  Class[] classes=this.cl.getLoadedClasses();
   this.allClasses=classes;
   configureLoadedClasses(classes);
 }

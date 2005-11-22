@@ -18,6 +18,9 @@
       }
     }
   }
+ else   if (this.bean.isWritableProperty(constraintName)) {
+    this.bean.setPropertyValue(constraintName,constrainingValue);
+  }
  else {
     throw new ConstraintException("Constraint [" + constraintName + "] is not supported for property ["+ propertyName+ "] of class ["+ owningClass+ "] with type ["+ propertyType+ "]");
   }

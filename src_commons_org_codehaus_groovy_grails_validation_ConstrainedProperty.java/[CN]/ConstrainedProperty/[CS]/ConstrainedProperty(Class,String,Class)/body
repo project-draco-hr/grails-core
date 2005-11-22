@@ -3,4 +3,5 @@
   this.owningClass=clazz;
   this.propertyName=propertyName;
   this.propertyType=propertyType;
+  this.bean=new BeanWrapperImpl(this);
 }

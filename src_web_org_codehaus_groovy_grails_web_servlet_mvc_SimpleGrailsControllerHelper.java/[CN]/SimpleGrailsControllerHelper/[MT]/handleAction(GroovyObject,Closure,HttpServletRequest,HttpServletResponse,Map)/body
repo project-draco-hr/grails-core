@@ -18,7 +18,7 @@
         interceptor.addDynamicProperty(new GenericDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL,Map.class,this.chainModel,false));
       }
  else {
-        Map chainPropertyModel=(Map)chainProperty.getValue();
+        Map chainPropertyModel=(Map)chainProperty.get(controller);
         chainPropertyModel.putAll(this.chainModel);
         this.chainModel=chainPropertyModel;
       }

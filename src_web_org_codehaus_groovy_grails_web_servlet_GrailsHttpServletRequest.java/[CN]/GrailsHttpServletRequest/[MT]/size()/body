@@ -1,3 +1,3 @@
 {
-  return getRequest().getParameterMap().size();
+  return getRequest().getParameterMap().size() + controllerParams.size();
 }

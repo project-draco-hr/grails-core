@@ -1,3 +1,4 @@
 {
-  return getRequest().getParameterMap().get(key);
+  if (controllerParams.containsKey(key))   return controllerParams.get(key);
+ else   return getRequest().getParameterMap().get(key);
 }

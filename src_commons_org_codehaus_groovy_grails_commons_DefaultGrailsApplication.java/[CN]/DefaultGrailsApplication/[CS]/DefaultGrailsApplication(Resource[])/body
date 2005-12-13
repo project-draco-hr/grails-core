@@ -29,9 +29,6 @@
         throw new RuntimeException(e);
       }
     }
-    public File loadGroovyFile(    String resource){
-      return new File(loadGroovySource(resource).getFile());
-    }
   }
 ;
   this.cl=new GroovyClassLoader();

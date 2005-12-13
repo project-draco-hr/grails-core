@@ -13,8 +13,4 @@
   Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"get",new Object[]{new Long(2)});
   assertNotNull(returnValue);
   assertEquals(returnValue.getClass(),domainClass.getClazz());
-  GroovyObject groovyReturn=(GroovyObject)returnValue;
-  String query="from org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass as p where p.firstName='wilma'";
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"get",new Object[]{query});
-  assertEquals("wilma",groovyReturn.getProperty("firstName"));
 }

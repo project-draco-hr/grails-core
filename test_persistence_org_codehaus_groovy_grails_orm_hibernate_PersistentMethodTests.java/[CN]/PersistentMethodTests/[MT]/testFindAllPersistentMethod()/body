@@ -10,27 +10,27 @@
   obj2.setProperty("firstName","wilma");
   obj2.setProperty("lastName","flintstone");
   obj2.invokeMethod("save",null);
-  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass"});
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass"});
   assertNotNull(returnValue);
   assertEquals(ArrayList.class,returnValue.getClass());
   List listResult=(List)returnValue;
   assertEquals(2,listResult.size());
   List args=new ArrayList();
   args.add("wilma");
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass as p where p.firstName = ?",args});
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass as p where p.firstName = ?",args});
   assertNotNull(returnValue);
   assertEquals(ArrayList.class,returnValue.getClass());
   listResult=(List)returnValue;
   assertEquals(1,listResult.size());
   GroovyObject example=domainClass.newInstance();
   example.setProperty("firstName","fred");
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{example});
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{example});
   assertNotNull(returnValue);
   assertEquals(ArrayList.class,returnValue.getClass());
   listResult=(List)returnValue;
   assertEquals(1,listResult.size());
   try {
-    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from RubbishClass"});
+    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from RubbishClass"});
     fail("Should have thrown grails query exception");
   }
  catch (  GrailsQueryException gqe) {

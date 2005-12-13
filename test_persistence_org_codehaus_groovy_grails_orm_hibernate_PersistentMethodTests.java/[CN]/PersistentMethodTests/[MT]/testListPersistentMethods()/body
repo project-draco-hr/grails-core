@@ -20,7 +20,9 @@
   assertTrue(returnValue instanceof List);
   List returnList=(List)returnValue;
   assertEquals(3,returnList.size());
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"list",new Object[]{new Integer(1)});
+  Map argsMap=new HashMap();
+  argsMap.put("max",new Integer(1));
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"list",new Object[]{argsMap});
   assertNotNull(returnValue);
   assertTrue(returnValue instanceof List);
   returnList=(List)returnValue;

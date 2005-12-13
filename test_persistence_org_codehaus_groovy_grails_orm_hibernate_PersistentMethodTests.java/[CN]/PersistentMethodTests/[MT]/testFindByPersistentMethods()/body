@@ -18,50 +18,47 @@
   obj3.setProperty("lastName","dinosaur");
   obj3.setProperty("age",new Integer(12));
   obj3.invokeMethod("save",null);
-  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findByFirstName",new Object[]{"fred"});
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAllByFirstName",new Object[]{"fred"});
   assertNotNull(returnValue);
   assertTrue(returnValue instanceof List);
   List returnList=(List)returnValue;
   assertEquals(1,returnList.size());
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findByFirstNameAndLastName",new Object[]{"fred","flintstone"});
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAllByFirstNameAndLastName",new Object[]{"fred","flintstone"});
   assertNotNull(returnValue);
   assertTrue(returnValue instanceof List);
   returnList=(List)returnValue;
   assertEquals(1,returnList.size());
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByFirstNameNotEqual",new Object[]{"fred"});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByFirstNameNotEqual",new Object[]{"fred"});
   assertEquals(2,returnList.size());
   obj=(GroovyObject)returnList.get(0);
   obj2=(GroovyObject)returnList.get(1);
   assertFalse("fred".equals(obj.getProperty("firstName")));
   assertFalse("fred".equals(obj2.getProperty("firstName")));
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeLessThan",new Object[]{new Integer(20)});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeLessThan",new Object[]{new Integer(20)});
   assertEquals(1,returnList.size());
   obj=(GroovyObject)returnList.get(0);
   assertEquals("dino",obj.getProperty("firstName"));
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeGreaterThan",new Object[]{new Integer(20)});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeGreaterThan",new Object[]{new Integer(20)});
   assertEquals(2,returnList.size());
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeGreaterThanAndLastName",new Object[]{new Integer(20),"flintstone"});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeGreaterThanAndLastName",new Object[]{new Integer(20),"flintstone"});
   assertEquals(2,returnList.size());
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByLastNameLike",new Object[]{"flint%"});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{"flint%"});
   assertEquals(2,returnList.size());
-  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeBetween",new Object[]{new Integer(10),new Integer(43)});
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10),new Integer(43)});
   assertEquals(2,returnList.size());
   Map queryMap=new HashMap();
   queryMap.put("firstName","wilma");
   queryMap.put("lastName","flintstone");
   returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findWhere",new Object[]{queryMap});
   assertNotNull(returnValue);
-  assertTrue(returnValue instanceof List);
-  returnList=(List)returnValue;
-  assertEquals(1,returnList.size());
   try {
-    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByLastNameLike",new Object[]{new Boolean(false)});
+    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{new Boolean(false)});
     fail("Should have thrown an exception for invalid arguments");
   }
  catch (  MissingMethodException mme) {
   }
   try {
-    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findByAgeBetween",new Object[]{new Integer(10)});
+    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10)});
     fail("Should have thrown an exception for invalid argument count");
   }
  catch (  MissingMethodException mme) {

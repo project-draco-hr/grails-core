@@ -1,3 +1,4 @@
 {
   super(sessionFactory,classLoader,Pattern.compile(METHOD_PATTERN));
+  this.application=application;
 }

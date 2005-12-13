@@ -6,7 +6,7 @@
         GrailsMethodExpression current=(GrailsMethodExpression)i.next();
         crit.add(current.getCriterion());
       }
-      return crit.uniqueResult();
+      return crit.list();
     }
   }
 );

@@ -1,55 +1,10 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
-  final Object arg=arguments[0];
-  if (clazz.isAssignableFrom(arg.getClass())) {
-    return super.getHibernateTemplate().execute(new HibernateCallback(){
-      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
-        Example example=Example.create(arg).ignoreCase();
-        Criteria crit=session.createCriteria(clazz);
-        return crit.add(example).uniqueResult();
-      }
-    }
-);
+  Object arg=arguments[0];
+  GrailsDomainClass domainClass=this.application.getGrailsDomainClass(clazz.getName());
+  Class identityType=domainClass.getIdentifier().getType();
+  if (!identityType.isAssignableFrom(arg.getClass())) {
+    arg=typeConverter.convertValue(context,arg,identityType);
   }
- else   if (arg instanceof String) {
-    final String queryString=(String)arg;
-    if (!queryString.matches("from " + clazz.getName() + ".*")) {
-      throw new GrailsQueryException("Invalid query [" + queryString + "] for domain class ["+ clazz+ "]");
-    }
-    Object[] tmp=null;
-    if (arguments.length > 1) {
-      if (arguments[1] instanceof List) {
-        tmp=((List)arguments[1]).toArray();
-      }
- else       if (arguments[1].getClass().isArray()) {
-        tmp=(Object[])arguments[1];
-      }
-    }
-    final Object[] queryArgs=tmp;
-    if (queryArgs != null) {
-      return super.getHibernateTemplate().execute(new HibernateCallback(){
-        public Object doInHibernate(        Session session) throws HibernateException, SQLException {
-          Query query=session.createQuery(queryString);
-          for (int i=0; i < queryArgs.length; i++) {
-            query.setParameter(i,queryArgs[i]);
-          }
-          return query.uniqueResult();
-        }
-      }
-);
-    }
- else {
-      return super.getHibernateTemplate().execute(new HibernateCallback(){
-        public Object doInHibernate(        Session session) throws HibernateException, SQLException {
-          Query query=session.createQuery(queryString);
-          return query.uniqueResult();
-        }
-      }
-);
-    }
-  }
- else   if (arg instanceof Serializable) {
-    return super.getHibernateTemplate().get(clazz,(Serializable)arg);
-  }
-  throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
+  return super.getHibernateTemplate().get(clazz,(Serializable)arg);
 }

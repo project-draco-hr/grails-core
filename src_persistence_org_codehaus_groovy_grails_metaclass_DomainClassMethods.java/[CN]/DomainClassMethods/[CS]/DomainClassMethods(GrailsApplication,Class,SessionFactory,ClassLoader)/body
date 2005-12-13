@@ -5,13 +5,13 @@
   addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new ValidatePersistentMethod(sessionFactory,classLoader,application));
   addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new FindAllByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new GetByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ListOrderByPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ListPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindWherePersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new GetPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new GetPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new CreateCriteriaPersistentMethod(sessionFactory,classLoader));
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty());

@@ -28,7 +28,9 @@
         if (max > -1) {
           q.setMaxResults(max);
         }
-        return q.list();
+        List results=q.list();
+        if (results.size() > 0)         return results.get(0);
+        return null;
       }
       private int retrieveMaxValue(      Object[] arguments){
         int max=-1;
@@ -52,7 +54,10 @@
       public Object doInHibernate(      Session session) throws HibernateException, SQLException {
         Example example=Example.create(arg).ignoreCase();
         Criteria crit=session.createCriteria(clazz);
-        return crit.add(example).list();
+        crit.add(example);
+        List results=crit.list();
+        if (results.size() > 0)         return results.get(0);
+        return null;
       }
     }
 );

@@ -1,0 +1,35 @@
+{
+  super(controller);
+  this.controllerClass=helper.getControllerClassByName(controller.getClass().getName());
+  addDynamicProperty(new GetParamsDynamicProperty(request,response));
+  addDynamicProperty(new GetSessionDynamicProperty(request,response));
+  addDynamicProperty(new GenericDynamicProperty(REQUEST_PROPERTY,HttpServletRequest.class,new GrailsHttpServletRequest(request,controller),true));
+  addDynamicProperty(new GenericDynamicProperty(RESPONSE_PROPERTY,HttpServletResponse.class,response,true));
+  addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,List.class,new ArrayList(),false));
+  addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
+  addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));
+  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(HAS_ERRORS_METHOD){
+    public Object invoke(    Object target,    Object[] arguments){
+      GroovyObject controller=(GroovyObject)target;
+      List errorsList=(List)controller.getProperty(ERRORS_PROPERTY);
+      return new Boolean(errorsList.size() > 0);
+    }
+  }
+);
+  this.scaffolding=this.controllerClass.isScaffolding();
+  if (this.scaffolding) {
+    this.scaffolder=helper.getScaffolderForController(controllerClass.getFullName());
+    if (this.scaffolder == null) {
+      throw new IllegalStateException("Scaffolder is null when controller scaffold property is set to 'true'");
+    }
+    String[] scaffoldActions=this.scaffolder.getSupportedActionNames();
+    for (int i=0; i < scaffoldActions.length; i++) {
+      try {
+        controller.getProperty(scaffoldActions[i]);
+      }
+ catch (      MissingPropertyException mpe) {
+        addDynamicProperty(new GenericDynamicProperty(scaffoldActions[i],Closure.class,scaffolder.getAction(controller,scaffoldActions[i]),true));
+      }
+    }
+  }
+}

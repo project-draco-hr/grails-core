@@ -1,0 +1,25 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  MockHttpServletResponse response=new MockHttpServletResponse();
+  request.setRequestURI("/scaffold/save");
+  request.addParameter("name","dino");
+  GroovyObject go=configureDynamicGO(controllerClass,grailsApplication,request,response);
+  try {
+    Closure closure=(Closure)go.getProperty("save");
+    Object returnValue=closure.call();
+    assertNotNull(returnValue);
+    assertTrue(returnValue instanceof ModelAndView);
+    ModelAndView mv=(ModelAndView)returnValue;
+    assertEquals("/scaffold/show",mv.getViewName());
+    assertTrue(mv.getModel().containsKey("scaffold"));
+    GroovyObject domainObject=(GroovyObject)mv.getModel().get("scaffold");
+    assertNotNull(domainObject);
+    assertEquals("dino",domainObject.getProperty("name"));
+  }
+ catch (  MissingMethodException mme) {
+    fail("Missing method exception should not have been thrown!");
+  }
+catch (  MissingPropertyException mpex) {
+    fail("Missing property exception should not have been thrown!");
+  }
+}

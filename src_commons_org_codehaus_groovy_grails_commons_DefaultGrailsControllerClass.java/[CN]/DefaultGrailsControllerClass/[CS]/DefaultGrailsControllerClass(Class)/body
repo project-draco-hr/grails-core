@@ -2,10 +2,30 @@
   super(clazz,CONTROLLER);
   String uri=SLASH + (StringUtils.isNotBlank(getPackageName()) ? getPackageName().replace('.','/') + SLASH : "") + WordUtils.uncapitalize(getName());
   String defaultClosureName=(String)getPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  Boolean tmp=(Boolean)getPropertyValue(SCAFFOLDING_PROPERTY,Boolean.class);
+  if (tmp != null) {
+    this.scaffolding=tmp.booleanValue();
+  }
   Collection closureNames=new ArrayList();
   this.uri2viewMap=new HashMap();
   this.uri2closureMap=new HashMap();
   this.viewNames=new HashMap();
+  if (this.scaffolding) {
+    for (int i=0; i < DefaultGrailsScaffolder.ACTION_NAMES.length; i++) {
+      closureNames.add(DefaultGrailsScaffolder.ACTION_NAMES[i]);
+      String viewName=(String)getPropertyValue(DefaultGrailsScaffolder.ACTION_NAMES[i] + VIEW,String.class);
+      if (viewName == null) {
+        viewName=DefaultGrailsScaffolder.ACTION_NAMES[i];
+      }
+      String tmpUri=uri + SLASH + DefaultGrailsScaffolder.ACTION_NAMES[i];
+      String viewUri=uri + SLASH + viewName;
+      if (StringUtils.isNotBlank(viewName)) {
+        this.uri2viewMap.put(tmpUri,viewUri);
+        this.viewNames.put(DefaultGrailsScaffolder.ACTION_NAMES[i],viewUri);
+      }
+      this.uri2closureMap.put(tmpUri,DefaultGrailsScaffolder.ACTION_NAMES[i]);
+    }
+  }
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];

@@ -10,12 +10,25 @@
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
   GroovyObject controller=controllerClass.newInstance();
-  String closurePropertyName=controllerClass.getClosurePropertyName(uri);
-  if (closurePropertyName == null) {
-    throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
+  if (this.interceptor == null) {
+    try {
+      interceptor=new ControllerDynamicMethods(controller,this,request,response);
+    }
+ catch (    IntrospectionException ie) {
+      throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);
+    }
+  }
+  if (controllerClass.isScaffolding()) {
+    this.scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
+    if (this.scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
+  }
+  String actionPropertyName=controllerClass.getClosurePropertyName(uri);
+  if (actionPropertyName == null) {
+    if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionPropertyName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
   }
   String viewName=controllerClass.getViewByURI(uri);
-  Closure closure=(Closure)controller.getProperty(closurePropertyName);
-  Object returnValue=handleAction(controller,closure,request,response,params);
-  return handleActionResponse(controllerClass,returnValue,closurePropertyName,viewName);
+  Closure action=(Closure)controller.getProperty(actionPropertyName);
+  if (action == null)   throw new IllegalStateException("Scaffolder supports action [" + actionPropertyName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
+  Object returnValue=handleAction(controller,action,request,response,params);
+  return handleActionResponse(controller,returnValue,actionPropertyName,viewName);
 }

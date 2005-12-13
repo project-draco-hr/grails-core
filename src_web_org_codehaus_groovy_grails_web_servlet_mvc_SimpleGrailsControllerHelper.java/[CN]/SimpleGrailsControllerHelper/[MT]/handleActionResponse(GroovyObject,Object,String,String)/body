@@ -11,10 +11,11 @@
  else   if (returnValue instanceof Map) {
     removeProxiesFromModelObjects((Map)returnValue);
     if (viewNameBlank) {
-      throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
+      throw new NoViewNameDefinedException("Map instance returned by and no view name specified for closure on property [" + closurePropertyName + "] in controller ["+ controller.getClass()+ "]!");
     }
  else {
       Map returnMap=(Map)returnValue;
+      returnMap.put(ControllerDynamicMethods.ERRORS_PROPERTY,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
       if (!this.chainModel.isEmpty()) {
         this.chainModel.putAll(returnMap);
         return new ModelAndView(viewName,this.chainModel);
@@ -28,13 +29,14 @@
     ModelAndView modelAndView=(ModelAndView)returnValue;
     Map modelMap=modelAndView.getModel();
     removeProxiesFromModelObjects(modelMap);
+    modelAndView.addObject(ControllerDynamicMethods.ERRORS_PROPERTY,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
     if (!this.chainModel.isEmpty()) {
       this.chainModel.putAll(modelMap);
       modelAndView.addAllObjects(this.chainModel);
     }
     if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
       if (viewNameBlank) {
-        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controllerClass.getFullName()+ "]!");
+        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controller.getClass()+ "]!");
       }
  else {
         modelAndView.setViewName(viewName);
@@ -42,5 +44,5 @@
     }
     return modelAndView;
   }
-  throw new UnsupportedReturnValueException("Return value [" + returnValue + "] is not supported for closure property ["+ closurePropertyName+ "] in controller ["+ controllerClass.getFullName()+ "]!");
+  throw new UnsupportedReturnValueException("Return value [" + returnValue + "] is not supported for closure property ["+ closurePropertyName+ "] in controller ["+ controller.getClass()+ "]!");
 }

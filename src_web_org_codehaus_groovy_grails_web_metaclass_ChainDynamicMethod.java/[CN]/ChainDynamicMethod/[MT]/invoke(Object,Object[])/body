@@ -3,7 +3,7 @@
   Object actionRef;
   Map params=null;
   Map model=null;
-  GroovyObject targetGo=(GroovyObject)target;
+  GroovyObject controller=(GroovyObject)target;
   if (arguments[0] instanceof Map) {
     Map argMap=(Map)arguments[0];
     actionRef=argMap.get(ARGUMENT_ACTION);
@@ -34,12 +34,22 @@
   }
  else   if (actionRef instanceof Closure) {
     Closure c=(Closure)actionRef;
-    String closureName=GrailsClassUtils.getPropertyDescriptorForValue(target,c).getName();
+    PropertyDescriptor prop=GrailsClassUtils.getPropertyDescriptorForValue(target,c);
+    String closureName=null;
+    if (prop != null) {
+      closureName=prop.getName();
+    }
+ else {
+      GrailsScaffolder scaffolder=helper.getScaffolderForController(target.getClass().getName());
+      if (scaffolder != null) {
+        closureName=scaffolder.getActionName(c);
+      }
+    }
     GrailsControllerClass controllerClass=helper.getControllerClassByName(target.getClass().getName());
     String viewName=controllerClass.getViewByName(closureName);
     helper.setChainModel(model);
-    Object returnValue=helper.handleAction(targetGo,c,request,response,params);
-    return helper.handleActionResponse(controllerClass,returnValue,closureName,viewName);
+    Object returnValue=helper.handleAction(controller,c,request,response,params);
+    return helper.handleActionResponse(controller,returnValue,closureName,viewName);
   }
   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
 }

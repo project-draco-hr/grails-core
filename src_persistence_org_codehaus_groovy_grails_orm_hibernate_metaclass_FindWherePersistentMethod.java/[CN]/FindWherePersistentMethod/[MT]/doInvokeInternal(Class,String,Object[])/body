@@ -3,7 +3,7 @@
   Object arg=arguments[0];
   if (!(arg instanceof Map))   throw new MissingMethodException(METHOD_PATTERN,clazz,arguments);
   final Map queryMap=(Map)arg;
-  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+  return super.getHibernateTemplate().execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria crit=session.createCriteria(clazz);
       crit.add(Expression.allEq(queryMap));

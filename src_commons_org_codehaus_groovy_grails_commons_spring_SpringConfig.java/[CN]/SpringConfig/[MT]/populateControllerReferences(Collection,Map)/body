@@ -1,0 +1,38 @@
+{
+  Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
+  simpleGrailsController.setAutowire("byType");
+  beanReferences.add(SpringConfigUtils.createBeanReference("simpleGrailsController",simpleGrailsController));
+  Bean internalResourceViewResolver=SpringConfigUtils.createSingletonBean(InternalResourceViewResolver.class);
+  internalResourceViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/jsp/"));
+  internalResourceViewResolver.setProperty("suffix",SpringConfigUtils.createLiteralValue(".jsp"));
+  beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",internalResourceViewResolver));
+  Bean simpleUrlHandlerMapping=null;
+  if (application.getControllers().length > 0 || application.getPageFlows().length > 0) {
+    simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(SimpleUrlHandlerMapping.class);
+    beanReferences.add(SpringConfigUtils.createBeanReference("handlerMapping",simpleUrlHandlerMapping));
+  }
+  GrailsControllerClass[] simpleControllers=application.getControllers();
+  for (int i=0; i < simpleControllers.length; i++) {
+    GrailsControllerClass simpleController=simpleControllers[i];
+    if (!simpleController.getAvailable()) {
+      continue;
+    }
+    Bean controllerClass=SpringConfigUtils.createSingletonBean(MethodInvokingFactoryBean.class);
+    controllerClass.setProperty("targetObject",SpringConfigUtils.createBeanReference("grailsApplication"));
+    controllerClass.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getController"));
+    controllerClass.setProperty("arguments",SpringConfigUtils.createLiteralValue(simpleController.getFullName()));
+    beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Class",controllerClass));
+    controllerClassBeans.put(simpleController.getFullName() + "Class",controllerClass);
+    Bean controller=SpringConfigUtils.createSingletonBean();
+    controller.setFactoryBean(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Class"));
+    controller.setFactoryMethod("newInstance");
+    controller.setAutowire("byName");
+    beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName(),controller));
+    for (int x=0; x < simpleController.getURIs().length; x++) {
+      urlMappings.put(simpleController.getURIs()[x],"simpleGrailsController");
+    }
+  }
+  if (simpleUrlHandlerMapping != null) {
+    simpleUrlHandlerMapping.setProperty("mappings",SpringConfigUtils.createProperties(urlMappings));
+  }
+}

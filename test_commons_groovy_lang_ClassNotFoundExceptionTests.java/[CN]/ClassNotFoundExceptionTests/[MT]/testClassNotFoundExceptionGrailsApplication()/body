@@ -1,3 +1,4 @@
 {
   DefaultGrailsApplication app=new DefaultGrailsApplication(new PathMatchingResourcePatternResolver().getResources("file:test/commons/groovy/lang/*.groovy"));
+  assertNotNull(app);
 }

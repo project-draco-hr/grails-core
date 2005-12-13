@@ -1,0 +1,5 @@
+{
+  this.pmc=PropertyAccessProxyMetaClass.getInstance(go.getClass());
+  pmc.setInterceptor(this);
+  go.setMetaClass(pmc);
+}

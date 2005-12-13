@@ -1,0 +1,7 @@
+{
+  GrailsControllerClass controllerClass=application.getControllerByURI(uri);
+  if (controllerClass != null) {
+    return controllerClass.getViewByURI(uri);
+  }
+  return null;
+}

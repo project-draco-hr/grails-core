@@ -1,0 +1,5 @@
+{
+  this.sessionFactory=sessionFactory;
+  this.template=new HibernateTemplate(this.sessionFactory);
+  this.template.setFlushMode(HibernateTemplate.FLUSH_AUTO);
+}

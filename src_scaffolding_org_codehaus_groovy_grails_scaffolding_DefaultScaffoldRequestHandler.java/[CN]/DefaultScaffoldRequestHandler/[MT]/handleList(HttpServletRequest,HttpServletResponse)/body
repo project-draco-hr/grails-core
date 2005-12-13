@@ -1,0 +1,31 @@
+{
+  int max=10;
+  int offset=0;
+  String maxParam=request.getParameter(PARAM_MAX);
+  String offsetParam=request.getParameter(PARAM_OFFSET);
+  if (!StringUtils.isBlank(maxParam)) {
+    try {
+      max=Integer.parseInt(maxParam);
+    }
+ catch (    NumberFormatException nfe) {
+      LOG.warn("[ScaffoldRequestHandler] Error parsing max parameter [" + maxParam + "] for request",nfe);
+    }
+  }
+  if (!StringUtils.isBlank(offsetParam)) {
+    try {
+      offset=Integer.parseInt(offsetParam);
+    }
+ catch (    NumberFormatException nfe) {
+      LOG.warn("[ScaffoldRequestHandler] Error parsing offset parameter [" + offsetParam + "] for request",nfe);
+    }
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[ScaffoldRequestHandler] Executing [list] for max [" + max + "] and offset ["+ offset+ "]");
+  }
+  Map model=new HashMap();
+  model.put(domain.getPluralName(),domain.list(max,offset,request.getParameter(PARAM_SORT),request.getParameter(PARAM_ORDER)));
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[ScaffoldRequestHandler] Returned model [" + model + "] from domain method [list]");
+  }
+  return model;
+}

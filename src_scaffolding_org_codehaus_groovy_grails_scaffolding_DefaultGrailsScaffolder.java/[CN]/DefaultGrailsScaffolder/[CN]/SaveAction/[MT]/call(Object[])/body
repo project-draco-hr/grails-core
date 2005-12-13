@@ -1,0 +1,19 @@
+{
+  ScaffoldCallback callback=new DefaultScaffoldCallback();
+  Map model=this.scaffoldRequestHandler.handleSave(request,response,callback);
+  if (callback.isInvoked()) {
+    Closure showAction=(Closure)controller.getProperty(SHOW_ACTION);
+    Map arguments=new HashMap();
+    arguments.put(ChainDynamicMethod.ARGUMENT_ACTION,showAction);
+    arguments.put(ChainDynamicMethod.ARGUMENT_MODEL,model);
+    arguments.put(ChainDynamicMethod.ARGUMENT_PARAMS,model);
+    return controller.invokeMethod(ChainDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
+  }
+ else {
+    Closure createAction=(Closure)controller.getProperty(CREATE_ACTION);
+    Map arguments=new HashMap();
+    arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,createAction);
+    arguments.put(RedirectDynamicMethod.ARGUMENT_ERRORS,callback.getErrors() != null ? callback.getErrors().getAllErrors() : new ArrayList());
+    return controller.invokeMethod(RedirectDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (StringUtils.isBlank(action)) {
+    return resolveViewForUri(uri);
+  }
+  GrailsControllerClass controllerClass=application.getControllerByURI(uri);
+  if (controllerClass != null) {
+    return controllerClass.getViewByName(action);
+  }
+  return null;
+}

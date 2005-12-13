@@ -1,0 +1,4 @@
+{
+  if (scaffoldViewResolver == null)   throw new IllegalStateException("Property [viewResolver] is required to be set, but is null");
+  return new ModelAndView(scaffoldViewResolver.resolveViewForUriAndAction(request.getRequestURI(),actionName),model);
+}

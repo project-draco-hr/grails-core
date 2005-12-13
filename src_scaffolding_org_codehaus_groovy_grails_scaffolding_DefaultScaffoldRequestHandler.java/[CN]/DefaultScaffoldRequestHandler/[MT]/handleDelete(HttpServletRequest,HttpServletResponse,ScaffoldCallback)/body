@@ -1,0 +1,16 @@
+{
+  String id=request.getParameter(PARAM_ID);
+  if (StringUtils.isBlank(id)) {
+    LOG.debug("[ScaffoldRequestHandler] No ID parameter [" + id + "] for request [delete]");
+    callback.setInvoked(false);
+    return Collections.EMPTY_MAP;
+  }
+  Map model=new HashMap();
+  Object domainObject=domain.get(id);
+  model.put(domain.getSingularName(),domainObject);
+  if (domainObject != null) {
+    domain.delete(id);
+    callback.setInvoked(true);
+  }
+  return model;
+}

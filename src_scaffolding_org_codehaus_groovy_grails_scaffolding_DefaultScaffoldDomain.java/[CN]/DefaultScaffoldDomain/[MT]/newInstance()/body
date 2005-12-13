@@ -1,0 +1,11 @@
+{
+  try {
+    return this.persistentClass.newInstance();
+  }
+ catch (  InstantiationException e) {
+    throw new ScaffoldingException("Unable to instantiate persistent class [" + persistentClass + "] for scaffolding: "+ e.getMessage(),e);
+  }
+catch (  IllegalAccessException e) {
+    throw new ScaffoldingException("Unable to instantiate persistent class [" + persistentClass + "] for scaffolding: "+ e.getMessage(),e);
+  }
+}

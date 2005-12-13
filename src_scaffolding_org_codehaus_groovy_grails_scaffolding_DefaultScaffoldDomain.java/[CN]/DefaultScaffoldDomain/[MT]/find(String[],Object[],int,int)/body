@@ -1,0 +1,36 @@
+{
+  if (by == null || by.length == 0 || q == null || q.length == 0)   return new ArrayList();
+  final List ignoreList=new ArrayList();
+  for (int i=0; i < by.length; i++) {
+    if (this.bean.isReadableProperty(by[i]) && i < q.length) {
+      Class propertyType=this.bean.getPropertyType(by[i]);
+      if (!propertyType.isAssignableFrom(q[i].getClass())) {
+        q[i]=converter.convertValue(context,q[i],propertyType);
+      }
+      if (q[i] == null) {
+        ignoreList.add(by[i]);
+      }
+    }
+ else {
+      ignoreList.add(by[i]);
+    }
+  }
+  final Object[] query=q;
+  if (by.length < ignoreList.size()) {
+    return this.template.executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        Criteria c=session.createCriteria(persistentClass);
+        if (max > -1)         c.setMaxResults(max);
+        if (offset > -1)         c.setFirstResult(offset);
+        for (int i=0; i < by.length; i++) {
+          if (!ignoreList.contains(by[i])) {
+            c.add(Restrictions.eq(by[i],query[i]));
+          }
+        }
+        return c.list();
+      }
+    }
+);
+  }
+  return new ArrayList();
+}

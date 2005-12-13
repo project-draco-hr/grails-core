@@ -1,0 +1,18 @@
+{
+  String id=request.getParameter(PARAM_ID);
+  if (StringUtils.isBlank(id)) {
+    LOG.debug("[ScaffoldRequestHandler] No ID parameter [" + id + "] for request [update]");
+    callback.setInvoked(false);
+    return Collections.EMPTY_MAP;
+  }
+  Object domainObject=this.domain.get(id);
+  ServletRequestDataBinder dataBinder=new ServletRequestDataBinder(domainObject,domain.getName());
+  dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+  dataBinder.bind(request);
+  Map model=new HashMap();
+  if (this.domain.update(domainObject,callback)) {
+    model.put(PARAM_ID,id);
+    model.put(this.domain.getSingularName(),domainObject);
+  }
+  return model;
+}

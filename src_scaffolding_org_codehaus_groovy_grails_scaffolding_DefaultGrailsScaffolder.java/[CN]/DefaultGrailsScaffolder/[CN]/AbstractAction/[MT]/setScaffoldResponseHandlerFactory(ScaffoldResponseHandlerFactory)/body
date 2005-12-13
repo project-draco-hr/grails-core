@@ -1,0 +1,4 @@
+{
+  this.scaffoldResponseFactory=factory;
+  this.scaffoldResponseHandler=this.scaffoldResponseFactory.getScaffoldResponseHandler(request.getRequestURI());
+}

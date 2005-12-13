@@ -1,0 +1,4 @@
+{
+  Map model=this.scaffoldRequestHandler.handleList(request,response);
+  return scaffoldResponseHandler.handleResponse(request,response,LIST_ACTION,model);
+}

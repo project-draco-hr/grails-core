@@ -1,0 +1,5 @@
+{
+  if (id == null)   throw new IllegalArgumentException("Argument 'id' cannot be null");
+  id=(Serializable)converter.convertValue(context,id,identityClass);
+  return template.get(persistentClass,id);
+}

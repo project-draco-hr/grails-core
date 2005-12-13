@@ -1,0 +1,9 @@
+{
+  String singularName=persistentClass.getName();
+  int dot=singularName.lastIndexOf('.');
+  if (dot > -1) {
+    singularName=singularName.substring(dot,singularName.length());
+  }
+  singularName=singularName.substring(0,1).toLowerCase() + singularName.substring(1);
+  return singularName;
+}

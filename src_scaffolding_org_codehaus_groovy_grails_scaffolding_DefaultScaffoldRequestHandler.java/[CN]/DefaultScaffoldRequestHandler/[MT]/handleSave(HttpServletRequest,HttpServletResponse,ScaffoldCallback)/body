@@ -1,0 +1,15 @@
+{
+  Object domainObject=domain.newInstance();
+  ServletRequestDataBinder dataBinder=new ServletRequestDataBinder(domainObject,domain.getName());
+  dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+  dataBinder.bind(request);
+  Map model=new HashMap();
+  if (this.domain.save(domainObject,callback)) {
+    BeanWrapper domainBean=new BeanWrapperImpl(domainObject);
+    Object identity=domainBean.getPropertyValue(domain.getIdentityPropertyName());
+    model.put(PARAM_ID,identity);
+    model.put(domain.getSingularName(),domainObject);
+    callback.setInvoked(true);
+  }
+  return model;
+}

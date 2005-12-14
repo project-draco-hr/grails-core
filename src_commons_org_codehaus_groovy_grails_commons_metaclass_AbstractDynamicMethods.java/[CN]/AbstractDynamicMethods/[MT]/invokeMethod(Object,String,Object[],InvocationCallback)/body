@@ -1,6 +1,6 @@
 {
   if (LOG.isTraceEnabled()) {
-    LOG.trace("[DynamicMethods] Attempting invocation of dynamic method [" + methodName + "] on target ["+ object+ "] with arguments ["+ Arrays.toString(arguments)+ "]");
+    LOG.trace("[DynamicMethods] Attempting invocation of dynamic method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
   }
   for (Iterator iter=this.dynamicMethodInvocations.iterator(); iter.hasNext(); ) {
     DynamicMethodInvocation methodInvocation=(DynamicMethodInvocation)iter.next();

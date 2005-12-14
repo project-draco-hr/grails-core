@@ -1,6 +1,6 @@
 {
   if (LOG.isTraceEnabled()) {
-    LOG.trace("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ Arrays.toString(arguments)+ "]");
+    LOG.trace("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
     LOG.trace("[DynamicMethods] Registered dynamic static methods: [" + this.staticMethodInvocations + "]");
   }
   for (Iterator iter=this.staticMethodInvocations.iterator(); iter.hasNext(); ) {

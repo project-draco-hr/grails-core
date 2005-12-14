@@ -44,7 +44,7 @@
       }
     }
   }
-  if (log.isDebugEnabled())   log.debug("loaded classes: [" + Arrays.toString(this.cl.getLoadedClasses()) + "]");
+  if (log.isDebugEnabled())   log.debug("loaded classes: [" + ArrayUtils.toString(this.cl.getLoadedClasses()) + "]");
   Class[] classes=this.cl.getLoadedClasses();
   this.allClasses=classes;
   configureLoadedClasses(classes);

@@ -1,6 +1,13 @@
 {
   if (newValue == null)   return;
-  if (newValue instanceof Map) {
+  if (newValue instanceof GrailsParameterMap) {
+    GrailsParameterMap parameterMap=(GrailsParameterMap)newValue;
+    HttpServletRequest request=parameterMap.getRequest();
+    ServletRequestDataBinder dataBinder=new ServletRequestDataBinder(object,object.getClass().getName());
+    dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+    dataBinder.bind(request);
+  }
+ else   if (newValue instanceof Map) {
     Map propertyMap=(Map)newValue;
     for (Iterator i=propertyMap.keySet().iterator(); i.hasNext(); ) {
       String propertyName=(String)i.next();
@@ -10,7 +17,10 @@
       try {
         Ognl.setValue(propertyName,object,propertyValue);
       }
- catch (      OgnlException e) {
+ catch (      NoSuchPropertyException nspe) {
+        if (LOG.isDebugEnabled())         LOG.debug("Unable to set property '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "' property doesn't exist."+ nspe.getMessage());
+      }
+catch (      OgnlException e) {
         if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "':"+ e.getMessage(),e);
       }
     }

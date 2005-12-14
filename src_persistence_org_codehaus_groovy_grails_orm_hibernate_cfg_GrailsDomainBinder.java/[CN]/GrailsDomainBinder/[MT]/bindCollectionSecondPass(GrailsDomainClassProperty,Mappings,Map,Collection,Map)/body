@@ -8,6 +8,7 @@
     }
     oneToMany.setAssociatedClass(persistentClass);
     collection.setCollectionTable(persistentClass.getTable());
+    collection.setLazy(true);
     LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   }
   KeyValue keyValue;
@@ -30,6 +31,17 @@
     collection.setElement(element);
     bindManyToOne(property,element,mappings);
   }
- else   if (property.isOneToMany()) {
+ else   if (property.isOneToMany() && !collection.isInverse()) {
+    OneToMany oneToMany=(OneToMany)collection.getElement();
+    String entityName=(oneToMany).getReferencedEntityName();
+    PersistentClass referenced=mappings.getClass(entityName);
+    Backref prop=new Backref();
+    prop.setName('_' + property.getName() + "Backref");
+    prop.setUpdateable(false);
+    prop.setInsertable(false);
+    prop.setCollectionRole(collection.getRole());
+    prop.setValue(collection.getKey());
+    prop.setOptional(property.isOptional());
+    referenced.addProperty(prop);
   }
 }

@@ -1,5 +1,6 @@
 {
-  GroovyObject one2many=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.RelationshipsTest").newInstance();
+  GrailsDomainClass one2ManyDomain=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.RelationshipsTest");
+  GroovyObject one2many=one2ManyDomain.newInstance();
   GroovyObject many2one=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.OneToManyTest2").newInstance();
   HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
   assertNotNull(many2one);
@@ -7,4 +8,9 @@
   one2many.setProperty("ones",set);
   ((Set)one2many.getProperty("ones")).add(many2one);
   template.save(one2many);
+  one2many=(GroovyObject)template.get(one2ManyDomain.getClazz(),new Long(1));
+  assertNotNull(one2many);
+  set=(Set)one2many.getProperty("ones");
+  assertNotNull(set);
+  assertEquals(1,set.size());
 }

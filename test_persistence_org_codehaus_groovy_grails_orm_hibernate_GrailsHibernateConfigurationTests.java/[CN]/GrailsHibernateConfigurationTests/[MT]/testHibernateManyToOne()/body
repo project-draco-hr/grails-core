@@ -6,10 +6,9 @@
   assertNotNull(many2one);
   Set set=new HashSet();
   one2many.setProperty("ones",set);
-  template.save(one2many);
   many2one.setProperty("other",one2many);
   template.save(many2one);
-  one2many=(GroovyObject)template.get(one2ManyDomain.getClazz(),new Long(1));
+  template.refresh(one2many);
   assertNotNull(one2many);
   set=(Set)one2many.getProperty("ones");
   assertNotNull(set);

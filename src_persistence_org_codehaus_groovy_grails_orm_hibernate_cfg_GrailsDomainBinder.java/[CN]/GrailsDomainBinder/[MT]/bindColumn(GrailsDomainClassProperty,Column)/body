@@ -1,7 +1,10 @@
 {
   if (grailsProp.isAssociation()) {
-    if (grailsProp.isOneToMany() && grailsProp.isBidirectional()) {
+    if (grailsProp.isOneToMany()) {
       column.setName(grailsProp.getDomainClass().getTableName() + FOREIGN_KEY_SUFFIX);
+    }
+ else     if (grailsProp.isManyToOne()) {
+      column.setName(grailsProp.getReferencedDomainClass().getTableName() + FOREIGN_KEY_SUFFIX);
     }
  else {
       column.setName(grailsProp.getFieldName() + FOREIGN_KEY_SUFFIX);

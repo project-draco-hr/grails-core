@@ -3,10 +3,6 @@
   Table table=persistentClass.getTable();
   for (int i=0; i < persistantProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistantProperties[i];
-    if (currentGrailsProp.isManyToOne() && currentGrailsProp.isBidirectional()) {
-      GrailsDomainClassProperty otherSide=currentGrailsProp.getOtherSide();
-      if (otherSide.isOneToMany())       continue;
-    }
     if (LOG.isTraceEnabled())     LOG.trace("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());

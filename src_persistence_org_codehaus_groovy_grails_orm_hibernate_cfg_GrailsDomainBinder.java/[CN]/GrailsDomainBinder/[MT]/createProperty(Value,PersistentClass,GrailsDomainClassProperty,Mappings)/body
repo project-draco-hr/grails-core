@@ -8,7 +8,7 @@
   }
  else   if (value instanceof Collection) {
   }
-  value.createForeignKey();
+  if (value.getTable() != null)   value.createForeignKey();
   Property prop=new Property();
   prop.setValue(value);
   bindProperty(grailsProperty,prop,mappings);

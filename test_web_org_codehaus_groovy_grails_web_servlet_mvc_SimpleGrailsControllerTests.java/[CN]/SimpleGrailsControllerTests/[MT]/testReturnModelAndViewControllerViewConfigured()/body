@@ -1,5 +1,0 @@
-{
-  ModelAndView modelAndView=execute("/org/codehaus/groovy/grails/web/servlet/mvc/returnModelAndView/viewConfigured",null);
-  assertNotNull(modelAndView);
-  assertEquals("someOtherView",modelAndView.getViewName());
-}

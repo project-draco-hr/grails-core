@@ -1,8 +1,0 @@
-{
-  try {
-    execute("/test",null);
-    fail();
-  }
- catch (  NoViewNameDefinedException e) {
-  }
-}

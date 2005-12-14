@@ -1,6 +1,6 @@
 {
-  for (int i=0; i < uris.length; i++) {
-    if (uris[i].equals(uri)) {
+  for (int i=0; i < internalUris.length; i++) {
+    if (internalUris[i].equals(uri)) {
       return true;
     }
   }

@@ -1,8 +1,0 @@
-{
-  try {
-    execute("/org/codehaus/groovy/grails/web/servlet/mvc/returnModelAndView/withoutView",null);
-    fail();
-  }
- catch (  NoViewNameDefinedException e) {
-  }
-}

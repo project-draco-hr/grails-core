@@ -1,5 +1,8 @@
 {
-  String uri=this.urlPathHelper.getLookupPathForRequest(request);
+  String uri=this.urlPathHelper.getPathWithinApplication(request);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[SimpleGrailsController] Processing request for uri [" + uri + "]");
+  }
   GrailsControllerHelper helper=new SimpleGrailsControllerHelper(this.application,this.applicationContext);
   return helper.handleURI(uri,request,response);
 }

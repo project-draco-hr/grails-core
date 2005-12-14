@@ -1,9 +1,0 @@
-{
-  ModelAndView modelAndView=execute("/parameter/rss",null);
-  assertNotNull(modelAndView);
-  assertEquals("someRssView",modelAndView.getViewName());
-  assertNotNull(modelAndView.getModel().get("request"));
-  assertTrue(modelAndView.getModel().get("request") instanceof HttpServletRequest);
-  assertNotNull(modelAndView.getModel().get("response"));
-  assertTrue(modelAndView.getModel().get("response") instanceof HttpServletResponse);
-}

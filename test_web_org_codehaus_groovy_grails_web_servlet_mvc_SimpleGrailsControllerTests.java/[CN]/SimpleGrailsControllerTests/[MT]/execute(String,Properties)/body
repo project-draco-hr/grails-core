@@ -1,5 +1,6 @@
 {
   MockHttpServletRequest request=new MockHttpServletRequest("GET",uri);
+  request.setContextPath("/simple");
   if (parameters != null) {
     for (Iterator iter=parameters.keySet().iterator(); iter.hasNext(); ) {
       String paramName=(String)iter.next();

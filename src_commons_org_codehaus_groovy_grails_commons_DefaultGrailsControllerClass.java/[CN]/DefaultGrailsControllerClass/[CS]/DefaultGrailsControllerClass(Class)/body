@@ -7,7 +7,6 @@
     this.scaffolding=tmp.booleanValue();
   }
   Collection closureNames=new ArrayList();
-  Collection urisList=new ArrayList();
   this.uri2viewMap=new HashMap();
   this.uri2closureMap=new HashMap();
   this.viewNames=new HashMap();
@@ -18,7 +17,6 @@
       if (viewName == null) {
         viewName=DefaultGrailsScaffolder.ACTION_NAMES[i];
       }
-      urisList.add(SLASH + DefaultGrailsScaffolder.ACTION_NAMES[i]);
       String tmpUri=uri + SLASH + DefaultGrailsScaffolder.ACTION_NAMES[i];
       String viewUri=uri + SLASH + viewName;
       if (StringUtils.isNotBlank(viewName)) {
@@ -31,7 +29,7 @@
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
-    if (propertyDescriptor.getPropertyType().isAssignableFrom(Closure.class)) {
+    if (Closure.class.isAssignableFrom(propertyDescriptor.getPropertyType())) {
       closureNames.add(propertyDescriptor.getName());
       String closureName=propertyDescriptor.getName();
       String viewName=(String)getPropertyValue(propertyDescriptor.getName() + VIEW,String.class);
@@ -39,7 +37,6 @@
         viewName=propertyDescriptor.getName();
       }
       Map typedViews=(Map)getPropertyValue(propertyDescriptor.getName() + TYPED_VIEWS,Map.class);
-      urisList.add(SLASH + propertyDescriptor.getName());
       String tmpUri=uri + SLASH + propertyDescriptor.getName();
       String viewUri=uri + SLASH + viewName;
       if (StringUtils.isNotBlank(viewName)) {
@@ -66,8 +63,10 @@
     }
   }
   if (defaultClosureName != null) {
+    this.uri2closureMap.put(uri,defaultClosureName);
     this.uri2closureMap.put(uri + SLASH,defaultClosureName);
-    this.uri2viewMap.put(uri + SLASH + defaultClosureName,defaultClosureName);
+    this.uri2viewMap.put(uri + SLASH,uri + SLASH + defaultClosureName);
+    this.uri2viewMap.put(uri,uri + SLASH + defaultClosureName);
     this.viewNames.put(defaultClosureName,uri + SLASH + defaultClosureName);
   }
   if (closureNames.size() == 1) {
@@ -86,6 +85,5 @@
       }
     }
   }
-  this.uris=(String[])urisList.toArray(new String[urisList.size()]);
-  this.internalUris=(String[])this.uri2closureMap.keySet().toArray(new String[this.uri2closureMap.keySet().size()]);
+  this.uris=(String[])this.uri2closureMap.keySet().toArray(new String[this.uri2closureMap.keySet().size()]);
 }

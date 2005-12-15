@@ -1,0 +1,7 @@
+{
+  String appPath=urlPathHelper.getPathWithinApplication(request);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Looking up handler for [" + appPath + "]");
+  }
+  return lookupHandler(appPath);
+}

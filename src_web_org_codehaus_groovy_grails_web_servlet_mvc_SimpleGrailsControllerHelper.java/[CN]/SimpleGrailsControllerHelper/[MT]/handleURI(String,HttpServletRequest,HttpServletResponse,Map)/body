@@ -4,7 +4,7 @@
     uri=uri.substring(0,uri.indexOf("?"));
   }
   if (!uri.startsWith("/"))   uri='/' + uri;
-  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 2);
+  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
   GrailsControllerClass controllerClass=getControllerClassByURI(uri);
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");

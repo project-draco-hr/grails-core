@@ -8,7 +8,7 @@
   beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",internalResourceViewResolver));
   Bean simpleUrlHandlerMapping=null;
   if (application.getControllers().length > 0 || application.getPageFlows().length > 0) {
-    simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(SimpleUrlHandlerMapping.class);
+    simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(GrailsUrlHandlerMapping.class);
     beanReferences.add(SpringConfigUtils.createBeanReference("handlerMapping",simpleUrlHandlerMapping));
   }
   GrailsControllerClass[] simpleControllers=application.getControllers();

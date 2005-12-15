@@ -29,7 +29,8 @@
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
-    if (Closure.class.isAssignableFrom(propertyDescriptor.getPropertyType())) {
+    Closure closure=(Closure)getPropertyValue(propertyDescriptor.getName(),Closure.class);
+    if (closure != null) {
       closureNames.add(propertyDescriptor.getName());
       String closureName=propertyDescriptor.getName();
       String viewName=(String)getPropertyValue(propertyDescriptor.getName() + VIEW,String.class);
@@ -43,7 +44,7 @@
         this.uri2viewMap.put(tmpUri,viewUri);
         this.viewNames.put(closureName,viewUri);
       }
-      Closure closure=(Closure)getPropertyValue(propertyDescriptor.getName(),Closure.class);
+      closure=(Closure)getPropertyValue(propertyDescriptor.getName(),Closure.class);
       if (closure != null) {
         this.uri2closureMap.put(tmpUri,propertyDescriptor.getName());
         if (typedViews != null) {

@@ -3,6 +3,10 @@
   if (getPropertyValue(POOLING,boolean.class) != null) {
     this.pooled=getPropertyValue(POOLING,boolean.class).equals(Boolean.TRUE) ? true : false;
   }
+  if (getPropertyValue(DDL_AUTO,String.class) != null) {
+    String ddlValue=(String)getPropertyValue(DDL_AUTO,String.class);
+    if (ddlValue.equals("create-drop") || ddlValue.equals("create") || ddlValue.equals("update"))     this.ddlAuto=ddlValue;
+  }
   if (getPropertyValue(DRIVER_CLASS_NAME,String.class) != null) {
     this.driverClassName=(String)getPropertyValue(DRIVER_CLASS_NAME,String.class);
   }

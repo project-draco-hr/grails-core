@@ -1,6 +1,8 @@
 {
   Errors errors=new BindException(target,target.getClass().getName());
-  Validator validator=application.getGrailsDomainClass(target.getClass().getName()).getValidator();
+  GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
+  Validator validator=null;
+  if (domainClass != null)   validator=application.getGrailsDomainClass(target.getClass().getName()).getValidator();
   Boolean valid=new Boolean(true);
   if (validator != null) {
     validator.validate(target,errors);

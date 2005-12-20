@@ -1,13 +1,14 @@
 {
+  PersistentClass associatedClass=null;
   if (collection.isOneToMany()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();
-    PersistentClass persistentClass=(PersistentClass)persistentClasses.get(associatedClassName);
-    if (persistentClass == null) {
+    associatedClass=(PersistentClass)persistentClasses.get(associatedClassName);
+    if (associatedClass == null) {
       throw new MappingException("Association references unmapped class: " + oneToMany.getReferencedEntityName());
     }
-    oneToMany.setAssociatedClass(persistentClass);
-    collection.setCollectionTable(persistentClass.getTable());
+    oneToMany.setAssociatedClass(associatedClass);
+    collection.setCollectionTable(associatedClass.getTable());
     collection.setLazy(true);
     LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   }
@@ -19,10 +20,22 @@
  else {
     keyValue=(KeyValue)collection.getOwner().getProperty(propertyRef).getValue();
   }
-  keyValue.setTypeUsingReflection(property.getReferencedDomainClass().getFullName(),collection.getReferencedPropertyName());
   DependantValue key=new DependantValue(collection.getCollectionTable(),keyValue);
-  key.setTypeUsingReflection(property.getReferencedDomainClass().getName(),collection.getReferencedPropertyName());
-  bindSimpleValue(property,key,mappings);
+  key.setTypeName(null);
+  if (property.isBidirectional()) {
+    GrailsDomainClassProperty otherSide=property.getOtherSide();
+    if (otherSide.isManyToOne()) {
+      collection.setInverse(true);
+      Iterator mappedByColumns=associatedClass.getProperty(otherSide.getName()).getValue().getColumnIterator();
+      while (mappedByColumns.hasNext()) {
+        Column column=(Column)mappedByColumns.next();
+        linkValueUsingAColumnCopy(otherSide,column,key);
+      }
+    }
+  }
+ else {
+    bindSimpleValue(property,key,mappings);
+  }
   collection.setKey(key);
   key.setNullable(false);
   key.setUpdateable(false);

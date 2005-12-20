@@ -9,7 +9,7 @@
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  GroovyObject controller=controllerClass.newInstance();
+  GroovyObject controller=getControllerInstance(controllerClass);
   if (this.interceptor == null) {
     try {
       interceptor=new ControllerDynamicMethods(controller,this,request,response);

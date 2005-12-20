@@ -42,7 +42,7 @@
       return false;
     }
     public boolean isSingleton(){
-      return true;
+      return isSingleton;
     }
     public void setAutowire(    String autowire){
       this.autowire=autowire;

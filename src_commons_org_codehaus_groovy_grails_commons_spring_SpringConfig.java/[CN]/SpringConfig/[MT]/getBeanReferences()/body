@@ -12,11 +12,11 @@
   customEditors.put(SpringConfigUtils.createLiteralValue("java.lang.Class"),classEditor);
   propertyEditors.setProperty("customEditors",SpringConfigUtils.createMap(customEditors));
   beanReferences.add(SpringConfigUtils.createBeanReference("customEditors",propertyEditors));
-  Bean messageSource=SpringConfigUtils.createSingletonBean(ReloadableResourceBundleMessageSource.class);
-  messageSource.setProperty("basename",SpringConfigUtils.createLiteralValue("messages"));
   Bean exceptionHandler=SpringConfigUtils.createSingletonBean(GrailsExceptionResolver.class);
   exceptionHandler.setProperty("exceptionMappings",SpringConfigUtils.createLiteralValue("java.lang.Exception=error"));
   beanReferences.add(SpringConfigUtils.createBeanReference("exceptionHandler",exceptionHandler));
+  LOG.info("[SpringConfig] Configuring i18n support");
+  populateI18nSupport(beanReferences);
   LOG.info("[SpringConfig] Configuring Grails data source");
   populateDataSourceReferences(beanReferences);
   LOG.info("[SpringConfig] Configuring Grails domain");

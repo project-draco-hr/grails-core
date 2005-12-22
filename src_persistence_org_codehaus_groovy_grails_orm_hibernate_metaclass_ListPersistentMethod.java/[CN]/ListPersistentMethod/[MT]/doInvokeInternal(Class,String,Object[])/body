@@ -3,27 +3,13 @@
     return super.getHibernateTemplate().loadAll(clazz);
   }
  else {
-    Object arg=arguments[0];
-    if (!(arg instanceof Map))     throw new MissingMethodException(METHOD_PATTERN,clazz,arguments);
-    Map argMap=(Map)arg;
-    Integer maxParam=(Integer)argMap.get(ARGUMENT_MAX);
-    Integer offsetParam=(Integer)argMap.get(ARGUMENT_OFFSET);
-    String orderParam=(String)argMap.get(ARGUMENT_ORDER);
-    final String sort=(String)argMap.get(ARGUMENT_SORT);
-    final String order=ORDER_DESC.equalsIgnoreCase(orderParam) ? ORDER_DESC : ORDER_ASC;
-    final int max=maxParam == null ? -1 : maxParam.intValue();
-    final int offset=offsetParam == null ? -1 : offsetParam.intValue();
     return super.getHibernateTemplate().executeFind(new HibernateCallback(){
       public Object doInHibernate(      Session session) throws HibernateException, SQLException {
         Criteria c=session.createCriteria(clazz);
-        if (max > -1)         c.setMaxResults(max);
-        if (offset > -1)         c.setFirstResult(offset);
-        if (sort != null) {
-          if (ORDER_DESC.equals(order)) {
-            c.addOrder(Order.desc(sort));
-          }
- else {
-            c.addOrder(Order.asc(sort));
+        if (arguments.length > 0) {
+          if (arguments[0] instanceof Map) {
+            Map argMap=(Map)arguments[0];
+            populateArgumentsForCriteria(c,argMap);
           }
         }
         return c.list();

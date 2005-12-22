@@ -10,10 +10,47 @@
     Matcher matcher=extractDetails.matcher(stackTrace);
     if (matcher.find()) {
       this.className=matcher.group(1);
+      LineNumberReader reader=null;
       try {
         this.lineNumber=Integer.parseInt(matcher.group(2));
+        if (getLineNumber() > -1) {
+          String fileName=this.className.replace('.','/') + ".groovy";
+          InputStream in=getClass().getClassLoader().getResourceAsStream(fileName);
+          if (in != null) {
+            reader=new LineNumberReader(new InputStreamReader(in));
+            String currentLine=reader.readLine();
+            StringBuffer buf=new StringBuffer();
+            while (currentLine != null) {
+              int currentLineNumber=reader.getLineNumber();
+              if (currentLineNumber == this.lineNumber) {
+                buf.append(currentLineNumber);
+                buf.append(": ");
+                buf.append(currentLine);
+                buf.append("\n");
+              }
+ else               if (currentLineNumber == this.lineNumber + 1) {
+                buf.append(currentLineNumber);
+                buf.append(": ");
+                buf.append(currentLine);
+                break;
+              }
+              currentLine=reader.readLine();
+            }
+            this.codeSnippet=buf.toString().split("\n");
+          }
+        }
       }
  catch (      NumberFormatException nfex) {
+      }
+catch (      IOException e) {
+        LOG.warn("[GrailsWrappedRuntimeException] I/O error reading line diagnostics: " + e.getMessage(),e);
+      }
+ finally {
+        if (reader != null)         try {
+          reader.close();
+        }
+ catch (        IOException e) {
+        }
       }
     }
   }

@@ -1,0 +1,6 @@
+{
+  if (getModule() != null) {
+    return getModule().getDescription();
+  }
+  return className;
+}

@@ -1,0 +1,20 @@
+{
+  super(gre.getMessage(),gre);
+  this.gre=gre;
+  if (gre.getModule() == null) {
+    StringWriter sw=new StringWriter();
+    PrintWriter pw=new PrintWriter(sw);
+    gre.printStackTrace(pw);
+    this.stackTrace=sw.toString();
+    Pattern extractDetails=Pattern.compile("\\((\\w+)\\.groovy:(\\d+)\\)");
+    Matcher matcher=extractDetails.matcher(stackTrace);
+    if (matcher.find()) {
+      this.className=matcher.group(1);
+      try {
+        this.lineNumber=Integer.parseInt(matcher.group(2));
+      }
+ catch (      NumberFormatException nfex) {
+      }
+    }
+  }
+}

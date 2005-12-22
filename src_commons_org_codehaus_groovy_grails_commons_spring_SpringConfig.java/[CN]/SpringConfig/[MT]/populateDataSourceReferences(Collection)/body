@@ -50,8 +50,8 @@
     hibernatePropertiesMap.put(SpringConfigUtils.createLiteralValue("hibernate.hbm2ddl.auto"),SpringConfigUtils.createLiteralValue("create-drop"));
   }
  else {
-    if (grailsDataSource.getDdlAuto() != null) {
-      hibernatePropertiesMap.put(SpringConfigUtils.createLiteralValue("hibernate.hbm2ddl.auto"),SpringConfigUtils.createLiteralValue(grailsDataSource.getDdlAuto()));
+    if (grailsDataSource.getDbCreate() != null) {
+      hibernatePropertiesMap.put(SpringConfigUtils.createLiteralValue("hibernate.hbm2ddl.auto"),SpringConfigUtils.createLiteralValue(grailsDataSource.getDbCreate()));
     }
   }
   Bean hibernateProperties=SpringConfigUtils.createSingletonBean(MapToPropertiesFactoryBean.class);

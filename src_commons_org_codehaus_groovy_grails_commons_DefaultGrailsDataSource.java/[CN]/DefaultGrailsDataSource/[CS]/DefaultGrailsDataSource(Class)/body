@@ -3,9 +3,9 @@
   if (getPropertyValue(POOLING,boolean.class) != null) {
     this.pooled=getPropertyValue(POOLING,boolean.class).equals(Boolean.TRUE) ? true : false;
   }
-  if (getPropertyValue(DDL_AUTO,String.class) != null) {
-    String ddlValue=(String)getPropertyValue(DDL_AUTO,String.class);
-    if (ddlValue.equals("create-drop") || ddlValue.equals("create") || ddlValue.equals("update"))     this.ddlAuto=ddlValue;
+  if (getPropertyValue(DB_CREATE,String.class) != null) {
+    String _dbCreate=(String)getPropertyValue(DB_CREATE,String.class);
+    if (_dbCreate.equals("create-drop") || _dbCreate.equals("create") || _dbCreate.equals("update"))     this.dbCreate=_dbCreate;
   }
   if (getPropertyValue(DRIVER_CLASS_NAME,String.class) != null) {
     this.driverClassName=(String)getPropertyValue(DRIVER_CLASS_NAME,String.class);

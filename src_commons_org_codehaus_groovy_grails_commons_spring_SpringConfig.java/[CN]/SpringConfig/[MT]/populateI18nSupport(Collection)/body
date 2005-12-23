@@ -1,6 +1,6 @@
 {
   Bean messageSource=SpringConfigUtils.createSingletonBean(ReloadableResourceBundleMessageSource.class);
-  messageSource.setProperty("basename",SpringConfigUtils.createLiteralValue("messages"));
+  messageSource.setProperty("basename",SpringConfigUtils.createLiteralValue("classpath:messages"));
   beanReferences.add(SpringConfigUtils.createBeanReference("messageSource",messageSource));
   Bean localeChangeInterceptor=SpringConfigUtils.createSingletonBean(LocaleChangeInterceptor.class);
   localeChangeInterceptor.setProperty("paramName",SpringConfigUtils.createLiteralValue("lang"));

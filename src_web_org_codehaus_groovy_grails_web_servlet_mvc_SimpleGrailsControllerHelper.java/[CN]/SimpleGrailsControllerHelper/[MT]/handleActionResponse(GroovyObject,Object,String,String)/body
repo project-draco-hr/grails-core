@@ -5,7 +5,7 @@
       return null;
     }
  else {
-      return new ModelAndView(viewName);
+      return new ModelAndView(viewName,new BeanMap(controller));
     }
   }
  else   if (returnValue instanceof Map) {

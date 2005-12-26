@@ -44,5 +44,13 @@
     }
     return modelAndView;
   }
-  throw new UnsupportedReturnValueException("Return value [" + returnValue + "] is not supported for closure property ["+ closurePropertyName+ "] in controller ["+ controller.getClass()+ "]!");
+ else {
+    Map modelMap=new BeanMap(controller);
+    ModelAndView modelAndView=new ModelAndView(viewName,modelMap);
+    if (!this.chainModel.isEmpty()) {
+      this.chainModel.putAll(modelMap);
+      modelAndView.addAllObjects(this.chainModel);
+    }
+    return modelAndView;
+  }
 }

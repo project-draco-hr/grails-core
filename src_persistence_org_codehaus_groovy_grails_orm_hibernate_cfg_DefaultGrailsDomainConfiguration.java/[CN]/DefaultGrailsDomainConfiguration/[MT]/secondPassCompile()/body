@@ -2,7 +2,7 @@
   if (configLocked) {
     return;
   }
-  Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
+  if (this.grailsApplication != null)   Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
   for (Iterator i=this.domainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass domainClass=(GrailsDomainClass)i.next();
     GrailsDomainBinder.bindClass(domainClass,super.createMappings());

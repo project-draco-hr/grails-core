@@ -1,7 +1,9 @@
 {
   this.grailsApplication=application;
-  GrailsDomainClass[] existingDomainClasses=this.grailsApplication.getGrailsDomainClasses();
-  for (int i=0; i < existingDomainClasses.length; i++) {
-    addDomainClass(existingDomainClasses[i]);
+  if (this.grailsApplication != null) {
+    GrailsDomainClass[] existingDomainClasses=this.grailsApplication.getGrailsDomainClasses();
+    for (int i=0; i < existingDomainClasses.length; i++) {
+      addDomainClass(existingDomainClasses[i]);
+    }
   }
 }

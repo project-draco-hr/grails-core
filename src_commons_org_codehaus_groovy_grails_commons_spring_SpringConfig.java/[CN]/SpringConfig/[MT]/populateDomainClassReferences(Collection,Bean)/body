@@ -11,13 +11,6 @@
     persistentClassBean.setProperty("targetObject",SpringConfigUtils.createBeanReference(grailsDomainClass.getFullName() + "DomainClass"));
     persistentClassBean.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getClazz"));
     beanReferences.add(SpringConfigUtils.createBeanReference(grailsDomainClass.getFullName() + "PersistentClass",persistentClassBean));
-    Collection constructorArguments=new ArrayList();
-    constructorArguments.add(SpringConfigUtils.createBeanReference("grailsApplication"));
-    constructorArguments.add(SpringConfigUtils.createLiteralValue(grailsDomainClass.getClazz().getName()));
-    constructorArguments.add(SpringConfigUtils.createBeanReference("sessionFactory"));
-    constructorArguments.add(classLoader);
-    Bean hibernatePersistentMethods=SpringConfigUtils.createSingletonBean(DomainClassMethods.class,constructorArguments);
-    beanReferences.add(SpringConfigUtils.createBeanReference(grailsDomainClass.getFullName() + "PersistentMethods",hibernatePersistentMethods));
     Bean validatorBean=SpringConfigUtils.createSingletonBean(GrailsDomainClassValidator.class);
     validatorBean.setProperty("domainClass",SpringConfigUtils.createBeanReference(grailsDomainClass.getFullName() + "DomainClass"));
     validatorBean.setProperty("sessionFactory",SpringConfigUtils.createBeanReference("sessionFactory"));

@@ -5,14 +5,14 @@
   addDynamicProperty(new GetSessionDynamicProperty(request,response));
   addDynamicProperty(new GenericDynamicProperty(REQUEST_PROPERTY,HttpServletRequest.class,new GrailsHttpServletRequest(request,controller),true));
   addDynamicProperty(new GenericDynamicProperty(RESPONSE_PROPERTY,HttpServletResponse.class,response,true));
-  addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,List.class,new ArrayList(),false));
+  addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));
   addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(HAS_ERRORS_METHOD){
     public Object invoke(    Object target,    Object[] arguments){
       GroovyObject controller=(GroovyObject)target;
-      List errorsList=(List)controller.getProperty(ERRORS_PROPERTY);
-      return new Boolean(errorsList.size() > 0);
+      Errors errors=(Errors)controller.getProperty(ERRORS_PROPERTY);
+      return new Boolean(errors.hasErrors());
     }
   }
 );

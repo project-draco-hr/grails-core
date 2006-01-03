@@ -1,0 +1,40 @@
+{
+  Writer out=super.pageContext.getOut();
+  String contextPath=urlPathHelper.getContextPath((HttpServletRequest)pageContext.getRequest());
+  try {
+    StringBuffer buf=new StringBuffer();
+    buf.append("<a href=\"").append(contextPath).append('/').append(controller);
+    if (!StringUtils.isBlank(action)) {
+      buf.append('/').append(action);
+    }
+    if (!StringUtils.isBlank(id)) {
+      Object evalId;
+      if (id.startsWith("${") && id.endsWith("}")) {
+        try {
+          evalId=pageContext.getExpressionEvaluator().evaluate(id,Object.class,pageContext.getVariableResolver(),null);
+        }
+ catch (        ELException e) {
+          evalId=id;
+        }
+      }
+ else {
+        evalId=id;
+      }
+      buf.append('?').append("id=").append(evalId);
+    }
+    buf.append("\" ");
+    if (dyanmicAttributes.size() > 0) {
+      for (Iterator i=dyanmicAttributes.keySet().iterator(); i.hasNext(); ) {
+        String attributeName=(String)i.next();
+        Object attributeValue=dyanmicAttributes.get(attributeName);
+        buf.append(attributeName).append("=\"").append(attributeValue).append("\" ");
+      }
+    }
+    buf.append('>');
+    out.write(buf.toString());
+  }
+ catch (  IOException e) {
+    throw new JspException(e.getMessage(),e);
+  }
+  return EVAL_BODY_BUFFERED;
+}

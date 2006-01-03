@@ -1,0 +1,10 @@
+{
+  Writer out=super.pageContext.getOut();
+  try {
+    out.write("</a>");
+  }
+ catch (  IOException e) {
+    throw new JspException(e.getMessage(),e);
+  }
+  return super.doEndTag();
+}

@@ -30,7 +30,12 @@
     }
   }
   Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
-  controllerErrors.addAllErrors(errors);
+  if (controllerErrors != null) {
+    controllerErrors.addAllErrors(errors);
+  }
+ else {
+    controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+  }
   if (actionRef instanceof String) {
     String uri=(String)actionRef;
     if (params != null) {

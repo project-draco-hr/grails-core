@@ -1,0 +1,10 @@
+{
+  SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.util.Locale.template"));
+  Map binding=new HashMap();
+  binding.put("name","testLocale");
+  binding.put("value",Locale.getDefault());
+  binding.put("constraints",null);
+  System.out.println(template.make(binding).toString());
+  Document xml=DocumentHelper.parseText(template.make(binding).toString());
+}

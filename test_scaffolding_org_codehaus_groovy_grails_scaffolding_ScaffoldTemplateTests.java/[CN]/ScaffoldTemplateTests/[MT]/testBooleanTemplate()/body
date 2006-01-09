@@ -1,0 +1,21 @@
+{
+  SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.lang.Boolean.template"));
+  Map binding=new HashMap();
+  binding.put("name","testBoolean");
+  binding.put("value",new Boolean(true));
+  binding.put("constraints",null);
+  Document xml=DocumentHelper.parseText(template.make(binding).toString());
+  assertEquals("input",xml.getRootElement().getName());
+  assertEquals("checkbox",xml.getRootElement().attributeValue("type"));
+  assertEquals("testBoolean",xml.getRootElement().attributeValue("name"));
+  assertEquals("true",xml.getRootElement().attributeValue("value"));
+  assertEquals("checked",xml.getRootElement().attributeValue("checked"));
+  binding.put("value",new Boolean(false));
+  xml=DocumentHelper.parseText(template.make(binding).toString());
+  assertEquals("input",xml.getRootElement().getName());
+  assertEquals("checkbox",xml.getRootElement().attributeValue("type"));
+  assertEquals("testBoolean",xml.getRootElement().attributeValue("name"));
+  assertEquals("false",xml.getRootElement().attributeValue("value"));
+  assertEquals(null,xml.getRootElement().attributeValue("checked"));
+}

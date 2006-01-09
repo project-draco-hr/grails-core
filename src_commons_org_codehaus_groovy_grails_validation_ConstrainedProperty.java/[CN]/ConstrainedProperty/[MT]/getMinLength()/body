@@ -1,5 +1,11 @@
 {
   MinSizeConstraint c=(MinSizeConstraint)this.appliedConstraints.get(MIN_LENGTH_CONSTRAINT);
-  if (c == null)   return 0;
+  if (c == null) {
+    if (this.appliedConstraints.containsKey(LENGTH_CONSTRAINT)) {
+      SizeConstraint sc=(SizeConstraint)this.appliedConstraints.get(LENGTH_CONSTRAINT);
+      return sc.getSizeRange().getFromInt();
+    }
+    return 0;
+  }
   return c.getMinSize();
 }

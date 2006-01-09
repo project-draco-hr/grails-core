@@ -1,0 +1,23 @@
+{
+  if (!String.class.isInstance(propertyType)) {
+    throw new MissingPropertyException("CreditCard constraint only applies to a String property",CREDIT_CARD_CONSTRAINT,owningClass);
+  }
+  Constraint c=(Constraint)this.appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
+  if (creditCard) {
+    if (c != null) {
+      c.setParameter(new Boolean(creditCard));
+    }
+ else {
+      c=new CreditCardConstraint();
+      c.setOwningClass(this.owningClass);
+      c.setPropertyName(this.propertyName);
+      c.setParameter(new Boolean(creditCard));
+      this.appliedConstraints.put(CREDIT_CARD_CONSTRAINT,c);
+    }
+  }
+ else {
+    if (c != null) {
+      this.appliedConstraints.remove(CREDIT_CARD_CONSTRAINT);
+    }
+  }
+}

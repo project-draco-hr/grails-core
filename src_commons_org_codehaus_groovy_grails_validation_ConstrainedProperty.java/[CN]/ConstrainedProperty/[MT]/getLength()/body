@@ -4,5 +4,5 @@
   }
   SizeConstraint c=(SizeConstraint)this.appliedConstraints.get(LENGTH_CONSTRAINT);
   if (c == null)   return null;
-  return c.getSizeRange();
+  return (IntRange)c.getSizeRange();
 }

@@ -1,5 +1,8 @@
 {
   super(methodName);
   this.request=request;
-  this.response=response;
+  if (response instanceof GrailsHttpServletResponse)   this.response=(GrailsHttpServletResponse)response;
+ else {
+    this.response=new GrailsHttpServletResponse(response);
+  }
 }

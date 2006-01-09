@@ -1,0 +1,40 @@
+{
+  if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  if (arguments[0] instanceof String) {
+    try {
+      response.getWriter().write((String)arguments[0]);
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException(e.getMessage(),e);
+    }
+  }
+ else   if (arguments[0] instanceof Map) {
+    Map argMap=(Map)arguments[0];
+    if (argMap.containsKey(ARGUMENT_TEXT)) {
+      String text=(String)argMap.get(ARGUMENT_TEXT);
+      PrintWriter out=null;
+      try {
+        if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
+          out=response.getWriter((String)argMap.get(ARGUMENT_CONTENT_TYPE),(String)argMap.get(ARGUMENT_ENCODING));
+        }
+ else         if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
+          out=response.getWriter((String)argMap.get(ARGUMENT_CONTENT_TYPE));
+        }
+ else {
+          out=response.getWriter();
+        }
+      }
+ catch (      IOException ioe) {
+        throw new ControllerExecutionException(ioe.getMessage(),ioe);
+      }
+      out.write(text);
+    }
+ else {
+      throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+    }
+  }
+ else {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  return null;
+}

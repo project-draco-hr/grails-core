@@ -1,0 +1,26 @@
+{
+  PropertyValue[] pvs=mpvs.getPropertyValues();
+  for (int i=0; i < pvs.length; i++) {
+    PropertyValue pv=pvs[i];
+    try {
+      String propertyName=pv.getName();
+      Class type=super.getBeanWrapper().getPropertyType(propertyName);
+      if (type == Date.class) {
+        try {
+          int year=Integer.parseInt(request.getParameter(propertyName + "_year"));
+          int month=Integer.parseInt(request.getParameter(propertyName + "_month"));
+          int day=Integer.parseInt(request.getParameter(propertyName + "_day"));
+          int hour=Integer.parseInt(request.getParameter(propertyName + "_hour"));
+          int minute=Integer.parseInt(request.getParameter(propertyName + "_minute"));
+          Calendar c=new GregorianCalendar(year,month - 1,day,hour,minute);
+          mpvs.setPropertyValueAt(new PropertyValue(propertyName,c.getTime()),i);
+        }
+ catch (        NumberFormatException nfe) {
+          LOG.warn("Unable to parse structured date from request for date [" + propertyName + "]",nfe);
+        }
+      }
+    }
+ catch (    InvalidPropertyException ipe) {
+    }
+  }
+}

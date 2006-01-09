@@ -3,7 +3,7 @@
   if (newValue instanceof GrailsParameterMap) {
     GrailsParameterMap parameterMap=(GrailsParameterMap)newValue;
     HttpServletRequest request=parameterMap.getRequest();
-    ServletRequestDataBinder dataBinder=new ServletRequestDataBinder(object,object.getClass().getName());
+    ServletRequestDataBinder dataBinder=new GrailsDataBinder(object,object.getClass().getName());
     dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
     dataBinder.bind(request);
   }

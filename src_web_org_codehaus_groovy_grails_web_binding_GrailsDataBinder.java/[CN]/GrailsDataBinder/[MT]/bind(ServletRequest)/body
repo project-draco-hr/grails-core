@@ -1,0 +1,6 @@
+{
+  MutablePropertyValues mpvs=new ServletRequestParameterPropertyValues(request);
+  checkMultipartFiles(request,mpvs);
+  checkStructuredDateDefinitions(request,mpvs);
+  super.doBind(mpvs);
+}

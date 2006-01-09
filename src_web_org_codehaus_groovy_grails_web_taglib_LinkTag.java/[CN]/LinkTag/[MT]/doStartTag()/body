@@ -1,4 +1,7 @@
 {
+  if (StringUtils.isBlank(controller)) {
+    throw new JspException("Tag link missing required attribute 'controller'");
+  }
   Writer out=super.pageContext.getOut();
   String contextPath=urlPathHelper.getContextPath((HttpServletRequest)pageContext.getRequest());
   try {

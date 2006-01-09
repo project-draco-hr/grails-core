@@ -1,0 +1,52 @@
+{
+  try {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("[TemplateFactory] Attempting to retrieve template for type [" + type + "]");
+    }
+    URL templateUrl;
+    if (cachedTemplates.containsKey(type)) {
+      templateUrl=(URL)cachedUrls.get(type);
+    }
+ else {
+      templateUrl=locateTemplateUrl(type);
+      cachedUrls.put(type,templateUrl);
+    }
+    if (templateUrl != null) {
+      Template t;
+      URLConnection con=templateUrl.openConnection();
+      if (cachedTemplates.containsKey(type)) {
+        StoredTemplate st=(StoredTemplate)cachedTemplates.get(type);
+        if (con.getLastModified() > st.lastModified) {
+          t=templateEngine.createTemplate(templateUrl);
+          st.template=t;
+          st.lastModified=con.getLastModified();
+        }
+ else {
+          t=st.template;
+        }
+      }
+ else {
+        t=templateEngine.createTemplate(templateUrl);
+        StoredTemplate st=new StoredTemplate();
+        st.lastModified=con.getLastModified();
+        st.template=t;
+        st.url=templateUrl;
+        cachedTemplates.put(type,st);
+      }
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("[TemplateFactory] Building template for URL [" + templateUrl + "]");
+      }
+      return t;
+    }
+  }
+ catch (  CompilationFailedException e) {
+    LOG.error("Failed to compile template for type [" + type + "]: "+ e.getMessage(),e);
+  }
+catch (  ClassNotFoundException e) {
+    LOG.error("Class not found compiling template for type [" + type + "]: "+ e.getMessage(),e);
+  }
+catch (  IOException e) {
+    LOG.error("I/O error reading template for type [" + type + "]: "+ e.getMessage(),e);
+  }
+  return null;
+}

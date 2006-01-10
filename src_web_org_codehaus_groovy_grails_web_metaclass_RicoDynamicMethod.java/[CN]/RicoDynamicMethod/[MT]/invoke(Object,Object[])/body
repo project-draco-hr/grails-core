@@ -8,7 +8,7 @@
  catch (    IOException e) {
       throw new ControllerExecutionException("I/O error building ajax response in call [" + METHOD_SIGNATURE + "] on target ["+ target.getClass()+ "]");
     }
-    orb.invokeMethod("ajax",arguments[0]);
+    orb.invokeMethod("ajax",new Object[]{arguments[0]});
     return null;
   }
  else {

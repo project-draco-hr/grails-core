@@ -1,6 +1,6 @@
 {
   super(clazz,CONTROLLER);
-  String uri=SLASH + (StringUtils.isNotBlank(getPackageName()) ? getPackageName().replace('.','/') + SLASH : "") + WordUtils.uncapitalize(getName());
+  this.uri=SLASH + (StringUtils.isNotBlank(getPackageName()) ? getPackageName().replace('.','/') + SLASH : "") + WordUtils.uncapitalize(getName());
   String defaultClosureName=(String)getPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   Boolean tmp=(Boolean)getPropertyValue(SCAFFOLDING_PROPERTY,Boolean.class);
   if (tmp != null) {

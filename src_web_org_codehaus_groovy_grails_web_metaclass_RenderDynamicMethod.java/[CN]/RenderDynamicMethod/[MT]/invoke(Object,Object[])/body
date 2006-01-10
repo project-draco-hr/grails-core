@@ -25,12 +25,21 @@
         }
       }
  catch (      IOException ioe) {
-        throw new ControllerExecutionException(ioe.getMessage(),ioe);
+        throw new ControllerExecutionException("I/O error rendering text [" + text + "] to response: "+ ioe.getMessage(),ioe);
       }
       out.write(text);
     }
  else {
       throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+    }
+  }
+ else   if (arguments[0] instanceof Closure) {
+    try {
+      MarkupBuilder mkp=new MarkupBuilder(response.getWriter());
+      mkp.invokeMethod("doCall",new Object[]{arguments[0]});
+    }
+ catch (    IOException ioe) {
+      throw new ControllerExecutionException("I/O error rendering text markup from closure to response: " + ioe.getMessage(),ioe);
     }
   }
  else {

@@ -1,0 +1,8 @@
+{
+  begin2=begin1;
+  end2=--end1;
+  begin1=end1+=skip;
+  int lastState=state;
+  state=newState;
+  return lastState;
+}

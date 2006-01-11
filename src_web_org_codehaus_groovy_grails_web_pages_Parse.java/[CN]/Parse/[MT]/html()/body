@@ -1,0 +1,14 @@
+{
+  if (!finalPass)   return;
+  if (DEBUG)   System.out.println("parse: html");
+  StringBuffer text=new StringBuffer(scan.getToken());
+  while (text.length() > 80) {
+    int end=80;
+    while (text.charAt(end - 1) == '\\')     end--;
+    print(text.subSequence(0,end));
+    text.delete(0,end);
+  }
+  if (text.length() > 0) {
+    print(text);
+  }
+}

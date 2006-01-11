@@ -1,0 +1,7 @@
+{
+  if (finalPass)   return;
+  if (DEBUG)   System.out.println("parse: declare");
+  buf.append("\n");
+  write(scan.getToken().trim(),gsp);
+  buf.append("\n\n");
+}

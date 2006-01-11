@@ -10,6 +10,7 @@
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
   GroovyObject controller=getControllerInstance(controllerClass);
+  request.setAttribute(GrailsControllerClass.REQUEST_CONTROLLER,controller);
   if (this.interceptor == null) {
     try {
       interceptor=new ControllerDynamicMethods(controller,this,request,response);

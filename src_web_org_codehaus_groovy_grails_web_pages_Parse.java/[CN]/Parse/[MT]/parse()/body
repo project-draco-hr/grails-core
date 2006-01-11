@@ -1,0 +1,11 @@
+{
+  buf=new StringBuffer();
+  page();
+  finalPass=true;
+  scan.reset();
+  page();
+  InputStream out=new ByteArrayInputStream(buf.toString().getBytes());
+  buf=null;
+  scan=null;
+  return out;
+}

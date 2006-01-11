@@ -1,0 +1,49 @@
+{
+  if (DEBUG)   System.out.println("parse: page");
+  if (finalPass) {
+    buf.append("\nclass ");
+    buf.append(className);
+    buf.append(" extends Script {\n");
+    buf.append("public Object run() {\n");
+  }
+ else {
+    buf.append("import org.codehaus.groovy.grails.web.pages.GroovyPage\n");
+  }
+  loop:   for (; ; ) {
+    int state=scan.nextToken();
+switch (state) {
+case EOF:
+      break loop;
+case HTML:
+    html();
+  break;
+case JEXPR:
+expr();
+break;
+case JSCRIPT:
+script(false);
+break;
+case JDIRECT:
+direct();
+break;
+case JDECLAR:
+declare(false);
+break;
+case GEXPR:
+expr();
+break;
+case GSCRIPT:
+script(true);
+break;
+case GDIRECT:
+direct();
+break;
+case GDECLAR:
+declare(true);
+break;
+}
+}
+if (finalPass) {
+buf.append("}\n}\n");
+}
+}

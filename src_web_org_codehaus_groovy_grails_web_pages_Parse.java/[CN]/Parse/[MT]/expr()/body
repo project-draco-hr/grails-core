@@ -1,0 +1,8 @@
+{
+  if (!finalPass)   return;
+  if (DEBUG)   System.out.println("parse: expr");
+  buf.append("out.print(");
+  String text=scan.getToken().trim();
+  buf.append(GroovyPage.fromHtml(text));
+  buf.append(")\n");
+}

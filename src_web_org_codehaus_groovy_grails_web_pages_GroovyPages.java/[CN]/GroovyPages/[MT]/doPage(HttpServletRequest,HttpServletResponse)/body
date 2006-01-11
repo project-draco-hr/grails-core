@@ -1,0 +1,29 @@
+{
+  String pageId=getPageId(request);
+  URL pageUrl=getPageUrl(pageId);
+  if (pageUrl == null) {
+    context.log("GroovyPages:  \"" + pageUrl + "\" not found");
+    response.sendError(404,"\"" + pageUrl + "\" not found.");
+    return;
+  }
+  boolean spillGroovy=allowSpilling && request.getParameter("spillGroovy") != null;
+  PageMeta pageMeta=getPage(pageId,pageUrl,request.getServletPath(),spillGroovy);
+  Writer out=GroovyWriter.getInstance(response,8192);
+  try {
+    if (spillGroovy) {
+      response.setContentType("text/plain");
+      send(pageMeta.groovySource,out);
+      pageMeta.groovySource=null;
+    }
+ else {
+      response.setContentType("text/html");
+      Binding binding=getBinding(request,response,out);
+      Script page=InvokerHelper.createScript(pageMeta.servletScriptClass,binding);
+      page.run();
+    }
+  }
+  finally {
+    if (out != null)     out.close();
+    System.out.println("Done");
+  }
+}

@@ -2,11 +2,11 @@
   Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
   simpleGrailsController.setAutowire("byType");
   beanReferences.add(SpringConfigUtils.createBeanReference("simpleGrailsController",simpleGrailsController));
-  Bean internalResourceViewResolver=SpringConfigUtils.createSingletonBean(InternalResourceViewResolver.class);
-  internalResourceViewResolver.setProperty("viewClass",SpringConfigUtils.createLiteralValue("org.springframework.web.servlet.view.JstlView"));
-  internalResourceViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/grails-app/views"));
-  internalResourceViewResolver.setProperty("suffix",SpringConfigUtils.createLiteralValue(".jsp"));
-  beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",internalResourceViewResolver));
+  Bean grailsViewResolver=SpringConfigUtils.createSingletonBean(GrailsViewResolver.class);
+  grailsViewResolver.setProperty("viewClass",SpringConfigUtils.createLiteralValue("org.springframework.web.servlet.view.JstlView"));
+  grailsViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/grails-app/views"));
+  grailsViewResolver.setProperty("suffix",SpringConfigUtils.createLiteralValue(".jsp"));
+  beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",grailsViewResolver));
   Bean simpleUrlHandlerMapping=null;
   if (application.getControllers().length > 0 || application.getPageFlows().length > 0) {
     simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(GrailsUrlHandlerMapping.class);

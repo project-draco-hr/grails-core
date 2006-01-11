@@ -1,0 +1,20 @@
+{
+  if (trouble)   return;
+  super.flush();
+  if (out1 == null) {
+    try {
+      out1=response.getWriter();
+    }
+ catch (    IOException e) {
+      trouble=true;
+      return;
+    }
+  }
+  try {
+    out1.write(out0.toCharArray());
+    out0.reset();
+  }
+ catch (  IOException e) {
+    trouble=true;
+  }
+}

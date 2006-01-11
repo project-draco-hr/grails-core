@@ -1,0 +1,20 @@
+{
+  Binding binding=new Binding();
+  GroovyObject controller=(GroovyObject)request.getAttribute(GrailsControllerClass.REQUEST_CONTROLLER);
+  binding.setVariable("request",controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
+  binding.setVariable("response",controller.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY));
+  binding.setVariable("application",context);
+  binding.setVariable("session",controller.getProperty(GetSessionDynamicProperty.PROPERTY_NAME));
+  binding.setVariable("params",controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME));
+  binding.setVariable("out",out);
+  for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
+    String key=(String)attributeEnum.nextElement();
+    try {
+      binding.getVariable(key);
+    }
+ catch (    MissingPropertyException mpe) {
+      binding.setVariable(key,request.getAttribute(key));
+    }
+  }
+  return binding;
+}

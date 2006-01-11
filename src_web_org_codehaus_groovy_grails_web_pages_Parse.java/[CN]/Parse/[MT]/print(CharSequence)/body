@@ -1,0 +1,15 @@
+{
+  buf.append("out.print('");
+  for (int ix=0, ixz=text.length(); ix < ixz; ix++) {
+    char c=text.charAt(ix);
+    String rep=null;
+    if (c == '\n')     rep="\\n";
+ else     if (c == '\r')     rep="\\r";
+ else     if (c == '\t')     rep="\\t";
+ else     if (c == '\'')     rep="\\'";
+ else     if (c == '\\')     rep="\\\\";
+    if (rep != null)     buf.append(rep);
+ else     buf.append(c);
+  }
+  buf.append("')\n");
+}

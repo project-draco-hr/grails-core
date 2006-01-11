@@ -1,0 +1,7 @@
+{
+  if (finalPass)   return;
+  if (DEBUG)   System.out.println("parse: direct");
+  String text=scan.getToken();
+  text=text.trim();
+  if (text.startsWith("page "))   directPage(text);
+}

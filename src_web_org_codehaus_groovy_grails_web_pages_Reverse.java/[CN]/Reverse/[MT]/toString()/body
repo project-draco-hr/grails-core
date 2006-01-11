@@ -1,0 +1,8 @@
+{
+  int len=length();
+  StringBuffer buf=new StringBuffer(len);
+  for (int ix=anchor; ix >= start; ix--) {
+    buf.append(text.charAt(ix));
+  }
+  return buf.toString();
+}

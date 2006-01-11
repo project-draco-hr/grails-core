@@ -1,0 +1,4 @@
+{
+  int contextLength=request.getContextPath().length();
+  return request.getRequestURI().substring(contextLength).intern();
+}

@@ -1,0 +1,12 @@
+{
+  int slash=name.lastIndexOf('/');
+  if (slash >= 0)   name=name.substring(slash + 1);
+  StringBuffer buf=new StringBuffer(name.length());
+  for (int ix=0, ixz=name.length(); ix < ixz; ix++) {
+    char c=name.charAt(ix);
+    if (c < '0' || (c > '9' && c < '@') || (c > 'Z' && c < '_') || (c > '_' && c < 'a') || c > 'z')     c='_';
+ else     if (ix == 0 && c >= '0' && c <= '9')     c='_';
+    buf.append(c);
+  }
+  className=buf.toString();
+}

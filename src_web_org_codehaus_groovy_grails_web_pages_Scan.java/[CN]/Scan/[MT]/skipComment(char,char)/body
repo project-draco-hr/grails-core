@@ -1,0 +1,10 @@
+{
+  int ix=end1 + 3;
+  for (int ixz=len - 4; ; ix++) {
+    if (ix >= ixz)     return false;
+    if (text.charAt(ix) == '-' && text.charAt(ix + 1) == '-' && text.charAt(ix + 2) == c3 && text.charAt(ix + 3) == c4)     break;
+  }
+  text=text.substring(0,--end1) + text.substring(ix + 4);
+  len=text.length();
+  return true;
+}

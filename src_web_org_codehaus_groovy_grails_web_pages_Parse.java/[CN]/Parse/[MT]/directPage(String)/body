@@ -1,0 +1,12 @@
+{
+  text=text.substring(5).trim();
+  Pattern pat=Pattern.compile("(\\w+)\\s*=\\s*\"([^\"]*)\"");
+  Matcher mat=pat.matcher(text);
+  for (int ix=0; ; ) {
+    if (!mat.find(ix))     return;
+    String name=mat.group(1);
+    String value=mat.group(2);
+    if (name.equals("import"))     pageImport(value);
+    ix=mat.end();
+  }
+}

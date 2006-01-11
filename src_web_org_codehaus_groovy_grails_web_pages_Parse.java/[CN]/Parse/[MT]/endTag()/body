@@ -1,4 +1,5 @@
 {
   if (!finalPass)   return;
   buf.append("tag").append(tagIndex).append(".doEndTag()\n");
+  tagIndex--;
 }

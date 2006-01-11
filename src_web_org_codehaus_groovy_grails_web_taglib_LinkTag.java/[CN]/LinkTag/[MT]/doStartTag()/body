@@ -21,8 +21,8 @@
     attributes.put(LinkTagHandler.ATTRIBUTE_ID,evalId);
   }
   try {
-    GrailsTagHandler tagHandler=new LinkTagHandler((HttpServletRequest)pageContext.getRequest(),pageContext.getOut(),attributes);
-    tagHandler.doTag();
+    this.tagHandler=new LinkTagHandler((HttpServletRequest)pageContext.getRequest(),pageContext.getOut(),attributes);
+    tagHandler.doStartTag();
   }
  catch (  IOException e) {
     throw new JspTagException(e.getMessage(),e);

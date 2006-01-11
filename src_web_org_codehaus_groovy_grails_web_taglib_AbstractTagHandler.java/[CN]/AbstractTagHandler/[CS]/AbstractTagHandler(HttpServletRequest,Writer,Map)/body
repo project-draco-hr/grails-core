@@ -1,0 +1,11 @@
+{
+  if (out == null)   throw new IllegalArgumentException("The constructor argument 'out' cannot be null");
+  if (request == null)   throw new IllegalArgumentException("The constructor argument 'request' cannot be null");
+  this.out=out;
+  this.request=request;
+  if (attributes == null)   this.attributes=Collections.EMPTY_MAP;
+ else {
+    this.attributes=attributes;
+  }
+  this.contextPath=urlPathHelper.getContextPath(this.request);
+}

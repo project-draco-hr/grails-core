@@ -6,7 +6,7 @@
     response.sendError(404,"\"" + pageUrl + "\" not found.");
     return;
   }
-  boolean spillGroovy=allowSpilling && request.getParameter("spillGroovy") != null;
+  boolean spillGroovy=showSource && request.getParameter("spillGroovy") != null;
   PageMeta pageMeta=getPage(pageId,pageUrl,request.getServletPath(),spillGroovy);
   Writer out=GroovyWriter.getInstance(response,8192);
   try {
@@ -24,6 +24,5 @@
   }
   finally {
     if (out != null)     out.close();
-    System.out.println("Done");
   }
 }

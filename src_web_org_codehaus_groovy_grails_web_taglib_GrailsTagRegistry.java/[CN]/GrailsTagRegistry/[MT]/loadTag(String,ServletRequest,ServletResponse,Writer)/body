@@ -1,0 +1,24 @@
+{
+  if (tagRegistry.containsKey(tagName)) {
+    Class tagClass=(Class)tagRegistry.get(tagName);
+    GrailsTag tag;
+    try {
+      tag=(GrailsTag)tagClass.newInstance();
+    }
+ catch (    InstantiationException e) {
+      throw new GrailsTagException("Instantiation error loading tag [" + tagName + "]: "+ e.getMessage(),e);
+    }
+catch (    IllegalAccessException e) {
+      throw new GrailsTagException("Illegal access error loading tag [" + tagName + "]: "+ e.getMessage(),e);
+    }
+    DefaultGrailsTagContext context=new DefaultGrailsTagContext();
+    context.setRequest(request);
+    context.setResponse(response);
+    if (out != null)     context.setOut(out);
+    tag.init(context);
+    return tag;
+  }
+ else {
+    throw new GrailsTagException("Tag [" + tagName + "] is not a a valid grails tag");
+  }
+}

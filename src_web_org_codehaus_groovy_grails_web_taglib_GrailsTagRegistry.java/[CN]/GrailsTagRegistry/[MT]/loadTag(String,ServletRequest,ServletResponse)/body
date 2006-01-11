@@ -1,0 +1,8 @@
+{
+  try {
+    return loadTag(tagName,request,response,response.getWriter());
+  }
+ catch (  IOException e) {
+    throw new GrailsTagException("I/O error retrieving response writer for [" + tagName + "]:"+ e.getMessage(),e);
+  }
+}

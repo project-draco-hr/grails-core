@@ -1,0 +1,17 @@
+{
+  if (context == null)   throw new IllegalArgumentException("Argument 'context' cannot be null");
+  try {
+    this.out=context.getOut();
+  }
+ catch (  IOException e) {
+    throw new GrailsTagException("I/O error obtaining response writer: " + e.getMessage(),e);
+  }
+  this.request=context.getRequest();
+  this.bean=new BeanWrapperImpl(this);
+  if (context.getAttributes() == null)   this.attributes=new HashMap();
+ else {
+    this.attributes=context.getAttributes();
+  }
+  this.contextPath=urlPathHelper.getContextPath((HttpServletRequest)this.request);
+  this.init=true;
+}

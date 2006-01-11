@@ -5,9 +5,9 @@
   Writer out=super.pageContext.getOut();
   Map attributes=new HashMap();
   attributes.putAll(this.dyanmicAttributes);
-  attributes.put(LinkTagHandler.ATTRIBUTE_CONTROLLER,controller);
+  attributes.put(LinkTag.ATTRIBUTE_CONTROLLER,controller);
   if (!StringUtils.isBlank(action)) {
-    attributes.put(LinkTagHandler.ATTRIBUTE_ACTION,action);
+    attributes.put(LinkTag.ATTRIBUTE_ACTION,action);
   }
   if (!StringUtils.isBlank(id)) {
     Object evalId;
@@ -18,11 +18,13 @@
       evalId=pageContext.findAttribute(id);
       if (evalId == null)       evalId=id;
     }
-    attributes.put(LinkTagHandler.ATTRIBUTE_ID,evalId);
+    attributes.put(LinkTag.ATTRIBUTE_ID,evalId);
   }
   try {
-    this.tagHandler=new LinkTagHandler((HttpServletRequest)pageContext.getRequest(),pageContext.getOut(),attributes);
-    tagHandler.doStartTag();
+    GrailsTagRegistry tagRegistry=GrailsTagRegistry.getInstance();
+    this.tag=tagRegistry.loadTag(LinkTag.TAG_NAME,(HttpServletRequest)pageContext.getRequest(),(HttpServletResponse)pageContext.getResponse());
+    this.tag.setAttributes(attributes);
+    tag.doStartTag();
   }
  catch (  IOException e) {
     throw new JspTagException(e.getMessage(),e);

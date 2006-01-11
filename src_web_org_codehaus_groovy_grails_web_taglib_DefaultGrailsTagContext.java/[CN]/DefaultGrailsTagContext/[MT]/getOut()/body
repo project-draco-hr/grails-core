@@ -1,0 +1,4 @@
+{
+  if (out == null)   return response.getWriter();
+  return this.out;
+}

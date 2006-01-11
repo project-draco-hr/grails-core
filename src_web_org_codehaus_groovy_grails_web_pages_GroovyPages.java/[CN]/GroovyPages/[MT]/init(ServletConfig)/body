@@ -3,5 +3,5 @@
   context.log("Groovy servlet initialized");
   parent=Thread.currentThread().getContextClassLoader();
   if (parent == null)   parent=getClass().getClassLoader();
-  allowSpilling=config.getInitParameter("allowSpilling") != null;
+  showSource=config.getInitParameter("showSource") != null;
 }

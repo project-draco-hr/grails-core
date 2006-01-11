@@ -7,6 +7,7 @@
   binding.setVariable("session",controller.getProperty(GetSessionDynamicProperty.PROPERTY_NAME));
   binding.setVariable("params",controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME));
   binding.setVariable("out",out);
+  binding.setVariable("grailsTagRegistry",GrailsTagRegistry.getInstance());
   for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
     String key=(String)attributeEnum.nextElement();
     try {

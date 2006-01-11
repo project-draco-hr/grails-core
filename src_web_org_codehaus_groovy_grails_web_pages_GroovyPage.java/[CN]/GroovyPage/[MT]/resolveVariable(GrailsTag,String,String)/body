@@ -1,0 +1,11 @@
+{
+  if (tag.isDynamicAttribute(attr)) {
+    return expr;
+  }
+ else   if (expr.startsWith("${") && expr.endsWith("}")) {
+    return '\"' + expr + '\"';
+  }
+ else {
+    return '\'' + expr + '\'';
+  }
+}

@@ -1,9 +1,9 @@
 {
-  try {
+  if (name.startsWith("${") && name.endsWith("}")) {
     Binding b=getBinding();
     return b.getVariable(name);
   }
- catch (  GroovyRuntimeException gre) {
+ else {
     return name;
   }
 }

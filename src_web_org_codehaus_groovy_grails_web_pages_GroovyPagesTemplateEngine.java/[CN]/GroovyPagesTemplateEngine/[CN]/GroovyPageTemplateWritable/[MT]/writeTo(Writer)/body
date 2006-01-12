@@ -1,0 +1,14 @@
+{
+  if (showSource) {
+    response.setContentType("text/plain");
+    send(pageMeta.groovySource,out);
+    pageMeta.groovySource=null;
+  }
+ else {
+    response.setContentType("text/html");
+    Binding binding=getBinding(request,response,out);
+    Script page=InvokerHelper.createScript(pageMeta.servletScriptClass,binding);
+    page.run();
+  }
+  return out;
+}

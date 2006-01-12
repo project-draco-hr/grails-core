@@ -1,0 +1,15 @@
+{
+synchronized (pageId) {
+    URLConnection groovyScriptConn=pageUrl.openConnection();
+    long lastModified=groovyScriptConn.getLastModified();
+    PageMeta pageMeta=(PageMeta)pageCache.get(pageId);
+    boolean dependencyOutOfDate=false;
+    if (pageMeta != null && !spillGroovy) {
+      isPageNew(pageMeta);
+    }
+    if (pageMeta == null || pageMeta.lastModified < lastModified || dependencyOutOfDate || spillGroovy) {
+      pageMeta=newPage(pageId,context,servletPath,groovyScriptConn,lastModified,spillGroovy);
+    }
+    return pageMeta;
+  }
+}

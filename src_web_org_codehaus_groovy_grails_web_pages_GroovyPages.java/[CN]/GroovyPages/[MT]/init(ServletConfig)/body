@@ -1,7 +1,0 @@
-{
-  context=config.getServletContext();
-  context.log("Groovy servlet initialized");
-  parent=Thread.currentThread().getContextClassLoader();
-  if (parent == null)   parent=getClass().getClassLoader();
-  showSource=config.getInitParameter("showSource") != null;
-}

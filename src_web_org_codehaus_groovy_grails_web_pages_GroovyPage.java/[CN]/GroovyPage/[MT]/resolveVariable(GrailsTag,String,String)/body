@@ -3,9 +3,9 @@
     return expr;
   }
  else   if (expr.startsWith("${") && expr.endsWith("}")) {
-    return '\"' + expr + '\"';
+    return expr;
   }
  else {
-    return '\'' + expr + '\'';
+    return expr;
   }
 }

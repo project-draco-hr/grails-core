@@ -1,0 +1,5 @@
+{
+  GroovyPageTemplateWritable gptw=new GroovyPageTemplateWritable(context,request,response,pageMeta,showSource);
+  gptw.setBinding(binding);
+  return gptw;
+}

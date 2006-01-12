@@ -1,0 +1,18 @@
+{
+  String pageId=engine.getPageId(request);
+  URL pageUrl=engine.getPageUrl(context,pageId);
+  if (pageUrl == null) {
+    context.log("GroovyPagesServlet:  \"" + pageUrl + "\" not found");
+    response.sendError(404,"\"" + pageUrl + "\" not found.");
+    return;
+  }
+  Template t=engine.createTemplate(context,request,response);
+  Writable w=t.make();
+  Writer out=GroovyWriter.getInstance(response,8192);
+  try {
+    w.writeTo(out);
+  }
+  finally {
+    if (out != null)     out.close();
+  }
+}

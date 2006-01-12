@@ -4,8 +4,10 @@
   parent=Thread.currentThread().getContextClassLoader();
   if (parent == null)   parent=getClass().getClassLoader();
   showSource=config.getInitParameter("showSource") != null;
+  this.engine=(GroovyPagesTemplateEngine)context.getAttribute(GSP_TEMPLATE_ENGINE);
   if (this.engine == null) {
     this.engine=new GroovyPagesTemplateEngine();
     this.engine.setShowSource(this.showSource);
+    context.setAttribute(GSP_TEMPLATE_ENGINE,this.engine);
   }
 }

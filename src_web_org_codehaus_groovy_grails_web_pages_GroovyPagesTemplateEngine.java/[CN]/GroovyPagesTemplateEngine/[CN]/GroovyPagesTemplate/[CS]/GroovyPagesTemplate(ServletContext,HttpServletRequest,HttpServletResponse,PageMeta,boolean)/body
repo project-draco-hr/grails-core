@@ -2,6 +2,6 @@
   this.request=request;
   this.response=response;
   this.context=context;
-  this.showSource=showSource && request.getParameter("showSource") != null;
+  this.showSource=showSource;
   this.pageMeta=pageMeta;
 }

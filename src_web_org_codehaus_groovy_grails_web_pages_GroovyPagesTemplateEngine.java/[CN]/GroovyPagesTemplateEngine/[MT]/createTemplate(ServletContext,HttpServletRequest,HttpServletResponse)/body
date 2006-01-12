@@ -9,5 +9,5 @@
   }
   boolean spillGroovy=showSource && request.getParameter("showSource") != null;
   PageMeta pageMeta=getPage(pageId,context,pageUrl,request.getServletPath(),spillGroovy);
-  return new GroovyPagesTemplate(context,request,response,pageMeta);
+  return new GroovyPagesTemplate(context,request,response,pageMeta,spillGroovy);
 }

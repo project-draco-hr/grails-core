@@ -22,7 +22,7 @@
   }
   try {
     GrailsTagRegistry tagRegistry=GrailsTagRegistry.getInstance();
-    this.tag=tagRegistry.loadTag(LinkTag.TAG_NAME,(HttpServletRequest)pageContext.getRequest(),(HttpServletResponse)pageContext.getResponse());
+    this.tag=tagRegistry.loadTag(LinkTag.TAG_NAME,pageContext.getServletContext(),(HttpServletRequest)pageContext.getRequest(),(HttpServletResponse)pageContext.getResponse());
     this.tag.setAttributes(attributes);
     tag.doStartTag();
   }

@@ -2,12 +2,5 @@
   parent=Thread.currentThread().getContextClassLoader();
   if (parent == null)   parent=getClass().getClassLoader();
   String uri=getPageId(request);
-  URL pageUrl=getPageUrl(context,uri);
-  if (pageUrl == null) {
-    context.log("GroovyPagesServlet:  \"" + pageUrl + "\" not found");
-    return null;
-  }
-  boolean spillGroovy=showSource && request.getParameter("showSource") != null;
-  PageMeta pageMeta=getPage(uri,context,pageUrl,spillGroovy);
-  return new GroovyPagesTemplate(context,request,response,pageMeta,spillGroovy);
+  return createTemplate(uri,context,request,response);
 }

@@ -1,0 +1,29 @@
+{
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass(bean.getClass().getName());
+  if (domainClass != null) {
+    this.constrainedProperties=domainClass.getConstrainedProperties();
+  }
+  this.beanWrapper=new BeanWrapperImpl(bean);
+  PropertyDescriptor pd=this.beanWrapper.getPropertyDescriptor(property);
+  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)servletContext.getAttribute(GroovyPagesServlet.GSP_TEMPLATE_ENGINE);
+  String uri=findUriForType(pd.getPropertyType());
+  Template t=null;
+  try {
+    t=engine.createTemplate(uri,servletContext,(HttpServletRequest)request,(HttpServletResponse)response);
+  }
+ catch (  ServletException e) {
+    throw new GrailsTagException("Error creating template for type [" + pd.getPropertyType() + "] by tag [scaffold]: "+ e.getMessage(),e);
+  }
+  if (t == null)   throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag [scaffold]. No template found.");
+  Map binding=new HashMap();
+  binding.put("name",pd.getName());
+  binding.put("value",this.beanWrapper.getPropertyValue(property));
+  if (this.constrainedProperties.containsKey(property)) {
+    binding.put("constraints",this.constrainedProperties.get(property));
+  }
+ else {
+    binding.put("constraints",null);
+  }
+  Writable w=t.make(binding);
+  w.writeTo(out);
+}

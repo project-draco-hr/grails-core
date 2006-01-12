@@ -7,6 +7,10 @@
     throw new GrailsTagException("I/O error obtaining response writer: " + e.getMessage(),e);
   }
   this.request=context.getRequest();
+  this.servletContext=context.getServletContext();
+  this.response=context.getResponse();
+  this.applicationContext=RequestContextUtils.getWebApplicationContext(request,servletContext);
+  this.grailsApplication=(GrailsApplication)this.applicationContext.getBean(GrailsApplication.APPLICATION_ID);
   this.bean=new BeanWrapperImpl(this);
   if (context.getAttributes() == null)   this.attributes=new HashMap();
  else {

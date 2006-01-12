@@ -1,0 +1,25 @@
+{
+  if (StringUtils.isBlank(property)) {
+    throw new JspTagException("Tag [scaffold] missing required attribute [property]");
+  }
+  if (StringUtils.isBlank(bean)) {
+    throw new JspTagException("Tag [scaffold] missing required attribute [bean]");
+  }
+  if (!ExpressionEvaluationUtils.isExpressionLanguage(bean)) {
+    throw new JspTagException("Attribute [bean] of tag [scaffold] must be a JSTL expression");
+  }
+  Writer out=pageContext.getOut();
+  try {
+    Object beanInstance=ExpressionEvaluationUtils.evaluate("bean",this.bean,Object.class,this.pageContext);
+    if (beanInstance == null)     throw new JspTagException("Bean [" + this.bean + "] referenced by tag [scaffold] cannot be null");
+    GrailsTagRegistry tagRegistry=GrailsTagRegistry.getInstance();
+    RenderInputTag tag=(RenderInputTag)tagRegistry.loadTag(RenderInputTag.TAG_NAME,pageContext.getServletContext(),(HttpServletRequest)pageContext.getRequest(),(HttpServletResponse)pageContext.getResponse());
+    tag.setBean(beanInstance);
+    tag.setProperty(property);
+    tag.doStartTag();
+  }
+ catch (  InvalidPropertyException ipe) {
+    throw new JspException("Attribute [property] with value [" + property + "] is not a valid property of bean ["+ bean+ "] in tag [scaffold]",ipe);
+  }
+  return SKIP_BODY;
+}

@@ -6,7 +6,7 @@
   if (text.indexOf(' ') > -1) {
     String[] tagTokens=text.split(" ");
     String tagName=tagTokens[0].trim();
-    buf.append(tagName).append("',request,response,out)\n");
+    buf.append(tagName).append("',application,request,response,out)\n");
     for (int i=1; i < tagTokens.length; i++) {
       if (tagTokens[i].indexOf('=') > -1) {
         String[] attr=tagTokens[i].split("=");
@@ -17,7 +17,7 @@
     }
   }
  else {
-    buf.append(text).append("',request,response,out)\n");
+    buf.append(text).append("',application,request,response,out)\n");
   }
   buf.append("tag").append(tagIndex).append(".doStartTag()").append('\n');
 }

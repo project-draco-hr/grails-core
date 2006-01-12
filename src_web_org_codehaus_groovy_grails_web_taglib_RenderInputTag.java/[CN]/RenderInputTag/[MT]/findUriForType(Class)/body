@@ -1,0 +1,14 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[JspRenderInputTag] Attempting to retrieve template for type [" + type + "]");
+  }
+  String templateUri;
+  if (cachedUris.containsKey(type)) {
+    templateUri=(String)cachedUris.get(type);
+  }
+ else {
+    templateUri=locateTemplateUrl(type);
+    cachedUris.put(type,templateUri);
+  }
+  return templateUri;
+}

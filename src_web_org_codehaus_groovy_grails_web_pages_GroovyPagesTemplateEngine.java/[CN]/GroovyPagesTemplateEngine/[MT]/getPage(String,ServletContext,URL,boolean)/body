@@ -1,14 +1,14 @@
 {
-synchronized (pageId) {
+synchronized (uri) {
     URLConnection groovyScriptConn=pageUrl.openConnection();
     long lastModified=groovyScriptConn.getLastModified();
-    PageMeta pageMeta=(PageMeta)pageCache.get(pageId);
+    PageMeta pageMeta=(PageMeta)pageCache.get(uri);
     boolean dependencyOutOfDate=false;
     if (pageMeta != null && !spillGroovy) {
       isPageNew(pageMeta);
     }
     if (pageMeta == null || pageMeta.lastModified < lastModified || dependencyOutOfDate || spillGroovy) {
-      pageMeta=newPage(pageId,context,servletPath,groovyScriptConn,lastModified,spillGroovy);
+      pageMeta=newPage(uri,context,groovyScriptConn,lastModified,spillGroovy);
     }
     return pageMeta;
   }

@@ -1,9 +1,12 @@
 {
-  if (tag.isDynamicAttribute(attr)) {
-    return getBinding().getVariable(expr);
-  }
- else   if (expr.startsWith("${") && expr.endsWith("}")) {
-    return expr;
+  if (expr.startsWith("${") && expr.endsWith("}")) {
+    expr=expr.substring(2,expr.length() - 1);
+    try {
+      return getBinding().getVariable(expr);
+    }
+ catch (    MissingPropertyException mpe) {
+      return evaluate(expr);
+    }
   }
  else {
     return expr;

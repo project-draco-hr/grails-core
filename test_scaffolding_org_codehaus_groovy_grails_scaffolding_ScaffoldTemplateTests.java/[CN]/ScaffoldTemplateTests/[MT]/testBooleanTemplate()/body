@@ -1,6 +1,6 @@
 {
   SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
-  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.lang.Boolean.template"));
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.lang.Boolean.gsp"));
   Map binding=new HashMap();
   binding.put("name","testBoolean");
   binding.put("value",new Boolean(true));

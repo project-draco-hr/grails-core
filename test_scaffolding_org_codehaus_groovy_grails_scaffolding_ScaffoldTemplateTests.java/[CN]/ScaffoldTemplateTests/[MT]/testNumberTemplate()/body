@@ -1,6 +1,6 @@
 {
   SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
-  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.lang.Number.template"));
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.lang.Number.gsp"));
   Map binding=new HashMap();
   binding.put("name","testNumber");
   binding.put("value",new Integer(50));

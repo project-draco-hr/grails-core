@@ -1,6 +1,6 @@
 {
   SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
-  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.util.TimeZone.template"));
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.util.TimeZone.gsp"));
   Map binding=new HashMap();
   binding.put("name","testTimeZone");
   binding.put("value",TimeZone.getDefault());

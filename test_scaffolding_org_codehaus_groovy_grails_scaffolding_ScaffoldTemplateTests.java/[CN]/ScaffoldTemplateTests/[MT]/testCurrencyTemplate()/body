@@ -1,6 +1,6 @@
 {
   SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
-  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.util.Currency.template"));
+  Template template=templateEngine.createTemplate(new File("src/grails/templates/grails-app/views/scaffolding/java.util.Currency.gsp"));
   Map binding=new HashMap();
   binding.put("name","testCurrency");
   binding.put("value",Currency.getInstance(Locale.getDefault()));

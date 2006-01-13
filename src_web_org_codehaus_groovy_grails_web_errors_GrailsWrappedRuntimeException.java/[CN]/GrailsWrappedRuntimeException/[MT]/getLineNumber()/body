@@ -1,6 +1,3 @@
 {
-  if (getNode() != null) {
-    return getNode().getLineNumber();
-  }
   return lineNumber;
 }

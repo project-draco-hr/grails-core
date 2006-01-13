@@ -1,6 +1,6 @@
 {
   if (!gsp) {
-    buf.append(text);
+    out.print(text);
     return;
   }
   for (int ix=0, ixz=text.length(); ix < ixz; ix++) {
@@ -46,7 +46,7 @@
         }
       }
     }
-    if (rep != null)     buf.append(rep);
- else     buf.append(c);
+    if (rep != null)     out.print(rep);
+ else     out.print(c);
   }
 }

@@ -2,22 +2,38 @@
   if (!finalPass)   return;
   tagIndex++;
   String text=scan.getToken().trim();
-  buf.append("tag").append(tagIndex).append("= grailsTagRegistry.loadTag('");
+  out.print("tag");
+  out.print(tagIndex);
+  out.print("= grailsTagRegistry.loadTag('");
   if (text.indexOf(' ') > -1) {
     String[] tagTokens=text.split(" ");
     String tagName=tagTokens[0].trim();
-    buf.append(tagName).append("',application,request,response,out)\n");
+    out.print(tagName);
+    out.println("',application,request,response,out)");
     for (int i=1; i < tagTokens.length; i++) {
       if (tagTokens[i].indexOf('=') > -1) {
         String[] attr=tagTokens[i].split("=");
         String name=attr[0].trim();
         String val=attr[1].trim().substring(1,attr[1].length() - 1);
-        buf.append("tag").append(tagIndex).append(".setAttribute('").append(name).append("', resolveVariable(tag").append(tagIndex).append(",'").append(name).append("','").append(val).append("'))\n");
+        out.print("tag");
+        out.print(tagIndex);
+        out.print(".setAttribute('");
+        out.print(name);
+        out.print("', resolveVariable(tag");
+        out.print(tagIndex);
+        out.print(",'");
+        out.print(name);
+        out.print("','");
+        out.print(val);
+        out.println("'))");
       }
     }
   }
  else {
-    buf.append(text).append("',application,request,response,out)\n");
+    out.print(text);
+    out.println("',application,request,response,out)");
   }
-  buf.append("tag").append(tagIndex).append(".doStartTag()").append('\n');
+  out.print("tag");
+  out.print(tagIndex);
+  out.println(".doStartTag()");
 }

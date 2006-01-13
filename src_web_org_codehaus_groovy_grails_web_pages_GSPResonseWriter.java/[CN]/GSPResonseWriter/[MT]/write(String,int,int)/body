@@ -1,0 +1,7 @@
+{
+  if (trouble || s == null || s.length() == 0)   return;
+  super.write(s,off,len);
+  if (out0.size() >= max) {
+    flush();
+  }
+}

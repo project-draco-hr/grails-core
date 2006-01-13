@@ -1,11 +1,12 @@
 {
-  buf=new StringBuffer();
+  sw=new StringWriter();
+  out=new GSPWriter(sw);
   page();
   finalPass=true;
   scan.reset();
   page();
-  InputStream out=new ByteArrayInputStream(buf.toString().getBytes());
-  buf=null;
+  InputStream in=new ByteArrayInputStream(sw.toString().getBytes());
+  out=null;
   scan=null;
-  return out;
+  return in;
 }

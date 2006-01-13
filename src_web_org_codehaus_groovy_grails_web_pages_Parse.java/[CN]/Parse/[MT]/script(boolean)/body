@@ -1,7 +1,8 @@
 {
   if (!finalPass)   return;
-  if (DEBUG)   System.out.println("parse: script");
-  buf.append("\n");
+  if (LOG.isDebugEnabled())   LOG.debug("parse: script");
+  out.println();
   write(scan.getToken().trim(),gsp);
-  buf.append("\n\n");
+  out.println();
+  out.println();
 }

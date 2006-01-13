@@ -1,5 +1,6 @@
 {
-  buf.append("out.print('");
+  StringBuffer buf=new StringBuffer();
+  buf.append('\'');
   for (int ix=0, ixz=text.length(); ix < ixz; ix++) {
     char c=text.charAt(ix);
     String rep=null;
@@ -11,5 +12,6 @@
     if (rep != null)     buf.append(rep);
  else     buf.append(c);
   }
-  buf.append("')\n");
+  buf.append('\'');
+  out.printlnToOut(buf.toString());
 }

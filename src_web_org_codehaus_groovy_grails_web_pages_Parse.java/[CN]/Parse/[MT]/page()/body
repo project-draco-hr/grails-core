@@ -1,14 +1,15 @@
 {
-  if (DEBUG)   System.out.println("parse: page");
+  if (LOG.isDebugEnabled())   LOG.debug("parse: page");
   if (finalPass) {
-    buf.append("\nclass ");
-    buf.append(className);
-    buf.append(" extends GroovyPage {\n");
-    buf.append("public Object run() {\n");
+    out.println();
+    out.print("class ");
+    out.print(className);
+    out.println(" extends GroovyPage {");
+    out.println("public Object run() {");
   }
  else {
-    buf.append("import org.codehaus.groovy.grails.web.pages.GroovyPage\n");
-    buf.append("import org.codehaus.groovy.grails.web.taglib.*\n");
+    out.println("import org.codehaus.groovy.grails.web.pages.GroovyPage");
+    out.println("import org.codehaus.groovy.grails.web.taglib.*");
   }
   loop:   for (; ; ) {
     int state=scan.nextToken();
@@ -51,6 +52,7 @@ break;
 }
 }
 if (finalPass) {
-buf.append("}\n}\n");
+out.println("}");
+out.println("}");
 }
 }

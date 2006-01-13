@@ -1,6 +1,6 @@
 {
   if (!finalPass)   return;
-  if (DEBUG)   System.out.println("parse: html");
+  if (LOG.isDebugEnabled())   LOG.debug("parse: html");
   StringBuffer text=new StringBuffer(scan.getToken());
   while (text.length() > 80) {
     int end=80;

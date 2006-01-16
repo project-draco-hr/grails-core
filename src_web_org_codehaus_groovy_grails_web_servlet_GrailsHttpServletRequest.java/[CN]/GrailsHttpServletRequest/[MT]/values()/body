@@ -1,3 +1,9 @@
 {
-  return getRequest().getParameterMap().values();
+  Collection values=new ArrayList();
+  ServletRequest r=getRequest();
+  while (r.getAttributeNames().hasMoreElements()) {
+    String s=(String)r.getAttributeNames().nextElement();
+    values.add(r.getAttribute(s));
+  }
+  return values;
 }

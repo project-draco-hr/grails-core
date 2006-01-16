@@ -1,3 +1,4 @@
 {
-  throw new UnsupportedOperationException();
+  if (key instanceof String)   getRequest().setAttribute((String)key,value);
+  return value;
 }

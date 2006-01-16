@@ -1,4 +1,4 @@
 {
-  if (controllerParams.containsKey(key))   return controllerParams.get(key);
- else   return getRequest().getParameterMap().get(key);
+  if (key instanceof String)   return getRequest().getAttribute((String)key);
+ else   return null;
 }

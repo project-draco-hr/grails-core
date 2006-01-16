@@ -6,14 +6,21 @@
   if (!uri.startsWith("/"))   uri='/' + uri;
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
   GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  GrailsTagLibClass tagLibClass=this.application.getTagLibClassForController(controllerClass.getFullName());
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
   GroovyObject controller=getControllerInstance(controllerClass);
+  GroovyObject tagLib=null;
+  if (tagLibClass != null) {
+    tagLib=(GroovyObject)this.applicationContext.getBean(tagLibClass.getFullName());
+  }
+  request.setAttribute(GrailsTagLibClass.REQUEST_TAG_LIB,tagLib);
   request.setAttribute(GrailsControllerClass.REQUEST_CONTROLLER,controller);
   if (this.interceptor == null) {
     try {
       interceptor=new ControllerDynamicMethods(controller,this,request,response);
+      if (tagLib != null)       new TagLibDynamicMethods(tagLib,controller,request,response);
     }
  catch (    IntrospectionException ie) {
       throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);

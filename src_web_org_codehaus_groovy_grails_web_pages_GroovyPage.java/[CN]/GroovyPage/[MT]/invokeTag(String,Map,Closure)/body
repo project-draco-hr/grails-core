@@ -1,0 +1,33 @@
+{
+  Binding binding=getBinding();
+  Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
+  GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsTagLibClass.REQUEST_TAG_LIB);
+  if (tagLib != null) {
+    tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
+    Object tagLibProp;
+    try {
+      tagLibProp=tagLib.getProperty(tagName);
+    }
+ catch (    MissingPropertyException mpe) {
+      throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
+    }
+    if (tagLibProp instanceof Closure) {
+      Closure tag=(Closure)tagLibProp;
+      if (tag.getParameterTypes().length == 1) {
+        tag.call(new Object[]{attrs});
+        if (body != null) {
+          body.call();
+        }
+      }
+      if (tag.getParameterTypes().length == 2) {
+        tag.call(new Object[]{attrs,body});
+      }
+    }
+ else {
+      throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
+    }
+  }
+ else {
+    throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag library found.");
+  }
+}

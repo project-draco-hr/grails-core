@@ -1,0 +1,4 @@
+{
+  this.tagContext=tagContext;
+  this.out=(PrintWriter)tagContext.get(GroovyPage.OUT);
+}

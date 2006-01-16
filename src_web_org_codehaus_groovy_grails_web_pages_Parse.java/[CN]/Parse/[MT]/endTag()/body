@@ -1,7 +1,23 @@
 {
   if (!finalPass)   return;
-  out.print("tag");
-  out.print(tagIndex);
-  out.println(".doEndTag()\n");
+  String lastInStack=(String)this.tagNameStack.remove(this.tagNameStack.size() - 1);
+  String tagName=scan.getToken().trim();
+  if (StringUtils.isBlank(tagName))   tagName=lastInStack;
+  if (!lastInStack.equals(tagName)) {
+    throw new GrailsTagException("Grails tag [" + tagName + "] was not closed");
+  }
+  if (tagRegistry.isSyntaxTag(tagName)) {
+    GrailsTag tag=(GrailsTag)this.syntaxTagStack.remove(this.syntaxTagStack.size() - 1);
+    tag.doEndTag();
+  }
+ else   if (tagRegistry.isRequestContextTag(tagName)) {
+    out.print("tag");
+    out.print(tagIndex);
+    out.println(".doEndTag()\n");
+  }
+ else {
+    out.println('}');
+    out.println("invokeTag('" + tagName + "',attrs"+ tagIndex+ ",body"+ tagIndex+ ")");
+  }
   tagIndex--;
 }

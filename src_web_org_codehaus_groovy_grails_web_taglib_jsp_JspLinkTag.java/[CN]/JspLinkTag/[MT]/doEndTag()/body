@@ -1,9 +1,4 @@
 {
-  try {
-    tag.doEndTag();
-  }
- catch (  IOException e) {
-    throw new JspException(e.getMessage(),e);
-  }
+  tag.doEndTag();
   return super.doEndTag();
 }

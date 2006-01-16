@@ -1,3 +1,8 @@
 {
-  out.write("</a>");
+  try {
+    out.write("</a>");
+  }
+ catch (  IOException e) {
+    throw new GrailsTagException("I/O error writing tag [" + getName() + "] to writer: "+ e.getMessage(),e);
+  }
 }

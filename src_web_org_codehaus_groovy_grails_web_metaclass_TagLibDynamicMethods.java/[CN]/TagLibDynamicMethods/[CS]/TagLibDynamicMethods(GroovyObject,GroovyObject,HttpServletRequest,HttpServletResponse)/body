@@ -1,0 +1,8 @@
+{
+  super(taglib);
+  addDynamicProperty(new GenericDynamicProperty(OUT_PROPERTY,Writer.class,false));
+  addDynamicProperty(new GetParamsDynamicProperty(request,response));
+  addDynamicProperty(new GetSessionDynamicProperty(request,response));
+  addDynamicProperty(new GenericDynamicProperty(REQUEST_PROPERTY,HttpServletRequest.class,new GrailsHttpServletRequest(request,controller),true));
+  addDynamicProperty(new GenericDynamicProperty(RESPONSE_PROPERTY,HttpServletResponse.class,response,true));
+}

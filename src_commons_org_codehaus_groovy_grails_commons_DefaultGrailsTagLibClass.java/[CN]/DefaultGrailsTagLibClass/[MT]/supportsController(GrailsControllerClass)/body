@@ -1,0 +1,8 @@
+{
+  if (controllerClass == null)   return false;
+  if (getName().equals(APPLICATION_TAG_LIB))   return true;
+ else {
+    if (getName().equals(controllerClass.getName()))     return true;
+  }
+  return false;
+}

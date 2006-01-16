@@ -13,7 +13,12 @@
     Object beanInstance=ExpressionEvaluationUtils.evaluate("bean",this.bean,Object.class,this.pageContext);
     if (beanInstance == null)     throw new JspTagException("Bean [" + this.bean + "] referenced by tag [scaffold] cannot be null");
     GrailsTagRegistry tagRegistry=GrailsTagRegistry.getInstance();
-    RenderInputTag tag=(RenderInputTag)tagRegistry.loadTag(RenderInputTag.TAG_NAME,pageContext.getServletContext(),pageContext.getRequest(),pageContext.getResponse());
+    Map tagContext=new HashMap();
+    tagContext.put(GroovyPage.REQUEST,pageContext.getRequest());
+    tagContext.put(GroovyPage.RESPONSE,pageContext.getResponse());
+    tagContext.put(GroovyPage.SERVLET_CONTEXT,pageContext.getServletContext());
+    RenderInputTag tag=(RenderInputTag)tagRegistry.newTag(RenderInputTag.TAG_NAME);
+    tag.init(tagContext);
     tag.setBean(beanInstance);
     tag.setProperty(property);
     tag.doStartTag();

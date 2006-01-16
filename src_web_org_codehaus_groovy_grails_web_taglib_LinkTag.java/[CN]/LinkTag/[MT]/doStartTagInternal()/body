@@ -16,5 +16,10 @@
     }
   }
   buf.append('>');
-  out.write(buf.toString());
+  try {
+    out.write(buf.toString());
+  }
+ catch (  IOException e) {
+    throw new GrailsTagException("I/O error writing tag [" + getName() + "] to writer: "+ e.getMessage(),e);
+  }
 }

@@ -1,0 +1,18 @@
+{
+  this.controller2TagMap=new HashMap();
+  for (int i=0; i < controllerClasses.length; i++) {
+    GrailsControllerClass controllerClass=controllerClasses[i];
+    boolean found=false;
+    for (int j=0; j < taglibClasses.length; j++) {
+      GrailsTagLibClass taglibClass=taglibClasses[j];
+      if (controllerClass.getName().equals(taglibClass.getName())) {
+        this.controller2TagMap.put(controllerClass.getFullName(),taglibClass);
+        found=true;
+        break;
+      }
+    }
+    if (!found) {
+      this.controller2TagMap.put(controllerClass.getFullName(),taglibMap.get(GrailsTagLibClass.APPLICATION_TAG_LIB));
+    }
+  }
+}

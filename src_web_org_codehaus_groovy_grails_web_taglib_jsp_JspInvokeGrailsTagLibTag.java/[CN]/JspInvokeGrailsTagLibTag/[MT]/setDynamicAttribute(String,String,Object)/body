@@ -1,0 +1,14 @@
+{
+  if (value instanceof String) {
+    String stringValue=(String)value;
+    if (ExpressionEvaluationUtils.isExpressionLanguage(stringValue)) {
+      this.attributes.put(localName,ExpressionEvaluationUtils.evaluate(localName,stringValue,Object.class,this.pageContext));
+    }
+ else {
+      this.attributes.put(localName,value);
+    }
+  }
+ else {
+    this.attributes.put(localName,value);
+  }
+}

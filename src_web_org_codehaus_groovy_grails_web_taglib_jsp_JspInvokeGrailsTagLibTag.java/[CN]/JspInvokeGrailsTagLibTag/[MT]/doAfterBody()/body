@@ -1,5 +1,5 @@
 {
-  GroovyObject tagLib=(GroovyObject)pageContext.getRequest().getAttribute(GrailsTagLibClass.REQUEST_TAG_LIB);
+  GroovyObject tagLib=(GroovyObject)pageContext.getRequest().getAttribute(GrailsRequestAttributes.TAG_LIB);
   if (tagLib != null) {
     tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,pageContext.getOut());
     Object tagLibProp;

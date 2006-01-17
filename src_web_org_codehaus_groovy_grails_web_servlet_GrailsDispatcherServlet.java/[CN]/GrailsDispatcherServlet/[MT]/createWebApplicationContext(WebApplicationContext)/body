@@ -1,5 +1,5 @@
 {
-  ApplicationContext grailsContext=(ApplicationContext)getServletContext().getAttribute(GrailsApplication.APPLICATION_CONTEXT);
+  ApplicationContext grailsContext=(ApplicationContext)getServletContext().getAttribute(GrailsRequestAttributes.APPLICATION_CONTEXT);
   GrailsApplication application;
   WebApplicationContext webContext;
   if (grailsContext != null) {
@@ -16,7 +16,7 @@
     application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
     SpringConfig springConfig=new SpringConfig(application);
     webContext=new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),locations);
-    getServletContext().setAttribute(GrailsApplication.APPLICATION_CONTEXT,webContext);
+    getServletContext().setAttribute(GrailsRequestAttributes.APPLICATION_CONTEXT,webContext);
   }
   GrailsBootstrapClass[] bootstraps=application.getGrailsBootstrapClasses();
   for (int i=0; i < bootstraps.length; i++) {

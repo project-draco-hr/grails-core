@@ -19,7 +19,6 @@
     }
  else {
       Map returnMap=(Map)returnValue;
-      returnMap.put(ControllerDynamicMethods.ERRORS_PROPERTY,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
       if (!this.chainModel.isEmpty()) {
         this.chainModel.putAll(returnMap);
         return new ModelAndView(viewName,this.chainModel);
@@ -33,7 +32,6 @@
     ModelAndView modelAndView=(ModelAndView)returnValue;
     Map modelMap=modelAndView.getModel();
     removeProxiesFromModelObjects(modelMap);
-    modelAndView.addObject(ControllerDynamicMethods.ERRORS_PROPERTY,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
     if (!this.chainModel.isEmpty()) {
       this.chainModel.putAll(modelMap);
       modelAndView.addAllObjects(this.chainModel);

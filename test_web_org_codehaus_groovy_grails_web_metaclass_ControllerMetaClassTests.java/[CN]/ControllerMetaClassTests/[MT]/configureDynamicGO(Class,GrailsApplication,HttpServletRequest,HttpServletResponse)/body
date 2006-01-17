@@ -3,7 +3,7 @@
   if (context == null)   this.context=new GenericApplicationContext();
   BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
   context.registerBeanDefinition(groovyClass.getName(),bd);
-  GrailsControllerHelper helper=new SimpleGrailsControllerHelper(application,context);
+  GrailsControllerHelper helper=new SimpleGrailsControllerHelper(application,context,new MockServletContext());
   GroovyObject go=(GroovyObject)groovyClass.newInstance();
   pmc.setInterceptor(new ControllerDynamicMethods(go,helper,request,response));
   go.setMetaClass(pmc);

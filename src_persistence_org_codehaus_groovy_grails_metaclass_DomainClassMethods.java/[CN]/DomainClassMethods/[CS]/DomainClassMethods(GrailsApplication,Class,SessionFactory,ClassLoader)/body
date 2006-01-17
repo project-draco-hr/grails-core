@@ -16,5 +16,5 @@
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty());
   addDynamicProperty(new GenericDynamicProperty(HAS_ERRORS_PROPERTY,Boolean.class,new Boolean(false),false));
-  addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,List.class,new ArrayList(),false));
+  addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));
 }

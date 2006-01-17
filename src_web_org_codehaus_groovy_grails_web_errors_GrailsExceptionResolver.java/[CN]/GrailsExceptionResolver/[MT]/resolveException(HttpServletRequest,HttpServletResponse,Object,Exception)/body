@@ -1,6 +1,6 @@
 {
   ModelAndView mv=super.resolveException(request,response,handler,ex);
-  GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(ex);
+  GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(servletContext,ex);
   mv.addObject("exception",gwrex);
   return mv;
 }

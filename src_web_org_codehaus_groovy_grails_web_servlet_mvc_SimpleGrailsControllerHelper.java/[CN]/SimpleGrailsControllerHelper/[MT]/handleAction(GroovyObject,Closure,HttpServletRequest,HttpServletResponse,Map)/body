@@ -18,15 +18,7 @@
       this.chainModel=chainPropertyModel;
     }
   }
-  Object returnValue=null;
-  if (action.getParameterTypes() == null || action.getParameterTypes().length == 1) {
-    returnValue=action.call(new GrailsHttpServletRequest(request,controller));
-  }
- else   if (action.getParameterTypes().length == 2) {
-    returnValue=action.call(new Object[]{new GrailsHttpServletRequest(request,controller),new GrailsHttpServletResponse(response)});
-  }
- else {
-    throw new IncompatibleParameterCountException("Closure on property [" + action + "] in ["+ controller.getClass()+ "] has an incompatible parameter count ["+ action.getParameterTypes().length+ "]! Supported values are 0 and 2.");
-  }
+  Object returnValue=action.call();
+  request.setAttribute(GrailsRequestAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
   return returnValue;
 }

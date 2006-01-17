@@ -14,7 +14,17 @@
       this.lineNumber=Integer.parseInt(matcher.group(2));
       if (getLineNumber() > -1) {
         String fileName=this.className.replace('.','/') + ".groovy";
-        InputStream in=getClass().getClassLoader().getResourceAsStream(fileName);
+        String urlPrefix=URL_PREFIX;
+        if (GrailsClassUtils.isControllerClass(className) || GrailsClassUtils.isPageFlowClass(className)) {
+          urlPrefix+="/controllers/";
+        }
+ else         if (GrailsClassUtils.isTagLibClass(className)) {
+          urlPrefix+="/taglib/";
+        }
+ else         if (GrailsClassUtils.isService(className)) {
+          urlPrefix+="/services/";
+        }
+        InputStream in=servletContext.getResourceAsStream(urlPrefix + fileName);
         if (in != null) {
           reader=new LineNumberReader(new InputStreamReader(in));
           String currentLine=reader.readLine();

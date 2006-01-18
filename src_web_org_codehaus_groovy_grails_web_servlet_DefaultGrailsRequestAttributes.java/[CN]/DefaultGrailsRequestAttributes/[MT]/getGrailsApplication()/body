@@ -1,0 +1,3 @@
+{
+  return (GrailsApplication)getApplicationContext().getBean(GrailsApplication.APPLICATION_ID);
+}

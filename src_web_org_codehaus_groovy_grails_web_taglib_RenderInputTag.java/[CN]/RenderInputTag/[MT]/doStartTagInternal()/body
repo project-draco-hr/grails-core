@@ -11,7 +11,7 @@
  catch (  BeansException e) {
     throw new GrailsTagException("Property [" + property + "] is not a valid bean property in tag [renderInput]:"+ e.getMessage(),e);
   }
-  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)servletContext.getAttribute(GroovyPagesServlet.GSP_TEMPLATE_ENGINE);
+  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)servletContext.getAttribute(GrailsRequestAttributes.GSP_TEMPLATE_ENGINE);
   Template t=null;
   try {
     String uri=findUriForType(pd.getPropertyType());

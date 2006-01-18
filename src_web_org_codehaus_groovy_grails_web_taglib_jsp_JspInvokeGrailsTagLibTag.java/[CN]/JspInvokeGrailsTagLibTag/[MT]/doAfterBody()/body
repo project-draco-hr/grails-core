@@ -1,53 +1,20 @@
 {
-  GroovyObject tagLib=(GroovyObject)pageContext.getRequest().getAttribute(GrailsRequestAttributes.TAG_LIB);
-  if (tagLib != null) {
-    tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,pageContext.getOut());
-    Object tagLibProp;
-    try {
-      tagLibProp=tagLib.getProperty(getName());
-    }
- catch (    MissingPropertyException mpe) {
-      throw new GrailsTagException("Tag [" + getName() + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
-    }
-    if (tagLibProp instanceof Closure) {
-      Closure body=new Closure(this){
-        public Object doCall(){
-          return call();
-        }
-        public Object call(){
-          BodyContent b=getBodyContent();
-          if (b != null) {
-            JspWriter out=b.getEnclosingWriter();
-            try {
-              out.write(b.getString());
-            }
- catch (            IOException e) {
-              throw new GrailsTagException("I/O error writing body of tag [" + getName() + "]: "+ e.getMessage(),e);
-            }
-          }
-          return null;
-        }
-      }
-;
-      Closure tag=(Closure)tagLibProp;
-      if (tag.getParameterTypes().length == 1) {
-        tag.call(new Object[]{attributes});
-        if (body != null) {
-          body.call();
-        }
-      }
-      if (tag.getParameterTypes().length == 2) {
-        tag.call(new Object[]{attributes,body});
-      }
-    }
- else {
-      throw new GrailsTagException("Tag [" + getName() + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
-    }
-  }
- else {
-    throw new GrailsTagException("Tag [" + getName() + "] does not exist. No tag library found.");
-  }
   BodyContent b=getBodyContent();
-  b.clearBody();
-  return SKIP_BODY;
+  if (invocationCount > 0) {
+    if (b != null) {
+      JspWriter out=b.getEnclosingWriter();
+      try {
+        out.write(b.getString());
+      }
+ catch (      IOException e) {
+        throw new GrailsTagException("I/O error writing body of tag [" + getName() + "]: "+ e.getMessage(),e);
+      }
+      b.clearBody();
+    }
+  }
+  invocationCount--;
+  if (invocationCount <= 0) {
+    return SKIP_BODY;
+  }
+ else   return EVAL_BODY_BUFFERED;
 }

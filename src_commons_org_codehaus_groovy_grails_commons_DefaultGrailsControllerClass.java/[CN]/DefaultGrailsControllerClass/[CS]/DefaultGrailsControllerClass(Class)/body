@@ -24,6 +24,7 @@
         this.viewNames.put(DefaultGrailsScaffolder.ACTION_NAMES[i],viewUri);
       }
       this.uri2closureMap.put(tmpUri,DefaultGrailsScaffolder.ACTION_NAMES[i]);
+      this.uri2closureMap.put(tmpUri + "/**",DefaultGrailsScaffolder.ACTION_NAMES[i]);
     }
   }
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
@@ -47,6 +48,7 @@
       closure=(Closure)getPropertyValue(propertyDescriptor.getName(),Closure.class);
       if (closure != null) {
         this.uri2closureMap.put(tmpUri,propertyDescriptor.getName());
+        this.uri2closureMap.put(tmpUri + "/**",propertyDescriptor.getName());
         if (typedViews != null) {
           for (Iterator iter=typedViews.keySet().iterator(); iter.hasNext(); ) {
             String viewType=(String)iter.next();

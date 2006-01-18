@@ -3,9 +3,37 @@
   if (uri.indexOf("?") > -1) {
     uri=uri.substring(0,uri.indexOf("?"));
   }
+  if (uri.indexOf('\\') > -1) {
+    uri=uri.replaceAll("\\\\","/");
+  }
   if (!uri.startsWith("/"))   uri='/' + uri;
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
+  String id=null;
+  Map extraParams=Collections.EMPTY_MAP;
+  Matcher m=uriPattern.matcher(uri);
+  if (m.find()) {
+    uri='/' + m.group(1) + '/'+ m.group(2);
+    id=m.group(3);
+    String extraParamsString=m.group(4);
+    if (extraParamsString != null && extraParamsString.indexOf('/') > -1) {
+      String[] tokens=extraParamsString.split("/");
+      extraParams=new HashMap();
+      for (int i=0; i < tokens.length; i++) {
+        String token=tokens[i];
+        if (i == 0 || ((i % 2) == 0)) {
+          if ((i + 1) < tokens.length) {
+            extraParams.put(token,tokens[i + 1]);
+          }
+        }
+ else {
+          continue;
+        }
+      }
+    }
+  }
   GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  String controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  ;
   GrailsTagLibClass tagLibClass=this.application.getTagLibClassForController(controllerClass.getFullName());
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
@@ -33,6 +61,24 @@
   String actionPropertyName=controllerClass.getClosurePropertyName(uri);
   if (actionPropertyName == null) {
     if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionPropertyName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionPropertyName+ "], and id ["+ id+ "]");
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Extra params from uri [" + extraParams + "] ");
+  }
+  controller.setProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY,'/' + controllerName);
+  controller.setProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY,'/' + controllerName + '/'+ actionPropertyName);
+  Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
+  if (!StringUtils.isBlank(id)) {
+    controllerParams.put(GrailsRequestAttributes.ID_PARAM,id);
+  }
+  if (!extraParams.isEmpty()) {
+    for (Iterator i=extraParams.keySet().iterator(); i.hasNext(); ) {
+      String name=(String)i.next();
+      controllerParams.put(name,extraParams.get(name));
+    }
   }
   String viewName=controllerClass.getViewByURI(uri);
   Closure action=(Closure)controller.getProperty(actionPropertyName);

@@ -13,6 +13,7 @@
     }
   }
   invocationCount--;
+  setCurrentArgument();
   if (invocationCount <= 0) {
     return SKIP_BODY;
   }

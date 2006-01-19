@@ -1,0 +1,13 @@
+{
+  String in=(String)attributes.get(ATTRIBUTE_IN);
+  String expr=(String)attributes.get(ATTRIBUTE_EXPR);
+  if (StringUtils.isBlank(in))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_IN+ "]");
+  if (StringUtils.isBlank(expr))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_EXPR+ "]");
+  out.print(in);
+  out.print(".findAll {");
+  if (expr.startsWith("\"") && expr.endsWith("\"")) {
+    expr=expr.substring(1,expr.length() - 1);
+  }
+  out.print(expr);
+  out.println("}.each {");
+}

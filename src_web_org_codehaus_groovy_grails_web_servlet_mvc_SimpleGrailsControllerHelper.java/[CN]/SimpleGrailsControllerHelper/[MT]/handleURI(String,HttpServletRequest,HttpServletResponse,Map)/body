@@ -48,7 +48,14 @@
   if (this.interceptor == null) {
     try {
       interceptor=new ControllerDynamicMethods(controller,this,request,response);
-      if (tagLib != null)       new TagLibDynamicMethods(tagLib,controller,request,response);
+    }
+ catch (    IntrospectionException ie) {
+      throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);
+    }
+  }
+  if (this.tagLibInterceptor == null && tagLib != null) {
+    try {
+      tagLibInterceptor=new TagLibDynamicMethods(tagLib,controller,request,response);
     }
  catch (    IntrospectionException ie) {
       throw new ControllerExecutionException("Error creating dynamic controller methods for controller [" + controller.getClass() + "]: "+ ie.getMessage(),ie);

@@ -1,0 +1,11 @@
+{
+  String propertyKey=System.identityHashCode(object) + getPropertyName();
+  if (propertyToInstanceMap.containsKey(propertyKey)) {
+    return propertyToInstanceMap.get(propertyKey);
+  }
+ else   if (this.initialValue != null) {
+    propertyToInstanceMap.put(propertyKey,this.initialValue);
+    return this.initialValue;
+  }
+  return null;
+}

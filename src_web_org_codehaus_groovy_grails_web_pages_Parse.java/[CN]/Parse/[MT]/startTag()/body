@@ -5,23 +5,14 @@
   String tagName;
   Map attrs=new HashMap();
   if (text.indexOf(' ') > -1) {
-    String[] tagTokens=text.split(" ");
-    tagName=tagTokens[0].trim();
-    for (int i=1; i < tagTokens.length; i++) {
-      if (tagTokens[i].indexOf('=') > -1) {
-        String[] attr=tagTokens[i].split("=");
-        String name=attr[0].trim();
-        name='\"' + name + '\"';
-        String val=attr[1].trim().substring(1,attr[1].length() - 1);
-        if (val.startsWith("${") && val.endsWith("}")) {
-          val=val.substring(2,val.length() - 1);
-        }
- else {
-          val='\"' + val + '\"';
-        }
-        attrs.put(name,val);
-      }
-    }
+    int i=text.indexOf(' ');
+    tagName=text.substring(0,i);
+    String attrTokens=text.substring(i,text.length());
+    attrTokens+='>';
+    Matcher m=PARSE_TAG_FIRST_PASS.matcher(attrTokens);
+    populateAttributesFromMatcher(m,attrs);
+    m=PARSE_TAG_SECOND_PASS.matcher(attrTokens);
+    populateAttributesFromMatcher(m,attrs);
   }
  else {
     tagName=text;
@@ -32,9 +23,23 @@
       this.tagContext=new HashMap();
       this.tagContext.put(GroovyPage.OUT,out);
     }
-    GrailsTag tag=tagRegistry.newTag(tagName);
+    GroovySyntaxTag tag=(GroovySyntaxTag)tagRegistry.newTag(tagName);
     tag.init(tagContext);
     tag.setAttributes(attrs);
+    if (!tag.hasPrecedingContent() && !bufferWhiteSpace) {
+      throw new GrailsTagException("Tag [" + tag.getName() + "] cannot have non-whitespace characters directly preceding it.");
+    }
+ else     if (!tag.hasPrecedingContent() && bufferWhiteSpace) {
+      whiteSpaceBuffer.delete(0,whiteSpaceBuffer.length());
+      bufferWhiteSpace=false;
+    }
+ else {
+      if (whiteSpaceBuffer.length() > 0) {
+        out.printlnToOut(whiteSpaceBuffer.toString());
+        whiteSpaceBuffer.delete(0,whiteSpaceBuffer.length());
+      }
+      bufferWhiteSpace=false;
+    }
     tag.doStartTag();
     this.syntaxTagStack.add(tag);
   }

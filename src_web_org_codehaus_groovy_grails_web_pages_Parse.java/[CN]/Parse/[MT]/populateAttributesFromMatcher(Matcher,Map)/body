@@ -1,0 +1,14 @@
+{
+  while (m.find()) {
+    String name=m.group(2);
+    String val=m.group(3);
+    name='\"' + name + '\"';
+    if (val.startsWith("${") && val.endsWith("}")) {
+      val=val.substring(2,val.length() - 1);
+    }
+ else {
+      val='\"' + val + '\"';
+    }
+    attrs.put(name,val);
+  }
+}

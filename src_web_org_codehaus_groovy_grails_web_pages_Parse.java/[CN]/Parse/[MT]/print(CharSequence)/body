@@ -1,5 +1,6 @@
 {
   StringBuffer buf=new StringBuffer();
+  if (Pattern.compile("\\S").matcher(text).find())   bufferWhiteSpace=false;
   buf.append('\'');
   for (int ix=0, ixz=text.length(); ix < ixz; ix++) {
     char c=text.charAt(ix);
@@ -13,5 +14,11 @@
  else     buf.append(c);
   }
   buf.append('\'');
-  out.printlnToOut(buf.toString());
+  if (!bufferWhiteSpace) {
+    out.printlnToOut(buf.toString());
+  }
+ else {
+    whiteSpaceBuffer.append(buf.toString());
+    whiteSpaceBuffer.delete(0,whiteSpaceBuffer.length());
+  }
 }

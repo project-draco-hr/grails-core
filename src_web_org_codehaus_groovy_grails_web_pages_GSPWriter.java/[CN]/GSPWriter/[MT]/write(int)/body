@@ -1,3 +1,4 @@
 {
+  if (c == '\n' || c == '\r')   lineNumber++;
   super.write(c);
 }

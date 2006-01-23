@@ -1,24 +1,32 @@
 {
   if (!finalPass)   return;
-  String lastInStack=(String)this.tagNameStack.remove(this.tagNameStack.size() - 1);
   String tagName=scan.getToken().trim();
+  if (tagMetaStack.isEmpty())   throw new GrailsTagException("Found closing Grails tag with no opening [" + tagName + "]");
+  TagMeta tm=(TagMeta)tagMetaStack.remove(this.tagMetaStack.size() - 1);
+  String lastInStack=tm.name;
   if (StringUtils.isBlank(tagName))   tagName=lastInStack;
   if (!lastInStack.equals(tagName)) {
     throw new GrailsTagException("Grails tag [" + tagName + "] was not closed");
   }
   if (tagRegistry.isSyntaxTag(tagName)) {
-    GroovySyntaxTag tag=(GroovySyntaxTag)this.syntaxTagStack.remove(this.syntaxTagStack.size() - 1);
-    if (tag.isBufferWhiteSpace())     bufferWhiteSpace=true;
-    tag.doEndTag();
-  }
- else   if (tagRegistry.isRequestContextTag(tagName)) {
-    out.print("tag");
-    out.print(tagIndex);
-    out.println(".doEndTag()\n");
+    if (tm.instance instanceof GroovySyntaxTag) {
+      GroovySyntaxTag tag=(GroovySyntaxTag)tm.instance;
+      if (tag.isBufferWhiteSpace())       bufferWhiteSpace=true;
+      tag.doEndTag();
+    }
+ else {
+      throw new GrailsTagException("Grails tag [" + tagName + "] was not closed");
+    }
   }
  else {
-    out.println('}');
-    out.println("invokeTag('" + tagName + "',attrs"+ tagIndex+ ",body"+ tagIndex+ ")");
+    out.println("}");
+    if (tm.hasAttributes) {
+      out.println("invokeTag('" + tagName + "',attrs"+ tagIndex+ ",body"+ tagIndex+ ")");
+    }
+ else {
+      out.println("invokeTag('" + tagName + "',[:],body"+ tagIndex+ ")");
+    }
+    dynamicTagIndex--;
   }
   tagIndex--;
 }

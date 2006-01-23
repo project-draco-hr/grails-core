@@ -17,7 +17,10 @@
  else {
     tagName=text;
   }
-  this.tagNameStack.add(tagName);
+  TagMeta tm=new TagMeta();
+  tm.name=tagName;
+  tm.hasAttributes=!attrs.isEmpty();
+  tagMetaStack.add(tm);
   if (tagRegistry.isSyntaxTag(tagName)) {
     if (this.tagContext == null) {
       this.tagContext=new HashMap();
@@ -35,39 +38,16 @@
     }
  else {
       if (whiteSpaceBuffer.length() > 0) {
-        out.printlnToOut(whiteSpaceBuffer.toString());
+        out.printlnToResponse(whiteSpaceBuffer.toString());
         whiteSpaceBuffer.delete(0,whiteSpaceBuffer.length());
       }
       bufferWhiteSpace=false;
     }
     tag.doStartTag();
-    this.syntaxTagStack.add(tag);
-  }
- else   if (tagRegistry.isRequestContextTag(tagName)) {
-    out.print("tag");
-    out.print(tagIndex);
-    out.print("= grailsTagRegistry.newTag('");
-    out.print(tagName);
-    out.println("')");
-    for (Iterator i=attrs.keySet().iterator(); i.hasNext(); ) {
-      String name=(String)i.next();
-      out.print("tag");
-      out.print(tagIndex);
-      out.print(".setAttribute(");
-      out.print(name);
-      out.print(',');
-      out.print(attrs.get(name));
-      out.println(')');
-    }
-    out.print("tag");
-    out.print(tagIndex);
-    out.print(".init(");
-    out.println("getBinding().getVariables())");
-    out.print("tag");
-    out.print(tagIndex);
-    out.println(".doStartTag()");
+    tm.instance=tag;
   }
  else {
+    dynamicTagIndex++;
     if (attrs.size() > 0) {
       out.print("attrs" + tagIndex + " = [");
       for (Iterator i=attrs.keySet().iterator(); i.hasNext(); ) {
@@ -76,13 +56,9 @@
         out.print(':');
         out.print(attrs.get(name));
         if (i.hasNext())         out.print(',');
- else         out.print(']');
+ else         out.println(']');
       }
     }
- else {
-      out.println("attrs" + tagIndex + " = [:]");
-    }
-    out.println();
     out.println("body" + tagIndex + " = {");
   }
 }

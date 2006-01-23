@@ -1,3 +1,7 @@
 {
+  Matcher m=LINE_BREAK.matcher(s);
+  while (m.find()) {
+    lineNumber++;
+  }
   super.write(s,off,len);
 }

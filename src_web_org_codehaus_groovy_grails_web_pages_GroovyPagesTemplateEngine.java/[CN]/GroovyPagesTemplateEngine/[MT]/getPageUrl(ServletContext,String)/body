@@ -1,3 +1,6 @@
 {
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Loading GSP for url [" + pageId + "]");
+  }
   return context.getResource(pageId);
 }

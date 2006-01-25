@@ -4,6 +4,18 @@
   addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new ValidatePersistentMethod(sessionFactory,classLoader,application));
+  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(HAS_ERRORS_PROPERTY){
+    public Object invoke(    Object target,    Object[] arguments){
+      Errors errors=(Errors)getDynamicProperty(ERRORS_PROPERTY).get(target);
+      if (errors == null || !errors.hasErrors()) {
+        return new Boolean(false);
+      }
+ else {
+        return new Boolean(true);
+      }
+    }
+  }
+);
   addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindAllByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));
@@ -15,6 +27,5 @@
   addStaticMethodInvocation(new CreateCriteriaPersistentMethod(sessionFactory,classLoader));
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty());
-  addDynamicProperty(new WeakGenericDynamicProperty(HAS_ERRORS_PROPERTY,Boolean.class,new Boolean(false),false));
   addDynamicProperty(new WeakGenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));
 }

@@ -3,7 +3,7 @@
   if (c == null) {
     if (this.appliedConstraints.containsKey(LENGTH_CONSTRAINT)) {
       SizeConstraint sc=(SizeConstraint)this.appliedConstraints.get(LENGTH_CONSTRAINT);
-      return sc.getSizeRange().getFromInt();
+      return sc.getRange().getFromInt();
     }
     return 0;
   }

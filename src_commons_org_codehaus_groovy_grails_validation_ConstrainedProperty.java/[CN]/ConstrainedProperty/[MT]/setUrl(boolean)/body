@@ -5,13 +5,13 @@
   Constraint c=(Constraint)this.appliedConstraints.get(URL_CONSTRAINT);
   if (url) {
     if (c != null) {
-      c.setParameter(new Boolean(url));
+      c.setParameter(Boolean.valueOf(url));
     }
  else {
       c=new UrlConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(new Boolean(url));
+      c.setParameter(Boolean.valueOf(url));
       this.appliedConstraints.put(URL_CONSTRAINT,c);
     }
   }

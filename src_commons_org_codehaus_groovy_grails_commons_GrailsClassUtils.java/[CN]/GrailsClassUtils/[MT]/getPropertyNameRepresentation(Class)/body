@@ -1,0 +1,4 @@
+{
+  String shortName=getShortName(targetClass);
+  return shortName.substring(0,1).toLowerCase() + shortName.substring(1);
+}

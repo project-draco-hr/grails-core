@@ -1,16 +1,16 @@
 {
-  Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,sizeRange.getFrom(),sizeRange.getTo()};
+  Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
   if (propertyValue == null) {
     super.rejectValue(errors,SIZE_CONSTRAINT + INVALID_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
     return;
   }
   if (propertyValue.getClass().isArray()) {
     Integer length=new Integer(Array.getLength(propertyValue));
-    if (!sizeRange.contains(length)) {
-      if (sizeRange.getFrom().compareTo(length) == -1) {
+    if (!range.contains(length)) {
+      if (range.getFrom().compareTo(length) == -1) {
         super.rejectValue(errors,LENGTH_CONSTRAINT + TOOSHORT_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_LENGTH_MESSAGE,args));
       }
- else       if (sizeRange.getFrom().compareTo(length) == 1) {
+ else       if (range.getFrom().compareTo(length) == 1) {
         super.rejectValue(errors,LENGTH_CONSTRAINT + TOOLONG_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_LENGTH_MESSAGE,args));
       }
       return;
@@ -18,35 +18,32 @@
   }
   if (propertyValue instanceof Collection) {
     Integer collectionSize=new Integer(((Collection)propertyValue).size());
-    if (!sizeRange.contains(collectionSize)) {
-      if (sizeRange.getFrom().compareTo(collectionSize) == -1) {
+    if (!range.contains(collectionSize)) {
+      if (range.getFrom().compareTo(collectionSize) == -1) {
         super.rejectValue(errors,SIZE_CONSTRAINT + TOOSMALL_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
       }
- else       if (sizeRange.getFrom().compareTo(collectionSize) == 1) {
+ else       if (range.getFrom().compareTo(collectionSize) == 1) {
         super.rejectValue(errors,SIZE_CONSTRAINT + TOOBIG_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
       }
-      return;
     }
   }
  else   if (propertyValue instanceof Number) {
-    if (sizeRange.getFrom().compareTo(propertyValue) == -1) {
+    if (range.getFrom().compareTo(propertyValue) == -1) {
       super.rejectValue(errors,SIZE_CONSTRAINT + TOOSMALL_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
     }
- else     if (sizeRange.getFrom().compareTo(propertyValue) == 1) {
+ else     if (range.getFrom().compareTo(propertyValue) == 1) {
       super.rejectValue(errors,SIZE_CONSTRAINT + TOOBIG_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
     }
-    return;
   }
  else   if (propertyValue instanceof String) {
     Integer stringLength=new Integer(((String)propertyValue).length());
-    if (!sizeRange.contains(stringLength)) {
-      if (sizeRange.getFrom().compareTo(stringLength) == -1) {
+    if (!range.contains(stringLength)) {
+      if (range.getFrom().compareTo(stringLength) == -1) {
         super.rejectValue(errors,LENGTH_CONSTRAINT + TOOSHORT_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_LENGTH_MESSAGE,args));
       }
- else       if (sizeRange.getFrom().compareTo(stringLength) == 1) {
+ else       if (range.getFrom().compareTo(stringLength) == 1) {
         super.rejectValue(errors,LENGTH_CONSTRAINT + TOOLONG_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_LENGTH_MESSAGE,args));
       }
-      return;
     }
   }
 }

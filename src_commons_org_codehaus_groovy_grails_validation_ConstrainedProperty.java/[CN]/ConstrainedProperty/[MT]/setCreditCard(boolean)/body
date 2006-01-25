@@ -5,13 +5,13 @@
   Constraint c=(Constraint)this.appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
   if (creditCard) {
     if (c != null) {
-      c.setParameter(new Boolean(creditCard));
+      c.setParameter(Boolean.valueOf(creditCard));
     }
  else {
       c=new CreditCardConstraint();
       c.setOwningClass(this.owningClass);
       c.setPropertyName(this.propertyName);
-      c.setParameter(new Boolean(creditCard));
+      c.setParameter(Boolean.valueOf(creditCard));
       this.appliedConstraints.put(CREDIT_CARD_CONSTRAINT,c);
     }
   }

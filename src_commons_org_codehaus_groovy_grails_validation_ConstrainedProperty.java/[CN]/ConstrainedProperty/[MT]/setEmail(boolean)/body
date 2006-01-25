@@ -5,13 +5,13 @@
   Constraint c=(Constraint)this.appliedConstraints.get(EMAIL_CONSTRAINT);
   if (email) {
     if (c != null) {
-      c.setParameter(new Boolean(email));
+      c.setParameter(Boolean.valueOf(email));
     }
  else {
       c=new EmailConstraint();
       c.setOwningClass(this.owningClass);
       c.setPropertyName(this.propertyName);
-      c.setParameter(new Boolean(email));
+      c.setParameter(Boolean.valueOf(email));
       this.appliedConstraints.put(EMAIL_CONSTRAINT,c);
     }
   }

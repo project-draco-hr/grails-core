@@ -1,7 +1,6 @@
 {
   if (!constraints.containsKey(constraintName)) {
-    if (!this.bean.isWritableProperty(constraintName))     return false;
- else     return true;
+    return this.bean.isWritableProperty(constraintName);
   }
   Class constraintClass=(Class)constraints.get(constraintName);
   try {

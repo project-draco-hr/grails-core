@@ -2,32 +2,27 @@
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,new Integer(minSize)};
   if (propertyValue == null) {
     super.rejectValue(errors,MIN_LENGTH_CONSTRAINT + NOTMET_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MIN_LENGTH_MESSAGE,args));
-    return;
   }
-  if (propertyValue.getClass().isArray()) {
+ else   if (propertyValue.getClass().isArray()) {
     int length=Array.getLength(propertyValue);
     if (length < minSize) {
       super.rejectValue(errors,MIN_LENGTH_CONSTRAINT + NOTMET_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MIN_LENGTH_MESSAGE,args));
-      return;
     }
   }
-  if (propertyValue instanceof Collection) {
+ else   if (propertyValue instanceof Collection) {
     if (((Collection)propertyValue).size() < minSize) {
       super.rejectValue(errors,MIN_SIZE_CONSTRAINT + NOTMET_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MIN_SIZE_MESSAGE,args));
-      return;
     }
   }
  else   if (propertyValue instanceof Number) {
     int numberSize=((Number)propertyValue).intValue();
     if (numberSize < minSize) {
       super.rejectValue(errors,MIN_SIZE_CONSTRAINT + NOTMET_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MIN_SIZE_MESSAGE,args));
-      return;
     }
   }
  else   if (propertyValue instanceof String) {
     if (((String)propertyValue).length() < minSize) {
       super.rejectValue(errors,MIN_LENGTH_CONSTRAINT + NOTMET_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_MIN_LENGTH_MESSAGE,args));
-      return;
     }
   }
 }

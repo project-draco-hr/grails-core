@@ -9,4 +9,11 @@
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.RESPONSE_PROPERTY));
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.SERVLET_CONTEXT));
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES));
+  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(THROW_TAG_ERROR_METHOD){
+    public Object invoke(    Object target,    Object[] arguments){
+      if (arguments.length == 0)       throw new MissingMethodException(THROW_TAG_ERROR_METHOD,target.getClass(),arguments);
+      throw new GrailsTagException(arguments[0].toString());
+    }
+  }
+);
 }

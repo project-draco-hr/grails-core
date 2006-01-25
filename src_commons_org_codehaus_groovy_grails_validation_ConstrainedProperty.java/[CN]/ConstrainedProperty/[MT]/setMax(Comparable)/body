@@ -1,10 +1,10 @@
 {
-  if (!propertyType.equals(max.getClass())) {
-    throw new MissingPropertyException(MAX_CONSTRAINT,propertyType);
-  }
   if (max == null) {
     this.appliedConstraints.remove(MAX_CONSTRAINT);
     return;
+  }
+  if (!propertyType.equals(max.getClass())) {
+    throw new MissingPropertyException(MAX_CONSTRAINT,propertyType);
   }
   Range r=getRange();
   if (r != null) {

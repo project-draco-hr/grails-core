@@ -1,10 +1,7 @@
 {
   if (!readyOnly) {
-    if (newValue == null) {
-      propertyToInstanceMap.put(String.valueOf(System.identityHashCode(object)) + getPropertyName(),null);
-    }
- else     if (this.type.isInstance(newValue))     propertyToInstanceMap.put(String.valueOf(System.identityHashCode(object)) + getPropertyName(),newValue);
- else     throw new MissingPropertyException("Property '" + this.getPropertyName() + "' for object '"+ object.getClass()+ "' cannot be set with value '"+ newValue+ "'. Incorrect type.",object.getClass());
+    if (this.type.isInstance(newValue))     propertyToInstanceMap.put(String.valueOf(System.identityHashCode(object)) + getPropertyName(),newValue);
+ else     if (newValue != null)     throw new MissingPropertyException("Property '" + this.getPropertyName() + "' for object '"+ object.getClass()+ "' cannot be set with value '"+ newValue+ "'. Incorrect type.",object.getClass());
   }
  else {
     throw new MissingPropertyException("Property '" + this.getPropertyName() + "' for object '"+ object.getClass()+ "' is read-only!",object.getClass());

@@ -37,9 +37,12 @@
     log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
     if (!loadedResources.contains(resources[i])) {
       try {
-        cl.parseClass(resources[i].getFile());
+        Matcher m=GRAILS_RESOURCE_PATTERN.matcher(resources[i].getFile().getAbsolutePath());
+        if (m.find()) {
+          cl.loadClass(m.group(1),true,false);
+        }
       }
- catch (      CompilationFailedException e) {
+ catch (      ClassNotFoundException e) {
         throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error parsing file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
       }
     }

@@ -1,0 +1,16 @@
+{
+  if (Modifier.isAbstract(serviceClass.getModifiers())) {
+    return null;
+  }
+  if (GrailsClassUtils.isService(serviceClass)) {
+    GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(serviceClass);
+    if (grailsServiceClass.getAvailable()) {
+      this.serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
+    }
+    this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
+    return grailsServiceClass;
+  }
+ else {
+    throw new GrailsConfigurationException("Cannot load service class [" + serviceClass + "]. It is not a valid service class!");
+  }
+}

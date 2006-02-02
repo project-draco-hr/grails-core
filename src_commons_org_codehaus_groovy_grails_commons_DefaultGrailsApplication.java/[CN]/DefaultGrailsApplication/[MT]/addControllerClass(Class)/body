@@ -1,0 +1,16 @@
+{
+  if (Modifier.isAbstract(controllerClass.getModifiers())) {
+    return null;
+  }
+  if (GrailsClassUtils.isControllerClass(controllerClass)) {
+    GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(controllerClass);
+    if (grailsControllerClass.getAvailable()) {
+      this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
+    }
+    this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
+    return grailsControllerClass;
+  }
+ else {
+    throw new GrailsConfigurationException("Cannot load controller class [" + controllerClass + "]. It is not a controller!");
+  }
+}

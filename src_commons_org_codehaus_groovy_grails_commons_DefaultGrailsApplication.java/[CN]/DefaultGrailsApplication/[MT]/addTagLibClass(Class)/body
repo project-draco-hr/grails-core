@@ -1,0 +1,17 @@
+{
+  if (Modifier.isAbstract(tagLibClass.getModifiers())) {
+    return null;
+  }
+  if (GrailsClassUtils.isTagLibClass(tagLibClass)) {
+    GrailsTagLibClass grailsTagLibClass=new DefaultGrailsTagLibClass(tagLibClass);
+    if (grailsTagLibClass.getAvailable()) {
+      this.taglibMap.put(grailsTagLibClass.getFullName(),grailsTagLibClass);
+    }
+    this.taglibClasses=((GrailsTagLibClass[])this.taglibMap.values().toArray(new GrailsTagLibClass[taglibMap.size()]));
+    configureTagLibraries();
+    return grailsTagLibClass;
+  }
+ else {
+    throw new GrailsConfigurationException("Cannot load taglib class [" + tagLibClass + "]. It is not a taglib!");
+  }
+}

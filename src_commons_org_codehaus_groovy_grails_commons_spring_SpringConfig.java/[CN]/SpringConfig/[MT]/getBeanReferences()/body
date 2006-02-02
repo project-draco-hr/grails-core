@@ -15,6 +15,8 @@
   Bean exceptionHandler=SpringConfigUtils.createSingletonBean(GrailsExceptionResolver.class);
   exceptionHandler.setProperty("exceptionMappings",SpringConfigUtils.createLiteralValue("java.lang.Exception=error"));
   beanReferences.add(SpringConfigUtils.createBeanReference("exceptionHandler",exceptionHandler));
+  Bean multipartResolver=SpringConfigUtils.createSingletonBean(CommonsMultipartResolver.class);
+  beanReferences.add(SpringConfigUtils.createBeanReference("multipartResolver",multipartResolver));
   LOG.info("[SpringConfig] Configuring i18n support");
   populateI18nSupport(beanReferences);
   LOG.info("[SpringConfig] Configuring Grails data source");

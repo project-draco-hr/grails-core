@@ -1,0 +1,5 @@
+{
+  GrailsDataBinder binder=createBinder(target,objectName);
+  binder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+  return binder;
+}

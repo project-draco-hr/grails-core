@@ -6,8 +6,7 @@
     return Collections.EMPTY_MAP;
   }
   Object domainObject=this.domain.get(id);
-  ServletRequestDataBinder dataBinder=new GrailsDataBinder(domainObject,domain.getName());
-  dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+  ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(domainObject,domain.getName(),request);
   dataBinder.bind(request);
   Map model=new HashMap();
   if (this.domain.update(domainObject,callback)) {

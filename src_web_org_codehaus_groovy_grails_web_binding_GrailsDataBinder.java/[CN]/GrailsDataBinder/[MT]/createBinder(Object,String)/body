@@ -1,0 +1,6 @@
+{
+  GrailsDataBinder binder=new GrailsDataBinder(target,objectName);
+  binder.registerCustomEditor(byte[].class,new ByteArrayMultipartFileEditor());
+  binder.registerCustomEditor(String.class,new StringMultipartFileEditor());
+  return binder;
+}

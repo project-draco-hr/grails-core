@@ -1,7 +1,6 @@
 {
   Object domainObject=domain.newInstance();
-  ServletRequestDataBinder dataBinder=new GrailsDataBinder(domainObject,domain.getName());
-  dataBinder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,request.getLocale()),true));
+  ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(domainObject,domain.getName(),request);
   dataBinder.bind(request);
   Map model=new HashMap();
   if (this.domain.save(domainObject,callback)) {

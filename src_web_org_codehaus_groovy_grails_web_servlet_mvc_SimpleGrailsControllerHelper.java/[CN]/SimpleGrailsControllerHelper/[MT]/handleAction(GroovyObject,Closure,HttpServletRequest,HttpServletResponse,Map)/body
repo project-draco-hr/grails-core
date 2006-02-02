@@ -19,6 +19,6 @@
     }
   }
   Object returnValue=action.call();
-  request.setAttribute(GrailsRequestAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
+  request.setAttribute(GrailsApplicationAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
   return returnValue;
 }

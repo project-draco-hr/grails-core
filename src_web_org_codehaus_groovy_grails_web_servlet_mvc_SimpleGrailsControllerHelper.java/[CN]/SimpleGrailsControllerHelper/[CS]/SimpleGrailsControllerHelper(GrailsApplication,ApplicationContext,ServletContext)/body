@@ -3,5 +3,5 @@
   this.application=application;
   this.applicationContext=context;
   this.servletContext=servletContext;
-  this.grailsAttributes=new DefaultGrailsRequestAttributes(this.servletContext);
+  this.grailsAttributes=new DefaultGrailsApplicationAttributes(this.servletContext);
 }

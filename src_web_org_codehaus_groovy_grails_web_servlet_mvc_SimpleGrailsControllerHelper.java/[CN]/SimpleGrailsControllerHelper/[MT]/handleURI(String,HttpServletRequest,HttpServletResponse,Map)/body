@@ -43,8 +43,8 @@
   if (tagLibClass != null) {
     tagLib=(GroovyObject)this.applicationContext.getBean(tagLibClass.getFullName());
   }
-  request.setAttribute(GrailsRequestAttributes.TAG_LIB,tagLib);
-  request.setAttribute(GrailsRequestAttributes.CONTROLLER,controller);
+  request.setAttribute(GrailsApplicationAttributes.TAG_LIB,tagLib);
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   if (this.interceptor == null) {
     try {
       interceptor=new ControllerDynamicMethods(controller,this,request,response);
@@ -79,7 +79,7 @@
   controller.setProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY,'/' + controllerName + '/'+ actionPropertyName);
   Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
   if (!StringUtils.isBlank(id)) {
-    controllerParams.put(GrailsRequestAttributes.ID_PARAM,id);
+    controllerParams.put(GrailsApplicationAttributes.ID_PARAM,id);
   }
   if (!extraParams.isEmpty()) {
     for (Iterator i=extraParams.keySet().iterator(); i.hasNext(); ) {

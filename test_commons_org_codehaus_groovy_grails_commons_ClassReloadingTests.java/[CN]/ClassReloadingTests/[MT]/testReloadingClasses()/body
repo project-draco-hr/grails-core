@@ -17,6 +17,7 @@
     assertEquals("hello",go.getProperty("hello"));
     fw=new FileWriter(file);
     fw.write("package org.codehaus.groovy.grails.commons;\n" + "class TestReload { \n" + "@Property hello = \"goodbye\"\n"+ "}");
+    fw.close();
     groovyClass=cl.loadClass("org.codehaus.groovy.grails.commons.TestReload",true,false);
     go=(GroovyObject)groovyClass.newInstance();
     assertEquals("goodbye",go.getProperty("hello"));

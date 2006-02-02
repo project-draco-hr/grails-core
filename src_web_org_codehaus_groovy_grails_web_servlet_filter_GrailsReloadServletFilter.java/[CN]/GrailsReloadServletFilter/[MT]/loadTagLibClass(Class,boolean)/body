@@ -1,0 +1,12 @@
+{
+  GrailsTagLibClass tagLibClass=application.addTagLibClass(loadedClass);
+  if (tagLibClass != null) {
+    if (isNew) {
+      reloadApplicationContext();
+    }
+ else {
+      HotSwappableTargetSource targetSource=(HotSwappableTargetSource)context.getBean(tagLibClass.getFullName() + "TargetSource");
+      targetSource.swap(tagLibClass);
+    }
+  }
+}

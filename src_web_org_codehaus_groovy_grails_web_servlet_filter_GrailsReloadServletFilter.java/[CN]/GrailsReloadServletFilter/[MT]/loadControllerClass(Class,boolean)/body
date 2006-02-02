@@ -1,0 +1,27 @@
+{
+  GrailsControllerClass controllerClass=application.addControllerClass(loadedClass);
+  if (controllerClass != null) {
+    Properties mappings=new Properties();
+    for (int i=0; i < application.getControllers().length; i++) {
+      GrailsControllerClass simpleController=application.getControllers()[i];
+      for (int x=0; x < simpleController.getURIs().length; x++) {
+        if (!mappings.containsKey(simpleController.getURIs()[x]))         mappings.put(simpleController.getURIs()[x],SimpleGrailsController.APPLICATION_CONTEXT_ID);
+      }
+    }
+    for (int i=0; i < application.getPageFlows().length; i++) {
+      GrailsPageFlowClass pageFlow=application.getPageFlows()[i];
+      mappings.put(pageFlow.getUri(),pageFlow.getFullName() + "Controller");
+    }
+    HotSwappableTargetSource urlMappingsTargetSource=(HotSwappableTargetSource)context.getBean(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE);
+    GrailsUrlHandlerMapping urlMappings=new GrailsUrlHandlerMapping();
+    urlMappings.setApplicationContext(context);
+    urlMappings.setMappings(mappings);
+    urlMappings.initApplicationContext();
+    urlMappingsTargetSource.swap(urlMappings);
+    HotSwappableTargetSource controllerTargetSource=(HotSwappableTargetSource)context.getBean(controllerClass.getFullName() + "TargetSource");
+    controllerTargetSource.swap(controllerClass);
+    if (isNew) {
+      reloadApplicationContext();
+    }
+  }
+}

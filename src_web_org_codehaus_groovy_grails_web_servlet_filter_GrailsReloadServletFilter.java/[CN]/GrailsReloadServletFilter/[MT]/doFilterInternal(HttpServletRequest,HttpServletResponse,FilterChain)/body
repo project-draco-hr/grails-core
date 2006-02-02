@@ -1,7 +1,17 @@
 {
+  context=(ApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  if (context == null) {
+    filterChain.doFilter(httpServletRequest,httpServletResponse);
+    return;
+  }
+  application=(GrailsApplication)context.getBean(GrailsApplication.APPLICATION_ID);
+  if (application == null) {
+    filterChain.doFilter(httpServletRequest,httpServletResponse);
+    return;
+  }
   if (copyScript == null) {
     GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
-    Class groovyClass=null;
+    Class groovyClass;
     try {
       groovyClass=gcl.parseClass(gcl.getResource("org/codehaus/groovy/grails/web/servlet/filter/GrailsResourceCopier.groovy").openStream());
       copyScript=(GroovyObject)groovyClass.newInstance();
@@ -21,6 +31,65 @@ catch (    Exception e) {
   }
   if (copyScript != null) {
     copyScript.invokeMethod("run",new Object[0]);
+  }
+  GrailsResourceHolder resourceHolder=(GrailsResourceHolder)context.getBean(GrailsResourceHolder.APPLICATION_CONTEXT_ID);
+  Resource[] resources=resourceHolder.getResources();
+  if (!initialised) {
+    for (int i=0; i < resources.length; i++) {
+      Resource resource=resources[i];
+      String className=resourceHolder.getClassName(resources[i]);
+      URL url=resource.getURL();
+      URLConnection c=url.openConnection();
+      c.setDoInput(false);
+      c.setDoOutput(false);
+      long lastModified=c.getLastModified();
+      ResourceMeta rm=new ResourceMeta();
+      rm.className=className;
+      rm.lastModified=lastModified;
+      rm.url=url;
+      resourceMetas.put(className,rm);
+    }
+    initialised=true;
+  }
+ else {
+    for (int i=0; i < resources.length; i++) {
+      Resource resource=resources[i];
+      String className=resourceHolder.getClassName(resources[i]);
+      Class loadedClass=null;
+      boolean isNew=false;
+      try {
+        if (!resourceMetas.containsKey(className)) {
+          loadedClass=application.getClassLoader().loadClass(className,true,false);
+          isNew=true;
+        }
+ else {
+          ResourceMeta rm=(ResourceMeta)resourceMetas.get(className);
+          URL url=resource.getURL();
+          URLConnection c=url.openConnection();
+          if (rm.lastModified < c.getLastModified()) {
+            loadedClass=application.getClassLoader().loadClass(className,true,false);
+            rm.lastModified=c.getLastModified();
+          }
+        }
+      }
+ catch (      ClassNotFoundException cnfex) {
+        LOG.error("Unabled to reload class [" + className + "], class not found: "+ cnfex.getMessage(),cnfex);
+      }
+      if (loadedClass != null) {
+        if (GrailsClassUtils.isControllerClass(loadedClass)) {
+          loadControllerClass(loadedClass,isNew);
+        }
+ else         if (GrailsClassUtils.isDomainClass(loadedClass)) {
+          loadDomainClass(loadedClass,isNew);
+        }
+ else         if (GrailsClassUtils.isService(loadedClass)) {
+          loadServiceClass(loadedClass,isNew);
+        }
+ else         if (GrailsClassUtils.isTagLibClass(loadedClass)) {
+          loadTagLibClass(loadedClass,isNew);
+        }
+      }
+    }
   }
   filterChain.doFilter(httpServletRequest,httpServletResponse);
 }

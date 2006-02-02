@@ -3,6 +3,7 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("[SimpleGrailsController] Processing request for uri [" + uri + "]");
   }
-  this.helper=new SimpleGrailsControllerHelper(this.application,this.applicationContext,this.servletContext);
+  ApplicationContext context=(ApplicationContext)this.servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  this.helper=new SimpleGrailsControllerHelper(this.application,context,this.servletContext);
   return helper.handleURI(uri,request,response);
 }

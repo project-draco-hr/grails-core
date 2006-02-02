@@ -1,7 +1,7 @@
 {
   Binding binding=getBinding();
   Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
-  GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsRequestAttributes.TAG_LIB);
+  GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsApplicationAttributes.TAG_LIB);
   if (tagLib != null) {
     tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
     Object tagLibProp;

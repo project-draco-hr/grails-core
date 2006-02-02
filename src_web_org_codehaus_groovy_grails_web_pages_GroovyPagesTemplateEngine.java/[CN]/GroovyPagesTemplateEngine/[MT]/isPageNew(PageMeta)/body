@@ -1,6 +1,6 @@
 {
   for (Iterator i=pageMeta.dependencies.keySet().iterator(); i.hasNext(); ) {
-    URLConnection urlc=null;
+    URLConnection urlc;
     URL url=(URL)i.next();
     try {
       urlc=url.openConnection();

@@ -7,7 +7,7 @@
     Closure body=null;
     Binding binding=getBinding();
     final Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
-    GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsRequestAttributes.TAG_LIB);
+    GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsApplicationAttributes.TAG_LIB);
     if (args instanceof Object[]) {
       Object[] argArray=(Object[])args;
       if (argArray.length > 0 && argArray[0] instanceof Map)       attrs=(Map)argArray[0];

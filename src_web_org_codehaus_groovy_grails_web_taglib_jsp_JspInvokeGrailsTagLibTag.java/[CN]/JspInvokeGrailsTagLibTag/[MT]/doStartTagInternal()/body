@@ -1,5 +1,5 @@
 {
-  GroovyObject tagLib=(GroovyObject)pageContext.getRequest().getAttribute(GrailsRequestAttributes.TAG_LIB);
+  GroovyObject tagLib=(GroovyObject)pageContext.getRequest().getAttribute(GrailsApplicationAttributes.TAG_LIB);
   if (tagLib != null) {
     sw=new StringWriter();
     out=new PrintWriter(sw);

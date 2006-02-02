@@ -1,7 +1,7 @@
 {
   Bean simpleGrailsController=SpringConfigUtils.createSingletonBean(SimpleGrailsController.class);
   simpleGrailsController.setAutowire("byType");
-  beanReferences.add(SpringConfigUtils.createBeanReference("simpleGrailsController",simpleGrailsController));
+  beanReferences.add(SpringConfigUtils.createBeanReference(SimpleGrailsController.APPLICATION_CONTEXT_ID,simpleGrailsController));
   Bean grailsViewResolver=SpringConfigUtils.createSingletonBean(GrailsViewResolver.class);
   grailsViewResolver.setProperty("viewClass",SpringConfigUtils.createLiteralValue("org.springframework.web.servlet.view.JstlView"));
   grailsViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/grails-app/views/"));
@@ -10,7 +10,14 @@
   Bean simpleUrlHandlerMapping=null;
   if (application.getControllers().length > 0 || application.getPageFlows().length > 0) {
     simpleUrlHandlerMapping=SpringConfigUtils.createSingletonBean(GrailsUrlHandlerMapping.class);
-    beanReferences.add(SpringConfigUtils.createBeanReference("handlerMapping",simpleUrlHandlerMapping));
+    Collection args=new ArrayList();
+    args.add(simpleUrlHandlerMapping);
+    Bean simpleUrlHandlerMappingTargetSource=SpringConfigUtils.createSingletonBean(HotSwappableTargetSource.class,args);
+    beanReferences.add(SpringConfigUtils.createBeanReference(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE,simpleUrlHandlerMappingTargetSource));
+    Bean simpleUrlHandlerMappingProxy=SpringConfigUtils.createSingletonBean(ProxyFactoryBean.class);
+    simpleUrlHandlerMappingProxy.setProperty("targetSource",SpringConfigUtils.createBeanReference(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE));
+    simpleUrlHandlerMappingProxy.setProperty("proxyInterfaces",SpringConfigUtils.createLiteralValue("org.springframework.web.servlet.HandlerMapping"));
+    beanReferences.add(SpringConfigUtils.createBeanReference(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_ID,simpleUrlHandlerMappingProxy));
   }
   GrailsControllerClass[] simpleControllers=application.getControllers();
   for (int i=0; i < simpleControllers.length; i++) {
@@ -23,14 +30,21 @@
     controllerClass.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getController"));
     controllerClass.setProperty("arguments",SpringConfigUtils.createLiteralValue(simpleController.getFullName()));
     beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Class",controllerClass));
-    controllerClassBeans.put(simpleController.getFullName() + "Class",controllerClass);
+    Collection args=new ArrayList();
+    args.add(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Class"));
+    Bean controllerTargetSource=SpringConfigUtils.createSingletonBean(HotSwappableTargetSource.class,args);
+    beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "TargetSource",controllerTargetSource));
+    Bean controllerClassProxy=SpringConfigUtils.createSingletonBean(ProxyFactoryBean.class);
+    controllerClassProxy.setProperty("targetSource",SpringConfigUtils.createBeanReference(simpleController.getFullName() + "TargetSource"));
+    controllerClassProxy.setProperty("proxyInterfaces",SpringConfigUtils.createLiteralValue("org.codehaus.groovy.grails.commons.GrailsControllerClass"));
+    beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Proxy",controllerClassProxy));
     Bean controller=SpringConfigUtils.createPrototypeBean();
-    controller.setFactoryBean(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Class"));
+    controller.setFactoryBean(SpringConfigUtils.createBeanReference(simpleController.getFullName() + "Proxy"));
     controller.setFactoryMethod("newInstance");
     controller.setAutowire("byName");
     beanReferences.add(SpringConfigUtils.createBeanReference(simpleController.getFullName(),controller));
     for (int x=0; x < simpleController.getURIs().length; x++) {
-      if (!urlMappings.containsKey(simpleController.getURIs()[x]))       urlMappings.put(simpleController.getURIs()[x],"simpleGrailsController");
+      if (!urlMappings.containsKey(simpleController.getURIs()[x]))       urlMappings.put(simpleController.getURIs()[x],SimpleGrailsController.APPLICATION_CONTEXT_ID);
     }
   }
   if (simpleUrlHandlerMapping != null) {
@@ -44,9 +58,16 @@
     taglibClass.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getGrailsTagLibClass"));
     taglibClass.setProperty("arguments",SpringConfigUtils.createLiteralValue(grailsTagLib.getFullName()));
     beanReferences.add(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "Class",taglibClass));
-    controllerClassBeans.put(grailsTagLib.getFullName() + "Class",taglibClass);
+    Collection args=new ArrayList();
+    args.add(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "Class"));
+    Bean taglibTargetSource=SpringConfigUtils.createSingletonBean(HotSwappableTargetSource.class,args);
+    beanReferences.add(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "TargetSource",taglibTargetSource));
+    Bean taglibClassProxy=SpringConfigUtils.createSingletonBean(ProxyFactoryBean.class);
+    taglibClassProxy.setProperty("targetSource",SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "TargetSource"));
+    taglibClassProxy.setProperty("proxyInterfaces",SpringConfigUtils.createLiteralValue("org.codehaus.groovy.grails.commons.GrailsTagLibClass"));
+    beanReferences.add(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "Proxy",taglibClassProxy));
     Bean taglib=SpringConfigUtils.createPrototypeBean();
-    taglib.setFactoryBean(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "Class"));
+    taglib.setFactoryBean(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName() + "Proxy"));
     taglib.setFactoryMethod("newInstance");
     taglib.setAutowire("byName");
     beanReferences.add(SpringConfigUtils.createBeanReference(grailsTagLib.getFullName(),taglib));

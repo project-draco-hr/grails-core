@@ -2,7 +2,7 @@
   boolean dependsOnHsqldbServer=false;
   GrailsDataSource grailsDataSource=application.getGrailsDataSource();
   if (grailsDataSource != null) {
-    Bean dataSource=null;
+    Bean dataSource;
     if (grailsDataSource.isPooled()) {
       dataSource=SpringConfigUtils.createSingletonBean(BasicDataSource.class);
       dataSource.setDestroyMethod("close");

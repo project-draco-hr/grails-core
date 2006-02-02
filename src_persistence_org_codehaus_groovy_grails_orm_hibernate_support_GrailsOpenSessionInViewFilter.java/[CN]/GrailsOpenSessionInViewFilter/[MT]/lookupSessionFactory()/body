@@ -1,14 +1,8 @@
 {
   WebApplicationContext parent=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-  ApplicationContext context;
-  if (getServletContext().getAttribute(GrailsRequestAttributes.APPLICATION_CONTEXT) == null) {
-    GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-    SpringConfig springConfig=new SpringConfig(application);
-    context=new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),parent);
-    getServletContext().setAttribute(GrailsRequestAttributes.APPLICATION_CONTEXT,context);
+  ApplicationContext context=(ApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  if (context != null) {
+    return (SessionFactory)context.getBean(getSessionFactoryBeanName(),SessionFactory.class);
   }
- else {
-    context=(ApplicationContext)getServletContext().getAttribute(GrailsRequestAttributes.APPLICATION_CONTEXT);
-  }
-  return (SessionFactory)context.getBean(getSessionFactoryBeanName(),SessionFactory.class);
+  return null;
 }

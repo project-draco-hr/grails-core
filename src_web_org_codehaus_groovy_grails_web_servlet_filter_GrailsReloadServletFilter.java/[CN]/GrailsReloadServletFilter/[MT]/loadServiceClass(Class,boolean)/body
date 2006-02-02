@@ -5,14 +5,5 @@
   }
  else {
     reloadApplicationContext();
-    if (serviceClass != null) {
-      if (isNew) {
-        reloadApplicationContext();
-      }
- else {
-        HotSwappableTargetSource targetSource=(HotSwappableTargetSource)context.getBean(serviceClass.getFullName() + "TargetSource");
-        targetSource.swap(serviceClass.newInstance());
-      }
-    }
   }
 }

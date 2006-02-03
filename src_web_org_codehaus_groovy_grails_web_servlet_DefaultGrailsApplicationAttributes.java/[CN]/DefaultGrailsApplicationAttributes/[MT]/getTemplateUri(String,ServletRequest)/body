@@ -1,0 +1,3 @@
+{
+  return new StringBuffer("/WEB-INF/grails-app/views").append(getControllerUri(request)).append("/_").append(templateName).append(".gsp").toString();
+}

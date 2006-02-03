@@ -1,3 +1,8 @@
 {
-  return (GroovyPagesTemplateEngine)this.context.getAttribute(GSP_TEMPLATE_ENGINE);
+  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)this.context.getAttribute(GSP_TEMPLATE_ENGINE);
+  if (engine == null) {
+    engine=new GroovyPagesTemplateEngine();
+    this.context.setAttribute(GSP_TEMPLATE_ENGINE,engine);
+  }
+  return engine;
 }

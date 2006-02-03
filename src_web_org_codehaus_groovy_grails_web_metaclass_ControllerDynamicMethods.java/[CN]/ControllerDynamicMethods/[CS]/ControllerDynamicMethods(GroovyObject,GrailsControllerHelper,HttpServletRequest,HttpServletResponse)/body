@@ -15,13 +15,12 @@
   addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new RenderDynamicMethod(helper,request,response));
-  addDynamicMethodInvocation(new RicoDynamicMethod(request,response));
   addDynamicMethodInvocation(new BindDynamicMethod(request,response));
   addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(HAS_ERRORS_METHOD){
     public Object invoke(    Object target,    Object[] arguments){
       GroovyObject controller=(GroovyObject)target;
       Errors errors=(Errors)controller.getProperty(ERRORS_PROPERTY);
-      return new Boolean(errors.hasErrors());
+      return Boolean.valueOf(errors.hasErrors());
     }
   }
 );

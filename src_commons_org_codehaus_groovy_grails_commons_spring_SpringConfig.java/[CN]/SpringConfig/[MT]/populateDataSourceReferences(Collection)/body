@@ -59,7 +59,7 @@
   Bean grailsClassLoader=SpringConfigUtils.createSingletonBean(MethodInvokingFactoryBean.class);
   grailsClassLoader.setProperty("targetObject",SpringConfigUtils.createBeanReference("grailsApplication"));
   grailsClassLoader.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getClassLoader"));
-  Bean localSessionFactoryBean=SpringConfigUtils.createSingletonBean(ConfigurableLocalsSessionFactoryBean.class);
+  Bean localSessionFactoryBean=SpringConfigUtils.createSingletonBean(ConfigurableLocalSessionFactoryBean.class);
   localSessionFactoryBean.setProperty("dataSource",SpringConfigUtils.createBeanReference("dataSource"));
   ClassLoader cl=this.application.getClassLoader();
   URL hibernateConfig=cl.getResource("hibernate.cfg.xml");

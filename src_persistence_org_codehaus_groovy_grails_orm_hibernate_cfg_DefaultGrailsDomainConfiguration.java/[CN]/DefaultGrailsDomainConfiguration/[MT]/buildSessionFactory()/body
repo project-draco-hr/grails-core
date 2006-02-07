@@ -1,16 +1,7 @@
 {
   SessionFactory sessionFactory=super.buildSessionFactory();
-  Collection classMetaData=sessionFactory.getAllClassMetadata().values();
-  for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
-    ClassMetadata cmd=(ClassMetadata)i.next();
-    Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
-    LOG.info("[GrailsDomainConfiguration] Registering dynamic methods on externally configured hibernate persistent class [" + persistentClass + "]");
-    try {
-      new DomainClassMethods(this.grailsApplication,persistentClass,sessionFactory,this.grailsApplication.getClassLoader());
-    }
- catch (    IntrospectionException e) {
-      LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
-    }
+  if (configureDynamicMethods) {
+    configureDynamicMethods(sessionFactory);
   }
   return sessionFactory;
 }

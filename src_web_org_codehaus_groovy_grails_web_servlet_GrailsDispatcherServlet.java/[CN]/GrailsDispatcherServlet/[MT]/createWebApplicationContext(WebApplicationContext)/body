@@ -19,9 +19,37 @@
     webContext=new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),locations);
     getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,webContext);
   }
-  GrailsBootstrapClass[] bootstraps=application.getGrailsBootstrapClasses();
-  for (int i=0; i < bootstraps.length; i++) {
-    bootstraps[i].callInit(getServletContext());
+  SessionFactory sessionFactory=(SessionFactory)webContext.getBean("sessionFactory");
+  if (sessionFactory != null) {
+    Session session=null;
+    boolean participate=false;
+    if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+      participate=true;
+    }
+ else {
+      logger.debug("Opening single Hibernate session in GrailsDispatcherServlet");
+      session=SessionFactoryUtils.getSession(sessionFactory,true);
+      session.setFlushMode(FlushMode.AUTO);
+      TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
+    }
+    try {
+      GrailsBootstrapClass[] bootstraps=application.getGrailsBootstrapClasses();
+      for (int i=0; i < bootstraps.length; i++) {
+        bootstraps[i].callInit(getServletContext());
+      }
+    }
+  finally {
+      if (!participate) {
+        TransactionSynchronizationManager.unbindResource(sessionFactory);
+        logger.debug("Closing single Hibernate session in GrailsDispatcherServlet");
+        try {
+          SessionFactoryUtils.releaseSession(session,sessionFactory);
+        }
+ catch (        RuntimeException ex) {
+          logger.error("Unexpected exception on closing Hibernate Session",ex);
+        }
+      }
+    }
   }
   return webContext;
 }

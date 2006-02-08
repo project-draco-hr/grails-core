@@ -1,55 +1,90 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   Object actionRef;
-  Map params=null;
-  Map model=null;
+  String controllerName;
+  Object id;
+  Map params;
+  Map model;
+  Errors errors;
   GroovyObject controller=(GroovyObject)target;
   if (arguments[0] instanceof Map) {
     Map argMap=(Map)arguments[0];
     actionRef=argMap.get(ARGUMENT_ACTION);
-    if (argMap.get(ARGUMENT_PARAMS) instanceof Map)     params=(Map)argMap.get(ARGUMENT_PARAMS);
-    if (argMap.get(ARGUMENT_MODEL) instanceof Map)     model=(Map)argMap.get(ARGUMENT_MODEL);
- else     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+    controllerName=(String)argMap.get(ARGUMENT_CONTROLLER);
+    id=argMap.get(ARGUMENT_ID);
+    params=(Map)argMap.get(ARGUMENT_PARAMS);
+    model=(Map)argMap.get(ARGUMENT_MODEL);
+    errors=(Errors)argMap.get(ARGUMENT_ERRORS);
   }
  else {
-    actionRef=arguments[0];
-    if (!(arguments[1] instanceof Map))     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
-    model=(Map)arguments[1];
-    if (arguments.length > 2) {
-      if (arguments[2] instanceof Map) {
-        params=(Map)arguments[2];
-      }
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  GrailsApplicationAttributes attrs=helper.getGrailsAttributes();
+  FlashScope fs=attrs.getFlashScope(request);
+  if (fs.containsKey(PROPERTY_CHAIN_MODEL)) {
+    Map chainModel=(Map)fs.get(PROPERTY_CHAIN_MODEL);
+    if (chainModel != null) {
+      chainModel.putAll(model);
+      model=chainModel;
     }
   }
+  fs.put(PROPERTY_CHAIN_MODEL,model);
+  Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
+  if (controllerErrors != null) {
+    controllerErrors.addAllErrors(errors);
+  }
+ else {
+    controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+  }
+  String actionName=null;
   if (actionRef instanceof String) {
-    String uri=(String)actionRef;
-    if (params != null) {
-      helper.setChainModel(model);
-      return helper.handleURI(uri,this.request,this.response,params);
-    }
- else {
-      helper.setChainModel(model);
-      return helper.handleURI(uri,this.request,this.response);
-    }
+    actionName=(String)actionRef;
   }
  else   if (actionRef instanceof Closure) {
     Closure c=(Closure)actionRef;
     PropertyDescriptor prop=GrailsClassUtils.getPropertyDescriptorForValue(target,c);
-    String closureName=null;
     if (prop != null) {
-      closureName=prop.getName();
+      actionName=prop.getName();
     }
  else {
       GrailsScaffolder scaffolder=helper.getScaffolderForController(target.getClass().getName());
       if (scaffolder != null) {
-        closureName=scaffolder.getActionName(c);
+        actionName=scaffolder.getActionName(c);
       }
     }
-    GrailsControllerClass controllerClass=helper.getControllerClassByName(target.getClass().getName());
-    String viewName=controllerClass.getViewByName(closureName);
-    helper.setChainModel(model);
-    Object returnValue=helper.handleAction(controller,c,request,response,params);
-    return helper.handleActionResponse(controller,returnValue,closureName,viewName);
   }
-  throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  if (actionName != null) {
+    StringBuffer actualUri=new StringBuffer(attrs.getApplicationUri(request));
+    if (controllerName != null) {
+      actualUri.append('/').append(controllerName);
+    }
+ else {
+      actualUri.append(attrs.getControllerUri(request));
+    }
+    actualUri.append('/').append(actionName);
+    if (id != null) {
+      actualUri.append('/').append(id);
+    }
+    if (params != null) {
+      actualUri.append('?');
+      for (Iterator i=params.keySet().iterator(); i.hasNext(); ) {
+        Object name=i.next();
+        actualUri.append(name).append('=').append(params.get(name));
+        if (i.hasNext())         actualUri.append('&');
+      }
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Dynamic method [chain] redirecting request to [" + actualUri + "]");
+    }
+    try {
+      response.sendRedirect(response.encodeRedirectURL(actualUri.toString()));
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);
+    }
+  }
+ else {
+    throw new ControllerExecutionException("Action not found in redirect for name [" + actionName + "]");
+  }
+  return null;
 }

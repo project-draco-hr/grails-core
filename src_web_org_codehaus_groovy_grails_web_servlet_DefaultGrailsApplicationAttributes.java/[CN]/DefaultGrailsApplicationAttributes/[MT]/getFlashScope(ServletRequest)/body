@@ -1,0 +1,12 @@
+{
+  if (request instanceof HttpServletRequest) {
+    HttpSession session=((HttpServletRequest)request).getSession(true);
+    FlashScope fs=(FlashScope)session.getAttribute(FLASH_SCOPE);
+    if (fs == null) {
+      fs=new GrailsFlashScope();
+      session.setAttribute(FLASH_SCOPE,fs);
+    }
+    return fs;
+  }
+  return null;
+}

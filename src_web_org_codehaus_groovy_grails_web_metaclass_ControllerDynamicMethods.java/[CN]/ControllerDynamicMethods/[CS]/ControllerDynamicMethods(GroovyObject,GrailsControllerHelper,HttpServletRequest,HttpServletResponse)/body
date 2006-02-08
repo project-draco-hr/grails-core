@@ -6,6 +6,7 @@
   addDynamicProperty(new GenericDynamicProperty(REQUEST_PROPERTY,HttpServletRequest.class,new GrailsHttpServletRequest(request,controller),true));
   addDynamicProperty(new GenericDynamicProperty(RESPONSE_PROPERTY,HttpServletResponse.class,response,true));
   addDynamicProperty(new GenericDynamicProperty(SERVLET_CONTEXT,ServletContext.class,helper.getServletContext(),true));
+  addDynamicProperty(new GenericDynamicProperty(FLASH_SCOPE_PROPERTY,FlashScope.class,helper.getGrailsAttributes().getFlashScope(request),false));
   addDynamicProperty(new GenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(MODEL_AND_VIEW_PROPERTY,ModelAndView.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(GRAILS_ATTRIBUTES,GrailsApplicationAttributes.class,helper.getGrailsAttributes(),true));

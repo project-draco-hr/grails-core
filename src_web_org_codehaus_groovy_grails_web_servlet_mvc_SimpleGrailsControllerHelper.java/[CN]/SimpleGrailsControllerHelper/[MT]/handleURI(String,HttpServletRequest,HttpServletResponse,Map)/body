@@ -25,9 +25,6 @@
             extraParams.put(token,tokens[i + 1]);
           }
         }
- else {
-          continue;
-        }
       }
     }
   }
@@ -87,6 +84,9 @@
       controllerParams.put(name,extraParams.get(name));
     }
   }
+  FlashScope fs=this.grailsAttributes.getFlashScope(request);
+  fs.next();
+  controller.setProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY,fs);
   String viewName=controllerClass.getViewByURI(uri);
   Closure action=(Closure)controller.getProperty(actionPropertyName);
   if (action == null)   throw new IllegalStateException("Scaffolder supports action [" + actionPropertyName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");

@@ -1,4 +1,5 @@
 {
   GroovyObject controller=getController(request);
-  return (String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY);
+  if (controller != null)   return (String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY);
+ else   return null;
 }

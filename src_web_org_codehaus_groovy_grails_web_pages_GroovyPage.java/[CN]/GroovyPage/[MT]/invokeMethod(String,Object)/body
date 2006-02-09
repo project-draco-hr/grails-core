@@ -3,6 +3,9 @@
     return super.invokeMethod(methodName,args);
   }
  catch (  MissingMethodException mme) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("No method [" + methodName + "] found invoking as tag");
+    }
     Map attrs=null;
     Closure body=null;
     Binding binding=getBinding();

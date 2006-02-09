@@ -1,0 +1,11 @@
+{
+  try {
+    return super.getProperty(property);
+  }
+ catch (  MissingPropertyException mpe) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("No property [" + property + "] found in GSP returning null");
+    }
+    return null;
+  }
+}

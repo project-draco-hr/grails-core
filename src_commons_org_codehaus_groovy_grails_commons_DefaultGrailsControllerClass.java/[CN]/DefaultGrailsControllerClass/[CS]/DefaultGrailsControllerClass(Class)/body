@@ -6,6 +6,10 @@
   if (tmp != null) {
     this.scaffolding=tmp.booleanValue();
   }
+  this.scaffoldedClass=(Class)getPropertyValue(SCAFFOLDING_PROPERTY,Class.class);
+  if (this.scaffoldedClass != null) {
+    this.scaffolding=true;
+  }
   Collection closureNames=new ArrayList();
   this.uri2viewMap=new HashMap();
   this.uri2closureMap=new HashMap();

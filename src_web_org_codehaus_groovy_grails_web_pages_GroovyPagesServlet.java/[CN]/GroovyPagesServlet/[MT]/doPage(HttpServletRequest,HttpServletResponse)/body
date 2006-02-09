@@ -1,4 +1,6 @@
 {
+  this.engine=grailsAttributes.getPagesTemplateEngine();
+  this.engine.setShowSource(this.showSource);
   String pageId=engine.getPageId(request);
   URL pageUrl=engine.getPageUrl(context,pageId);
   if (pageUrl == null) {

@@ -1,13 +1,8 @@
 {
   context=config.getServletContext();
-  context.log("Groovy servlet initialized");
+  context.log("GSP servlet initialized");
   parent=Thread.currentThread().getContextClassLoader();
   if (parent == null)   parent=getClass().getClassLoader();
   showSource=config.getInitParameter("showSource") != null;
-  this.engine=(GroovyPagesTemplateEngine)context.getAttribute(GrailsApplicationAttributes.GSP_TEMPLATE_ENGINE);
-  if (this.engine == null) {
-    this.engine=new GroovyPagesTemplateEngine();
-    this.engine.setShowSource(this.showSource);
-    context.setAttribute(GrailsApplicationAttributes.GSP_TEMPLATE_ENGINE,this.engine);
-  }
+  this.grailsAttributes=new DefaultGrailsApplicationAttributes(context);
 }

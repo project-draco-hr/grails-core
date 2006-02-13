@@ -3,7 +3,7 @@
   GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
   Validator validator=null;
   boolean doValidation=true;
-  Boolean success=new Boolean(true);
+  Boolean success=Boolean.TRUE;
   if (domainClass != null) {
     validator=domainClass.getValidator();
     doValidation=true;
@@ -19,10 +19,17 @@
       if (errors.hasErrors()) {
         DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
         metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
-        return new Boolean(!errors.hasErrors());
+        return Boolean.valueOf(!errors.hasErrors());
       }
     }
   }
-  getHibernateTemplate().saveOrUpdate(target);
+  HibernateTemplate ht=getHibernateTemplate();
+  if (ht.contains(target)) {
+    ht.flush();
+    ht.update(target);
+  }
+ else {
+    ht.saveOrUpdate(target);
+  }
   return success;
 }

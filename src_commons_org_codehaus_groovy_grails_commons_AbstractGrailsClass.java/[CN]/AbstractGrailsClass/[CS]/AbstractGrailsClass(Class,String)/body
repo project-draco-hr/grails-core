@@ -4,6 +4,7 @@
   this.reference=new BeanWrapperImpl(newInstance());
   this.fullName=clazz.getName();
   this.packageName=ClassUtils.getPackageName(clazz);
+  this.naturalName=GrailsClassUtils.getNaturalName(clazz.getName());
   if (StringUtils.isBlank(trailingName)) {
     this.name=fullName;
   }

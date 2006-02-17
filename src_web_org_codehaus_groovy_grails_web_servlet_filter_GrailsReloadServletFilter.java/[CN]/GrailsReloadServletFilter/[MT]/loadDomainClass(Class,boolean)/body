@@ -1,4 +1,9 @@
 {
-  application.addDomainClass(loadedClass);
+  GrailsDomainClass domainClass=application.addDomainClass(loadedClass);
   reloadApplicationContext();
+  GrailsControllerClass controllerClass=application.getScaffoldingController(domainClass);
+  if (controllerClass != null && controllerClass.isScaffolding()) {
+    templateGenerator.generateViews(domainClass,getServletContext().getRealPath("/WEB-INF"));
+    copyScript.copyViews(true);
+  }
 }

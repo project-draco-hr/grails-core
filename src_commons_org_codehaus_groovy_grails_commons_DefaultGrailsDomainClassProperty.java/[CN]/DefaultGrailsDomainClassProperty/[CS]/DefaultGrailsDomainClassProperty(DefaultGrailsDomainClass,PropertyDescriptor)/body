@@ -4,6 +4,7 @@
   this.optional=false;
   this.persistant=true;
   this.name=this.descriptor.getName();
+  this.naturalName=GrailsClassUtils.getNaturalName(this.descriptor.getName());
   this.type=this.descriptor.getPropertyType();
   this.identity=this.descriptor.getName().equals(IDENTITY);
   List optionalProps=null;

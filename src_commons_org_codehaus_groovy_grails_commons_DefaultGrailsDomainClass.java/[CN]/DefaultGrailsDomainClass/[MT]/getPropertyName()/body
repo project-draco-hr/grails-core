@@ -1,4 +1,3 @@
 {
-  String shortTypeName=ClassUtils.getShortClassName(getName());
-  return shortTypeName.substring(0,0).toLowerCase() + shortTypeName.substring(1);
+  return GrailsClassUtils.getPropertyNameRepresentation(getClazz());
 }

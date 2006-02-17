@@ -1,18 +1,21 @@
 {
-  this.controller2TagMap=new HashMap();
-  for (int i=0; i < controllerClasses.length; i++) {
-    GrailsControllerClass controllerClass=controllerClasses[i];
-    boolean found=false;
-    for (int j=0; j < taglibClasses.length; j++) {
-      GrailsTagLibClass taglibClass=taglibClasses[j];
-      if (controllerClass.getName().equals(taglibClass.getName())) {
-        this.controller2TagMap.put(controllerClass.getFullName(),taglibClass);
-        found=true;
-        break;
+  this.tag2libMap=new HashMap();
+  for (int i=0; i < taglibClasses.length; i++) {
+    GrailsTagLibClass taglibClass=taglibClasses[i];
+    for (Iterator j=taglibClass.getTagNames().iterator(); j.hasNext(); ) {
+      String tagName=(String)j.next();
+      if (!this.taglibMap.containsKey(tagName)) {
+        this.tag2libMap.put(tagName,taglibClass);
       }
-    }
-    if (!found) {
-      this.controller2TagMap.put(controllerClass.getFullName(),taglibMap.get(GrailsTagLibClass.APPLICATION_TAG_LIB));
+ else {
+        GrailsTagLibClass current=(GrailsTagLibClass)this.taglibMap.get(tagName);
+        if (!taglibClass.equals(current)) {
+          this.tag2libMap.put(tagName,taglibClass);
+        }
+ else {
+          throw new GrailsConfigurationException("Cannot configure tag library [" + taglibClass.getName() + "]. Library ["+ current.getName()+ "] already contains a tag called ["+ tagName+ "]");
+        }
+      }
     }
   }
 }

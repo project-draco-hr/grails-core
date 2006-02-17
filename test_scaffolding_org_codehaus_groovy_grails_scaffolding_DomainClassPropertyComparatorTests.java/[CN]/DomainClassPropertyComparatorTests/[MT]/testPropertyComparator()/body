@@ -1,0 +1,15 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
+  Class dc=gcl.parseClass("class Test { " + "\n@Property Long id;" + "\n@Property Long version;"+ "\n@Property String name;"+ "\n@Property Date age"+ "\n@Property String zip"+ "\n@Property String dob"+ "\n@Property constraints = {"+ "\n  name(length:5..15)"+ "\n  age()"+ "}  }");
+  GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
+  DomainClassPropertyComparator comp=new DomainClassPropertyComparator(domainClass);
+  GrailsDomainClassProperty[] props=domainClass.getProperties();
+  Arrays.sort(props,comp);
+  System.out.println(ArrayUtils.toString(props));
+  assertEquals("id",props[0].getName());
+  assertEquals("name",props[1].getName());
+  assertEquals("age",props[2].getName());
+  assertEquals("dob",props[3].getName());
+  assertEquals("version",props[4].getName());
+  assertEquals("zip",props[5].getName());
+}

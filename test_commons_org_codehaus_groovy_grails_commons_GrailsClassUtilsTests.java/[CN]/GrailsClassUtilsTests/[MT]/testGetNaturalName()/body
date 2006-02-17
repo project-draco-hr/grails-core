@@ -1,0 +1,6 @@
+{
+  assertEquals("First Name",GrailsClassUtils.getNaturalName("firstName"));
+  assertEquals("URL",GrailsClassUtils.getNaturalName("URL"));
+  assertEquals("Local URL",GrailsClassUtils.getNaturalName("localURL"));
+  assertEquals("URL local",GrailsClassUtils.getNaturalName("URLlocal"));
+}

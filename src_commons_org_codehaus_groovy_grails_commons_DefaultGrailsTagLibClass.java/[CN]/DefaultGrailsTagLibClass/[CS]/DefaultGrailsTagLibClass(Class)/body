@@ -1,3 +1,22 @@
 {
   super(clazz,TAG_LIB);
+  Class supportedControllerClass=(Class)getPropertyValue(SUPPORTS_CONTROLLER,Class.class);
+  if (supportedControllerClass != null) {
+    supportedControllers=new ArrayList();
+    supportedControllers.add(supportedControllerClass);
+  }
+ else {
+    List tmp=(List)getPropertyValue(SUPPORTS_CONTROLLER,List.class);
+    if (tmp != null) {
+      supportedControllers=tmp;
+    }
+  }
+  PropertyDescriptor[] props=getReference().getPropertyDescriptors();
+  for (int i=0; i < props.length; i++) {
+    PropertyDescriptor prop=props[i];
+    Closure tag=(Closure)getPropertyValue(prop.getName(),Closure.class);
+    if (tag != null) {
+      tags.add(prop.getName());
+    }
+  }
 }

@@ -1,8 +1,12 @@
 {
   if (controllerClass == null)   return false;
-  if (getName().equals(APPLICATION_TAG_LIB))   return true;
+ else   if (supportedControllers != null) {
+    if (supportedControllers.contains(controllerClass.getClazz())) {
+      return true;
+    }
  else {
-    if (getName().equals(controllerClass.getName()))     return true;
+      return false;
+    }
   }
-  return false;
+  return true;
 }

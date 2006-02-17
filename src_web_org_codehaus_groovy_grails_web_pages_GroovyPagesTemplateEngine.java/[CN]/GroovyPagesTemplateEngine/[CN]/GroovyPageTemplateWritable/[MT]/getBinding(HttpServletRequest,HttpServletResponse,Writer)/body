@@ -9,7 +9,6 @@
   binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appContext);
   binding.setVariable(GrailsApplication.APPLICATION_ID,appContext.getBean(GrailsApplication.APPLICATION_ID));
   binding.setVariable(GrailsApplicationAttributes.CONTROLLER,controller);
-  binding.setVariable(GrailsApplicationAttributes.TAG_LIB,request.getAttribute(GrailsApplicationAttributes.TAG_LIB));
   binding.setVariable(GroovyPage.SESSION,controller.getProperty(GetSessionDynamicProperty.PROPERTY_NAME));
   binding.setVariable(GroovyPage.PARAMS,controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME));
   binding.setVariable(GroovyPage.OUT,out);

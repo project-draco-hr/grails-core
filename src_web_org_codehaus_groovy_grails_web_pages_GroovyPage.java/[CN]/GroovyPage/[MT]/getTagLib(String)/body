@@ -1,0 +1,23 @@
+{
+  if (this.application == null)   initPageState();
+  Binding binding=getBinding();
+  HttpServletRequest request=(HttpServletRequest)binding.getVariable(GroovyPage.REQUEST);
+  HttpServletResponse response=(HttpServletResponse)binding.getVariable(GroovyPage.RESPONSE);
+  GrailsTagLibClass tagLibClass=application.getTagLibClassForTag(tagName);
+  if (tagLibClass == null)   return null;
+  GroovyObject tagLib;
+  if (tagLibs.containsKey(tagLibClass.getFullName())) {
+    tagLib=(GroovyObject)tagLibs.get(tagLibClass.getFullName());
+  }
+ else {
+    tagLib=(GroovyObject)appContext.getBean(tagLibClass.getFullName());
+    try {
+      new TagLibDynamicMethods(tagLib,grailsAttributes.getController(request),request,response);
+    }
+ catch (    IntrospectionException e) {
+      throw new GrailsTagException("Error instantiating taglib [" + tagLibClass.getFullName() + "]: "+ e.getMessage(),e);
+    }
+    tagLibs.put(tagLibClass.getFullName(),tagLib);
+  }
+  return tagLib;
+}

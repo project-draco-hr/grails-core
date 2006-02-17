@@ -31,7 +31,6 @@
   }
  else   if (returnValue instanceof Map) {
     Map returnModel=(Map)returnValue;
-    Map model;
     removeProxiesFromModelObjects(returnModel);
     if (!this.chainModel.isEmpty()) {
       returnModel.putAll(this.chainModel);
@@ -63,7 +62,6 @@
  else {
       model=new BeanMap(controller);
     }
-    ModelAndView modelAndView=new ModelAndView(viewName,model);
-    return modelAndView;
+    return new ModelAndView(viewName,model);
   }
 }

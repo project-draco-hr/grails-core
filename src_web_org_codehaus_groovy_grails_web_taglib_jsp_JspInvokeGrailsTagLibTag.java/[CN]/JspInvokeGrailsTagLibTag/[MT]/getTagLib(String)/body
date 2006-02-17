@@ -1,0 +1,26 @@
+{
+  if (this.application == null)   initPageState();
+  HttpServletRequest request=(HttpServletRequest)this.pageContext.getRequest();
+  HttpServletResponse response=(HttpServletResponse)this.pageContext.getResponse();
+  Map tagLibs=(Map)pageContext.getAttribute(TAG_LIBS_ATTRIBUTE);
+  if (tagLibs == null) {
+    tagLibs=new HashMap();
+    pageContext.setAttribute(TAG_LIBS_ATTRIBUTE,tagLibs);
+  }
+  GrailsTagLibClass tagLibClass=application.getTagLibClassForTag(tagName);
+  GroovyObject tagLib;
+  if (tagLibs.containsKey(tagLibClass.getFullName())) {
+    tagLib=(GroovyObject)tagLibs.get(tagLibClass.getFullName());
+  }
+ else {
+    tagLib=(GroovyObject)appContext.getBean(tagLibClass.getFullName());
+    try {
+      new TagLibDynamicMethods(tagLib,grailsAttributes.getController(request),request,response);
+    }
+ catch (    IntrospectionException e) {
+      throw new GrailsTagException("Error instantiating taglib [" + tagLibClass.getFullName() + "]: "+ e.getMessage(),e);
+    }
+    tagLibs.put(tagLibClass.getFullName(),tagLib);
+  }
+  return tagLib;
+}

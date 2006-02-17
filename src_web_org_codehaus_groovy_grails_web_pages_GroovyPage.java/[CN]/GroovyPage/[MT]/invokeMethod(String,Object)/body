@@ -7,18 +7,15 @@
       LOG.debug("No method [" + methodName + "] found invoking as tag");
     }
     Map attrs=null;
-    Closure body=null;
+    Object body=null;
     Binding binding=getBinding();
     final Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
-    GroovyObject tagLib=(GroovyObject)binding.getVariable(GrailsApplicationAttributes.TAG_LIB);
+    GroovyObject tagLib=getTagLib(methodName);
     if (args instanceof Object[]) {
       Object[] argArray=(Object[])args;
       if (argArray.length > 0 && argArray[0] instanceof Map)       attrs=(Map)argArray[0];
       if (argArray.length > 1) {
-        Object closureArg=argArray[1];
-        if (closureArg instanceof Closure) {
-          body=(Closure)closureArg;
-        }
+        body=argArray[1];
       }
     }
  else     if (args instanceof Map) {
@@ -27,7 +24,7 @@
     if (attrs == null) {
       attrs=new HashMap();
     }
-    final Closure body1=body;
+    final Object body1=body;
     Closure actualBody=new Closure(this){
       public Object doCall(      Object obj){
         return call(new Object[]{obj});
@@ -40,10 +37,16 @@
       }
       public Object call(      Object[] args){
         if (body1 != null) {
-          Object bodyResponse=body1.call();
+          Object bodyResponse;
+          if (body1 instanceof Closure) {
+            bodyResponse=((Closure)body1).call();
+          }
+ else {
+            bodyResponse=body1;
+          }
           if (bodyResponse instanceof String) {
             try {
-              out.write((String)bodyResponse);
+              out.write(bodyResponse.toString());
             }
  catch (            IOException e) {
               throw new GrailsTagException("I/O error invoking tag library closure [" + methodName + "] as method");

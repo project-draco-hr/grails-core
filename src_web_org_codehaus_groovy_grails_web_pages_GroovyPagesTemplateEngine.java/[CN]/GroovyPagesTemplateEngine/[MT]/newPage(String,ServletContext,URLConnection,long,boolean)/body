@@ -6,10 +6,10 @@
     pageMeta.groovySource=in;
     return pageMeta;
   }
-  if (classLoader == null)   classLoader=new Loader(parent,context,uri,pageMeta.dependencies);
+  Loader loader=new Loader(classLoader,context,uri,pageMeta.dependencies);
   Class scriptClass;
   try {
-    scriptClass=classLoader.parseClass(in,uri.substring(1));
+    scriptClass=loader.parseClass(in,uri.substring(1));
   }
  catch (  CompilationFailedException e) {
     throw new ServletException("Could not parse script: " + uri,e);

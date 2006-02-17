@@ -23,13 +23,31 @@
       }
     }
   }
-  HibernateTemplate ht=getHibernateTemplate();
-  if (ht.contains(target)) {
-    ht.flush();
-    ht.update(target);
+  HibernateTemplate t=getHibernateTemplate();
+  t.setFlushMode(HibernateTemplate.FLUSH_COMMIT);
+  if (domainClass != null) {
+    BeanWrapper bean=new BeanWrapperImpl(target);
+    GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();
+    for (int i=0; i < props.length; i++) {
+      GrailsDomainClassProperty prop=props[i];
+      if (prop.isManyToOne() || prop.isOneToOne()) {
+        Object propValue=bean.getPropertyValue(prop.getName());
+        if (propValue != null && !t.contains(propValue)) {
+          GrailsDomainClass otherSide=application.getGrailsDomainClass(prop.getType().getName());
+          if (otherSide != null) {
+            BeanWrapper propBean=new BeanWrapperImpl(propValue);
+            Serializable id=(Serializable)propBean.getPropertyValue(otherSide.getIdentifier().getName());
+            bean.setPropertyValue(prop.getName(),t.get(prop.getType(),id));
+          }
+        }
+      }
+    }
+  }
+  if (t.contains(target)) {
+    t.update(target);
   }
  else {
-    ht.saveOrUpdate(target);
+    t.saveOrUpdate(target);
   }
   return success;
 }

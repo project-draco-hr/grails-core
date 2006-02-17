@@ -5,8 +5,25 @@
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());
   if (grailsProperty.isAssociation()) {
-    prop.setCascade("all");
-    if (LOG.isTraceEnabled())     LOG.trace("[GrailsDomainBinder] Set cascading strategy on property [" + grailsProperty.getName() + "] to [all]");
+    if (grailsProperty.isOneToMany()) {
+      prop.setCascade("all");
+    }
+ else     if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
+      GrailsDomainClass domainClass=grailsProperty.getDomainClass();
+      if (domainClass.isOwningClass(grailsProperty.getType())) {
+        prop.setCascade("save-update");
+      }
+ else {
+        GrailsDomainClassProperty otherSide=grailsProperty.getOtherSide();
+        if (otherSide != null && otherSide.isOneToMany()) {
+          prop.setCascade("save-update");
+        }
+ else {
+          prop.setCascade("all");
+        }
+      }
+    }
   }
+  if (LOG.isTraceEnabled())   LOG.trace("[GrailsDomainBinder] Set cascading strategy on property [" + grailsProperty.getName() + "] to ["+ prop.getCascade()+ "]");
   prop.setLazy(true);
 }

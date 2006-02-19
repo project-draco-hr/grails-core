@@ -1,0 +1,17 @@
+{
+  Collection classMetaData=sf.getAllClassMetadata().values();
+  for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
+    ClassMetadata cmd=(ClassMetadata)i.next();
+    Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
+    if (application.getGrailsDomainClass(persistentClass.getName()) == null) {
+      application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,cmd));
+    }
+    LOG.info("[GrailsDomainConfiguration] Registering dynamic methods on externally configured hibernate persistent class [" + persistentClass + "]");
+    try {
+      new DomainClassMethods(application,persistentClass,sf,application.getClassLoader());
+    }
+ catch (    IntrospectionException e) {
+      LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
+    }
+  }
+}

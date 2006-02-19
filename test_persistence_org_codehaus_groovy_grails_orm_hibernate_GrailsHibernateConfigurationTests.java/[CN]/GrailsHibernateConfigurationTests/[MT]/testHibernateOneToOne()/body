@@ -1,7 +1,7 @@
 {
   HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
-  GroovyObject parent=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.RelationshipsTest").newInstance();
-  GroovyObject child=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.OneToOneTest").newInstance();
+  GroovyObject parent=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.RelationshipsTest").newInstance();
+  GroovyObject child=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.OneToOneTest").newInstance();
   assertNotNull(child);
   parent.setProperty("one",child);
   template.save(parent);

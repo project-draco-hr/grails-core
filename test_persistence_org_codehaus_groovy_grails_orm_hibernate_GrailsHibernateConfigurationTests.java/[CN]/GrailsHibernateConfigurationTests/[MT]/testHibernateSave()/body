@@ -1,7 +1,7 @@
 {
   assertNotNull(this.sessionFactory);
   HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
-  GroovyObject obj=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.Test1").newInstance();
+  GroovyObject obj=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.Test1").newInstance();
   assertNotNull(obj);
   obj.setProperty("firstName","Joe");
   obj.setProperty("id",new Long(1));

@@ -1,5 +1,6 @@
 {
   super(clazz,DATA_SOURCE);
+  configClass=(Class)getPropertyValue(CONFIG_CLASS,Class.class);
   if (getPropertyValue(POOLING,boolean.class) != null) {
     this.pooled=getPropertyValue(POOLING,boolean.class).equals(Boolean.TRUE) ? true : false;
   }

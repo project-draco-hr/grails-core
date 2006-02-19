@@ -1,0 +1,31 @@
+{
+  super(clazz,"");
+  BeanWrapper bean=getReference();
+  String ident=metaData.getIdentifierPropertyName();
+  Class identType=bean.getPropertyType(ident);
+  this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
+  this.identifier.setIdentity(true);
+  this.identifier.setType(identType);
+  propertyMap.put(ident,identifier);
+  String[] propertyNames=metaData.getPropertyNames();
+  for (int i=0; i < propertyNames.length; i++) {
+    String propertyName=propertyNames[i];
+    if (!propertyName.equals(ident)) {
+      GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
+      prop.setType(bean.getPropertyType(propertyName));
+      Type hibernateType=metaData.getPropertyType(propertyName);
+      if (hibernateType.isAssociationType()) {
+        prop.setAssociation(true);
+        if (hibernateType.isCollectionType()) {
+          prop.setOneToMany(true);
+        }
+ else         if (hibernateType.isEntityType()) {
+          prop.setManyToOne(true);
+          prop.setOneToOne(true);
+        }
+      }
+      propertyMap.put(propertyName,prop);
+    }
+  }
+  this.properties=(GrailsDomainClassProperty[])propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
+}

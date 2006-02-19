@@ -1,7 +1,7 @@
 {
   GrailsDomainClass one2ManyDomain=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.RelationshipsTest");
-  GroovyObject one2many=one2ManyDomain.newInstance();
-  GroovyObject child=grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.UniOneToManyTest").newInstance();
+  GroovyObject one2many=(GroovyObject)one2ManyDomain.newInstance();
+  GroovyObject child=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.UniOneToManyTest").newInstance();
   HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
   assertNotNull(child);
   Set set=new HashSet();

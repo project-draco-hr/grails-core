@@ -1,0 +1,6 @@
+{
+  if (getReference().isReadableProperty(GrailsDomainClassProperty.CONSTRAINTS)) {
+    return (Map)getReference().getPropertyValue(GrailsDomainClassProperty.CONSTRAINTS);
+  }
+  return Collections.EMPTY_MAP;
+}

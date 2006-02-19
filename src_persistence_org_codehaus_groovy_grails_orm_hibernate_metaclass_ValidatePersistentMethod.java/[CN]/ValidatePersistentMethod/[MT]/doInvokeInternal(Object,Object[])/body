@@ -5,6 +5,9 @@
   if (domainClass != null)   validator=application.getGrailsDomainClass(target.getClass().getName()).getValidator();
   Boolean valid=new Boolean(true);
   if (validator != null) {
+    if (validator instanceof GrailsDomainClassValidator) {
+      ((GrailsDomainClassValidator)validator).setHibernateTemplate(getHibernateTemplate());
+    }
     validator.validate(target,errors);
     if (errors.hasErrors()) {
       valid=new Boolean(!errors.hasErrors());

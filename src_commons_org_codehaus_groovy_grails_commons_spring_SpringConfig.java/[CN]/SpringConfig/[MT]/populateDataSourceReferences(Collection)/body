@@ -1,6 +1,7 @@
 {
   boolean dependsOnHsqldbServer=false;
   GrailsDataSource grailsDataSource=application.getGrailsDataSource();
+  Bean localSessionFactoryBean=SpringConfigUtils.createSingletonBean(ConfigurableLocalSessionFactoryBean.class);
   if (grailsDataSource != null) {
     Bean dataSource;
     if (grailsDataSource.isPooled()) {
@@ -14,6 +15,10 @@
     dataSource.setProperty("url",SpringConfigUtils.createLiteralValue(grailsDataSource.getUrl()));
     dataSource.setProperty("username",SpringConfigUtils.createLiteralValue(grailsDataSource.getUsername()));
     dataSource.setProperty("password",SpringConfigUtils.createLiteralValue(grailsDataSource.getPassword()));
+    if (grailsDataSource.getConfigurationClass() != null) {
+      LOG.info("[SpringConfig] Using custom Hibernate configuration class [" + grailsDataSource.getConfigurationClass() + "]");
+      localSessionFactoryBean.setProperty("configClass",SpringConfigUtils.createLiteralValue(grailsDataSource.getConfigurationClass().getName()));
+    }
     beanReferences.add(SpringConfigUtils.createBeanReference("dataSource",dataSource));
   }
  else {
@@ -59,12 +64,11 @@
   Bean grailsClassLoader=SpringConfigUtils.createSingletonBean(MethodInvokingFactoryBean.class);
   grailsClassLoader.setProperty("targetObject",SpringConfigUtils.createBeanReference("grailsApplication"));
   grailsClassLoader.setProperty("targetMethod",SpringConfigUtils.createLiteralValue("getClassLoader"));
-  Bean localSessionFactoryBean=SpringConfigUtils.createSingletonBean(ConfigurableLocalSessionFactoryBean.class);
   localSessionFactoryBean.setProperty("dataSource",SpringConfigUtils.createBeanReference("dataSource"));
   ClassLoader cl=this.application.getClassLoader();
   URL hibernateConfig=cl.getResource("hibernate.cfg.xml");
   if (hibernateConfig != null) {
-    localSessionFactoryBean.setProperty("configLocation",SpringConfigUtils.createLiteralValue("hibernate.cfg.xml"));
+    localSessionFactoryBean.setProperty("configLocation",SpringConfigUtils.createLiteralValue("/WEB-INF/classes/hibernate.cfg.xml"));
   }
   localSessionFactoryBean.setProperty("hibernateProperties",hibernateProperties);
   localSessionFactoryBean.setProperty("grailsApplication",SpringConfigUtils.createBeanReference("grailsApplication"));

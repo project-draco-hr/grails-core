@@ -5,24 +5,25 @@
     GrailsDomainClass domainClass;
     if (scaffoldedClass == null) {
       domainClass=application.getGrailsDomainClass(simpleControllers[i].getName());
+      if (domainClass != null) {
+        scaffoldedClass=domainClass.getClazz();
+      }
     }
  else {
       domainClass=application.getGrailsDomainClass(scaffoldedClass.getName());
     }
-    if (domainClass == null) {
+    if (scaffoldedClass == null) {
       LOG.info("[Spring] Scaffolding disabled for controller [" + simpleControllers[i].getFullName() + "], no equivalent domain class named ["+ simpleControllers[i].getName()+ "]");
     }
  else {
       Bean scaffolder=SpringConfigUtils.createSingletonBean(DefaultGrailsScaffolder.class);
       Collection constructorArguments=new ArrayList();
-      constructorArguments.add(SpringConfigUtils.createBeanReference(domainClass.getFullName() + "PersistentClass"));
-      constructorArguments.add(SpringConfigUtils.createLiteralValue(domainClass.getIdentifier().getName()));
+      constructorArguments.add(SpringConfigUtils.createLiteralValue(scaffoldedClass.getName()));
       constructorArguments.add(SpringConfigUtils.createBeanReference("sessionFactory"));
       Bean domain=SpringConfigUtils.createSingletonBean(DefaultScaffoldDomain.class,constructorArguments);
-      domain.setProperty("validator",SpringConfigUtils.createBeanReference(domainClass.getFullName() + "Validator"));
-      beanReferences.add(SpringConfigUtils.createBeanReference(domainClass.getFullName() + "ScaffoldDomain",domain));
+      beanReferences.add(SpringConfigUtils.createBeanReference(scaffoldedClass.getName() + "ScaffoldDomain",domain));
       Bean requestHandler=SpringConfigUtils.createSingletonBean(DefaultScaffoldRequestHandler.class);
-      requestHandler.setProperty("scaffoldDomain",SpringConfigUtils.createBeanReference(domainClass.getFullName() + "ScaffoldDomain"));
+      requestHandler.setProperty("scaffoldDomain",SpringConfigUtils.createBeanReference(scaffoldedClass.getName() + "ScaffoldDomain"));
       constructorArguments=new ArrayList();
       constructorArguments.add(SpringConfigUtils.createBeanReference("grailsApplication"));
       Bean defaultResponseHandler=SpringConfigUtils.createSingletonBean(ViewDelegatingScaffoldResponseHandler.class);

@@ -1,6 +1,6 @@
 {
-  DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
+  GrailsDomainConfiguration config=(GrailsDomainConfiguration)BeanUtils.instantiateClass(configClass);
   config.setGrailsApplication(grailsApplication);
   config.setConfigureDynamicMethods(false);
-  return config;
+  return (Configuration)config;
 }

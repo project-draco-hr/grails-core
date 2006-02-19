@@ -1,6 +1,6 @@
 {
   try {
-    return ((GroovyObject)getClazz().newInstance());
+    return getClazz().newInstance();
   }
  catch (  Exception e) {
     Throwable targetException=null;

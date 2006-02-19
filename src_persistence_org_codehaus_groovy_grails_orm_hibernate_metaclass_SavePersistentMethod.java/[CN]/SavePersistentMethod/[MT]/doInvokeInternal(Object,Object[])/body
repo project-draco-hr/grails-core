@@ -15,6 +15,9 @@
   }
   if (doValidation) {
     if (validator != null) {
+      if (validator instanceof GrailsDomainClassValidator) {
+        ((GrailsDomainClassValidator)validator).setHibernateTemplate(getHibernateTemplate());
+      }
       validator.validate(target,errors);
       if (errors.hasErrors()) {
         DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());

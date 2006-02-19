@@ -1,16 +1,16 @@
 {
   GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
-  GroovyObject obj=domainClass.newInstance();
+  GroovyObject obj=(GroovyObject)domainClass.newInstance();
   obj.setProperty("firstName","fred");
   obj.setProperty("lastName","flintstone");
   obj.setProperty("age",new Integer(45));
   obj.invokeMethod("save",null);
-  GroovyObject obj2=domainClass.newInstance();
+  GroovyObject obj2=(GroovyObject)domainClass.newInstance();
   obj2.setProperty("firstName","wilma");
   obj2.setProperty("lastName","flintstone");
   obj2.setProperty("age",new Integer(42));
   obj2.invokeMethod("save",null);
-  GroovyObject obj3=domainClass.newInstance();
+  GroovyObject obj3=(GroovyObject)domainClass.newInstance();
   obj3.setProperty("firstName","dino");
   obj3.setProperty("lastName","dinosaur");
   obj3.setProperty("age",new Integer(12));

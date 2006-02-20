@@ -41,7 +41,7 @@
     }
     if (arguments[arguments.length - 1] instanceof Closure) {
       if (BUILDER_TYPE_RICO.equals(argMap.get(ARGUMENT_BUILDER))) {
-        OpenRicoBuilder orb=null;
+        OpenRicoBuilder orb;
         try {
           orb=new OpenRicoBuilder(response);
           renderView=false;

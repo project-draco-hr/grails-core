@@ -7,9 +7,10 @@
   this.naturalName=GrailsClassUtils.getNaturalName(clazz.getName());
   if (StringUtils.isBlank(trailingName)) {
     this.name=fullName;
+    this.shortName=getShortClassname(clazz);
   }
  else {
-    String shortName=getShortClassname(clazz);
+    this.shortName=getShortClassname(clazz);
     if (shortName.indexOf(trailingName) > -1) {
       this.name=shortName.substring(0,shortName.length() - trailingName.length());
     }

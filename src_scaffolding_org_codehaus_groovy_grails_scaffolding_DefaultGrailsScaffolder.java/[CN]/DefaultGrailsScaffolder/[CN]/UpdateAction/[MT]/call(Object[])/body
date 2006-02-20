@@ -10,10 +10,9 @@
     return controller.invokeMethod(ChainDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
   }
  else {
-    Closure editAction=(Closure)controller.getProperty(EDIT_ACTION);
     Map arguments=new HashMap();
-    arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,editAction);
-    arguments.put(RedirectDynamicMethod.ARGUMENT_ERRORS,callback.getErrors() != null ? callback.getErrors().getAllErrors() : new ArrayList());
-    return controller.invokeMethod(RedirectDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
+    arguments.put(RenderDynamicMethod.ARGUMENT_VIEW,EDIT_ACTION);
+    arguments.put(RenderDynamicMethod.ARGUMENT_MODEL,model);
+    return controller.invokeMethod(RenderDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
   }
 }

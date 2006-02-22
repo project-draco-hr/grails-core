@@ -1,0 +1,26 @@
+{
+  String groovyFile=resource.replace('.','/') + ".groovy";
+  Resource foundResource=null;
+  for (int i=0; resources != null && i < resources.length; i++) {
+    if (resources[i].getFilename().endsWith(groovyFile)) {
+      if (foundResource == null) {
+        foundResource=resources[i];
+      }
+ else {
+        throw new IllegalArgumentException("Resources [" + resources[i].getFilename() + "] and ["+ foundResource.getFilename()+ "] end with ["+ groovyFile+ "]. Cannot load because of duplicate match!");
+      }
+    }
+  }
+  try {
+    if (foundResource != null) {
+      loadedResources.add(foundResource);
+      return foundResource.getURL();
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

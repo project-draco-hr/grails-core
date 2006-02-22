@@ -4,4 +4,5 @@
   SpringConfig springConfig=new SpringConfig(application);
   context=new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),parent);
   getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
+  GrailsConfigUtils.configureScaffolders(application,context);
 }

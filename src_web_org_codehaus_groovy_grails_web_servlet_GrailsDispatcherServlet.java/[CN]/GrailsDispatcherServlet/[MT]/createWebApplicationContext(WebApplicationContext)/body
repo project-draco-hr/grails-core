@@ -19,25 +19,7 @@
     webContext=new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),locations);
     getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,webContext);
   }
-  GrailsControllerClass[] controllerClasses=application.getControllers();
-  for (int i=0; i < controllerClasses.length; i++) {
-    GrailsControllerClass controllerClass=controllerClasses[i];
-    if (controllerClass.isScaffolding()) {
-      try {
-        GrailsScaffolder gs=(GrailsScaffolder)webContext.getBean(controllerClass.getFullName() + "Scaffolder");
-        if (gs != null) {
-          ScaffoldDomain sd=gs.getScaffoldRequestHandler().getScaffoldDomain();
-          GrailsDomainClass dc=application.getGrailsDomainClass(sd.getPersistentClass().getName());
-          if (dc != null) {
-            sd.setIdentityPropertyName(dc.getIdentifier().getName());
-            sd.setValidator(dc.getValidator());
-          }
-        }
-      }
- catch (      NoSuchBeanDefinitionException e) {
-      }
-    }
-  }
+  GrailsConfigUtils.configureScaffolders(application,webContext);
   SessionFactory sessionFactory=(SessionFactory)webContext.getBean("sessionFactory");
   if (sessionFactory != null) {
     Session session=null;

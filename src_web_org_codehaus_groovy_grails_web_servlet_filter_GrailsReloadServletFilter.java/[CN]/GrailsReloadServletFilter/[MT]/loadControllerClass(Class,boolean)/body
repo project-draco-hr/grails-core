@@ -3,6 +3,8 @@
   if (controllerClass != null) {
     if (isNew) {
       reloadApplicationContext();
+      LOG.info("New controller added, re-generating web.xml");
+      copyScript.generateWebXml();
     }
  else {
       Properties mappings=new Properties();

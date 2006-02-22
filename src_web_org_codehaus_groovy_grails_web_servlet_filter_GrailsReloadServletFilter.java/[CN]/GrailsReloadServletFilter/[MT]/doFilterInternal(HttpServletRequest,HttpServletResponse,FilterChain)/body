@@ -80,7 +80,19 @@ catch (    Exception e) {
       boolean isNew=false;
       try {
         if (!resourceMetas.containsKey(className)) {
-          loadedClass=application.getClassLoader().loadClass(className,true,false);
+          URL url=resource.getURL();
+          URLConnection c=url.openConnection();
+          c.setDoInput(false);
+          c.setDoOutput(false);
+          long lastModified=c.getLastModified();
+          ResourceMeta rm=new ResourceMeta();
+          rm.className=className;
+          rm.lastModified=lastModified;
+          rm.url=url;
+          resourceMetas.put(className,rm);
+          GroovyClassLoader gcl=application.getClassLoader();
+          ((GrailsResourceLoader)gcl.getResourceLoader()).setResources(resources);
+          loadedClass=gcl.loadClass(className,true,false);
           isNew=true;
         }
  else {

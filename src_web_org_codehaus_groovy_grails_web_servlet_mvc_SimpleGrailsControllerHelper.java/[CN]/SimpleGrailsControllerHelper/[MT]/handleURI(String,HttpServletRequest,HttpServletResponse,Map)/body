@@ -9,10 +9,14 @@
   if (!uri.startsWith("/"))   uri='/' + uri;
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
   String id=null;
+  String controllerName=null;
+  String actionName=null;
   Map extraParams=Collections.EMPTY_MAP;
   Matcher m=uriPattern.matcher(uri);
   if (m.find()) {
-    uri='/' + m.group(1) + '/'+ m.group(2);
+    controllerName=m.group(1);
+    actionName=m.group(2);
+    uri='/' + controllerName + '/'+ actionName;
     id=m.group(3);
     String extraParamsString=m.group(4);
     if (extraParamsString != null && extraParamsString.indexOf('/') > -1) {
@@ -28,8 +32,21 @@
       }
     }
   }
+  if (StringUtils.isBlank(actionName) && request.getParameter(DISPATCH_ACTION_PARAMETER) != null) {
+    actionName=GrailsClassUtils.getPropertyNameRepresentation(request.getParameter(DISPATCH_ACTION_PARAMETER));
+    uri='/' + controllerName + '/'+ actionName;
+  }
+  if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
+    id=request.getParameter(ID_PARAMETER);
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Extra params from uri [" + extraParams + "] ");
+  }
   GrailsControllerClass controllerClass=getControllerClassByURI(uri);
-  String controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  controllerName=WordUtils.uncapitalize(controllerClass.getName());
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
@@ -47,18 +64,12 @@
     this.scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
     if (this.scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
   }
-  String actionPropertyName=controllerClass.getClosurePropertyName(uri);
-  if (actionPropertyName == null) {
-    if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionPropertyName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
-  }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionPropertyName+ "], and id ["+ id+ "]");
-  }
-  if (LOG.isTraceEnabled()) {
-    LOG.trace("Extra params from uri [" + extraParams + "] ");
+  if (StringUtils.isBlank(actionName))   actionName=controllerClass.getClosurePropertyName(uri);
+  if (StringUtils.isBlank(actionName)) {
+    if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
   }
   controller.setProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY,'/' + controllerName);
-  controller.setProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY,'/' + controllerName + '/'+ actionPropertyName);
+  controller.setProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY,'/' + controllerName + '/'+ actionName);
   Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
   if (!StringUtils.isBlank(id)) {
     controllerParams.put(GrailsApplicationAttributes.ID_PARAM,id);
@@ -73,8 +84,8 @@
   fs.next();
   controller.setProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY,fs);
   String viewName=controllerClass.getViewByURI(uri);
-  Closure action=(Closure)controller.getProperty(actionPropertyName);
-  if (action == null)   throw new IllegalStateException("Scaffolder supports action [" + actionPropertyName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
+  Closure action=(Closure)controller.getProperty(actionName);
+  if (action == null)   throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
   Object returnValue=handleAction(controller,action,request,response,params);
-  return handleActionResponse(controller,returnValue,actionPropertyName,viewName);
+  return handleActionResponse(controller,returnValue,actionName,viewName);
 }

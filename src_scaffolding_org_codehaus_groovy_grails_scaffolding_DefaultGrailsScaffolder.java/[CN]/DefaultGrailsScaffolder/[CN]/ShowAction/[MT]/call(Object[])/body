@@ -5,9 +5,8 @@
     return scaffoldResponseHandler.handleResponse(request,response,SHOW_ACTION,model);
   }
  else {
-    Closure listAction=(Closure)controller.getProperty(LIST_ACTION);
     Map arguments=new HashMap();
-    arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,listAction);
+    arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,LIST_ACTION);
     return controller.invokeMethod(RedirectDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
   }
 }

@@ -1,0 +1,8 @@
+{
+  Object domainObject=domain.newInstance();
+  ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(domainObject,domain.getName(),request);
+  dataBinder.bind(request);
+  Map model=new HashMap();
+  model.put(domain.getSingularName(),domainObject);
+  return model;
+}

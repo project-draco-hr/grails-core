@@ -1,0 +1,8 @@
+{
+  Boolean b=(Boolean)InvokerHelper.invokeMethod(domainObject,SavePersistentMethod.METHOD_SIGNATURE,new Object[0]);
+  boolean success=b.booleanValue();
+  if (!success) {
+    callback.setErrors((Errors)InvokerHelper.getProperty(domainObject,DomainClassMethods.ERRORS_PROPERTY));
+  }
+  return success;
+}

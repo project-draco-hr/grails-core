@@ -1,4 +1,4 @@
 {
-  Map model=new HashMap();
+  Map model=this.scaffoldRequestHandler.handleCreate(request,response,new DefaultScaffoldCallback());
   return scaffoldResponseHandler.handleResponse(request,response,CREATE_ACTION,model);
 }

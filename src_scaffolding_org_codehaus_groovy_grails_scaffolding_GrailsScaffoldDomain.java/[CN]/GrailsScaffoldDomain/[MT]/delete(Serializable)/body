@@ -1,0 +1,7 @@
+{
+  Object domainObject=get(id);
+  if (domainObject != null) {
+    InvokerHelper.invokeMethod(domainObject,DeletePersistentMethod.METHOD_SIGNATURE,new Object[0]);
+  }
+  return domainObject;
+}

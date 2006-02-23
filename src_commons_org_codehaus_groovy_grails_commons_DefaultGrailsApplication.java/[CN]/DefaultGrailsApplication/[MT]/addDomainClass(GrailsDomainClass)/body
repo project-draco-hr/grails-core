@@ -2,9 +2,7 @@
   if (domainClass != null) {
     this.domainMap.put(domainClass.getFullName(),domainClass);
     this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
-    if (!(domainClass instanceof ExternalGrailsDomainClass)) {
-      configureDomainClassRelationships();
-    }
+    configureDomainClassRelationships();
   }
   return domainClass;
 }

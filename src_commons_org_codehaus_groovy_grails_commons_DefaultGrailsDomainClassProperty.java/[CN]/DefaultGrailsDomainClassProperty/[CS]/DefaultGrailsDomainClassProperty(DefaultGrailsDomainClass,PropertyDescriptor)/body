@@ -1,14 +1,13 @@
 {
   this.domainClass=domainClass;
-  this.descriptor=descriptor;
   this.optional=false;
   this.persistant=true;
-  this.name=this.descriptor.getName();
-  this.naturalName=GrailsClassUtils.getNaturalName(this.descriptor.getName());
-  this.type=this.descriptor.getPropertyType();
-  this.identity=this.descriptor.getName().equals(IDENTITY);
-  List optionalProps=null;
-  List transientProps=null;
+  this.name=descriptor.getName();
+  this.naturalName=GrailsClassUtils.getNaturalName(descriptor.getName());
+  this.type=descriptor.getPropertyType();
+  this.identity=descriptor.getName().equals(IDENTITY);
+  List optionalProps;
+  List transientProps;
   optionalProps=(List)domainClass.getPropertyValue(OPTIONAL,List.class);
   transientProps=(List)domainClass.getPropertyValue(TRANSIENT,List.class);
   List evanescent=(List)domainClass.getPropertyValue(EVANESCENT,List.class);

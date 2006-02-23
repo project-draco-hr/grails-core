@@ -16,6 +16,10 @@
       Type hibernateType=metaData.getPropertyType(propertyName);
       if (hibernateType.isAssociationType()) {
         prop.setAssociation(true);
+        AssociationType assType=(AssociationType)hibernateType;
+        String associatedEntity=assType.getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
+        ClassMetadata associatedMetaData=sessionFactory.getClassMetadata(associatedEntity);
+        prop.setRelatedClassType(associatedMetaData.getMappedClass(EntityMode.POJO));
         if (hibernateType.isCollectionType()) {
           prop.setOneToMany(true);
         }

@@ -1,4 +1,3 @@
 {
-  if (isOneToMany() || isOneToOne() || isManyToOne()|| isManyToMany())   return true;
- else   return false;
+  return isOneToMany() || isOneToOne() || isManyToOne()|| isManyToMany();
 }

@@ -4,7 +4,7 @@
     ClassMetadata cmd=(ClassMetadata)i.next();
     Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
     if (application.getGrailsDomainClass(persistentClass.getName()) == null) {
-      application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,cmd));
+      application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,sf,cmd));
     }
     LOG.info("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
     try {

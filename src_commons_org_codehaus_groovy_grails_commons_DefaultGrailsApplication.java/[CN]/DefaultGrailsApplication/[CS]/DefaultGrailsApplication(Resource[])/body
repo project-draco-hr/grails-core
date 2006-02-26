@@ -2,6 +2,7 @@
   super();
   log.debug("Loading Grails application.");
   GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
+  GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
   this.cl=new GroovyClassLoader();
   this.cl.setResourceLoader(resourceLoader);
   Collection loadedResources=new ArrayList();
@@ -9,9 +10,9 @@
     log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
     if (!loadedResources.contains(resources[i])) {
       try {
-        Matcher m=GRAILS_RESOURCE_PATTERN.matcher(resources[i].getFile().getAbsolutePath());
-        if (m.find()) {
-          cl.loadClass(m.group(1),true,false);
+        String className=resourceHolder.getClassName(resources[i]);
+        if (!StringUtils.isBlank(className)) {
+          cl.loadClass(className,true,false);
           loadedResources=resourceLoader.getLoadedResources();
         }
       }

@@ -3,6 +3,7 @@
   reloadApplicationContext();
   GrailsControllerClass controllerClass=application.getScaffoldingController(domainClass);
   if (controllerClass != null && controllerClass.isScaffolding()) {
+    LOG.info("Re-generating views for scaffold controller [" + controllerClass.getFullName() + "]");
     templateGenerator.generateViews(domainClass,getServletContext().getRealPath("/WEB-INF"));
     copyScript.copyViews(true);
   }

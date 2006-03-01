@@ -46,9 +46,10 @@
   }
  else   if (property.isOneToMany() && !property.isBidirectional()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
-    String entityName=(oneToMany).getReferencedEntityName();
+    String entityName=oneToMany.getReferencedEntityName();
     PersistentClass referenced=mappings.getClass(entityName);
     Backref prop=new Backref();
+    prop.setEntityName(entityName);
     prop.setName('_' + property.getName() + "Backref");
     prop.setUpdateable(true);
     prop.setInsertable(true);

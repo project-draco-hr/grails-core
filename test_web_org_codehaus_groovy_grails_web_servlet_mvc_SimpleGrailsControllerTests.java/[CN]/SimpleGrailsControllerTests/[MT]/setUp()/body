@@ -16,6 +16,9 @@
   SpringConfig springConfig=new SpringConfig(grailsApplication);
   this.appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),this.localContext);
   this.controller=(SimpleGrailsController)appCtx.getBean("simpleGrailsController");
+  MockServletContext servletContext=new MockServletContext();
+  servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
+  controller.setServletContext(servletContext);
   assertNotNull(appCtx);
   super.setUp();
 }

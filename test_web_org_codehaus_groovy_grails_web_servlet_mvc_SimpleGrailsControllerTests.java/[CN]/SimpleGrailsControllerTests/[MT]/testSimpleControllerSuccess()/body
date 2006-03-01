@@ -1,4 +1,4 @@
 {
-  ModelAndView modelAndView=execute("/test",null);
+  ModelAndView modelAndView=execute("/test/test",null);
   assertNotNull(modelAndView);
 }

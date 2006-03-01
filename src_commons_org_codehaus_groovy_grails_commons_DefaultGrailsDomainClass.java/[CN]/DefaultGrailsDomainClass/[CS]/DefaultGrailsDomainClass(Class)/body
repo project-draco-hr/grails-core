@@ -2,7 +2,7 @@
   super(clazz,"");
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
   this.propertyMap=new HashMap();
-  this.relationshipMap=(Map)getPropertyValue(GrailsDomainClassProperty.RELATIONSHIPS,Map.class);
+  this.relationshipMap=(Map)getPropertyValue(GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
   if (this.relationshipMap == null) {
     this.relationshipMap=new HashMap();
   }
@@ -21,7 +21,7 @@
   }
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor descriptor=propertyDescriptors[i];
-    if (!descriptor.getName().equals(GrailsDomainClassProperty.META_CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.TRANSIENT)&& !descriptor.getName().equals(GrailsDomainClassProperty.RELATIONSHIPS)&& !descriptor.getName().equals(GrailsDomainClassProperty.EVANESCENT)&& !descriptor.getName().equals(GrailsDomainClassProperty.OPTIONAL)&& !descriptor.getName().equals(GrailsDomainClassProperty.CONSTRAINTS)&& !descriptor.getName().equals(GrailsDomainClassProperty.MAPPED_BY)&& !descriptor.getName().equals(GrailsDomainClassProperty.BELONGS_TO)) {
+    if (!descriptor.getName().equals(GrailsDomainClassProperty.META_CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.CLASS) && !descriptor.getName().equals(GrailsDomainClassProperty.TRANSIENT)&& !descriptor.getName().equals(GrailsDomainClassProperty.RELATES_TO_MANY)&& !descriptor.getName().equals(GrailsDomainClassProperty.EVANESCENT)&& !descriptor.getName().equals(GrailsDomainClassProperty.OPTIONAL)&& !descriptor.getName().equals(GrailsDomainClassProperty.CONSTRAINTS)&& !descriptor.getName().equals(GrailsDomainClassProperty.MAPPED_BY)&& !descriptor.getName().equals(GrailsDomainClassProperty.BELONGS_TO)) {
       GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
       this.propertyMap.put(property.getName(),property);
       if (property.isIdentity()) {

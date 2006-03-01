@@ -5,5 +5,5 @@
   assertEquals("Overview",grailsClass.getName());
   assertEquals("OverviewController",grailsClass.getFullName());
   assertEquals("/overview/listPage",grailsClass.getViewByURI("/overview/list"));
-  assertEquals(2,grailsClass.getURIs().length);
+  assertEquals(4,grailsClass.getURIs().length);
 }

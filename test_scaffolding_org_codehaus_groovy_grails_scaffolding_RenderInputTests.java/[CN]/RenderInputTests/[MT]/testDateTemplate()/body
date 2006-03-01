@@ -1,0 +1,13 @@
+{
+  SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
+  Template template=templateEngine.createTemplate(new File("src/war/WEB-INF/internal/render/java.util.Date.gsp"));
+  Map binding=new HashMap();
+  binding.put("name","testDate");
+  binding.put("year",new Integer(2006));
+  binding.put("month",new Integer(2));
+  binding.put("day",new Integer(5));
+  binding.put("hour","12");
+  binding.put("minute","45");
+  binding.put("constraints",null);
+  template.make(binding).toString();
+}

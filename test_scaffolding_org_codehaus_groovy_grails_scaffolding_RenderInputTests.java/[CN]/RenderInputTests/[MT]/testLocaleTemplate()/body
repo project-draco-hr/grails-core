@@ -1,0 +1,10 @@
+{
+  SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
+  Template template=templateEngine.createTemplate(new File("src/war/WEB-INF/internal/render/java.util.Locale.gsp"));
+  Map binding=new HashMap();
+  binding.put("name","testLocale");
+  binding.put("value",Locale.getDefault());
+  binding.put("constraints",null);
+  System.out.println(template.make(binding).toString());
+  Document xml=DocumentHelper.parseText(template.make(binding).toString());
+}

@@ -1,0 +1,17 @@
+{
+  SimpleTemplateEngine templateEngine=new SimpleTemplateEngine();
+  Template template=templateEngine.createTemplate(new File("src/war/WEB-INF/internal/render/java.lang.Number.gsp"));
+  Map binding=new HashMap();
+  binding.put("name","testNumber");
+  binding.put("value",new Integer(50));
+  binding.put("constraints",null);
+  System.out.println(template.make(binding).toString());
+  Document xml=DocumentHelper.parseText(template.make(binding).toString());
+  assertEquals("input",xml.getRootElement().getName());
+  ConstrainedProperty cp=new ConstrainedProperty(Object.class,"testNumber",Integer.class);
+  cp.setRange(new IntRange(25,125));
+  binding.put("constraints",cp);
+  xml=DocumentHelper.parseText(template.make(binding).toString());
+  assertEquals("select",xml.getRootElement().getName());
+  System.out.println(template.make(binding).toString());
+}

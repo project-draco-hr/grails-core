@@ -4,9 +4,10 @@
   MockHttpServletResponse response=new MockHttpServletResponse();
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "}\n"+ "}");
-  GrailsApplication application=new DefaultGrailsApplication(new Class[]{groovyClass},gcl);
-  registerBeanDefinition(groovyClass,application,request,response);
-  GrailsControllerHelper helper1=new SimpleGrailsControllerHelper(application,context,new MockServletContext());
+  GrailsApplication application=createGrailsApplication(new Class[]{groovyClass},gcl);
+  MockServletContext mockContext=new MockServletContext();
+  mockContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
+  GrailsControllerHelper helper1=new SimpleGrailsControllerHelper(application,context,mockContext);
   try {
     helper1.handleURI("/test/list",request,response);
     GroovyObject go=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);

@@ -1,0 +1,16 @@
+{
+  this.context=new GenericApplicationContext();
+  ConstructorArgumentValues cav=new ConstructorArgumentValues();
+  cav.addGenericArgumentValue(groovyClasses);
+  cav.addGenericArgumentValue(gcl);
+  BeanDefinition ga=new RootBeanDefinition(DefaultGrailsApplication.class,cav,null);
+  this.context.registerBeanDefinition(GrailsApplication.APPLICATION_ID,ga);
+  GrailsApplication application=(GrailsApplication)this.context.getBean(GrailsApplication.APPLICATION_ID);
+  for (int i=0; i < groovyClasses.length; i++) {
+    Class groovyClass=groovyClasses[i];
+    ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
+    BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
+    context.registerBeanDefinition(groovyClass.getName(),bd);
+  }
+  return application;
+}

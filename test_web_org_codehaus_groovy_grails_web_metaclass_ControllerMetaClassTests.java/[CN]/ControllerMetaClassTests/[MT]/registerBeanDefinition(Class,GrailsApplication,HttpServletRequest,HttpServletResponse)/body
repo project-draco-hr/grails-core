@@ -1,6 +1,0 @@
-{
-  ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
-  if (context == null)   this.context=new GenericApplicationContext();
-  BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
-  context.registerBeanDefinition(groovyClass.getName(),bd);
-}

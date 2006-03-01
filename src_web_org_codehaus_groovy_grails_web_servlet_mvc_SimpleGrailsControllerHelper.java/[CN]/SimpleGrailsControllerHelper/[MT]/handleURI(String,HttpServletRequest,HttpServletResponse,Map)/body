@@ -84,8 +84,22 @@
   fs.next();
   controller.setProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY,fs);
   String viewName=controllerClass.getViewByURI(uri);
-  Closure action=(Closure)controller.getProperty(actionName);
-  if (action == null)   throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
-  Object returnValue=handleAction(controller,action,request,response,params);
-  return handleActionResponse(controller,returnValue,actionName,viewName);
+  Closure action;
+  try {
+    action=(Closure)controller.getProperty(actionName);
+    Object returnValue=handleAction(controller,action,request,response,params);
+    return handleActionResponse(controller,returnValue,actionName,viewName);
+  }
+ catch (  MissingPropertyException mpe) {
+    if (controllerClass.isScaffolding())     throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
+ else {
+      try {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        return null;
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error sending 404 error",e);
+      }
+    }
+  }
 }

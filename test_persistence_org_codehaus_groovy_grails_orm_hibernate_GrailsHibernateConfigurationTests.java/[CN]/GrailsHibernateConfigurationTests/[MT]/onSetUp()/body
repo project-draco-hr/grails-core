@@ -1,8 +1,5 @@
 {
   Thread.currentThread().setContextClassLoader(cl);
-  cl.loadClass("org.codehaus.groovy.grails.domain.RelationshipsTest");
-  cl.loadClass("org.codehaus.groovy.grails.domain.Test1");
-  cl.loadClass("org.codehaus.groovy.grails.domain.Test2");
   Class[] loadedClasses=cl.getLoadedClasses();
   grailsApplication=new DefaultGrailsApplication(loadedClasses,cl);
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();

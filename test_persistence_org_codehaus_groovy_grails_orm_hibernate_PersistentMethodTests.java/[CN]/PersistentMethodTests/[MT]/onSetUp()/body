@@ -1,6 +1,26 @@
 {
-  SpringConfig springConfig=new SpringConfig(grailsApplication);
-  ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),super.applicationContext);
-  System.out.println("Loaded app context: " + appCtx.getDisplayName());
+  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t@Property List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t@Property Long id; \n"+ "\t@Property Long version; \n"+ "\t\n"+ "\t@Property String firstName; \n"+ "\t@Property String lastName; \n"+ "\t@Property Integer age;\n"+ "\t\n"+ "\t@Property constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t}\n"+ "}");
+  grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass},cl);
+  DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
+  config.setGrailsApplication(this.grailsApplication);
+  Properties props=new Properties();
+  props.put("hibernate.connection.username","sa");
+  props.put("hibernate.connection.password","");
+  props.put("hibernate.connection.url","jdbc:hsqldb:mem:grailsDB");
+  props.put("hibernate.connection.driver_class","org.hsqldb.jdbcDriver");
+  props.put("hibernate.dialect","org.hibernate.dialect.HSQLDialect");
+  props.put("hibernate.hbm2ddl.auto","create-drop");
+  config.setProperties(props);
+  Thread.currentThread().setContextClassLoader(this.cl);
+  this.sessionFactory=config.buildSessionFactory();
+  if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
+    Session hibSession=this.sessionFactory.openSession();
+    TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(hibSession));
+  }
+  new DomainClassMethods(grailsApplication,groovyClass,sessionFactory,cl);
+  GrailsDomainClassValidator validator=new GrailsDomainClassValidator();
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("PersistentMethodTests");
+  validator.setDomainClass(this.grailsApplication.getGrailsDomainClass("PersistentMethodTests"));
+  domainClass.setValidator(validator);
   super.onSetUp();
 }

@@ -1,5 +1,6 @@
 {
-  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.orm.hibernate.PersistentMethodTestClass");
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("CriteriaBuilderTestClass");
+  assertNotNull(domainClass);
   GroovyObject obj=(GroovyObject)domainClass.newInstance();
   obj.setProperty("firstName","fred");
   obj.setProperty("lastName","flintstone");

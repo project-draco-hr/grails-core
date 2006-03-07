@@ -4,13 +4,14 @@
     if (b != null) {
       jspWriter=b.getEnclosingWriter();
       invocationBodyContent.add(b.getString());
+      bodyInvokation=true;
       b.clearBody();
     }
   }
   invocationCount--;
   setCurrentArgument();
   if (invocationCount <= 0) {
-    String tagContent=sw.toString();
+    this.tagContent=sw.toString();
     int i=1;
     StringBuffer buf=new StringBuffer();
     for (Iterator iter=invocationBodyContent.iterator(); iter.hasNext(); i++) {
@@ -20,15 +21,17 @@
       if (j > -1) {
         buf.append(tagContent.substring(0,j)).append(body).append(tagContent.substring(j + replaceFlag.length(),tagContent.length()));
         tagContent=buf.toString();
+        if (tagContent != null) {
+          try {
+            jspWriter.write(tagContent);
+            out.close();
+          }
+ catch (          IOException e) {
+            throw new JspTagException("I/O error writing tag contents [" + tagContent + "] to response out");
+          }
+        }
         buf.delete(0,buf.length());
       }
-    }
-    try {
-      jspWriter.write(tagContent);
-      out.close();
-    }
- catch (    IOException e) {
-      throw new JspTagException("I/O error writing tag contents [" + tagContent + "] to response out");
     }
     return SKIP_BODY;
   }

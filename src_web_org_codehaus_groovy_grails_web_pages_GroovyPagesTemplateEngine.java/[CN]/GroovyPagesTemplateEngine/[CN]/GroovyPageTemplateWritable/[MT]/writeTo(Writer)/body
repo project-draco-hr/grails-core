@@ -5,7 +5,10 @@
     pageMeta.groovySource=null;
   }
  else {
-    response.setContentType("text/html");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Writing response with content type: " + pageMeta.contentType);
+    }
+    response.setContentType(pageMeta.contentType);
     Binding binding=getBinding(request,response,out);
     Script page=InvokerHelper.createScript(pageMeta.servletScriptClass,binding);
     page.run();

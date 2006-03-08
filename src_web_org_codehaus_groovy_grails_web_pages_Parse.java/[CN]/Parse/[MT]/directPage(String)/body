@@ -7,6 +7,7 @@
     String name=mat.group(1);
     String value=mat.group(2);
     if (name.equals("import"))     pageImport(value);
+    if (name.equals("contentType"))     contentType(value);
     ix=mat.end();
   }
 }

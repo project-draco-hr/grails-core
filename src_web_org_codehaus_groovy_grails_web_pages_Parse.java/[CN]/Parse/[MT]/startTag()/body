@@ -47,7 +47,6 @@
     tm.instance=tag;
   }
  else {
-    dynamicTagIndex++;
     if (attrs.size() > 0) {
       out.print("attrs" + tagIndex + " = [");
       for (Iterator i=attrs.keySet().iterator(); i.hasNext(); ) {

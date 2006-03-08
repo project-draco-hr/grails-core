@@ -1,5 +1,5 @@
 {
-  sw=new StringWriter();
+  StringWriter sw=new StringWriter();
   out=new GSPWriter(sw);
   page();
   finalPass=true;

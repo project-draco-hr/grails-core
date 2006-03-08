@@ -26,7 +26,6 @@
  else {
       out.println("invokeTag('" + tagName + "',[:],body"+ tagIndex+ ")");
     }
-    dynamicTagIndex--;
   }
   tagIndex--;
 }

@@ -14,7 +14,12 @@
   try {
     w.writeTo(out);
   }
-  finally {
+ catch (  Exception e) {
+    request.setAttribute("exception",new GrailsWrappedRuntimeException(context,e));
+    RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/grails-app/views/error.jsp");
+    rd.forward(request,response);
+  }
+ finally {
     if (out != null)     out.close();
   }
 }

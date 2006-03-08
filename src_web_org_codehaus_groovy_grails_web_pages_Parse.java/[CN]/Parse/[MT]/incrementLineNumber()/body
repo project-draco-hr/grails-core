@@ -1,8 +1,3 @@
 {
-  if (currentOutputLine >= lineNumbers.length) {
-    lineNumbers=(int[])resizeArray(lineNumbers,lineNumbers.length * 2);
-  }
- else {
-    lineNumbers[currentOutputLine++]=out.getCurrentLineNumber();
-  }
+  currentOutputLine++;
 }

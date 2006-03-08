@@ -1,0 +1,17 @@
+{
+  URL pageUrl;
+  try {
+    pageUrl=getPageUrl(context,url);
+    if (pageUrl != null) {
+      PageMeta pm=getPage(url,context,pageUrl,false);
+      if (pm != null) {
+        return pm.lineNumbers;
+      }
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Exception retrieving line numbers from GSP: " + url + ", message: "+ e.getMessage());
+    LOG.debug("Full stack trace of error",e);
+  }
+  return new int[0];
+}

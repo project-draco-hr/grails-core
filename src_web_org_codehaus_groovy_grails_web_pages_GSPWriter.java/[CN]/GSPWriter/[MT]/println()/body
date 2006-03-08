@@ -1,4 +1,10 @@
 {
-  this.lineNumber++;
+  if (lineNumber >= lineNumbers.length) {
+    lineNumbers=(int[])resizeArray(lineNumbers,lineNumbers.length * 2);
+  }
+ else {
+    lineNumbers[lineNumber - 1]=parse.getCurrentOutputLineNumber();
+    lineNumber++;
+  }
   super.println();
 }

@@ -3,6 +3,7 @@
   InputStream in=parse.parse();
   PageMeta pageMeta=new PageMeta();
   pageMeta.contentType=parse.getContentType();
+  pageMeta.lineNumbers=parse.getLineNumberMatrix();
   if (spillGroovy) {
     pageMeta.groovySource=in;
     return pageMeta;

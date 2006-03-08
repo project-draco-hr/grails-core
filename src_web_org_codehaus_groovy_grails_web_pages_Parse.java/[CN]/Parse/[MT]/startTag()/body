@@ -1,7 +1,22 @@
 {
   if (!finalPass)   return;
   tagIndex++;
-  String text=scan.getToken().trim();
+  String text;
+  StringBuffer buf=new StringBuffer(scan.getToken().trim());
+  state=scan.nextToken();
+  while (state != HTML && state != GEND_TAG) {
+    if (state == GTAG_EXPR) {
+      buf.append("${");
+      buf.append(scan.getToken().trim());
+      buf.append("}");
+    }
+ else {
+      buf.append(scan.getToken().trim());
+    }
+    state=scan.nextToken();
+  }
+  doNextScan=false;
+  text=buf.toString();
   String tagName;
   Map attrs=new HashMap();
   if (text.indexOf(' ') > -1) {

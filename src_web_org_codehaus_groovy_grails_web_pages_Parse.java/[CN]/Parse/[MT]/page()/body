@@ -12,7 +12,8 @@
     out.println("import org.codehaus.groovy.grails.web.taglib.*");
   }
   loop:   for (; ; ) {
-    int state=scan.nextToken();
+    if (doNextScan)     state=scan.nextToken();
+ else     doNextScan=true;
 switch (state) {
 case EOF:
       break loop;

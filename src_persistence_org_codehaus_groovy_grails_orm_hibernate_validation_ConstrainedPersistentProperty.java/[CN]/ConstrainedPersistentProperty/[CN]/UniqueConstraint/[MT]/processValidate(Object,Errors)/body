@@ -8,7 +8,7 @@
 );
     if (results.size() > 0) {
       Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
-      super.rejectValue(errors,UNIQUE_CONSTRAINT,args,MessageFormat.format(DEFAULT_NOT_UNIQUE_MESSAGE,args));
+      super.rejectValue(errors,UNIQUE_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_UNIQUE_MESSAGE_CODE,args));
     }
   }
 }

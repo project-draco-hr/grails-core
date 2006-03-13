@@ -1,0 +1,10 @@
+{
+  String defaultMessage;
+  try {
+    defaultMessage=messageSource.getMessage(code,args,Locale.getDefault());
+  }
+ catch (  NoSuchMessageException nsme) {
+    defaultMessage=(String)DEFAULT_MESSAGES.get(code);
+  }
+  return defaultMessage;
+}

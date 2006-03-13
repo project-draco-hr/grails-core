@@ -1,6 +1,7 @@
 {
   for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
     Constraint c=(Constraint)i.next();
+    c.setMessageSource(this.messageSource);
     if (c instanceof PersistentConstraint) {
       PersistentConstraint pc=(PersistentConstraint)c;
       pc.setHibernateTemplate(this.hibernateTemplate);

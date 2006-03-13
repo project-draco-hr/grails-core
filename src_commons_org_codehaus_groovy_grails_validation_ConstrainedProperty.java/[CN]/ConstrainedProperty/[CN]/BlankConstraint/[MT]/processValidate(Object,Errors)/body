@@ -3,7 +3,7 @@
     if (propertyValue instanceof String) {
       if (StringUtils.isBlank((String)propertyValue)) {
         Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
-        super.rejectValue(errors,BLANK_CONSTRAINT,args,MessageFormat.format(DEFAULT_BLANK_MESSAGE,args));
+        super.rejectValue(errors,BLANK_CONSTRAINT,args,getDefaultMessage(DEFAULT_BLANK_MESSAGE_CODE,args));
       }
     }
   }

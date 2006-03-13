@@ -3,7 +3,7 @@
     CreditCardValidator validator=new CreditCardValidator();
     if (!validator.isValid(propertyValue.toString())) {
       Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
-      super.rejectValue(errors,CREDIT_CARD_CONSTRAINT + INVALID_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_CREDIT_CARD_MESSAGE,args));
+      super.rejectValue(errors,CREDIT_CARD_CONSTRAINT + INVALID_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_CREDIT_CARD_MESSAGE_CODE,args));
     }
   }
 }

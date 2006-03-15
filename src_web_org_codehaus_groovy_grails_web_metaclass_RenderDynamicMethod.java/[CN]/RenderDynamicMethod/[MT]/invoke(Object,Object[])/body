@@ -88,6 +88,7 @@
     }
  else     if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
       String templateName=(String)argMap.get(ARGUMENT_TEMPLATE);
+      String var=(String)argMap.get(ARGUMENT_VAR);
       GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)controller.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
       String templateUri=attrs.getTemplateUri(templateName,request);
       GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
@@ -95,7 +96,8 @@
         Template t=engine.createTemplate(templateUri,attrs.getServletContext(),request,response);
         Map binding=new HashMap();
         if (argMap.containsKey(ARGUMENT_BEAN)) {
-          binding.put(DEFAULT_ARGUMENT,argMap.get(ARGUMENT_BEAN));
+          if (StringUtils.isBlank(var))           binding.put(DEFAULT_ARGUMENT,argMap.get(ARGUMENT_BEAN));
+ else           binding.put(var,argMap.get(ARGUMENT_BEAN));
           Writable w=t.make(binding);
           w.writeTo(out);
         }
@@ -105,13 +107,15 @@
             Collection c=(Collection)colObject;
             for (Iterator i=c.iterator(); i.hasNext(); ) {
               Object o=i.next();
-              binding.put(DEFAULT_ARGUMENT,o);
+              if (StringUtils.isBlank(var))               binding.put(DEFAULT_ARGUMENT,o);
+ else               binding.put(var,o);
               Writable w=t.make(binding);
               w.writeTo(out);
             }
           }
  else {
-            binding.put(DEFAULT_ARGUMENT,colObject);
+            if (StringUtils.isBlank(var))             binding.put(DEFAULT_ARGUMENT,argMap.get(ARGUMENT_BEAN));
+ else             binding.put(var,colObject);
             Writable w=t.make(binding);
             w.writeTo(out);
           }

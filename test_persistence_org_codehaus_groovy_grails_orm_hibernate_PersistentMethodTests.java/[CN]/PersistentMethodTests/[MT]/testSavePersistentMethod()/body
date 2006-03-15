@@ -5,4 +5,7 @@
   obj.setProperty("firstName","fred");
   obj.setProperty("lastName","flintstone");
   obj.invokeMethod("save",null);
+  Object id=obj.invokeMethod("ident",null);
+  assertNotNull(id);
+  assertTrue(id instanceof Long);
 }

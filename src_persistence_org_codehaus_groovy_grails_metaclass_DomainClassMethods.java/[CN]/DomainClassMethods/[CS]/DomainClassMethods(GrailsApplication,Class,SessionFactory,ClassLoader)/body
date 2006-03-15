@@ -1,5 +1,6 @@
 {
   super(theClass);
+  addDynamicMethodInvocation(new IdentDynamicMethod(application));
   addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader,application));
   addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
   addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));

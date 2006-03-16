@@ -1,4 +1,0 @@
-{
-  if (constraintHibernateTemplate == null)   throw new IllegalStateException("PersistentConstraint requires an instance of HibernateTemplate.");
-  super.validate(propertyValue,errors);
-}

@@ -1,7 +1,0 @@
-{
-  for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
-    Constraint c=(Constraint)i.next();
-    c.setMessageSource(this.messageSource);
-    c.validate(propertyValue,errors);
-  }
-}

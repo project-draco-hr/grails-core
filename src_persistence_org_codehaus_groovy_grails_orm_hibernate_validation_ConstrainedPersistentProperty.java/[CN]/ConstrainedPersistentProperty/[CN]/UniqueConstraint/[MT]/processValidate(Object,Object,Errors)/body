@@ -1,0 +1,28 @@
+{
+  if (unique) {
+    final Object id=InvokerHelper.invokeMethod(target,IdentDynamicMethod.METHOD_SIGNATURE,null);
+    List results=this.constraintHibernateTemplate.executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException {
+        return session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue)).list();
+      }
+    }
+);
+    if (results.size() > 0) {
+      boolean reject=false;
+      if (id != null) {
+        Object existing=results.get(0);
+        Object existingId=InvokerHelper.invokeMethod(existing,IdentDynamicMethod.METHOD_SIGNATURE,null);
+        if (!id.equals(existingId)) {
+          reject=true;
+        }
+      }
+ else {
+        reject=true;
+      }
+      if (reject) {
+        Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+        super.rejectValue(errors,UNIQUE_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_UNIQUE_MESSAGE_CODE,args));
+      }
+    }
+  }
+}

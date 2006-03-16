@@ -6,7 +6,7 @@
   Constraint c=null;
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testEmail,errors);
+    c.validate(this,this.testEmail,errors);
   }
   assertTrue(errors.hasErrors());
   FieldError error=errors.getFieldError("testEmail");
@@ -14,7 +14,7 @@
   assertEquals("rubbish_email",error.getRejectedValue());
   this.testEmail="avalidemail@hotmail.com";
   errors=new BindException(this,"testObject");
-  c.validate(this.testEmail,errors);
+  c.validate(this,this.testEmail,errors);
   assertFalse(errors.hasErrors());
   cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testURL",String.class);
   cp.applyConstraint(ConstrainedProperty.URL_CONSTRAINT,new Boolean(true));
@@ -22,7 +22,7 @@
   errors=new BindException(this,"testObject");
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testURL,errors);
+    c.validate(this,this.testURL,errors);
   }
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testURL");
@@ -30,7 +30,7 @@
   assertEquals(this.testURL,error.getRejectedValue());
   this.testURL="http://www.google.com";
   errors=new BindException(this,"testObject");
-  c.validate(this.testURL,errors);
+  c.validate(this,this.testURL,errors);
   assertFalse(errors.hasErrors());
   cp.applyConstraint(ConstrainedProperty.URL_CONSTRAINT,null);
   cp.applyConstraint(ConstrainedProperty.BLANK_CONSTRAINT,new Boolean(false));
@@ -39,7 +39,7 @@
   this.testURL="";
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testURL,errors);
+    c.validate(this,this.testURL,errors);
   }
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testURL");
@@ -51,7 +51,7 @@
   this.testURL=null;
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testURL,errors);
+    c.validate(this,this.testURL,errors);
   }
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testURL");
@@ -67,7 +67,7 @@
   errors=new BindException(this,"testObject");
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testURL,errors);
+    c.validate(this,this.testURL,errors);
   }
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testURL");
@@ -75,14 +75,14 @@
   assertNotNull(error);
   this.testURL="two";
   errors=new BindException(this,"testObject");
-  c.validate(this.testURL,errors);
+  c.validate(this,this.testURL,errors);
   assertFalse(errors.hasErrors());
   cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testURL",String.class);
   cp.applyConstraint(ConstrainedProperty.LENGTH_CONSTRAINT,new IntRange(5,15));
   errors=new BindException(this,"testObject");
   for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
     c=(Constraint)i.next();
-    c.validate(this.testURL,errors);
+    c.validate(this,this.testURL,errors);
   }
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testURL");
@@ -90,6 +90,6 @@
   assertNotNull(error);
   this.testURL="absolutelytotallytoolong";
   errors=new BindException(this,"testObject");
-  c.validate(this.testURL,errors);
+  c.validate(this,this.testURL,errors);
   assertTrue(errors.hasErrors());
 }

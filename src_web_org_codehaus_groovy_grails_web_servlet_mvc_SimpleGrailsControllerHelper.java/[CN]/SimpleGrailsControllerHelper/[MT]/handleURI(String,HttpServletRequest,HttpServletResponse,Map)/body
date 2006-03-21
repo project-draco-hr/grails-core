@@ -85,11 +85,27 @@
   fs.next();
   controller.setProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY,fs);
   String viewName=controllerClass.getViewByURI(uri);
+  boolean executeAction=true;
+  if (controllerClass.isInterceptedBefore(controller,actionName)) {
+    Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
+    if (beforeInterceptor != null) {
+      Object interceptorResult=beforeInterceptor.call();
+      if (interceptorResult instanceof Boolean) {
+        executeAction=((Boolean)interceptorResult).booleanValue();
+      }
+    }
+  }
+  if (!executeAction)   return null;
   Closure action;
   try {
     action=(Closure)controller.getProperty(actionName);
     Object returnValue=handleAction(controller,action,request,response,params);
-    return handleActionResponse(controller,returnValue,actionName,viewName);
+    ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
+    if (controllerClass.isInterceptedAfter(controller,actionName)) {
+      Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
+      afterInterceptor.call(new Object[]{mv.getModel()});
+    }
+    return mv;
   }
  catch (  MissingPropertyException mpe) {
     if (controllerClass.isScaffolding())     throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");

@@ -19,7 +19,7 @@
   this.controllerMap=new HashMap();
   this.pageFlowMap=new HashMap();
   this.serviceMap=new HashMap();
-  this.bootstrapMap=new HashMap();
+  Map bootstrapMap=new HashMap();
   this.taglibMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
     if (Modifier.isAbstract(classes[i].getModifiers())) {
@@ -54,7 +54,7 @@
     }
  else     if (GrailsClassUtils.isBootstrapClass(classes[i])) {
       GrailsBootstrapClass grailsBootstrapClass=new DefaultGrailsBootstrapClass(classes[i]);
-      this.bootstrapMap.put(grailsBootstrapClass.getFullName(),grailsBootstrapClass);
+      bootstrapMap.put(grailsBootstrapClass.getFullName(),grailsBootstrapClass);
     }
  else     if (GrailsClassUtils.isTagLibClass(classes[i])) {
       GrailsTagLibClass grailsTagLibClass=new DefaultGrailsTagLibClass(classes[i]);
@@ -65,7 +65,7 @@
   this.pageFlows=((GrailsPageFlowClass[])pageFlowMap.values().toArray(new GrailsPageFlowClass[pageFlowMap.size()]));
   this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
   this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
-  this.bootstrapClasses=((GrailsBootstrapClass[])this.bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
+  this.bootstrapClasses=((GrailsBootstrapClass[])bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
   this.taglibClasses=((GrailsTagLibClass[])this.taglibMap.values().toArray(new GrailsTagLibClass[taglibMap.size()]));
   configureDomainClassRelationships();
   configureTagLibraries();

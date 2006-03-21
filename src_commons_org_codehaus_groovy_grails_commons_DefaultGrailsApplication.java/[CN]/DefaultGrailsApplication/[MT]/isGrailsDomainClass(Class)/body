@@ -1,7 +1,4 @@
 {
   if (domainClass == null)   return false;
-  if (domainMap.containsKey(domainClass.getName())) {
-    return true;
-  }
-  return false;
+  return domainMap.containsKey(domainClass.getName());
 }

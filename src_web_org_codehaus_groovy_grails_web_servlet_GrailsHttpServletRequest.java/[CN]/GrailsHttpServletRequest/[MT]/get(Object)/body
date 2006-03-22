@@ -1,4 +1,8 @@
 {
-  if (key instanceof String)   return getRequest().getAttribute((String)key);
+  if (key instanceof String) {
+    Object result=getRequest().getAttribute(key.toString());
+    if (result == null && requestBean.isReadableProperty(key.toString()))     return requestBean.getPropertyValue(key.toString());
+ else     return result;
+  }
  else   return null;
 }

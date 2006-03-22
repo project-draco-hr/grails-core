@@ -42,6 +42,9 @@
     }
   finally {
       if (!participate) {
+        if (!FlushMode.NEVER.equals(session.getFlushMode())) {
+          session.flush();
+        }
         TransactionSynchronizationManager.unbindResource(sessionFactory);
         logger.debug("Closing single Hibernate session in GrailsDispatcherServlet");
         try {

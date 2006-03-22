@@ -1,8 +1,3 @@
 {
-  if (domainClass.getClazz().getSuperclass() == java.lang.Object.class) {
-    bindRoot(domainClass,mappings);
-  }
- else {
-    throw new MappingException("Grails domain classes do not support inheritance");
-  }
+  bindRoot(domainClass,mappings);
 }

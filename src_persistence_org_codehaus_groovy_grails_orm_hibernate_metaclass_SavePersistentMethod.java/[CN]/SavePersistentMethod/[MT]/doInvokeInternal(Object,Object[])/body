@@ -27,7 +27,6 @@
     }
   }
   HibernateTemplate t=getHibernateTemplate();
-  t.setFlushMode(HibernateTemplate.FLUSH_COMMIT);
   if (domainClass != null) {
     BeanWrapper bean=new BeanWrapperImpl(target);
     GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();

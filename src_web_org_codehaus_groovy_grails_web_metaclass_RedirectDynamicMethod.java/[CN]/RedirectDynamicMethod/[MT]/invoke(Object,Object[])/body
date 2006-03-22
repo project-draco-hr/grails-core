@@ -60,6 +60,9 @@
         }
       }
     }
+ else {
+      actionName="";
+    }
     if (actionName != null) {
       StringBuffer actualUriBuf=new StringBuffer(attrs.getApplicationUri(request));
       if (actionName.indexOf('/') > -1) {

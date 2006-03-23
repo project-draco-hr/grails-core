@@ -2,7 +2,7 @@
   for (Iterator i=this.propertyMap.values().iterator(); i.hasNext(); ) {
     DefaultGrailsDomainClassProperty currentProp=(DefaultGrailsDomainClassProperty)i.next();
     Class currentPropType=currentProp.getType();
-    if (currentPropType.equals(Set.class) && currentProp.isPersistent()) {
+    if (Set.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
       establishRelationshipForSet(currentProp);
     }
  else     if (GrailsClassUtils.isDomainClass(currentPropType) && currentProp.isPersistent()) {

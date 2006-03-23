@@ -3,7 +3,7 @@
     property.setOneToOne(true);
     property.setBidirectional(false);
   }
- else   if (relatedClassPropertyType.equals(Set.class)) {
+ else   if (Set.class.isAssignableFrom(relatedClassPropertyType)) {
     property.setManyToOne(true);
     property.setBidirectional(true);
   }

@@ -1,3 +1,3 @@
 {
-  return (CollectionType)INSTANCES.get(clazz.getName());
+  return (CollectionType)INSTANCES.get(clazz);
 }

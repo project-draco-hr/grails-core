@@ -10,6 +10,9 @@
     oneToMany.setAssociatedClass(associatedClass);
     collection.setCollectionTable(associatedClass.getTable());
     collection.setLazy(true);
+    if (SortedSet.class.isAssignableFrom(property.getType())) {
+      collection.setSorted(true);
+    }
     LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   }
   KeyValue keyValue;

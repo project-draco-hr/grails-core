@@ -2,7 +2,7 @@
   GrailsControllerClass controllerClass=application.addControllerClass(loadedClass);
   if (controllerClass != null) {
     if (isNew) {
-      reloadApplicationContext();
+      copyScript.cleanControllers();
       LOG.info("New controller added, re-generating web.xml");
       copyScript.generateWebXml();
     }

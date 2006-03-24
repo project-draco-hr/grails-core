@@ -1,0 +1,12 @@
+{
+  try {
+    return clazz.newInstance();
+  }
+ catch (  InstantiationException e) {
+    LOG.warn("Unable to instantiate class [" + clazz.getName() + "]: "+ e.getMessage());
+  }
+catch (  IllegalAccessException e) {
+    LOG.warn("Illegal access instantiating class [" + clazz.getName() + "]: "+ e.getMessage());
+  }
+  return null;
+}

@@ -1,0 +1,34 @@
+{
+  PropertyValue[] pvs=mpvs.getPropertyValues();
+  for (int i=0; i < pvs.length; i++) {
+    PropertyValue pv=pvs[i];
+    String propertyName=pv.getName();
+    BeanWrapper bean=super.getBeanWrapper();
+    if (propertyName.indexOf('.') > -1) {
+      propertyName=propertyName.split("\\.")[0];
+    }
+    Class type=bean.getPropertyType(propertyName);
+    LOG.debug("Checking if auto-create is possible for property [" + propertyName + "] and type ["+ type+ "]");
+    if (type != null) {
+      if (GroovyObject.class.isAssignableFrom(type)) {
+        if (bean.getPropertyValue(propertyName) == null) {
+          if (bean.isWritableProperty(propertyName)) {
+            try {
+              MetaClass mc=InvokerHelper.getInstance().getMetaRegistry().getMetaClass(type);
+              if (mc != null) {
+                Object created=mc.invokeStaticMethod(type.getName(),CreateDynamicMethod.METHOD_NAME,new Object[0]);
+                bean.setPropertyValue(propertyName,created);
+              }
+            }
+ catch (            MissingMethodException mme) {
+              LOG.warn("Unable to auto-create type, 'create' method not found");
+            }
+catch (            GroovyRuntimeException gre) {
+              LOG.warn("Unable to auto-create type, Groovy Runtime error: " + gre.getMessage(),gre);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@
   addStaticMethodInvocation(new ExistsPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new CountPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new CreateCriteriaPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new CreateDynamicMethod());
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty());
   addDynamicProperty(new WeakGenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));

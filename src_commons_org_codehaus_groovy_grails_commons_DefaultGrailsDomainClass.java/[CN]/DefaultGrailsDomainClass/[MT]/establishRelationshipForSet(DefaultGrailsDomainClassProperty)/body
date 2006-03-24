@@ -2,7 +2,11 @@
   Class relatedClassType=getRelatedClassType(property.getName());
   if (relatedClassType != null) {
     property.setReferencedPropertyType(relatedClassType);
-    if (GrailsClassUtils.isDomainClass(relatedClassType)) {
+    if (relatedClassType.equals(getClazz())) {
+      property.setOneToMany(true);
+      property.setBidirectional(true);
+    }
+ else     if (GrailsClassUtils.isDomainClass(relatedClassType)) {
       Map relatedClassRelationships=(Map)GrailsClassUtils.getPropertyValue(relatedClassType,GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
       Class relatedClassPropertyType=null;
       if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {

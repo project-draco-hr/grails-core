@@ -104,23 +104,12 @@ catch (    Exception e) {
             rm.lastModified=c.getLastModified();
           }
         }
+        if (loadedClass != null) {
+          loadGrailsClass(loadedClass,isNew);
+        }
       }
  catch (      ClassNotFoundException cnfex) {
         LOG.error("Unabled to reload class [" + className + "], class not found: "+ cnfex.getMessage(),cnfex);
-      }
-      if (loadedClass != null) {
-        if (GrailsClassUtils.isControllerClass(loadedClass)) {
-          loadControllerClass(loadedClass,isNew);
-        }
- else         if (GrailsClassUtils.isDomainClass(loadedClass)) {
-          loadDomainClass(loadedClass,isNew);
-        }
- else         if (GrailsClassUtils.isService(loadedClass)) {
-          loadServiceClass(loadedClass,isNew);
-        }
- else         if (GrailsClassUtils.isTagLibClass(loadedClass)) {
-          loadTagLibClass(loadedClass,isNew);
-        }
       }
     }
   }

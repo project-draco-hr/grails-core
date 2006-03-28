@@ -22,6 +22,14 @@
       GrailsUrlHandlerMapping urlMappings=new GrailsUrlHandlerMapping();
       urlMappings.setApplicationContext(context);
       urlMappings.setMappings(mappings);
+      String[] interceptorNames=context.getBeanNamesForType(HandlerInterceptor.class);
+      HandlerInterceptor[] interceptors=new HandlerInterceptor[interceptorNames.length];
+      for (int i=0; i < interceptorNames.length; i++) {
+        String interceptorName=interceptorNames[i];
+        interceptors[i]=(HandlerInterceptor)context.getBean(interceptorName);
+      }
+      LOG.info("Re-adding " + interceptors.length + " interceptors to mapping");
+      urlMappings.setInterceptors(interceptors);
       urlMappings.initApplicationContext();
       urlMappingsTargetSource.swap(urlMappings);
       HotSwappableTargetSource controllerTargetSource=(HotSwappableTargetSource)context.getBean(controllerClass.getFullName() + "TargetSource");

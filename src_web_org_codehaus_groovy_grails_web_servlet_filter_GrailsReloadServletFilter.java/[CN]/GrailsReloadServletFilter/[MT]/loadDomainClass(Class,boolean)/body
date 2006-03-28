@@ -1,10 +1,36 @@
 {
   GrailsDomainClass domainClass=application.addDomainClass(loadedClass);
+  Collection loadedDomainClasses=new ArrayList();
+  loadedDomainClasses.add(domainClass);
+  GrailsDomainClass[] domainClasses=application.getGrailsDomainClasses();
+  for (int i=0; i < domainClasses.length; i++) {
+    GrailsDomainClass grailsDomainClass=domainClasses[i];
+    if (!grailsDomainClass.equals(domainClass)) {
+      GrailsDomainClassProperty[] properties=grailsDomainClass.getPersistantProperties();
+      for (int j=0; j < properties.length; j++) {
+        GrailsDomainClassProperty property=properties[j];
+        if (property.getType().getName().equals(domainClass.getFullName())) {
+          ResourceMeta rm=(ResourceMeta)resourceMetas.get(grailsDomainClass.getClazz().getName());
+          if (rm != null) {
+            File groovyFile=new File(rm.url.getFile());
+            if (groovyFile.exists()) {
+              groovyFile.setLastModified(System.currentTimeMillis());
+              Class relatedClass=application.getClassLoader().loadClass(grailsDomainClass.getClazz().getName(),true,false);
+              loadedDomainClasses.add(application.addDomainClass(relatedClass));
+            }
+          }
+        }
+      }
+    }
+  }
   reloadApplicationContext();
-  GrailsControllerClass controllerClass=application.getScaffoldingController(domainClass);
-  if (controllerClass != null && controllerClass.isScaffolding()) {
-    LOG.info("Re-generating views for scaffold controller [" + controllerClass.getFullName() + "]");
-    templateGenerator.generateViews(domainClass,getServletContext().getRealPath("/WEB-INF"));
-    copyScript.copyViews(true);
+  for (Iterator i=loadedDomainClasses.iterator(); i.hasNext(); ) {
+    GrailsDomainClass grailsDomainClass=(GrailsDomainClass)i.next();
+    GrailsControllerClass controllerClass=application.getScaffoldingController(grailsDomainClass);
+    if (controllerClass != null && controllerClass.isScaffolding()) {
+      LOG.info("Re-generating views for scaffold controller [" + controllerClass.getFullName() + "]");
+      templateGenerator.generateViews(domainClass,getServletContext().getRealPath("/WEB-INF"));
+      copyScript.copyViews(true);
+    }
   }
 }

@@ -1,0 +1,14 @@
+{
+  if (GrailsClassUtils.isControllerClass(loadedClass)) {
+    loadControllerClass(loadedClass,isNew);
+  }
+ else   if (GrailsClassUtils.isDomainClass(loadedClass)) {
+    loadDomainClass(loadedClass,isNew);
+  }
+ else   if (GrailsClassUtils.isService(loadedClass)) {
+    loadServiceClass(loadedClass,isNew);
+  }
+ else   if (GrailsClassUtils.isTagLibClass(loadedClass)) {
+    loadTagLibClass(loadedClass,isNew);
+  }
+}

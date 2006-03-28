@@ -165,6 +165,6 @@ catch (      ServletException e) {
  else {
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
-  controller.setProperty(ControllerDynamicMethods.RENDER_VIEW_PROPERTY,Boolean.valueOf(renderView));
+  if (controller != null)   controller.setProperty(ControllerDynamicMethods.RENDER_VIEW_PROPERTY,Boolean.valueOf(renderView));
   return null;
 }

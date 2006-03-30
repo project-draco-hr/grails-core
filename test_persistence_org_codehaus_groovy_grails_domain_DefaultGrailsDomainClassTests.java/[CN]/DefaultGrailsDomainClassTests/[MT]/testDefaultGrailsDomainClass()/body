@@ -1,0 +1,28 @@
+{
+  Class clazz=cl.parseClass("class UserTest { " + "@Property int id; " + "@Property int version; "+ "@Property List transients = [ \"age\" ]; "+ "@Property List optionals  = [ \"lastName\" ]; "+ "@Property String firstName; "+ "@Property String lastName; "+ "@Property java.util.Date age; "+ "}");
+  GrailsDomainClass domainClass=new DefaultGrailsDomainClass(clazz);
+  assertEquals("UserTest",domainClass.getName());
+  assertNotNull(domainClass.getIdentifier());
+  assertNotNull(domainClass.getVersion());
+  assertTrue(domainClass.getIdentifier().isIdentity());
+  try {
+    domainClass.getPropertyByName("rubbish");
+    fail("should throw exception");
+  }
+ catch (  InvalidPropertyException ipe) {
+  }
+  GrailsDomainClassProperty age=domainClass.getPropertyByName("age");
+  assertNotNull(age);
+  assertFalse(age.isPersistent());
+  GrailsDomainClassProperty lastName=domainClass.getPropertyByName("lastName");
+  assertNotNull(lastName);
+  assertTrue(lastName.isOptional());
+  GrailsDomainClassProperty firstName=domainClass.getPropertyByName("firstName");
+  assertNotNull(firstName);
+  assertFalse(firstName.isOptional());
+  assertTrue(firstName.isPersistent());
+  GrailsDomainClassProperty[] persistantProperties=domainClass.getPersistantProperties();
+  for (int i=0; i < persistantProperties.length; i++) {
+    assertTrue(persistantProperties[i].isPersistent());
+  }
+}

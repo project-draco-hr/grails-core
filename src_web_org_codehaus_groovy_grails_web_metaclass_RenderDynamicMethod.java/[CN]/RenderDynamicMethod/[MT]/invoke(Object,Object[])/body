@@ -97,14 +97,7 @@
       String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
       String var=(String)argMap.get(ARGUMENT_VAR);
       GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)controller.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
-      String templateUri;
-      if (templateName.indexOf('/') > -1) {
-        if (!templateName.startsWith("/"))         templateName='/' + templateName;
-        templateUri=templateName;
-      }
- else {
-        templateUri=attrs.getTemplateUri(templateName,request);
-      }
+      String templateUri=attrs.getTemplateUri(templateName,request);
       GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
       try {
         Template t=engine.createTemplate(templateUri,attrs.getServletContext(),request,response);

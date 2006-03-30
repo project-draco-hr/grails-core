@@ -1,0 +1,5 @@
+{
+  GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(new MockServletContext());
+  assertEquals("/WEB-INF/grails-app/views/_test.gsp",attrs.getTemplateUri("/test",new MockHttpServletRequest()));
+  assertEquals("/WEB-INF/grails-app/views/shared/_test.gsp",attrs.getTemplateUri("/shared/test",new MockHttpServletRequest()));
+}

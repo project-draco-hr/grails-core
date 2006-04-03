@@ -15,6 +15,7 @@
     w.writeTo(out);
   }
  catch (  Exception e) {
+    LOG.debug("Error processing GSP: " + e.getMessage(),e);
     request.setAttribute("exception",new GrailsWrappedRuntimeException(context,e));
     RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/grails-app/views/error.jsp");
     rd.forward(request,response);

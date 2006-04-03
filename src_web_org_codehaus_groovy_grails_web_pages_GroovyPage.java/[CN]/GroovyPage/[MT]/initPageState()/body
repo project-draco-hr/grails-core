@@ -3,6 +3,5 @@
     ServletContext context=(ServletContext)getBinding().getVariable(SERVLET_CONTEXT);
     this.grailsAttributes=new DefaultGrailsApplicationAttributes(context);
     this.application=grailsAttributes.getGrailsApplication();
-    this.appContext=grailsAttributes.getApplicationContext();
   }
 }

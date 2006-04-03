@@ -1,0 +1,24 @@
+{
+  Map tagCache=(Map)request.getAttribute(TAG_CACHE);
+  if (tagCache == null) {
+    tagCache=new HashMap();
+    request.setAttribute(TAG_CACHE,tagCache);
+  }
+  if (tagCache.containsKey(tagName)) {
+    return (GroovyObject)tagCache.get(tagName);
+  }
+ else {
+    GrailsTagLibClass tagLibClass=getGrailsApplication().getTagLibClassForTag(tagName);
+    if (tagLibClass == null)     return null;
+    GroovyObject controller=getController(request);
+    GroovyObject tagLib=(GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());
+    try {
+      new TagLibDynamicMethods(tagLib,controller);
+    }
+ catch (    IntrospectionException e) {
+      throw new ControllerExecutionException("Introspection error creating tag library methods for tag [" + tagName + "]: "+ e.getMessage(),e);
+    }
+    tagCache.put(tagName,tagLib);
+    return tagLib;
+  }
+}

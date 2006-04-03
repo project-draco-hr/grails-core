@@ -1,0 +1,22 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class controllerClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "}\n"+ "}");
+  Class tagLibClass1=gcl.parseClass("class FirstTagLib {\n" + "@Property firstTag = { attrs ->\n" + "attrs.remove('test')"+ "}\n"+ "}");
+  Class tagLibClass2=gcl.parseClass("class SecondTagLib {\n" + "@Property secondTag = { attrs ->\n" + "firstTag(attrs)\n"+ "}\n"+ "}");
+  GrailsApplicationAttributes attrs=getAttributesForClasses(new Class[]{controllerClass,tagLibClass1,tagLibClass2},gcl);
+  assertNotNull(attrs);
+  assertNotNull(attrs.getApplicationContext());
+  assertNotNull(attrs.getGrailsApplication());
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  GroovyObject controller=(GroovyObject)attrs.getApplicationContext().getBean("TestController");
+  SimpleGrailsControllerHelper helper=new SimpleGrailsControllerHelper(attrs.getGrailsApplication(),attrs.getApplicationContext(),attrs.getServletContext());
+  new ControllerDynamicMethods(controller,helper,request,null);
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  GroovyObject tagLib2=attrs.getTagLibraryForTag(request,"secondTag");
+  assertNotNull(tagLib2);
+  Closure secondTag=(Closure)tagLib2.getProperty("secondTag");
+  Map tagAttrs=new HashMap();
+  tagAttrs.put("test","test");
+  secondTag.call(new Object[]{tagAttrs});
+  assertFalse(tagAttrs.containsKey("test"));
+}

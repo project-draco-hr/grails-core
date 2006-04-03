@@ -1,0 +1,20 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class controllerClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "}\n"+ "}");
+  Class tagLibClass1=gcl.parseClass("class FirstTagLib {\n" + "@Property firstTag = {\n" + "}\n"+ "}");
+  Class tagLibClass2=gcl.parseClass("class SecondTagLib {\n" + "@Property secondTag = {\n" + "}\n"+ "}");
+  GrailsApplicationAttributes attrs=getAttributesForClasses(new Class[]{controllerClass,tagLibClass1,tagLibClass2},gcl);
+  assertNotNull(attrs);
+  assertNotNull(attrs.getApplicationContext());
+  assertNotNull(attrs.getGrailsApplication());
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  GroovyObject controller=(GroovyObject)attrs.getApplicationContext().getBean("TestController");
+  SimpleGrailsControllerHelper helper=new SimpleGrailsControllerHelper(attrs.getGrailsApplication(),attrs.getApplicationContext(),attrs.getServletContext());
+  new ControllerDynamicMethods(controller,helper,request,null);
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  GroovyObject tagLib1=attrs.getTagLibraryForTag(request,"firstTag");
+  assertNotNull(tagLib1);
+  assertNotNull(request.getAttribute(GrailsApplicationAttributes.TAG_CACHE));
+  Map tagCache=(Map)request.getAttribute(GrailsApplicationAttributes.TAG_CACHE);
+  assertNotNull(tagCache.get("firstTag"));
+}

@@ -1,5 +1,7 @@
 {
-  super(taglib);
+  ProxyMetaClass pmc=TagLibMetaClass.getTagLibInstance(taglib.getClass());
+  pmc.setInterceptor(this);
+  taglib.setMetaClass(pmc);
   ProxyMetaClass controllerMetaClass=(ProxyMetaClass)controller.getMetaClass();
   ControllerDynamicMethods controllerDynamicMethods=(ControllerDynamicMethods)controllerMetaClass.getInterceptor();
   addDynamicProperty(new GenericDynamicProperty(OUT_PROPERTY,Writer.class,false));

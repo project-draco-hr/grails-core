@@ -5,6 +5,9 @@
   pageMeta.contentType=parse.getContentType();
   pageMeta.lineNumbers=parse.getLineNumberMatrix();
   if (spillGroovy) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Show source enabled, display generated GSP source...");
+    }
     pageMeta.groovySource=in;
     return pageMeta;
   }

@@ -1,5 +1,5 @@
 {
   super(METHOD_SIGNATURE,request,response);
   this.helper=helper;
-  this.response=new GrailsHttpServletResponse(response);
+  this.response=(GrailsHttpServletResponse)response;
 }

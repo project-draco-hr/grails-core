@@ -5,10 +5,10 @@
     pageMeta.groovySource=null;
   }
  else {
-    if (LOG.isDebugEnabled()) {
+    if (LOG.isDebugEnabled() && !response.isCommitted()) {
       LOG.debug("Writing response with content type: " + pageMeta.contentType);
     }
-    response.setContentType(pageMeta.contentType);
+    if (!response.isCommitted())     response.setContentType(pageMeta.contentType);
     Binding binding=getBinding(request,response,out);
     Script page=InvokerHelper.createScript(pageMeta.servletScriptClass,binding);
     page.run();

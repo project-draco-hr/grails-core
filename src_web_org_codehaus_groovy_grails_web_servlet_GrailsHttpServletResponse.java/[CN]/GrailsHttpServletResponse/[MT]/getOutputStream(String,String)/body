@@ -1,4 +1,4 @@
 {
-  this.delegate.setContentType(contentType + ";charset=" + characterEncoding);
+  setContentType(contentType + ";charset=" + characterEncoding);
   return this.delegate.getOutputStream();
 }

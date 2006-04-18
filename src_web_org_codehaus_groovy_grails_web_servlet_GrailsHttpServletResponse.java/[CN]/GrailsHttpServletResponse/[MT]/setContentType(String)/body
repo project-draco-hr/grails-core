@@ -1,3 +1,6 @@
 {
-  this.delegate.setContentType(contentType);
+  if (!contentTypeSet) {
+    this.contentTypeSet=true;
+    this.delegate.setContentType(contentType);
+  }
 }

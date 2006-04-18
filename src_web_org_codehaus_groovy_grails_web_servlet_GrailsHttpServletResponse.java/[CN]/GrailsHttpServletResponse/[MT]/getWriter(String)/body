@@ -1,4 +1,4 @@
 {
-  this.delegate.setContentType(contentType);
+  setContentType(contentType);
   return this.delegate.getWriter();
 }

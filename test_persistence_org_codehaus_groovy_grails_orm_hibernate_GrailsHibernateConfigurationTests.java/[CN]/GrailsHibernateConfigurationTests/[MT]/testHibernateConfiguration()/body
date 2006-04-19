@@ -60,6 +60,7 @@
   assertNotNull(many2one);
   set=new HashSet();
   one2many.setProperty("ones",set);
+  template.save(one2many);
   many2one.setProperty("other",one2many);
   template.save(many2one);
   template.refresh(one2many);

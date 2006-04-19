@@ -1,0 +1,26 @@
+{
+  if (decorator.getURIPath().endsWith(".gsp")) {
+    request.setAttribute(PAGE,page);
+    ServletContext context=filterConfig.getServletContext();
+    if (decorator.getURIPath() != null) {
+      if (context.getContext(decorator.getURIPath()) != null) {
+        context=context.getContext(decorator.getURIPath());
+      }
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Rendering layout using include: " + decorator.getURIPath());
+    }
+    RequestDispatcher rd=request.getRequestDispatcher(decorator.getURIPath());
+    rd.forward(request,response);
+    while (decorator.getInitParameterNames().hasNext()) {
+      String initParam=(String)decorator.getInitParameterNames().next();
+      if (initParam.startsWith("header.")) {
+        response.setHeader(initParam.substring(initParam.indexOf('.')),decorator.getInitParameter(initParam));
+      }
+    }
+    request.removeAttribute(PAGE);
+  }
+ else {
+    super.applyDecorator(page,decorator,request,response);
+  }
+}

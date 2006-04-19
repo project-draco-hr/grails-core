@@ -5,6 +5,6 @@
   String html="<html><head><title>Test title</title><meta name=\"layout\" content=\"test\"></meta></head><body>here is the body</body></html>";
   Page page=parser.parse(new StringReader(html));
   Decorator d=m.getDecorator(request,page);
-  assertEquals("/WEB-INF/grails-app/views/layouts/test.jsp",d.getPage());
+  assertEquals("/WEB-INF/grails-app/views/layouts/test.gsp",d.getPage());
   assertEquals("test",d.getName());
 }

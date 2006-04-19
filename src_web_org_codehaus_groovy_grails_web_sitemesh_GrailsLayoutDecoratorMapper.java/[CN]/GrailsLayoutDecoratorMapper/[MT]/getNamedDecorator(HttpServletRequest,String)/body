@@ -9,7 +9,7 @@
     }
     String decoratorPage=DEFAULT_DECORATOR_PATH + '/' + name;
     if (LOG.isInfoEnabled())     LOG.info("Using decorator " + decoratorPage);
-    Decorator d=new DefaultDecorator(decoratorName,decoratorPage,Collections.EMPTY_MAP);
+    Decorator d=new DefaultDecorator(decoratorName,request.getRequestURI(),decoratorPage,Collections.EMPTY_MAP);
     decoratorMap.put(decoratorName,d);
     return d;
   }

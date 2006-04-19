@@ -1,5 +1,11 @@
 {
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Evaluating layout for request: " + request.getRequestURI());
+  }
   String layoutName=page.getProperty("meta.layout");
   if (StringUtils.isBlank(layoutName))   return super.getDecorator(request,page);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Evaluated layout for page: " + layoutName);
+  }
   return getNamedDecorator(request,layoutName);
 }

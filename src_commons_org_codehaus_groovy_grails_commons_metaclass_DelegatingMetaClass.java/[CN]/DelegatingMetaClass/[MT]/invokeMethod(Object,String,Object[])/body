@@ -5,6 +5,6 @@
     return returnValue;
   }
  else {
-    return super.invokeMethod(target,methodName,arguments);
+    return adaptee.invokeMethod(target,methodName,arguments);
   }
 }

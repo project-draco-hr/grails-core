@@ -1,0 +1,5 @@
+{
+  assertNull(groovyObject.getProperty("testProp"));
+  groovyObject.setProperty("testProp","success");
+  assertEquals("success",groovyObject.getProperty("testProp"));
+}

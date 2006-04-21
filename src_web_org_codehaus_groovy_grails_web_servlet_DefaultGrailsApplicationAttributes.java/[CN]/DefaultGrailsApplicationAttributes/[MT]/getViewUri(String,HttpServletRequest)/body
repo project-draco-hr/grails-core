@@ -1,0 +1,20 @@
+{
+  StringBuffer buf=new StringBuffer(PATH_TO_VIEWS);
+  if (viewName.startsWith("/")) {
+    String tmp=viewName.substring(1,viewName.length());
+    if (tmp.indexOf('/') > -1) {
+      buf.append('/');
+      buf.append(tmp.substring(0,tmp.lastIndexOf('/')));
+      buf.append("/");
+      buf.append(tmp.substring(tmp.lastIndexOf('/') + 1,tmp.length()));
+    }
+ else {
+      buf.append("/");
+      buf.append(viewName.substring(1,viewName.length()));
+    }
+  }
+ else {
+    buf.append(getControllerUri(request)).append("/").append(viewName);
+  }
+  return buf.append(".gsp").toString();
+}

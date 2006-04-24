@@ -12,6 +12,7 @@
       }
     }
  catch (    IOException ioe) {
+      LOG.debug("I/O exception checking last modified date of GSP: " + ioe.getMessage(),ioe);
       return true;
     }
   }

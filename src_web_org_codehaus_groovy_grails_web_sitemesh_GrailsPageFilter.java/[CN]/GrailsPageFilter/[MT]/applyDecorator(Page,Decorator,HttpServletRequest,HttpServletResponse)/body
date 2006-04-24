@@ -7,11 +7,21 @@
         context=context.getContext(decorator.getURIPath());
       }
     }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Rendering layout using include: " + decorator.getURIPath());
-    }
     RequestDispatcher rd=request.getRequestDispatcher(decorator.getURIPath());
-    rd.forward(request,response);
+    if (!response.isCommitted()) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Rendering layout using forward: " + decorator.getURIPath());
+      }
+      rd.forward(request,response);
+    }
+ else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Rendering layout using include: " + decorator.getURIPath());
+      }
+      request.setAttribute(GrailsApplicationAttributes.GSP_TO_RENDER,decorator.getURIPath());
+      rd.include(request,response);
+      request.removeAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
+    }
     while (decorator.getInitParameterNames().hasNext()) {
       String initParam=(String)decorator.getInitParameterNames().next();
       if (initParam.startsWith("header.")) {

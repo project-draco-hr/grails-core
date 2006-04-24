@@ -1,7 +1,8 @@
 {
   this.engine=grailsAttributes.getPagesTemplateEngine();
   this.engine.setShowSource(this.showSource);
-  String pageId=engine.getPageId(request);
+  String pageId=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
+  if (pageId == null)   pageId=engine.getPageId(request);
   URL pageUrl=engine.getPageUrl(context,pageId);
   if (pageUrl == null) {
     context.log("GroovyPagesServlet:  \"" + pageUrl + "\" not found");
@@ -9,6 +10,11 @@
     return;
   }
   Template t=engine.createTemplate(context,request,response);
+  if (t == null) {
+    context.log("GroovyPagesServlet:  \"" + pageUrl + "\" not found");
+    response.sendError(404,"\"" + pageUrl + "\" not found.");
+    return;
+  }
   Writable w=t.make();
   Writer out=GSPResonseWriter.getInstance(response,8192);
   try {

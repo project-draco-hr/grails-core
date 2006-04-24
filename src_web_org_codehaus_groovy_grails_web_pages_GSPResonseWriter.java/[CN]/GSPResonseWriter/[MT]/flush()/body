@@ -6,6 +6,7 @@
       out1=response.getWriter();
     }
  catch (    IOException e) {
+      LOG.debug("I/O excepton flushing output in GSP response writer: " + e.getMessage(),e);
       trouble=true;
       return;
     }
@@ -15,6 +16,7 @@
     out0.reset();
   }
  catch (  IOException e) {
+    LOG.debug("I/O excepton flushing output in GSP response writer: " + e.getMessage(),e);
     trouble=true;
   }
 }

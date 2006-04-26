@@ -1,7 +1,12 @@
 {
   if (node instanceof Proxy) {
     if (!uniqueResult) {
-      resultProxy.setAdaptee(this.criteria.list());
+      if (scroll) {
+        resultProxy.setAdaptee(this.criteria.scroll());
+      }
+ else {
+        resultProxy.setAdaptee(this.criteria.list());
+      }
     }
  else {
       resultProxy.setAdaptee(this.criteria.uniqueResult());

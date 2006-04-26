@@ -33,14 +33,13 @@
     return c;
   }
  else {
-    String nameString=(String)name;
-    nameString=SETTER_PREFIX + nameString.substring(0,1).toUpperCase() + nameString.substring(1);
+    String nameString=name.toString();
     if (parent instanceof Proxy) {
       try {
-        criteriaProxy.invokeMethod(nameString,value);
-        return this.criteria;
+        criteriaProxy.setProperty(nameString,value);
+        return criteria;
       }
- catch (      MissingMethodException mme) {
+ catch (      MissingPropertyException mpe) {
         throwRuntimeException(new MissingMethodException(nameString,getClass(),new Object[]{value}));
       }
     }

@@ -1,7 +1,10 @@
 {
-  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(GET_CALL)) {
+  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(GET_CALL)|| name.equals(SCROLL_CALL)) {
     if (this.criteria != null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
     if (name.equals(GET_CALL))     this.uniqueResult=true;
+    if (name.equals(SCROLL_CALL)) {
+      this.scroll=true;
+    }
     if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
       this.participate=true;
       this.session=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();

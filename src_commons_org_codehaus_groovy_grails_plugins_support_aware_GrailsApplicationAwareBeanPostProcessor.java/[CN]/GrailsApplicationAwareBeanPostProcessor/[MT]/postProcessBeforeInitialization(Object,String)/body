@@ -1,0 +1,6 @@
+{
+  if (bean instanceof GrailsApplicationAware) {
+    ((GrailsApplicationAware)bean).setGrailsApplication(grailsApplication);
+  }
+  return bean;
+}

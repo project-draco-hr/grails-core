@@ -1,0 +1,3 @@
+{
+  LocaleChangeInterceptor interceptor=(LocaleChangeInterceptor)appCtx.getBean("localeChangeInterceptor",LocaleChangeInterceptor.class);
+}

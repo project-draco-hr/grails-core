@@ -1,0 +1,7 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(GrailsExceptionResolver.class);
+  MutablePropertyValues mpv=new MutablePropertyValues();
+  mpv.addPropertyValue("exceptionMappings","java.lang.Exception=error");
+  bd.setPropertyValues(mpv);
+  applicationContext.registerBeanDefinition("exceptionHandler",bd);
+}

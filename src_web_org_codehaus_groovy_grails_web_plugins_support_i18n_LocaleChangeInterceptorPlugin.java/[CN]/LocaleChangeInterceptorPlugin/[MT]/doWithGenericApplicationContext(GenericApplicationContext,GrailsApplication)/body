@@ -1,0 +1,7 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(LocaleChangeInterceptor.class);
+  MutablePropertyValues mvp=new MutablePropertyValues();
+  mvp.addPropertyValue("paramName","lang");
+  bd.setPropertyValues(mvp);
+  applicationContext.registerBeanDefinition("localeChangeInterceptor",bd);
+}

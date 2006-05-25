@@ -1,0 +1,4 @@
+{
+  TestBean bean=(TestBean)appCtx.getBean("myTestBean1",TestBean.class);
+  assertSame(GenericApplicationContext.class,bean.getMyClass());
+}

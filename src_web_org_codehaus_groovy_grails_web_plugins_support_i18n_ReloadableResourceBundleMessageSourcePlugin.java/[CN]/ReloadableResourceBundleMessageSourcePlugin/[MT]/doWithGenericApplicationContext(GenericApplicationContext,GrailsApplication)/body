@@ -1,0 +1,7 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(ReloadableResourceBundleMessageSource.class);
+  MutablePropertyValues mvp=new MutablePropertyValues();
+  mvp.addPropertyValue("basename","WEB-INF/grails-app/i18n/messages");
+  bd.setPropertyValues(mvp);
+  applicationContext.registerBeanDefinition("messageSource",bd);
+}

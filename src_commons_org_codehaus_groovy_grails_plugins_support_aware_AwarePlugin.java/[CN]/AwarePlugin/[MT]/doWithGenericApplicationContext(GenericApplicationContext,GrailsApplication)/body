@@ -1,0 +1,4 @@
+{
+  registerGrailsApplicationAwareBeanPostProcessor(applicationContext,application);
+  registerClassLoaderAwareBeanPostProcessor(applicationContext,application.getClassLoader());
+}

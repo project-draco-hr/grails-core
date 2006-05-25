@@ -1,0 +1,4 @@
+{
+  applicationContext.getBeanFactory().addBeanPostProcessor(new ClassLoaderAwareBeanPostProcessor(classLoader));
+  applicationContext.getBeanFactory().ignoreDependencyInterface(ClassLoaderAware.class);
+}

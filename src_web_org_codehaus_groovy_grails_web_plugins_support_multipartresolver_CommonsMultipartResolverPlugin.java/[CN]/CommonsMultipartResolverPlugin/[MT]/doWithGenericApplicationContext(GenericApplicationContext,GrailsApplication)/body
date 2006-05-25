@@ -1,0 +1,4 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(CommonsMultipartResolver.class);
+  applicationContext.registerBeanDefinition("multipartResolver",bd);
+}

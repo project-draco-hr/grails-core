@@ -1,0 +1,6 @@
+{
+  Assert.notNull(serviceFullname,"Service full name is required!");
+  Assert.notNull(grailsApplication,"GrailsApplication instance is required!");
+  GrailsServiceClass serviceClass=grailsApplication.getGrailsServiceClass(serviceFullname);
+  return serviceClass.newInstance();
+}

@@ -1,0 +1,8 @@
+{
+  appCtx=new GenericApplicationContext();
+  Resource[] resources=new Resource[1];
+  resources[0]=new ClassPathResource("org/codehaus/groovy/grails/plugins/grails-app/conf/NonPooledApplicationDataSource.groovy");
+  GrailsApplication application=new DefaultGrailsApplication(resources);
+  GrailsPluginLoader.loadPlugins(appCtx,application,"classpath*:org/codehaus/groovy/grails/plugins/*.xml");
+  appCtx.refresh();
+}

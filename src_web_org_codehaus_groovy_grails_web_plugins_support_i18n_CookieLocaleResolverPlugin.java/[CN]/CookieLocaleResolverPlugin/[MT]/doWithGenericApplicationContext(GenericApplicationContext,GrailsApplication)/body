@@ -1,0 +1,4 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(CookieLocaleResolver.class);
+  applicationContext.registerBeanDefinition("localeResolver",bd);
+}

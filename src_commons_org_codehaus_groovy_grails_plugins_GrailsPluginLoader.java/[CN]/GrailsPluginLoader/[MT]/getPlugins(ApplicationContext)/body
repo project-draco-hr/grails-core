@@ -1,0 +1,3 @@
+{
+  return new ArrayList(applicationContext.getBeansOfType(GrailsPlugin.class).values());
+}

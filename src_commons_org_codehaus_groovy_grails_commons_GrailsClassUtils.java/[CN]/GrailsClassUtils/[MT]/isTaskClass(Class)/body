@@ -1,0 +1,12 @@
+{
+  try {
+    clazz.getDeclaredMethod(GrailsTaskClassProperty.EXECUTE,new Class[]{});
+  }
+ catch (  SecurityException e) {
+    return false;
+  }
+catch (  NoSuchMethodException e) {
+    return false;
+  }
+  return isTaskClass(clazz.getName());
+}

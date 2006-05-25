@@ -1,0 +1,28 @@
+{
+  Server server=new Server();
+  SocketListener listener=new SocketListener();
+  String port=System.getProperty("server.port");
+  if (StringUtils.isBlank(port)) {
+    listener.setPort(8080);
+  }
+ else {
+    listener.setPort(Integer.parseInt(port));
+  }
+  server.addListener(listener);
+  try {
+    String basedir=System.getProperty("base.dir");
+    if (StringUtils.isBlank(basedir)) {
+      File current=new File(".");
+      server.addWebApplication('/' + current.getParentFile().getName(),"tmp/war");
+    }
+ else {
+      File base=new File(basedir);
+      server.addWebApplication('/' + base.getName(),basedir + "/tmp/war");
+    }
+    server.start();
+  }
+ catch (  Exception e) {
+    System.out.println(e.getMessage());
+    e.printStackTrace();
+  }
+}

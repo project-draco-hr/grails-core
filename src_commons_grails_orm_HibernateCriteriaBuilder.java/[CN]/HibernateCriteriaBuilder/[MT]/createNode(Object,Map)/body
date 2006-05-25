@@ -1,9 +1,12 @@
 {
-  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(GET_CALL)|| name.equals(SCROLL_CALL)) {
+  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(GET_CALL)|| name.equals(COUNT_CALL)|| name.equals(SCROLL_CALL)) {
     if (this.criteria != null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
     if (name.equals(GET_CALL))     this.uniqueResult=true;
     if (name.equals(SCROLL_CALL)) {
       this.scroll=true;
+    }
+ else     if (name.equals(COUNT_CALL)) {
+      this.count=true;
     }
     if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
       this.participate=true;
@@ -15,12 +18,18 @@
     this.criteria=this.session.createCriteria(targetClass);
     this.criteriaProxy=new ExtendProxy();
     this.criteriaProxy.setAdaptee(this.criteria);
+    resultProxy=new ExtendProxy();
     this.parent=resultProxy;
     return resultProxy;
   }
  else   if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
     if (this.criteria == null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
     this.logicalExpressions.add(name);
+    return name;
+  }
+ else   if (name.equals(PROJECTIONS)) {
+    if (this.criteria == null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    this.projectionList=Projections.projectionList();
     return name;
   }
   closeSessionFollowingException();

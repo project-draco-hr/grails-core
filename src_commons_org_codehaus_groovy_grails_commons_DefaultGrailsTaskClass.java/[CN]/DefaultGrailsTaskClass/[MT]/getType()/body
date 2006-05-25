@@ -1,0 +1,5 @@
+{
+  String type=(String)getPropertyValue(TYPE,String.class);
+  if (type == null || "".equals(type))   return DEFAULT_TYPE;
+  return type;
+}

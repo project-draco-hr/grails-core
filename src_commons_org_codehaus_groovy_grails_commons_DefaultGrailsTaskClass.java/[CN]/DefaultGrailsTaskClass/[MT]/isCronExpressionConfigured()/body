@@ -1,0 +1,5 @@
+{
+  String cronExpression=(String)getPropertyValue(CRON_EXPRESSION,String.class);
+  if (cronExpression == null)   return false;
+  return true;
+}

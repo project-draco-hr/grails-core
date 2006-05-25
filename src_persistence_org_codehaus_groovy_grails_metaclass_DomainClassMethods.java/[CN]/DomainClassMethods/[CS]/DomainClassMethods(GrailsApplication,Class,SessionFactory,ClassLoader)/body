@@ -20,6 +20,7 @@
   addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindAllByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));
+  addStaticMethodInvocation(new CountByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ListOrderByPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ListPersistentMethod(sessionFactory,classLoader));
@@ -28,6 +29,7 @@
   addStaticMethodInvocation(new ExistsPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new CountPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new CreateCriteriaPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new ExecuteQueryPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new CreateDynamicMethod());
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty());

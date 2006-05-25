@@ -1,6 +1,11 @@
 {
-  RootClass root=new RootClass();
-  bindClass(domainClass,root,mappings);
-  bindRootPersistentClassCommonValues(domainClass,root,mappings);
-  mappings.addClass(root);
+  if (mappings.getClass(domainClass.getFullName()) == null) {
+    RootClass root=new RootClass();
+    bindClass(domainClass,root,mappings);
+    bindRootPersistentClassCommonValues(domainClass,root,mappings);
+    mappings.addClass(root);
+  }
+ else {
+    LOG.info("[GrailsDomainBinder] Class [" + domainClass.getFullName() + "] is already mapped, skipping.. ");
+  }
 }

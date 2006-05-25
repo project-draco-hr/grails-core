@@ -53,7 +53,7 @@
     PersistentClass referenced=mappings.getClass(entityName);
     Backref prop=new Backref();
     prop.setEntityName(property.getDomainClass().getFullName());
-    prop.setName('_' + property.getName() + "Backref");
+    prop.setName('_' + property.getDomainClass().getShortName() + '_'+ property.getName()+ "Backref");
     prop.setUpdateable(true);
     prop.setInsertable(true);
     prop.setCollectionRole(collection.getRole());

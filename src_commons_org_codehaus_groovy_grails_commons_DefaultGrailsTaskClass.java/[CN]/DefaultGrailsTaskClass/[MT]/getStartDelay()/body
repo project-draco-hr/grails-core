@@ -1,0 +1,5 @@
+{
+  String startDelay=(String)getPropertyValue(START_DELAY,String.class);
+  if (startDelay == null || "".equals(startDelay))   return DEFAULT_START_DELAY;
+  return startDelay;
+}

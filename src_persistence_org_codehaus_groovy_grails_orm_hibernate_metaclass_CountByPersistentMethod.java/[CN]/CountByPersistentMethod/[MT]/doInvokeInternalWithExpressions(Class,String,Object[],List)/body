@@ -1,0 +1,14 @@
+{
+  return super.getHibernateTemplate().execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      Criteria crit=session.createCriteria(clazz);
+      crit.setProjection(Projections.rowCount());
+      for (Iterator i=expressions.iterator(); i.hasNext(); ) {
+        GrailsMethodExpression current=(GrailsMethodExpression)i.next();
+        crit.add(current.getCriterion());
+      }
+      return crit.uniqueResult();
+    }
+  }
+);
+}

@@ -25,11 +25,13 @@
   populateDomainClassReferences(beanReferences,classLoader);
   LOG.info("[SpringConfig] Configuring Grails services");
   populateServiceClassReferences(beanReferences);
-  LOG.info("[SpringConfig] Configuring Grails page flows");
+  LOG.info("[SpringConfig] Configuring GrabuildSessionFactoryils page flows");
   populatePageFlowReferences(beanReferences,urlMappings);
   LOG.info("[SpringConfig] Configuring Grails controllers");
   populateControllerReferences(beanReferences,urlMappings);
   LOG.info("[SpringConfig] Configuring Grails scaffolding");
   populateScaffoldingReferences(beanReferences);
+  LOG.info("[SpringConfig] Configuring Grails tasks");
+  populateTasksReferences(beanReferences);
   return beanReferences;
 }

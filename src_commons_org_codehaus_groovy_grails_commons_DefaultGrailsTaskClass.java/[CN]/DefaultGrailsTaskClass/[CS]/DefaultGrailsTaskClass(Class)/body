@@ -1,0 +1,5 @@
+{
+  super(clazz,JOB);
+  Log LOG=LogFactory.getLog(SpringConfig.class);
+  LOG.debug("instantiating: " + this.getClazz());
+}

@@ -5,7 +5,10 @@
   if (prop == null)   throw new IllegalArgumentException("Property " + propertyName + " doesn't exist for method expression '"+ this.type+ "'");
   for (int i=0; i < args.length; i++) {
     if (args[i] == null)     throw new IllegalArgumentException("Argument " + args[0] + " cannot be null");
-    if (!prop.getType().isAssignableFrom(args[i].getClass()))     throw new IllegalArgumentException("Argument " + args[0] + " does not match property '"+ propertyName+ "' of type "+ prop.getType());
+    if (prop.getType() == String.class && (args[i] instanceof GString)) {
+      args[i]=args[i].toString();
+    }
+ else     if (!prop.getType().isAssignableFrom(args[i].getClass()))     throw new IllegalArgumentException("Argument " + args[0] + " does not match property '"+ propertyName+ "' of type "+ prop.getType());
   }
   this.arguments=args;
 }

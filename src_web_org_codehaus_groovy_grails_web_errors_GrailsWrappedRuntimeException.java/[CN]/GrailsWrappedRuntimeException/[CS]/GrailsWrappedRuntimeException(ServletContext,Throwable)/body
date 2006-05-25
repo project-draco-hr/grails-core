@@ -1,32 +1,55 @@
 {
   super(t.getMessage(),t);
-  this.t=t;
+  this.cause=t;
   StringWriter sw=new StringWriter();
   PrintWriter pw=new PrintWriter(sw);
-  this.t.printStackTrace(pw);
+  cause.printStackTrace(pw);
   this.stackTrace=sw.toString();
-  Matcher m1=PARSE_DETAILS_STEP1.matcher(stackTrace);
-  Matcher m2=PARSE_DETAILS_STEP2.matcher(stackTrace);
-  Matcher gsp=PARSE_GSP_DETAILS_STEP1.matcher(stackTrace);
-  try {
-    if (gsp.find()) {
-      isGSP=true;
-      this.className=gsp.group(2);
-      this.lineNumber=Integer.parseInt(gsp.group(3));
-      this.gspFile=URL_PREFIX + "views/" + gsp.group(1)+ '/'+ this.className;
+  while (t.getCause() != cause) {
+    if (t.getCause() == null) {
+      cause=t;
+      break;
     }
- else {
-      if (m1.find()) {
-        this.className=m1.group(1);
-        this.lineNumber=Integer.parseInt(m1.group(2));
-      }
- else       if (m2.find()) {
-        this.className=m2.group(1);
-        this.lineNumber=Integer.parseInt(m2.group(2));
+    cause=t.getCause();
+  }
+  if (cause instanceof MultipleCompilationErrorsException) {
+    MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)cause;
+    Object message=mcee.getErrorCollector().getErrors().iterator().next();
+    if (message instanceof SyntaxErrorMessage) {
+      SyntaxErrorMessage sem=(SyntaxErrorMessage)message;
+      this.lineNumber=sem.getCause().getLine();
+      sw=new StringWriter();
+      pw=new PrintWriter(sw);
+      sem.write(pw);
+      String messageText=sw.toString();
+      if (messageText.indexOf(':') > -1) {
+        this.className=sw.toString().substring(0,messageText.indexOf(':'));
       }
     }
   }
- catch (  NumberFormatException nfex) {
+ else {
+    Matcher m1=PARSE_DETAILS_STEP1.matcher(stackTrace);
+    Matcher m2=PARSE_DETAILS_STEP2.matcher(stackTrace);
+    Matcher gsp=PARSE_GSP_DETAILS_STEP1.matcher(stackTrace);
+    try {
+      if (gsp.find()) {
+        this.className=gsp.group(2);
+        this.lineNumber=Integer.parseInt(gsp.group(3));
+        this.gspFile=URL_PREFIX + "views/" + gsp.group(1)+ '/'+ this.className;
+      }
+ else {
+        if (m1.find()) {
+          this.className=m1.group(1);
+          this.lineNumber=Integer.parseInt(m1.group(2));
+        }
+ else         if (m2.find()) {
+          this.className=m2.group(1);
+          this.lineNumber=Integer.parseInt(m2.group(2));
+        }
+      }
+    }
+ catch (    NumberFormatException nfex) {
+    }
   }
   LineNumberReader reader=null;
   try {

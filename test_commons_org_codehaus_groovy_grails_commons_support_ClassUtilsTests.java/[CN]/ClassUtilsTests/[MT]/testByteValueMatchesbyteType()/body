@@ -1,0 +1,3 @@
+{
+  assertTrue(ClassUtils.isMatchBetweenValueTypeAndPrimitiveExcpectedType(new Byte((byte)1),byte.class));
+}

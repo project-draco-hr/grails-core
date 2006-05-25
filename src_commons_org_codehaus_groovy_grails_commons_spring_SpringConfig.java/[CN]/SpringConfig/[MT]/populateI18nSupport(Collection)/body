@@ -1,6 +1,6 @@
 {
   Bean messageSource=SpringConfigUtils.createSingletonBean(ReloadableResourceBundleMessageSource.class);
-  messageSource.setProperty("basename",SpringConfigUtils.createLiteralValue("WEB-INF/grails-app/i18n/messages"));
+  messageSource.setProperty("basename",SpringConfigUtils.createLiteralValue("WEB-INF/classes/grails-app/i18n/messages"));
   beanReferences.add(SpringConfigUtils.createBeanReference("messageSource",messageSource));
   Bean localeChangeInterceptor=SpringConfigUtils.createSingletonBean(LocaleChangeInterceptor.class);
   localeChangeInterceptor.setProperty("paramName",SpringConfigUtils.createLiteralValue("lang"));

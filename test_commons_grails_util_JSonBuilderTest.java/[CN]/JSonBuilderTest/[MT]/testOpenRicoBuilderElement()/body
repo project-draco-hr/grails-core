@@ -1,9 +1,9 @@
 {
-  parse("json(){ message('Hello World') }");
-  parse("json{ message 'Hello World' }");
-  parse("json{ integer 5+5 }");
-  parse("json{ message 5.1 }");
-  parse("json(){ names{ for( cc in names ){ name( \"firstName\" : cc ) }  }  }");
+  assertEquals("{\"message\":\"Hello World\"}",parse("json(){ message('Hello World') }"));
+  assertEquals("{\"integer\":10}",parse("json{ integer 5+5 }"));
+  assertEquals("{\"message\":5.1}",parse("json{ message 5.1 }"));
+  assertEquals("{\"names\":[{\"firstName\":\"Steven\"},{\"firstName\":\"Hans\"},{\"firstName\":\"Erwin\"}]}",parse("json(){ names{ for( cc in names ){ name( \"firstName\" : cc ) }  }  }"));
+  assertEquals("{\"names\":[\"Steven\",\"Hans\",\"Erwin\"]}",parse("json(){ names(names) }"));
   try {
     parse("json{ message( \"Hello World\" ){ item() } }");
     fail();

@@ -6,4 +6,5 @@
   StringWriter sw=new StringWriter();
   closure.call(getResponse(sw));
   System.out.println(sw.getBuffer().toString());
+  return sw.getBuffer().toString();
 }

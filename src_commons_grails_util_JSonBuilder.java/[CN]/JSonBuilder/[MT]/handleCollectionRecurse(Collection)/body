@@ -1,0 +1,13 @@
+{
+  writer.array();
+  for (Iterator i=c.iterator(); i.hasNext(); ) {
+    Object element=i.next();
+    if (element instanceof Collection) {
+      handleCollectionRecurse((Collection)element);
+    }
+ else {
+      writer.value(element);
+    }
+  }
+  writer.endArray();
+}

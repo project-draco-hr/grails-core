@@ -1,0 +1,19 @@
+{
+  parse("json(){ message('Hello World') }");
+  parse("json{ message 'Hello World' }");
+  parse("json{ integer 5+5 }");
+  parse("json{ message 5.1 }");
+  parse("json(){ names{ for( cc in names ){ name( \"firstName\" : cc ) }  }  }");
+  try {
+    parse("json{ message( \"Hello World\" ){ item() } }");
+    fail();
+  }
+ catch (  InvokerInvocationException e) {
+  }
+  try {
+    parse("json{ message( \"Hello World\" ){ item(\"test\") } }");
+    fail();
+  }
+ catch (  InvokerInvocationException e) {
+  }
+}

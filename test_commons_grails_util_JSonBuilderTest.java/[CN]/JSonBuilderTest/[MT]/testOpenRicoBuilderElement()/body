@@ -4,6 +4,7 @@
   assertEquals("{\"message\":5.1}",parse("json{ message 5.1 }"));
   assertEquals("{\"names\":[{\"firstName\":\"Steven\"},{\"firstName\":\"Hans\"},{\"firstName\":\"Erwin\"}]}",parse("json(){ names{ for( cc in names ){ name( \"firstName\" : cc ) }  }  }"));
   assertEquals("{\"names\":[\"Steven\",\"Hans\",\"Erwin\"]}",parse("json(){ names(names) }"));
+  assertEquals("{\"book\":{\"title\":\"test1\",\"title2\":\"test2\"}}",parse("json(){book(title:\"test1\",title2:\"test2\")}"));
   try {
     parse("json{ message( \"Hello World\" ){ item() } }");
     fail();

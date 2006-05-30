@@ -1,0 +1,3 @@
+{
+  return (SessionFactory)beanFactory.getBean(sessionFactoryBeanName,SessionFactory.class);
+}

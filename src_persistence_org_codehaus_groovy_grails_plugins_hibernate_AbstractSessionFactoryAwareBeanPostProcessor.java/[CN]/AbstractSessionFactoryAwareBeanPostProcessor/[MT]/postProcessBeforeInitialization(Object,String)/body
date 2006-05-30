@@ -1,0 +1,7 @@
+{
+  if (bean instanceof SessionFactoryAware) {
+    SessionFactory sessionFactory=getSessionFactory();
+    ((SessionFactoryAware)bean).setSessionFactory(sessionFactory);
+  }
+  return bean;
+}

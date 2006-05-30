@@ -18,5 +18,5 @@
  catch (  JSONException e) {
     throw new IllegalArgumentException(JSON_BUILDER + "invalid element");
   }
-  return Integer.valueOf(retVal);
+  return new Integer(retVal);
 }

@@ -17,6 +17,6 @@
     return retVal != 0 ? Integer.valueOf(retVal) : null;
   }
  catch (  JSONException e) {
-    throw new IllegalArgumentException(JSON_BUILDER + "invalid element",e);
+    throw new IllegalArgumentException(JSON_BUILDER + "invalid element");
   }
 }

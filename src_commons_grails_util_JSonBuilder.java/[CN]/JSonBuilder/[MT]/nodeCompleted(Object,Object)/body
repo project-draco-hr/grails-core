@@ -10,7 +10,7 @@
       }
     }
  catch (    JSONException e) {
-      throw new IllegalArgumentException(JSON_BUILDER + "invalid element on the stack",e);
+      throw new IllegalArgumentException(JSON_BUILDER + "invalid element on the stack");
     }
   }
 }

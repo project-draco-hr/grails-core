@@ -3,14 +3,25 @@
   GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
   Validator validator=null;
   if (domainClass != null)   validator=application.getGrailsDomainClass(target.getClass().getName()).getValidator();
-  Boolean valid=new Boolean(true);
+  Boolean valid=Boolean.TRUE;
   if (validator != null) {
+    boolean evict=false;
+    if (arguments.length > 0) {
+      if (arguments[0] instanceof Boolean) {
+        evict=((Boolean)arguments[0]).booleanValue();
+      }
+    }
     if (validator instanceof GrailsDomainClassValidator) {
       ((GrailsDomainClassValidator)validator).setHibernateTemplate(getHibernateTemplate());
     }
     validator.validate(target,errors);
     if (errors.hasErrors()) {
-      valid=new Boolean(!errors.hasErrors());
+      valid=Boolean.valueOf(false);
+      if (evict) {
+        if (getHibernateTemplate().contains(target)) {
+          getHibernateTemplate().evict(target);
+        }
+      }
       DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
       metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
     }

@@ -1,4 +1,5 @@
 {
+  HibernateTemplate t=getHibernateTemplate();
   Errors errors=new BindException(target,target.getClass().getName());
   GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
   Validator validator=null;
@@ -19,13 +20,15 @@
       }
       validator.validate(target,errors);
       if (errors.hasErrors()) {
+        if (t.contains(target)) {
+          t.evict(target);
+        }
         DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
         metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
         return null;
       }
     }
   }
-  HibernateTemplate t=getHibernateTemplate();
   if (domainClass != null) {
     BeanWrapper bean=new BeanWrapperImpl(target);
     GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();

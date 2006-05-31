@@ -14,7 +14,7 @@
   Thread.currentThread().setContextClassLoader(this.cl);
   this.sessionFactory=config.buildSessionFactory();
   if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
-    Session hibSession=this.sessionFactory.openSession();
+    this.hibSession=this.sessionFactory.openSession();
     TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(hibSession));
   }
   new DomainClassMethods(grailsApplication,groovyClass,sessionFactory,cl);

@@ -4,7 +4,7 @@
   beanReferences.add(SpringConfigUtils.createBeanReference(SimpleGrailsController.APPLICATION_CONTEXT_ID,simpleGrailsController));
   Bean grailsViewResolver=SpringConfigUtils.createSingletonBean(GrailsViewResolver.class);
   grailsViewResolver.setProperty("viewClass",SpringConfigUtils.createLiteralValue("org.springframework.web.servlet.view.JstlView"));
-  grailsViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue("/WEB-INF/classes/grails-app/views/"));
+  grailsViewResolver.setProperty("prefix",SpringConfigUtils.createLiteralValue(GrailsApplicationAttributes.PATH_TO_VIEWS));
   grailsViewResolver.setProperty("suffix",SpringConfigUtils.createLiteralValue(".jsp"));
   beanReferences.add(SpringConfigUtils.createBeanReference("jspViewResolver",grailsViewResolver));
   Bean simpleUrlHandlerMapping=null;

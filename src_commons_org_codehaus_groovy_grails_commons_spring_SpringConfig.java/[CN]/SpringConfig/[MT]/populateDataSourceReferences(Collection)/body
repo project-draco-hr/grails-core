@@ -39,8 +39,21 @@
     dependsOnHsqldbServer=true;
   }
   Map vendorNameDialectMappings=new HashMap();
-  vendorNameDialectMappings.put("HSQL Database Engine",HSQLDialect.class.getName());
-  vendorNameDialectMappings.put("MySQL",MySQLDialect.class.getName());
+  URL hibernateDialects=this.application.getClassLoader().getResource("hibernate-dialects.properties");
+  if (hibernateDialects != null) {
+    Properties p=new Properties();
+    try {
+      p.load(hibernateDialects.openStream());
+      Iterator iter=p.entrySet().iterator();
+      while (iter.hasNext()) {
+        Map.Entry e=(Map.Entry)iter.next();
+        vendorNameDialectMappings.put(e.getValue(),"org.hibernate.dialect." + e.getKey());
+      }
+    }
+ catch (    IOException e) {
+      LOG.info("[SpringConfig] Error loading hibernate-dialects.properties file: " + e.getMessage());
+    }
+  }
   Bean dialectDetector=SpringConfigUtils.createSingletonBean(HibernateDialectDetectorFactoryBean.class);
   dialectDetector.setProperty("dataSource",SpringConfigUtils.createBeanReference("dataSource"));
   dialectDetector.setProperty("vendorNameDialectMappings",SpringConfigUtils.createProperties(vendorNameDialectMappings));

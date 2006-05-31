@@ -7,8 +7,13 @@
   }
   String dbName=(String)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseProductName");
   Integer majorVersion=(Integer)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseMajorVersion");
-  this.hibernateDialect=DialectFactory.determineDialect(dbName,majorVersion.intValue());
-  this.hibernateDialectClassName=this.hibernateDialect.getClass().getName();
+  try {
+    this.hibernateDialect=DialectFactory.determineDialect(dbName,majorVersion.intValue());
+    this.hibernateDialectClassName=this.hibernateDialect.getClass().getName();
+  }
+ catch (  HibernateException e) {
+    this.hibernateDialectClassName=this.vendorNameDialectMappings.getProperty(dbName);
+  }
   if (StringUtils.isBlank(this.hibernateDialectClassName)) {
     throw new CouldNotDetermineHibernateDialectException("Could not determine Hibernate dialect for database name [" + dbName + "]!");
   }

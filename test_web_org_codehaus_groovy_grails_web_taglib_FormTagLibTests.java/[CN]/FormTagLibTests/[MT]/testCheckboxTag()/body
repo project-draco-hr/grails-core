@@ -1,0 +1,27 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  Closure tag=getTag("checkBox",pw);
+  Map attrs=new HashMap();
+  attrs.put("name","testCheck");
+  attrs.put("value","true");
+  attrs.put("extra","1");
+  assertNotNull(tag);
+  tag.call(new Object[]{attrs});
+  String enclosed="<test>" + sw.toString() + "</test>";
+  System.out.println(enclosed);
+  Document document=DocumentHelper.parseText(enclosed);
+  assertNotNull(document);
+  Element root=document.getRootElement();
+  List els=root.elements();
+  assertEquals(2,els.size());
+  Element hidden=(Element)els.get(0);
+  Element checkbox=(Element)els.get(1);
+  assertEquals("hidden",hidden.attributeValue("type"));
+  assertEquals("_testCheck",hidden.attributeValue("name"));
+  assertEquals("checkbox",checkbox.attributeValue("type"));
+  assertEquals("testCheck",checkbox.attributeValue("name"));
+  assertEquals("checked",checkbox.attributeValue("checked"));
+  assertEquals("true",checkbox.attributeValue("value"));
+  assertEquals("1",checkbox.attributeValue("extra"));
+}

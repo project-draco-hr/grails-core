@@ -1,0 +1,31 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  Closure tag=getTag("radio",pw);
+  assertNotNull(tag);
+  Map attrs=new HashMap();
+  attrs.put("name","testRadio");
+  attrs.put("checked","true");
+  attrs.put("value","1");
+  tag.call(new Object[]{attrs});
+  Document document=DocumentHelper.parseText(sw.toString());
+  assertNotNull(document);
+  Element inputElement=document.getRootElement();
+  assertEquals("input",inputElement.getName());
+  assertEquals("testRadio",inputElement.attributeValue("name"));
+  assertEquals("checked",inputElement.attributeValue("checked"));
+  assertEquals("1",inputElement.attributeValue("value"));
+  sw.getBuffer().delete(0,sw.getBuffer().length());
+  attrs.remove("checked");
+  attrs.put("name","testRadio");
+  attrs.put("value","2");
+  tag.call(new Object[]{attrs});
+  document=DocumentHelper.parseText(sw.toString());
+  assertNotNull(document);
+  System.out.println(sw.toString());
+  inputElement=document.getRootElement();
+  assertEquals("input",inputElement.getName());
+  assertEquals("testRadio",inputElement.attributeValue("name"));
+  assertNull(inputElement.attributeValue("checked"));
+  assertEquals("2",inputElement.attributeValue("value"));
+}

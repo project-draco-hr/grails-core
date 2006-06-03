@@ -4,7 +4,7 @@
     GroovyObject instance=(GroovyObject)getReference().getWrappedInstance();
     try {
       DynamicMethods interceptor=new GroovyDynamicMethodsInterceptor(instance);
-      interceptor.addDynamicProperty(new ConstraintsDynamicProperty());
+      interceptor.addDynamicProperty(new ConstraintsEvaluatingDynamicProperty());
       this.constraints=(Map)instance.getProperty(GrailsDomainClassProperty.CONSTRAINTS);
     }
  catch (    IntrospectionException e) {

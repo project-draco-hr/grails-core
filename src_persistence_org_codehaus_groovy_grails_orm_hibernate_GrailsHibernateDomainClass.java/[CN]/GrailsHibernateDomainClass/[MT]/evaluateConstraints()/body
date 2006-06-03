@@ -1,0 +1,28 @@
+{
+  Map existing=(Map)getPropertyValue(GrailsDomainClassProperty.CONSTRAINTS,Map.class);
+  if (existing == null) {
+    Object instance=getReference().getWrappedInstance();
+    try {
+      DynamicMethods interceptor=new AbstractDynamicMethodsInterceptor(){
+      }
+;
+      interceptor.addDynamicProperty(new ConstraintsEvaluatingDynamicProperty());
+      MetaClassRegistry metaRegistry=InvokerHelper.getInstance().getMetaRegistry();
+      MetaClass meta=metaRegistry.getMetaClass(instance.getClass());
+      try {
+        ProxyMetaClass pmc=new PropertyAccessProxyMetaClass(metaRegistry,instance.getClass(),meta);
+        pmc.setInterceptor((Interceptor)interceptor);
+        this.constraints=(Map)pmc.getProperty(instance,GrailsDomainClassProperty.CONSTRAINTS);
+      }
+  finally {
+        metaRegistry.setMetaClass(instance.getClass(),meta);
+      }
+    }
+ catch (    IntrospectionException e) {
+      LOG.error("Introspection error reading domain class [" + getFullName() + "] constraints: "+ e.getMessage(),e);
+    }
+  }
+ else {
+    this.constraints=existing;
+  }
+}

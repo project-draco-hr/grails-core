@@ -1,0 +1,47 @@
+{
+  BeanWrapper bean=new BeanWrapperImpl(object);
+  try {
+    Closure c=(Closure)bean.getPropertyValue(PROPERTY_NAME);
+    ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
+    c.setDelegate(delegate);
+    c.call();
+    return delegate.getConstrainedProperties();
+  }
+ catch (  BeansException be) {
+    String className=object.getClass().getName();
+    String constraintsScript=className.replaceAll("\\.","/") + CONSTRAINTS_GROOVY;
+    InputStream stream=getClass().getClassLoader().getResourceAsStream(constraintsScript);
+    if (stream != null) {
+      GroovyClassLoader gcl=new GroovyClassLoader();
+      try {
+        Class scriptClass=gcl.parseClass(stream);
+        Script script=(Script)scriptClass.newInstance();
+        script.run();
+        Closure c=(Closure)script.getBinding().getVariable(PROPERTY_NAME);
+        ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
+        c.setDelegate(delegate);
+        c.call();
+        return delegate.getConstrainedProperties();
+      }
+ catch (      MissingPropertyException mpe) {
+        LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!",mpe);
+        return Collections.EMPTY_MAP;
+      }
+catch (      CompilationFailedException e) {
+        LOG.error("Compilation error evaluating constraints for class [" + object.getClass() + "]: "+ e.getMessage(),e);
+        return Collections.EMPTY_MAP;
+      }
+catch (      InstantiationException e) {
+        LOG.error("Instantiation error evaluating constraints for class [" + object.getClass() + "]: "+ e.getMessage(),e);
+        return Collections.EMPTY_MAP;
+      }
+catch (      IllegalAccessException e) {
+        LOG.error("Illegal access error evaluating constraints for class [" + object.getClass() + "]: "+ e.getMessage(),e);
+        return Collections.EMPTY_MAP;
+      }
+    }
+ else {
+      return Collections.EMPTY_MAP;
+    }
+  }
+}

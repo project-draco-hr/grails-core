@@ -14,6 +14,8 @@
   addDynamicProperty(new GenericDynamicProperty(GRAILS_APPLICATION,GrailsApplication.class,grailsAttributes.getGrailsApplication(),true));
   addDynamicProperty(new GenericDynamicProperty(ACTION_URI_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(CONTROLLER_URI_PROPERTY,String.class,null,false));
+  addDynamicProperty(new GenericDynamicProperty(ACTION_NAME_PROPERTY,String.class,null,false));
+  addDynamicProperty(new GenericDynamicProperty(CONTROLLER_NAME_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(RENDER_VIEW_PROPERTY,Boolean.class,Boolean.TRUE,false));
   addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));

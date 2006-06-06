@@ -69,6 +69,8 @@
   if (StringUtils.isBlank(actionName)) {
     if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
   }
+  controller.setProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY,controllerName);
+  controller.setProperty(ControllerDynamicMethods.ACTION_NAME_PROPERTY,actionName);
   controller.setProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY,'/' + controllerName);
   controller.setProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY,'/' + controllerName + '/'+ actionName);
   Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);

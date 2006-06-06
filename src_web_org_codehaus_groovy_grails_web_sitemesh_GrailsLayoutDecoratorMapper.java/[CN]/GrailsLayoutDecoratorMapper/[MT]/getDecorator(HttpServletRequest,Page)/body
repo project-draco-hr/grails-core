@@ -3,9 +3,39 @@
     LOG.debug("Evaluating layout for request: " + request.getRequestURI());
   }
   String layoutName=page.getProperty("meta.layout");
-  if (StringUtils.isBlank(layoutName))   return super.getDecorator(request,page);
+  if (StringUtils.isBlank(layoutName)) {
+    GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
+    if (controller != null) {
+      if (LOG.isDebugEnabled())       LOG.debug("Found controller in request, checking for layout");
+      String controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
+      String actionUri=(String)controller.getProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY);
+      Decorator d=getNamedDecorator(request,actionUri.substring(1));
+      if (d != null) {
+        return d;
+      }
+ else {
+        if (LOG.isDebugEnabled())         LOG.debug("Action layout not found, trying controller");
+        d=getNamedDecorator(request,controllerName);
+        if (d != null) {
+          return d;
+        }
+ else {
+          return parent != null ? super.getDecorator(request,page) : null;
+        }
+      }
+    }
+ else {
+      return parent != null ? super.getDecorator(request,page) : null;
+    }
+  }
   if (LOG.isDebugEnabled()) {
     LOG.debug("Evaluated layout for page: " + layoutName);
   }
-  return getNamedDecorator(request,layoutName);
+  Decorator d=getNamedDecorator(request,layoutName);
+  if (d != null) {
+    return d;
+  }
+ else {
+    return parent != null ? super.getDecorator(request,page) : null;
+  }
 }

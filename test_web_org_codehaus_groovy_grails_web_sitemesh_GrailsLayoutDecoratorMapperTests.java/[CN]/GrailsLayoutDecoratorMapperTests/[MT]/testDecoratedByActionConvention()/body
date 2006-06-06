@@ -1,0 +1,17 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest("GET","orders/list");
+  MockServletContext context=new MockServletContext();
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  GroovyObject controller=(GroovyObject)gcl.parseClass("class Test2Controller {\n" + "@Property controllerName = 'test2'\n" + "@Property actionUri = '/test2/testAction'\n"+ "}").newInstance();
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
+  Config c=new Config(new MockServletConfig(context));
+  m.init(c,null,null);
+  FastPageParser parser=new FastPageParser();
+  String html="<html><head><title>Test title</title></head><body>here is the body</body></html>";
+  Page page=parser.parse(new StringReader(html));
+  Decorator d=m.getDecorator(request,page);
+  assertNotNull(d);
+  assertEquals("/WEB-INF/grails-app/views/layouts/test2/testAction.gsp",d.getURIPath());
+  assertEquals("test2/testAction",d.getName());
+}

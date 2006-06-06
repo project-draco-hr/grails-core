@@ -8,9 +8,21 @@
       name+=DEFAULT_VIEW_TYPE;
     }
     String decoratorPage=DEFAULT_DECORATOR_PATH + '/' + name;
-    if (LOG.isInfoEnabled())     LOG.info("Using decorator " + decoratorPage);
-    Decorator d=new DefaultDecorator(decoratorName,request.getRequestURI(),decoratorPage,Collections.EMPTY_MAP);
-    decoratorMap.put(decoratorName,d);
-    return d;
+    try {
+      if (servletContext.getResource(decoratorPage) == null) {
+        if (LOG.isDebugEnabled())         LOG.debug("No decorator found at " + decoratorPage);
+        return null;
+      }
+ else {
+        if (LOG.isDebugEnabled())         LOG.debug("Using decorator " + decoratorPage);
+        Decorator d=new DefaultDecorator(decoratorName,request.getRequestURI(),decoratorPage,Collections.EMPTY_MAP);
+        decoratorMap.put(decoratorName,d);
+        return d;
+      }
+    }
+ catch (    MalformedURLException e) {
+      LOG.error("Invalid URL retrieving decorator [" + decoratorPage + "]",e);
+      return null;
+    }
   }
 }

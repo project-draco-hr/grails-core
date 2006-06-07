@@ -4,6 +4,7 @@
   GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
   GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
   this.cl=new GroovyClassLoader();
+  this.cl.setShouldRecompile(Boolean.TRUE);
   this.cl.setResourceLoader(resourceLoader);
   Collection loadedResources=new ArrayList();
   for (int i=0; resources != null && i < resources.length; i++) {

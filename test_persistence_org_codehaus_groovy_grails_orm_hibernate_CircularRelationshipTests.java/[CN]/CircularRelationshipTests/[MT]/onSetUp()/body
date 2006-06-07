@@ -1,6 +1,6 @@
 {
   Thread.currentThread().setContextClassLoader(cl);
-  cl.loadClass("org.codehaus.groovy.grails.domain.CircularRelationship");
+  cl.loadClass("org.codehaus.groovy.grails.domain.CircularRelationship",true,false);
   Class[] loadedClasses=cl.getLoadedClasses();
   grailsApplication=new DefaultGrailsApplication(loadedClasses,cl);
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();

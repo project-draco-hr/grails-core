@@ -1,0 +1,11 @@
+{
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Class clazz=cl.parseClass("package test.casey; class TestService { }");
+  GrailsClass grailsClass=new AbstractGrailsClass(clazz,"Service"){
+  }
+;
+  assertEquals("test.casey.TestService",clazz.getName());
+  assertEquals("Test",grailsClass.getName());
+  assertEquals("test.casey.TestService",grailsClass.getFullName());
+  assertNotNull(grailsClass.newInstance());
+}

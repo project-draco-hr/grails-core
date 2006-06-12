@@ -6,6 +6,13 @@
   this.naturalName=GrailsClassUtils.getNaturalName(descriptor.getName());
   this.type=descriptor.getPropertyType();
   this.identity=descriptor.getName().equals(IDENTITY);
+  if (!domainClass.isRoot()) {
+    Class superClass=domainClass.getClazz().getSuperclass();
+    BeanWrapper superBean=new BeanWrapperImpl(superClass);
+    if (superBean.isReadableProperty(this.name)) {
+      this.inherited=true;
+    }
+  }
   List optionalProps;
   List transientProps;
   optionalProps=(List)domainClass.getPropertyValue(OPTIONAL,List.class);

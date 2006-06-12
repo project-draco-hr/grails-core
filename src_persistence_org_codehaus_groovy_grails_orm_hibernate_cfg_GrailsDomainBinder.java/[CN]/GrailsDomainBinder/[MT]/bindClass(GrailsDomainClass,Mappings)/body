@@ -1,3 +1,5 @@
 {
-  bindRoot(domainClass,mappings);
+  if (domainClass.isRoot()) {
+    bindRoot(domainClass,mappings);
+  }
 }

@@ -1,0 +1,14 @@
+{
+  GroovyObject car=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Car").getClazz());
+  GroovyObject alpha=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Alpha").getClazz());
+  GroovyObject fiat=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Fiat").getClazz());
+  GroovyObject ferrari=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Ferrari").getClazz());
+  fiat.setProperty("type","cheap");
+  alpha.setProperty("type","luxury");
+  ferrari.setProperty("type","luxury");
+  alpha.invokeMethod("save",new Object[0]);
+  fiat.invokeMethod("save",new Object[0]);
+  ferrari.invokeMethod("save",new Object[0]);
+  List cars=(List)car.getMetaClass().invokeStaticMethod(car,"findAll",new Object[]{"from Car as c where c.type='luxury'"});
+  assertEquals(2,cars.size());
+}

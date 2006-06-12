@@ -3,6 +3,10 @@
     RootClass root=new RootClass();
     bindClass(domainClass,root,mappings);
     bindRootPersistentClassCommonValues(domainClass,root,mappings);
+    if (!domainClass.getSubClasses().isEmpty()) {
+      bindDiscriminatorProperty(root.getTable(),root,mappings);
+      bindSubClasses(domainClass,root,mappings);
+    }
     mappings.addClass(root);
   }
  else {

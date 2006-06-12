@@ -1,0 +1,7 @@
+{
+  Set subClasses=domainClass.getSubClasses();
+  for (Iterator i=subClasses.iterator(); i.hasNext(); ) {
+    GrailsDomainClass sub=(GrailsDomainClass)i.next();
+    bindSubClass(domainClass,sub,root,mappings);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  SimpleValue d=new SimpleValue(table);
+  entity.setDiscriminator(d);
+  bindSimpleValue("string",d,false,RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME,mappings);
+  entity.setPolymorphic(true);
+}

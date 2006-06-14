@@ -7,8 +7,8 @@
     bindOneToMany(property,oneToMany,mappings);
   }
  else {
-    String tableName=property.getReferencedDomainClass().getName();
-    Table table=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
+    String referencedClassName=property.getReferencedDomainClass().getFullName();
+    Table table=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),namingStrategy.classToTableName(referencedClassName),null,false);
     collection.setCollectionTable(table);
   }
   mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection));

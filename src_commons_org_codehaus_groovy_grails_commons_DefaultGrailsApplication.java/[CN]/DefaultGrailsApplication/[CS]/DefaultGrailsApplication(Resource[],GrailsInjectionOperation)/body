@@ -1,0 +1,42 @@
+{
+  super();
+  log.debug("Loading Grails application.");
+  final GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
+  GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
+  if (injectionOperation == null) {
+    this.cl=new GroovyClassLoader();
+  }
+ else {
+    this.cl=new GroovyClassLoader(){
+      protected CompilationUnit createCompilationUnit(      CompilerConfiguration config,      CodeSource source){
+        CompilationUnit cu=super.createCompilationUnit(config,source);
+        injectionOperation.setResourceLoader(resourceLoader);
+        cu.addPhaseOperation(injectionOperation,Phases.CONVERSION);
+        return cu;
+      }
+    }
+;
+  }
+  this.cl.setShouldRecompile(Boolean.TRUE);
+  this.cl.setResourceLoader(resourceLoader);
+  Collection loadedResources=new ArrayList();
+  for (int i=0; resources != null && i < resources.length; i++) {
+    log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
+    if (!loadedResources.contains(resources[i])) {
+      try {
+        String className=resourceHolder.getClassName(resources[i]);
+        if (!StringUtils.isBlank(className)) {
+          cl.loadClass(className,true,false);
+          loadedResources=resourceLoader.getLoadedResources();
+        }
+      }
+ catch (      ClassNotFoundException e) {
+        throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error parsing file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
+      }
+    }
+  }
+  if (log.isDebugEnabled())   log.debug("loaded classes: [" + ArrayUtils.toString(this.cl.getLoadedClasses()) + "]");
+  Class[] classes=this.cl.getLoadedClasses();
+  this.allClasses=classes;
+  configureLoadedClasses(classes);
+}

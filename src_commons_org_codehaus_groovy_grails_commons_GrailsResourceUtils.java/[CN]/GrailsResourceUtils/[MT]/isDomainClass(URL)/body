@@ -1,0 +1,5 @@
+{
+  if (url == null)   return false;
+  if (DOMAIN_PATH_PATTERN.matcher(url.getPath()).find())   return true;
+  return false;
+}

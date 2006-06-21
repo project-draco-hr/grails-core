@@ -1,0 +1,9 @@
+{
+  LOG.info("Loading Grails environment");
+  ApplicationContext parent=new ClassPathXmlApplicationContext("applicationContext.xml");
+  DefaultGrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
+  SpringConfig config=new SpringConfig(application);
+  ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(config.getBeanReferences(),parent);
+  Assert.notNull(appCtx);
+  return appCtx;
+}

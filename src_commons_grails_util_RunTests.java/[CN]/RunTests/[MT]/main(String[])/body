@@ -1,8 +1,6 @@
 {
-  ApplicationContext parent=new ClassPathXmlApplicationContext("applicationContext.xml");
-  DefaultGrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
-  SpringConfig config=new SpringConfig(application);
-  ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(config.getBeanReferences(),parent);
+  ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)GrailsUtil.bootstrapGrailsFromClassPath();
+  GrailsApplication application=(GrailsApplication)appCtx.getBean(GrailsApplication.APPLICATION_ID);
   Class[] allClasses=application.getAllClasses();
   log.debug("Going through [" + allClasses.length + "] classes");
   TestSuite s=new TestSuite();

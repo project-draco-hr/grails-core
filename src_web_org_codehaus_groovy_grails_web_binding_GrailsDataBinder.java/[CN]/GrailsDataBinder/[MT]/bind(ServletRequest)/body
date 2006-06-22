@@ -1,5 +1,8 @@
 {
   MutablePropertyValues mpvs=new ServletRequestParameterPropertyValues(request);
+  if (request instanceof HttpServletRequestWrapper) {
+    request=((HttpServletRequestWrapper)request).getRequest();
+  }
   checkMultipartFiles(request,mpvs);
   checkStructuredDateDefinitions(request,mpvs);
   autoCreateIfPossible(mpvs);

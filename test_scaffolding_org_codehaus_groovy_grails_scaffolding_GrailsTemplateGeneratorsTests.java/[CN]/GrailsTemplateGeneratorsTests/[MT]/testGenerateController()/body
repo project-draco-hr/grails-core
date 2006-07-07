@@ -2,17 +2,17 @@
   GrailsTemplateGenerator generator;
   GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
   generator=(GrailsTemplateGenerator)gcl.parseClass(gcl.getResourceAsStream("org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy")).newInstance();
-  Class dc=gcl.parseClass("class Test { \n@Property Long id;\n @Property Long version;  }");
+  Class dc=gcl.parseClass("class Test { \n Long id;\n  Long version;  }");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
   generator.generateController(domainClass,"test");
   File generatedFile=new File("test/grails-app/controllers/TestController.groovy");
   assertTrue(generatedFile.exists());
   String text=(String)new GroovyShell().evaluate("new File('test/grails-app/controllers/TestController.groovy').text");
   assertTrue(text.indexOf("class TestController") > -1);
-  assertTrue(text.indexOf("@Property list") > -1);
-  assertTrue(text.indexOf("@Property update") > -1);
-  assertTrue(text.indexOf("@Property create") > -1);
-  assertTrue(text.indexOf("@Property show") > -1);
-  assertTrue(text.indexOf("@Property edit") > -1);
-  assertTrue(text.indexOf("@Property delete") > -1);
+  assertTrue(text.indexOf("def list") > -1);
+  assertTrue(text.indexOf("def update") > -1);
+  assertTrue(text.indexOf("def create") > -1);
+  assertTrue(text.indexOf("def show") > -1);
+  assertTrue(text.indexOf("def edit") > -1);
+  assertTrue(text.indexOf("def delete") > -1);
 }

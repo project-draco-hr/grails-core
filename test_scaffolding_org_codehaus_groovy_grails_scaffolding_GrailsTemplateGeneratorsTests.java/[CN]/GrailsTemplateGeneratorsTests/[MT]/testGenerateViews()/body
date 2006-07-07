@@ -2,7 +2,7 @@
   GrailsTemplateGenerator generator;
   GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
   generator=(GrailsTemplateGenerator)gcl.parseClass(gcl.getResourceAsStream("org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy")).newInstance();
-  Class dc=gcl.parseClass("class Test { " + "\n@Property Long id;" + "\n@Property Long version;"+ "\n@Property String name;"+ "\n@Property TimeZone tz;"+ "\n@Property Locale locale;"+ "\n@Property Currency currency;"+ "\n@Property Boolean active;"+ "\n@Property Date age  }");
+  Class dc=gcl.parseClass("class Test { " + "\n Long id;" + "\n Long version;"+ "\n String name;"+ "\n TimeZone tz;"+ "\n Locale locale;"+ "\n Currency currency;"+ "\n Boolean active;"+ "\n Date age  }");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
   generator.generateViews(domainClass,"test");
   File showFile=new File("test/grails-app/views/test/show.gsp");

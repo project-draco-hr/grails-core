@@ -86,6 +86,7 @@
   FlashScope fs=this.grailsAttributes.getFlashScope(request);
   fs.next();
   controller.setProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY,fs);
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,this.grailsAttributes);
   String viewName=controllerClass.getViewByURI(uri);
   boolean executeAction=true;
   if (controllerClass.isInterceptedBefore(controller,actionName)) {

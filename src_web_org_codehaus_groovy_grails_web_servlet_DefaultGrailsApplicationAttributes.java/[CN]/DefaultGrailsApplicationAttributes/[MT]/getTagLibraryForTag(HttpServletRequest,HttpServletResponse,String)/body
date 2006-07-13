@@ -13,7 +13,12 @@
     GroovyObject controller=getController(request);
     GroovyObject tagLib=(GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());
     try {
-      new TagLibDynamicMethods(tagLib,controller);
+      if (controller == null) {
+        new TagLibDynamicMethods(tagLib,request,response);
+      }
+ else {
+        new TagLibDynamicMethods(tagLib,controller);
+      }
     }
  catch (    IntrospectionException e) {
       throw new ControllerExecutionException("Introspection error creating tag library methods for tag [" + tagName + "]: "+ e.getMessage(),e);

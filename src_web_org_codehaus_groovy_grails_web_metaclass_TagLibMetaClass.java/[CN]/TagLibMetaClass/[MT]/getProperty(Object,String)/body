@@ -5,8 +5,9 @@
  catch (  MissingPropertyException mpe) {
     GroovyObject taglib=(GroovyObject)object;
     GrailsApplicationAttributes applicationAttributes=(GrailsApplicationAttributes)taglib.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
-    ServletRequest request=(ServletRequest)taglib.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
-    GroovyObject tagLibrary=applicationAttributes.getTagLibraryForTag(request,property);
+    HttpServletRequest request=(HttpServletRequest)taglib.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
+    HttpServletResponse response=(HttpServletResponse)taglib.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY);
+    GroovyObject tagLibrary=applicationAttributes.getTagLibraryForTag(request,response,property);
     if (tagLibrary == null)     throw mpe;
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + property + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Retrieving");
     return tagLibrary.getProperty(property);

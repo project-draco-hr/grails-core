@@ -1,4 +1,5 @@
 {
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
   this.engine=grailsAttributes.getPagesTemplateEngine();
   this.engine.setShowSource(this.showSource);
   String pageId=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);

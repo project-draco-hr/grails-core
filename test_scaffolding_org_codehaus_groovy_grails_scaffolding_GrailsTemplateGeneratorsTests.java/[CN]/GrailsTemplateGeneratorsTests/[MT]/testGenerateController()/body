@@ -4,15 +4,21 @@
   generator=(GrailsTemplateGenerator)gcl.parseClass(gcl.getResourceAsStream("org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy")).newInstance();
   Class dc=gcl.parseClass("class Test { \n Long id;\n  Long version;  }");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
-  generator.generateController(domainClass,"test");
   File generatedFile=new File("test/grails-app/controllers/TestController.groovy");
+  if (generatedFile.exists()) {
+    generatedFile.delete();
+  }
+  generator.generateController(domainClass,"test");
   assertTrue(generatedFile.exists());
   String text=(String)new GroovyShell().evaluate("new File('test/grails-app/controllers/TestController.groovy').text");
-  assertTrue(text.indexOf("class TestController") > -1);
-  assertTrue(text.indexOf("def list") > -1);
-  assertTrue(text.indexOf("def update") > -1);
-  assertTrue(text.indexOf("def create") > -1);
-  assertTrue(text.indexOf("def show") > -1);
-  assertTrue(text.indexOf("def edit") > -1);
-  assertTrue(text.indexOf("def delete") > -1);
+  Class controllerClass=gcl.parseClass(text);
+  BeanWrapper bean=new BeanWrapperImpl(controllerClass.newInstance());
+  assertEquals("TestController",controllerClass.getName());
+  assertTrue(bean.isReadableProperty("list"));
+  assertTrue(bean.isReadableProperty("update"));
+  assertTrue(bean.isReadableProperty("create"));
+  assertTrue(bean.isReadableProperty("list"));
+  assertTrue(bean.isReadableProperty("show"));
+  assertTrue(bean.isReadableProperty("edit"));
+  assertTrue(bean.isReadableProperty("delete"));
 }

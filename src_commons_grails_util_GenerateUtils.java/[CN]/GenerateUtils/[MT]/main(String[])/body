@@ -6,8 +6,8 @@
   GrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
   GrailsDomainClass domainClass=getDomainCallFromApplication(application,domainClassName);
   if (domainClass == null) {
-    SpringConfig config=new SpringConfig(application);
-    ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(config.getBeanReferences(),parent);
+    GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
+    ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(new MockServletContext());
     Assert.notNull(appCtx);
   }
   domainClass=getDomainCallFromApplication(application,domainClassName);

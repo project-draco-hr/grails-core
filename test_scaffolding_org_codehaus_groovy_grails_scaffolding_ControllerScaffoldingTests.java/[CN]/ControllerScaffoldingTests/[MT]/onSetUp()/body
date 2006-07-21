@@ -27,8 +27,8 @@
   Thread.currentThread().setContextClassLoader(cl);
   this.sessionFactory=config.buildSessionFactory();
   assertNotNull(this.sessionFactory);
-  SpringConfig springConfig=new SpringConfig(grailsApplication);
-  this.appCtx=(ConfigurableApplicationContext)new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),this.localContext);
+  GrailsRuntimeConfigurator rConfig=new GrailsRuntimeConfigurator(grailsApplication,this.localContext);
+  this.appCtx=(ConfigurableApplicationContext)rConfig.configure(new MockServletContext());
   assertNotNull(appCtx);
   GroovyObject domainObject=(GroovyObject)domainClass.newInstance();
   domainObject.setProperty("name","fred");

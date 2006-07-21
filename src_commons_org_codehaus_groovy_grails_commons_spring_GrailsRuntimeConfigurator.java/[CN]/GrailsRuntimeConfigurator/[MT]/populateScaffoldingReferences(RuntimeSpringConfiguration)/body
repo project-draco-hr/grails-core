@@ -1,0 +1,35 @@
+{
+  GrailsControllerClass[] simpleControllers=application.getControllers();
+  for (int i=0; i < simpleControllers.length; i++) {
+    Class scaffoldedClass=simpleControllers[i].getScaffoldedClass();
+    GrailsDomainClass domainClass;
+    if (scaffoldedClass == null) {
+      domainClass=application.getGrailsDomainClass(simpleControllers[i].getName());
+      if (domainClass != null) {
+        scaffoldedClass=domainClass.getClazz();
+      }
+    }
+    if (scaffoldedClass == null) {
+      LOG.info("[Spring] Scaffolding disabled for controller [" + simpleControllers[i].getFullName() + "], no equivalent domain class named ["+ simpleControllers[i].getName()+ "]");
+    }
+ else {
+      BeanConfiguration scaffolder=springConfig.addSingletonBean(simpleControllers[i].getFullName() + "Scaffolder",DefaultGrailsScaffolder.class);
+      Collection constructorArguments=new ManagedList();
+      constructorArguments.add(scaffoldedClass.getName());
+      constructorArguments.add(new RuntimeBeanReference(SESSION_FACTORY_BEAN));
+      springConfig.addSingletonBean(scaffoldedClass.getName() + "ScaffoldDomain",GrailsScaffoldDomain.class,constructorArguments);
+      BeanConfiguration requestHandler=springConfig.createSingletonBean(DefaultScaffoldRequestHandler.class).addProperty("scaffoldDomain",new RuntimeBeanReference(scaffoldedClass.getName() + "ScaffoldDomain"));
+      constructorArguments=new ArrayList();
+      constructorArguments.add(new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true));
+      BeanConfiguration defaultResponseHandler=springConfig.createSingletonBean(ViewDelegatingScaffoldResponseHandler.class);
+      BeanConfiguration defaultViewResolver=springConfig.createSingletonBean(DefaultGrailsScaffoldViewResolver.class,constructorArguments);
+      defaultResponseHandler.addProperty("scaffoldViewResolver",defaultViewResolver.getBeanDefinition());
+      constructorArguments=new ArrayList();
+      constructorArguments.add(new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true));
+      constructorArguments.add(defaultResponseHandler.getBeanDefinition());
+      BeanConfiguration responseHandlerFactory=springConfig.createSingletonBean(DefaultGrailsResponseHandlerFactory.class,constructorArguments);
+      scaffolder.addProperty("scaffoldResponseHandlerFactory",responseHandlerFactory.getBeanDefinition());
+      scaffolder.addProperty("scaffoldRequestHandler",requestHandler.getBeanDefinition());
+    }
+  }
+}

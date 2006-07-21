@@ -1,24 +1,9 @@
 {
   getServletContext().setAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT,parent);
-  ApplicationContext grailsContext=(ApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
-  GrailsApplication application;
-  WebApplicationContext webContext;
-  if (grailsContext != null) {
-    XmlWebApplicationContext xmlContext=new XmlWebApplicationContext();
-    xmlContext.setParent(grailsContext);
-    webContext=xmlContext;
-    application=(GrailsApplication)webContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-  }
- else {
-    String[] locations=null;
-    if (null != getContextConfigLocation()) {
-      locations=StringUtils.tokenizeToStringArray(getContextConfigLocation(),ConfigurableWebApplicationContext.CONFIG_LOCATION_DELIMITERS);
-    }
-    application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-    SpringConfig springConfig=new SpringConfig(application);
-    webContext=new XmlWebApplicationContextDriver().getWebApplicationContext(springConfig.getBeanReferences(),parent,getServletContext(),getNamespace(),locations);
-    getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,webContext);
-  }
+  GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+  GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(application,parent);
+  WebApplicationContext webContext=configurator.configure(super.getServletContext());
+  getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,webContext);
   getServletContext().setAttribute(GrailsApplication.APPLICATION_ID,application);
   GrailsConfigUtils.configureScaffolders(application,webContext);
   SessionFactory sessionFactory=(SessionFactory)webContext.getBean("sessionFactory");

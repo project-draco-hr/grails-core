@@ -1,0 +1,10 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class MyJob {\n " + " def startDelay = 100\n" + " def timeout = 1000\n"+ " def name = 'MyJob'\n"+ " def group = 'MyGroup'\n"+ " def execute(){\n"+ "    print 'Job run!'\n"+ "  }\n"+ "}");
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{c},gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  ApplicationContext ctx=conf.configure(new MockServletContext());
+  assertNotNull(ctx);
+}

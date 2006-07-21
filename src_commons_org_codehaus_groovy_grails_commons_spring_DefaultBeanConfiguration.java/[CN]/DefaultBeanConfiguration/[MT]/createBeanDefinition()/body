@@ -1,0 +1,14 @@
+{
+  if (constructorArgs.size() > 0) {
+    ConstructorArgumentValues cav=new ConstructorArgumentValues();
+    for (Iterator i=constructorArgs.iterator(); i.hasNext(); ) {
+      cav.addGenericArgumentValue(i.next());
+    }
+    AbstractBeanDefinition bd=new RootBeanDefinition(clazz,cav,null);
+    bd.setSingleton(singleton);
+    return bd;
+  }
+ else {
+    return new RootBeanDefinition(clazz,singleton);
+  }
+}

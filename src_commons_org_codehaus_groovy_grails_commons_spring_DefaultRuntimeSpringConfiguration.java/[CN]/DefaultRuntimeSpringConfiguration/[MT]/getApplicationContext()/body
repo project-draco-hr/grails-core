@@ -1,0 +1,8 @@
+{
+  for (Iterator i=beanConfigs.iterator(); i.hasNext(); ) {
+    BeanConfiguration bc=(BeanConfiguration)i.next();
+    context.registerBeanDefinition(bc.getName(),bc.getBeanDefinition());
+  }
+  context.refresh();
+  return context;
+}

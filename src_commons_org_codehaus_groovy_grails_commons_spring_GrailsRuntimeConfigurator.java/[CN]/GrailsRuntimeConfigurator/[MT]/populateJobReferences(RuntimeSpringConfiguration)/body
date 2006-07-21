@@ -1,0 +1,19 @@
+{
+  GrailsTaskClass[] grailsTaskClasses=application.getGrailsTasksClasses();
+  Collection schedulerReferences=new ManagedList();
+  for (int i=0; i < grailsTaskClasses.length; i++) {
+    GrailsTaskClass grailsTaskClass=grailsTaskClasses[i];
+    springConfig.addSingletonBean(grailsTaskClass.getFullName() + "Class",MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsTaskClass").addProperty("arguments",grailsTaskClass.getFullName());
+    springConfig.addSingletonBean(grailsTaskClass.getFullName()).setFactoryBean(grailsTaskClass.getFullName() + "Class").setFactoryMethod("newInstance").setAutowire("byName");
+    springConfig.addSingletonBean(grailsTaskClass.getFullName() + "JobDetail",MethodInvokingJobDetailFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(grailsTaskClass.getFullName())).addProperty("targetMethod",GrailsTaskClassProperty.EXECUTE).addProperty("group",grailsTaskClass.getGroup());
+    if (!grailsTaskClass.isCronExpressionConfigured()) {
+      springConfig.addSingletonBean(grailsTaskClass.getFullName() + "SimpleTrigger",SimpleTriggerBean.class).addProperty("jobDetail",new RuntimeBeanReference(grailsTaskClass.getFullName() + "JobDetail")).addProperty("startDelay",grailsTaskClass.getStartDelay()).addProperty("repeatInterval",grailsTaskClass.getTimeout());
+      schedulerReferences.add(new RuntimeBeanReference(grailsTaskClass.getFullName() + "SimpleTrigger"));
+    }
+ else {
+      springConfig.addSingletonBean(grailsTaskClass.getFullName() + "CronTrigger",CronTriggerBean.class).addProperty("jobDetail",new RuntimeBeanReference(grailsTaskClass.getFullName() + "JobDetail")).addProperty("cronExpression",grailsTaskClass.getCronExpression());
+      schedulerReferences.add(new RuntimeBeanReference(grailsTaskClass.getFullName() + "CronTrigger"));
+    }
+  }
+  springConfig.addSingletonBean("grailsSchedulerBean",SchedulerFactoryBean.class).addProperty("triggers",schedulerReferences);
+}

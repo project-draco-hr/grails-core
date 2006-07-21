@@ -1,0 +1,9 @@
+{
+  GrailsDomainClass[] grailsDomainClasses=application.getGrailsDomainClasses();
+  for (int i=0; i < grailsDomainClasses.length; i++) {
+    GrailsDomainClass grailsDomainClass=grailsDomainClasses[i];
+    springConfig.addSingletonBean(grailsDomainClass.getFullName() + "DomainClass",MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsDomainClass").addProperty("arguments",grailsDomainClass.getFullName());
+    springConfig.addSingletonBean(grailsDomainClass.getFullName() + "PersistentClass",MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(grailsDomainClass.getFullName() + "DomainClass")).addProperty("targetMethod","getClazz");
+    springConfig.addSingletonBean(grailsDomainClass.getFullName() + "Validator",GrailsDomainClassValidator.class).addProperty("domainClass",new RuntimeBeanReference(grailsDomainClass.getFullName() + "DomainClass")).addProperty(SESSION_FACTORY_BEAN,new RuntimeBeanReference(SESSION_FACTORY_BEAN)).addProperty(MESSAGE_SOURCE_BEAN,new RuntimeBeanReference(MESSAGE_SOURCE_BEAN));
+  }
+}

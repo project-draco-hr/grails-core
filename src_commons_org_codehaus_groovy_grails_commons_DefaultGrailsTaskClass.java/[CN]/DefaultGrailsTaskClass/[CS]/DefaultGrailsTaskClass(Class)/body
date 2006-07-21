@@ -1,5 +1,5 @@
 {
   super(clazz,JOB);
-  Log LOG=LogFactory.getLog(SpringConfig.class);
+  Log LOG=LogFactory.getLog(DefaultGrailsTaskClass.class);
   LOG.debug("instantiating: " + this.getClazz());
 }

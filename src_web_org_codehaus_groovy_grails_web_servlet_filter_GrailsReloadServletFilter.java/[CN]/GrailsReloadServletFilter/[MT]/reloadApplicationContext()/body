@@ -1,8 +1,8 @@
 {
   WebApplicationContext parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
   if (this.application == null)   this.application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-  SpringConfig springConfig=new SpringConfig(application);
-  context=new XmlApplicationContextDriver().getApplicationContext(springConfig.getBeanReferences(),parent);
+  GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
+  context=config.configure(super.getServletContext());
   getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
   getServletContext().setAttribute(GrailsApplication.APPLICATION_ID,context.getBean(GrailsApplication.APPLICATION_ID));
   GrailsConfigUtils.configureScaffolders(application,context);

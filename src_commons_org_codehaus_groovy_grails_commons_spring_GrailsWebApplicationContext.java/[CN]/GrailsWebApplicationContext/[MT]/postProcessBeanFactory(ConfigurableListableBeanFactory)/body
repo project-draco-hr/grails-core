@@ -1,0 +1,4 @@
+{
+  beanFactory.addBeanPostProcessor(new ServletContextAwareProcessor(this.servletContext));
+  beanFactory.ignoreDependencyInterface(ServletContextAware.class);
+}

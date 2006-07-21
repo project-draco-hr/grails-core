@@ -17,6 +17,7 @@
   addDynamicProperty(new GenericDynamicProperty(ACTION_NAME_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(CONTROLLER_NAME_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(RENDER_VIEW_PROPERTY,Boolean.class,Boolean.TRUE,false));
+  addDynamicProperty(new GenericDynamicProperty(LOG_PROPERTY,Log.class,LogFactory.getLog(controllerClass.getFullName()),true));
   addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));
   addDynamicMethodInvocation(new RenderDynamicMethod(helper,request,response));

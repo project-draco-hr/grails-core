@@ -2,18 +2,14 @@
   GroovyClassLoader gcl=new GroovyClassLoader();
   MockHttpServletRequest request=new MockHttpServletRequest();
   MockHttpServletResponse response=new MockHttpServletResponse();
-  request.addParameter("testParam","testValue");
-  Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "}\n"+ "}");
+  Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "log.trace('testing logging')"+ "}\n"+ "}");
   GrailsControllerHelper helper1=makeControllerHelper(groovyClass,gcl);
   try {
     helper1.handleURI("/test/list",request,response);
     GroovyObject go=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
-    Object params=go.getProperty("params");
-    assertNotNull(params);
-    assertTrue(params instanceof Map);
-    Map paramsMap=(Map)params;
-    assertTrue(paramsMap.containsKey("testParam"));
-    assertEquals("testValue",paramsMap.get("testParam"));
+    Object log=go.getProperty("log");
+    assertNotNull(log);
+    assertTrue(log instanceof org.apache.commons.logging.Log);
   }
  catch (  MissingMethodException mme) {
     fail("Missing method exception should not have been thrown!");

@@ -1,0 +1,4 @@
+{
+  HotSwappableTargetSource ts=(HotSwappableTargetSource)context.getBean(domainClass.getFullName() + "TargetSource");
+  ts.swap(domainClass);
+}

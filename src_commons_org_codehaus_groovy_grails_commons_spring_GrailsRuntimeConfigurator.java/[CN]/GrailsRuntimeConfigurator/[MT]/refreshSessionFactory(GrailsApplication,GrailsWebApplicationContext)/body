@@ -1,0 +1,30 @@
+{
+  HotSwappableTargetSource ts=(HotSwappableTargetSource)context.getBean(SESSION_FACTORY_BEAN + "TargetSource");
+  ConfigurableLocalSessionFactoryBean sessionFactoryBean=new ConfigurableLocalSessionFactoryBean();
+  sessionFactoryBean.setGrailsApplication(app);
+  sessionFactoryBean.setClassLoader(app.getClassLoader());
+  GrailsDataSource ds=app.getGrailsDataSource();
+  if (ds != null && ds.getConfigurationClass() != null) {
+    sessionFactoryBean.setConfigClass(ds.getConfigurationClass());
+  }
+  sessionFactoryBean.setDataSource((DataSource)context.getBean(DATA_SOURCE_BEAN));
+  URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
+  if (hibernateConfig != null) {
+    sessionFactoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+  }
+  Properties hibProps=(Properties)context.getBean(HIBERNATE_PROPERTIES_BEAN);
+  sessionFactoryBean.setHibernateProperties(hibProps);
+  try {
+    sessionFactoryBean.afterPropertiesSet();
+  }
+ catch (  HibernateException e) {
+    throw new GrailsConfigurationException("Hibernate exception refreshing session factory: " + e.getMessage(),e);
+  }
+catch (  IllegalArgumentException e) {
+    throw new GrailsConfigurationException("Illegal argument refreshing session factory: " + e.getMessage(),e);
+  }
+catch (  IOException e) {
+    throw new GrailsConfigurationException("I/O exception refreshing session factory: " + e.getMessage(),e);
+  }
+  ts.swap(sessionFactoryBean.getObject());
+}

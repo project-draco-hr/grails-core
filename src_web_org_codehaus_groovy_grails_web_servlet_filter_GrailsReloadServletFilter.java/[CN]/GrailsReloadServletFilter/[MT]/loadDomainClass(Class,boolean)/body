@@ -23,11 +23,20 @@
       }
     }
   }
-  reloadApplicationContext();
+  if (isNew) {
+    config.registerDomainClass(domainClass,context);
+    config.refreshSessionFactory(application,context);
+  }
+ else {
+    config.updateDomainClass(domainClass,context);
+    config.refreshSessionFactory(application,context);
+  }
   for (Iterator i=loadedDomainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass grailsDomainClass=(GrailsDomainClass)i.next();
     GrailsControllerClass controllerClass=application.getScaffoldingController(grailsDomainClass);
     if (controllerClass != null && controllerClass.isScaffolding()) {
+      ScaffoldDomain scaffoldDomain=(ScaffoldDomain)context.getBean(grailsDomainClass.getFullName() + "ScaffoldDomain");
+      scaffoldDomain.setPersistentClass(grailsDomainClass.getClazz());
       LOG.info("Re-generating views for scaffold controller [" + controllerClass.getFullName() + "]");
       templateGenerator.generateViews(domainClass,getServletContext().getRealPath("/WEB-INF"));
       copyScript.copyViews(true);

@@ -1,9 +1,17 @@
 {
   GrailsServiceClass serviceClass=application.addServiceClass(loadedClass);
-  if (serviceClass.isTransactional()) {
+  if (serviceClass.isTransactional() && !isNew) {
     LOG.warn("Cannot reload class [" + loadedClass + "] reloading of transactional service classes is not currently possible. Set class to non-transactional first.");
   }
  else {
-    reloadApplicationContext();
+    if (serviceClass != null) {
+      if (isNew) {
+        config.registerService(serviceClass,context);
+      }
+ else {
+        HotSwappableTargetSource targetSource=(HotSwappableTargetSource)context.getBean(serviceClass.getFullName() + "TargetSource");
+        targetSource.swap(serviceClass.newInstance());
+      }
+    }
   }
 }

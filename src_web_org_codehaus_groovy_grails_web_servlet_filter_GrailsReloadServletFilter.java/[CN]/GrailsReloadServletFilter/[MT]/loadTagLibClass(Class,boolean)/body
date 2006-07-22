@@ -2,7 +2,7 @@
   GrailsTagLibClass tagLibClass=application.addTagLibClass(loadedClass);
   if (tagLibClass != null) {
     if (isNew) {
-      reloadApplicationContext();
+      config.registerTagLibrary(tagLibClass,context);
     }
  else {
       HotSwappableTargetSource targetSource=(HotSwappableTargetSource)context.getBean(tagLibClass.getFullName() + "TargetSource");

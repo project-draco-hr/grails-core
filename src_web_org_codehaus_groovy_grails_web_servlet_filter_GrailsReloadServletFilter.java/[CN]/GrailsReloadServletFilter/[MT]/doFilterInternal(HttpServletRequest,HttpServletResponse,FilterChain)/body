@@ -1,5 +1,5 @@
 {
-  context=(ApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  context=(GrailsWebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
   if (context == null) {
     filterChain.doFilter(httpServletRequest,httpServletResponse);
     return;
@@ -8,6 +8,10 @@
   if (application == null) {
     filterChain.doFilter(httpServletRequest,httpServletResponse);
     return;
+  }
+  if (config == null) {
+    WebApplicationContext parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
+    config=new GrailsRuntimeConfigurator(application,parent);
   }
   if (copyScript == null) {
     GroovyClassLoader gcl=new GroovyClassLoader(getClass().getClassLoader());

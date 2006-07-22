@@ -8,7 +8,7 @@
   Map customEditors=new ManagedMap();
   customEditors.put(java.lang.Class.class,new RuntimeBeanReference(CLASS_EDITOR_BEAN));
   propertyEditors.addProperty(CUSTOM_EDITORS_BEAN,customEditors);
-  springConfig.addSingletonBean(EXCEPTION_HANDLER_BEAN,GrailsExceptionResolver.class).addProperty("exceptionMappings","java.lang.Exception=error");
+  springConfig.addSingletonBean(EXCEPTION_HANDLER_BEAN,GrailsExceptionResolver.class).addProperty("exceptionMappings","java.lang.Exception=/error");
   springConfig.addSingletonBean(MULTIPART_RESOLVER_BEAN,CommonsMultipartResolver.class);
   LOG.info("[SpringConfig] Configuring i18n support");
   populateI18nSupport(springConfig);

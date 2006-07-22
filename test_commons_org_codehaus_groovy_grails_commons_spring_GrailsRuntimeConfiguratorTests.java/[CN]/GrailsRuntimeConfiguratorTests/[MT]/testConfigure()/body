@@ -16,7 +16,7 @@
   GrailsExceptionResolver er=(GrailsExceptionResolver)ctx.getBean(GrailsRuntimeConfigurator.EXCEPTION_HANDLER_BEAN);
   assertNotNull(er);
   ModelAndView mv=er.resolveException(new MockHttpServletRequest(),new MockHttpServletResponse(),null,new Exception());
-  assertEquals("error",mv.getViewName());
+  assertEquals("/error",mv.getViewName());
   assertTrue(ctx.getBean(GrailsRuntimeConfigurator.MULTIPART_RESOLVER_BEAN) instanceof CommonsMultipartResolver);
   MessageSource ms=(MessageSource)ctx.getBean(GrailsRuntimeConfigurator.MESSAGE_SOURCE_BEAN);
   assertNotNull(ms);

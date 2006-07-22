@@ -13,7 +13,7 @@
     if (grailsServiceClass.isTransactional()) {
       Properties transactionAttributes=new Properties();
       transactionAttributes.put("*","PROPAGATION_REQUIRED");
-      springConfig.addSingletonBean(WordUtils.uncapitalize(grailsServiceClass.getName()) + "Service",TransactionProxyFactoryBean.class).addProperty("target",new RuntimeBeanReference(grailsServiceClass.getFullName() + "Instance")).addProperty("proxyTargetClass",Boolean.TRUE).addProperty("transactionAttributes",transactionAttributes).addProperty(TRANSACTION_MANAGER_BEAN,new RuntimeBeanReference(TRANSACTION_MANAGER_BEAN));
+      springConfig.addSingletonBean(grailsServiceClass.getPropertyName(),TransactionProxyFactoryBean.class).addProperty("target",new RuntimeBeanReference(grailsServiceClass.getFullName() + "Instance")).addProperty("proxyTargetClass",Boolean.TRUE).addProperty("transactionAttributes",transactionAttributes).addProperty(TRANSACTION_MANAGER_BEAN,new RuntimeBeanReference(TRANSACTION_MANAGER_BEAN));
     }
  else {
       springConfig.addSingletonBean(grailsServiceClass.getName() + "Service",BeanReferenceFactoryBean.class).addProperty("targetBeanName",grailsServiceClass.getFullName() + "Instance");

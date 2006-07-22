@@ -1,0 +1,14 @@
+{
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
+  BeanConfiguration tagLibClassBean=springConfig.createSingletonBean(MethodInvokingFactoryBean.class);
+  tagLibClassBean.addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsTagLibClass").addProperty("arguments",tagLibClass.getFullName());
+  context.registerBeanDefinition(tagLibClass.getFullName() + "Class",tagLibClassBean.getBeanDefinition());
+  Collection args=new ManagedList();
+  args.add(new RuntimeBeanReference(tagLibClass.getFullName() + "Class"));
+  BeanConfiguration tagLibTargetSourceBean=springConfig.createSingletonBean(HotSwappableTargetSource.class,args);
+  context.registerBeanDefinition(tagLibClass.getFullName() + "TargetSource",tagLibTargetSourceBean.getBeanDefinition());
+  BeanConfiguration tagLibProxyBean=springConfig.createSingletonBean(ProxyFactoryBean.class).addProperty("targetSource",new RuntimeBeanReference(tagLibClass.getFullName() + "TargetSource")).addProperty("proxyInterfaces","org.codehaus.groovy.grails.commons.GrailsTagLibClass");
+  context.registerBeanDefinition(tagLibClass.getFullName() + "Proxy",tagLibProxyBean.getBeanDefinition());
+  BeanConfiguration tagLibBean=springConfig.createPrototypeBean(tagLibClass.getFullName()).setFactoryBean(tagLibClass.getFullName() + "Proxy").setFactoryMethod("newInstance").setAutowire("byName");
+  context.registerBeanDefinition(tagLibClass.getFullName(),tagLibBean.getBeanDefinition());
+}

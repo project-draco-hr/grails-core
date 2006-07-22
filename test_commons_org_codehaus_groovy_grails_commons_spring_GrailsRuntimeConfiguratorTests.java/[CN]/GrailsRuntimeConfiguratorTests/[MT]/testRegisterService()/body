@@ -1,0 +1,16 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  GrailsApplication app=new DefaultGrailsApplication(new Class[0],gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());
+  assertNotNull(ctx);
+  Class service=gcl.parseClass("class TestService { boolean transactional = true;def serviceMethod() { 'hello' } }");
+  GrailsServiceClass serviceClass=app.addServiceClass(service);
+  conf.registerService(serviceClass,ctx);
+  assertTrue(ctx.containsBean("TestServiceClass"));
+  assertTrue(ctx.containsBean("TestServiceInstance"));
+  GroovyObject serviceInstance=(GroovyObject)ctx.getBean("testService");
+  assertEquals("hello",serviceInstance.invokeMethod("serviceMethod",null));
+}

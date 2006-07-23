@@ -1,5 +1,5 @@
 {
-  ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
+  ProxyMetaClass pmc=ProxyMetaClass.getInstance(groovyClass);
   BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
   localContext.registerBeanDefinition(groovyClass.getName(),bd);
   GrailsControllerHelper helper=new SimpleGrailsControllerHelper(application,this.appCtx,new MockServletContext());

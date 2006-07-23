@@ -10,7 +10,7 @@
       MetaClassRegistry metaRegistry=InvokerHelper.getInstance().getMetaRegistry();
       MetaClass meta=metaRegistry.getMetaClass(instance.getClass());
       try {
-        ProxyMetaClass pmc=new PropertyAccessProxyMetaClass(metaRegistry,instance.getClass(),meta);
+        ProxyMetaClass pmc=new ProxyMetaClass(metaRegistry,instance.getClass(),meta);
         pmc.setInterceptor((Interceptor)interceptor);
         this.constraints=(Map)pmc.getProperty(instance,GrailsDomainClassProperty.CONSTRAINTS);
       }

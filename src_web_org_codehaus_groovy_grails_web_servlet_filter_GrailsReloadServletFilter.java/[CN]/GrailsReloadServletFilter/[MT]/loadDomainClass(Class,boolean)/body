@@ -25,14 +25,13 @@
   }
   if (isNew) {
     config.registerDomainClass(domainClass,context);
-    config.refreshSessionFactory(application,context);
   }
  else {
     config.updateDomainClass(domainClass,context);
-    config.refreshSessionFactory(application,context);
   }
   for (Iterator i=loadedDomainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass grailsDomainClass=(GrailsDomainClass)i.next();
+    config.updateDomainClass(grailsDomainClass,context);
     GrailsControllerClass controllerClass=application.getScaffoldingController(grailsDomainClass);
     if (controllerClass != null && controllerClass.isScaffolding()) {
       ScaffoldDomain scaffoldDomain=(ScaffoldDomain)context.getBean(grailsDomainClass.getFullName() + "ScaffoldDomain");
@@ -42,4 +41,5 @@
       copyScript.copyViews(true);
     }
   }
+  config.refreshSessionFactory(application,context);
 }

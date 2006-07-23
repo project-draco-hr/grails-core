@@ -2,7 +2,7 @@
   Class relatedClassType=getRelatedClassType(property.getName());
   if (relatedClassType != null) {
     property.setReferencedPropertyType(relatedClassType);
-    if (relatedClassType.equals(getClazz())) {
+    if (relatedClassType.getName().equals(getFullName())) {
       property.setOneToMany(true);
       property.setBidirectional(true);
     }

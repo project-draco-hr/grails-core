@@ -8,7 +8,7 @@
   GrailsApplication application=(GrailsApplication)this.context.getBean(GrailsApplication.APPLICATION_ID);
   for (int i=0; i < groovyClasses.length; i++) {
     Class groovyClass=groovyClasses[i];
-    ProxyMetaClass pmc=PropertyAccessProxyMetaClass.getInstance(groovyClass);
+    ProxyMetaClass pmc=ProxyMetaClass.getInstance(groovyClass);
     BeanDefinition bd=new RootBeanDefinition(groovyClass,false);
     context.registerBeanDefinition(groovyClass.getName(),bd);
   }

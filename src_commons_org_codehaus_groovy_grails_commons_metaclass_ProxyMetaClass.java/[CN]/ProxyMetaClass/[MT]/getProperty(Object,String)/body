@@ -1,0 +1,15 @@
+{
+  if (null == interceptor) {
+    return super.getProperty(object,property);
+  }
+  if (interceptor instanceof PropertyAccessInterceptor) {
+    PropertyAccessInterceptor pae=(PropertyAccessInterceptor)interceptor;
+    InvocationCallback callback=new InvocationCallback();
+    Object result=pae.beforeGet(object,property,callback);
+    if (!callback.isInvoked()) {
+      result=super.getProperty(object,property);
+    }
+    return result;
+  }
+  return super.getProperty(object,property);
+}

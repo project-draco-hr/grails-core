@@ -1,0 +1,16 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("[DynamicMethods] Attempting invocation of dynamic constructor with arguments [" + ArrayUtils.toString(arguments) + "]");
+  }
+  for (Iterator i=this.dynamicConstructors.iterator(); i.hasNext(); ) {
+    DynamicConstructor constructor=(DynamicConstructor)i.next();
+    if (constructor.isArgumentsMatch(arguments)) {
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("[DynamicMethods] Dynamic constructor found, marked and invoking...");
+      }
+      callBack.markInvoked();
+      return constructor.invoke(this.clazz,arguments);
+    }
+  }
+  return null;
+}

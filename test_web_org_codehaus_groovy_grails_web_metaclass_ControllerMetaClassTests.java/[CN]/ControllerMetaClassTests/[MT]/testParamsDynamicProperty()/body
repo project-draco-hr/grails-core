@@ -3,7 +3,7 @@
   MockHttpServletRequest request=new MockHttpServletRequest();
   MockHttpServletResponse response=new MockHttpServletResponse();
   request.addParameter("testParam","testValue");
-  Class groovyClass=gcl.parseClass("class TestController {\n" + "@Property list = {\n" + "}\n"+ "}");
+  Class groovyClass=gcl.parseClass("class TestController {\n" + "def list = {\n" + "}\n"+ "}");
   GrailsControllerHelper helper1=makeControllerHelper(groovyClass,gcl);
   try {
     helper1.handleURI("/test/list",request,response);

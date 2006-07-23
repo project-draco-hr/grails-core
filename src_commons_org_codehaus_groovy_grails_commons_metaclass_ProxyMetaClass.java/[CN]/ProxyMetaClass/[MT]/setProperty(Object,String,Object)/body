@@ -1,0 +1,16 @@
+{
+  if (null == interceptor) {
+    super.setProperty(object,property,newValue);
+  }
+  if (interceptor instanceof PropertyAccessInterceptor) {
+    PropertyAccessInterceptor pae=(PropertyAccessInterceptor)interceptor;
+    InvocationCallback callback=new InvocationCallback();
+    pae.beforeSet(object,property,newValue,callback);
+    if (!callback.isInvoked()) {
+      super.setProperty(object,property,newValue);
+    }
+  }
+ else {
+    super.setProperty(object,property,newValue);
+  }
+}

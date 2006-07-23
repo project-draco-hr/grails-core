@@ -1,0 +1,16 @@
+{
+  if (null == interceptor) {
+    return super.invokeConstructorAt(at,arguments);
+  }
+  if (interceptor instanceof ConstructorInterceptor) {
+    ConstructorInterceptor ci=(ConstructorInterceptor)interceptor;
+    InvocationCallback callback=new InvocationCallback();
+    Object result=ci.beforeConstructor(arguments,callback);
+    if (!callback.isInvoked()) {
+      result=super.invokeConstructorAt(at,arguments);
+    }
+    result=ci.afterConstructor(arguments,result);
+    return result;
+  }
+  return super.invokeConstructorAt(at,arguments);
+}

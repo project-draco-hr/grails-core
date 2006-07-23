@@ -1,5 +1,0 @@
-{
-  MetaClassRegistry metaRegistry=InvokerHelper.getInstance().getMetaRegistry();
-  MetaClass meta=metaRegistry.getMetaClass(theClass);
-  return new PropertyAccessProxyMetaClass(metaRegistry,theClass,meta);
-}

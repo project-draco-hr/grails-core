@@ -1,0 +1,6 @@
+{
+  if (args.length != 1)   return false;
+  if (args[0] == null)   return false;
+  if (Map.class.isAssignableFrom(args[0].getClass()))   return true;
+  return false;
+}

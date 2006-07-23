@@ -1,0 +1,10 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  Object instance=this.dynamicMethods.invokeConstructor(arg1,callback);
+  if (callback.isInvoked()) {
+    return instance;
+  }
+ else {
+    return adaptee.invokeConstructor(arg1);
+  }
+}

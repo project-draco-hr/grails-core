@@ -1,5 +1,6 @@
 {
   super(theClass);
+  addDynamicConstructor(new DataBindingDynamicConstructor());
   addDynamicMethodInvocation(new IdentDynamicMethod(application));
   addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader,application));
   addDynamicMethodInvocation(new DiscardPersistentMethod(sessionFactory,classLoader));

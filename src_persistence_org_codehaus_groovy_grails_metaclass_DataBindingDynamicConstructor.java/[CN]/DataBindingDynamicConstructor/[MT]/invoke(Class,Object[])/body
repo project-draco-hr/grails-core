@@ -1,0 +1,45 @@
+{
+  Object map=args[0];
+  Object instance;
+  try {
+    instance=clazz.newInstance();
+  }
+ catch (  InstantiationException e1) {
+    throw new GrailsDomainException("Error instantiated class [" + clazz + "]: "+ e1.getMessage(),e1);
+  }
+catch (  IllegalAccessException e1) {
+    throw new GrailsDomainException("Illegal access instantiated class [" + clazz + "]: "+ e1.getMessage(),e1);
+  }
+  if (map instanceof GrailsParameterMap) {
+    GrailsParameterMap parameterMap=(GrailsParameterMap)map;
+    HttpServletRequest request=parameterMap.getRequest();
+    ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(map,instance.getClass().getName(),request);
+    dataBinder.bind(request);
+    return instance;
+  }
+ else   if (map instanceof HttpServletRequest) {
+    HttpServletRequest request=(HttpServletRequest)map;
+    ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(map,instance.getClass().getName(),request);
+    dataBinder.bind(request);
+    return instance;
+  }
+ else   if (map instanceof Map) {
+    Map propertyMap=(Map)map;
+    for (Iterator i=propertyMap.keySet().iterator(); i.hasNext(); ) {
+      String propertyName=(String)i.next();
+      Object propertyValue=propertyMap.get(propertyName);
+      if (propertyValue == null)       continue;
+      if (LOG.isDebugEnabled())       LOG.debug("Attempting to set property '" + propertyName + "' to value '"+ propertyValue+ "' on instance '"+ instance+ "'");
+      try {
+        Ognl.setValue(propertyName,instance,propertyValue);
+      }
+ catch (      NoSuchPropertyException nspe) {
+        if (LOG.isDebugEnabled())         LOG.debug("Unable to set property '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ instance+ "' property doesn't exist."+ nspe.getMessage());
+      }
+catch (      OgnlException e) {
+        if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ instance+ "':"+ e.getMessage(),e);
+      }
+    }
+  }
+  return instance;
+}

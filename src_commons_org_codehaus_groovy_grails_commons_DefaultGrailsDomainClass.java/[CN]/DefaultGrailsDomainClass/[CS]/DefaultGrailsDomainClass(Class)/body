@@ -1,7 +1,7 @@
 {
   super(clazz,"");
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
-  if (!clazz.getSuperclass().equals(GroovyObject.class) && !clazz.getSuperclass().equals(Object.class)) {
+  if (!clazz.getSuperclass().equals(GroovyObject.class) && !clazz.getSuperclass().equals(Object.class) && !Modifier.isAbstract(clazz.getSuperclass().getModifiers())) {
     this.root=false;
   }
   this.propertyMap=new HashMap();

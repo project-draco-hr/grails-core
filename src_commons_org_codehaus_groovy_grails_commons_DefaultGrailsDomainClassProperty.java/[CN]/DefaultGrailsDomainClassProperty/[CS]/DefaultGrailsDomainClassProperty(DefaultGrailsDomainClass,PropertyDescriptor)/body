@@ -8,8 +8,8 @@
   this.identity=descriptor.getName().equals(IDENTITY);
   if (!domainClass.isRoot()) {
     Class superClass=domainClass.getClazz().getSuperclass();
-    BeanWrapper superBean=new BeanWrapperImpl(superClass);
-    if (superBean.isReadableProperty(this.name)) {
+    PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(superClass,this.name);
+    if (pd != null && pd.getReadMethod() != null) {
       this.inherited=true;
     }
   }

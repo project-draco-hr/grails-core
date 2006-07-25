@@ -1,6 +1,6 @@
 {
   GrailsDataSource ds=application.getGrailsDataSource();
-  BeanConfiguration localSessionFactoryBean=springConfig.createSingletonBean(ConfigurableLocalSessionFactoryBean.class);
+  BeanConfiguration localSessionFactoryBean=springConfig.addSingletonBean(SESSION_FACTORY_BEAN,ConfigurableLocalSessionFactoryBean.class);
   if (ds != null) {
     BeanConfiguration dataSource;
     if (ds.isPooled()) {
@@ -55,15 +55,13 @@
     }
   }
   localSessionFactoryBean.addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN));
-  URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
-  if (hibernateConfig != null) {
-    localSessionFactoryBean.addProperty("configLocation","classpath:hibernate.cfg.xml");
+  if (loadExternalPersistenceConfig) {
+    URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
+    if (hibernateConfig != null) {
+      localSessionFactoryBean.addProperty("configLocation","classpath:hibernate.cfg.xml");
+    }
   }
   springConfig.addSingletonBean(HIBERNATE_PROPERTIES_BEAN,MapToPropertiesFactoryBean.class).addProperty("map",hibernatePropertiesMap);
   localSessionFactoryBean.addProperty(HIBERNATE_PROPERTIES_BEAN,new RuntimeBeanReference(HIBERNATE_PROPERTIES_BEAN)).addProperty(GrailsApplication.APPLICATION_ID,new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("classLoader",new RuntimeBeanReference(CLASS_LOADER_BEAN));
-  Collection args=new ManagedList();
-  args.add(localSessionFactoryBean.getBeanDefinition());
-  springConfig.addSingletonBean(SESSION_FACTORY_BEAN + "TargetSource",HotSwappableTargetSource.class,args);
-  springConfig.addSingletonBean(SESSION_FACTORY_BEAN,ProxyFactoryBean.class).addProperty("targetSource",new RuntimeBeanReference(SESSION_FACTORY_BEAN + "TargetSource")).addProperty("proxyInterfaces","org.hibernate.SessionFactory");
   springConfig.addSingletonBean(TRANSACTION_MANAGER_BEAN,HibernateTransactionManager.class).addProperty(SESSION_FACTORY_BEAN,new RuntimeBeanReference(SESSION_FACTORY_BEAN));
 }

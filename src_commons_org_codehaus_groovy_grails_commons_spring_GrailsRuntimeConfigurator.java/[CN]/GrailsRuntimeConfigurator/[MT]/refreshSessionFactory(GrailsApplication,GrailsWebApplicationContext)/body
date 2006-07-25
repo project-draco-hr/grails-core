@@ -1,30 +1,33 @@
 {
-  HotSwappableTargetSource ts=(HotSwappableTargetSource)context.getBean(SESSION_FACTORY_BEAN + "TargetSource");
-  ConfigurableLocalSessionFactoryBean sessionFactoryBean=new ConfigurableLocalSessionFactoryBean();
-  sessionFactoryBean.setGrailsApplication(app);
-  sessionFactoryBean.setClassLoader(app.getClassLoader());
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
+  BeanConfiguration sessionFactoryBean=springConfig.createSingletonBean(ConfigurableLocalSessionFactoryBean.class).addProperty("grailsApplication",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("classLoader",new RuntimeBeanReference(CLASS_LOADER_BEAN)).addProperty("dataSource",new RuntimeBeanReference(DATA_SOURCE_BEAN)).addProperty("hibernateProperties",new RuntimeBeanReference(HIBERNATE_PROPERTIES_BEAN));
   GrailsDataSource ds=app.getGrailsDataSource();
   if (ds != null && ds.getConfigurationClass() != null) {
-    sessionFactoryBean.setConfigClass(ds.getConfigurationClass());
+    sessionFactoryBean.addProperty("configClass",ds.getConfigurationClass());
   }
-  sessionFactoryBean.setDataSource((DataSource)context.getBean(DATA_SOURCE_BEAN));
-  URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
-  if (hibernateConfig != null) {
-    sessionFactoryBean.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
+  if (loadExternalPersistenceConfig) {
+    URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
+    if (hibernateConfig != null) {
+      sessionFactoryBean.addProperty("configLocation",new ClassPathResource("hibernate.cfg.xml"));
+    }
   }
-  Properties hibProps=(Properties)context.getBean(HIBERNATE_PROPERTIES_BEAN);
-  sessionFactoryBean.setHibernateProperties(hibProps);
-  try {
-    sessionFactoryBean.afterPropertiesSet();
+  SessionFactory sf=(SessionFactory)context.getBean(SESSION_FACTORY_BEAN);
+  context.registerBeanDefinition(SESSION_FACTORY_BEAN,sessionFactoryBean.getBeanDefinition());
+  GrailsDomainConfigurationUtil.configureDynamicMethods(sf,app);
+  if (context.containsBean(TRANSACTION_MANAGER_BEAN)) {
+    ((HibernateTransactionManager)context.getBean(TRANSACTION_MANAGER_BEAN)).setSessionFactory(sf);
   }
- catch (  HibernateException e) {
-    throw new GrailsConfigurationException("Hibernate exception refreshing session factory: " + e.getMessage(),e);
+  if (context.containsBean(OPEN_SESSION_IN_VIEW_INTERCEPTOR_BEAN)) {
+    ((OpenSessionInViewInterceptor)context.getBean(OPEN_SESSION_IN_VIEW_INTERCEPTOR_BEAN)).setSessionFactory(sf);
   }
-catch (  IllegalArgumentException e) {
-    throw new GrailsConfigurationException("Illegal argument refreshing session factory: " + e.getMessage(),e);
+  String[] validatorBeanNames=context.getBeanDefinitionNames(Validator.class);
+  for (int i=0; i < validatorBeanNames.length; i++) {
+    GrailsDomainClassValidator validator=(GrailsDomainClassValidator)context.getBean(validatorBeanNames[i]);
+    validator.setSessionFactory(sf);
   }
-catch (  IOException e) {
-    throw new GrailsConfigurationException("I/O exception refreshing session factory: " + e.getMessage(),e);
+  Map scaffoldDomains=context.getBeansOfType(ScaffoldDomain.class);
+  for (Iterator i=scaffoldDomains.values().iterator(); i.hasNext(); ) {
+    ScaffoldDomain sd=(ScaffoldDomain)i.next();
+    sd.setSessionFactory(sf);
   }
-  ts.swap(sessionFactoryBean.getObject());
 }

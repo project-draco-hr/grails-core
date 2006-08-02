@@ -34,7 +34,6 @@
       LOG.info("[SpringConfig] Error loading hibernate-dialects.properties file: " + e.getMessage());
     }
   }
-  springConfig.addSingletonBean(DIALECT_DETECTOR_BEAN,HibernateDialectDetectorFactoryBean.class).addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN)).addProperty("vendorNameDialectMappings",vendorNameDialectMappings);
   ManagedMap hibernatePropertiesMap=new ManagedMap();
   if (ds != null && ds.isLoggingSql()) {
     hibernatePropertiesMap.put("hibernate.show_sql","true");
@@ -44,6 +43,7 @@
     hibernatePropertiesMap.put("hibernate.dialect",ds.getDialect().getName());
   }
  else {
+    springConfig.addSingletonBean(DIALECT_DETECTOR_BEAN,HibernateDialectDetectorFactoryBean.class).addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN)).addProperty("vendorNameDialectMappings",vendorNameDialectMappings);
     hibernatePropertiesMap.put("hibernate.dialect",new RuntimeBeanReference(DIALECT_DETECTOR_BEAN));
   }
   if (ds == null) {

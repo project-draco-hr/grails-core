@@ -1,4 +1,3 @@
 {
-  BeanConfiguration bc=new DefaultBeanConfiguration(clazz,constructorArguments);
-  return bc;
+  return new DefaultBeanConfiguration(clazz,constructorArguments);
 }

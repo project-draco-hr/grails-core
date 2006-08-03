@@ -4,10 +4,13 @@
   context.registerBeanDefinition(grailsServiceClass.getFullName() + "Class",serviceClassBean.getBeanDefinition());
   BeanConfiguration serviceInstance=springConfig.createSingletonBean(grailsServiceClass.getFullName() + "Instance").setFactoryBean(grailsServiceClass.getFullName() + "Class").setFactoryMethod("newInstance");
   if (grailsServiceClass.byName()) {
-    serviceInstance.setAutowire("byName");
+    serviceInstance.setAutowire(BeanConfiguration.AUTOWIRE_BY_NAME);
   }
  else   if (grailsServiceClass.byType()) {
-    serviceInstance.setAutowire("byType");
+    serviceInstance.setAutowire(BeanConfiguration.AUTOWIRE_BY_TYPE);
+  }
+ else {
+    serviceInstance.setAutowire(BeanConfiguration.AUTOWIRE_BY_TYPE);
   }
   context.registerBeanDefinition(grailsServiceClass.getFullName() + "Instance",serviceInstance.getBeanDefinition());
   if (grailsServiceClass.isTransactional()) {

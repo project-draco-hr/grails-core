@@ -30,7 +30,7 @@
   assertEquals(dc,persistentClass);
   GrailsDomainClassValidator validator=(GrailsDomainClassValidator)ctx.getBean("TestValidator");
   assertTrue(validator.supports(dc));
-  GroovyObject serviceInstance=(GroovyObject)ctx.getBean("TestServiceInstance");
+  GroovyObject serviceInstance=(GroovyObject)ctx.getBean("testService");
   assertEquals("hello",serviceInstance.invokeMethod("serviceMethod",null));
   HotSwappableTargetSource ts=(HotSwappableTargetSource)ctx.getBean(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE);
   assertNotNull(ts.getTarget());

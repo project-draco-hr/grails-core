@@ -3,7 +3,7 @@
   for (int i=0; i < serviceClasses.length; i++) {
     GrailsServiceClass grailsServiceClass=serviceClasses[i];
     springConfig.addSingletonBean(grailsServiceClass.getFullName() + "Class",MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsServiceClass").addProperty("arguments",grailsServiceClass.getFullName());
-    BeanConfiguration serviceInstance=springConfig.addSingletonBean(grailsServiceClass.getFullName() + "Instance").setFactoryBean(grailsServiceClass.getFullName() + "Class").setFactoryMethod("newInstance");
+    BeanConfiguration serviceInstance=springConfig.createSingletonBean(grailsServiceClass.getFullName() + "Instance").setFactoryBean(grailsServiceClass.getFullName() + "Class").setFactoryMethod("newInstance");
     if (grailsServiceClass.byName()) {
       serviceInstance.setAutowire("byName");
     }
@@ -13,10 +13,10 @@
     if (grailsServiceClass.isTransactional()) {
       Properties transactionAttributes=new Properties();
       transactionAttributes.put("*","PROPAGATION_REQUIRED");
-      springConfig.addSingletonBean(grailsServiceClass.getPropertyName(),TransactionProxyFactoryBean.class).addProperty("target",new RuntimeBeanReference(grailsServiceClass.getFullName() + "Instance")).addProperty("proxyTargetClass",Boolean.TRUE).addProperty("transactionAttributes",transactionAttributes).addProperty(TRANSACTION_MANAGER_BEAN,new RuntimeBeanReference(TRANSACTION_MANAGER_BEAN));
+      springConfig.addSingletonBean(grailsServiceClass.getPropertyName(),TransactionProxyFactoryBean.class).addProperty("target",serviceInstance.getBeanDefinition()).addProperty("proxyTargetClass",Boolean.TRUE).addProperty("transactionAttributes",transactionAttributes).addProperty(TRANSACTION_MANAGER_BEAN,new RuntimeBeanReference(TRANSACTION_MANAGER_BEAN));
     }
  else {
-      springConfig.addSingletonBean(grailsServiceClass.getName() + "Service",BeanReferenceFactoryBean.class).addProperty("targetBeanName",grailsServiceClass.getFullName() + "Instance");
+      springConfig.addBeanConfiguration(grailsServiceClass.getName() + "Service",serviceInstance);
     }
   }
 }

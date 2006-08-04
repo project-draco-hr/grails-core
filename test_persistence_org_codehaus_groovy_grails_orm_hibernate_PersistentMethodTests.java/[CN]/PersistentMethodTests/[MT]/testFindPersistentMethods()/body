@@ -10,9 +10,23 @@
   params.add("fre%");
   Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from PersistentMethodTests where firstName like ?",params});
   assertNotNull(returnValue);
+  Binding b=new Binding();
+  b.setVariable("test","fre%");
+  GString gs=(GString)new GroovyShell(b).evaluate("\"$test\"");
+  params.clear();
+  ;
+  params.add(gs);
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from PersistentMethodTests where firstName like ?",params});
+  assertNotNull(returnValue);
   returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from PersistentMethodTests where firstName like ?",params});
   assertNotNull(returnValue);
   assertTrue(returnValue instanceof List);
   List returnList=(List)returnValue;
   assertEquals(1,returnList.size());
+  b.setVariable("className","PersistentMethodTests");
+  gs=(GString)new GroovyShell(b).evaluate("\"from ${className} where firstName like ?\"");
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{gs,params});
+  assertNotNull(returnValue);
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{gs,params});
+  assertNotNull(returnValue);
 }

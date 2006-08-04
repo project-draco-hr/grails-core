@@ -1,6 +1,6 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(methodName,clazz,arguments);
-  final Object arg=arguments[0];
+  final Object arg=arguments[0] instanceof GString ? arguments[0].toString() : arguments[0];
   if (arg instanceof String) {
     final String query=(String)arg;
     if (!query.matches("from " + clazz.getName() + ".*")) {
@@ -20,7 +20,12 @@
         }
         if (queryArgs != null) {
           for (int i=0; i < queryArgs.length; i++) {
-            q.setParameter(i,queryArgs[i]);
+            if (queryArgs[0] instanceof GString) {
+              q.setParameter(i,queryArgs[i].toString());
+            }
+ else {
+              q.setParameter(i,queryArgs[i]);
+            }
           }
         }
         q.setMaxResults(1);

@@ -2,10 +2,12 @@
   super(clazz,"");
   BeanWrapper bean=getReference();
   String ident=metaData.getIdentifierPropertyName();
-  Class identType=bean.getPropertyType(ident);
-  this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
-  this.identifier.setIdentity(true);
-  this.identifier.setType(identType);
+  if (ident != null) {
+    Class identType=bean.getPropertyType(ident);
+    this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
+    this.identifier.setIdentity(true);
+    this.identifier.setType(identType);
+  }
   propertyMap.put(ident,identifier);
   String[] propertyNames=metaData.getPropertyNames();
   for (int i=0; i < propertyNames.length; i++) {

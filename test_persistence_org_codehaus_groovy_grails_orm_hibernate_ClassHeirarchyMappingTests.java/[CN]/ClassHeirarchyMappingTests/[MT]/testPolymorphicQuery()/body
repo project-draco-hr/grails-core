@@ -11,4 +11,6 @@
   ferrari.invokeMethod("save",new Object[0]);
   List cars=(List)car.getMetaClass().invokeStaticMethod(car,"findAll",new Object[]{"from Car as c where c.type='luxury'"});
   assertEquals(2,cars.size());
+  cars=(List)fiat.getMetaClass().invokeStaticMethod(fiat,"findAll",new Object[0]);
+  assertEquals(1,cars.size());
 }

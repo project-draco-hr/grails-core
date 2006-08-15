@@ -15,11 +15,9 @@
       }
  else       if (name.equals(IS_EMPTY)) {
         c=Restrictions.isEmpty((String)value);
-        this.criteria.add(c);
       }
  else       if (name.equals(IS_NOT_EMPTY)) {
         c=Restrictions.isNotEmpty((String)value);
-        this.criteria.add(c);
       }
     }
   }
@@ -28,13 +26,20 @@
       this.logicalExpressionArgs.add(c);
     }
  else {
-      this.criteria.add(c);
+      addToCriteria(c);
     }
     return c;
   }
  else {
     String nameString=name.toString();
-    if (parent instanceof Proxy) {
+    if (value instanceof Closure) {
+      if (targetBean.isReadableProperty(nameString)) {
+        Criteria associationCriteria=this.criteria.createCriteria(nameString);
+        this.criteriaStack.add(associationCriteria);
+        return associationCriteria;
+      }
+    }
+ else     if (parent instanceof Proxy) {
       try {
         criteriaProxy.setProperty(nameString,value);
         return criteria;

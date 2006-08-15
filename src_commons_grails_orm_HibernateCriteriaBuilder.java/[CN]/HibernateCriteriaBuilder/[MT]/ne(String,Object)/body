@@ -7,7 +7,7 @@
     this.logicalExpressionArgs.add(c);
   }
  else {
-    this.criteria.add(c);
+    addToCriteria(c);
   }
   return c;
 }

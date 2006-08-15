@@ -32,6 +32,11 @@
     this.projectionList=Projections.projectionList();
     return name;
   }
+ else   if (targetBean.isReadableProperty(name.toString())) {
+    Criteria associationCriteria=this.criteria.createCriteria(name.toString());
+    this.criteriaStack.add(associationCriteria);
+    return name;
+  }
   closeSessionFollowingException();
   throw new MissingMethodException((String)name,getClass(),new Object[]{});
 }

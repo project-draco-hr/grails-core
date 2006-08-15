@@ -22,15 +22,22 @@
   }
  else   if (node.equals(AND) || node.equals(OR)) {
     if (this.logicalExpressionArgs.size() < 2)     throwRuntimeException(new IllegalArgumentException("Logical expression [" + node + "] must contain at least 2 expressions"));
-    Criterion lhs=(Criterion)this.logicalExpressionArgs.remove(this.logicalExpressionArgs.size() - 1);
-    Criterion rhs=(Criterion)this.logicalExpressionArgs.remove(this.logicalExpressionArgs.size() - 1);
+    Junction j;
+    if (node.equals(OR)) {
+      j=Restrictions.disjunction();
+    }
+ else {
+      j=Restrictions.conjunction();
+    }
+    for (Iterator i=logicalExpressionArgs.iterator(); i.hasNext(); ) {
+      Criterion criterion=(Criterion)i.next();
+      j.add(criterion);
+    }
     if (parent instanceof Proxy) {
-      if (node.equals(AND))       this.criteria.add(Restrictions.and(lhs,rhs));
- else       this.criteria.add(Restrictions.or(lhs,rhs));
+      addToCriteria(j);
     }
  else     if (parent.equals(AND) || parent.equals(OR)) {
-      if (node.equals(AND))       this.logicalExpressionArgs.add(Restrictions.and(lhs,rhs));
- else       this.logicalExpressionArgs.add(Restrictions.or(lhs,rhs));
+      this.logicalExpressionArgs.add(j);
       this.logicalExpressions.remove(this.logicalExpressions.size() - 1);
     }
   }
@@ -38,7 +45,7 @@
     if (this.logicalExpressionArgs.size() < 1)     throwRuntimeException(new IllegalArgumentException("Logical expression [" + node + "] must contain at least 1 expression"));
     Criterion c=(Criterion)this.logicalExpressionArgs.remove(this.logicalExpressionArgs.size() - 1);
     if (parent instanceof Proxy) {
-      this.criteria.add(Restrictions.not(c));
+      addToCriteria(Restrictions.not(c));
     }
  else     if (parent.equals(AND) || parent.equals(OR) || parent.equals(NOT)) {
       this.logicalExpressionArgs.add(Restrictions.not(c));
@@ -49,6 +56,9 @@
     if (this.projectionList != null && this.projectionList.getLength() > 0) {
       this.criteria.setProjection(this.projectionList);
     }
+  }
+ else   if (targetBean.isReadableProperty(node.toString()) && criteriaStack.size() > 0) {
+    criteriaStack.remove(criteriaStack.size() - 1);
   }
   super.nodeCompleted(parent,node);
 }

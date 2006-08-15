@@ -27,13 +27,6 @@
   System.out.println("Criteria output = ");
   System.out.println(ArrayUtils.toString(p.invokeMethod("toArray",null)));
   try {
-    p=parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "and {\n"+ "eq(\"age\", 42)\n"+ "}\n"+ "}\n"+ "}","Test4");
-    fail("Should have thrown illegal argument exception");
-  }
- catch (  InvokerInvocationException iie) {
-    assertEquals(IllegalArgumentException.class,iie.getCause().getClass());
-  }
-  try {
     p=parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "not {\n"+ "eq(\"age\", 42)\n"+ "rubbish()\n"+ "}\n"+ "}\n"+ "}","Test5");
     fail("Should have thrown illegal argument exception");
   }

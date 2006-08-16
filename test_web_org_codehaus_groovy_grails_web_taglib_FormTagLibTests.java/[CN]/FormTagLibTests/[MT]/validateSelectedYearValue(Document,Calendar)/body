@@ -1,0 +1,3 @@
+{
+  assertSelectFieldPresentWithSelectedValue(document,DATE_PICKER_TAG_NAME + "_year",Integer.toString(calendar.get(Calendar.YEAR)));
+}

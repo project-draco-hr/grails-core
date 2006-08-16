@@ -8,10 +8,10 @@
       if (type == Date.class || type == Calendar.class) {
         try {
           int year=Integer.parseInt(request.getParameter(propertyName + "_year"));
-          int month=Integer.parseInt(request.getParameter(propertyName + "_month"));
-          int day=Integer.parseInt(request.getParameter(propertyName + "_day"));
-          int hour=Integer.parseInt(request.getParameter(propertyName + "_hour"));
-          int minute=Integer.parseInt(request.getParameter(propertyName + "_minute"));
+          int month=Integer.parseInt(getParameterValue(request,propertyName + "_month","1"));
+          int day=Integer.parseInt(getParameterValue(request,propertyName + "_day","1"));
+          int hour=Integer.parseInt(getParameterValue(request,propertyName + "_hour","0"));
+          int minute=Integer.parseInt(getParameterValue(request,propertyName + "_minute","0"));
           Calendar c=new GregorianCalendar(year,month - 1,day,hour,minute);
           if (type == Date.class)           mpvs.setPropertyValueAt(new PropertyValue(propertyName,c.getTime()),i);
  else           mpvs.setPropertyValueAt(new PropertyValue(propertyName,c),i);

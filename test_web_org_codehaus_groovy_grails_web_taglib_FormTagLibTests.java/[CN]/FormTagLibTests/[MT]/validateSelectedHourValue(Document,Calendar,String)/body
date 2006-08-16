@@ -1,0 +1,12 @@
+{
+  final String FIELD_NAME=DATE_PICKER_TAG_NAME + "_hour";
+  String expectedHourValue="00";
+  if (DATE_PRECISIONS_INCLUDING_HOUR.contains(precision)) {
+    int rawHourValue=calendar.get(Calendar.HOUR_OF_DAY);
+    expectedHourValue=(rawHourValue < 10) ? ("0" + rawHourValue) : Integer.toString(rawHourValue);
+    assertSelectFieldPresentWithSelectedValue(document,FIELD_NAME,expectedHourValue);
+  }
+ else {
+    assertSelectFieldNotPresentValue(document,FIELD_NAME);
+  }
+}

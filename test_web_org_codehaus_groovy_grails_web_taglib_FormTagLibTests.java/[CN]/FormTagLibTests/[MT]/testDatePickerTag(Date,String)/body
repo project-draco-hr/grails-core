@@ -1,0 +1,15 @@
+{
+  Document document=getDatePickerOutput(date,precision);
+  assertNotNull(document);
+  XPath xpath=new DefaultXPath("//input[@name='" + DATE_PICKER_TAG_NAME + "' and @type='hidden' and @value='struct']");
+  assertTrue(xpath.booleanValueOf(document));
+  Calendar calendar=new GregorianCalendar();
+  if (date != null) {
+    calendar.setTime(date);
+  }
+  validateSelectedYearValue(document,calendar);
+  validateSelectedMonthValue(document,calendar,precision);
+  validateSelectedDayValue(document,calendar,precision);
+  validateSelectedHourValue(document,calendar,precision);
+  validateSelectedMinuteValue(document,calendar,precision);
+}

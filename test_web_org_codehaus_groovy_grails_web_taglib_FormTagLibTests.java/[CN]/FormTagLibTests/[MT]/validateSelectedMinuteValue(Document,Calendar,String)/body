@@ -1,0 +1,12 @@
+{
+  final String FIELD_NAME=DATE_PICKER_TAG_NAME + "_minute";
+  String expectedMinuteValue="00";
+  if (DATE_PRECISIONS_INCLUDING_MINUTE.contains(precision)) {
+    int rawMinuteValue=calendar.get(Calendar.MINUTE);
+    expectedMinuteValue=(rawMinuteValue < 10) ? ("0" + rawMinuteValue) : Integer.toString(rawMinuteValue);
+    assertSelectFieldPresentWithSelectedValue(document,FIELD_NAME,expectedMinuteValue);
+  }
+ else {
+    assertSelectFieldNotPresentValue(document,FIELD_NAME);
+  }
+}

@@ -17,6 +17,7 @@
   GrailsControllerHelper helper=new SimpleGrailsControllerHelper(grailsApplication,appContext,servletContext);
   HttpServletRequest request=new MockHttpServletRequest(servletContext);
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,mockController);
+  request.setAttribute(DispatcherServlet.LOCALE_RESOLVER_ATTRIBUTE,new AcceptHeaderLocaleResolver());
   HttpServletResponse response=new MockHttpServletResponse();
   new ControllerDynamicMethods(mockController,helper,request,response);
   new TagLibDynamicMethods(tagLibrary,mockController);

@@ -1,0 +1,4 @@
+{
+  XPath xpath=new DefaultXPath("//select[@name='" + fieldName + "']");
+  assertFalse(xpath.booleanValueOf(document));
+}

@@ -1,0 +1,17 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  Closure tag=getTag("textField",pw);
+  assertNotNull(tag);
+  Map attrs=new HashMap();
+  attrs.put("name","testField");
+  attrs.put("value","1");
+  tag.call(new Object[]{attrs});
+  Document document=DocumentHelper.parseText(sw.toString());
+  assertNotNull(document);
+  Element inputElement=document.getRootElement();
+  assertEquals("input",inputElement.getName());
+  assertEquals("testField",inputElement.attributeValue("name"));
+  assertEquals("text",inputElement.attributeValue("type"));
+  assertEquals("1",inputElement.attributeValue("value"));
+}

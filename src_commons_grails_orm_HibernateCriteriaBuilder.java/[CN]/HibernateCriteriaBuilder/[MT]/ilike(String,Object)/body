@@ -1,9 +1,10 @@
 {
   if (!validateSimpleExpression()) {
-    throwRuntimeException(new IllegalArgumentException("Call to [ilike] with propertyName [" + propertyName + "] and value ["+ value+ "] not allowed here."));
+    throwRuntimeException(new IllegalArgumentException("Call to [ilike] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
-  Criterion c=Restrictions.ilike(propertyName,value);
+  propertyValue=calculatePropertyValue(propertyValue);
+  Criterion c=Restrictions.ilike(propertyName,propertyValue);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);
   }

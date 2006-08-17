@@ -3,6 +3,7 @@
     throwRuntimeException(new IllegalArgumentException("Call to [ge] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
+  propertyValue=calculatePropertyValue(propertyValue);
   Criterion c=Restrictions.ge(propertyName,propertyValue);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);

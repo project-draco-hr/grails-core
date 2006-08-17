@@ -33,8 +33,8 @@
     return name;
   }
  else   if (targetBean.isReadableProperty(name.toString())) {
-    Criteria associationCriteria=this.criteria.createCriteria(name.toString());
-    this.criteriaStack.add(associationCriteria);
+    this.criteria.createAlias(name.toString(),name.toString() + ALIAS,CriteriaSpecification.LEFT_JOIN);
+    this.aliasStack.add(name.toString() + ALIAS);
     return name;
   }
   closeSessionFollowingException();

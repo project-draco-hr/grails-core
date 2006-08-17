@@ -2,6 +2,7 @@
   if (!validateSimpleExpression()) {
     throwRuntimeException(new IllegalArgumentException("Call to [ilike] with propertyName [" + propertyName + "] and value ["+ value+ "] not allowed here."));
   }
+  propertyName=calculatePropertyName(propertyName);
   Criterion c=Restrictions.ilike(propertyName,value);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);

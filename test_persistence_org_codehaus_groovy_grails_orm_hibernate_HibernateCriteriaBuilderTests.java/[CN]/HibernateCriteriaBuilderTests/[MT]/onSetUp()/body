@@ -10,6 +10,7 @@
   props.put("hibernate.connection.driver_class","org.hsqldb.jdbcDriver");
   props.put("hibernate.dialect","org.hibernate.dialect.HSQLDialect");
   props.put("hibernate.hbm2ddl.auto","create-drop");
+  props.put("hibernate.show_sql","true");
   config.setProperties(props);
   Thread.currentThread().setContextClassLoader(this.cl);
   this.sessionFactory=config.buildSessionFactory();

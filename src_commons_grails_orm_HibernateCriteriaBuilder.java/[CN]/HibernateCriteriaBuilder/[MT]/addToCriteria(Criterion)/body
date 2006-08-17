@@ -1,8 +1,3 @@
 {
-  if (criteriaStack.size() > 0) {
-    ((Criteria)criteriaStack.get(criteriaStack.size() - 1)).add(c);
-  }
- else {
-    this.criteria.add(c);
-  }
+  this.criteria.add(c);
 }

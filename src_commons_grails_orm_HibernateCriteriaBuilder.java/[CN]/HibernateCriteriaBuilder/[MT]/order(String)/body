@@ -1,5 +1,6 @@
 {
   if (this.criteria == null)   throwRuntimeException(new IllegalArgumentException("Call to [order] with propertyName [" + propertyName + "]not allowed here."));
+  propertyName=calculatePropertyName(propertyName);
   Order o=Order.asc(propertyName);
   this.criteria.addOrder(o);
   return o;

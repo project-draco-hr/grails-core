@@ -2,6 +2,8 @@
   if (!validateSimpleExpression()) {
     throwRuntimeException(new IllegalArgumentException("Call to [geProperty] with propertyName [" + propertyName + "] and other property name ["+ otherPropertyName+ "] not allowed here."));
   }
+  propertyName=calculatePropertyName(propertyName);
+  otherPropertyName=calculatePropertyName(otherPropertyName);
   Criterion c=Restrictions.geProperty(propertyName,otherPropertyName);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);

@@ -1,5 +1,6 @@
 {
   if (this.criteria == null)   throwRuntimeException(new IllegalArgumentException("Call to [order] with propertyName [" + propertyName + "]not allowed here."));
+  propertyName=calculatePropertyName(propertyName);
   Order o;
   if (direction.equals(ORDER_DESCENDING)) {
     o=Order.desc(propertyName);

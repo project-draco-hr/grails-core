@@ -2,6 +2,7 @@
   if (!validateSimpleExpression()) {
     throwRuntimeException(new IllegalArgumentException("Call to [gt] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
   }
+  propertyName=calculatePropertyName(propertyName);
   Criterion c=Restrictions.gt(propertyName,propertyValue);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);

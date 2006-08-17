@@ -34,9 +34,9 @@
     String nameString=name.toString();
     if (value instanceof Closure) {
       if (targetBean.isReadableProperty(nameString)) {
-        Criteria associationCriteria=this.criteria.createCriteria(nameString);
-        this.criteriaStack.add(associationCriteria);
-        return associationCriteria;
+        this.criteria.createAlias(nameString,nameString + ALIAS,CriteriaSpecification.LEFT_JOIN);
+        this.aliasStack.add(nameString + ALIAS);
+        return name;
       }
     }
  else     if (parent instanceof Proxy) {

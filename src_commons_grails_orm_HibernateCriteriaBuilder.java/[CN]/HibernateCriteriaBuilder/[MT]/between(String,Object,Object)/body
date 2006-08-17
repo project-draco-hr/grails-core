@@ -2,6 +2,7 @@
   if (!validateSimpleExpression()) {
     throwRuntimeException(new IllegalArgumentException("Call to [between] with propertyName [" + propertyName + "]  not allowed here."));
   }
+  propertyName=calculatePropertyName(propertyName);
   Criterion c=Restrictions.between(propertyName,lo,hi);
   if (isInsideLogicalExpression()) {
     this.logicalExpressionArgs.add(c);

@@ -1,0 +1,7 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  Closure tag=getTag("escapeJavascript",pw);
+  tag.call(new Object[]{"This is some \"text\" to be 'escaped'",Collections.EMPTY_MAP});
+  assertEquals("This is some \\\"text\\\" to be \\'escaped\\'",sw.toString());
+}

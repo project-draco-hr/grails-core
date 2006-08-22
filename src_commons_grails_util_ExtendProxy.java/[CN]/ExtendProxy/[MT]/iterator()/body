@@ -1,0 +1,8 @@
+{
+  if (getAdaptee() instanceof Collection) {
+    return ((Collection)getAdaptee()).iterator();
+  }
+ else {
+    return getAdaptee();
+  }
+}

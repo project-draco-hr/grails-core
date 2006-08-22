@@ -16,7 +16,7 @@
       springConfig.addSingletonBean(grailsServiceClass.getPropertyName(),TransactionProxyFactoryBean.class).addProperty("target",serviceInstance.getBeanDefinition()).addProperty("proxyTargetClass",Boolean.TRUE).addProperty("transactionAttributes",transactionAttributes).addProperty(TRANSACTION_MANAGER_BEAN,new RuntimeBeanReference(TRANSACTION_MANAGER_BEAN));
     }
  else {
-      springConfig.addBeanConfiguration(grailsServiceClass.getName() + "Service",serviceInstance);
+      springConfig.addBeanConfiguration(grailsServiceClass.getPropertyName(),serviceInstance);
     }
   }
 }

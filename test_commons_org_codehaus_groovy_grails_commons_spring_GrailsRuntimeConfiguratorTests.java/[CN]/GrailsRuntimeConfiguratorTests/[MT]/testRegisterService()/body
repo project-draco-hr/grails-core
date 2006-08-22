@@ -10,7 +10,6 @@
   GrailsServiceClass serviceClass=app.addServiceClass(service);
   conf.registerService(serviceClass,ctx);
   assertTrue(ctx.containsBean("TestServiceClass"));
-  assertTrue(ctx.containsBean("TestServiceInstance"));
   GroovyObject serviceInstance=(GroovyObject)ctx.getBean("testService");
   assertEquals("hello",serviceInstance.invokeMethod("serviceMethod",null));
 }

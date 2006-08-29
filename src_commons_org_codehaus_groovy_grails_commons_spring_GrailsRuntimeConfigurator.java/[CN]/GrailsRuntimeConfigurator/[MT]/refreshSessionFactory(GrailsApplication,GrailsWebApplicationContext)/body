@@ -1,6 +1,6 @@
 {
   RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
-  BeanConfiguration sessionFactoryBean=springConfig.createSingletonBean(ConfigurableLocalSessionFactoryBean.class).addProperty("grailsApplication",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("classLoader",new RuntimeBeanReference(CLASS_LOADER_BEAN)).addProperty("dataSource",new RuntimeBeanReference(DATA_SOURCE_BEAN)).addProperty("hibernateProperties",new RuntimeBeanReference(HIBERNATE_PROPERTIES_BEAN));
+  BeanConfiguration sessionFactoryBean=springConfig.createSingletonBean(ConfigurableLocalSessionFactoryBean.class).addProperty("grailsApplication",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("classLoader",new RuntimeBeanReference(CLASS_LOADER_BEAN)).addProperty("dataSource",new RuntimeBeanReference(DATA_SOURCE_BEAN,parentDataSource)).addProperty("hibernateProperties",new RuntimeBeanReference(HIBERNATE_PROPERTIES_BEAN));
   GrailsDataSource ds=app.getGrailsDataSource();
   if (ds != null && ds.getConfigurationClass() != null) {
     sessionFactoryBean.addProperty("configClass",ds.getConfigurationClass());

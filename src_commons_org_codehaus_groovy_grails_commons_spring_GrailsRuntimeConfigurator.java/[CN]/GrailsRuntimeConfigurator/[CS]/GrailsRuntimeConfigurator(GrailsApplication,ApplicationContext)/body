@@ -2,4 +2,5 @@
   super();
   this.application=application;
   this.parent=parent;
+  this.parentDataSource=parent.containsBean(DATA_SOURCE_BEAN);
 }

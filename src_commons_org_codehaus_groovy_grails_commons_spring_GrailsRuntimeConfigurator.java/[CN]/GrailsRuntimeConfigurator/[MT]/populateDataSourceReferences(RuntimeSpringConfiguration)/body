@@ -1,7 +1,7 @@
 {
-  GrailsDataSource ds=application.getGrailsDataSource();
   BeanConfiguration localSessionFactoryBean=springConfig.addSingletonBean(SESSION_FACTORY_BEAN,ConfigurableLocalSessionFactoryBean.class);
-  if (ds != null) {
+  GrailsDataSource ds=application.getGrailsDataSource();
+  if (ds != null && !parent.containsBean(DATA_SOURCE_BEAN)) {
     BeanConfiguration dataSource;
     if (ds.isPooled()) {
       dataSource=springConfig.addSingletonBean(DATA_SOURCE_BEAN,BasicDataSource.class).setDestroyMethod("close");
@@ -15,7 +15,7 @@
       localSessionFactoryBean.addProperty("configClass",ds.getConfigurationClass());
     }
   }
- else {
+ else   if (!parent.containsBean(DATA_SOURCE_BEAN)) {
     springConfig.addSingletonBean(DATA_SOURCE_BEAN,BasicDataSource.class).setDestroyMethod("close").addProperty("driverClassName","org.hsqldb.jdbcDriver").addProperty("url","jdbc:hsqldb:mem:grailsDB").addProperty("username","sa").addProperty("password","");
   }
   Properties vendorNameDialectMappings=new Properties();
@@ -43,7 +43,7 @@
     hibernatePropertiesMap.put("hibernate.dialect",ds.getDialect().getName());
   }
  else {
-    springConfig.addSingletonBean(DIALECT_DETECTOR_BEAN,HibernateDialectDetectorFactoryBean.class).addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN)).addProperty("vendorNameDialectMappings",vendorNameDialectMappings);
+    springConfig.addSingletonBean(DIALECT_DETECTOR_BEAN,HibernateDialectDetectorFactoryBean.class).addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN,parentDataSource)).addProperty("vendorNameDialectMappings",vendorNameDialectMappings);
     hibernatePropertiesMap.put("hibernate.dialect",new RuntimeBeanReference(DIALECT_DETECTOR_BEAN));
   }
   if (ds == null) {
@@ -54,7 +54,7 @@
       hibernatePropertiesMap.put("hibernate.hbm2ddl.auto",ds.getDbCreate());
     }
   }
-  localSessionFactoryBean.addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN));
+  localSessionFactoryBean.addProperty(DATA_SOURCE_BEAN,new RuntimeBeanReference(DATA_SOURCE_BEAN,parentDataSource));
   if (loadExternalPersistenceConfig) {
     URL hibernateConfig=application.getClassLoader().getResource("hibernate.cfg.xml");
     if (hibernateConfig != null) {

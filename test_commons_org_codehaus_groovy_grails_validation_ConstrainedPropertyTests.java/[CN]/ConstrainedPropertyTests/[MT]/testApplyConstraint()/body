@@ -92,4 +92,61 @@
   errors=new BindException(this,"testObject");
   c.validate(this,this.testURL,errors);
   assertTrue(errors.hasErrors());
+  final Date BEGINNING_OF_TIME=new Date(0);
+  final Date NOW=new Date();
+  final Date ONE_DAY_FROM_NOW=new Date(System.currentTimeMillis() + 86400000);
+  this.testDate=BEGINNING_OF_TIME;
+  cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testDate",String.class);
+  cp.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,NOW);
+  errors=new BindException(this,"testObject");
+  for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
+    c=(Constraint)i.next();
+    c.validate(this,this.testDate,errors);
+  }
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testDate");
+  System.out.println(error);
+  assertNotNull(error);
+  this.testDate=NOW;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertFalse(errors.hasErrors());
+  this.testDate=ONE_DAY_FROM_NOW;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertFalse(errors.hasErrors());
+  this.testDate=null;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testDate");
+  System.out.println(error);
+  assertNotNull(error);
+  this.testDate=BEGINNING_OF_TIME;
+  cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testDate",String.class);
+  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,NOW);
+  errors=new BindException(this,"testObject");
+  for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
+    c=(Constraint)i.next();
+    c.validate(this,this.testDate,errors);
+  }
+  assertFalse(errors.hasErrors());
+  this.testDate=NOW;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertFalse(errors.hasErrors());
+  this.testDate=ONE_DAY_FROM_NOW;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testDate");
+  System.out.println(error);
+  assertNotNull(error);
+  this.testDate=null;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testDate,errors);
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testDate");
+  System.out.println(error);
+  assertNotNull(error);
 }

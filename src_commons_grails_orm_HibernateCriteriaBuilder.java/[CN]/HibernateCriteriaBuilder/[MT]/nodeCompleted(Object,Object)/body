@@ -1,5 +1,8 @@
 {
   if (node instanceof Proxy) {
+    if (resultTransformer != null) {
+      this.criteria.setResultTransformer(resultTransformer);
+    }
     if (!uniqueResult) {
       if (scroll) {
         resultProxy.setAdaptee(this.criteria.scroll());

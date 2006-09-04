@@ -1,0 +1,8 @@
+{
+  if (this.projectionList == null) {
+    throwRuntimeException(new IllegalArgumentException("call to [distinct] must be within a [projections] node"));
+  }
+ else {
+    this.projectionList.add(Projections.distinct(Projections.property(propertyName)));
+  }
+}

@@ -11,5 +11,5 @@
     int i=propName.lastIndexOf(NOT);
     propName=propName.substring(0,i);
   }
-  return propName.substring(0,1).toLowerCase() + propName.substring(1);
+  return propName.substring(0,1).toLowerCase(Locale.ENGLISH) + propName.substring(1);
 }

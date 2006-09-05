@@ -1,5 +1,5 @@
 {
-  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t@Property List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t@Property Long id; \n"+ "\t@Property Long version; \n"+ "\t\n"+ "\t@Property String firstName; \n"+ "\t@Property String lastName; \n"+ "\t@Property Integer age;\n"+ "\t\n"+ "\t@Property constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t}\n"+ "}");
+  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t Long id; \n"+ "\t Long version; \n"+ "\t\n"+ "\t String firstName; \n"+ "\t String lastName; \n"+ "\t Integer age;\n"+ "boolean active = true"+ "\t\n"+ "\tdef constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t}\n"+ "}");
   grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass},cl);
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
   config.setGrailsApplication(this.grailsApplication);

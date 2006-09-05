@@ -46,6 +46,8 @@
   assertEquals(2,returnList.size());
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10),new Integer(43)});
   assertEquals(2,returnList.size());
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByActive",new Object[]{Boolean.TRUE});
+  assertEquals(3,returnList.size());
   Map queryMap=new HashMap();
   queryMap.put("firstName","wilma");
   queryMap.put("lastName","flintstone");

@@ -15,6 +15,6 @@
  catch (  GrailsConfigurationException e) {
   }
  finally {
-    System.setProperty(GrailsApplication.ENVIRONMENT,null);
+    System.setProperty(GrailsApplication.ENVIRONMENT,"");
   }
 }

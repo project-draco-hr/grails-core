@@ -15,5 +15,5 @@
       schedulerReferences.add(new RuntimeBeanReference(grailsTaskClass.getFullName() + "CronTrigger"));
     }
   }
-  springConfig.addSingletonBean("grailsSchedulerBean",SchedulerFactoryBean.class).addProperty("triggers",schedulerReferences);
+  springConfig.addSingletonBean(QUARTZ_SCHEDULER_BEAN,SchedulerFactoryBean.class).addProperty("triggers",schedulerReferences);
 }

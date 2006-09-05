@@ -2,6 +2,7 @@
   BeanConfiguration localSessionFactoryBean=springConfig.addSingletonBean(SESSION_FACTORY_BEAN,ConfigurableLocalSessionFactoryBean.class);
   GrailsDataSource ds=application.getGrailsDataSource();
   if (ds != null && !parent.containsBean(DATA_SOURCE_BEAN)) {
+    LOG.info("[SpringConfig] Configuring for environment: " + ds.getName());
     BeanConfiguration dataSource;
     if (ds.isPooled()) {
       dataSource=springConfig.addSingletonBean(DATA_SOURCE_BEAN,BasicDataSource.class).setDestroyMethod("close");
@@ -16,6 +17,7 @@
     }
   }
  else   if (!parent.containsBean(DATA_SOURCE_BEAN)) {
+    LOG.info("[SpringConfig] No data source found, using in-memory HSQLDB");
     springConfig.addSingletonBean(DATA_SOURCE_BEAN,BasicDataSource.class).setDestroyMethod("close").addProperty("driverClassName","org.hsqldb.jdbcDriver").addProperty("url","jdbc:hsqldb:mem:grailsDB").addProperty("username","sa").addProperty("password","");
   }
   Properties vendorNameDialectMappings=new Properties();

@@ -22,6 +22,7 @@
   Map bootstrapMap=new HashMap();
   this.taglibMap=new HashMap();
   this.taskMap=new HashMap();
+  this.dataSourceMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
     if (Modifier.isAbstract(classes[i].getModifiers()) || GrailsClassUtils.isDomainClass(classes[i])) {
       continue;
@@ -40,14 +41,7 @@
     }
  else     if (GrailsClassUtils.isDataSource(classes[i])) {
       GrailsDataSource tmpDataSource=new DefaultGrailsDataSource(classes[i]);
-      if (tmpDataSource.getAvailable()) {
-        if (dataSource == null) {
-          dataSource=tmpDataSource;
-        }
- else {
-          throw new MoreThanOneActiveDataSourceException("More than one active data source is configured!");
-        }
-      }
+      this.dataSourceMap.put(GrailsClassUtils.getPropertyNameRepresentation(tmpDataSource.getName()),tmpDataSource);
     }
  else     if (GrailsClassUtils.isService(classes[i])) {
       GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(classes[i]);

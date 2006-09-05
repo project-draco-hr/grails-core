@@ -1,3 +1,17 @@
 {
-  return this.dataSource;
+  String environment=System.getProperty(GrailsApplication.ENVIRONMENT);
+  if (log.isDebugEnabled()) {
+    log.debug("[GrailsApplication] Retrieving data source for environment: " + environment);
+  }
+  if (StringUtils.isBlank(environment)) {
+    GrailsDataSource devDataSource=(GrailsDataSource)this.dataSourceMap.get(GrailsApplication.ENV_DEVELOPMENT);
+    if (devDataSource == null)     devDataSource=(GrailsDataSource)this.dataSourceMap.get(GrailsApplication.ENV_APPLICATION);
+    if (devDataSource == null)     throw new GrailsConfigurationException("Default 'development' data source cannot be found. Please specify alternative via -Dgrails.env=myenvironment");
+    return devDataSource;
+  }
+ else {
+    GrailsDataSource dataSource=(GrailsDataSource)this.dataSourceMap.get(environment);
+    if (dataSource == null)     throw new GrailsConfigurationException("No data source found for environment [" + environment + "]. Please specify alternative via -Dgrails.env=myenvironment");
+    return dataSource;
+  }
 }

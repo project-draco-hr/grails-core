@@ -1,0 +1,23 @@
+{
+  if (arguments.length == 0)   throw new MissingMethodException("executeUpdate",clazz,arguments);
+  int result;
+switch (arguments.length) {
+case 1:
+    result=getHibernateTemplate().bulkUpdate(arguments[0].toString());
+  return new Integer(result);
+case 2:
+String query=arguments[0].toString();
+Object args=arguments[1];
+if (args.getClass().isArray()) {
+result=getHibernateTemplate().bulkUpdate(query,(Object[])args);
+}
+ else if (args instanceof Collection) {
+result=getHibernateTemplate().bulkUpdate(query,GrailsClassUtils.collectionToObjectArray((Collection)args));
+}
+ else {
+result=getHibernateTemplate().bulkUpdate(query,args);
+}
+return new Integer(result);
+}
+throw new MissingMethodException("executeUpdate",clazz,arguments);
+}

@@ -1,0 +1,4 @@
+{
+  if (c == null)   return new Object[0];
+  return c.toArray(new Object[c.size()]);
+}

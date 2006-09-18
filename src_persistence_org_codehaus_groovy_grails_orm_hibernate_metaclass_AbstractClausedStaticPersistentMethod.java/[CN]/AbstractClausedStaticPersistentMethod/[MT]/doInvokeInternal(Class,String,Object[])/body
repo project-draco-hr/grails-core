@@ -2,7 +2,7 @@
   List expressions=new ArrayList();
   Matcher match=super.getPattern().matcher(methodName);
   match.find();
-  String[] queryParameters=null;
+  String[] queryParameters;
   int totalRequiredArguments=0;
   String querySequence=match.group(2);
   boolean containsOperator=false;
@@ -40,9 +40,7 @@
     if (solo.argumentsRequired > arguments.length)     throw new MissingMethodException(methodName,clazz,arguments);
     totalRequiredArguments+=solo.argumentsRequired;
     Object[] soloArgs=new Object[solo.argumentsRequired];
-    for (int i=0; i < solo.argumentsRequired; i++) {
-      soloArgs[i]=arguments[i];
-    }
+    System.arraycopy(arguments,0,soloArgs,0,solo.argumentsRequired);
     try {
       solo.setArguments(soloArgs);
     }

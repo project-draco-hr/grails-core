@@ -19,6 +19,7 @@
       if (hibernateType.isAssociationType()) {
         prop.setAssociation(true);
         AssociationType assType=(AssociationType)hibernateType;
+        if (assType instanceof org.hibernate.type.AnyType)         continue;
         String associatedEntity=assType.getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
         ClassMetadata associatedMetaData=sessionFactory.getClassMetadata(associatedEntity);
         prop.setRelatedClassType(associatedMetaData.getMappedClass(EntityMode.POJO));

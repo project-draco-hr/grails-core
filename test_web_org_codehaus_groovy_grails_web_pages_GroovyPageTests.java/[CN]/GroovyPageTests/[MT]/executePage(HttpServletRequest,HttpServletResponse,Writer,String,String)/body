@@ -1,0 +1,8 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class pageClass=gcl.parseClass(pageCode);
+  Class taglibClass=gcl.parseClass(taglibCode);
+  MockApplicationContext context=new MockApplicationContext();
+  context.registerMockBean(taglibClass.getName(),taglibClass.newInstance());
+  executePage(context,request,response,out,gcl,new Class[]{pageClass,taglibClass});
+}

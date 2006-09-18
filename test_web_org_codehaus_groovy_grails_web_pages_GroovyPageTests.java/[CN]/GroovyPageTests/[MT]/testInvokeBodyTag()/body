@@ -1,0 +1,14 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  String contentType="text/html;charset=UTF-8";
+  String pageCode="import org.codehaus.groovy.grails.web.pages.GroovyPage\n" + "import org.codehaus.groovy.grails.web.taglib.*\n" + "\n"+ "class test_index_gsp extends GroovyPage {\n"+ "public Object run() {\n"+ "body1 = { out.print('Boo!') }\n"+ "invokeTag('isaid',[:],body1)\n"+ "}\n"+ "}";
+  String taglibCode="import org.codehaus.groovy.grails.web.taglib.*\n" + "\n" + "class MyTagLib {\n"+ "def isaid = { attrs, body ->\n"+ "out.print('I said, \"')\n"+ "body()\n"+ "out.print('\"')\n"+ "}\n"+ "}";
+  String expectedOutput="I said, \"Boo!\"";
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  MockHttpServletResponse response=new MockHttpServletResponse();
+  response.setContentType(contentType);
+  executePage(request,response,pw,pageCode,taglibCode);
+  System.out.println(sw);
+  assertEquals(expectedOutput,sw.toString());
+}

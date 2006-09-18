@@ -1,0 +1,12 @@
+{
+  MockServletContext servletContext=new MockServletContext();
+  servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
+  Class scriptClass=classes[0];
+  GrailsApplication app=new DefaultGrailsApplication(classes,gcl);
+  context.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  GrailsApplicationAttributes grailsAttributes=new DefaultGrailsApplicationAttributes(servletContext);
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
+  Binding binding=getBinding(servletContext,request,response,out);
+  Script page=InvokerHelper.createScript(scriptClass,binding);
+  page.run();
+}

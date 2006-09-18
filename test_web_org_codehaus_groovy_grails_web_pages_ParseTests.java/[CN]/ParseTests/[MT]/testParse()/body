@@ -1,0 +1,6 @@
+{
+  String output=parseCode("myTest","<div>hi</div>");
+  String expected="import org.codehaus.groovy.grails.web.pages.GroovyPage\n" + "import org.codehaus.groovy.grails.web.taglib.*\n" + "\n"+ "class myTest extends GroovyPage {\n"+ "public Object run() {\n"+ "out.print('<div>hi</div>')\n"+ "}\n"+ "}";
+  System.out.println(output);
+  assertEquals(expected,trimAndRemoveCR(output));
+}

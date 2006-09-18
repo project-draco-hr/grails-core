@@ -1,0 +1,40 @@
+{
+  Binding binding=new Binding();
+  GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
+  if (controller != null) {
+    binding.setVariable(GroovyPage.REQUEST,controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
+    binding.setVariable(GroovyPage.RESPONSE,controller.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY));
+    binding.setVariable(GroovyPage.FLASH,controller.getProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY));
+    binding.setVariable(GroovyPage.SERVLET_CONTEXT,context);
+    ApplicationContext appContext=(ApplicationContext)context.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+    binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appContext);
+    binding.setVariable(GrailsApplication.APPLICATION_ID,appContext.getBean(GrailsApplication.APPLICATION_ID));
+    binding.setVariable(GrailsApplicationAttributes.CONTROLLER,controller);
+    binding.setVariable(GroovyPage.SESSION,controller.getProperty(GetSessionDynamicProperty.PROPERTY_NAME));
+    binding.setVariable(GroovyPage.PARAMS,controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME));
+    binding.setVariable(GroovyPage.OUT,out);
+  }
+ else {
+    GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)request.getAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID);
+    binding.setVariable(GroovyPage.REQUEST,request);
+    binding.setVariable(GroovyPage.RESPONSE,response);
+    binding.setVariable(GroovyPage.FLASH,attrs.getFlashScope(request));
+    binding.setVariable(GroovyPage.SERVLET_CONTEXT,context);
+    ApplicationContext appContext=(ApplicationContext)context.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+    binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appContext);
+    binding.setVariable(GrailsApplication.APPLICATION_ID,appContext.getBean(GrailsApplication.APPLICATION_ID));
+    binding.setVariable(GroovyPage.SESSION,request.getSession());
+    binding.setVariable(GroovyPage.PARAMS,new GrailsParameterMap(request));
+    binding.setVariable(GroovyPage.OUT,out);
+  }
+  for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
+    String key=(String)attributeEnum.nextElement();
+    try {
+      binding.getVariable(key);
+    }
+ catch (    MissingPropertyException mpe) {
+      binding.setVariable(key,request.getAttribute(key));
+    }
+  }
+  return binding;
+}

@@ -5,8 +5,7 @@
   String rep=null;
   for (int ix=0; ix < ixz; ix++) {
     char c=text.charAt(ix);
-    if (c == '&')     ;
-{
+    if (c == '&') {
       String sub=text.substring(ix + 1).toLowerCase();
       if (sub.startsWith("lt;")) {
         c='<';

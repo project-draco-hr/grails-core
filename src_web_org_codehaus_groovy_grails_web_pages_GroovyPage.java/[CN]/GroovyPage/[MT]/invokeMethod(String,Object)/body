@@ -8,8 +8,8 @@
     }
     Map attrs=null;
     Object body=null;
-    Binding binding=getBinding();
-    final Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
+    StringWriter capturedOut=new StringWriter();
+    final Writer out=new PrintWriter(capturedOut);
     GroovyObject tagLib=getTagLib(methodName);
     if (args instanceof Object[]) {
       Object[] argArray=(Object[])args;
@@ -44,7 +44,7 @@
  else {
             bodyResponse=body1;
           }
-          if (bodyResponse instanceof String) {
+          if (bodyResponse != null) {
             try {
               out.write(bodyResponse.toString());
             }
@@ -69,12 +69,14 @@
             if (actualBody != null) {
               actualBody.call();
             }
-            return null;
           }
-          if (tag.getParameterTypes().length == 2) {
+ else           if (tag.getParameterTypes().length == 2) {
             tag.call(new Object[]{attrs,actualBody});
-            return null;
           }
+ else {
+            throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
+          }
+          return capturedOut.toString();
         }
  else {
           throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");

@@ -1,0 +1,9 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  InputStream gspIn=new ByteArrayInputStream(gsp.getBytes());
+  Parse parse=new Parse(uri,gspIn);
+  InputStream in=parse.parse();
+  send(in,pw);
+  return sw.toString();
+}

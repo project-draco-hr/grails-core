@@ -1,5 +1,5 @@
 {
-  if (!(constraintParameter instanceof Boolean))   throw new IllegalArgumentException("Parameter for constraint [" + EMAIL_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
+  if (!(constraintParameter instanceof Boolean))   throw new IllegalArgumentException("Parameter for constraint [" + CREDIT_CARD_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
   this.creditCard=((Boolean)constraintParameter).booleanValue();
   super.setParameter(constraintParameter);
 }

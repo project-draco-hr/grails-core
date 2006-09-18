@@ -1,0 +1,18 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testValidatorValue",Integer.class);
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Class clazz=cl.parseClass("validate = { return (it & 1) == 0 ? true : 'evennumbervalidator.noteven' }");
+  Script script=(Script)clazz.newInstance();
+  script.run();
+  Closure valClosure=(Closure)script.getBinding().getVariable("validate");
+  cp.applyConstraint(ConstrainedProperty.VALIDATOR_CONSTRAINT,valClosure);
+  Errors errors=new BindException(this,"testObject");
+  validateConstraints(cp,new Integer(5),errors);
+  assertTrue(errors.hasErrors());
+  FieldError error=errors.getFieldError("testValidatorValue");
+  assertNotNull(error);
+  assertTrue(error.getCode().equals("constrainedPropertyTests.testValidatorValue.evennumbervalidator.noteven"));
+  errors=new BindException(this,"testObject");
+  validateConstraints(cp,new Integer(4),errors);
+  assertFalse(errors.hasErrors());
+}

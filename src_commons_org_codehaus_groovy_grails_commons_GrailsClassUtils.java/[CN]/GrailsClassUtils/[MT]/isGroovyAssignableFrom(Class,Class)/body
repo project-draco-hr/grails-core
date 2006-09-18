@@ -1,0 +1,30 @@
+{
+  if (leftType == null) {
+    throw new NullPointerException("Left type is null!");
+  }
+ else   if (rightType == null) {
+    throw new NullPointerException("Right type is null!");
+  }
+ else   if (leftType == Object.class) {
+    return true;
+  }
+ else   if (leftType == rightType) {
+    return true;
+  }
+ else {
+    Class r=(Class)PRIMITIVE_TYPE_COMPATIBLE_CLASSES.get(leftType);
+    boolean result=r == rightType;
+    if (!result) {
+      if (rightType.isPrimitive()) {
+        r=(Class)PRIMITIVE_TYPE_COMPATIBLE_CLASSES.get(rightType);
+        if (r != null) {
+          result=leftType.isAssignableFrom(r);
+        }
+      }
+ else {
+        result=leftType.isAssignableFrom(rightType);
+      }
+    }
+    return result;
+  }
+}

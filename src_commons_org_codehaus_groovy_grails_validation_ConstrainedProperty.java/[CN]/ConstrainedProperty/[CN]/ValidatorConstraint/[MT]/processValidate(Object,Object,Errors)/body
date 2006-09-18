@@ -1,0 +1,38 @@
+{
+  if (validator != null) {
+    Object[] params=numValidatorParams == 2 ? new Object[]{propertyValue,target} : new Object[]{propertyValue};
+    final Object result=validator.call(params);
+    boolean bad=false;
+    String errmsg=null;
+    Object[] args=null;
+    if (result != null) {
+      if (result instanceof Boolean) {
+        bad=!((Boolean)result).booleanValue();
+      }
+ else       if (result instanceof String) {
+        bad=true;
+        errmsg=(String)result;
+      }
+ else       if ((result instanceof Collection) || result.getClass().isArray()) {
+        bad=true;
+        Object[] values=(result instanceof Collection) ? ((Collection)result).toArray() : (Object[])result;
+        if (!(values[0] instanceof String)) {
+          throw new IllegalArgumentException("Return value from validation closure [" + VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] is returning a list but the first element must be a string "+ "containing the error message code");
+        }
+        errmsg=(String)values[0];
+        args=new Object[values.length - 1 + 3];
+        int i=0;
+        args[i++]=constraintPropertyName;
+        args[i++]=constraintOwningClass;
+        args[i++]=propertyValue;
+        System.arraycopy(args,i,values,1,values.length - 1);
+      }
+    }
+    if (bad) {
+      if (args == null) {
+        args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+      }
+      super.rejectValue(errors,errmsg == null ? VALIDATOR_CONSTRAINT + INVALID_SUFFIX : errmsg,args,getDefaultMessage(DEFAULT_INVALID_VALIDATOR_MESSAGE_CODE,args));
+    }
+  }
+}

@@ -84,7 +84,14 @@
         actualUriBuf.append('?');
         for (Iterator i=params.keySet().iterator(); i.hasNext(); ) {
           Object name=i.next();
-          actualUriBuf.append(name).append('=').append(params.get(name));
+          Object value=params.get(name);
+          if (value == null)           value="";
+          try {
+            actualUriBuf.append(URLEncoder.encode(name.toString(),request.getCharacterEncoding())).append('=').append(URLEncoder.encode(value.toString(),request.getCharacterEncoding()));
+          }
+ catch (          UnsupportedEncodingException ex) {
+            throw new ControllerExecutionException("Error redirecting request for url [" + name + ":"+ value+ "]: "+ ex.getMessage(),ex);
+          }
           if (i.hasNext())           actualUriBuf.append('&');
         }
       }

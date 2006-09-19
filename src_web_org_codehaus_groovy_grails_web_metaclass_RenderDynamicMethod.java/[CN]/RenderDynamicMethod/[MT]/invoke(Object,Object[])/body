@@ -24,9 +24,12 @@
   }
  else   if (arguments[0] instanceof Map) {
     Map argMap=(Map)arguments[0];
-    PrintWriter out;
+    Writer out;
     try {
-      if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
+      if (argMap.containsKey(ARGUMENT_TO)) {
+        out=(Writer)argMap.get(ARGUMENT_TO);
+      }
+ else       if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
         out=response.getWriter(argMap.get(ARGUMENT_CONTENT_TYPE).toString(),argMap.get(ARGUMENT_ENCODING).toString());
       }
  else       if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
@@ -75,12 +78,22 @@
       }
     }
  else     if (arguments[arguments.length - 1] instanceof String) {
-      out.write((String)arguments[arguments.length - 1]);
+      try {
+        out.write((String)arguments[arguments.length - 1]);
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error executing render method for arguments [" + arguments[arguments.length - 1] + "]: "+ e.getMessage(),e);
+      }
       renderView=false;
     }
  else     if (argMap.containsKey(ARGUMENT_TEXT)) {
       String text=argMap.get(ARGUMENT_TEXT).toString();
-      out.write(text);
+      try {
+        out.write(text);
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error executing render method for arguments [" + argMap + "]: "+ e.getMessage(),e);
+      }
       renderView=false;
     }
  else     if (argMap.containsKey(ARGUMENT_VIEW)) {

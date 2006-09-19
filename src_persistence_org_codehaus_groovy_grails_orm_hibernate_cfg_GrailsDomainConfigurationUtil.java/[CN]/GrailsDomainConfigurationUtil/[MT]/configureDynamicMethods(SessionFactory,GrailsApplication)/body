@@ -4,12 +4,19 @@
     ClassMetadata cmd=(ClassMetadata)i.next();
     Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
     if (application != null && persistentClass != null) {
-      if (application.getGrailsDomainClass(persistentClass.getName()) == null) {
-        application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,sf,cmd));
+      GrailsDomainClass dc=application.getGrailsDomainClass(persistentClass.getName());
+      if (dc == null) {
+        dc=application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,sf,cmd));
       }
       LOG.info("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
       try {
-        new DomainClassMethods(application,persistentClass,sf,application.getClassLoader());
+        DynamicMethods dm=new DomainClassMethods(application,persistentClass,sf,application.getClassLoader());
+        for (int j=0; j < dc.getPersistantProperties().length; j++) {
+          GrailsDomainClassProperty p=dc.getPersistantProperties()[j];
+          if (p.isOneToMany() || p.isManyToMany()) {
+            dm.addDynamicMethodInvocation(new AddRelatedDynamicMethod(p));
+          }
+        }
       }
  catch (      IntrospectionException e) {
         LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);

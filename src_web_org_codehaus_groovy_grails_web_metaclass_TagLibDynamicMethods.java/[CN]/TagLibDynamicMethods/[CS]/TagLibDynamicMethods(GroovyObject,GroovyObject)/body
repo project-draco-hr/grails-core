@@ -13,7 +13,7 @@
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES));
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY));
   addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.GRAILS_APPLICATION));
-  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(THROW_TAG_ERROR_METHOD){
+  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(THROW_TAG_ERROR_METHOD_METHOD_PATTERN){
     public Object invoke(    Object target,    Object[] arguments){
       if (arguments.length == 0)       throw new MissingMethodException(THROW_TAG_ERROR_METHOD,target.getClass(),arguments);
       throw new GrailsTagException(arguments[0].toString());

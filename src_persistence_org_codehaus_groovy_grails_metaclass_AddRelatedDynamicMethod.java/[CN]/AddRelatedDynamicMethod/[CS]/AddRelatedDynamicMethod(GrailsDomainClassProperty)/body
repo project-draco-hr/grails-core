@@ -1,0 +1,5 @@
+{
+  super(Pattern.compile("^add" + GrailsClassUtils.getShortName(property.getReferencedPropertyType()) + '$'));
+  this.methodName="add" + GrailsClassUtils.getShortName(property.getReferencedPropertyType());
+  this.property=property;
+}

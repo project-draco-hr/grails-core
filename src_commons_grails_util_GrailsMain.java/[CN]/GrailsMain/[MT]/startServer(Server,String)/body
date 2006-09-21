@@ -1,0 +1,18 @@
+{
+  String name;
+  String location;
+  if (StringUtils.isBlank(basedir)) {
+    File current=new File(".");
+    name='/' + current.getParentFile().getName();
+    location=GrailsMain.TMP_WAR_LOCATION;
+  }
+ else {
+    File base=new File(basedir);
+    name='/' + base.getName();
+    location=basedir + File.separator + TMP_WAR_LOCATION;
+  }
+  server.addWebApplication(name,location);
+  System.out.println("Starting Grails Jetty server for location: " + location);
+  server.start();
+  System.out.println("Grails Jetty Server Started...");
+}

@@ -11,15 +11,7 @@
   server.addListener(listener);
   try {
     String basedir=System.getProperty("base.dir");
-    if (StringUtils.isBlank(basedir)) {
-      File current=new File(".");
-      server.addWebApplication('/' + current.getParentFile().getName(),"tmp/war");
-    }
- else {
-      File base=new File(basedir);
-      server.addWebApplication('/' + base.getName(),basedir + "/tmp/war");
-    }
-    server.start();
+    startServer(server,basedir);
   }
  catch (  Exception e) {
     System.out.println(e.getMessage());

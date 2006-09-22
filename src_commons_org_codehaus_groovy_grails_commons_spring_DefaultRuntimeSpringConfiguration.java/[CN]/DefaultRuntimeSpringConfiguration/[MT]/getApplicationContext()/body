@@ -3,6 +3,11 @@
     BeanConfiguration bc=(BeanConfiguration)i.next();
     context.registerBeanDefinition(bc.getName(),bc.getBeanDefinition());
   }
+  for (Iterator i=beanDefinitions.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    BeanDefinition bd=(BeanDefinition)beanDefinitions.get(key);
+    context.registerBeanDefinition(key.toString(),bd);
+  }
   context.refresh();
   return context;
 }

@@ -24,5 +24,7 @@
   populateScaffoldingReferences(springConfig);
   LOG.info("[SpringConfig] Configuring Grails scheduled jobs");
   populateJobReferences(springConfig);
+  LOG.info("[SpringConfig] conf the applicationContext-afterConfSet");
+  populateAfterConfSet(springConfig);
   return springConfig.getApplicationContext();
 }

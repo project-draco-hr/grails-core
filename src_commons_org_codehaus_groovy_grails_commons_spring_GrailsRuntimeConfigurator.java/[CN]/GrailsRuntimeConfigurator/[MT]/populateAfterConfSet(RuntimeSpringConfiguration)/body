@@ -1,0 +1,13 @@
+{
+  try {
+    XmlBeanFactory xmlBf=new XmlBeanFactory(parent.getResource(GrailsRuntimeConfigurator.APPLICATION_CONTEXT_AFTER_CONF_SET));
+    String[] beanNames=xmlBf.getBeanDefinitionNames();
+    for (int k=0; k < beanNames.length; k++) {
+      BeanDefinition bd=xmlBf.getBeanDefinition(beanNames[k]);
+      springConfig.addBeanDefinition(beanNames[k],bd);
+    }
+  }
+ catch (  Exception ex) {
+    LOG.warn("[SpringConfig] Unable to perform post initialization config. " + APPLICATION_CONTEXT_AFTER_CONF_SET + " not found.",ex);
+  }
+}

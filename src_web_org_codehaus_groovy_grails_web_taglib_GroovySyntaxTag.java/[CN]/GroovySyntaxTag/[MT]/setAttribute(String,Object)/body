@@ -1,6 +1,6 @@
 {
   if (value instanceof String) {
-    String stringValue=(String)value;
+    String stringValue=((String)value).trim();
     if (stringValue.startsWith("${") && stringValue.endsWith("}")) {
       stringValue=stringValue.substring(2,stringValue.length() - 1);
     }

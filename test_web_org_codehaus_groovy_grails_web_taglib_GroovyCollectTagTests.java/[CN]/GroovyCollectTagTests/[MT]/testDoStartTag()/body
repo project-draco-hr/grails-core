@@ -1,0 +1,15 @@
+{
+  Map attrs=new HashMap();
+  try {
+    tag.doStartTag();
+    fail("can't create this tag with no [in] and [expr] attributes");
+  }
+ catch (  GrailsTagException e) {
+  }
+  attrs.put("\"in\"","myObj");
+  attrs.put("\"expr\""," ${ it.name }");
+  tag.setAttributes(attrs);
+  assertFalse(tag.attributes.isEmpty());
+  tag.doStartTag();
+  assertEquals("myObj.collect {it.name}.each {" + System.getProperty("line.separator"),sw.toString());
+}

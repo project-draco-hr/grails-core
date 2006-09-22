@@ -1,0 +1,19 @@
+{
+  super.setUp();
+  tag=new GroovySyntaxTag(){
+    public boolean hasPrecedingContent(){
+      return false;
+    }
+    public boolean isBufferWhiteSpace(){
+      return false;
+    }
+    public void doEndTag(){
+    }
+    public void doStartTag(){
+    }
+    public String getName(){
+      return null;
+    }
+  }
+;
+}

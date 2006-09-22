@@ -3,7 +3,8 @@
   final Object arg=arguments[0] instanceof GString ? arguments[0].toString() : arguments[0];
   if (arg instanceof String) {
     final String query=(String)arg;
-    if (!query.matches("from " + clazz.getName() + ".*")) {
+    final String shortName=GrailsClassUtils.getShortName(clazz);
+    if (!query.matches("from [" + clazz.getName() + "|"+ shortName+ "].*")) {
       throw new GrailsQueryException("Invalid query [" + query + "] for domain class ["+ clazz+ "]");
     }
     return super.getHibernateTemplate().execute(new HibernateCallback(){

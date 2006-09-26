@@ -2,5 +2,10 @@
   if (this.groovyFiles == null || groovyFiles.length == 0) {
     throw new IllegalStateException("Groovy files are not defined!");
   }
-  this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles);
+  if (injectionOperation != null) {
+    this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles,injectionOperation);
+  }
+ else {
+    this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles);
+  }
 }

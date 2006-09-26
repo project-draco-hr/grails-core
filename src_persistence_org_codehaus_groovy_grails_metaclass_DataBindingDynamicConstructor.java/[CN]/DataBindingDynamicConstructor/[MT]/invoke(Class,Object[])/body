@@ -24,22 +24,9 @@ catch (  IllegalAccessException e1) {
     return instance;
   }
  else   if (map instanceof Map) {
-    Map propertyMap=(Map)map;
-    for (Iterator i=propertyMap.keySet().iterator(); i.hasNext(); ) {
-      String propertyName=(String)i.next();
-      Object propertyValue=propertyMap.get(propertyName);
-      if (propertyValue == null)       continue;
-      if (LOG.isDebugEnabled())       LOG.debug("Attempting to set property '" + propertyName + "' to value '"+ propertyValue+ "' on instance '"+ instance+ "'");
-      try {
-        Ognl.setValue(propertyName,instance,propertyValue);
-      }
- catch (      NoSuchPropertyException nspe) {
-        if (LOG.isDebugEnabled())         LOG.debug("Unable to set property '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ instance+ "' property doesn't exist."+ nspe.getMessage());
-      }
-catch (      OgnlException e) {
-        if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ instance+ "':"+ e.getMessage(),e);
-      }
-    }
+    DataBinder dataBinder=new DataBinder(instance);
+    PropertyValues pv=new MutablePropertyValues((Map)map);
+    dataBinder.bind(pv);
   }
   return instance;
 }

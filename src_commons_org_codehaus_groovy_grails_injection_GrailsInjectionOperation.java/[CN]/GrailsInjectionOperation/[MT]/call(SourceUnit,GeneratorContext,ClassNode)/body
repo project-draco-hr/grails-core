@@ -1,7 +1,13 @@
 {
   if (applicationContext != null && resourceLoader != null) {
     try {
-      URL url=resourceLoader.loadGroovySource(source.getName());
+      URL url;
+      if (GrailsResourceUtils.isGrailsPath(source.getName())) {
+        url=resourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(source.getName()));
+      }
+ else {
+        url=resourceLoader.loadGroovySource(source.getName());
+      }
       if (GrailsResourceUtils.isDomainClass(url)) {
         Map injectors=applicationContext.getBeansOfType(GrailsDomainClassInjector.class);
         for (Iterator i=injectors.values().iterator(); i.hasNext(); ) {

@@ -1,0 +1,7 @@
+{
+  GroovyObject testObject=(GroovyObject)ga.getClassLoader().loadClass("TestInjection").newInstance();
+  Set presets=new HashSet();
+  presets.add("blah");
+  testObject.setProperty("presets",presets);
+  assertEquals(presets,testObject.getProperty("presets"));
+}

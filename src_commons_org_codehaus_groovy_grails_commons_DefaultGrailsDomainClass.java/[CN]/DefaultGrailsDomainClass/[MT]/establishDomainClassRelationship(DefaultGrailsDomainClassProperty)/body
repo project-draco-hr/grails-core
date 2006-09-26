@@ -1,6 +1,6 @@
 {
   Class propType=property.getType();
-  Map relatedClassRelationships=(Map)GrailsClassUtils.getPropertyValue(propType,GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
+  Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(propType);
   Class relatedClassPropertyType=null;
   if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
     String relatedClassPropertyName=null;

@@ -1,0 +1,7 @@
+{
+  GroovyObject testObject=(GroovyObject)ga.getClassLoader().loadClass("TestInjection").newInstance();
+  testObject.setProperty(GrailsDomainClassProperty.IDENTITY,new Long(5));
+  assertEquals("TestInjection : 5",testObject.toString());
+  GroovyObject testObject2=(GroovyObject)ga.getClassLoader().loadClass("PresetIdObject").newInstance();
+  assertEquals("custom toString()",testObject2.toString());
+}

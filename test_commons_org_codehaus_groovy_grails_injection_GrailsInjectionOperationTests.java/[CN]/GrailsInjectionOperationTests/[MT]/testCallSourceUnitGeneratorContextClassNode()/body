@@ -1,5 +1,10 @@
 {
-  assertNotNull(resource);
-  GrailsApplication ga=new DefaultGrailsApplication(new Resource[]{resource},injectionOperation);
-  assertNotNull(ga);
+  assertNotNull(resources);
+  GroovyObject testObject=(GroovyObject)ga.getClassLoader().loadClass("TestInjection").newInstance();
+  testObject.setProperty(GrailsDomainClassProperty.IDENTITY,new Long(5));
+  Long id=(Long)testObject.getProperty(GrailsDomainClassProperty.IDENTITY);
+  assertEquals(new Long(5),id);
+  testObject.setProperty(GrailsDomainClassProperty.VERSION,new Long(5));
+  Long version=(Long)testObject.getProperty(GrailsDomainClassProperty.VERSION);
+  assertEquals(new Long(5),version);
 }

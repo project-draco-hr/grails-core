@@ -1,4 +1,4 @@
 {
-  assertNotNull(resource);
-  assertTrue(GrailsResourceUtils.isDomainClass(resource.getURL()));
+  assertNotNull(resources);
+  assertTrue(GrailsResourceUtils.isDomainClass(resources[0].getURL()));
 }

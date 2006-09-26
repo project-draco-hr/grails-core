@@ -1,0 +1,10 @@
+{
+  Map associationMap=(Map)GrailsClassUtils.getPropertyValue(domainClass,GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
+  if (associationMap == null) {
+    associationMap=(Map)GrailsClassUtils.getPropertyValue(domainClass,GrailsDomainClassProperty.HAS_MANY,Map.class);
+    if (associationMap == null) {
+      associationMap=Collections.EMPTY_MAP;
+    }
+  }
+  return associationMap;
+}

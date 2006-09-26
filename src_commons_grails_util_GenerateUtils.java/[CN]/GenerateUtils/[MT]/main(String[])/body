@@ -4,29 +4,33 @@
   String domainClassName=args[1];
   ApplicationContext parent=new ClassPathXmlApplicationContext("applicationContext.xml");
   GrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
-  GrailsDomainClass domainClass=getDomainCallFromApplication(application,domainClassName);
+  GrailsDomainClass domainClass=findInApplication(application,domainClassName);
   if (domainClass == null) {
     GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
     ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(new MockServletContext());
     Assert.notNull(appCtx);
   }
-  domainClass=getDomainCallFromApplication(application,domainClassName);
+  domainClass=findInApplication(application,domainClassName);
   if (domainClass == null) {
     LOG.debug("Unable to generate [" + type + "] domain class not found for name ["+ domainClassName+ "]");
-    return;
+    System.exit(0);
   }
-  GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
-  GrailsTemplateGenerator generator=(GrailsTemplateGenerator)gcl.parseClass(gcl.getResourceAsStream("org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy")).newInstance();
-  if (VIEWS.equals(type) || ALL.equals(type)) {
-    LOG.info("Generating views for domain class [" + domainClass.getName() + "]");
-    generator.generateViews(domainClass,".");
-  }
-  if (CONTROLLER.equals(type) || ALL.equals(type)) {
-    LOG.info("Generating controller for domain class [" + domainClass.getName() + "]");
-    generator.generateController(domainClass,".");
-  }
+  try {
+    GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
+    GrailsTemplateGenerator generator=(GrailsTemplateGenerator)gcl.parseClass(gcl.getResourceAsStream("org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy")).newInstance();
+    if (VIEWS.equals(type) || ALL.equals(type)) {
+      LOG.info("Generating views for domain class [" + domainClass.getName() + "]");
+      generator.generateViews(domainClass,".");
+    }
+    if (CONTROLLER.equals(type) || ALL.equals(type)) {
+      LOG.info("Generating controller for domain class [" + domainClass.getName() + "]");
+      generator.generateController(domainClass,".");
+    }
  else {
-    LOG.info("Grails was unable to generate templates for unsupported type [" + type + "]");
+      LOG.info("Grails was unable to generate templates for unsupported type [" + type + "]");
+    }
   }
-  System.exit(0);
+  finally {
+    System.exit(0);
+  }
 }

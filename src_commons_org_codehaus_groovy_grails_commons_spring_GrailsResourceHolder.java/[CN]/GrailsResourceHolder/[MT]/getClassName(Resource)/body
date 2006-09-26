@@ -1,13 +1,3 @@
 {
-  Matcher m;
-  try {
-    m=GRAILS_RESOURCE_PATTERN.matcher(resource.getFile().getAbsolutePath());
-  }
- catch (  IOException e) {
-    throw new GrailsConfigurationException("I/O error reading class name from resource [" + resource + "]: "+ e.getMessage(),e);
-  }
-  if (m.find()) {
-    return m.group(1);
-  }
-  return null;
+  return GrailsResourceUtils.getClassName(resource);
 }

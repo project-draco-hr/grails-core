@@ -1,0 +1,14 @@
+{
+  final boolean hasToString=GrailsASTUtils.implementsZeroArgMethod(classNode,"toString");
+  if (!hasToString) {
+    GStringExpression ge=new GStringExpression(classNode.getName() + " : ${id}");
+    ge.addString(new ConstantExpression(classNode.getName() + " : "));
+    ge.addValue(new VariableExpression("id"));
+    Statement s=new ReturnStatement(ge);
+    MethodNode mn=new MethodNode("toString",1,new ClassNode(String.class),new Parameter[0],new ClassNode[0],s);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("[GrailsDomainInjector] Adding method [toString()] to class [" + classNode.getName() + "]");
+    }
+    classNode.addMethod(mn);
+  }
+}

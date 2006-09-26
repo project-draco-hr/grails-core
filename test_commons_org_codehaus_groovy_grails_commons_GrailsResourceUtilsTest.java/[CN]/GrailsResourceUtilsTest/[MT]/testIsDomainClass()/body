@@ -1,0 +1,4 @@
+{
+  URL testUrl=new URL(GrailsResourceUtilsTest.TEST_URL);
+  assertTrue(GrailsResourceUtils.isDomainClass(testUrl));
+}

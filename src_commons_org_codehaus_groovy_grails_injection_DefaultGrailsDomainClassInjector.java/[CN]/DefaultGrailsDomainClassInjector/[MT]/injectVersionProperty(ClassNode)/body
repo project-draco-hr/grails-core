@@ -4,6 +4,6 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsDomainInjector] Adding property [" + GrailsDomainClassProperty.VERSION + "] to class ["+ classNode.getName()+ "]");
     }
-    classNode.addProperty(GrailsDomainClassProperty.VERSION,1,new ClassNode(Long.class),null,null,null);
+    classNode.addProperty(GrailsDomainClassProperty.VERSION,ClassNode.ACC_PUBLIC,new ClassNode(Long.class),null,null,null);
   }
 }

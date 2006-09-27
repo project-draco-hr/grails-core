@@ -1,7 +1,12 @@
 {
   Closure constraintsClosure=(Closure)getPropertyValue(GrailsDomainClassProperty.CONSTRAINTS,Closure.class);
   if (constraintsClosure != null) {
-    GroovyObject instance=(GroovyObject)getReference().getWrappedInstance();
+    BeanWrapper reference=getReference();
+    final PropertyDescriptor propDesc=reference.getPropertyDescriptor(GrailsDomainClassProperty.CONSTRAINTS);
+    if ((propDesc.getReadMethod().getModifiers() & Modifier.STATIC) == 0) {
+      LOG.warn("Domain class [" + getFullName() + "] has non-static constraints. Constraints should be "+ "declared static, non-static constraints are deprecated and will be removed in the future");
+    }
+    GroovyObject instance=(GroovyObject)reference.getWrappedInstance();
     try {
       DynamicMethods interceptor=new GroovyDynamicMethodsInterceptor(instance);
       interceptor.addDynamicProperty(new ConstraintsEvaluatingDynamicProperty());

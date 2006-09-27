@@ -1,0 +1,5 @@
+{
+  if (!beans.containsKey(name))   throw new NoSuchBeanDefinitionException(name);
+  if (beans.get(name).getClass() != requiredType)   throw new NoSuchBeanDefinitionException(name);
+  return beans.get(name);
+}

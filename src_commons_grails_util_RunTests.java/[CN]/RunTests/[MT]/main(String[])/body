@@ -15,7 +15,16 @@
         log.debug("[" + clazz.getName() + "] is not a test case.");
       }
     }
-    TestRunner.run(s);
+    SessionFactory sessionFactory=(SessionFactory)appCtx.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
+    try {
+      Session session=SessionFactoryUtils.getSession(sessionFactory,true);
+      TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
+      TestRunner.run(s);
+    }
+  finally {
+      SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+      SessionFactoryUtils.releaseSession(sessionHolder.getSession(),sessionFactory);
+    }
   }
   finally {
     System.exit(0);

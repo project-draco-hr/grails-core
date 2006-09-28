@@ -7,5 +7,6 @@
   out.print(".grep(");
   filter=calculateExpression(filter);
   out.print(filter);
-  out.println(").each {");
+  out.print(")");
+  doEachMethod("");
 }

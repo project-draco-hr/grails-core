@@ -7,5 +7,6 @@
   out.print(".findAll {");
   expr=calculateExpression(expr);
   out.print(expr);
-  out.println("}.each {");
+  out.print("}");
+  doEachMethod("");
 }

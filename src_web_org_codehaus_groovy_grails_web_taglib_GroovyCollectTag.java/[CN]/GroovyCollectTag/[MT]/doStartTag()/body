@@ -8,5 +8,6 @@
   out.print(in);
   out.print(".collect {");
   out.print(expr);
-  out.println("}.each {");
+  out.print("}");
+  doEachMethod("");
 }

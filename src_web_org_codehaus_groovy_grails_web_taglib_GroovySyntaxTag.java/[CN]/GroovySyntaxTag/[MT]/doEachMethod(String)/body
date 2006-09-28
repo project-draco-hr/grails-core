@@ -1,0 +1,17 @@
+{
+  String var=(String)attributes.get(ATTRIBUTE_VAR);
+  String status=(String)attributes.get(ATTRIBUTES_STATUS);
+  String methodName=StringUtils.isBlank(status) ? "each" : "eachWithIndex";
+  var=StringUtils.isBlank(var) ? "it" : var;
+  if (var.equals(status))   throw new GrailsTagException("Attribute [" + ATTRIBUTE_VAR + "] cannot have the same value as attribute ["+ ATTRIBUTES_STATUS+ "]");
+  out.print(in);
+  out.print('.');
+  out.print(methodName);
+  out.print(" { ");
+  out.print(var);
+  if (!StringUtils.isBlank(status)) {
+    out.print(",");
+    out.print(status);
+  }
+  out.println(" ->");
+}

@@ -1,0 +1,10 @@
+{
+  String name=object != null ? object.toString() : "default";
+  if (name.equals(FetchMode.JOIN.toString()) || name.equals("eager")) {
+    return FetchMode.JOIN;
+  }
+ else   if (name.equals(FetchMode.SELECT.toString()) || name.equals("lazy")) {
+    return FetchMode.SELECT;
+  }
+  return FetchMode.DEFAULT;
+}

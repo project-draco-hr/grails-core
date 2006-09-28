@@ -8,6 +8,14 @@
     offsetParam=(Integer)converter.convertValue(context,argMap.get(ARGUMENT_OFFSET),Integer.class);
   }
   String orderParam=(String)argMap.get(ARGUMENT_ORDER);
+  Object fetchObj=argMap.get(ARGUMENT_FETCH);
+  if (fetchObj instanceof Map) {
+    Map fetch=(Map)fetchObj;
+    for (Iterator i=fetch.keySet().iterator(); i.hasNext(); ) {
+      String associationName=(String)i.next();
+      c.setFetchMode(associationName,getFetchMode(fetch.get(i)));
+    }
+  }
   final String sort=(String)argMap.get(ARGUMENT_SORT);
   final String order=ORDER_DESC.equalsIgnoreCase(orderParam) ? ORDER_DESC : ORDER_ASC;
   final int max=maxParam == null ? -1 : maxParam.intValue();

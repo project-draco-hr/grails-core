@@ -1,11 +1,7 @@
 {
   if (clazz == null || propertyName == null || propertyType == null)   return null;
   try {
-    BeanWrapper wrapper=(BeanWrapper)beanWrapperInstances.get(clazz.getName());
-    if (wrapper == null) {
-      wrapper=new BeanWrapperImpl(clazz.newInstance());
-      beanWrapperInstances.put(clazz.getName(),wrapper);
-    }
+    BeanWrapper wrapper=new BeanWrapperImpl(clazz.newInstance());
     PropertyDescriptor pd=wrapper.getPropertyDescriptor(propertyName);
     if (pd.getPropertyType().equals(propertyType)) {
       return pd;

@@ -1,0 +1,4 @@
+{
+  assertEquals(HttpServletRequest.BASIC_AUTH,GrailsClassUtils.getStaticPropertyValue(HttpServletRequest.class,"BASIC_AUTH"));
+  assertEquals("hello",GrailsClassUtils.getStaticPropertyValue(TestBean.class,"welcomeMessage"));
+}

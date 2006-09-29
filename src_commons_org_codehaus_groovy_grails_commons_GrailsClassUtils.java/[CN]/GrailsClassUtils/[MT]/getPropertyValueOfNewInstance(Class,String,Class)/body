@@ -1,11 +1,7 @@
 {
   if (clazz == null || StringUtils.isBlank(propertyName))   return null;
   try {
-    BeanWrapper wrapper=(BeanWrapper)beanWrapperInstances.get(clazz.getName());
-    if (wrapper == null) {
-      wrapper=new BeanWrapperImpl(clazz.newInstance());
-      beanWrapperInstances.put(clazz.getName(),wrapper);
-    }
+    BeanWrapper wrapper=new BeanWrapperImpl(clazz.newInstance());
     Object pValue=wrapper.getPropertyValue(propertyName);
     if (pValue == null)     return null;
     if (propertyType.isAssignableFrom(pValue.getClass())) {

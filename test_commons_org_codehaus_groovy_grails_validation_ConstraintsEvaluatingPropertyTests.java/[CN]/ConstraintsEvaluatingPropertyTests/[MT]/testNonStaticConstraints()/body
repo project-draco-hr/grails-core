@@ -1,0 +1,4 @@
+{
+  String classSource="package org.codehaus.groovy.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   def constraints = {\n"+ "      name( nullable: false, validator : { 'called' } )\n"+ "   }"+ "}";
+  ensureConstraintsPresent(classSource,2);
+}

@@ -1,0 +1,11 @@
+{
+  Class clazz=obj.getClass();
+  Field f=null;
+  try {
+    f=clazz.getDeclaredField(name);
+    return f.get(obj);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

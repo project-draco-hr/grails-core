@@ -1,0 +1,9 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class dc=gcl.parseClass(classSource);
+  DefaultGrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
+  Map constraints=domainClass.getConstrainedProperties();
+  ConstrainedPersistentProperty p=(ConstrainedPersistentProperty)constraints.get("name");
+  Collection cons=p.getAppliedConstraints();
+  assertTrue("Incorrect number of constraints extracted, found " + cons.size() + ": "+ constraints,cons.size() == constraintCount);
+}

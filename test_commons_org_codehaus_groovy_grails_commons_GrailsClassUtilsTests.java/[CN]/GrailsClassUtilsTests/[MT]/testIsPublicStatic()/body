@@ -1,0 +1,5 @@
+{
+  assertTrue(GrailsClassUtils.isPublicStatic(HttpServletRequest.class.getDeclaredField("BASIC_AUTH")));
+  assertFalse(GrailsClassUtils.isPublicStatic(String.class.getDeclaredField("serialVersionUID")));
+  assertFalse(GrailsClassUtils.isPublicStatic(TestBean.class.getDeclaredField("welcomeMessage")));
+}

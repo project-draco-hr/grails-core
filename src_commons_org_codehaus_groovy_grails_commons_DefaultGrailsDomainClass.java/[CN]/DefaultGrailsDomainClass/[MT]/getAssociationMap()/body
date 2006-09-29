@@ -1,7 +1,7 @@
 {
-  this.relationshipMap=(Map)getPropertyValue(GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
+  this.relationshipMap=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.RELATES_TO_MANY,Map.class);
   if (this.relationshipMap == null) {
-    relationshipMap=(Map)getPropertyValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
+    relationshipMap=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
     if (relationshipMap == null)     this.relationshipMap=Collections.EMPTY_MAP;
   }
   return this.relationshipMap;

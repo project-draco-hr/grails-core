@@ -1,26 +1,19 @@
 {
   BeanWrapper ref=getReference();
+  Object value=null;
   if (ref.isReadableProperty(name)) {
-    Object value=ref.getPropertyValue(name);
-    if (value != null && (type.isAssignableFrom(value.getClass()) || GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(type,value.getClass()))) {
-      return value;
-    }
+    value=ref.getPropertyValue(name);
   }
-  try {
-    Field field=ref.getWrappedClass().getField(name);
-    if (Modifier.isStatic(field.getModifiers()) && Modifier.isPublic(field.getModifiers())) {
-      Object value=field.get(ref.getWrappedInstance());
-      if (value != null && (type.equals(value.getClass()) || GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(type,value.getClass()))) {
-        return value;
-      }
  else {
-        return null;
-      }
+    Object inst=ref.getWrappedInstance();
+    if (inst instanceof GroovyObject) {
+      value=((GroovyObject)inst).getProperty(name);
     }
   }
- catch (  NoSuchFieldException e) {
+  if (value != null && (type.isAssignableFrom(value.getClass()) || GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(type,value.getClass()))) {
+    return value;
   }
-catch (  IllegalAccessException e) {
+ else {
+    return null;
   }
-  return null;
 }

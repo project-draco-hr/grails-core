@@ -1,9 +1,8 @@
 {
-  Closure constraintsClosure=(Closure)getPropertyValue(GrailsDomainClassProperty.CONSTRAINTS,Closure.class);
+  Closure constraintsClosure=(Closure)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.CONSTRAINTS,Closure.class);
   if (constraintsClosure != null) {
     BeanWrapper reference=getReference();
-    final PropertyDescriptor propDesc=reference.getPropertyDescriptor(GrailsDomainClassProperty.CONSTRAINTS);
-    if ((propDesc.getReadMethod().getModifiers() & Modifier.STATIC) == 0) {
+    if (!GrailsClassUtils.isStaticProperty(getClazz(),GrailsDomainClassProperty.CONSTRAINTS)) {
       LOG.warn("Domain class [" + getFullName() + "] has non-static constraints. Constraints should be "+ "declared static, non-static constraints are deprecated and will be removed in the future");
     }
     GroovyObject instance=(GroovyObject)reference.getWrappedInstance();

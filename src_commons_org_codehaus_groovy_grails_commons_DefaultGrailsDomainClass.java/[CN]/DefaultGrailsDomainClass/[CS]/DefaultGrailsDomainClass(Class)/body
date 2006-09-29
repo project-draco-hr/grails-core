@@ -7,10 +7,10 @@
   this.propertyMap=new HashMap();
   this.relationshipMap=getAssociationMap();
   evaluateConstraints();
-  if (getPropertyValue(GrailsDomainClassProperty.MAPPED_BY,String.class) != null)   this.mappedBy=(String)getPropertyValue(GrailsDomainClassProperty.MAPPED_BY,String.class);
-  Class belongsTo=(Class)getPropertyValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
+  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class) != null)   this.mappedBy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class);
+  Class belongsTo=(Class)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
   if (belongsTo == null) {
-    List ownersProp=(List)getPropertyValue(GrailsDomainClassProperty.BELONGS_TO,List.class);
+    List ownersProp=(List)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.BELONGS_TO,List.class);
     if (ownersProp != null) {
       this.owners=ownersProp;
     }

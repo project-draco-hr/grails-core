@@ -1,5 +1,5 @@
 {
-  String timeOut=(String)getPropertyValue(TIMEOUT,String.class);
+  String timeOut=(String)getPropertyOrStaticPropertyOrFieldValue(TIMEOUT,String.class);
   if (timeOut == null || "".equals(timeOut))   return DEFAULT_TIMEOUT;
   return timeOut;
 }

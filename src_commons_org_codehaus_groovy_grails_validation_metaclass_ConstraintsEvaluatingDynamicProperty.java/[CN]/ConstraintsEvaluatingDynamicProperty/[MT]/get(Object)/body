@@ -1,7 +1,12 @@
 {
-  BeanWrapper bean=new BeanWrapperImpl(object);
+  if (object instanceof GroovyObject) {
+    GroovyObject go=(GroovyObject)object;
+    if (go.getMetaClass() instanceof ProxyMetaClass) {
+      go.setMetaClass(((ProxyMetaClass)go.getMetaClass()).getAdaptee());
+    }
+  }
   try {
-    Closure c=(Closure)bean.getPropertyValue(PROPERTY_NAME);
+    Closure c=(Closure)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(object,PROPERTY_NAME);
     ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
     c.setDelegate(delegate);
     c.call();

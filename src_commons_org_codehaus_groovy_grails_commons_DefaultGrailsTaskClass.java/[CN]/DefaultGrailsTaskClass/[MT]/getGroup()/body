@@ -1,5 +1,5 @@
 {
-  String group=(String)getPropertyValue(GROUP,String.class);
+  String group=(String)getPropertyOrStaticPropertyOrFieldValue(GROUP,String.class);
   if (group == null || "".equals(group))   return DEFAULT_GROUP;
   return group;
 }

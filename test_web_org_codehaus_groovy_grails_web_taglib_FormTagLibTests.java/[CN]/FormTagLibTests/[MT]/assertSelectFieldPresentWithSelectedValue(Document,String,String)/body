@@ -1,4 +1,3 @@
 {
   XPath xpath=new DefaultXPath("//select[@name='" + fieldName + "']/option[@selected='selected' and @value='"+ value+ "']");
-  assertTrue(xpath.booleanValueOf(document));
 }

@@ -1,5 +1,6 @@
 {
   try {
+    log.info("Bootstrapping Grails from classpath");
     ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)GrailsUtil.bootstrapGrailsFromClassPath();
     GrailsApplication application=(GrailsApplication)appCtx.getBean(GrailsApplication.APPLICATION_ID);
     Class[] allClasses=application.getAllClasses();
@@ -26,7 +27,10 @@
       SessionFactoryUtils.releaseSession(sessionHolder.getSession(),sessionFactory);
     }
   }
-  finally {
+ catch (  Exception e) {
+    log.error("Error executing tests: " + e.getMessage(),e);
+  }
+ finally {
     System.exit(0);
   }
 }

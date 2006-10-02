@@ -3,10 +3,13 @@
   for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
     ClassMetadata cmd=(ClassMetadata)i.next();
     Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
+    Map hibernateDomainClassMap=new HashMap();
     if (application != null && persistentClass != null) {
       GrailsDomainClass dc=application.getGrailsDomainClass(persistentClass.getName());
       if (dc == null) {
-        dc=application.addDomainClass(new GrailsHibernateDomainClass(persistentClass,sf,cmd));
+        GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sf,cmd);
+        hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
+        dc=application.addDomainClass(ghdc);
       }
       LOG.info("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
       try {
@@ -20,6 +23,21 @@
       }
  catch (      IntrospectionException e) {
         LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
+      }
+    }
+    for (Iterator it=hibernateDomainClassMap.values().iterator(); it.hasNext(); ) {
+      GrailsDomainClass baseClass=(GrailsDomainClass)it.next();
+      if (!baseClass.isRoot()) {
+        Class superClass=baseClass.getClazz().getSuperclass();
+        while (!superClass.equals(Object.class) && !superClass.equals(GroovyObject.class)) {
+          GrailsDomainClass gdc=(GrailsDomainClass)hibernateDomainClassMap.get(superClass.getName());
+          if (gdc == null || gdc.getSubClasses() == null) {
+            LOG.error("did not find superclass names when mapping inheritance....");
+            break;
+          }
+          gdc.getSubClasses().add(baseClass);
+          superClass=superClass.getSuperclass();
+        }
       }
     }
   }

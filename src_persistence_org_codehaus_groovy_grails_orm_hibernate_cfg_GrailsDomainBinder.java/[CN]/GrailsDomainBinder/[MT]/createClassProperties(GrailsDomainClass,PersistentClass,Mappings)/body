@@ -7,7 +7,7 @@
     if (currentGrailsProp.isManyToMany()) {
       throw new MappingException("Many-to-many relationships are currently not supported by Grails, but one found: " + currentGrailsProp.getName());
     }
-    if (LOG.isTraceEnabled())     LOG.trace("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     if (collectionType != null) {
@@ -16,14 +16,17 @@
       value=collection;
     }
  else     if (currentGrailsProp.isManyToOne()) {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,mappings);
     }
  else     if (currentGrailsProp.isOneToOne()) {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,mappings);
     }
  else {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
       value=new SimpleValue(table);
       bindSimpleValue(persistantProperties[i],(SimpleValue)value,mappings);
     }

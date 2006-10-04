@@ -8,5 +8,8 @@
  else     if (GrailsClassUtils.isDomainClass(currentPropType) && currentProp.isPersistent()) {
       establishDomainClassRelationship(currentProp);
     }
+ else     if (!GrailsDomainConfigurationUtil.isBasicType(currentProp)) {
+      establishDomainClassRelationship(currentProp);
+    }
   }
 }

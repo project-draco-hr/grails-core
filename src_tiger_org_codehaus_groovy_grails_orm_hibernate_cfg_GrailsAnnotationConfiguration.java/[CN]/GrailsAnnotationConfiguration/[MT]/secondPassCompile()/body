@@ -2,9 +2,14 @@
   if (configLocked) {
     return;
   }
-  if (this.grailsApplication != null)   Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
+  if (LOG.isInfoEnabled()) {
+    LOG.info("[GrailsAnnotationConfiguration] [" + this.domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
+  }
   for (Iterator i=this.domainClasses.iterator(); i.hasNext(); ) {
     GrailsDomainClass domainClass=(GrailsDomainClass)i.next();
+    if (LOG.isInfoEnabled()) {
+      LOG.info("[GrailsAnnotationConfiguration] Binding persistent class [" + domainClass.getFullName() + "]");
+    }
     GrailsDomainBinder.bindClass(domainClass,super.createMappings());
   }
   super.secondPassCompile();

@@ -25,7 +25,8 @@ catch (  IllegalAccessException e1) {
   }
  else   if (map instanceof Map) {
     DataBinder dataBinder=new DataBinder(instance);
-    PropertyValues pv=new MutablePropertyValues((Map)map);
+    Map m=convertPotentialGStrings((Map)map);
+    PropertyValues pv=new MutablePropertyValues(m);
     dataBinder.bind(pv);
   }
   return instance;

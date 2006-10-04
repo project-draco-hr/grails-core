@@ -1,0 +1,15 @@
+{
+  Map newArgs=new java.util.HashMap();
+  for (java.util.Iterator i=args.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    Object value=args.get(key);
+    if (key instanceof groovy.lang.GString) {
+      key=((groovy.lang.GString)key).toString();
+    }
+    if (value instanceof groovy.lang.GString) {
+      value=((groovy.lang.GString)value).toString();
+    }
+    newArgs.put(key,value);
+  }
+  return newArgs;
+}

@@ -1,5 +1,4 @@
 {
   if (url == null)   return false;
-  if (DOMAIN_PATH_PATTERN.matcher(url.getFile()).find())   return true;
-  return false;
+  return DOMAIN_PATH_PATTERN.matcher(url.getFile()).find();
 }

@@ -1,7 +1,4 @@
 {
   Matcher m=GrailsResourceUtils.GRAILS_RESOURCE_PATTERN.matcher(path);
-  if (m.find()) {
-    return true;
-  }
-  return false;
+  return m.find();
 }

@@ -5,5 +5,6 @@
   binder.registerCustomEditor(Currency.class,new CurrencyEditor());
   binder.registerCustomEditor(Locale.class,new LocaleEditor());
   binder.registerCustomEditor(TimeZone.class,new TimeZoneEditor());
+  binder.registerCustomEditor(URI.class,new UriEditor());
   return binder;
 }

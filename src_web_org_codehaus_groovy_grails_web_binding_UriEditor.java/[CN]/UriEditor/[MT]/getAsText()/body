@@ -1,0 +1,9 @@
+{
+  URI uri=(URI)getValue();
+  if (uri == null) {
+    return "";
+  }
+ else {
+    return uri.toString();
+  }
+}

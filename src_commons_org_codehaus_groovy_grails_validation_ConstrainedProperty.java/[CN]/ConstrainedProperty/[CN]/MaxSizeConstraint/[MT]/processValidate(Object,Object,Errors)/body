@@ -1,7 +1,7 @@
 {
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,new Integer(maxSize)};
   if (propertyValue == null) {
-    super.rejectValue(errors,MAX_LENGTH_CONSTRAINT + EXCEEDED_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MAX_LENGTH_MESSAGE_CODE,args));
+    return;
   }
  else   if (propertyValue.getClass().isArray()) {
     int length=Array.getLength(propertyValue);

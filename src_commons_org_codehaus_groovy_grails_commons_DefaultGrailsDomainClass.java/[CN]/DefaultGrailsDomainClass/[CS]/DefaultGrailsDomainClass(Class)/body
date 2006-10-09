@@ -6,7 +6,6 @@
   }
   this.propertyMap=new HashMap();
   this.relationshipMap=getAssociationMap();
-  evaluateConstraints();
   if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class) != null)   this.mappedBy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class);
   Class belongsTo=(Class)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
   if (belongsTo == null) {
@@ -48,4 +47,5 @@
     }
   }
   this.persistantProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+  evaluateConstraints();
 }

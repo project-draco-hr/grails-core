@@ -1,7 +1,7 @@
 {
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,new Integer(minSize)};
   if (propertyValue == null) {
-    super.rejectValue(errors,MIN_LENGTH_CONSTRAINT + NOTMET_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MIN_LENGTH_MESSAGE_CODE,args));
+    return;
   }
  else   if (propertyValue.getClass().isArray()) {
     int length=Array.getLength(propertyValue);

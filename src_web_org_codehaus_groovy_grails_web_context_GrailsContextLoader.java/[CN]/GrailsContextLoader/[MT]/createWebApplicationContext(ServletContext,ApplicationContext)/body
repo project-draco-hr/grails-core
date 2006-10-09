@@ -1,0 +1,14 @@
+{
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[GrailsContextLoader] Loading context. Creating parent application context");
+  }
+  WebApplicationContext ctx=super.createWebApplicationContext(servletContext,parent);
+  GrailsApplication application=(GrailsApplication)ctx.getBean(GrailsApplication.APPLICATION_ID);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[GrailsContextLoader] Configurating Grails Application");
+  }
+  GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(application,ctx);
+  WebApplicationContext webContext=configurator.configure(servletContext);
+  LOG.info("[GrailsContextLoader] Grails application loaded.");
+  return webContext;
+}

@@ -1,5 +1,6 @@
 {
   Properties urlMappings=new Properties();
+  springConfig.addSingletonBean(GrailsRuntimeConfigurator.GRAILS_URL_MAPPINGS,UrlMappingFactoryBean.class).addProperty("mappings",urlMappings);
   springConfig.addSingletonBean(SimpleGrailsController.APPLICATION_CONTEXT_ID,SimpleGrailsController.class).setAutowire("byType");
   springConfig.addSingletonBean("jspViewResolver",GrailsViewResolver.class).addProperty("viewClass",org.springframework.web.servlet.view.JstlView.class).addProperty("prefix",GrailsApplicationAttributes.PATH_TO_VIEWS).addProperty("suffix",".jsp");
   BeanConfiguration simpleUrlHandlerMapping=null;
@@ -31,7 +32,7 @@
     }
   }
   if (simpleUrlHandlerMapping != null) {
-    simpleUrlHandlerMapping.addProperty("mappings",urlMappings);
+    simpleUrlHandlerMapping.addProperty("mappings",new RuntimeBeanReference(GRAILS_URL_MAPPINGS));
   }
   GrailsTagLibClass[] tagLibs=application.getGrailsTabLibClasses();
   for (int i=0; i < tagLibs.length; i++) {

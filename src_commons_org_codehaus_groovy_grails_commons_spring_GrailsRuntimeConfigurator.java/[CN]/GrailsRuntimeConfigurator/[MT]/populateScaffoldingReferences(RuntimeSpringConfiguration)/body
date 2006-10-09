@@ -10,7 +10,7 @@
       }
     }
     if (scaffoldedClass == null) {
-      LOG.info("[Spring] Scaffolding disabled for controller [" + simpleControllers[i].getFullName() + "], no equivalent domain class named ["+ simpleControllers[i].getName()+ "]");
+      LOG.debug("[RuntimeConfiguration] Scaffolding disabled for controller [" + simpleControllers[i].getFullName() + "], no equivalent domain class named ["+ simpleControllers[i].getName()+ "]");
     }
  else {
       BeanConfiguration scaffolder=springConfig.addSingletonBean(simpleControllers[i].getFullName() + "Scaffolder",DefaultGrailsScaffolder.class);

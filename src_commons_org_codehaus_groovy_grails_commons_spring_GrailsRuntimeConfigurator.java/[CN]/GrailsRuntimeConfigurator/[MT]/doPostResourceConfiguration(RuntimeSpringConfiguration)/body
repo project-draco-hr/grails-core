@@ -1,0 +1,21 @@
+{
+  try {
+    Resource springResources=parent.getResource(GrailsRuntimeConfigurator.SPRING_RESOURCES_XML);
+    if (springResources.exists()) {
+      LOG.debug("[RuntimeConfiguration] Configuring additional beans from " + springResources.getURL());
+      XmlBeanFactory xmlBf=new XmlBeanFactory(springResources);
+      String[] beanNames=xmlBf.getBeanDefinitionNames();
+      LOG.debug("[RuntimeConfiguration] Found [" + beanNames.length + "] beans to configure");
+      for (int k=0; k < beanNames.length; k++) {
+        BeanDefinition bd=xmlBf.getBeanDefinition(beanNames[k]);
+        springConfig.addBeanDefinition(beanNames[k],bd);
+      }
+    }
+ else     if (LOG.isDebugEnabled()) {
+      LOG.debug("[RuntimeConfiguration] " + GrailsRuntimeConfigurator.SPRING_RESOURCES_XML + " not found. Skipping configuration.");
+    }
+  }
+ catch (  Exception ex) {
+    LOG.warn("[RuntimeConfiguration] Unable to perform post initialization config: " + SPRING_RESOURCES_XML,ex);
+  }
+}

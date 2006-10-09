@@ -1,13 +1,13 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
-  Class groovyClass=gcl.parseClass("class TestClass {\n" + "@Property Long id\n" + "@Property Long version\n"+ "@Property String login\n"+ "@Property String email\n"+ "@Property constraints = {\n"+ "login(length:5..15,nullable:false,blank:false)\n"+ "email(email:true)\n"+ "}\n"+ "}");
+  Class groovyClass=gcl.parseClass("class TestClass {\n" + "Long id\n" + "Long version\n"+ "String login\n"+ "String email\n"+ "static constraints = {\n"+ "login(length:5..15,nullable:false,blank:false)\n"+ "email(email:true)\n"+ "}\n"+ "}");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(groovyClass);
   Map constrainedProperties=domainClass.getConstrainedProperties();
   assertTrue(constrainedProperties.size() == 2);
   ConstrainedProperty loginConstraint=(ConstrainedProperty)constrainedProperties.get("login");
   assertTrue(loginConstraint.getAppliedConstraints().size() == 3);
   ConstrainedProperty emailConstraint=(ConstrainedProperty)constrainedProperties.get("email");
-  assertTrue(emailConstraint.getAppliedConstraints().size() == 1);
+  assertEquals(2,emailConstraint.getAppliedConstraints().size());
   GroovyObject go=(GroovyObject)groovyClass.newInstance();
   go.setProperty("email","rubbish_email");
   Errors errors=new BindException(go,"TestClass");

@@ -1,7 +1,13 @@
 {
-  Matcher m=GrailsResourceUtils.GRAILS_RESOURCE_PATTERN.matcher(path);
+  Matcher m=GrailsResourceUtils.GRAILS_RESOURCE_PATTERN_FIRST_MATCH.matcher(path);
   if (m.find()) {
     return m.group(1);
+  }
+ else {
+    m=GRAILS_RESOURCE_PATTERN_SECOND_MATCH.matcher(path);
+    if (m.find()) {
+      return m.group(1);
+    }
   }
   return null;
 }

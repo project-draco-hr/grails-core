@@ -1,4 +1,8 @@
 {
-  Matcher m=GrailsResourceUtils.GRAILS_RESOURCE_PATTERN.matcher(path);
-  return m.find();
+  Matcher m=GrailsResourceUtils.GRAILS_RESOURCE_PATTERN_FIRST_MATCH.matcher(path);
+  boolean matched=m.find();
+  if (!matched) {
+    matched=GRAILS_RESOURCE_PATTERN_SECOND_MATCH.matcher(path).find();
+  }
+  return matched;
 }

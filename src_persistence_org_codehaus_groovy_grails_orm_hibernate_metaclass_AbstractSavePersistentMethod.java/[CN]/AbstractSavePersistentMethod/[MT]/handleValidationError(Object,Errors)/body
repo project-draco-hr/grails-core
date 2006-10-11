@@ -1,0 +1,14 @@
+{
+  HibernateTemplate t=getHibernateTemplate();
+  if (t.contains(target)) {
+    t.evict(target);
+  }
+  if (target instanceof GroovyObject) {
+    ((GroovyObject)target).setProperty(DomainClassMethods.ERRORS_PROPERTY,errors);
+  }
+ else {
+    DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
+    metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
+  }
+  return null;
+}

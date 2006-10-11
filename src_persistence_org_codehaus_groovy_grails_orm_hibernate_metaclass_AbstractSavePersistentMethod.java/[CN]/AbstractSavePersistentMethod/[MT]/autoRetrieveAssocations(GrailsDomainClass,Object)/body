@@ -1,0 +1,21 @@
+{
+  BeanWrapper bean=new BeanWrapperImpl(target);
+  HibernateTemplate t=getHibernateTemplate();
+  GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();
+  for (int i=0; i < props.length; i++) {
+    GrailsDomainClassProperty prop=props[i];
+    if (prop.isManyToOne() || prop.isOneToOne()) {
+      Object propValue=bean.getPropertyValue(prop.getName());
+      if (propValue != null && !t.contains(propValue)) {
+        GrailsDomainClass otherSide=application.getGrailsDomainClass(prop.getType().getName());
+        if (otherSide != null) {
+          BeanWrapper propBean=new BeanWrapperImpl(propValue);
+          Serializable id=(Serializable)propBean.getPropertyValue(otherSide.getIdentifier().getName());
+          if (id != null) {
+            bean.setPropertyValue(prop.getName(),t.get(prop.getType(),id));
+          }
+        }
+      }
+    }
+  }
+}

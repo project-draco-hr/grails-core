@@ -1,0 +1,4 @@
+{
+  getHibernateTemplate().merge(target);
+  getHibernateTemplate().lock(target,LockMode.NONE);
+}

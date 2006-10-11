@@ -1,0 +1,22 @@
+{
+  HibernateTemplate t=getHibernateTemplate();
+  GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
+  if (shouldValidate(arguments,domainClass)) {
+    Validator validator=domainClass.getValidator();
+    Errors errors=new BindException(target,target.getClass().getName());
+    if (validator != null) {
+      if (validator instanceof GrailsDomainClassValidator) {
+        ((GrailsDomainClassValidator)validator).setHibernateTemplate(getHibernateTemplate());
+      }
+      validator.validate(target,errors);
+      if (errors.hasErrors()) {
+        return handleValidationError(target,errors);
+      }
+    }
+  }
+  if (domainClass != null) {
+    autoRetrieveAssocations(domainClass,target);
+  }
+  performSave(target);
+  return target;
+}

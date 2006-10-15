@@ -6,5 +6,6 @@
   checkMultipartFiles(request,mpvs);
   checkStructuredDateDefinitions(request,mpvs);
   autoCreateIfPossible(mpvs);
+  bindAssociations(mpvs);
   super.doBind(mpvs);
 }

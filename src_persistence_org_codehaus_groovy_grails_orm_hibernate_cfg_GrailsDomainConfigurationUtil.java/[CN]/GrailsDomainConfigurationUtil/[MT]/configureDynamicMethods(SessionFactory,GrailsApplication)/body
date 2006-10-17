@@ -14,6 +14,7 @@
       LOG.debug("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
       try {
         DynamicMethods dm=new DomainClassMethods(application,persistentClass,sf,application.getClassLoader());
+        dm.addDynamicMethodInvocation(new AddToRelatedDynamicMethod(dc));
         for (int j=0; j < dc.getPersistantProperties().length; j++) {
           GrailsDomainClassProperty p=dc.getPersistantProperties()[j];
           if (p.isOneToMany() || p.isManyToMany()) {

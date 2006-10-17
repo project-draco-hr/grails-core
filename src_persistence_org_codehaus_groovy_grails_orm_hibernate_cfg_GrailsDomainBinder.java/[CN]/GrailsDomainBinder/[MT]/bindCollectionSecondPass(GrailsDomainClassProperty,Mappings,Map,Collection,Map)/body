@@ -8,7 +8,7 @@
       throw new MappingException("Association references unmapped class: " + oneToMany.getReferencedEntityName());
     }
     oneToMany.setAssociatedClass(associatedClass);
-    collection.setCollectionTable(associatedClass.getTable());
+    if (!property.isManyToMany())     collection.setCollectionTable(associatedClass.getTable());
     collection.setLazy(true);
     if (SortedSet.class.isAssignableFrom(property.getType())) {
       collection.setSorted(true);
@@ -35,6 +35,10 @@
         linkValueUsingAColumnCopy(otherSide,column,key);
       }
     }
+ else     if (property.isManyToMany()) {
+      if (!property.isOwningSide())       collection.setInverse(true);
+      bindSimpleValue(property,key,mappings);
+    }
   }
  else {
     bindSimpleValue(property,key,mappings);
@@ -42,12 +46,7 @@
   collection.setKey(key);
   key.setNullable(false);
   key.setUpdateable(false);
-  if (property.isManyToMany()) {
-    ManyToOne element=new ManyToOne(collection.getCollectionTable());
-    collection.setElement(element);
-    bindManyToOne(property,element,mappings);
-  }
- else   if (property.isOneToMany() && !property.isBidirectional()) {
+  if (property.isOneToMany() && !property.isBidirectional()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String entityName=oneToMany.getReferencedEntityName();
     PersistentClass referenced=mappings.getClass(entityName);

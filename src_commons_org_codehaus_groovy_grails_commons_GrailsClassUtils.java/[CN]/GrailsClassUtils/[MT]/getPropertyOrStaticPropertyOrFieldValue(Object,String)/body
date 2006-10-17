@@ -12,7 +12,7 @@
       return getStaticPropertyValue(clazz,name);
     }
  else {
-      throw new InvalidPropertyException(clazz,name,"No property or static property or static field");
+      return null;
     }
   }
 }

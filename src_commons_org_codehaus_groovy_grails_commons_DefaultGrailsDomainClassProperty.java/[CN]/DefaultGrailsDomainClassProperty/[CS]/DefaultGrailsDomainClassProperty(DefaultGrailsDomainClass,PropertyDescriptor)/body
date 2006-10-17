@@ -7,43 +7,11 @@
   this.type=descriptor.getPropertyType();
   this.identity=descriptor.getName().equals(IDENTITY);
   if (!domainClass.isRoot()) {
-    Class superClass=domainClass.getClazz().getSuperclass();
-    PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(superClass,this.name);
-    if (pd != null && pd.getReadMethod() != null) {
-      this.inherited=true;
-    }
+    this.inherited=GrailsClassUtils.isPropertyInherited(domainClass.getClazz(),this.name);
   }
-  List optionalProps;
-  List transientProps;
-  optionalProps=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(OPTIONAL,List.class);
-  transientProps=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(TRANSIENT,List.class);
-  List evanescent=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(EVANESCENT,List.class);
-  if (evanescent != null) {
-    if (transientProps == null)     transientProps=new ArrayList();
-    transientProps.addAll(evanescent);
-  }
-  if (optionalProps != null) {
-    for (Iterator i=optionalProps.iterator(); i.hasNext(); ) {
-      Object currentObj=i.next();
-      if (currentObj instanceof String) {
-        String propertyName=(String)currentObj;
-        if (propertyName.equals(this.name)) {
-          this.optional=true;
-          break;
-        }
-      }
-    }
-  }
-  if (transientProps != null) {
-    for (Iterator i=transientProps.iterator(); i.hasNext(); ) {
-      Object currentObj=i.next();
-      if (currentObj instanceof String) {
-        String propertyName=(String)currentObj;
-        if (propertyName.equals(this.name)) {
-          this.persistant=false;
-          break;
-        }
-      }
-    }
-  }
+  List optionalProps=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(OPTIONAL,List.class);
+  List transientProps=getTransients(domainClass);
+  checkIfOptional(optionalProps);
+  checkIfTransient(transientProps);
+  establishFetchMode();
 }

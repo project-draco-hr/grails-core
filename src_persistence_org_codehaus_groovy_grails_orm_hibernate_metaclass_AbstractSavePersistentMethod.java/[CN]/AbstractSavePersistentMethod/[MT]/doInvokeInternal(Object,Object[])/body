@@ -1,5 +1,4 @@
 {
-  HibernateTemplate t=getHibernateTemplate();
   GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
   if (shouldValidate(arguments,domainClass)) {
     Validator validator=domainClass.getValidator();
@@ -17,6 +16,6 @@
   if (domainClass != null) {
     autoRetrieveAssocations(domainClass,target);
   }
-  performSave(target);
+  performSave(target,shouldFlush(arguments));
   return target;
 }

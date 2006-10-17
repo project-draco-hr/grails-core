@@ -1,0 +1,11 @@
+{
+  if (arguments.length > 0) {
+    if (arguments[0] instanceof Boolean) {
+      return ((Boolean)arguments[0]).booleanValue();
+    }
+ else {
+      return true;
+    }
+  }
+  return false;
+}

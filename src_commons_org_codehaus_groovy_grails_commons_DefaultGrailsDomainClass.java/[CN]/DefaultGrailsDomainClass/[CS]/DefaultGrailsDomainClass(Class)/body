@@ -7,30 +7,8 @@
   this.propertyMap=new HashMap();
   this.relationshipMap=getAssociationMap();
   if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class) != null)   this.mappedBy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class);
-  Class belongsTo=(Class)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
-  if (belongsTo == null) {
-    List ownersProp=(List)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.BELONGS_TO,List.class);
-    if (ownersProp != null) {
-      this.owners=ownersProp;
-    }
-  }
- else {
-    this.owners=new ArrayList();
-    this.owners.add(belongsTo);
-  }
-  for (int i=0; i < propertyDescriptors.length; i++) {
-    PropertyDescriptor descriptor=propertyDescriptors[i];
-    if (isNotConfigurational(descriptor)) {
-      GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
-      this.propertyMap.put(property.getName(),property);
-      if (property.isIdentity()) {
-        this.identifier=property;
-      }
- else       if (property.getName().equals(GrailsDomainClassProperty.VERSION)) {
-        this.version=property;
-      }
-    }
-  }
+  establishRelationshipOwners();
+  populateDomainClassProperties(propertyDescriptors);
   if (this.identifier == null) {
     throw new GrailsDomainException("Identity property not found, but required in domain class [" + getFullName() + "]");
   }
@@ -39,13 +17,6 @@
   }
   this.properties=(GrailsDomainClassProperty[])this.propertyMap.values().toArray(new GrailsDomainClassProperty[this.propertyMap.size()]);
   establishRelationships();
-  Collection tempList=new ArrayList();
-  for (Iterator i=this.propertyMap.values().iterator(); i.hasNext(); ) {
-    GrailsDomainClassProperty currentProp=(GrailsDomainClassProperty)i.next();
-    if (currentProp.isPersistent() && !currentProp.isIdentity() && !currentProp.getName().equals(GrailsDomainClassProperty.VERSION)) {
-      tempList.add(currentProp);
-    }
-  }
-  this.persistantProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+  establishPersistentProperties();
   evaluateConstraints();
 }

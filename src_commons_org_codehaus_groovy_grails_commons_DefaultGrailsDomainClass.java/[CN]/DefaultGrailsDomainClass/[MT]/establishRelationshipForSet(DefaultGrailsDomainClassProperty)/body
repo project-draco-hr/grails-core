@@ -30,6 +30,9 @@
         }
       }
       establishRelationshipForSetToType(property,relatedClassPropertyType);
+      if (property.isManyToMany()) {
+        establishOwnerOfManyToMany(property,relatedClassType);
+      }
     }
  else {
       property.setPersistant(false);

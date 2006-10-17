@@ -1,3 +1,4 @@
 {
   getHibernateTemplate().saveOrUpdate(target);
+  if (flush)   getHibernateTemplate().flush();
 }

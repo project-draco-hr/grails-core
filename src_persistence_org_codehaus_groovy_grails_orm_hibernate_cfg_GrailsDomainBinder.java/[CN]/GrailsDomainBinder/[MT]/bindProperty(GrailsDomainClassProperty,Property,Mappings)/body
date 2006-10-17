@@ -8,6 +8,11 @@
     if (grailsProperty.isOneToMany()) {
       prop.setCascade("all");
     }
+ else     if (grailsProperty.isManyToMany()) {
+      if (grailsProperty.isOwningSide()) {
+        prop.setCascade("all");
+      }
+    }
  else     if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
       GrailsDomainClass domainClass=grailsProperty.getDomainClass();
       if (domainClass.isOwningClass(grailsProperty.getType())) {

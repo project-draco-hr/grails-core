@@ -4,7 +4,7 @@
   Column column=new Column();
   if (grailsProp.isManyToOne())   column.setNullable(false);
   column.setValue(simpleValue);
-  bindColumn(grailsProp,column);
+  bindColumn(grailsProp,column,table);
   if (table != null)   table.addColumn(column);
   simpleValue.addColumn(column);
 }

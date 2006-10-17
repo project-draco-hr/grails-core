@@ -1,4 +1,5 @@
 {
   getHibernateTemplate().merge(target);
   getHibernateTemplate().lock(target,LockMode.NONE);
+  if (flush)   getHibernateTemplate().flush();
 }

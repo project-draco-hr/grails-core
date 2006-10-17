@@ -1,0 +1,14 @@
+{
+  if (optionalProps != null) {
+    for (Iterator i=optionalProps.iterator(); i.hasNext(); ) {
+      Object currentObj=i.next();
+      if (currentObj instanceof String) {
+        String propertyName=(String)currentObj;
+        if (propertyName.equals(this.name)) {
+          this.optional=true;
+          break;
+        }
+      }
+    }
+  }
+}

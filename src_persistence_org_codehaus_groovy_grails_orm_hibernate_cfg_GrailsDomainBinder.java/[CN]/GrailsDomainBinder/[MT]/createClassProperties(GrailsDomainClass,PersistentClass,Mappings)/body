@@ -4,9 +4,6 @@
   for (int i=0; i < persistantProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistantProperties[i];
     if (currentGrailsProp.isInherited())     continue;
-    if (currentGrailsProp.isManyToMany()) {
-      throw new MappingException("Many-to-many relationships are currently not supported by Grails, but one found: " + currentGrailsProp.getName());
-    }
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());

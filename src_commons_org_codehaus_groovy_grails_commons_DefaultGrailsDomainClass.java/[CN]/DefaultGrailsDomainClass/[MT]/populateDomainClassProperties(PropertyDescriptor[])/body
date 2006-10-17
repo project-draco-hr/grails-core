@@ -1,0 +1,15 @@
+{
+  for (int i=0; i < propertyDescriptors.length; i++) {
+    PropertyDescriptor descriptor=propertyDescriptors[i];
+    if (isNotConfigurational(descriptor)) {
+      GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
+      this.propertyMap.put(property.getName(),property);
+      if (property.isIdentity()) {
+        this.identifier=property;
+      }
+ else       if (property.getName().equals(GrailsDomainClassProperty.VERSION)) {
+        this.version=property;
+      }
+    }
+  }
+}

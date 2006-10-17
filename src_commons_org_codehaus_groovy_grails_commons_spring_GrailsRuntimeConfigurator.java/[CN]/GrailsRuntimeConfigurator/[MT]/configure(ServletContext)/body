@@ -2,14 +2,7 @@
   RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
   if (context != null)   springConfig.setServletContext(context);
   Assert.notNull(application);
-  springConfig.addSingletonBean(CLASS_LOADER_BEAN,MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getClassLoader");
-  springConfig.addSingletonBean(CLASS_EDITOR_BEAN,ClassEditor.class).addProperty(CLASS_LOADER_BEAN,new RuntimeBeanReference(CLASS_LOADER_BEAN));
-  BeanConfiguration propertyEditors=springConfig.addSingletonBean(CUSTOM_EDITORS_BEAN,CustomEditorConfigurer.class);
-  Map customEditors=new ManagedMap();
-  customEditors.put(java.lang.Class.class,new RuntimeBeanReference(CLASS_EDITOR_BEAN));
-  propertyEditors.addProperty(CUSTOM_EDITORS_BEAN,customEditors);
-  springConfig.addSingletonBean(EXCEPTION_HANDLER_BEAN,GrailsExceptionResolver.class).addProperty("exceptionMappings","java.lang.Exception=/error");
-  springConfig.addSingletonBean(MULTIPART_RESOLVER_BEAN,CommonsMultipartResolver.class);
+  populateGlobalBeans(springConfig);
   LOG.debug("[RuntimeConfiguration] Configuring i18n support");
   populateI18nSupport(springConfig);
   LOG.debug("[RuntimeConfiguration] Configuring Grails data source");

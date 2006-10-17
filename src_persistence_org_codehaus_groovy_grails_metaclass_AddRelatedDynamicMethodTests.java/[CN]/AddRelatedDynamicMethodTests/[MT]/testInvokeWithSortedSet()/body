@@ -5,7 +5,7 @@
   GroovyObject author=(GroovyObject)gcl.loadClass("Author",false,true).newInstance();
   GrailsApplication ga=new DefaultGrailsApplication(new Class[]{book.getClass(),author.getClass()},gcl);
   GrailsDomainClass authorDC=ga.getGrailsDomainClass("Author");
-  AddRelatedDynamicMethod ardm=new AddRelatedDynamicMethod(authorDC.getPropertyByName("books"));
+  AbstractAddRelatedDynamicMethod ardm=new AddRelatedDynamicMethod(authorDC.getPropertyByName("books"));
   try {
     ardm.invoke(author,new Object[0]);
     fail("Should have thrown missing method exception!");

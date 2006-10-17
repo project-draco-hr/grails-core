@@ -1,0 +1,11 @@
+{
+  RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
+  populateGlobalBeans(springConfig);
+  LOG.debug("[RuntimeConfiguration] Configuring i18n support");
+  populateI18nSupport(springConfig);
+  LOG.debug("[RuntimeConfiguration] Configuring Grails data source");
+  populateDataSourceReferences(springConfig);
+  LOG.debug("[RuntimeConfiguration] Configuring Grails domain");
+  populateDomainClassReferences(springConfig);
+  return springConfig.getApplicationContext();
+}

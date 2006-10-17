@@ -1,4 +1,6 @@
 {
+  springConfig.addSingletonBean(EXCEPTION_HANDLER_BEAN,GrailsExceptionResolver.class).addProperty("exceptionMappings","java.lang.Exception=/error");
+  springConfig.addSingletonBean(MULTIPART_RESOLVER_BEAN,CommonsMultipartResolver.class);
   Properties urlMappings=new Properties();
   springConfig.addSingletonBean(GrailsRuntimeConfigurator.GRAILS_URL_MAPPINGS,UrlMappingFactoryBean.class).addProperty("mappings",urlMappings);
   springConfig.addSingletonBean(SimpleGrailsController.APPLICATION_CONTEXT_ID,SimpleGrailsController.class).setAutowire("byType");

@@ -1,0 +1,9 @@
+{
+  if (grailsProperty.isBidirectional()) {
+    GrailsDomainClassProperty otherSide=grailsProperty.getOtherSide();
+    if (otherSide != null) {
+      BeanWrapper other=new BeanWrapperImpl(toAdd);
+      other.setPropertyValue(otherSide.getName(),target);
+    }
+  }
+}

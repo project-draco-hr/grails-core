@@ -2,32 +2,13 @@
   if (arguments.length == 0) {
     throw new MissingMethodException(methodName,target.getClass(),arguments);
   }
+  if (arguments[0] == null) {
+    throw new IllegalArgumentException("Argument to [" + methodName + "] cannot be null");
+  }
   if (!arguments[0].getClass().equals(property.getReferencedPropertyType())) {
     throw new MissingMethodException(methodName,target.getClass(),arguments);
   }
-  BeanWrapper bean=new BeanWrapperImpl(target);
-  Collection elements=(Collection)bean.getPropertyValue(property.getName());
-  if (elements == null) {
-    Class colType=bean.getPropertyType(property.getName());
-    if (colType.equals(List.class)) {
-      elements=new ArrayList();
-    }
- else     if (colType.equals(SortedSet.class)) {
-      elements=new TreeSet();
-    }
- else {
-      elements=new HashSet();
-    }
-  }
   Object toAdd=arguments[0];
-  if (property.isBidirectional()) {
-    GrailsDomainClassProperty otherSide=property.getOtherSide();
-    if (otherSide != null) {
-      BeanWrapper other=new BeanWrapperImpl(toAdd);
-      other.setPropertyValue(otherSide.getName(),target);
-    }
-  }
-  elements.add(toAdd);
-  bean.setPropertyValue(property.getName(),elements);
+  addObjectToTarget(target,toAdd,property.getName());
   return target;
 }

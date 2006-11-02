@@ -32,6 +32,12 @@
   errors=new BindException(this,"testObject");
   c.validate(this,this.testURL,errors);
   assertFalse(errors.hasErrors());
+  this.testURL=null;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testURL,errors);
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testURL");
+  assertNotNull(error);
   cp.applyConstraint(ConstrainedProperty.URL_CONSTRAINT,null);
   cp.applyConstraint(ConstrainedProperty.BLANK_CONSTRAINT,new Boolean(false));
   assertTrue(cp.getAppliedConstraints().size() == 1);
@@ -149,5 +155,27 @@
   assertTrue(errors.hasErrors());
   error=errors.getFieldError("testDate");
   System.out.println(error);
+  assertNotNull(error);
+  cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testURL",String.class);
+  cp.applyConstraint(ConstrainedProperty.MATCHES_CONSTRAINT,"[a-zA-Z]");
+  assertTrue(cp.getAppliedConstraints().size() == 1);
+  errors=new BindException(this,"testObject");
+  for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
+    c=(Constraint)i.next();
+    c.validate(this,this.testURL,errors);
+  }
+  this.testURL="$";
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testURL");
+  assertNotNull(error);
+  this.testURL="j";
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testURL,errors);
+  assertFalse(errors.hasErrors());
+  this.testURL=null;
+  errors=new BindException(this,"testObject");
+  c.validate(this,this.testURL,errors);
+  assertTrue(errors.hasErrors());
+  error=errors.getFieldError("testURL");
   assertNotNull(error);
 }

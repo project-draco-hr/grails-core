@@ -52,6 +52,15 @@
   }
   controllerName=WordUtils.uncapitalize(controllerClass.getName());
   GroovyObject controller=getControllerInstance(controllerClass);
+  if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
+    try {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+      return null;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 403 error",e);
+    }
+  }
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   if (this.interceptor == null) {
     try {

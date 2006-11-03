@@ -1,0 +1,5 @@
+{
+  MockHttpServletResponse response=new MockHttpServletResponse();
+  execute(uri,null,httpMethod,response);
+  assertEquals(expectedStatusCode,response.getStatus());
+}

@@ -3,10 +3,11 @@
   Class c1=cl.parseClass("class TestController {\n" + "@Property Closure test = {\n" + "return [ \"test\" : \"123\" ]\n"+ "}\n"+ "}");
   Class c2=cl.parseClass("class SimpleController {\n" + "@Property Closure test = {\n" + "}\n"+ "}");
   Class c3=cl.parseClass("class NoViewController {\n" + "@Property Closure test = {\n" + "request, response ->\n"+ "new grails.util.OpenRicoBuilder(response).ajax { element(id:\"test\") { } };\n"+ "return null;\n"+ "}\n"+ "}");
+  Class c4=cl.parseClass("class RestrictedController {\n" + "def allowedMethods=[action1:'POST', action3:['PUT', 'DELETE']]\n" + "def action1 = {}\n"+ "def action2 = {}\n"+ "def action3 = {}\n"+ "}");
   Thread.currentThread().setContextClassLoader(cl);
   this.localContext=new GenericApplicationContext();
   ConstructorArgumentValues args=new ConstructorArgumentValues();
-  args.addGenericArgumentValue(new Class[]{c1,c2,c3});
+  args.addGenericArgumentValue(new Class[]{c1,c2,c3,c4});
   args.addGenericArgumentValue(cl);
   MutablePropertyValues propValues=new MutablePropertyValues();
   BeanDefinition grailsApplicationBean=new RootBeanDefinition(DefaultGrailsApplication.class,args,propValues);

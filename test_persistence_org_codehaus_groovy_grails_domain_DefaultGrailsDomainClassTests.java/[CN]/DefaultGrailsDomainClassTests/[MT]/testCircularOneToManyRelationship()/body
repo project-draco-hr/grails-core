@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
-  Class a=gcl.parseClass("class A { \n" + "@Property Long id\n" + "@Property Long version\n"+ "@Property relatesToMany = [ children : A]\n"+ "@Property A parent\n"+ "@Property Set children\n"+ "}");
+  Class a=gcl.parseClass("class A { \n" + " Long id\n" + " Long version\n"+ " def relatesToMany = [ children : A]\n"+ " A parent\n"+ " Set children\n"+ "}");
   GrailsDomainClass dc=new DefaultGrailsDomainClass(a);
   GrailsDomainClass[] dcs=new GrailsDomainClass[1];
   dcs[0]=dc;

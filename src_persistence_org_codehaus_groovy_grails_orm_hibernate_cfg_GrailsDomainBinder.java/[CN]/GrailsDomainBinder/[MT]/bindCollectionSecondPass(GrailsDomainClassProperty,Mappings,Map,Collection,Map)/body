@@ -1,5 +1,6 @@
 {
   PersistentClass associatedClass=null;
+  LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   if (collection.isOneToMany()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();
@@ -10,54 +11,36 @@
     oneToMany.setAssociatedClass(associatedClass);
     if (!property.isManyToMany())     collection.setCollectionTable(associatedClass.getTable());
     collection.setLazy(true);
-    if (SortedSet.class.isAssignableFrom(property.getType())) {
+    if (isSorted(property)) {
       collection.setSorted(true);
     }
-    LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   }
-  KeyValue keyValue;
-  String propertyRef=collection.getReferencedPropertyName();
-  if (propertyRef == null) {
-    keyValue=collection.getOwner().getIdentifier();
-  }
- else {
-    keyValue=(KeyValue)collection.getOwner().getProperty(propertyRef).getValue();
-  }
-  DependantValue key=new DependantValue(collection.getCollectionTable(),keyValue);
-  key.setTypeName(null);
+  DependantValue key=createPrimaryKeyValue(property,collection,persistentClasses);
   if (property.isBidirectional()) {
     GrailsDomainClassProperty otherSide=property.getOtherSide();
     if (otherSide.isManyToOne()) {
-      collection.setInverse(true);
-      Iterator mappedByColumns=associatedClass.getProperty(otherSide.getName()).getValue().getColumnIterator();
-      while (mappedByColumns.hasNext()) {
-        Column column=(Column)mappedByColumns.next();
-        linkValueUsingAColumnCopy(otherSide,column,key);
-      }
+      linkBidirectionalOneToMany(collection,associatedClass,key,otherSide);
     }
  else     if (property.isManyToMany()) {
-      if (!property.isOwningSide())       collection.setInverse(true);
-      bindSimpleValue(property,key,mappings);
+      bindDependentKeyValue(property,key,mappings);
     }
   }
  else {
-    bindSimpleValue(property,key,mappings);
+    bindDependentKeyValue(property,key,mappings);
   }
   collection.setKey(key);
-  key.setNullable(false);
-  key.setUpdateable(false);
-  if (property.isOneToMany() && !property.isBidirectional()) {
-    OneToMany oneToMany=(OneToMany)collection.getElement();
-    String entityName=oneToMany.getReferencedEntityName();
-    PersistentClass referenced=mappings.getClass(entityName);
-    Backref prop=new Backref();
-    prop.setEntityName(property.getDomainClass().getFullName());
-    prop.setName('_' + property.getDomainClass().getShortName() + '_'+ property.getName()+ "Backref");
-    prop.setUpdateable(true);
-    prop.setInsertable(true);
-    prop.setCollectionRole(collection.getRole());
-    prop.setValue(collection.getKey());
-    prop.setOptional(true);
-    referenced.addProperty(prop);
+  if (property.isManyToMany()) {
+    GrailsDomainClassProperty otherSide=property.getOtherSide();
+    if (property.isBidirectional()) {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Mapping other side " + otherSide.getDomainClass().getName() + "."+ otherSide.getName()+ " -> "+ collection.getCollectionTable().getName()+ " as ManyToOne");
+      ManyToOne element=new ManyToOne(collection.getCollectionTable());
+      bindManyToMany(otherSide,element,mappings);
+      collection.setElement(element);
+    }
+ else {
+    }
+  }
+ else   if (isUnidirectionalOneToMany(property)) {
+    bindUnidirectionalOneToMany(property,mappings,collection);
   }
 }

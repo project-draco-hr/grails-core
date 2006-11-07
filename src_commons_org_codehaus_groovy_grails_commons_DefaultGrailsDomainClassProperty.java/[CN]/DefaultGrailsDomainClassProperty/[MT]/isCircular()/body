@@ -1,0 +1,6 @@
+{
+  if (this.otherSide != null) {
+    if (this.otherSide.getDomainClass().equals(this.domainClass))     return true;
+  }
+  return false;
+}

@@ -1,0 +1,4 @@
+{
+  bindManyToOne(property,element,mappings);
+  element.setReferencedEntityName(property.getDomainClass().getFullName());
+}

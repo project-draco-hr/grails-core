@@ -1,0 +1,6 @@
+{
+  manyToOne.setFetchMode(FetchMode.DEFAULT);
+  manyToOne.setLazy(true);
+  manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
+  manyToOne.setIgnoreNotFound(true);
+}

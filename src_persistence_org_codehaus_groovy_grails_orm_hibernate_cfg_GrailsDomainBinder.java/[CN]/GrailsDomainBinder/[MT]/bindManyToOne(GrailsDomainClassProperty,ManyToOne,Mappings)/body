@@ -1,7 +1,4 @@
 {
-  manyToOne.setFetchMode(FetchMode.DEFAULT);
-  manyToOne.setLazy(true);
+  bindManyToOneValues(property,manyToOne);
   bindSimpleValue(property,manyToOne,mappings);
-  manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
-  manyToOne.setIgnoreNotFound(true);
 }

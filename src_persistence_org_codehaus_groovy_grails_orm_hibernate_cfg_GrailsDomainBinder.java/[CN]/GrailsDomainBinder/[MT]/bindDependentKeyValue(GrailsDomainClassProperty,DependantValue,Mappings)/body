@@ -1,0 +1,4 @@
+{
+  if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] binding  [" + property.getName() + "] with dependant key");
+  bindSimpleValue(property,key,mappings);
+}

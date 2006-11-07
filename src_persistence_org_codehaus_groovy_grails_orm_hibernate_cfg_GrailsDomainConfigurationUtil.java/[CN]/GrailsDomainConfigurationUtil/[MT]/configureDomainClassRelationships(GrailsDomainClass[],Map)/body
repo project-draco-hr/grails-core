@@ -27,7 +27,7 @@
         if (referenced != null) {
           GrailsDomainClassProperty[] referencedProperties=referenced.getPersistantProperties();
           for (int k=0; k < referencedProperties.length; k++) {
-            if (prop.equals(referencedProperties[k]))             continue;
+            if (prop.equals(referencedProperties[k]) && prop.isBidirectional())             continue;
             if (domainClasses[i].getClazz().equals(referencedProperties[k].getReferencedPropertyType())) {
               prop.setOtherSide(referencedProperties[k]);
               break;

@@ -6,15 +6,18 @@
  else {
     collection.setFetchMode(FetchMode.DEFAULT);
   }
-  if (property.isOneToMany() || property.isManyToMany()) {
+  if (property.isOneToMany()) {
     OneToMany oneToMany=new OneToMany(collection.getOwner());
     collection.setElement(oneToMany);
     bindOneToMany(property,oneToMany,mappings);
   }
  else {
-    String referencedClassName=property.getReferencedDomainClass().getFullName();
-    Table table=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),namingStrategy.classToTableName(referencedClassName),null,false);
-    collection.setCollectionTable(table);
+    String tableName=calculateTableForMany(property);
+    Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
+    collection.setCollectionTable(t);
+    if (!property.isOwningSide()) {
+      collection.setInverse(true);
+    }
   }
   mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection));
 }

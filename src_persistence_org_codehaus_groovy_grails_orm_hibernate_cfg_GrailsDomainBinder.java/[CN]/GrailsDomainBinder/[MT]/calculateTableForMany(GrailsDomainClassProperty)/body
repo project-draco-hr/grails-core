@@ -1,0 +1,10 @@
+{
+  String left=namingStrategy.classToTableName(property.getDomainClass().getShortName());
+  String right=namingStrategy.classToTableName(property.getReferencedDomainClass().getShortName());
+  if (property.isOwningSide()) {
+    return left + '_' + right;
+  }
+ else {
+    return right + '_' + left;
+  }
+}

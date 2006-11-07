@@ -5,7 +5,7 @@
     GrailsTaskClass grailsTaskClass=grailsTaskClasses[i];
     springConfig.addSingletonBean(grailsTaskClass.getFullName() + "Class",MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsTaskClass").addProperty("arguments",grailsTaskClass.getFullName());
     springConfig.addSingletonBean(grailsTaskClass.getFullName()).setFactoryBean(grailsTaskClass.getFullName() + "Class").setFactoryMethod("newInstance").setAutowire("byName");
-    springConfig.addSingletonBean(grailsTaskClass.getFullName() + "JobDetail",MethodInvokingJobDetailFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(grailsTaskClass.getFullName())).addProperty("targetMethod",GrailsTaskClassProperty.EXECUTE).addProperty("group",grailsTaskClass.getGroup());
+    springConfig.addSingletonBean(grailsTaskClass.getFullName() + "JobDetail",MethodInvokingJobDetailFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(grailsTaskClass.getFullName())).addProperty("targetMethod",GrailsTaskClassProperty.EXECUTE).addProperty("concurrent",grailsTaskClass.isConcurrent() ? "true" : "false").addProperty("group",grailsTaskClass.getGroup());
     if (!grailsTaskClass.isCronExpressionConfigured()) {
       springConfig.addSingletonBean(grailsTaskClass.getFullName() + "SimpleTrigger",SimpleTriggerBean.class).addProperty("jobDetail",new RuntimeBeanReference(grailsTaskClass.getFullName() + "JobDetail")).addProperty("startDelay",grailsTaskClass.getStartDelay()).addProperty("repeatInterval",grailsTaskClass.getTimeout());
       schedulerReferences.add(new RuntimeBeanReference(grailsTaskClass.getFullName() + "SimpleTrigger"));

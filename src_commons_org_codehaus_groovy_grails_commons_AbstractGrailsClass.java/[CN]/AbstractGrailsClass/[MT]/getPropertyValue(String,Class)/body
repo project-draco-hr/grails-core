@@ -7,7 +7,11 @@
  else {
     Object inst=ref.getWrappedInstance();
     if (inst instanceof GroovyObject) {
-      value=((GroovyObject)inst).getProperty(name);
+      try {
+        value=((GroovyObject)inst).getProperty(name);
+      }
+ catch (      MissingPropertyException e) {
+      }
     }
   }
   if (value != null && (type.isAssignableFrom(value.getClass()) || GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(type,value.getClass()))) {

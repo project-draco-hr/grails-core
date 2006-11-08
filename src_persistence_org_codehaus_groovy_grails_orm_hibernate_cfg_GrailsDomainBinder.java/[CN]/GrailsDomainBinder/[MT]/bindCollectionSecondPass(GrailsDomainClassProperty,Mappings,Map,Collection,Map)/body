@@ -1,6 +1,6 @@
 {
   PersistentClass associatedClass=null;
-  LOG.info("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
+  if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   if (collection.isOneToMany()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();

@@ -3,6 +3,6 @@
   if (subClass.getEntityPersisterClass() == null) {
     subClass.getRootClass().setEntityPersisterClass(SingleTableEntityPersister.class);
   }
-  LOG.info("Mapping subclass: " + subClass.getEntityName() + " -> "+ subClass.getTable().getName());
+  if (LOG.isDebugEnabled())   LOG.debug("Mapping subclass: " + subClass.getEntityName() + " -> "+ subClass.getTable().getName());
   createClassProperties(sub,subClass,mappings);
 }

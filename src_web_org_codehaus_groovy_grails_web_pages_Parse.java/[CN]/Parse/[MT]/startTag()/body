@@ -19,6 +19,7 @@
   text=buf.toString();
   String tagName;
   Map attrs=new HashMap();
+  text=text.replaceAll("[\r\n]"," ");
   if (text.indexOf(' ') > -1) {
     int i=text.indexOf(' ');
     tagName=text.substring(0,i);

@@ -1,7 +1,7 @@
 {
   if (!response.isCommitted()) {
     try {
-      response.setContentLength(out0.toString().getBytes(response.getCharacterEncoding()).length);
+      response.setContentLength(totalLength+=getContentLength(out0.toString()));
     }
  catch (    UnsupportedEncodingException e) {
       LOG.error("Encoding error setting content length: " + e.getMessage(),e);

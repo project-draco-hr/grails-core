@@ -12,7 +12,14 @@
     }
   }
   try {
-    out1.write(out0.toCharArray());
+    String contents=out0.toString();
+    out1.write(contents.toCharArray());
+    try {
+      totalLength+=getContentLength(contents);
+    }
+ catch (    UnsupportedEncodingException e) {
+      LOG.error("Encoding error getting content length: " + e.getMessage(),e);
+    }
     out0.reset();
   }
  catch (  IOException e) {

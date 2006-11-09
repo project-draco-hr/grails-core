@@ -2,7 +2,7 @@
   MockHttpServletRequest request=new MockHttpServletRequest("GET","orders/list");
   MockServletContext context=new MockServletContext();
   GroovyClassLoader gcl=new GroovyClassLoader();
-  GroovyObject controller=(GroovyObject)gcl.parseClass("class TestController {\n" + "@Property controllerName = 'test'\n" + "@Property actionUri = '/test/testAction'\n"+ "}").newInstance();
+  GroovyObject controller=(GroovyObject)gcl.parseClass("class TestController {\n" + "def controllerName = 'test'\n" + "def actionUri = '/test/testAction'\n"+ "}").newInstance();
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
   Config c=new Config(new MockServletConfig(context));

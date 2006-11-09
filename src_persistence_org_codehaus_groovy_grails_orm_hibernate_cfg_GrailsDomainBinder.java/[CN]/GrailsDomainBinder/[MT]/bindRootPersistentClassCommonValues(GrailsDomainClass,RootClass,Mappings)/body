@@ -1,7 +1,7 @@
 {
   String schema=mappings.getSchemaName();
   String catalog=mappings.getCatalogName();
-  Table table=mappings.addTable(schema,catalog,namingStrategy.classToTableName(domainClass.getFullName()),null,false);
+  Table table=mappings.addTable(schema,catalog,getTableName(domainClass),null,false);
   root.setTable(table);
   if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
   bindSimpleId(domainClass.getIdentifier(),root,mappings);

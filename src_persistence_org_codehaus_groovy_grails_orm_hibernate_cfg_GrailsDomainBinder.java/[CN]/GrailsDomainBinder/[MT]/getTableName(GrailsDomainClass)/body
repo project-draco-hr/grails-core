@@ -1,0 +1,4 @@
+{
+  if (domainClass.getTableName() == null)   return namingStrategy.classToTableName(domainClass.getShortName());
+ else   return domainClass.getTableName();
+}

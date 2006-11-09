@@ -2,7 +2,6 @@
   simpleValue.setTypeName(grailsProp.getType().getName());
   Table table=simpleValue.getTable();
   Column column=new Column();
-  if (grailsProp.isManyToOne())   column.setNullable(false);
   column.setValue(simpleValue);
   bindColumn(grailsProp,column,table);
   if (table != null)   table.addColumn(column);

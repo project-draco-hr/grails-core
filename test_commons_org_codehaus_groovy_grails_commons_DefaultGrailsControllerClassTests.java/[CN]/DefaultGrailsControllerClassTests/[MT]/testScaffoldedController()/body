@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class TestController { @Property scaffold = Test.class } \nclass Test { @Property Long id\n@Property Long version\n}");
+  Class clazz=cl.parseClass("class TestController { def scaffold = Test.class } \nclass Test {  Long id\n Long version\n}");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   assertEquals("Test",grailsClass.getName());
   assertEquals("TestController",grailsClass.getFullName());

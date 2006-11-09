@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class TestController { @Property action = { return null }; } ");
+  Class clazz=cl.parseClass("class TestController { def action = { return null }; } ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   assertEquals("Test",grailsClass.getName());
   assertEquals("TestController",grailsClass.getFullName());

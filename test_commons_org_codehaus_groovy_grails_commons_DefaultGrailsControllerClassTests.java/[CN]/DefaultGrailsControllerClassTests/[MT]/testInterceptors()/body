@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class TestController { \n" + "@Property beforeInterceptor = [action:this.&before,only:'list']\n" + "def before() { return 'success' }\n"+ "@Property list = { return 'test' }\n "+ "} ");
+  Class clazz=cl.parseClass("class TestController { \n" + "def beforeInterceptor = [action:this.&before,only:'list']\n" + "def before() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "} ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   GroovyObject controller=(GroovyObject)grailsClass.newInstance();
   assertTrue(grailsClass.isInterceptedBefore(controller,"list"));
@@ -9,7 +9,7 @@
   assertNotNull(bi);
   assertEquals("success",bi.call());
   assertNull(grailsClass.getAfterInterceptor(controller));
-  clazz=cl.parseClass("class AfterController { \n" + "@Property afterInterceptor = [action:this.&before,except:'list']\n" + "def after() { return 'success' }\n"+ "@Property list = { return 'test' }\n "+ "@Property save = { return 'test' }\n "+ "} ");
+  clazz=cl.parseClass("class AfterController { \n" + "def afterInterceptor = [action:this.&before,except:'list']\n" + "def after() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "def save = { return 'test' }\n "+ "} ");
   grailsClass=new DefaultGrailsControllerClass(clazz);
   controller=(GroovyObject)grailsClass.newInstance();
   assertFalse(grailsClass.isInterceptedAfter(controller,"list"));

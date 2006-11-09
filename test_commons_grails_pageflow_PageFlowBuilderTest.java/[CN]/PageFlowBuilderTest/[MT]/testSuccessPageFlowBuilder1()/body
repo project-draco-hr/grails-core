@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("" + "import grails.pageflow.*;\n" + "\n"+ "class TestClass {\n"+ "  @Property Flow flow = new PageFlowBuilder().flow {\n"+ "    onSubmit(action:[formObjectClass:Object.class,formObjectName:\"object\"]) {\n"+ "      success(\"myFirstState\")\n"+ "    }\n"+ "    myFirstState(view:\"myView\") {\n"+ "      submit(\"myNextState\")\n"+ "    }\n"+ "  }\n"+ "}\n");
+  Class clazz=cl.parseClass("" + "import grails.pageflow.*;\n" + "\n"+ "class TestClass {\n"+ "  Flow flow = new PageFlowBuilder().flow {\n"+ "    onSubmit(action:[formObjectClass:Object.class,formObjectName:\"object\"]) {\n"+ "      success(\"myFirstState\")\n"+ "    }\n"+ "    myFirstState(view:\"myView\") {\n"+ "      submit(\"myNextState\")\n"+ "    }\n"+ "  }\n"+ "}\n");
   GroovyObject go=(GroovyObject)clazz.newInstance();
   Object flow=go.getProperty("flow");
   assertNotNull(flow);

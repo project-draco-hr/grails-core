@@ -11,14 +11,14 @@
   File file=new File(cl.getResource("org/codehaus/groovy/grails/commons/TestReload.groovy").getFile());
   FileWriter fw=new FileWriter(file);
   try {
-    fw.write("package org.codehaus.groovy.grails.commons;\n" + "class TestReload { \n" + "@Property hello = \"hello\"\n"+ "}");
+    fw.write("package org.codehaus.groovy.grails.commons;\n" + "class TestReload { \n" + "String hello = \"hello\"\n"+ "}");
     fw.close();
     Class groovyClass=cl.loadClass("org.codehaus.groovy.grails.commons.TestReload",true,false);
     GroovyObject go=(GroovyObject)groovyClass.newInstance();
     assertEquals("hello",go.getProperty("hello"));
     Thread.sleep(1000);
     fw=new FileWriter(file);
-    fw.write("package org.codehaus.groovy.grails.commons;\n" + "class TestReload { \n" + "@Property hello = \"goodbye\"\n"+ "}");
+    fw.write("package org.codehaus.groovy.grails.commons;\n" + "class TestReload { \n" + "String hello = \"goodbye\"\n"+ "}");
     fw.close();
     groovyClass=cl.loadClass("org.codehaus.groovy.grails.commons.TestReload",true,false);
     go=(GroovyObject)groovyClass.newInstance();

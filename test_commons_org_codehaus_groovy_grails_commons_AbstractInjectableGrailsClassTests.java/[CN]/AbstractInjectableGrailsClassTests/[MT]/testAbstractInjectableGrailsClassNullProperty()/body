@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class TestService { @Property boolean byName; @Property boolean available = true }");
+  Class clazz=cl.parseClass("class TestService {  boolean byName;  boolean available = true }");
   InjectableGrailsClass grailsClass=new AbstractInjectableGrailsClass(clazz,"Service"){
   }
 ;

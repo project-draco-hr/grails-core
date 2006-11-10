@@ -1,0 +1,4 @@
+{
+  String naturalName=getNaturalName(getShortName(name));
+  return naturalName.replaceAll("\\s","-").toLowerCase();
+}

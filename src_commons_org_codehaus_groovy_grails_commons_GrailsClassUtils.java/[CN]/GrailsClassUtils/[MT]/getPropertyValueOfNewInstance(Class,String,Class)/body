@@ -1,17 +1,5 @@
 {
   if (clazz == null || StringUtils.isBlank(propertyName))   return null;
-  try {
-    BeanWrapper wrapper=new BeanWrapperImpl(clazz.newInstance());
-    Object pValue=wrapper.getPropertyValue(propertyName);
-    if (pValue == null)     return null;
-    if (propertyType.isAssignableFrom(pValue.getClass())) {
-      return pValue;
-    }
- else {
-      return null;
-    }
-  }
- catch (  Exception e) {
-    return null;
-  }
+  Object instance=BeanUtils.instantiateClass(clazz);
+  return getPropertyOrStaticPropertyOrFieldValue(instance,propertyName);
 }

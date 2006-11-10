@@ -13,6 +13,8 @@
   MockServletContext servletContext=new MockServletContext();
   MockApplicationContext appContext=new MockApplicationContext();
   appContext.registerMockBean("grailsApplication",grailsApplication);
+  this.messageSource=new StaticMessageSource();
+  appContext.registerMockBean("messageSource",this.messageSource);
   servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appContext);
   GrailsControllerHelper helper=new SimpleGrailsControllerHelper(grailsApplication,appContext,servletContext);
   HttpServletRequest request=new MockHttpServletRequest(servletContext);

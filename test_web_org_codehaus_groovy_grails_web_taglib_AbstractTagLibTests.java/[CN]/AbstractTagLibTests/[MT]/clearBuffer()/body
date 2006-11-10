@@ -1,0 +1,5 @@
+{
+  if (this.writer != null) {
+    this.writer.getBuffer().delete(0,this.writer.getBuffer().length());
+  }
+}

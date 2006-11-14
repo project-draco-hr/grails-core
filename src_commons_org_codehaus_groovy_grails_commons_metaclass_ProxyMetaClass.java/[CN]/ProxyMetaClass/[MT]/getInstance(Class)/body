@@ -1,5 +1,7 @@
 {
   MetaClassRegistry metaRegistry=InvokerHelper.getInstance().getMetaRegistry();
   MetaClass meta=metaRegistry.getMetaClass(theClass);
-  return new ProxyMetaClass(metaRegistry,theClass,meta);
+  ProxyMetaClass pmc=new ProxyMetaClass(metaRegistry,theClass,meta);
+  pmc.initialise();
+  return pmc;
 }

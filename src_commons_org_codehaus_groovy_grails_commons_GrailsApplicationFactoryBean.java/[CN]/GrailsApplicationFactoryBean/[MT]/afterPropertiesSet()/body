@@ -2,6 +2,9 @@
   if (this.groovyFiles == null || groovyFiles.length == 0) {
     throw new IllegalStateException("Groovy files are not defined!");
   }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Loaded Groovy resources: " + ArrayUtils.toString(groovyFiles));
+  }
   if (injectionOperation != null) {
     this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles,injectionOperation);
   }

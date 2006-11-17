@@ -1,0 +1,7 @@
+{
+  String className=name.substring(0,1).toUpperCase(Locale.ENGLISH) + name.substring(1);
+  if (className.indexOf(' ') > -1) {
+    className=className.replaceAll("\\s","");
+  }
+  return className;
+}

@@ -1,8 +1,4 @@
 {
-  try {
-    return isIntercepted(controller.getProperty(AFTER_INTERCEPTOR),action);
-  }
- catch (  MissingPropertyException mpe) {
-    return false;
-  }
+  final Map controllerProperties=DefaultGroovyMethods.getProperties(controller);
+  return isIntercepted(controllerProperties.get(AFTER_INTERCEPTOR),action);
 }

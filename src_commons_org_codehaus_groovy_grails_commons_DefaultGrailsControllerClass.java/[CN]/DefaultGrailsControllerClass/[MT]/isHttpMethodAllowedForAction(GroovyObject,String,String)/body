@@ -1,22 +1,19 @@
 {
   boolean isAllowed=true;
-  try {
-    Object methodRestrictionsProperty=controller.getProperty(ALLOWED_HTTP_METHODS_PROPERTY);
-    if (methodRestrictionsProperty instanceof Map) {
-      Map map=(Map)methodRestrictionsProperty;
-      if (map.containsKey(actionName)) {
-        Object value=map.get(actionName);
-        if (value instanceof List) {
-          List listOfMethods=(List)value;
-          isAllowed=listOfMethods.contains(httpMethod);
-        }
- else         if (value instanceof String) {
-          isAllowed=value.equals(httpMethod);
-        }
+  final Map controllerProperties=DefaultGroovyMethods.getProperties(controller);
+  Object methodRestrictionsProperty=controllerProperties.get(ALLOWED_HTTP_METHODS_PROPERTY);
+  if (methodRestrictionsProperty instanceof Map) {
+    Map map=(Map)methodRestrictionsProperty;
+    if (map.containsKey(actionName)) {
+      Object value=map.get(actionName);
+      if (value instanceof List) {
+        List listOfMethods=(List)value;
+        isAllowed=listOfMethods.contains(httpMethod);
+      }
+ else       if (value instanceof String) {
+        isAllowed=value.equals(httpMethod);
       }
     }
-  }
- catch (  MissingPropertyException mpe) {
   }
   return isAllowed;
 }

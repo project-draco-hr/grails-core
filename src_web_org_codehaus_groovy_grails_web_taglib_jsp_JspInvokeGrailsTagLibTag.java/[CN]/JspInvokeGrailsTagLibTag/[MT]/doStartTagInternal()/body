@@ -5,10 +5,11 @@
     out=new PrintWriter(sw);
     tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
     Object tagLibProp;
-    try {
-      tagLibProp=tagLib.getProperty(getTagName());
+    final Map tagLibProperties=DefaultGroovyMethods.getProperties(tagLib);
+    if (tagLibProperties.containsKey(getTagName())) {
+      tagLibProp=tagLibProperties.get(getTagName());
     }
- catch (    MissingPropertyException mpe) {
+ else {
       throw new GrailsTagException("Tag [" + getTagName() + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
     }
     if (tagLibProp instanceof Closure) {

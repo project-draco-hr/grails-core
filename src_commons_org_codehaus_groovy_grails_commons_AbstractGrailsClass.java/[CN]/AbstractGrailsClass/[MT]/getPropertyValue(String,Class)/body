@@ -7,10 +7,9 @@
  else {
     Object inst=ref.getWrappedInstance();
     if (inst instanceof GroovyObject) {
-      try {
-        value=((GroovyObject)inst).getProperty(name);
-      }
- catch (      MissingPropertyException e) {
+      final Map properties=DefaultGroovyMethods.getProperties(inst);
+      if (properties.containsKey(name)) {
+        value=properties.get(name);
       }
     }
   }

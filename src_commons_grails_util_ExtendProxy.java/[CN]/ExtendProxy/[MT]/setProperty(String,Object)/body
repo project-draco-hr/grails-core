@@ -1,8 +1,9 @@
 {
-  try {
+  final Map properties=DefaultGroovyMethods.getProperties(this);
+  if (properties.containsKey(property)) {
     super.setProperty(property,newValue);
   }
- catch (  MissingPropertyException mpe) {
+ else {
     InvokerHelper.getMetaClass(getAdaptee()).setProperty(getAdaptee(),property,newValue);
   }
 }

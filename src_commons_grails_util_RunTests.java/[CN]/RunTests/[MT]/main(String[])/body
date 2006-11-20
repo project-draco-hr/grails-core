@@ -20,7 +20,10 @@
     try {
       Session session=SessionFactoryUtils.getSession(sessionFactory,true);
       TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
-      TestRunner.run(s);
+      TestResult r=TestRunner.run(s);
+      if (r.errorCount() > 0 || r.failureCount() > 0) {
+        System.err.println("Tests failed!");
+      }
     }
   finally {
       SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);

@@ -1,0 +1,24 @@
+{
+  if (currentBeanConfig != null) {
+    if (value instanceof GString)     value=value.toString();
+    if (value instanceof List) {
+      value=manageListIfNecessary(value);
+    }
+ else     if (value instanceof Map) {
+      value=manageMapIfNecessary(value);
+    }
+ else     if (value instanceof Closure) {
+      BeanConfiguration current=currentBeanConfig;
+      try {
+        Closure callable=(Closure)value;
+        currentBeanConfig=springConfig.createSingletonBean(callable.getParameterTypes()[0]);
+        callable.call(null);
+        value=currentBeanConfig.getBeanDefinition();
+      }
+  finally {
+        currentBeanConfig=current;
+      }
+    }
+    currentBeanConfig.addProperty(name,value);
+  }
+}

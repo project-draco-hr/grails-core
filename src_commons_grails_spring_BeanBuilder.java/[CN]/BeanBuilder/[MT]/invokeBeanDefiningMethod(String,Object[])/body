@@ -1,0 +1,19 @@
+{
+  if (!(args[0] instanceof Class))   throw new IllegalArgumentException("Argument types to bean defining methods must be a java.lang.Class and a closure for call [" + name + "] and args ["+ ArrayUtils.toString(args)+ "]");
+  Class beanClass=args[0] instanceof Class ? (Class)args[0] : args[0].getClass();
+  if (args.length > 1) {
+    if (args.length - 1 != 1) {
+      Object[] constructorArgs=ArrayUtils.subarray(args,1,args.length - 1);
+      currentBeanConfig=springConfig.addSingletonBean(name,beanClass,Arrays.asList(constructorArgs));
+    }
+ else {
+      currentBeanConfig=springConfig.addSingletonBean(name,beanClass);
+    }
+    if (args[args.length - 1] instanceof Closure) {
+      Closure callable=(Closure)args[args.length - 1];
+      callable.setDelegate(this);
+      callable.call();
+    }
+  }
+  return currentBeanConfig;
+}

@@ -1,5 +1,6 @@
 {
   BeanConfiguration bc=new DefaultBeanConfiguration(name,true);
   beanConfigs.add(bc);
+  beanNames.add(name);
   return bc;
 }

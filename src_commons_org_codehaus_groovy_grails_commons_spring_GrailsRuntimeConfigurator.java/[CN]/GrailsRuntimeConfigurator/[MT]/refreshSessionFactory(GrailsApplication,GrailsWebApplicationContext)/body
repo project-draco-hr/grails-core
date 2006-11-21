@@ -20,7 +20,7 @@
   if (context.containsBean(OPEN_SESSION_IN_VIEW_INTERCEPTOR_BEAN)) {
     ((OpenSessionInViewInterceptor)context.getBean(OPEN_SESSION_IN_VIEW_INTERCEPTOR_BEAN)).setSessionFactory(sf);
   }
-  String[] validatorBeanNames=context.getBeanDefinitionNames(Validator.class);
+  String[] validatorBeanNames=context.getBeanNamesForType(Validator.class);
   for (int i=0; i < validatorBeanNames.length; i++) {
     GrailsDomainClassValidator validator=(GrailsDomainClassValidator)context.getBean(validatorBeanNames[i]);
     validator.setSessionFactory(sf);

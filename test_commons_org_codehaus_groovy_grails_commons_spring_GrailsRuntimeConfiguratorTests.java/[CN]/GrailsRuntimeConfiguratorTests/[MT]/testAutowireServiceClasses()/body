@@ -1,7 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
   Class s1=gcl.parseClass("class TestService { def serviceMethod() { 'hello' } }");
-  Thread.sleep(1000);
   Class s2=gcl.parseClass("class AnotherService { TestService testService; def anotherMethod() { testService.serviceMethod() } }");
   GrailsApplication app=new DefaultGrailsApplication(new Class[]{s1,s2},gcl);
   MockApplicationContext parent=new MockApplicationContext();

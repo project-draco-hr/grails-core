@@ -1,0 +1,41 @@
+{
+  AbstractBeanDefinition bd=getBeanDefinition();
+  if (wrapper.isWritableProperty(property)) {
+    wrapper.setPropertyValue(property,newValue);
+  }
+ else   if (AUTOWIRE.equals(property)) {
+    if (BY_NAME.equals(newValue)) {
+      bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
+    }
+ else     if (BY_TYPE.equals(newValue)) {
+      bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE);
+    }
+ else     if (BY_CONSTRUCTOR.equals(newValue)) {
+      bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR);
+    }
+  }
+ else   if (CONSTRUCTOR_ARGS.equals(property) && newValue instanceof List) {
+    ConstructorArgumentValues cav=new ConstructorArgumentValues();
+    List args=(List)newValue;
+    for (Iterator i=args.iterator(); i.hasNext(); ) {
+      Object e=i.next();
+      cav.addGenericArgumentValue(e);
+    }
+    bd.setConstructorArgumentValues(cav);
+  }
+ else   if (DESTROY_METHOD.equals(property)) {
+    if (newValue != null)     bd.setDestroyMethodName(newValue.toString());
+  }
+ else   if (FACTORY_BEAN.equals(property)) {
+    if (newValue != null)     bd.setFactoryBeanName(newValue.toString());
+  }
+ else   if (FACTORY_METHOD.equals(property)) {
+    if (newValue != null)     bd.setFactoryMethodName(newValue.toString());
+  }
+ else   if (INIT_METHOD.equals(property)) {
+    if (newValue != null)     bd.setInitMethodName(newValue.toString());
+  }
+ else {
+    throw new MissingPropertyException(property,getClass());
+  }
+}

@@ -5,10 +5,9 @@
     String propertyName=pv.getName();
     int index=propertyName.indexOf(".id");
     if (index > -1) {
-      BeanWrapper bean=super.getBeanWrapper();
       propertyName=propertyName.substring(0,index);
       if (bean.isReadableProperty(propertyName) && bean.isWritableProperty(propertyName)) {
-        Class type=bean.getPropertyDescriptor(propertyName).getPropertyType();
+        Class type=bean.getPropertyType(propertyName);
         ClassLoader currentClassLoader=getClass().getClassLoader();
         ClassLoader grailsClassLoader=getTarget().getClass().getClassLoader();
         try {

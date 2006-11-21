@@ -6,6 +6,9 @@
   if (request instanceof HttpServletRequestWrapper) {
     request=((HttpServletRequestWrapper)request).getRequest();
   }
-  checkMultipartFiles(request,mpvs);
+  if (request instanceof MultipartHttpServletRequest) {
+    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
+    bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
+  }
   super.doBind(mpvs);
 }

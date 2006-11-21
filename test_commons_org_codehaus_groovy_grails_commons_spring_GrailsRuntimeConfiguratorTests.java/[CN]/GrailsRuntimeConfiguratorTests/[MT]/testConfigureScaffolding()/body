@@ -1,7 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
   Class dc=gcl.parseClass("class Test { Long id; Long version; }");
-  Thread.sleep(1000);
   Class c=gcl.parseClass("class TestController { def scaffold = Test }");
   GrailsApplication app=new DefaultGrailsApplication(new Class[]{dc,c},gcl);
   MockApplicationContext parent=new MockApplicationContext();

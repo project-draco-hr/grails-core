@@ -12,7 +12,8 @@
   assertNotNull(ctx);
   Map beans=ctx.getBeansOfType(s2);
   assertEquals(1,beans.size());
-  System.out.println(beans);
+  beans=ctx.getBeansOfType(s1);
+  assertEquals(1,beans.size());
   GroovyObject anotherService=(GroovyObject)ctx.getBean("anotherService");
   assertEquals("hello",anotherService.invokeMethod("anotherMethod",null));
 }

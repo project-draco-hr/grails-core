@@ -1,0 +1,15 @@
+{
+  Map map=(Map)value;
+  boolean containsRuntimeRefs=false;
+  for (Iterator i=map.values().iterator(); i.hasNext(); ) {
+    Object e=i.next();
+    if (e instanceof RuntimeBeanReference) {
+      containsRuntimeRefs=true;
+      break;
+    }
+  }
+  if (containsRuntimeRefs) {
+    return new ManagedMap(map);
+  }
+  return value;
+}

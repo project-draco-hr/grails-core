@@ -4,7 +4,7 @@
     PropertyValue pv=pvs[i];
     try {
       String propertyName=pv.getName();
-      Class type=super.getBeanWrapper().getPropertyType(propertyName);
+      Class type=bean.getPropertyType(propertyName);
       if (type == Date.class || type == Calendar.class) {
         try {
           int year=Integer.parseInt(request.getParameter(propertyName + "_year"));

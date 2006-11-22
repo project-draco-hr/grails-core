@@ -54,10 +54,8 @@
     }
     String[] scaffoldActions=this.scaffolder.getSupportedActionNames();
     for (int i=0; i < scaffoldActions.length; i++) {
-      try {
-        controller.getProperty(scaffoldActions[i]);
-      }
- catch (      MissingPropertyException mpe) {
+      Map properties=DefaultGroovyMethods.getProperties(controller);
+      if (!properties.containsKey(scaffoldActions[i])) {
         addDynamicProperty(new GenericDynamicProperty(scaffoldActions[i],Closure.class,scaffolder.getAction(controller,scaffoldActions[i]),true));
       }
     }

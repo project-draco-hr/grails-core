@@ -6,10 +6,11 @@
   if (tagLib != null) {
     tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
     Object tagLibProp;
-    try {
-      tagLibProp=tagLib.getProperty(tagName);
+    Map properties=DefaultGroovyMethods.getProperties(tagLib);
+    if (properties.containsKey(tagName)) {
+      tagLibProp=properties.get(tagName);
     }
- catch (    MissingPropertyException mpe) {
+ else {
       throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
     }
     if (tagLibProp instanceof Closure) {

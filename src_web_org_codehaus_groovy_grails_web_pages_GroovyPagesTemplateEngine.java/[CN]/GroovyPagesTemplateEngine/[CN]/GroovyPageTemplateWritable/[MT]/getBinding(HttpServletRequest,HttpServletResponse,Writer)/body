@@ -29,10 +29,7 @@
   }
   for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
     String key=(String)attributeEnum.nextElement();
-    try {
-      binding.getVariable(key);
-    }
- catch (    MissingPropertyException mpe) {
+    if (!binding.getVariables().containsKey(key)) {
       binding.setVariable(key,request.getAttribute(key));
     }
   }

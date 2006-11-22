@@ -38,17 +38,20 @@
         Class scriptClass=gcl.parseClass(stream);
         Script script=(Script)scriptClass.newInstance();
         script.run();
-        Closure c=(Closure)script.getBinding().getVariable(PROPERTY_NAME);
-        ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
-        c.setDelegate(delegate);
-        c.call();
-        return delegate.getConstrainedProperties();
+        Binding binding=script.getBinding();
+        if (binding.getVariables().containsKey(PROPERTY_NAME)) {
+          Closure c=(Closure)binding.getVariable(PROPERTY_NAME);
+          ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(object);
+          c.setDelegate(delegate);
+          c.call();
+          return delegate.getConstrainedProperties();
+        }
+ else {
+          LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!");
+          return Collections.EMPTY_MAP;
+        }
       }
- catch (      MissingPropertyException mpe) {
-        LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!",mpe);
-        return Collections.EMPTY_MAP;
-      }
-catch (      CompilationFailedException e) {
+ catch (      CompilationFailedException e) {
         LOG.error("Compilation error evaluating constraints for class [" + object.getClass() + "]: "+ e.getMessage(),e);
         return Collections.EMPTY_MAP;
       }

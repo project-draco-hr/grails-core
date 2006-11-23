@@ -54,6 +54,9 @@ catch (    Exception e) {
       LOG.error("Error loading resource copier. Save/reload disabled: " + e.getMessage(),e);
     }
   }
+  if (copyScript != null) {
+    copyScript.copyViews();
+  }
   GrailsResourceHolder resourceHolder=(GrailsResourceHolder)context.getBean(GrailsResourceHolder.APPLICATION_CONTEXT_ID);
   Resource[] resources=resourceHolder.getResources();
   if (!initialised) {

@@ -2,9 +2,11 @@
   GrailsControllerClass controllerClass=application.addControllerClass(loadedClass);
   if (controllerClass != null) {
     if (isNew) {
-      copyScript.cleanControllers();
-      LOG.info("New controller added, re-generating web.xml");
-      copyScript.generateWebXml();
+      if (copyScript != null) {
+        copyScript.cleanControllers();
+        LOG.info("New controller added, re-generating web.xml");
+        copyScript.generateWebXml();
+      }
     }
  else {
       Properties mappings=new Properties();
@@ -23,10 +25,17 @@
       urlMappings.setApplicationContext(context);
       urlMappings.setMappings(mappings);
       String[] interceptorNames=context.getBeanNamesForType(HandlerInterceptor.class);
-      HandlerInterceptor[] interceptors=new HandlerInterceptor[interceptorNames.length];
+      String[] webRequestInterceptors=context.getBeanNamesForType(WebRequestInterceptor.class);
+      HandlerInterceptor[] interceptors=new HandlerInterceptor[interceptorNames.length + webRequestInterceptors.length];
+      int j=0;
       for (int i=0; i < interceptorNames.length; i++) {
         String interceptorName=interceptorNames[i];
         interceptors[i]=(HandlerInterceptor)context.getBean(interceptorName);
+        j=i + 1;
+      }
+      for (int i=0; i < webRequestInterceptors.length; i++) {
+        j=i + j;
+        interceptors[j]=new WebRequestHandlerInterceptorAdapter((WebRequestInterceptor)context.getBean(webRequestInterceptors[i]));
       }
       LOG.info("Re-adding " + interceptors.length + " interceptors to mapping");
       urlMappings.setInterceptors(interceptors);

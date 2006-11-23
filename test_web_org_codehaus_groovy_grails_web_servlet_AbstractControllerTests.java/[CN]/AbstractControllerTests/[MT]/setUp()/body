@@ -1,0 +1,5 @@
+{
+  super.setUp();
+  onSetUp();
+  ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
+}

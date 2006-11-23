@@ -1,13 +1,11 @@
 {
   HibernateTemplate t=getHibernateTemplate();
-  final StringBuffer b=new StringBuffer("select count(persistentClass) from ");
-  b.append(clazz.getName());
-  b.append(" as persistentClass");
   if (arguments.length == 0) {
     return t.execute(new HibernateCallback(){
       public Object doInHibernate(      Session session) throws HibernateException {
-        Query q=session.createQuery(b.toString());
-        return q.uniqueResult();
+        Criteria c=session.createCriteria(clazz);
+        c.setProjection(Projections.rowCount());
+        return c.uniqueResult();
       }
     }
 );

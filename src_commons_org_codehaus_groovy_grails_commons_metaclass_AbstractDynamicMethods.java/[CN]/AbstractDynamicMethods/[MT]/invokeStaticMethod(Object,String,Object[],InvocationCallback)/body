@@ -1,15 +1,27 @@
 {
-  if (LOG.isTraceEnabled()) {
-    LOG.trace("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
   }
   for (Iterator iter=this.staticMethodInvocations.iterator(); iter.hasNext(); ) {
     StaticMethodInvocation methodInvocation=(StaticMethodInvocation)iter.next();
     if (methodInvocation.isMethodMatch(methodName)) {
-      if (LOG.isTraceEnabled()) {
-        LOG.trace("[DynamicMethods] Static method matched, marking and invoking");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("[DynamicMethods] Static method matched, attempting to invoke");
       }
-      callBack.markInvoked();
-      return methodInvocation.invoke(this.clazz,methodName,arguments);
+      try {
+        Object result=methodInvocation.invoke(this.clazz,methodName,arguments);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("[DynamicMethods] Static method [" + methodName + "] invoked successfully with result ["+ result+ "]. Marking as invoked");
+        }
+        callBack.markInvoked();
+        return result;
+      }
+ catch (      MissingMethodException e) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("[DynamicMethods] Static method [" + methodName + "] threw MissingMethodException. Returning null and falling back to standard MetaClass",e);
+        }
+        return null;
+      }
     }
   }
   return null;

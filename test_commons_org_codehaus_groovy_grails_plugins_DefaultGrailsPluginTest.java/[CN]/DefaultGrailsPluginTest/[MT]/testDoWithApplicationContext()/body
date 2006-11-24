@@ -1,0 +1,8 @@
+{
+  GrailsPlugin versionPlugin=new DefaultGrailsPlugin(versioned,ga);
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
+  versionPlugin.doWithRuntimeConfiguration(springConfig);
+  ApplicationContext ctx=springConfig.getApplicationContext();
+  assertTrue(ctx.containsBean("classEditor"));
+  versionPlugin.doWithApplicationContext(ctx);
+}

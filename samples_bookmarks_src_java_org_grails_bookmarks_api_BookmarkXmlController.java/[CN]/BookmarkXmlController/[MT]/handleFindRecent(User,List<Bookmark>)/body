@@ -1,0 +1,5 @@
+{
+  bookmarks.addAll(deliciousService.findRecent(user));
+  bookmarks.addAll(bookmarkService.findRecent(user));
+  return true;
+}

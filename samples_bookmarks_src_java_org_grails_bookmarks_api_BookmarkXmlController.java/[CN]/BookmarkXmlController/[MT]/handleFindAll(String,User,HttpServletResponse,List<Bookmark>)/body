@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isBlank(tag)) {
+    writeError("Tag parameter not specified",response);
+    return false;
+  }
+ else {
+    bookmarks.addAll(deliciousService.findAllForTag(tag,user));
+    bookmarks.addAll(bookmarkService.findAllForTag(tag,user));
+    return true;
+  }
+}

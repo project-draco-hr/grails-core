@@ -1,0 +1,14 @@
+{
+  response.setContentType("text/xml");
+  PrintWriter w;
+  try {
+    w=response.getWriter();
+    w.write("<error message=\"");
+    w.write(message);
+    w.write("\" />");
+  }
+ catch (  IOException e) {
+    LOG.error("Problem sending <error> tag to response: " + e.getMessage(),e);
+    throw new RuntimeException(e.getMessage(),e);
+  }
+}

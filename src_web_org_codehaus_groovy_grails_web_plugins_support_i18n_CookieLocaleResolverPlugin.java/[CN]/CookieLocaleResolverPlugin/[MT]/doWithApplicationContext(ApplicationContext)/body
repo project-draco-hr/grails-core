@@ -1,0 +1,7 @@
+{
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    RootBeanDefinition bd=new RootBeanDefinition(CookieLocaleResolver.class);
+    ctx.registerBeanDefinition("localeResolver",bd);
+  }
+}

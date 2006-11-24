@@ -1,4 +1,0 @@
-{
-  ClassEditor editor=new ClassEditor(applicationContext.getClassLoader());
-  applicationContext.getBeanFactory().registerCustomEditor(Class.class,editor);
-}

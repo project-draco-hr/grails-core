@@ -1,0 +1,7 @@
+{
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    ctx.getBeanFactory().addBeanPostProcessor(new ClassLoaderAwareBeanPostProcessor(classLoader));
+    ctx.getBeanFactory().ignoreDependencyInterface(ClassLoaderAware.class);
+  }
+}

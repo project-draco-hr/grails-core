@@ -1,4 +1,0 @@
-{
-  applicationContext.getBeanFactory().addBeanPostProcessor(new GrailsApplicationAwareBeanPostProcessor(grailsApplication));
-  applicationContext.getBeanFactory().ignoreDependencyInterface(GrailsApplicationAware.class);
-}

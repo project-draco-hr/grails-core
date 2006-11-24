@@ -1,0 +1,7 @@
+{
+  RootBeanDefinition bd=new RootBeanDefinition(CommonsMultipartResolver.class);
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    ctx.registerBeanDefinition("multipartResolver",bd);
+  }
+}

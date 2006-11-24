@@ -1,0 +1,21 @@
+{
+  while (!delayedLoadPlugins.isEmpty()) {
+    GrailsPlugin plugin=(GrailsPlugin)delayedLoadPlugins.remove(0);
+    if (areDependenciesResolved(plugin)) {
+      LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
+      plugins.put(plugin.getName(),plugin);
+    }
+ else {
+      boolean foundInDelayed=false;
+      for (Iterator i=delayedLoadPlugins.iterator(); i.hasNext(); ) {
+        GrailsPlugin remainingPlugin=(GrailsPlugin)i.next();
+        if (isDependantOn(plugin,remainingPlugin)) {
+          foundInDelayed=true;
+          break;
+        }
+      }
+      if (foundInDelayed)       delayedLoadPlugins.add(plugin);
+ else       throw new PluginException("Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ ArrayUtils.toString(plugin.getDependencyNames())+ "] cannot be resolved");
+    }
+  }
+}

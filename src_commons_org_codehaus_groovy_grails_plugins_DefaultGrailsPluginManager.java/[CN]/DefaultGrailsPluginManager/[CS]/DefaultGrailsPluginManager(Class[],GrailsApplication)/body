@@ -1,0 +1,5 @@
+{
+  this.pluginClasses=plugins;
+  if (application == null)   throw new IllegalArgumentException("Argument [applicaiton] cannot be null!");
+  this.application=application;
+}

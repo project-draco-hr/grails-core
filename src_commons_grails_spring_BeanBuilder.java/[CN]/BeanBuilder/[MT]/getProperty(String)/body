@@ -1,3 +1,8 @@
 {
-  return new RuntimeBeanReference(name,false);
+  if (name.equals(APPLICATION) && application != null) {
+    return this.application;
+  }
+ else {
+    return new RuntimeBeanReference(name,false);
+  }
 }

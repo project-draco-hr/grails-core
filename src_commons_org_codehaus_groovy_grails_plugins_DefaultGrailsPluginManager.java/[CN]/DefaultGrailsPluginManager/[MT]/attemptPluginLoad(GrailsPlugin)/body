@@ -1,0 +1,9 @@
+{
+  if (areDependenciesResolved(plugin)) {
+    LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
+    plugins.put(plugin.getName(),plugin);
+  }
+ else {
+    delayedLoadPlugins.add(plugin);
+  }
+}

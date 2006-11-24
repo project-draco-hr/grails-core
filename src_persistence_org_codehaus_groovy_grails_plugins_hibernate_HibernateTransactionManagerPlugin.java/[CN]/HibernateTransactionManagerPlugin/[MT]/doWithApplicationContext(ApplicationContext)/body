@@ -1,0 +1,12 @@
+{
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    if (!applicationContext.containsBeanDefinition("transactionManager")) {
+      RootBeanDefinition bd=new RootBeanDefinition(HibernateTransactionManager.class);
+      MutablePropertyValues mpv=new MutablePropertyValues();
+      mpv.addPropertyValue("sessionFactory",new RuntimeBeanReference("sessionFactory"));
+      bd.setPropertyValues(mpv);
+      ctx.registerBeanDefinition("transactionManager",bd);
+    }
+  }
+}

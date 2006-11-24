@@ -1,0 +1,7 @@
+{
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    ClassEditor editor=new ClassEditor(applicationContext.getClassLoader());
+    ctx.getBeanFactory().registerCustomEditor(Class.class,editor);
+  }
+}

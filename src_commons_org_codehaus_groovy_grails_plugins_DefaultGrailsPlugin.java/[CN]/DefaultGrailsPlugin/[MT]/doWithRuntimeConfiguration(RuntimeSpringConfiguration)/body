@@ -1,0 +1,10 @@
+{
+  if (this.pluginBean.isReadableProperty(DO_WITH_SPRING)) {
+    Closure c=(Closure)this.plugin.getProperty(DO_WITH_SPRING);
+    BeanBuilder bb=new BeanBuilder();
+    bb.setSpringConfig(springConfig);
+    bb.setApplication(application);
+    c.setDelegate(bb);
+    bb.invokeMethod("beans",new Object[]{c});
+  }
+}

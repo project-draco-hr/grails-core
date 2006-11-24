@@ -1,0 +1,18 @@
+{
+  super(pluginClass,application);
+  this.pluginGrailsClass=new GrailsPluginClass(pluginClass);
+  this.plugin=(GroovyObject)this.pluginGrailsClass.newInstance();
+  this.pluginBean=new BeanWrapperImpl(this.plugin);
+  this.dependencies=Collections.EMPTY_MAP;
+  if (this.pluginBean.isReadableProperty(DEPENDS_ON)) {
+    this.dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,DEPENDS_ON);
+    this.dependencyNames=(String[])this.dependencies.keySet().toArray(new String[this.dependencies.size()]);
+  }
+  if (this.pluginBean.isReadableProperty(VERSION)) {
+    BigDecimal bd=(BigDecimal)this.plugin.getProperty("version");
+    this.version=bd;
+  }
+ else {
+    throw new PluginException("Plugin [" + getName() + "] must specify a version!");
+  }
+}

@@ -1,9 +1,0 @@
-{
-  if (!applicationContext.containsBeanDefinition("transactionManager")) {
-    RootBeanDefinition bd=new RootBeanDefinition(HibernateTransactionManager.class);
-    MutablePropertyValues mpv=new MutablePropertyValues();
-    mpv.addPropertyValue("sessionFactory",new RuntimeBeanReference("sessionFactory"));
-    bd.setPropertyValues(mpv);
-    applicationContext.registerBeanDefinition("transactionManager",bd);
-  }
-}

@@ -1,7 +1,0 @@
-{
-  RootBeanDefinition bd=new RootBeanDefinition(TestBean.class);
-  MutablePropertyValues mpv=new MutablePropertyValues();
-  mpv.addPropertyValue("myClass","org.springframework.context.support.GenericApplicationContext");
-  bd.setPropertyValues(mpv);
-  applicationContext.registerBeanDefinition("myTestBean1",bd);
-}

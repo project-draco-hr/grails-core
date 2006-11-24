@@ -1,4 +1,0 @@
-{
-  Object testService=appCtx.getBean("TestServiceService");
-  AopUtils.isAopProxy(testService);
-}

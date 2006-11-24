@@ -1,6 +1,0 @@
-{
-  RootBeanDefinition bd=new RootBeanDefinition(MyGrailsApplicationAware.class);
-  applicationContext.registerBeanDefinition(MyGrailsApplicationAware.class.getName(),bd);
-  RootBeanDefinition bd2=new RootBeanDefinition(MyClassLoaderAware.class);
-  applicationContext.registerBeanDefinition(MyClassLoaderAware.class.getName(),bd2);
-}

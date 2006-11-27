@@ -1,6 +1,6 @@
 {
   super();
-  if (application == null)   throw new IllegalArgumentException("Argument [applicaiton] cannot be null!");
+  if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null!");
   this.pluginResources=new PathMatchingResourcePatternResolver().getResources(resourcePath);
   this.application=application;
 }

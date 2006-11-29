@@ -1,7 +1,7 @@
 {
   StringWriter sw=new StringWriter();
   PrintWriter pw=new PrintWriter(sw);
-  Closure tag=getTag("textField",pw);
+  Closure tag=getTag("textArea",pw);
   assertNotNull(tag);
   Map attrs=new HashMap();
   attrs.put("name","testField");
@@ -10,9 +10,8 @@
   Document document=DocumentHelper.parseText(sw.toString());
   assertNotNull(document);
   Element inputElement=document.getRootElement();
-  assertEquals("input",inputElement.getName());
+  assertEquals("textarea",inputElement.getName());
   assertEquals("testField",inputElement.attributeValue("name"));
   assertEquals("testField",inputElement.attributeValue("id"));
-  assertEquals("text",inputElement.attributeValue("type"));
-  assertEquals("1",inputElement.attributeValue("value"));
+  assertEquals("1",inputElement.getTextTrim());
 }

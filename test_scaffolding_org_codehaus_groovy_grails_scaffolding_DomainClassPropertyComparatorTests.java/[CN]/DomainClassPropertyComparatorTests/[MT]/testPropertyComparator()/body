@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
-  Class dc=gcl.parseClass("class Test { " + "\n Long id;" + "\n Long version;"+ "\nString name;"+ "\nDate age"+ "\nString zip"+ "\nString dob"+ "\ndef constraints = {"+ "\n  name(length:5..15)"+ "\n  age()"+ "}  }");
+  Class dc=gcl.parseClass("class Test { " + "\n Long id;" + "\n Long version;"+ "\nString name;"+ "\nDate age"+ "\nString zip"+ "\nString dob"+ "\nstatic constraints = {"+ "\n  name(length:5..15)"+ "\n  age()"+ "}  }");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
   DomainClassPropertyComparator comp=new DomainClassPropertyComparator(domainClass);
   GrailsDomainClassProperty[] props=domainClass.getProperties();

@@ -1,0 +1,7 @@
+{
+  new DomainClassMethods(grailsApplication,groovyClass,sessionFactory,cl);
+  GrailsDomainClassValidator validator=new GrailsDomainClassValidator();
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass(classname);
+  validator.setDomainClass(this.grailsApplication.getGrailsDomainClass(classname));
+  domainClass.setValidator(validator);
+}

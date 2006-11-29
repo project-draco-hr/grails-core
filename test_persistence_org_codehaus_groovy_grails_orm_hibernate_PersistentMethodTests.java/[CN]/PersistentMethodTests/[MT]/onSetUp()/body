@@ -1,6 +1,7 @@
 {
-  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t Long id; \n"+ "\t Long version; \n"+ "\t\n"+ "\t String firstName; \n"+ "\t String lastName; \n"+ "\t Integer age;\n"+ "boolean active = true"+ "\t\n"+ "\tdef constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t}\n"+ "}");
-  grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass},cl);
+  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t Long id; \n"+ "\t Long version; \n"+ "\t\n"+ "\t String firstName; \n"+ "\t String lastName; \n"+ "\t Integer age;\n"+ "boolean active = true"+ "\t\n"+ "\tstatic constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t\tlastName(nullable:false)\n"+ "\t}\n"+ "}");
+  Class descendentClass=cl.parseClass("public class PersistentMethodTestsDescendent extends PersistentMethodTests {\n" + "   String gender\n" + "   static constraints = {\n"+ "       gender(blank:false)\n"+ "   }\n"+ "}");
+  grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass,descendentClass},cl);
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
   config.setGrailsApplication(this.grailsApplication);
   Properties props=new Properties();
@@ -17,10 +18,7 @@
     this.hibSession=this.sessionFactory.openSession();
     TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(hibSession));
   }
-  new DomainClassMethods(grailsApplication,groovyClass,sessionFactory,cl);
-  GrailsDomainClassValidator validator=new GrailsDomainClassValidator();
-  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("PersistentMethodTests");
-  validator.setDomainClass(this.grailsApplication.getGrailsDomainClass("PersistentMethodTests"));
-  domainClass.setValidator(validator);
+  initDomainClass(groovyClass,"PersistentMethodTests");
+  initDomainClass(descendentClass,"PersistentMethodTestsDescendent");
   super.onSetUp();
 }

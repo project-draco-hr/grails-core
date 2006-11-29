@@ -1,0 +1,20 @@
+{
+  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("PersistentMethodTestsDescendent");
+  GroovyObject obj=(GroovyObject)domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("gender","female");
+  obj.invokeMethod("validate",null);
+  Errors errors=(Errors)obj.getProperty("errors");
+  assertNotNull(errors);
+  assertTrue(errors.hasErrors());
+  obj=(GroovyObject)domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("gender","female");
+  obj.setProperty("firstName","Marc");
+  obj.invokeMethod("validate",null);
+  errors=(Errors)obj.getProperty("errors");
+  System.out.println("errors = " + errors);
+  assertNotNull(errors);
+  assertTrue(errors.hasErrors());
+  assertEquals(1,errors.getFieldErrorCount("lastName"));
+}

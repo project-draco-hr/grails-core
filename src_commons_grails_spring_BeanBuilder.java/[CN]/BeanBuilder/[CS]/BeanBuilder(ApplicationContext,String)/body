@@ -1,0 +1,4 @@
+{
+  this.springConfig=new DefaultRuntimeSpringConfiguration(parent);
+  loadBeans(resourcePattern);
+}

@@ -2,4 +2,5 @@
   Closure callable=(Closure)arg;
   callable.setDelegate(this);
   callable.call();
+  finalizeDeferredProperties();
 }

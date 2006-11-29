@@ -1,13 +1,31 @@
 {
   if (CREATE_APPCTX.equals(name)) {
+    finalizeDeferredProperties();
     return springConfig.getApplicationContext();
   }
   Object[] args=(Object[])arg;
   if (args.length == 0)   throw new MissingMethodException(name,getClass(),args);
+  if (REF.equals(name)) {
+    String refName;
+    if (args[0] == null)     throw new IllegalArgumentException("Argument to ref() is not a valid bean or was not found");
+    if (args[0] instanceof RuntimeBeanReference) {
+      refName=((RuntimeBeanReference)args[0]).getBeanName();
+    }
+ else {
+      refName=args[0].toString();
+    }
+    boolean parentRef=false;
+    if (args.length > 1) {
+      if (args[1] instanceof Boolean) {
+        parentRef=((Boolean)args[1]).booleanValue();
+      }
+    }
+    return new RuntimeBeanReference(refName,parentRef);
+  }
   if (args[0] instanceof Closure) {
     invokeBeanDefiningClosure(args[0]);
   }
- else   if (args[0] instanceof Class) {
+ else   if (args[0] instanceof Class || args[0] instanceof RuntimeBeanReference || args[0] instanceof Map) {
     return invokeBeanDefiningMethod(name,args);
   }
  else {

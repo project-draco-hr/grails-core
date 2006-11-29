@@ -1,0 +1,8 @@
+{
+  for (Iterator i=plugins.values().iterator(); i.hasNext(); ) {
+    Object plugin=i.next();
+    if (plugin instanceof ApplicationContextAware) {
+      ((ApplicationContextAware)plugin).setApplicationContext(applicationContext);
+    }
+  }
+}

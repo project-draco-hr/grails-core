@@ -1,5 +1,6 @@
 {
   GroovyClassLoader gcl=application.getClassLoader();
+  loadCorePlugins();
   for (int i=0; i < pluginResources.length; i++) {
     Resource r=pluginResources[i];
     Class pluginClass=loadPluginClass(gcl,r);
@@ -14,4 +15,5 @@
   if (!delayedLoadPlugins.isEmpty()) {
     loadDelayedPlugins();
   }
+  initializePlugins();
 }

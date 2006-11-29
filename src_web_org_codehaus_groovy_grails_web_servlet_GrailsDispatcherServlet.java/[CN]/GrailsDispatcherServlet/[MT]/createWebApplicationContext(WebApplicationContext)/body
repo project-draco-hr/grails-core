@@ -7,6 +7,9 @@
   }
  else {
     GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(application,parent);
+    if (parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      configurator.setPluginManager((GrailsPluginManager)parent.getBean(GrailsPluginManager.BEAN_NAME));
+    }
     webContext=configurator.configure(super.getServletContext());
   }
   getServletContext().setAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT,parent);

@@ -2,4 +2,6 @@
   super.setUp();
   onSetUp();
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
+  ctx=new MockApplicationContext();
+  ctx.registerMockBean(GrailsApplication.APPLICATION_ID,ga);
 }

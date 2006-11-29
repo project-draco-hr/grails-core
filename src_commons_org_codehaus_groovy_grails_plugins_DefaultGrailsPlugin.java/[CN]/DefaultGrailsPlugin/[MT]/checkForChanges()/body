@@ -1,0 +1,23 @@
+{
+  if (onChangeListener != null) {
+    try {
+      checkForNewResources(this);
+      for (int i=0; i < watchedResources.length; i++) {
+        final Resource r=watchedResources[i];
+        URL url=watchedResources[i].getURL();
+        URLConnection c=url.openConnection();
+        c.setDoInput(false);
+        c.setDoOutput(false);
+        long lastModified=c.getLastModified();
+        if (modifiedTimes[i] < lastModified) {
+          if (LOG.isDebugEnabled())           LOG.debug("[GrailsPlugin] plugin resource [" + r + "] changed, firing event if possible..");
+          fireModifiedEvent(r,this);
+          modifiedTimes[i]=lastModified;
+        }
+      }
+    }
+ catch (    IOException e) {
+      LOG.warn("Unable to read last modified date of plugin resource" + e.getMessage(),e);
+    }
+  }
+}

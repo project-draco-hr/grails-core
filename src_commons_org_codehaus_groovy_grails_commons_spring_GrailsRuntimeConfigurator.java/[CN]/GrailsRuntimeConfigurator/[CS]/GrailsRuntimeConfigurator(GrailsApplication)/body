@@ -1,4 +1,11 @@
 {
   super();
   this.application=application;
+  try {
+    this.pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
+    this.pluginManager.loadPlugins();
+  }
+ catch (  IOException e) {
+    LOG.warn("I/O error loading plugin manager!:" + e.getMessage(),e);
+  }
 }

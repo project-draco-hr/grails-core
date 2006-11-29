@@ -1,0 +1,4 @@
+{
+  this.applicationContext=applicationContext;
+  if (applicationContext != null)   resourceHolder=(GrailsResourceHolder)applicationContext.getBean(GrailsResourceHolder.APPLICATION_CONTEXT_ID);
+}

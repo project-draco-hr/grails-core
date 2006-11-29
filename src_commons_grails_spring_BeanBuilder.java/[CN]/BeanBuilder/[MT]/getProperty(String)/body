@@ -3,6 +3,23 @@
     return this.application;
   }
  else {
-    return new RuntimeBeanReference(name,false);
+    if (springConfig.containsBean(name)) {
+      return new RuntimeBeanReference(name,false);
+    }
+ else     if (currentBeanConfig != null) {
+      if (currentBeanConfig.hasProperty(name))       return currentBeanConfig.getPropertyValue(name);
+ else {
+        DeferredProperty dp=(DeferredProperty)deferredProperties.get(currentBeanConfig.getName() + name);
+        if (dp != null) {
+          return dp.value;
+        }
+ else {
+          return super.getProperty(name);
+        }
+      }
+    }
+ else {
+      return super.getProperty(name);
+    }
   }
 }

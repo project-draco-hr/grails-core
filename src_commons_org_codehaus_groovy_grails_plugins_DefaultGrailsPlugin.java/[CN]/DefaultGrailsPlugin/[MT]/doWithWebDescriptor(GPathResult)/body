@@ -1,0 +1,7 @@
+{
+  if (this.pluginBean.isReadableProperty(DO_WITH_WEB_DESCRIPTOR)) {
+    Closure c=(Closure)this.plugin.getProperty(DO_WITH_WEB_DESCRIPTOR);
+    c.setDelegate(this);
+    c.call(new Object[]{webXml});
+  }
+}

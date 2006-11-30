@@ -3,7 +3,7 @@
   if (constraintsClosure != null) {
     BeanWrapper reference=getReference();
     if (!GrailsClassUtils.isStaticProperty(getClazz(),GrailsDomainClassProperty.CONSTRAINTS)) {
-      LOG.warn("Domain class [" + getFullName() + "] has non-static constraints. Constraints should be "+ "declared static, non-static constraints are deprecated and will be removed in the future");
+      throw new GrailsConfigurationException("Domain class [" + getFullName() + "] has non-static constraints. Constraints must be "+ "declared static.");
     }
     GroovyObject instance=(GroovyObject)reference.getWrappedInstance();
     try {

@@ -1,3 +1,4 @@
 {
+  if (clazz == null)   return false;
   return clazz.getName().endsWith(DefaultGrailsDataSource.DATA_SOURCE) && !Closure.class.isAssignableFrom(clazz);
 }

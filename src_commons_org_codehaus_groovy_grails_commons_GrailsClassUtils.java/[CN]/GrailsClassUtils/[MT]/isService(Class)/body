@@ -1,3 +1,4 @@
 {
+  if (clazz == null)   return false;
   return isService(clazz.getName()) && !Closure.class.isAssignableFrom(clazz);
 }

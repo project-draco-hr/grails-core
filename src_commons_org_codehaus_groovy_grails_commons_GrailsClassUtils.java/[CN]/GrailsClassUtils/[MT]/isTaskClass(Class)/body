@@ -1,4 +1,5 @@
 {
+  if (clazz == null)   return false;
   try {
     clazz.getDeclaredMethod(GrailsTaskClassProperty.EXECUTE,new Class[]{});
   }

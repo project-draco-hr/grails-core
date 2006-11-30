@@ -1,3 +1,4 @@
 {
+  if (clazz == null)   return false;
   return clazz.getName().endsWith(DefaultGrailsBootstrapClass.BOOT_STRAP) && !Closure.class.isAssignableFrom(clazz);
 }

@@ -4,6 +4,7 @@
   this.plugin=(GroovyObject)this.pluginGrailsClass.newInstance();
   this.pluginBean=new BeanWrapperImpl(this.plugin);
   this.dependencies=Collections.EMPTY_MAP;
+  this.parentCtx=application.getParentContext();
   if (this.pluginBean.isReadableProperty(DEPENDS_ON)) {
     this.dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,DEPENDS_ON);
     this.dependencyNames=(String[])this.dependencies.keySet().toArray(new String[this.dependencies.size()]);

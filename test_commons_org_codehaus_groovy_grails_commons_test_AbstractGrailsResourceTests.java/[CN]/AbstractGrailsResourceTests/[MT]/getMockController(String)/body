@@ -1,0 +1,14 @@
+{
+  GrailsControllerClass controllerClass=ga.getController(name);
+  if (controllerClass == null)   throw new IllegalArgumentException("Controller not found for name " + name);
+  GroovyObject mockController=(GroovyObject)controllerClass.newInstance();
+  this.messageSource=new StaticMessageSource();
+  servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,parentContext);
+  GrailsControllerHelper helper=new SimpleGrailsControllerHelper(ga,parentContext,servletContext);
+  HttpServletRequest request=createMockRequest();
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,mockController);
+  HttpServletResponse response=new MockHttpServletResponse();
+  new ControllerDynamicMethods(mockController,helper,request,response);
+  mockController.setProperty("controllerUri","/" + controllerClass.getLogicalPropertyName());
+  return mockController;
+}

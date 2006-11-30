@@ -1,0 +1,20 @@
+{
+  super.setUp();
+  onSetUp();
+  resolver=new PathMatchingResourcePatternResolver();
+  resources=resolver.getResources(resourcePattern);
+  ga=new DefaultGrailsApplication(resources);
+  parentContext=new MockApplicationContext();
+  parentContext.registerMockBean("grailsApplication",ga);
+  GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(ga,parentContext);
+  servletContext=new MockServletContext();
+  applicationContext=configurator.configure(servletContext);
+  if (this.applicationContext.containsBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN)) {
+    this.sessionFactory=(SessionFactory)this.applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
+    GrailsDomainConfigurationUtil.configureDynamicMethods(sessionFactory,ga);
+    if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
+      this.session=this.sessionFactory.openSession();
+      TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(session));
+    }
+  }
+}

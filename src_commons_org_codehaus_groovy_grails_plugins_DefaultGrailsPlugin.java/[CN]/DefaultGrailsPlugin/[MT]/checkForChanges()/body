@@ -9,8 +9,10 @@
         c.setDoInput(false);
         c.setDoOutput(false);
         long lastModified=c.getLastModified();
+        System.out.println("Checking modified for url " + url);
         if (modifiedTimes[i] < lastModified) {
           if (LOG.isDebugEnabled())           LOG.debug("[GrailsPlugin] plugin resource [" + r + "] changed, firing event if possible..");
+          System.out.println("file changed firing event!");
           fireModifiedEvent(r,this);
           modifiedTimes[i]=lastModified;
         }

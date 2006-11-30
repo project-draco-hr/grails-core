@@ -1,0 +1,5 @@
+{
+  HttpServletRequest request=new MockHttpServletRequest(servletContext);
+  request.setAttribute(DispatcherServlet.LOCALE_RESOLVER_ATTRIBUTE,new AcceptHeaderLocaleResolver());
+  return request;
+}

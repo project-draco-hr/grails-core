@@ -1,7 +1,0 @@
-{
-  GenericApplicationContext applicationContext=new GenericApplicationContext();
-  BeanDefinitionReader bdr=new XmlBeanDefinitionReader(applicationContext);
-  bdr.loadBeanDefinitions(pluginResources);
-  applicationContext.refresh();
-  return applicationContext;
-}

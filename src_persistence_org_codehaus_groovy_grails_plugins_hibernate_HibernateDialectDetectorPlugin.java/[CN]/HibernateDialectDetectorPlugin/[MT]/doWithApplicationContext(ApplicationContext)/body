@@ -1,8 +1,0 @@
-{
-  RootBeanDefinition bd=new RootBeanDefinition(HibernateDialectDetectorFactoryBean.class);
-  MutablePropertyValues mpv=new MutablePropertyValues();
-  mpv.addPropertyValue("dataSource",new RuntimeBeanReference("dataSource"));
-  mpv.addPropertyValue("vendorNameDialectMappings",vendorMappings);
-  bd.setPropertyValues(mpv);
-  if (applicationContext instanceof GenericApplicationContext)   ((GenericApplicationContext)applicationContext).registerBeanDefinition("dialectDetector",bd);
-}

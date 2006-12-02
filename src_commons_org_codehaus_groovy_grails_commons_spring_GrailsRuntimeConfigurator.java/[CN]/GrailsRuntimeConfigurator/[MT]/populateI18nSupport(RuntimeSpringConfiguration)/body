@@ -1,5 +1,0 @@
-{
-  springConfig.addSingletonBean(MESSAGE_SOURCE_BEAN,ReloadableResourceBundleMessageSource.class).addProperty("basename","WEB-INF/grails-app/i18n/messages");
-  springConfig.addSingletonBean("localeChangeInterceptor",LocaleChangeInterceptor.class).addProperty("paramName","lang");
-  springConfig.addSingletonBean("localeResolver",CookieLocaleResolver.class);
-}

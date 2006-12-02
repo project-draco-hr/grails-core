@@ -1,22 +1,9 @@
 {
   RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
   if (context != null)   springConfig.setServletContext(context);
+  this.pluginManager.loadPlugins();
   Assert.notNull(application);
-  populateGlobalBeans(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring i18n support");
-  populateI18nSupport(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails data source");
-  populateDataSourceReferences(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails domain");
-  populateDomainClassReferences(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails services");
-  populateServiceClassReferences(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails controllers");
-  populateControllerReferences(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails scaffolding");
-  populateScaffoldingReferences(springConfig);
-  LOG.debug("[RuntimeConfiguration] Configuring Grails scheduled jobs");
-  populateJobReferences(springConfig);
+  this.pluginManager.doRuntimeConfiguration(springConfig);
   LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
   doPostResourceConfiguration(springConfig);
   return springConfig.getApplicationContext();

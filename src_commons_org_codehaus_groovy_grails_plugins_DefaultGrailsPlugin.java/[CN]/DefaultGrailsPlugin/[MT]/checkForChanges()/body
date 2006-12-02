@@ -2,6 +2,9 @@
   if (onChangeListener != null) {
     try {
       checkForNewResources(this);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Plugin [" + getName() + "] checking ["+ watchedResources.length+ "] resources for changes..");
+      }
       for (int i=0; i < watchedResources.length; i++) {
         final Resource r=watchedResources[i];
         URL url=watchedResources[i].getURL();

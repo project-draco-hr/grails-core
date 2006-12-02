@@ -1,0 +1,7 @@
+{
+  if (this.parentCtx != null) {
+    String[] beanNames=parentCtx.getBeanNamesForType(GrailsPluginManager.class);
+    if (beanNames.length > 0)     return (GrailsPluginManager)parentCtx.getBean(beanNames[0]);
+  }
+  return super.getManager();
+}

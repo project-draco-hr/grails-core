@@ -1,0 +1,6 @@
+{
+  super(beanName,toParent);
+  this.beanConfig=beanConfig;
+  if (beanConfig == null)   throw new IllegalArgumentException("Argument [beanConfig] cannot be null");
+  this.metaClass=InvokerHelper.getMetaClass(this);
+}

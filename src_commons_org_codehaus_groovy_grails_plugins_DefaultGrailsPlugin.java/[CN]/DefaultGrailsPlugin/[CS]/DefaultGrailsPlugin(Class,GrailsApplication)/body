@@ -9,6 +9,12 @@
     this.dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,DEPENDS_ON);
     this.dependencyNames=(String[])this.dependencies.keySet().toArray(new String[this.dependencies.size()]);
   }
+  if (this.pluginBean.isReadableProperty(PLUGIN_LOAD_AFTER_NAMES)) {
+    List loadAfterNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,PLUGIN_LOAD_AFTER_NAMES);
+    if (loadAfterNamesList != null) {
+      this.loadAfterNames=(String[])loadAfterNamesList.toArray(new String[loadAfterNamesList.size()]);
+    }
+  }
   if (this.pluginBean.isReadableProperty(VERSION)) {
     BigDecimal bd=(BigDecimal)this.plugin.getProperty("version");
     this.version=bd;

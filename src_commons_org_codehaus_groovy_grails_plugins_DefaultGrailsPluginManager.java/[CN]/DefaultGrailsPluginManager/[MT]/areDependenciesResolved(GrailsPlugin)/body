@@ -4,10 +4,7 @@
     for (int i=0; i < dependencies.length; i++) {
       String name=dependencies[i];
       BigDecimal version=plugin.getDependentVersion(name);
-      if (hasGrailsPlugin(name,version)) {
-        return true;
-      }
- else {
+      if (!hasGrailsPlugin(name,version)) {
         return false;
       }
     }

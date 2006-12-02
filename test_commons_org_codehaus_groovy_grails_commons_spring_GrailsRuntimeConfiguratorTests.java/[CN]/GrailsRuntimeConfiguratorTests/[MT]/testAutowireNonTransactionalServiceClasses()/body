@@ -10,10 +10,9 @@
   conf.setLoadExternalPersistenceConfig(false);
   GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());
   assertNotNull(ctx);
-  Map beans=ctx.getBeansOfType(s2);
-  assertEquals(1,beans.size());
-  beans=ctx.getBeansOfType(s1);
-  assertEquals(1,beans.size());
+  assertEquals(s1,ctx.getBean("testService").getClass());
+  assertEquals(s2,ctx.getBean("anotherService").getClass());
   GroovyObject anotherService=(GroovyObject)ctx.getBean("anotherService");
+  assertNotNull(anotherService.getProperty("testService"));
   assertEquals("hello",anotherService.invokeMethod("anotherMethod",null));
 }

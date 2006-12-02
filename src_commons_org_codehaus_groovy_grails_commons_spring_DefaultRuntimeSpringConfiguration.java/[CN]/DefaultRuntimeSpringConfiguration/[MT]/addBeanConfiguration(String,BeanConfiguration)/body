@@ -1,5 +1,5 @@
 {
   beanConfiguration.setName(beanName);
-  beanConfigs.add(beanConfiguration);
+  beanConfigs.put(beanName,beanConfiguration);
   beanNames.add(beanName);
 }

@@ -1,5 +1,5 @@
 {
-  for (Iterator i=beanConfigs.iterator(); i.hasNext(); ) {
+  for (Iterator i=beanConfigs.values().iterator(); i.hasNext(); ) {
     BeanConfiguration bc=(BeanConfiguration)i.next();
     if (LOG.isDebugEnabled()) {
       LOG.debug("[RuntimeConfiguration] Registering bean [" + bc.getName() + "]");

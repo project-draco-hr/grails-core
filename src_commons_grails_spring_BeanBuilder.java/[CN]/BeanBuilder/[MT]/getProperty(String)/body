@@ -1,10 +1,14 @@
 {
-  if (name.equals(APPLICATION) && application != null) {
-    return this.application;
+  if (binding.containsKey(name)) {
+    return binding.get(name);
   }
  else {
     if (springConfig.containsBean(name)) {
-      return new RuntimeBeanReference(name,false);
+      BeanConfiguration beanConfig=springConfig.getBeanConfig(name);
+      if (beanConfig != null) {
+        return new ConfigurableRuntimeBeanReference(name,springConfig.getBeanConfig(name),false);
+      }
+ else       return new RuntimeBeanReference(name,false);
     }
  else     if (currentBeanConfig != null) {
       if (currentBeanConfig.hasProperty(name))       return currentBeanConfig.getPropertyValue(name);

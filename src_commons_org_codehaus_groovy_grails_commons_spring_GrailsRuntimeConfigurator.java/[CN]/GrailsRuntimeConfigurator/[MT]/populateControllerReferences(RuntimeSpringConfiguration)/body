@@ -1,6 +1,0 @@
-{
-  GrailsPlugin plugin=this.pluginManager.getGrailsPlugin("controllers");
-  if (plugin != null) {
-    plugin.doWithRuntimeConfiguration(springConfig);
-  }
-}

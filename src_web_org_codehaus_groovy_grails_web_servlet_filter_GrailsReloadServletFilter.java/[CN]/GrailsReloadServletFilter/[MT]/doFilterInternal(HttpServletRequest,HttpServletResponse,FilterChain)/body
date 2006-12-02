@@ -57,65 +57,15 @@ catch (    Exception e) {
   if (copyScript != null) {
     copyScript.copyViews();
   }
-  GrailsResourceHolder resourceHolder=(GrailsResourceHolder)context.getBean(GrailsResourceHolder.APPLICATION_CONTEXT_ID);
-  Resource[] resources=resourceHolder.getResources();
-  if (!initialised) {
-    for (int i=0; i < resources.length; i++) {
-      Resource resource=resources[i];
-      String className=resourceHolder.getClassName(resources[i]);
-      URL url=resource.getURL();
-      URLConnection c=url.openConnection();
-      c.setDoInput(false);
-      c.setDoOutput(false);
-      long lastModified=c.getLastModified();
-      ResourceMeta rm=new ResourceMeta();
-      rm.className=className;
-      rm.lastModified=lastModified;
-      rm.url=url;
-      resourceMetas.put(className,rm);
-    }
-    initialised=true;
+  if (manager == null) {
+    manager=(GrailsPluginManager)getServletContext().getAttribute(GrailsApplicationAttributes.PLUGIN_MANAGER);
   }
- else {
-    for (int i=0; i < resources.length; i++) {
-      Resource resource=resources[i];
-      String className=resourceHolder.getClassName(resources[i]);
-      Class loadedClass=null;
-      boolean isNew=false;
-      try {
-        if (!resourceMetas.containsKey(className)) {
-          URL url=resource.getURL();
-          URLConnection c=url.openConnection();
-          c.setDoInput(false);
-          c.setDoOutput(false);
-          long lastModified=c.getLastModified();
-          ResourceMeta rm=new ResourceMeta();
-          rm.className=className;
-          rm.lastModified=lastModified;
-          rm.url=url;
-          resourceMetas.put(className,rm);
-          GroovyClassLoader gcl=application.getClassLoader();
-          ((GrailsResourceLoader)gcl.getResourceLoader()).setResources(resources);
-          loadedClass=gcl.loadClass(className,true,false);
-          isNew=true;
-        }
- else {
-          ResourceMeta rm=(ResourceMeta)resourceMetas.get(className);
-          URL url=resource.getURL();
-          URLConnection c=url.openConnection();
-          if (rm.lastModified < c.getLastModified()) {
-            loadedClass=application.getClassLoader().loadClass(className,true,false);
-            rm.lastModified=c.getLastModified();
-          }
-        }
-        if (loadedClass != null) {
-          loadGrailsClass(loadedClass,isNew);
-        }
-      }
- catch (      ClassNotFoundException cnfex) {
-        LOG.error("Unabled to reload class [" + className + "], class not found: "+ cnfex.getMessage(),cnfex);
-      }
-    }
+  if (manager != null) {
+    if (LOG.isDebugEnabled())     LOG.debug("Checking Plugin manager for changes..");
+    manager.checkForChanges();
+  }
+ else   if (LOG.isDebugEnabled()) {
+    LOG.debug("Plugin manager not found, skipping change check");
   }
   filterChain.doFilter(httpServletRequest,httpServletResponse);
 }

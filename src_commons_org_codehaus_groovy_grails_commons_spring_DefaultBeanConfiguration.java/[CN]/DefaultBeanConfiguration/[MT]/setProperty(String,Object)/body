@@ -10,6 +10,9 @@
  else     if (BY_TYPE.equals(newValue)) {
       bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE);
     }
+ else     if (Boolean.TRUE.equals(newValue)) {
+      bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME);
+    }
  else     if (BY_CONSTRUCTOR.equals(newValue)) {
       bd.setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR);
     }

@@ -6,15 +6,8 @@
     webContext=wac;
   }
  else {
-    GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(application,parent);
-    if (parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
-      configurator.setPluginManager((GrailsPluginManager)parent.getBean(GrailsPluginManager.BEAN_NAME));
-    }
-    webContext=configurator.configure(super.getServletContext());
+    webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
   }
-  getServletContext().setAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT,parent);
-  getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,webContext);
-  getServletContext().setAttribute(GrailsApplication.APPLICATION_ID,application);
   GrailsConfigUtils.configureScaffolders(application,webContext);
   GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
   return webContext;

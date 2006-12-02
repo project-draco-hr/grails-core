@@ -7,6 +7,10 @@
   MockApplicationContext parent=new MockApplicationContext();
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  DefaultGrailsPluginManager manager=new DefaultGrailsPluginManager(new Class[0],app);
+  manager.setParentApplicationContext(parent);
+  parent.registerMockBean("manager",manager);
+  conf.setPluginManager(manager);
   ApplicationContext ctx=conf.configure(new MockServletContext());
   assertNotNull(ctx);
   assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN) instanceof GroovyClassLoader);

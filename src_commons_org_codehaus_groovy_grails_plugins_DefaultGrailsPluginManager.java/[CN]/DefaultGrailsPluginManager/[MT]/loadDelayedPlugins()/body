@@ -2,8 +2,13 @@
   while (!delayedLoadPlugins.isEmpty()) {
     GrailsPlugin plugin=(GrailsPlugin)delayedLoadPlugins.remove(0);
     if (areDependenciesResolved(plugin)) {
-      LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
-      plugins.put(plugin.getName(),plugin);
+      if (hasValidPluginsToLoadBefore(plugin)) {
+        continue;
+      }
+ else {
+        LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
+        registerPlugin(plugin);
+      }
     }
  else {
       boolean foundInDelayed=false;

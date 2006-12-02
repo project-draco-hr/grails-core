@@ -3,7 +3,10 @@
     Closure c=(Closure)this.plugin.getProperty(DO_WITH_SPRING);
     BeanBuilder bb=new BeanBuilder(getParentCtx());
     bb.setSpringConfig(springConfig);
-    bb.setApplication(application);
+    Binding b=new Binding();
+    b.setVariable("application",application);
+    b.setVariable("manager",getManager());
+    bb.setBinding(b);
     c.setDelegate(bb);
     bb.invokeMethod("beans",new Object[]{c});
   }

@@ -1,0 +1,10 @@
+{
+  String[] loadAfterNames=plugin.getLoadAfterNames();
+  if (loadAfterNames.length > 0) {
+    for (int i=0; i < loadAfterNames.length; i++) {
+      String name=loadAfterNames[i];
+      if (getGrailsPlugin(name) == null)       return false;
+    }
+  }
+  return true;
+}

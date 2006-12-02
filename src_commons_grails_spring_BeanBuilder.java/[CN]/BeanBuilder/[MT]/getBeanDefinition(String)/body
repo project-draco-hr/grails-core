@@ -1,0 +1,4 @@
+{
+  if (!getSpringConfig().containsBean(name))   return null;
+  return getSpringConfig().getBeanConfig(name).getBeanDefinition();
+}

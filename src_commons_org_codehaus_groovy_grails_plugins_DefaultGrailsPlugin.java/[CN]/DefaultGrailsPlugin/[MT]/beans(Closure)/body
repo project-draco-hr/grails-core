@@ -1,0 +1,5 @@
+{
+  BeanBuilder bb=new BeanBuilder(this.parentCtx);
+  bb.invokeMethod("beans",new Object[]{closure});
+  return bb;
+}

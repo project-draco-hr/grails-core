@@ -1,0 +1,4 @@
+{
+  SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+  SessionFactoryUtils.releaseSession(sessionHolder.getSession(),sessionFactory);
+}

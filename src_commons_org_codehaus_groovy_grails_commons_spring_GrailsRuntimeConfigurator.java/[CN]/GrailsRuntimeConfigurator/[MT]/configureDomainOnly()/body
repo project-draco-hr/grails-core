@@ -3,5 +3,7 @@
   springConfig.setServletContext(new MockServletContext());
   this.pluginManager.loadPlugins();
   if (pluginManager.hasGrailsPlugin("hibernate"))   pluginManager.doRuntimeConfiguration("hibernate",springConfig);
-  return springConfig.getApplicationContext();
+  WebApplicationContext ctx=springConfig.getApplicationContext();
+  performPostProcessing(ctx);
+  return ctx;
 }

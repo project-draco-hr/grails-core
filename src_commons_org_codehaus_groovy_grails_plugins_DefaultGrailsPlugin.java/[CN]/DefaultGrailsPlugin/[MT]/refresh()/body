@@ -1,0 +1,11 @@
+{
+  for (int i=0; i < watchedResources.length; i++) {
+    Resource r=watchedResources[i];
+    try {
+      r.getFile().setLastModified(System.currentTimeMillis());
+    }
+ catch (    IOException e) {
+    }
+    fireModifiedEvent(r,this);
+  }
+}

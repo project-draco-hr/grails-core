@@ -1,0 +1,17 @@
+{
+  GrailsPluginManager manager=getManager();
+  if (LOG.isDebugEnabled())   LOG.debug("Plugin " + this + " starting refresh of influenced plugins "+ ArrayUtils.toString(influencedPluginNames));
+  if (manager != null) {
+    for (int i=0; i < influencedPluginNames.length; i++) {
+      String name=influencedPluginNames[i];
+      GrailsPlugin plugin=manager.getGrailsPlugin(name);
+      if (plugin != null) {
+        if (LOG.isDebugEnabled())         LOG.debug(this + " plugin is refreshing influenced plugin " + plugin+ " following change to resource");
+        plugin.refresh();
+      }
+    }
+  }
+ else   if (LOG.isDebugEnabled()) {
+    LOG.debug("Plugin " + this + " cannot refresh influenced plugins, manager is not found");
+  }
+}

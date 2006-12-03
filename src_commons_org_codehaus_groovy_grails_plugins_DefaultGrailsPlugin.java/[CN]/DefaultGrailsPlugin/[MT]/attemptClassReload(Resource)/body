@@ -1,15 +1,7 @@
 {
   String className=GrailsResourceUtils.getClassName(resource);
   if (className != null) {
-    try {
-      return application.getClassLoader().loadClass(className,true,false);
-    }
- catch (    CompilationFailedException e) {
-      LOG.error("Compilation error reloading plugin resource [" + resource + "]:"+ e.getMessage(),e);
-    }
-catch (    ClassNotFoundException e) {
-      LOG.error("Class not found error reloading plugin resource [" + resource + "]:"+ e.getMessage(),e);
-    }
+    return attemptClassReload(className);
   }
   return null;
 }

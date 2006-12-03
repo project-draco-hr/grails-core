@@ -22,6 +22,12 @@
  else {
     throw new PluginException("Plugin [" + getName() + "] must specify a version!");
   }
+  if (this.pluginBean.isReadableProperty(INFLUENCES)) {
+    List influencedList=(List)this.pluginBean.getPropertyValue(INFLUENCES);
+    if (influencedList != null) {
+      this.influencedPluginNames=(String[])influencedList.toArray(new String[influencedList.size()]);
+    }
+  }
   if (this.pluginBean.isReadableProperty(ON_CHANGE)) {
     this.onChangeListener=(Closure)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,ON_CHANGE);
     Object referencedResources=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,WATCHED_RESOURCES);

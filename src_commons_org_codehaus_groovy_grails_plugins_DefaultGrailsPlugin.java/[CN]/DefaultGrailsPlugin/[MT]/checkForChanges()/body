@@ -2,27 +2,22 @@
   if (onChangeListener != null) {
     try {
       checkForNewResources(this);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Plugin [" + getName() + "] checking ["+ watchedResources.length+ "] resources for changes..");
-      }
-      for (int i=0; i < watchedResources.length; i++) {
-        final Resource r=watchedResources[i];
-        URL url=watchedResources[i].getURL();
-        URLConnection c=url.openConnection();
-        c.setDoInput(false);
-        c.setDoOutput(false);
-        long lastModified=c.getLastModified();
-        System.out.println("Checking modified for url " + url);
-        if (modifiedTimes[i] < lastModified) {
-          if (LOG.isDebugEnabled())           LOG.debug("[GrailsPlugin] plugin resource [" + r + "] changed, firing event if possible..");
-          System.out.println("file changed firing event!");
-          fireModifiedEvent(r,this);
-          modifiedTimes[i]=lastModified;
-        }
-      }
     }
  catch (    IOException e) {
-      LOG.warn("Unable to read last modified date of plugin resource" + e.getMessage(),e);
+      LOG.error("Plugin " + this + "  was unable to check for new plugin resources: "+ e.getMessage(),e);
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Plugin " + this + " checking ["+ watchedResources.length+ "] resources for changes..");
+    }
+    for (int i=0; i < watchedResources.length; i++) {
+      final Resource r=watchedResources[i];
+      long modifiedFlag=checkModified(r,modifiedTimes[i]);
+      if (modifiedFlag > -1) {
+        if (LOG.isDebugEnabled())         LOG.debug("[GrailsPlugin] plugin resource [" + r + "] changed, firing event if possible..");
+        fireModifiedEvent(r,this);
+        refreshInfluencedPlugins();
+        modifiedTimes[i]=modifiedFlag;
+      }
     }
   }
 }

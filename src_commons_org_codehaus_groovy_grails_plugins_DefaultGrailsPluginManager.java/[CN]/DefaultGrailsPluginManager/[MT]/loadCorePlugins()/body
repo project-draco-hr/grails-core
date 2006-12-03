@@ -1,11 +1,17 @@
 {
-  loadCorePlugin("org.codehaus.groovy.grails.plugins.CoreGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.i18n.plugins.I18nGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.web.plugins.ControllersGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.datasource.plugins.DataSourceGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.orm.hibernate.plugins.HibernateGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.services.plugins.ServicesGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.jobs.plugins.QuartzGrailsPlugin");
-  loadCorePlugin("org.codehaus.groovy.grails.scaffolding.plugins.ScaffoldingGrailsPlugin");
+  try {
+    Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/*GrailsPlugin.class");
+    for (int i=0; i < resources.length; i++) {
+      Resource resource=resources[i];
+      String url=resource.getURL().toString();
+      int packageIndex=url.indexOf("org/codehaus/groovy/grails");
+      url=url.substring(packageIndex,url.length());
+      url=url.substring(0,url.length() - 6);
+      String className=url.replace('/','.');
+      loadCorePlugin(className);
+    }
+  }
+ catch (  IOException e) {
+    throw new PluginException("I/O exception configuring core plug-ins: " + e.getMessage(),e);
+  }
 }

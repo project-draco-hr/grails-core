@@ -1,6 +1,5 @@
 {
   if (areDependenciesResolved(plugin) && areNoneToLoadBefore(plugin)) {
-    LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
     registerPlugin(plugin);
   }
  else {

@@ -1,6 +1,6 @@
 {
-  if (this.groovyFiles == null || groovyFiles.length == 0) {
-    throw new IllegalStateException("Groovy files are not defined!");
+  if (groovyFiles.length == 0) {
+    LOG.warn("Warning: No Groovy files found in application");
   }
   if (LOG.isDebugEnabled()) {
     LOG.debug("Loaded Groovy resources: " + ArrayUtils.toString(groovyFiles));

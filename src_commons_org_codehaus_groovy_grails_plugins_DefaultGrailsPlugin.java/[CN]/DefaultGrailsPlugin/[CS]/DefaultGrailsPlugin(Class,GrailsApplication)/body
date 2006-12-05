@@ -5,6 +5,7 @@
   this.pluginBean=new BeanWrapperImpl(this.plugin);
   this.dependencies=Collections.EMPTY_MAP;
   this.parentCtx=application.getParentContext();
+  this.resolver=new PathMatchingResourcePatternResolver();
   if (this.pluginBean.isReadableProperty(DEPENDS_ON)) {
     this.dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,DEPENDS_ON);
     this.dependencyNames=(String[])this.dependencies.keySet().toArray(new String[this.dependencies.size()]);
@@ -31,7 +32,6 @@
   if (this.pluginBean.isReadableProperty(ON_CHANGE)) {
     this.onChangeListener=(Closure)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,ON_CHANGE);
     Object referencedResources=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,WATCHED_RESOURCES);
-    this.resolver=new PathMatchingResourcePatternResolver();
     try {
       if (referencedResources instanceof String) {
         this.resourcesReference=referencedResources.toString();

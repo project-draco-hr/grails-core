@@ -1,4 +1,5 @@
 {
+  checkInitialised();
   GrailsPlugin plugin=getGrailsPlugin(pluginName);
   if (plugin == null)   throw new PluginException("Plugin [" + pluginName + "] not found");
   String[] dependencyNames=plugin.getDependencyNames();

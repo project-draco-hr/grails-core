@@ -1,0 +1,8 @@
+{
+  if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null");
+  this.application=application;
+  for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
+    GrailsPlugin plugin=(GrailsPlugin)i.next();
+    plugin.setApplication(application);
+  }
+}

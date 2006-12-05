@@ -6,7 +6,6 @@
         continue;
       }
  else {
-        LOG.info("Grails plug-in [" + plugin.getName() + "] with version ["+ plugin.getVersion()+ "] loaded successfully");
         registerPlugin(plugin);
       }
     }

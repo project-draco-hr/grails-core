@@ -1,0 +1,24 @@
+{
+  checkInitialised();
+  try {
+    XmlSlurper slurper=new XmlSlurper();
+    GPathResult result=slurper.parse(inputStream);
+    for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
+      GrailsPlugin plugin=(GrailsPlugin)i.next();
+      plugin.doWithWebDescriptor(result);
+    }
+    Binding b=new Binding();
+    b.setVariable("node",result);
+    Writable w=(Writable)new GroovyShell(b).evaluate("new groovy.xml.StreamingMarkupBuilder().bind { mkp.declareNamespace(\"\":  \"http://java.sun.com/xml/ns/j2ee\"); mkp.yield node}");
+    w.writeTo(target);
+  }
+ catch (  ParserConfigurationException e) {
+    throw new PluginException("Unable to configure web.xml due to parser configuration problem: " + e.getMessage(),e);
+  }
+catch (  SAXException e) {
+    throw new PluginException("XML parsing error configuring web.xml: " + e.getMessage(),e);
+  }
+catch (  IOException e) {
+    throw new PluginException("Unable to read web.xml" + e.getMessage(),e);
+  }
+}

@@ -6,6 +6,7 @@
     Binding b=new Binding();
     b.setVariable("application",application);
     b.setVariable("manager",getManager());
+    b.setVariable("plugin",this);
     bb.setBinding(b);
     c.setDelegate(bb);
     bb.invokeMethod("beans",new Object[]{c});

@@ -4,7 +4,14 @@
   this.parent=parent;
   if (parent != null)   this.parentDataSource=parent.containsBean(DATA_SOURCE_BEAN);
   try {
-    this.pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
+    this.pluginManager=PluginManagerHolder.getPluginManager();
+    if (this.pluginManager == null) {
+      this.pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
+    }
+ else {
+      LOG.debug("Retrieved thread-bound PluginManager instance");
+      this.pluginManager.setApplication(application);
+    }
   }
  catch (  IOException e) {
     LOG.warn("I/O error loading plugin manager!:" + e.getMessage(),e);

@@ -1,4 +1,5 @@
 {
+  checkInitialised();
   for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
     GrailsPlugin plugin=(GrailsPlugin)i.next();
     plugin.doWithApplicationContext(applicationContext);

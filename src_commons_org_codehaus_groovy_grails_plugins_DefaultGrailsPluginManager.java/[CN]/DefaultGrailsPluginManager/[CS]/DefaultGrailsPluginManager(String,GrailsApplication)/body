@@ -2,6 +2,11 @@
   super();
   if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null!");
   resolver=new PathMatchingResourcePatternResolver();
-  this.pluginResources=resolver.getResources(resourcePath);
+  try {
+    this.pluginResources=resolver.getResources(resourcePath);
+  }
+ catch (  IOException ioe) {
+    LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);
+  }
   this.application=application;
 }

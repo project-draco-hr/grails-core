@@ -1,19 +1,22 @@
 {
-  GroovyClassLoader gcl=application.getClassLoader();
-  loadCorePlugins();
-  for (int i=0; i < pluginResources.length; i++) {
-    Resource r=pluginResources[i];
-    Class pluginClass=loadPluginClass(gcl,r);
-    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
-    attemptPluginLoad(plugin);
+  if (!this.initialised) {
+    GroovyClassLoader gcl=application.getClassLoader();
+    loadCorePlugins();
+    for (int i=0; i < pluginResources.length; i++) {
+      Resource r=pluginResources[i];
+      Class pluginClass=loadPluginClass(gcl,r);
+      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+      attemptPluginLoad(plugin);
+    }
+    for (int i=0; i < pluginClasses.length; i++) {
+      Class pluginClass=pluginClasses[i];
+      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+      attemptPluginLoad(plugin);
+    }
+    if (!delayedLoadPlugins.isEmpty()) {
+      loadDelayedPlugins();
+    }
+    initializePlugins();
+    initialised=true;
   }
-  for (int i=0; i < pluginClasses.length; i++) {
-    Class pluginClass=pluginClasses[i];
-    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
-    attemptPluginLoad(plugin);
-  }
-  if (!delayedLoadPlugins.isEmpty()) {
-    loadDelayedPlugins();
-  }
-  initializePlugins();
 }

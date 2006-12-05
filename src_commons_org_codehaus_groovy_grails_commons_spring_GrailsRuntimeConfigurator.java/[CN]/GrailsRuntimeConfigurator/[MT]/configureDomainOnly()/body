@@ -1,7 +1,7 @@
 {
   RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
   springConfig.setServletContext(new MockServletContext());
-  this.pluginManager.loadPlugins();
+  if (!this.pluginManager.isInitialised())   this.pluginManager.loadPlugins();
   if (pluginManager.hasGrailsPlugin("hibernate"))   pluginManager.doRuntimeConfiguration("hibernate",springConfig);
   WebApplicationContext ctx=springConfig.getApplicationContext();
   performPostProcessing(ctx);

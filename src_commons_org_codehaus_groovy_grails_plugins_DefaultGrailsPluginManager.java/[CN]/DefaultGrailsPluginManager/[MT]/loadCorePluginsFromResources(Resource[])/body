@@ -1,0 +1,12 @@
+{
+  LOG.info("Attempting to load [" + resources.length + "] core plugins");
+  for (int i=0; i < resources.length; i++) {
+    Resource resource=resources[i];
+    String url=resource.getURL().toString();
+    int packageIndex=url.indexOf("org/codehaus/groovy/grails");
+    url=url.substring(packageIndex,url.length());
+    url=url.substring(0,url.length() - 6);
+    String className=url.replace('/','.');
+    loadCorePlugin(className);
+  }
+}

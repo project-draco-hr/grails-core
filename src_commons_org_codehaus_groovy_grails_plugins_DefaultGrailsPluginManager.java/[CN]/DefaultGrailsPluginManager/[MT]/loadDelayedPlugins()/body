@@ -19,7 +19,9 @@
         }
       }
       if (foundInDelayed)       delayedLoadPlugins.add(plugin);
- else       throw new PluginException("Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ ArrayUtils.toString(plugin.getDependencyNames())+ "] cannot be resolved");
+ else {
+        LOG.warn("WARNING: Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ ArrayUtils.toString(plugin.getDependencyNames())+ "] cannot be resolved");
+      }
     }
   }
 }

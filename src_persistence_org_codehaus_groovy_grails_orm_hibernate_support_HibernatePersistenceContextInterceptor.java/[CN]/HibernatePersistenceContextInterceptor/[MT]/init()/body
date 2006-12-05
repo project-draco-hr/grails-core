@@ -1,4 +1,11 @@
 {
-  Session session=SessionFactoryUtils.getSession(sessionFactory,true);
-  TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
+  if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+    participate=true;
+  }
+ else {
+    LOG.debug("Opening single Hibernate session in HibernatePersistenceContextInterceptor");
+    Session session=SessionFactoryUtils.getSession(sessionFactory,true);
+    session.setFlushMode(FlushMode.AUTO);
+    TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
+  }
 }

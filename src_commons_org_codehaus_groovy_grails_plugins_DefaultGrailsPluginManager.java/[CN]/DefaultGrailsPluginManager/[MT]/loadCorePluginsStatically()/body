@@ -1,0 +1,12 @@
+{
+  LOG.warn("WARNING: Grails was unable to load core plugins dynamically. This is normally a problem with the container. Attempting static load..");
+  loadCorePlugin("org.codehaus.groovy.grails.plugins.CoreGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.i18n.plugins.I18nGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.datasource.plugins.DataSourceGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.web.plugins.ControllersGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.orm.hibernate.plugins.HibernateGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.services.plugins.ServicesGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.jobs.plugins.QuartzGrailsPlugin");
+  loadCorePlugin("org.codehaus.groovy.grails.scaffolding.plugins.ScaffoldingGrailsPlugin");
+}

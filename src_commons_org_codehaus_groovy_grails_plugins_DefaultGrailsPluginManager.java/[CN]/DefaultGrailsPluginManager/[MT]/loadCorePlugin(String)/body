@@ -1,16 +1,10 @@
 {
-  try {
-    Class pluginClass=application.getClassLoader().loadClass(pluginClassName);
-    if (!Modifier.isAbstract(pluginClass.getModifiers()) && pluginClass != DefaultGrailsPlugin.class) {
-      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
-      if (plugin instanceof ApplicationContextAware) {
-        ((ApplicationContextAware)plugin).setApplicationContext(applicationContext);
-      }
-      attemptPluginLoad(plugin);
+  Class pluginClass=attemptCorePluginClassLoad(pluginClassName);
+  if (pluginClass != null && !Modifier.isAbstract(pluginClass.getModifiers()) && pluginClass != DefaultGrailsPlugin.class) {
+    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+    if (plugin instanceof ApplicationContextAware) {
+      ((ApplicationContextAware)plugin).setApplicationContext(applicationContext);
     }
-  }
- catch (  ClassNotFoundException e) {
-    LOG.warn("[GrailsPluginManager] Core plugin [" + pluginClassName + "] not found, resuming load without..");
-    if (LOG.isDebugEnabled())     LOG.debug(e.getMessage(),e);
+    attemptPluginLoad(plugin);
   }
 }

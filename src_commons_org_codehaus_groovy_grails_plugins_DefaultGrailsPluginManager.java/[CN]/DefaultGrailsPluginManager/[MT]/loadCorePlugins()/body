@@ -1,14 +1,11 @@
 {
   try {
     Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/*GrailsPlugin.class");
-    for (int i=0; i < resources.length; i++) {
-      Resource resource=resources[i];
-      String url=resource.getURL().toString();
-      int packageIndex=url.indexOf("org/codehaus/groovy/grails");
-      url=url.substring(packageIndex,url.length());
-      url=url.substring(0,url.length() - 6);
-      String className=url.replace('/','.');
-      loadCorePlugin(className);
+    if (resources.length > 0) {
+      loadCorePluginsFromResources(resources);
+    }
+ else {
+      loadCorePluginsStatically();
     }
   }
  catch (  IOException e) {

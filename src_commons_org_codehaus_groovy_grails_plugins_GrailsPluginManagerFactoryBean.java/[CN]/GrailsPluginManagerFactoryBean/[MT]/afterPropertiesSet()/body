@@ -1,0 +1,7 @@
+{
+  this.pluginManager=PluginManagerHolder.getPluginManager();
+  if (pluginManager == null) {
+    pluginManager=new DefaultGrailsPluginManager(pluginFiles,application);
+    PluginManagerHolder.setPluginManager(pluginManager);
+  }
+}

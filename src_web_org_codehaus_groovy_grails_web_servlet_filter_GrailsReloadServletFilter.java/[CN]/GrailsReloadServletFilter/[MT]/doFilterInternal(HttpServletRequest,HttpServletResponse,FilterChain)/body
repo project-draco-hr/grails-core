@@ -1,5 +1,8 @@
 {
   context=(GrailsWebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Executing Grails reload filter...");
+  }
   if (context == null) {
     filterChain.doFilter(httpServletRequest,httpServletResponse);
     return;
@@ -54,11 +57,14 @@ catch (    Exception e) {
       LOG.error("Error loading resource copier. Save/reload disabled: " + e.getMessage(),e);
     }
   }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Running copy script...");
+  }
   if (copyScript != null) {
     copyScript.copyViews();
   }
   if (manager == null) {
-    manager=(GrailsPluginManager)getServletContext().getAttribute(GrailsApplicationAttributes.PLUGIN_MANAGER);
+    manager=PluginManagerHolder.getPluginManager();
   }
   if (manager != null) {
     if (LOG.isDebugEnabled())     LOG.debug("Checking Plugin manager for changes..");

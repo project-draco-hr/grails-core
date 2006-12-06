@@ -34,6 +34,9 @@
     Object referencedResources=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,WATCHED_RESOURCES);
     try {
       if (referencedResources instanceof String) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Configuring plugin " + this + " to watch resources with pattern: "+ referencedResources);
+        }
         this.resourcesReference=referencedResources.toString();
         watchedResources=resolver.getResources(resourcesReference);
       }
@@ -47,6 +50,9 @@
           }
           watchedResources=(Resource[])ArrayUtils.addAll(this.watchedResources,tmp);
         }
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Plugin " + this + " found ["+ watchedResources.length+ "] to watch");
       }
       initializeModifiedTimes();
     }

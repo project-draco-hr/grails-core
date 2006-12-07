@@ -1,7 +1,7 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
   MockHttpServletRequest request=new MockHttpServletRequest();
-  MockHttpServletResponse response=new MockHttpServletResponse();
+  GrailsHttpServletResponse response=new GrailsHttpServletResponse(new MockHttpServletResponse());
   Class groovyClass=gcl.parseClass("class TestController {\n" + "def list = {\n" + "log.trace('testing logging')"+ "}\n"+ "}");
   GrailsControllerHelper helper1=makeControllerHelper(groovyClass,gcl);
   try {

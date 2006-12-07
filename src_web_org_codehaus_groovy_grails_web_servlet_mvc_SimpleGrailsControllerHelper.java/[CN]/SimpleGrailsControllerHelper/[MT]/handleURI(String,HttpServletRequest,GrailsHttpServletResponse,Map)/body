@@ -112,6 +112,10 @@
   try {
     action=(Closure)controller.getProperty(actionName);
     Object returnValue=handleAction(controller,action,request,response,params);
+    initChainModel(controller);
+    if (response.isRedirected()) {
+      return null;
+    }
     ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
     if (controllerClass.isInterceptedAfter(controller,actionName)) {
       Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);

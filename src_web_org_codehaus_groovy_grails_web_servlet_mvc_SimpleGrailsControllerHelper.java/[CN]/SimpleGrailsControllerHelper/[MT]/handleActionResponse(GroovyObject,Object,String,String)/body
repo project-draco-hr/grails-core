@@ -2,11 +2,6 @@
   boolean viewNameBlank=(viewName == null || viewName.length() == 0);
   ModelAndView explicityModelAndView=(ModelAndView)controller.getProperty(ControllerDynamicMethods.MODEL_AND_VIEW_PROPERTY);
   Boolean renderView=(Boolean)controller.getProperty(ControllerDynamicMethods.RENDER_VIEW_PROPERTY);
-  FlashScope fs=this.grailsAttributes.getFlashScope((HttpServletRequest)controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
-  if (fs.containsKey(ChainDynamicMethod.PROPERTY_CHAIN_MODEL)) {
-    this.chainModel=(Map)fs.get(ChainDynamicMethod.PROPERTY_CHAIN_MODEL);
-    if (this.chainModel == null)     this.chainModel=Collections.EMPTY_MAP;
-  }
   if (renderView == null)   renderView=Boolean.TRUE;
   if (!renderView.booleanValue()) {
     return null;

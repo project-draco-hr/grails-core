@@ -2,7 +2,7 @@
   GroovyClassLoader gcl=new GroovyClassLoader();
   MockHttpServletRequest request=new MockHttpServletRequest();
   request.setCharacterEncoding("utf-8");
-  MockHttpServletResponse response=new MockHttpServletResponse();
+  GrailsHttpServletResponse response=new GrailsHttpServletResponse(new MockHttpServletResponse());
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "def list = {\n" + "}\n"+ "}");
   GrailsControllerHelper helper1=makeControllerHelper(groovyClass,gcl);

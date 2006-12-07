@@ -2,7 +2,7 @@
   GroovyClassLoader gcl=new GroovyClassLoader();
   MockHttpServletRequest request=new MockHttpServletRequest();
   request.setCharacterEncoding("utf-8");
-  MockHttpServletResponse response=new MockHttpServletResponse();
+  GrailsHttpServletResponse response=new GrailsHttpServletResponse(new MockHttpServletResponse());
   request.addParameter("testParam","testValue");
   Class groovyClass=gcl.parseClass("class TestController {\n" + "def next = {\n" + "return ['success':this.params['testParam2']]"+ "}\n"+ "def list = {\n"+ "redirect(action:next,params:['testParam2':'testValue2'])\n"+ "}\n"+ "}");
   Class secondController=gcl.parseClass("class SecondController {\n" + "def list = {\n" + "return redirect(action:'test/list',params:['testParam2':'testValue2'])\n"+ "}\n"+ "}");
@@ -22,7 +22,7 @@ catch (  MissingPropertyException mpex) {
   }
   try {
     request=new MockHttpServletRequest();
-    response=new MockHttpServletResponse();
+    response=new GrailsHttpServletResponse(new MockHttpServletResponse());
     request.setCharacterEncoding("utf-8");
     helper2.handleURI("/second/list",request,response);
   }

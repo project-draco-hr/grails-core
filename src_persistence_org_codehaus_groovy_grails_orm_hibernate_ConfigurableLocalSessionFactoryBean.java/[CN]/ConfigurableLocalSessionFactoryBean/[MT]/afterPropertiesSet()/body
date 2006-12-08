@@ -5,13 +5,8 @@
     Thread.currentThread().setContextClassLoader(this.classLoader);
   }
   super.afterPropertiesSet();
-  SessionFactory sf=(SessionFactory)getObject();
-  if (sf != null) {
-    Configuration c=getConfiguration();
-    if (c instanceof GrailsDomainConfiguration) {
-      GrailsDomainConfiguration gc=(GrailsDomainConfiguration)c;
-      gc.configureDynamicMethods(sf);
-    }
+  if (this.applicationContext != null) {
+    GrailsDomainConfigurationUtil.configureDynamicMethods(applicationContext,this.grailsApplication);
   }
   if (originalClassLoader != null) {
     Thread.currentThread().setContextClassLoader(originalClassLoader);

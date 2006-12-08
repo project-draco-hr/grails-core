@@ -1,0 +1,9 @@
+{
+  GrailsDomainClass dc=application.getGrailsDomainClass(persistentClass.getName());
+  if (dc == null) {
+    GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,cmd);
+    hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
+    dc=application.addDomainClass(ghdc);
+  }
+  return dc;
+}

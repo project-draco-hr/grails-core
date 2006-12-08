@@ -1,0 +1,13 @@
+{
+  if (applicationContext == null)   throw new IllegalArgumentException("Cannot configure dynamic methods for null ApplicationContext");
+  SessionFactory sessionFactory=(SessionFactory)applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
+  Collection dynamicMethods=configureDynamicMethods(sessionFactory,application);
+  for (Iterator i=dynamicMethods.iterator(); i.hasNext(); ) {
+    DomainClassMethods methods=(DomainClassMethods)i.next();
+    boolean isTransactionAware=applicationContext.containsBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN) && (methods instanceof TransactionManagerAware);
+    if (isTransactionAware) {
+      PlatformTransactionManager ptm=(PlatformTransactionManager)applicationContext.getBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN);
+      ((TransactionManagerAware)methods).setTransactionManager(ptm);
+    }
+  }
+}

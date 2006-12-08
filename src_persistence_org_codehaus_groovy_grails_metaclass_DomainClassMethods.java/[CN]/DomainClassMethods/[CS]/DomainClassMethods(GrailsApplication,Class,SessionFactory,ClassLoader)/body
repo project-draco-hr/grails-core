@@ -35,6 +35,8 @@
   addStaticMethodInvocation(new ExecuteQueryPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ExecuteUpdatePersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new CreateDynamicMethod());
+  addStaticMethodInvocation(new WithCriteriaDynamicPersistentMethod(sessionFactory,classLoader));
+  addStaticMethodInvocation(new WithTransactionPersistentMethod(sessionFactory,classLoader));
   addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty(application));
   addDynamicProperty(new WeakGenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));

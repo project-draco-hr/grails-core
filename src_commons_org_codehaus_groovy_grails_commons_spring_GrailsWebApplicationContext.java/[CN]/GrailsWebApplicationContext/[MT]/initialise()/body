@@ -1,0 +1,4 @@
+{
+  this.metaClass=InvokerHelper.getMetaClass(this);
+  addBeanFactoryPostProcessor(new TransactionManagerPostProcessor());
+}

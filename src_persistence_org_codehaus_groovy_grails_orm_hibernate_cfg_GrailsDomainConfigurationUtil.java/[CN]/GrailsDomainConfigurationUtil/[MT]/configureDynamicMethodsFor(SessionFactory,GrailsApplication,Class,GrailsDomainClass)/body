@@ -1,0 +1,18 @@
+{
+  LOG.debug("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
+  DynamicMethods dm=null;
+  try {
+    dm=new DomainClassMethods(application,persistentClass,sessionFactory,application.getClassLoader());
+    dm.addDynamicMethodInvocation(new AddToRelatedDynamicMethod(dc));
+    for (int j=0; j < dc.getPersistantProperties().length; j++) {
+      GrailsDomainClassProperty p=dc.getPersistantProperties()[j];
+      if (p.isOneToMany() || p.isManyToMany()) {
+        dm.addDynamicMethodInvocation(new AddRelatedDynamicMethod(p));
+      }
+    }
+  }
+ catch (  IntrospectionException e) {
+    LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
+  }
+  return dm;
+}

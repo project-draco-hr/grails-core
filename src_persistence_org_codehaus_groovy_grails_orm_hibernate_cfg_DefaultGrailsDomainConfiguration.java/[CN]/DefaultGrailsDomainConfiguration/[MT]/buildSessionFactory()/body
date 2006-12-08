@@ -1,7 +1,0 @@
-{
-  SessionFactory sessionFactory=super.buildSessionFactory();
-  if (configureDynamicMethods) {
-    configureDynamicMethods(sessionFactory);
-  }
-  return sessionFactory;
-}

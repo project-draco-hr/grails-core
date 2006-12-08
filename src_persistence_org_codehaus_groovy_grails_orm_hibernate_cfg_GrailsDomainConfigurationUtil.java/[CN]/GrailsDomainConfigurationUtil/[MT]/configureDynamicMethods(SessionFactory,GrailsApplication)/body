@@ -1,45 +1,18 @@
 {
-  Collection classMetaData=sf.getAllClassMetadata().values();
+  Map hibernateDomainClassMap=new HashMap();
+  Collection dynamicMethods=new ArrayList();
+  Collection classMetaData=sessionFactory.getAllClassMetadata().values();
   for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
     ClassMetadata cmd=(ClassMetadata)i.next();
     Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
-    Map hibernateDomainClassMap=new HashMap();
+    GrailsDomainClass dc=null;
     if (application != null && persistentClass != null) {
-      GrailsDomainClass dc=application.getGrailsDomainClass(persistentClass.getName());
-      if (dc == null) {
-        GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sf,cmd);
-        hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
-        dc=application.addDomainClass(ghdc);
-      }
-      LOG.debug("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
-      try {
-        DynamicMethods dm=new DomainClassMethods(application,persistentClass,sf,application.getClassLoader());
-        dm.addDynamicMethodInvocation(new AddToRelatedDynamicMethod(dc));
-        for (int j=0; j < dc.getPersistantProperties().length; j++) {
-          GrailsDomainClassProperty p=dc.getPersistantProperties()[j];
-          if (p.isOneToMany() || p.isManyToMany()) {
-            dm.addDynamicMethodInvocation(new AddRelatedDynamicMethod(p));
-          }
-        }
-      }
- catch (      IntrospectionException e) {
-        LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
-      }
+      dc=configureDomainClass(sessionFactory,application,cmd,persistentClass,hibernateDomainClassMap);
     }
-    for (Iterator it=hibernateDomainClassMap.values().iterator(); it.hasNext(); ) {
-      GrailsDomainClass baseClass=(GrailsDomainClass)it.next();
-      if (!baseClass.isRoot()) {
-        Class superClass=baseClass.getClazz().getSuperclass();
-        while (!superClass.equals(Object.class) && !superClass.equals(GroovyObject.class)) {
-          GrailsDomainClass gdc=(GrailsDomainClass)hibernateDomainClassMap.get(superClass.getName());
-          if (gdc == null || gdc.getSubClasses() == null) {
-            LOG.error("did not find superclass names when mapping inheritance....");
-            break;
-          }
-          gdc.getSubClasses().add(baseClass);
-          superClass=superClass.getSuperclass();
-        }
-      }
+    if (dc != null) {
+      dynamicMethods.add(configureDynamicMethodsFor(sessionFactory,application,persistentClass,dc));
     }
   }
+  configureInheritanceMappings(hibernateDomainClassMap);
+  return dynamicMethods;
 }

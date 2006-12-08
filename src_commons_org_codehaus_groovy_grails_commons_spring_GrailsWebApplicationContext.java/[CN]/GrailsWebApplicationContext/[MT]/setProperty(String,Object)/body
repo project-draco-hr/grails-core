@@ -1,0 +1,8 @@
+{
+  if (newValue instanceof BeanDefinition) {
+    registerBeanDefinition(property,(BeanDefinition)newValue);
+  }
+ else {
+    metaClass.setProperty(this,property,newValue);
+  }
+}

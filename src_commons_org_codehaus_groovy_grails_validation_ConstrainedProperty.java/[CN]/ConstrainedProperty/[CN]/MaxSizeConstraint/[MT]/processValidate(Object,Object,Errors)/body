@@ -13,11 +13,11 @@
     if (((Collection)propertyValue).size() > maxSize) {
       super.rejectValue(errors,MAX_SIZE_CONSTRAINT + EXCEEDED_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MAX_SIZE_MESSAGE_CODE,args));
     }
- else     if (propertyValue instanceof Number) {
-      int numberSize=((Number)propertyValue).intValue();
-      if (numberSize > maxSize) {
-        super.rejectValue(errors,MAX_SIZE_CONSTRAINT + EXCEEDED_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MAX_SIZE_MESSAGE_CODE,args));
-      }
+  }
+ else   if (propertyValue instanceof Number) {
+    int numberSize=((Number)propertyValue).intValue();
+    if (numberSize > maxSize) {
+      super.rejectValue(errors,MAX_SIZE_CONSTRAINT + EXCEEDED_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MAX_SIZE_MESSAGE_CODE,args));
     }
   }
  else   if (propertyValue instanceof String) {

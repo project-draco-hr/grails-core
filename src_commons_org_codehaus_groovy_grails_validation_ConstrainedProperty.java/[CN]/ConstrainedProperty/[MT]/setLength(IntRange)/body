@@ -1,21 +1,3 @@
 {
-  if (!(String.class == propertyType) && !propertyType.isArray()) {
-    throw new MissingPropertyException("Length constraint can only be applied to a String or Array property",LENGTH_CONSTRAINT,owningClass);
-  }
-  Constraint c=(Constraint)this.appliedConstraints.get(LENGTH_CONSTRAINT);
-  if (length == null) {
-    this.appliedConstraints.remove(LENGTH_CONSTRAINT);
-  }
- else {
-    if (c != null) {
-      c.setParameter(length);
-    }
- else {
-      c=new SizeConstraint();
-      c.setOwningClass(this.owningClass);
-      c.setPropertyName(this.propertyName);
-      c.setParameter(length);
-      this.appliedConstraints.put(LENGTH_CONSTRAINT,c);
-    }
-  }
+  setSize(length);
 }

@@ -1,5 +1,11 @@
 {
   MaxSizeConstraint c=(MaxSizeConstraint)this.appliedConstraints.get(MAX_SIZE_CONSTRAINT);
-  if (c == null)   return Integer.MAX_VALUE;
+  if (c == null) {
+    if (this.appliedConstraints.containsKey(SIZE_CONSTRAINT)) {
+      SizeConstraint sc=(SizeConstraint)this.appliedConstraints.get(SIZE_CONSTRAINT);
+      return sc.getRange().getToInt();
+    }
+    return Integer.MAX_VALUE;
+  }
   return c.getMaxSize();
 }

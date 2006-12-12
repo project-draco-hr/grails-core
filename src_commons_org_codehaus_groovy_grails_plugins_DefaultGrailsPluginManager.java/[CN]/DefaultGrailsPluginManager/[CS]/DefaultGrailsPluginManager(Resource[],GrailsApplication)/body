@@ -2,5 +2,5 @@
   if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null!");
   resolver=new PathMatchingResourcePatternResolver();
   this.pluginResources=pluginFiles;
-  this.application=application2;
+  this.application=application;
 }

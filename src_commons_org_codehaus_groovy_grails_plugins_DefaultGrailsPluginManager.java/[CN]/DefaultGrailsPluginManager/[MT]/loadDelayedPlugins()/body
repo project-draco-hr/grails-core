@@ -2,10 +2,7 @@
   while (!delayedLoadPlugins.isEmpty()) {
     GrailsPlugin plugin=(GrailsPlugin)delayedLoadPlugins.remove(0);
     if (areDependenciesResolved(plugin)) {
-      if (hasValidPluginsToLoadBefore(plugin)) {
-        continue;
-      }
- else {
+      if (!hasValidPluginsToLoadBefore(plugin)) {
         registerPlugin(plugin);
       }
     }

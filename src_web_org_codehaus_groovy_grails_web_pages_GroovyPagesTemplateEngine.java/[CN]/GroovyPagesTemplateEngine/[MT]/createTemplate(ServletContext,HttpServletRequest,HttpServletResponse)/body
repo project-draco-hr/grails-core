@@ -1,6 +1,4 @@
 {
-  ClassLoader parent=Thread.currentThread().getContextClassLoader();
-  if (parent == null)   parent=getClass().getClassLoader();
   String uri=getPageId(request);
   return createTemplate(uri,context,request,response);
 }

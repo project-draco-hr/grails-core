@@ -1,4 +1,9 @@
 {
-  int contextLength=request.getContextPath().length();
-  return request.getRequestURI().substring(contextLength).intern();
+  Object includePath=request.getAttribute("javax.servlet.include.servlet_path");
+  if (includePath != null) {
+    return ((String)includePath).intern();
+  }
+ else {
+    return request.getServletPath().intern();
+  }
 }

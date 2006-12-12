@@ -1,4 +1,12 @@
 {
   if (scaffoldViewResolver == null)   throw new IllegalStateException("Property [viewResolver] is required to be set, but is null");
-  return new ModelAndView(scaffoldViewResolver.resolveViewForUriAndAction(request.getRequestURI(),actionName),model);
+  Object includeUri=request.getAttribute("javax.servlet.include.request_uri");
+  String uri;
+  if (includeUri != null) {
+    uri=(String)includeUri;
+  }
+ else {
+    uri=request.getRequestURI();
+  }
+  return new ModelAndView(scaffoldViewResolver.resolveViewForUriAndAction(uri,actionName),model);
 }

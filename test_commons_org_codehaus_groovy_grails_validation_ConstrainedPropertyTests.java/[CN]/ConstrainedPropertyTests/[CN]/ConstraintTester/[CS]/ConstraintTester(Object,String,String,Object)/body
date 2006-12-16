@@ -1,0 +1,7 @@
+{
+  this.constrainedBean=new BeanWrapperImpl(constrainedObject);
+  this.constrainedPropertyName=constrainedPropertyName;
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,constrainedPropertyName,this.constrainedBean.getPropertyType(constrainedPropertyName));
+  cp.applyConstraint(constraintName,constrainingValue);
+  this.constraint=(Constraint)cp.getAppliedConstraints().iterator().next();
+}

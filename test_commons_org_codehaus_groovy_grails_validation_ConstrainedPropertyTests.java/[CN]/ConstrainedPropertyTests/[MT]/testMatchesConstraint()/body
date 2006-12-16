@@ -1,0 +1,6 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.MATCHES_CONSTRAINT,"[a-zA-Z]");
+  constraintTester.testConstraint("$",true);
+  constraintTester.testConstraint("j",false);
+  constraintTester.testConstraint(null,true);
+}

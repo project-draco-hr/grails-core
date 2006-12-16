@@ -1,0 +1,5 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.BLANK_CONSTRAINT,new Boolean(false));
+  constraintTester.testConstraint("",true);
+  constraintTester.testConstraint("foo",false);
+}

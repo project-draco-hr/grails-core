@@ -1,0 +1,6 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testInteger",ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(0));
+  constraintTester.testConstraint(new Integer(Integer.MIN_VALUE),false);
+  constraintTester.testConstraint(new Integer(0),false);
+  constraintTester.testConstraint(new Integer(Integer.MAX_VALUE),true);
+}

@@ -1,0 +1,10 @@
+{
+  this.constrainedBean.setPropertyValue(this.constrainedPropertyName,testValue);
+  Errors errors=new BindException(this.constrainedBean.getWrappedInstance(),"testObject");
+  this.constraint.validate(this.constrainedBean.getWrappedInstance(),this.constrainedBean.getPropertyValue(this.constrainedPropertyName),errors);
+  assertEquals(isErrorExpected,errors.hasErrors());
+  if (isErrorExpected) {
+    FieldError error=errors.getFieldError(this.constrainedPropertyName);
+    assertNotNull(error);
+  }
+}

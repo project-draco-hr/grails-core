@@ -1,8 +1,8 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
   Thread.currentThread().setContextClassLoader(cl);
-  Class tmpClass=cl.parseClass("class ScaffoldController {\n" + "@Property boolean scaffold = true" + "}");
-  Class tmpClass2=cl.parseClass("class Scaffold {\n" + "@Property Long id\n" + "@Property Long version\n"+ "@Property String name\n"+ "}");
+  Class tmpClass=cl.parseClass("class ScaffoldController {\n" + "boolean scaffold = true" + "}");
+  Class tmpClass2=cl.parseClass("class Scaffold {\n" + "Long id\n" + "Long version\n"+ "String name\n"+ "}");
   this.controllerClass=tmpClass;
   this.domainClass=tmpClass2;
   this.localContext=new GenericApplicationContext(super.applicationContext);

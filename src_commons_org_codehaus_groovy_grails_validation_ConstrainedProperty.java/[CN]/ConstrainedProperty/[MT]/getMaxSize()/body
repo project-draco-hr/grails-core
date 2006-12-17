@@ -1,11 +1,11 @@
 {
-  MaxSizeConstraint c=(MaxSizeConstraint)this.appliedConstraints.get(MAX_SIZE_CONSTRAINT);
-  if (c == null) {
-    if (this.appliedConstraints.containsKey(SIZE_CONSTRAINT)) {
-      SizeConstraint sc=(SizeConstraint)this.appliedConstraints.get(SIZE_CONSTRAINT);
-      return sc.getRange().getToInt();
-    }
-    return Integer.MAX_VALUE;
+  Integer maxSize=null;
+  MaxSizeConstraint maxSizeConstraint=(MaxSizeConstraint)this.appliedConstraints.get(MAX_SIZE_CONSTRAINT);
+  SizeConstraint sizeConstraint=(SizeConstraint)this.appliedConstraints.get(SIZE_CONSTRAINT);
+  if ((maxSizeConstraint != null) || (sizeConstraint != null)) {
+    int maxSizeConstraintValue=maxSizeConstraint != null ? maxSizeConstraint.getMaxSize() : Integer.MAX_VALUE;
+    int sizeConstraintHighValue=sizeConstraint != null ? sizeConstraint.getRange().getToInt() : Integer.MAX_VALUE;
+    maxSize=new Integer(Math.min(maxSizeConstraintValue,sizeConstraintHighValue));
   }
-  return c.getMaxSize();
+  return maxSize;
 }

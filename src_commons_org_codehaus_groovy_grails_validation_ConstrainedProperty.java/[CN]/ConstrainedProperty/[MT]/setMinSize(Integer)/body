@@ -1,13 +1,13 @@
 {
   Constraint c=(MinSizeConstraint)this.appliedConstraints.get(MIN_SIZE_CONSTRAINT);
   if (c != null) {
-    c.setParameter(new Integer(minSize));
+    c.setParameter(minSize);
   }
  else {
     c=new MinSizeConstraint();
     c.setOwningClass(this.owningClass);
     c.setPropertyName(this.propertyName);
-    c.setParameter(new Integer(minSize));
+    c.setParameter(minSize);
     this.appliedConstraints.put(MIN_SIZE_CONSTRAINT,c);
   }
 }

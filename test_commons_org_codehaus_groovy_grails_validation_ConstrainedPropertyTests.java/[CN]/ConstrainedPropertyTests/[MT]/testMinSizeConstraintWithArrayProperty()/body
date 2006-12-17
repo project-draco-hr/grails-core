@@ -1,0 +1,10 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testArray",ConstrainedProperty.MIN_SIZE_CONSTRAINT,new Integer(2));
+  List list=new ArrayList();
+  list.add("one");
+  constraintTester.testConstraint(list.toArray(),true);
+  list.add("two");
+  constraintTester.testConstraint(list.toArray(),false);
+  list.add("three");
+  constraintTester.testConstraint(list.toArray(),false);
+}

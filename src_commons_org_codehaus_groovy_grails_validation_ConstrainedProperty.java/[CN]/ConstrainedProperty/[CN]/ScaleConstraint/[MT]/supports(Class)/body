@@ -1,0 +1,7 @@
+{
+  boolean isSupported=false;
+  if (type != null) {
+    isSupported=Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type) || BigDecimal.class.isAssignableFrom(type);
+  }
+  return isSupported;
+}

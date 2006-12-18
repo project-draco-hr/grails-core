@@ -1,0 +1,6 @@
+{
+  TestClass testObject=new TestClass();
+  ConstraintTester constraintTester=new ConstraintTester(testObject,"testFloat",ConstrainedProperty.SCALE_CONSTRAINT,new Integer(scale));
+  constraintTester.testConstraint(new Float(originalValue),false);
+  assertEquals(expectedScaledValue,testObject.getTestFloat().floatValue(),0f);
+}

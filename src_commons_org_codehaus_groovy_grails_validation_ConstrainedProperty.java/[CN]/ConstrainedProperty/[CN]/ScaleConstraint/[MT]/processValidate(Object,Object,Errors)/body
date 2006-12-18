@@ -1,0 +1,24 @@
+{
+  if (propertyValue != null) {
+    BigDecimal bigDecimal=null;
+    BeanWrapper bean=new BeanWrapperImpl(target);
+    if (propertyValue instanceof Float) {
+      bigDecimal=new BigDecimal(((Float)propertyValue).toString());
+      bigDecimal=getScaledValue(bigDecimal);
+      bean.setPropertyValue(this.getPropertyName(),Float.valueOf(bigDecimal.floatValue()));
+    }
+ else     if (propertyValue instanceof Double) {
+      bigDecimal=new BigDecimal(((Double)propertyValue).toString());
+      bigDecimal=getScaledValue(bigDecimal);
+      bean.setPropertyValue(this.getPropertyName(),Double.valueOf(bigDecimal.doubleValue()));
+    }
+ else     if (propertyValue instanceof BigDecimal) {
+      bigDecimal=(BigDecimal)propertyValue;
+      bigDecimal=getScaledValue(bigDecimal);
+      bean.setPropertyValue(this.getPropertyName(),bigDecimal);
+    }
+ else {
+      throw new IllegalArgumentException("Unsupported type detected in constraint [" + this.getName() + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "]");
+    }
+  }
+}

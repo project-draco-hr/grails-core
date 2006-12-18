@@ -1,0 +1,24 @@
+{
+  assertScaleConstraintForFloatValue(3,0.1234f,0.123f);
+  assertScaleConstraintForFloatValue(3,0.1235f,0.124f);
+  assertScaleConstraintForFloatValue(3,0.12f,0.120f);
+  assertScaleConstraintForFloatValue(3,47f,47.000f);
+  assertScaleConstraintForFloatValue(0,0.123f,0f);
+  assertScaleConstraintForDoubleValue(3,0.1234,0.123);
+  assertScaleConstraintForDoubleValue(3,0.1235,0.124);
+  assertScaleConstraintForDoubleValue(3,0.12,0.120);
+  assertScaleConstraintForDoubleValue(3,47d,47.000);
+  assertScaleConstraintForDoubleValue(0,0.123,0d);
+  assertScaleConstraintForBigDecimalValue(3,"0.1234","0.123");
+  assertScaleConstraintForBigDecimalValue(3,"0.1235","0.124");
+  assertScaleConstraintForBigDecimalValue(3,"0.12","0.120");
+  assertScaleConstraintForBigDecimalValue(3,"47","47.000");
+  assertScaleConstraintForBigDecimalValue(0,"0.123","0");
+  try {
+    ConstrainedProperty cp=new ConstrainedProperty(TestClass.class,"testFloat",Float.class);
+    cp.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,new Integer(-1));
+    fail("Failed to throw ConstraintException when given a negative scale value.");
+  }
+ catch (  ConstraintException e) {
+  }
+}

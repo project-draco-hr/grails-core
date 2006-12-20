@@ -4,60 +4,63 @@
   }
  catch (  MissingMethodException mme) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("No method [" + methodName + "] found invoking as tag");
+      LOG.debug("No method [" + methodName + "] found");
     }
     Map attrs=null;
     Object body=null;
     StringWriter capturedOut=new StringWriter();
     final Writer out=new PrintWriter(capturedOut);
     GroovyObject tagLib=getTagLib(methodName);
-    if (args instanceof Object[]) {
-      Object[] argArray=(Object[])args;
-      if (argArray.length > 0 && argArray[0] instanceof Map)       attrs=(Map)argArray[0];
-      if (argArray.length > 1) {
-        body=argArray[1];
-      }
-    }
- else     if (args instanceof Map) {
-      attrs=(Map)args;
-    }
-    if (attrs == null) {
-      attrs=new HashMap();
-    }
-    final Object body1=body;
-    Closure actualBody=new Closure(this){
-      public Object doCall(      Object obj){
-        return call(new Object[]{obj});
-      }
-      public Object doCall(){
-        return call(new Object[0]);
-      }
-      public Object doCall(      Object[] args){
-        return call(args);
-      }
-      public Object call(      Object[] args){
-        if (body1 != null) {
-          Object bodyResponse;
-          if (body1 instanceof Closure) {
-            bodyResponse=((Closure)body1).call();
-          }
- else {
-            bodyResponse=body1;
-          }
-          if (bodyResponse != null) {
-            try {
-              out.write(bodyResponse.toString());
-            }
- catch (            IOException e) {
-              throw new GrailsTagException("I/O error invoking tag library closure [" + methodName + "] as method");
-            }
-          }
-        }
-        return null;
-      }
-    }
-;
     if (tagLib != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Invoking as tag");
+      }
+      if (args instanceof Object[]) {
+        Object[] argArray=(Object[])args;
+        if (argArray.length > 0 && argArray[0] instanceof Map)         attrs=(Map)argArray[0];
+        if (argArray.length > 1) {
+          body=argArray[1];
+        }
+      }
+ else       if (args instanceof Map) {
+        attrs=(Map)args;
+      }
+      if (attrs == null) {
+        attrs=new HashMap();
+      }
+      final Object body1=body;
+      Closure actualBody=new Closure(this){
+        public Object doCall(        Object obj){
+          return call(new Object[]{obj});
+        }
+        public Object doCall(){
+          return call(new Object[0]);
+        }
+        public Object doCall(        Object[] args){
+          return call(args);
+        }
+        public Object call(        Object[] args){
+          if (body1 != null) {
+            Object bodyResponse;
+            if (body1 instanceof Closure) {
+              bodyResponse=((Closure)body1).call();
+            }
+ else {
+              bodyResponse=body1;
+            }
+            if (bodyResponse != null) {
+              try {
+                out.write(bodyResponse.toString());
+              }
+ catch (              IOException e) {
+                throw new GrailsTagException("I/O error invoking tag library closure [" + methodName + "] as method");
+              }
+            }
+          }
+          return null;
+        }
+      }
+;
       tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
       Object tagLibProp;
       Map properties=DefaultGroovyMethods.getProperties(tagLib);
@@ -86,6 +89,20 @@
  else {
         if (args instanceof Object[])         throw new MissingMethodException(methodName,GroovyPage.class,(Object[])args);
  else         throw new MissingMethodException(methodName,GroovyPage.class,new Object[]{args});
+      }
+    }
+ else     if (methodName.startsWith("encodeAs")) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Invoking as dynamic encoder");
+      }
+      final String codec=methodName.substring("encodeAs".length()).toLowerCase();
+      if ("html".equals(codec)) {
+        return HtmlUtils.htmlEscape(((Object[])args)[0].toString());
+      }
+ else {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("No encoder found for " + codec);
+        }
       }
     }
     throw new MissingMethodException(methodName,GroovyPage.class,new Object[]{args});

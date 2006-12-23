@@ -1,0 +1,6 @@
+{
+  ClosureMetaMethod metaMethod=new ClosureMetaMethod(methodName,super.theClass,callable);
+  MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
+  super.addMetaMethod(metaMethod);
+  super.cacheInstanceMethod(key,metaMethod);
+}

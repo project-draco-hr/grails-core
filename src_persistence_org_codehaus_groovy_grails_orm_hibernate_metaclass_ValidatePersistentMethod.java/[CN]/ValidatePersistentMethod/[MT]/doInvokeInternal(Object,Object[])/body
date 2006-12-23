@@ -22,7 +22,7 @@
           getHibernateTemplate().evict(target);
         }
       }
-      DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
+      DynamicMethodsMetaClass metaClass=(DynamicMethodsMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
       metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
     }
   }

@@ -5,7 +5,7 @@
   DynamicMethods methods=new AbstractDynamicMethods(c){
   }
 ;
-  MetaClass mc=new DelegatingMetaClass(c,methods,true);
+  MetaClass mc=new DynamicMethodsMetaClass(c,methods,true);
   go.setMetaClass(mc);
   methods.addDynamicConstructor(new DataBindingDynamicConstructor());
   Map args=new HashMap();

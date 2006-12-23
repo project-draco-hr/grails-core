@@ -7,7 +7,7 @@
     ((GroovyObject)target).setProperty(DomainClassMethods.ERRORS_PROPERTY,errors);
   }
  else {
-    DelegatingMetaClass metaClass=(DelegatingMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
+    DynamicMethodsMetaClass metaClass=(DynamicMethodsMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
     metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
   }
   return null;

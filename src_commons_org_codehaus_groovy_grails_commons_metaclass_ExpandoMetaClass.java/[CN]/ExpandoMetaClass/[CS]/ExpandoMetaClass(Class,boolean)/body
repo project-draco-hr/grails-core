@@ -1,0 +1,4 @@
+{
+  this(theClass);
+  if (register)   super.registry.setMetaClass(theClass,this);
+}

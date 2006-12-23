@@ -1,0 +1,16 @@
+{
+  if (newValue instanceof Closure) {
+    if (property.equals(CONSTRUCTOR)) {
+      property=GROOVY_CONSTRUCTOR;
+    }
+    Closure callable=(Closure)newValue;
+    registerInstanceMethod(property,callable);
+  }
+ else {
+    Class type=newValue == null ? Object.class : newValue.getClass();
+    MetaBeanProperty mbp=new ThreadManagedMetaBeanProperty(theClass,property,type,newValue);
+    addMetaMethod(mbp.getGetter());
+    addMetaMethod(mbp.getSetter());
+    addMetaBeanProperty(mbp);
+  }
+}

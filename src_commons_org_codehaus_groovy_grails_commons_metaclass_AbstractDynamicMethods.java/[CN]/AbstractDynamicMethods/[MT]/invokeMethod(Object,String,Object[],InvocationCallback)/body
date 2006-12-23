@@ -13,6 +13,7 @@
         if (LOG.isDebugEnabled()) {
           LOG.debug("[DynamicMethods] Instance method [" + methodName + "] invoked successfully with result ["+ result+ "]. Marking as invoked");
         }
+        callback.setInvoker(methodInvocation);
         callback.markInvoked();
         return result;
       }

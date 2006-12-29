@@ -1,4 +1,13 @@
 {
+  if (!"POST".equals(request.getMethod())) {
+    try {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+      return null;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 403 error",e);
+    }
+  }
   ScaffoldCallback callback=new DefaultScaffoldCallback();
   this.scaffoldRequestHandler.handleDelete(request,response,callback);
   Closure listAction=(Closure)controller.getProperty(LIST_ACTION);

@@ -1,7 +1,6 @@
 {
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
   if (propertyValue == null) {
-    super.rejectValue(errors,SIZE_CONSTRAINT + INVALID_SUFFIX,args,MessageFormat.format(DEFAULT_INVALID_SIZE_MESSAGE,args));
     return;
   }
   if (propertyValue.getClass().isArray()) {

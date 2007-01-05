@@ -5,5 +5,5 @@
   constraintTester.testConstraint("1234567890",false);
   constraintTester.testConstraint("123456789012345",false);
   constraintTester.testConstraint("absolutelytotallytoolong",true);
-  constraintTester.testConstraint(null,true);
+  constraintTester.testConstraint(null,false);
 }

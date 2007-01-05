@@ -6,4 +6,5 @@
   ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.IN_LIST_CONSTRAINT,list);
   constraintTester.testConstraint("something",true);
   constraintTester.testConstraint("two",false);
+  constraintTester.testConstraint(null,false);
 }

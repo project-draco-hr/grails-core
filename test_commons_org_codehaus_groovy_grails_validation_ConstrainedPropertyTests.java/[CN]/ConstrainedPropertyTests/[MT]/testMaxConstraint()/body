@@ -3,5 +3,5 @@
   constraintTester.testConstraint(BEGINNING_OF_TIME,false);
   constraintTester.testConstraint(NOW,false);
   constraintTester.testConstraint(ONE_DAY_FROM_NOW,true);
-  constraintTester.testConstraint(null,true);
+  constraintTester.testConstraint(null,false);
 }

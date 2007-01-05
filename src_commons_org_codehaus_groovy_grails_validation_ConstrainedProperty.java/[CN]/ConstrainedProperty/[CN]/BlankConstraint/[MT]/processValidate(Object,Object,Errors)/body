@@ -1,4 +1,7 @@
 {
+  if (propertyValue == null) {
+    return;
+  }
   if (!blank) {
     if (propertyValue instanceof String) {
       if (StringUtils.isBlank((String)propertyValue)) {

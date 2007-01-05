@@ -1,4 +1,7 @@
 {
+  if (propertyValue == null) {
+    return;
+  }
   if (email) {
     EmailValidator emailValidator=EmailValidator.getInstance();
     Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};

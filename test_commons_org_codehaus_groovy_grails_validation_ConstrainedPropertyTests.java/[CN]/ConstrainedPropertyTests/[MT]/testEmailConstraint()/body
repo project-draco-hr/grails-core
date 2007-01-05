@@ -2,4 +2,5 @@
   ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testEmail",ConstrainedProperty.EMAIL_CONSTRAINT,new Boolean(true));
   constraintTester.testConstraint("rubbish_email",true);
   constraintTester.testConstraint("avalidemail@hotmail.com",false);
+  constraintTester.testConstraint(null,false);
 }

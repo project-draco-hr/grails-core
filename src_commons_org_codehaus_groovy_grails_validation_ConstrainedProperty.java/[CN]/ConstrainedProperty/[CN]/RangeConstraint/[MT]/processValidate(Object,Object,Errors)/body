@@ -1,4 +1,7 @@
 {
+  if (propertyValue == null) {
+    return;
+  }
   if (!this.range.contains(propertyValue)) {
     Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
     if (propertyValue == null) {

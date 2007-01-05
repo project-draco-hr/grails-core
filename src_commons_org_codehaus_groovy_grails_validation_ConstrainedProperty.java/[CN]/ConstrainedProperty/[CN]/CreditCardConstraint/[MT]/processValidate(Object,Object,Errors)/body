@@ -1,4 +1,7 @@
 {
+  if (propertyValue == null) {
+    return;
+  }
   if (creditCard) {
     CreditCardValidator validator=new CreditCardValidator();
     if (!validator.isValid(propertyValue.toString())) {

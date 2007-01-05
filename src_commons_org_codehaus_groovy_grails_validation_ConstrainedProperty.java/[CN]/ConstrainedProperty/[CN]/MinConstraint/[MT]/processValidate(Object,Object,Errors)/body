@@ -1,5 +1,8 @@
 {
-  if ((propertyValue == null) || (minValue.compareTo(propertyValue) > 0)) {
+  if (propertyValue == null) {
+    return;
+  }
+  if (minValue.compareTo(propertyValue) > 0) {
     Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,minValue};
     super.rejectValue(errors,MIN_CONSTRAINT + NOTMET_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MIN_MESSAGE_CODE,args));
   }

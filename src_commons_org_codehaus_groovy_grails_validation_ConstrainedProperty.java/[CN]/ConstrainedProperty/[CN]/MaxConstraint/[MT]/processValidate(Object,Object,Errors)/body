@@ -1,5 +1,8 @@
 {
-  if ((propertyValue == null) || (maxValue.compareTo(propertyValue) < 0)) {
+  if (propertyValue == null) {
+    return;
+  }
+  if (maxValue.compareTo(propertyValue) < 0) {
     Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,maxValue};
     super.rejectValue(errors,MAX_CONSTRAINT + EXCEEDED_SUFFIX,args,getDefaultMessage(DEFAULT_INVALID_MAX_MESSAGE_CODE,args));
   }

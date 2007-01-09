@@ -1,6 +1,14 @@
 {
-  ClosureStaticMetaMethod metaMethod=new ClosureStaticMetaMethod(methodName,super.theClass,callable);
-  MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
-  super.addMetaMethod(metaMethod);
-  super.cacheStaticMethod(key,metaMethod);
+  try {
+    if (allowChangesAfterInit) {
+      this.initialized=false;
+    }
+    ClosureStaticMetaMethod metaMethod=new ClosureStaticMetaMethod(methodName,super.theClass,callable);
+    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
+    super.addMetaMethod(metaMethod);
+    super.cacheStaticMethod(key,metaMethod);
+  }
+  finally {
+    if (initCalled)     this.initialized=true;
+  }
 }

@@ -1,0 +1,6 @@
+{
+  Column column=new Column();
+  GrailsDomainBinder.bindNumericColumnConstraints(column,constrainedProperty);
+  assertEquals(expectedPrecision,column.getPrecision());
+  assertEquals(expectedScale,column.getScale());
+}

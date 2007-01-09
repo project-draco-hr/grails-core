@@ -1,13 +1,19 @@
 {
-  MinConstraint c=(MinConstraint)this.appliedConstraints.get(MIN_CONSTRAINT);
-  if (c == null) {
-    Range r=getRange();
-    if (r == null) {
-      return null;
+  Comparable minValue=null;
+  MinConstraint minConstraint=(MinConstraint)this.appliedConstraints.get(MIN_CONSTRAINT);
+  RangeConstraint rangeConstraint=(RangeConstraint)this.appliedConstraints.get(RANGE_CONSTRAINT);
+  if ((minConstraint != null) || (rangeConstraint != null)) {
+    Comparable minConstraintValue=minConstraint != null ? minConstraint.getMinValue() : null;
+    Comparable rangeConstraintLowValue=rangeConstraint != null ? rangeConstraint.getRange().getFrom() : null;
+    if ((minConstraintValue != null) && (rangeConstraintLowValue != null)) {
+      minValue=(minConstraintValue.compareTo(rangeConstraintLowValue) > 0) ? minConstraintValue : rangeConstraintLowValue;
     }
- else {
-      return r.getFrom();
+ else     if ((minConstraintValue == null) && (rangeConstraintLowValue != null)) {
+      minValue=rangeConstraintLowValue;
+    }
+ else     if ((minConstraintValue != null) && (rangeConstraintLowValue == null)) {
+      minValue=minConstraintValue;
     }
   }
-  return c.getMinValue();
+  return minValue;
 }

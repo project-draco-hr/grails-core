@@ -6,6 +6,15 @@
  else {
     column.setNullable(grailsProp.isOptional());
     column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()));
+    ConstrainedProperty constrainedProperty=getConstrainedProperty(grailsProp);
+    if (constrainedProperty != null) {
+      if (String.class.isAssignableFrom(grailsProp.getType())) {
+        bindStringColumnConstraints(column,constrainedProperty);
+      }
+      if (Number.class.isAssignableFrom(grailsProp.getType())) {
+        bindNumericColumnConstraints(column,constrainedProperty);
+      }
+    }
   }
   if (!grailsProp.getDomainClass().isRoot()) {
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Sub class property [" + grailsProp.getName() + "] for column name ["+ column.getName()+ "] in table ["+ table.getName()+ "] set to nullable");

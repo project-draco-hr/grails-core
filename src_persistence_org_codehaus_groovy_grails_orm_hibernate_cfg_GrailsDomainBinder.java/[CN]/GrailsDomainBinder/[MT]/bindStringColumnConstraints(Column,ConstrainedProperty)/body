@@ -1,0 +1,6 @@
+{
+  Integer columnLength=constrainedProperty.getMaxSize();
+  if (columnLength != null) {
+    column.setLength(columnLength.intValue());
+  }
+}

@@ -1,13 +1,19 @@
 {
-  MaxConstraint c=(MaxConstraint)this.appliedConstraints.get(MAX_CONSTRAINT);
-  if (c == null) {
-    Range r=getRange();
-    if (r == null) {
-      return null;
+  Comparable maxValue=null;
+  MaxConstraint maxConstraint=(MaxConstraint)this.appliedConstraints.get(MAX_CONSTRAINT);
+  RangeConstraint rangeConstraint=(RangeConstraint)this.appliedConstraints.get(RANGE_CONSTRAINT);
+  if ((maxConstraint != null) || (rangeConstraint != null)) {
+    Comparable maxConstraintValue=maxConstraint != null ? maxConstraint.getMaxValue() : null;
+    Comparable rangeConstraintHighValue=rangeConstraint != null ? rangeConstraint.getRange().getTo() : null;
+    if ((maxConstraintValue != null) && (rangeConstraintHighValue != null)) {
+      maxValue=(maxConstraintValue.compareTo(rangeConstraintHighValue) < 0) ? maxConstraintValue : rangeConstraintHighValue;
     }
- else {
-      return r.getTo();
+ else     if ((maxConstraintValue == null) && (rangeConstraintHighValue != null)) {
+      maxValue=rangeConstraintHighValue;
+    }
+ else     if ((maxConstraintValue != null) && (rangeConstraintHighValue == null)) {
+      maxValue=maxConstraintValue;
     }
   }
-  return c.getMaxValue();
+  return maxValue;
 }

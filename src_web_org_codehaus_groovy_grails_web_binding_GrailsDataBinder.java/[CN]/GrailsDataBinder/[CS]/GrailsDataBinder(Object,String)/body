@@ -1,4 +1,5 @@
 {
   super(target,objectName);
   bean=((BeanPropertyBindingResult)super.getBindingResult()).getPropertyAccessor();
+  setDisallowedFields(new String[]{"metaClass","properties"});
 }

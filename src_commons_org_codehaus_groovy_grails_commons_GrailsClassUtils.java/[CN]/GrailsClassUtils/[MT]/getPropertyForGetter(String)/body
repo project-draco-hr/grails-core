@@ -1,0 +1,8 @@
+{
+  if (StringUtils.isBlank(getterName))   return null;
+  if (getterName.startsWith("get")) {
+    String prop=getterName.substring(3);
+    return convertPropertyName(prop);
+  }
+  return null;
+}

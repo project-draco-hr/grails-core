@@ -1,5 +1,5 @@
 {
-  assertEquals(GrailsClassUtils.getGetterName("constraints"),"getConstraints");
-  assertEquals(GrailsClassUtils.getGetterName("URL"),"getURL");
-  assertEquals(GrailsClassUtils.getGetterName("Url"),"getUrl");
+  assertEquals("getConstraints",GrailsClassUtils.getGetterName("constraints"));
+  assertEquals("getURL",GrailsClassUtils.getGetterName("URL"));
+  assertEquals("getUrl",GrailsClassUtils.getGetterName("Url"));
 }

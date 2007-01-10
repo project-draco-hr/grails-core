@@ -1,5 +1,6 @@
 {
   try {
+    boolean inited=this.initialized;
     if (allowChangesAfterInit) {
       this.initialized=false;
     }
@@ -7,6 +8,14 @@
     MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
     super.addMetaMethod(metaMethod);
     super.cacheInstanceMethod(key,metaMethod);
+    if (inited && GrailsClassUtils.isGetter(methodName,metaMethod.getParameterTypes())) {
+      String propertyName=GrailsClassUtils.getPropertyForGetter(methodName);
+      registerBeanPropertyForMethod(metaMethod,propertyName,true);
+    }
+ else     if (inited && GrailsClassUtils.isSetter(methodName,metaMethod.getParameterTypes())) {
+      String propertyName=GrailsClassUtils.getPropertyForSetter(methodName);
+      registerBeanPropertyForMethod(metaMethod,propertyName,false);
+    }
   }
   finally {
     if (initCalled)     this.initialized=true;

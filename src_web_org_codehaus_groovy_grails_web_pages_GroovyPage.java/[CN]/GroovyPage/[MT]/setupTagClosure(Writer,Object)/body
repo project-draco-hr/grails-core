@@ -1,3 +1,4 @@
 {
-  return (Closure)tagLibProp;
+  Closure original=(Closure)tagLibProp;
+  return (Closure)original.clone();
 }

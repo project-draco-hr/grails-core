@@ -10,6 +10,7 @@
     GroovyObject tagLibrary=applicationAttributes.getTagLibraryForTag(request,response,property);
     if (tagLibrary == null)     throw mpe;
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + property + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Retrieving");
-    return tagLibrary.getProperty(property);
+    Closure original=(Closure)tagLibrary.getProperty(property);
+    return original.clone();
   }
 }

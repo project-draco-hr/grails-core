@@ -1,5 +1,6 @@
 {
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   Object actionRef;
   String controllerName;
   Object id;
@@ -19,8 +20,7 @@
  else {
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
-  GrailsApplicationAttributes attrs=helper.getGrailsAttributes();
-  FlashScope fs=attrs.getFlashScope(request);
+  FlashScope fs=webRequest.getFlashScope();
   if (fs.containsKey(PROPERTY_CHAIN_MODEL)) {
     Map chainModel=(Map)fs.get(PROPERTY_CHAIN_MODEL);
     if (chainModel != null) {
@@ -47,13 +47,15 @@
       actionName=prop.getName();
     }
  else {
-      GrailsScaffolder scaffolder=helper.getScaffolderForController(target.getClass().getName());
+      GrailsScaffolder scaffolder=getScaffolderForController(target.getClass().getName(),webRequest);
       if (scaffolder != null) {
         actionName=scaffolder.getActionName(c);
       }
     }
   }
   if (actionName != null) {
+    GrailsApplicationAttributes attrs=webRequest.getAttributes();
+    GrailsHttpServletRequest request=webRequest.getCurrentRequest();
     StringBuffer actualUri=new StringBuffer(attrs.getApplicationUri(request));
     if (controllerName != null) {
       actualUri.append('/').append(controllerName);
@@ -77,6 +79,7 @@
       LOG.debug("Dynamic method [chain] redirecting request to [" + actualUri + "]");
     }
     try {
+      GrailsHttpServletResponse response=webRequest.getCurrentResponse();
       response.sendRedirect(response.encodeRedirectURL(actualUri.toString()));
     }
  catch (    IOException e) {

@@ -104,7 +104,7 @@
         viewUri=viewName;
       }
  else {
-        GrailsControllerClass controllerClass=helper.getControllerClassByName(target.getClass().getName());
+        GrailsControllerClass controllerClass=application.getController(target.getClass().getName());
         viewUri=controllerClass.getViewByName(viewName);
       }
       Map model;
@@ -188,6 +188,6 @@ catch (      ServletException e) {
  else {
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
-  if (controller != null)   controller.setProperty(ControllerDynamicMethods.RENDER_VIEW_PROPERTY,Boolean.valueOf(renderView));
+  webRequest.setRenderView(renderView);
   return null;
 }

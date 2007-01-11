@@ -35,7 +35,10 @@
     controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
   }
   String actualUri;
-  GrailsApplicationAttributes attrs=helper.getGrailsAttributes();
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  GrailsApplicationAttributes attrs=webRequest.getAttributes();
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  GrailsHttpServletResponse response=webRequest.getCurrentResponse();
   if (uri != null) {
     actualUri=attrs.getApplicationUri(request) + uri.toString();
   }
@@ -54,7 +57,7 @@
         actionName=prop.getName();
       }
  else {
-        GrailsScaffolder scaffolder=helper.getScaffolderForController(target.getClass().getName());
+        GrailsScaffolder scaffolder=getScaffolderForController(target.getClass().getName(),webRequest);
         if (scaffolder != null) {
           actionName=scaffolder.getActionName(c);
         }

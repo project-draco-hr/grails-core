@@ -1,8 +1,9 @@
 {
   super.setUp();
+  System.out.println("Setting up test");
+  ctx=new MockApplicationContext();
   onSetUp();
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
-  ctx=new MockApplicationContext();
   ga.setApplicationContext(ctx);
   ctx.registerMockBean(GrailsApplication.APPLICATION_ID,ga);
 }

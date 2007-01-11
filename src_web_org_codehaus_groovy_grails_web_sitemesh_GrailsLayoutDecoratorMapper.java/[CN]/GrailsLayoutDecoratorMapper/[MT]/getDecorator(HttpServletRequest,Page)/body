@@ -13,7 +13,7 @@
       if (d != null) {
         return d;
       }
- else {
+ else       if (!StringUtils.isBlank(controllerName)) {
         if (LOG.isDebugEnabled())         LOG.debug("Action layout not found, trying controller");
         d=getNamedDecorator(request,controllerName);
         if (d != null) {

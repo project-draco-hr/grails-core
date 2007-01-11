@@ -1,22 +1,7 @@
 {
-  if (interceptor == null) {
-    ProxyMetaClass pmc=(ProxyMetaClass)controller.getMetaClass();
-    interceptor=(ControllerDynamicMethods)pmc.getInterceptor();
-  }
   if (params != null && !params.isEmpty()) {
-    GetParamsDynamicProperty paramsProp=(GetParamsDynamicProperty)interceptor.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME);
-    paramsProp.addParams(params);
-  }
-  if (!this.chainModel.isEmpty()) {
-    GenericDynamicProperty chainProperty=(GenericDynamicProperty)interceptor.getDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL);
-    if (chainProperty == null) {
-      interceptor.addDynamicProperty(new GenericDynamicProperty(ChainDynamicMethod.PROPERTY_CHAIN_MODEL,Map.class,this.chainModel,false));
-    }
- else {
-      Map chainPropertyModel=(Map)chainProperty.get(controller);
-      chainPropertyModel.putAll(this.chainModel);
-      this.chainModel=chainPropertyModel;
-    }
+    GrailsParameterMap paramsMap=(GrailsParameterMap)controller.getProperty("params");
+    paramsMap.putAll(params);
   }
   Object returnValue=action.call();
   request.setAttribute(GrailsApplicationAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));

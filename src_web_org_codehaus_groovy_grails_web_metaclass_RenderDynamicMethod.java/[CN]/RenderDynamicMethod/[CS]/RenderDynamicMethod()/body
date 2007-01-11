@@ -1,0 +1,7 @@
+{
+  super(METHOD_PATTERN);
+  this.webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  this.application=webRequest.getAttributes().getGrailsApplication();
+  this.request=webRequest.getCurrentRequest();
+  this.response=webRequest.getCurrentResponse();
+}

@@ -1,0 +1,6 @@
+{
+  for (Enumeration e=getAttributeNames(); e.hasMoreElements(); ) {
+    if (getAttribute(e.nextElement().toString()).equals(value))     return true;
+  }
+  return false;
+}

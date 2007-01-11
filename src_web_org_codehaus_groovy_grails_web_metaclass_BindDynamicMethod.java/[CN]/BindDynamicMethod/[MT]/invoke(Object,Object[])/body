@@ -11,7 +11,8 @@
     dataBinder.bind(request);
   }
  else   if (bindParams instanceof HttpServletRequest) {
-    dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),request);
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),webRequest.getCurrentRequest());
     dataBinder.bind((HttpServletRequest)arguments[1]);
   }
  else   if (bindParams instanceof Map) {
@@ -20,8 +21,9 @@
     dataBinder.bind(pv);
   }
  else {
-    dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),request);
-    dataBinder.bind(request);
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),webRequest.getCurrentRequest());
+    dataBinder.bind(webRequest.getCurrentRequest());
   }
   return targetObject;
 }

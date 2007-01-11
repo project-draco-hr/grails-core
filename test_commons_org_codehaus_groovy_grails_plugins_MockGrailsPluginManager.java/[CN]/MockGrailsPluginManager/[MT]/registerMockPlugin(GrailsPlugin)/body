@@ -1,3 +1,4 @@
 {
   this.plugins.put(plugin.getName(),plugin);
+  this.pluginList.add(plugin);
 }

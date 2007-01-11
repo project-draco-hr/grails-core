@@ -1,23 +1,2 @@
 {
-  ProxyMetaClass pmc=TagLibMetaClass.getTagLibInstance(taglib.getClass());
-  pmc.setInterceptor(this);
-  taglib.setMetaClass(pmc);
-  ProxyMetaClass controllerMetaClass=(ProxyMetaClass)controller.getMetaClass();
-  ControllerDynamicMethods controllerDynamicMethods=(ControllerDynamicMethods)controllerMetaClass.getInterceptor();
-  addDynamicProperty(new GenericDynamicProperty(OUT_PROPERTY,Writer.class,false));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(GetParamsDynamicProperty.PROPERTY_NAME));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(GetSessionDynamicProperty.PROPERTY_NAME));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.RESPONSE_PROPERTY));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.SERVLET_CONTEXT));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY));
-  addDynamicProperty(controllerDynamicMethods.getDynamicProperty(ControllerDynamicMethods.GRAILS_APPLICATION));
-  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(THROW_TAG_ERROR_METHOD_METHOD_PATTERN){
-    public Object invoke(    Object target,    Object[] arguments){
-      if (arguments.length == 0)       throw new MissingMethodException(THROW_TAG_ERROR_METHOD,target.getClass(),arguments);
-      throw new GrailsTagException(arguments[0].toString());
-    }
-  }
-);
 }

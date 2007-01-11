@@ -8,6 +8,7 @@
       this.serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
     }
     this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
+    addToLoaded(serviceClass);
     return grailsServiceClass;
   }
  else {

@@ -7,6 +7,7 @@
   LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
   doPostResourceConfiguration(springConfig);
   WebApplicationContext ctx=springConfig.getApplicationContext();
+  this.pluginManager.setApplicationContext(ctx);
   performPostProcessing(ctx);
   this.pluginManager.doDynamicMethods();
   return ctx;

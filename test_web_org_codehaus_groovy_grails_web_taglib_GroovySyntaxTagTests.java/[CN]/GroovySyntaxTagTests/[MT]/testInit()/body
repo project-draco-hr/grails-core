@@ -1,6 +1,0 @@
-{
-  Map ctx=new HashMap();
-  ctx.put(GroovyPage.OUT,new PrintWriter(new StringWriter()));
-  tag.init(ctx);
-  assertEquals(tag.out,ctx.get(GroovyPage.OUT));
-}

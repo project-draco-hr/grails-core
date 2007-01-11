@@ -1,0 +1,130 @@
+{
+  if (uri == null)   throw new IllegalArgumentException("Controller URI [" + uri + "] cannot be null!");
+  this.webRequest=webRequest;
+  if (uri.indexOf("?") > -1) {
+    uri=uri.substring(0,uri.indexOf("?"));
+  }
+  if (uri.indexOf('\\') > -1) {
+    uri=uri.replaceAll("\\\\","/");
+  }
+  if (!uri.startsWith("/"))   uri='/' + uri;
+  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
+  String id=null;
+  String controllerName=null;
+  String actionName=null;
+  Map extraParams=Collections.EMPTY_MAP;
+  Matcher m=uriPattern.matcher(uri);
+  if (m.find()) {
+    controllerName=m.group(1);
+    actionName=m.group(2);
+    uri='/' + controllerName + '/'+ actionName;
+    id=m.group(3);
+    String extraParamsString=m.group(4);
+    if (extraParamsString != null && extraParamsString.indexOf('/') > -1) {
+      String[] tokens=extraParamsString.split("/");
+      extraParams=new HashMap();
+      for (int i=0; i < tokens.length; i++) {
+        String token=tokens[i];
+        if (i == 0 || ((i % 2) == 0)) {
+          if ((i + 1) < tokens.length) {
+            extraParams.put(token,tokens[i + 1]);
+          }
+        }
+      }
+    }
+  }
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  GrailsHttpServletResponse response=webRequest.getCurrentResponse();
+  if (StringUtils.isBlank(actionName) && request.getParameter(DISPATCH_ACTION_PARAMETER) != null) {
+    actionName=GrailsClassUtils.getPropertyNameRepresentation(request.getParameter(DISPATCH_ACTION_PARAMETER));
+    uri='/' + controllerName + '/'+ actionName;
+  }
+  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
+  if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
+    id=request.getParameter(ID_PARAMETER);
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
+  }
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Extra params from uri [" + extraParams + "] ");
+  }
+  GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  if (controllerClass == null) {
+    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
+  }
+  controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  GroovyObject controller=getControllerInstance(controllerClass);
+  if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
+    try {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+      return null;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 403 error",e);
+    }
+  }
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  if (controllerClass.isScaffolding()) {
+    this.scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
+    if (this.scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
+  }
+  if (StringUtils.isBlank(actionName))   actionName=controllerClass.getClosurePropertyName(uri);
+  if (StringUtils.isBlank(actionName)) {
+    if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
+  }
+  webRequest.setActionName(actionName);
+  webRequest.setControllerName(controllerName);
+  Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
+  if (!StringUtils.isBlank(id)) {
+    controllerParams.put(GrailsApplicationAttributes.ID_PARAM,id);
+  }
+  if (!extraParams.isEmpty()) {
+    for (Iterator i=extraParams.keySet().iterator(); i.hasNext(); ) {
+      String name=(String)i.next();
+      controllerParams.put(name,extraParams.get(name));
+    }
+  }
+  FlashScope fs=this.grailsAttributes.getFlashScope(request);
+  fs.next();
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,this.grailsAttributes);
+  String viewName=controllerClass.getViewByURI(uri);
+  boolean executeAction=true;
+  if (controllerClass.isInterceptedBefore(controller,actionName)) {
+    Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
+    if (beforeInterceptor != null) {
+      Object interceptorResult=beforeInterceptor.call();
+      if (interceptorResult instanceof Boolean) {
+        executeAction=((Boolean)interceptorResult).booleanValue();
+      }
+    }
+  }
+  if (!executeAction)   return null;
+  Closure action;
+  try {
+    action=(Closure)controller.getProperty(actionName);
+    Object returnValue=handleAction(controller,action,request,response,params);
+    initChainModel(controller);
+    if (response.isRedirected()) {
+      return null;
+    }
+    ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
+    if (controllerClass.isInterceptedAfter(controller,actionName)) {
+      Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
+      afterInterceptor.call(new Object[]{mv.getModel()});
+    }
+    return mv;
+  }
+ catch (  MissingPropertyException mpe) {
+    if (controllerClass.isScaffolding())     throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
+ else {
+      try {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        return null;
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error sending 404 error",e);
+      }
+    }
+  }
+}

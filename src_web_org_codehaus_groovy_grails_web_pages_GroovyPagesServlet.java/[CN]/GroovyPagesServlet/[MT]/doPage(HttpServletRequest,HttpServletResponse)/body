@@ -18,6 +18,8 @@
   }
   Writable w=t.make();
   Writer out=GSPResonseWriter.getInstance(response,8192);
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  webRequest.setOut(out);
   try {
     w.writeTo(out);
   }

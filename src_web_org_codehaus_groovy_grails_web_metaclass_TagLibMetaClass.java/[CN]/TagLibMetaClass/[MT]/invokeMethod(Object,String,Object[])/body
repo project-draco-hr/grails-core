@@ -11,6 +11,7 @@
     if (tagLibrary == null)     throw mme;
     if (tagLibrary.getClass().equals(object.getClass()))     throw mme;
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + methodName + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Invoking..");
+    Closure tag=(Closure)tagLibrary.getProperty(methodName);
     tagLibrary.setProperty(TagLibDynamicMethods.OUT_PROPERTY,taglib.getProperty(TagLibDynamicMethods.OUT_PROPERTY));
     return tagLibrary.invokeMethod(methodName,arguments);
   }

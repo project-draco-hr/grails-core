@@ -23,10 +23,6 @@
     }
   }
 ,true));
-  addDynamicMethodInvocation(new RedirectDynamicMethod(helper,request,response));
-  addDynamicMethodInvocation(new ChainDynamicMethod(helper,request,response));
-  addDynamicMethodInvocation(new RenderDynamicMethod(helper,request,response));
-  addDynamicMethodInvocation(new BindDynamicMethod(request,response));
   addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(GET_VIEW_URI_PATTERN){
     public Object invoke(    Object target,    Object[] arguments){
       if (arguments.length == 0)       throw new MissingMethodException(GET_VIEW_URI,target.getClass(),arguments);
@@ -52,17 +48,4 @@
   }
 );
   this.scaffolding=this.controllerClass.isScaffolding();
-  if (this.scaffolding) {
-    this.scaffolder=helper.getScaffolderForController(controllerClass.getFullName());
-    if (this.scaffolder == null) {
-      throw new IllegalStateException("Scaffolder is null when controller scaffold property is set to 'true'");
-    }
-    String[] scaffoldActions=this.scaffolder.getSupportedActionNames();
-    for (int i=0; i < scaffoldActions.length; i++) {
-      Map properties=DefaultGroovyMethods.getProperties(controller);
-      if (!properties.containsKey(scaffoldActions[i])) {
-        addDynamicProperty(new GenericDynamicProperty(scaffoldActions[i],Closure.class,scaffolder.getAction(controller,scaffoldActions[i]),true));
-      }
-    }
-  }
 }

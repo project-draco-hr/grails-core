@@ -1,0 +1,34 @@
+{
+  return new Closure(this){
+    public Object doCall(    Object obj){
+      return call(new Object[]{obj});
+    }
+    public Object doCall(){
+      return call(new Object[0]);
+    }
+    public Object doCall(    Object[] args){
+      return call(args);
+    }
+    public Object call(    Object[] args){
+      if (body1 != null) {
+        Object bodyResponse;
+        if (body1 instanceof Closure) {
+          bodyResponse=((Closure)body1).call();
+        }
+ else {
+          bodyResponse=body1;
+        }
+        if (bodyResponse != null) {
+          try {
+            out.write(bodyResponse.toString());
+          }
+ catch (          IOException e) {
+            throw new GrailsTagException("I/O error invoking tag library closure [" + methodName + "] as method");
+          }
+        }
+      }
+      return null;
+    }
+  }
+;
+}

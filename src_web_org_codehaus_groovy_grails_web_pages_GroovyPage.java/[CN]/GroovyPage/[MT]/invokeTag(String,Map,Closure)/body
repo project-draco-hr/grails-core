@@ -1,10 +1,9 @@
 {
   Binding binding=getBinding();
-  Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
+  final Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
   if (this.application == null)   initPageState();
   GroovyObject tagLib=getTagLib(tagName);
   if (tagLib != null) {
-    tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
     Object tagLibProp;
     Map properties=DefaultGroovyMethods.getProperties(tagLib);
     if (properties.containsKey(tagName)) {
@@ -14,7 +13,7 @@
       throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
     }
     if (tagLibProp instanceof Closure) {
-      Closure tag=(Closure)tagLibProp;
+      Closure tag=setupTagClosure(out,tagLibProp);
       if (tag.getParameterTypes().length == 1) {
         tag.call(new Object[]{attrs});
         if (body != null) {

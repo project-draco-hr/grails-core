@@ -1,6 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class pageClass=gcl.parseClass(pageCode);
-  MockApplicationContext context=new MockApplicationContext();
-  executePage(context,request,response,out,gcl,new Class[]{pageClass});
-}

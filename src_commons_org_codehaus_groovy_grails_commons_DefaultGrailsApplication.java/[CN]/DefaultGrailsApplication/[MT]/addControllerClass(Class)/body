@@ -8,6 +8,7 @@
       this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
     }
     this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
+    addToLoaded(controllerClass);
     return grailsControllerClass;
   }
  else {

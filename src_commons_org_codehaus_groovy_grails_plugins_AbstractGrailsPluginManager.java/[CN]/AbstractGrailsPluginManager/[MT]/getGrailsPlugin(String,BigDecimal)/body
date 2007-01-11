@@ -1,0 +1,7 @@
+{
+  GrailsPlugin plugin=(GrailsPlugin)this.plugins.get(name);
+  if (plugin != null) {
+    if (plugin.getVersion().equals(version))     return plugin;
+  }
+  return null;
+}

@@ -1,4 +1,0 @@
-{
-  GrailsControllerClass controllerClass=getControllerClassByName(controllerName);
-  return (GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
-}

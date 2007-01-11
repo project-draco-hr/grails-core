@@ -1,0 +1,5 @@
+{
+  GrailsApplicationAttributes attributes=webRequest.getAttributes();
+  GrailsControllerClass controllerClass=attributes.getGrailsApplication().getController(controllerName);
+  return (GrailsScaffolder)attributes.getApplicationContext().getBean(controllerClass.getFullName() + SCAFFOLDER);
+}

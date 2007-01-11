@@ -1,6 +1,0 @@
-{
-  GrailsApplication application=createGrailsApplication(new Class[]{groovyClass},gcl);
-  MockServletContext mockContext=new MockServletContext();
-  mockContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
-  return new SimpleGrailsControllerHelper(application,context,mockContext);
-}

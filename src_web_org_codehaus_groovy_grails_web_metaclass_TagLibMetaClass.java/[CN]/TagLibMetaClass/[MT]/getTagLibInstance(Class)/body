@@ -1,7 +1,0 @@
-{
-  MetaClassRegistry metaRegistry=InvokerHelper.getInstance().getMetaRegistry();
-  MetaClass meta=metaRegistry.getMetaClass(theClass);
-  TagLibMetaClass m=new TagLibMetaClass(metaRegistry,theClass,meta);
-  m.initialize();
-  return m;
-}

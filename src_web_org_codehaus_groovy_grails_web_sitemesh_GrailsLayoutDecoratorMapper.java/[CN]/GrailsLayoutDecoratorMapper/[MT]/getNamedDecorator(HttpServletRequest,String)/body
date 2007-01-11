@@ -1,4 +1,5 @@
 {
+  if (StringUtils.isBlank(name))   return null;
   if (decoratorMap.containsKey(name)) {
     return (Decorator)decoratorMap.get(name);
   }

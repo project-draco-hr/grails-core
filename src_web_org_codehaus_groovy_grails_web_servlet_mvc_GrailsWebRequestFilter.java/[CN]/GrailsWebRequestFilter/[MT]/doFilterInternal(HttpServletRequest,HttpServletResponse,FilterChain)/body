@@ -1,0 +1,19 @@
+{
+  LocaleContextHolder.setLocale(request.getLocale());
+  ServletRequestAttributes requestAttributes=new GrailsWebRequest(request,response,getServletContext());
+  RequestContextHolder.setRequestAttributes(requestAttributes);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Bound Grails request context to thread: " + request);
+  }
+  try {
+    filterChain.doFilter(request,response);
+  }
+  finally {
+    requestAttributes.requestCompleted();
+    RequestContextHolder.setRequestAttributes(null);
+    LocaleContextHolder.setLocale(null);
+    if (logger.isDebugEnabled()) {
+      logger.debug("Cleared Grails thread-bound request context: " + request);
+    }
+  }
+}

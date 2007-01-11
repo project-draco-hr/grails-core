@@ -1,4 +1,5 @@
 {
+  this.allClasses=classes;
   this.domainMap=new HashMap();
   log.debug("Going to inspect domain classes.");
   for (int i=0; i < classes.length; i++) {

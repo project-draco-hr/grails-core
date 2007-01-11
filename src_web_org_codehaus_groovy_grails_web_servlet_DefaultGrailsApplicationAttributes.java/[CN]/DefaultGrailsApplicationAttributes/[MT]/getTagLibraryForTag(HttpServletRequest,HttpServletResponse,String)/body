@@ -12,17 +12,6 @@
     if (tagLibClass == null)     return null;
     GroovyObject controller=getController(request);
     GroovyObject tagLib=(GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());
-    try {
-      if (controller == null) {
-        new TagLibDynamicMethods(tagLib,request,response);
-      }
- else {
-        new TagLibDynamicMethods(tagLib,controller);
-      }
-    }
- catch (    IntrospectionException e) {
-      throw new ControllerExecutionException("Introspection error creating tag library methods for tag [" + tagName + "]: "+ e.getMessage(),e);
-    }
     tagCache.put(tagName,tagLib);
     return tagLib;
   }

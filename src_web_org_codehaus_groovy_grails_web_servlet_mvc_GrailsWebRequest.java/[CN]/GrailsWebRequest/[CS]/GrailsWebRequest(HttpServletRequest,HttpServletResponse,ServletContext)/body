@@ -1,0 +1,6 @@
+{
+  super(new GrailsHttpServletRequest(request));
+  this.attributes=new DefaultGrailsApplicationAttributes(servletContext);
+  this.response=new GrailsHttpServletResponse(response);
+  this.params=new GrailsParameterMap(request);
+}

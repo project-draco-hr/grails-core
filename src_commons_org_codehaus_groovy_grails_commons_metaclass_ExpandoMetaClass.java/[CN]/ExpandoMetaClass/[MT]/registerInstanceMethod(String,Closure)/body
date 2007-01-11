@@ -5,7 +5,7 @@
       this.initialized=false;
     }
     ClosureMetaMethod metaMethod=new ClosureMetaMethod(methodName,super.theClass,callable);
-    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
+    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes(),false);
     super.addMetaMethod(metaMethod);
     super.cacheInstanceMethod(key,metaMethod);
     if (inited && GrailsClassUtils.isGetter(methodName,metaMethod.getParameterTypes())) {

@@ -4,7 +4,7 @@
       this.initialized=false;
     }
     ClosureStaticMetaMethod metaMethod=new ClosureStaticMetaMethod(methodName,super.theClass,callable);
-    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes());
+    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes(),false);
     super.addMetaMethod(metaMethod);
     super.cacheStaticMethod(key,metaMethod);
   }

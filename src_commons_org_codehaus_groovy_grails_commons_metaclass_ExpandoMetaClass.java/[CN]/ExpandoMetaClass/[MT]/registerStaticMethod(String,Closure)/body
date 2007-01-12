@@ -1,14 +1,12 @@
 {
-  try {
-    if (allowChangesAfterInit) {
-      this.initialized=false;
+  performOperationOnMetaClass(new Callable(){
+    public void call(){
+      ClosureStaticMetaMethod metaMethod=new ClosureStaticMetaMethod(methodName,theClass,callable);
+      MethodKey key=new DefaultMethodKey(theClass,methodName,metaMethod.getParameterTypes(),false);
+      addMetaMethod(metaMethod);
+      expandoMethods.add(metaMethod);
+      cacheStaticMethod(key,metaMethod);
     }
-    ClosureStaticMetaMethod metaMethod=new ClosureStaticMetaMethod(methodName,super.theClass,callable);
-    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes(),false);
-    super.addMetaMethod(metaMethod);
-    super.cacheStaticMethod(key,metaMethod);
   }
-  finally {
-    if (initCalled)     this.initialized=true;
-  }
+);
 }

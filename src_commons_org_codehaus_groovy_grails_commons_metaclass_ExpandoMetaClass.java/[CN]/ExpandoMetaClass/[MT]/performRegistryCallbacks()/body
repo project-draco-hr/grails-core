@@ -1,0 +1,14 @@
+{
+  MetaClassRegistry registry=InvokerHelper.getInstance().getMetaRegistry();
+  if (!modified && !inRegistry) {
+    modified=true;
+    registry.setMetaClass(theClass,this);
+    this.inRegistry=true;
+  }
+  if (registry.getMetaClassCreationHandler() instanceof ExpandoMetaClassCreationHandle) {
+    ExpandoMetaClassCreationHandle creationHandler=(ExpandoMetaClassCreationHandle)registry.getMetaClassCreationHandler();
+    hasCreationHandle=true;
+    if (!creationHandler.hasModifiedMetaClass(this))     creationHandler.registerModifiedMetaClass(this);
+    creationHandler.notifyOfMetaClassChange(this);
+  }
+}

@@ -1,0 +1,4 @@
+{
+  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
+  super.setUp();
+}

@@ -8,8 +8,9 @@
         List methods=(List)j.next();
         for (Iterator k=methods.iterator(); k.hasNext(); ) {
           MetaMethod metaMethodFromSuper=(MetaMethod)k.next();
-          MetaMethod existing=super.pickMethod(metaMethodFromSuper.getName(),metaMethodFromSuper.getParameterTypes());
-          if (existing == null)           addMetaMethod(metaMethodFromSuper);
+          if (!metaMethodFromSuper.isStatic()) {
+            addSuperMethodIfNotOverriden(metaMethodFromSuper);
+          }
         }
       }
     }

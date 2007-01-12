@@ -1,4 +1,5 @@
 {
+  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
   GroovyClassLoader cl=new GroovyClassLoader();
   Class c1=cl.parseClass("class TestController {\n" + " Closure test = {\n" + "return [ \"test\" : \"123\" ]\n"+ "}\n"+ "}");
   Class c2=cl.parseClass("class SimpleController {\n" + " Closure test = {\n" + "}\n"+ "}");

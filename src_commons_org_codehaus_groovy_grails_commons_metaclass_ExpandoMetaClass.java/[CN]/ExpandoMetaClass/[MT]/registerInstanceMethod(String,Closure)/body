@@ -1,24 +1,25 @@
 {
-  try {
-    boolean inited=this.initialized;
-    if (allowChangesAfterInit) {
-      this.initialized=false;
+  final boolean inited=this.initCalled;
+  performOperationOnMetaClass(new Callable(){
+    public void call(){
+      ClosureMetaMethod metaMethod=new ClosureMetaMethod(methodName,theClass,callable);
+      MethodKey key=new DefaultMethodKey(theClass,methodName,metaMethod.getParameterTypes(),false);
+      addMetaMethod(metaMethod);
+      expandoMethods.add(metaMethod);
+      cacheInstanceMethod(key,metaMethod);
+      if (inited && GrailsClassUtils.isGetter(methodName,metaMethod.getParameterTypes())) {
+        String propertyName=GrailsClassUtils.getPropertyForGetter(methodName);
+        registerBeanPropertyForMethod(metaMethod,propertyName,true);
+      }
+ else       if (inited && GrailsClassUtils.isSetter(methodName,metaMethod.getParameterTypes())) {
+        String propertyName=GrailsClassUtils.getPropertyForSetter(methodName);
+        registerBeanPropertyForMethod(metaMethod,propertyName,false);
+      }
+      performRegistryCallbacks();
+      if (!hasCreationHandle) {
+        registerWithInheritenceManager(theClass,metaMethod);
+      }
     }
-    ClosureMetaMethod metaMethod=new ClosureMetaMethod(methodName,super.theClass,callable);
-    MethodKey key=new DefaultMethodKey(super.theClass,methodName,metaMethod.getParameterTypes(),false);
-    super.addMetaMethod(metaMethod);
-    super.cacheInstanceMethod(key,metaMethod);
-    if (inited && GrailsClassUtils.isGetter(methodName,metaMethod.getParameterTypes())) {
-      String propertyName=GrailsClassUtils.getPropertyForGetter(methodName);
-      registerBeanPropertyForMethod(metaMethod,propertyName,true);
-    }
- else     if (inited && GrailsClassUtils.isSetter(methodName,metaMethod.getParameterTypes())) {
-      String propertyName=GrailsClassUtils.getPropertyForSetter(methodName);
-      registerBeanPropertyForMethod(metaMethod,propertyName,false);
-    }
-    registerWithInheritenceManager(theClass,metaMethod);
   }
-  finally {
-    if (initCalled)     this.initialized=true;
-  }
+);
 }

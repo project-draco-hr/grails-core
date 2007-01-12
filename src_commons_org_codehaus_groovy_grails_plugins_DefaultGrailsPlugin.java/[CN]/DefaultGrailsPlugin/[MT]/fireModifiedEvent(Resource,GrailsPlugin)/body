@@ -15,5 +15,6 @@
 ;
     onChangeListener.setDelegate(this);
     onChangeListener.call(new Object[]{event});
+    doWithDynamicMethods(applicationContext);
   }
 }

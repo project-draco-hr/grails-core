@@ -1,3 +1,9 @@
 {
-  return this.appliedConstraints.containsKey(BLANK_CONSTRAINT);
+  Object cons=this.appliedConstraints.get(BLANK_CONSTRAINT);
+  if (cons != null) {
+    return ((Boolean)((BlankConstraint)cons).getParameter()).booleanValue();
+  }
+ else {
+    return true;
+  }
 }

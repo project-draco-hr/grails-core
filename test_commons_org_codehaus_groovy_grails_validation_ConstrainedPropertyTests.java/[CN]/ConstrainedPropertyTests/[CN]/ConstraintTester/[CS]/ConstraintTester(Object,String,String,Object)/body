@@ -1,7 +1,7 @@
 {
   this.constrainedBean=new BeanWrapperImpl(constrainedObject);
   this.constrainedPropertyName=constrainedPropertyName;
-  ConstrainedProperty cp=new ConstrainedProperty(constrainedObject.getClass(),constrainedPropertyName,this.constrainedBean.getPropertyType(constrainedPropertyName));
-  cp.applyConstraint(constraintName,constrainingValue);
-  this.constraint=(Constraint)cp.getAppliedConstraints().iterator().next();
+  constrainedProperty=new ConstrainedProperty(constrainedObject.getClass(),constrainedPropertyName,this.constrainedBean.getPropertyType(constrainedPropertyName));
+  constrainedProperty.applyConstraint(constraintName,constrainingValue);
+  this.constraint=(Constraint)constrainedProperty.getAppliedConstraints().iterator().next();
 }

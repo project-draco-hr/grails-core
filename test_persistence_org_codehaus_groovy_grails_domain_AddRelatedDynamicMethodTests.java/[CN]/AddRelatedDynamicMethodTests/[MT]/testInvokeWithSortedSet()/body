@@ -1,0 +1,25 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  gcl.parseClass("class Book implements Comparable {\n" + "\tLong id\n" + "\tLong version\n"+ "\n"+ "\tAuthor author\n"+ "int compareTo(other) { 1 }"+ "}\n"+ "class Author {\n"+ "\tLong id\n"+ "\tLong version\n"+ "\tdef relatesToMany = [books:Book]\n"+ "\tSortedSet books\n"+ "}");
+  GroovyObject book=(GroovyObject)gcl.loadClass("Book",false,true).newInstance();
+  GroovyObject author=(GroovyObject)gcl.loadClass("Author",false,true).newInstance();
+  GrailsApplication ga=new DefaultGrailsApplication(new Class[]{book.getClass(),author.getClass()},gcl);
+  GrailsDomainClass authorDC=ga.getGrailsDomainClass("Author");
+  AbstractAddRelatedDynamicMethod ardm=new AddRelatedDynamicMethod(authorDC.getPropertyByName("books"));
+  try {
+    ardm.invoke(author,new Object[0]);
+    fail("Should have thrown missing method exception!");
+  }
+ catch (  MissingMethodException e) {
+  }
+  try {
+    ardm.invoke(author,new Object[]{"blah"});
+    fail("Should have thrown missing method exception!");
+  }
+ catch (  MissingMethodException e) {
+  }
+  ardm.invoke(author,new Object[]{book});
+  assertEquals(author,book.getProperty("author"));
+  SortedSet books=(SortedSet)author.getProperty("books");
+  assertNotNull(books);
+}

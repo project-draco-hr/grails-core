@@ -1,0 +1,17 @@
+{
+  if (Modifier.isAbstract(encoderClass.getModifiers())) {
+    return null;
+  }
+  if (GrailsClassUtils.isEncoderClass(encoderClass)) {
+    GrailsEncoderClass grailsEncoderClass=new DefaultGrailsEncoderClass(encoderClass);
+    if (grailsEncoderClass.getAvailable()) {
+      this.encoderMap.put(grailsEncoderClass.getFullName(),grailsEncoderClass);
+    }
+    this.encoderClasses=((GrailsEncoderClass[])this.encoderMap.values().toArray(new GrailsEncoderClass[encoderMap.size()]));
+    addToLoaded(encoderClass);
+    return grailsEncoderClass;
+  }
+ else {
+    throw new GrailsConfigurationException("Cannot load encoder class [" + encoderClass + "]. It is not a encoder!");
+  }
+}

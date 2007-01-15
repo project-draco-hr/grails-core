@@ -1,4 +1,9 @@
 {
   if (clazz == null)   return false;
-  return isEncoderClass(clazz.getName()) && !Closure.class.isAssignableFrom(clazz);
+  if (!isEncoderClass(clazz.getName())) {
+    return false;
+  }
+  Object encoder=getStaticPropertyValue(clazz,"encode");
+  Object decoder=getStaticPropertyValue(clazz,"decode");
+  return encoder != null || decoder != null;
 }

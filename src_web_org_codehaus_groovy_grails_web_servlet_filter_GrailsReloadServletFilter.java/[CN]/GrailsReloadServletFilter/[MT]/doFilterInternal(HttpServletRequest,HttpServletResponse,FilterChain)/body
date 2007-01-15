@@ -62,6 +62,7 @@ catch (    Exception e) {
   }
   if (copyScript != null) {
     copyScript.copyViews();
+    copyScript.copyResourceBundles();
   }
   if (manager == null) {
     manager=PluginManagerHolder.getPluginManager();

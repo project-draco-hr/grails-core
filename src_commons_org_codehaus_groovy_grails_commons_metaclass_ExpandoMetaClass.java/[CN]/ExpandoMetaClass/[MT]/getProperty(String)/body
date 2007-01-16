@@ -1,6 +1,6 @@
 {
   if (isValidExpandoProperty(property)) {
-    if (property.equals(STATIC)) {
+    if (property.equals(STATIC_QUALIFIER)) {
       return new ExpandoMetaProperty(property,true);
     }
  else     if (property.equals(CONSTRUCTOR)) {

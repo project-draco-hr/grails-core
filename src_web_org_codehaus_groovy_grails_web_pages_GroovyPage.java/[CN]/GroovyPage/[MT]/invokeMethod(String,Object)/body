@@ -16,9 +16,6 @@
     try {
       webRequest.setOut(out);
       if (tagLib != null) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Invoking as tag");
-        }
         if (args instanceof Object[]) {
           Object[] argArray=(Object[])args;
           if (argArray.length > 0 && argArray[0] instanceof Map)           attrs=(Map)argArray[0];
@@ -36,6 +33,9 @@
         Closure actualBody=createTagOutputCapturingClosure(methodName,out,body1);
         Object tagLibProp;
         Map properties=DefaultGroovyMethods.getProperties(tagLib);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Attempting to invoke [" + methodName + "] on tag library ["+ tagLib.getClass()+ "] with MetaClass ["+ tagLib.getMetaClass()+ "]");
+        }
         if (properties.containsKey(methodName)) {
           tagLibProp=properties.get(methodName);
           if (tagLibProp instanceof Closure) {
@@ -59,8 +59,8 @@
           }
         }
  else {
-          if (args instanceof Object[])           throw new MissingMethodException(methodName,GroovyPage.class,(Object[])args);
- else           throw new MissingMethodException(methodName,GroovyPage.class,new Object[]{args});
+          if (args instanceof Object[])           throw new MissingMethodException(methodName,tagLib.getClass(),(Object[])args);
+ else           throw new MissingMethodException(methodName,tagLib.getClass(),new Object[]{args});
         }
       }
  else       if (methodName.startsWith("encodeAs")) {

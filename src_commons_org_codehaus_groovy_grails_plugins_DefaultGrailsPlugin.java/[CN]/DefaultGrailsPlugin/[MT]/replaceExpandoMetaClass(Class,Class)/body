@@ -1,0 +1,55 @@
+{
+  MetaClass oldMetaClass=registry.getMetaClass(oldClass);
+  AdapterMetaClass adapter=null;
+  ExpandoMetaClass emc=null;
+  if (oldMetaClass instanceof AdapterMetaClass) {
+    adapter=((AdapterMetaClass)oldMetaClass);
+    emc=(ExpandoMetaClass)adapter.getAdaptee();
+  }
+ else {
+    emc=(ExpandoMetaClass)oldMetaClass;
+  }
+  List metaMethods=emc.getExpandoMethods();
+  ExpandoMetaClass replacement=new ExpandoMetaClass(loadedClass);
+  replacement.setAllowChangesAfterInit(true);
+  for (Iterator i=metaMethods.iterator(); i.hasNext(); ) {
+    Object obj=i.next();
+    if (obj instanceof ClosureInvokingMethod) {
+      ClosureInvokingMethod cim=(ClosureInvokingMethod)obj;
+      Closure callable=cim.getClosure();
+      if (!cim.isStatic()) {
+        replacement.setProperty(cim.getName(),callable);
+      }
+ else {
+        ((GroovyObject)replacement.getProperty(ExpandoMetaClass.STATIC_QUALIFIER)).setProperty(cim.getName(),callable);
+      }
+    }
+  }
+  List metaProperties=emc.getExpandoProperties();
+  for (Iterator i=metaProperties.iterator(); i.hasNext(); ) {
+    Object o=i.next();
+    if (o instanceof ThreadManagedMetaBeanProperty) {
+      ThreadManagedMetaBeanProperty mbp=(ThreadManagedMetaBeanProperty)o;
+      replacement.setProperty(mbp.getName(),mbp.getInitialValue());
+    }
+  }
+  replacement.initialize();
+  if (adapter == null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Replacing reloaded class [" + loadedClass + "] MetaClass ["+ replacement+ "]");
+    }
+    registry.setMetaClass(loadedClass,replacement);
+  }
+ else {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Replacing reloaded class [" + loadedClass + "] MetaClass ["+ replacement+ "] with adapter ["+ adapter+ "]");
+    }
+    if (adapter instanceof TagLibMetaClass) {
+      registry.setMetaClass(loadedClass,new TagLibMetaClass(replacement));
+    }
+ else {
+      adapter.setAdaptee(replacement);
+      registry.setMetaClass(loadedClass,(MetaClass)adapter);
+    }
+  }
+}

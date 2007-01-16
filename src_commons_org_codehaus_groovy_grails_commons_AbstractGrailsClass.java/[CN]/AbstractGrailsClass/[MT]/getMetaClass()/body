@@ -1,13 +1,3 @@
 {
-  MetaClass mc=InvokerHelper.getInstance().getMetaRegistry().getMetaClass(clazz);
-  if (mc instanceof DynamicMethodsMetaClass) {
-    return ((DynamicMethodsMetaClass)mc).getAdaptee();
-  }
- else   if (mc instanceof TagLibMetaClass) {
-    return ((TagLibMetaClass)mc).getAdaptee();
-  }
- else   if (mc instanceof ProxyMetaClass) {
-    return ((ProxyMetaClass)mc).getAdaptee();
-  }
-  return mc;
+  return GrailsClassUtils.getExpandoMetaClass(clazz);
 }

@@ -24,7 +24,7 @@
   this.taglibMap=new HashMap();
   this.taskMap=new HashMap();
   this.dataSourceMap=new HashMap();
-  this.encoderMap=new HashMap();
+  this.codecMap=new HashMap();
   for (int i=0; i < classes.length; i++) {
     if (Modifier.isAbstract(classes[i].getModifiers()) || GrailsClassUtils.isDomainClass(classes[i])) {
       continue;
@@ -62,10 +62,10 @@
       taskMap.put(grailsTaskClass.getFullName(),grailsTaskClass);
       log.debug("[" + classes[i].getName() + "] is a task class.");
     }
- else     if (GrailsClassUtils.isEncoderClass(classes[i])) {
-      GrailsEncoderClass grailsEncoderClass=new DefaultGrailsEncoderClass(classes[i]);
-      encoderMap.put(grailsEncoderClass.getFullName(),grailsEncoderClass);
-      log.debug("[" + classes[i].getName() + "] is an encoder class.");
+ else     if (GrailsClassUtils.isCodecClass(classes[i])) {
+      GrailsCodecClass grailsCodecClass=new DefaultGrailsCodecClass(classes[i]);
+      codecMap.put(grailsCodecClass.getFullName(),grailsCodecClass);
+      log.debug("[" + classes[i].getName() + "] is a codec class.");
     }
   }
   this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
@@ -75,7 +75,7 @@
   this.bootstrapClasses=((GrailsBootstrapClass[])bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
   this.taglibClasses=((GrailsTagLibClass[])this.taglibMap.values().toArray(new GrailsTagLibClass[taglibMap.size()]));
   this.taskClasses=((GrailsTaskClass[])this.taskMap.values().toArray(new GrailsTaskClass[taskMap.size()]));
-  this.encoderClasses=((GrailsEncoderClass[])this.encoderMap.values().toArray(new GrailsEncoderClass[encoderMap.size()]));
+  this.codecClasses=((GrailsCodecClass[])this.codecMap.values().toArray(new GrailsCodecClass[codecMap.size()]));
   configureDomainClassRelationships();
   configureTagLibraries();
 }

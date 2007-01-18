@@ -1,3 +1,5 @@
 {
-  return TypeFactory.basic(prop.getType().getName()) != null;
+  if (prop == null)   return false;
+  Class propType=prop.getType();
+  return TypeFactory.basic(propType.getName()) != null || propType == URL.class || propType == URI.class;
 }

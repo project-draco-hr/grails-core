@@ -1,18 +1,33 @@
 {
   Class propType=property.getType();
   Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(propType);
+  Map mappedBy=GrailsDomainConfigurationUtil.getMappedByMap(propType);
   Class relatedClassPropertyType=null;
   if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
-    String relatedClassPropertyName=null;
-    for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
-      String currentKey=(String)i.next();
-      Class currentClass=(Class)relatedClassRelationships.get(currentKey);
-      if (property.getDomainClass().getClazz().getName().equals(currentClass.getName())) {
-        relatedClassPropertyName=currentKey;
-        break;
+    String relatedClassPropertyName=findOneToManyThatMatchesType(property,relatedClassRelationships);
+    PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(getClazz(),property.getType());
+    if (descriptors.length == 1) {
+      if (!StringUtils.isBlank(relatedClassPropertyName)) {
+        property.setReferencePropertyName(relatedClassPropertyName);
+        relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
       }
     }
-    relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
+ else     if (descriptors.length > 1) {
+      if (mappedBy.containsValue(property.getName())) {
+        for (Iterator i=mappedBy.keySet().iterator(); i.hasNext(); ) {
+          String key=(String)i.next();
+          if (property.getName().equals(mappedBy.get(key))) {
+            relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,key);
+          }
+        }
+      }
+ else {
+        String classNameAsProperty=GrailsClassUtils.getPropertyName(propType);
+        if (property.getName().equals(classNameAsProperty) && !mappedBy.containsKey(relatedClassPropertyName)) {
+          relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
+        }
+      }
+    }
   }
   if (relatedClassPropertyType == null) {
     PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(propType,getClazz());

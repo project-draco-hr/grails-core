@@ -25,12 +25,18 @@
         GrailsDomainClassProperty prop=props[j];
         GrailsDomainClass referenced=prop.getReferencedDomainClass();
         if (referenced != null) {
-          GrailsDomainClassProperty[] referencedProperties=referenced.getPersistantProperties();
-          for (int k=0; k < referencedProperties.length; k++) {
-            if (prop.equals(referencedProperties[k]) && prop.isBidirectional())             continue;
-            if (domainClasses[i].getClazz().equals(referencedProperties[k].getReferencedPropertyType())) {
-              prop.setOtherSide(referencedProperties[k]);
-              break;
+          String refPropertyName=prop.getReferencedPropertyName();
+          if (!StringUtils.isBlank(refPropertyName)) {
+            prop.setOtherSide(referenced.getPropertyByName(refPropertyName));
+          }
+ else {
+            GrailsDomainClassProperty[] referencedProperties=referenced.getPersistantProperties();
+            for (int k=0; k < referencedProperties.length; k++) {
+              if (prop.equals(referencedProperties[k]) && prop.isBidirectional())               continue;
+              if (domainClasses[i].getClazz().equals(referencedProperties[k].getReferencedPropertyType())) {
+                prop.setOtherSide(referencedProperties[k]);
+                break;
+              }
             }
           }
         }

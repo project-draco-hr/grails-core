@@ -7,7 +7,9 @@
   this.propertyMap=new HashMap();
   this.relationshipMap=getAssociationMap();
   this.tableName=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.WITH_TABLE,String.class);
-  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class) != null)   this.mappedBy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,String.class);
+  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class) != null)   this.mappingStrategy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
+  this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
+  if (this.mappedBy == null)   this.mappedBy=Collections.EMPTY_MAP;
   establishRelationshipOwners();
   populateDomainClassProperties(propertyDescriptors);
   if (this.identifier == null) {

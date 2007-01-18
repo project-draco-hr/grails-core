@@ -23,6 +23,25 @@
         PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz());
         if (descriptors.length == 1) {
           relatedClassPropertyType=descriptors[0].getPropertyType();
+          property.setReferencePropertyName(descriptors[0].getName());
+        }
+ else         if (descriptors.length > 1) {
+          String mappingProperty=(String)this.mappedBy.get(property.getName());
+          if (!StringUtils.isBlank(mappingProperty)) {
+            PropertyDescriptor pd=findProperty(descriptors,mappingProperty);
+            if (pd == null)             throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
+            relatedClassPropertyType=pd.getPropertyType();
+            property.setReferencePropertyName(pd.getName());
+          }
+ else {
+            String classPropertyName=getPropertyName();
+            PropertyDescriptor pd=findProperty(descriptors,classPropertyName);
+            if (pd == null) {
+              throw new GrailsDomainException("Property [" + property.getName() + "] in class ["+ getClazz()+ "] is a bidirectional one-to-many with two possible properties on the inverse side. "+ "Either name one of the properties on other side of the relationship ["+ classPropertyName+ "] or use the 'mappedBy' static to define the property "+ "that the relationship is mapped with. Example: static mappedBy = ["+ property.getName()+ ":'myprop']");
+            }
+            relatedClassPropertyType=pd.getPropertyType();
+            property.setReferencePropertyName(pd.getName());
+          }
         }
       }
       establishRelationshipForSetToType(property,relatedClassPropertyType);

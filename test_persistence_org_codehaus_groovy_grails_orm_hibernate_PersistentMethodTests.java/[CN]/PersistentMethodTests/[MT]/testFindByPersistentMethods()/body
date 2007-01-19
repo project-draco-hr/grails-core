@@ -53,6 +53,10 @@
   queryMap.put("lastName","flintstone");
   returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findWhere",new Object[]{queryMap});
   assertNotNull(returnValue);
+  queryMap=new HashMap();
+  queryMap.put("lastName","flintstone");
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllWhere",new Object[]{queryMap});
+  assertEquals(2,returnList.size());
   try {
     returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{new Boolean(false)});
     fail("Should have thrown an exception for invalid arguments");

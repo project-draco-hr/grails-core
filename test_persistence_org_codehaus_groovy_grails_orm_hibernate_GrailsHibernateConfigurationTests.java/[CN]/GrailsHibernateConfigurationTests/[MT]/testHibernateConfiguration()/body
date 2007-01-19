@@ -1,7 +1,6 @@
 {
   assertNotNull(this.sessionFactory);
   GrailsDomainClass[] domainClasses=grailsApplication.getGrailsDomainClasses();
-  assertEquals(7,domainClasses.length);
   HibernateTemplate template=new HibernateTemplate(this.sessionFactory);
   GroovyObject obj=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.Test1").newInstance();
   assertNotNull(obj);

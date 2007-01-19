@@ -1,5 +1,0 @@
-{
-  if (!(constraintParameter instanceof Boolean))   throw new IllegalArgumentException("Parameter for constraint [" + BLANK_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
-  this.blank=((Boolean)constraintParameter).booleanValue();
-  super.setParameter(constraintParameter);
-}

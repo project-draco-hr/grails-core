@@ -2,6 +2,7 @@
   super();
   this.application=application;
   this.parent=parent;
+  parentDataSource=false;
   if (parent != null)   this.parentDataSource=parent.containsBean(DATA_SOURCE_BEAN);
   try {
     this.pluginManager=PluginManagerHolder.getPluginManager();

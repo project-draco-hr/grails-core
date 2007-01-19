@@ -7,7 +7,7 @@
     }
  else {
       PropertyDescriptor pd=this.bean.getPropertyDescriptor(property);
-      cp=new ConstrainedPersistentProperty(this.target.getClass(),property,pd.getPropertyType());
+      cp=new ConstrainedProperty(this.target.getClass(),property,pd.getPropertyType());
       cp.setOrder(order++);
       constrainedProperties.put(property,cp);
     }

@@ -36,6 +36,7 @@
       ManyToOne element=new ManyToOne(collection.getCollectionTable());
       bindManyToMany(otherSide,element,mappings);
       collection.setElement(element);
+      collection.setLazy(true);
     }
  else {
     }

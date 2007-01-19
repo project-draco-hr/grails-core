@@ -1,5 +1,0 @@
-{
-  if (!(constraintParameter instanceof String))   throw new IllegalArgumentException("Parameter for constraint [" + MATCHES_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be of type [java.lang.String]");
-  this.regex=(String)constraintParameter;
-  super.setParameter(constraintParameter);
-}

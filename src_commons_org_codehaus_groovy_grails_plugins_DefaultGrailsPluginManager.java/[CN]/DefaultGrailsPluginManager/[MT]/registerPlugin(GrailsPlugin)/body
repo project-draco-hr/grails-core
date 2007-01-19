@@ -6,6 +6,8 @@
     ((ParentApplicationContextAware)plugin).setParentApplicationContext(parentCtx);
   }
   plugin.setManager(this);
+  String[] evictionNames=plugin.getEvictionNames();
+  if (evictionNames.length > 0)   delayedEvictions.put(plugin,evictionNames);
   pluginList.add(plugin);
   plugins.put(plugin.getName(),plugin);
 }

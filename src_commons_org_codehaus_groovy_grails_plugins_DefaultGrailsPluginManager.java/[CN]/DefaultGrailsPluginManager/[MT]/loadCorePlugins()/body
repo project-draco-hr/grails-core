@@ -5,6 +5,7 @@
       loadCorePluginsFromResources(resources);
     }
  else {
+      LOG.warn("WARNING: Grails was unable to load core plugins dynamically. This is normally a problem with the container class loader configuration, see troubleshooting and FAQ for more info. ");
       loadCorePluginsStatically();
     }
   }

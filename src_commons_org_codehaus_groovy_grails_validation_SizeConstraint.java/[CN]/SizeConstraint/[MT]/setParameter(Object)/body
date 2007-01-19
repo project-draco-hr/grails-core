@@ -1,0 +1,5 @@
+{
+  if (!(constraintParameter instanceof IntRange))   throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.SIZE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [groovy.lang.IntRange]");
+  this.range=(IntRange)constraintParameter;
+  super.setParameter(constraintParameter);
+}

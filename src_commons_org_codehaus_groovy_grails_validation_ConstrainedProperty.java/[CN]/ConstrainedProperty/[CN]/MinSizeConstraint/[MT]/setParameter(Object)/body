@@ -1,5 +1,0 @@
-{
-  if (!(constraintParameter instanceof Integer))   throw new IllegalArgumentException("Parameter for constraint [" + MIN_SIZE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [java.lang.Integer]");
-  this.minSize=((Integer)constraintParameter).intValue();
-  super.setParameter(constraintParameter);
-}

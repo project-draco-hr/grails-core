@@ -25,13 +25,13 @@
     }
   }
   Map constrainedProperties=delegate.getConstrainedProperties();
-  if (this.persistentProperties != null) {
-    for (int i=0; i < this.persistentProperties.length; i++) {
-      GrailsDomainClassProperty p=this.persistentProperties[i];
+  if (this.properties != null) {
+    for (int i=0; i < this.properties.length; i++) {
+      GrailsDomainClassProperty p=this.properties[i];
       if (!p.isOptional()) {
         ConstrainedProperty cp=(ConstrainedProperty)constrainedProperties.get(p.getName());
         if (cp == null) {
-          cp=new ConstrainedPersistentProperty(p.getDomainClass().getClazz(),p.getName(),p.getType());
+          cp=new ConstrainedProperty(p.getDomainClass().getClazz(),p.getName(),p.getType());
           cp.setOrder(constrainedProperties.size() + 1);
           constrainedProperties.put(p.getName(),cp);
         }

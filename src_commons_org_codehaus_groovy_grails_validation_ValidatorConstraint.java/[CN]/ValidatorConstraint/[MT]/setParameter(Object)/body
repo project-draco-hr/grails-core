@@ -1,0 +1,23 @@
+{
+  if (!(constraintParameter instanceof Closure))   throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure");
+  this.validator=(Closure)constraintParameter;
+  Class[] params=this.validator.getParameterTypes();
+  if (params.length == 0) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking at least 1 parameter (value, [object])");
+  }
+ else   if (params.length > 2) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking no more than 2 parameters (value, [object])");
+  }
+  numValidatorParams=params.length;
+  BeanWrapper wr=new BeanWrapperImpl(constraintOwningClass);
+  Class propType=wr.getPropertyType(constraintPropertyName);
+  if (!GrailsClassUtils.isGroovyAssignableFrom(params[0],propType)) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of "+ "property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure "+ "taking with the first parameter (value) compatible with the type of the "+ "property ["+ propType+ "], but the parameter is of type ["+ params[0]+ "]");
+  }
+  if (params.length > 1) {
+    if (!GrailsClassUtils.isGroovyAssignableFrom(params[1],constraintOwningClass)) {
+      throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of "+ "property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure "+ "taking with the second parameter (object) compatible with the type of the object being "+ "constrained ["+ constraintOwningClass+ "], but the parameter is of type ["+ params[1]+ "]");
+    }
+  }
+  super.setParameter(constraintParameter);
+}

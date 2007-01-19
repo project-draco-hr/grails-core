@@ -16,10 +16,6 @@
           if (!mappings.containsKey(simpleController.getURIs()[x]))           mappings.put(simpleController.getURIs()[x],SimpleGrailsController.APPLICATION_CONTEXT_ID);
         }
       }
-      for (int i=0; i < application.getPageFlows().length; i++) {
-        GrailsPageFlowClass pageFlow=application.getPageFlows()[i];
-        mappings.put(pageFlow.getUri(),pageFlow.getFullName() + "Controller");
-      }
       HotSwappableTargetSource urlMappingsTargetSource=(HotSwappableTargetSource)context.getBean(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE);
       GrailsUrlHandlerMapping urlMappings=new GrailsUrlHandlerMapping();
       urlMappings.setApplicationContext(context);

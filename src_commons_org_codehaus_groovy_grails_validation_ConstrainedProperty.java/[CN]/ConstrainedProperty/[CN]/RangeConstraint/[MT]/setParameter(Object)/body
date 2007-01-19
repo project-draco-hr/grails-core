@@ -1,5 +1,0 @@
-{
-  if (!(constraintParameter instanceof Range))   throw new IllegalArgumentException("Parameter for constraint [" + RANGE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [groovy.lang.Range]");
-  this.range=(Range)constraintParameter;
-  super.setParameter(constraintParameter);
-}

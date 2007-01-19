@@ -1,5 +1,4 @@
 {
-  LOG.warn("WARNING: Grails was unable to load core plugins dynamically. This is normally a problem with the container. Attempting static load..");
   loadCorePlugin("org.codehaus.groovy.grails.plugins.CoreGrailsPlugin");
   loadCorePlugin("org.codehaus.groovy.grails.i18n.plugins.I18nGrailsPlugin");
   loadCorePlugin("org.codehaus.groovy.grails.datasource.plugins.DataSourceGrailsPlugin");

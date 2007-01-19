@@ -1,9 +1,0 @@
-{
-  if (propertyValue == null) {
-    return;
-  }
-  if (!this.list.contains(propertyValue)) {
-    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,list};
-    super.rejectValue(errors,NOT_PREFIX + IN_LIST_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_INLIST_MESSAGE_CODE,args));
-  }
-}

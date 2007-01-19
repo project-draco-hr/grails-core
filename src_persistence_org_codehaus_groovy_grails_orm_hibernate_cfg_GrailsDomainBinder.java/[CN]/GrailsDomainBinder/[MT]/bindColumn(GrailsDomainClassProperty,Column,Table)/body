@@ -1,6 +1,13 @@
 {
   if (grailsProp.isAssociation()) {
-    column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX);
+    if (!grailsProp.isBidirectional() && grailsProp.isOneToMany()) {
+      String prefix=namingStrategy.classToTableName(grailsProp.getDomainClass().getName());
+      String columnName=namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX;
+      column.setName(prefix + '_' + columnName);
+    }
+ else {
+      column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX);
+    }
     column.setNullable(true);
   }
  else {

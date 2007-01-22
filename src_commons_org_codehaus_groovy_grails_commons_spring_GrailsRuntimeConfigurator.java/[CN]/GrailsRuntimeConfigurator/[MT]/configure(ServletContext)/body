@@ -8,7 +8,7 @@
   doPostResourceConfiguration(springConfig);
   WebApplicationContext ctx=springConfig.getApplicationContext();
   this.pluginManager.setApplicationContext(ctx);
-  performPostProcessing(ctx);
   this.pluginManager.doDynamicMethods();
+  performPostProcessing(ctx);
   return ctx;
 }

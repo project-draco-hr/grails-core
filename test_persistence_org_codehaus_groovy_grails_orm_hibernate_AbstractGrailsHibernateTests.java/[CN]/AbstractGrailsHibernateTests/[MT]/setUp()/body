@@ -7,7 +7,7 @@
   GrailsRuntimeConfigurator grc=new GrailsRuntimeConfigurator(ga,mc);
   this.applicationContext=grc.configureDomainOnly();
   this.sessionFactory=(SessionFactory)this.applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
-  GrailsDomainConfigurationUtil.configureDynamicMethods(applicationContext,ga);
+  GrailsHibernateUtil.configureDynamicMethods(applicationContext,ga);
   if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
     this.session=this.sessionFactory.openSession();
     TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(session));

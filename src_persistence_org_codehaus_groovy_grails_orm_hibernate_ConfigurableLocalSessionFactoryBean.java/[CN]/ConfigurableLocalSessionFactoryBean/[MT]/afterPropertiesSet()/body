@@ -6,7 +6,7 @@
   }
   super.afterPropertiesSet();
   if (this.applicationContext != null) {
-    GrailsDomainConfigurationUtil.configureDynamicMethods(applicationContext,this.grailsApplication);
+    GrailsHibernateUtil.configureDynamicMethods(applicationContext,this.grailsApplication);
   }
   if (originalClassLoader != null) {
     Thread.currentThread().setContextClassLoader(originalClassLoader);

@@ -1,7 +1,7 @@
 {
   MetaClass oldMetaClass=registry.getMetaClass(oldClass);
   AdapterMetaClass adapter=null;
-  ExpandoMetaClass emc=null;
+  ExpandoMetaClass emc;
   if (oldMetaClass instanceof AdapterMetaClass) {
     adapter=((AdapterMetaClass)oldMetaClass);
     emc=(ExpandoMetaClass)adapter.getAdaptee();
@@ -44,12 +44,13 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("Replacing reloaded class [" + loadedClass + "] MetaClass ["+ replacement+ "] with adapter ["+ adapter+ "]");
     }
-    if (adapter instanceof TagLibMetaClass) {
-      registry.setMetaClass(loadedClass,new TagLibMetaClass(replacement));
+    try {
+      Constructor c=adapter.getClass().getConstructor(new Class[]{MetaClass.class});
+      MetaClass newAdapter=(MetaClass)BeanUtils.instantiateClass(c,new Object[]{replacement});
+      registry.setMetaClass(loadedClass,newAdapter);
     }
- else {
-      adapter.setAdaptee(replacement);
-      registry.setMetaClass(loadedClass,(MetaClass)adapter);
+ catch (    NoSuchMethodException e) {
+      throw new GrailsConfigurationException("Unable to re-create configuration for reloaded class (" + e.getMessage() + "): "+ loadedClass,e);
     }
   }
 }

@@ -1,9 +1,0 @@
-{
-  org.springframework.webflow.Transition[] transitionArray=new org.springframework.webflow.Transition[transitions.size()];
-  int i=0;
-  for (Iterator iter2=transitions.iterator(); iter2.hasNext(); i++) {
-    Transition transition=(Transition)iter2.next();
-    transitionArray[i]=on(transition.getName(),transition.getTargetStateId());
-  }
-  return transitionArray;
-}

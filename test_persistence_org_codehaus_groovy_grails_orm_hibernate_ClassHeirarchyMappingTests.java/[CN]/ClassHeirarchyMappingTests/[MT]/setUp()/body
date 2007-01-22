@@ -14,7 +14,7 @@
   config.setProperties(props);
   Thread.currentThread().setContextClassLoader(gcl);
   this.sessionFactory=config.buildSessionFactory();
-  GrailsDomainConfigurationUtil.configureDynamicMethods(sessionFactory,grailsApplication);
+  GrailsHibernateUtil.configureDynamicMethods(sessionFactory,grailsApplication);
   if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
     this.hibSession=this.sessionFactory.openSession();
     TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(hibSession));

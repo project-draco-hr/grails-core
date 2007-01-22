@@ -1,9 +1,0 @@
-{
-  super();
-  Assert.notNull(flowId);
-  Assert.notNull(stateId);
-  Assert.notNull(closure);
-  this.flowId=flowId;
-  this.stateId=stateId;
-  this.closure=closure;
-}

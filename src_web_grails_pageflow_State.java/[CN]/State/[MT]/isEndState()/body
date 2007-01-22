@@ -1,3 +1,0 @@
-{
-  return ((endState && isViewState()) || (!isActionState() && !isViewState() && !isDecisionState()&& !isSubflowState()));
-}

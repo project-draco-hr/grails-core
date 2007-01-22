@@ -3,7 +3,7 @@
   if (mc instanceof DynamicMethodsMetaClass) {
     return ((DynamicMethodsMetaClass)mc).getAdaptee();
   }
- else   if (mc instanceof TagLibMetaClass) {
+ else   if (mc instanceof AdapterMetaClass) {
     return ((AdapterMetaClass)mc).getAdaptee();
   }
  else   if (mc instanceof ProxyMetaClass) {

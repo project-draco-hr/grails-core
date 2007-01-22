@@ -5,7 +5,7 @@
   GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
   MockServletContext servletContext=new MockServletContext();
   ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(servletContext);
-  servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
+  servletContext.setAttribute(ApplicationAttributes.APPLICATION_CONTEXT,appCtx);
   Assert.notNull(appCtx);
   return appCtx;
 }

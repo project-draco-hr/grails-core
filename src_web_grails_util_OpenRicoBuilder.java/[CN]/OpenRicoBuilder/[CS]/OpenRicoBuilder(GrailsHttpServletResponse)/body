@@ -1,0 +1,4 @@
+{
+  super(response.getWriter(TEXT_XML,UTF_8));
+  getPrinter().println(XML_HEADER);
+}

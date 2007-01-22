@@ -1,6 +1,5 @@
 {
   super(theClass);
-  addDynamicConstructor(new DataBindingDynamicConstructor());
   addDynamicMethodInvocation(new IdentDynamicMethod(application));
   addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader,application));
   addDynamicMethodInvocation(new MergePersistentMethod(sessionFactory,classLoader,application));
@@ -38,7 +37,6 @@
   addStaticMethodInvocation(new CreateDynamicMethod());
   addStaticMethodInvocation(new WithCriteriaDynamicPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new WithTransactionPersistentMethod(sessionFactory,classLoader));
-  addDynamicProperty(new SetPropertiesDynamicProperty());
   addDynamicProperty(new ConstraintsDynamicProperty(application));
   addDynamicProperty(new WeakGenericDynamicProperty(ERRORS_PROPERTY,Errors.class,null,false));
 }

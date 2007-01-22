@@ -27,20 +27,20 @@
     this.uri2viewMap.put(uri + SLASH,uri + SLASH + defaultActionName);
     this.uri2viewMap.put(uri,uri + SLASH + defaultActionName);
     this.viewNames.put(defaultActionName,uri + SLASH + defaultActionName);
-    for (int i=0; i < DefaultGrailsScaffolder.ACTION_NAMES.length; i++) {
-      closureNames.add(DefaultGrailsScaffolder.ACTION_NAMES[i]);
-      String viewName=(String)getPropertyOrStaticPropertyOrFieldValue(DefaultGrailsScaffolder.ACTION_NAMES[i] + VIEW,String.class);
+    for (int i=0; i < GrailsScaffolder.ACTION_NAMES.length; i++) {
+      closureNames.add(GrailsScaffolder.ACTION_NAMES[i]);
+      String viewName=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsScaffolder.ACTION_NAMES[i] + VIEW,String.class);
       if (viewName == null) {
-        viewName=DefaultGrailsScaffolder.ACTION_NAMES[i];
+        viewName=GrailsScaffolder.ACTION_NAMES[i];
       }
-      String tmpUri=uri + SLASH + DefaultGrailsScaffolder.ACTION_NAMES[i];
+      String tmpUri=uri + SLASH + GrailsScaffolder.ACTION_NAMES[i];
       String viewUri=uri + SLASH + viewName;
       if (StringUtils.isNotBlank(viewName)) {
         this.uri2viewMap.put(tmpUri,viewUri);
-        this.viewNames.put(DefaultGrailsScaffolder.ACTION_NAMES[i],viewUri);
+        this.viewNames.put(GrailsScaffolder.ACTION_NAMES[i],viewUri);
       }
-      this.uri2closureMap.put(tmpUri,DefaultGrailsScaffolder.ACTION_NAMES[i]);
-      this.uri2closureMap.put(tmpUri + SLASH + "**",DefaultGrailsScaffolder.ACTION_NAMES[i]);
+      this.uri2closureMap.put(tmpUri,GrailsScaffolder.ACTION_NAMES[i]);
+      this.uri2closureMap.put(tmpUri + SLASH + "**",GrailsScaffolder.ACTION_NAMES[i]);
     }
   }
   PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();

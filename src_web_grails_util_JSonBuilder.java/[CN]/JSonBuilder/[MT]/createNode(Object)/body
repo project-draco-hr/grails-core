@@ -1,0 +1,22 @@
+{
+  int retVal=1;
+  try {
+    if (start) {
+      start=false;
+      writeObject();
+    }
+ else {
+      if (getCurrent() == null && stack.peek().equals(OBJECT))       throw new IllegalArgumentException(JSON_BUILDER + "only call to [element { }] is allowed when creating array");
+      if (stack.peek().equals(ARRAY)) {
+        writeObject();
+        retVal=2;
+      }
+      writer.key(String.valueOf(name)).array();
+      stack.push(ARRAY);
+    }
+  }
+ catch (  JSONException e) {
+    throw new IllegalArgumentException(JSON_BUILDER + "invalid element");
+  }
+  return new Integer(retVal);
+}

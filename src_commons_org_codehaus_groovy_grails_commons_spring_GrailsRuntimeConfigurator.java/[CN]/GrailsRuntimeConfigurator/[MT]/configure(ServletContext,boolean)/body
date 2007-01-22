@@ -1,0 +1,14 @@
+{
+  RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
+  if (context != null)   springConfig.setServletContext(context);
+  if (!this.pluginManager.isInitialised())   this.pluginManager.loadPlugins();
+  Assert.notNull(application);
+  this.pluginManager.doRuntimeConfiguration(springConfig);
+  LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
+  if (loadExternalBeans)   doPostResourceConfiguration(springConfig);
+  WebApplicationContext ctx=springConfig.getApplicationContext();
+  this.pluginManager.setApplicationContext(ctx);
+  this.pluginManager.doDynamicMethods();
+  performPostProcessing(ctx);
+  return ctx;
+}

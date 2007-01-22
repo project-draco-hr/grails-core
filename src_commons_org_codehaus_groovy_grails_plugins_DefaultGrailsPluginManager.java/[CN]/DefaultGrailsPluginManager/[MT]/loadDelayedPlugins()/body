@@ -5,6 +5,9 @@
       if (!hasValidPluginsToLoadBefore(plugin)) {
         registerPlugin(plugin);
       }
+ else {
+        delayedLoadPlugins.add(plugin);
+      }
     }
  else {
       boolean foundInDelayed=false;

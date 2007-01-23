@@ -1,5 +1,6 @@
 {
-  context=(GrailsWebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
+  GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(getServletContext());
+  context=(GrailsWebApplicationContext)attrs.getApplicationContext();
   if (LOG.isDebugEnabled()) {
     LOG.debug("Executing Grails reload filter...");
   }
@@ -67,12 +68,24 @@ catch (    Exception e) {
   if (manager == null) {
     manager=PluginManagerHolder.getPluginManager();
   }
-  if (manager != null) {
-    if (LOG.isDebugEnabled())     LOG.debug("Checking Plugin manager for changes..");
-    manager.checkForChanges();
+  try {
+    if (manager != null) {
+      if (LOG.isDebugEnabled())       LOG.debug("Checking Plugin manager for changes..");
+      manager.checkForChanges();
+    }
+ else     if (LOG.isDebugEnabled()) {
+      LOG.debug("Plugin manager not found, skipping change check");
+    }
+    filterChain.doFilter(httpServletRequest,httpServletResponse);
   }
- else   if (LOG.isDebugEnabled()) {
-    LOG.debug("Plugin manager not found, skipping change check");
+ catch (  MultipleCompilationErrorsException mce) {
+    if (LOG.isDebugEnabled())     LOG.debug("Compilation error occured reloading application: " + mce.getMessage(),mce);
+    GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
+    Template t=engine.createTemplate(GrailsApplicationAttributes.PATH_TO_VIEWS + "/error.gsp",getServletContext(),httpServletRequest,httpServletResponse);
+    GrailsWrappedRuntimeException wrapped=new GrailsWrappedRuntimeException(getServletContext(),mce);
+    Map model=new HashMap();
+    model.put("exception",wrapped);
+    Writable w=t.make(model);
+    w.writeTo(httpServletResponse.getWriter());
   }
-  filterChain.doFilter(httpServletRequest,httpServletResponse);
 }

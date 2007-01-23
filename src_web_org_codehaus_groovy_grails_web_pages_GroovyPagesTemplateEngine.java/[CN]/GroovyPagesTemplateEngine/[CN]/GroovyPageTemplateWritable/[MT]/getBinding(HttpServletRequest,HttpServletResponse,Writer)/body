@@ -16,6 +16,7 @@
   }
  else {
     GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)request.getAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID);
+    if (attrs == null)     attrs=new DefaultGrailsApplicationAttributes(context);
     binding.setVariable(GroovyPage.REQUEST,request);
     binding.setVariable(GroovyPage.RESPONSE,response);
     binding.setVariable(GroovyPage.FLASH,attrs.getFlashScope(request));

@@ -24,6 +24,7 @@
       String messageText=sw.toString();
       if (messageText.indexOf(':') > -1) {
         this.className=sw.toString().substring(0,messageText.indexOf(':'));
+        this.className=this.className.trim();
       }
     }
   }
@@ -55,9 +56,9 @@
   try {
     if (getLineNumber() > -1) {
       String url;
+      String fileName=this.className.replace('.','/') + ".groovy";
+      String urlPrefix="";
       if (gspFile == null) {
-        String fileName=this.className.replace('.','/') + ".groovy";
-        String urlPrefix=URL_PREFIX;
         if (GrailsClassUtils.isControllerClass(className)) {
           urlPrefix+="/controllers/";
         }
@@ -67,7 +68,7 @@
  else         if (GrailsClassUtils.isService(className)) {
           urlPrefix+="/services/";
         }
-        url=urlPrefix + fileName;
+        url=URL_PREFIX + urlPrefix + fileName;
       }
  else {
         url=gspFile;
@@ -79,6 +80,15 @@
         }
       }
       InputStream in=servletContext.getResourceAsStream(url);
+      LOG.debug("Attempting to display code snippet found in url " + url);
+      if (in == null) {
+        try {
+          Resource r=resolver.getResource("grails-app" + urlPrefix + fileName);
+          in=r.getInputStream();
+        }
+ catch (        Throwable e) {
+        }
+      }
       if (in != null) {
         reader=new LineNumberReader(new InputStreamReader(in));
         String currentLine=reader.readLine();

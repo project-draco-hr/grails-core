@@ -1,0 +1,14 @@
+{
+  String envName=System.getProperty(GrailsApplication.ENVIRONMENT);
+  if (StringUtils.isBlank(envName)) {
+    return GrailsApplication.ENV_PRODUCTION;
+  }
+ else {
+    if (envNameMappings.containsKey(envName)) {
+      return (String)envNameMappings.get(envName);
+    }
+ else {
+      return envName;
+    }
+  }
+}

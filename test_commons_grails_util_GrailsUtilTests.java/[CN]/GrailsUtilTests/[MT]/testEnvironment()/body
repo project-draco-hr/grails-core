@@ -1,0 +1,12 @@
+{
+  System.setProperty(GrailsApplication.ENVIRONMENT,"");
+  assertEquals(GrailsApplication.ENV_PRODUCTION,GrailsUtil.getEnvironment());
+  System.setProperty(GrailsApplication.ENVIRONMENT,"prod");
+  assertEquals(GrailsApplication.ENV_PRODUCTION,GrailsUtil.getEnvironment());
+  System.setProperty(GrailsApplication.ENVIRONMENT,"dev");
+  assertEquals(GrailsApplication.ENV_DEVELOPMENT,GrailsUtil.getEnvironment());
+  System.setProperty(GrailsApplication.ENVIRONMENT,"test");
+  assertEquals(GrailsApplication.ENV_TEST,GrailsUtil.getEnvironment());
+  System.setProperty(GrailsApplication.ENVIRONMENT,"myenvironment");
+  assertEquals("myenvironment",GrailsUtil.getEnvironment());
+}

@@ -3,22 +3,7 @@
   log.debug("Loading Grails application.");
   final GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
   GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
-  if (injectionOperation == null) {
-    this.cl=new GroovyClassLoader();
-  }
- else {
-    this.cl=new GroovyClassLoader(){
-      protected CompilationUnit createCompilationUnit(      CompilerConfiguration config,      CodeSource source){
-        CompilationUnit cu=super.createCompilationUnit(config,source);
-        injectionOperation.setResourceLoader(resourceLoader);
-        cu.addPhaseOperation(injectionOperation,Phases.CONVERSION);
-        return cu;
-      }
-    }
-;
-  }
-  this.cl.setShouldRecompile(Boolean.TRUE);
-  this.cl.setResourceLoader(resourceLoader);
+  this.cl=configureClassLoader(injectionOperation,resourceLoader,resources,resourceHolder);
   Collection loadedResources=new ArrayList();
   this.loadedClasses=new HashSet();
   for (int i=0; resources != null && i < resources.length; i++) {

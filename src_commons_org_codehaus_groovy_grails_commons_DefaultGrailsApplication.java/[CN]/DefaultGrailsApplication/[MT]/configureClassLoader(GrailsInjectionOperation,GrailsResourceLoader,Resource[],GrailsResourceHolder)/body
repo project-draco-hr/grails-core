@@ -1,0 +1,24 @@
+{
+  GroovyClassLoader cl;
+  if (injectionOperation == null) {
+    cl=new GroovyClassLoader();
+  }
+ else {
+    if (log.isDebugEnabled()) {
+      log.debug("Creating new Groovy class loader without compiler config");
+    }
+    cl=new GroovyClassLoader(){
+      protected CompilationUnit createCompilationUnit(      CompilerConfiguration config,      CodeSource source){
+        CompilationUnit cu=super.createCompilationUnit(config,source);
+        injectionOperation.setResourceLoader(resourceLoader);
+        cu.addPhaseOperation(injectionOperation,Phases.CONVERSION);
+        return cu;
+      }
+    }
+;
+  }
+  cl.setShouldRecompile(Boolean.TRUE);
+  cl.setResourceLoader(resourceLoader);
+  Thread.currentThread().setContextClassLoader(cl);
+  return cl;
+}

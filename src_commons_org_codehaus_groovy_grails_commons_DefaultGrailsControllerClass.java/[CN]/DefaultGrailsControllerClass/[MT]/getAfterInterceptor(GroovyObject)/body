@@ -1,4 +1,6 @@
 {
-  final Map controllerProperties=DefaultGroovyMethods.getProperties(controller);
-  return getInterceptor(controllerProperties.get(AFTER_INTERCEPTOR));
+  if (getReference().isReadableProperty(AFTER_INTERCEPTOR)) {
+    return getInterceptor(controller.getProperty(AFTER_INTERCEPTOR));
+  }
+  return null;
 }

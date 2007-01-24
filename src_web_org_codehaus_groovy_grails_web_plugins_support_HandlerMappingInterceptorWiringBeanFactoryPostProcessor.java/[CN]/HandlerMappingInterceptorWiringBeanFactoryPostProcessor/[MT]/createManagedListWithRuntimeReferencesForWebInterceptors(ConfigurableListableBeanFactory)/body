@@ -1,0 +1,3 @@
+{
+  return createManagedListWithRuntimeReferences(getAllWebInterceptorBeanDefinitionNames(beanFactory));
+}

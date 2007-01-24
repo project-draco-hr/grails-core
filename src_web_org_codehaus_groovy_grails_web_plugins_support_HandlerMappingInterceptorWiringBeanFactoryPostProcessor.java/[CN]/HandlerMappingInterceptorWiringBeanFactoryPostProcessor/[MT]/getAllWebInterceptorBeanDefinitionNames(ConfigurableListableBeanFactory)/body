@@ -1,0 +1,26 @@
+{
+  List webInterceptorBeanDefinitionNames=new ArrayList();
+  String[] beanDefinitionNames=beanFactory.getBeanDefinitionNames();
+  for (int i=0; i < beanDefinitionNames.length; i++) {
+    String beanDefinitionName=beanDefinitionNames[i];
+    BeanDefinition beanDefinition=beanFactory.getBeanDefinition(beanDefinitionName);
+    Class beanDefinitionClass=getClassForBeanDefinition(beanDefinitionName,beanDefinition);
+    if (beanDefinitionClass != null && (HandlerInterceptor.class.isAssignableFrom(beanDefinitionClass) || WebRequestInterceptor.class.isAssignableFrom(beanDefinitionClass))) {
+      if (!(beanDefinition instanceof RootBeanDefinition)) {
+        log.warn("Web interceptor bean definition [" + beanDefinitionName + "] not selected for wiring to "+ "HandlerMappings because it is not of type RootBeanDefinition.");
+        continue;
+      }
+      if (!beanDefinition.isSingleton()) {
+        log.warn("Web interceptor bean definition [" + beanDefinitionName + "] not selected for wiring to "+ "HandlerMappings because it is not singleton.");
+        continue;
+      }
+      if (beanDefinition.isAbstract()) {
+        log.warn("Web interceptor bean definition [" + beanDefinitionName + "] not selected for wiring to "+ "HandlerMappings because it is abstract.");
+        continue;
+      }
+      log.debug("Web interceptor bean definition [" + beanDefinitionName + "] selected for wiring.");
+      webInterceptorBeanDefinitionNames.add(beanDefinitionName);
+    }
+  }
+  return (String[])webInterceptorBeanDefinitionNames.toArray(new String[webInterceptorBeanDefinitionNames.size()]);
+}

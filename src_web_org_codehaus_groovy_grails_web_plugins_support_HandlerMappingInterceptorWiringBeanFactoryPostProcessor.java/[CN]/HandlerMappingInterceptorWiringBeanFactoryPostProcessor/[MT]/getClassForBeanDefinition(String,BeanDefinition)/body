@@ -1,0 +1,17 @@
+{
+  if (StringUtils.hasText(beanDefinition.getBeanClassName())) {
+    try {
+      return ClassUtils.forName(beanDefinition.getBeanClassName());
+    }
+ catch (    ClassNotFoundException e) {
+      log.warn("Could not determine bean definition class for [" + beanDefinitionName + "] because of error",e);
+    }
+catch (    NoClassDefFoundError e) {
+      log.warn("Could not determine bean definition class for [" + beanDefinitionName + "] because of error",e);
+    }
+catch (    LinkageError e) {
+      log.warn("Could not determine bean definition class for [" + beanDefinitionName + "] because of error",e);
+    }
+  }
+  return null;
+}

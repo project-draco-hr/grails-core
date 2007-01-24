@@ -1,0 +1,14 @@
+{
+  if (!(beanDefinition instanceof RootBeanDefinition)) {
+    throw new RuntimeException("Bean definition [" + beanDefinitionName + "] cannot have a parent.");
+  }
+  if (beanDefinition.isAbstract()) {
+    throw new RuntimeException("Bean definition [" + beanDefinitionName + "] cannot be abstract.");
+  }
+  if (beanDefinition.getPropertyValues().contains(INTERCEPTORS_PROPERTY)) {
+    throw new RuntimeException("Please remove the interceptors property from the [" + beanDefinitionName + "] bean definition. Instead register your web interceptors"+ " as singleton, non-abstract, non-child bean definitions. These will be automatically"+ "wired to AbstractHandlerMapping instances.");
+  }
+ else {
+    beanDefinition.getPropertyValues().addPropertyValue(INTERCEPTORS_PROPERTY,managedList);
+  }
+}

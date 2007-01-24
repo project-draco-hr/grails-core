@@ -1,0 +1,7 @@
+{
+  ManagedList managedList=new ManagedList();
+  for (int i=0; i < webInterceptorBeanDefinitionNames.length; i++) {
+    managedList.add(new RuntimeBeanReference(webInterceptorBeanDefinitionNames[i]));
+  }
+  return managedList;
+}

@@ -7,7 +7,15 @@
       Class type=bean.getPropertyType(propertyName);
       if (type == Date.class || type == Calendar.class) {
         try {
-          int year=Integer.parseInt(request.getParameter(propertyName + "_year"));
+          String yearString=request.getParameter(propertyName + "_year");
+          int year;
+          if (StringUtils.isBlank(yearString)) {
+            Calendar now=Calendar.getInstance(RequestContextUtils.getLocale((HttpServletRequest)request));
+            year=now.get(Calendar.YEAR);
+          }
+ else {
+            year=Integer.parseInt(yearString);
+          }
           int month=Integer.parseInt(getParameterValue(request,propertyName + "_month","1"));
           int day=Integer.parseInt(getParameterValue(request,propertyName + "_day","1"));
           int hour=Integer.parseInt(getParameterValue(request,propertyName + "_hour","0"));

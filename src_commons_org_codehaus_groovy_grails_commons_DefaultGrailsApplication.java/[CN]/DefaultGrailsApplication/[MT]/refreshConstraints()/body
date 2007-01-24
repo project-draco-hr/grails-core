@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < domainClasses.length; i++) {
+    GrailsDomainClass domainClass=domainClasses[i];
+    domainClass.refreshConstraints();
+  }
+}

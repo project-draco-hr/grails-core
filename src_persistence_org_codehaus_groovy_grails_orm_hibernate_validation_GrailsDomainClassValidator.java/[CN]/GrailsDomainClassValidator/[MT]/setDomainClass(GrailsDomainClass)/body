@@ -1,6 +1,0 @@
-{
-  this.domainClass=domainClass;
-  this.domainClass.setValidator(this);
-  this.targetClass=this.domainClass.getClazz();
-  this.constrainedProperties=domainClass.getConstrainedProperties().values();
-}

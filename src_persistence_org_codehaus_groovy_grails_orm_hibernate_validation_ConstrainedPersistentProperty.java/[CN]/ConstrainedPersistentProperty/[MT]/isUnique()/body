@@ -1,5 +1,0 @@
-{
-  UniqueConstraint c=(UniqueConstraint)this.appliedConstraints.get(UNIQUE_CONSTRAINT);
-  if (c == null)   return false;
-  return c.isUnique();
-}

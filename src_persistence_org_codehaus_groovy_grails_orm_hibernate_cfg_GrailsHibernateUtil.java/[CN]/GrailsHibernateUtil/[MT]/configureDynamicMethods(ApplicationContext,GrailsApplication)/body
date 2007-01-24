@@ -4,10 +4,10 @@
   Collection dynamicMethods=configureDynamicMethods(sessionFactory,application);
   for (Iterator i=dynamicMethods.iterator(); i.hasNext(); ) {
     DomainClassMethods methods=(DomainClassMethods)i.next();
-    boolean isTransactionAware=applicationContext.containsBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN) && (methods instanceof TransactionManagerAware);
+    boolean isTransactionAware=applicationContext.containsBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN);
     if (isTransactionAware) {
       PlatformTransactionManager ptm=(PlatformTransactionManager)applicationContext.getBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN);
-      ((TransactionManagerAware)methods).setTransactionManager(ptm);
+      methods.setTransactionManager(ptm);
     }
   }
 }

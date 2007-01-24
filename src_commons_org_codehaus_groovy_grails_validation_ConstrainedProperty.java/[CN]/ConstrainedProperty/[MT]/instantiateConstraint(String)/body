@@ -1,0 +1,7 @@
+{
+  Object constraintFactory=constraints.get(constraintName);
+  Constraint c;
+  if (constraintFactory instanceof ConstraintFactory)   c=((ConstraintFactory)constraintFactory).newInstance();
+ else   c=(Constraint)((Class)constraintFactory).newInstance();
+  return c;
+}

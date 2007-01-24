@@ -1,7 +1,4 @@
 {
   GrailsDomainClassProperty prop=getPropertyByName(propertyName);
-  if (prop == null)   return false;
- else {
-    return prop.isManyToOne();
-  }
+  return prop != null && prop.isManyToOne();
 }

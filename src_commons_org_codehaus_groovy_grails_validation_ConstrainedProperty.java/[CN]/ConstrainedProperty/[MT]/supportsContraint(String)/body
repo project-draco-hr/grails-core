@@ -2,9 +2,8 @@
   if (!constraints.containsKey(constraintName)) {
     return this.bean.isWritableProperty(constraintName);
   }
-  Class constraintClass=(Class)constraints.get(constraintName);
   try {
-    Constraint c=(Constraint)constraintClass.newInstance();
+    Constraint c=instantiateConstraint(constraintName);
     return c.supports(propertyType);
   }
  catch (  Exception e) {

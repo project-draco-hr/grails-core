@@ -1,0 +1,13 @@
+{
+  try {
+    PersistentConstraint instance=(PersistentConstraint)constraintClass.newInstance();
+    instance.setHibernateTemplate(new HibernateTemplate(sessionFactory,false));
+    return instance;
+  }
+ catch (  InstantiationException e) {
+    throw new GrailsDomainException("Error instantiating constraint [" + constraintClass + "] during validation: "+ e.getMessage(),e);
+  }
+catch (  IllegalAccessException e) {
+    throw new GrailsDomainException("Error instantiating constraint [" + constraintClass + "] during validation: "+ e.getMessage(),e);
+  }
+}

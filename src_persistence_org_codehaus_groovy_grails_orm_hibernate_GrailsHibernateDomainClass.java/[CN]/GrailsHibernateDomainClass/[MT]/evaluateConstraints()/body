@@ -12,7 +12,7 @@
       try {
         ProxyMetaClass pmc=new ProxyMetaClass(metaRegistry,instance.getClass(),meta);
         pmc.setInterceptor((Interceptor)interceptor);
-        this.constraints=(Map)pmc.getProperty(instance,GrailsDomainClassProperty.CONSTRAINTS);
+        this.constraints=(Map)pmc.getProperty(getClazz(),instance,GrailsDomainClassProperty.CONSTRAINTS,false,false);
       }
   finally {
         metaRegistry.setMetaClass(instance.getClass(),meta);

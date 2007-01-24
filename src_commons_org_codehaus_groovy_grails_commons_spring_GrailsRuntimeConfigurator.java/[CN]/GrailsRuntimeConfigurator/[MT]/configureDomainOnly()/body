@@ -5,5 +5,6 @@
   if (pluginManager.hasGrailsPlugin("hibernate"))   pluginManager.doRuntimeConfiguration("hibernate",springConfig);
   WebApplicationContext ctx=springConfig.getApplicationContext();
   performPostProcessing(ctx);
+  application.refreshConstraints();
   return ctx;
 }

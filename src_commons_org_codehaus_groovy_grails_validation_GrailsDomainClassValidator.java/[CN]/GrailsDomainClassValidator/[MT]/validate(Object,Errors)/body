@@ -1,0 +1,16 @@
+{
+  if (!domainClass.getClazz().isInstance(obj))   throw new IllegalArgumentException("Argument [" + obj + "] is not an instance of ["+ domainClass.getClazz()+ "] which this validator is configured for");
+  BeanWrapper bean=new BeanWrapperImpl(obj);
+  Collection constrainedProperties=domainClass.getConstrainedProperties().values();
+  for (Iterator i=constrainedProperties.iterator(); i.hasNext(); ) {
+    ConstrainedProperty c=(ConstrainedProperty)i.next();
+    c.setMessageSource(this.messageSource);
+    c.validate(obj,bean.getPropertyValue(c.getPropertyName()),errors);
+  }
+  if (obj instanceof GroovyObject) {
+    ((GroovyObject)obj).setProperty(ERRORS_PROPERTY,errors);
+  }
+ else {
+    InvokerHelper.setProperty(obj,ERRORS_PROPERTY,errors);
+  }
+}

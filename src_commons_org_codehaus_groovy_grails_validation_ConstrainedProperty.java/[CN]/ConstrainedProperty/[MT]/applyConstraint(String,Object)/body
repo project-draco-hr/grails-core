@@ -16,9 +16,8 @@
       this.appliedConstraints.remove(constraintName);
     }
  else {
-      Class constraintClass=(Class)constraints.get(constraintName);
       try {
-        Constraint c=(Constraint)constraintClass.newInstance();
+        Constraint c=instantiateConstraint(constraintName);
         c.setOwningClass(this.owningClass);
         c.setPropertyName(this.propertyName);
         c.setParameter(constrainingValue);

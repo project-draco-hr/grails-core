@@ -1,0 +1,6 @@
+{
+  if (this.pluginBean.isReadableProperty(DEPENDS_ON)) {
+    this.dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,DEPENDS_ON);
+    this.dependencyNames=(String[])this.dependencies.keySet().toArray(new String[this.dependencies.size()]);
+  }
+}

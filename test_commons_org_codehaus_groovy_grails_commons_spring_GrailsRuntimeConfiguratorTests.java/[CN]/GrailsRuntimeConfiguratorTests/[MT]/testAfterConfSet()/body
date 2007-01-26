@@ -8,5 +8,5 @@
   GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());
   assertNotNull(ctx);
   GrailsMockDependantObject gdo=(GrailsMockDependantObject)ctx.getBean("grailsDependent");
-  assertNotNull(gdo.getSessionFactory());
+  assertNotNull(gdo.getApplication());
 }

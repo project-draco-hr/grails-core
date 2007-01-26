@@ -1,3 +1,5 @@
 {
-  return adaptee.getValueNames();
+synchronized (adaptee) {
+    return adaptee.getValueNames();
+  }
 }

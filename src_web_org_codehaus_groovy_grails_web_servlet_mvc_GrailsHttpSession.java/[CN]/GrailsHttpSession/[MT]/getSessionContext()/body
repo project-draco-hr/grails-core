@@ -1,3 +1,5 @@
 {
-  return adaptee.getSessionContext();
+synchronized (adaptee) {
+    return adaptee.getSessionContext();
+  }
 }

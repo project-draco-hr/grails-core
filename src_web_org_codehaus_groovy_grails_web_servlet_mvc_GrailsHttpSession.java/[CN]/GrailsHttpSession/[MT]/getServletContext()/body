@@ -1,3 +1,5 @@
 {
-  return adaptee.getServletContext();
+synchronized (adaptee) {
+    return adaptee.getServletContext();
+  }
 }

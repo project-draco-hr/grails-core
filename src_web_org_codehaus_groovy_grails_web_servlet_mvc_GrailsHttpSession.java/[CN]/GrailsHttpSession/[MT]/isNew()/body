@@ -1,3 +1,5 @@
 {
-  return adaptee.isNew();
+synchronized (adaptee) {
+    return adaptee.isNew();
+  }
 }

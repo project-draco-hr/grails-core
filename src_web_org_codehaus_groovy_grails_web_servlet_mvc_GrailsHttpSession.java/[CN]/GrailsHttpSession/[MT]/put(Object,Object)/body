@@ -1,4 +1,6 @@
 {
-  setAttribute(key.toString(),value);
+synchronized (adaptee) {
+    setAttribute(key.toString(),value);
+  }
   return value;
 }

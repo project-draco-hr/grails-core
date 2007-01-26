@@ -1,3 +1,5 @@
 {
-  adaptee.removeAttribute(name);
+synchronized (adaptee) {
+    adaptee.removeAttribute(name);
+  }
 }

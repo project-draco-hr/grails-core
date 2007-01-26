@@ -1,3 +1,5 @@
 {
-  return adaptee.getId();
+synchronized (adaptee) {
+    return adaptee.getId();
+  }
 }

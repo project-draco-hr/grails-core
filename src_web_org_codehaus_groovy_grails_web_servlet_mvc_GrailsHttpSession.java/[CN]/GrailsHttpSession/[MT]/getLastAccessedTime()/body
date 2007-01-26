@@ -1,3 +1,5 @@
 {
-  return adaptee.getLastAccessedTime();
+synchronized (adaptee) {
+    return adaptee.getLastAccessedTime();
+  }
 }

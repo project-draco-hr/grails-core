@@ -1,3 +1,5 @@
 {
-  return !getAttributeNames().hasMoreElements();
+synchronized (adaptee) {
+    return !getAttributeNames().hasMoreElements();
+  }
 }

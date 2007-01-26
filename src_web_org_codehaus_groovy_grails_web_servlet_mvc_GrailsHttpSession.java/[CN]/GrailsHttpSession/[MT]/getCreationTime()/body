@@ -1,3 +1,5 @@
 {
-  return adaptee.getCreationTime();
+synchronized (adaptee) {
+    return adaptee.getCreationTime();
+  }
 }

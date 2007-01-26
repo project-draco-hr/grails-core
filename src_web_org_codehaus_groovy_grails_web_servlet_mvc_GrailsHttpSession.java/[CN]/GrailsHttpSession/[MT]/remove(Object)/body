@@ -1,6 +1,9 @@
 {
   if (key == null)   return null;
-  Object obj=getAttribute(key.toString());
-  removeAttribute(key.toString());
+  Object obj;
+synchronized (adaptee) {
+    obj=getAttribute(key.toString());
+    removeAttribute(key.toString());
+  }
   return obj;
 }

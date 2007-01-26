@@ -1,3 +1,5 @@
 {
-  adaptee.setMaxInactiveInterval(arg0);
+synchronized (adaptee) {
+    adaptee.setMaxInactiveInterval(arg0);
+  }
 }

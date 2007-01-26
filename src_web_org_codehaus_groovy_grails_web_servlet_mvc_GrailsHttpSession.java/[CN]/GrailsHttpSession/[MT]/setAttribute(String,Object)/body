@@ -1,3 +1,5 @@
 {
-  adaptee.setAttribute(name,value);
+synchronized (adaptee) {
+    adaptee.setAttribute(name,value);
+  }
 }

@@ -1,3 +1,5 @@
 {
-  adaptee.invalidate();
+synchronized (adaptee) {
+    adaptee.invalidate();
+  }
 }

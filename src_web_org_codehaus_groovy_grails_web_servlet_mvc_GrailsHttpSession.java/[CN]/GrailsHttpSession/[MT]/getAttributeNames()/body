@@ -1,3 +1,5 @@
 {
-  return adaptee.getAttributeNames();
+synchronized (adaptee) {
+    return adaptee.getAttributeNames();
+  }
 }

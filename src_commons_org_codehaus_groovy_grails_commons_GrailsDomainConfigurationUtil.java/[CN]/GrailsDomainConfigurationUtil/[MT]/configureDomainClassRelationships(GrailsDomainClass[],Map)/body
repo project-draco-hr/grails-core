@@ -25,7 +25,12 @@
         GrailsDomainClassProperty prop=props[j];
         GrailsDomainClass referenced=prop.getReferencedDomainClass();
         if (referenced != null) {
-          String refPropertyName=prop.getReferencedPropertyName();
+          String refPropertyName=null;
+          try {
+            refPropertyName=prop.getReferencedPropertyName();
+          }
+ catch (          UnsupportedOperationException e) {
+          }
           if (!StringUtils.isBlank(refPropertyName)) {
             prop.setOtherSide(referenced.getPropertyByName(refPropertyName));
           }

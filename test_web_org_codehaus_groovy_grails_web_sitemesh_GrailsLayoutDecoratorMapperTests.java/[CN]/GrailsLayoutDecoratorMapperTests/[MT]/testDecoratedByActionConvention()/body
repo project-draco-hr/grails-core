@@ -7,9 +7,9 @@
   GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
   Config c=new Config(new MockServletConfig(context));
   m.init(c,null,null);
-  FastPageParser parser=new FastPageParser();
+  HTMLPageParser parser=new HTMLPageParser();
   String html="<html><head><title>Test title</title></head><body>here is the body</body></html>";
-  Page page=parser.parse(new StringReader(html));
+  Page page=parser.parse(html.toCharArray());
   Decorator d=m.getDecorator(request,page);
   assertNotNull(d);
   assertEquals("/WEB-INF/grails-app/views/layouts/test2/testAction.gsp",d.getURIPath());

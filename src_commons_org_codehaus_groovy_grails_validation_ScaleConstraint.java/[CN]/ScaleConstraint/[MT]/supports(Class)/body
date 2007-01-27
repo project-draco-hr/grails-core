@@ -1,7 +1,3 @@
 {
-  boolean isSupported=false;
-  if (type != null) {
-    isSupported=Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type) || BigDecimal.class.isAssignableFrom(type);
-  }
-  return isSupported;
+  return type != null && (BigDecimal.class.isAssignableFrom(type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Float.class,type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Double.class,type));
 }

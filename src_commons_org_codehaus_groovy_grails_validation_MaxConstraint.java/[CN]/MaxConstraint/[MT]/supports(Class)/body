@@ -1,3 +1,8 @@
 {
-  return type != null && (Comparable.class.isAssignableFrom(type) || Number.class.isAssignableFrom(type));
+  System.out.println("type=" + type);
+  Map m=GrailsClassUtils.PRIMITIVE_TYPE_COMPATIBLE_CLASSES;
+  System.out.println("m=" + m);
+  Class c=(Class)GrailsClassUtils.PRIMITIVE_TYPE_COMPATIBLE_CLASSES.get(type);
+  System.out.println("c=" + c);
+  return type != null && (Comparable.class.isAssignableFrom(type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Number.class,type));
 }

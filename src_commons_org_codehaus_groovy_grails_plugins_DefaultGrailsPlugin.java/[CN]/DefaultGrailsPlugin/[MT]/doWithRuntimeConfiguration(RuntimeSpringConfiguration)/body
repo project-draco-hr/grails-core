@@ -1,5 +1,8 @@
 {
   if (this.pluginBean.isReadableProperty(DO_WITH_SPRING)) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Plugin " + this + " is participating in Spring configuration...");
+    }
     Closure c=(Closure)this.plugin.getProperty(DO_WITH_SPRING);
     BeanBuilder bb=new BeanBuilder(getParentCtx());
     bb.setSpringConfig(springConfig);

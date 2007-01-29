@@ -1,5 +1,5 @@
 {
-  BigDecimal dependentVersion=(BigDecimal)this.dependencies.get(name);
+  Object dependentVersion=this.dependencies.get(name);
   if (dependentVersion == null)   throw new PluginException("Plugin [" + getName() + "] referenced dependency ["+ name+ "] with no version!");
- else   return dependentVersion;
+ else   return dependentVersion.toString();
 }

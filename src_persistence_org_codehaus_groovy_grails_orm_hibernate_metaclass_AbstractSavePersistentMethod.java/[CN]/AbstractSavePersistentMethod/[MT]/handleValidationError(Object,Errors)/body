@@ -1,14 +1,12 @@
 {
   HibernateTemplate t=getHibernateTemplate();
-  if (t.contains(target)) {
-    t.evict(target);
+  t.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      session.setFlushMode(FlushMode.MANUAL);
+      return null;
+    }
   }
-  if (target instanceof GroovyObject) {
-    ((GroovyObject)target).setProperty(DomainClassMethods.ERRORS_PROPERTY,errors);
-  }
- else {
-    DynamicMethodsMetaClass metaClass=(DynamicMethodsMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
-    metaClass.setProperty(target.getClass(),target,DomainClassMethods.ERRORS_PROPERTY,errors,false,false);
-  }
+);
+  setErrorsOnInstance(target,errors);
   return null;
 }

@@ -1,5 +1,12 @@
 {
-  getHibernateTemplate().merge(target);
-  getHibernateTemplate().lock(target,LockMode.NONE);
-  if (flush)   getHibernateTemplate().flush();
+  HibernateTemplate ht=getHibernateTemplate();
+  ht.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      session.merge(target);
+      session.lock(target,LockMode.NONE);
+      if (flush && FlushMode.isManualFlushMode(session.getFlushMode()))       getHibernateTemplate().flush();
+      return target;
+    }
+  }
+);
 }

@@ -1,0 +1,23 @@
+{
+  if (resource == null)   return null;
+  try {
+    String url=resource.getURL().toString();
+    int i=url.lastIndexOf("grails-app");
+    if (i > -1) {
+      url=url.substring(0,i + 10);
+      return new UrlResource(url);
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  MalformedURLException e) {
+    return null;
+  }
+catch (  IOException e) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Error reading URL whilst resolving app dir from [" + resource + "]: "+ e.getMessage(),e);
+    }
+    return null;
+  }
+}

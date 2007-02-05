@@ -1,9 +1,3 @@
 {
-  if (!StringUtils.isBlank(trailingName)) {
-    String shortName=getShortName(clazz);
-    if (shortName.indexOf(trailingName) > -1) {
-      return shortName.substring(0,shortName.length() - trailingName.length());
-    }
-  }
-  return clazz.getName();
+  return getLogicalName(clazz.getName(),trailingName);
 }

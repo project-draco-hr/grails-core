@@ -1,0 +1,19 @@
+{
+  if (contextPath == null)   contextPath="";
+  if (resource == null)   return contextPath;
+  String url;
+  try {
+    url=resource.getURL().toString();
+  }
+ catch (  IOException e) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Error reading URL whilst resolving static resource path from [" + resource + "]: "+ e.getMessage(),e);
+    }
+    return contextPath;
+  }
+  Matcher m=PLUGIN_RESOURCE_PATTERN.matcher(url);
+  if (m.find()) {
+    return contextPath + "/" + m.group(1);
+  }
+  return contextPath;
+}

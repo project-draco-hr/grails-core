@@ -12,6 +12,7 @@
       GroovyObject controller=webRequest.getAttributes().getController(request);
       GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
       String gspView;
+      String pluginContextPath="";
       if (controller != null && application != null) {
         Resource controllerResource=application.getResourceForClass(controller.getClass());
         Resource viewsDir=GrailsResourceUtils.getViewsDir(controllerResource);

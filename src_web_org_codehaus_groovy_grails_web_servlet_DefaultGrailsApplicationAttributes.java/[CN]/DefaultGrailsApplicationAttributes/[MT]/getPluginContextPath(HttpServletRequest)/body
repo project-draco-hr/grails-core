@@ -1,0 +1,11 @@
+{
+  GroovyObject controller=getController(request);
+  GrailsApplication application=getGrailsApplication();
+  if (controller != null && application != null) {
+    Resource controllerResource=application.getResourceForClass(controller.getClass());
+    return GrailsResourceUtils.getStaticResourcePathForResource(controllerResource,request.getContextPath());
+  }
+ else {
+    return request.getContextPath();
+  }
+}

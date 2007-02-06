@@ -2,19 +2,7 @@
   if (resource == null)   return null;
   try {
     Resource appDir=getAppDir(resource);
-    StringBuffer buf=new StringBuffer(appDir.getURL().toString());
-    String className=getClassName(resource);
-    buf.append("/views");
-    if (GrailsClassUtils.isControllerClass(className)) {
-      buf.append("/").append(GrailsClassUtils.getLogicalPropertyName(className,"Controller"));
-    }
- else     if (GrailsClassUtils.isTagLibClass(className)) {
-      buf.append("/").append(GrailsClassUtils.getLogicalPropertyName(className,"TagLib"));
-    }
- else     if (isDomainClass(resource.getURL())) {
-      buf.append("/").append(GrailsClassUtils.getPropertyName(className));
-    }
-    return new UrlResource(buf.toString());
+    return new UrlResource(appDir.getURL().toString() + "/views");
   }
  catch (  IOException e) {
     if (LOG.isDebugEnabled()) {

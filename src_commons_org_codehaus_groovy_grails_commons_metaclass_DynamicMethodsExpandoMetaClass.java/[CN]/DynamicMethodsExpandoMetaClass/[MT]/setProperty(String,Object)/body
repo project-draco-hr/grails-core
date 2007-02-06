@@ -1,0 +1,8 @@
+{
+  if (isRegexMethod(name,value)) {
+    this.dynamicMethods.addDynamicMethodInvocation(new ClosureInvokingDynamicMethod(name,(Closure)value));
+  }
+ else {
+    adaptee.setProperty(name,value);
+  }
+}

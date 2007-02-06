@@ -1,0 +1,4 @@
+{
+  if (adaptee instanceof ExpandoMetaClass)   this.adaptee=(ExpandoMetaClass)adaptee;
+ else   throw new IllegalArgumentException("Adaptee must be an instance of " + ExpandoMetaClass.class);
+}

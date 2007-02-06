@@ -1,0 +1,7 @@
+{
+  super(aClass);
+  adaptee=new ExpandoMetaClass(aClass);
+  adaptee.initialize();
+  adaptee.setAllowChangesAfterInit(true);
+  this.dynamicMethods=new DefaultDynamicMethods(aClass);
+}

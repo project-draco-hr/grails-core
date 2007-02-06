@@ -1,0 +1,14 @@
+{
+  if (arguments.length == 0) {
+    throw new MissingMethodException(this.methodName,target.getClass(),arguments);
+  }
+  if (arguments[0] == null) {
+    throw new IllegalArgumentException("Argument to [" + this.methodName + "] cannot be null");
+  }
+  if (!arguments[0].getClass().equals(property.getReferencedPropertyType())) {
+    throw new MissingMethodException(this.methodName,target.getClass(),arguments);
+  }
+  Object toAdd=arguments[0];
+  addObjectToTarget(target,toAdd,property.getName());
+  return target;
+}

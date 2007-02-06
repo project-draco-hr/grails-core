@@ -1,0 +1,5 @@
+{
+  Closure c=(Closure)callable.clone();
+  c.setDelegate(target);
+  return invokeMethod(methodName,arguments,c);
+}

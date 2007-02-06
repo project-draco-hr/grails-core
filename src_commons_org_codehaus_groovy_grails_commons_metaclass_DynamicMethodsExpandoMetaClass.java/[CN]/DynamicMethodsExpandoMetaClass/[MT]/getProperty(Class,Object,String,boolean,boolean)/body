@@ -1,0 +1,10 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  Object returnValue=this.dynamicMethods.getProperty(object,property,callback);
+  if (callback.isInvoked()) {
+    return returnValue;
+  }
+ else {
+    return adaptee.getProperty(aClass,object,property,b,b1);
+  }
+}

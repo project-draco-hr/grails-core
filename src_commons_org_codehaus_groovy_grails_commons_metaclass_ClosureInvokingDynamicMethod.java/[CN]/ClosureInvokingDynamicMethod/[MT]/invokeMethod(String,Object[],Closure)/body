@@ -1,0 +1,13 @@
+{
+  Matcher matcher=pattern.matcher(methodName);
+switch (c.getParameterTypes().length) {
+case 0:
+    return c.call();
+case 1:
+  return c.call(matcher);
+case 2:
+return c.call(new Object[]{matcher,arguments});
+default :
+return c.call(new Object[]{matcher,arguments});
+}
+}

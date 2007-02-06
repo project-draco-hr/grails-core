@@ -9,7 +9,7 @@
         LOG.debug("[DynamicMethods] Dynamic method [" + methodName + "] matched, attempting to invoke.");
       }
       try {
-        Object result=methodInvocation.invoke(object,arguments);
+        Object result=methodInvocation.invoke(object,methodName,arguments);
         if (LOG.isDebugEnabled()) {
           LOG.debug("[DynamicMethods] Instance method [" + methodName + "] invoked successfully with result ["+ result+ "]. Marking as invoked");
         }

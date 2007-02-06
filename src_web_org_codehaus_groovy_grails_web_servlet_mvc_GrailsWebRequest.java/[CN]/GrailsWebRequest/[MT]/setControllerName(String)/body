@@ -1,3 +1,3 @@
 {
-  this.controllerName=controllerName;
+  getCurrentRequest().setAttribute(CONTROLLER_NAME,controllerName);
 }

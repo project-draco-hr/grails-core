@@ -4,7 +4,6 @@
     LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
     try {
       Session session=holder.getSession();
-      session.flush();
       SessionFactoryUtils.releaseSession(session,sessionFactory);
     }
  catch (    RuntimeException ex) {

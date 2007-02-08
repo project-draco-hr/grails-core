@@ -1,0 +1,8 @@
+{
+  Resource r=super.getResource(location);
+  if (!r.exists() && isNotPrefixed(location)) {
+    if (!location.startsWith("/"))     location="/" + location;
+    r=new FileSystemResource(new File("./web-app/WEB-INF" + location));
+  }
+  return r;
+}

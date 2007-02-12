@@ -1,3 +1,12 @@
 {
-  throw new UnsupportedOperationException("Method not supported by implementation");
+  if (locationPattern.startsWith("classpath:") || locationPattern.startsWith("file:"))   throw new UnsupportedOperationException("Location patterns 'classpath:' and 'file:' not supported by implementation");
+  locationPattern=StringUtils.removeStart(locationPattern,"/");
+  List result=new ArrayList();
+  for (Iterator i=resources.iterator(); i.hasNext(); ) {
+    String location=(String)i.next();
+    if (pathMatcher.match(locationPattern,StringUtils.removeStart(location,"/"))) {
+      result.add(new DescriptiveResource(location));
+    }
+  }
+  return (Resource[])result.toArray(new Resource[0]);
 }

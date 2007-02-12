@@ -12,7 +12,7 @@
         ClassLoader grailsClassLoader=getTarget().getClass().getClassLoader();
         try {
           Thread.currentThread().setContextClassLoader(grailsClassLoader);
-          Object persisted=null;
+          Object persisted;
           persisted=InvokerHelper.invokeStaticMethod(type,"get",pv.getValue());
           if (persisted != null) {
             bean.setPropertyValue(propertyName,persisted);

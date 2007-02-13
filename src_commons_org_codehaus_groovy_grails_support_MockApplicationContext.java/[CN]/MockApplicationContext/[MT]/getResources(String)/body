@@ -5,7 +5,7 @@
   for (Iterator i=resources.iterator(); i.hasNext(); ) {
     String location=(String)i.next();
     if (pathMatcher.match(locationPattern,StringUtils.removeStart(location,"/"))) {
-      result.add(new DescriptiveResource(location));
+      result.add(new ClassPathResource(location));
     }
   }
   return (Resource[])result.toArray(new Resource[0]);

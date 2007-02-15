@@ -1,4 +1,4 @@
 {
-  Closure destroy=getInitClosure();
+  Closure destroy=getDestroyClosure();
   destroy.call();
 }

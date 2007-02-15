@@ -28,7 +28,10 @@
         }
       }
     }
- catch (    IOException e) {
+ catch (    IllegalArgumentException e) {
+      LOG.warn("Cannot load plug-in resource watch list from [" + resourcesReference + "]: "+ e.getMessage(),e);
+    }
+catch (    IOException e) {
       LOG.warn("I/O exception loading plug-in resource watch list: " + e.getMessage(),e);
     }
     if (LOG.isDebugEnabled()) {

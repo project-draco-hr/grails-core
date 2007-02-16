@@ -50,7 +50,7 @@
       registry.setMetaClass(loadedClass,newAdapter);
     }
  catch (    NoSuchMethodException e) {
-      throw new GrailsConfigurationException("Unable to re-create configuration for reloaded class (" + e.getMessage() + "): "+ loadedClass,e);
+      LOG.warn("Unable to re-create configuration for reloaded class (" + e.getMessage() + "): "+ loadedClass,e);
     }
   }
 }

@@ -5,6 +5,6 @@
     return returnValue;
   }
  else {
-    return adaptee.getProperty(aClass,object,property,b,b1);
+    return super.getProperty(aClass,object,property,b,b1);
   }
 }

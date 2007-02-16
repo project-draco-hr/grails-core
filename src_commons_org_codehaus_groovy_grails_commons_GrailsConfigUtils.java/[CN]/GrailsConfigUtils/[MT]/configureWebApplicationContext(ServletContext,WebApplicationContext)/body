@@ -6,10 +6,16 @@
   if (application.getParentContext() == null) {
     application.setApplicationContext(parent);
   }
-  GrailsRuntimeConfigurator configurator=new GrailsRuntimeConfigurator(application,parent);
-  if (parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
-    GrailsPluginManager pluginManager=(GrailsPluginManager)parent.getBean(GrailsPluginManager.BEAN_NAME);
-    configurator.setPluginManager(pluginManager);
+  GrailsRuntimeConfigurator configurator;
+  if (parent.containsBean(GrailsRuntimeConfigurator.BEAN_ID)) {
+    configurator=(GrailsRuntimeConfigurator)parent.getBean(GrailsRuntimeConfigurator.BEAN_ID);
+  }
+ else {
+    configurator=new GrailsRuntimeConfigurator(application,parent);
+    if (parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      GrailsPluginManager pluginManager=(GrailsPluginManager)parent.getBean(GrailsPluginManager.BEAN_NAME);
+      configurator.setPluginManager(pluginManager);
+    }
   }
   servletContext.setAttribute(ApplicationAttributes.PLUGIN_MANAGER,configurator.getPluginManager());
   servletContext.setAttribute(ApplicationAttributes.PARENT_APPLICATION_CONTEXT,parent);

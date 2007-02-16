@@ -9,6 +9,16 @@
     plugin.setManager(this);
     String[] evictionNames=plugin.getEvictionNames();
     if (evictionNames.length > 0)     delayedEvictions.put(plugin,evictionNames);
+    String[] observedPlugins=plugin.getObservedPluginNames();
+    for (int i=0; i < observedPlugins.length; i++) {
+      String observedPlugin=observedPlugins[i];
+      Set observers=(Set)pluginToObserverMap.get(observedPlugin);
+      if (observers == null) {
+        observers=new HashSet();
+        pluginToObserverMap.put(observedPlugin,observers);
+      }
+      observers.add(plugin);
+    }
     pluginList.add(plugin);
     plugins.put(plugin.getName(),plugin);
   }

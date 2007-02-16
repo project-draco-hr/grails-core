@@ -5,6 +5,6 @@
     return returnValue;
   }
  else {
-    return adaptee.invokeStaticMethod(target,methodName,arguments);
+    return super.invokeStaticMethod(target,methodName,arguments);
   }
 }

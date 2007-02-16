@@ -13,10 +13,11 @@
  else       put(PLUGIN_CHANGE_EVENT_SOURCE,resourceClass);
       put(PLUGIN_CHANGE_EVENT_PLUGIN,plugin);
       put(PLUGIN_CHANGE_EVENT_APPLICATION,application);
+      put(PLUGIN_CHANGE_EVENT_MANAGER,getManager());
       put(PLUGIN_CHANGE_EVENT_CTX,applicationContext);
     }
   }
 ;
-  onChangeListener.setDelegate(this);
-  onChangeListener.call(new Object[]{event});
+  invokeOnChangeListener(event);
+  getManager().informObservers(getName(),event);
 }

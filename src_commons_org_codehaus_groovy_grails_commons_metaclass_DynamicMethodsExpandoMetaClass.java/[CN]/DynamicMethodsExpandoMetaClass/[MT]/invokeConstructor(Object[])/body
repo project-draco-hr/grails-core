@@ -5,6 +5,6 @@
     return instance;
   }
  else {
-    return adaptee.invokeConstructor(arg0);
+    return super.invokeConstructor(arg0);
   }
 }

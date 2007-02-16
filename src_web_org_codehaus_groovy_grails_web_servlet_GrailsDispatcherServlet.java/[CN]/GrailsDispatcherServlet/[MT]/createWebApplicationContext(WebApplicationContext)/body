@@ -8,7 +8,6 @@
  else {
     webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
   }
-  GrailsScaffoldingUtil.configureScaffolders(application,webContext);
   GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
   return webContext;
 }

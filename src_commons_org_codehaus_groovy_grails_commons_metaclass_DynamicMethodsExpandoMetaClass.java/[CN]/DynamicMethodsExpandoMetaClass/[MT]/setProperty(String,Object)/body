@@ -3,6 +3,6 @@
     this.dynamicMethods.addDynamicMethodInvocation(new ClosureInvokingDynamicMethod(name,(Closure)value));
   }
  else {
-    adaptee.setProperty(name,value);
+    super.setProperty(name,value);
   }
 }

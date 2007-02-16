@@ -4,10 +4,10 @@
   }
  else   if (newValue instanceof Closure) {
     if (isStatic) {
-      adaptee.registerStaticMethod(property,(Closure)newValue);
+      registerStaticMethod(property,(Closure)newValue);
     }
  else {
-      adaptee.registerInstanceMethod(property,(Closure)newValue);
+      registerInstanceMethod(property,(Closure)newValue);
     }
   }
 }

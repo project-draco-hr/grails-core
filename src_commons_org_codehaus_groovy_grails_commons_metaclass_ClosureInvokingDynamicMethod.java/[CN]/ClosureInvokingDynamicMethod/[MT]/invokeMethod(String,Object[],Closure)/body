@@ -1,5 +1,6 @@
 {
   Matcher matcher=pattern.matcher(methodName);
+  matcher.find();
 switch (c.getParameterTypes().length) {
 case 0:
     return c.call();

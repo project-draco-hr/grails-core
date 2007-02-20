@@ -1,0 +1,20 @@
+{
+  String uri=urlHelper.getPathWithinApplication(request);
+  GrailsControllerClass controllerClass=application.getControllerByURI(uri);
+  if (controllerClass != null) {
+    HandlerInterceptor[] interceptors;
+    if (GrailsUtil.isDevelopmentEnv()) {
+      interceptors=establishInterceptors(getWebApplicationContext());
+    }
+ else {
+      interceptors=this.interceptors;
+    }
+    if (grailsController == null) {
+      initGrailsController(getWebApplicationContext());
+    }
+    return new HandlerExecutionChain(grailsController,interceptors);
+  }
+ else {
+    return super.getHandler(request,cache);
+  }
+}

@@ -1,0 +1,41 @@
+{
+  final MockApplicationContext appCtx=new MockApplicationContext();
+  try {
+    System.setProperty("grails.env","development");
+    appCtx.registerMockBean("localeInterceptor",new LocaleChangeInterceptor());
+    appCtx.registerMockBean("openSessionInView",new OpenSessionInViewInterceptor());
+    SimpleGrailsController controller=new SimpleGrailsController();
+    appCtx.registerMockBean(SimpleGrailsController.APPLICATION_CONTEXT_ID,controller);
+    GrailsDispatcherServlet dispatcherServlet=new GrailsDispatcherServlet(){
+      protected WebApplicationContext initWebApplicationContext() throws BeansException {
+        return appCtx;
+      }
+    }
+;
+    GroovyClassLoader cl=new GroovyClassLoader();
+    cl.parseClass("class TestController {" + "def action = {} " + "}");
+    dispatcherServlet.setApplication(new DefaultGrailsApplication(cl.getLoadedClasses(),cl));
+    dispatcherServlet.init(new MockServletConfig(new MockServletContext()));
+    MockHttpServletRequest request=new MockHttpServletRequest("GET","/test/action");
+    HandlerExecutionChain executionChain=dispatcherServlet.getHandler(request,true);
+    assertNotNull(executionChain);
+    assertEquals(2,executionChain.getInterceptors().length);
+    for (int i=0; i < executionChain.getInterceptors().length; i++) {
+      HandlerInterceptor interceptor=executionChain.getInterceptors()[i];
+      assertNotNull(interceptor);
+    }
+    assertEquals(controller,executionChain.getHandler());
+    request=new MockHttpServletRequest("GET","/test/action/1");
+    executionChain=dispatcherServlet.getHandler(request,true);
+    assertNotNull(executionChain);
+    request=new MockHttpServletRequest("GET","/test/action/1/param/value");
+    executionChain=dispatcherServlet.getHandler(request,true);
+    assertNotNull(executionChain);
+    request=new MockHttpServletRequest("GET","/context/rubbish/action");
+    executionChain=dispatcherServlet.getHandler(request,true);
+    assertNull(executionChain);
+  }
+  finally {
+    System.setProperty("grails.env","");
+  }
+}

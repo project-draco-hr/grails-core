@@ -1,13 +1,15 @@
 {
   WebApplicationContext wac=WebApplicationContextUtils.getWebApplicationContext(getServletContext());
   WebApplicationContext webContext;
-  GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+  this.application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   if (wac instanceof GrailsWebApplicationContext) {
     webContext=wac;
   }
  else {
     webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
   }
+  initGrailsController(webContext);
+  this.interceptors=establishInterceptors(webContext);
   GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
   return webContext;
 }

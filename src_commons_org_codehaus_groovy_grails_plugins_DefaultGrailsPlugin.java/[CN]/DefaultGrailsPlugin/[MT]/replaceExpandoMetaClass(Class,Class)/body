@@ -1,5 +1,6 @@
 {
   MetaClass oldMetaClass=registry.getMetaClass(oldClass);
+  registry.removeMetaClass(oldClass);
   AdapterMetaClass adapter=null;
   ExpandoMetaClass emc;
   if (oldMetaClass instanceof AdapterMetaClass) {
@@ -50,7 +51,6 @@
       registry.setMetaClass(loadedClass,newAdapter);
     }
  catch (    NoSuchMethodException e) {
-      LOG.warn("Unable to re-create configuration for reloaded class (" + e.getMessage() + "): "+ loadedClass,e);
     }
   }
 }

@@ -34,9 +34,10 @@
     }
   }
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  GrailsScaffolder scaffolder=null;
   if (controllerClass.isScaffolding()) {
-    this.scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
-    if (this.scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
+    scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
+    if (scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
   }
   if (StringUtils.isBlank(actionName))   actionName=controllerClass.getClosurePropertyName(uri);
   if (StringUtils.isBlank(actionName)) {

@@ -1,11 +1,11 @@
 {
   MetaClass oldMetaClass=registry.getMetaClass(oldClass);
-  registry.removeMetaClass(oldClass);
   AdapterMetaClass adapter=null;
   ExpandoMetaClass emc;
   if (oldMetaClass instanceof AdapterMetaClass) {
     adapter=((AdapterMetaClass)oldMetaClass);
     emc=(ExpandoMetaClass)adapter.getAdaptee();
+    registry.removeMetaClass(oldClass);
   }
  else {
     emc=(ExpandoMetaClass)oldMetaClass;

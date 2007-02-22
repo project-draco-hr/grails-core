@@ -1,0 +1,57 @@
+{
+  MetaClassRegistry registry=getRegistry();
+  MetaClass oldMetaClass=registry.getMetaClass(fromClass);
+  AdapterMetaClass adapter=null;
+  ExpandoMetaClass emc;
+  if (oldMetaClass instanceof AdapterMetaClass) {
+    adapter=((AdapterMetaClass)oldMetaClass);
+    emc=(ExpandoMetaClass)adapter.getAdaptee();
+    if (removeSource)     registry.removeMetaClass(fromClass);
+  }
+ else {
+    emc=(ExpandoMetaClass)oldMetaClass;
+  }
+  List metaMethods=emc.getExpandoMethods();
+  ExpandoMetaClass replacement=new ExpandoMetaClass(toClass);
+  replacement.setAllowChangesAfterInit(true);
+  for (Iterator i=metaMethods.iterator(); i.hasNext(); ) {
+    Object obj=i.next();
+    if (obj instanceof ClosureInvokingMethod) {
+      ClosureInvokingMethod cim=(ClosureInvokingMethod)obj;
+      Closure callable=cim.getClosure();
+      if (!cim.isStatic()) {
+        replacement.setProperty(cim.getName(),callable);
+      }
+ else {
+        ((GroovyObject)replacement.getProperty(ExpandoMetaClass.STATIC_QUALIFIER)).setProperty(cim.getName(),callable);
+      }
+    }
+  }
+  List metaProperties=emc.getExpandoProperties();
+  for (Iterator i=metaProperties.iterator(); i.hasNext(); ) {
+    Object o=i.next();
+    if (o instanceof ThreadManagedMetaBeanProperty) {
+      ThreadManagedMetaBeanProperty mbp=(ThreadManagedMetaBeanProperty)o;
+      replacement.setProperty(mbp.getName(),mbp.getInitialValue());
+    }
+  }
+  replacement.initialize();
+  if (adapter == null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Adding MetaClass for class [" + toClass + "] MetaClass ["+ replacement+ "]");
+    }
+    registry.setMetaClass(toClass,replacement);
+  }
+ else {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Adding MetaClass for class [" + toClass + "] MetaClass ["+ replacement+ "] with adapter ["+ adapter+ "]");
+    }
+    try {
+      Constructor c=adapter.getClass().getConstructor(new Class[]{MetaClass.class});
+      MetaClass newAdapter=(MetaClass)BeanUtils.instantiateClass(c,new Object[]{replacement});
+      registry.setMetaClass(toClass,newAdapter);
+    }
+ catch (    NoSuchMethodException e) {
+    }
+  }
+}

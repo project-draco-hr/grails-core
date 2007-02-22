@@ -32,7 +32,7 @@
     ApplicationContext appContext=(ApplicationContext)context.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT);
     binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appContext);
     binding.setVariable(GrailsApplication.APPLICATION_ID,appContext.getBean(GrailsApplication.APPLICATION_ID));
-    binding.setVariable(GroovyPage.SESSION,request.getSession());
+    binding.setVariable(GroovyPage.SESSION,new GrailsHttpSession(request.getSession()));
     binding.setVariable(GroovyPage.PARAMS,new GrailsParameterMap(request));
     binding.setVariable(GroovyPage.OUT,out);
   }

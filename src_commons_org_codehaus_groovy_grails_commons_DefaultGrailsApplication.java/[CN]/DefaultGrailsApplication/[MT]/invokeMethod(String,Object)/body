@@ -1,11 +1,8 @@
 {
-  System.out.println("methodName = " + methodName);
-  System.out.println("args = " + args);
   Object[] argsv=(Object[])args;
   Matcher match=GETCLASS_PATTERN.matcher(methodName);
   match.find();
   if (match.matches()) {
-    System.out.println("get<" + match.group(2) + ">Class");
     if (argsv.length > 0) {
       if ((argsv.length != 1) || !(argsv[0] instanceof String)) {
         throw new IllegalArgumentException("Dynamic method get<Artefact>Class(artefactName) requires a " + "single String parameter");

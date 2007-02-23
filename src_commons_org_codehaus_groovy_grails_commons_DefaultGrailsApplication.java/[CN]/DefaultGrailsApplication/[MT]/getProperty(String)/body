@@ -1,10 +1,8 @@
 {
-  System.out.println("in getprop: " + propertyName);
   final Matcher match=GETCLASSESPROP_PATTERN.matcher(propertyName);
   match.find();
   if (match.matches()) {
     String artefactName=GrailsClassUtils.getClassNameRepresentation(match.group(1));
-    System.out.println("matches getclasses: " + match.group(1) + " / "+ artefactName);
     if (artefactHandlersByName.containsKey(artefactName)) {
       return getArtefacts(artefactName);
     }

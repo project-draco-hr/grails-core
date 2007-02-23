@@ -6,7 +6,6 @@
   if (StringUtils.isBlank(environment)) {
     environment=GrailsApplication.ENV_PRODUCTION;
     String envPropName=GrailsClassUtils.getClassNameRepresentation(environment) + DataSourceArtefactHandler.TYPE;
-    System.out.println("envPropName = " + envPropName);
     GrailsDataSource devDataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,envPropName);
     if (devDataSource == null) {
       devDataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,GrailsClassUtils.getClassNameRepresentation(GrailsApplication.ENV_APPLICATION));

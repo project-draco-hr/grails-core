@@ -1,5 +1,4 @@
 {
-  System.out.println("addArtefact: " + artefactType + " - "+ artefactClass);
   if (Modifier.isAbstract(artefactClass.getModifiers())) {
     return null;
   }

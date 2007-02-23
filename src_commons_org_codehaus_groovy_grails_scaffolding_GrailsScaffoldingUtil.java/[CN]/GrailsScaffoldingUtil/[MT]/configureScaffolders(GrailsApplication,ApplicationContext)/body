@@ -1,13 +1,13 @@
 {
-  GrailsControllerClass[] controllerClasses=application.getControllers();
+  GrailsClass[] controllerClasses=application.getArtefacts(ControllerArtefactHandler.TYPE);
   for (int i=0; i < controllerClasses.length; i++) {
-    GrailsControllerClass controllerClass=controllerClasses[i];
+    GrailsControllerClass controllerClass=(GrailsControllerClass)controllerClasses[i];
     if (controllerClass.isScaffolding()) {
       try {
         GrailsScaffolder gs=(GrailsScaffolder)appContext.getBean(controllerClass.getFullName() + "Scaffolder");
         if (gs != null) {
           ScaffoldDomain sd=gs.getScaffoldRequestHandler().getScaffoldDomain();
-          GrailsDomainClass dc=application.getGrailsDomainClass(sd.getPersistentClass().getName());
+          GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,sd.getPersistentClass().getName());
           if (dc != null) {
             sd.setIdentityPropertyName(dc.getIdentifier().getName());
             sd.setValidator(dc.getValidator());

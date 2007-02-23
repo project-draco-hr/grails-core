@@ -1,0 +1,22 @@
+{
+  this.tag2libMap=new HashMap();
+  GrailsClass[] classes=artefacts.getGrailsClasses();
+  for (int i=0; i < classes.length; i++) {
+    GrailsTagLibClass taglibClass=(GrailsTagLibClass)classes[i];
+    for (Iterator j=taglibClass.getTagNames().iterator(); j.hasNext(); ) {
+      String tagName=(String)j.next();
+      if (!tag2libMap.containsKey(tagName)) {
+        this.tag2libMap.put(tagName,taglibClass);
+      }
+ else {
+        GrailsTagLibClass current=(GrailsTagLibClass)tag2libMap.get(tagName);
+        if (!taglibClass.equals(current)) {
+          this.tag2libMap.put(tagName,taglibClass);
+        }
+ else {
+          throw new GrailsConfigurationException("Cannot configure tag library [" + taglibClass.getName() + "]. Library ["+ current.getName()+ "] already contains a tag called ["+ tagName+ "]");
+        }
+      }
+    }
+  }
+}

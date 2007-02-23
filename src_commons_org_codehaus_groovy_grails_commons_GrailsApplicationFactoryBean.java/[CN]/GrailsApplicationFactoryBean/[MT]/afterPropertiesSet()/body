@@ -11,4 +11,5 @@
  else {
     this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles);
   }
+  ApplicationHolder.setApplication(this.grailsApplication);
 }

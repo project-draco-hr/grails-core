@@ -1,0 +1,15 @@
+{
+  if (Modifier.isAbstract(artefactGrailsClass.getClazz().getModifiers())) {
+    return null;
+  }
+  ArtefactHandler handler=(ArtefactHandler)artefactHandlersByName.get(artefactType);
+  if (handler.isArtefactGrailsClass(artefactGrailsClass)) {
+    DefaultArtefactInfo info=getArtefactInfo(artefactType,true);
+    info.addGrailsClass(artefactGrailsClass);
+    info.updateComplete();
+    return artefactGrailsClass;
+  }
+ else {
+    throw new GrailsConfigurationException("Cannot add " + artefactType + " class ["+ artefactGrailsClass+ "]. It is not a "+ artefactType+ "!");
+  }
+}

@@ -1,8 +1,0 @@
-{
-  for (int i=0; i < controllerClasses.length; i++) {
-    if (controllerClasses[i].mapsToURI(uri)) {
-      return controllerClasses[i];
-    }
-  }
-  return null;
-}

@@ -1,0 +1,4 @@
+{
+  ArtefactInfo info=getArtefactInfo(type);
+  return info == null ? 0 : info.getClasses().length;
+}

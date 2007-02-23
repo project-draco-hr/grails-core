@@ -4,17 +4,23 @@
     log.debug("[GrailsApplication] Retrieving data source for environment: " + environment);
   }
   if (StringUtils.isBlank(environment)) {
-    GrailsDataSource devDataSource=(GrailsDataSource)this.dataSourceMap.get(GrailsApplication.ENV_PRODUCTION);
-    if (devDataSource == null)     devDataSource=(GrailsDataSource)this.dataSourceMap.get(GrailsApplication.ENV_APPLICATION);
-    if (this.dataSourceMap.size() == 1 && devDataSource == null) {
-      devDataSource=(GrailsDataSource)this.dataSourceMap.get(this.dataSourceMap.keySet().iterator().next());
+    environment=GrailsApplication.ENV_PRODUCTION;
+    String envPropName=GrailsClassUtils.getClassNameRepresentation(environment) + DataSourceArtefactHandler.TYPE;
+    System.out.println("envPropName = " + envPropName);
+    GrailsDataSource devDataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,envPropName);
+    if (devDataSource == null) {
+      devDataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,GrailsClassUtils.getClassNameRepresentation(GrailsApplication.ENV_APPLICATION));
+    }
+    if (getArtefactCount(DataSourceArtefactHandler.TYPE) == 1 && devDataSource == null) {
+      devDataSource=(GrailsDataSource)getFirstArtefact(DataSourceArtefactHandler.TYPE);
     }
     return devDataSource;
   }
  else {
-    GrailsDataSource dataSource=(GrailsDataSource)this.dataSourceMap.get(environment);
+    String envPropName=GrailsClassUtils.getClassNameRepresentation(environment) + DataSourceArtefactHandler.TYPE;
+    GrailsDataSource dataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,envPropName);
     if (dataSource == null && GrailsApplication.ENV_DEVELOPMENT.equalsIgnoreCase(environment)) {
-      dataSource=(GrailsDataSource)this.dataSourceMap.get(GrailsApplication.ENV_APPLICATION);
+      dataSource=(GrailsDataSource)getArtefact(DataSourceArtefactHandler.TYPE,GrailsClassUtils.getClassNameRepresentation(GrailsApplication.ENV_APPLICATION));
     }
     if (dataSource == null) {
       log.warn("No data source found for environment [" + environment + "]. Please specify alternative via -Dgrails.env=myenvironment");

@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class Test { Long id;Long version;}\n");
+  ArtefactHandler handler=new DomainClassArtefactHandler();
+  assertTrue(handler.isArtefact(c));
+}

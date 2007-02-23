@@ -1,73 +1,34 @@
 {
+  initArtefactHandlers();
+  artefactInfo.clear();
+  allArtefactClasses.clear();
+  allArtefactClassesArray=null;
   this.allClasses=classes;
-  this.domainMap=new HashMap();
-  log.debug("Going to inspect domain classes.");
-  for (int i=0; i < classes.length; i++) {
-    log.debug("Inspecting [" + classes[i].getName() + "]");
-    if (Modifier.isAbstract(classes[i].getModifiers())) {
-      log.debug("[" + classes[i].getName() + "] is abstract.");
-      continue;
-    }
-    if (GrailsClassUtils.isDomainClass(classes[i])) {
-      log.debug("[" + classes[i].getName() + "] is a domain class.");
-      GrailsDomainClass grailsDomainClass=new DefaultGrailsDomainClass(classes[i]);
-      this.domainMap.put(grailsDomainClass.getFullName(),grailsDomainClass);
-    }
- else {
-      log.debug("[" + classes[i].getName() + "] is not a domain class.");
-    }
-  }
-  this.controllerMap=new HashMap();
-  this.serviceMap=new HashMap();
-  Map bootstrapMap=new HashMap();
-  this.taglibMap=new HashMap();
-  this.taskMap=new HashMap();
-  this.dataSourceMap=new HashMap();
-  this.codecMap=new HashMap();
-  for (int i=0; i < classes.length; i++) {
-    if (Modifier.isAbstract(classes[i].getModifiers()) || GrailsClassUtils.isDomainClass(classes[i])) {
-      continue;
-    }
-    if (GrailsClassUtils.isControllerClass(classes[i])) {
-      GrailsControllerClass grailsControllerClass=new DefaultGrailsControllerClass(classes[i]);
-      if (grailsControllerClass.getAvailable()) {
-        this.controllerMap.put(grailsControllerClass.getFullName(),grailsControllerClass);
+  suspectArtefactInit=true;
+  try {
+    log.debug("Going to inspect artefact classes.");
+    for (int i=0; i < classes.length; i++) {
+      log.debug("Inspecting [" + classes[i].getName() + "]");
+      if (Modifier.isAbstract(classes[i].getModifiers())) {
+        log.debug("[" + classes[i].getName() + "] is abstract.");
+        continue;
+      }
+      for (int j=0; j < artefactHandlers.length; j++) {
+        if (artefactHandlers[j].isArtefact(classes[i])) {
+          GrailsClass gclass=addArtefact(artefactHandlers[j].getType(),classes[i]);
+          allArtefactClasses.add(classes[i]);
+          DefaultArtefactInfo info=getArtefactInfo(artefactHandlers[j].getType(),true);
+          info.addGrailsClass(gclass);
+        }
       }
     }
- else     if (GrailsClassUtils.isDataSource(classes[i])) {
-      GrailsDataSource tmpDataSource=new DefaultGrailsDataSource(classes[i]);
-      this.dataSourceMap.put(GrailsClassUtils.getPropertyNameRepresentation(tmpDataSource.getName()),tmpDataSource);
-    }
- else     if (GrailsClassUtils.isService(classes[i])) {
-      GrailsServiceClass grailsServiceClass=new DefaultGrailsServiceClass(classes[i]);
-      serviceMap.put(grailsServiceClass.getFullName(),grailsServiceClass);
-    }
- else     if (GrailsClassUtils.isBootstrapClass(classes[i])) {
-      GrailsBootstrapClass grailsBootstrapClass=new DefaultGrailsBootstrapClass(classes[i]);
-      bootstrapMap.put(grailsBootstrapClass.getFullName(),grailsBootstrapClass);
-    }
- else     if (GrailsClassUtils.isTagLibClass(classes[i])) {
-      GrailsTagLibClass grailsTagLibClass=new DefaultGrailsTagLibClass(classes[i]);
-      this.taglibMap.put(grailsTagLibClass.getFullName(),grailsTagLibClass);
-    }
- else     if (GrailsClassUtils.isTaskClass(classes[i])) {
-      GrailsTaskClass grailsTaskClass=new DefaultGrailsTaskClass(classes[i]);
-      taskMap.put(grailsTaskClass.getFullName(),grailsTaskClass);
-      log.debug("[" + classes[i].getName() + "] is a task class.");
-    }
- else     if (GrailsClassUtils.isCodecClass(classes[i])) {
-      GrailsCodecClass grailsCodecClass=new DefaultGrailsCodecClass(classes[i]);
-      codecMap.put(grailsCodecClass.getFullName(),grailsCodecClass);
-      log.debug("[" + classes[i].getName() + "] is a codec class.");
-    }
+    refreshArtefactGrailsClassCaches();
   }
-  this.controllerClasses=((GrailsControllerClass[])controllerMap.values().toArray(new GrailsControllerClass[controllerMap.size()]));
-  this.domainClasses=((GrailsDomainClass[])this.domainMap.values().toArray(new GrailsDomainClass[domainMap.size()]));
-  this.services=((GrailsServiceClass[])this.serviceMap.values().toArray(new GrailsServiceClass[serviceMap.size()]));
-  this.bootstrapClasses=((GrailsBootstrapClass[])bootstrapMap.values().toArray(new GrailsBootstrapClass[bootstrapMap.size()]));
-  this.taglibClasses=((GrailsTagLibClass[])this.taglibMap.values().toArray(new GrailsTagLibClass[taglibMap.size()]));
-  this.taskClasses=((GrailsTaskClass[])this.taskMap.values().toArray(new GrailsTaskClass[taskMap.size()]));
-  this.codecClasses=((GrailsCodecClass[])this.codecMap.values().toArray(new GrailsCodecClass[codecMap.size()]));
-  configureDomainClassRelationships();
-  configureTagLibraries();
+  finally {
+    suspectArtefactInit=false;
+  }
+  allArtefactClassesArray=(Class[])allArtefactClasses.toArray(new Class[allArtefactClasses.size()]);
+  for (int j=0; j < artefactHandlers.length; j++) {
+    initializeArtefacts(artefactHandlers[j]);
+  }
 }

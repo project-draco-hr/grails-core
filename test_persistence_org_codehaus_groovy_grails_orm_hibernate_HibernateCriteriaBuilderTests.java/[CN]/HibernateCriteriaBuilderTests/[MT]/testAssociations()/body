@@ -1,5 +1,5 @@
 {
-  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("CriteriaBuilderTestClass");
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"CriteriaBuilderTestClass");
   assertNotNull(domainClass);
   GroovyObject obj=(GroovyObject)domainClass.newInstance();
   obj.setProperty("firstName","homer");

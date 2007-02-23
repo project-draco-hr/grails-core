@@ -108,7 +108,7 @@
         viewUri=viewName;
       }
  else {
-        GrailsControllerClass controllerClass=application.getController(target.getClass().getName());
+        GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefact(ControllerArtefactHandler.TYPE,target.getClass().getName());
         viewUri=controllerClass.getViewByName(viewName);
       }
       Map model;

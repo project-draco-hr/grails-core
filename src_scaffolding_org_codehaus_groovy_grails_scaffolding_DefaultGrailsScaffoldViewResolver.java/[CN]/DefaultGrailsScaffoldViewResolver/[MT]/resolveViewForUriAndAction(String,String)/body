@@ -2,7 +2,7 @@
   if (StringUtils.isBlank(action)) {
     return resolveViewForUri(uri);
   }
-  GrailsControllerClass controllerClass=application.getControllerByURI(uri);
+  GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefactForFeature(ControllerArtefactHandler.TYPE,uri);
   if (controllerClass != null) {
     return controllerClass.getViewByName(action);
   }

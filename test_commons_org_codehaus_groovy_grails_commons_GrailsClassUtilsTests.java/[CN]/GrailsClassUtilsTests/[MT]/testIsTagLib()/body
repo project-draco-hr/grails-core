@@ -1,5 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class c=gcl.parseClass("class TestTagLib { }\n");
-  assertTrue(GrailsClassUtils.isTagLibClass(c));
-}

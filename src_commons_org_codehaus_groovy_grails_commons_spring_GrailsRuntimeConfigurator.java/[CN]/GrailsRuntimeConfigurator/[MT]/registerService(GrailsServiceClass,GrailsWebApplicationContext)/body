@@ -1,6 +1,6 @@
 {
   RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
-  BeanConfiguration serviceClassBean=springConfig.createSingletonBean(MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsServiceClass").addProperty("arguments",grailsServiceClass.getFullName());
+  BeanConfiguration serviceClassBean=springConfig.createSingletonBean(MethodInvokingFactoryBean.class).addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getArtefact").addProperty("arguments",new Object[]{ServiceArtefactHandler.TYPE,grailsServiceClass.getFullName()});
   context.registerBeanDefinition(grailsServiceClass.getFullName() + "Class",serviceClassBean.getBeanDefinition());
   BeanConfiguration serviceInstance=springConfig.createSingletonBean(grailsServiceClass.getFullName() + "Instance").setFactoryBean(grailsServiceClass.getFullName() + "Class").setFactoryMethod("newInstance");
   if (grailsServiceClass.byName()) {

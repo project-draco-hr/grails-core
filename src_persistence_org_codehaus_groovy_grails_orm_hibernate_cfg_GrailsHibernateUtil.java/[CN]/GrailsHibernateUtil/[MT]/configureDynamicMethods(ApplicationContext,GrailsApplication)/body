@@ -1,4 +1,5 @@
 {
+  LOG.trace("Configuring dynamic methods");
   if (applicationContext == null)   throw new IllegalArgumentException("Cannot configure dynamic methods for null ApplicationContext");
   SessionFactory sessionFactory=(SessionFactory)applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
   Collection dynamicMethods=configureDynamicMethods(sessionFactory,application);

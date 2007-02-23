@@ -1,5 +1,5 @@
 {
-  GrailsControllerClass controllerClass=ga.getController(name);
+  GrailsControllerClass controllerClass=(GrailsControllerClass)ga.getArtefact(ControllerArtefactHandler.TYPE,name);
   if (controllerClass == null)   throw new IllegalArgumentException("Controller not found for name " + name);
   GroovyObject mockController=(GroovyObject)controllerClass.newInstance();
   this.messageSource=new StaticMessageSource();

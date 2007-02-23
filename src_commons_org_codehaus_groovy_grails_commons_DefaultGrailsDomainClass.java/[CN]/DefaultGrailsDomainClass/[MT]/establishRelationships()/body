@@ -5,7 +5,7 @@
     if (Set.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
       establishRelationshipForSet(currentProp);
     }
- else     if (GrailsClassUtils.isDomainClass(currentPropType) && currentProp.isPersistent()) {
+ else     if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
       establishDomainClassRelationship(currentProp);
     }
  else     if (!GrailsDomainConfigurationUtil.isBasicType(currentProp)) {

@@ -1,9 +1,9 @@
 {
   assertNotNull(this.sessionFactory);
-  GrailsDomainClass[] domainClasses=grailsApplication.getGrailsDomainClasses();
+  GrailsClass[] domainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
   assertEquals(1,domainClasses.length);
-  GroovyObject obj=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.CircularRelationship").newInstance();
-  GroovyObject child=(GroovyObject)grailsApplication.getGrailsDomainClass("org.codehaus.groovy.grails.domain.CircularRelationship").newInstance();
+  GroovyObject obj=(GroovyObject)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"org.codehaus.groovy.grails.domain.CircularRelationship").newInstance();
+  GroovyObject child=(GroovyObject)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"org.codehaus.groovy.grails.domain.CircularRelationship").newInstance();
   assertNotNull(obj);
   child.setProperty("parent",obj);
   Set children=new HashSet();

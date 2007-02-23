@@ -1,8 +1,12 @@
 {
-  if (StringUtils.isBlank(className))   return null;
+  if (StringUtils.isBlank(className)) {
+    return null;
+  }
   for (int i=0; i < allClasses.length; i++) {
     Class c=allClasses[i];
-    if (c.getName().equals(className))     return c;
+    if (c.getName().equals(className)) {
+      return c;
+    }
   }
   return null;
 }

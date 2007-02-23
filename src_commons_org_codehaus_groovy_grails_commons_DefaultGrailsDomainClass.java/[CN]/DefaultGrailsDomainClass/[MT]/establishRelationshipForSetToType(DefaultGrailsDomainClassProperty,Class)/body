@@ -7,7 +7,7 @@
     property.setManyToMany(true);
     property.setBidirectional(true);
   }
- else   if (GrailsClassUtils.isDomainClass(relatedClassPropertyType)) {
+ else   if (DomainClassArtefactHandler.isDomainClass(relatedClassPropertyType)) {
     property.setOneToMany(true);
     property.setBidirectional(true);
   }

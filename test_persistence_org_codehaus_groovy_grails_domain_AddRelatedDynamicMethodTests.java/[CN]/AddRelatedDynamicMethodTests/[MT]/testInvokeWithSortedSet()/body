@@ -4,7 +4,7 @@
   GroovyObject book=(GroovyObject)gcl.loadClass("Book",false,true).newInstance();
   GroovyObject author=(GroovyObject)gcl.loadClass("Author",false,true).newInstance();
   GrailsApplication ga=new DefaultGrailsApplication(new Class[]{book.getClass(),author.getClass()},gcl);
-  GrailsDomainClass authorDC=ga.getGrailsDomainClass("Author");
+  GrailsDomainClass authorDC=(GrailsDomainClass)ga.getArtefact(DomainClassArtefactHandler.TYPE,"Author");
   AbstractAddRelatedDynamicMethod ardm=new AddRelatedDynamicMethod(authorDC.getPropertyByName("books"));
   try {
     ardm.invoke(author,"addAuthor",new Object[0]);

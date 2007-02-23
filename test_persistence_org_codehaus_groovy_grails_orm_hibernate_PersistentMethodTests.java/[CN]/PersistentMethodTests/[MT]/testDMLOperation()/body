@@ -1,5 +1,5 @@
 {
-  GrailsDomainClass domainClass=this.grailsApplication.getGrailsDomainClass("PersistentMethodTests");
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"PersistentMethodTests");
   GroovyObject obj=(GroovyObject)domainClass.newInstance();
   obj.setProperty("id",new Long(1));
   obj.setProperty("firstName","fred");

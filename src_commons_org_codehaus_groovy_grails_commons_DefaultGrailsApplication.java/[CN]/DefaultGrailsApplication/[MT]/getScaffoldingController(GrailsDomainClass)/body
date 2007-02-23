@@ -1,5 +1,9 @@
 {
-  if (domainClass == null)   return null;
+  if (domainClass == null) {
+    return null;
+  }
+  ArtefactInfo info=getArtefactInfo(ControllerArtefactHandler.TYPE,true);
+  GrailsControllerClass[] controllerClasses=(GrailsControllerClass[])info.getGrailsClasses();
   for (int i=0; i < controllerClasses.length; i++) {
     GrailsControllerClass controllerClass=controllerClasses[i];
     if (controllerClass.isScaffolding()) {

@@ -1,7 +1,7 @@
 {
   GrailsApplication grailsApplication=new DefaultGrailsApplication(new Class[]{relClass,oneToManyClass,oneToOneClass,manyToManyClass},cl);
-  GrailsDomainClass c1dc=grailsApplication.getGrailsDomainClass(relClass.getName());
-  GrailsDomainClass c2dc=grailsApplication.getGrailsDomainClass(oneToManyClass.getName());
+  GrailsDomainClass c1dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,relClass.getName());
+  GrailsDomainClass c2dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,oneToManyClass.getName());
   assertEquals(c1dc.getPropertyByName("ones").getOtherSide(),c2dc.getPropertyByName("other"));
   assertTrue(c1dc.getPropertyByName("ones").isOneToMany());
   assertTrue(c1dc.getPropertyByName("ones").isPersistent());

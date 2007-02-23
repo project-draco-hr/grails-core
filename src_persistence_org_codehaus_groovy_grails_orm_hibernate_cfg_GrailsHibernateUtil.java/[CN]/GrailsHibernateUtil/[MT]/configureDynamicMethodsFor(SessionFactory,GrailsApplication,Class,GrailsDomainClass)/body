@@ -1,5 +1,7 @@
 {
-  LOG.debug("[GrailsDomainConfiguration] Registering dynamic methods on class [" + persistentClass + "]");
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Registering dynamic methods on class [" + persistentClass + "]");
+  }
   DynamicMethods dm=null;
   try {
     dm=new DomainClassMethods(application,persistentClass,sessionFactory,application.getClassLoader());
@@ -10,9 +12,12 @@
         dm.addDynamicMethodInvocation(new AddRelatedDynamicMethod(p));
       }
     }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Metaclass for persistent class [" + persistentClass + "]: "+ InvokerHelper.getInstance().getMetaRegistry().getMetaClass(persistentClass));
+    }
   }
  catch (  IntrospectionException e) {
-    LOG.warn("[GrailsDomainConfiguration] Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
+    LOG.warn("Introspection exception registering dynamic methods for [" + persistentClass + "]:"+ e.getMessage(),e);
   }
   return dm;
 }

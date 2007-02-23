@@ -59,13 +59,14 @@
       String fileName=this.className.replace('.','/') + ".groovy";
       String urlPrefix="";
       if (gspFile == null) {
-        if (GrailsClassUtils.isControllerClass(className)) {
+        GrailsApplication application=ApplicationHolder.getApplication();
+        if (application.isArtefactOfType(ControllerArtefactHandler.TYPE,className)) {
           urlPrefix+="/controllers/";
         }
- else         if (GrailsClassUtils.isTagLibClass(className)) {
+ else         if (application.isArtefactOfType(TagLibArtefactHandler.TYPE,className)) {
           urlPrefix+="/taglib/";
         }
- else         if (GrailsClassUtils.isService(className)) {
+ else         if (application.isArtefactOfType(ServiceArtefactHandler.TYPE,className)) {
           urlPrefix+="/services/";
         }
         url=URL_PREFIX + urlPrefix + fileName;

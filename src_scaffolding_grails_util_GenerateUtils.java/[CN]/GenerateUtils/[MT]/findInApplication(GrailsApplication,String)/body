@@ -1,7 +1,7 @@
 {
-  GrailsDomainClass domainClass=application.getGrailsDomainClass(domainClassName);
+  GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,domainClassName);
   if (domainClass == null) {
-    domainClass=application.getGrailsDomainClass(domainClassName.substring(0,1).toUpperCase() + domainClassName.substring(1));
+    domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,domainClassName.substring(0,1).toUpperCase() + domainClassName.substring(1));
   }
   return domainClass;
 }

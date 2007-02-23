@@ -7,7 +7,7 @@
     if (prop.isManyToOne() || prop.isOneToOne()) {
       Object propValue=bean.getPropertyValue(prop.getName());
       if (propValue != null && !t.contains(propValue)) {
-        GrailsDomainClass otherSide=application.getGrailsDomainClass(prop.getType().getName());
+        GrailsDomainClass otherSide=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,prop.getType().getName());
         if (otherSide != null) {
           BeanWrapper propBean=new BeanWrapperImpl(propValue);
           Serializable id=(Serializable)propBean.getPropertyValue(otherSide.getIdentifier().getName());

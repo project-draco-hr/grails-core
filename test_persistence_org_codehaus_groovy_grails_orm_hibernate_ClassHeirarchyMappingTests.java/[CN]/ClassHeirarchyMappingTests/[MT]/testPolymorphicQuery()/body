@@ -1,8 +1,8 @@
 {
-  GroovyObject car=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Car").getClazz());
-  GroovyObject alpha=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Alpha").getClazz());
-  GroovyObject fiat=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Fiat").getClazz());
-  GroovyObject ferrari=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getGrailsDomainClass("Ferrari").getClazz());
+  GroovyObject car=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"Car").getClazz());
+  GroovyObject alpha=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"Alpha").getClazz());
+  GroovyObject fiat=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"Fiat").getClazz());
+  GroovyObject ferrari=(GroovyObject)BeanUtils.instantiateClass(grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"Ferrari").getClazz());
   fiat.setProperty("type","cheap");
   alpha.setProperty("type","luxury");
   ferrari.setProperty("type","luxury");

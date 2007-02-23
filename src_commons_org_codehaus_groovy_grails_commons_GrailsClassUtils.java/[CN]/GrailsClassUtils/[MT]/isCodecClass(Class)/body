@@ -1,9 +1,0 @@
-{
-  if (clazz == null)   return false;
-  if (!isCodecClass(clazz.getName())) {
-    return false;
-  }
-  Object encodeMethod=getStaticPropertyValue(clazz,"encode");
-  Object decodeMethod=getStaticPropertyValue(clazz,"decode");
-  return encodeMethod != null || decodeMethod != null;
-}

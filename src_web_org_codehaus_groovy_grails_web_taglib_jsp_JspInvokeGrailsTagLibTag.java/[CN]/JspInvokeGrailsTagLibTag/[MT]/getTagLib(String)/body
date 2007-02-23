@@ -6,7 +6,7 @@
     tagLibs=new HashMap();
     pageContext.setAttribute(TAG_LIBS_ATTRIBUTE,tagLibs);
   }
-  GrailsTagLibClass tagLibClass=application.getTagLibClassForTag(tagName);
+  GrailsTagLibClass tagLibClass=(GrailsTagLibClass)application.getArtefactForFeature(TagLibArtefactHandler.TYPE,tagName);
   GroovyObject tagLib;
   if (tagLibs.containsKey(tagLibClass.getFullName())) {
     tagLib=(GroovyObject)tagLibs.get(tagLibClass.getFullName());

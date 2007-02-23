@@ -1,6 +1,6 @@
 {
-  GroovyObject car=(GroovyObject)ga.getGrailsDomainClass("Car").newInstance();
-  GroovyObject owner=(GroovyObject)ga.getGrailsDomainClass("Owner").newInstance();
+  GroovyObject car=(GroovyObject)ga.getArtefact(DomainClassArtefactHandler.TYPE,"Car").newInstance();
+  GroovyObject owner=(GroovyObject)ga.getArtefact(DomainClassArtefactHandler.TYPE,"Owner").newInstance();
   Object result=owner.invokeMethod("addCar",new Object[]{car});
   assertEquals(owner,result);
   Set cars=(Set)owner.getProperty("cars");

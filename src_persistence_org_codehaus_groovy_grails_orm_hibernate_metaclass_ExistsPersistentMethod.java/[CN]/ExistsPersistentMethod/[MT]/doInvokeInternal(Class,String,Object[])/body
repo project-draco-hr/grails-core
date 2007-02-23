@@ -2,7 +2,7 @@
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
   Object arg=arguments[0];
   if (arg == null)   return null;
-  GrailsDomainClass domainClass=this.application.getGrailsDomainClass(clazz.getName());
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.application.getArtefact(DomainClassArtefactHandler.TYPE,clazz.getName());
   if (domainClass != null) {
     Class identityType=domainClass.getIdentifier().getType();
     if (!identityType.isAssignableFrom(arg.getClass())) {

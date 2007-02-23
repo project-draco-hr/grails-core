@@ -1,0 +1,4 @@
+{
+  ArtefactHandler handler=(ArtefactHandler)artefactHandlersByName.get(artefactType);
+  return getArtefact(artefactType,className) != null;
+}

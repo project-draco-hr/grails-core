@@ -1,0 +1,11 @@
+{
+  registerArtefactHandler(new DomainClassArtefactHandler());
+  registerArtefactHandler(new ControllerArtefactHandler());
+  registerArtefactHandler(new ServiceArtefactHandler());
+  registerArtefactHandler(new TagLibArtefactHandler());
+  registerArtefactHandler(new TaskArtefactHandler());
+  registerArtefactHandler(new BootstrapArtefactHandler());
+  registerArtefactHandler(new CodecArtefactHandler());
+  registerArtefactHandler(new DataSourceArtefactHandler());
+  this.artefactHandlers=((ArtefactHandler[])this.artefactHandlersByName.values().toArray(new ArtefactHandler[artefactHandlersByName.size()]));
+}

@@ -7,9 +7,9 @@
   if (interceptor != null) {
     interceptor.init();
     try {
-      GrailsBootstrapClass[] bootstraps=application.getGrailsBootstrapClasses();
+      GrailsClass[] bootstraps=application.getArtefacts(BootstrapArtefactHandler.TYPE);
       for (int i=0; i < bootstraps.length; i++) {
-        bootstraps[i].callInit(servletContext);
+        ((GrailsBootstrapClass)bootstraps[i]).callInit(servletContext);
       }
       interceptor.flush();
     }

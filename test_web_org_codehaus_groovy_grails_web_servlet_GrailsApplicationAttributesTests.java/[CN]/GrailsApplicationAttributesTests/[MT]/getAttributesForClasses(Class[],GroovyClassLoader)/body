@@ -4,11 +4,13 @@
   servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,context);
   GrailsApplication app=new DefaultGrailsApplication(classes,gcl);
   context.registerMockBean(GrailsApplication.APPLICATION_ID,app);
-  for (int i=0; i < app.getControllers().length; i++) {
-    context.registerMockBean(app.getControllers()[i].getFullName(),app.getControllers()[i].newInstance());
+  GrailsClass[] controllers=app.getArtefacts(ControllerArtefactHandler.TYPE);
+  for (int i=0; i < controllers.length; i++) {
+    context.registerMockBean(((GrailsControllerClass)controllers[i]).getFullName(),controllers[i].newInstance());
   }
-  for (int i=0; i < app.getGrailsTabLibClasses().length; i++) {
-    context.registerMockBean(app.getGrailsTabLibClasses()[i].getFullName(),app.getGrailsTabLibClasses()[i].newInstance());
+  GrailsClass[] taglibs=app.getArtefacts(TagLibArtefactHandler.TYPE);
+  for (int i=0; i < taglibs.length; i++) {
+    context.registerMockBean(taglibs[i].getFullName(),taglibs[i].newInstance());
   }
   return new DefaultGrailsApplicationAttributes(servletContext);
 }

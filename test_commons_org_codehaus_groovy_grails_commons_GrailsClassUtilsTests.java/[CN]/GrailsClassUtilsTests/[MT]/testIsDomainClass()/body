@@ -1,5 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class c=gcl.parseClass("class Test { Long id;Long version;}\n");
-  assertTrue(GrailsClassUtils.isDomainClass(c));
-}

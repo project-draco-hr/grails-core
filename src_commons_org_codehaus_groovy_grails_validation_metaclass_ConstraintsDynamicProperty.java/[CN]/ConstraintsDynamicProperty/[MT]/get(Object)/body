@@ -1,4 +1,4 @@
 {
-  GrailsDomainClass domainClass=application.getGrailsDomainClass(object.getClass().getName());
+  GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName());
   return domainClass.getConstrainedProperties();
 }

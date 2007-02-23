@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class TestService { }\n");
+  ArtefactHandler handler=new ServiceArtefactHandler();
+  assertTrue(handler.isArtefact(c));
+}

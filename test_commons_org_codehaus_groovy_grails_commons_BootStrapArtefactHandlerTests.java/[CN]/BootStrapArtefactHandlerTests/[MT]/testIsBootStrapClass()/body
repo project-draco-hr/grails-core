@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class TestBootStrap { }\n");
+  ArtefactHandler handler=new BootstrapArtefactHandler();
+  assertTrue(handler.isArtefact(c));
+}

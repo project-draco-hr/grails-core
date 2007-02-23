@@ -8,7 +8,7 @@
     return (GroovyObject)tagCache.get(tagName);
   }
  else {
-    GrailsTagLibClass tagLibClass=getGrailsApplication().getTagLibClassForTag(tagName);
+    GrailsTagLibClass tagLibClass=(GrailsTagLibClass)getGrailsApplication().getArtefactForFeature(TagLibArtefactHandler.TYPE,tagName);
     if (tagLibClass == null)     return null;
     GroovyObject controller=getController(request);
     GroovyObject tagLib=(GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());

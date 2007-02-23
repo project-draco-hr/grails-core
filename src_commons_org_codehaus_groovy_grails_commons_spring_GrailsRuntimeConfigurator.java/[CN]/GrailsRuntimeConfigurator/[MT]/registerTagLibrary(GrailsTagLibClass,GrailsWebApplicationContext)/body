@@ -1,7 +1,7 @@
 {
   RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
   BeanConfiguration tagLibClassBean=springConfig.createSingletonBean(MethodInvokingFactoryBean.class);
-  tagLibClassBean.addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getGrailsTagLibClass").addProperty("arguments",tagLibClass.getFullName());
+  tagLibClassBean.addProperty("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID,true)).addProperty("targetMethod","getArtefact").addProperty("arguments",new Object[]{TagLibArtefactHandler.TYPE,tagLibClass.getFullName()});
   context.registerBeanDefinition(tagLibClass.getFullName() + "Class",tagLibClassBean.getBeanDefinition());
   Collection args=new ManagedList();
   args.add(new RuntimeBeanReference(tagLibClass.getFullName() + "Class"));

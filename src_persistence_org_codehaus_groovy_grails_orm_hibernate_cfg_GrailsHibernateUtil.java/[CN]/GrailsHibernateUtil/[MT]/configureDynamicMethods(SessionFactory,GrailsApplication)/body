@@ -1,4 +1,5 @@
 {
+  LOG.trace("Configuring dynamic methods");
   Map hibernateDomainClassMap=new HashMap();
   Collection dynamicMethods=new ArrayList();
   Collection classMetaData=sessionFactory.getAllClassMetadata().values();

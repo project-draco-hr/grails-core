@@ -7,8 +7,8 @@
   GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());
   assertNotNull(ctx);
   Class tag=gcl.parseClass("class TestTagLib { def myTag = { attrs -> } }");
-  GrailsTagLibClass tagLibClass=app.addTagLibClass(tag);
-  conf.registerTagLibrary(tagLibClass,ctx);
+  GrailsTagLibClass tagLibClass=(GrailsTagLibClass)app.addArtefact(TagLibArtefactHandler.TYPE,tag);
+  GrailsRuntimeConfigurator.registerTagLibrary(tagLibClass,ctx);
   GroovyObject tagLib=(GroovyObject)ctx.getBean("TestTagLib");
   assertEquals(tag,tagLib.getClass());
   assertTrue(ctx.containsBean("TestTagLibTargetSource"));

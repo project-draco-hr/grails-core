@@ -17,12 +17,6 @@
   addDynamicProperty(new GenericDynamicProperty(ACTION_NAME_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(CONTROLLER_NAME_PROPERTY,String.class,null,false));
   addDynamicProperty(new GenericDynamicProperty(RENDER_VIEW_PROPERTY,Boolean.class,Boolean.TRUE,false));
-  addDynamicProperty(new GenericDynamicProperty(LOG_PROPERTY,Log.class,new FunctionCallback(){
-    public Object execute(    Object object){
-      return LogFactory.getLog(controllerClass.getFullName());
-    }
-  }
-,true));
   addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(GET_VIEW_URI_PATTERN){
     public Object invoke(    Object target,    String methodName,    Object[] arguments){
       if (arguments.length == 0)       throw new MissingMethodException(GET_VIEW_URI,target.getClass(),arguments);

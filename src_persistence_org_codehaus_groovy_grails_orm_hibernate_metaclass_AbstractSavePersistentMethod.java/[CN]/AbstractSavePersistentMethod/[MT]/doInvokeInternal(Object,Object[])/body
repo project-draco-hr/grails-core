@@ -1,5 +1,5 @@
 {
-  GrailsDomainClass domainClass=application.getGrailsDomainClass(target.getClass().getName());
+  GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   if (shouldValidate(arguments,domainClass)) {
     Validator validator=domainClass.getValidator();
     Errors errors=new BindException(target,target.getClass().getName());

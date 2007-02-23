@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class TestController { }\n");
+  ArtefactHandler handler=new ControllerArtefactHandler();
+  assertTrue(handler.isArtefact(c));
+}

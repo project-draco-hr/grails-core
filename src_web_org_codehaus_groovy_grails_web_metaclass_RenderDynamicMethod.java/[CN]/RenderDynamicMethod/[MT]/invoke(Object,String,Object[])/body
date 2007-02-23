@@ -128,7 +128,7 @@
       String templateUri=attrs.getTemplateUri(templateName,request);
       GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
       try {
-        Template t=engine.createTemplate(templateUri,attrs.getServletContext(),request,response);
+        Template t=engine.createTemplate(templateUri);
         if (t == null) {
           throw new ControllerExecutionException("Unable to load template for uri [" + templateUri + "]. Template not found.");
         }
@@ -180,9 +180,6 @@
       }
 catch (      IOException ioex) {
         throw new ControllerExecutionException("I/O error executing render method for arguments [" + argMap + "]: "+ ioex.getMessage(),ioex);
-      }
-catch (      ServletException e) {
-        throw new ControllerExecutionException("Servlet exception executing render method for arguments [" + argMap + "]: "+ e.getMessage(),e);
       }
     }
  else {

@@ -1,0 +1,16 @@
+{
+  try {
+    Resource r=getResourceForUri(url);
+    if (r != null) {
+      GroovyPageMetaInfo metaInfo=buildPageMetaInfo(r.getInputStream());
+      if (metaInfo != null) {
+        return metaInfo.getLineNumbers();
+      }
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Exception retrieving line numbers from GSP: " + url + ", message: "+ e.getMessage());
+    LOG.debug("Full stack trace of error",e);
+  }
+  return new int[0];
+}

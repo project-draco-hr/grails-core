@@ -1,0 +1,5 @@
+{
+  GrailsWebRequest webRequest=new GrailsWebRequest(new MockHttpServletRequest(),new MockHttpServletResponse(),new MockServletContext());
+  RequestContextHolder.setRequestAttributes(webRequest);
+  return webRequest;
+}

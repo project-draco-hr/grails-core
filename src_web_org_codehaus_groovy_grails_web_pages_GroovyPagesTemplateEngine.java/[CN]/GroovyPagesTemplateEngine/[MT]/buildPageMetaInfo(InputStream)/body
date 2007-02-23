@@ -1,0 +1,17 @@
+{
+  Resource res=optainResourceFromRequest();
+  String name=establishPageName(res);
+  long lastModified=establishLastModified(res);
+  Parse parse;
+  try {
+    parse=new Parse(name,inputStream);
+  }
+ catch (  IOException e) {
+    throw new GroovyPagesException("I/O parsing Groovy page [" + res.getDescription() + "]: "+ e.getMessage(),e);
+  }
+  InputStream in=parse.parse();
+  GroovyPageMetaInfo metaInfo=createPageMetaInfo(parse,lastModified,in);
+  metaInfo.setPageClass(compileGroovyPage(in,name));
+  pageCache.put(name,metaInfo);
+  return metaInfo;
+}

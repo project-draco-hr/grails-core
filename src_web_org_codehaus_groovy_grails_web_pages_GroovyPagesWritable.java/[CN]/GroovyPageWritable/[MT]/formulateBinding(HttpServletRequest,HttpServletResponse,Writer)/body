@@ -1,0 +1,17 @@
+{
+  Binding binding=new Binding();
+  GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
+  if (controller != null) {
+    try {
+      formulateBindingFromController(binding,controller,out);
+    }
+ catch (    MissingPropertyException mpe) {
+      formulateBindingFromWebRequest(binding,request,response,out);
+    }
+  }
+ else {
+    formulateBindingFromWebRequest(binding,request,response,out);
+  }
+  populateViewModel(request,binding);
+  return binding;
+}

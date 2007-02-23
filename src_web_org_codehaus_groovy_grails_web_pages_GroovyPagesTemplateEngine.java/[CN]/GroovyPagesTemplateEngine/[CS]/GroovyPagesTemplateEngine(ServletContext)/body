@@ -1,0 +1,4 @@
+{
+  if (servletContext == null)   throw new IllegalArgumentException("Argument [servletContext] cannot be null");
+  this.resourceLoader=new ServletContextResourceLoader(servletContext);
+}

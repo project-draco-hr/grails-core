@@ -1,0 +1,10 @@
+{
+  String name;
+  try {
+    name=res.getFilename();
+  }
+ catch (  IllegalStateException e) {
+    name=generateTemplateName();
+  }
+  return name;
+}

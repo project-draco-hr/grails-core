@@ -1,0 +1,9 @@
+{
+  Resource r;
+  r=getResourceWithinContext(uri);
+  if (r == null || !r.exists()) {
+    uri=getUriWithinGrailsViews(uri);
+    return getResourceWithinContext(uri);
+  }
+  return r;
+}

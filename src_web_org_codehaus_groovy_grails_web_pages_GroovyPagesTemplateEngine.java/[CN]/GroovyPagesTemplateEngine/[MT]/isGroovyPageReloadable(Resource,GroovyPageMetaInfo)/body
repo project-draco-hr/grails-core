@@ -1,0 +1,3 @@
+{
+  return GrailsUtil.isDevelopmentEnv() && (establishLastModified(resource) > meta.getLastModified());
+}

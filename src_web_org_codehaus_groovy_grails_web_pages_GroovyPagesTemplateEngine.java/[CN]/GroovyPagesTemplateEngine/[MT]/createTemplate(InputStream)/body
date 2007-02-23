@@ -1,0 +1,4 @@
+{
+  GroovyPageMetaInfo metaInfo=buildPageMetaInfo(inputStream);
+  return new GroovyPageTemplate(metaInfo);
+}

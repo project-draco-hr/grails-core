@@ -1,0 +1,10 @@
+{
+  GroovyPageMetaInfo pageMeta=new GroovyPageMetaInfo();
+  pageMeta.setContentType(parse.getContentType());
+  pageMeta.setLineNumbers(parse.getLineNumberMatrix());
+  pageMeta.setLastModified(lastModified);
+  if (GrailsUtil.isDevelopmentEnv()) {
+    pageMeta.setGroovySource(in);
+  }
+  return pageMeta;
+}

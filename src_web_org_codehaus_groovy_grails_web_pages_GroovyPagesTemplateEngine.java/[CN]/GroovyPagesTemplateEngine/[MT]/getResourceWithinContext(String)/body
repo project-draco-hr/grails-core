@@ -1,0 +1,10 @@
+{
+  Resource r;
+  if (this.applicationContext != null) {
+    r=this.applicationContext.getResource(uri);
+  }
+ else {
+    r=resourceLoader.getResource(uri);
+  }
+  return r;
+}

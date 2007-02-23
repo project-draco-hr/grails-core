@@ -75,19 +75,22 @@
         url=gspFile;
         GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(servletContext);
         GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
-        int[] lineNumbers=engine.getLineNumbersForPage(servletContext,url);
+        int[] lineNumbers=engine.calculateLineNumbersForPage(servletContext,url);
         if (this.lineNumber < lineNumbers.length) {
           this.lineNumber=lineNumbers[this.lineNumber - 1];
         }
       }
-      InputStream in=servletContext.getResourceAsStream(url);
-      LOG.debug("Attempting to display code snippet found in url " + url);
-      if (in == null) {
-        try {
-          Resource r=resolver.getResource("grails-app" + urlPrefix + fileName);
-          in=r.getInputStream();
-        }
- catch (        Throwable e) {
+      InputStream in=null;
+      if (!StringUtils.isBlank(url)) {
+        in=servletContext.getResourceAsStream(url);
+        LOG.debug("Attempting to display code snippet found in url " + url);
+        if (in == null) {
+          try {
+            Resource r=resolver.getResource("grails-app" + urlPrefix + fileName);
+            in=r.getInputStream();
+          }
+ catch (          Throwable e) {
+          }
         }
       }
       if (in != null) {

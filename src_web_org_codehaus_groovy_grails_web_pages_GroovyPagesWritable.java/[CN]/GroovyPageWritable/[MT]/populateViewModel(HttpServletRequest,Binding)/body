@@ -1,0 +1,12 @@
+{
+  for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
+    String key=(String)attributeEnum.nextElement();
+    if (!binding.getVariables().containsKey(key)) {
+      binding.setVariable(key,request.getAttribute(key));
+    }
+  }
+  for (Iterator i=additionalBinding.keySet().iterator(); i.hasNext(); ) {
+    String key=(String)i.next();
+    binding.setVariable(key,additionalBinding.get(key));
+  }
+}

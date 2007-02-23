@@ -1,0 +1,14 @@
+{
+  StringBuffer buf=new StringBuffer();
+  String[] tokens;
+  if (relativeUri.startsWith("/"))   relativeUri=relativeUri.substring(1);
+  if (relativeUri.indexOf('/') > -1)   tokens=relativeUri.split("/");
+ else   tokens=new String[]{relativeUri};
+  buf.append(GrailsApplicationAttributes.PATH_TO_VIEWS);
+  for (int i=0; i < tokens.length; i++) {
+    String token=tokens[i];
+    buf.append('/').append(token);
+  }
+  buf.append(GrailsApplicationAttributes.GSP_FILE_EXTENSION);
+  return buf.toString();
+}

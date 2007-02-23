@@ -1,0 +1,10 @@
+{
+  GrailsWebRequest request=getWebRequest();
+  request.setAttribute(GSP_TEMPLATE_RESOURCE,resource,GrailsWebRequest.SCOPE_REQUEST);
+  try {
+    return createTemplate(resource.getInputStream());
+  }
+ catch (  IOException e) {
+    throw new GroovyPagesException("I/O reading Groovy page [" + resource.getDescription() + "]: "+ e.getMessage(),e);
+  }
+}

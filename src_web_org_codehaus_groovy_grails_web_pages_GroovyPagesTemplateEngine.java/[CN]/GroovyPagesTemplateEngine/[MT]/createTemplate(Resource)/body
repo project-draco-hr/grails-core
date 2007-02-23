@@ -1,0 +1,19 @@
+{
+  if (resource == null) {
+    GrailsWebRequest webRequest=getWebRequest();
+    throw new GroovyPagesException("No Groovy page found for URI: " + getCurrentRequestUri(webRequest.getCurrentRequest()));
+  }
+  String name=establishPageName(resource);
+  if (pageCache.containsKey(name)) {
+    GroovyPageMetaInfo meta=(GroovyPageMetaInfo)pageCache.get(name);
+    if (isGroovyPageReloadable(resource,meta)) {
+      return createTemplateWithResource(resource);
+    }
+ else {
+      return new GroovyPageTemplate(meta);
+    }
+  }
+ else {
+    return createTemplateWithResource(resource);
+  }
+}

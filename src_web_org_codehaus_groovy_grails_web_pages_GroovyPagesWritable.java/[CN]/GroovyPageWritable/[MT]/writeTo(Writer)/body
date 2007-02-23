@@ -1,0 +1,17 @@
+{
+  if (showSource) {
+    response.setContentType(GROOVY_SOURCE_CONTENT_TYPE);
+    writeInputStreamToResponse(metaInfo.getGroovySource(),out);
+    metaInfo.setGroovySource(null);
+  }
+ else {
+    if (LOG.isDebugEnabled() && !response.isCommitted()) {
+      LOG.debug("Writing response with content type: " + metaInfo.getContentType());
+    }
+    if (!response.isCommitted())     response.setContentType(metaInfo.getContentType());
+    Binding binding=formulateBinding(request,response,out);
+    Script page=InvokerHelper.createScript(metaInfo.getPageClass(),binding);
+    page.run();
+  }
+  return out;
+}

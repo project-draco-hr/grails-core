@@ -1,4 +1,0 @@
-{
-  GrailsWebRequest webRequest=getWebRequest();
-  return (Resource)webRequest.getAttribute(GSP_TEMPLATE_RESOURCE,GrailsWebRequest.SCOPE_REQUEST);
-}

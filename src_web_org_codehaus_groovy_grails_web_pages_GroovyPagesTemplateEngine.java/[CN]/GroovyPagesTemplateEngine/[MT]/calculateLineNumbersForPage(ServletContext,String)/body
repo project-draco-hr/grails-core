@@ -2,7 +2,7 @@
   try {
     Resource r=getResourceForUri(url);
     if (r != null) {
-      GroovyPageMetaInfo metaInfo=buildPageMetaInfo(r.getInputStream());
+      GroovyPageMetaInfo metaInfo=buildPageMetaInfo(r.getInputStream(),r);
       if (metaInfo != null) {
         return metaInfo.getLineNumbers();
       }

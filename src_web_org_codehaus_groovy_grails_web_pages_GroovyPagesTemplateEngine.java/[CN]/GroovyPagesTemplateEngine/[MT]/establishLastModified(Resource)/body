@@ -1,4 +1,5 @@
 {
+  if (resource == null)   return -1;
   long lastModified;
   try {
     URLConnection urlc=resource.getURL().openConnection();

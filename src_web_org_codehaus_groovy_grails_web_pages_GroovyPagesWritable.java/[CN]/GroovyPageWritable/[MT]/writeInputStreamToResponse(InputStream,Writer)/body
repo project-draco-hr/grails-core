@@ -1,5 +1,6 @@
 {
   try {
+    in.reset();
     Reader reader=new InputStreamReader(in);
     char[] buf=new char[8192];
     for (; ; ) {

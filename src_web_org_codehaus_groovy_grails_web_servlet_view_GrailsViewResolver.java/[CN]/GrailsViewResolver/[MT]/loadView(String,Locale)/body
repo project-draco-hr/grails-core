@@ -1,35 +1,25 @@
 {
-  AbstractUrlBasedView view=buildView(viewName);
-  ServletContext context=getServletContext();
-  URL res=context.getResource(view.getUrl());
+  if (this.templateEngine == null)   throw new IllegalStateException("Property [templateEngine] cannot be null");
+  ResourceLoader resourceLoader=establishResourceLoader();
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   GrailsHttpServletRequest request=webRequest.getCurrentRequest();
   GroovyObject controller=webRequest.getAttributes().getController(request);
   GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
-  String gspView;
-  String pluginContextPath="";
-  if (controller != null && application != null) {
-    Resource controllerResource=application.getResourceForClass(controller.getClass());
-    if (controllerResource != null) {
-      Resource viewsDir=GrailsResourceUtils.getViewsDir(controllerResource);
-      String pathToView=GrailsResourceUtils.getRelativeInsideWebInf(viewsDir);
-      gspView=pathToView + viewName + GSP_SUFFIX;
+  String gspView=resolveViewForController(controller,application,viewName,resourceLoader);
+  Resource res=resourceLoader.getResource(gspView);
+  if (res.exists()) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Resolved GSP view at URI [" + gspView + "]");
     }
- else {
-      gspView=localPrefix + viewName + GSP_SUFFIX;
-    }
+    GroovyPageView gspSpringView=new GroovyPageView();
+    gspSpringView.setUrl(gspView);
+    gspSpringView.setTemplateEngine(templateEngine);
+    return gspSpringView;
   }
  else {
-    gspView=localPrefix + viewName + GSP_SUFFIX;
+    AbstractUrlBasedView view=buildView(viewName);
+    view.setApplicationContext(getApplicationContext());
+    view.afterPropertiesSet();
+    return view;
   }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Attempting to resolve view for URI [" + gspView + "]");
-  }
-  res=context.getResource(gspView);
-  if (res != null) {
-    view.setUrl(gspView);
-  }
-  view.setApplicationContext(getApplicationContext());
-  view.afterPropertiesSet();
-  return view;
 }

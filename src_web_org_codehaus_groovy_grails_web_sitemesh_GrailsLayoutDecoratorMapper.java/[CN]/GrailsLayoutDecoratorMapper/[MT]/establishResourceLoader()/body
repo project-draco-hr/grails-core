@@ -1,0 +1,12 @@
+{
+  ResourceLoader resourceLoader;
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  ApplicationContext ctx=webRequest.getAttributes().getApplicationContext();
+  if (ctx.containsBean(DevelopmentGroovyPageResourceLoader.BEAN_ID) && GrailsUtil.isDevelopmentEnv()) {
+    resourceLoader=(ResourceLoader)ctx.getBean(DevelopmentGroovyPageResourceLoader.BEAN_ID);
+  }
+ else {
+    resourceLoader=ctx;
+  }
+  return resourceLoader;
+}

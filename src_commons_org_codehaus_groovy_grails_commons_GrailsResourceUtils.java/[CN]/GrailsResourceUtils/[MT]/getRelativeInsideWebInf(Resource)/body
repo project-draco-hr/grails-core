@@ -2,19 +2,19 @@
   if (resource == null)   return null;
   try {
     String url=resource.getURL().toString();
-    int i=url.indexOf("/WEB-INF");
+    int i=url.indexOf(WEB_INF);
     if (i > -1) {
       return url.substring(i);
     }
  else {
       Matcher m=PLUGIN_PATTERN.matcher(url);
       if (m.find()) {
-        return "/WEB-INF" + m.group(1);
+        return WEB_INF + m.group(1);
       }
  else {
-        i=url.lastIndexOf("grails-app");
+        i=url.lastIndexOf(GRAILS_APP_DIR);
         if (i > -1) {
-          return "/WEB-INF/" + url.substring(i);
+          return WEB_INF + "/" + url.substring(i);
         }
       }
     }

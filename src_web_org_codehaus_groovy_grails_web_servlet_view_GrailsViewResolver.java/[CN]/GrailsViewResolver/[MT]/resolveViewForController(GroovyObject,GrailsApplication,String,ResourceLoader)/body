@@ -1,0 +1,21 @@
+{
+  String gspView;
+  if (controller != null && application != null) {
+    Resource controllerResource=application.getResourceForClass(controller.getClass());
+    if (controllerResource != null) {
+      Resource viewsDir=GrailsResourceUtils.getViewsDir(controllerResource);
+      String pathToView=GrailsResourceUtils.getRelativeInsideWebInf(viewsDir);
+      gspView=pathToView + viewName + GSP_SUFFIX;
+    }
+ else {
+      gspView=localPrefix + viewName + GSP_SUFFIX;
+    }
+  }
+ else {
+    gspView=localPrefix + viewName + GSP_SUFFIX;
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Attempting to resolve view for URI [" + gspView + "] using ResourceLoader ["+ resourceLoader.getClass()+ "]");
+  }
+  return gspView;
+}

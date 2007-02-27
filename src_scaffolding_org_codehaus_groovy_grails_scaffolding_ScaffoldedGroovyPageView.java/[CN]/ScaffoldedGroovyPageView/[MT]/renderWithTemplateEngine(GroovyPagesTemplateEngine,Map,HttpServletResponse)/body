@@ -1,0 +1,12 @@
+{
+  Template t=templateEngine.createTemplate(contents,getUrl());
+  Writable w=t.make(model);
+  Writer out=null;
+  try {
+    out=createResponseWriter(response);
+    w.writeTo(out);
+  }
+  finally {
+    if (out != null)     out.close();
+  }
+}

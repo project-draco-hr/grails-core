@@ -1,3 +1,9 @@
 {
+  for (Iterator i=resources.iterator(); i.hasNext(); ) {
+    Resource mockResource=(Resource)i.next();
+    if (pathMatcher.match(mockResource.getDescription(),StringUtils.removeStart(location,"/"))) {
+      return mockResource;
+    }
+  }
   return new ClassPathResource(location);
 }

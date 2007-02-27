@@ -1,7 +1,0 @@
-{
-  GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefactForFeature(ControllerArtefactHandler.TYPE,uri);
-  if (controllerClass != null) {
-    return controllerClass.getViewByURI(uri);
-  }
-  return null;
-}

@@ -3,9 +3,9 @@
   locationPattern=StringUtils.removeStart(locationPattern,"/");
   List result=new ArrayList();
   for (Iterator i=resources.iterator(); i.hasNext(); ) {
-    String location=(String)i.next();
-    if (pathMatcher.match(locationPattern,StringUtils.removeStart(location,"/"))) {
-      result.add(new ClassPathResource(location));
+    Resource res=(Resource)i.next();
+    if (pathMatcher.match(res.getDescription(),StringUtils.removeStart(res.getDescription(),"/"))) {
+      result.add(res);
     }
   }
   return (Resource[])result.toArray(new Resource[0]);

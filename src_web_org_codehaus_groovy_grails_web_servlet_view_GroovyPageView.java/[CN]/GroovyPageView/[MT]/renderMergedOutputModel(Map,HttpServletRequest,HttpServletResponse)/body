@@ -1,0 +1,5 @@
+{
+  super.exposeModelAsRequestAttributes(model,request);
+  if (templateEngine == null)   throw new IllegalStateException("Property [templateEngine] must be set!");
+  renderWithTemplateEngine(templateEngine,model,response);
+}

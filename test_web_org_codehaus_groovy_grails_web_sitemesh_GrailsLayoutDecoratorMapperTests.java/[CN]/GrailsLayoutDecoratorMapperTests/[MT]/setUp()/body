@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest();
+  MockApplicationContext appCtx=new MockApplicationContext();
+  appCtx.registerMockResource("/WEB-INF/grails-app/views/layouts/test.gsp");
+  webRequest.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
+}

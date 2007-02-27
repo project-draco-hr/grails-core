@@ -1,10 +1,4 @@
 {
-  Resource r;
-  if (this.applicationContext != null) {
-    r=this.applicationContext.getResource(uri);
-  }
- else {
-    r=resourceLoader.getResource(uri);
-  }
-  return r;
+  if (resourceLoader == null)   throw new IllegalStateException("TemplateEngine not initialised correctly, no [resourceLoader] specified!");
+  return resourceLoader.getResource(uri);
 }

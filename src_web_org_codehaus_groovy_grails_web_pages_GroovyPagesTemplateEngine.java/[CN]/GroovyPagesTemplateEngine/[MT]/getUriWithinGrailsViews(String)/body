@@ -9,6 +9,6 @@
     String token=tokens[i];
     buf.append('/').append(token);
   }
-  buf.append(GrailsApplicationAttributes.GSP_FILE_EXTENSION);
+  if (!relativeUri.endsWith(GroovyPage.EXTENSION))   buf.append(GroovyPage.EXTENSION);
   return buf.toString();
 }

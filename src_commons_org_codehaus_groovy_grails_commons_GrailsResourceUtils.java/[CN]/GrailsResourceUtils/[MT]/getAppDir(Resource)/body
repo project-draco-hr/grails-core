@@ -2,7 +2,7 @@
   if (resource == null)   return null;
   try {
     String url=resource.getURL().toString();
-    int i=url.lastIndexOf("grails-app");
+    int i=url.lastIndexOf(GRAILS_APP_DIR);
     if (i > -1) {
       url=url.substring(0,i + 10);
       return new UrlResource(url);

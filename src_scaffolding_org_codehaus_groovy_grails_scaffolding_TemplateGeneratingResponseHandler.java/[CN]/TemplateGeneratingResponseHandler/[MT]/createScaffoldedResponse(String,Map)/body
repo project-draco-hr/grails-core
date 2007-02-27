@@ -1,0 +1,23 @@
+{
+  View v;
+  if (generatedViewCache.containsKey(uri)) {
+    v=(View)generatedViewCache.get(uri);
+  }
+ else {
+    StringWriter sw=new StringWriter();
+    PrintWriter pw=new PrintWriter(sw);
+    String viewName=uri.substring(uri.lastIndexOf("/"));
+    int i=viewName.lastIndexOf(".");
+    if (i > -1)     viewName=viewName.substring(0,i);
+    if (grailsApplication == null)     throw new IllegalStateException("Property [grailsApplication] must be set!");
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Generating view [" + uri + "] for scaffolded class ["+ scaffoldedClass+ "]");
+    }
+    templateGenerator.generateView((GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,scaffoldedClass.getName()),viewName,pw);
+    ScaffoldedGroovyPageView scaffoldedView=new ScaffoldedGroovyPageView(uri,sw.toString());
+    scaffoldedView.setTemplateEngine(this.templateEngine);
+    v=scaffoldedView;
+    generatedViewCache.put(uri,v);
+  }
+  return new ModelAndView(v,model);
+}

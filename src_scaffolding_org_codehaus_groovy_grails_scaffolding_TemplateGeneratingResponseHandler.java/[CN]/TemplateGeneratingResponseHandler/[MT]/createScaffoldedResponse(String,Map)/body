@@ -6,9 +6,8 @@
  else {
     StringWriter sw=new StringWriter();
     PrintWriter pw=new PrintWriter(sw);
-    String viewName=uri.substring(uri.lastIndexOf("/"));
-    int i=viewName.lastIndexOf(".");
-    if (i > -1)     viewName=viewName.substring(0,i);
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    String viewName=webRequest.getActionName();
     if (grailsApplication == null)     throw new IllegalStateException("Property [grailsApplication] must be set!");
     if (LOG.isDebugEnabled()) {
       LOG.debug("Generating view [" + uri + "] for scaffolded class ["+ scaffoldedClass+ "]");

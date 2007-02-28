@@ -3,12 +3,5 @@
     throwRuntimeException(new IllegalArgumentException("Call to [in] with propertyName [" + propertyName + "] and values ["+ values+ "] not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
-  Criterion c=Restrictions.in(propertyName,values);
-  if (isInsideLogicalExpression()) {
-    this.logicalExpressionArgs.add(c);
-  }
- else {
-    addToCriteria(c);
-  }
-  return c;
+  return addToCriteria(Restrictions.in(propertyName,values));
 }

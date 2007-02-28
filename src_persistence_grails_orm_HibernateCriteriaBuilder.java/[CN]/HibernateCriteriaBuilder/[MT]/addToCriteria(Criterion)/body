@@ -1,3 +1,9 @@
 {
-  this.criteria.add(c);
+  if (!logicalExpressionStack.isEmpty()) {
+    ((LogicalExpression)logicalExpressionStack.peek()).args.add(c);
+  }
+ else {
+    this.criteria.add(c);
+  }
+  return c;
 }

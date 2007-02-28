@@ -4,12 +4,5 @@
   }
   propertyName=calculatePropertyName(propertyName);
   propertyValue=calculatePropertyValue(propertyValue);
-  Criterion c=Restrictions.lt(propertyName,propertyValue);
-  if (isInsideLogicalExpression()) {
-    this.logicalExpressionArgs.add(c);
-  }
- else {
-    addToCriteria(c);
-  }
-  return c;
+  return addToCriteria(Restrictions.lt(propertyName,propertyValue));
 }

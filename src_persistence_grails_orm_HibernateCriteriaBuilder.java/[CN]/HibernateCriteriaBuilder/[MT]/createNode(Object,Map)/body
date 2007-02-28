@@ -29,7 +29,7 @@
   }
  else   if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
     if (this.criteria == null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
-    this.logicalExpressions.add(name);
+    this.logicalExpressionStack.add(new LogicalExpression(name));
     return name;
   }
  else   if (name.equals(PROJECTIONS)) {
@@ -40,6 +40,7 @@
  else   if (targetBean.isReadableProperty(name.toString())) {
     this.criteria.createAlias(name.toString(),name.toString() + ALIAS,CriteriaSpecification.LEFT_JOIN);
     this.aliasStack.add(name.toString() + ALIAS);
+    logicalExpressionStack.push(new LogicalExpression(AND));
     return name;
   }
   closeSessionFollowingException();

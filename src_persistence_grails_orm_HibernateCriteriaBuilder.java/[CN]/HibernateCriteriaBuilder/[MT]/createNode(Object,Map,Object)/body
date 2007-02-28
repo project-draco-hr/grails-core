@@ -22,13 +22,7 @@
     }
   }
   if (c != null) {
-    if (isInsideLogicalExpression()) {
-      this.logicalExpressionArgs.add(c);
-    }
- else {
-      addToCriteria(c);
-    }
-    return c;
+    return addToCriteria(c);
   }
  else {
     String nameString=name.toString();
@@ -36,6 +30,7 @@
       if (targetBean.isReadableProperty(nameString)) {
         this.criteria.createAlias(nameString,nameString + ALIAS,CriteriaSpecification.LEFT_JOIN);
         this.aliasStack.add(nameString + ALIAS);
+        logicalExpressionStack.push(new LogicalExpression(AND));
         return name;
       }
     }

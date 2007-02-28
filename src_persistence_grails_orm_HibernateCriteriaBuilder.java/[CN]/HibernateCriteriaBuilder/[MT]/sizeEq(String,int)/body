@@ -3,12 +3,5 @@
     throwRuntimeException(new IllegalArgumentException("Call to [sizeEq] with propertyName [" + propertyName + "] and size ["+ size+ "] not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
-  Criterion c=Restrictions.sizeEq(propertyName,size);
-  if (isInsideLogicalExpression()) {
-    this.logicalExpressionArgs.add(c);
-  }
- else {
-    addToCriteria(c);
-  }
-  return c;
+  return addToCriteria(Restrictions.sizeEq(propertyName,size));
 }

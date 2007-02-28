@@ -23,53 +23,9 @@
       this.session.close();
     }
   }
- else   if (node.equals(AND) || node.equals(OR)) {
-    Criterion c=null;
-    if (logicalExpressionArgs.size() == 1 && node.equals(AND)) {
-      c=(Criterion)logicalExpressionArgs.remove(0);
-    }
- else     if (logicalExpressionArgs.size() == 2) {
-      Criterion lhs=(Criterion)logicalExpressionArgs.remove(0);
-      Criterion rhs=(Criterion)logicalExpressionArgs.remove(0);
-      if (node.equals(OR)) {
-        c=Restrictions.or(lhs,rhs);
-      }
- else {
-        c=Restrictions.and(lhs,rhs);
-      }
-    }
- else     if (logicalExpressionArgs.size() > 2) {
-      if (node.equals(OR)) {
-        c=Restrictions.disjunction();
-      }
- else {
-        c=Restrictions.conjunction();
-      }
-      for (Iterator i=logicalExpressionArgs.iterator(); i.hasNext(); ) {
-        Criterion criterion=(Criterion)i.next();
-        ((Junction)c).add(criterion);
-      }
-    }
-    if (c != null) {
-      if (parent instanceof Proxy) {
-        addToCriteria(c);
-      }
- else       if (parent.equals(AND) || parent.equals(OR)) {
-        this.logicalExpressionArgs.add(c);
-        this.logicalExpressions.remove(this.logicalExpressions.size() - 1);
-      }
-    }
-  }
- else   if (node.equals(NOT)) {
-    if (this.logicalExpressionArgs.size() < 1)     throwRuntimeException(new IllegalArgumentException("Logical expression [" + node + "] must contain at least 1 expression"));
-    Criterion c=(Criterion)this.logicalExpressionArgs.remove(this.logicalExpressionArgs.size() - 1);
-    if (parent instanceof Proxy) {
-      addToCriteria(Restrictions.not(c));
-    }
- else     if (parent.equals(AND) || parent.equals(OR) || parent.equals(NOT)) {
-      this.logicalExpressionArgs.add(Restrictions.not(c));
-      this.logicalExpressions.remove(this.logicalExpressions.size() - 1);
-    }
+ else   if (node.equals(AND) || node.equals(OR) || node.equals(NOT)) {
+    LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+    addToCriteria(logicalExpression.toCriterion());
   }
  else   if (node.equals(PROJECTIONS)) {
     if (this.projectionList != null && this.projectionList.getLength() > 0) {
@@ -78,6 +34,10 @@
   }
  else   if (targetBean.isReadableProperty(node.toString()) && aliasStack.size() > 0) {
     aliasStack.remove(aliasStack.size() - 1);
+    LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+    if (!logicalExpression.args.isEmpty()) {
+      addToCriteria(logicalExpression.toCriterion());
+    }
   }
   super.nodeCompleted(parent,node);
 }

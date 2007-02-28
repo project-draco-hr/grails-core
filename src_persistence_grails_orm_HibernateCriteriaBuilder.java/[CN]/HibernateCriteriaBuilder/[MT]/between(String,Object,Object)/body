@@ -3,12 +3,5 @@
     throwRuntimeException(new IllegalArgumentException("Call to [between] with propertyName [" + propertyName + "]  not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
-  Criterion c=Restrictions.between(propertyName,lo,hi);
-  if (isInsideLogicalExpression()) {
-    this.logicalExpressionArgs.add(c);
-  }
- else {
-    addToCriteria(c);
-  }
-  return c;
+  return addToCriteria(Restrictions.between(propertyName,lo,hi));
 }

@@ -1,0 +1,6 @@
+{
+  for (Iterator i=criteria.iterator(); i.hasNext(); ) {
+    junction.add((Criterion)i.next());
+  }
+  return junction;
+}

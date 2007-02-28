@@ -1,5 +1,9 @@
 {
   super();
   this.request=request;
-  this.parameterMap=request.getParameterMap();
+  this.parameterMap=new HashMap();
+  for (Iterator it=request.getParameterMap().keySet().iterator(); it.hasNext(); ) {
+    Object key=it.next();
+    parameterMap.put(key,request.getParameterMap().get(key));
+  }
 }

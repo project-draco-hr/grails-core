@@ -1,5 +1,3 @@
 {
-  Set values=new HashSet(parameterMap.values());
-  values.addAll(controllerParamsMap.values());
-  return values;
+  return parameterMap.values();
 }

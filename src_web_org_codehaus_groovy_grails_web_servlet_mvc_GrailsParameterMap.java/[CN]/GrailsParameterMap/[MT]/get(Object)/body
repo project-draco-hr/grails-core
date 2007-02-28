@@ -1,14 +1,12 @@
 {
-  if (!(key instanceof String))   throw new IllegalArgumentException("Parameter key '" + key + "' must be a string value");
-  if (controllerParamsMap.containsKey(key)) {
-    return controllerParamsMap.get(key);
-  }
- else {
+  if (parameterMap.get(key) instanceof String[]) {
     String[] valueArray=(String[])parameterMap.get(key);
-    if (valueArray == null)     return null;
+    if (valueArray == null) {
+      return null;
+    }
     if (valueArray.length == 1) {
       return valueArray[0];
     }
-    return parameterMap.get(key);
   }
+  return parameterMap.get(key);
 }

@@ -1,4 +1,3 @@
 {
-  if (!(key instanceof String))   throw new IllegalArgumentException("Parameter key '" + key + "' must be a string value");
-  return controllerParamsMap.remove(key);
+  return parameterMap.remove(key);
 }

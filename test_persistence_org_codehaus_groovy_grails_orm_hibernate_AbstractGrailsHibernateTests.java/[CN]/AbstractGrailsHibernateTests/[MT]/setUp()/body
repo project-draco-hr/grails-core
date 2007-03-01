@@ -1,12 +1,14 @@
 {
   super.setUp();
+  GrailsMetaClassUtils.getRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
   onSetUp();
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
+  ApplicationHolder.setApplication(ga);
   MockApplicationContext mc=new MockApplicationContext();
   mc.registerMockBean(GrailsApplication.APPLICATION_ID,ga);
   mc.registerMockBean("messageSource",new StaticMessageSource());
   GrailsRuntimeConfigurator grc=new GrailsRuntimeConfigurator(ga,mc);
-  this.applicationContext=grc.configureDomainOnly();
+  this.applicationContext=grc.configure(new MockServletContext());
   this.sessionFactory=(SessionFactory)this.applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
   GrailsHibernateUtil.configureDynamicMethods(applicationContext,ga);
   if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {

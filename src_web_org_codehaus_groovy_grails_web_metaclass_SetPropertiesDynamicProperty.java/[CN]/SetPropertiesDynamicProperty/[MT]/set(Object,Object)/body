@@ -8,21 +8,8 @@
   }
  else   if (newValue instanceof Map) {
     Map propertyMap=(Map)newValue;
-    for (Iterator i=propertyMap.keySet().iterator(); i.hasNext(); ) {
-      String propertyName=(String)i.next();
-      Object propertyValue=propertyMap.get(propertyName);
-      if (propertyValue == null)       continue;
-      if (LOG.isDebugEnabled())       LOG.debug("Attempting to set property '" + propertyName + "' to value '"+ propertyValue+ "' on instance '"+ object+ "'");
-      try {
-        Ognl.setValue(propertyName,object,propertyValue);
-      }
- catch (      NoSuchPropertyException nspe) {
-        if (LOG.isDebugEnabled())         LOG.debug("Unable to set property '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "' property doesn't exist."+ nspe.getMessage());
-      }
-catch (      OgnlException e) {
-        if (LOG.isDebugEnabled())         LOG.debug("OGNL error attempt to set '" + propertyName + "' to value '"+ propertyValue+ "' for object '"+ object+ "':"+ e.getMessage(),e);
-      }
-    }
+    GrailsDataBinder binder=GrailsDataBinder.createBinder(object,object.getClass().getName());
+    binder.bind(new MutablePropertyValues(propertyMap));
   }
  else {
     throw new MissingPropertyException(PROPERTY_NAME,object.getClass());

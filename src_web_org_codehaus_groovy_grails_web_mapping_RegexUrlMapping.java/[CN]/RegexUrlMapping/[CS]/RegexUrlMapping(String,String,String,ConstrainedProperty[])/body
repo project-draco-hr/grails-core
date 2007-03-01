@@ -1,0 +1,15 @@
+{
+  if (StringUtils.isBlank(pattern))   throw new IllegalArgumentException("Argument [pattern] cannot be null or blank");
+  if (StringUtils.isBlank(controllerName))   throw new IllegalArgumentException("Argument [controllerName] cannot be null or blank");
+  this.controllerName=controllerName;
+  this.actionName=actionName;
+  try {
+    this.pattern=Pattern.compile(pattern);
+  }
+ catch (  PatternSyntaxException pse) {
+    throw new UrlMappingException("Error evaluating mapping for pattern [" + pattern + "] from Grails URL mappings: "+ pse.getMessage(),pse);
+  }
+  if (constraints != null) {
+    this.constraints=constraints;
+  }
+}

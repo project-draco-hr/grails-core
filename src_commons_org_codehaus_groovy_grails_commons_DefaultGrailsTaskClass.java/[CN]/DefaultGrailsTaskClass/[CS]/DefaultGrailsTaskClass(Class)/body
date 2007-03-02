@@ -1,5 +1,3 @@
 {
   super(clazz,JOB);
-  Log LOG=LogFactory.getLog(DefaultGrailsTaskClass.class);
-  LOG.debug("instantiating: " + this.getClazz());
 }

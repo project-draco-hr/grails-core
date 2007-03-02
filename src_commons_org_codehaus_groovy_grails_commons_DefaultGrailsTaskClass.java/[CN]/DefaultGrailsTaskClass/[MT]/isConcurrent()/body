@@ -1,5 +1,5 @@
 {
-  String concurrent=(String)getPropertyValue(CONCURRENT,String.class);
-  if (concurrent == null || "".equals(concurrent))   return DEFAULT_CONCURRENT.equals("true");
-  return concurrent.equals("true");
+  Boolean concurrent=(Boolean)getPropertyValue(CONCURRENT,Boolean.class);
+  if (concurrent == null)   return DEFAULT_CONCURRENT;
+  return concurrent.booleanValue();
 }

@@ -1,5 +1,5 @@
 {
-  String startDelay=(String)getPropertyOrStaticPropertyOrFieldValue(START_DELAY,String.class);
-  if (startDelay == null || "".equals(startDelay))   return DEFAULT_START_DELAY;
-  return startDelay;
+  Long startDelay=(Long)getPropertyOrStaticPropertyOrFieldValue(START_DELAY,Long.class);
+  if (startDelay == null)   return DEFAULT_START_DELAY;
+  return startDelay.longValue();
 }

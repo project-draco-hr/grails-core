@@ -15,7 +15,7 @@
     column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()));
     ConstrainedProperty constrainedProperty=getConstrainedProperty(grailsProp);
     if (constrainedProperty != null) {
-      if (String.class.isAssignableFrom(grailsProp.getType())) {
+      if (String.class.isAssignableFrom(grailsProp.getType()) || byte[].class.isAssignableFrom(grailsProp.getType())) {
         bindStringColumnConstraints(column,constrainedProperty);
       }
       if (Number.class.isAssignableFrom(grailsProp.getType())) {

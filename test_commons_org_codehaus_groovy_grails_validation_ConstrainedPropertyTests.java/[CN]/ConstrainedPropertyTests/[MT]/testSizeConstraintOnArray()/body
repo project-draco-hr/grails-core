@@ -1,0 +1,11 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testArray",ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(2,3));
+  String[] one={"1"};
+  String[] two={"1","2"};
+  String[] three={"1","2","3"};
+  String[] four={"1","2","3","4"};
+  constraintTester.testConstraint(two,false);
+  constraintTester.testConstraint(three,false);
+  constraintTester.testConstraint(one,true);
+  constraintTester.testConstraint(four,true);
+}

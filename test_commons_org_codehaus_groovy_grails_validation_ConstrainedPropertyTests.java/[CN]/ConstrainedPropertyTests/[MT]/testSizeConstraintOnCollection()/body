@@ -1,0 +1,25 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testCollection",ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(2,3));
+  String one="1";
+  String two="2";
+  String three="3";
+  String four="4";
+  Collection uno=new ArrayList();
+  uno.add(one);
+  Collection dos=new ArrayList();
+  dos.add(one);
+  dos.add(two);
+  Collection tres=new ArrayList();
+  tres.add(one);
+  tres.add(two);
+  tres.add(three);
+  Collection cuatro=new ArrayList();
+  cuatro.add(one);
+  cuatro.add(two);
+  cuatro.add(three);
+  cuatro.add(four);
+  constraintTester.testConstraint(dos,false);
+  constraintTester.testConstraint(tres,false);
+  constraintTester.testConstraint(uno,true);
+  constraintTester.testConstraint(cuatro,true);
+}

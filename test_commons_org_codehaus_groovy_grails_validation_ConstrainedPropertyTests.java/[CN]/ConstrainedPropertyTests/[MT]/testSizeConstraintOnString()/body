@@ -1,0 +1,8 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testEmail",ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(5,7));
+  constraintTester.testConstraint("12345",false);
+  constraintTester.testConstraint("123456",false);
+  constraintTester.testConstraint("1234567",false);
+  constraintTester.testConstraint("1234",true);
+  constraintTester.testConstraint("12345678",true);
+}

@@ -3,46 +3,31 @@
   if (propertyValue == null) {
     return;
   }
-  if (propertyValue.getClass().isArray()) {
-    Integer length=new Integer(Array.getLength(propertyValue));
-    if (!range.contains(length)) {
-      if (range.getFrom().compareTo(length) == 1) {
-        super.rejectValue(errors,ConstrainedProperty.LENGTH_CONSTRAINT + ConstrainedProperty.TOOSHORT_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_LENGTH_MESSAGE_CODE,args));
-      }
- else       if (range.getTo().compareTo(length) == -1) {
-        super.rejectValue(errors,ConstrainedProperty.LENGTH_CONSTRAINT + ConstrainedProperty.TOOLONG_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_LENGTH_MESSAGE_CODE,args));
-      }
-      return;
-    }
-  }
-  if (propertyValue instanceof Collection) {
-    Integer collectionSize=new Integer(((Collection)propertyValue).size());
-    if (!range.contains(collectionSize)) {
-      if (range.getFrom().compareTo(collectionSize) == 1) {
-        super.rejectValue(errors,ConstrainedProperty.SIZE_CONSTRAINT + ConstrainedProperty.TOOSMALL_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_SIZE_MESSAGE_CODE,args));
-      }
- else       if (range.getTo().compareTo(collectionSize) == -1) {
-        super.rejectValue(errors,ConstrainedProperty.SIZE_CONSTRAINT + ConstrainedProperty.TOOBIG_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_SIZE_MESSAGE_CODE,args));
-      }
-    }
-  }
- else   if (propertyValue instanceof Number) {
+  if (propertyValue instanceof Number) {
     if (range.getFrom().compareTo(propertyValue) == 1) {
-      super.rejectValue(errors,ConstrainedProperty.SIZE_CONSTRAINT + ConstrainedProperty.TOOSMALL_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_SIZE_MESSAGE_CODE,args));
+      rejectValueTooSmall(args,errors,target,propertyValue);
     }
  else     if (range.getTo().compareTo(propertyValue) == -1) {
-      super.rejectValue(errors,ConstrainedProperty.SIZE_CONSTRAINT + ConstrainedProperty.TOOBIG_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_SIZE_MESSAGE_CODE,args));
+      rejectValueTooBig(args,errors,target,propertyValue);
     }
+    return;
+  }
+  Integer size=null;
+  if (propertyValue.getClass().isArray()) {
+    size=new Integer(Array.getLength(propertyValue));
+  }
+ else   if (propertyValue instanceof Collection) {
+    size=new Integer(((Collection)propertyValue).size());
   }
  else   if (propertyValue instanceof String) {
-    Integer stringLength=new Integer(((String)propertyValue).length());
-    if (!range.contains(stringLength)) {
-      if (range.getFrom().compareTo(stringLength) == 1) {
-        super.rejectValue(errors,ConstrainedProperty.LENGTH_CONSTRAINT + ConstrainedProperty.TOOSHORT_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_LENGTH_MESSAGE_CODE,args));
-      }
- else       if (range.getTo().compareTo(stringLength) == -1) {
-        super.rejectValue(errors,ConstrainedProperty.LENGTH_CONSTRAINT + ConstrainedProperty.TOOLONG_SUFFIX,args,getDefaultMessage(ConstrainedProperty.DEFAULT_INVALID_LENGTH_MESSAGE_CODE,args));
-      }
+    size=new Integer(((String)propertyValue).length());
+  }
+  if (!range.contains(size)) {
+    if (range.getFrom().compareTo(size) == 1) {
+      rejectValueTooSmall(args,errors,target,propertyValue);
+    }
+ else     if (range.getTo().compareTo(size) == -1) {
+      rejectValueTooBig(args,errors,target,propertyValue);
     }
   }
 }

@@ -1,0 +1,8 @@
+{
+  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testInteger",ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(5,10));
+  constraintTester.testConstraint(new Integer(5),false);
+  constraintTester.testConstraint(new Integer(7),false);
+  constraintTester.testConstraint(new Integer(10),false);
+  constraintTester.testConstraint(new Integer(2),true);
+  constraintTester.testConstraint(new Integer(12),true);
+}

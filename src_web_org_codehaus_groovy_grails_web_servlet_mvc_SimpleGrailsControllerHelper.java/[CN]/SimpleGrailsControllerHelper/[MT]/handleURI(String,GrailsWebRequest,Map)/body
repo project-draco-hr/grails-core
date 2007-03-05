@@ -4,10 +4,7 @@
   uri=configureStateForUri(uri);
   GrailsHttpServletRequest request=webRequest.getCurrentRequest();
   GrailsHttpServletResponse response=webRequest.getCurrentResponse();
-  if (StringUtils.isBlank(actionName) && request.getParameter(DISPATCH_ACTION_PARAMETER) != null) {
-    actionName=GrailsClassUtils.getPropertyNameRepresentation(request.getParameter(DISPATCH_ACTION_PARAMETER));
-    uri='/' + controllerName + '/'+ actionName;
-  }
+  if (StringUtils.isBlank(actionName))   uri=checkDispatchAction(request,uri);
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
   if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
     id=request.getParameter(ID_PARAMETER);

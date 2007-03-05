@@ -1,39 +1,13 @@
 {
-  Matcher m=this.pattern.matcher(uri);
-  if (m.find()) {
-    UrlMappingInfo urlInfo=null;
-    if (constraints.length > 0) {
-      Map params=new HashMap();
-      Errors errors=new MapBindingResult(params,"urlMapping");
-      for (int i=0; i < constraints.length; i++) {
-        ConstrainedProperty constraint=constraints[i];
-        String name=constraint.getPropertyName();
-        int groupIndex=i + 1;
-        if (m.groupCount() < groupIndex) {
-          if (constraint.isNullable() || !constraint.isBlank()) {
-            break;
-          }
- else {
-            return null;
-          }
-        }
- else {
-          String value=m.group(groupIndex);
-          constraint.validate(this,value,errors);
-          if (errors.hasErrors()) {
-            return null;
-          }
- else {
-            params.put(name,value);
-          }
-        }
+  for (int i=0; i < patterns.length; i++) {
+    Pattern pattern=patterns[i];
+    Matcher m=pattern.matcher(uri);
+    if (m.find()) {
+      UrlMappingInfo urlInfo=createUrlMappingInfo(m);
+      if (urlInfo != null) {
+        return urlInfo;
       }
-      urlInfo=new DefaultUrlMappingInfo(this.controllerName,this.actionName,params);
     }
- else {
-      urlInfo=new DefaultUrlMappingInfo(this.controllerName,this.actionName,Collections.EMPTY_MAP);
-    }
-    return urlInfo;
   }
   return null;
 }

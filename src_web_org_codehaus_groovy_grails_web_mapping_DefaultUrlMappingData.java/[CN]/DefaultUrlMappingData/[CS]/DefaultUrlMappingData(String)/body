@@ -1,0 +1,9 @@
+{
+  if (StringUtils.isBlank(urlPattern))   throw new IllegalArgumentException("Argument [urlPattern] cannot be null or blank");
+  if (!urlPattern.startsWith(SLASH))   throw new IllegalArgumentException("Argument [urlPattern] is not a valid URL. It must start with '/' !");
+  this.urlPattern=urlPattern.substring(1);
+  this.tokens=this.urlPattern.split(SLASH);
+  List urls=new ArrayList();
+  parseUrls(urls);
+  this.logicalUrls=(String[])urls.toArray(new String[urls.size()]);
+}

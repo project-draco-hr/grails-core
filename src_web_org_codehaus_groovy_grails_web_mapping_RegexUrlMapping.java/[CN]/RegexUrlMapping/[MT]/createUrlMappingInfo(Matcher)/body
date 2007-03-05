@@ -1,0 +1,16 @@
+{
+  Map params=new HashMap();
+  Errors errors=new MapBindingResult(params,"urlMapping");
+  for (int i=0; i < m.groupCount(); i++) {
+    String group=m.group(i + 1);
+    if (constraints.length > i) {
+      ConstrainedProperty cp=constraints[i];
+      cp.validate(this,group,errors);
+      if (errors.hasErrors())       return null;
+ else {
+        params.put(cp.getPropertyName(),group);
+      }
+    }
+  }
+  return new DefaultUrlMappingInfo(this.controllerName,this.actionName,params);
+}

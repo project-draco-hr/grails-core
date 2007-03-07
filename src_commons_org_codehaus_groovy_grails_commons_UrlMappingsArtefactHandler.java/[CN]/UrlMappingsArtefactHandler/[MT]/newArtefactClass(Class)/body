@@ -1,0 +1,9 @@
+{
+  try {
+    Constructor c=DefaultGrailsClass.class.getDeclaredConstructor(new Class[]{Class.class,String.class});
+    return (GrailsClass)BeanUtils.instantiateClass(c,new Object[]{artefactClass,TYPE});
+  }
+ catch (  NoSuchMethodException e) {
+    throw new GrailsConfigurationException("Unable to create new instance of Grails artefact [" + TYPE + "] for class ["+ artefactClass+ "]:"+ e.getMessage(),e);
+  }
+}

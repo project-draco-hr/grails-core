@@ -1,0 +1,3 @@
+{
+  return clazz != null && (super.isArtefactClass(clazz) && Script.class.isAssignableFrom(clazz));
+}

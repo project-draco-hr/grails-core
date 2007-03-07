@@ -1,0 +1,19 @@
+{
+  GroovyObject obj=(GroovyObject)BeanUtils.instantiateClass(theClass);
+  if (obj instanceof Script) {
+    Script script=(Script)obj;
+    Binding b=new Binding();
+    MappingCapturingClosure closure=new MappingCapturingClosure(script);
+    b.setVariable("mappings",closure);
+    script.setBinding(b);
+    script.run();
+    Closure mappings=closure.getMappings();
+    UrlMappingBuilder builder=new UrlMappingBuilder(script.getBinding());
+    mappings.setDelegate(builder);
+    mappings.call();
+    return builder.getUrlMappings();
+  }
+ else {
+    throw new UrlMappingException("Unable to configure URL mappings for class [" + theClass + "]. A URL mapping must be an instance of groovy.lang.Script.");
+  }
+}

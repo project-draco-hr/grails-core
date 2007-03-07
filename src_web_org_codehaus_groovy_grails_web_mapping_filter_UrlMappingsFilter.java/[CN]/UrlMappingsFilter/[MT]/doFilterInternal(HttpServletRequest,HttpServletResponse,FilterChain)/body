@@ -1,0 +1,29 @@
+{
+  UrlMappingsHolder holder=lookupUrlMappings();
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Executing URL mapping filter");
+  }
+  UrlMapping[] mappings=holder.getUrlMappings();
+  String uri=urlHelper.getPathWithinApplication(request);
+  UrlMappingInfo info=null;
+  for (int i=0; i < mappings.length; i++) {
+    UrlMapping mapping=mappings[i];
+    info=mapping.match(uri);
+    if (info != null) {
+      break;
+    }
+  }
+  if (info != null) {
+    String forwardUrl=buildDispatchUrlForMapping(request,info);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Matched URI [" + uri + "] to URL mapping, forwarding to ["+ forwardUrl+ "]");
+    }
+    populateParamsForMapping(info);
+    RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
+    filterChain.doFilter(request,response);
+    dispatcher.include(request,response);
+  }
+ else {
+    if (filterChain != null)     filterChain.doFilter(request,response);
+  }
+}

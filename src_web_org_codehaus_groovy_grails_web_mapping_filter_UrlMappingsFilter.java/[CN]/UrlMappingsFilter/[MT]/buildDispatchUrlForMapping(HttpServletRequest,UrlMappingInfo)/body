@@ -1,0 +1,8 @@
+{
+  StringBuffer forwardUrl=new StringBuffer();
+  forwardUrl.append(SLASH).append(info.getControllerName());
+  if (!StringUtils.isBlank(info.getActionName())) {
+    forwardUrl.append(SLASH).append(info.getActionName());
+  }
+  return forwardUrl.toString();
+}

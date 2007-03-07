@@ -1,0 +1,30 @@
+{
+  Map params=new HashMap();
+  Errors errors=new MapBindingResult(params,"urlMapping");
+  String lastGroup=null;
+  for (int i=0; i < m.groupCount(); i++) {
+    lastGroup=m.group(i + 1);
+    if (constraints.length > i) {
+      ConstrainedProperty cp=constraints[i];
+      cp.validate(this,lastGroup,errors);
+      if (errors.hasErrors())       return null;
+ else {
+        params.put(cp.getPropertyName(),lastGroup);
+      }
+    }
+  }
+  if (lastGroup != null) {
+    String remainingUri=uri.substring(uri.lastIndexOf(lastGroup) + lastGroup.length());
+    if (remainingUri.length() > 0) {
+      if (remainingUri.startsWith(SLASH))       remainingUri=remainingUri.substring(1);
+      String[] tokens=remainingUri.split(SLASH);
+      for (int i=0; i < tokens.length; i=i + 2) {
+        String token=tokens[i];
+        if ((i + 1) < tokens.length) {
+          params.put(token,tokens[i + 1]);
+        }
+      }
+    }
+  }
+  return new DefaultUrlMappingInfo(this.controllerName,this.actionName,params);
+}

@@ -17,6 +17,12 @@
     WebApplicationContext parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
     config=new GrailsRuntimeConfigurator(application,parent);
   }
+  String uri=urlHelper.getPathWithinApplication(httpServletRequest);
+  String lastPart=uri.substring(uri.lastIndexOf("/"));
+  if (lastPart.indexOf('.') > -1) {
+    filterChain.doFilter(httpServletRequest,httpServletResponse);
+    return;
+  }
   if (copyScript == null) {
     GroovyClassLoader gcl=new GroovyClassLoader(getClass().getClassLoader());
     Class groovyClass;

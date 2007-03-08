@@ -1,0 +1,4 @@
+{
+  super.initFrameworkServlet();
+  this.multipartResolver=(MultipartResolver)getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
+}

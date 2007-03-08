@@ -1,5 +1,8 @@
 {
-  MockHttpServletRequest request=new MockHttpServletRequest(requestMethod,uri);
+  GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest((GrailsWebApplicationContext)this.appCtx);
+  MockHttpServletRequest request=(MockHttpServletRequest)((GrailsHttpServletRequest)webRequest.getCurrentRequest()).getRequest();
+  request.setRequestURI(uri);
+  request.setMethod(requestMethod);
   request.setContextPath("/simple");
   if (parameters != null) {
     for (Iterator iter=parameters.keySet().iterator(); iter.hasNext(); ) {

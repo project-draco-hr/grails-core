@@ -78,7 +78,7 @@ catch (  Error err) {
   }
  finally {
     if (processedRequest instanceof MultipartHttpServletRequest && processedRequest != request) {
-      this.multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
+      if (multipartResolver != null)       this.multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
     }
     requestAttributes.requestCompleted();
     RequestContextHolder.setRequestAttributes(previousRequestAttributes);

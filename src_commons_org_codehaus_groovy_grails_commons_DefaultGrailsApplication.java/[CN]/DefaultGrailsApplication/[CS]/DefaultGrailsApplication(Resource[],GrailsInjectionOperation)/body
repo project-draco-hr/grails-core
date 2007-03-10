@@ -44,9 +44,4 @@
       throw e;
     }
   }
-  if (log.isDebugEnabled()) {
-    log.debug("loaded classes: [" + loadedClasses + "]");
-  }
-  Class[] classes=populateAllClasses();
-  configureLoadedClasses(classes);
 }

@@ -23,6 +23,9 @@
       c.setDelegate(delegate);
       c.call();
     }
+ else {
+      LOG.warn("User-defined constraints not found on class [" + clazz + "], applying default constraints");
+    }
   }
   Map constrainedProperties=delegate.getConstrainedProperties();
   if (this.properties != null) {

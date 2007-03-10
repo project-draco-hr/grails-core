@@ -7,19 +7,25 @@
     if (index > -1) {
       propertyName=propertyName.substring(0,index);
       if (bean.isReadableProperty(propertyName) && bean.isWritableProperty(propertyName)) {
-        Class type=bean.getPropertyType(propertyName);
-        ClassLoader currentClassLoader=getClass().getClassLoader();
-        ClassLoader grailsClassLoader=getTarget().getClass().getClassLoader();
-        try {
-          Thread.currentThread().setContextClassLoader(grailsClassLoader);
-          Object persisted;
-          persisted=InvokerHelper.invokeStaticMethod(type,"get",pv.getValue());
-          if (persisted != null) {
-            bean.setPropertyValue(propertyName,persisted);
-          }
+        if (NULL_ASSOCIATION.equals(pv.getValue())) {
+          bean.setPropertyValue(propertyName,null);
+          mpvs.removePropertyValue(pv);
         }
+ else {
+          Class type=bean.getPropertyType(propertyName);
+          ClassLoader currentClassLoader=getClass().getClassLoader();
+          ClassLoader grailsClassLoader=getTarget().getClass().getClassLoader();
+          try {
+            Thread.currentThread().setContextClassLoader(grailsClassLoader);
+            Object persisted;
+            persisted=InvokerHelper.invokeStaticMethod(type,"get",pv.getValue());
+            if (persisted != null) {
+              bean.setPropertyValue(propertyName,persisted);
+            }
+          }
   finally {
-          Thread.currentThread().setContextClassLoader(currentClassLoader);
+            Thread.currentThread().setContextClassLoader(currentClassLoader);
+          }
         }
       }
     }

@@ -4,9 +4,6 @@
   assertTrue(cp.supportsContraint(ConstrainedProperty.EMAIL_CONSTRAINT));
   assertTrue(cp.supportsContraint(ConstrainedProperty.MATCHES_CONSTRAINT));
   assertTrue(cp.supportsContraint(ConstrainedProperty.IN_LIST_CONSTRAINT));
-  assertTrue(cp.supportsContraint(ConstrainedProperty.LENGTH_CONSTRAINT));
-  assertTrue(cp.supportsContraint(ConstrainedProperty.MAX_LENGTH_CONSTRAINT));
-  assertTrue(cp.supportsContraint(ConstrainedProperty.MIN_LENGTH_CONSTRAINT));
   assertTrue(cp.supportsContraint(ConstrainedProperty.MAX_CONSTRAINT));
   assertTrue(cp.supportsContraint(ConstrainedProperty.MIN_CONSTRAINT));
   assertTrue(cp.supportsContraint(ConstrainedProperty.NOT_EQUAL_CONSTRAINT));
@@ -71,9 +68,6 @@
   assertFalse(cp.supportsContraint(ConstrainedProperty.BLANK_CONSTRAINT));
   assertFalse(cp.supportsContraint(ConstrainedProperty.EMAIL_CONSTRAINT));
   assertFalse(cp.supportsContraint(ConstrainedProperty.MATCHES_CONSTRAINT));
-  assertFalse(cp.supportsContraint(ConstrainedProperty.LENGTH_CONSTRAINT));
-  assertFalse(cp.supportsContraint(ConstrainedProperty.MAX_LENGTH_CONSTRAINT));
-  assertFalse(cp.supportsContraint(ConstrainedProperty.MIN_LENGTH_CONSTRAINT));
   assertFalse(cp.supportsContraint(ConstrainedProperty.URL_CONSTRAINT));
   assertFalse(cp.supportsContraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT));
   assertFalse(cp.supportsContraint(ConstrainedProperty.MIN_SIZE_CONSTRAINT));

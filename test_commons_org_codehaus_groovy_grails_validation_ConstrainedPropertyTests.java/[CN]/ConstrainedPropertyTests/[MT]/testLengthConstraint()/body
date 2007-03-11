@@ -1,9 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.LENGTH_CONSTRAINT,new IntRange(5,15));
-  constraintTester.testConstraint("tiny",true);
-  constraintTester.testConstraint("12345",false);
-  constraintTester.testConstraint("1234567890",false);
-  constraintTester.testConstraint("123456789012345",false);
-  constraintTester.testConstraint("absolutelytotallytoolong",true);
-  constraintTester.testConstraint(null,false);
-}

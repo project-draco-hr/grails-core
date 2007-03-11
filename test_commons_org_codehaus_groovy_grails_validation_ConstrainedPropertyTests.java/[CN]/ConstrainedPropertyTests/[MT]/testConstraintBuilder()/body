@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
-  Class groovyClass=gcl.parseClass("class TestClass {\n" + "Long id\n" + "Long version\n"+ "String login\n"+ "String email\n"+ "static constraints = {\n"+ "login(length:5..15,nullable:false,blank:false)\n"+ "email(email:true)\n"+ "}\n"+ "}");
+  Class groovyClass=gcl.parseClass("class TestClass {\n" + "Long id\n" + "Long version\n"+ "String login\n"+ "String email\n"+ "static constraints = {\n"+ "login(size:5..15,nullable:false,blank:false)\n"+ "email(email:true)\n"+ "}\n"+ "}");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(groovyClass);
   Map constrainedProperties=domainClass.getConstrainedProperties();
   assertTrue(constrainedProperties.size() == 2);

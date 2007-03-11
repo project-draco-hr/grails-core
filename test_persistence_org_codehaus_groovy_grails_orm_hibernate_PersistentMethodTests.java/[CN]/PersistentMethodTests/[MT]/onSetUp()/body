@@ -1,5 +1,5 @@
 {
-  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t Long id; \n"+ "\t Long version; \n"+ "\t\n"+ "\t String firstName; \n"+ "\t String lastName; \n"+ "\t Integer age;\n"+ "boolean active = true"+ "\t\n"+ "\tstatic constraints = {\n"+ "\t\tfirstName(length:4..15)\n"+ "\t\tlastName(nullable:false)\n"+ "\t}\n"+ "}");
+  Class groovyClass=cl.parseClass("public class PersistentMethodTests {\n" + "\n" + "\t List optionals = [ \"age\" ];\n"+ "\t\n"+ "\t Long id; \n"+ "\t Long version; \n"+ "\t\n"+ "\t String firstName; \n"+ "\t String lastName; \n"+ "\t Integer age;\n"+ "boolean active = true"+ "\t\n"+ "\tstatic constraints = {\n"+ "\t\tfirstName(size:4..15)\n"+ "\t\tlastName(nullable:false)\n"+ "\t}\n"+ "}");
   Class descendentClass=cl.parseClass("public class PersistentMethodTestsDescendent extends PersistentMethodTests {\n" + "   String gender\n" + "   static constraints = {\n"+ "       gender(blank:false)\n"+ "   }\n"+ "}");
   grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass,descendentClass},cl);
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();

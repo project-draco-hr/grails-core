@@ -1,3 +1,0 @@
-{
-  LOG.warn("Domain class [" + this.owningClass + "] includes the "+ deprecatedConstraintName+ " constraint for the "+ getPropertyName()+ " property.  This constraint is deprecated and will be removed in the future.  "+ "Please update your code to use the "+ replacementConstraintName+ " constraint instead.");
-}

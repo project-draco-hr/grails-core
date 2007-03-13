@@ -1,5 +1,5 @@
 {
-  Long startDelay=(Long)getPropertyOrStaticPropertyOrFieldValue(START_DELAY,Long.class);
-  if (startDelay == null)   return DEFAULT_START_DELAY;
-  return startDelay.longValue();
+  Object obj=getPropertyValue(START_DELAY);
+  if (obj == null)   return DEFAULT_START_DELAY;
+  return ((Number)obj).longValue();
 }

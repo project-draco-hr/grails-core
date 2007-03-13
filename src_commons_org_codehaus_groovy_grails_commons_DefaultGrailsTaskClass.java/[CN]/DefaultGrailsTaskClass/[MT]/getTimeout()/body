@@ -1,5 +1,5 @@
 {
-  Long timeOut=(Long)getPropertyOrStaticPropertyOrFieldValue(TIMEOUT,Long.class);
-  if (timeOut == null)   return DEFAULT_TIMEOUT;
-  return timeOut.longValue();
+  Object obj=getPropertyValue(TIMEOUT);
+  if (obj == null)   return DEFAULT_TIMEOUT;
+  return ((Number)obj).longValue();
 }

@@ -7,8 +7,8 @@
         UrlMappingData urlData=urlParser.parse(methodName);
         Closure callable=(Closure)args[0];
         callable.call();
-        String controllerName=(String)binding.getVariable(GrailsControllerClass.CONTROLLER);
-        String actionName=(String)binding.getVariable(GrailsControllerClass.ACTION);
+        Object controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
+        Object actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
         if (controllerName == null) {
           throw new UrlMappingException("No controller defined for URL mapping [" + methodName + "]");
         }
@@ -22,8 +22,8 @@
       }
     }
   finally {
-      binding.setVariable(GrailsControllerClass.CONTROLLER,null);
-      binding.setVariable(GrailsControllerClass.ACTION,null);
+      binding.getVariables().remove(GrailsControllerClass.CONTROLLER);
+      binding.getVariables().remove(GrailsControllerClass.ACTION);
       previousConstraints.clear();
       urlDefiningMode=true;
     }

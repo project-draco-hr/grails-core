@@ -3,6 +3,8 @@
   String pattern=null;
   try {
     pattern=url.replaceAll("\\*","[^/]+");
+    pattern+="/??$";
+    System.out.println("pattern = " + pattern);
     regex=Pattern.compile(pattern);
   }
  catch (  PatternSyntaxException pse) {

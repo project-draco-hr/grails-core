@@ -23,7 +23,6 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("Matched URI [" + uri + "] to URL mapping, forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
     }
-    populateParamsForMapping(info);
     RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
     RequestDispatcherWrapper wrapper=new RequestDispatcherWrapper(dispatcher);
     WrappedResponseHolder.setWrappedResponse(response);

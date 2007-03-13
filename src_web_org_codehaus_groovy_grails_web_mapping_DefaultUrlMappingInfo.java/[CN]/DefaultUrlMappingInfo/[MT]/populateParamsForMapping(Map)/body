@@ -1,0 +1,10 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+  if (webRequest != null) {
+    GrailsParameterMap params=webRequest.getParams();
+    for (Iterator j=dispatchParams.keySet().iterator(); j.hasNext(); ) {
+      String name=(String)j.next();
+      params.put(name,dispatchParams.get(name));
+    }
+  }
+}

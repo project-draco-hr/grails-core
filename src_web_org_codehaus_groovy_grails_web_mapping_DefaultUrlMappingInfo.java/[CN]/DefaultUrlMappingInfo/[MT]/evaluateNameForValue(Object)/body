@@ -1,0 +1,12 @@
+{
+  String name;
+  if (value instanceof Closure) {
+    Closure callable=(Closure)value;
+    Object result=callable.call();
+    name=result != null ? result.toString() : null;
+  }
+ else {
+    name=value.toString();
+  }
+  return name;
+}

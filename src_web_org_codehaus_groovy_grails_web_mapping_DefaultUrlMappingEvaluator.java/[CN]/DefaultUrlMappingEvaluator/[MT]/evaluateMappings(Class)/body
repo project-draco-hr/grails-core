@@ -11,6 +11,8 @@
     UrlMappingBuilder builder=new UrlMappingBuilder(script.getBinding());
     mappings.setDelegate(builder);
     mappings.call();
+    builder.urlDefiningMode=false;
+    configureUrlMappingDynamicObjects(script);
     return builder.getUrlMappings();
   }
  else {

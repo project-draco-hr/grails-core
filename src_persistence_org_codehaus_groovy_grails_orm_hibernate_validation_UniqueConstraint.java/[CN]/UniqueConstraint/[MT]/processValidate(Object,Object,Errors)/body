@@ -5,7 +5,14 @@
       public Object doInHibernate(      Session session) throws HibernateException {
         session.setFlushMode(FlushMode.MANUAL);
         try {
-          return session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue)).list();
+          Criteria criteria=session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
+          if (uniquenessGroup != null) {
+            for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
+              String propertyName=(String)it.next();
+              criteria.add(Restrictions.eq(propertyName,GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,propertyName)));
+            }
+          }
+          return criteria.list();
         }
   finally {
           session.setFlushMode(FlushMode.AUTO);

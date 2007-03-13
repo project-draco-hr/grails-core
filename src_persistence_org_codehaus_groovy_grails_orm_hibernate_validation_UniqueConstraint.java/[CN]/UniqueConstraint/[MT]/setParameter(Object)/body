@@ -1,5 +1,28 @@
 {
-  if (!(constraintParameter instanceof Boolean))   throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
-  this.unique=((Boolean)constraintParameter).booleanValue();
+  if (!(constraintParameter instanceof Boolean || constraintParameter instanceof String || constraintParameter instanceof GString|| constraintParameter instanceof List)) {
+    throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
+  }
+  if (constraintParameter instanceof List) {
+    for (Iterator it=((List)constraintParameter).iterator(); it.hasNext(); ) {
+      Object parameter=it.next();
+      if (!(parameter instanceof String || parameter instanceof GString)) {
+        throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
+      }
+ else {
+        this.uniquenessGroup.add(parameter.toString());
+      }
+    }
+  }
+ else   if (constraintParameter instanceof String) {
+    this.uniquenessGroup.add((String)constraintParameter);
+    this.unique=true;
+  }
+ else   if (constraintParameter instanceof GString) {
+    this.uniquenessGroup.add(constraintParameter.toString());
+    this.unique=true;
+  }
+ else {
+    this.unique=((Boolean)constraintParameter).booleanValue();
+  }
   super.setParameter(constraintParameter);
 }

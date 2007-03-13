@@ -1,3 +1,10 @@
 {
-  return true;
+  boolean result=true;
+  if (uniquenessGroup.size() > 0) {
+    for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
+      String propertyName=(String)it.next();
+      result=result && GrailsClassUtils.getProperyType(type,propertyName) != null;
+    }
+  }
+  return result;
 }

@@ -1,0 +1,18 @@
+{
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"CriteriaBuilderTestClass");
+  assertNotNull(domainClass);
+  GroovyObject obj=(GroovyObject)domainClass.newInstance();
+  obj.setProperty("firstName","fred");
+  obj.setProperty("lastName","fred");
+  obj.setProperty("age",new Integer(43));
+  obj.invokeMethod("save",null);
+  GroovyObject obj2=(GroovyObject)domainClass.newInstance();
+  obj2.setProperty("firstName","zulu");
+  obj2.setProperty("lastName","alpha");
+  obj2.setProperty("age",new Integer(45));
+  obj2.invokeMethod("save",null);
+  Proxy p=null;
+  p=parse("{ " + "lt('age',44);" + "}","Test1");
+  List results=(List)p.getAdaptee();
+  assertEquals(1,results.size());
+}

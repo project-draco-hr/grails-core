@@ -13,11 +13,7 @@
       }
     }
   }
- else   if (constraintParameter instanceof String) {
-    this.uniquenessGroup.add((String)constraintParameter);
-    this.unique=true;
-  }
- else   if (constraintParameter instanceof GString) {
+ else   if (constraintParameter instanceof String || constraintParameter instanceof GString) {
     this.uniquenessGroup.add(constraintParameter.toString());
     this.unique=true;
   }

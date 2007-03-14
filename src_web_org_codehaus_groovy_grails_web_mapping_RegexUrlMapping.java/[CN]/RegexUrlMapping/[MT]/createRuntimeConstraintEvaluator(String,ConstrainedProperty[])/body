@@ -1,0 +1,16 @@
+{
+  if (constraints == null)   return null;
+  for (int i=0; i < constraints.length; i++) {
+    ConstrainedProperty constraint=constraints[i];
+    if (constraint.getPropertyName().equals(name)) {
+      return new Closure(this){
+        public Object call(        Object[] objects){
+          GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+          return webRequest.getParams().get(name);
+        }
+      }
+;
+    }
+  }
+  return null;
+}

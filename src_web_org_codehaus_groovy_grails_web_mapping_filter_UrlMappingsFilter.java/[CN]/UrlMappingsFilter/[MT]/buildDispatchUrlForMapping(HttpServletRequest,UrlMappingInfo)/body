@@ -1,8 +1,9 @@
 {
-  StringBuffer forwardUrl=new StringBuffer();
+  StringBuffer forwardUrl=new StringBuffer(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);
   forwardUrl.append(SLASH).append(info.getControllerName());
   if (!StringUtils.isBlank(info.getActionName())) {
     forwardUrl.append(SLASH).append(info.getActionName());
   }
+  forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
   return forwardUrl.toString();
 }

@@ -1,6 +1,5 @@
 {
   if (data == null)   throw new IllegalArgumentException("Argument [pattern] cannot be null");
-  if (controllerName == null)   throw new IllegalArgumentException("Argument [controllerName] cannot be null or blank");
   this.controllerName=controllerName;
   this.actionName=actionName;
   String[] urls=data.getLogicalUrls();

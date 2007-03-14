@@ -1,5 +1,8 @@
 {
   String uri=urlHelper.getPathWithinApplication(request);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Looking up Grails controller for URI [" + uri + "]");
+  }
   GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefactForFeature(ControllerArtefactHandler.TYPE,uri);
   if (controllerClass != null) {
     HandlerInterceptor[] interceptors;

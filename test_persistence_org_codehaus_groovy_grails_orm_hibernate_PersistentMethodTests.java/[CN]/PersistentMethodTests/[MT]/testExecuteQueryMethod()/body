@@ -1,0 +1,67 @@
+{
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,"PersistentMethodTests");
+  GroovyObject obj=(GroovyObject)domainClass.newInstance();
+  obj.setProperty("id",new Long(1));
+  obj.setProperty("firstName","fred");
+  obj.setProperty("lastName","flintstone");
+  obj.invokeMethod("save",null);
+  GroovyObject obj2=(GroovyObject)domainClass.newInstance();
+  obj2.setProperty("id",new Long(2));
+  obj2.setProperty("firstName","wilma");
+  obj2.setProperty("lastName","flintstone");
+  obj2.invokeMethod("save",null);
+  try {
+    obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{});
+    fail("Should have thrown an exception");
+  }
+ catch (  Exception e) {
+  }
+  try {
+    obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"1","2","3"});
+    fail("Should have thrown an exception");
+  }
+ catch (  Exception e) {
+  }
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p"});
+  assertNotNull(returnValue);
+  assertEquals(ArrayList.class,returnValue.getClass());
+  List listResult=(List)returnValue;
+  assertEquals(2,listResult.size());
+  List args=new ArrayList();
+  args.add("wilma");
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = ?",args});
+  assertNotNull(returnValue);
+  assertEquals(ArrayList.class,returnValue.getClass());
+  listResult=(List)returnValue;
+  assertEquals(1,listResult.size());
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = ?","wilma"});
+  assertNotNull(returnValue);
+  assertEquals(ArrayList.class,returnValue.getClass());
+  listResult=(List)returnValue;
+  assertEquals(1,listResult.size());
+  Map namedArgs=new HashMap();
+  namedArgs.put("name","wilma");
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = :name",namedArgs});
+  assertNotNull(returnValue);
+  assertEquals(ArrayList.class,returnValue.getClass());
+  listResult=(List)returnValue;
+  assertEquals(1,listResult.size());
+  namedArgs.clear();
+  List namesList=new ArrayList();
+  namesList.add("wilma");
+  namesList.add("fred");
+  namedArgs.put("namesList",namesList);
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName in (:namesList)",namedArgs});
+  assertNotNull(returnValue);
+  assertEquals(ArrayList.class,returnValue.getClass());
+  listResult=(List)returnValue;
+  assertEquals(2,listResult.size());
+  try {
+    namedArgs.clear();
+    namedArgs.put(new Long(1),"wilma");
+    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = :name",namedArgs});
+    fail("Should have thrown grails query exception");
+  }
+ catch (  GrailsQueryException gqe) {
+  }
+}

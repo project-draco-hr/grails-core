@@ -1,0 +1,19 @@
+{
+  StringBuffer uri=new StringBuffer();
+  String[] tokens=urlData.getTokens();
+  int paramIndex=0;
+  for (int i=0; i < tokens.length; i++) {
+    String token=tokens[i];
+    if (CAPTURED_WILDCARD.equals(token)) {
+      ConstrainedProperty prop=this.constraints[paramIndex++];
+      Object value=parameterValues.get(prop.getPropertyName());
+      if (value == null && !prop.isNullable())       throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
+ else       if (value == null)       break;
+      uri.append(SLASH).append(value);
+    }
+ else {
+      uri.append(SLASH).append(token);
+    }
+  }
+  return uri.toString();
+}

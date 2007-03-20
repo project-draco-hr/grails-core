@@ -13,5 +13,11 @@
   }
   if (constraints != null) {
     this.constraints=constraints;
+    for (int i=0; i < constraints.length; i++) {
+      ConstrainedProperty constraint=constraints[i];
+      if (data.isOptional(i)) {
+        constraint.setNullable(true);
+      }
+    }
   }
 }

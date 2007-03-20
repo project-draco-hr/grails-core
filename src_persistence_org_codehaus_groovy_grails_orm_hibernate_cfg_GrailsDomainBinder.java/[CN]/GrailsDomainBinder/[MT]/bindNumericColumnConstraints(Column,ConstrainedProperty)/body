@@ -1,35 +1,25 @@
 {
   int scale=Column.DEFAULT_SCALE;
+  int precision=Column.DEFAULT_PRECISION;
   if (constrainedProperty.getScale() != null) {
     scale=constrainedProperty.getScale().intValue();
     column.setScale(scale);
   }
-  Integer minSizeConstraintValue=constrainedProperty.getMinSize();
-  Integer maxSizeConstraintValue=constrainedProperty.getMaxSize();
   Comparable minConstraintValue=constrainedProperty.getMin();
   Comparable maxConstraintValue=constrainedProperty.getMax();
-  if ((minSizeConstraintValue != null) || (maxSizeConstraintValue != null) || (minConstraintValue != null)|| (maxConstraintValue != null)) {
-    int minSizeConstraintValueLength=0;
-    if (minSizeConstraintValue != null) {
-      minSizeConstraintValueLength=countDigits(minSizeConstraintValue);
-    }
-    int maxSizeConstraintValueLength=0;
-    if (maxSizeConstraintValue != null) {
-      maxSizeConstraintValueLength=countDigits(maxSizeConstraintValue);
-    }
-    int minConstraintValueLength=0;
-    int minConstraintValueIntegerLength=0;
-    if ((minConstraintValue != null) && (minConstraintValue instanceof Number)) {
-      minConstraintValueLength=countDigits((Number)minConstraintValue);
-      minConstraintValueIntegerLength=countDigits(new Long(((Number)minConstraintValue).longValue()));
-    }
-    int maxConstraintValueLength=0;
-    int maxConstraintValueIntegerLength=0;
-    if ((maxConstraintValue != null) && (maxConstraintValue instanceof Number)) {
-      maxConstraintValueLength=countDigits((Number)maxConstraintValue);
-      maxConstraintValueIntegerLength=countDigits(new Long(((Number)maxConstraintValue).longValue()));
-    }
-    int maxDigits=NumberUtils.max(new int[]{minSizeConstraintValueLength,maxSizeConstraintValueLength,minConstraintValueLength,(minConstraintValueIntegerLength + scale),maxConstraintValueLength,(maxConstraintValueIntegerLength + scale)});
-    column.setPrecision(maxDigits);
+  int minConstraintValueLength=0;
+  if ((minConstraintValue != null) && (minConstraintValue instanceof Number)) {
+    minConstraintValueLength=Math.max(countDigits((Number)minConstraintValue),countDigits(new Long(((Number)minConstraintValue).longValue())) + scale);
   }
+  int maxConstraintValueLength=0;
+  if ((maxConstraintValue != null) && (maxConstraintValue instanceof Number)) {
+    maxConstraintValueLength=Math.max(countDigits((Number)maxConstraintValue),countDigits(new Long(((Number)maxConstraintValue).longValue())) + scale);
+  }
+  if (minConstraintValueLength > 0 && maxConstraintValueLength > 0) {
+    precision=NumberUtils.max(new int[]{minConstraintValueLength,maxConstraintValueLength});
+  }
+ else {
+    precision=NumberUtils.max(new int[]{precision,minConstraintValueLength,maxConstraintValueLength});
+  }
+  column.setPrecision(precision);
 }

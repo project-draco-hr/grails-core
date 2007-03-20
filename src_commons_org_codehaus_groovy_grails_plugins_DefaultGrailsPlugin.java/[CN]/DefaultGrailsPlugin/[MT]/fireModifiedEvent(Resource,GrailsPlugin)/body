@@ -4,6 +4,7 @@
   if (className != null) {
     Class oldClass=application.getClassForName(className);
     loadedClass=attemptClassReload(className);
+    Assert.isTrue(oldClass != loadedClass,"Problem reloading class [" + oldClass + "]. The reload was not successful!");
     replaceExpandoMetaClass(loadedClass,oldClass);
   }
   final Class resourceClass=loadedClass;

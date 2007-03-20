@@ -1,4 +1,5 @@
 {
+  if (value == null)   return null;
   String name;
   if (value instanceof Closure) {
     Closure callable=(Closure)value;

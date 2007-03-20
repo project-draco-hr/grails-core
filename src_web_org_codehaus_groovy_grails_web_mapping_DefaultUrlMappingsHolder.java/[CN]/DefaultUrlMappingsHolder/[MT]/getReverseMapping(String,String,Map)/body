@@ -1,0 +1,5 @@
+{
+  if (params == null)   params=Collections.EMPTY_MAP;
+  UrlMappingKey key=new UrlMappingKey(controller,action,params.keySet());
+  return (UrlMapping)mappingsLookup.get(key);
+}

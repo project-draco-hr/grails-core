@@ -2,4 +2,32 @@
   Collections.sort(this.urlMappings);
   Collections.reverse(this.urlMappings);
   this.mappings=(UrlMapping[])this.urlMappings.toArray(new UrlMapping[this.urlMappings.size()]);
+  for (int i=0; i < mappings.length; i++) {
+    UrlMapping mapping=mappings[i];
+    String controllerName=mapping.getControllerName() instanceof String ? mapping.getControllerName().toString() : null;
+    String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
+    ConstrainedProperty[] params=mapping.getConstraints();
+    Set requiredParams=new HashSet();
+    int optionalIndex=-1;
+    for (int j=0; j < params.length; j++) {
+      ConstrainedProperty param=params[j];
+      if (!param.isNullable()) {
+        requiredParams.add(param.getPropertyName());
+      }
+ else {
+        optionalIndex=j;
+        break;
+      }
+    }
+    this.mappingsLookup.put(new UrlMappingKey(controllerName,actionName,requiredParams),mapping);
+    Set requiredParamsAndOptionals=new HashSet(requiredParams);
+    if (optionalIndex > -1) {
+      for (int j=optionalIndex; j < params.length; j++) {
+        ConstrainedProperty param=params[j];
+        requiredParamsAndOptionals.add(param.getPropertyName());
+        UrlMappingKey key=new UrlMappingKey(controllerName,actionName,new HashSet(requiredParamsAndOptionals));
+        mappingsLookup.put(key,mapping);
+      }
+    }
+  }
 }

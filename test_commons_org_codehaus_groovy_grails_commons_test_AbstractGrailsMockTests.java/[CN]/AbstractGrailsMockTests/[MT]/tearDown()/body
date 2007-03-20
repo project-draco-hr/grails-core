@@ -1,0 +1,6 @@
+{
+  onTearDown();
+  ga=null;
+  ctx=null;
+  super.tearDown();
+}

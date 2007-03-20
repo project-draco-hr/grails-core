@@ -1,5 +1,4 @@
 {
-  super.tearDown();
   ApplicationHolder.setApplication(null);
   GrailsMetaClassUtils.getRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
   if (TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
@@ -10,4 +9,10 @@
     SessionFactoryUtils.releaseSession(s,this.sessionFactory);
   }
   onTearDown();
+  gcl=null;
+  ga=null;
+  session=null;
+  sessionFactory=null;
+  applicationContext=null;
+  super.tearDown();
 }

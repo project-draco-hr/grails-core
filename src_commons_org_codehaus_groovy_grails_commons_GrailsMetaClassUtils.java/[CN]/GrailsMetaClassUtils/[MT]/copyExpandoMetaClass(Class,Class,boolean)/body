@@ -42,18 +42,11 @@
     }
   }
   replacement.initialize();
-  TagLibArtefactHandler handler=new TagLibArtefactHandler();
-  if (adapter == null && !handler.isArtefact(toClass)) {
+  if (adapter == null) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Adding MetaClass for class [" + toClass + "] MetaClass ["+ replacement+ "]");
     }
     registry.setMetaClass(toClass,replacement);
-  }
- else   if (handler.isArtefact(toClass)) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Replacing tag library [" + toClass + "] MetaClass ["+ replacement+ "]");
-    }
-    registry.setMetaClass(toClass,new TagLibMetaClass(replacement));
   }
  else {
     if (LOG.isDebugEnabled()) {

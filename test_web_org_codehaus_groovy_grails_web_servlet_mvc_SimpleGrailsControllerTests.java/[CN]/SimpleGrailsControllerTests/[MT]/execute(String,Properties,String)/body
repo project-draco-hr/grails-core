@@ -11,5 +11,5 @@
       request.addParameter(paramName,paramValue);
     }
   }
-  return controller.handleRequest(request,response);
+  return controller.handleRequest(request,null);
 }

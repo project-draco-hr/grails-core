@@ -1,3 +1,3 @@
 {
-  return execute(uri,parameters,"GET",new MockHttpServletResponse());
+  return execute(uri,parameters,"GET");
 }

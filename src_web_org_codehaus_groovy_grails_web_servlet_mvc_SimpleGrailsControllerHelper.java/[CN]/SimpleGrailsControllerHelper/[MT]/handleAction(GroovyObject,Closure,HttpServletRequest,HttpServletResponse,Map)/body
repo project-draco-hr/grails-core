@@ -3,7 +3,26 @@
     GrailsParameterMap paramsMap=(GrailsParameterMap)controller.getProperty("params");
     paramsMap.putAll(params);
   }
-  Object returnValue=action.call();
+  Class[] paramTypes=action.getParameterTypes();
+  Object commandObject=null;
+  if (paramTypes != null && paramTypes.length > 0) {
+    Class c=paramTypes[0];
+    if (c.getName().endsWith("CommandObject")) {
+      try {
+        commandObject=c.newInstance();
+      }
+ catch (      Exception e) {
+        throw new ControllerExecutionException("Error occurred creating command object.",e);
+      }
+    }
+  }
+  Object returnValue=null;
+  if (commandObject == null) {
+    returnValue=action.call();
+  }
+ else {
+    returnValue=action.call(commandObject);
+  }
   request.setAttribute(GrailsApplicationAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
   return returnValue;
 }

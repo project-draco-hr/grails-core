@@ -7,7 +7,7 @@
   Object commandObject=null;
   if (paramTypes != null && paramTypes.length > 0) {
     Class c=paramTypes[0];
-    if (c.getName().endsWith("CommandObject")) {
+    if (isCommandObjectClass(c)) {
       try {
         commandObject=c.newInstance();
       }

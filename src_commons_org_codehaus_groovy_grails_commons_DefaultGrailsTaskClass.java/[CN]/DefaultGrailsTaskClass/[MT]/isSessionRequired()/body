@@ -1,0 +1,5 @@
+{
+  Boolean concurrent=(Boolean)getPropertyValue(SESSION_REQUIRED,Boolean.class);
+  if (concurrent == null)   return DEFAULT_SESSION_REQUIRED;
+  return concurrent.booleanValue();
+}

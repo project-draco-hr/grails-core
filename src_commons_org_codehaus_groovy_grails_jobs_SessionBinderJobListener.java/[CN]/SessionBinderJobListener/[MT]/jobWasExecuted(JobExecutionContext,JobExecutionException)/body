@@ -1,0 +1,8 @@
+{
+  SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+  if (!FlushMode.MANUAL.equals(sessionHolder.getSession().getFlushMode())) {
+    sessionHolder.getSession().flush();
+  }
+  SessionFactoryUtils.closeSession(sessionHolder.getSession());
+  if (LOG.isDebugEnabled())   LOG.debug("Hibernate Session is unbounded from Job thread and closed");
+}

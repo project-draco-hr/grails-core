@@ -1,3 +1,5 @@
 {
-  return this.optional;
+  if (optional)   return true;
+  ConstrainedProperty constrainedProperty=(ConstrainedProperty)domainClass.getConstrainedProperties().get(name);
+  return (constrainedProperty == null) ? false : constrainedProperty.isNullable();
 }

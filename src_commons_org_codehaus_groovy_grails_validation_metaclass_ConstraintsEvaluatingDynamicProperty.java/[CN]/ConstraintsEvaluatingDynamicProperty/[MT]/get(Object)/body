@@ -16,7 +16,6 @@
     clazz=(Class)it.next();
     Closure c=(Closure)GrailsClassUtils.getStaticPropertyValue(clazz,PROPERTY_NAME);
     if (c == null) {
-      LOG.warn("[constraints] property not found on class [" + clazz + "], constraints closure not found, trying script");
       c=getConstraintsFromScript(object);
     }
     if (c != null) {
@@ -24,23 +23,21 @@
       c.call();
     }
  else {
-      LOG.warn("User-defined constraints not found on class [" + clazz + "], applying default constraints");
+      LOG.info("User-defined constraints not found on class [" + clazz + "], applying default constraints");
     }
   }
   Map constrainedProperties=delegate.getConstrainedProperties();
   if (this.properties != null) {
     for (int i=0; i < this.properties.length; i++) {
       GrailsDomainClassProperty p=this.properties[i];
-      if (!p.isOptional()) {
-        ConstrainedProperty cp=(ConstrainedProperty)constrainedProperties.get(p.getName());
-        if (cp == null) {
-          cp=new ConstrainedProperty(p.getDomainClass().getClazz(),p.getName(),p.getType());
-          cp.setOrder(constrainedProperties.size() + 1);
-          constrainedProperties.put(p.getName(),cp);
-        }
-        if (!p.isAssociation() && !cp.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
-          cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Boolean.FALSE);
-        }
+      ConstrainedProperty cp=(ConstrainedProperty)constrainedProperties.get(p.getName());
+      if (cp == null) {
+        cp=new ConstrainedProperty(p.getDomainClass().getClazz(),p.getName(),p.getType());
+        cp.setOrder(constrainedProperties.size() + 1);
+        constrainedProperties.put(p.getName(),cp);
+      }
+      if (!cp.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
+        cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Boolean.valueOf(p.isAssociation() || p.isOptional()));
       }
     }
   }

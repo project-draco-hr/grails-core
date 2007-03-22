@@ -10,8 +10,8 @@
     this.inherited=GrailsClassUtils.isPropertyInherited(domainClass.getClazz(),this.name);
   }
   List optionalProps=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(OPTIONAL,List.class);
-  List transientProps=getTransients(domainClass);
   checkIfOptional(optionalProps);
+  List transientProps=getTransients(domainClass);
   checkIfTransient(transientProps);
   establishFetchMode();
 }

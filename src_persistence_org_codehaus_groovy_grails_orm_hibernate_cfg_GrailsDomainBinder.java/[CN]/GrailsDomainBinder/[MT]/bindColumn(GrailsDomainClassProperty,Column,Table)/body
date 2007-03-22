@@ -11,8 +11,8 @@
     column.setNullable(true);
   }
  else {
-    column.setNullable(grailsProp.isOptional());
     column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()));
+    column.setNullable(grailsProp.isOptional());
     ConstrainedProperty constrainedProperty=getConstrainedProperty(grailsProp);
     if (constrainedProperty != null) {
       if (String.class.isAssignableFrom(grailsProp.getType()) || byte[].class.isAssignableFrom(grailsProp.getType())) {

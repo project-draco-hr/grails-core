@@ -2,7 +2,7 @@
   Column mappingColumn=new Column();
   mappingColumn.setName(column.getName());
   mappingColumn.setLength(column.getLength());
-  mappingColumn.setNullable(!prop.isOptional());
+  mappingColumn.setNullable(prop.isOptional());
   mappingColumn.setSqlType(column.getSqlType());
   mappingColumn.setValue(key);
   key.addColumn(mappingColumn);

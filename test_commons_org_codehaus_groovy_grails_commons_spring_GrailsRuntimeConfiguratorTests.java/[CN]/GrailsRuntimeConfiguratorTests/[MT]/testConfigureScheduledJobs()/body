@@ -7,4 +7,5 @@
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   ApplicationContext ctx=conf.configure(new MockServletContext());
   assertNotNull(ctx);
+  ((StdScheduler)ctx.getBean("quartzScheduler")).shutdown();
 }

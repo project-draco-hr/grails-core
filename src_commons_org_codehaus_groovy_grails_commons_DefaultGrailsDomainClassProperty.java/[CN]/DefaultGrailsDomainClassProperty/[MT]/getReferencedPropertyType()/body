@@ -1,5 +1,5 @@
 {
-  if (Set.class.isAssignableFrom(this.type) && this.referencedPropertyType != null) {
+  if (Collection.class.isAssignableFrom(this.type) && this.referencedPropertyType != null) {
     return this.referencedPropertyType;
   }
  else {

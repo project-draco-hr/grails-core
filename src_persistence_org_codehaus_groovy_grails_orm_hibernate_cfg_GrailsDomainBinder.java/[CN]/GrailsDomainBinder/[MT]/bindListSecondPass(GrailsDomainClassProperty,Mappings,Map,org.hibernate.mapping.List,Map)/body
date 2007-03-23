@@ -1,0 +1,17 @@
+{
+  bindCollectionSecondPass(property,mappings,persistentClasses,list,inheritedMetas);
+  SimpleValue iv=new SimpleValue(list.getCollectionTable());
+  bindSimpleValue("integer",iv,false,property.getName() + '_' + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
+  iv.setTypeName("integer");
+  list.setIndex(iv);
+  String entityName=((OneToMany)list.getElement()).getReferencedEntityName();
+  PersistentClass referenced=mappings.getClass(entityName);
+  IndexBackref ib=new IndexBackref();
+  ib.setName('_' + property.getName() + "IndexBackref");
+  ib.setUpdateable(false);
+  ib.setSelectable(false);
+  ib.setCollectionRole(list.getRole());
+  ib.setEntityName(list.getOwner().getEntityName());
+  ib.setValue(list.getIndex());
+  referenced.addProperty(ib);
+}

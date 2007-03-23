@@ -1,0 +1,9 @@
+{
+  bindCollectionSecondPass(property,mappings,persistentClasses,map,inheritedMetas);
+  SimpleValue value=new SimpleValue(map.getCollectionTable());
+  bindSimpleValue("string",value,false,property.getName() + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
+  if (!value.isTypeSpecified()) {
+    throw new MappingException("map index element must specify a type: " + map.getRole());
+  }
+  map.setIndex(value);
+}

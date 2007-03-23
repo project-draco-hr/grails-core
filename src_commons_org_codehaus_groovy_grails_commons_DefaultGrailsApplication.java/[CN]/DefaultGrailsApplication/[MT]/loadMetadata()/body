@@ -1,0 +1,11 @@
+{
+  final Properties meta=new Properties();
+  Resource r=new ClassPathResource(PROJECT_META_FILE);
+  try {
+    meta.load(r.getInputStream());
+  }
+ catch (  IOException e) {
+    log.warn("No application metadata file found at " + r);
+  }
+  applicationMeta=Collections.unmodifiableMap(meta);
+}

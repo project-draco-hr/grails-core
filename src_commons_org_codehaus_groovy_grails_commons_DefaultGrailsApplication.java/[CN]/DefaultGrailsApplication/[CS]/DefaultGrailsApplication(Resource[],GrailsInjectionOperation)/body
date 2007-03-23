@@ -1,6 +1,7 @@
 {
   super();
   log.debug("Loading Grails application.");
+  loadMetadata();
   this.resourceLoader=new GrailsResourceLoader(resources);
   GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
   this.cl=configureClassLoader(injectionOperation,resourceLoader);

@@ -1,6 +1,6 @@
 {
   try {
-    Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/*GrailsPlugin.class");
+    Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/**/*GrailsPlugin.class");
     if (resources.length > 0) {
       loadCorePluginsFromResources(resources);
     }

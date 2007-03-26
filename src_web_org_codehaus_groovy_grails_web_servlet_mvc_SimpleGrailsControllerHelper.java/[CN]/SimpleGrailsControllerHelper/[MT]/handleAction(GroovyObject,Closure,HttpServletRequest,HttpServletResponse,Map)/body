@@ -4,12 +4,18 @@
     paramsMap.putAll(params);
   }
   Class[] paramTypes=action.getParameterTypes();
-  Object commandObject=null;
+  GroovyObject commandObject=null;
   if (paramTypes != null && paramTypes.length > 0) {
     Class c=paramTypes[0];
     if (isCommandObjectClass(c)) {
       try {
-        commandObject=c.newInstance();
+        commandObject=(GroovyObject)c.newInstance();
+        GrailsDataBinder binder=GrailsDataBinder.createBinder(commandObject,commandObject.getClass().getName());
+        binder.bind(new MutablePropertyValues((GrailsParameterMap)controller.getProperty("params")));
+        ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(commandObject);
+        Closure validationClosure=(Closure)GrailsClassUtils.getStaticPropertyValue(c,"validate");
+        validationClosure.setDelegate(delegate);
+        validationClosure.call();
       }
  catch (      Exception e) {
         throw new ControllerExecutionException("Error occurred creating command object.",e);

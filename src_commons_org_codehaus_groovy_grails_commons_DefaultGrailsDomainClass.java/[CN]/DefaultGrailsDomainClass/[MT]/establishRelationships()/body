@@ -3,7 +3,10 @@
     DefaultGrailsDomainClassProperty currentProp=(DefaultGrailsDomainClassProperty)i.next();
     Class currentPropType=currentProp.getType();
     if (Collection.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
-      establishRelationshipForSet(currentProp);
+      establishRelationshipForCollection(currentProp);
+    }
+ else     if (Map.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
+      establishRelationshipForCollection(currentProp);
     }
  else     if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
       establishDomainClassRelationship(currentProp);

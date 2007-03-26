@@ -53,7 +53,7 @@
       property.setPersistant(false);
     }
   }
- else {
+ else   if (!Map.class.isAssignableFrom(property.getType())) {
     property.setPersistant(false);
   }
 }

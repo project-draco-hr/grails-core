@@ -1,5 +1,5 @@
 {
-  if (Collection.class.isAssignableFrom(this.type) && this.referencedPropertyType != null) {
+  if (isDomainAssociation()) {
     return this.referencedPropertyType;
   }
  else {

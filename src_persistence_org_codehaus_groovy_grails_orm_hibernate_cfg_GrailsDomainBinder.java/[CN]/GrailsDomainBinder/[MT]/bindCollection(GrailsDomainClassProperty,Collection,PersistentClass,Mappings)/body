@@ -12,9 +12,7 @@
     bindOneToMany(property,oneToMany,mappings);
   }
  else {
-    String tableName=calculateTableForMany(property);
-    Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
-    collection.setCollectionTable(t);
+    bindCollectionTable(property,mappings,collection);
     if (!property.isOwningSide()) {
       collection.setInverse(true);
     }

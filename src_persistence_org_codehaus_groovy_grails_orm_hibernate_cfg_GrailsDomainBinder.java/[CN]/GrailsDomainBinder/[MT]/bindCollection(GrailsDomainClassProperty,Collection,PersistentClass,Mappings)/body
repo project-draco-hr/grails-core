@@ -1,24 +1,22 @@
 {
-  if (!(collection instanceof org.hibernate.mapping.Map)) {
-    collection.setRole(StringHelper.qualify(property.getDomainClass().getFullName(),property.getName()));
-    if (property.getFetchMode() == GrailsDomainClassProperty.FETCH_EAGER) {
-      collection.setFetchMode(FetchMode.JOIN);
-    }
+  collection.setRole(StringHelper.qualify(property.getDomainClass().getFullName(),property.getName()));
+  if (property.getFetchMode() == GrailsDomainClassProperty.FETCH_EAGER) {
+    collection.setFetchMode(FetchMode.JOIN);
+  }
  else {
-      collection.setFetchMode(FetchMode.DEFAULT);
-    }
-    if (property.isOneToMany()) {
-      OneToMany oneToMany=new OneToMany(collection.getOwner());
-      collection.setElement(oneToMany);
-      bindOneToMany(property,oneToMany,mappings);
-    }
+    collection.setFetchMode(FetchMode.DEFAULT);
+  }
+  if (property.isOneToMany()) {
+    OneToMany oneToMany=new OneToMany(collection.getOwner());
+    collection.setElement(oneToMany);
+    bindOneToMany(property,oneToMany,mappings);
+  }
  else {
-      String tableName=calculateTableForMany(property);
-      Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
-      collection.setCollectionTable(t);
-      if (!property.isOwningSide()) {
-        collection.setInverse(true);
-      }
+    String tableName=calculateTableForMany(property);
+    Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
+    collection.setCollectionTable(t);
+    if (!property.isOwningSide()) {
+      collection.setInverse(true);
     }
   }
   if (collection instanceof org.hibernate.mapping.Set)   mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection));

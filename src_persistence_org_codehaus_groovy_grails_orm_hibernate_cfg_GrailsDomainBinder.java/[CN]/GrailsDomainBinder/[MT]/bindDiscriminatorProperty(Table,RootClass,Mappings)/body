@@ -2,6 +2,6 @@
   SimpleValue d=new SimpleValue(table);
   entity.setDiscriminator(d);
   entity.setDiscriminatorValue(entity.getClassName());
-  bindSimpleValue("string",d,false,RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME,mappings);
+  bindSimpleValue(STRING_TYPE,d,false,RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME,mappings);
   entity.setPolymorphic(true);
 }

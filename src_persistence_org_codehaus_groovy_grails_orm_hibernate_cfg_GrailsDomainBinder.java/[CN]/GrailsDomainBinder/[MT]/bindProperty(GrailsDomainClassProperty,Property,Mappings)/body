@@ -29,6 +29,9 @@
       }
     }
   }
+ else   if (Map.class.isAssignableFrom(grailsProperty.getType())) {
+    prop.setCascade("all");
+  }
   if (LOG.isTraceEnabled())   LOG.trace("[GrailsDomainBinder] Set cascading strategy on property [" + grailsProperty.getName() + "] to ["+ prop.getCascade()+ "]");
   prop.setLazy(true);
 }

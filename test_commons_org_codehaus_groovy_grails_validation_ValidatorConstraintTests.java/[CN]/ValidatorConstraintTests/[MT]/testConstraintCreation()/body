@@ -1,0 +1,35 @@
+{
+  Constraint validatorConstraint=new ValidatorConstraint();
+  assertEquals(ConstrainedProperty.VALIDATOR_CONSTRAINT,validatorConstraint.getName());
+  assertTrue(validatorConstraint.supports(TestClass.class));
+  assertFalse(validatorConstraint.supports(null));
+  validatorConstraint.setOwningClass(TestClass.class);
+  validatorConstraint.setPropertyName(PROP_NAME);
+  try {
+    validatorConstraint.setParameter("Test");
+    fail("ValidatorConstraint must throw an exception for non-closure parameter.");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+  Closure validator=(Closure)shell.evaluate("{ param1, param2, param3 -> return true}");
+  try {
+    validatorConstraint.setParameter(validator);
+    fail("ValidatorConstraint must throw exception about closure with more that 2 params");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+  validator=(Closure)shell.evaluate("{ Long param1, param2 -> return true}");
+  try {
+    validatorConstraint.setParameter(validator);
+    fail("ValidatorConstraint must throw exception about wrong closure param type");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+  validator=(Closure)shell.evaluate("{ param1, String param2 -> return true}");
+  try {
+    validatorConstraint.setParameter(validator);
+    fail("ValidatorConstraint must throw exception about wrong closure param type");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

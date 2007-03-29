@@ -1,0 +1,8 @@
+{
+  Constraint validatorConstraint=new ValidatorConstraint();
+  Closure validator=(Closure)shell.evaluate(closure);
+  validatorConstraint.setOwningClass(TestClass.class);
+  validatorConstraint.setPropertyName(PROP_NAME);
+  validatorConstraint.setParameter(validator);
+  return validatorConstraint;
+}

@@ -1,0 +1,7 @@
+{
+  Object potentialList=GrailsClassUtils.getStaticPropertyValue(getClazz(),GrailsDomainClassProperty.EMBEDDED);
+  if (potentialList instanceof Collection) {
+    return (Collection)potentialList;
+  }
+  return Collections.EMPTY_LIST;
+}

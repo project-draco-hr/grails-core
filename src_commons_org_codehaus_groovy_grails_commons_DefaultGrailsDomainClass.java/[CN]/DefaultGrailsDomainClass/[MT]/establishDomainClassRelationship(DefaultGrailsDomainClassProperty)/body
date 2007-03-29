@@ -1,5 +1,9 @@
 {
   Class propType=property.getType();
+  if (embedded.contains(property.getName())) {
+    property.setEmbedded(true);
+    return;
+  }
   Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(propType);
   Map mappedBy=GrailsDomainConfigurationUtil.getMappedByMap(propType);
   Class relatedClassPropertyType=null;

@@ -3,7 +3,7 @@
   Table table=simpleValue.getTable();
   Column column=new Column();
   column.setValue(simpleValue);
-  bindColumn(grailsProp,column,table);
+  bindColumn(grailsProp,column,path,table);
   if (table != null)   table.addColumn(column);
   simpleValue.addColumn(column);
 }

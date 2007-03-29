@@ -8,24 +8,28 @@
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     if (collectionType != null) {
-      Collection collection=collectionType.create(currentGrailsProp,persistentClass,mappings);
+      Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings);
       mappings.addCollection(collection);
       value=collection;
     }
  else     if (currentGrailsProp.isManyToOne()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
       value=new ManyToOne(table);
-      bindManyToOne(currentGrailsProp,(ManyToOne)value,mappings);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
     }
  else     if (currentGrailsProp.isOneToOne()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
       value=new ManyToOne(table);
-      bindManyToOne(currentGrailsProp,(ManyToOne)value,mappings);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
+    }
+ else     if (currentGrailsProp.isEmbedded()) {
+      value=new Component(persistentClass);
+      bindComponent((Component)value,currentGrailsProp,true,mappings);
     }
  else {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
       value=new SimpleValue(table);
-      bindSimpleValue(persistantProperties[i],(SimpleValue)value,mappings);
+      bindSimpleValue(persistantProperties[i],(SimpleValue)value,EMPTY_PATH,mappings);
     }
     if (value != null) {
       Property property=createProperty(value,persistentClass,persistantProperties[i],mappings);

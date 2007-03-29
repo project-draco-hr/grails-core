@@ -7,10 +7,10 @@
     String left=getTableName(property.getDomainClass());
     String right=getTableName(property.getReferencedDomainClass());
     if (property.isOwningSide()) {
-      return left + '_' + right;
+      return left + UNDERSCORE + right;
     }
  else {
-      return right + '_' + left;
+      return right + UNDERSCORE + left;
     }
   }
 }

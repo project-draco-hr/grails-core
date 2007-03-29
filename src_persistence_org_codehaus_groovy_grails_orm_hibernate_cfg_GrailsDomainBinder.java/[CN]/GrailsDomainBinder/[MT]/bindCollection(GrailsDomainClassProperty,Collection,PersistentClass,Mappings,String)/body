@@ -1,5 +1,7 @@
 {
-  collection.setRole(StringHelper.qualify(property.getDomainClass().getFullName(),property.getName()));
+  String propertyName;
+  propertyName=getNameForPropertyAndPath(property,path);
+  collection.setRole(StringHelper.qualify(property.getDomainClass().getFullName(),propertyName));
   if (property.getFetchMode() == GrailsDomainClassProperty.FETCH_EAGER) {
     collection.setFetchMode(FetchMode.JOIN);
   }

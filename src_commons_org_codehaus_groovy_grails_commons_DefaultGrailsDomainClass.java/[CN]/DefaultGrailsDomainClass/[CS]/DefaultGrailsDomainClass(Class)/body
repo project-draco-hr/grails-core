@@ -6,6 +6,7 @@
   }
   this.propertyMap=new HashMap();
   this.relationshipMap=getAssociationMap();
+  this.embedded=getEmbeddedList();
   this.tableName=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.WITH_TABLE,String.class);
   if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class) != null)   this.mappingStrategy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
   this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);

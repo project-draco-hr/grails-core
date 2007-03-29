@@ -1,0 +1,45 @@
+{
+  component.setEmbedded(true);
+  String role=StringHelper.qualify(property.getDomainClass().getFullName(),property.getName());
+  component.setRoleName(role);
+  component.setComponentClassName(property.getType().getName());
+  GrailsDomainClass domainClass=property.getReferencedDomainClass();
+  GrailsDomainClassProperty[] properties=domainClass.getPersistantProperties();
+  Table table=component.getOwner().getTable();
+  PersistentClass persistentClass=component.getOwner();
+  for (int i=0; i < properties.length; i++) {
+    GrailsDomainClassProperty currentGrailsProp=properties[i];
+    if (currentGrailsProp.isIdentity())     continue;
+    if (currentGrailsProp.getName().equals(GrailsDomainClassProperty.VERSION))     continue;
+    if (currentGrailsProp.getType().equals(property.getDomainClass().getClazz())) {
+      component.setParentProperty(currentGrailsProp.getName());
+      continue;
+    }
+    Value value=null;
+    CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
+    if (collectionType != null) {
+      Collection collection=collectionType.create(currentGrailsProp,persistentClass,property.getName(),mappings);
+      mappings.addCollection(collection);
+      value=collection;
+    }
+ else     if (currentGrailsProp.isManyToOne()) {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
+      value=new ManyToOne(table);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,property.getName(),mappings);
+    }
+ else     if (currentGrailsProp.isOneToOne()) {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
+      value=new ManyToOne(table);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,property.getName(),mappings);
+    }
+ else {
+      if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
+      value=new SimpleValue(table);
+      bindSimpleValue(currentGrailsProp,(SimpleValue)value,property.getName(),mappings);
+    }
+    if (value != null) {
+      Property persistentProperty=createProperty(value,persistentClass,currentGrailsProp,mappings);
+      component.addProperty(persistentProperty);
+    }
+  }
+}

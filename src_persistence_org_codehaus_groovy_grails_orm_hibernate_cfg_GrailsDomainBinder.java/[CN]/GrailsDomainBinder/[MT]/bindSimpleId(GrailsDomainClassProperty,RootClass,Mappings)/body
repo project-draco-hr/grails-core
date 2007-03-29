@@ -10,7 +10,7 @@
     params.setProperty(PersistentIdentifierGenerator.CATALOG,mappings.getCatalogName());
   }
   id.setIdentifierGeneratorProperties(params);
-  bindSimpleValue(identifier,id,mappings);
+  bindSimpleValue(identifier,id,EMPTY_PATH,mappings);
   Property prop=new Property();
   prop.setValue(id);
   bindProperty(identifier,prop,mappings);

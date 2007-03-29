@@ -1,0 +1,4 @@
+{
+  super(METHOD_PATTERN);
+  if (applicationContext.containsBean(UrlMappingsHolder.BEAN_ID))   this.urlMappingsHolder=(UrlMappingsHolder)applicationContext.getBean(UrlMappingsHolder.BEAN_ID);
+}

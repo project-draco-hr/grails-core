@@ -39,6 +39,14 @@
     }
 ;
   }
+ else   if (queryParameter.endsWith(ILIKE)) {
+    return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,ILIKE),ILIKE,1,isNegation(queryParameter,ILIKE)){
+      Criterion createCriterion(){
+        return Expression.ilike(this.propertyName,arguments[0]);
+      }
+    }
+;
+  }
  else   if (queryParameter.endsWith(IS_NOT_NULL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IS_NOT_NULL),IS_NOT_NULL,0,isNegation(queryParameter,IS_NOT_NULL)){
       Criterion createCriterion(){

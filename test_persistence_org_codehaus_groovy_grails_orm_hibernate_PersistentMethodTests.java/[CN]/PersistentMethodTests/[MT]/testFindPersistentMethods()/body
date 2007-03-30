@@ -35,7 +35,6 @@
   GString gs=(GString)new GroovyShell(b).evaluate("\"$test\"");
   GString gs1=(GString)new GroovyShell(b).evaluate("\"$test1\"");
   params.clear();
-  ;
   params.add(gs);
   params.add(gs1);
   returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from PersistentMethodTests where firstName like ? and lastName like ?",params});
@@ -66,7 +65,7 @@
   try {
     namedArgs.clear();
     namedArgs.put(new Long(1),"fred");
-    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from PersistentMethodTests as p where p.firstName = :name",namedArgs});
+    obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{"from PersistentMethodTests as p where p.firstName = :name",namedArgs});
     fail("Should have thrown grails query exception");
   }
  catch (  GrailsQueryException gqe) {
@@ -80,7 +79,7 @@
   returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{example});
   assertNull(returnValue);
   try {
-    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{new Date()});
+    obj.getMetaClass().invokeStaticMethod(obj,"find",new Object[]{new Date()});
     fail("Should have thrown an exception");
   }
  catch (  Exception e) {

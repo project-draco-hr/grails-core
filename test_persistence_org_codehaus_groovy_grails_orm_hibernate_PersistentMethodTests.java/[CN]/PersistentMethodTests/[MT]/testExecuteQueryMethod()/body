@@ -59,7 +59,7 @@
   try {
     namedArgs.clear();
     namedArgs.put(new Long(1),"wilma");
-    returnValue=obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = :name",namedArgs});
+    obj.getMetaClass().invokeStaticMethod(obj,"executeQuery",new Object[]{"select distinct p from PersistentMethodTests as p where p.firstName = :name",namedArgs});
     fail("Should have thrown grails query exception");
   }
  catch (  GrailsQueryException gqe) {

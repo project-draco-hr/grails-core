@@ -38,11 +38,17 @@
   assertEquals(1,returnList.size());
   obj=(GroovyObject)returnList.get(0);
   assertEquals("dino",obj.getProperty("firstName"));
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeGreaterThanOrEqual",new Object[]{new Integer(42)});
+  assertEquals(2,returnList.size());
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeLessThanOrEqual",new Object[]{new Integer(45)});
+  assertEquals(3,returnList.size());
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeGreaterThan",new Object[]{new Integer(20)});
   assertEquals(2,returnList.size());
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeGreaterThanAndLastName",new Object[]{new Integer(20),"flintstone"});
   assertEquals(2,returnList.size());
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{"flint%"});
+  assertEquals(2,returnList.size());
+  returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameIlike",new Object[]{"FLINT%"});
   assertEquals(2,returnList.size());
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10),new Integer(43)});
   assertEquals(2,returnList.size());
@@ -58,13 +64,13 @@
   returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllWhere",new Object[]{queryMap});
   assertEquals(2,returnList.size());
   try {
-    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{new Boolean(false)});
+    obj.getMetaClass().invokeStaticMethod(obj,"findAllByLastNameLike",new Object[]{Boolean.FALSE});
     fail("Should have thrown an exception for invalid arguments");
   }
  catch (  MissingMethodException mme) {
   }
   try {
-    returnList=(List)obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10)});
+    obj.getMetaClass().invokeStaticMethod(obj,"findAllByAgeBetween",new Object[]{new Integer(10)});
     fail("Should have thrown an exception for invalid argument count");
   }
  catch (  MissingMethodException mme) {

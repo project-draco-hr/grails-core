@@ -1,6 +1,4 @@
 {
   super.initFrameworkServlet();
-  if (getWebApplicationContext().containsBean(MULTIPART_RESOLVER_BEAN_NAME)) {
-    this.multipartResolver=(MultipartResolver)getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
-  }
+  initMultipartResolver();
 }

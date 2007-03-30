@@ -13,8 +13,9 @@
   if (WebUtils.isIncludeRequest(request)) {
     response=useWrappedOrOriginalResponse(response);
   }
+  processedRequest=checkMultipart(request);
   GrailsWebRequest previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  GrailsWebRequest requestAttributes=new GrailsWebRequest(request,response,getServletContext());
+  GrailsWebRequest requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
   copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
   RequestContextHolder.setRequestAttributes(requestAttributes);
   if (logger.isDebugEnabled()) {
@@ -24,7 +25,6 @@
   try {
     ModelAndView mv=null;
     try {
-      processedRequest=checkMultipart(request);
       mappedHandler=getHandler(processedRequest,false);
       if (mappedHandler == null || mappedHandler.getHandler() == null) {
         noHandlerFound(processedRequest,response);

@@ -1,0 +1,11 @@
+{
+  if (this.multipartResolver != null && this.multipartResolver.isMultipart(request)) {
+    if (request instanceof MultipartHttpServletRequest) {
+      logger.debug("Request is already a MultipartHttpServletRequest - if not in a forward, " + "this typically results from an additional MultipartFilter in web.xml");
+    }
+ else {
+      return this.multipartResolver.resolveMultipart(request);
+    }
+  }
+  return request;
+}

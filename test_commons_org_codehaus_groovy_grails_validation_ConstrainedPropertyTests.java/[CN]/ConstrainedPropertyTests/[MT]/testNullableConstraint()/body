@@ -1,6 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.NULLABLE_CONSTRAINT,new Boolean(false));
-  constraintTester.testConstraint(null,true);
-  constraintTester.testConstraint("two",false);
-  constraintTester.testConstraint("",false);
-}

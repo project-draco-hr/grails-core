@@ -1,6 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.URL_CONSTRAINT,new Boolean(true));
-  constraintTester.testConstraint("rubbish_url",true);
-  constraintTester.testConstraint("http://www.google.com",false);
-  constraintTester.testConstraint(null,false);
-}

@@ -1,7 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.BLANK_CONSTRAINT,new Boolean(false));
-  assertFalse(constraintTester.constrainedProperty.isBlank());
-  constraintTester.testConstraint("",true);
-  constraintTester.testConstraint("foo",false);
-  constraintTester.testConstraint(null,false);
-}

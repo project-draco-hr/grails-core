@@ -1,7 +1,0 @@
-{
-  TestClass test=new TestClass("John");
-  Errors errors=new BindException(test,test.getClass().getName());
-  Constraint validatorConstraint=getValidatorConstraint(closure);
-  validatorConstraint.validate(new TestClass("John"),"John",errors);
-  return errors;
-}

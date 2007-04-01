@@ -1,0 +1,4 @@
+{
+  Constraint constraint=getConstraint("testBigDecimal",new Integer(scale));
+  assertEquals(new BigDecimal(result),proceedValidation(constraint,new BigDecimal(value)));
+}

@@ -1,7 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testDate",ConstrainedProperty.MAX_CONSTRAINT,NOW);
-  constraintTester.testConstraint(BEGINNING_OF_TIME,false);
-  constraintTester.testConstraint(NOW,false);
-  constraintTester.testConstraint(ONE_DAY_FROM_NOW,true);
-  constraintTester.testConstraint(null,false);
-}

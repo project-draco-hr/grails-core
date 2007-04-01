@@ -1,6 +1,0 @@
-{
-  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testValidatorValue",int.class);
-  GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("import org.codehaus.groovy.grails.validation.ConstrainedPropertyTests;\n" + "validate = { val -> \n" + "assert (val == 5);\n"+ "}");
-  doValidatorTestAssertNoErrors(clazz,cp,new Integer(5));
-}

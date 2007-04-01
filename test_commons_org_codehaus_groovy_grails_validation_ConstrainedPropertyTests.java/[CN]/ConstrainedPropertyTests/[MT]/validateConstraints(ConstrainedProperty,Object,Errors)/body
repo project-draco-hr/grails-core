@@ -1,7 +1,0 @@
-{
-  Constraint c=null;
-  for (Iterator i=cp.getAppliedConstraints().iterator(); i.hasNext(); ) {
-    c=(Constraint)i.next();
-    c.validate(this,value,errors);
-  }
-}

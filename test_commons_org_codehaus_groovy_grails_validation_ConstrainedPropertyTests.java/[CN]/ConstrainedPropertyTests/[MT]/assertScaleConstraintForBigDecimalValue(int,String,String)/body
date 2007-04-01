@@ -1,6 +1,0 @@
-{
-  TestClass testObject=new TestClass();
-  ConstraintTester constraintTester=new ConstraintTester(testObject,"testBigDecimal",ConstrainedProperty.SCALE_CONSTRAINT,new Integer(scale));
-  constraintTester.testConstraint(new BigDecimal(originalValue),false);
-  assertEquals(new BigDecimal(expectedScaledValue),testObject.getTestBigDecimal());
-}

@@ -1,7 +1,0 @@
-{
-  String[] codes=error.getCodes();
-  for (int i=0; i < codes.length; i++) {
-    if (code.equals(codes[i]))     return true;
-  }
-  return false;
-}

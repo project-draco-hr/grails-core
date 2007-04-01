@@ -1,17 +1,5 @@
 {
-  Errors errors=proccedValidation("{val,obj -> return false}");
-  assertTrue(errors.hasErrors());
-  FieldError error=errors.getFieldError(PROP_NAME);
-  System.out.println(error);
-  assertTrue(checkErrorCode(error,"testClass.firstName.validator.invalid"));
-  Object[] arguments=error.getArguments();
-  assertEquals(3,arguments.length);
-  assertTrue(arguments[0] instanceof String);
-  assertEquals(PROP_NAME,arguments[0]);
-  assertTrue(arguments[1] instanceof Class);
-  assertEquals(TestClass.class,arguments[1]);
-  assertTrue(arguments[2] instanceof String);
-  assertEquals("John",arguments[2]);
-  errors=proccedValidation("{val,obj -> return true}");
-  assertFalse(errors.hasErrors());
+  testConstraintMessageCodes(getConstraint("{val,obj -> return false}"),"test",new String[]{"testClass.testString.validator.error","testClass.testString.validator.invalid"},new Object[]{"testString",TestClass.class,"test"});
+  testConstraintPassed(getConstraint("{val,obj -> return true}"),"test");
+  testConstraintDefaultMessage(getConstraint("{val,obj -> return false}"),"test","Property [{0}] of class [{1}] with value [{2}] does not pass custom validation");
 }

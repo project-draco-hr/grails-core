@@ -1,0 +1,9 @@
+{
+  testConstraintMessageCodes(getConstraint("testURL",Boolean.TRUE),"wrong_url",new String[]{"testClass.testURL.url.error","testClass.testURL.url.invalid"},new Object[]{"testURL",TestClass.class,"wrong_url"});
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"http://www.google.com");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"https://www.google.com/");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"https://www.google.com/answers.py?test=1&second=2");
+  testConstraintPassed(getConstraint("testURL",Boolean.FALSE),"wrong_url");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),null);
+  testConstraintDefaultMessage(getConstraint("testURL",Boolean.TRUE),"wrong_url","Property [{0}] of class [{1}] with value [{2}] is not a valid URL");
+}

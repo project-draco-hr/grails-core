@@ -1,4 +1,4 @@
 {
   BeanWrapper constrainedBean=new BeanWrapperImpl(new TestClass());
-  return new ConstrainedProperty(constrainedBean.getClass(),propertyName,constrainedBean.getPropertyType(propertyName));
+  return new ConstrainedProperty(constrainedBean.getWrappedClass(),propertyName,constrainedBean.getPropertyType(propertyName));
 }

@@ -1,19 +1,7 @@
 {
-  Errors errors=proccedValidation("{val,obj -> return 'test.message'}");
-  assertTrue(errors.hasErrors());
-  FieldError error=errors.getFieldError(PROP_NAME);
-  System.out.println(error);
-  assertTrue(checkErrorCode(error,"testClass.firstName.test.message"));
-  Object[] arguments=error.getArguments();
-  assertEquals(3,arguments.length);
-  assertTrue(arguments[0] instanceof String);
-  assertEquals(PROP_NAME,arguments[0]);
-  assertTrue(arguments[1] instanceof Class);
-  assertEquals(TestClass.class,arguments[1]);
-  assertTrue(arguments[2] instanceof String);
-  assertEquals("John",arguments[2]);
+  testConstraintMessageCode(getConstraint("{val,obj -> return 'test.message'}"),"test","testClass.testString.test.message",new Object[]{"testString",TestClass.class,"test"});
   try {
-    proccedValidation("{val, obj -> return 123L}");
+    testConstraintFailed(getConstraint("{val,obj -> return 123L}"),"test");
     fail("Validator constraint must throw an exception about wrong closure return");
   }
  catch (  IllegalArgumentException iae) {

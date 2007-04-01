@@ -1,0 +1,9 @@
+{
+  testConstraintMessageCodes(getConstraint("testFloat",new Float(1.5d)),new Float(1.7d),new String[]{"testClass.testFloat.max.error","testClass.testFloat.max.exceeded"},new Object[]{"testFloat",TestClass.class,new Float(1.7d),new Float(1.5d)});
+  testConstraintPassed(getConstraint("testFloat",new Float(1.5d)),new Float(1.4d));
+  testConstraintFailed(getConstraint("testLong",new Long(150)),new Long(10000));
+  testConstraintFailed(getConstraint("testBigDecimal",new BigDecimal("123.45")),new BigDecimal("123.46"));
+  testConstraintPassed(getConstraint("testInteger",new Integer(100)),new Integer(100));
+  testConstraintPassed(getConstraint("testFloat",new Float(1.5)),null);
+  testConstraintDefaultMessage(getConstraint("testFloat",new Float(1.5)),new Float(1.7),"Property [{0}] of class [{1}] with value [{2}] exceeds maximum value [{3}]");
+}

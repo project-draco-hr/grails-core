@@ -1,9 +1,0 @@
-{
-  Script script=(Script)clazz.newInstance();
-  script.run();
-  Closure valClosure=(Closure)script.getBinding().getVariable("validate");
-  cp.applyConstraint(ConstrainedProperty.VALIDATOR_CONSTRAINT,valClosure);
-  Errors errors=new BindException(this,"testObject");
-  validateConstraints(cp,value,errors);
-  assertFalse(errors.hasErrors());
-}

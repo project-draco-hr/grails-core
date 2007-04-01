@@ -1,0 +1,15 @@
+{
+  UrlConstraint constraint=(UrlConstraint)getConstraint("testString",Boolean.FALSE);
+  assertEquals(ConstrainedProperty.URL_CONSTRAINT,constraint.getName());
+  assertTrue(constraint.supports(String.class));
+  assertFalse(constraint.supports(Float.class));
+  assertFalse(constraint.supports(Double.class));
+  assertFalse(constraint.supports(Object.class));
+  assertFalse(constraint.supports(null));
+  try {
+    getConstraint("testString","wrong");
+    fail("UrlConstraint must throw an exception for non-boolean parameters.");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

@@ -1,6 +1,0 @@
-{
-  ConstraintTester constraintTester=new ConstraintTester(new TestClass(),"testURL",ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(5));
-  constraintTester.testConstraint("tiny",false);
-  constraintTester.testConstraint("12345",false);
-  constraintTester.testConstraint("1234567890",true);
-}

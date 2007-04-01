@@ -12,7 +12,7 @@
         this.appliedConstraints.put(constraintName,c);
       }
  catch (      Exception e) {
-        LOG.error("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage(),e);
+        LOG.error("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage());
         throw new ConstraintException("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage());
       }
     }

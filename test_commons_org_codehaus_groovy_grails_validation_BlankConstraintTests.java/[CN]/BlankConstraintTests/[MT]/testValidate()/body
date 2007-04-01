@@ -1,0 +1,8 @@
+{
+  testConstraintMessageCodes(getConstraint("testString",Boolean.FALSE),"",new String[]{"testClass.testString.blank.error","testClass.testString.blank"},new Object[]{"testString",TestClass.class});
+  testConstraintPassed(getConstraint("testString",Boolean.FALSE),"someData");
+  testConstraintPassed(getConstraint("testString",Boolean.FALSE),null);
+  testConstraintPassed(getConstraint("testString",Boolean.TRUE),"");
+  testConstraintPassed(getConstraint("testString",Boolean.TRUE),"someData");
+  testConstraintDefaultMessage(getConstraint("testString",Boolean.FALSE),"","Property [{0}] of class [{1}] cannot be blank");
+}

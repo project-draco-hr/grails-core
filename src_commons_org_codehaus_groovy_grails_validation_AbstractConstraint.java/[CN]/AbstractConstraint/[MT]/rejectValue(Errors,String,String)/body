@@ -1,3 +1,3 @@
 {
-  errors.rejectValue(constraintPropertyName,classShortName + '.' + constraintPropertyName+ '.'+ code,defaultMessage);
+  this.rejectValueWithDefaultMessage(errors,defaultMessage,new String[]{code},null);
 }

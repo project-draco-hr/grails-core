@@ -1,0 +1,11 @@
+{
+  BindingResult result=(BindingResult)errors;
+  List newCodes=new ArrayList();
+  String[] resolved=result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName);
+  newCodes.addAll(Arrays.asList(resolved));
+  for (int i=0; i < codes.length; i++) {
+    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
+  }
+  FieldError error=new FieldError(errors.getObjectName(),constraintPropertyName,errors.getFieldValue(constraintPropertyName),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
+  ((BindingResult)errors).addError(error);
+}

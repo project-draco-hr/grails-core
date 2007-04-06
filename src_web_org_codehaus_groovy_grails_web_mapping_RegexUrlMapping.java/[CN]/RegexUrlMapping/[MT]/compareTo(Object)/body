@@ -3,6 +3,8 @@
   UrlMapping other=(UrlMapping)o;
   String[] otherTokens=other.getUrlData().getTokens();
   String[] tokens=getUrlData().getTokens();
+  if (isWildcard(this) && !isWildcard(other))   return -1;
+  if (!isWildcard(this) && isWildcard(other))   return 1;
   if (tokens.length < otherTokens.length) {
     return -1;
   }

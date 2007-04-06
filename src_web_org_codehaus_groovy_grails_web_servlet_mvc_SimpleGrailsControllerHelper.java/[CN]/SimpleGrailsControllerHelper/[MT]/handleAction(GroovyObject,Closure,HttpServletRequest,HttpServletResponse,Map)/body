@@ -23,6 +23,9 @@
           ConstrainedProperty constrainedProperty=(ConstrainedProperty)i.next();
           constrainedProperty.validate(commandObject,beanWrapper.getPropertyValue(constrainedProperty.getPropertyName()),errors);
         }
+        if (errors.hasErrors()) {
+          LOG.warn("Command Object " + paramType.getName() + " Failed Validation");
+        }
       }
  catch (      Exception e) {
         throw new ControllerExecutionException("Error occurred creating command object.",e);

@@ -1,8 +1,9 @@
 {
+  InputStream in=resource.getInputStream();
   try {
-    return createTemplate(resource.getInputStream(),resource,null);
+    return createTemplate(in,resource,null);
   }
- catch (  IOException e) {
-    throw new GroovyPagesException("I/O reading Groovy page [" + resource.getDescription() + "]: "+ e.getMessage(),e);
+  finally {
+    in.close();
   }
 }

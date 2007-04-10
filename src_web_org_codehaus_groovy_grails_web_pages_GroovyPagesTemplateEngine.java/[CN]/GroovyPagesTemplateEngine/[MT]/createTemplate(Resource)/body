@@ -7,13 +7,23 @@
   if (pageCache.containsKey(name)) {
     GroovyPageMetaInfo meta=(GroovyPageMetaInfo)pageCache.get(name);
     if (isGroovyPageReloadable(resource,meta)) {
-      return createTemplateWithResource(resource);
+      try {
+        return createTemplateWithResource(resource);
+      }
+ catch (      IOException e) {
+        throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);
+      }
     }
  else {
       return new GroovyPageTemplate(meta);
     }
   }
  else {
-    return createTemplateWithResource(resource);
+    try {
+      return createTemplateWithResource(resource);
+    }
+ catch (    IOException e) {
+      throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);
+    }
   }
 }

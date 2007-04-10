@@ -1,3 +1,9 @@
 {
-  return createTemplate(resource.getInputStream(),resource,pageName);
+  InputStream in=resource.getInputStream();
+  try {
+    return createTemplate(in,resource,pageName);
+  }
+  finally {
+    in.close();
+  }
 }

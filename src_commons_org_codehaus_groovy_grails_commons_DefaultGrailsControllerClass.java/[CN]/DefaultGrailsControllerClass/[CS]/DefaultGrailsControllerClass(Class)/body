@@ -48,6 +48,15 @@
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
     Closure closure=(Closure)getPropertyOrStaticPropertyOrFieldValue(propertyDescriptor.getName(),Closure.class);
     if (closure != null) {
+      Class[] parameterTypes=closure.getParameterTypes();
+      if (parameterTypes != null && parameterTypes.length > 0) {
+        for (int j=0; j < parameterTypes.length; j++) {
+          Class parameterType=parameterTypes[j];
+          if (GrailsClassUtils.getStaticPropertyValue(parameterType,"constraints") != null) {
+            commandObjectClasses.add(parameterType);
+          }
+        }
+      }
       closureNames.add(propertyDescriptor.getName());
       String closureName=propertyDescriptor.getName();
       String viewName=(String)getPropertyOrStaticPropertyOrFieldValue(propertyDescriptor.getName() + VIEW,String.class);

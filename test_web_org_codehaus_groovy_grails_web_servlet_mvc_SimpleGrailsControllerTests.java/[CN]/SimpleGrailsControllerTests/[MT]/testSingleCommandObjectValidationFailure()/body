@@ -5,5 +5,5 @@
   assertEquals("wrong firstName","ThisFirstNameIsTooLong",model.get("theFirstName"));
   assertEquals("wrong lastName","ThisLastNameIsTooLong",model.get("theLastName"));
   Errors validationErrors=(Errors)model.get("validationErrors");
-  assertEquals("wrong number of errors",2,validationErrors.getErrorCount());
+  assertEquals("wrong number of mcoErrors",2,validationErrors.getErrorCount());
 }

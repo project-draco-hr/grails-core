@@ -5,6 +5,8 @@
   assertEquals("wrong firstName","James",model.get("theFirstName"));
   assertEquals("wrong lastName","Gosling",model.get("theLastName"));
   assertEquals("wrong age",new Integer(30),model.get("theAge"));
-  Errors validationErrors=(Errors)model.get("validationErrors");
-  assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
+  Errors mcoErrors=(Errors)model.get("mcoErrors");
+  assertEquals("wrong number of mco errors",0,mcoErrors.getErrorCount());
+  Errors acoErrors=(Errors)model.get("acoErrors");
+  assertEquals("wrong number of aco errors",0,acoErrors.getErrorCount());
 }

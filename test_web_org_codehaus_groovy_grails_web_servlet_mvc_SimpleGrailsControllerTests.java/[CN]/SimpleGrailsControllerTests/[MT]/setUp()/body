@@ -1,7 +1,7 @@
 {
   InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class commandObjectClass=cl.parseClass("class MyCommandObject {\n" + "def firstName\n" + "def lastName\n"+ "static constraints = {\n"+ "  firstName(maxLength:10)\n"+ "  lastName(maxLength:10)"+ "}\n"+ "}");
+  Class commandObjectClass=cl.parseClass("class MyCommandObject {\n" + "String firstName\n" + "String lastName\n"+ "static constraints = {\n"+ "  firstName(maxSize:10)\n"+ "  lastName(maxSize:10)"+ "}\n"+ "}");
   Class testControllerClass=cl.parseClass("class TestController {\n" + " Closure test = {\n" + "return [ \"test\" : \"123\" ]\n"+ "}\n"+ "def doit = { MyCommandObject mco ->\n"+ "[theFirstName:mco.firstName, theLastName:mco.lastName, validationErrors:mco.errors]\n"+ "}\n"+ "}");
   Class simpleControllerClass=cl.parseClass("class SimpleController {\n" + " Closure test = {\n" + "}\n"+ "}");
   Class noViewControllerClass=cl.parseClass("class NoViewController {\n" + " Closure test = {\n" + "request, response ->\n"+ "new grails.util.OpenRicoBuilder(response).ajax { element(id:\"test\") { } };\n"+ "return null;\n"+ "}\n"+ "}");

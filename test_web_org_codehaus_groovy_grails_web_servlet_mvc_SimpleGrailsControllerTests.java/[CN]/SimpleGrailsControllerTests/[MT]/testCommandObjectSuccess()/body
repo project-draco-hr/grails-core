@@ -4,4 +4,6 @@
   Map model=modelAndView.getModelMap();
   assertEquals("wrong firstName","James",model.get("theFirstName"));
   assertEquals("wrong lastName","Gosling",model.get("theLastName"));
+  Errors validationErrors=(Errors)model.get("validationErrors");
+  assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
 }

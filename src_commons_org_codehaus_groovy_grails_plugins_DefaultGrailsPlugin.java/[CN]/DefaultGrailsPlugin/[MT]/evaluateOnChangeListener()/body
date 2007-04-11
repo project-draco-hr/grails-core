@@ -3,18 +3,23 @@
     this.onChangeListener=(Closure)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,ON_CHANGE);
     Object referencedResources=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,WATCHED_RESOURCES);
     try {
+      List resourceList=null;
       if (referencedResources instanceof String) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Configuring plugin " + this + " to watch resources with pattern: "+ referencedResources);
         }
-        this.resourcesReference=referencedResources.toString();
-        watchedResources=resolver.getResources(resourcesReference);
-        if (watchedResources.length == 0) {
-          watchedResources=resolver.getResources("classpath*:" + resourcesReference);
-        }
+        resourceList=new ArrayList();
+        resourceList.add(referencedResources.toString());
       }
  else       if (referencedResources instanceof List) {
-        List resourceList=(List)referencedResources;
+        resourceList=(List)referencedResources;
+      }
+      if (resourceList != null) {
+        this.resourcesReferences=new String[resourceList.size()];
+        for (int i=0; i < resourcesReferences.length; i++) {
+          String resRef=resourceList.get(i).toString();
+          resourcesReferences[i]=resRef;
+        }
         for (int i=0; i < resourceList.size(); i++) {
           String res=resourceList.get(i).toString();
           Resource[] tmp=resolver.getResources(res);
@@ -29,10 +34,10 @@
       }
     }
  catch (    IllegalArgumentException e) {
-      if (GrailsUtil.isDevelopmentEnv())       LOG.warn("Cannot load plug-in resource watch list from [" + resourcesReference + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try runnng grails upgrade.: "+ e.getMessage());
+      if (GrailsUtil.isDevelopmentEnv())       LOG.warn("Cannot load plug-in resource watch list from [" + ArrayUtils.toString(resourcesReferences) + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try runnng grails upgrade.: "+ e.getMessage());
     }
 catch (    IOException e) {
-      if (GrailsUtil.isDevelopmentEnv())       LOG.warn("Cannot load plug-in resource watch list from [" + resourcesReference + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try runnng grails upgrade.: "+ e.getMessage());
+      if (GrailsUtil.isDevelopmentEnv())       LOG.warn("Cannot load plug-in resource watch list from [" + ArrayUtils.toString(resourcesReferences) + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try runnng grails upgrade.: "+ e.getMessage());
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("Plugin " + this + " found ["+ watchedResources.length+ "] to watch");

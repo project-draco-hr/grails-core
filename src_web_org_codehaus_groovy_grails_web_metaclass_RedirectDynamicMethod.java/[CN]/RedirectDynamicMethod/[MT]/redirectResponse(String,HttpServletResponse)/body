@@ -3,9 +3,14 @@
     LOG.debug("Dynamic method [redirect] forwarding request to [" + actualUri + "]");
   }
   try {
-    HttpServletResponse wrappedResponse=WrappedResponseHolder.getWrappedResponse();
-    if (wrappedResponse != null)     response=wrappedResponse;
-    response.sendRedirect(response.encodeRedirectURL(actualUri));
+    if (response instanceof HttpServletResponseWrapper) {
+      response=unwrapHttpServletResponse(response);
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Executing redirect with response [" + response + "]");
+    }
+    String redirectUrl=response.encodeRedirectURL(actualUri);
+    response.sendRedirect(redirectUrl);
   }
  catch (  IOException e) {
     throw new ControllerExecutionException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);

@@ -1,4 +1,3 @@
 {
-  super();
-  this.delegate=delegate;
+  super(httpServletResponse);
 }

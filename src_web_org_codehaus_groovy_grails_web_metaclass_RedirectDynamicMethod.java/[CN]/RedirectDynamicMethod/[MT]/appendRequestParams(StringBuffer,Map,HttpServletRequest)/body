@@ -1,5 +1,5 @@
 {
-  actualUriBuf.append('?');
+  if (params.size() > 0)   actualUriBuf.append('?');
   for (Iterator i=params.keySet().iterator(); i.hasNext(); ) {
     Object name=i.next();
     if (name.equals(GrailsControllerClass.CONTROLLER) || name.equals(GrailsControllerClass.ACTION))     continue;

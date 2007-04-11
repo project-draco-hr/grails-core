@@ -74,15 +74,20 @@
     Object returnValue=handleAction(controller,action,request,response,params);
     initChainModel(controller);
     if (response.isRedirected()) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Response has been redirected, returning null model and view");
+      }
+      invokeAfterInterceptor(controllerClass,controller,null);
       return null;
     }
-    ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
-    if (controllerClass.isInterceptedAfter(controller,actionName)) {
-      Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
-      Map model=mv.getModel() != null ? mv.getModel() : Collections.EMPTY_MAP;
-      afterInterceptor.call(new Object[]{model});
+ else {
+      ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Action [" + actionName + "] executed, return model and view ["+ mv+ "]");
+      }
+      invokeAfterInterceptor(controllerClass,controller,mv);
+      return mv;
     }
-    return mv;
   }
  catch (  MissingPropertyException mpe) {
     if (controllerClass.isScaffolding())     throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");

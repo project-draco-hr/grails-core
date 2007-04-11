@@ -25,8 +25,13 @@
     }
     RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
     RequestDispatcherWrapper wrapper=new RequestDispatcherWrapper(dispatcher);
-    WrappedResponseHolder.setWrappedResponse(response);
-    wrapper.include(request,response);
+    try {
+      WrappedResponseHolder.setWrappedResponse(response);
+      wrapper.forward(request,response);
+    }
+  finally {
+      WrappedResponseHolder.setWrappedResponse(null);
+    }
   }
  else {
     if (filterChain != null)     filterChain.doFilter(request,response);

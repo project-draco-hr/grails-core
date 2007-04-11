@@ -6,7 +6,13 @@
   if (request instanceof HttpServletRequestWrapper) {
     request=((HttpServletRequestWrapper)request).getRequest();
   }
-  if (request instanceof MultipartHttpServletRequest) {
+ else   if (request instanceof GrailsHttpServletRequest) {
+    if (((GrailsHttpServletRequest)request).isMultiPart()) {
+      MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
+      bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
+    }
+  }
+ else   if (request instanceof MultipartHttpServletRequest) {
     MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
     bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
   }

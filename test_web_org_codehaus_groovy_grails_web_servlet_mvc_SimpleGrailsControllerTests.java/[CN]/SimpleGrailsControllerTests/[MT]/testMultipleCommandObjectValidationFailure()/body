@@ -1,5 +1,5 @@
 {
-  ModelAndView modelAndView=execute("/test/doitagain/1/firstName/ThisFirstNameIsTooLong/age/300/lastName/Gosling",null);
+  ModelAndView modelAndView=execute("/test/multiplecommandobjects/1/firstName/ThisFirstNameIsTooLong/age/300/lastName/Gosling",null);
   assertNotNull("null modelAndView",modelAndView);
   Map model=modelAndView.getModelMap();
   assertEquals("wrong firstName","ThisFirstNameIsTooLong",model.get("theFirstName"));

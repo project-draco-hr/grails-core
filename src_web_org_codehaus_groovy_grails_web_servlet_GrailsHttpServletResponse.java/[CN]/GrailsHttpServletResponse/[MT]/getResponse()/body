@@ -1,0 +1,7 @@
+{
+  ServletResponse original=super.getResponse();
+  while (original instanceof HttpServletResponseWrapper) {
+    original=((HttpServletResponseWrapper)original).getResponse();
+  }
+  return original != null ? (HttpServletResponse)original : this;
+}

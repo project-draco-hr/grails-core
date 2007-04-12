@@ -3,6 +3,7 @@
   if (arguments[1] == null) {
     throw new IllegalArgumentException("Argument to method [add] cannot be null");
   }
+  GrailsUtil.deprecated(target.getClass(),methodName);
   String collectionName;
   if (arguments[0] instanceof Map) {
     collectionName=(String)((Map)arguments[0]).get(TO_ARGUMENT);

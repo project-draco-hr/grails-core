@@ -3,9 +3,6 @@
     LOG.debug("Dynamic method [redirect] forwarding request to [" + actualUri + "]");
   }
   try {
-    if (response instanceof HttpServletResponseWrapper) {
-      response=unwrapHttpServletResponse(response);
-    }
     if (LOG.isDebugEnabled()) {
       LOG.debug("Executing redirect with response [" + response + "]");
     }

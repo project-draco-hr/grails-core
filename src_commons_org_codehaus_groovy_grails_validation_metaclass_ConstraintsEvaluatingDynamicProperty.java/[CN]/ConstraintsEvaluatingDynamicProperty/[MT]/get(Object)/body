@@ -37,7 +37,7 @@
         constrainedProperties.put(p.getName(),cp);
       }
       if (!cp.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
-        cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Boolean.valueOf(p.isAssociation() || p.isOptional()));
+        cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Boolean.valueOf(p.isOptional() || Collection.class.isAssignableFrom(p.getType()) || Map.class.isAssignableFrom(p.getType())));
       }
     }
   }

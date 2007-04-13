@@ -1,0 +1,22 @@
+{
+  if (!domainClass.getClazz().isInstance(obj))   throw new IllegalArgumentException("Argument [" + obj + "] is not an instance of ["+ domainClass.getClazz()+ "] which this validator is configured for");
+  BeanWrapper bean=new BeanWrapperImpl(obj);
+  Map constrainedProperties=domainClass.getConstrainedProperties();
+  GrailsDomainClassProperty[] persistentProperties=domainClass.getPersistantProperties();
+  for (int i=0; i < persistentProperties.length; i++) {
+    GrailsDomainClassProperty persistentProperty=persistentProperties[i];
+    String propertyName=persistentProperty.getName();
+    if (constrainedProperties.containsKey(propertyName)) {
+      validatePropertyWithConstraint(propertyName,obj,errors,bean,constrainedProperties);
+    }
+    if (persistentProperty.isAssociation() && cascade) {
+      cascadeToAssociativeProperty(errors,bean,persistentProperty);
+    }
+  }
+  if (obj instanceof GroovyObject) {
+    ((GroovyObject)obj).setProperty(ERRORS_PROPERTY,errors);
+  }
+ else {
+    InvokerHelper.setProperty(obj,ERRORS_PROPERTY,errors);
+  }
+}

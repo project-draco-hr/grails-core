@@ -1,0 +1,13 @@
+{
+  int i=propertyName.lastIndexOf(".");
+  String constrainedPropertyName;
+  if (i > -1) {
+    constrainedPropertyName=propertyName.substring(i + 1,propertyName.length());
+  }
+ else {
+    constrainedPropertyName=propertyName;
+  }
+  ConstrainedProperty c=(ConstrainedProperty)constrainedProperties.get(constrainedPropertyName);
+  c.setMessageSource(this.messageSource);
+  c.validate(obj,bean.getPropertyValue(constrainedPropertyName),errors);
+}

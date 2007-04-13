@@ -1,0 +1,9 @@
+{
+  Object collection=bean.getPropertyValue(propertyName);
+  if (collection instanceof Collection) {
+    for (Iterator i=((Collection)collection).iterator(); i.hasNext(); ) {
+      Object associatedObject=i.next();
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+    }
+  }
+}

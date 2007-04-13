@@ -6,6 +6,6 @@
   for (int i=0; i < codes.length; i++) {
     newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
   }
-  FieldError error=new FieldError(errors.getObjectName(),constraintPropertyName,errors.getFieldValue(constraintPropertyName),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
+  FieldError error=new FieldError(errors.getObjectName(),constraintPropertyName,getPropertyValue(errors,target),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
   ((BindingResult)errors).addError(error);
 }

@@ -3,6 +3,11 @@
   if (propertyToInstanceMap.containsKey(propertyKey)) {
     return propertyToInstanceMap.get(propertyKey);
   }
+ else   if (this.initialValueGenerator != null) {
+    final Object value=this.initialValueGenerator.execute(object);
+    propertyToInstanceMap.put(propertyKey,value);
+    return value;
+  }
  else   if (this.initialValue != null) {
     propertyToInstanceMap.put(propertyKey,this.initialValue);
     return this.initialValue;

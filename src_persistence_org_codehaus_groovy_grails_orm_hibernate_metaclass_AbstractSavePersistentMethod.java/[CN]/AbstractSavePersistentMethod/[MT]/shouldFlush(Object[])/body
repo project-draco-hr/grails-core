@@ -3,6 +3,12 @@
     if (arguments[0] instanceof Boolean) {
       return ((Boolean)arguments[0]).booleanValue();
     }
+ else     if (arguments[0] instanceof Map) {
+      Map argsMap=(Map)arguments[0];
+      if (argsMap.containsKey(ARGUMENT_FLUSH)) {
+        return GrailsClassUtils.getBooleanFromMap(ARGUMENT_FLUSH,argsMap);
+      }
+    }
  else {
       return false;
     }

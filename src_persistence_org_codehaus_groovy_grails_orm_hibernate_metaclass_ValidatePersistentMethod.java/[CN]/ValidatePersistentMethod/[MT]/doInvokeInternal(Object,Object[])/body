@@ -6,12 +6,23 @@
   Boolean valid=Boolean.TRUE;
   if (validator != null) {
     boolean evict=false;
+    boolean deepValidate=true;
     if (arguments.length > 0) {
       if (arguments[0] instanceof Boolean) {
         evict=((Boolean)arguments[0]).booleanValue();
       }
+      if (arguments[0] instanceof Map) {
+        Map argsMap=(Map)arguments[0];
+        if (argsMap.containsKey(ARGUMENT_DEEP_VALIDATE))         deepValidate=GrailsClassUtils.getBooleanFromMap(ARGUMENT_DEEP_VALIDATE,argsMap);
+        evict=GrailsClassUtils.getBooleanFromMap(ARGUMENT_EVICT,argsMap);
+      }
     }
-    validator.validate(target,errors);
+    if (deepValidate && (validator instanceof CascadingValidator)) {
+      ((CascadingValidator)validator).validate(target,errors,deepValidate);
+    }
+ else {
+      validator.validate(target,errors);
+    }
     if (errors.hasErrors()) {
       valid=Boolean.valueOf(false);
       if (evict) {

@@ -4,7 +4,19 @@
     Validator validator=domainClass.getValidator();
     Errors errors=new BindException(target,target.getClass().getName());
     if (validator != null) {
-      validator.validate(target,errors);
+      boolean deepValidate=true;
+      if (arguments.length > 0) {
+        if (arguments[0] instanceof Map) {
+          Map argsMap=(Map)arguments[0];
+          if (argsMap.containsKey(ARGUMENT_DEEP_VALIDATE))           deepValidate=GrailsClassUtils.getBooleanFromMap(ARGUMENT_DEEP_VALIDATE,argsMap);
+        }
+      }
+      if (deepValidate && (validator instanceof CascadingValidator)) {
+        ((CascadingValidator)validator).validate(target,errors,deepValidate);
+      }
+ else {
+        validator.validate(target,errors);
+      }
       if (errors.hasErrors()) {
         return handleValidationError(target,errors);
       }

@@ -1,6 +1,5 @@
 {
-  MetaClass mc=super.create(theClass,registry);
-  if ((mc instanceof MetaClassImpl) && theClass != ExpandoMetaClass.class) {
+  if (theClass != ExpandoMetaClass.class) {
     ExpandoMetaClass emc=new ExpandoMetaClass(theClass);
     emc.setAllowChangesAfterInit(true);
     List modifiedSuperExpandos=retrieveModifiedSuperExpandos(emc);
@@ -8,5 +7,7 @@
     registerTrackedExpando(theClass,emc);
     return emc;
   }
-  return mc;
+ else {
+    return super.create(theClass,registry);
+  }
 }

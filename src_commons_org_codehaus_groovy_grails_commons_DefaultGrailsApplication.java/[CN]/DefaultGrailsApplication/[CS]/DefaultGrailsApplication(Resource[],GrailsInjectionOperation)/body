@@ -2,47 +2,7 @@
   super();
   log.debug("Loading Grails application.");
   loadMetadata();
-  this.resourceLoader=new GrailsResourceLoader(resources);
-  GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
-  this.cl=configureClassLoader(injectionOperation,resourceLoader);
-  Collection loadedResources=new ArrayList();
-  this.loadedClasses=new HashSet();
-  try {
-    for (int i=0; resources != null && i < resources.length; i++) {
-      log.debug("Loading groovy file :[" + resources[i].getFile().getAbsolutePath() + "]");
-      if (!loadedResources.contains(resources[i])) {
-        try {
-          String className=resourceHolder.getClassName(resources[i]);
-          if (!StringUtils.isBlank(className)) {
-            Class c=cl.loadClass(className,true,false);
-            Assert.notNull(c,"Groovy Bug! GCL loadClass method returned a null class!");
-            loadedClasses.add(c);
-            loadedResources=resourceLoader.getLoadedResources();
-          }
-        }
- catch (        ClassNotFoundException e) {
-          throw new org.codehaus.groovy.grails.exceptions.CompilationFailedException("Compilation error parsing file [" + resources[i].getFilename() + "]: "+ e.getMessage(),e);
-        }
-      }
- else {
-        Class c;
-        try {
-          c=cl.loadClass(resourceHolder.getClassName(resources[i]));
-        }
- catch (        ClassNotFoundException e) {
-          throw new GrailsConfigurationException("Groovy Bug! Resource [" + resources[i] + "] loaded, but not returned by GCL.");
-        }
-        loadedClasses.add(c);
-      }
-    }
-  }
- catch (  CompilationFailedException e) {
-    if (GrailsUtil.isDevelopmentEnv()) {
-      log.fatal("Compilation error loading Grails application: " + e.getMessage(),e);
-      System.exit(1);
-    }
- else {
-      throw e;
-    }
-  }
+  this.resources=resources;
+  this.injectionOperation=injectionOperation;
+  loadGrailsApplicationFromResources(resources,injectionOperation);
 }

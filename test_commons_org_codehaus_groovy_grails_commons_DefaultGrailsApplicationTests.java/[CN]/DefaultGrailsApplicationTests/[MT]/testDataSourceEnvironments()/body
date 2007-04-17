@@ -5,7 +5,6 @@
     Thread.sleep(1000);
     Class prodDS=gcl.parseClass("class ProductionDataSource {" + "String url = \"jdbc:hsqldb:mem:prodDB\"\n" + "String driverClassName = \"org.hsqldb.jdbcDriver\"\n"+ "String username = \"sa\"\n"+ "String password = \"\""+ "}");
     GrailsApplication ga=new DefaultGrailsApplication(new Class[]{devDS,prodDS},gcl);
-    assertEquals(prodDS,ga.getGrailsDataSource().getClazz());
     System.setProperty(GrailsApplication.ENVIRONMENT,"development");
     assertEquals(devDS,ga.getGrailsDataSource().getClazz());
     System.setProperty(GrailsApplication.ENVIRONMENT,"production");

@@ -7,7 +7,7 @@
   }
   if (StringUtils.isBlank(envName))   envName=System.getProperty(GrailsApplication.ENVIRONMENT);
   if (StringUtils.isBlank(envName)) {
-    return GrailsApplication.ENV_PRODUCTION;
+    return GrailsApplication.ENV_APPLICATION;
   }
  else {
     if (envNameMappings.containsKey(envName)) {

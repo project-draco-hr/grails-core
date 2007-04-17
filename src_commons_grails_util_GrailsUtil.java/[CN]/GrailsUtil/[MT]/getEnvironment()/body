@@ -1,5 +1,10 @@
 {
-  String envName=System.getProperty(GrailsApplication.ENVIRONMENT);
+  GrailsApplication app=ApplicationHolder.getApplication();
+  String envName=null;
+  if (app != null) {
+    envName=(String)app.getMetadata().get(GrailsApplication.ENVIRONMENT);
+  }
+  if (StringUtils.isBlank(envName))   envName=System.getProperty(GrailsApplication.ENVIRONMENT);
   if (StringUtils.isBlank(envName)) {
     return GrailsApplication.ENV_PRODUCTION;
   }

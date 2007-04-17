@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  return webRequest.getAttributes().getTagLibraryForTag(request,response,methodName);
+}

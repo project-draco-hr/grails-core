@@ -1,0 +1,11 @@
+{
+  if (LOG.isDebugEnabled())   LOG.debug("Closure [" + name + "] being resolved against ["+ object.getClass().getName()+ "]");
+  boolean found=false;
+  try {
+    Object value=super.getProperty(object,name);
+    found=value instanceof Closure;
+  }
+ catch (  MissingPropertyException e) {
+  }
+  return found;
+}

@@ -1,36 +1,16 @@
 {
-  try {
+  if (hasMethod(object,methodName,arguments)) {
     return super.invokeMethod(object,methodName,arguments);
   }
- catch (  MissingMethodException mme) {
+ else {
     GroovyObject taglib=(GroovyObject)object;
-    GrailsApplicationAttributes applicationAttributes=(GrailsApplicationAttributes)taglib.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
-    HttpServletRequest request=(HttpServletRequest)taglib.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
-    HttpServletResponse response=(HttpServletResponse)taglib.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY);
-    GroovyObject tagLibrary=applicationAttributes.getTagLibraryForTag(request,response,methodName);
-    if (tagLibrary == null)     throw mme;
-    if (tagLibrary.getClass().equals(object.getClass()))     throw mme;
+    GroovyObject tagLibrary=lookupTagLibrary(methodName);
+    if (tagLibrary == null)     throw new MissingMethodException(methodName,object.getClass(),arguments);
+    if (tagLibrary.getClass().equals(object.getClass()))     throw new MissingMethodException(methodName,object.getClass(),arguments);
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + methodName + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Invoking..");
     Closure original=(Closure)tagLibrary.getProperty(methodName);
     Closure tag=(Closure)original.clone();
     tagLibrary.setProperty(TagLibDynamicMethods.OUT_PROPERTY,taglib.getProperty(TagLibDynamicMethods.OUT_PROPERTY));
-switch (tag.getParameterTypes().length) {
-case 1:
-switch (arguments.length) {
-case 1:
-        return tag.call(arguments);
-case 2:
-      return tag.call(new Object[]{arguments[0]});
+    return tag.call(arguments);
   }
-break;
-case 2:
-switch (arguments.length) {
-case 1:
-return tag.call(new Object[]{arguments[0],EMPTY_TAG_BODY});
-case 2:
-return tag.call(arguments);
-}
-}
-return null;
-}
 }

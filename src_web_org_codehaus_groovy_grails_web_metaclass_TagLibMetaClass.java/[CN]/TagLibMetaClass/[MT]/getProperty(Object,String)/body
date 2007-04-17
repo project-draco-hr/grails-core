@@ -1,14 +1,10 @@
 {
-  try {
+  if (hasProperty(object,property)) {
     return super.getProperty(object,property);
   }
- catch (  MissingPropertyException mpe) {
-    GroovyObject taglib=(GroovyObject)object;
-    GrailsApplicationAttributes applicationAttributes=(GrailsApplicationAttributes)taglib.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
-    HttpServletRequest request=(HttpServletRequest)taglib.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
-    HttpServletResponse response=(HttpServletResponse)taglib.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY);
-    GroovyObject tagLibrary=applicationAttributes.getTagLibraryForTag(request,response,property);
-    if (tagLibrary == null)     throw mpe;
+ else {
+    GroovyObject tagLibrary=lookupTagLibrary(property);
+    if (tagLibrary == null)     throw new MissingPropertyException(property,object.getClass());
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + property + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Retrieving");
     Closure original=(Closure)tagLibrary.getProperty(property);
     return original.clone();

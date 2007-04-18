@@ -81,9 +81,12 @@
       return null;
     }
  else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
+      }
       ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Action [" + actionName + "] executed, return model and view ["+ mv+ "]");
+        LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
       }
       invokeAfterInterceptor(controllerClass,controller,mv);
       return mv;

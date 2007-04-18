@@ -21,6 +21,8 @@
     Map arguments=new HashMap();
     arguments.put(RenderDynamicMethod.ARGUMENT_VIEW,EDIT_ACTION);
     arguments.put(RenderDynamicMethod.ARGUMENT_MODEL,model);
-    return controller.invokeMethod(RenderDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
+    ModelAndView mv=this.scaffoldResponseHandler.handleResponse(request,response,EDIT_ACTION,model);
+    controller.setProperty(ControllerDynamicMethods.MODEL_AND_VIEW_PROPERTY,mv);
+    return mv;
   }
 }

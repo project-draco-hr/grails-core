@@ -6,15 +6,13 @@
  else {
     StringWriter sw=new StringWriter();
     PrintWriter pw=new PrintWriter(sw);
-    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-    String viewName=webRequest.getActionName();
     if (grailsApplication == null)     throw new IllegalStateException("Property [grailsApplication] must be set!");
     if (LOG.isDebugEnabled()) {
       LOG.debug("Generating view [" + uri + "] for scaffolded class ["+ scaffoldedClass+ "]");
     }
-    templateGenerator.generateView((GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,scaffoldedClass.getName()),viewName,pw);
+    templateGenerator.generateView((GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,scaffoldedClass.getName()),actionName,pw);
     ScaffoldedGroovyPageView scaffoldedView=new ScaffoldedGroovyPageView(uri,sw.toString());
-    scaffoldedView.setApplicationContext(webRequest.getAttributes().getApplicationContext());
+    scaffoldedView.setApplicationContext(applicationContext);
     v=scaffoldedView;
     generatedViewCache.put(uri,v);
   }

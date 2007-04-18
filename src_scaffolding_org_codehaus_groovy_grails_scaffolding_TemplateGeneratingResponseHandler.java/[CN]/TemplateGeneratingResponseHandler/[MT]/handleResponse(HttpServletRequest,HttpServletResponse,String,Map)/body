@@ -4,7 +4,12 @@
   if (resolver == null)   throw new IllegalStateException("Property [resolver] must be set!");
   if (scaffoldedClass == null)   throw new IllegalStateException("Property [scaffoldedClass] must be set!");
   if (grailsApplication == null)   throw new IllegalStateException("Property [grailsApplication] must be set!");
-  String uri=GrailsWebUtil.getUriFromRequest(request);
+  GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,scaffoldedClass.getName());
+  GrailsControllerClass controllerClass=grailsApplication.getScaffoldingController(domainClass);
+  String uri=controllerClass.getViewByName(actionName);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Scaffolding response for view URI: " + uri);
+  }
   try {
     View v=resolver.resolveViewName(uri,RequestContextUtils.getLocale(request));
     if (v instanceof AbstractUrlBasedView) {
@@ -17,11 +22,11 @@
         return new ModelAndView(v,model);
       }
  else {
-        return createScaffoldedResponse(uri,model);
+        return createScaffoldedResponse(uri,model,actionName);
       }
     }
  else {
-      return createScaffoldedResponse(uri,model);
+      return createScaffoldedResponse(uri,model,actionName);
     }
   }
  catch (  Exception e) {

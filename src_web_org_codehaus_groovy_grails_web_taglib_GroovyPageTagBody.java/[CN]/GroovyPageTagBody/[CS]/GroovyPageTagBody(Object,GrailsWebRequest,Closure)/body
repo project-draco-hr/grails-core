@@ -1,0 +1,9 @@
+{
+  super(owner);
+  if (bodyClosure == null)   throw new IllegalStateException("Argument [bodyClosure] cannot be null!");
+  if (webRequest == null)   throw new IllegalStateException("Argument [webRequest] cannot be null!");
+  this.bodyClosure=bodyClosure;
+  this.webRequest=webRequest;
+  binding=null;
+  if (owner instanceof GroovyPage)   binding=((GroovyPage)owner).getBinding();
+}

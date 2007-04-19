@@ -18,7 +18,7 @@
  else {
           bodyResponse=body1;
         }
-        if (bodyResponse != null) {
+        if (bodyResponse != null && !(bodyResponse instanceof Writer)) {
           try {
             out.write(bodyResponse.toString());
           }
@@ -27,7 +27,7 @@
           }
         }
       }
-      return null;
+      return BLANK_STRING;
     }
   }
 ;

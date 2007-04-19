@@ -74,6 +74,6 @@
  else         out.println(']');
       }
     }
-    out.println("body" + tagIndex + " = {");
+    out.println("body" + tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
   }
 }

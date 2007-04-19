@@ -1,12 +1,14 @@
 {
   if (hasClosure(object,methodName) && (arguments.length == 1 || arguments.length == 2)) {
     GrailsWebRequest webRequest=getWebRequestFromObject(object);
-    return captureTagOutputForLibrary((GroovyObject)object,methodName,arguments,webRequest);
+    String output=captureTagOutputForLibrary((GroovyObject)object,methodName,arguments,webRequest);
+    return output;
   }
  else   if (hasMethod(object,methodName,arguments)) {
     return super.invokeMethod(object,methodName,arguments);
   }
  else {
-    return captureTagOutput(object,methodName,arguments);
+    String output=captureTagOutput(object,methodName,arguments);
+    return output;
   }
 }

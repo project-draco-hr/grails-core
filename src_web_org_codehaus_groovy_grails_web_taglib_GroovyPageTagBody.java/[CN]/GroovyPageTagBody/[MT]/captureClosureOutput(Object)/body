@@ -1,0 +1,26 @@
+{
+  Writer originalOut=webRequest.getOut();
+  try {
+    final StringWriter capturedOut=new StringWriter();
+    final Writer out=new PrintWriter(capturedOut);
+    if (binding != null) {
+      binding.setVariable(GroovyPage.OUT,out);
+    }
+    webRequest.setOut(out);
+    if (args != null) {
+      bodyClosure.call(args);
+    }
+ else {
+      bodyClosure.call();
+    }
+    String output=capturedOut.toString();
+    if (output == null)     return BLANK_STRING;
+    return output;
+  }
+  finally {
+    if (binding != null) {
+      binding.setVariable(GroovyPage.OUT,originalOut);
+    }
+    webRequest.setOut(originalOut);
+  }
+}

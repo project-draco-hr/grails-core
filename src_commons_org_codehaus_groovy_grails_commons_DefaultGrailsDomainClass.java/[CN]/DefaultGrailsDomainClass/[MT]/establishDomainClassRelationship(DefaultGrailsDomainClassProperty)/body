@@ -13,7 +13,7 @@
     if (descriptors.length == 1) {
       if (!StringUtils.isBlank(relatedClassPropertyName)) {
         property.setReferencePropertyName(relatedClassPropertyName);
-        relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
+        relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,relatedClassPropertyName);
       }
     }
  else     if (descriptors.length > 1) {
@@ -21,14 +21,14 @@
         for (Iterator i=mappedBy.keySet().iterator(); i.hasNext(); ) {
           String key=(String)i.next();
           if (property.getName().equals(mappedBy.get(key))) {
-            relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,key);
+            relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,key);
           }
         }
       }
  else {
         String classNameAsProperty=GrailsClassUtils.getPropertyName(propType);
         if (property.getName().equals(classNameAsProperty) && !mappedBy.containsKey(relatedClassPropertyName)) {
-          relatedClassPropertyType=GrailsClassUtils.getProperyType(propType,relatedClassPropertyName);
+          relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,relatedClassPropertyName);
         }
       }
     }

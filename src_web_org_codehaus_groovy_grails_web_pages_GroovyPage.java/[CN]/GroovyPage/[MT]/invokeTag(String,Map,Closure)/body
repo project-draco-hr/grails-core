@@ -1,19 +1,18 @@
 {
-  Binding binding=getBinding();
-  final Writer out=(Writer)binding.getVariable(GroovyPage.OUT);
+  final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
   if (this.application == null)   initPageState();
   GroovyObject tagLib=getTagLib(tagName);
   if (tagLib != null) {
     Object tagLibProp;
-    Map properties=DefaultGroovyMethods.getProperties(tagLib);
-    if (properties.containsKey(tagName)) {
-      tagLibProp=properties.get(tagName);
+    BeanWrapper bean=getTagLibraryBean(tagLib,webRequest);
+    if (bean.isWritableProperty(tagName)) {
+      tagLibProp=bean.getPropertyValue(tagName);
     }
  else {
       throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
     }
     if (tagLibProp instanceof Closure) {
-      Closure tag=setupTagClosure(out,tagLibProp);
+      Closure tag=setupTagClosure(tagLibProp);
       if (tag.getParameterTypes().length == 1) {
         tag.call(new Object[]{attrs});
         if (body != null) {

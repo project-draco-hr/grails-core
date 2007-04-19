@@ -16,7 +16,7 @@
           }
         }
         if (relatedClassPropertyName != null) {
-          relatedClassPropertyType=GrailsClassUtils.getProperyType(relatedClassType,relatedClassPropertyName);
+          relatedClassPropertyType=GrailsClassUtils.getPropertyType(relatedClassType,relatedClassPropertyName);
         }
       }
       if (relatedClassPropertyType == null) {

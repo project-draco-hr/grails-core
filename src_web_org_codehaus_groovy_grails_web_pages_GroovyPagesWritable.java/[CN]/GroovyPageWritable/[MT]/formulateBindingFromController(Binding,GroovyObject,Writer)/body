@@ -1,4 +1,6 @@
 {
+  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+  binding.setVariable(GroovyPage.WEB_REQUEST,webRequest);
   binding.setVariable(GroovyPage.REQUEST,controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
   binding.setVariable(GroovyPage.RESPONSE,controller.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY));
   binding.setVariable(GroovyPage.FLASH,controller.getProperty(ControllerDynamicMethods.FLASH_SCOPE_PROPERTY));

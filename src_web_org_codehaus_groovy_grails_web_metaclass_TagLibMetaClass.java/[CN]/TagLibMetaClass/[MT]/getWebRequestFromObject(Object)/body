@@ -1,0 +1,5 @@
+{
+  GroovyObject taglib=(GroovyObject)object;
+  HttpServletRequest request=(HttpServletRequest)taglib.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
+  return (GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+}

@@ -1,16 +1,12 @@
 {
-  if (hasMethod(object,methodName,arguments)) {
+  if (hasClosure(object,methodName) && (arguments.length == 1 || arguments.length == 2)) {
+    GrailsWebRequest webRequest=getWebRequestFromObject(object);
+    return captureTagOutputForLibrary((GroovyObject)object,methodName,arguments,webRequest);
+  }
+ else   if (hasMethod(object,methodName,arguments)) {
     return super.invokeMethod(object,methodName,arguments);
   }
  else {
-    GroovyObject taglib=(GroovyObject)object;
-    GroovyObject tagLibrary=lookupTagLibrary(methodName);
-    if (tagLibrary == null)     throw new MissingMethodException(methodName,object.getClass(),arguments);
-    if (tagLibrary.getClass().equals(object.getClass()))     throw new MissingMethodException(methodName,object.getClass(),arguments);
-    if (LOG.isDebugEnabled())     LOG.debug("Tag [" + methodName + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Invoking..");
-    Closure original=(Closure)tagLibrary.getProperty(methodName);
-    Closure tag=(Closure)original.clone();
-    tagLibrary.setProperty(TagLibDynamicMethods.OUT_PROPERTY,taglib.getProperty(TagLibDynamicMethods.OUT_PROPERTY));
-    return tag.call(arguments);
+    return captureTagOutput(object,methodName,arguments);
   }
 }

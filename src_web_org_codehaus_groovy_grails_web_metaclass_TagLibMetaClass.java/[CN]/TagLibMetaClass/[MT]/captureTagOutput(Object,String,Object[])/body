@@ -1,0 +1,7 @@
+{
+  GrailsWebRequest webRequest=getWebRequestFromObject(object);
+  GroovyObject tagLibrary=lookupTagLibrary(methodName,webRequest);
+  if (tagLibrary == null)   throw new MissingMethodException(methodName,object.getClass(),arguments);
+  if (tagLibrary.getClass().equals(object.getClass()))   throw new MissingMethodException(methodName,object.getClass(),arguments);
+  return captureTagOutputForLibrary(tagLibrary,methodName,arguments,webRequest);
+}

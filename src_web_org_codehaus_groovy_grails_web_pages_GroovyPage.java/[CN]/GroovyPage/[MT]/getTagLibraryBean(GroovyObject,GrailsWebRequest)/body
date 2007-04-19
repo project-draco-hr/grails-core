@@ -1,0 +1,5 @@
+{
+  GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
+  GrailsClass grailsClass=application.getArtefact(TagLibArtefactHandler.TYPE,tagLib.getClass().getName());
+  return grailsClass.getReference();
+}

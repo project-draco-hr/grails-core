@@ -1,5 +1,5 @@
 {
-  return new Closure(this){
+  return new Closure(wrappedInstance){
     public Object doCall(    Object obj){
       return call(new Object[]{obj});
     }

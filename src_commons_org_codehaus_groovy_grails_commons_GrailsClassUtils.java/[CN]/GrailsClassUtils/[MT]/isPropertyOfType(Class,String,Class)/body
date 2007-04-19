@@ -1,6 +1,6 @@
 {
   try {
-    Class propType=getProperyType(clazz,propertyName);
+    Class propType=getPropertyType(clazz,propertyName);
     return propType != null && propType.equals(type);
   }
  catch (  Exception e) {

@@ -6,10 +6,12 @@
     logger.debug("Bound Grails request context to thread: " + request);
   }
   try {
+    request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,requestAttributes);
     filterChain.doFilter(request,response);
   }
   finally {
     requestAttributes.requestCompleted();
+    request.removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
     RequestContextHolder.setRequestAttributes(null);
     LocaleContextHolder.setLocale(null);
     if (logger.isDebugEnabled()) {

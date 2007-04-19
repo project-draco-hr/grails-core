@@ -1,86 +1,41 @@
 {
+  if (methodName.equals("invokeTag"))   return super.invokeMethod(methodName,args);
+  if (methodName.equals("fromHtml"))   return super.invokeMethod(methodName,args);
+  Map attrs=null;
+  Object body=null;
+  GroovyObject tagLib=getTagLib(methodName);
+  GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
+  Writer originalOut=webRequest.getOut();
   try {
-    return super.invokeMethod(methodName,args);
+    if (tagLib != null) {
+      if (args instanceof Object[]) {
+        Object[] argArray=(Object[])args;
+        if (argArray.length > 0 && argArray[0] instanceof Map)         attrs=(Map)argArray[0];
+        if (argArray.length > 1) {
+          body=argArray[1];
+        }
+      }
+ else       if (args instanceof Map) {
+        attrs=(Map)args;
+      }
+      if (attrs == null) {
+        attrs=new HashMap();
+      }
+      BeanWrapper bean=getTagLibraryBean(tagLib,webRequest);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Attempting to invoke [" + methodName + "] on tag library ["+ tagLib.getClass()+ "] with MetaClass ["+ tagLib.getMetaClass()+ "]");
+      }
+      if (bean.isReadableProperty(methodName)) {
+        return captureTagOutput(tagLib,methodName,attrs,body,webRequest,bean);
+      }
+ else {
+        if (args instanceof Object[])         return super.invokeMethod(methodName,args);
+ else         return super.invokeMethod(methodName,args);
+      }
+    }
   }
- catch (  MissingMethodException mme) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("No method [" + methodName + "] found");
-    }
-    Map attrs=null;
-    Object body=null;
-    StringWriter capturedOut=new StringWriter();
-    final Writer out=new PrintWriter(capturedOut);
-    GroovyObject tagLib=getTagLib(methodName);
-    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-    Writer originalOut=webRequest.getOut();
-    try {
-      webRequest.setOut(out);
-      if (tagLib != null) {
-        if (args instanceof Object[]) {
-          Object[] argArray=(Object[])args;
-          if (argArray.length > 0 && argArray[0] instanceof Map)           attrs=(Map)argArray[0];
-          if (argArray.length > 1) {
-            body=argArray[1];
-          }
-        }
- else         if (args instanceof Map) {
-          attrs=(Map)args;
-        }
-        if (attrs == null) {
-          attrs=new HashMap();
-        }
-        final Object body1=body;
-        Closure actualBody=createTagOutputCapturingClosure(methodName,out,body1);
-        Object tagLibProp;
-        Map properties=DefaultGroovyMethods.getProperties(tagLib);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Attempting to invoke [" + methodName + "] on tag library ["+ tagLib.getClass()+ "] with MetaClass ["+ tagLib.getMetaClass()+ "]");
-        }
-        if (properties.containsKey(methodName)) {
-          tagLibProp=properties.get(methodName);
-          if (tagLibProp instanceof Closure) {
-            Closure tag=setupTagClosure(out,tagLibProp);
-            if (tag.getParameterTypes().length == 1) {
-              tag.call(new Object[]{attrs});
-              if (actualBody != null) {
-                actualBody.call();
-              }
-            }
- else             if (tag.getParameterTypes().length == 2) {
-              tag.call(new Object[]{attrs,actualBody});
-            }
- else {
-              throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
-            }
-            return capturedOut.toString();
-          }
- else {
-            throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
-          }
-        }
- else {
-          if (args instanceof Object[])           throw new MissingMethodException(methodName,tagLib.getClass(),(Object[])args);
- else           throw new MissingMethodException(methodName,tagLib.getClass(),new Object[]{args});
-        }
-      }
- else       if (methodName.startsWith("encodeAs")) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Invoking as dynamic encoder");
-        }
-        final String codec=methodName.substring("encodeAs".length()).toLowerCase();
-        if ("html".equals(codec)) {
-          return HtmlUtils.htmlEscape(((Object[])args)[0].toString());
-        }
- else {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("No encoder found for " + codec);
-          }
-        }
-      }
-    }
   finally {
-      webRequest.setOut(originalOut);
-    }
-    throw new MissingMethodException(methodName,GroovyPage.class,new Object[]{args});
+    webRequest.setOut(originalOut);
   }
+  return super.invokeMethod(methodName,args);
 }

@@ -3,7 +3,8 @@
     return super.getProperty(object,property);
   }
  else {
-    GroovyObject tagLibrary=lookupTagLibrary(property);
+    GrailsWebRequest webRequest=getWebRequestFromObject(object);
+    GroovyObject tagLibrary=lookupTagLibrary(property,webRequest);
     if (tagLibrary == null)     throw new MissingPropertyException(property,object.getClass());
     if (LOG.isDebugEnabled())     LOG.debug("Tag [" + property + "] not found in existing library, found in ["+ tagLibrary.getClass().getName()+ "]. Retrieving");
     Closure original=(Closure)tagLibrary.getProperty(property);

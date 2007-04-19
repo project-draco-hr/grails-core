@@ -1,19 +1,14 @@
 {
   Writer originalOut=webRequest.getOut();
   try {
-    final StringWriter capturedOut=new StringWriter();
-    final Writer out=new PrintWriter(capturedOut);
-    if (binding != null) {
-      binding.setVariable(GroovyPage.OUT,out);
-    }
-    webRequest.setOut(out);
+    final GroovyPageTagWriter capturedOut=createWriter();
     if (args != null) {
       bodyClosure.call(args);
     }
  else {
       bodyClosure.call();
     }
-    String output=capturedOut.toString();
+    String output=capturedOut.getValue();
     if (output == null)     return BLANK_STRING;
     return output;
   }

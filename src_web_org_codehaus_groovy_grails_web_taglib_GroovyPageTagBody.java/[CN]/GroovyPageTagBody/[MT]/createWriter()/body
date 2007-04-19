@@ -1,0 +1,9 @@
+{
+  StringWriter capturedOut=new StringWriter();
+  GroovyPageTagWriter out=new GroovyPageTagWriter(capturedOut);
+  if (binding != null) {
+    binding.setVariable(GroovyPage.OUT,out);
+  }
+  webRequest.setOut(out);
+  return out;
+}

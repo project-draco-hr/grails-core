@@ -1,0 +1,43 @@
+{
+  Object[] args=(Object[])arg;
+  if (methodName.startsWith(SLASH)) {
+    try {
+      urlDefiningMode=false;
+      if (args.length > 0 && (args[0] instanceof Closure)) {
+        UrlMappingData urlData=urlParser.parse(methodName);
+        Closure callable=(Closure)args[0];
+        callable.setDelegate(this);
+        callable.call();
+        ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+        UrlMapping urlMapping=new RegexUrlMapping(urlData,controllerName,actionName,constraints);
+        urlMappings.add(urlMapping);
+        return urlMapping;
+      }
+ else {
+        throw new UrlMappingException("No controller or action defined for URL mapping [" + methodName + "]");
+      }
+    }
+  finally {
+      controllerName=null;
+      actionName=null;
+      previousConstraints.clear();
+      urlDefiningMode=true;
+    }
+  }
+ else   if (!urlDefiningMode && CONSTRAINTS.equals(methodName)) {
+    ConstrainedPropertyBuilder builder=new ConstrainedPropertyBuilder(this);
+    if (args.length > 0 && (args[0] instanceof Closure)) {
+      Closure callable=(Closure)args[0];
+      callable.setDelegate(builder);
+      for (Iterator i=previousConstraints.iterator(); i.hasNext(); ) {
+        ConstrainedProperty constrainedProperty=(ConstrainedProperty)i.next();
+        builder.getConstrainedProperties().put(constrainedProperty.getPropertyName(),constrainedProperty);
+      }
+      callable.call();
+    }
+    return builder.getConstrainedProperties();
+  }
+ else {
+    return super.invokeMethod(methodName,arg);
+  }
+}

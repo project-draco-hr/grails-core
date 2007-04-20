@@ -1,0 +1,9 @@
+{
+  UrlMappingBuilder builder=new UrlMappingBuilder();
+  closure.setDelegate(builder);
+  closure.call();
+  builder.urlDefiningMode=false;
+  List mappings=builder.getUrlMappings();
+  configureUrlMappingDynamicObjects(closure);
+  return mappings;
+}

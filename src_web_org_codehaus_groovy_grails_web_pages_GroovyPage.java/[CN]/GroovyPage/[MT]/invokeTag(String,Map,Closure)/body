@@ -6,7 +6,7 @@
     Object tagLibProp;
     BeanWrapper bean=getTagLibraryBean(tagLib,webRequest);
     if (bean.isWritableProperty(tagName)) {
-      tagLibProp=bean.getPropertyValue(tagName);
+      tagLibProp=tagLib.getProperty(tagName);
     }
  else {
       throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");

@@ -4,7 +4,7 @@
   final Writer out=new PrintWriter(capturedOut);
   webRequest.setOut(out);
   Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
-  tagLibProp=bean.getPropertyValue(methodName);
+  tagLibProp=tagLib.getProperty(methodName);
   if (tagLibProp instanceof Closure) {
     Closure tag=setupTagClosure(tagLibProp);
     if (tag.getParameterTypes().length == 1) {

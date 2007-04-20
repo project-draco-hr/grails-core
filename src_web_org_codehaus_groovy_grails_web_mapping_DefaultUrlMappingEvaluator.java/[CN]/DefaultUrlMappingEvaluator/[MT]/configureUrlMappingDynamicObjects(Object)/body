@@ -3,6 +3,6 @@
   if (manager != null) {
     GrailsPlugin controllerPlugin=manager.getGrailsPlugin("controllers");
     GroovyObject pluginInstance=controllerPlugin.getInstance();
-    pluginInstance.invokeMethod("registerCommonObjects",GrailsMetaClassUtils.getExpandoMetaClass(object.getClass()));
+    pluginInstance.invokeMethod("registerCommonObjects",new Object[]{GrailsMetaClassUtils.getExpandoMetaClass(object.getClass()),null});
   }
 }

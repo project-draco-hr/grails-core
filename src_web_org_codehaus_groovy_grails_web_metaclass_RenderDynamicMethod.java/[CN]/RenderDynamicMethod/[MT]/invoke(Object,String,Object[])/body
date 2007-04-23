@@ -29,23 +29,23 @@
  else   if (arguments[0] instanceof Map) {
     Map argMap=(Map)arguments[0];
     Writer out;
-    try {
-      if (argMap.containsKey(ARGUMENT_TO)) {
-        out=(Writer)argMap.get(ARGUMENT_TO);
-      }
- else       if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
-        out=response.getWriter(argMap.get(ARGUMENT_CONTENT_TYPE).toString(),argMap.get(ARGUMENT_ENCODING).toString());
-      }
- else       if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
-        out=response.getWriter(argMap.get(ARGUMENT_CONTENT_TYPE).toString());
-      }
+    if (argMap.containsKey(ARGUMENT_TO)) {
+      out=(Writer)argMap.get(ARGUMENT_TO);
+    }
+ else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
+      String contentType=argMap.get(ARGUMENT_CONTENT_TYPE).toString();
+      String encoding=argMap.get(ARGUMENT_ENCODING).toString();
+      response.setContentType(contentType + ";charset=" + encoding);
+      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
+    }
+ else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
+      response.setContentType(argMap.get(ARGUMENT_CONTENT_TYPE).toString());
+      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
+    }
  else {
-        out=response.getWriter();
-      }
+      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
- catch (    IOException ioe) {
-      throw new ControllerExecutionException("I/O creating write in method [render] on class [" + target.getClass() + "]: "+ ioe.getMessage(),ioe);
-    }
+    webRequest.setOut(out);
     if (arguments[arguments.length - 1] instanceof Closure) {
       if (BUILDER_TYPE_RICO.equals(argMap.get(ARGUMENT_BUILDER))) {
         OpenRicoBuilder orb;
@@ -173,6 +173,7 @@
           Writable w=t.make(new BeanMap(target));
           w.writeTo(out);
         }
+        out.flush();
         renderView=false;
       }
  catch (      GroovyRuntimeException gre) {

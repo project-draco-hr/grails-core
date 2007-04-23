@@ -1,5 +1,22 @@
 {
   if (params == null)   params=Collections.EMPTY_MAP;
   UrlMappingKey key=new UrlMappingKey(controller,action,params.keySet());
-  return (UrlMapping)mappingsLookup.get(key);
+  UrlMapping mapping=(UrlMapping)mappingsLookup.get(key);
+  if (mapping == null) {
+    Map lookup=new HashMap(){
+{
+        put(UrlMapping.CONTROLLER,controller);
+        put(UrlMapping.ACTION,action);
+      }
+    }
+;
+    key=new UrlMappingKey(null,null,lookup.keySet());
+    mapping=(UrlMapping)mappingsLookup.get(key);
+    if (mapping == null) {
+      lookup.remove(UrlMapping.ACTION);
+      key=new UrlMappingKey(null,null,lookup.keySet());
+      return (UrlMapping)mappingsLookup.get(key);
+    }
+  }
+  return mapping;
 }

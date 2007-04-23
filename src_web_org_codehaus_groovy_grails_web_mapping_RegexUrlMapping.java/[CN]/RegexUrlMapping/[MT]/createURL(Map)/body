@@ -1,4 +1,5 @@
 {
+  if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
   StringBuffer uri=new StringBuffer();
   String[] tokens=urlData.getTokens();
   int paramIndex=0;
@@ -14,6 +15,9 @@
  else {
       uri.append(SLASH).append(token);
     }
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Created reverse URL mapping [" + uri.toString() + "] for parameters ["+ parameterValues+ "]");
   }
   return uri.toString();
 }

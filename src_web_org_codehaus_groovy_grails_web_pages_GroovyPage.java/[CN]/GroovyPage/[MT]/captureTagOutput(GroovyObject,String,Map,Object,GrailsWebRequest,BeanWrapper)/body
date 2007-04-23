@@ -1,27 +1,33 @@
 {
   Object tagLibProp;
-  StringWriter capturedOut=new StringWriter();
-  final Writer out=new PrintWriter(capturedOut);
-  webRequest.setOut(out);
-  Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
-  tagLibProp=tagLib.getProperty(methodName);
-  if (tagLibProp instanceof Closure) {
-    Closure tag=setupTagClosure(tagLibProp);
-    if (tag.getParameterTypes().length == 1) {
-      tag.call(new Object[]{attrs});
-      if (actualBody != null) {
-        actualBody.call();
+  Writer originalOut=webRequest.getOut();
+  try {
+    StringWriter capturedOut=new StringWriter();
+    final Writer out=new PrintWriter(capturedOut);
+    webRequest.setOut(out);
+    Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
+    tagLibProp=tagLib.getProperty(methodName);
+    if (tagLibProp instanceof Closure) {
+      Closure tag=setupTagClosure(tagLibProp);
+      if (tag.getParameterTypes().length == 1) {
+        tag.call(new Object[]{attrs});
+        if (actualBody != null) {
+          actualBody.call();
+        }
       }
-    }
- else     if (tag.getParameterTypes().length == 2) {
-      tag.call(new Object[]{attrs,actualBody});
+ else       if (tag.getParameterTypes().length == 2) {
+        tag.call(new Object[]{attrs,actualBody});
+      }
+ else {
+        throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ bean.getWrappedClass().getName()+ "]");
+      }
+      return capturedOut.toString();
     }
  else {
-      throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ bean.getWrappedClass().getName()+ "]");
+      throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ bean.getWrappedClass().getName()+ "]");
     }
-    return capturedOut.toString();
   }
- else {
-    throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ bean.getWrappedClass().getName()+ "]");
+  finally {
+    webRequest.setOut(originalOut);
   }
 }

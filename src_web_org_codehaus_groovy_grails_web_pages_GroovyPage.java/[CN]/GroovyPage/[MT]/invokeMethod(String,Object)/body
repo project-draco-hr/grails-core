@@ -35,6 +35,7 @@
     }
   }
   finally {
+    getBinding().setVariable(OUT,originalOut);
     webRequest.setOut(originalOut);
   }
   return super.invokeMethod(methodName,args);

@@ -8,7 +8,24 @@
     if (prop.getType() == String.class && (args[i] instanceof GString)) {
       args[i]=args[i].toString();
     }
- else     if (!prop.getType().isAssignableFrom(args[i].getClass()) && !(GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(prop.getType(),args[i].getClass())))     throw new IllegalArgumentException("Argument " + args[0] + " does not match property '"+ propertyName+ "' of type "+ prop.getType());
+ else     if (!prop.getType().isAssignableFrom(args[i].getClass()) && !(GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(prop.getType(),args[i].getClass()))) {
+      try {
+        args[i]=converter.convertIfNecessary(args[i],prop.getType());
+      }
+ catch (      TypeMismatchException tme) {
+        if (Number.class.isAssignableFrom(args[i].getClass())) {
+          try {
+            args[i]=converter.convertIfNecessary(args[i].toString(),prop.getType());
+          }
+ catch (          TypeMismatchException tme1) {
+            throw new IllegalArgumentException("Cannot convert value " + args[i] + " of property '"+ propertyName+ "' to required type "+ prop.getType(),tme1);
+          }
+        }
+ else {
+          throw new IllegalArgumentException("Cannot convert value " + args[i] + " of property '"+ propertyName+ "' to required type "+ prop.getType());
+        }
+      }
+    }
   }
   this.arguments=args;
 }

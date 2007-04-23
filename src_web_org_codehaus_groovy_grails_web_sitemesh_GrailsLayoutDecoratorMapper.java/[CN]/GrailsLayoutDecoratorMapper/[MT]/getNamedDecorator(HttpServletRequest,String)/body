@@ -12,7 +12,24 @@
     ResourceLoader resourceLoader=establishResourceLoader();
     Resource res=resourceLoader.getResource(decoratorPage);
     if (!res.exists()) {
-      if (LOG.isDebugEnabled())       LOG.debug("No decorator found at " + decoratorPage);
+      PathMatchingResourcePatternResolver matcher=new PathMatchingResourcePatternResolver(resourceLoader);
+      String pattern=GrailsResourceUtils.WEB_INF + "/plugins/*/grails-app/views/layouts/" + name;
+      if (LOG.isDebugEnabled())       LOG.debug("No decorator found at " + decoratorPage + ". Trying plug-ins with pattern: "+ pattern);
+      try {
+        Resource[] layouts=matcher.getResources(pattern);
+        if (layouts.length > 0) {
+          if (layouts.length > 1) {
+            LOG.warn("Multiple matching layouts found in plug-ins for name [" + name + "] using first from ["+ ArrayUtils.toString(layouts)+ "]");
+          }
+          String url=layouts[0].getURL().toString();
+          url=GrailsResourceUtils.WEB_INF + url.substring(url.indexOf("/plugins"),url.length());
+          Decorator d=new DefaultDecorator(name,request.getRequestURI(),url,Collections.EMPTY_MAP);
+          decoratorMap.put(decoratorName,d);
+          return d;
+        }
+      }
+ catch (      IOException e) {
+      }
       return null;
     }
  else {

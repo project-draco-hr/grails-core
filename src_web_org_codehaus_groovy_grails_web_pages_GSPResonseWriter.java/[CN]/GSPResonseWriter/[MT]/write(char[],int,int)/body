@@ -1,7 +1,0 @@
-{
-  if (trouble || buf == null || len == 0)   return;
-  super.write(buf,off,len);
-  if (out0.size() >= max) {
-    flush();
-  }
-}

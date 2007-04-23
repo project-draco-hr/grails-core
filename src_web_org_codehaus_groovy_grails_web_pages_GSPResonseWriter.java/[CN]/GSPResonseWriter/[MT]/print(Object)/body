@@ -1,6 +1,0 @@
-{
-  if (obj == null)   obj="";
-  String out=String.valueOf(obj);
-  if (out == null)   out="";
-  write(out);
-}

@@ -1,9 +1,0 @@
-{
-  ModelAndView modelAndView=execute("/test/singlecommandobject/1/firstName/ThisFirstNameIsTooLong/lastName/ThisLastNameIsTooLong",null);
-  assertNotNull("null modelAndView",modelAndView);
-  Map model=modelAndView.getModelMap();
-  assertEquals("wrong firstName","ThisFirstNameIsTooLong",model.get("theFirstName"));
-  assertEquals("wrong lastName","ThisLastNameIsTooLong",model.get("theLastName"));
-  Errors validationErrors=(Errors)model.get("validationErrors");
-  assertEquals("wrong number of mcoErrors",2,validationErrors.getErrorCount());
-}

@@ -8,4 +8,15 @@
     SessionFactoryUtils.releaseSession(s,this.sessionFactory);
   }
   onTearDown();
+  gcl=null;
+  ga=null;
+  messageSource=null;
+  parentContext=null;
+  applicationContext=null;
+  servletContext=null;
+  sessionFactory=null;
+  session=null;
+  resourcePattern=null;
+  resolver=null;
+  resources=null;
 }

@@ -6,4 +6,7 @@
     TransactionSynchronizationManager.unbindResource(this.sessionFactory);
     SessionFactoryUtils.releaseSession(s,this.sessionFactory);
   }
+  cl=null;
+  grailsApplication=null;
+  sessionFactory=null;
 }

@@ -38,13 +38,18 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("Dynamic method [redirect] looking up URL mapping for controller [" + controllerName + "] and action ["+ actionName+ "] and params ["+ params+ "] with ["+ urlMappingsHolder+ "]");
     }
-    UrlMapping urlMapping=null;
-    if (urlMappingsHolder != null)     urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);
-    if (LOG.isDebugEnabled() && urlMapping == null) {
-      LOG.debug("Dynamic method [redirect] no URL mapping found for params [" + params + "]");
-    }
-    if (urlMapping != null) {
-      try {
+    boolean found=false;
+    try {
+      UrlMapping urlMapping=null;
+      if (id != null)       params.put(ARGUMENT_ID,id);
+      if (urlMappingsHolder != null) {
+        urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);
+      }
+      if (LOG.isDebugEnabled() && urlMapping == null) {
+        LOG.debug("Dynamic method [redirect] no URL mapping found for params [" + params + "]");
+      }
+      if (urlMapping != null) {
+        found=true;
         params.put(ARGUMENT_CONTROLLER,controllerName);
         params.put(ARGUMENT_ACTION,actionName != null ? actionName : webRequest.getActionName());
         String mappedUrl=urlMapping.createURL(params);
@@ -53,12 +58,13 @@
         }
         actualUriBuf.append(mappedUrl);
       }
-  finally {
-        params.remove(ARGUMENT_CONTROLLER);
-        params.remove(ARGUMENT_ACTION);
-      }
     }
- else {
+  finally {
+      if (id != null)       params.remove(ARGUMENT_ID);
+      params.remove(ARGUMENT_CONTROLLER);
+      params.remove(ARGUMENT_ACTION);
+    }
+    if (!found) {
       if (actionName != null) {
         if (actionName.indexOf(SLASH) > -1) {
           actualUriBuf.append(actionName);

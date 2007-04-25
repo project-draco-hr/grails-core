@@ -1,17 +1,3 @@
 {
-  super(pluginClass,application);
-  this.registry=InvokerHelper.getInstance().getMetaRegistry();
-  this.pluginGrailsClass=new GrailsPluginClass(pluginClass);
-  this.plugin=(GroovyObject)this.pluginGrailsClass.newInstance();
-  this.pluginBean=new BeanWrapperImpl(this.plugin);
-  this.dependencies=Collections.EMPTY_MAP;
-  this.resolver=new PathMatchingResourcePatternResolver();
-  evaluatePluginVersion();
-  evaluatePluginDependencies();
-  evaluatePluginLoadAfters();
-  evaluatePluginEvictionPolicy();
-  evaluatePluginInfluencePolicy();
-  evaluateOnChangeListener();
-  evaluateObservedPlugins();
-  evaluatePluginStatus();
+  this(pluginClass,null,application);
 }

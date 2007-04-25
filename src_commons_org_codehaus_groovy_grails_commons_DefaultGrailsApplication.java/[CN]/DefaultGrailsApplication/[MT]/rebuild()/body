@@ -1,4 +1,5 @@
 {
+  this.initialised=false;
   this.loadedClasses.clear();
   initArtefactHandlers();
   if (GrailsUtil.isDevelopmentEnv()) {

@@ -1,0 +1,8 @@
+{
+  plugin.doArtefactConfiguration();
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration(this.parentCtx);
+  this.doRuntimeConfiguration(plugin.getName(),springConfig);
+  springConfig.registerBeansWithContext((StaticApplicationContext)this.applicationContext);
+  plugin.doWithApplicationContext(this.applicationContext);
+  plugin.doWithDynamicMethods(this.applicationContext);
+}

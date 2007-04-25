@@ -1,4 +1,17 @@
 {
+  if (pluginUrl != null) {
+    long currentModified=-1;
+    try {
+      currentModified=pluginUrl.openConnection().getLastModified();
+    }
+ catch (    IOException e) {
+      LOG.warn("Error reading plugin [" + pluginClass + "] last modified date, cannot reload following change: "+ e.getMessage());
+    }
+    if (currentModified > pluginLastModified) {
+      initialisePlugin(attemptClassReload(this.pluginClass.getName()));
+      return true;
+    }
+  }
   if (onChangeListener != null) {
     checkForNewResources(this);
     if (LOG.isDebugEnabled()) {
@@ -9,10 +22,11 @@
       long modifiedFlag=checkModified(r,modifiedTimes[i]);
       if (modifiedFlag > -1) {
         if (LOG.isDebugEnabled())         LOG.debug("[GrailsPlugin] plugin resource [" + r + "] changed, firing event if possible..");
+        modifiedTimes[i]=modifiedFlag;
         fireModifiedEvent(r,this);
         refreshInfluencedPlugins();
-        modifiedTimes[i]=modifiedFlag;
       }
     }
   }
+  return false;
 }

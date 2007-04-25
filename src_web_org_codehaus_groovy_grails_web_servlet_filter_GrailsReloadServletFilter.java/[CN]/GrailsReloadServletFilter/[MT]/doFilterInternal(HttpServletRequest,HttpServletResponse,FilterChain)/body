@@ -14,7 +14,7 @@
     return;
   }
   if (config == null) {
-    WebApplicationContext parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
+    this.parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
     config=new GrailsRuntimeConfigurator(application,parent);
   }
   String uri=urlHelper.getPathWithinApplication(httpServletRequest);
@@ -56,6 +56,11 @@ catch (    Exception e) {
     if (manager != null) {
       if (LOG.isDebugEnabled())       LOG.debug("Checking Plugin manager for changes..");
       manager.checkForChanges();
+      if (!application.isInitialised()) {
+        application.rebuild();
+        config=new GrailsRuntimeConfigurator(application,parent);
+        config.reconfigure(context,getServletContext(),true);
+      }
     }
  else     if (LOG.isDebugEnabled()) {
       LOG.debug("Plugin manager not found, skipping change check");

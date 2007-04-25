@@ -1,2 +1,7 @@
 {
+  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
+  grailsApplication=null;
+  controller=null;
+  localContext=null;
+  appCtx=null;
 }

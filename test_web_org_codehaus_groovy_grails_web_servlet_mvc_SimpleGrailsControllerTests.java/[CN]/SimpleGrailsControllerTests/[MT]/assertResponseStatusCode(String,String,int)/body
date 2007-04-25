@@ -1,0 +1,6 @@
+{
+  execute(uri,null,httpMethod);
+  GrailsWebRequest gwr=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+  MockHttpServletResponse res=(MockHttpServletResponse)gwr.getCurrentResponse().getDelegate();
+  assertEquals(expectedStatusCode,res.getStatus());
+}

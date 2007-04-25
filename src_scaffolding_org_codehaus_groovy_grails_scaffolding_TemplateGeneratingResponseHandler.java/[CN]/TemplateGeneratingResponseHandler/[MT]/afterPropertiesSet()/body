@@ -1,5 +1,0 @@
-{
-  if (!GrailsUtil.isDevelopmentEnv()) {
-    this.templateEngine.setResourceLoader(this.applicationContext);
-  }
-}

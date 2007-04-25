@@ -1,0 +1,7 @@
+{
+  GroovyPagesTemplateEngine templateEngine=(GroovyPagesTemplateEngine)applicationContext.getBean(GroovyPagesTemplateEngine.BEAN_ID);
+  if (!GrailsUtil.isDevelopmentEnv()) {
+    templateEngine.setResourceLoader(this.applicationContext);
+  }
+  return templateEngine;
+}

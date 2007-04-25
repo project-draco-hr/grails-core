@@ -1,5 +1,4 @@
 {
-  if (templateEngine == null)   throw new IllegalStateException("Property [templateEngine] must be set!");
   if (templateGenerator == null)   throw new IllegalStateException("Property [templateGenerator] must be set!");
   if (resolver == null)   throw new IllegalStateException("Property [resolver] must be set!");
   if (scaffoldedClass == null)   throw new IllegalStateException("Property [scaffoldedClass] must be set!");
@@ -16,6 +15,7 @@
       uri=((AbstractUrlBasedView)v).getUrl();
       Resource r=null;
       if (uri.endsWith(GroovyPage.EXTENSION)) {
+        GroovyPagesTemplateEngine templateEngine=getTemplateEngine();
         r=templateEngine.getResourceForUri(uri);
       }
       if (r != null && r.exists()) {

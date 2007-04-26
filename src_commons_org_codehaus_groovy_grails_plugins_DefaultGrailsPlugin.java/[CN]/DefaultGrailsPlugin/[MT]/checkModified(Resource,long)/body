@@ -11,7 +11,7 @@
     }
   }
  catch (  IOException e) {
-    LOG.warn("Unable to read last modified date of plugin resource" + e.getMessage(),e);
+    LOG.debug("Unable to read last modified date of plugin resource" + e.getMessage(),e);
   }
   return -1;
 }

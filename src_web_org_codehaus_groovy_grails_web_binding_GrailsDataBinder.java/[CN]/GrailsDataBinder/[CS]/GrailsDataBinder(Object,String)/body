@@ -2,7 +2,8 @@
   super(target,objectName);
   bean=((BeanPropertyBindingResult)super.getBindingResult()).getPropertyAccessor();
   String[] disallowed=null;
-  if (ApplicationHolder.getApplication().isArtefactOfType(DomainClassArtefactHandler.TYPE,target.getClass())) {
+  GrailsApplication grailsApplication=ApplicationHolder.getApplication();
+  if (grailsApplication != null && grailsApplication.isArtefactOfType(DomainClassArtefactHandler.TYPE,target.getClass())) {
     if (target instanceof GroovyObject) {
       disallowed=GROOVY_DOMAINCLASS_DISALLOWED;
     }

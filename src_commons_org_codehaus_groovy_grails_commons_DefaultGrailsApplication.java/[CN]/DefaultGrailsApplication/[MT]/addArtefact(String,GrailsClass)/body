@@ -7,6 +7,7 @@
     DefaultArtefactInfo info=getArtefactInfo(artefactType,true);
     info.addGrailsClass(artefactGrailsClass);
     info.updateComplete();
+    initializeArtefacts(artefactType);
     return artefactGrailsClass;
   }
  else {

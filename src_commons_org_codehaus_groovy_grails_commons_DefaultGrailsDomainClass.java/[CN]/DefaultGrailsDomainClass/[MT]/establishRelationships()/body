@@ -11,5 +11,8 @@
  else     if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
       establishDomainClassRelationship(currentProp);
     }
+ else     if (!GrailsDomainConfigurationUtil.isBasicType(currentProp)) {
+      establishDomainClassRelationship(currentProp);
+    }
   }
 }

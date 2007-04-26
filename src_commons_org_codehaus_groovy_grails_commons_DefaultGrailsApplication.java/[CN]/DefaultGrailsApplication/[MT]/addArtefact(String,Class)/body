@@ -9,9 +9,7 @@
     info.addGrailsClass(artefactGrailsClass);
     info.updateComplete();
     addToLoaded(artefactClass);
-    if (!suspectArtefactInit) {
-      initializeArtefacts(artefactType);
-    }
+    initializeArtefacts(artefactType);
     return artefactGrailsClass;
   }
  else {

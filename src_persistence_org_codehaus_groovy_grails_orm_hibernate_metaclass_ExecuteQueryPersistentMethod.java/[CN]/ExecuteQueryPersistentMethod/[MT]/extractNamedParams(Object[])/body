@@ -1,0 +1,8 @@
+{
+  Map result=new HashMap();
+  if (arguments.length < 2 || !(arguments[1] instanceof Map))   return result;
+  result.putAll((Map)arguments[1]);
+  result.remove(ARGUMENT_MAX);
+  result.remove(ARGUMENT_OFFSET);
+  return result;
+}

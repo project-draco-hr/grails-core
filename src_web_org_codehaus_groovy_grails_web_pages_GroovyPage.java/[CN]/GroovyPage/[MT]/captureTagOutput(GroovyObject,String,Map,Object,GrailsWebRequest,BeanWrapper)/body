@@ -2,8 +2,7 @@
   Object tagLibProp;
   Writer originalOut=webRequest.getOut();
   try {
-    StringWriter capturedOut=new StringWriter();
-    final Writer out=new PrintWriter(capturedOut);
+    final GroovyPageTagWriter out=new GroovyPageTagWriter(new StringWriter());
     webRequest.setOut(out);
     Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
     tagLibProp=tagLib.getProperty(methodName);
@@ -21,7 +20,7 @@
  else {
         throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ bean.getWrappedClass().getName()+ "]");
       }
-      return capturedOut.toString();
+      return out.getValue();
     }
  else {
       throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ bean.getWrappedClass().getName()+ "]");

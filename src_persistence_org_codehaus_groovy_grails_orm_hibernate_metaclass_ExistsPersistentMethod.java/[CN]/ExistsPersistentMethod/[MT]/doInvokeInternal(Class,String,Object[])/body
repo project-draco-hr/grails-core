@@ -6,7 +6,12 @@
   if (domainClass != null) {
     Class identityType=domainClass.getIdentifier().getType();
     if (!identityType.isAssignableFrom(arg.getClass())) {
-      arg=typeConverter.convertIfNecessary(arg,identityType);
+      if (arg instanceof Number && Long.class.equals(identityType)) {
+        arg=DefaultGroovyMethods.toLong((Number)arg);
+      }
+ else {
+        arg=typeConverter.convertIfNecessary(arg,identityType);
+      }
     }
   }
   return Boolean.valueOf(super.getHibernateTemplate().get(clazz,(Serializable)arg) != null);

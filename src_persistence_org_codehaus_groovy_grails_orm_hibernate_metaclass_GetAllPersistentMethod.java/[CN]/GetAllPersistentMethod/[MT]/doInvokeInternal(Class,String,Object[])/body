@@ -12,7 +12,12 @@
     final List args=new ArrayList();
     for (int i=0; i < arguments.length; i++) {
       if (!identityType.isAssignableFrom(arguments[i].getClass())) {
-        args.add(typeConverter.convertIfNecessary(arguments[i],identityType));
+        if (arguments[i] instanceof Number && Long.class.equals(identityType)) {
+          args.add(DefaultGroovyMethods.toLong((Number)arguments[i]));
+        }
+ else {
+          args.add(typeConverter.convertIfNecessary(arguments[i],identityType));
+        }
       }
  else {
         args.add(arguments[i]);

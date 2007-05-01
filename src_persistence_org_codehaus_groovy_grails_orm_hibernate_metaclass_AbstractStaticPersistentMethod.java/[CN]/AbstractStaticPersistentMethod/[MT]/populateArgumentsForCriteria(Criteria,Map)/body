@@ -2,10 +2,10 @@
   Integer maxParam=null;
   Integer offsetParam=null;
   if (argMap.containsKey(ARGUMENT_MAX)) {
-    maxParam=(Integer)converter.convertValue(context,argMap.get(ARGUMENT_MAX),Integer.class);
+    maxParam=(Integer)converter.convertIfNecessary(argMap.get(ARGUMENT_MAX),Integer.class);
   }
   if (argMap.containsKey(ARGUMENT_OFFSET)) {
-    offsetParam=(Integer)converter.convertValue(context,argMap.get(ARGUMENT_OFFSET),Integer.class);
+    offsetParam=(Integer)converter.convertIfNecessary(argMap.get(ARGUMENT_OFFSET),Integer.class);
   }
   String orderParam=(String)argMap.get(ARGUMENT_ORDER);
   Object fetchObj=argMap.get(ARGUMENT_FETCH);

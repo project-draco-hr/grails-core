@@ -5,7 +5,7 @@
     if (this.bean.isReadableProperty(by[i]) && i < q.length) {
       Class propertyType=this.bean.getPropertyType(by[i]);
       if (!propertyType.isAssignableFrom(q[i].getClass())) {
-        q[i]=converter.convertValue(context,q[i],propertyType);
+        q[i]=typeConverter.convertIfNecessary(q[i],propertyType);
       }
       if (q[i] == null) {
         ignoreList.add(by[i]);

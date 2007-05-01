@@ -3,7 +3,7 @@
   if (this.bean.isReadableProperty(by)) {
     Class propertyType=this.bean.getPropertyType(by);
     if (!propertyType.isAssignableFrom(q.getClass())) {
-      q=converter.convertValue(context,q,propertyType);
+      q=typeConverter.convertIfNecessary(q,propertyType);
     }
     final Object query=q;
     if (q != null) {

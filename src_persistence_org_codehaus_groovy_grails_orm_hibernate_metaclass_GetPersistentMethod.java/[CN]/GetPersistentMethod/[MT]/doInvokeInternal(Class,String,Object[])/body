@@ -6,7 +6,7 @@
   if (domainClass != null) {
     Class identityType=domainClass.getIdentifier().getType();
     if (!identityType.isAssignableFrom(arg.getClass())) {
-      arg=typeConverter.convertValue(context,arg,identityType);
+      arg=typeConverter.convertIfNecessary(arg,identityType);
     }
   }
   return super.getHibernateTemplate().get(clazz,(Serializable)arg);

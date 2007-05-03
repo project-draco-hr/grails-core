@@ -1,11 +1,10 @@
 {
   if (params == null)   params=Collections.EMPTY_MAP;
-  UrlMappingKey key=new UrlMappingKey(controller,action,params.keySet());
-  UrlMapping mapping=(UrlMapping)mappingsLookup.get(key);
+  UrlMapping mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,action,params.keySet()));
   if (mapping == null) {
-    mapping=(UrlMapping)mappingsLookup.get(DEFAULT_CONTROLLER_KEY);
+    mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,null,DEFAULT_ACTION_PARAMS));
     if (mapping == null) {
-      return (UrlMapping)mappingsLookup.get(DEFAULT_ACTION_KEY);
+      return (UrlMapping)mappingsLookup.get(new UrlMappingKey(null,null,DEFAULT_CONTROLLER_PARAMS));
     }
   }
   return mapping;

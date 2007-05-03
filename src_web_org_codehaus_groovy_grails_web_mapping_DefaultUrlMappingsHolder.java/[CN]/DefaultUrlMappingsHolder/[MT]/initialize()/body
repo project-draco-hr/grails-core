@@ -19,14 +19,21 @@
         break;
       }
     }
-    this.mappingsLookup.put(new UrlMappingKey(controllerName,actionName,requiredParams),mapping);
+    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,requiredParams);
+    this.mappingsLookup.put(key,mapping);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
+    }
     Set requiredParamsAndOptionals=new HashSet(requiredParams);
     if (optionalIndex > -1) {
       for (int j=optionalIndex; j < params.length; j++) {
         ConstrainedProperty param=params[j];
         requiredParamsAndOptionals.add(param.getPropertyName());
-        UrlMappingKey key=new UrlMappingKey(controllerName,actionName,new HashSet(requiredParamsAndOptionals));
+        key=new UrlMappingKey(controllerName,actionName,new HashSet(requiredParamsAndOptionals));
         mappingsLookup.put(key,mapping);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
+        }
       }
     }
   }

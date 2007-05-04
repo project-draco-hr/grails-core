@@ -5,12 +5,16 @@
     c=Restrictions.idEq(value);
   }
  else {
-    if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {
+    if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_NOT_NULL_OLD_FORM)|| name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {
       if (!(value instanceof String))       throwRuntimeException(new IllegalArgumentException("call to [" + name + "] with value ["+ value+ "] requires a String value."));
       if (name.equals(IS_NULL)) {
         c=Restrictions.isNull((String)value);
       }
  else       if (name.equals(IS_NOT_NULL)) {
+        c=Restrictions.isNotNull((String)value);
+      }
+ else       if (name.equals(IS_NOT_NULL_OLD_FORM)) {
+        GrailsUtil.deprecated("'notNull' criteria restriction is deprecated for 0.5 and will be removed in future versions, use 'isNotNull' instead");
         c=Restrictions.isNotNull((String)value);
       }
  else       if (name.equals(IS_EMPTY)) {

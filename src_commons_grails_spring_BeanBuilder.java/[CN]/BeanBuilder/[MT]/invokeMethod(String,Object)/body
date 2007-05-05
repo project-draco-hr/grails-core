@@ -1,9 +1,15 @@
 {
+  Object[] args=(Object[])arg;
   if (CREATE_APPCTX.equals(name)) {
     finalizeDeferredProperties();
     return springConfig.getApplicationContext();
   }
-  Object[] args=(Object[])arg;
+ else   if (REGISTER_BEANS.equals(name) && args.length == 1 && args[0] instanceof StaticApplicationContext) {
+    finalizeDeferredProperties();
+    StaticApplicationContext ctx=(StaticApplicationContext)args[0];
+    springConfig.registerBeansWithContext(ctx);
+    return null;
+  }
   if (args.length == 0)   throw new MissingMethodException(name,getClass(),args);
   if (REF.equals(name)) {
     String refName;

@@ -4,7 +4,9 @@
   if (className != null) {
     Class oldClass=application.getClassForName(className);
     loadedClass=attemptClassReload(className);
-    replaceExpandoMetaClass(loadedClass,oldClass);
+    if (oldClass != null) {
+      replaceExpandoMetaClass(loadedClass,oldClass);
+    }
   }
   final Class resourceClass=loadedClass;
   Map event=new HashMap(){
@@ -18,6 +20,9 @@
     }
   }
 ;
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Firing onChange event listener with event object [" + event + "]");
+  }
   invokeOnChangeListener(event);
   getManager().informObservers(getName(),event);
 }

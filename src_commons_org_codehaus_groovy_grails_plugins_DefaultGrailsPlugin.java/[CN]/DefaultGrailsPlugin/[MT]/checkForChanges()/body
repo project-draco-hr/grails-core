@@ -1,15 +1,29 @@
 {
   if (pluginUrl != null) {
     long currentModified=-1;
+    URLConnection conn=null;
     try {
-      currentModified=pluginUrl.openConnection().getLastModified();
+      conn=pluginUrl.openConnection();
+      currentModified=conn.getLastModified();
+      if (currentModified > pluginLastModified) {
+        GroovyClassLoader gcl=new GroovyClassLoader(application.getClassLoader());
+        initialisePlugin(gcl.parseClass(conn.getInputStream()));
+        pluginLastModified=currentModified;
+        return true;
+      }
     }
  catch (    IOException e) {
       LOG.warn("Error reading plugin [" + pluginClass + "] last modified date, cannot reload following change: "+ e.getMessage());
     }
-    if (currentModified > pluginLastModified) {
-      initialisePlugin(attemptClassReload(this.pluginClass.getName()));
-      return true;
+ finally {
+      if (conn != null) {
+        try {
+          conn.getInputStream().close();
+        }
+ catch (        IOException e) {
+          LOG.warn("Error closing URL connection to plugin resource [" + pluginUrl + "]: "+ e.getMessage(),e);
+        }
+      }
     }
   }
   if (onChangeListener != null) {

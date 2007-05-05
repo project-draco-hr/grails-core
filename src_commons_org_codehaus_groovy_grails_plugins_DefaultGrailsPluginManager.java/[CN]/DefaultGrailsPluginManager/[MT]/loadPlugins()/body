@@ -2,7 +2,7 @@
   if (!this.initialised) {
     GroovyClassLoader gcl=application.getClassLoader();
     loadCorePlugins();
-    LOG.debug("Attempting to load [" + pluginResources.length + "] user defined plugins");
+    LOG.info("Attempting to load [" + pluginResources.length + "] user defined plugins");
     for (int i=0; i < pluginResources.length; i++) {
       Resource r=pluginResources[i];
       Class pluginClass=loadPluginClass(gcl,r);

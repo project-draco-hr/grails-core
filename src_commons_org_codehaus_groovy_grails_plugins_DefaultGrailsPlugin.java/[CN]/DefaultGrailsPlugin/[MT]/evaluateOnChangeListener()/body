@@ -16,13 +16,15 @@
       }
       if (resourceList != null) {
         this.resourcesReferences=new String[resourceList.size()];
+        this.resourceCount=new int[resourceList.size()];
         for (int i=0; i < resourcesReferences.length; i++) {
           String resRef=resourceList.get(i).toString();
           resourcesReferences[i]=resRef;
         }
-        for (int i=0; i < resourceList.size(); i++) {
-          String res=resourceList.get(i).toString();
+        for (int i=0; i < resourcesReferences.length; i++) {
+          String res=resourcesReferences[i];
           Resource[] tmp=resolver.getResources(res);
+          resourceCount[i]=tmp.length;
           if (LOG.isDebugEnabled()) {
             LOG.debug("Watching resource set [" + (i + 1) + "]: "+ ArrayUtils.toString(tmp));
           }

@@ -1,5 +1,0 @@
-{
-  Object obj=getPropertyValue(TIMEOUT);
-  if (obj == null)   return DEFAULT_TIMEOUT;
-  return ((Number)obj).longValue();
-}

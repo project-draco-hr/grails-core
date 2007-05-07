@@ -1,6 +1,0 @@
-{
-  Session session=SessionFactoryUtils.getSession(sessionFactory,true);
-  session.setFlushMode(FlushMode.AUTO);
-  TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
-  if (LOG.isDebugEnabled())   LOG.debug("Hibernate Session is bounded to Job thread");
-}

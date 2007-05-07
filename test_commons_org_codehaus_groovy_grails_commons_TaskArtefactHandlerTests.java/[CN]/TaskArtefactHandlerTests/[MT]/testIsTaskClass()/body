@@ -1,6 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class c=gcl.parseClass("class TestJob { def execute() { }}\n");
-  ArtefactHandler handler=new TaskArtefactHandler();
-  assertTrue(handler.isArtefact(c));
-}

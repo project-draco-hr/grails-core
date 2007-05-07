@@ -1,5 +1,0 @@
-{
-  String cronExpression=(String)getPropertyOrStaticPropertyOrFieldValue(CRON_EXPRESSION,String.class);
-  if (cronExpression == null)   return false;
-  return true;
-}

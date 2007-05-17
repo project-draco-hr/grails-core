@@ -10,7 +10,7 @@
         superClass=superClass.getSuperclass();
       }
     }
-    GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();
+    GrailsDomainClassProperty[] props=domainClass.getPersistentProperties();
     for (int j=0; j < props.length; j++) {
       if (props[j].isAssociation()) {
         GrailsDomainClassProperty prop=props[j];
@@ -21,7 +21,7 @@
   }
   for (int i=0; i < domainClasses.length; i++) {
     GrailsDomainClass domainClass=(GrailsDomainClass)domainClasses[i];
-    GrailsDomainClassProperty[] props=domainClass.getPersistantProperties();
+    GrailsDomainClassProperty[] props=domainClass.getPersistentProperties();
     for (int j=0; j < props.length; j++) {
       if (props[j].isAssociation()) {
         GrailsDomainClassProperty prop=props[j];
@@ -37,7 +37,7 @@
             prop.setOtherSide(referenced.getPropertyByName(refPropertyName));
           }
  else {
-            GrailsDomainClassProperty[] referencedProperties=referenced.getPersistantProperties();
+            GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
             for (int k=0; k < referencedProperties.length; k++) {
               if (prop.equals(referencedProperties[k]) && prop.isBidirectional())               continue;
               if (domainClasses[i].getClazz().equals(referencedProperties[k].getReferencedPropertyType())) {

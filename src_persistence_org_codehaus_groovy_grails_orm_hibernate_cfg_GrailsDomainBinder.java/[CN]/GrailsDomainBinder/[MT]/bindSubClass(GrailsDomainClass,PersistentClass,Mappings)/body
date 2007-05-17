@@ -1,0 +1,10 @@
+{
+  Subclass subClass=new SingleTableSubclass(parent);
+  bindSubClass(sub,subClass,mappings);
+  subClass.setDiscriminatorValue(sub.getFullName());
+  parent.addSubclass(subClass);
+  mappings.addClass(subClass);
+  if (!sub.getSubClasses().isEmpty()) {
+    bindSubClasses(sub,subClass,mappings);
+  }
+}

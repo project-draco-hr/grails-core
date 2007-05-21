@@ -1,5 +1,11 @@
 {
   UrlMappingsHolder holder=lookupUrlMappings();
+  GrailsApplication application=lookupApplication();
+  GrailsClass[] controllers=application.getArtefacts(ControllerArtefactHandler.TYPE);
+  if (controllers == null || controllers.length == 0) {
+    filterChain.doFilter(request,response);
+    return;
+  }
   if (LOG.isTraceEnabled()) {
     LOG.trace("Executing URL mapping filter");
   }

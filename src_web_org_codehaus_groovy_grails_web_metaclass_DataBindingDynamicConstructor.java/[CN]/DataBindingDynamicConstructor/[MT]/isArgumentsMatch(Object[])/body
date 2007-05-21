@@ -1,7 +1,9 @@
 {
-  if (args.length != 1)   return false;
-  if (args[0] == null)   return false;
-  if (HttpServletRequest.class.isAssignableFrom(args[0].getClass()))   return true;
-  if (Map.class.isAssignableFrom(args[0].getClass()))   return true;
+  if (args.length == 0)   return true;
+  if (args.length > 1)   return false;
+  if (args.length == 1) {
+    if (HttpServletRequest.class.isAssignableFrom(args[0].getClass()))     return true;
+    if (Map.class.isAssignableFrom(args[0].getClass()))     return true;
+  }
   return false;
 }

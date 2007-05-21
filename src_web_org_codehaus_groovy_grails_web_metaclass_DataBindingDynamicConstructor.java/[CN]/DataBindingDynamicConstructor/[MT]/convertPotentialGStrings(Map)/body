@@ -4,10 +4,10 @@
     Object key=i.next();
     Object value=args.get(key);
     if (key instanceof groovy.lang.GString) {
-      key=((groovy.lang.GString)key).toString();
+      key=key.toString();
     }
     if (value instanceof groovy.lang.GString) {
-      value=((groovy.lang.GString)value).toString();
+      value=value.toString();
     }
     newArgs.put(key,value);
   }

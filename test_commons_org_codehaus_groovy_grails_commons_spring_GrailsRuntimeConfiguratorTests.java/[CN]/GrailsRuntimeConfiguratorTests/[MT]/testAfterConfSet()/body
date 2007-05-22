@@ -9,4 +9,5 @@
   assertNotNull(ctx);
   GrailsMockDependantObject gdo=(GrailsMockDependantObject)ctx.getBean("grailsDependent");
   assertNotNull(gdo.getApplication());
+  assertFalse(ctx.containsBean("sessionFactory"));
 }

@@ -5,8 +5,8 @@
   if (params.length == 0) {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking at least 1 parameter (value, [object])");
   }
- else   if (params.length > 2) {
-    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking no more than 2 parameters (value, [object])");
+ else   if (params.length > 3) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking no more than 3 parameters (value, [object, [errors]])");
   }
   numValidatorParams=params.length;
   BeanWrapper wr=new BeanWrapperImpl(constraintOwningClass);
@@ -17,6 +17,11 @@
   if (params.length > 1) {
     if (!GrailsClassUtils.isGroovyAssignableFrom(params[1],constraintOwningClass)) {
       throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of "+ "property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure "+ "taking with the second parameter (object) compatible with the type of the object being "+ "constrained ["+ constraintOwningClass+ "], but the parameter is of type ["+ params[1]+ "]");
+    }
+  }
+  if (params.length > 2) {
+    if (!GrailsClassUtils.isGroovyAssignableFrom(params[2],Errors.class)) {
+      throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of "+ "property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure "+ "taking with the third parameter (object) compatible with the type of the spring "+ "org.springframework.validation.Errors interface, but the parameter is of type ["+ params[2]+ "]");
     }
   }
   super.setParameter(constraintParameter);

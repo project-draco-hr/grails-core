@@ -1,7 +1,17 @@
 {
   if (validator != null) {
-    Object[] params=numValidatorParams == 2 ? new Object[]{propertyValue,target} : new Object[]{propertyValue};
+    Object[] params=new Object[numValidatorParams];
+    params[0]=propertyValue;
+    if (numValidatorParams >= 2) {
+      params[1]=target;
+    }
+    if (numValidatorParams == 3) {
+      params[2]=errors;
+    }
     final Object result=validator.call(params);
+    if (numValidatorParams == 3) {
+      return;
+    }
     boolean bad=false;
     String errmsg=null;
     Object[] args=null;

@@ -12,8 +12,8 @@
  catch (  IllegalArgumentException iae) {
   }
   try {
-    getConstraint("{ param1, param2, param3 -> return true}");
-    fail("ValidatorConstraint must throw exception about closure with more that 2 params");
+    getConstraint("{ param1, param2, param3, param4 -> return true}");
+    fail("ValidatorConstraint must throw exception about closure with more that 3 params");
   }
  catch (  IllegalArgumentException iae) {
   }

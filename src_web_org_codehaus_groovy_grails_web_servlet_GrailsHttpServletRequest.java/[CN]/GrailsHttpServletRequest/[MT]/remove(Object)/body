@@ -1,8 +1,0 @@
-{
-  if (key instanceof String) {
-    Object v=getRequest().getAttribute((String)key);
-    getRequest().removeAttribute((String)key);
-    return v;
-  }
-  return null;
-}

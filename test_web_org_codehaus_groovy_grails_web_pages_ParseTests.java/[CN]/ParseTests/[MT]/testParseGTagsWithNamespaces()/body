@@ -1,0 +1,5 @@
+{
+  String expected="import org.codehaus.groovy.grails.web.pages.GroovyPage\n" + "import org.codehaus.groovy.grails.web.taglib.*\n" + "\n"+ "class myTest extends GroovyPage {\n"+ "public Object run() {\n"+ "out.print(\'<tbody>\\n  \')\n"+ "body1 = new GroovyPageTagBody(this,binding.webRequest) {\n"+ "}\n"+ "invokeTag(\'form\',\'tt\',[:],body1)\n"+ "out.print(\'\\n</tbody>\')\n"+ "}\n"+ "}";
+  String output=parseCode("myTest","<tbody>\n" + "  <tt:form />\n" + "</tbody>");
+  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output));
+}

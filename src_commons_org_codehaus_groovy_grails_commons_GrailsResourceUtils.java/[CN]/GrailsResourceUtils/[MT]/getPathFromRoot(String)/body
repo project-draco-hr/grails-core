@@ -1,0 +1,7 @@
+{
+  Matcher m=RESOURCE_PATH_PATTERN.matcher(path);
+  if (m.find()) {
+    return m.group(2);
+  }
+  return null;
+}

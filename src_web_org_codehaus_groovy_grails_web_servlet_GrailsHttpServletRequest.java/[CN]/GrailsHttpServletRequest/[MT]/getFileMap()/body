@@ -1,9 +1,0 @@
-{
-  ServletRequest r=getRequest();
-  if (r instanceof MultipartHttpServletRequest) {
-    return ((MultipartHttpServletRequest)r).getFileMap();
-  }
- else {
-    throw new MissingMethodException("getFileMap",GrailsHttpServletRequest.class,new Object[0]);
-  }
-}

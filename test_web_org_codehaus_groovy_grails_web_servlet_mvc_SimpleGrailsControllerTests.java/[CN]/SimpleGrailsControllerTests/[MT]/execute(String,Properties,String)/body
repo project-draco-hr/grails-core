@@ -1,6 +1,6 @@
 {
   GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest((GrailsWebApplicationContext)this.appCtx);
-  MockHttpServletRequest request=(MockHttpServletRequest)((GrailsHttpServletRequest)webRequest.getCurrentRequest()).getRequest();
+  MockHttpServletRequest request=(MockHttpServletRequest)webRequest.getCurrentRequest();
   request.setRequestURI(uri);
   request.setMethod(requestMethod);
   request.setContextPath("/simple");

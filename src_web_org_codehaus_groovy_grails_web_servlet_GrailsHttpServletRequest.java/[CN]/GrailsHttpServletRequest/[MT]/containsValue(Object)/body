@@ -1,7 +1,0 @@
-{
-  while (getRequest().getAttributeNames().hasMoreElements()) {
-    String s=(String)getRequest().getAttributeNames().nextElement();
-    if (getAttribute(s).equals(value))     return true;
-  }
-  return false;
-}

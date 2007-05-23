@@ -1,0 +1,10 @@
+{
+  if (this == o)   return true;
+  if (o instanceof ClosureMetaMethod) {
+    ClosureMetaMethod method=(ClosureMetaMethod)o;
+    return getName().equals(method.getName()) && compatibleModifiers(getModifiers(),method.getModifiers()) && getReturnType().equals(method.getReturnType())&& equal(getParameterTypes(),method.getParameterTypes());
+  }
+ else {
+    return false;
+  }
+}

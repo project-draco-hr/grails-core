@@ -19,4 +19,8 @@
       tags.add(prop.getName());
     }
   }
+  String ns=(String)getPropertyOrStaticPropertyOrFieldValue(NAMESPACE_FIELD_NAME,String.class);
+  if (ns != null && !"".equals(ns.trim())) {
+    namespace=ns.trim();
+  }
 }

@@ -1,9 +1,0 @@
-{
-  Set set=new HashSet();
-  ServletRequest r=getRequest();
-  while (r.getAttributeNames().hasMoreElements()) {
-    String s=(String)r.getAttributeNames().nextElement();
-    set.add(s);
-  }
-  return set;
-}

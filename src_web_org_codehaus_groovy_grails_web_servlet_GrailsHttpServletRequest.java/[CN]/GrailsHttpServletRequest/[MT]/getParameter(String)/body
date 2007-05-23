@@ -1,4 +1,0 @@
-{
-  if (controllerParams.containsKey(paramName))   return controllerParams.get(paramName).toString();
-  return super.getParameter(paramName);
-}

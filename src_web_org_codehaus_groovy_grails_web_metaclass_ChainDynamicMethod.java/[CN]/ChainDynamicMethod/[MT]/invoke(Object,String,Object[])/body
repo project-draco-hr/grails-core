@@ -55,7 +55,7 @@
   }
   if (actionName != null) {
     GrailsApplicationAttributes attrs=webRequest.getAttributes();
-    GrailsHttpServletRequest request=webRequest.getCurrentRequest();
+    HttpServletRequest request=webRequest.getCurrentRequest();
     StringBuffer actualUri=new StringBuffer(attrs.getApplicationUri(request));
     if (controllerName != null) {
       actualUri.append('/').append(controllerName);

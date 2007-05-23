@@ -1,9 +1,0 @@
-{
-  ServletRequest r=getRequest();
-  if (r instanceof MultipartHttpServletRequest) {
-    return ((MultipartHttpServletRequest)r).getFile(name);
-  }
- else {
-    throw new MissingMethodException("getFile",GrailsHttpServletRequest.class,new Object[]{name});
-  }
-}

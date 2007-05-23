@@ -1,5 +1,0 @@
-{
-  super(request);
-  requestBean=new BeanWrapperImpl(request);
-  controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
-}

@@ -3,7 +3,7 @@
   for (Class c=theClass; c != null; c=c.getSuperclass()) {
     superClasses.addFirst(c);
   }
-  if (theClass.isArray() && theClass != Object[].class && !theClass.getComponentType().isPrimitive()) {
+  if (getJavaClass().isArray() && getJavaClass() != Object[].class && !getJavaClass().getComponentType().isPrimitive()) {
     superClasses.addFirst(Object[].class);
   }
   return superClasses;

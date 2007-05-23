@@ -5,9 +5,13 @@
       MetaBeanProperty mbp=new ThreadManagedMetaBeanProperty(theClass,property,type,newValue);
       addMetaMethod(mbp.getGetter());
       addMetaMethod(mbp.getSetter());
-      expandoMethods.add(mbp.getSetter());
-      expandoMethods.add(mbp.getGetter());
-      expandoProperties.add(mbp);
+synchronized (expandoMethods) {
+        expandoMethods.add(mbp.getSetter());
+        expandoMethods.add(mbp.getGetter());
+      }
+synchronized (expandoProperties) {
+        expandoProperties.add(mbp);
+      }
       addMetaBeanProperty(mbp);
     }
   }

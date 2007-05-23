@@ -3,16 +3,7 @@
   checkStructuredDateDefinitions(request,mpvs);
   autoCreateIfPossible(mpvs);
   bindAssociations(mpvs);
-  if (request instanceof HttpServletRequestWrapper) {
-    request=((HttpServletRequestWrapper)request).getRequest();
-  }
- else   if (request instanceof GrailsHttpServletRequest) {
-    if (((GrailsHttpServletRequest)request).isMultiPart()) {
-      MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-      bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
-    }
-  }
- else   if (request instanceof MultipartHttpServletRequest) {
+  if (request instanceof MultipartHttpServletRequest) {
     MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
     bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
   }

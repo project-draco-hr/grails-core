@@ -2,7 +2,7 @@
   if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
-  GrailsHttpServletRequest request=webRequest.getCurrentRequest();
+  HttpServletRequest request=webRequest.getCurrentRequest();
   GrailsHttpServletResponse response=webRequest.getCurrentResponse();
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;

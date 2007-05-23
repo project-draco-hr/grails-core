@@ -1,4 +1,0 @@
-{
-  if (key instanceof String)   return getRequest().getAttribute((String)key) != null;
- else   return false;
-}

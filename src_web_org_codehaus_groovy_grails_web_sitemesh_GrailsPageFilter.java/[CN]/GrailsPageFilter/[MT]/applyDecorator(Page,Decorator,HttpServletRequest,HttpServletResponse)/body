@@ -15,9 +15,6 @@
       if (response instanceof GrailsHttpServletResponse) {
         response=((GrailsHttpServletResponse)response).getDelegate();
       }
-      if (request instanceof GrailsHttpServletRequest) {
-        request=((GrailsHttpServletRequest)request).getDelegate();
-      }
       rd.forward(request,response);
     }
  else {

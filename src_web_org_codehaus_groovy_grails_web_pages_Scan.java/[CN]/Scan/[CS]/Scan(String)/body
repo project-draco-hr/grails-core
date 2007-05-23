@@ -3,4 +3,5 @@
   strip.strip(0);
   this.text=strip.toString();
   len=this.text.length();
+  this.lastNamespace=null;
 }

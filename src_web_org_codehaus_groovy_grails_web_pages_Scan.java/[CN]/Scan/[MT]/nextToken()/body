@@ -44,11 +44,25 @@ case HTML:
           }
           return found(JSCRIPT,2);
         }
- else         if (startTag.equals("<g:")) {
-          return found(GSTART_TAG,3);
-        }
- else         if (endTag.equals("</g:")) {
-          return found(GEND_TAG,4);
+ else {
+          boolean bStartTag=true;
+          int fromIndex=end1;
+          if (c1 == '/') {
+            bStartTag=false;
+            fromIndex=end1 + 1;
+          }
+          int foundColonIdx=text.indexOf(":",fromIndex);
+          if (foundColonIdx > -1) {
+            String tagNameSpace=text.substring(fromIndex,foundColonIdx);
+            if (tagNameSpace.matches("^\\p{Alpha}\\w*$")) {
+              if (bStartTag) {
+                return foundStartOrEndTag(GSTART_TAG,tagNameSpace.length() + 2,tagNameSpace);
+              }
+ else {
+                return foundStartOrEndTag(GEND_TAG,tagNameSpace.length() + 3,tagNameSpace);
+              }
+            }
+          }
         }
       }
  else       if (c == '$' && c1 == '{') {

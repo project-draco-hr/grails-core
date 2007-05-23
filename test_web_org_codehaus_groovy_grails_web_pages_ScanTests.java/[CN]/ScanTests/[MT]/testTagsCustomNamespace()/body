@@ -1,0 +1,10 @@
+{
+  String gsp="<tbody>\n" + "  <tt:form />\n" + "</tbody>";
+  Scan s=new Scan(gsp);
+  int next;
+  while ((next=s.nextToken()) != Tokens.EOF) {
+    if (next == Tokens.GSTART_TAG || next == Tokens.GEND_TAG) {
+      assertEquals("tt",s.getNamespace());
+    }
+  }
+}

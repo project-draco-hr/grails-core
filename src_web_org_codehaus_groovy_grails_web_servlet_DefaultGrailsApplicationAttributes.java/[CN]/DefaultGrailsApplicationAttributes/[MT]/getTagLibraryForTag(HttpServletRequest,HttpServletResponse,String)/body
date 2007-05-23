@@ -1,18 +1,3 @@
 {
-  Map tagCache=(Map)request.getAttribute(TAG_CACHE);
-  if (tagCache == null) {
-    tagCache=new HashMap();
-    request.setAttribute(TAG_CACHE,tagCache);
-  }
-  if (tagCache.containsKey(tagName)) {
-    return (GroovyObject)tagCache.get(tagName);
-  }
- else {
-    GrailsTagLibClass tagLibClass=(GrailsTagLibClass)getGrailsApplication().getArtefactForFeature(TagLibArtefactHandler.TYPE,tagName);
-    if (tagLibClass == null)     return null;
-    GroovyObject controller=getController(request);
-    GroovyObject tagLib=(GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());
-    tagCache.put(tagName,tagLib);
-    return tagLib;
-  }
+  return getTagLibraryForTag(request,response,tagName,GroovyPage.DEFAULT_NAMESPACE);
 }

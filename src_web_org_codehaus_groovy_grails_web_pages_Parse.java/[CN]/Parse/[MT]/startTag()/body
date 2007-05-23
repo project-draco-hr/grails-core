@@ -3,6 +3,7 @@
   tagIndex++;
   String text;
   StringBuffer buf=new StringBuffer(scan.getToken().trim());
+  String ns=scan.getNamespace();
   state=scan.nextToken();
   while (state != HTML && state != GEND_TAG) {
     if (state == GTAG_EXPR) {
@@ -35,9 +36,10 @@
   }
   TagMeta tm=new TagMeta();
   tm.name=tagName;
+  tm.namespace=ns;
   tm.hasAttributes=!attrs.isEmpty();
   tagMetaStack.add(tm);
-  if (tagRegistry.isSyntaxTag(tagName)) {
+  if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
     if (this.tagContext == null) {
       this.tagContext=new HashMap();
       this.tagContext.put(GroovyPage.OUT,out);

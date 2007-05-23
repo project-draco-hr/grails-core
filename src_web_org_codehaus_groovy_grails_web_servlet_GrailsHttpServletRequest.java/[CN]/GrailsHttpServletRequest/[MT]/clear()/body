@@ -1,7 +1,0 @@
-{
-  ServletRequest r=getRequest();
-  while (r.getAttributeNames().hasMoreElements()) {
-    String s=(String)r.getAttributeNames().nextElement();
-    getRequest().removeAttribute(s);
-  }
-}

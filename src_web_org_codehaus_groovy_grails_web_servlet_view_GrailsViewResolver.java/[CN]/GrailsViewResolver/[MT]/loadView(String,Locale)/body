@@ -2,7 +2,7 @@
   if (this.templateEngine == null)   throw new IllegalStateException("Property [templateEngine] cannot be null");
   ResourceLoader resourceLoader=establishResourceLoader();
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  GrailsHttpServletRequest request=webRequest.getCurrentRequest();
+  HttpServletRequest request=webRequest.getCurrentRequest();
   GroovyObject controller=webRequest.getAttributes().getController(request);
   GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
   String gspView=localPrefix + viewName + GSP_SUFFIX;

@@ -1,7 +1,3 @@
 {
-  if (this.application == null)   initPageState();
-  Binding binding=getBinding();
-  HttpServletRequest request=(HttpServletRequest)binding.getVariable(GroovyPage.REQUEST);
-  HttpServletResponse response=(HttpServletResponse)binding.getVariable(GroovyPage.RESPONSE);
-  return grailsAttributes.getTagLibraryForTag(request,response,tagName);
+  return getTagLib(tagName,DEFAULT_NAMESPACE);
 }

@@ -2,7 +2,7 @@
   if (uri == null)   throw new IllegalArgumentException("Controller URI [" + uri + "] cannot be null!");
   this.webRequest=webRequest;
   uri=configureStateForUri(uri);
-  GrailsHttpServletRequest request=webRequest.getCurrentRequest();
+  HttpServletRequest request=webRequest.getCurrentRequest();
   GrailsHttpServletResponse response=webRequest.getCurrentResponse();
   if (StringUtils.isBlank(actionName))   uri=checkDispatchAction(request,uri);
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
@@ -42,8 +42,7 @@
   }
   webRequest.setActionName(actionName);
   webRequest.setControllerName(controllerName);
-  Map controllerParams=(Map)controller.getProperty(GetParamsDynamicProperty.PROPERTY_NAME);
-  request.setControllerParams(controllerParams);
+  Map controllerParams=webRequest.getParameterMap();
   if (!StringUtils.isBlank(id)) {
     controllerParams.put(GrailsApplicationAttributes.ID_PARAM,id);
   }

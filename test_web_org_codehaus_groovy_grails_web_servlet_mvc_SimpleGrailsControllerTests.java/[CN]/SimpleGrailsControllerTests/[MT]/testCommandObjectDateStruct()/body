@@ -1,0 +1,16 @@
+{
+  ModelAndView modelAndView=execute("/test/codatestruct/1/birthday/struct/birthday_day/03/birthday_month/05/birthday_year/1973",null);
+  assertNotNull("null modelAndView",modelAndView);
+  Map model=modelAndView.getModelMap();
+  Errors validationErrors=(Errors)model.get("validationErrors");
+  assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
+  Date birthDate=(Date)model.get("theDate");
+  assertNotNull("null birthday",birthDate);
+  Calendar expectedCalendar=Calendar.getInstance();
+  expectedCalendar.clear();
+  expectedCalendar.set(Calendar.DAY_OF_MONTH,3);
+  expectedCalendar.set(Calendar.MONTH,Calendar.MAY);
+  expectedCalendar.set(Calendar.YEAR,1973);
+  Date expectedDate=expectedCalendar.getTime();
+  assertEquals("wrong date",expectedDate,birthDate);
+}

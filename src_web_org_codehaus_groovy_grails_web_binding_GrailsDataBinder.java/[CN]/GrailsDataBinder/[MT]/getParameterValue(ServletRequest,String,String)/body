@@ -1,4 +1,0 @@
-{
-  String parameterValue=request.getParameter(propertyName);
-  return parameterValue != null ? parameterValue : defaultPropertyValue;
-}

@@ -1,13 +1,14 @@
 {
-  PropertyValue[] pvs=mpvs.getPropertyValues();
+  PropertyValue[] pvs=propertyValues.getPropertyValues();
   for (int i=0; i < pvs.length; i++) {
-    PropertyValue pv=pvs[i];
+    PropertyValue propertyValue=pvs[i];
     try {
-      String propertyName=pv.getName();
+      String propertyName=propertyValue.getName();
       Class type=bean.getPropertyType(propertyName);
       if (type == Date.class || type == Calendar.class) {
         try {
-          String yearString=request.getParameter(propertyName + "_year");
+          PropertyValue yearProperty=propertyValues.getPropertyValue(propertyName + "_year");
+          String yearString=(String)yearProperty.getValue();
           int year;
           if (StringUtils.isBlank(yearString)) {
             Calendar now=Calendar.getInstance(RequestContextUtils.getLocale((HttpServletRequest)request));
@@ -16,13 +17,13 @@
  else {
             year=Integer.parseInt(yearString);
           }
-          int month=Integer.parseInt(getParameterValue(request,propertyName + "_month","1"));
-          int day=Integer.parseInt(getParameterValue(request,propertyName + "_day","1"));
-          int hour=Integer.parseInt(getParameterValue(request,propertyName + "_hour","0"));
-          int minute=Integer.parseInt(getParameterValue(request,propertyName + "_minute","0"));
+          int month=getIntegerPropertyValue(propertyValues,propertyName + "_month",1);
+          int day=getIntegerPropertyValue(propertyValues,propertyName + "_day",1);
+          int hour=getIntegerPropertyValue(propertyValues,propertyName + "_hour",0);
+          int minute=getIntegerPropertyValue(propertyValues,propertyName + "_minute",0);
           Calendar c=new GregorianCalendar(year,month - 1,day,hour,minute);
-          if (type == Date.class)           mpvs.setPropertyValueAt(new PropertyValue(propertyName,c.getTime()),i);
- else           mpvs.setPropertyValueAt(new PropertyValue(propertyName,c),i);
+          if (type == Date.class)           propertyValues.setPropertyValueAt(new PropertyValue(propertyName,c.getTime()),i);
+ else           propertyValues.setPropertyValueAt(new PropertyValue(propertyName,c),i);
         }
  catch (        NumberFormatException nfe) {
           LOG.warn("Unable to parse structured date from request for date [" + propertyName + "]",nfe);

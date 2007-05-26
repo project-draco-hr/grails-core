@@ -1,0 +1,8 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+  if (webRequest != null && propertyValues instanceof MutablePropertyValues) {
+    ServletRequest request=webRequest.getCurrentRequest();
+    checkStructuredDateDefinitions(request,(MutablePropertyValues)propertyValues);
+  }
+  super.bind(propertyValues);
+}

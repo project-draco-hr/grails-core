@@ -4,7 +4,7 @@
   component.setRoleName(role);
   component.setComponentClassName(property.getType().getName());
   GrailsDomainClass domainClass=property.getReferencedDomainClass();
-  GrailsDomainClassProperty[] properties=domainClass.getPersistantProperties();
+  GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   Table table=component.getOwner().getTable();
   PersistentClass persistentClass=component.getOwner();
   for (int i=0; i < properties.length; i++) {

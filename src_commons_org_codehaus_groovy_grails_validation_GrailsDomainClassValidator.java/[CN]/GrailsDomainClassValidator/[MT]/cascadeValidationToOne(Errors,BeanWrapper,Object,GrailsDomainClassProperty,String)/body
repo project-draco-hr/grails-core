@@ -7,7 +7,7 @@
         otherSide=persistentProperty.getOtherSide();
       }
       Map associatedConstraintedProperties=associatedDomainClass.getConstrainedProperties();
-      GrailsDomainClassProperty[] associatedPersistentProperties=associatedDomainClass.getPersistantProperties();
+      GrailsDomainClassProperty[] associatedPersistentProperties=associatedDomainClass.getPersistentProperties();
       String nestedPath=errors.getNestedPath();
       try {
         errors.setNestedPath(nestedPath + propertyName);

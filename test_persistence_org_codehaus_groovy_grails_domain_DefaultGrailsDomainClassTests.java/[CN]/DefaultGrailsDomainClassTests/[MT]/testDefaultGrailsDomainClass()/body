@@ -21,7 +21,7 @@
   assertNotNull(firstName);
   assertFalse(firstName.isOptional());
   assertTrue(firstName.isPersistent());
-  GrailsDomainClassProperty[] persistantProperties=domainClass.getPersistantProperties();
+  GrailsDomainClassProperty[] persistantProperties=domainClass.getPersistentProperties();
   for (int i=0; i < persistantProperties.length; i++) {
     assertTrue(persistantProperties[i].isPersistent());
   }

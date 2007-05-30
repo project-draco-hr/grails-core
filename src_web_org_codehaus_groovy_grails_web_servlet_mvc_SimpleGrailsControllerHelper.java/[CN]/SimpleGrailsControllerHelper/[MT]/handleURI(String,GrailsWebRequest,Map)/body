@@ -3,7 +3,7 @@
   this.webRequest=webRequest;
   uri=configureStateForUri(uri);
   HttpServletRequest request=webRequest.getCurrentRequest();
-  GrailsHttpServletResponse response=webRequest.getCurrentResponse();
+  HttpServletResponse response=webRequest.getCurrentResponse();
   if (StringUtils.isBlank(actionName))   uri=checkDispatchAction(request,uri);
   if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
   if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
@@ -75,7 +75,7 @@
       action=(Closure)controller.getProperty(actionName);
       Object returnValue=handleAction(controller,action,request,response,params);
       initChainModel(controller);
-      if (response.isRedirected()) {
+      if (response.isCommitted()) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("Response has been redirected, returning null model and view");
         }

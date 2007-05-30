@@ -3,7 +3,7 @@
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
   HttpServletRequest request=webRequest.getCurrentRequest();
-  GrailsHttpServletResponse response=webRequest.getCurrentResponse();
+  HttpServletResponse response=webRequest.getCurrentResponse();
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;
   if ((arguments[0] instanceof String) || (arguments[0] instanceof GString)) {

@@ -1,6 +1,0 @@
-{
-  if (!contentTypeSet) {
-    this.contentTypeSet=true;
-    super.setContentType(contentType);
-  }
-}

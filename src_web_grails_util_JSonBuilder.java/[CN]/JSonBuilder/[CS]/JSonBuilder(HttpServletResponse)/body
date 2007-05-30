@@ -1,3 +1,4 @@
 {
-  this(new GrailsHttpServletResponse(response));
+  this(response.getWriter());
+  response.setContentType(GrailsWebUtil.getContentType(TEXT_JSON,UTF_8));
 }

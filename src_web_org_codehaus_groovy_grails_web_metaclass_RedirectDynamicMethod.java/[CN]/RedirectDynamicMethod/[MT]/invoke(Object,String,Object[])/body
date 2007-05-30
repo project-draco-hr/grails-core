@@ -24,7 +24,7 @@
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   GrailsApplicationAttributes attrs=webRequest.getAttributes();
   HttpServletRequest request=webRequest.getCurrentRequest();
-  GrailsHttpServletResponse response=webRequest.getCurrentResponse();
+  HttpServletResponse response=webRequest.getCurrentResponse();
   StringBuffer actualUriBuf=new StringBuffer(attrs.getApplicationUri(request));
   if (uri != null) {
     actualUri=attrs.getApplicationUri(request) + uri.toString();
@@ -40,7 +40,7 @@
     }
     boolean found=false;
     try {
-      UrlMapping urlMapping=null;
+      UrlCreator urlMapping=null;
       if (id != null)       params.put(ARGUMENT_ID,id);
       if (urlMappingsHolder != null) {
         urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);

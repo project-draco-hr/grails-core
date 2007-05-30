@@ -79,7 +79,7 @@
       LOG.debug("Dynamic method [chain] redirecting request to [" + actualUri + "]");
     }
     try {
-      GrailsHttpServletResponse response=webRequest.getCurrentResponse();
+      HttpServletResponse response=webRequest.getCurrentResponse();
       response.sendRedirect(response.encodeRedirectURL(actualUri.toString()));
     }
  catch (    IOException e) {

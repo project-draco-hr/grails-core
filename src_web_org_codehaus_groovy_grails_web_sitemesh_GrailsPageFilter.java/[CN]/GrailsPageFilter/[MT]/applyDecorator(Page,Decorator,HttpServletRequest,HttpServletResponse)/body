@@ -12,9 +12,6 @@
       if (LOG.isDebugEnabled()) {
         LOG.debug("Rendering layout using forward: " + decorator.getURIPath());
       }
-      if (response instanceof GrailsHttpServletResponse) {
-        response=((GrailsHttpServletResponse)response).getDelegate();
-      }
       rd.forward(request,response);
     }
  else {

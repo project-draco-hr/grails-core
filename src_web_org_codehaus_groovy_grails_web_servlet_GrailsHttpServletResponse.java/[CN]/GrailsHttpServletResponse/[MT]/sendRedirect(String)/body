@@ -1,7 +1,0 @@
-{
-  this.redirected=true;
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Executing redirect with response [" + getResponse() + "] to location ["+ url+ "]");
-  }
-  super.sendRedirect(url);
-}

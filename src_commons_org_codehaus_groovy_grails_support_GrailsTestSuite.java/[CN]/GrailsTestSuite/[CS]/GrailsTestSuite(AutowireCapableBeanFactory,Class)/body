@@ -2,4 +2,8 @@
   super(clazz);
   Assert.notNull(beanFactory,"Bean factory should not be null!");
   this.beanFactory=beanFactory;
+  Object order=GrailsClassUtils.getStaticPropertyValue(clazz,CLEANING_ORDER_PROPERTY);
+  if (order != null && List.class.isAssignableFrom(order.getClass())) {
+    cleaningOrder=(List)order;
+  }
 }

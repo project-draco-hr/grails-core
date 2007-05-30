@@ -25,7 +25,6 @@
   GrailsApplicationAttributes attrs=webRequest.getAttributes();
   HttpServletRequest request=webRequest.getCurrentRequest();
   HttpServletResponse response=webRequest.getCurrentResponse();
-  StringBuffer actualUriBuf=new StringBuffer(attrs.getApplicationUri(request));
   if (uri != null) {
     actualUri=attrs.getApplicationUri(request) + uri.toString();
   }
@@ -38,58 +37,21 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("Dynamic method [redirect] looking up URL mapping for controller [" + controllerName + "] and action ["+ actionName+ "] and params ["+ params+ "] with ["+ urlMappingsHolder+ "]");
     }
-    boolean found=false;
     try {
-      UrlCreator urlMapping=null;
       if (id != null)       params.put(ARGUMENT_ID,id);
-      if (urlMappingsHolder != null) {
-        urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);
-      }
+      UrlCreator urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);
       if (LOG.isDebugEnabled() && urlMapping == null) {
         LOG.debug("Dynamic method [redirect] no URL mapping found for params [" + params + "]");
       }
-      if (urlMapping != null) {
-        found=true;
-        params.put(ARGUMENT_CONTROLLER,controllerName);
-        params.put(ARGUMENT_ACTION,actionName != null ? actionName : webRequest.getActionName());
-        String mappedUrl=urlMapping.createURL(params);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Dynamic method [redirect] mapped to URL [" + mappedUrl + "]");
-        }
-        actualUriBuf.append(mappedUrl);
+      String action=actionName != null ? actionName : webRequest.getActionName();
+      actualUri=urlMapping.createURL(controllerName,action,params,request.getCharacterEncoding());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Dynamic method [redirect] mapped to URL [" + actualUri + "]");
       }
     }
   finally {
       if (id != null)       params.remove(ARGUMENT_ID);
-      params.remove(ARGUMENT_CONTROLLER);
-      params.remove(ARGUMENT_ACTION);
     }
-    if (!found) {
-      if (actionName != null) {
-        if (actionName.indexOf(SLASH) > -1) {
-          actualUriBuf.append(actionName);
-        }
- else {
-          if (controllerName != null) {
-            appendUrlToken(actualUriBuf,controllerName);
-          }
- else {
-            actualUriBuf.append(attrs.getControllerUri(request));
-          }
-        }
-        appendUrlToken(actualUriBuf,actionName);
-      }
- else {
-        throw new ControllerExecutionException("Action not found in redirect for name [" + actionName + "]");
-      }
-      if (id != null) {
-        appendUrlToken(actualUriBuf,id);
-      }
-      if (params != null) {
-        appendRequestParams(actualUriBuf,params,request);
-      }
-    }
-    actualUri=actualUriBuf.toString();
   }
   return redirectResponse(actualUri,response);
 }

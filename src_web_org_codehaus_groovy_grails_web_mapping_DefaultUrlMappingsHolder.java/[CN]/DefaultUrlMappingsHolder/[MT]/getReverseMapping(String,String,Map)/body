@@ -4,7 +4,13 @@
   if (mapping == null) {
     mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,null,DEFAULT_ACTION_PARAMS));
     if (mapping == null) {
-      return (UrlMapping)mappingsLookup.get(new UrlMappingKey(null,null,DEFAULT_CONTROLLER_PARAMS));
+      mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(null,null,DEFAULT_CONTROLLER_PARAMS));
+      if (mapping == null) {
+        return new DefaultUrlCreator(controller,action);
+      }
+ else {
+        return mapping;
+      }
     }
   }
   return mapping;

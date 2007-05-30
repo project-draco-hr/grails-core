@@ -1,7 +1,6 @@
 {
+  super(controllerName,actionName,constraints != null ? constraints : new ConstrainedProperty[0]);
   if (data == null)   throw new IllegalArgumentException("Argument [pattern] cannot be null");
-  this.controllerName=controllerName;
-  this.actionName=actionName;
   String[] urls=data.getLogicalUrls();
   this.urlData=data;
   this.patterns=new Pattern[urls.length];
@@ -12,7 +11,6 @@
     this.patterns[i]=pattern;
   }
   if (constraints != null) {
-    this.constraints=constraints;
     for (int i=0; i < constraints.length; i++) {
       ConstrainedProperty constraint=constraints[i];
       if (data.isOptional(i)) {

@@ -24,6 +24,7 @@
     RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
     try {
       WrappedResponseHolder.setWrappedResponse(response);
+      WebUtils.exposeForwardRequestAttributes(request);
       dispatcher.forward(request,response);
     }
   finally {

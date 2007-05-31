@@ -10,9 +10,13 @@
         GrailsDomainClass otherSide=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,prop.getType().getName());
         if (otherSide != null) {
           BeanWrapper propBean=new BeanWrapperImpl(propValue);
-          Serializable id=(Serializable)propBean.getPropertyValue(otherSide.getIdentifier().getName());
-          if (id != null) {
-            bean.setPropertyValue(prop.getName(),t.get(prop.getType(),id));
+          try {
+            Serializable id=(Serializable)propBean.getPropertyValue(otherSide.getIdentifier().getName());
+            if (id != null) {
+              bean.setPropertyValue(prop.getName(),t.get(prop.getType(),id));
+            }
+          }
+ catch (          InvalidPropertyException ipe) {
           }
         }
       }

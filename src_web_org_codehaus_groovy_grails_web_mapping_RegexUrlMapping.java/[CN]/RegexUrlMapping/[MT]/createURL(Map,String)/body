@@ -26,11 +26,11 @@
     String name=i.next().toString();
     if (!usedParams.contains(name)) {
       if (!addedParams) {
-        uri.append('?');
+        uri.append(QUESTION_MARK);
         addedParams=true;
       }
  else {
-        uri.append('&');
+        uri.append(AMPERSAND);
       }
       Object value=parameterValues.get(name);
       try {

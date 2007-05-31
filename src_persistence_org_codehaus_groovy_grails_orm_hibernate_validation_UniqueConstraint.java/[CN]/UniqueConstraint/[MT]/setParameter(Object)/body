@@ -21,6 +21,7 @@
     this.unique=((Boolean)constraintParameter).booleanValue();
   }
   if (uniquenessGroup.size() > 0) {
+    unique=true;
     for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
       String propertyName=(String)it.next();
       if (GrailsClassUtils.getPropertyType(constraintOwningClass,propertyName) == null) {

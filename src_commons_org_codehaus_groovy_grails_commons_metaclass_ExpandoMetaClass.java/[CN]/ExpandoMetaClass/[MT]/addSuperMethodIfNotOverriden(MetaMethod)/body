@@ -26,12 +26,7 @@
         addMetaMethod(localMethod);
         MethodKey key=new DefaultMethodKey(getJavaClass(),name,localMethod.getParameterTypes(),false);
         cacheInstanceMethod(key,localMethod);
-        if (isInvokeMethod(name,cloned)) {
-          invokeMethodMethod=localMethod;
-        }
- else         if (isGetPropertyMethod(name)) {
-          getPropertyMethod=localMethod;
-        }
+        checkIfGroovyObjectMethod(localMethod,name,cloned);
         expandoMethods.add(localMethod);
       }
     }

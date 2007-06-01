@@ -1,3 +1,5 @@
 {
-  return Collections.unmodifiableList(DefaultGroovyMethods.toList(expandoMethods));
+synchronized (expandoMethods) {
+    return Collections.unmodifiableList(DefaultGroovyMethods.toList(expandoMethods));
+  }
 }

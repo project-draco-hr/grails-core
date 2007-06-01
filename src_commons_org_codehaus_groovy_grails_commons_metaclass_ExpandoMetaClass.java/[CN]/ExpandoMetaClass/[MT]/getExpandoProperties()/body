@@ -1,3 +1,5 @@
 {
-  return Collections.unmodifiableList(expandoProperties);
+synchronized (expandoProperties) {
+    return Collections.unmodifiableCollection(expandoProperties.values());
+  }
 }

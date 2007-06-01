@@ -3,6 +3,12 @@
   performOperationOnMetaClass(new Callable(){
     public void call(){
       ClosureMetaMethod metaMethod=new ClosureMetaMethod(methodName,theClass,callable);
+      if (GET_PROPERTY_METHOD.equals(methodName)) {
+        getPropertyMethod=metaMethod;
+      }
+ else       if (INVOKE_METHOD_METHOD.equals(methodName)) {
+        invokeMethodMethod=metaMethod;
+      }
       MethodKey key=new DefaultMethodKey(theClass,methodName,metaMethod.getParameterTypes(),false);
       addMetaMethod(metaMethod);
 synchronized (expandoMethods) {

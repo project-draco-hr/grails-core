@@ -33,7 +33,7 @@
       }
     }
   }
-  List metaProperties=emc.getExpandoProperties();
+  Collection metaProperties=emc.getExpandoProperties();
   for (Iterator i=metaProperties.iterator(); i.hasNext(); ) {
     Object o=i.next();
     if (o instanceof ThreadManagedMetaBeanProperty) {

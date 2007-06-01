@@ -6,7 +6,7 @@ synchronized (beanPropertyCache) {
  else       beanProperty=new MetaBeanProperty(propertyName,Object.class,null,metaMethod);
       beanPropertyCache.put(propertyName,beanProperty);
 synchronized (expandoProperties) {
-        expandoProperties.add(beanProperty);
+        expandoProperties.put(beanProperty.getName(),beanProperty);
       }
     }
  else {

@@ -1,0 +1,6 @@
+{
+  if (getPropertyMethod != null && !name.equals(META_CLASS_PROPERTY)) {
+    return getPropertyMethod.invoke(object,new Object[]{name});
+  }
+  return super.getProperty(sender,object,name,useSuper,fromInsideClass);
+}

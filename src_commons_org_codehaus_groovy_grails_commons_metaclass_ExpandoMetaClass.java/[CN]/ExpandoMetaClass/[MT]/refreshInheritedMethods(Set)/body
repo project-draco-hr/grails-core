@@ -7,11 +7,11 @@
         MetaMethod metaMethod=(MetaMethod)j.next();
         addSuperMethodIfNotOverriden(metaMethod);
       }
-      List metaProperties=superExpando.getExpandoProperties();
+      Collection metaProperties=superExpando.getExpandoProperties();
       for (Iterator j=metaProperties.iterator(); j.hasNext(); ) {
         MetaBeanProperty property=(MetaBeanProperty)j.next();
 synchronized (expandoProperties) {
-          expandoProperties.add(property);
+          expandoProperties.put(property.getName(),property);
         }
         addMetaBeanProperty(property);
       }

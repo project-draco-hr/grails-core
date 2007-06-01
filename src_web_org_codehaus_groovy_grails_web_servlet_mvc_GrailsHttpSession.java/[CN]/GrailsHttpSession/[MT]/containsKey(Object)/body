@@ -1,6 +1,0 @@
-{
-  if (key == null)   return false;
-synchronized (adaptee) {
-    return adaptee.getAttribute(key.toString()) != null;
-  }
-}

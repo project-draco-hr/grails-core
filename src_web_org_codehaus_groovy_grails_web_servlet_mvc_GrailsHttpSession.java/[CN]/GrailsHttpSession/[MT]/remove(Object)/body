@@ -1,9 +1,0 @@
-{
-  if (key == null)   return null;
-  Object obj;
-synchronized (adaptee) {
-    obj=getAttribute(key.toString());
-    removeAttribute(key.toString());
-  }
-  return obj;
-}

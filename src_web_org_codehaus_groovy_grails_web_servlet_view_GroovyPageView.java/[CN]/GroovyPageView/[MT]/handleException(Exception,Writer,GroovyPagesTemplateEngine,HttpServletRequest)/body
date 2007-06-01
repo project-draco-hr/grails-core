@@ -1,6 +1,7 @@
 {
-  LOG.error("Error processing GSP: " + exception.getMessage(),exception);
+  LOG.error("Error processing GroovyPageView: " + exception.getMessage(),exception);
   try {
+    request.setAttribute(GrailsApplicationAttributes.CONTROLLER,null);
     Template t=engine.createTemplate(ERRORS_VIEW);
     Map model=new HashMap();
     model.put(EXCEPTION_MODEL_KEY,new GrailsWrappedRuntimeException(getServletContext(),exception));

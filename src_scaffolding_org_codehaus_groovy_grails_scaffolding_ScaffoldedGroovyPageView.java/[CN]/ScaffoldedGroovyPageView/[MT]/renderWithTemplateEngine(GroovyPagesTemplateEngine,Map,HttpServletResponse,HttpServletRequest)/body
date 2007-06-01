@@ -9,7 +9,11 @@
     out=createResponseWriter(response);
     w.writeTo(out);
   }
-  finally {
+ catch (  Exception e) {
+    out=createResponseWriter(response);
+    handleException(e,out,templateEngine,request);
+  }
+ finally {
     if (out != null)     out.close();
   }
 }

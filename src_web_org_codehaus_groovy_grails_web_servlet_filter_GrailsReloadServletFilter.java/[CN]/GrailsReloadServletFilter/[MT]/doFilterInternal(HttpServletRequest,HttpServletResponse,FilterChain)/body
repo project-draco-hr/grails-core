@@ -75,7 +75,9 @@ catch (    Exception e) {
     Map model=new HashMap();
     model.put("exception",wrapped);
     Writable w=t.make(model);
-    w.writeTo(httpServletResponse.getWriter());
+    Writer out=createResponseWriter(httpServletResponse);
+    w.writeTo(out);
+    return;
   }
   filterChain.doFilter(httpServletRequest,httpServletResponse);
 }

@@ -11,6 +11,7 @@
     w.writeTo(out);
   }
  catch (  Exception e) {
+    out=createResponseWriter(response);
     handleException(e,out,engine);
   }
  finally {

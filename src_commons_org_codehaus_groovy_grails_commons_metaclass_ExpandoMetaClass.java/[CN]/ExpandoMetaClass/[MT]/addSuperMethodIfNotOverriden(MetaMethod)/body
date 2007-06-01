@@ -3,20 +3,16 @@
     public void call(){
       MetaMethod existing=pickMethod(metaMethodFromSuper.getName(),metaMethodFromSuper.getParameterTypes());
       if (existing == null) {
-synchronized (inheritedMetaMethods) {
-          addMethodWithKey(metaMethodFromSuper);
-        }
+        addMethodWithKey(metaMethodFromSuper);
       }
  else {
         boolean isGroovyMethod=getMetaMethods().contains(existing);
-synchronized (inheritedMetaMethods) {
-          if (isGroovyMethod) {
-            addMethodWithKey(metaMethodFromSuper);
-          }
- else           if (inheritedMetaMethods.contains(existing)) {
-            inheritedMetaMethods.remove(existing);
-            addMethodWithKey(metaMethodFromSuper);
-          }
+        if (isGroovyMethod) {
+          addMethodWithKey(metaMethodFromSuper);
+        }
+ else         if (inheritedMetaMethods.contains(existing)) {
+          inheritedMetaMethods.remove(existing);
+          addMethodWithKey(metaMethodFromSuper);
         }
       }
     }
@@ -25,13 +21,18 @@ synchronized (inheritedMetaMethods) {
       if (metaMethodFromSuper instanceof ClosureMetaMethod) {
         ClosureMetaMethod closureMethod=(ClosureMetaMethod)metaMethodFromSuper;
         Closure cloned=(Closure)closureMethod.getClosure().clone();
-        ClosureMetaMethod localMethod=new ClosureMetaMethod(metaMethodFromSuper.getName(),getJavaClass(),cloned);
+        String name=metaMethodFromSuper.getName();
+        ClosureMetaMethod localMethod=new ClosureMetaMethod(name,getJavaClass(),cloned);
         addMetaMethod(localMethod);
-        MethodKey key=new DefaultMethodKey(getJavaClass(),metaMethodFromSuper.getName(),localMethod.getParameterTypes(),false);
+        MethodKey key=new DefaultMethodKey(getJavaClass(),name,localMethod.getParameterTypes(),false);
         cacheInstanceMethod(key,localMethod);
-synchronized (expandoMethods) {
-          expandoMethods.add(localMethod);
+        if (isInvokeMethod(name,cloned)) {
+          invokeMethodMethod=localMethod;
         }
+ else         if (isGetPropertyMethod(name)) {
+          getPropertyMethod=localMethod;
+        }
+        expandoMethods.add(localMethod);
       }
     }
   }

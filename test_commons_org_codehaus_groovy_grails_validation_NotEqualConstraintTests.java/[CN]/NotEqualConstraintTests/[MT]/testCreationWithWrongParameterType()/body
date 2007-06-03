@@ -1,0 +1,14 @@
+{
+  try {
+    getConstraint("testFloat",new BigDecimal("0.0"));
+    fail("NotEqualConstraint must throw an exception for parameter with wrong type .");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+  try {
+    getConstraint("testString",new Integer(4));
+    fail("MinConstraint must throw an exception for parameter with wrong type .");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

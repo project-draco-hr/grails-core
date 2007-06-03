@@ -1,0 +1,8 @@
+{
+  if (constraintParameter == null) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.NOT_EQUAL_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] cannot be null");
+  }
+  Class propertyClass=GrailsClassUtils.getPropertyType(constraintOwningClass,constraintPropertyName);
+  if (!GrailsClassUtils.isAssignableOrConvertibleFrom(constraintParameter.getClass(),propertyClass))   throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.NOT_EQUAL_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be the same type as property: ["+ propertyClass.getName()+ "]");
+  super.setParameter(constraintParameter);
+}

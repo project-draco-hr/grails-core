@@ -8,11 +8,13 @@
       if (type == Date.class || type == Calendar.class) {
         try {
           PropertyValue yearProperty=propertyValues.getPropertyValue(propertyName + "_year");
+          if (yearProperty == null) {
+            continue;
+          }
           String yearString=(String)yearProperty.getValue();
           int year;
           if (StringUtils.isBlank(yearString)) {
-            Calendar now=Calendar.getInstance(RequestContextUtils.getLocale((HttpServletRequest)request));
-            year=now.get(Calendar.YEAR);
+            continue;
           }
  else {
             year=Integer.parseInt(yearString);

@@ -9,17 +9,17 @@
   if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
     id=request.getParameter(ID_PARAMETER);
   }
+  GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  if (controllerClass == null) {
+    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
+  }
+  controllerName=WordUtils.uncapitalize(controllerClass.getName());
   if (LOG.isDebugEnabled()) {
     LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
   }
   if (LOG.isTraceEnabled()) {
     LOG.trace("Extra params from uri [" + extraParams + "] ");
   }
-  GrailsControllerClass controllerClass=getControllerClassByURI(uri);
-  if (controllerClass == null) {
-    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
-  }
-  controllerName=WordUtils.uncapitalize(controllerClass.getName());
   GroovyObject controller=getControllerInstance(controllerClass);
   if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
     try {

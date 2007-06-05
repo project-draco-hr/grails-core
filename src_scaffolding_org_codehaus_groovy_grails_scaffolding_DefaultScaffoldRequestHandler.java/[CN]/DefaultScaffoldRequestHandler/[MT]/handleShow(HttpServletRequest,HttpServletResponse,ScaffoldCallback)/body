@@ -1,6 +1,6 @@
 {
-  String id=request.getParameter(PARAM_ID);
-  if (StringUtils.isBlank(id)) {
+  Serializable id=getRequestId();
+  if (id == null) {
     LOG.debug("[ScaffoldRequestHandler] No ID parameter [" + id + "] for request [show]");
     callback.setInvoked(false);
     return Collections.EMPTY_MAP;

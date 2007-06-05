@@ -1,10 +1,27 @@
 {
+  Object interceptorResult=null;
   if (controllerClass.isInterceptedAfter(controller,actionName)) {
     Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
     Map model=Collections.EMPTY_MAP;
     if (mv != null) {
       model=mv.getModel() != null ? mv.getModel() : Collections.EMPTY_MAP;
     }
-    afterInterceptor.call(new Object[]{model});
+switch (afterInterceptor.getMaximumNumberOfParameters()) {
+case 1:
+      interceptorResult=afterInterceptor.call(new Object[]{model});
+    break;
+case 2:
+  if (mv == null) {
+    throw new ControllerExecutionException("AfterInterceptor closure expects a view name but none is available");
   }
+interceptorResult=afterInterceptor.call(new Object[]{model,mv.getViewName()});
+break;
+default :
+throw new ControllerExecutionException("AfterInterceptor closure must accept one or two parameters");
+}
+}
+if (interceptorResult != null && interceptorResult instanceof Boolean) {
+return ((Boolean)interceptorResult).booleanValue();
+}
+return true;
 }

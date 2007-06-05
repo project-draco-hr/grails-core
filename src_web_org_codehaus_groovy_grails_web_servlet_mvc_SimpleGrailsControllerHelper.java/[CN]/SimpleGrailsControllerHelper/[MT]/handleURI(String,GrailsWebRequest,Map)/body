@@ -90,8 +90,8 @@
         if (LOG.isDebugEnabled()) {
           LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
         }
-        invokeAfterInterceptor(controllerClass,controller,mv);
-        return mv;
+        boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,mv);
+        return returnModelAndView ? mv : null;
       }
     }
  catch (    MissingPropertyException mpe) {

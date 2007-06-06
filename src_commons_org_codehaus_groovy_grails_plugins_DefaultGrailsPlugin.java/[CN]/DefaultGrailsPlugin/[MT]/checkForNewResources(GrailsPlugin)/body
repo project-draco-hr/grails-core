@@ -19,6 +19,7 @@
           }
           if (newResource != null) {
             watchedResources=(Resource[])ArrayUtils.add(watchedResources,newResource);
+            if (LOG.isInfoEnabled())             LOG.info("Found new Grails plug-in resource [" + newResource + "], adding to application..");
             if (newResource.getFilename().endsWith(".groovy")) {
               if (LOG.isDebugEnabled())               LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, registering resource with class loader...");
               GroovyClassLoader classLoader=this.application.getClassLoader();

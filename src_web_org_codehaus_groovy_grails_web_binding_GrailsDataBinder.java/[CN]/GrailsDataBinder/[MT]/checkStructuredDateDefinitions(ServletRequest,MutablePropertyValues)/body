@@ -5,7 +5,7 @@
     try {
       String propertyName=propertyValue.getName();
       Class type=bean.getPropertyType(propertyName);
-      if (type == Date.class || type == Calendar.class) {
+      if (type != null && (Date.class.isAssignableFrom(type) || Calendar.class.isAssignableFrom(type))) {
         try {
           PropertyValue yearProperty=propertyValues.getPropertyValue(propertyName + "_year");
           if (yearProperty == null) {

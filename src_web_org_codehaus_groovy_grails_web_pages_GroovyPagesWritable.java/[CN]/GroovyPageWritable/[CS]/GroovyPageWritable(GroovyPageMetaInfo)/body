@@ -1,7 +1,8 @@
 {
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   this.request=webRequest.getCurrentRequest();
-  this.response=webRequest.getCurrentResponse();
+  HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
+  this.response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
   this.context=webRequest.getServletContext();
   this.showSource=request.getParameter("showSource") != null && GrailsUtil.isDevelopmentEnv();
   this.metaInfo=metaInfo;

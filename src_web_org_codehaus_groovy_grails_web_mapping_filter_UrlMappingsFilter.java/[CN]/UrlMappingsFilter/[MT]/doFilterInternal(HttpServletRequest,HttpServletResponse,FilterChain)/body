@@ -9,29 +9,31 @@
   if (LOG.isTraceEnabled()) {
     LOG.trace("Executing URL mapping filter");
   }
-  UrlMapping[] mappings=holder.getUrlMappings();
   String uri=urlHelper.getPathWithinApplication(request);
   if (uri.substring(uri.lastIndexOf(SLASH)).indexOf(".") > -1) {
     filterChain.doFilter(request,response);
     return;
   }
   UrlMappingInfo info=holder.match(uri);
-  if (info != null) {
-    String forwardUrl=buildDispatchUrlForMapping(request,info);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Matched URI [" + uri + "] to URL mapping, forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
-    }
-    RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
-    try {
-      WrappedResponseHolder.setWrappedResponse(response);
+  try {
+    WrappedResponseHolder.setWrappedResponse(response);
+    if (info != null) {
+      String forwardUrl=buildDispatchUrlForMapping(request,info);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Matched URI [" + uri + "] to URL mapping, forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
+      }
+      RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
       WebUtils.exposeForwardRequestAttributes(request);
       dispatcher.forward(request,response);
     }
-  finally {
-      WrappedResponseHolder.setWrappedResponse(null);
+ else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No match found, processing remaining filter chain.");
+      }
+      if (filterChain != null)       filterChain.doFilter(request,response);
     }
   }
- else {
-    if (filterChain != null)     filterChain.doFilter(request,response);
+  finally {
+    WrappedResponseHolder.setWrappedResponse(null);
   }
 }

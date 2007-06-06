@@ -7,7 +7,9 @@
     if (LOG.isDebugEnabled() && !response.isCommitted()) {
       LOG.debug("Writing response with content type: " + metaInfo.getContentType());
     }
-    if (!response.isCommitted())     response.setContentType(metaInfo.getContentType());
+    if (!response.isCommitted()) {
+      response.setContentType(metaInfo.getContentType());
+    }
     Binding binding=formulateBinding(request,response,out);
     Script page=InvokerHelper.createScript(metaInfo.getPageClass(),binding);
     page.run();

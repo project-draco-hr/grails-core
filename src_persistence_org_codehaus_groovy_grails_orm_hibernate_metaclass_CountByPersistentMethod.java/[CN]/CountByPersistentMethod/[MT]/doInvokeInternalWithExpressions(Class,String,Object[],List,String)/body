@@ -1,12 +1,10 @@
 {
+  final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
   return super.getHibernateTemplate().execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria crit=session.createCriteria(clazz);
       crit.setProjection(Projections.rowCount());
-      for (Iterator i=expressions.iterator(); i.hasNext(); ) {
-        GrailsMethodExpression current=(GrailsMethodExpression)i.next();
-        crit.add(current.getCriterion());
-      }
+      populateCriteriaWithExpressions(crit,operator,expressions);
       return crit.uniqueResult();
     }
   }

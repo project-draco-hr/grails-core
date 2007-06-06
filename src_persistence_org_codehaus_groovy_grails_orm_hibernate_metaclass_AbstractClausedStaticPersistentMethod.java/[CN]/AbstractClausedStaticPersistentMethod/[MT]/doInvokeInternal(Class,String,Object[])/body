@@ -6,6 +6,7 @@
   int totalRequiredArguments=0;
   String querySequence=match.group(2);
   boolean containsOperator=false;
+  String operatorInUse=null;
   for (int i=0; i < operators.length; i++) {
     Matcher currentMatcher=operatorPatterns[i].matcher(querySequence);
     if (currentMatcher.find()) {
@@ -58,5 +59,5 @@
     }
   }
   if (LOG.isTraceEnabled())   LOG.trace("Calculated expressions: " + expressions);
-  return doInvokeInternalWithExpressions(clazz,methodName,remainingArguments,expressions);
+  return doInvokeInternalWithExpressions(clazz,methodName,remainingArguments,expressions,operatorInUse);
 }

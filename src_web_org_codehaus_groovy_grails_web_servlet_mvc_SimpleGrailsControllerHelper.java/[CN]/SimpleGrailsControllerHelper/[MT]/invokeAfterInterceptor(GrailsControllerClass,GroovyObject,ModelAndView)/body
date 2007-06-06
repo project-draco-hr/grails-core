@@ -2,6 +2,9 @@
   Object interceptorResult=null;
   if (controllerClass.isInterceptedAfter(controller,actionName)) {
     Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
+    if (afterInterceptor.getDelegate() != controller) {
+      afterInterceptor.setDelegate(controller);
+    }
     Map model=Collections.EMPTY_MAP;
     if (mv != null) {
       model=mv.getModel() != null ? mv.getModel() : Collections.EMPTY_MAP;

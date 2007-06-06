@@ -63,6 +63,9 @@
     if (controllerClass.isInterceptedBefore(controller,actionName)) {
       Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
       if (beforeInterceptor != null) {
+        if (beforeInterceptor.getDelegate() != controller) {
+          beforeInterceptor.setDelegate(controller);
+        }
         Object interceptorResult=beforeInterceptor.call();
         if (interceptorResult instanceof Boolean) {
           executeAction=((Boolean)interceptorResult).booleanValue();

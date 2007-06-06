@@ -2,7 +2,7 @@
   Errors errors=new BindException(target,target.getClass().getName());
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   Validator validator=null;
-  if (domainClass != null)   validator=((GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName())).getValidator();
+  if (domainClass != null)   validator=domainClass.getValidator();
   Boolean valid=Boolean.TRUE;
   if (validator != null) {
     boolean evict=false;

@@ -1,0 +1,9 @@
+{
+  MutablePropertyValues vals=new MutablePropertyValues();
+  vals.addPropertyValue("joe.name","joe");
+  vals.addPropertyValue("tom.name","tom");
+  TestBean testBean=new TestBean();
+  GrailsDataBinder binder=new GrailsDataBinder(testBean,"testBean");
+  binder.bind(vals,"tom");
+  assertEquals("tom",testBean.getName());
+}

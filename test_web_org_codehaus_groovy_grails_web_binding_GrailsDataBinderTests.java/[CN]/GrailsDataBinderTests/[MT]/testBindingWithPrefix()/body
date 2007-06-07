@@ -1,0 +1,17 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  request.addParameter("author1.name","Graeme Rocher");
+  request.addParameter("author1.age","33");
+  request.addParameter("author2.name","Marc Palmer");
+  request.addParameter("author2.age","33");
+  Author author1=new Author();
+  Author author2=new Author();
+  GrailsDataBinder binder1=GrailsDataBinder.createBinder(author1,"graeme");
+  binder1.bind(request,"author1");
+  GrailsDataBinder binder2=GrailsDataBinder.createBinder(author2,"marc");
+  binder2.bind(request,"author2");
+  assertEquals("Graeme Rocher",author1.getName());
+  assertEquals(33,author1.getAge());
+  assertEquals("Marc Palmer",author2.getName());
+  assertEquals(33,author2.getAge());
+}

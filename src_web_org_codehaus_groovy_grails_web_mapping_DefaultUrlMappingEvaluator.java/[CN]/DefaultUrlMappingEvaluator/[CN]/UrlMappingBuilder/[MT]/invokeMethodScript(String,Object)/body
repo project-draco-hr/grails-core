@@ -22,17 +22,7 @@
             Closure callable=(Closure)args[1];
             callable.call();
           }
-          Object controllerName=namedArguments.get(GrailsControllerClass.CONTROLLER);
-          if (controllerName == null) {
-            controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
-          }
-          Object actionName=namedArguments.get(GrailsControllerClass.ACTION);
-          if (actionName == null) {
-            actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
-          }
-          ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-          UrlMapping urlMapping=new RegexUrlMapping(urlData,controllerName,actionName,constraints);
-          urlMappings.add(urlMapping);
+          UrlMapping urlMapping=getURLMapping(namedArguments,urlData);
           return urlMapping;
         }
       }

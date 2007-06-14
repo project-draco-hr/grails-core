@@ -4,7 +4,7 @@
   Object targetObject=arguments[0];
   Object bindParams=arguments[1];
   List disallowed=null;
-  String filter="";
+  String filter=null;
 switch (arguments.length) {
 case 3:
     if (arguments[2] instanceof String) {

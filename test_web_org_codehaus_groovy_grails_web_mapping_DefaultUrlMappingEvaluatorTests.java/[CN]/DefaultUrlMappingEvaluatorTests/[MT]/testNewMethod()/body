@@ -1,7 +1,7 @@
 {
   GroovyShell shell=new GroovyShell();
   Binding binding=new Binding();
-  Script script=(Script)shell.parse("mappings = {\n" + "	\"/$controller/$action?/$id?\" { \n" + "		constraints {\n"+ "			id(matches:/\\d+/)\n"+ "		}\n"+ "	}\n"+ "}\n");
+  Script script=shell.parse("mappings = {\n" + "	\"/$controller/$action?/$id?\" { \n" + "		constraints {\n"+ "			id(matches:/\\d+/)\n"+ "		}\n"+ "	}\n"+ "}\n");
   script.setBinding(binding);
   script.run();
   Closure closure=(Closure)binding.getVariable("mappings");

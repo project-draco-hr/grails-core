@@ -1,0 +1,8 @@
+{
+  TestBean testBean=new TestBean();
+  GrailsDataBinder binder=new GrailsDataBinder(testBean,"testBean");
+  assertNotNull(binder.getAllowedFields());
+  assertEquals(0,binder.getAllowedFields().length);
+  assertNotNull(binder.getDisallowedFields());
+  assertEquals(0,binder.getDisallowedFields().length);
+}

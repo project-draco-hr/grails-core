@@ -8,7 +8,6 @@
   if (domainClass == null) {
     GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
     ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(new MockServletContext());
-    Assert.notNull(appCtx);
   }
   domainClass=findInApplication(application,domainClassName);
   if (domainClass == null) {

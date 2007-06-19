@@ -1,0 +1,11 @@
+{
+  if (metaClass instanceof ExpandoMetaClass) {
+    ExpandoMetaClass emc=(ExpandoMetaClass)metaClass;
+    MetaMethod metaMethod=emc.getMetaMethod(name,args);
+    if (metaMethod != null)     return metaMethod.invoke(this,(Object[])args);
+ else {
+      return invokeMethodAsEvent(name,args);
+    }
+  }
+  return invokeMethodAsEvent(name,args);
+}

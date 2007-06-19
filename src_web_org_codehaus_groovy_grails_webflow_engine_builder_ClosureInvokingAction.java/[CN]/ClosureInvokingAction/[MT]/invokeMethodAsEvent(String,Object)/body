@@ -1,0 +1,10 @@
+{
+  Object[] argArray=(Object[])args;
+  if (argArray.length == 0)   return result(name);
+ else   if (argArray[0] instanceof Map) {
+    return result(name,new LocalAttributeMap((Map)argArray[0]));
+  }
+ else {
+    return result(name,name,args);
+  }
+}

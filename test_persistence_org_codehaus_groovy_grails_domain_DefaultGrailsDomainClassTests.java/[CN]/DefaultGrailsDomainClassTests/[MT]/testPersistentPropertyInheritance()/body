@@ -5,9 +5,9 @@
   DefaultGrailsDomainClass topDomainClass=new DefaultGrailsDomainClass(topClass);
   DefaultGrailsDomainClass middleDomainClass=new DefaultGrailsDomainClass(middleClass);
   DefaultGrailsDomainClass bottomDomainClass=new DefaultGrailsDomainClass(bottomClass);
-  assertEquals("bottom class had wrong number of persistent properties",3,bottomDomainClass.getPersistantProperties().length);
-  assertEquals("middle class had wrong number of persistent properties",2,middleDomainClass.getPersistantProperties().length);
-  assertEquals("top class had wrong number of persistent properties",1,topDomainClass.getPersistantProperties().length);
+  assertEquals("bottom class had wrong number of persistent properties",3,bottomDomainClass.getPersistentProperties().length);
+  assertEquals("middle class had wrong number of persistent properties",2,middleDomainClass.getPersistentProperties().length);
+  assertEquals("top class had wrong number of persistent properties",1,topDomainClass.getPersistentProperties().length);
   GrailsDomainClassProperty topStringProperty=topDomainClass.getPropertyByName("topString");
   assertNotNull("topString property not found in topDomainClass",topStringProperty);
   assertTrue("topString property was not persistent in topDomainClass",topStringProperty.isPersistent());

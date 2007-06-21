@@ -1,4 +1,5 @@
 {
+  checkForConfigChanges();
   for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
     GrailsPlugin plugin=(GrailsPlugin)i.next();
     if (plugin.checkForChanges()) {

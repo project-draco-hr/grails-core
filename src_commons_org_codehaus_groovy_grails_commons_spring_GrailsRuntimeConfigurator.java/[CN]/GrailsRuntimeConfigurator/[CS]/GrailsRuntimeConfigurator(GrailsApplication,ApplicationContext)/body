@@ -15,6 +15,6 @@
     }
   }
  catch (  IOException e) {
-    LOG.warn("I/O error loading plugin manager!:" + e.getMessage(),e);
+    throw new GrailsConfigurationException("I/O error loading plugin manager!:" + e.getMessage(),e);
   }
 }

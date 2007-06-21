@@ -9,20 +9,12 @@
     }
   }
   final Class resourceClass=loadedClass;
-  Map event=new HashMap(){
-{
-      if (resourceClass == null)       put(PLUGIN_CHANGE_EVENT_SOURCE,resource);
- else       put(PLUGIN_CHANGE_EVENT_SOURCE,resourceClass);
-      put(PLUGIN_CHANGE_EVENT_PLUGIN,plugin);
-      put(PLUGIN_CHANGE_EVENT_APPLICATION,application);
-      put(PLUGIN_CHANGE_EVENT_MANAGER,getManager());
-      put(PLUGIN_CHANGE_EVENT_CTX,applicationContext);
-    }
-  }
-;
+  Object source;
+  if (resourceClass != null)   source=resourceClass;
+ else   source=resource;
+  Map event=notifyOfEvent(EVENT_ON_CHANGE,source);
   if (LOG.isDebugEnabled()) {
     LOG.debug("Firing onChange event listener with event object [" + event + "]");
   }
-  invokeOnChangeListener(event);
   getManager().informObservers(getName(),event);
 }

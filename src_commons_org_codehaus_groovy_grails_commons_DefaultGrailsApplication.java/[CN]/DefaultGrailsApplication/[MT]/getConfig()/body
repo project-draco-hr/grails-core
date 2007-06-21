@@ -1,0 +1,15 @@
+{
+  ConfigObject c=ConfigurationHolder.getConfig();
+  if (c == null) {
+    try {
+      Class scriptClass=getClassLoader().loadClass(CONFIG_CLASS);
+      c=new ConfigSlurper(GrailsUtil.getEnvironment()).parse(scriptClass);
+    }
+ catch (    ClassNotFoundException e) {
+      log.debug("Could not find config class [" + CONFIG_CLASS + "]. This is probably nothing to worry about, it is not required to have a config: "+ e.getMessage(),e);
+    }
+  }
+  if (c == null)   c=new ConfigObject();
+  ConfigurationHolder.setConfig(c);
+  return c;
+}

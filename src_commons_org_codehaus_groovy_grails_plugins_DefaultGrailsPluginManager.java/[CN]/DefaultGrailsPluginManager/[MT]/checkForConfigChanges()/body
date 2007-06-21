@@ -1,0 +1,33 @@
+{
+  ConfigObject config=application.getConfig();
+  URL configURL=config.getConfigFile();
+  if (configURL != null) {
+    URLConnection connection;
+    try {
+      connection=configURL.openConnection();
+    }
+ catch (    IOException e) {
+      LOG.error("I/O error obtaining URL connection for configuration [" + configURL + "]: "+ e.getMessage(),e);
+      return;
+    }
+    long lastModified=connection.getLastModified();
+    if (configLastModified == 0) {
+      configLastModified=lastModified;
+    }
+ else {
+      if (configLastModified < lastModified) {
+        LOG.info("Configuration [" + configURL + "] changed, reloading changes..");
+        ConfigSlurper slurper=new ConfigSlurper(GrailsUtil.getEnvironment());
+        try {
+          config=slurper.parse(configURL);
+          ConfigurationHolder.setConfig(config);
+          configLastModified=lastModified;
+          informPluginsOfConfigChange();
+        }
+ catch (        GroovyRuntimeException gre) {
+          LOG.error("Unable to reload configuration. Please correct problem and try again: " + gre.getMessage(),gre);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (onConfigChangeListener != null) {
+    onConfigChangeListener.setDelegate(this);
+    onConfigChangeListener.call(new Object[]{event});
+  }
+}

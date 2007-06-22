@@ -1,6 +1,10 @@
 {
   Integer columnLength=constrainedProperty.getMaxSize();
+  List inListValues=constrainedProperty.getInList();
   if (columnLength != null) {
     column.setLength(columnLength.intValue());
+  }
+ else   if (inListValues != null) {
+    column.setLength(getMaxSize(inListValues));
   }
 }

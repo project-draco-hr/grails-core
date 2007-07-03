@@ -1,7 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class dsClass=gcl.parseClass("class TestDataSource {" + " String driverClassName = 'test.driverClass'\n" + " String url = 'jdbc://testurl'\n"+ " String username ='sa'\n"+ " String password = 'pass'\n"+ " def dialect = org.hibernate.dialect.MySQLDialect.class"+ "}");
-  GrailsDataSource ds=new DefaultGrailsDataSource(dsClass);
-  assertNotNull(ds.getDialect());
-  assertEquals(MySQLDialect.class,ds.getDialect());
-}

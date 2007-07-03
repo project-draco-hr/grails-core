@@ -1,6 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class dsClass=gcl.parseClass("class TestDataSource {" + " String driverClassName = 'test.driverClass'\n" + " String url = 'jdbc://testurl'\n"+ " String username ='sa'\n"+ " String password = 'pass'\n"+ "def logSql = true"+ "}");
-  GrailsDataSource ds=new DefaultGrailsDataSource(dsClass);
-  assertTrue(ds.isLoggingSql());
-}

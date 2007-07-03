@@ -1,6 +1,0 @@
-{
-  GroovyClassLoader gcl=new GroovyClassLoader();
-  Class c=gcl.parseClass("class TestDataSource { }\n");
-  ArtefactHandler handler=new DataSourceArtefactHandler();
-  assertTrue(handler.isArtefact(c));
-}

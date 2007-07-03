@@ -2,6 +2,8 @@
   super.setUp();
   GrailsMetaClassUtils.getRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
   onSetUp();
+  ConfigObject config=new ConfigSlurper().parse("dataSource {\n" + "dbCreate = \"create-drop\" \n" + "url = \"jdbc:hsqldb:mem:devDB\"\n"+ "pooling = false                          \n"+ "driverClassName = \"org.hsqldb.jdbcDriver\"\t\n"+ "username = \"sa\"\n"+ "password = \"\"\n"+ "}");
+  ConfigurationHolder.setConfig(config);
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
   ApplicationHolder.setApplication(ga);
   MockApplicationContext mc=new MockApplicationContext();

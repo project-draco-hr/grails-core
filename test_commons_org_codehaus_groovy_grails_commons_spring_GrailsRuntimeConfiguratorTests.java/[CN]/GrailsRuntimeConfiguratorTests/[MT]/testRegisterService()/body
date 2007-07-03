@@ -7,7 +7,7 @@
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());
   assertNotNull(ctx);
-  Class service=gcl.parseClass("class TestService { boolean transactional = true;def serviceMethod() { 'hello' } }");
+  Class service=gcl.parseClass("class TestService { boolean transactional = false;def serviceMethod() { 'hello' } }");
   GrailsServiceClass serviceClass=(GrailsServiceClass)app.addArtefact(ServiceArtefactHandler.TYPE,service);
   conf.registerService(serviceClass,ctx);
   assertTrue(ctx.containsBean("TestServiceClass"));

@@ -1,4 +1,5 @@
 {
+  ConfigurationHolder.setConfig(null);
   ApplicationHolder.setApplication(null);
   GrailsMetaClassUtils.getRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
   if (TransactionSynchronizationManager.hasResource(this.sessionFactory)) {

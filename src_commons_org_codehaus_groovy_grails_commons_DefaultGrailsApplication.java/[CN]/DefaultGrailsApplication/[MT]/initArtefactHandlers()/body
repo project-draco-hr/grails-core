@@ -5,7 +5,6 @@
   registerArtefactHandler(new TagLibArtefactHandler());
   registerArtefactHandler(new BootstrapArtefactHandler());
   registerArtefactHandler(new CodecArtefactHandler());
-  registerArtefactHandler(new DataSourceArtefactHandler());
   registerArtefactHandler(new UrlMappingsArtefactHandler());
   this.artefactHandlers=((ArtefactHandler[])this.artefactHandlersByName.values().toArray(new ArtefactHandler[artefactHandlersByName.size()]));
 }

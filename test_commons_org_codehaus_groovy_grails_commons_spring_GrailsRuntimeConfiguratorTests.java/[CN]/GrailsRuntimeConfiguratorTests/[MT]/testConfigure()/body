@@ -23,8 +23,6 @@
   MessageSource ms=(MessageSource)ctx.getBean(GrailsRuntimeConfigurator.MESSAGE_SOURCE_BEAN);
   assertNotNull(ms);
   Properties hibProps=(Properties)ctx.getBean(GrailsRuntimeConfigurator.HIBERNATE_PROPERTIES_BEAN);
-  assertNotNull(hibProps);
-  assertEquals("create-drop",hibProps.getProperty("hibernate.hbm2ddl.auto"));
   GrailsDomainClass domainClass=(GrailsDomainClass)ctx.getBean("TestDomainClass");
   assertNotNull(domainClass);
   assertEquals("Test",domainClass.getShortName());

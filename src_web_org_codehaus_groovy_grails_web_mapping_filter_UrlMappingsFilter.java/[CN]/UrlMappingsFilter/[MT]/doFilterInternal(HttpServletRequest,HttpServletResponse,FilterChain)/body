@@ -1,6 +1,7 @@
 {
   UrlMappingsHolder holder=lookupUrlMappings();
   GrailsApplication application=lookupApplication();
+  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   GrailsClass[] controllers=application.getArtefacts(ControllerArtefactHandler.TYPE);
   if (controllers == null || controllers.length == 0) {
     filterChain.doFilter(request,response);
@@ -25,6 +26,7 @@
         LOG.debug("Matched URI [" + uri + "] to URL mapping, forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
       }
       RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
+      populateWebRequestWithInfo(webRequest,info);
       WebUtils.exposeForwardRequestAttributes(request);
       dispatcher.forward(request,response);
     }

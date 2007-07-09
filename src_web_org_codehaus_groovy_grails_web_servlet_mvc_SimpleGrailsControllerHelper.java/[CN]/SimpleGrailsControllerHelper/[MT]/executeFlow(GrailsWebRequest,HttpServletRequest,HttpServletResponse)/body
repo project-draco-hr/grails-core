@@ -1,0 +1,29 @@
+{
+  final Thread currentThread=Thread.currentThread();
+  ClassLoader cl=currentThread.getContextClassLoader();
+  try {
+    currentThread.setContextClassLoader(application.getClassLoader());
+    FlowExecutorArgumentHandler argumentHandler=new GrailsConventionsFlowExecutorArgumentHandler(webRequest);
+    FlowExecutor flowExecutor=getFlowExecutor();
+    if (flowExecutor == null) {
+      throw new ControllerExecutionException("No [flowExecutor] found. This is likely a configuration problem, check your version of Grails.");
+    }
+    ServletExternalContext externalContext=new ServletExternalContext(getServletContext(),request,response){
+      public String getDispatcherPath(){
+        String forwardURI=(String)request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
+        if (!StringUtils.isBlank(forwardURI)) {
+          forwardURI=forwardURI.substring(1);
+          forwardURI=forwardURI.substring(forwardURI.indexOf('/'),forwardURI.length());
+          return forwardURI;
+        }
+        return super.getDispatcherPath();
+      }
+    }
+;
+    ResponseInstruction responseInstruction=createRequestHandler(argumentHandler).handleFlowRequest(externalContext);
+    return toModelAndView(responseInstruction,externalContext,argumentHandler);
+  }
+  finally {
+    currentThread.setContextClassLoader(cl);
+  }
+}

@@ -1,5 +1,8 @@
 {
-  ModelAndView modelAndView=execute("/test/singlecommandobject/1/firstName/ThisFirstNameIsTooLong/lastName/ThisLastNameIsTooLong",null);
+  Properties props=new Properties();
+  props.put("firstName","ThisFirstNameIsTooLong");
+  props.put("lastName","ThisLastNameIsTooLong");
+  ModelAndView modelAndView=execute("/test/singlecommandobject","test","singlecommandobject",props);
   assertNotNull("null modelAndView",modelAndView);
   Map model=modelAndView.getModelMap();
   assertEquals("wrong firstName","ThisFirstNameIsTooLong",model.get("theFirstName"));

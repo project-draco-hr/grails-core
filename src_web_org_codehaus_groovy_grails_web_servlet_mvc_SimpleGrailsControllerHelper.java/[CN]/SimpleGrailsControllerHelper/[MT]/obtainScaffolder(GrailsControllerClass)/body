@@ -1,0 +1,8 @@
+{
+  GrailsScaffolder scaffolder=null;
+  if (controllerClass.isScaffolding()) {
+    scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
+    if (scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
+  }
+  return scaffolder;
+}

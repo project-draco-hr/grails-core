@@ -1,0 +1,18 @@
+{
+  GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest((GrailsWebApplicationContext)this.appCtx);
+  webRequest.setControllerName(controllerName);
+  webRequest.setActionName(actionName);
+  MockHttpServletRequest request=(MockHttpServletRequest)webRequest.getCurrentRequest();
+  if (uri.indexOf('?') > -1)   request.setRequestURI(uri.substring(0,uri.indexOf('?')));
+ else   request.setRequestURI(uri);
+  request.setMethod(requestMethod);
+  request.setContextPath("/simple");
+  if (parameters != null) {
+    for (Iterator iter=parameters.keySet().iterator(); iter.hasNext(); ) {
+      String paramName=(String)iter.next();
+      String paramValue=parameters.getProperty(paramName);
+      request.addParameter(paramName,paramValue);
+    }
+  }
+  return controller.handleRequest(request,null);
+}

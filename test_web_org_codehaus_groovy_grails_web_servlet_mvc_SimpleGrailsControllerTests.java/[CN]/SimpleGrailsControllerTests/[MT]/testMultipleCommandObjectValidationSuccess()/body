@@ -1,5 +1,9 @@
 {
-  ModelAndView modelAndView=execute("/test/multiplecommandobjects/1/firstName/James/age/30/lastName/Gosling",null);
+  Properties props=new Properties();
+  props.put("firstName","James");
+  props.put("lastName","Gosling");
+  props.put("age","30");
+  ModelAndView modelAndView=execute("/test/multiplecommandobjects","test","multiplecommandobjects",props);
   assertNotNull("null modelAndView",modelAndView);
   Map model=modelAndView.getModelMap();
   assertEquals("wrong firstName","James",model.get("theFirstName"));

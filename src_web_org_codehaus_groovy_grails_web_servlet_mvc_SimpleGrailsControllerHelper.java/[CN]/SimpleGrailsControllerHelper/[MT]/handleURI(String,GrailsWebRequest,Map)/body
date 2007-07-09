@@ -1,24 +1,24 @@
 {
-  if (uri == null)   throw new IllegalArgumentException("Controller URI [" + uri + "] cannot be null!");
-  this.webRequest=webRequest;
-  uri=configureStateForUri(uri);
+  if (uri == null) {
+    throw new IllegalArgumentException("Controller URI [" + uri + "] cannot be null!");
+  }
   HttpServletRequest request=webRequest.getCurrentRequest();
   HttpServletResponse response=webRequest.getCurrentResponse();
-  if (StringUtils.isBlank(actionName))   uri=checkDispatchAction(request,uri);
-  if (uri.endsWith("/"))   uri=uri.substring(0,uri.length() - 1);
-  if (StringUtils.isBlank(id) && request.getParameter(ID_PARAMETER) != null) {
-    id=request.getParameter(ID_PARAMETER);
+  configureStateForWebRequest(webRequest,request);
+  if (StringUtils.isBlank(actionName)) {
+    uri=checkDispatchAction(request,uri);
+  }
+  if (uri.endsWith("/")) {
+    uri=uri.substring(0,uri.length() - 1);
   }
   GrailsControllerClass controllerClass=getControllerClassByURI(uri);
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  controllerName=WordUtils.uncapitalize(controllerClass.getName());
+  actionName=controllerClass.getClosurePropertyName(uri);
+  webRequest.setActionName(actionName);
   if (LOG.isDebugEnabled()) {
     LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
-  }
-  if (LOG.isTraceEnabled()) {
-    LOG.trace("Extra params from uri [" + extraParams + "] ");
   }
   GroovyObject controller=getControllerInstance(controllerClass);
   if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
@@ -31,86 +31,18 @@
     }
   }
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
-  GrailsScaffolder scaffolder=null;
-  if (controllerClass.isScaffolding()) {
-    scaffolder=(GrailsScaffolder)applicationContext.getBean(controllerClass.getFullName() + SCAFFOLDER);
-    if (scaffolder == null)     throw new IllegalStateException("Scaffolding set to true for controller [" + controllerClass.getFullName() + "] but no scaffolder available!");
-  }
-  if (StringUtils.isBlank(actionName))   actionName=controllerClass.getClosurePropertyName(uri);
+  GrailsScaffolder scaffolder=obtainScaffolder(controllerClass);
   if (StringUtils.isBlank(actionName)) {
     if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
-  }
-  webRequest.setActionName(actionName);
-  webRequest.setControllerName(controllerName);
-  Map controllerParams=webRequest.getParameterMap();
-  if (!StringUtils.isBlank(id)) {
-    controllerParams.put(GrailsApplicationAttributes.ID_PARAM,id);
-  }
-  if (!extraParams.isEmpty()) {
-    for (Iterator i=extraParams.keySet().iterator(); i.hasNext(); ) {
-      String name=(String)i.next();
-      controllerParams.put(name,extraParams.get(name));
-    }
   }
   FlashScope fs=this.grailsAttributes.getFlashScope(request);
   fs.next();
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,this.grailsAttributes);
   String viewName=controllerClass.getViewByURI(uri);
-  ClassLoader cl=Thread.currentThread().getContextClassLoader();
-  try {
-    Thread.currentThread().setContextClassLoader(application.getClassLoader());
-    boolean executeAction=true;
-    if (controllerClass.isInterceptedBefore(controller,actionName)) {
-      Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
-      if (beforeInterceptor != null) {
-        if (beforeInterceptor.getDelegate() != controller) {
-          beforeInterceptor.setDelegate(controller);
-        }
-        Object interceptorResult=beforeInterceptor.call();
-        if (interceptorResult instanceof Boolean) {
-          executeAction=((Boolean)interceptorResult).booleanValue();
-        }
-      }
-    }
-    if (!executeAction)     return null;
-    Closure action;
-    try {
-      action=(Closure)controller.getProperty(actionName);
-      Object returnValue=handleAction(controller,action,request,response,params);
-      initChainModel(controller);
-      if (response.isCommitted()) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Response has been redirected, returning null model and view");
-        }
-        invokeAfterInterceptor(controllerClass,controller,null);
-        return null;
-      }
- else {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
-        }
-        ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
-        }
-        boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,mv);
-        return returnModelAndView ? mv : null;
-      }
-    }
- catch (    MissingPropertyException mpe) {
-      if (controllerClass.isScaffolding())       throw new IllegalStateException("Scaffolder supports action [" + actionName + "] for controller ["+ controllerClass.getFullName()+ "] but getAction returned null!");
- else {
-        try {
-          response.sendError(HttpServletResponse.SC_NOT_FOUND);
-          return null;
-        }
- catch (        IOException e) {
-          throw new ControllerExecutionException("I/O error sending 404 error",e);
-        }
-      }
-    }
+  if (controllerClass.isFlowAction(actionName)) {
+    return executeFlow(webRequest,request,response);
   }
-  finally {
-    Thread.currentThread().setContextClassLoader(cl);
+ else {
+    return executeAction(controller,controllerClass,viewName,request,response,params);
   }
 }

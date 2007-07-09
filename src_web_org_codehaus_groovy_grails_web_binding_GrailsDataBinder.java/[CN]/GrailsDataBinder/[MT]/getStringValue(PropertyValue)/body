@@ -1,0 +1,8 @@
+{
+  Object value=yearProperty.getValue();
+  if (value == null)   return null;
+ else   if (value.getClass().isArray()) {
+    return ((String[])value)[0];
+  }
+  return (String)value;
+}

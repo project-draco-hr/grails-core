@@ -11,7 +11,7 @@
           if (yearProperty == null) {
             continue;
           }
-          String yearString=(String)yearProperty.getValue();
+          String yearString=getStringValue(yearProperty);
           int year;
           if (StringUtils.isBlank(yearString)) {
             continue;

@@ -1,3 +1,4 @@
 {
+  if (this.params == null)   this.params=new GrailsParameterMap(getCurrentRequest());
   return this.params;
 }

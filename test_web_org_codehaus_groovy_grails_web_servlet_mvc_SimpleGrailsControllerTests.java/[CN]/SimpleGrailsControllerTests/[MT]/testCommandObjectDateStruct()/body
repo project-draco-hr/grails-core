@@ -1,9 +1,15 @@
 {
-  ModelAndView modelAndView=execute("/test/codatestruct/1/birthday/struct/birthday_day/03/birthday_month/05/birthday_year/1973",null);
+  Properties props=new Properties();
+  props.put("birthday","struct");
+  props.put("birthday_day","03");
+  props.put("birthday_month","05");
+  props.put("birthday_year","1973");
+  ModelAndView modelAndView=execute("/test/codatestruct","test","codatestruct",props);
   assertNotNull("null modelAndView",modelAndView);
   Map model=modelAndView.getModelMap();
   Errors validationErrors=(Errors)model.get("validationErrors");
   assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
+  System.out.println("model = " + model);
   Date birthDate=(Date)model.get("theDate");
   assertNotNull("null birthday",birthDate);
   Calendar expectedCalendar=Calendar.getInstance();

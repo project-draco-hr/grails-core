@@ -20,8 +20,5 @@ default :
 throw new ControllerExecutionException("AfterInterceptor closure must accept one or two parameters");
 }
 }
-if (interceptorResult != null && interceptorResult instanceof Boolean) {
-return ((Boolean)interceptorResult).booleanValue();
-}
-return true;
+return !(interceptorResult != null && interceptorResult instanceof Boolean) || ((Boolean)interceptorResult).booleanValue();
 }

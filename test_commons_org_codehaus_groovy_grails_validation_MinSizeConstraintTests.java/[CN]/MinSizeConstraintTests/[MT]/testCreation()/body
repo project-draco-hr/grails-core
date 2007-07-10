@@ -6,6 +6,8 @@
   assertTrue(constraint.supports(List.class));
   assertTrue(constraint.supports(Set.class));
   assertTrue(constraint.supports(Collection.class));
+  assertFalse(constraint.supports(Integer.class));
+  assertFalse(constraint.supports(Number.class));
   assertEquals(10,constraint.getMinSize());
   try {
     getConstraint("testString","wrong");

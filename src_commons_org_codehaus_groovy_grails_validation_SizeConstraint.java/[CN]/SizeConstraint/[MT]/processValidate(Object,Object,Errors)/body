@@ -3,15 +3,6 @@
   if (propertyValue == null) {
     return;
   }
-  if (propertyValue instanceof Number) {
-    if (range.getFrom().compareTo(propertyValue) == 1) {
-      rejectValueTooSmall(args,errors,target,propertyValue);
-    }
- else     if (range.getTo().compareTo(propertyValue) == -1) {
-      rejectValueTooBig(args,errors,target,propertyValue);
-    }
-    return;
-  }
   Integer size=null;
   if (propertyValue.getClass().isArray()) {
     size=new Integer(Array.getLength(propertyValue));
@@ -24,10 +15,10 @@
   }
   if (!range.contains(size)) {
     if (range.getFrom().compareTo(size) == 1) {
-      rejectValueTooSmall(args,errors,target,propertyValue);
+      rejectValueTooSmall(args,errors,target);
     }
  else     if (range.getTo().compareTo(size) == -1) {
-      rejectValueTooBig(args,errors,target,propertyValue);
+      rejectValueTooBig(args,errors,target);
     }
   }
 }

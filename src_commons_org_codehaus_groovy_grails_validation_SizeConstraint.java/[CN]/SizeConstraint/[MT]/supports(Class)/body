@@ -1,6 +1,3 @@
 {
-  if (GrailsClassUtils.isAssignableOrConvertibleFrom(Number.class,type)) {
-    GrailsUtil.deprecated("'size' constraint is deprecated for numeric properties and will be removed in 0.6, use 'range' constraint instead");
-  }
-  return type != null && (Comparable.class.isAssignableFrom(type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Number.class,type) || Collection.class.isAssignableFrom(type)|| type.isArray());
+  return type != null && (String.class.isAssignableFrom(type) || Collection.class.isAssignableFrom(type) || type.isArray());
 }

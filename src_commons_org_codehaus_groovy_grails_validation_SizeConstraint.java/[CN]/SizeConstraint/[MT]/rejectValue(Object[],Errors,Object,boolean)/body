@@ -1,5 +1,5 @@
 {
-  String suffix=null;
+  String suffix;
   if (tooBig) {
     suffix=ConstrainedProperty.TOOBIG_SUFFIX;
   }

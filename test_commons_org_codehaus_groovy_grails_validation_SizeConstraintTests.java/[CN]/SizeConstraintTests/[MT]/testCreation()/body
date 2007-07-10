@@ -4,9 +4,10 @@
   assertTrue(constraint.supports(List.class));
   assertTrue(constraint.supports(Collection.class));
   assertTrue(constraint.supports(Double[].class));
-  assertTrue(constraint.supports(Integer.class));
   assertFalse(constraint.supports(Object.class));
   assertFalse(constraint.supports(null));
+  assertFalse(constraint.supports(Integer.class));
+  assertFalse(constraint.supports(Number.class));
   assertEquals(new IntRange(1,5),constraint.getRange());
   try {
     getConstraint("testInteger","wrong");

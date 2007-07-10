@@ -7,9 +7,6 @@
   testConstraintFailed(getConstraint("testArray",new IntRange(2,5)),list);
   list.add("two");
   testConstraintPassed(getConstraint("testArray",new IntRange(2,5)),list);
-  testConstraintPassed(getConstraint("testInteger",new IntRange(2,5)),new Integer(3));
-  testConstraintFailed(getConstraint("testInteger",new IntRange(2,5)),new Integer(1));
-  testConstraintFailed(getConstraint("testInteger",new IntRange(2,5)),new Integer(6));
   testConstraintPassed(getConstraint("testArray",new IntRange(2,5)),null);
   testConstraintDefaultMessage(getConstraint("testString",new IntRange(1,5)),"123456","Property [{0}] of class [{1}] with value [{2}] does not fall within the valid size range from [{3}] to [{4}]");
 }

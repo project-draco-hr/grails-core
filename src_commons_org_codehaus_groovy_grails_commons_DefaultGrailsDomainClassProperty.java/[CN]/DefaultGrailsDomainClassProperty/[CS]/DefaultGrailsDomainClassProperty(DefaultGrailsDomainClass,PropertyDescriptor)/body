@@ -1,6 +1,5 @@
 {
   this.domainClass=domainClass;
-  this.optional=false;
   this.persistant=true;
   this.name=descriptor.getName();
   this.naturalName=GrailsClassUtils.getNaturalName(descriptor.getName());
@@ -9,8 +8,6 @@
   if (!domainClass.isRoot()) {
     this.inherited=GrailsClassUtils.isPropertyInherited(domainClass.getClazz(),this.name);
   }
-  List optionalProps=(List)domainClass.getPropertyOrStaticPropertyOrFieldValue(OPTIONAL,List.class);
-  checkIfOptional(optionalProps);
   List transientProps=getTransients(domainClass);
   checkIfTransient(transientProps);
   establishFetchMode();

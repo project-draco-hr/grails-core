@@ -12,7 +12,6 @@
   this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
   if (this.mappedBy == null)   this.mappedBy=Collections.EMPTY_MAP;
   establishRelationshipOwners();
-  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.OPTIONAL,List.class) != null)   GrailsUtil.deprecated("domain class " + getName() + ": 'optionals' property is deprecated since 0.5 and will be removed in future releases, use 'nullable' constraint instead");
   populateDomainClassProperties(propertyDescriptors);
   if (this.identifier == null) {
     throw new GrailsDomainException("Identity property not found, but required in domain class [" + getFullName() + "]");

@@ -3,7 +3,7 @@
     protected void handleApplicationView(    ApplicationView view) throws Exception {
       Map model=new HashMap(view.getModel());
       argumentHandler.exposeFlowExecutionContext(responseInstruction.getFlowExecutionKey(),responseInstruction.getFlowExecutionContext(),model);
-      setResult(new ModelAndView(SLASH + controllerName + SLASH+ view.getViewName(),model));
+      setResult(new ModelAndView(controllerActionURI + view.getViewName(),model));
     }
     protected void handleFlowDefinitionRedirect(    FlowDefinitionRedirect redirect) throws Exception {
       if (LOG.isDebugEnabled())       LOG.debug("Flow definition redirect issued to flow with id " + redirect.getFlowDefinitionId());

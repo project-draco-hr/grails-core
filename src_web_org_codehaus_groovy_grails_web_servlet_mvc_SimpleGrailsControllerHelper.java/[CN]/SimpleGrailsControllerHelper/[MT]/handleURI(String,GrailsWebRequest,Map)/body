@@ -20,6 +20,7 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
   }
+  controllerActionURI=SLASH + controllerName + SLASH+ actionName+ SLASH;
   GroovyObject controller=getControllerInstance(controllerClass);
   if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
     try {

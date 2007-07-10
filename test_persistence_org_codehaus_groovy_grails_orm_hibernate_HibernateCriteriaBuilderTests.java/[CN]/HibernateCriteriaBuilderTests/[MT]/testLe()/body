@@ -11,8 +11,7 @@
   obj2.setProperty("lastName","alpha");
   obj2.setProperty("age",new Integer(45));
   obj2.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "le('age',45);" + "}","Test1");
+  Proxy p=parse("{ " + "le('age',45);" + "}","Test1");
   List results=(List)p.getAdaptee();
   assertEquals(2,results.size());
 }

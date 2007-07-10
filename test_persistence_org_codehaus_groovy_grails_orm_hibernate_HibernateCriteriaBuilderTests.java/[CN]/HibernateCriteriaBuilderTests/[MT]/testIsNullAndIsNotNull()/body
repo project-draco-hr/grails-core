@@ -14,14 +14,11 @@
   obj.setProperty("firstName","jonh");
   obj.setProperty("lastName","smith");
   obj.invokeMethod("save",null);
-  Proxy p=null;
+  Proxy p;
   p=parse("{ " + "isNull('age');" + "}","Test1");
   List results=(List)p.getAdaptee();
   assertEquals(2,results.size());
   p=parse("{ " + "isNotNull('age');" + "}","Test1");
-  results=(List)p.getAdaptee();
-  assertEquals(1,results.size());
-  p=parse("{ " + "notNull('age');" + "}","Test1");
   results=(List)p.getAdaptee();
   assertEquals(1,results.size());
 }

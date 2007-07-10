@@ -11,8 +11,7 @@
   obj2.setProperty("lastName","flintstone");
   obj2.setProperty("age",new Integer(35));
   obj2.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "projections { " + "avg('age',);"+ "}"+ "}","Test1");
+  Proxy p=parse("{ " + "projections { " + "avg('age',);"+ "}"+ "}","Test1");
   List results=(List)p.getAdaptee();
   Double result=(Double)results.get(0);
   assertEquals(40,result.longValue());

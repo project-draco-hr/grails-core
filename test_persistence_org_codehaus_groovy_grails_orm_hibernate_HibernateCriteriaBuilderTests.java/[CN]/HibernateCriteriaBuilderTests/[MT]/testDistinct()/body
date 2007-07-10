@@ -16,8 +16,7 @@
   obj3.setProperty("lastName","dinosaur");
   obj3.setProperty("age",new Integer(12));
   obj3.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "projections { " + "distinct('lastName');"+ "}"+ "}","Test1");
+  Proxy p=parse("{ " + "projections { " + "distinct('lastName');"+ "}"+ "}","Test1");
   List results=(List)p.getAdaptee();
   assertEquals(2,results.size());
   assertTrue(results.contains("flintstone"));

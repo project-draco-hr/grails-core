@@ -18,8 +18,7 @@
   obj3.setProperty("age",new Integer(9));
   obj3.setProperty("parent",obj);
   obj3.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse(".list { " + "children { " + "eq('firstName','bart');"+ "}"+ "}","Test1");
+  Proxy p=parse(".list { " + "children { " + "eq('firstName','bart');"+ "}"+ "}","Test1");
   List results=(List)p.getAdaptee();
   assertEquals(1,results.size());
 }

@@ -1,0 +1,4 @@
+{
+  final boolean isWebRequest=request.getAttribute(IS_FLOW_REQUEST_ATTRIBUTE,WebRequest.SCOPE_REQUEST) != null;
+  if (!isWebRequest)   super.postHandle(request,model);
+}

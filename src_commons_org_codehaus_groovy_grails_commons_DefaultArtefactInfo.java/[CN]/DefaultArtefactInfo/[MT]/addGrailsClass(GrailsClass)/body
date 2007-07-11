@@ -10,4 +10,5 @@
     grailsClassesByName.put(actualClass.getName(),artefactClass);
   }
   classesByName.put(actualClass.getName(),actualClass);
+  logicalPropertyNameToClassMap.put(artefactClass.getLogicalPropertyName(),artefactClass);
 }

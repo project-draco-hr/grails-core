@@ -1,0 +1,8 @@
+{
+  final String actionName=getActionName();
+  if (StringUtils.isBlank(actionName))   return false;
+  GrailsApplication application=getAttributes().getGrailsApplication();
+  GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,getControllerName());
+  if (controllerClass != null && controllerClass.isFlowAction(actionName))   return true;
+  return false;
+}

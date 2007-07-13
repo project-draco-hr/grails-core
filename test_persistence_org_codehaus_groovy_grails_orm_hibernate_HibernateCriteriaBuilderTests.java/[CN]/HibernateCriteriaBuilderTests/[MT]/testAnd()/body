@@ -11,14 +11,15 @@
   obj2.setProperty("lastName","flintstone");
   obj2.setProperty("age",new Integer(35));
   obj2.invokeMethod("save",null);
-  Proxy p=parse("{ " + "not{" + "eq('age', new Integer(35));"+ "eq('firstName', 'fred');"+ "}"+ "}","Test1");
+  Proxy p=null;
+  p=parse("{ " + "not{" + "eq('age', new Integer(35));"+ "eq('firstName', 'fred');"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   List results=(List)p.getAdaptee();
   assertEquals(0,results.size());
-  p=parse("{ " + "not{" + "eq('age', new Integer(35));"+ "}"+ "}","Test1");
+  p=parse("{ " + "not{" + "eq('age', new Integer(35));"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   results=(List)p.getAdaptee();
   assertEquals(1,results.size());
   try {
-    parse("{ " + "not{" + "}"+ "}","Test1");
+    p=parse("{ " + "not{" + "}"+ "}","Test1","CriteriaBuilderTestClass");
     fail("Should have thrown illegal argument exception");
   }
  catch (  InvokerInvocationException iie) {

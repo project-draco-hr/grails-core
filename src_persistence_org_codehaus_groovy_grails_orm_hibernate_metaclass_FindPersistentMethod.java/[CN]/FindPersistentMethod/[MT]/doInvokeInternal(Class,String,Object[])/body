@@ -67,6 +67,7 @@
         Example example=Example.create(arg).ignoreCase();
         Criteria crit=session.createCriteria(clazz);
         crit.add(example);
+        crit.setMaxResults(1);
         List results=crit.list();
         if (results.size() > 0)         return results.get(0);
         return null;

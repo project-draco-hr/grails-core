@@ -1,8 +1,0 @@
-{
-  for (Iterator i=staticMethodInvocations.iterator(); i.hasNext(); ) {
-    Object method=i.next();
-    if (method instanceof TransactionManagerAware) {
-      ((TransactionManagerAware)method).setTransactionManager(transactionManager);
-    }
-  }
-}

@@ -1,9 +1,13 @@
 {
   super.setUp();
-  GrailsMetaClassUtils.getRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
+  ExpandoMetaClass.enableGlobally();
   onSetUp();
   ConfigObject config=new ConfigSlurper().parse("dataSource {\n" + "dbCreate = \"create-drop\" \n" + "url = \"jdbc:hsqldb:mem:devDB\"\n"+ "pooling = false                          \n"+ "driverClassName = \"org.hsqldb.jdbcDriver\"\t\n"+ "username = \"sa\"\n"+ "password = \"\"\n"+ "}");
   ConfigurationHolder.setConfig(config);
+  for (int i=0; i < gcl.getLoadedClasses().length; i++) {
+    Class aClass=gcl.getLoadedClasses()[i];
+    GroovySystem.getMetaClassRegistry().removeMetaClass(aClass);
+  }
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
   ApplicationHolder.setApplication(ga);
   MockApplicationContext mc=new MockApplicationContext();
@@ -12,7 +16,6 @@
   GrailsRuntimeConfigurator grc=new GrailsRuntimeConfigurator(ga,mc);
   this.applicationContext=grc.configure(new MockServletContext());
   this.sessionFactory=(SessionFactory)this.applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
-  GrailsHibernateUtil.configureDynamicMethods(applicationContext,ga);
   if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
     this.session=this.sessionFactory.openSession();
     TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(session));

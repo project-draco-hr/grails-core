@@ -11,7 +11,8 @@
   obj2.setProperty("lastName","Flintstone");
   obj2.setProperty("age",new Integer(35));
   obj2.invokeMethod("save",null);
-  Proxy p=parse("{ " + "ilike('lastName', 'flint%');" + "}","Test1");
+  Proxy p=null;
+  p=parse("{ " + "ilike('lastName', 'flint%');" + "}","Test1","CriteriaBuilderTestClass");
   List results=(List)p.getAdaptee();
   assertEquals(1,results.size());
 }

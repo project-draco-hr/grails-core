@@ -16,17 +16,18 @@
   obj3.setProperty("lastName","dinosaur");
   obj3.setProperty("age",new Integer(12));
   obj3.invokeMethod("save",null);
-  Proxy p=parse("{ " + "and { " + "eq('firstName','fred');"+ "eq('lastName', 'flintstone')"+ "}"+ "}","Test1");
+  Proxy p=null;
+  p=parse("{ " + "and { " + "eq('firstName','fred');"+ "eq('lastName', 'flintstone')"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   System.out.println("Criteria output = ");
   System.out.println(ArrayUtils.toString(p.invokeMethod("toArray",null)));
-  p=parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "and {\n"+ "eq(\"age\", 42)\n"+ "eq(\"lastName\", \"flintstone\")\n"+ "}\n"+ "}\n"+ "}","Test2");
+  p=parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "and {\n"+ "eq(\"age\", 42)\n"+ "eq(\"lastName\", \"flintstone\")\n"+ "}\n"+ "}\n"+ "}","Test2","CriteriaBuilderTestClass");
   System.out.println("Criteria output = ");
   System.out.println(ArrayUtils.toString(p.invokeMethod("toArray",null)));
-  p=parse("{\n" + "eq(\"firstName\",\"Fred\")\n" + "order(\"firstName\")\n"+ "maxResults(10)\n"+ "}","Test3");
+  p=parse("{\n" + "eq(\"firstName\",\"Fred\")\n" + "order(\"firstName\")\n"+ "maxResults(10)\n"+ "}","Test3","CriteriaBuilderTestClass");
   System.out.println("Criteria output = ");
   System.out.println(ArrayUtils.toString(p.invokeMethod("toArray",null)));
   try {
-    parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "not {\n"+ "eq(\"age\", 42)\n"+ "rubbish()\n"+ "}\n"+ "}\n"+ "}","Test5");
+    p=parse("{\n" + "and {\n" + "eq(\"firstName\",\"Fred\");\n"+ "not {\n"+ "eq(\"age\", 42)\n"+ "rubbish()\n"+ "}\n"+ "}\n"+ "}","Test5","CriteriaBuilderTestClass");
     fail("Should have thrown illegal argument exception");
   }
  catch (  InvokerInvocationException iie) {

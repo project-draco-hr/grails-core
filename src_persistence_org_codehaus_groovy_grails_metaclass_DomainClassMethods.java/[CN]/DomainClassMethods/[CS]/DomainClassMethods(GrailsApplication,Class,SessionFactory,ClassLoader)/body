@@ -1,48 +1,7 @@
 {
   super(theClass);
-  addDynamicMethodInvocation(new IdentDynamicMethod(application));
-  addDynamicMethodInvocation(new SavePersistentMethod(sessionFactory,classLoader,application));
-  addDynamicMethodInvocation(new MergePersistentMethod(sessionFactory,classLoader,application));
-  addDynamicMethodInvocation(new DiscardPersistentMethod(sessionFactory,classLoader));
-  addDynamicMethodInvocation(new DeletePersistentMethod(sessionFactory,classLoader));
-  addDynamicMethodInvocation(new RefreshPersistentMethod(sessionFactory,classLoader));
-  addDynamicMethodInvocation(new ValidatePersistentMethod(sessionFactory,classLoader,application));
-  addDynamicMethodInvocation(new AbstractDynamicMethodInvocation(HAS_ERRORS_METHOD_PATTERN){
-    public Object invoke(    Object target,    String methodName,    Object[] arguments){
-      Errors errors=(Errors)getDynamicProperty(ERRORS_PROPERTY).get(target);
-      if (errors == null || !errors.hasErrors()) {
-        return Boolean.FALSE;
-      }
- else {
-        return Boolean.TRUE;
-      }
-    }
-  }
-);
-  addStaticMethodInvocation(new FindAllPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new FindAllByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));
   addStaticMethodInvocation(new CountByPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new FindPersistentMethod(sessionFactory,classLoader));
   addStaticMethodInvocation(new ListOrderByPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new ListPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new FindWherePersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new FindAllWherePersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new GetPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new GetAllPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new ExistsPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new CountPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new CreateCriteriaPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new ExecuteQueryPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new ExecuteUpdatePersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new CreateDynamicMethod());
-  addStaticMethodInvocation(new WithCriteriaDynamicPersistentMethod(sessionFactory,classLoader));
-  addStaticMethodInvocation(new WithTransactionPersistentMethod(sessionFactory,classLoader));
-  addDynamicProperty(new ConstraintsDynamicProperty(application));
-  addDynamicProperty(new WeakGenericDynamicProperty(ERRORS_PROPERTY,Errors.class,new FunctionCallback(){
-    public Object execute(    Object object){
-      return new BindException(object,object.getClass().getName());
-    }
-  }
-,false));
 }

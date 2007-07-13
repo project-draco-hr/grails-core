@@ -30,8 +30,8 @@
           getHibernateTemplate().evict(target);
         }
       }
-      DynamicMethodsMetaClass metaClass=(DynamicMethodsMetaClass)InvokerHelper.getInstance().getMetaRegistry().getMetaClass(target.getClass());
-      metaClass.setProperty(target.getClass(),target,DomainClassMethods.ERRORS_PROPERTY,errors,false,false);
+      MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
+      metaClass.setProperty(target,DomainClassMethods.ERRORS_PROPERTY,errors);
     }
   }
   return valid;

@@ -1,6 +1,5 @@
 {
   HibernateTemplate t=getHibernateTemplate();
-  t.setFlushMode(HibernateTemplate.FLUSH_COMMIT);
   t.delete(target);
   return null;
 }

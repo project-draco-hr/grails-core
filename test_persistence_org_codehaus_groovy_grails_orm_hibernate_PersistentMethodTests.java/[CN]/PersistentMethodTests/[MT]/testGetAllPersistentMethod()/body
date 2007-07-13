@@ -15,7 +15,10 @@
   obj3.setProperty("firstName","john");
   obj3.setProperty("lastName","smith");
   obj3.invokeMethod("save",null);
-  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"getAll",new Object[]{new Long(2),new Long(1)});
+  List args=new ArrayList();
+  args.add(new Long(2));
+  args.add(new Long(1));
+  Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"getAll",new Object[]{args});
   assertNotNull(returnValue);
   assertEquals(ArrayList.class,returnValue.getClass());
   List returnList=(List)returnValue;
@@ -41,7 +44,12 @@
   assertEquals(ArrayList.class,returnValue.getClass());
   returnList=(List)returnValue;
   assertEquals(3,returnList.size());
-  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"getAll",new Object[]{new Long(5),new Long(2),new Long(7),new Long(1)});
+  args=new ArrayList();
+  args.add(new Long(5));
+  args.add(new Long(2));
+  args.add(new Long(7));
+  args.add(new Long(1));
+  returnValue=obj.getMetaClass().invokeStaticMethod(obj,"getAll",new Object[]{args});
   assertNotNull(returnValue);
   assertEquals(ArrayList.class,returnValue.getClass());
   returnList=(List)returnValue;

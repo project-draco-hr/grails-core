@@ -1,5 +1,0 @@
-{
-  gcl.parseClass("class Book {\n" + "\tLong id\n" + "\tLong version\n"+ "\n"+ "\tAuthor author\n"+ "}\n"+ "class Author {\n"+ "\tLong id\n"+ "\tLong version\n"+ "\tdef relatesToMany = [books:Book]\n"+ "\tSet books\n"+ "}");
-  Thread.sleep(500);
-  gcl.parseClass("class Car {\n" + "\tLong id\n" + "\tLong version\n"+ "}\n"+ "class Owner {\n"+ "\tLong id\n"+ "\tLong version\n"+ "\tdef relatesToMany = [cars:Car]\n"+ "\tSet cars\n"+ "}");
-}

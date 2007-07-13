@@ -14,7 +14,7 @@
     obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from AnotherClass"});
     fail("Should have thrown grails query exception");
   }
- catch (  GrailsQueryException gqe) {
+ catch (  GroovyRuntimeException gqe) {
   }
   Object returnValue=obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from PersistentMethodTests"});
   assertNotNull(returnValue);
@@ -143,7 +143,7 @@
     obj.getMetaClass().invokeStaticMethod(obj,"findAll",new Object[]{"from PersistentMethodTests as p where p.firstName = :name",namedArgs});
     fail("Should have thrown grails query exception");
   }
- catch (  GrailsQueryException gqe) {
+ catch (  GroovyRuntimeException gqe) {
   }
   GroovyObject example=(GroovyObject)domainClass.newInstance();
   example.setProperty("firstName","fred");

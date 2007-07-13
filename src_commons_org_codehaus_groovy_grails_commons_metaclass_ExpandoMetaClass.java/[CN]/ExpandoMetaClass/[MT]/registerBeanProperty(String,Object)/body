@@ -2,7 +2,7 @@
   performOperationOnMetaClass(new Callable(){
     public void call(){
       Class type=newValue == null ? Object.class : newValue.getClass();
-      MetaBeanProperty mbp=new ThreadManagedMetaBeanProperty(theClass,property,type,newValue);
+      MetaBeanProperty mbp=newValue instanceof MetaBeanProperty ? (MetaBeanProperty)newValue : new ThreadManagedMetaBeanProperty(theClass,property,type,newValue);
       addMetaMethod(mbp.getGetter());
       addMetaMethod(mbp.getSetter());
       expandoMethods.add(mbp.getSetter());

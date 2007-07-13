@@ -1,15 +1,23 @@
 {
-  MetaClassRegistry registry=InvokerHelper.getInstance().getMetaRegistry();
+  MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+  Assert.isTrue(registry.getMetaClassCreationHandler() instanceof ExpandoMetaClassCreationHandle,"Grails requires an instance of [ExpandoMetaClassCreationHandle] to be set in Groovy's MetaClassRegistry!");
   MetaClass mc=registry.getMetaClass(clazz);
+  AdapterMetaClass adapter=null;
   if (mc instanceof DynamicMethodsMetaClass) {
-    return ((DynamicMethodsMetaClass)mc).getAdaptee();
+    adapter=(DynamicMethodsMetaClass)mc;
+    mc=adapter.getAdaptee();
   }
  else   if (mc instanceof AdapterMetaClass) {
-    return ((AdapterMetaClass)mc).getAdaptee();
+    adapter=(DynamicMethodsMetaClass)mc;
+    mc=((AdapterMetaClass)mc).getAdaptee();
   }
- else   if (MetaClassImpl.class == mc.getClass()) {
+  if (!(mc instanceof ExpandoMetaClass)) {
     registry.removeMetaClass(clazz);
-    return registry.getMetaClass(clazz);
+    mc=registry.getMetaClass(clazz);
+    if (adapter != null) {
+      adapter.setAdaptee(mc);
+    }
   }
+  Assert.isTrue(mc instanceof ExpandoMetaClass,"BUG! Method must return an instance of [ExpandoMetaClass]!");
   return mc;
 }

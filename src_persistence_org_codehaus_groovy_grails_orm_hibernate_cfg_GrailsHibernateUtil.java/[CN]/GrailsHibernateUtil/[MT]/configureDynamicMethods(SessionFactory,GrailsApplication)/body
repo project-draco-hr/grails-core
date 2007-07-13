@@ -1,21 +1,9 @@
 {
   LOG.trace("Configuring dynamic methods");
-  Map hibernateDomainClassMap=new HashMap();
-  Collection dynamicMethods=new ArrayList();
   Collection classMetaData=sessionFactory.getAllClassMetadata().values();
   for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
     ClassMetadata cmd=(ClassMetadata)i.next();
     Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
-    GrailsDomainClass dc=null;
-    if (application != null && persistentClass != null) {
-      if (!Modifier.isAbstract(persistentClass.getModifiers())) {
-        dc=configureDomainClass(sessionFactory,application,cmd,persistentClass,hibernateDomainClassMap);
-      }
-    }
-    if (dc != null) {
-      dynamicMethods.add(configureDynamicMethodsFor(sessionFactory,application,persistentClass,dc));
-    }
+    configureDynamicMethodsFor(sessionFactory,application,persistentClass);
   }
-  configureInheritanceMappings(hibernateDomainClassMap);
-  return dynamicMethods;
 }

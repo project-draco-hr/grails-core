@@ -1,6 +1,6 @@
 {
   if (this.pluginBean.isReadableProperty(VERSION)) {
-    Object vobj=this.plugin.getProperty("version");
+    Object vobj=this.plugin.getProperty(VERSION);
     if (vobj != null)     this.version=vobj.toString();
  else     throw new PluginException("Plugin " + this + " must specify a version. eg: def version = 0.1");
   }

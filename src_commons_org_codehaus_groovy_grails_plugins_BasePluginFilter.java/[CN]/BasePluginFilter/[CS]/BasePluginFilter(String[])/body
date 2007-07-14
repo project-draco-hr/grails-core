@@ -1,0 +1,7 @@
+{
+  super();
+  suppliedNames=new HashSet();
+  for (int i=0; i < included.length; i++) {
+    suppliedNames.add(included[i].trim());
+  }
+}

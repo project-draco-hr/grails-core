@@ -1,4 +1,5 @@
 {
+  foundPluginClasses.clear();
   try {
     Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/**/*GrailsPlugin.class");
     if (resources.length > 0) {
@@ -12,4 +13,5 @@
  catch (  IOException e) {
     throw new PluginException("I/O exception configuring core plug-ins: " + e.getMessage(),e);
   }
+  return foundPluginClasses;
 }

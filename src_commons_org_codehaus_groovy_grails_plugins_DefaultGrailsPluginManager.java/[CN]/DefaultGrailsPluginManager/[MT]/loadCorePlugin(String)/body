@@ -1,8 +1,0 @@
-{
-  Class pluginClass=attemptCorePluginClassLoad(pluginClassName);
-  if (pluginClass != null && !Modifier.isAbstract(pluginClass.getModifiers()) && pluginClass != DefaultGrailsPlugin.class) {
-    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
-    plugin.setApplicationContext(applicationContext);
-    attemptPluginLoad(plugin);
-  }
-}

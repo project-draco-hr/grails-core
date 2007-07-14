@@ -9,4 +9,5 @@
     LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);
   }
   this.application=application;
+  setPluginFilter();
 }

@@ -1,5 +1,5 @@
 {
-  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
+  ExpandoMetaClass.enableGlobally();
   GroovyClassLoader cl=new GroovyClassLoader();
   cl.parseClass("class MyCommandObject {\n" + "String firstName\n" + "String lastName\n"+ "static constraints = {\n"+ "  firstName(maxSize:10)\n"+ "  lastName(maxSize:10)"+ "}\n"+ "}");
   cl.parseClass("class DateStructCommandObject {\n" + "Date birthday\n" + "}");

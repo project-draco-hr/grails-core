@@ -1,4 +1,4 @@
 {
-  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
+  ExpandoMetaClass.disableGlobally();
   super.tearDown();
 }

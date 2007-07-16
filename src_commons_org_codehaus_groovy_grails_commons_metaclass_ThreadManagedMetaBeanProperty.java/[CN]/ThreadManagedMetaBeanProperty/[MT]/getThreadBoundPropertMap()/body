@@ -1,8 +1,0 @@
-{
-  Map propertyMap=(Map)propertyInstanceHolder.get();
-  if (propertyMap == null) {
-    propertyMap=new ReferenceMap(ReferenceMap.SOFT,ReferenceMap.SOFT);
-    propertyInstanceHolder.set(propertyMap);
-  }
-  return propertyMap;
-}

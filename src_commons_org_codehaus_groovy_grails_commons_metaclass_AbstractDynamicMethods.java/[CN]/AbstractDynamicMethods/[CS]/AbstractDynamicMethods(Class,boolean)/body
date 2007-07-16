@@ -1,6 +1,5 @@
 {
   super();
-  new DynamicMethodsMetaClass(theClass,this,inRegistry).initialize();
   this.clazz=theClass;
   this.dynamicMethodInvocations=new ArrayList();
   this.staticMethodInvocations=new ArrayList();

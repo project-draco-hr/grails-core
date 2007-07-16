@@ -1,6 +1,5 @@
 {
-  MetaClassRegistry registry=InvokerHelper.getInstance().getMetaRegistry();
-  if (!(registry.getMetaClassCreationHandler() instanceof ExpandoMetaClassCreationHandle))   registry.setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
+  ExpandoMetaClass.enableGlobally();
   if (LOG.isDebugEnabled()) {
     LOG.debug("[GrailsContextLoader] Loading context. Creating parent application context");
   }

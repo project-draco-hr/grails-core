@@ -21,7 +21,4 @@
   p=parse("{ " + "isNotNull('age');" + "}","Test1","CriteriaBuilderTestClass");
   results=(List)p.getAdaptee();
   assertEquals(1,results.size());
-  p=parse("{ " + "notNull('age');" + "}","Test1","CriteriaBuilderTestClass");
-  results=(List)p.getAdaptee();
-  assertEquals(1,results.size());
 }

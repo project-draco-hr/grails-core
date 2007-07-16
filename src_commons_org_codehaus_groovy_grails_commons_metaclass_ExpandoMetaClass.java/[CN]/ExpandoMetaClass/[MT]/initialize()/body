@@ -1,8 +1,0 @@
-{
-  if (!this.initialized) {
-    inheritSelfTrackedExpandoMethods();
-    super.initialize();
-    this.initialized=true;
-    this.initCalled=true;
-  }
-}

@@ -1,10 +1,10 @@
 {
   MetaClassRegistry registry=getRegistry();
   MetaClass oldMetaClass=registry.getMetaClass(fromClass);
-  AdapterMetaClass adapter=null;
+  AdaptingMetaClass adapter=null;
   ExpandoMetaClass emc;
-  if (oldMetaClass instanceof AdapterMetaClass) {
-    adapter=((AdapterMetaClass)oldMetaClass);
+  if (oldMetaClass instanceof AdaptingMetaClass) {
+    adapter=((AdaptingMetaClass)oldMetaClass);
     emc=(ExpandoMetaClass)adapter.getAdaptee();
     if (LOG.isDebugEnabled()) {
       LOG.debug("Obtained adapted MetaClass [" + emc + "] from AdapterMetaClass instance ["+ adapter+ "]");
@@ -18,7 +18,7 @@
     }
   }
   List metaMethods=emc.getExpandoMethods();
-  ExpandoMetaClass replacement=new ExpandoMetaClass(toClass);
+  ExpandoMetaClass replacement=new ExpandoMetaClass(toClass,true);
   replacement.setAllowChangesAfterInit(true);
   for (Iterator i=metaMethods.iterator(); i.hasNext(); ) {
     Object obj=i.next();

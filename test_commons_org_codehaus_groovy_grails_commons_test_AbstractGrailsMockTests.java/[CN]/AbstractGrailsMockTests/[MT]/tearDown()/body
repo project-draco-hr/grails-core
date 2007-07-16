@@ -3,6 +3,6 @@
   ga=null;
   ctx=null;
   gcl=null;
-  GroovySystem.getMetaClassRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
+  ExpandoMetaClass.disableGlobally();
   super.tearDown();
 }

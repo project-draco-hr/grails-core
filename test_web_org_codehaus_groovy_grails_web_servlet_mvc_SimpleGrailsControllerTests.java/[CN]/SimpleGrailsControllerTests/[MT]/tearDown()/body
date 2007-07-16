@@ -1,5 +1,5 @@
 {
-  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new MetaClassRegistry.MetaClassCreationHandle());
+  ExpandoMetaClass.disableGlobally();
   grailsApplication=null;
   controller=null;
   localContext=null;

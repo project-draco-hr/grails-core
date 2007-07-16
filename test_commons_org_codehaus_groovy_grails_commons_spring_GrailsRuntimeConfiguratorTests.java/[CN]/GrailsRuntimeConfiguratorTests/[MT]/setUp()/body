@@ -1,5 +1,5 @@
 {
-  InvokerHelper.getInstance().getMetaRegistry().setMetaClassCreationHandle(new ExpandoMetaClassCreationHandle());
+  ExpandoMetaClass.enableGlobally();
   ConfigurationHolder.setConfig(null);
   super.setUp();
 }

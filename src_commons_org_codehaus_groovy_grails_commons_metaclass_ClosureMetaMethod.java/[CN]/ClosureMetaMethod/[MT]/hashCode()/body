@@ -1,8 +1,0 @@
-{
-  int result;
-  result=getName().hashCode();
-  result=31 * result + getModifiers();
-  result=31 * result + getReturnType().hashCode();
-  result=31 * result + (paramTypes != null ? paramTypes.hashCode() : 0);
-  return result;
-}

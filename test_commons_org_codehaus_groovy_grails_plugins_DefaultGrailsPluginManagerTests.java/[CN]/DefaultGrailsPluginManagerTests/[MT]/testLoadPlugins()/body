@@ -17,5 +17,5 @@
   assertNotNull(manager.getGrailsPlugin("third"));
   assertNotNull(manager.getGrailsPlugin("core"));
   assertNotNull(manager.getGrailsPlugin("third"));
-  assertEquals(5,pluginList.size());
+  assertEquals(6,pluginList.size());
 }

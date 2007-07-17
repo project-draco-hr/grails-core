@@ -4,9 +4,7 @@
   if (className != null) {
     Class oldClass=application.getClassForName(className);
     loadedClass=attemptClassReload(className);
-    if (oldClass != null) {
-      replaceExpandoMetaClass(loadedClass,oldClass);
-    }
+    GroovySystem.getMetaClassRegistry().removeMetaClass(oldClass);
   }
   final Class resourceClass=loadedClass;
   Object source;

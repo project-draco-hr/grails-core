@@ -4,7 +4,7 @@
     if (messageSource != null)     defaultMessage=messageSource.getMessage(code,args,Locale.getDefault());
  else     defaultMessage=(String)ConstrainedProperty.DEFAULT_MESSAGES.get(code);
   }
- catch (  NoSuchMessageException nsme) {
+ catch (  Exception e) {
     defaultMessage=(String)ConstrainedProperty.DEFAULT_MESSAGES.get(code);
   }
   return defaultMessage;

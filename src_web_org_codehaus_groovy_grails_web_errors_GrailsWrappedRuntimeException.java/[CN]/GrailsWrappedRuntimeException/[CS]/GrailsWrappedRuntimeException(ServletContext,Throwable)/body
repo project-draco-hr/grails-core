@@ -12,14 +12,36 @@
     }
     cause=t.getCause();
   }
+  String[] lines=this.stackTrace.split("\\n");
+  StringBuffer buffy=new StringBuffer();
+  for (int i=0; i < lines.length; i++) {
+    String line=lines[i];
+    if (PARSE_DETAILS_STEP1.matcher(line).find()) {
+      buffy.append(line);
+      continue;
+    }
+    if (PARSE_DETAILS_STEP2.matcher(line).find()) {
+      buffy.append(line);
+      continue;
+    }
+    if (PARSE_DETAILS_STEP3.matcher(line).find()) {
+      buffy.append(line);
+      continue;
+    }
+    if (PARSE_GSP_DETAILS_STEP1.matcher(line).find()) {
+      buffy.append(line);
+      continue;
+    }
+  }
+  this.filteredStackTrace=buffy.toString();
+  if (StringUtils.isBlank(filteredStackTrace)) {
+  }
   if (cause instanceof MultipleCompilationErrorsException) {
     MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)cause;
     Object message=mcee.getErrorCollector().getErrors().iterator().next();
     if (message instanceof SyntaxErrorMessage) {
       SyntaxErrorMessage sem=(SyntaxErrorMessage)message;
       this.lineNumber=sem.getCause().getLine();
-      sw=new StringWriter();
-      pw=new PrintWriter(sw);
       sem.write(pw);
       String messageText=sw.toString();
       if (messageText.indexOf(':') > -1) {

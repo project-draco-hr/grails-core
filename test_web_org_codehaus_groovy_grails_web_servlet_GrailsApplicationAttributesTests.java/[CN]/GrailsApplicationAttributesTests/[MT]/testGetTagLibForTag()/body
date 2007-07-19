@@ -12,7 +12,4 @@
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   GroovyObject tagLib1=attrs.getTagLibraryForTag(request,response,"firstTag");
   assertNotNull(tagLib1);
-  assertNotNull(request.getAttribute(GrailsApplicationAttributes.TAG_CACHE));
-  Map tagCache=(Map)request.getAttribute(GrailsApplicationAttributes.TAG_CACHE);
-  assertNotNull(tagCache.get("g:firstTag"));
 }

@@ -4,7 +4,15 @@
   if (conversationManagerToUse == null) {
     conversationManagerToUse=createDefaultConversationManager();
   }
-  if (repositoryType == RepositoryType.CONTINUATION) {
+  if (repositoryType == RepositoryType.CLIENT) {
+    if (conversationManager == null) {
+      return new GrailsAwareClientContinuationFlowExecutionRepository(executionStateRestorer,grailsApplication);
+    }
+ else {
+      return new GrailsAwareClientContinuationFlowExecutionRepository(executionStateRestorer,conversationManager,grailsApplication);
+    }
+  }
+ else   if (repositoryType == RepositoryType.CONTINUATION) {
     ContinuationFlowExecutionRepository repository=new GrailsAwareContinuationFlowExecutionRepository(executionStateRestorer,conversationManagerToUse,grailsApplication);
     if (getMaxContinuations() != null) {
       repository.setMaxContinuations(getMaxContinuations().intValue());

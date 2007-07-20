@@ -1,3 +1,5 @@
 {
-  return new GrailsAwareSerializedFlowExecutionContinuation(flowExecution,getCompress(),grailsApplication);
+  final GrailsAwareSerializedFlowExecutionContinuation executionContinuation=new GrailsAwareSerializedFlowExecutionContinuation(flowExecution,getCompress());
+  executionContinuation.setGrailsApplication(grailsApplication);
+  return executionContinuation;
 }

@@ -2,5 +2,5 @@
   super();
   this.resolver=new PathMatchingResourcePatternResolver();
   this.application=application;
-  this.foundPluginClasses=new LinkedList();
+  this.foundPluginClasses=new HashSet();
 }

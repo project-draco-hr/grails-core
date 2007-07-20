@@ -17,5 +17,5 @@
   assertNotNull(manager.getGrailsPlugin("third"));
   assertNotNull(manager.getGrailsPlugin("core"));
   assertNotNull(manager.getGrailsPlugin("third"));
-  assertEquals(6,pluginList.size());
+  assertEquals("Expected plugins not loaded. Expected " + 5 + " but got "+ pluginList,5,pluginList.size());
 }

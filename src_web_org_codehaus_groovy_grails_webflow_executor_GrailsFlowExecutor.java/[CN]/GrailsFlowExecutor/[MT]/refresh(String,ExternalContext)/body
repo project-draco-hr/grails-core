@@ -1,0 +1,25 @@
+{
+  if (logger.isDebugEnabled()) {
+    logger.debug("Refreshing flow execution with key '" + flowExecutionKey + "'");
+  }
+  ExternalContextHolder.setExternalContext(context);
+  try {
+    final FlowExecutionRepository executionRepository=getExecutionRepository();
+    FlowExecutionKey key=executionRepository.parseFlowExecutionKey(flowExecutionKey);
+    FlowExecutionLock lock=executionRepository.getLock(key);
+    lock.lock();
+    try {
+      FlowExecution flowExecution=executionRepository.getFlowExecution(key);
+      FlowExecutionContextHolder.setFlowExecutionContext(flowExecution);
+      ViewSelection selectedView=flowExecution.refresh(context);
+      executionRepository.putFlowExecution(key,flowExecution);
+      return new ResponseInstruction(key.toString(),flowExecution,selectedView);
+    }
+  finally {
+      lock.unlock();
+    }
+  }
+  finally {
+    cleanUpAfterFlowExecution();
+  }
+}

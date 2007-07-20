@@ -1,0 +1,32 @@
+{
+  if (logger.isDebugEnabled()) {
+    logger.debug("Resuming flow execution with key '" + flowExecutionKey + "' on user event '"+ eventId+ "'");
+  }
+  ExternalContextHolder.setExternalContext(context);
+  try {
+    final FlowExecutionRepository executionRepository=getExecutionRepository();
+    FlowExecutionKey key=executionRepository.parseFlowExecutionKey(flowExecutionKey);
+    FlowExecutionLock lock=executionRepository.getLock(key);
+    lock.lock();
+    try {
+      FlowExecution flowExecution=executionRepository.getFlowExecution(key);
+      FlowExecutionContextHolder.setFlowExecutionContext(flowExecution);
+      ViewSelection selectedView=flowExecution.signalEvent(eventId,context);
+      if (flowExecution.isActive()) {
+        key=executionRepository.getNextKey(flowExecution,key);
+        executionRepository.putFlowExecution(key,flowExecution);
+        return new ResponseInstruction(key.toString(),flowExecution,selectedView);
+      }
+ else {
+        executionRepository.removeFlowExecution(key);
+        return new ResponseInstruction(flowExecution,selectedView);
+      }
+    }
+  finally {
+      lock.unlock();
+    }
+  }
+  finally {
+    cleanUpAfterFlowExecution();
+  }
+}

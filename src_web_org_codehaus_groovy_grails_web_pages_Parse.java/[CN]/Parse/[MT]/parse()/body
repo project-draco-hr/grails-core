@@ -6,6 +6,9 @@
   scan.reset();
   page();
   InputStream in=new ByteArrayInputStream(sw.toString().getBytes());
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Compiled GSP into Groovy code: " + sw.toString());
+  }
   scan=null;
   return in;
 }

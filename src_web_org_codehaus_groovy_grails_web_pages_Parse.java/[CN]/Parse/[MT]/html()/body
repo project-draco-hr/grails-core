@@ -1,14 +1,17 @@
 {
   if (!finalPass)   return;
   if (LOG.isDebugEnabled())   LOG.debug("parse: html");
-  StringBuffer text=new StringBuffer(scan.getToken());
-  while (text.length() > 80) {
-    int end=80;
-    while (text.charAt(end - 1) == '\\')     end--;
-    print(text.subSequence(0,end));
-    text.delete(0,end);
+  String text=scan.getToken();
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  pw.println(START_MULTILINE_STRING);
+  String[] lines=text.split("\\n");
+  for (int i=0; i < lines.length; i++) {
+    String line=lines[i];
+    pw.println(escapeGroovy(line));
   }
-  if (text.length() > 0) {
-    print(text);
-  }
+  pw.println(END_MULTILINE_STRING);
+  final String constantName="STATIC_HTML_CONTENT_" + constantCount++;
+  constants.put(constantName,sw.toString());
+  out.printlnToResponse(constantName);
 }

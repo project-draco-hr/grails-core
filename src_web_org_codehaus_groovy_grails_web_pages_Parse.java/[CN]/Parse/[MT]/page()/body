@@ -54,6 +54,10 @@ break;
 }
 if (finalPass) {
 out.println("}");
+for (Iterator i=constants.keySet().iterator(); i.hasNext(); ) {
+String name=(String)i.next();
+out.println("static final " + name + " = "+ constants.get(name));
+}
 out.println("}");
 }
 }

@@ -6,7 +6,8 @@
   prop.setOptional(grailsProperty.isOptional());
   if (grailsProperty.isAssociation()) {
     if (grailsProperty.isOneToMany()) {
-      prop.setCascade("all");
+      if (!grailsProperty.isBidirectional() && grailsProperty.isOwningSide())       prop.setCascade("save");
+ else       if (grailsProperty.isBidirectional())       prop.setCascade("all");
     }
  else     if (grailsProperty.isManyToMany()) {
       if (grailsProperty.isOwningSide()) {
@@ -22,9 +23,6 @@
         GrailsDomainClassProperty otherSide=grailsProperty.getOtherSide();
         if (otherSide != null && otherSide.isOneToMany()) {
           prop.setCascade("merge");
-        }
- else {
-          prop.setCascade("all");
         }
       }
     }

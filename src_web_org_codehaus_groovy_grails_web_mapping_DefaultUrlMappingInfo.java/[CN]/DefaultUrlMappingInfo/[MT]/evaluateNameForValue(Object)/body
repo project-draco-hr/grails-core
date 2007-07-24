@@ -6,6 +6,11 @@
     Object result=((Closure)callable.clone()).call();
     name=result != null ? result.toString() : null;
   }
+ else   if (value instanceof Map) {
+    Map httpMethods=(Map)value;
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    name=(String)httpMethods.get(webRequest.getCurrentRequest().getMethod());
+  }
  else {
     name=value.toString();
   }

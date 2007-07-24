@@ -18,8 +18,6 @@
   obj3.setProperty("age",new Integer(9));
   obj3.setProperty("parent",obj);
   obj3.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse(".list { \n" + "or { \n" + "gt('age', 40) \n"+ "children { \n"+ "eq('lastName','simpson') \n"+ "} \n"+ "} \n"+ "resultTransformer(org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY) \n"+ "}","Test1","CriteriaBuilderTestClass");
-  List results=(List)p.getAdaptee();
+  List results=(List)parse(".list { \n" + "or { \n" + "gt('age', 40) \n"+ "children { \n"+ "eq('lastName','simpson') \n"+ "} \n"+ "} \n"+ "resultTransformer(org.hibernate.criterion.CriteriaSpecification.DISTINCT_ROOT_ENTITY) \n"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(1,results.size());
 }

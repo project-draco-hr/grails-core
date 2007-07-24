@@ -14,11 +14,8 @@
   obj.setProperty("firstName","jonh");
   obj.setProperty("lastName","smith");
   obj.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "isNull('age');" + "}","Test1","CriteriaBuilderTestClass");
-  List results=(List)p.getAdaptee();
+  List results=(List)parse("{ " + "isNull('age');" + "}","Test1","CriteriaBuilderTestClass");
   assertEquals(2,results.size());
-  p=parse("{ " + "isNotNull('age');" + "}","Test1","CriteriaBuilderTestClass");
-  results=(List)p.getAdaptee();
+  results=(List)parse("{ " + "isNotNull('age');" + "}","Test1","CriteriaBuilderTestClass");
   assertEquals(1,results.size());
 }

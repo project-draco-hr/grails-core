@@ -7,11 +7,8 @@
   obj.setProperty("lastName","simpson");
   obj.setProperty("age",new Integer(45));
   obj.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse(".list { " + "eq('firstName','homer');" + "}","Test1","CriteriaBuilderTestClass",true);
-  Object result=p.getAdaptee();
+  Object result=parse(".list { " + "eq('firstName','homer');" + "}","Test1","CriteriaBuilderTestClass",true);
   assertEquals(clazzName,result.getClass().getName());
-  Proxy p2=parse(".list { " + "eq('firstName','homer');" + "}","Test1","CriteriaBuilderTestClass",false);
-  Object result2=p2.getAdaptee();
-  assertTrue(List.class.isAssignableFrom(result2.getClass()));
+  List results=(List)parse(".list { " + "eq('firstName','homer');" + "}","Test1","CriteriaBuilderTestClass",false);
+  assertTrue(List.class.isAssignableFrom(results.getClass()));
 }

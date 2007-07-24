@@ -11,8 +11,6 @@
   obj2.setProperty("lastName","flintstone");
   obj2.setProperty("age",new Integer(35));
   obj2.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "projections { " + "rowCount();"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
-  List results=(List)p.getAdaptee();
+  List results=(List)parse("{ " + "projections { " + "rowCount();"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(new Integer(2),(Integer)results.get(0));
 }

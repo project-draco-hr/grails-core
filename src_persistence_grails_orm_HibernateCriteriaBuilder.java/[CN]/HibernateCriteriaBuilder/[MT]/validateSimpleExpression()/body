@@ -1,4 +1,6 @@
 {
-  if (this.criteria == null)   return false;
-  return !(!isInsideLogicalExpression() && !(this.parent instanceof Proxy) && this.parent != null && this.aliasStack.size() == 0);
+  if (this.criteria == null) {
+    return false;
+  }
+  return true;
 }

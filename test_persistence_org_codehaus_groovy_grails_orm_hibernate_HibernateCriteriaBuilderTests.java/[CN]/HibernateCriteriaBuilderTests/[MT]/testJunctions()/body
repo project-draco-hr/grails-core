@@ -21,14 +21,10 @@
   obj4.setProperty("lastName","rubble");
   obj4.setProperty("age",new Integer(45));
   obj4.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "or { " + "eq('firstName','fred');"+ "eq('lastName', 'flintstone');"+ "eq('age', 12)"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
-  List results=(List)p.getAdaptee();
+  List results=(List)parse("{ " + "or { " + "eq('firstName','fred');"+ "eq('lastName', 'flintstone');"+ "eq('age', 12)"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(3,results.size());
-  p=parse("{ " + "or { " + "eq('lastName', 'flintstone');"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
-  results=(List)p.getAdaptee();
+  results=(List)parse("{ " + "or { " + "eq('lastName', 'flintstone');"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(2,results.size());
-  p=parse("{ " + "and { " + "eq('age', 45);"+ "or { "+ "eq('firstName','fred');"+ "eq('lastName', 'flintstone');"+ "}"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
-  results=(List)p.getAdaptee();
+  results=(List)parse("{ " + "and { " + "eq('age', 45);"+ "or { "+ "eq('firstName','fred');"+ "eq('lastName', 'flintstone');"+ "}"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(1,results.size());
 }

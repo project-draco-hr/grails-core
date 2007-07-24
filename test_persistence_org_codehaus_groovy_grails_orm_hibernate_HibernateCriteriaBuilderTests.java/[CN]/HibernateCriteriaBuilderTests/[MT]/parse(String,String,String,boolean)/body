@@ -7,5 +7,5 @@
   Class tc=this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,criteriaClassName).getClazz();
   go.setProperty("tc",tc);
   Closure closure=(Closure)go.getProperty("test");
-  return (Proxy)closure.call();
+  return closure.call();
 }

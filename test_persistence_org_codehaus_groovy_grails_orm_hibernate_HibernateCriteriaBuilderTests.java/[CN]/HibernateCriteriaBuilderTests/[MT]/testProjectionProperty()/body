@@ -6,8 +6,6 @@
   obj.setProperty("lastName","flintstone");
   obj.setProperty("age",new Integer(45));
   obj.invokeMethod("save",null);
-  Proxy p=null;
-  p=parse("{ " + "projections { " + "property('lastName',);"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
-  List results=(List)p.getAdaptee();
+  List results=(List)parse("{ " + "projections { " + "property('lastName',);"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(1,results.size());
 }

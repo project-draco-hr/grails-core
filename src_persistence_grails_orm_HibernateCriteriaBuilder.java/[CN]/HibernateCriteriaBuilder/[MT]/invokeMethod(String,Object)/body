@@ -1,0 +1,127 @@
+{
+  Object[] args=obj.getClass().isArray() ? (Object[])obj : new Object[]{obj};
+  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(LIST_DISTINCT_CALL)|| name.equals(GET_CALL)|| name.equals(COUNT_CALL)|| name.equals(SCROLL_CALL) && args.length == 1 && args[0] instanceof Closure) {
+    if (this.criteria != null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    if (name.equals(GET_CALL)) {
+      this.uniqueResult=true;
+    }
+ else     if (name.equals(SCROLL_CALL)) {
+      this.scroll=true;
+    }
+ else     if (name.equals(COUNT_CALL)) {
+      this.count=true;
+    }
+ else     if (name.equals(LIST_DISTINCT_CALL)) {
+      this.resultTransformer=CriteriaSpecification.DISTINCT_ROOT_ENTITY;
+    }
+    if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+      this.participate=true;
+      this.session=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();
+    }
+ else {
+      this.session=sessionFactory.openSession();
+    }
+    this.criteria=this.session.createCriteria(targetClass);
+    this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
+    invokeClosureNode(args);
+    if (resultTransformer != null) {
+      this.criteria.setResultTransformer(resultTransformer);
+    }
+    Object result;
+    if (!uniqueResult) {
+      if (scroll) {
+        result=this.criteria.scroll();
+      }
+ else       if (count) {
+        this.criteria.setProjection(Projections.rowCount());
+        result=this.criteria.uniqueResult();
+      }
+ else {
+        result=this.criteria.list();
+      }
+    }
+ else {
+      result=this.criteria.uniqueResult();
+    }
+    if (!this.participate) {
+      this.session.close();
+    }
+    return result;
+  }
+ else {
+    System.out.println("Trying to invoke MetaMethod name = " + name + " args = "+ ArrayUtils.toString(args));
+    MetaMethod metaMethod=getMetaClass().getMetaMethod(name,args);
+    if (metaMethod != null) {
+      return metaMethod.invoke(this,args);
+    }
+    metaMethod=criteriaMetaClass.getMetaMethod(name,args);
+    if (metaMethod != null) {
+      return metaMethod.invoke(criteria,args);
+    }
+    metaMethod=criteriaMetaClass.getMetaMethod(GrailsClassUtils.getSetterName(name),args);
+    if (metaMethod != null) {
+      return metaMethod.invoke(criteria,args);
+    }
+ else     if (args.length == 1 && args[0] instanceof Closure) {
+      if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
+        if (this.criteria == null)         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+        this.logicalExpressionStack.add(new LogicalExpression(name));
+        invokeClosureNode(args);
+        LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+        addToCriteria(logicalExpression.toCriterion());
+        return name;
+      }
+ else       if (name.equals(PROJECTIONS) && args.length == 1 && (args[0] instanceof Closure)) {
+        if (this.criteria == null)         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+        this.projectionList=Projections.projectionList();
+        invokeClosureNode(args);
+        if (this.projectionList != null && this.projectionList.getLength() > 0) {
+          this.criteria.setProjection(this.projectionList);
+        }
+        return name;
+      }
+ else       if (targetBean.isReadableProperty(name.toString())) {
+        this.criteria.createAlias(name.toString(),name.toString() + ALIAS,CriteriaSpecification.LEFT_JOIN);
+        this.aliasStack.add(name.toString() + ALIAS);
+        logicalExpressionStack.push(new LogicalExpression(AND));
+        invokeClosureNode(args);
+        aliasStack.remove(aliasStack.size() - 1);
+        LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+        if (!logicalExpression.args.isEmpty()) {
+          addToCriteria(logicalExpression.toCriterion());
+        }
+        return name;
+      }
+    }
+ else     if (args.length == 1 && args[0] != null) {
+      if (this.criteria == null)       throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+      Object value=args[0];
+      Criterion c=null;
+      if (name.equals(ID_EQUALS)) {
+        c=Restrictions.idEq(value);
+      }
+ else {
+        if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {
+          if (!(value instanceof String))           throwRuntimeException(new IllegalArgumentException("call to [" + name + "] with value ["+ value+ "] requires a String value."));
+          if (name.equals(IS_NULL)) {
+            c=Restrictions.isNull((String)value);
+          }
+ else           if (name.equals(IS_NOT_NULL)) {
+            c=Restrictions.isNotNull((String)value);
+          }
+ else           if (name.equals(IS_EMPTY)) {
+            c=Restrictions.isEmpty((String)value);
+          }
+ else           if (name.equals(IS_NOT_EMPTY)) {
+            c=Restrictions.isNotEmpty((String)value);
+          }
+        }
+      }
+      if (c != null) {
+        return addToCriteria(c);
+      }
+    }
+  }
+  closeSessionFollowingException();
+  throw new MissingMethodException(name,getClass(),args);
+}

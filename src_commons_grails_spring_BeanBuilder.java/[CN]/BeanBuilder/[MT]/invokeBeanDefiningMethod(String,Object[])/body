@@ -30,6 +30,7 @@
   if (args[args.length - 1] instanceof Closure) {
     Closure callable=(Closure)args[args.length - 1];
     callable.setDelegate(this);
+    callable.setResolveStrategy(Closure.DELEGATE_FIRST);
     callable.call(new Object[]{currentBeanConfig});
   }
   return currentBeanConfig;

@@ -8,15 +8,18 @@
   try {
     log.debug("Going to inspect artefact classes.");
     for (int i=0; i < classes.length; i++) {
-      log.debug("Inspecting [" + classes[i].getName() + "]");
-      if (Modifier.isAbstract(classes[i].getModifiers())) {
-        log.debug("[" + classes[i].getName() + "] is abstract.");
+      final Class theClass=classes[i];
+      log.debug("Inspecting [" + theClass.getName() + "]");
+      if (Modifier.isAbstract(theClass.getModifiers())) {
+        log.debug("[" + theClass.getName() + "] is abstract.");
         continue;
       }
+      if (allArtefactClasses.contains(theClass))       continue;
       for (int j=0; j < artefactHandlers.length; j++) {
-        if (artefactHandlers[j].isArtefact(classes[i])) {
-          GrailsClass gclass=addArtefact(artefactHandlers[j].getType(),classes[i]);
-          allArtefactClasses.add(classes[i]);
+        if (artefactHandlers[j].isArtefact(theClass)) {
+          log.debug("Adding artefact " + theClass + " of kind "+ artefactHandlers[j].getType());
+          GrailsClass gclass=addArtefact(artefactHandlers[j].getType(),theClass);
+          allArtefactClasses.add(theClass);
           DefaultArtefactInfo info=getArtefactInfo(artefactHandlers[j].getType(),true);
           info.addGrailsClass(gclass);
         }

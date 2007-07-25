@@ -1,5 +1,4 @@
 {
-  this.name=name;
-  this.clazz=clazz;
+  this(name,clazz,Collections.EMPTY_LIST);
   this.singleton=!prototype;
 }

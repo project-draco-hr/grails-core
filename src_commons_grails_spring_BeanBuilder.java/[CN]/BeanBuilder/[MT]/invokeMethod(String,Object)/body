@@ -10,6 +10,9 @@
     springConfig.registerBeansWithContext(ctx);
     return null;
   }
+ else   if (BEANS.equals(name) && args.length == 1 && args[0] instanceof Closure) {
+    return invokeBeanDefiningClosure(args[0]);
+  }
   if (args.length == 0)   throw new MissingMethodException(name,getClass(),args);
   if (REF.equals(name)) {
     String refName;
@@ -29,13 +32,13 @@
     return new RuntimeBeanReference(refName,parentRef);
   }
   if (args[0] instanceof Closure) {
-    invokeBeanDefiningClosure(args[0]);
+    invokeBeanDefiningMethod(name,args);
   }
  else   if (args[0] instanceof Class || args[0] instanceof RuntimeBeanReference || args[0] instanceof Map) {
     return invokeBeanDefiningMethod(name,args);
   }
- else {
-    return super.invokeMethod(name,arg);
+ else   if (args.length > 1 && args[args.length - 1] instanceof Closure) {
+    return invokeBeanDefiningMethod(name,args);
   }
   return this;
 }

@@ -4,4 +4,5 @@
   callable.setResolveStrategy(Closure.DELEGATE_FIRST);
   callable.call();
   finalizeDeferredProperties();
+  return this;
 }

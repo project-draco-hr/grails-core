@@ -27,6 +27,20 @@
     currentBeanConfig.setFactoryBean(factoryBeanEntry.getKey().toString());
     currentBeanConfig.setFactoryMethod(factoryBeanEntry.getValue().toString());
   }
+ else   if (args[0] instanceof Closure) {
+    currentBeanConfig=springConfig.addAbstractBean(name);
+  }
+ else {
+    Object[] constructorArgs;
+    if (args[args.length - 1] instanceof Closure) {
+      constructorArgs=ArrayUtils.subarray(args,0,args.length - 1);
+    }
+ else {
+      constructorArgs=ArrayUtils.subarray(args,0,args.length);
+    }
+    currentBeanConfig=new DefaultBeanConfiguration(name,null,Arrays.asList(constructorArgs));
+    springConfig.addBeanConfiguration(name,currentBeanConfig);
+  }
   if (args[args.length - 1] instanceof Closure) {
     Closure callable=(Closure)args[args.length - 1];
     callable.setDelegate(this);

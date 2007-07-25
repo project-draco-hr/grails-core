@@ -5,11 +5,22 @@
     for (Iterator i=constructorArgs.iterator(); i.hasNext(); ) {
       cav.addGenericArgumentValue(i.next());
     }
-    bd=new RootBeanDefinition(clazz,cav,null);
+    if (StringUtils.isBlank(parentName)) {
+      bd=new RootBeanDefinition(clazz,cav,null);
+    }
+ else {
+      bd=new ChildBeanDefinition(parentName,clazz,cav,null);
+    }
     bd.setSingleton(singleton);
   }
  else {
-    bd=new RootBeanDefinition(clazz,singleton);
+    if (StringUtils.isBlank(parentName)) {
+      bd=new RootBeanDefinition(clazz,singleton);
+    }
+ else {
+      bd=new ChildBeanDefinition(parentName,clazz,null,null);
+      bd.setSingleton(singleton);
+    }
   }
   wrapper=new BeanWrapperImpl(bd);
   return bd;

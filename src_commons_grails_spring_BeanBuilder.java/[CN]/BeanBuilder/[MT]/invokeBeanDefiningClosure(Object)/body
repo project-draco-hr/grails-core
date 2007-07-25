@@ -1,7 +1,6 @@
 {
   Closure callable=(Closure)arg;
   callable.setDelegate(this);
-  callable.setResolveStrategy(Closure.DELEGATE_FIRST);
   callable.call();
   finalizeDeferredProperties();
   return this;

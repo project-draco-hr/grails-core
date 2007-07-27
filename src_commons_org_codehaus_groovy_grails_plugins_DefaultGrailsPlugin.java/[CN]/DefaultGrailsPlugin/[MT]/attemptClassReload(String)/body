@@ -1,9 +1,8 @@
 {
-  try {
-    return application.getClassLoader().loadClass(className,true,false);
-  }
- catch (  ClassNotFoundException e) {
-    LOG.error("Class not found error reloading plugin resource [" + className + "]:"+ e.getMessage(),e);
+  final GroovyClassLoader loader=application.getClassLoader();
+  if (loader instanceof GrailsClassLoader) {
+    GrailsClassLoader grailsLoader=(GrailsClassLoader)loader;
+    return grailsLoader.reloadClass(className);
   }
   return null;
 }

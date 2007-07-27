@@ -1,0 +1,7 @@
+{
+  Object providedArtefacts=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,PROVIDED_ARTEFACTS);
+  if (providedArtefacts instanceof Collection) {
+    final Collection artefactList=(Collection)providedArtefacts;
+    this.providedArtefacts=(Class[])artefactList.toArray(new Class[artefactList.size()]);
+  }
+}

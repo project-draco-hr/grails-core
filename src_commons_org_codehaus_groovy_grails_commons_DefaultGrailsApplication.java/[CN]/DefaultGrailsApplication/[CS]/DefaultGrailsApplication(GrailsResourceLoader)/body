@@ -1,0 +1,9 @@
+{
+  this.resourceLoader=resourceLoader;
+  try {
+    loadGrailsApplicationFromResources(resourceLoader.getResources());
+  }
+ catch (  IOException e) {
+    throw new GrailsConfigurationException("I/O exception loading Grails: " + e.getMessage(),e);
+  }
+}

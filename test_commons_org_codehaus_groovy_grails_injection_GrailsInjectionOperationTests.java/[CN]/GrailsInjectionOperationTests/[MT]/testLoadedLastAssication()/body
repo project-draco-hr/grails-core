@@ -1,6 +1,0 @@
-{
-  GroovyObject testObject=(GroovyObject)ga.getClassLoader().loadClass("ZLoadedLast").newInstance();
-  BeanWrapper bean=new BeanWrapperImpl(testObject);
-  assertTrue(bean.isReadableProperty(GrailsDomainClassProperty.IDENTITY));
-  assertTrue(bean.isWritableProperty(GrailsDomainClassProperty.IDENTITY));
-}

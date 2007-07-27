@@ -1,0 +1,18 @@
+{
+  if (className == null)   return null;
+  String groovyFile=className.replace('.','/') + ".groovy";
+  try {
+    Resource foundResource=(Resource)pathToResource.get(groovyFile);
+    if (foundResource != null) {
+      loadedResources.add(foundResource);
+      classToResource.put(className,foundResource);
+      return foundResource.getURL();
+    }
+ else {
+      return null;
+    }
+  }
+ catch (  IOException e) {
+    throw new GrailsConfigurationException("I/O exception loaded resource:" + e.getMessage(),e);
+  }
+}

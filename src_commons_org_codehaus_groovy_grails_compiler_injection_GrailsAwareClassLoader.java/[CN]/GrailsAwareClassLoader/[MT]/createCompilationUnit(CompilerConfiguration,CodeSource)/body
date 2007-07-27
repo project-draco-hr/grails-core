@@ -1,0 +1,6 @@
+{
+  System.out.println("CALLING CREATE COMPILATION UNIT");
+  CompilationUnit cu=super.createCompilationUnit(config,source);
+  cu.addPhaseOperation(new GrailsAwareInjectionOperation(getResourceLoader(),classInjectors),Phases.CONVERSION);
+  return cu;
+}

@@ -1,5 +1,5 @@
 {
-  super();
+  super(application);
   if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null!");
   resolver=new PathMatchingResourcePatternResolver();
   try {

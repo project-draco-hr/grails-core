@@ -1,0 +1,21 @@
+{
+  for (int i=0; i < classInjectors.length; i++) {
+    ClassInjector classInjector=classInjectors[i];
+    URL url;
+    try {
+      if (GrailsResourceUtils.isGrailsPath(source.getName())) {
+        url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(source.getName()));
+      }
+ else {
+        url=grailsResourceLoader.loadGroovySource(source.getName());
+      }
+      if (classInjector.shouldInject(url)) {
+        classInjector.performInjection(source,context,classNode);
+      }
+    }
+ catch (    MalformedURLException e) {
+      LOG.error("Error loading URL during addition of compile time properties: " + e.getMessage(),e);
+      throw new CompilationFailedException(Phases.CONVERSION,source,e);
+    }
+  }
+}

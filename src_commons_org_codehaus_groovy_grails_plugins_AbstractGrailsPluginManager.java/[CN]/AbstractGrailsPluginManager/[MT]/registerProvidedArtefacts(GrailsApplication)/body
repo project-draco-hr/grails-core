@@ -1,0 +1,14 @@
+{
+  checkInitialised();
+  for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
+    GrailsPlugin plugin=(GrailsPlugin)i.next();
+    final Class[] artefacts=plugin.getProvidedArtefacts();
+    for (int j=0; j < artefacts.length; j++) {
+      Class artefact=artefacts[j];
+      String shortName=GrailsClassUtils.getShortName(artefact);
+      if (!isAlreadyRegistered(application,artefact,shortName)) {
+        application.addArtefact(artefact);
+      }
+    }
+  }
+}

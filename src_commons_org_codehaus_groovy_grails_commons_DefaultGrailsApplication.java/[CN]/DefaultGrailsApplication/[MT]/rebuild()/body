@@ -4,7 +4,7 @@
   initArtefactHandlers();
   if (GrailsUtil.isDevelopmentEnv()) {
     try {
-      loadGrailsApplicationFromResources(this.resources,injectionOperation);
+      loadGrailsApplicationFromResources(this.resources);
       initialise();
     }
  catch (    IOException e) {

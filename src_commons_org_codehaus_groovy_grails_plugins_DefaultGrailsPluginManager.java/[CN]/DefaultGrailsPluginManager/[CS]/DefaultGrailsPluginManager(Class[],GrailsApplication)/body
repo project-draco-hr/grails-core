@@ -1,4 +1,5 @@
 {
+  super(application);
   this.pluginClasses=plugins;
   resolver=new PathMatchingResourcePatternResolver();
   this.application=application;

@@ -1,15 +1,5 @@
 {
-  if (groovyFiles.length == 0) {
-    LOG.warn("Warning: No Groovy files found in application");
-  }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Loaded Groovy resources: " + ArrayUtils.toString(groovyFiles));
-  }
-  if (injectionOperation != null) {
-    this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles,injectionOperation);
-  }
- else {
-    this.grailsApplication=new DefaultGrailsApplication(this.groovyFiles);
-  }
+  Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
+  this.grailsApplication=new DefaultGrailsApplication(this.resourceLoader);
   ApplicationHolder.setApplication(this.grailsApplication);
 }

@@ -3,11 +3,7 @@
   GrailsPlugin plugin=getGrailsPlugin(pluginName);
   if (plugin == null)   throw new PluginException("Plugin [" + pluginName + "] not found");
   String[] dependencyNames=plugin.getDependencyNames();
-  for (int i=0; i < dependencyNames.length; i++) {
-    String dn=dependencyNames[i];
-    GrailsPlugin current=getGrailsPlugin(dn);
-    current.doWithRuntimeConfiguration(springConfig);
-  }
+  doRuntimeConfigurationForDependencies(dependencyNames,springConfig);
   String[] loadAfters=plugin.getLoadAfterNames();
   for (int i=0; i < loadAfters.length; i++) {
     String name=loadAfters[i];

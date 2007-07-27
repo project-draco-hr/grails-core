@@ -5,6 +5,7 @@
   evaluatePluginVersion();
   evaluatePluginDependencies();
   evaluatePluginLoadAfters();
+  evaluateProvidedArtefacts();
   evaluatePluginEvictionPolicy();
   evaluatePluginInfluencePolicy();
   evaluateOnChangeListener();

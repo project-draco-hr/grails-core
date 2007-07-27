@@ -1,8 +1,0 @@
-{
-  super();
-  log.debug("Loading Grails application.");
-  loadMetadata();
-  this.resources=resources;
-  this.injectionOperation=injectionOperation;
-  loadGrailsApplicationFromResources(resources,injectionOperation);
-}

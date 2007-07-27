@@ -6,6 +6,7 @@
   }
   if (!this.pluginManager.isInitialised())   this.pluginManager.loadPlugins();
   Assert.notNull(application);
+  this.pluginManager.registerProvidedArtefacts(application);
   this.pluginManager.doRuntimeConfiguration(springConfig);
   LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
   if (loadExternalBeans)   doPostResourceConfiguration(springConfig);

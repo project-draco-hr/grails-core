@@ -1,6 +1,0 @@
-{
-  GroovyObject testObject=(GroovyObject)ga.getClassLoader().loadClass("A").newInstance();
-  assertEquals("original",testObject.invokeMethod("toString",new Object[0]));
-  GroovyObject testObject2=(GroovyObject)ga.getClassLoader().loadClass("B").newInstance();
-  assertEquals("original",testObject2.invokeMethod("toString",new Object[0]));
-}

@@ -23,10 +23,13 @@
             if (newResource.getFilename().endsWith(".groovy")) {
               if (LOG.isDebugEnabled())               LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, registering resource with class loader...");
               GroovyClassLoader classLoader=this.application.getClassLoader();
-              GrailsResourceLoader resourceLoader=(GrailsResourceLoader)classLoader.getResourceLoader();
+              GrailsResourceLoader resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
               Resource[] classLoaderResources=resourceLoader.getResources();
               classLoaderResources=(Resource[])ArrayUtils.add(classLoaderResources,newResource);
               resourceLoader.setResources(classLoaderResources);
+              if (classLoader instanceof GrailsClassLoader) {
+                ((GrailsClassLoader)classLoader).setGrailsResourceLoader(resourceLoader);
+              }
             }
             initializeModifiedTimes();
             if (LOG.isDebugEnabled())             LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, firing event if possible..");

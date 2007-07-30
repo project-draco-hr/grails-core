@@ -1,5 +1,6 @@
 {
   initArtefactHandlers();
+  loadMetadata();
   artefactInfo.clear();
   allArtefactClasses.clear();
   allArtefactClassesArray=null;

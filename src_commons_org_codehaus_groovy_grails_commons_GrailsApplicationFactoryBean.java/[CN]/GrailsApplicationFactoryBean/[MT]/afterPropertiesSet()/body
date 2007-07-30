@@ -1,5 +1,27 @@
 {
-  Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
-  this.grailsApplication=new DefaultGrailsApplication(this.resourceLoader);
+  if (descriptor != null && descriptor.exists()) {
+    GroovyClassLoader classLoader=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
+    List classes=new ArrayList();
+    SAXReader reader=new SAXReader();
+    InputStream inputStream=null;
+    try {
+      inputStream=descriptor.getInputStream();
+      Document doc=reader.read(inputStream);
+      List grailsClasses=doc.selectNodes("/grails/resources/resource");
+      for (Iterator i=grailsClasses.iterator(); i.hasNext(); ) {
+        Node node=(Node)i.next();
+        classes.add(classLoader.loadClass(node.getText()));
+      }
+    }
+  finally {
+      if (inputStream != null)       inputStream.close();
+    }
+    Class[] loadedClasses=(Class[])classes.toArray(new Class[classes.size()]);
+    this.grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
+  }
+ else {
+    Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
+    this.grailsApplication=new DefaultGrailsApplication(this.resourceLoader);
+  }
   ApplicationHolder.setApplication(this.grailsApplication);
 }

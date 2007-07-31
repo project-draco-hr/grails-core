@@ -12,9 +12,14 @@
   Object source;
   if (resourceClass != null)   source=resourceClass;
  else   source=resource;
-  Map event=notifyOfEvent(EVENT_ON_CHANGE,source);
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Firing onChange event listener with event object [" + event + "]");
+  if (loadedClass != null && Modifier.isAbstract(loadedClass.getModifiers())) {
+    restartContainer();
   }
-  getManager().informObservers(getName(),event);
+ else {
+    Map event=notifyOfEvent(EVENT_ON_CHANGE,source);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Firing onChange event listener with event object [" + event + "]");
+    }
+    getManager().informObservers(getName(),event);
+  }
 }

@@ -17,7 +17,8 @@
       final String content=escapeGroovy(line);
       if (!StringUtils.isBlank(content)) {
         hasContent=true;
-        pw.println(content);
+        if (i == lines.length)         pw.println(content);
+ else         pw.print(content);
       }
     }
     pw.println(END_MULTILINE_STRING);

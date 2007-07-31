@@ -49,7 +49,6 @@
     return result;
   }
  else {
-    System.out.println("Trying to invoke MetaMethod name = " + name + " args = "+ ArrayUtils.toString(args));
     MetaMethod metaMethod=getMetaClass().getMetaMethod(name,args);
     if (metaMethod != null) {
       return metaMethod.invoke(this,args);

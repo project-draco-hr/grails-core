@@ -6,4 +6,5 @@
   this.controllerName=controllerName;
   this.actionName=actionName;
   this.id=(String)params.get(ID_PARAM);
+  this.urlData=urlData;
 }

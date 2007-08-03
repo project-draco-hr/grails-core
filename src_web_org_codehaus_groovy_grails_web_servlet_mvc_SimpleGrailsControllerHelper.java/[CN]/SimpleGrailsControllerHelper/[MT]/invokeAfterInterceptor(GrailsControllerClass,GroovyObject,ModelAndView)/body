@@ -4,6 +4,7 @@
     Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
     if (afterInterceptor.getDelegate() != controller) {
       afterInterceptor.setDelegate(controller);
+      afterInterceptor.setResolveStrategy(Closure.DELEGATE_FIRST);
     }
     Map model=Collections.EMPTY_MAP;
     if (mv != null) {

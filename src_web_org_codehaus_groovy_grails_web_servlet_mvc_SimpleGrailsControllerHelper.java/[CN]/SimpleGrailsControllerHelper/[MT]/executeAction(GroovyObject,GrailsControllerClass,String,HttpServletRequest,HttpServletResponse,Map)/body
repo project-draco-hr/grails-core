@@ -2,19 +2,7 @@
   ClassLoader cl=Thread.currentThread().getContextClassLoader();
   try {
     Thread.currentThread().setContextClassLoader(application.getClassLoader());
-    boolean executeAction=true;
-    if (controllerClass.isInterceptedBefore(controller,actionName)) {
-      Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
-      if (beforeInterceptor != null) {
-        if (beforeInterceptor.getDelegate() != controller) {
-          beforeInterceptor.setDelegate(controller);
-        }
-        Object interceptorResult=beforeInterceptor.call();
-        if (interceptorResult instanceof Boolean) {
-          executeAction=((Boolean)interceptorResult).booleanValue();
-        }
-      }
-    }
+    boolean executeAction=invokeBeforeInterceptor(controller,controllerClass);
     if (!executeAction)     return null;
     Closure action;
     try {

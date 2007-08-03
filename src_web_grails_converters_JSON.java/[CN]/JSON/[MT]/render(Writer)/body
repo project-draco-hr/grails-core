@@ -1,0 +1,15 @@
+{
+  this.writer=new JSONWriter(out);
+  try {
+    value(this.target);
+  }
+  finally {
+    try {
+      out.flush();
+      out.close();
+    }
+ catch (    Exception e) {
+      log.warn("Unexpected exception while closing a writer: " + e.getMessage());
+    }
+  }
+}

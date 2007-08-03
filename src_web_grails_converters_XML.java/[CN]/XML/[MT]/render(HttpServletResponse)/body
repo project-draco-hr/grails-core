@@ -1,0 +1,12 @@
+{
+  response.setContentType("text/xml");
+  try {
+    Writer writer=response.getWriter();
+    String encoding=response.getCharacterEncoding();
+    writer.write("<?xml version=\"1.0\" encoding=\"" + encoding + "\"?>");
+    render(writer);
+  }
+ catch (  IOException e) {
+    throw new ConverterException(e);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  XStream xstream=new XStream();
+  xstream.registerConverter(new DomainClassConverter(),XStream.PRIORITY_VERY_HIGH);
+  xstream.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
+  return xstream;
+}

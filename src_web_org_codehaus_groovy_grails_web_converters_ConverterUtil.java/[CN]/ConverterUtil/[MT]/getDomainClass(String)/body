@@ -1,0 +1,3 @@
+{
+  return (GrailsDomainClass)getGrailsApplication().getArtefact(DomainClassArtefactHandler.TYPE,name);
+}

@@ -1,0 +1,3 @@
+{
+  return getGrailsApplication().isArtefactOfType(DomainClassArtefactHandler.TYPE,clazz);
+}

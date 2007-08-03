@@ -1,0 +1,63 @@
+{
+  try {
+    if (o == null) {
+      writer.value(null);
+    }
+ else     if (o instanceof GroovyObject && ConverterUtil.isDomainClass(o.getClass())) {
+      domain(o);
+    }
+ else     if (o instanceof Class) {
+      writer.value(((Class)o).getName());
+    }
+ else     if (o instanceof Map) {
+      writer.object();
+      Map map=(Map)o;
+      for (Iterator it=map.keySet().iterator(); it.hasNext(); ) {
+        Object key=it.next();
+        property(key.toString(),map.get(key));
+      }
+      writer.endObject();
+    }
+ else     if (o instanceof Collection) {
+      writer.array();
+      for (Iterator it=((Collection)o).iterator(); it.hasNext(); ) {
+        value(it.next());
+      }
+      writer.endArray();
+    }
+ else     if (o.getClass().isArray()) {
+      array(o);
+    }
+ else     if (o instanceof String) {
+      writer.value(o);
+    }
+ else     if (o instanceof GString) {
+      value(o.toString());
+    }
+ else     if (o instanceof Date) {
+      Date d=(Date)o;
+      writer.value(d);
+    }
+ else     if (o instanceof Calendar) {
+      value(((Calendar)o).getTime());
+    }
+ else     if (o.getClass().equals(byte[].class)) {
+      value(((byte[])o).length + " Bytes");
+    }
+ else     if ((o.getClass().isPrimitive() && !o.getClass().equals(byte[].class)) || o instanceof Number || o instanceof Boolean) {
+      writer.value(o);
+    }
+ else     if (o instanceof Currency || o instanceof TimeZone || o instanceof Locale|| o instanceof URL) {
+      value(o.toString());
+    }
+ else {
+      bean(o);
+    }
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  JSONException e) {
+    throw new ConverterException(e);
+  }
+}

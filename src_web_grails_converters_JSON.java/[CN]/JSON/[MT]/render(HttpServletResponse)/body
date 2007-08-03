@@ -1,0 +1,9 @@
+{
+  try {
+    response.setContentType("text/json;charset=UTF-8");
+    render(response.getWriter());
+  }
+ catch (  IOException e) {
+    throw new ConverterException(e);
+  }
+}

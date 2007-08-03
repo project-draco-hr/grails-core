@@ -1,0 +1,10 @@
+{
+  StringWriter writer=new StringWriter();
+  try {
+    render(writer);
+  }
+ catch (  Exception e) {
+    throw new UnhandledException(e);
+  }
+  return writer.toString();
+}

@@ -1,0 +1,7 @@
+{
+  String json=super.toString();
+  if (prettyPrint) {
+    return new JSONObject(json).toString(3);
+  }
+  return json;
+}

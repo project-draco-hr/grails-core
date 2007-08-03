@@ -1,10 +1,11 @@
 {
-  LOG.trace("Configuring domain class [" + persistentClass + "]");
-  GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,persistentClass.getName());
-  if (dc == null) {
-    GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,cmd);
-    hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
-    dc=(GrailsDomainClass)application.addArtefact(DomainClassArtefactHandler.TYPE,ghdc);
+  if (!Modifier.isAbstract(persistentClass.getModifiers())) {
+    LOG.trace("Configuring domain class [" + persistentClass + "]");
+    GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,persistentClass.getName());
+    if (dc == null) {
+      GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,cmd);
+      hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
+      dc=(GrailsDomainClass)application.addArtefact(DomainClassArtefactHandler.TYPE,ghdc);
+    }
   }
-  return dc;
 }

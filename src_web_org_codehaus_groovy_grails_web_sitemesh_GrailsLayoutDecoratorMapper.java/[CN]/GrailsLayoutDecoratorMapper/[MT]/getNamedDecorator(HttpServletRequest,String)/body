@@ -30,6 +30,8 @@
       }
  catch (      IOException e) {
       }
+catch (      IllegalArgumentException e) {
+      }
       return null;
     }
  else {

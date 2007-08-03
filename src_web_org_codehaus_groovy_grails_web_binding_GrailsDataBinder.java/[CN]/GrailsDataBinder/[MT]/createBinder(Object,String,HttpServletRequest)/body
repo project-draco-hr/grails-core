@@ -1,5 +1,6 @@
 {
   GrailsDataBinder binder=createBinder(target,objectName);
   binder.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,RequestContextUtils.getLocale(request)),true));
+  binder.registerCustomEditor(BigDecimal.class,new CustomNumberEditor(BigDecimal.class,DecimalFormat.getInstance(RequestContextUtils.getLocale(request)),true));
   return binder;
 }

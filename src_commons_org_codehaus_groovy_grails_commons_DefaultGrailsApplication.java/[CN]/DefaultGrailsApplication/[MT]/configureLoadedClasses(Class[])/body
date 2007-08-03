@@ -23,6 +23,7 @@
           allArtefactClasses.add(theClass);
           DefaultArtefactInfo info=getArtefactInfo(artefactHandlers[j].getType(),true);
           info.addGrailsClass(gclass);
+          break;
         }
       }
     }

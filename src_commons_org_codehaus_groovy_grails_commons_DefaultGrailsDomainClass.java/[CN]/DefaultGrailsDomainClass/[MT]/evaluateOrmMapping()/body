@@ -1,0 +1,12 @@
+{
+  Closure ormMappingClosure=(Closure)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.ORM_MAPPING,Closure.class);
+  if (ormMappingClosure != null) {
+class OrmMappingDelegate {
+      void withTable(      String name){
+        tableName=name;
+      }
+    }
+    ormMappingClosure.setDelegate(new OrmMappingDelegate());
+    ormMappingClosure.call();
+  }
+}

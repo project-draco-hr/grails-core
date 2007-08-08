@@ -1,3 +1,7 @@
 {
-  return GrailsClassUtils.getPropertyNameRepresentation(getName());
+  final String logicalName=getName();
+  if (StringUtils.isBlank(logicalName)) {
+    return GrailsClassUtils.getPropertyNameRepresentation(getShortName());
+  }
+  return GrailsClassUtils.getPropertyNameRepresentation(logicalName);
 }

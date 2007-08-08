@@ -4,7 +4,7 @@
   GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   GrailsClass[] controllers=application.getArtefacts(ControllerArtefactHandler.TYPE);
   if (controllers == null || controllers.length == 0 || holder == null) {
-    filterChain.doFilter(request,response);
+    processFilterChain(request,response,filterChain);
     return;
   }
   if (LOG.isDebugEnabled()) {
@@ -44,6 +44,6 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("No match found, processing remaining filter chain.");
     }
-    filterChain.doFilter(request,response);
+    processFilterChain(request,response,filterChain);
   }
 }

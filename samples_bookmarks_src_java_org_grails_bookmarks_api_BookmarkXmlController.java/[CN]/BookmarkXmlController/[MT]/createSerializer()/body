@@ -1,8 +1,0 @@
-{
-  XStream xs=new XStream();
-  xs.alias("bookmark",Bookmark.class);
-  xs.alias("bookmarks",List.class);
-  xs.omitField(Bookmark.class,"user");
-  xs.omitField(Bookmark.class,"tags");
-  return xs;
-}

@@ -1,0 +1,8 @@
+{
+  if (location.startsWith(GrailsResourceUtils.WEB_INF)) {
+    return location.substring(GrailsResourceUtils.WEB_INF.length() + 1);
+  }
+ else {
+    return GrailsResourceUtils.WEB_APP_DIR + location;
+  }
+}

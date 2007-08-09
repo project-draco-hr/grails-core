@@ -3,7 +3,7 @@
   pageMeta.setContentType(parse.getContentType());
   pageMeta.setLineNumbers(parse.getLineNumberMatrix());
   pageMeta.setLastModified(lastModified);
-  if (GrailsUtil.isDevelopmentEnv()) {
+  if (isReloadEnabled()) {
     pageMeta.setGroovySource(in);
   }
   return pageMeta;

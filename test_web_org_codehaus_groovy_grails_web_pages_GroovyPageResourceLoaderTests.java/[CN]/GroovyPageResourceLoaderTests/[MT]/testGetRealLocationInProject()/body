@@ -1,5 +1,5 @@
 {
-  DevelopmentGroovyPageResourceLoader rl=new DevelopmentGroovyPageResourceLoader();
+  GroovyPageResourceLoader rl=new GroovyPageResourceLoader();
   assertEquals("/grails-app/views/layouts/main.gsp",rl.getRealLocationInProject("/WEB-INF/grails-app/views/layouts/main.gsp"));
   assertEquals("/grails-app/views/books/list.gsp",rl.getRealLocationInProject("/WEB-INF/grails-app/views/books/list.gsp"));
   assertEquals("/grails-app/views/_template.gsp",rl.getRealLocationInProject("/WEB-INF/grails-app/views/_template.gsp"));

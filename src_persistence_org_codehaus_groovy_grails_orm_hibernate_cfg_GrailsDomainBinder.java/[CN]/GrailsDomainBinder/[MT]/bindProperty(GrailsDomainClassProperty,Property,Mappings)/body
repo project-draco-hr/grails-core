@@ -6,35 +6,41 @@
   prop.setOptional(grailsProperty.isOptional());
   if (grailsProperty.isAssociation()) {
     if (grailsProperty.isOneToMany()) {
-      if (!grailsProperty.isBidirectional()) {
-        if (grailsProperty.isOwningSide())         prop.setCascade("all");
- else         prop.setCascade("save-update");
-      }
- else       if (grailsProperty.isBidirectional())       prop.setCascade("all");
+      if (grailsProperty.isOwningSide())       prop.setCascade(CASCADE_ALL);
+ else       prop.setCascade(CASCADE_SAVE_UPDATE);
     }
  else     if (grailsProperty.isManyToMany()) {
       if (grailsProperty.isOwningSide()) {
-        prop.setCascade("save-update");
+        prop.setCascade(CASCADE_SAVE_UPDATE);
       }
     }
- else     if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
+ else     if (grailsProperty.isManyToOne()) {
       GrailsDomainClass domainClass=grailsProperty.getDomainClass();
-      if (domainClass.isOwningClass(grailsProperty.getType())) {
-        prop.setCascade("all");
+      if (!domainClass.isOwningClass(grailsProperty.getType())) {
+        prop.setCascade(CASCADE_ALL);
       }
  else {
         GrailsDomainClassProperty otherSide=grailsProperty.getOtherSide();
         if (otherSide != null && otherSide.isOneToMany()) {
-          prop.setCascade("merge");
+          prop.setCascade(CASCADE_MERGE);
         }
  else         if (grailsProperty.isOwningSide()) {
-          prop.setCascade("all");
+          prop.setCascade(CASCADE_ALL);
         }
+      }
+    }
+ else     if (grailsProperty.isOneToOne()) {
+      GrailsDomainClass domainClass=grailsProperty.getDomainClass();
+      if (!grailsProperty.isBidirectional() && domainClass.isOwningClass(grailsProperty.getType())) {
+        prop.setCascade(CASCADE_ALL);
+      }
+ else       if (grailsProperty.isOwningSide()) {
+        prop.setCascade(CASCADE_ALL);
       }
     }
   }
  else   if (Map.class.isAssignableFrom(grailsProperty.getType())) {
-    prop.setCascade("all");
+    prop.setCascade(CASCADE_ALL);
   }
   if (LOG.isTraceEnabled())   LOG.trace("[GrailsDomainBinder] Set cascading strategy on property [" + grailsProperty.getName() + "] to ["+ prop.getCascade()+ "]");
   prop.setLazy(true);

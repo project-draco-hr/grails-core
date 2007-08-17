@@ -2,6 +2,7 @@
   GroovyClassLoader cl=new GroovyClassLoader();
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(cl.parseClass("public class BinderTestClass {\n" + "    Long id; \n" + "    Long version; \n"+ "\n"+ "    String firstName; \n"+ "    String lastName; \n"+ "    String comment; \n"+ "    Integer age;\n"+ "    boolean active = true"+ "\n"+ "    static constraints = {\n"+ "        firstName(nullable:true,size:4..15)\n"+ "        lastName(nullable:false)\n"+ "        age(nullable:true)\n"+ "    }\n"+ "}"));
   GrailsApplication grailsApplication=new DefaultGrailsApplication(new Class[]{domainClass.getClazz()},cl);
+  grailsApplication.initialise();
   DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
   config.setGrailsApplication(grailsApplication);
   config.buildMappings();

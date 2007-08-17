@@ -1,5 +1,6 @@
 {
   GrailsApplication grailsApplication=new DefaultGrailsApplication(new Class[]{relClass,oneToManyClass,oneToOneClass,manyToManyClass},cl);
+  grailsApplication.initialise();
   GrailsDomainClass c1dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,relClass.getName());
   GrailsDomainClass c2dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,oneToManyClass.getName());
   assertEquals(c1dc.getPropertyByName("ones").getOtherSide(),c2dc.getPropertyByName("other"));

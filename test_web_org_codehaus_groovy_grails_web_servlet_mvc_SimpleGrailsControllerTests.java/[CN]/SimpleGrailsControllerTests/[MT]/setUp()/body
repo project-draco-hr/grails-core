@@ -17,6 +17,9 @@
   MutablePropertyValues propValues=new MutablePropertyValues();
   BeanDefinition grailsApplicationBean=new RootBeanDefinition(DefaultGrailsApplication.class,args,propValues);
   localContext.registerBeanDefinition("grailsApplication",grailsApplicationBean);
+  ConstructorArgumentValues conArgs=new ConstructorArgumentValues();
+  conArgs.addGenericArgumentValue(new Resource[0]);
+  localContext.registerBeanDefinition(PluginMetaManager.BEAN_ID,new RootBeanDefinition(DefaultPluginMetaManager.class,conArgs,null));
   this.localContext.refresh();
   this.grailsApplication=(GrailsApplication)localContext.getBean("grailsApplication");
   ApplicationHolder.setApplication(grailsApplication);

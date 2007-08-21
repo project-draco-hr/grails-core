@@ -1,5 +1,9 @@
 {
   if (StringUtils.isBlank(location))   throw new IllegalArgumentException("Argument [location] cannot be null or blank");
+  if (location.startsWith(PLUGINS)) {
+    Resource r=super.getResource(location.substring(1));
+    if (r.exists())     return r;
+  }
   location=getRealLocationInProject(location);
   Resource resource=super.getResource(location);
   if (!resource.exists()) {

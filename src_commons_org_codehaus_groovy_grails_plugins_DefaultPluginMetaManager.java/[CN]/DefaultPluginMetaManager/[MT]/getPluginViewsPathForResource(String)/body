@@ -1,0 +1,7 @@
+{
+  PluginMeta pluginMeta=(PluginMeta)resourceToPluginMap.get(resourceName);
+  if (pluginMeta != null) {
+    return PLUGINS_PATH + pluginMeta.name + '-'+ pluginMeta.version+ '/'+ GrailsResourceUtils.GRAILS_APP_DIR+ "/views";
+  }
+  return null;
+}

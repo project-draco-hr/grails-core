@@ -1,0 +1,40 @@
+{
+  for (int i=0; i < pluginDescriptors.length; i++) {
+    Resource pluginDescriptor=pluginDescriptors[i];
+    SAXReader reader=new SAXReader();
+    InputStream inputStream=null;
+    try {
+      try {
+        inputStream=pluginDescriptor.getInputStream();
+        Document doc=reader.read(inputStream);
+        Element pluginElement=doc.getRootElement();
+        String pluginName=pluginElement.attributeValue("name");
+        String pluginVersion=pluginElement.attributeValue("version");
+        if (StringUtils.isBlank(pluginName))         throw new GrailsConfigurationException("Plug-in descriptor [" + pluginDescriptor + "] doesn't specify a plug-in name. It must be corrupted, try re-install the plug-in");
+        if (StringUtils.isBlank(pluginVersion))         throw new GrailsConfigurationException("Plug-in descriptor [" + pluginDescriptor + "] with name ["+ pluginName+ "] doesn't specify a plug-in version. It must be corrupted, try re-install the plug-in");
+        List grailsClasses=doc.selectNodes("/plugin/resources/resource");
+        List pluginResources=new ArrayList();
+        for (Iterator j=grailsClasses.iterator(); j.hasNext(); ) {
+          Node node=(Node)j.next();
+          pluginResources.add(node.getText());
+        }
+        PluginMeta pluginMeta=new PluginMeta(pluginName,pluginVersion);
+        pluginMeta.pluginResources=(String[])pluginResources.toArray(new String[pluginResources.size()]);
+        pluginInfo.put(pluginName,pluginMeta);
+        for (int j=0; j < pluginMeta.pluginResources.length; j++) {
+          String pluginResource=pluginMeta.pluginResources[j];
+          resourceToPluginMap.put(pluginResource,pluginMeta);
+        }
+      }
+  finally {
+        if (inputStream != null)         inputStream.close();
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+catch (    DocumentException e) {
+      e.printStackTrace();
+    }
+  }
+}

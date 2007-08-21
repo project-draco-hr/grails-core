@@ -1,5 +1,6 @@
 {
   if (this.templateEngine == null)   throw new IllegalStateException("Property [templateEngine] cannot be null");
+  if (this.pluginMetaManager == null)   throw new IllegalStateException("Property [pluginMetaManager] cannot be null");
   ResourceLoader resourceLoader=establishResourceLoader();
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   HttpServletRequest request=webRequest.getCurrentRequest();

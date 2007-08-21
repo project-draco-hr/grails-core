@@ -1,11 +1,9 @@
 {
   String gspView;
   if (controller != null && application != null) {
-    Resource controllerResource=application.getResourceForClass(controller.getClass());
-    if (controllerResource != null) {
-      Resource viewsDir=GrailsResourceUtils.getViewsDir(controllerResource);
-      String pathToView=GrailsResourceUtils.getRelativeInsideWebInf(viewsDir);
-      gspView=pathToView + viewName + GSP_SUFFIX;
+    String pathToView=this.pluginMetaManager.getPluginViewsPathForResource(controller.getClass().getName());
+    if (pathToView != null) {
+      gspView=GrailsResourceUtils.WEB_INF + pathToView + '/'+ viewName+ GSP_SUFFIX;
     }
  else {
       gspView=localPrefix + viewName + GSP_SUFFIX;

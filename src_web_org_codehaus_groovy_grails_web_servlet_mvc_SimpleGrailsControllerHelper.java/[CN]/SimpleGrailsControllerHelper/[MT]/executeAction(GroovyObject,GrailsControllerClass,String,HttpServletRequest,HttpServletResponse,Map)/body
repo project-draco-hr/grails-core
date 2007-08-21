@@ -1,9 +1,6 @@
 {
   ClassLoader cl=Thread.currentThread().getContextClassLoader();
   try {
-    Thread.currentThread().setContextClassLoader(application.getClassLoader());
-    boolean executeAction=invokeBeforeInterceptor(controller,controllerClass);
-    if (!executeAction)     return null;
     Closure action;
     try {
       action=(Closure)controller.getProperty(actionName);
@@ -13,7 +10,6 @@
         if (LOG.isDebugEnabled()) {
           LOG.debug("Response has been redirected, returning null model and view");
         }
-        invokeAfterInterceptor(controllerClass,controller,null);
         return null;
       }
  else {
@@ -24,8 +20,7 @@
         if (LOG.isDebugEnabled()) {
           LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
         }
-        boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,mv);
-        return returnModelAndView ? mv : null;
+        return mv;
       }
     }
  catch (    MissingPropertyException mpe) {

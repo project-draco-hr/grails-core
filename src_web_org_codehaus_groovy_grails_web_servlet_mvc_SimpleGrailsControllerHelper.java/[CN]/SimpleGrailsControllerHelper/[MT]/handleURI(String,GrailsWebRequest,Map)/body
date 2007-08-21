@@ -40,10 +40,15 @@
   fs.next();
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,this.grailsAttributes);
   String viewName=controllerClass.getViewByURI(uri);
+  boolean executeAction=invokeBeforeInterceptor(controller,controllerClass);
+  if (!executeAction)   return null;
+  ModelAndView mv;
   if (controllerClass.isFlowAction(actionName)) {
-    return executeFlow(webRequest,request,response);
+    mv=executeFlow(webRequest,request,response);
   }
  else {
-    return executeAction(controller,controllerClass,viewName,request,response,params);
+    mv=executeAction(controller,controllerClass,viewName,request,response,params);
   }
+  boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,mv);
+  return returnModelAndView ? mv : null;
 }

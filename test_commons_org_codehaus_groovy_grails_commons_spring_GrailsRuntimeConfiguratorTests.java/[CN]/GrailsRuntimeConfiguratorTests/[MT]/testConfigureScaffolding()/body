@@ -5,6 +5,7 @@
   GrailsApplication app=new DefaultGrailsApplication(new Class[]{dc,c},gcl);
   MockApplicationContext parent=new MockApplicationContext();
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager(new Resource[0]));
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   ApplicationContext ctx=conf.configure(new MockServletContext());
   assertNotNull(ctx);

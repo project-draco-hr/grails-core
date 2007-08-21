@@ -6,6 +6,7 @@
   GrailsApplication app=new DefaultGrailsApplication(new Class[]{s1,s2},gcl);
   MockApplicationContext parent=new MockApplicationContext();
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager(new Resource[0]));
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   conf.setLoadExternalPersistenceConfig(false);
   GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext());

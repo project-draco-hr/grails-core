@@ -1,5 +1,4 @@
 {
-  gcl=new GroovyClassLoader();
   super.setUp();
   ExpandoMetaClass.enableGlobally();
   PluginManagerHolder.setPluginManager(null);
@@ -16,10 +15,12 @@
   MockApplicationContext mc=new MockApplicationContext();
   mc.registerMockBean(GrailsApplication.APPLICATION_ID,ga);
   mc.registerMockBean("messageSource",new StaticMessageSource());
-  mc.registerMockBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN,gcl);
+  mc.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager(new Resource[0]));
   GrailsRuntimeConfigurator grc=new GrailsRuntimeConfigurator(ga,mc);
   this.applicationContext=grc.configure(new MockServletContext());
   this.sessionFactory=(SessionFactory)this.applicationContext.getBean(GrailsRuntimeConfigurator.SESSION_FACTORY_BEAN);
-  this.session=this.sessionFactory.openSession();
-  TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(session));
+  if (!TransactionSynchronizationManager.hasResource(this.sessionFactory)) {
+    this.session=this.sessionFactory.openSession();
+    TransactionSynchronizationManager.bindResource(this.sessionFactory,new SessionHolder(session));
+  }
 }

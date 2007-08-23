@@ -1,8 +1,5 @@
 {
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
-  if (propertyValue == null) {
-    return;
-  }
   Integer size=null;
   if (propertyValue.getClass().isArray()) {
     size=new Integer(Array.getLength(propertyValue));

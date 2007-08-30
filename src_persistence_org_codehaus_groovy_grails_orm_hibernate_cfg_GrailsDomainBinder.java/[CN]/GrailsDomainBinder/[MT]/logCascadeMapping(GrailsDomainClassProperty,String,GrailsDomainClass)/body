@@ -1,0 +1,6 @@
+{
+  if (LOG.isDebugEnabled()) {
+    String assType=getAssociationDescription(grailsProperty);
+    LOG.debug("Mapping cascade strategy for " + assType + " property "+ grailsProperty.getDomainClass().getFullName()+ "."+ grailsProperty.getName()+ " referencing type ["+ referenced.getClazz()+ "] -> [CASCADE: "+ cascadeStrategy+ "]");
+  }
+}

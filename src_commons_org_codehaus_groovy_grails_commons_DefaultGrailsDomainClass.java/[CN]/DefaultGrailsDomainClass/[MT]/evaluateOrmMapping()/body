@@ -15,8 +15,9 @@ class OrmMappingDelegate extends GroovyObjectSupport {
               property.setColumnName(columnName);
             }
           }
+          return property;
         }
-        return null;
+        return super.invokeMethod(name,args);
       }
     }
     ormMappingClosure.setDelegate(new OrmMappingDelegate());

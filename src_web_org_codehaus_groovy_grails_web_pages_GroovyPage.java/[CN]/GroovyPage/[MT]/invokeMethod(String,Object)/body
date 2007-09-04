@@ -4,7 +4,7 @@
   Map attrs=null;
   Object body=null;
   GroovyObject tagLib=getTagLib(methodName);
-  GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
+  final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
   Writer originalOut=webRequest.getOut();
   try {
     if (tagLib != null) {

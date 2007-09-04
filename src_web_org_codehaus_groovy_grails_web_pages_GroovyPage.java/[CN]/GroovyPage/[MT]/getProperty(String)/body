@@ -1,11 +1,8 @@
 {
-  try {
-    return super.getProperty(property);
+  if (BINDING.equals(property))   return getBinding();
+  Object value=getBinding().getVariables().get(property);
+  if (value == null) {
+    value=getTagLibForNamespace(property);
   }
- catch (  MissingPropertyException mpe) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("No property [" + property + "] found in GSP returning null");
-    }
-    return null;
-  }
+  return value;
 }

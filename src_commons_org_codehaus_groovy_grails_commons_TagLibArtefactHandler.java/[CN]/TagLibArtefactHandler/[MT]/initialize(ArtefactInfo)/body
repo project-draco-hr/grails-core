@@ -4,6 +4,7 @@
   for (int i=0; i < classes.length; i++) {
     GrailsTagLibClass taglibClass=(GrailsTagLibClass)classes[i];
     String namespace=taglibClass.getNamespace();
+    namespace2tagLibMap.put(namespace,taglibClass);
     for (Iterator j=taglibClass.getTagNames().iterator(); j.hasNext(); ) {
       String tagName=namespace + ":" + (String)j.next();
       if (!tag2libMap.containsKey(tagName)) {

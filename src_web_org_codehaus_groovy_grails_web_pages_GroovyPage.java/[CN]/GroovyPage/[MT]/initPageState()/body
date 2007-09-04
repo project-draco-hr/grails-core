@@ -1,7 +1,7 @@
 {
   if (this.application == null) {
     ServletContext context=(ServletContext)getBinding().getVariable(SERVLET_CONTEXT);
-    this.grailsAttributes=new DefaultGrailsApplicationAttributes(context);
-    this.application=grailsAttributes.getGrailsApplication();
+    this.applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+    this.application=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
   }
 }

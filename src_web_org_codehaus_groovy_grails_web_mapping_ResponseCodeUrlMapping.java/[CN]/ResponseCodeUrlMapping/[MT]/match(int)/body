@@ -1,0 +1,4 @@
+{
+  if (responseCode == urlData.getResponseCode())   return new DefaultUrlMappingInfo(controllerName,actionName,new HashMap(),urlData);
+  return null;
+}

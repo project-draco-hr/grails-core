@@ -1,0 +1,22 @@
+{
+  int statusCode;
+  if (request.getAttribute("javax.servlet.error.status_code") != null) {
+    statusCode=Integer.parseInt(request.getAttribute("javax.servlet.error.status_code").toString());
+  }
+ else {
+    statusCode=500;
+  }
+  final UrlMappingsHolder urlMappingsHolder=lookupUrlMappings();
+  final UrlMappingInfo urlMappingInfo=urlMappingsHolder.matchStatusCode(statusCode);
+  if (urlMappingInfo != null) {
+    String url=UrlMappingsFilter.buildDispatchUrlForMapping(request,urlMappingInfo);
+    GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+    RequestDispatcher dispatcher=request.getRequestDispatcher(url);
+    UrlMappingsFilter.populateWebRequestWithInfo(webRequest,urlMappingInfo);
+    WebUtils.exposeForwardRequestAttributes(request);
+    dispatcher.forward(request,response);
+  }
+ else {
+    renderDefaultResponse(response,statusCode);
+  }
+}

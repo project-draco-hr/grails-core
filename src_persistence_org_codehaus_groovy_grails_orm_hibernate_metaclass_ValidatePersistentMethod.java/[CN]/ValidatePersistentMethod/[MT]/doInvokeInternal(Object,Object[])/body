@@ -1,5 +1,5 @@
 {
-  Errors errors=new BindException(target,target.getClass().getName());
+  Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   Validator validator=null;
   if (domainClass != null)   validator=domainClass.getValidator();
@@ -7,6 +7,7 @@
   if (validator != null) {
     boolean evict=false;
     boolean deepValidate=true;
+    Set validatedFields=null;
     if (arguments.length > 0) {
       if (arguments[0] instanceof Boolean) {
         evict=((Boolean)arguments[0]).booleanValue();
@@ -16,6 +17,9 @@
         if (argsMap.containsKey(ARGUMENT_DEEP_VALIDATE))         deepValidate=GrailsClassUtils.getBooleanFromMap(ARGUMENT_DEEP_VALIDATE,argsMap);
         evict=GrailsClassUtils.getBooleanFromMap(ARGUMENT_EVICT,argsMap);
       }
+      if (arguments[0] instanceof List) {
+        validatedFields=new HashSet((List)arguments[0]);
+      }
     }
     if (deepValidate && (validator instanceof CascadingValidator)) {
       ((CascadingValidator)validator).validate(target,errors,deepValidate);
@@ -23,6 +27,7 @@
  else {
       validator.validate(target,errors);
     }
+    errors=filterErrors(errors,validatedFields,target);
     if (errors.hasErrors()) {
       valid=Boolean.valueOf(false);
       if (evict) {

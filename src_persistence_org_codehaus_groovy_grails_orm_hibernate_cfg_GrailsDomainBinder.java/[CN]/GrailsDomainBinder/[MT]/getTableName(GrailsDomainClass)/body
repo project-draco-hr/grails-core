@@ -1,4 +1,8 @@
 {
-  if (domainClass.getTableName() == null)   return namingStrategy.classToTableName(domainClass.getShortName());
- else   return domainClass.getTableName();
+  final OrmMapping ormMapping=domainClass.getOrmMapping();
+  String tableName=ormMapping.getTableName();
+  if (tableName == null) {
+    tableName=namingStrategy.classToTableName(domainClass.getShortName());
+  }
+  return tableName;
 }

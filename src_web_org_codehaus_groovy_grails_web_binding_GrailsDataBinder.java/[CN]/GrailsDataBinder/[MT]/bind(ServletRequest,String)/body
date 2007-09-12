@@ -6,12 +6,5 @@
  else {
     mpvs=new ServletRequestParameterPropertyValues(request);
   }
-  checkStructuredDateDefinitions(mpvs);
-  autoCreateIfPossible(mpvs);
-  bindAssociations(mpvs);
-  if (request instanceof MultipartHttpServletRequest) {
-    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-    bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
-  }
-  super.doBind(mpvs);
+  bindWithRequestAndPropertyValues(request,mpvs);
 }

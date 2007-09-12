@@ -1,0 +1,4 @@
+{
+  super.setMetaClass(metaClass);
+  this.propertyMap=DefaultGroovyMethods.getProperties(this);
+}

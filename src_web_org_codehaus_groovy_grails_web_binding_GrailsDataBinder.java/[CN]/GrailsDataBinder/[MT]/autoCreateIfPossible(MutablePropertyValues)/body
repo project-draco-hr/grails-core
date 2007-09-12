@@ -15,7 +15,7 @@
             try {
               MetaClass mc=InvokerHelper.getInstance().getMetaRegistry().getMetaClass(type);
               if (mc != null) {
-                Object created=mc.invokeStaticMethod(type.getName(),CreateDynamicMethod.METHOD_NAME,new Object[0]);
+                Object created=mc.invokeStaticMethod(type,CreateDynamicMethod.METHOD_NAME,new Object[0]);
                 bean.setPropertyValue(propertyName,created);
               }
             }

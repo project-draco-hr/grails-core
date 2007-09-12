@@ -2,8 +2,10 @@
   super();
   this.request=request;
   this.parameterMap=new HashMap();
-  for (Iterator it=request.getParameterMap().keySet().iterator(); it.hasNext(); ) {
-    Object key=it.next();
-    parameterMap.put(key,request.getParameterMap().get(key));
+  final Map requestMap=request.getParameterMap();
+  for (Iterator it=requestMap.keySet().iterator(); it.hasNext(); ) {
+    String key=(String)it.next();
+    parameterMap.put(key,requestMap.get(key));
+    processNestedKeys(request,requestMap,key,key,parameterMap);
   }
 }

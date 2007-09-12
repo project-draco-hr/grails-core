@@ -1,7 +1,0 @@
-{
-  Object result=null;
-synchronized (cache) {
-    result=cache.get(name);
-  }
-  return result;
-}

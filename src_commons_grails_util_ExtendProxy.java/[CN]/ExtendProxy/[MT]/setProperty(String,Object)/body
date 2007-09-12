@@ -1,9 +1,0 @@
-{
-  final Map properties=DefaultGroovyMethods.getProperties(this);
-  if (properties.containsKey(property)) {
-    super.setProperty(property,newValue);
-  }
- else {
-    InvokerHelper.getMetaClass(getAdaptee()).setProperty(getAdaptee(),property,newValue);
-  }
-}

@@ -2,7 +2,7 @@
   PropertyValues values=filterPropertyValues(propertyValues,prefix);
   if (propertyValues instanceof MutablePropertyValues) {
     MutablePropertyValues mutablePropertyValues=(MutablePropertyValues)propertyValues;
-    checkStructuredDateDefinitions(mutablePropertyValues);
+    preProcessMutablePropertyValues(mutablePropertyValues);
   }
   super.bind(values);
 }

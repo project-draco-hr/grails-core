@@ -1,7 +1,5 @@
 {
-  checkStructuredDateDefinitions(mpvs);
-  autoCreateIfPossible(mpvs);
-  bindAssociations(mpvs);
+  preProcessMutablePropertyValues(mpvs);
   if (request instanceof MultipartHttpServletRequest) {
     MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
     bindMultipartFiles(multipartRequest.getFileMap(),mpvs);

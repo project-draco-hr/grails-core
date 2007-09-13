@@ -5,7 +5,8 @@
   final Map requestMap=request.getParameterMap();
   for (Iterator it=requestMap.keySet().iterator(); it.hasNext(); ) {
     String key=(String)it.next();
-    parameterMap.put(key,requestMap.get(key));
+    Object paramValue=getParameterValue(requestMap,key);
+    parameterMap.put(key,paramValue);
     processNestedKeys(request,requestMap,key,key,parameterMap);
   }
 }

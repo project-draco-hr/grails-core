@@ -10,7 +10,7 @@
       }
       if (nestedIndex < nestedKey.length() - 1) {
         final String remainderOfKey=nestedKey.substring(nestedIndex + 1,nestedKey.length());
-        nestedMap.put(remainderOfKey,requestMap.get(key));
+        nestedMap.put(remainderOfKey,getParameterValue(requestMap,key));
         if (remainderOfKey.indexOf('.') > -1) {
           processNestedKeys(request,requestMap,key,remainderOfKey,nestedMap);
         }

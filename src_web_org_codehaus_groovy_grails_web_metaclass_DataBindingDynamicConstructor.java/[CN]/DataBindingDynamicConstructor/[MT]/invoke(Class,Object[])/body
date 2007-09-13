@@ -16,25 +16,7 @@ catch (    IllegalAccessException e1) {
     }
   }
   if (map != null) {
-    if (map instanceof GrailsParameterMap) {
-      GrailsParameterMap parameterMap=(GrailsParameterMap)map;
-      HttpServletRequest request=parameterMap.getRequest();
-      GrailsDataBinder dataBinder=GrailsDataBinder.createBinder(instance,instance.getClass().getName(),request);
-      dataBinder.bind(parameterMap);
-      return instance;
-    }
- else     if (map instanceof HttpServletRequest) {
-      HttpServletRequest request=(HttpServletRequest)map;
-      ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(instance,instance.getClass().getName(),request);
-      dataBinder.bind(request);
-      return instance;
-    }
- else     if (map instanceof Map) {
-      DataBinder dataBinder=new DataBinder(instance);
-      Map m=convertPotentialGStrings((Map)map);
-      PropertyValues pv=new MutablePropertyValues(m);
-      dataBinder.bind(pv);
-    }
+    DataBindingUtils.bindObjectToInstance(instance,map);
   }
   return instance;
 }

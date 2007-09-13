@@ -1,17 +1,5 @@
 {
   if (newValue == null)   return;
-  if (newValue instanceof GrailsParameterMap) {
-    GrailsParameterMap parameterMap=(GrailsParameterMap)newValue;
-    HttpServletRequest request=parameterMap.getRequest();
-    GrailsDataBinder dataBinder=GrailsDataBinder.createBinder(object,object.getClass().getName(),request);
-    dataBinder.bind(parameterMap);
-  }
- else   if (newValue instanceof Map) {
-    Map propertyMap=(Map)newValue;
-    GrailsDataBinder binder=GrailsDataBinder.createBinder(object,object.getClass().getName());
-    binder.bind(new MutablePropertyValues(propertyMap));
-  }
- else {
-    throw new MissingPropertyException(PROPERTY_NAME,object.getClass());
-  }
+  BindingResult result=DataBindingUtils.bindObjectToInstance(object,newValue);
+  if (result == null)   throw new MissingPropertyException(PROPERTY_NAME,object.getClass());
 }

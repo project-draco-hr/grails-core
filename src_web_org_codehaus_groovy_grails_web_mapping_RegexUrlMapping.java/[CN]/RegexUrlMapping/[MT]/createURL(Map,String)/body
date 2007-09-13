@@ -19,28 +19,7 @@
       uri.append(SLASH).append(token);
     }
   }
-  boolean addedParams=false;
-  usedParams.add("controller");
-  usedParams.add("action");
-  for (Iterator i=parameterValues.keySet().iterator(); i.hasNext(); ) {
-    String name=i.next().toString();
-    if (!usedParams.contains(name)) {
-      if (!addedParams) {
-        uri.append(QUESTION_MARK);
-        addedParams=true;
-      }
- else {
-        uri.append(AMPERSAND);
-      }
-      Object value=parameterValues.get(name);
-      try {
-        uri.append(URLEncoder.encode(name,encoding)).append('=').append(URLEncoder.encode(value != null ? value.toString() : "",encoding));
-      }
- catch (      UnsupportedEncodingException e) {
-        throw new ControllerExecutionException("Error redirecting request for url [" + name + ":"+ value+ "]: "+ e.getMessage(),e);
-      }
-    }
-  }
+  populateParameterList(parameterValues,encoding,uri,usedParams);
   if (LOG.isDebugEnabled()) {
     LOG.debug("Created reverse URL mapping [" + uri.toString() + "] for parameters ["+ parameterValues+ "]");
   }

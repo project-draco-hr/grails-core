@@ -1,5 +1,7 @@
 {
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
   Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
+  mc.setProperty(target,"errors",errors);
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   Validator validator=null;
   if (domainClass != null)   validator=domainClass.getValidator();

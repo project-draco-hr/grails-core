@@ -1,4 +1,5 @@
 {
+  filterNestedParameterMaps(mpvs);
   autoCreateIfPossible(mpvs);
   super.doBind(mpvs);
 }

@@ -1,7 +1,7 @@
 {
   int index;
   StringBuffer sb=new StringBuffer(s.trim());
-  while ((index=sb.toString().indexOf('\r')) != -1) {
+  while (((index=sb.toString().indexOf('\r')) != -1) || ((index=sb.toString().indexOf('\n')) != -1)) {
     sb.deleteCharAt(index);
   }
   return sb.toString();

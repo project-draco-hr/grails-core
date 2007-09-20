@@ -1,4 +1,5 @@
 {
+  GrailsUtil.sanitize(exception);
   LOG.error("Error processing GroovyPageView: " + exception.getMessage(),exception);
   try {
     request.setAttribute(GrailsApplicationAttributes.CONTROLLER,null);

@@ -55,7 +55,7 @@
     }
 catch (    Exception ex) {
       Object handler=(mappedHandler != null ? mappedHandler.getHandler() : null);
-      mv=processHandlerException(request,response,handler,ex);
+      mv=processHandlerException(request,response,handler,(Exception)GrailsUtil.sanitize(ex));
     }
     if (mv != null && !mv.wasCleared()) {
       render(mv,processedRequest,response);

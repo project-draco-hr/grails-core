@@ -34,8 +34,6 @@
     }
   }
   this.filteredStackTrace=buffy.toString();
-  if (StringUtils.isBlank(filteredStackTrace)) {
-  }
   if (cause instanceof MultipleCompilationErrorsException) {
     MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)cause;
     Object message=mcee.getErrorCollector().getErrors().iterator().next();

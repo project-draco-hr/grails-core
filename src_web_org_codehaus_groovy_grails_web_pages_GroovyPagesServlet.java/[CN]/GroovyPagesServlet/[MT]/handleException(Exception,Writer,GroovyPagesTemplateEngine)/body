@@ -1,5 +1,6 @@
 {
-  if (LOG.isDebugEnabled())   LOG.debug("Error processing GSP: " + exception.getMessage(),exception);
+  GrailsUtil.sanitize(exception);
+  if (LOG.isErrorEnabled())   LOG.error("Error processing GSP: " + exception.getMessage(),exception);
   try {
     Template t=engine.createTemplate(ERRORS_VIEW);
     Map model=new HashMap();

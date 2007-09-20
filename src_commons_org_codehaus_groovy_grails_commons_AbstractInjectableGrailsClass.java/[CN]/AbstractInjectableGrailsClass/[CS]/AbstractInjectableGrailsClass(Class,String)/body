@@ -1,8 +1,3 @@
 {
   super(clazz,trailingName);
-  Object byNameValue=getPropertyOrStaticPropertyOrFieldValue(BY_NAME_PROPERTY,Boolean.class);
-  this.byName=byNameValue != null && byNameValue.equals(Boolean.TRUE);
-  this.byType=!byName;
-  Object availableValue=getPropertyOrStaticPropertyOrFieldValue(AVAILABLE_PROPERTY,Boolean.class);
-  this.available=availableValue == null || availableValue.equals(Boolean.TRUE);
 }

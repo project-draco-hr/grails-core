@@ -1,0 +1,12 @@
+{
+  if (this.dataSource == null) {
+    throw new IllegalStateException("Data source is not set!");
+  }
+  String dbName=(String)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseProductName");
+  if (SpringLobHandlerDetectorFactoryBean.ORACLE_DB_NAME.equals(dbName)) {
+    this.lobHandler=new OracleLobHandler();
+  }
+ else {
+    this.lobHandler=new DefaultLobHandler();
+  }
+}

@@ -1,4 +1,6 @@
 {
+  super();
+  this.parentCtx=parent;
   this.springConfig=new DefaultRuntimeSpringConfiguration(parent);
-  loadBeans(resourcePattern);
+  this.classLoader=classLoader;
 }

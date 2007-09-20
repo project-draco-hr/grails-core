@@ -8,7 +8,7 @@
 ;
   Binding b=new Binding();
   b.setVariable("beans",beans);
-  GroovyShell shell=new GroovyShell(b);
+  GroovyShell shell=classLoader != null ? new GroovyShell(classLoader,b) : new GroovyShell(b);
   for (int i=0; i < resources.length; i++) {
     Resource resource=resources[i];
     shell.evaluate(resource.getInputStream());

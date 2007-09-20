@@ -20,7 +20,7 @@
       LOG.debug("[RuntimeConfiguration] " + GrailsRuntimeConfigurator.SPRING_RESOURCES_XML + " not found. Skipping configuration.");
     }
     if (groovySpringResources.exists()) {
-      BeanBuilder bb=new BeanBuilder();
+      BeanBuilder bb=new BeanBuilder(Thread.currentThread().getContextClassLoader());
       bb.setSpringConfig(springConfig);
       bb.loadBeans(groovySpringResources);
     }

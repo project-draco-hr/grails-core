@@ -17,6 +17,7 @@
   WebApplicationContext ctx=springConfig.getApplicationContext();
   this.pluginManager.setApplicationContext(ctx);
   this.pluginManager.doDynamicMethods();
+  ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));
   performPostProcessing(ctx);
   application.refreshConstraints();
   return ctx;

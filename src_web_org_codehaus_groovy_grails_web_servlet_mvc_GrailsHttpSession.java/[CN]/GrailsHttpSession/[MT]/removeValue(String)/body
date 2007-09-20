@@ -1,5 +1,6 @@
 {
-synchronized (adaptee) {
+  createSessionIfNecessary();
+synchronized (this) {
     adaptee.removeAttribute(name);
   }
 }

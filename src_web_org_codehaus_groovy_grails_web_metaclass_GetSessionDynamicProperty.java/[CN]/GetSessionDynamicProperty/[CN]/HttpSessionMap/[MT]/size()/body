@@ -1,7 +1,0 @@
-{
-  if (session == null)   return 0;
-  int count=0;
-  for (Enumeration e=session.getAttributeNames(); e.hasMoreElements(); count++) {
-  }
-  return count;
-}

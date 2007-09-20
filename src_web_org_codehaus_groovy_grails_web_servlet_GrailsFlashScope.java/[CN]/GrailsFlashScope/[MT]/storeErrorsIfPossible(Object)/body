@@ -1,0 +1,11 @@
+{
+  if (value != null) {
+    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
+    if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
+      Object errors=mc.getProperty(value,ERRORS_PROPERTY);
+      if (errors != null) {
+        next.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
+      }
+    }
+  }
+}

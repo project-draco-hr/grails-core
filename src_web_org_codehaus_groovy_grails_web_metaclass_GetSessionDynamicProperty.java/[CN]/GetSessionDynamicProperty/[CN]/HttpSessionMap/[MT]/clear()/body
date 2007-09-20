@@ -1,7 +1,0 @@
-{
-  if (session == null)   return;
-  for (Enumeration e=session.getAttributeNames(); e.hasMoreElements(); ) {
-    String current=(String)e.nextElement();
-    session.removeAttribute(current);
-  }
-}

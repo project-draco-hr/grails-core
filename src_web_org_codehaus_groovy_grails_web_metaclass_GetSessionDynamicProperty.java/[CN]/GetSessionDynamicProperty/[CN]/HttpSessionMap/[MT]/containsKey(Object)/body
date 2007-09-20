@@ -1,7 +1,0 @@
-{
-  if (!(key instanceof String))   throw new IllegalArgumentException("The 'session' property key '" + key + "' must be a string value");
-  if (session == null || session.isNew())   return false;
-  Object attr=session.getAttribute((String)key);
-  if (attr == null)   return false;
- else   return true;
-}

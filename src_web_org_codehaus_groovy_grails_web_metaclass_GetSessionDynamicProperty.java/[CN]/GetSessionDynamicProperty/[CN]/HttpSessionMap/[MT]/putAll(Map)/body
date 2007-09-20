@@ -1,6 +1,0 @@
-{
-  for (Iterator i=sessionMap.keySet().iterator(); i.hasNext(); ) {
-    String currentKey=(String)i.next();
-    put(currentKey,sessionMap.get(currentKey));
-  }
-}

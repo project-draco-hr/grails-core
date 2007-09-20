@@ -1,9 +1,0 @@
-{
-  if (session == null)   return false;
-  for (Enumeration e=session.getAttributeNames(); e.hasMoreElements(); ) {
-    String currentKey=(String)e.nextElement();
-    Object current=session.getAttribute(currentKey);
-    if (current.equals(value))     return true;
-  }
-  return false;
-}

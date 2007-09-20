@@ -1,5 +1,0 @@
-{
-  if (session == null)   return true;
-  Enumeration e=session.getAttributeNames();
-  return !e.hasMoreElements();
-}

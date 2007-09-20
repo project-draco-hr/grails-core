@@ -1,4 +1,5 @@
 {
+  createSessionIfNecessary();
   StringBuffer sb=new StringBuffer("Session Content:\n");
   Enumeration e=adaptee.getAttributeNames();
   while (e.hasMoreElements()) {

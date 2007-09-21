@@ -55,6 +55,9 @@ break;
 }
 }
 if (finalPass) {
+if (!tagMetaStack.isEmpty()) {
+throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "]");
+}
 out.println("}");
 for (Iterator i=constants.keySet().iterator(); i.hasNext(); ) {
 String name=(String)i.next();

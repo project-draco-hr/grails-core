@@ -3,7 +3,8 @@
   Table table=persistentClass.getTable();
   for (int i=0; i < persistentProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistentProperties[i];
-    if (currentGrailsProp.isInherited())     continue;
+    if (currentGrailsProp.isInherited() && !isBidirectionalManyToOne(currentGrailsProp))     continue;
+ else     if (domainClass.hasSubClasses() && (currentGrailsProp.isOneToOne() || currentGrailsProp.isManyToOne()))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
@@ -17,7 +18,7 @@
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
     }
- else     if (currentGrailsProp.isOneToOne()) {
+ else     if (currentGrailsProp.isOneToOne() && !UserType.class.isAssignableFrom(currentGrailsProp.getType())) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);

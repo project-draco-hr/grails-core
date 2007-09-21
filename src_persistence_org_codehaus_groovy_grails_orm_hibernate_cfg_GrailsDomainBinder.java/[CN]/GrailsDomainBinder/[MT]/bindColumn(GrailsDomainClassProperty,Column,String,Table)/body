@@ -6,7 +6,12 @@
       column.setName(prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX);
     }
  else {
-      column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX);
+      if (grailsProp.isInherited() && isBidirectionalManyToOne(grailsProp)) {
+        column.setName(namingStrategy.propertyToColumnName(grailsProp.getDomainClass().getName()) + '_' + namingStrategy.propertyToColumnName(grailsProp.getName())+ FOREIGN_KEY_SUFFIX);
+      }
+ else {
+        column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX);
+      }
     }
     column.setNullable(true);
   }

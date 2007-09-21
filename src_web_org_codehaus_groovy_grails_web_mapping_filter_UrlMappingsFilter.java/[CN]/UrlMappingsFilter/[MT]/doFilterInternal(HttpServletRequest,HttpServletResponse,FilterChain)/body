@@ -19,8 +19,8 @@
     for (int i=0; i < urlInfos.length; i++) {
       UrlMappingInfo info=urlInfos[i];
       if (info != null) {
-        String action=info.getActionName() == null ? "" : info.getActionName();
         info.configure(webRequest);
+        String action=info.getActionName() == null ? "" : info.getActionName();
         GrailsClass controller=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,SLASH + info.getControllerName() + SLASH+ action);
         if (controller == null) {
           continue;

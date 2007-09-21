@@ -1,6 +1,7 @@
 {
   ModelAndView mv=super.resolveException(request,response,handler,ex);
   response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+  GrailsUtil.deepSanitize(ex);
   LOG.error(ex.getMessage(),ex);
   GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(servletContext,ex);
   mv.addObject("exception",gwrex);

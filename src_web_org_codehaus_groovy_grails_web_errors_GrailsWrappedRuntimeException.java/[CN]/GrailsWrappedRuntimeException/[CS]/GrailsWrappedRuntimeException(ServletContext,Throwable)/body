@@ -12,28 +12,7 @@
     }
     cause=t.getCause();
   }
-  String[] lines=this.stackTrace.split("\\n");
-  StringBuffer buffy=new StringBuffer();
-  for (int i=0; i < lines.length; i++) {
-    String line=lines[i];
-    if (PARSE_DETAILS_STEP1.matcher(line).find()) {
-      buffy.append(line);
-      continue;
-    }
-    if (PARSE_DETAILS_STEP2.matcher(line).find()) {
-      buffy.append(line);
-      continue;
-    }
-    if (PARSE_DETAILS_STEP3.matcher(line).find()) {
-      buffy.append(line);
-      continue;
-    }
-    if (PARSE_GSP_DETAILS_STEP1.matcher(line).find()) {
-      buffy.append(line);
-      continue;
-    }
-  }
-  this.filteredStackTrace=buffy.toString();
+  this.stackTraceLines=this.stackTrace.split("\\n");
   if (cause instanceof MultipleCompilationErrorsException) {
     MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)cause;
     Object message=mcee.getErrorCollector().getErrors().iterator().next();

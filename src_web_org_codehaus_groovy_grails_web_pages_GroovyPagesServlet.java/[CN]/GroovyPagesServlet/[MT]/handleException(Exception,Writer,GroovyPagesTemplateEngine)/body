@@ -1,5 +1,5 @@
 {
-  GrailsUtil.sanitize(exception);
+  GrailsUtil.deepSanitize(exception);
   if (LOG.isErrorEnabled())   LOG.error("Error processing GSP: " + exception.getMessage(),exception);
   try {
     Template t=engine.createTemplate(ERRORS_VIEW);

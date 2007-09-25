@@ -1,6 +1,7 @@
 {
   final ClassLoader contextLoader=Thread.currentThread().getContextClassLoader();
   ClassLoader rootLoader=DefaultGroovyMethods.getRootLoader(contextLoader);
+  ClassLoader parentLoader=beanClassLoader != null ? beanClassLoader : contextLoader;
   GroovyClassLoader cl;
   if (rootLoader != null) {
     cl=new GrailsClassLoader(contextLoader,resourceLoader);

@@ -1,7 +1,0 @@
-{
-  ManagedList managedListWithRuntimeReferencesForWebInterceptors=createManagedListWithRuntimeReferencesForWebInterceptors(beanFactory);
-  String[] beanDefinitionNames=beanFactory.getBeanDefinitionNames();
-  for (int i=0; i < beanDefinitionNames.length; i++) {
-    listenToBeanDefinition(beanDefinitionNames[i],beanFactory.getBeanDefinition(beanDefinitionNames[i]),managedListWithRuntimeReferencesForWebInterceptors);
-  }
-}

@@ -1,6 +1,0 @@
-{
-  Class beanDefinitionClass=getClassForBeanDefinition(beanDefinitionName,beanDefinition);
-  if (beanDefinitionClass != null && AbstractHandlerMapping.class.isAssignableFrom(beanDefinitionClass)) {
-    handleAbstractHandlerMappingBeanDefinition(beanDefinitionName,beanDefinition,managedList);
-  }
-}

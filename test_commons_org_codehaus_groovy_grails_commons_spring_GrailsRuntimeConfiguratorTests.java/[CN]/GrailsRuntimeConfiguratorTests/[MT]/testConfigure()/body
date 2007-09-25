@@ -8,6 +8,7 @@
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
   parent.registerMockBean("classLoader",gcl);
   parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager(new Resource[0]));
+  app.setApplicationContext(parent);
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   DefaultGrailsPluginManager manager=new DefaultGrailsPluginManager(new Class[0],app);
   manager.setParentApplicationContext(parent);

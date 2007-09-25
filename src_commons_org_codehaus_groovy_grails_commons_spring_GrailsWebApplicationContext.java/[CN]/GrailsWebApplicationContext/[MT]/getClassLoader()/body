@@ -1,0 +1,3 @@
+{
+  return grailsClassLoader != null ? grailsClassLoader : super.getClassLoader();
+}

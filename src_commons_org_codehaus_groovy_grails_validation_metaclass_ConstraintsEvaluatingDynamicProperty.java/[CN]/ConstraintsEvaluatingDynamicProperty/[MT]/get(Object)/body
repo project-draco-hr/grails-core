@@ -36,7 +36,7 @@
         cp.setOrder(constrainedProperties.size() + 1);
         constrainedProperties.put(p.getName(),cp);
       }
-      if (!cp.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
+      if (!cp.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT) && !p.getName().equals(GrailsDomainClassProperty.DATE_CREATED) && !p.getName().equals(GrailsDomainClassProperty.LAST_UPDATED)) {
         cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Boolean.valueOf(p.isOptional() || Collection.class.isAssignableFrom(p.getType()) || Map.class.isAssignableFrom(p.getType())));
       }
     }

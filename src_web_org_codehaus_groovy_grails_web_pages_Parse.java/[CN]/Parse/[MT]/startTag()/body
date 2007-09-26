@@ -19,7 +19,7 @@
   doNextScan=false;
   text=buf.toString();
   String tagName;
-  Map attrs=new HashMap();
+  Map attrs=new TreeMap();
   text=text.replaceAll("[\r\n]"," ");
   if (text.indexOf(' ') > -1) {
     int i=text.indexOf(' ');

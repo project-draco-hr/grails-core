@@ -1,8 +1,0 @@
-{
-  Thread.currentThread().setContextClassLoader(cl);
-  relClass=cl.loadClass("org.codehaus.groovy.grails.domain.RelationshipsTest");
-  manyToManyClass=cl.loadClass("org.codehaus.groovy.grails.domain.ManyToManyTest");
-  oneToManyClass=cl.loadClass("org.codehaus.groovy.grails.domain.OneToManyTest2");
-  oneToOneClass=cl.loadClass("org.codehaus.groovy.grails.domain.OneToOneTest");
-  super.setUp();
-}

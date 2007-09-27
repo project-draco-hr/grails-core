@@ -1,0 +1,13 @@
+{
+  ColumnConfig cc=getColumnConfig(grailsProp);
+  if (cc != null) {
+    String indexDefinition=cc.getIndex();
+    if (indexDefinition != null) {
+      String[] tokens=indexDefinition.split(",");
+      for (int i=0; i < tokens.length; i++) {
+        String index=tokens[i];
+        table.getOrCreateIndex(index).addColumn(column);
+      }
+    }
+  }
+}

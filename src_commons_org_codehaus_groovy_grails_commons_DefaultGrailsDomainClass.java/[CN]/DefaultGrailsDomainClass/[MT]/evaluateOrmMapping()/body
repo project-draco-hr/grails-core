@@ -1,7 +1,0 @@
-{
-  Closure ormMappingClosure=(Closure)getPropertyOrStaticPropertyOrFieldValue(ORM_MAPPING,Closure.class);
-  if (ormMappingClosure != null) {
-    ormMappingClosure.setDelegate(ormMapping);
-    ormMappingClosure.call();
-  }
-}

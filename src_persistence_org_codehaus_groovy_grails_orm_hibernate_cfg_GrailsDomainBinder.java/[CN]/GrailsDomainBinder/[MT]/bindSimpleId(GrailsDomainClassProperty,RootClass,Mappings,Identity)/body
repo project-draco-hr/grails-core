@@ -1,8 +1,14 @@
 {
   SimpleValue id=new SimpleValue(entity.getTable());
-  entity.setIdentifier(id);
-  id.setIdentifierGeneratorStrategy("native");
   Properties params=new Properties();
+  entity.setIdentifier(id);
+  if (mappedId != null) {
+    id.setIdentifierGeneratorStrategy(mappedId.getGenerator());
+    params.putAll(mappedId.getParams());
+  }
+ else {
+    id.setIdentifierGeneratorStrategy("native");
+  }
   if (mappings.getSchemaName() != null) {
     params.setProperty(PersistentIdentifierGenerator.SCHEMA,mappings.getSchemaName());
   }

@@ -2,6 +2,14 @@
   if (mappings.getClass(domainClass.getFullName()) == null) {
     RootClass root=new RootClass();
     bindClass(domainClass,root,mappings);
+    Mapping m=getMapping(domainClass.getName());
+    if (m != null) {
+      CacheConfig cc=m.getCache();
+      if (cc != null && cc.getEnabled()) {
+        root.setCacheConcurrencyStrategy(cc.getUsage());
+        root.setLazyPropertiesCacheable(!"non-lazy".equals(cc.getInclude()));
+      }
+    }
     bindRootPersistentClassCommonValues(domainClass,root,mappings);
     if (!domainClass.getSubClasses().isEmpty()) {
       bindDiscriminatorProperty(root.getTable(),root,mappings);

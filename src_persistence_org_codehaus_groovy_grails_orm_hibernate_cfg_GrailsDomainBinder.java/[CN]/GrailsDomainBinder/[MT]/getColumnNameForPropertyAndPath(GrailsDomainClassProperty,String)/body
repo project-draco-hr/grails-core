@@ -1,7 +1,13 @@
 {
   GrailsDomainClass domainClass=grailsProp.getDomainClass();
-  OrmMapping ormMapping=domainClass.getOrmMapping();
-  String columnName=ormMapping.getColumnName(grailsProp);
+  String columnName=null;
+  Mapping m=getMapping(domainClass.getFullName());
+  if (m != null) {
+    ColumnConfig c=m.getColumn(grailsProp.getName());
+    if (c != null && c.getName() != null) {
+      columnName=c.getName();
+    }
+  }
   if (columnName == null) {
     if (StringHelper.isNotEmpty(path)) {
       columnName=namingStrategy.propertyToColumnName(path) + UNDERSCORE + namingStrategy.propertyToColumnName(grailsProp.getName());

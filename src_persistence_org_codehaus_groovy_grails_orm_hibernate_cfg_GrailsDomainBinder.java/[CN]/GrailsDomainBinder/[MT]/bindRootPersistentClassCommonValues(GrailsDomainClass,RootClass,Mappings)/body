@@ -4,8 +4,20 @@
   Table table=mappings.addTable(schema,catalog,getTableName(domainClass),null,false);
   root.setTable(table);
   if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
-  bindSimpleId(domainClass.getIdentifier(),root,mappings);
-  bindVersion(domainClass.getVersion(),root,mappings);
+  Mapping m=getMapping(domainClass.getFullName());
+  if (m != null) {
+    Identity id=m.getIdentity();
+    bindSimpleId(domainClass.getIdentifier(),root,mappings,id);
+  }
+ else {
+    bindSimpleId(domainClass.getIdentifier(),root,mappings,null);
+  }
+  if (m != null) {
+    if (m.getVersioned()) {
+      bindVersion(domainClass.getVersion(),root,mappings);
+    }
+  }
+ else   bindVersion(domainClass.getVersion(),root,mappings);
   root.createPrimaryKey();
   createClassProperties(domainClass,root,mappings);
 }

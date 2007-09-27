@@ -1,0 +1,8 @@
+{
+  Object o=domainClass.getPropertyValue(GrailsDomainClassProperty.MAPPING);
+  if (o instanceof Closure) {
+    HibernateMappingBuilder builder=new HibernateMappingBuilder(domainClass.getFullName());
+    Mapping m=builder.evaluate((Closure)o);
+    MAPPING_CACHE.put(domainClass.getFullName(),m);
+  }
+}

@@ -1,6 +1,7 @@
 {
   PersistentClass associatedClass=null;
   if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
+  ColumnConfig cc=getColumnConfig(property);
   if (collection.isOneToMany()) {
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();
@@ -9,8 +10,15 @@
       throw new MappingException("Association references unmapped class: " + oneToMany.getReferencedEntityName());
     }
     oneToMany.setAssociatedClass(associatedClass);
-    if (!property.isManyToMany())     collection.setCollectionTable(associatedClass.getTable());
-    collection.setLazy(true);
+    if (!property.isManyToMany()) {
+      collection.setCollectionTable(associatedClass.getTable());
+    }
+    if (cc != null) {
+      collection.setLazy(cc.getLazy());
+    }
+ else {
+      collection.setLazy(true);
+    }
     if (isSorted(property)) {
       collection.setSorted(true);
     }
@@ -36,7 +44,12 @@
       ManyToOne element=new ManyToOne(collection.getCollectionTable());
       bindManyToMany(otherSide,element,mappings);
       collection.setElement(element);
-      collection.setLazy(true);
+      if (cc != null) {
+        collection.setLazy(cc.getLazy());
+      }
+ else {
+        collection.setLazy(true);
+      }
     }
  else {
     }

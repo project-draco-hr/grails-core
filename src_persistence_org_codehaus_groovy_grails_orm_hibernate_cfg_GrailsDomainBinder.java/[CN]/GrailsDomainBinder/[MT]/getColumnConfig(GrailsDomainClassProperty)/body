@@ -1,0 +1,5 @@
+{
+  Mapping m=getMapping(property.getDomainClass().getFullName());
+  ColumnConfig cc=m != null ? m.getColumn(property.getName()) : null;
+  return cc;
+}

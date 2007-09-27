@@ -1,5 +1,6 @@
 {
-  simpleValue.setTypeName(grailsProp.getType().getName());
+  ColumnConfig cc=getColumnConfig(grailsProp);
+  setTypeForColumnConfig(grailsProp,simpleValue,cc);
   Table table=simpleValue.getTable();
   Column column=new Column();
   column.setValue(simpleValue);

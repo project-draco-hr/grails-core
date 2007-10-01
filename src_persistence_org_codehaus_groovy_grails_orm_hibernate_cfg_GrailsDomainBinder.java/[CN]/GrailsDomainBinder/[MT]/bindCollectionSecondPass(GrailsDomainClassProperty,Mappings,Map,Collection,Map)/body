@@ -37,6 +37,12 @@
     bindDependentKeyValue(property,key,mappings);
   }
   collection.setKey(key);
+  if (cc != null) {
+    CacheConfig cacheConfig=cc.getCache();
+    if (cacheConfig != null) {
+      collection.setCacheConcurrencyStrategy(cacheConfig.getUsage());
+    }
+  }
   if (property.isManyToMany()) {
     GrailsDomainClassProperty otherSide=property.getOtherSide();
     if (property.isBidirectional()) {

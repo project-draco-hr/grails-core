@@ -1,0 +1,17 @@
+{
+  Component id=new Component(root);
+  root.setIdentifier(id);
+  root.setEmbeddedIdentifier(true);
+  id.setComponentClassName(domainClass.getFullName());
+  id.setKey(true);
+  id.setEmbedded(true);
+  String path=StringHelper.qualify(root.getEntityName(),"id");
+  id.setRoleName(path);
+  String[] props=compositeIdentity.getPropertyNames();
+  for (int i=0; i < props.length; i++) {
+    String propName=props[i];
+    GrailsDomainClassProperty property=domainClass.getPropertyByName(propName);
+    if (property == null)     throw new MappingException("Property [" + propName + "] referenced in composite-id mapping of class ["+ domainClass.getFullName()+ "] is not a valid property!");
+    bindComponentProperty(id,property,root,"",root.getTable(),mappings);
+  }
+}

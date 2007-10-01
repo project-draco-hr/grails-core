@@ -1,0 +1,10 @@
+{
+  if (gormMapping != null && gormMapping.getIdentity() != null) {
+    Identity id=gormMapping.getIdentity();
+    if (id instanceof CompositeIdentity) {
+      CompositeIdentity cid=(CompositeIdentity)id;
+      if (ArrayUtils.contains(cid.getPropertyNames(),currentGrailsProp.getName()))       return true;
+    }
+  }
+  return false;
+}

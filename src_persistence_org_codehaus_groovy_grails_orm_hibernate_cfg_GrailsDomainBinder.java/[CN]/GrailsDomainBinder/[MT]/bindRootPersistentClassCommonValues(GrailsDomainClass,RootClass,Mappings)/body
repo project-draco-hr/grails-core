@@ -5,13 +5,7 @@
   root.setTable(table);
   if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
   Mapping m=getMapping(domainClass.getFullName());
-  if (m != null) {
-    Identity id=m.getIdentity();
-    bindSimpleId(domainClass.getIdentifier(),root,mappings,id);
-  }
- else {
-    bindSimpleId(domainClass.getIdentifier(),root,mappings,null);
-  }
+  bindIdentity(domainClass,root,mappings,m);
   if (m != null) {
     if (m.getVersioned()) {
       bindVersion(domainClass.getVersion(),root,mappings);

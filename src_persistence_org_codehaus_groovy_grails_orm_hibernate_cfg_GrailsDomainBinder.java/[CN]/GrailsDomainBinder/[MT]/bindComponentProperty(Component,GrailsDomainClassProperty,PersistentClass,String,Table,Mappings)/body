@@ -1,0 +1,28 @@
+{
+  Value value=null;
+  CollectionType collectionType=CollectionType.collectionTypeForClass(property.getType());
+  if (collectionType != null) {
+    Collection collection=collectionType.create(property,persistentClass,path,mappings);
+    mappings.addCollection(collection);
+    value=collection;
+  }
+ else   if (property.isManyToOne()) {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + property.getName() + "] as ManyToOne");
+    value=new ManyToOne(table);
+    bindManyToOne(property,(ManyToOne)value,path,mappings);
+  }
+ else   if (property.isOneToOne()) {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + property.getName() + "] as OneToOne");
+    value=new ManyToOne(table);
+    bindManyToOne(property,(ManyToOne)value,path,mappings);
+  }
+ else {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + property.getName() + "] as SimpleValue");
+    value=new SimpleValue(table);
+    bindSimpleValue(property,(SimpleValue)value,path,mappings);
+  }
+  if (value != null) {
+    Property persistentProperty=createProperty(value,persistentClass,property,mappings);
+    component.addProperty(persistentProperty);
+  }
+}

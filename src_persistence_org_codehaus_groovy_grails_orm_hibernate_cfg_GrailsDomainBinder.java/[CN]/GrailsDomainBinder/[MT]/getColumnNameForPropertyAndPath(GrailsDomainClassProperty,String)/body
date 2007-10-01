@@ -4,8 +4,8 @@
   Mapping m=getMapping(domainClass.getFullName());
   if (m != null) {
     ColumnConfig c=m.getColumn(grailsProp.getName());
-    if (c != null && c.getName() != null) {
-      columnName=c.getName();
+    if (c != null && c.getColumn() != null) {
+      columnName=c.getColumn();
     }
   }
   if (columnName == null) {

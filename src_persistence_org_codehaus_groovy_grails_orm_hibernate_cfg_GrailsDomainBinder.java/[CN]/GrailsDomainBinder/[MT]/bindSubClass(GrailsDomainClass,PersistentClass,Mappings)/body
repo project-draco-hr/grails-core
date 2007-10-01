@@ -9,6 +9,7 @@
     subClass=new SingleTableSubclass(parent);
     subClass.setDiscriminatorValue(sub.getFullName());
   }
+  subClass.setEntityName(sub.getFullName());
   parent.addSubclass(subClass);
   mappings.addClass(subClass);
   if (tablePerSubclass)   bindJoinedSubClass(sub,(JoinedSubclass)subClass,mappings,m);

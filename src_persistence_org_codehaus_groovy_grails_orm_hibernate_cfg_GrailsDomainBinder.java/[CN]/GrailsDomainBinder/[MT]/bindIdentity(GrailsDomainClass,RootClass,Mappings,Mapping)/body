@@ -1,11 +1,11 @@
 {
   if (gormMapping != null) {
-    Identity id=gormMapping.getIdentity();
+    Object id=gormMapping.getIdentity();
     if (id instanceof CompositeIdentity) {
       bindCompositeId(domainClass,root,(CompositeIdentity)id,gormMapping,mappings);
     }
  else {
-      bindSimpleId(domainClass.getIdentifier(),root,mappings,id);
+      bindSimpleId(domainClass.getIdentifier(),root,mappings,(Identity)id);
     }
   }
  else {

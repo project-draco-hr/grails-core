@@ -1,9 +1,18 @@
 {
-  Subclass subClass=new SingleTableSubclass(parent);
-  bindSubClass(sub,subClass,mappings);
-  subClass.setDiscriminatorValue(sub.getFullName());
+  Mapping m=getMapping(parent.getClassName());
+  Subclass subClass;
+  boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
+  if (tablePerSubclass) {
+    subClass=new JoinedSubclass(parent);
+  }
+ else {
+    subClass=new SingleTableSubclass(parent);
+    subClass.setDiscriminatorValue(sub.getFullName());
+  }
   parent.addSubclass(subClass);
   mappings.addClass(subClass);
+  if (tablePerSubclass)   bindJoinedSubClass(sub,(JoinedSubclass)subClass,mappings,m);
+ else   bindSubClass(sub,subClass,mappings);
   if (!sub.getSubClasses().isEmpty()) {
     bindSubClasses(sub,subClass,mappings);
   }

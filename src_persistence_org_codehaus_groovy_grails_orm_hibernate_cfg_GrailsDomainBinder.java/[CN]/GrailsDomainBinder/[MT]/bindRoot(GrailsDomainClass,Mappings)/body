@@ -12,7 +12,10 @@
     }
     bindRootPersistentClassCommonValues(domainClass,root,mappings);
     if (!domainClass.getSubClasses().isEmpty()) {
-      bindDiscriminatorProperty(root.getTable(),root,mappings);
+      boolean tablePerHierarchy=m == null || m.getTablePerHierarchy();
+      if (tablePerHierarchy) {
+        bindDiscriminatorProperty(root.getTable(),root,mappings);
+      }
       bindSubClasses(domainClass,root,mappings);
     }
     mappings.addClass(root);

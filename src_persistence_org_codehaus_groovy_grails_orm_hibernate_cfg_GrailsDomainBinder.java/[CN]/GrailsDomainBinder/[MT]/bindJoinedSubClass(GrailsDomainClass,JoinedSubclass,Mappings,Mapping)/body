@@ -1,0 +1,14 @@
+{
+  bindClass(sub,joinedSubclass,mappings);
+  if (joinedSubclass.getEntityPersisterClass() == null) {
+    joinedSubclass.getRootClass().setEntityPersisterClass(JoinedSubclassEntityPersister.class);
+  }
+  Table mytable=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),getClassTableName(joinedSubclass,null,mappings),null,false);
+  joinedSubclass.setTable(mytable);
+  LOG.info("Mapping joined-subclass: " + joinedSubclass.getEntityName() + " -> "+ joinedSubclass.getTable().getName());
+  SimpleValue key=new DependantValue(mytable,joinedSubclass.getIdentifier());
+  joinedSubclass.setKey(key);
+  bindSimpleValue(sub.getIdentifier().getType().getName(),key,false,sub.getIdentifier().getName(),mappings);
+  joinedSubclass.createPrimaryKey();
+  createClassProperties(sub,joinedSubclass,mappings);
+}

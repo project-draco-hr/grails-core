@@ -5,6 +5,7 @@
       if (args[args.length - 1] instanceof Closure) {
         if (args.length - 1 != 1) {
           Object[] constructorArgs=ArrayUtils.subarray(args,1,args.length - 1);
+          filterGStringReferences(constructorArgs);
           currentBeanConfig=springConfig.addSingletonBean(name,beanClass,Arrays.asList(constructorArgs));
         }
  else {
@@ -13,6 +14,7 @@
       }
  else {
         Object[] constructorArgs=ArrayUtils.subarray(args,1,args.length);
+        filterGStringReferences(constructorArgs);
         currentBeanConfig=springConfig.addSingletonBean(name,beanClass,Arrays.asList(constructorArgs));
       }
     }
@@ -38,6 +40,7 @@
  else {
       constructorArgs=ArrayUtils.subarray(args,0,args.length);
     }
+    filterGStringReferences(constructorArgs);
     currentBeanConfig=new DefaultBeanConfiguration(name,null,Arrays.asList(constructorArgs));
     springConfig.addBeanConfiguration(name,currentBeanConfig);
   }

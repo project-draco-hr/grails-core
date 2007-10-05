@@ -1,6 +1,5 @@
 {
-  super(aClass);
-  setAllowChangesAfterInit(true);
+  super(aClass,false,true);
   this.dynamicMethods=new DefaultDynamicMethods(aClass);
   if (inReg) {
     registry.setMetaClass(aClass,this);

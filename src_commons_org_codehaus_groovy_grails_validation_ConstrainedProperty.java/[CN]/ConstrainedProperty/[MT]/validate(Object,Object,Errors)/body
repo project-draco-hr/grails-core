@@ -1,7 +1,21 @@
 {
   for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
     Constraint c=(Constraint)i.next();
-    c.setMessageSource(this.messageSource);
-    c.validate(target,propertyValue,errors);
+    if (c.isVetoing()) {
+      c.setMessageSource(this.messageSource);
+      try {
+        c.validate(target,propertyValue,errors);
+      }
+ catch (      ConstraintVetoingException cve) {
+        return;
+      }
+    }
+  }
+  for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
+    Constraint c=(Constraint)i.next();
+    if (!c.isVetoing()) {
+      c.setMessageSource(this.messageSource);
+      c.validate(target,propertyValue,errors);
+    }
   }
 }

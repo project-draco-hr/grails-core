@@ -9,6 +9,5 @@
   testConstraintPassed(getConstraint("testCollection",new Integer(3)),list);
   testConstraintPassed(getConstraint("testString",new Integer(5)),"12345");
   testConstraintPassed(getConstraint("testString",new Integer(5)),null);
-  testConstraintPassed(getConstraint("testString",new Integer(5)),"");
   testConstraintDefaultMessage(getConstraint("testString",new Integer(5)),"1234","Property [{0}] of class [{1}] with value [{2}] is less than the minimum size of [{3}]");
 }

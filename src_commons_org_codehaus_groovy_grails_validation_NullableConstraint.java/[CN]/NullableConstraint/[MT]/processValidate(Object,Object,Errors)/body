@@ -1,6 +1,9 @@
 {
-  if (!nullable && propertyValue == null) {
-    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
-    super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_NULL_MESSAGE_CODE,ConstrainedProperty.NULLABLE_CONSTRAINT,args);
+  if (propertyValue == null) {
+    if (!nullable) {
+      Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
+      super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_NULL_MESSAGE_CODE,ConstrainedProperty.NULLABLE_CONSTRAINT,args);
+    }
+    throw new ConstraintVetoingException("'null' value is catched by 'nullable' constraint, no addition validation needed");
   }
 }

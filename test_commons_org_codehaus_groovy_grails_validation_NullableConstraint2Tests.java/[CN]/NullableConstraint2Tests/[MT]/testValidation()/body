@@ -1,7 +1,8 @@
 {
   testConstraintMessageCodes(getConstraint("testString",Boolean.FALSE),null,new String[]{"testClass.testString.nullable.error","testClass.testString.nullable"},new Object[]{"testString",TestClass.class});
   testConstraintPassed(getConstraint("testString",Boolean.FALSE),"test");
-  testConstraintPassed(getConstraint("testString",Boolean.TRUE),null);
+  testConstraintPassedAndVetoed(getConstraint("testString",Boolean.TRUE),null);
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),"");
+  testConstraintFailedAndVetoed(getConstraint("testString",Boolean.FALSE),null);
   testConstraintDefaultMessage(getConstraint("testString",Boolean.FALSE),null,"Property [{0}] of class [{1}] cannot be null");
 }

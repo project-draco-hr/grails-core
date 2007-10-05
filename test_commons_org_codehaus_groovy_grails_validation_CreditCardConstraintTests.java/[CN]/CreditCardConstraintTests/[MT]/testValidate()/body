@@ -6,7 +6,6 @@
   testConstraintFailed(getConstraint("testString",Boolean.TRUE),"4417q23456w89113");
   testConstraintFailed(getConstraint("testString",Boolean.TRUE),"4417123456789112");
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),null);
-  testConstraintPassed(getConstraint("testString",Boolean.TRUE),"");
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),VALID_VISA);
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),VALID_SHORT_VISA);
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),VALID_AMEX);

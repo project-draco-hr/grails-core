@@ -4,7 +4,7 @@
   Column column=new Column();
   column.setNullable(nullable);
   column.setValue(simpleValue);
-  column.setName(namingStrategy.propertyToColumnName(propertyName));
+  column.setName(columnName);
   if (t != null)   t.addColumn(column);
   simpleValue.addColumn(column);
 }

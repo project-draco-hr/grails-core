@@ -1,0 +1,10 @@
+{
+  ManyToOne element=new ManyToOne(collection.getCollectionTable());
+  bindUnidirectionalOneToManyInverseValues(property,element);
+  String columnName=namingStrategy.propertyToColumnName(property.getReferencedDomainClass().getPropertyName()) + FOREIGN_KEY_SUFFIX;
+  bindSimpleValue("long",element,false,columnName,mappings);
+  ((Column)element.getColumnIterator().next()).setUnique(true);
+  collection.setElement(element);
+  collection.setInverse(false);
+  bindCollectionForColumnConfig(collection,cc);
+}

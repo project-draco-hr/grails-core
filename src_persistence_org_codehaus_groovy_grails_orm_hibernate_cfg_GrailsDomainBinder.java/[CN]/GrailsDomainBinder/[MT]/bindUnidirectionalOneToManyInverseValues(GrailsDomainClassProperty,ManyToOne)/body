@@ -1,0 +1,11 @@
+{
+  ColumnConfig cc=getColumnConfig(property);
+  if (cc != null) {
+    manyToOne.setLazy(cc.getLazy());
+  }
+ else {
+    manyToOne.setLazy(true);
+  }
+  manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
+  manyToOne.setIgnoreNotFound(true);
+}

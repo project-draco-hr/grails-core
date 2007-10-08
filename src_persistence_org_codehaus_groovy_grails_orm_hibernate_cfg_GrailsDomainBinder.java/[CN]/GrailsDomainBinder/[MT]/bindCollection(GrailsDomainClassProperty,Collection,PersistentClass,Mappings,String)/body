@@ -1,6 +1,5 @@
 {
-  String propertyName;
-  propertyName=getNameForPropertyAndPath(property,path);
+  String propertyName=getNameForPropertyAndPath(property,path);
   collection.setRole(StringHelper.qualify(property.getDomainClass().getFullName(),propertyName));
   if (property.getFetchMode() == GrailsDomainClassProperty.FETCH_EAGER) {
     collection.setFetchMode(FetchMode.JOIN);
@@ -8,7 +7,7 @@
  else {
     collection.setFetchMode(FetchMode.DEFAULT);
   }
-  if (property.isOneToMany()) {
+  if (shouldBindCollectionWithForeignKey(property)) {
     OneToMany oneToMany=new OneToMany(collection.getOwner());
     collection.setElement(oneToMany);
     bindOneToMany(property,oneToMany,mappings);

@@ -10,15 +10,10 @@
       throw new MappingException("Association references unmapped class: " + oneToMany.getReferencedEntityName());
     }
     oneToMany.setAssociatedClass(associatedClass);
-    if (!property.isManyToMany()) {
+    if (shouldBindCollectionWithForeignKey(property)) {
       collection.setCollectionTable(associatedClass.getTable());
     }
-    if (cc != null) {
-      collection.setLazy(cc.getLazy());
-    }
- else {
-      collection.setLazy(true);
-    }
+    bindCollectionForColumnConfig(collection,cc);
     if (isSorted(property)) {
       collection.setSorted(true);
     }
@@ -50,15 +45,13 @@
       ManyToOne element=new ManyToOne(collection.getCollectionTable());
       bindManyToMany(otherSide,element,mappings);
       collection.setElement(element);
-      if (cc != null) {
-        collection.setLazy(cc.getLazy());
-      }
- else {
-        collection.setLazy(true);
-      }
+      bindCollectionForColumnConfig(collection,cc);
     }
  else {
     }
+  }
+ else   if (shouldCollectionBindWithJoinColumn(property)) {
+    bindCollectionWithJoinTable(property,mappings,collection,cc);
   }
  else   if (isUnidirectionalOneToMany(property)) {
     bindUnidirectionalOneToMany(property,mappings,collection);

@@ -1,6 +1,12 @@
 {
-  OneToMany oneToMany=(OneToMany)collection.getElement();
-  String entityName=oneToMany.getReferencedEntityName();
+  Value v=collection.getElement();
+  String entityName;
+  if (v instanceof ManyToOne) {
+    entityName=((ManyToOne)v).getReferencedEntityName();
+  }
+ else {
+    entityName=((OneToMany)v).getReferencedEntityName();
+  }
   PersistentClass referenced=mappings.getClass(entityName);
   Backref prop=new Backref();
   prop.setEntityName(property.getDomainClass().getFullName());

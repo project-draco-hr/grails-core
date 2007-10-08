@@ -1,6 +1,6 @@
 {
   String logicalTableName=StringHelper.unqualify(model.getEntityName());
-  String physicalTableName=namingStrategy.classToTableName(model.getEntityName());
+  String physicalTableName=getTableName(sub);
   mappings.addTableBinding(mappings.getSchemaName(),mappings.getCatalogName(),logicalTableName,physicalTableName,denormalizedSuperTable);
   return physicalTableName;
 }

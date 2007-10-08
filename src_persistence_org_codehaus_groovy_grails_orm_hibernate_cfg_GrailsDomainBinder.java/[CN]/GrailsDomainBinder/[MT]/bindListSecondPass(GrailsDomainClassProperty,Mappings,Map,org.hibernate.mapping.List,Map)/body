@@ -1,10 +1,19 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,list,inheritedMetas);
+  String columnName=namingStrategy.propertyToColumnName(property.getName() + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME);
   SimpleValue iv=new SimpleValue(list.getCollectionTable());
-  bindSimpleValue("integer",iv,false,property.getName() + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
+  bindSimpleValue("integer",iv,false,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);
-  String entityName=((OneToMany)list.getElement()).getReferencedEntityName();
+  String entityName;
+  Value element=list.getElement();
+  if (element instanceof ManyToOne) {
+    ManyToOne manyToOne=(ManyToOne)element;
+    entityName=manyToOne.getReferencedEntityName();
+  }
+ else {
+    entityName=((OneToMany)element).getReferencedEntityName();
+  }
   PersistentClass referenced=mappings.getClass(entityName);
   IndexBackref ib=new IndexBackref();
   ib.setName(UNDERSCORE + property.getName() + "IndexBackref");

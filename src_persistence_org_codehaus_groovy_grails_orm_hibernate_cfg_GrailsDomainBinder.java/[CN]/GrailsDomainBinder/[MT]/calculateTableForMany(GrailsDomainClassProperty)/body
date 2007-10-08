@@ -1,12 +1,20 @@
 {
   if (Map.class.isAssignableFrom(property.getType())) {
-    String tablePrefix=namingStrategy.classToTableName(property.getDomainClass().getFullName());
+    String tablePrefix=getTableName(property.getDomainClass());
     return tablePrefix + "_" + namingStrategy.propertyToColumnName(property.getName());
   }
  else {
     String left=getTableName(property.getDomainClass());
     String right=getTableName(property.getReferencedDomainClass());
     if (property.isOwningSide()) {
+      return left + UNDERSCORE + right;
+    }
+ else     if (shouldCollectionBindWithJoinColumn(property)) {
+      ColumnConfig cc=getColumnConfig(property);
+      JoinTable jt=cc != null ? cc.getJoinTable() : null;
+      if (jt != null && jt.getName() != null) {
+        return jt.getName();
+      }
       return left + UNDERSCORE + right;
     }
  else {

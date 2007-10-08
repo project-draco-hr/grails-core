@@ -15,7 +15,8 @@
     elt.setTypeName(STRING_TYPE);
   }
  else {
-    String entityName=((OneToMany)map.getElement()).getReferencedEntityName();
+    Value element=map.getElement();
+    String entityName=((OneToMany)element).getReferencedEntityName();
     PersistentClass referenced=mappings.getClass(entityName);
     IndexBackref ib=new IndexBackref();
     ib.setName(UNDERSCORE + property.getName() + "IndexBackref");

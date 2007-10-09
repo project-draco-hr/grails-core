@@ -1,0 +1,10 @@
+{
+  UrlMappingData urlData;
+  if (!responseCode) {
+    urlData=urlParser.parse(methodName);
+  }
+ else {
+    urlData=new ResponseCodeMappingData(methodName);
+  }
+  return urlData;
+}

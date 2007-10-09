@@ -1,5 +1,5 @@
 {
-  String ctrlName=evaluateNameForValue(this.controllerName);
-  if (ctrlName == null)   throw new UrlMappingException("Unable to establish controller name to dispatch for [" + this.controllerName + "]. Dynamic closure invocation returned null. Check your mapping file is correct, when assigning the controller name as a request parameter it cannot be an optional token!");
-  return ctrlName;
+  String controllerName=evaluateNameForValue(this.controllerName);
+  if (controllerName == null && getViewName() == null)   throw new UrlMappingException("Unable to establish controller name to dispatch for [" + this.controllerName + "]. Dynamic closure invocation returned null. Check your mapping file is correct, when assigning the controller name as a request parameter it cannot be an optional token!");
+  return controllerName;
 }

@@ -1,0 +1,4 @@
+{
+  super(controllerName,actionName,viewName,constraints != null ? constraints : new ConstrainedProperty[0]);
+  parse(data,constraints);
+}

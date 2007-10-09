@@ -1,9 +1,16 @@
 {
-  StringBuffer forwardUrl=new StringBuffer(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);
-  forwardUrl.append(SLASH).append(info.getControllerName());
-  if (!StringUtils.isBlank(info.getActionName())) {
-    forwardUrl.append(SLASH).append(info.getActionName());
+  final StringBuffer forwardUrl=new StringBuffer();
+  if (info.getViewName() != null) {
+    String viewName=info.getViewName();
+    forwardUrl.append(SLASH).append(viewName);
   }
-  forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
+ else {
+    forwardUrl.append(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);
+    forwardUrl.append(SLASH).append(info.getControllerName());
+    if (!StringUtils.isBlank(info.getActionName())) {
+      forwardUrl.append(SLASH).append(info.getActionName());
+    }
+    forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
+  }
   return forwardUrl.toString();
 }

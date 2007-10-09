@@ -1,7 +1,10 @@
 {
   if (webRequest != null) {
-    webRequest.setControllerName(info.getControllerName());
-    webRequest.setActionName(info.getActionName());
+    final String viewName=info.getViewName();
+    if (viewName == null) {
+      webRequest.setControllerName(info.getControllerName());
+      webRequest.setActionName(info.getActionName());
+    }
     String id=info.getId();
     if (!StringUtils.isBlank(id))     webRequest.getParams().put(GrailsWebRequest.ID_PARAMETER,id);
   }

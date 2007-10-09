@@ -1,0 +1,27 @@
+{
+  Object controllerName=namedArguments.get(GrailsControllerClass.CONTROLLER);
+  if (controllerName == null) {
+    controllerName=binding != null ? binding.getVariables().get(GrailsControllerClass.CONTROLLER) : null;
+  }
+  Object actionName=namedArguments.get(GrailsControllerClass.ACTION);
+  if (actionName == null) {
+    actionName=binding != null ? binding.getVariables().get(GrailsControllerClass.ACTION) : null;
+  }
+  Object viewName=namedArguments.get(GrailsControllerClass.VIEW);
+  if (viewName == null) {
+    viewName=binding != null ? binding.getVariables().get(GrailsControllerClass.VIEW) : null;
+  }
+  if (actionName != null && viewName != null) {
+    viewName=null;
+    LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
+  }
+  if (!isResponseCode) {
+    ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+    UrlMapping urlMapping=new RegexUrlMapping(urlData,controllerName,actionName,viewName,constraints);
+    urlMappings.add(urlMapping);
+    return urlMapping;
+  }
+ else {
+    return new ResponseCodeUrlMapping(urlData,controllerName,actionName,viewName,null);
+  }
+}

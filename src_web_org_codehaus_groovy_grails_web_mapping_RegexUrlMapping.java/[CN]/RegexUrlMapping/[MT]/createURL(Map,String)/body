@@ -6,7 +6,7 @@
   int paramIndex=0;
   for (int i=0; i < tokens.length; i++) {
     String token=tokens[i];
-    if (CAPTURED_WILDCARD.equals(token)) {
+    if (CAPTURED_WILDCARD.equals(token) || CAPTURED_DOUBLE_WILDCARD.equals(token)) {
       ConstrainedProperty prop=this.constraints[paramIndex++];
       String propName=prop.getPropertyName();
       Object value=parameterValues.get(propName);

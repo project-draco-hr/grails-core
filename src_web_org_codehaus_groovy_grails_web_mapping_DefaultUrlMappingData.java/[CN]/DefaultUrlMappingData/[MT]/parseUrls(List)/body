@@ -21,6 +21,9 @@
         optionalTokens.add(Boolean.FALSE);
       }
     }
+    if (CAPTURED_DOUBLE_WILDCARD.equals(tokens[i])) {
+      optionalTokens.add(Boolean.TRUE);
+    }
   }
   urls.add(buf.toString());
   Collections.reverse(urls);

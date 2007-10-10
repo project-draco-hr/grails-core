@@ -19,6 +19,7 @@
     }
   }
   if (c == null)   c=new ConfigObject();
+  ConfigurationHelper.initConfig(c,null,getClassLoader());
   ConfigurationHolder.setConfig(c);
   return c;
 }

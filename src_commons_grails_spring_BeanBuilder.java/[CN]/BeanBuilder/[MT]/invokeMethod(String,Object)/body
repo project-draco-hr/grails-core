@@ -40,5 +40,10 @@
  else   if (args.length > 1 && args[args.length - 1] instanceof Closure) {
     return invokeBeanDefiningMethod(name,args);
   }
+  WebApplicationContext ctx=springConfig.getUnrefreshedApplicationContext();
+  MetaClass mc=DefaultGroovyMethods.getMetaClass(ctx);
+  if (mc.respondsTo(ctx,name,args) != null) {
+    return mc.invokeMethod(ctx,name,args);
+  }
   return this;
 }

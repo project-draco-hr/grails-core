@@ -1,0 +1,9 @@
+{
+  ConfigObject config=ConfigurationHolder.getConfig();
+  if (config != null) {
+    Object o=config.get(BEANS);
+    if (o instanceof ConfigObject) {
+      props.putAll(((ConfigObject)o).toProperties());
+    }
+  }
+}

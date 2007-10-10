@@ -1,0 +1,11 @@
+{
+  Map vars=this.binding.getVariables();
+  for (Iterator i=vars.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    if (isNotCoreMappingKey(key)) {
+      this.parameterValues.put(key,vars.get(key));
+    }
+  }
+  urlMapping.setParameterValues(this.parameterValues);
+  urlMappings.add(urlMapping);
+}

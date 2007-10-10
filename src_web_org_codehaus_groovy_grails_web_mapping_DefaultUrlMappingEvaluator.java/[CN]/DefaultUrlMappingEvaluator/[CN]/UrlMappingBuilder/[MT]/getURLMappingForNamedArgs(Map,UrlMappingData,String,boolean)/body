@@ -15,13 +15,6 @@
     viewName=null;
     LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
   }
-  if (!isResponseCode) {
-    ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-    UrlMapping urlMapping=new RegexUrlMapping(urlData,controllerName,actionName,viewName,constraints);
-    urlMappings.add(urlMapping);
-    return urlMapping;
-  }
- else {
-    return new ResponseCodeUrlMapping(urlData,controllerName,actionName,viewName,null);
-  }
+  ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+  return createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
 }

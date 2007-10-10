@@ -26,6 +26,10 @@
       }
     }
   }
+  for (Iterator i=this.parameterValues.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    params.put(key,this.parameterValues.get(key));
+  }
   if (controllerName == null) {
     this.controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,this.constraints);
   }

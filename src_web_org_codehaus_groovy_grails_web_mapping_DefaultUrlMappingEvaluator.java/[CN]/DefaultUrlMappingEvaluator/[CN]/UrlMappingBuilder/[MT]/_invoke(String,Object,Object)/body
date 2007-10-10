@@ -1,6 +1,7 @@
 {
   Object[] args=(Object[])arg;
   final boolean isResponseCode=isResponseCode(methodName);
+  this.parameterValues.clear();
   if (methodName.startsWith(SLASH) || isResponseCode) {
     try {
       urlDefiningMode=false;
@@ -24,18 +25,8 @@
           viewName=this.viewName;
         }
         ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-        UrlMapping urlMapping;
-        if (!isResponseCode) {
-          if (actionName != null && viewName != null) {
-            viewName=null;
-            LOG.warn("Both [action] and [view] specified in URL mapping [" + methodName + "]. The action takes precendence!");
-          }
-          urlMapping=new RegexUrlMapping(urlData,controllerName,actionName,viewName,constraints);
-        }
- else {
-          urlMapping=new ResponseCodeUrlMapping(urlData,controllerName,actionName,viewName,constraints);
-        }
-        urlMappings.add(urlMapping);
+        UrlMapping urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+        configureUrlMapping(urlMapping);
         return urlMapping;
       }
       if (args[0] instanceof Map) {
@@ -45,17 +36,15 @@
           Closure callable=(Closure)args[1];
           callable.call();
         }
-        UrlMapping urlMapping=getURLMapping(namedArguments,urlData,methodName,isResponseCode);
-        urlMappings.add(urlMapping);
+        UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,methodName,isResponseCode);
+        configureUrlMapping(urlMapping);
         return urlMapping;
       }
       return null;
     }
   finally {
       if (binding != null) {
-        binding.getVariables().remove(GrailsControllerClass.CONTROLLER);
-        binding.getVariables().remove(GrailsControllerClass.ACTION);
-        binding.getVariables().remove(GrailsControllerClass.VIEW);
+        binding.getVariables().clear();
       }
  else {
         controllerName=null;

@@ -1,5 +1,5 @@
 {
-  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
   String[] beanNames=wac.getBeanNamesForType(ViewResolver.class);
   if (beanNames.length > 0) {
     String beanName=beanNames[0];

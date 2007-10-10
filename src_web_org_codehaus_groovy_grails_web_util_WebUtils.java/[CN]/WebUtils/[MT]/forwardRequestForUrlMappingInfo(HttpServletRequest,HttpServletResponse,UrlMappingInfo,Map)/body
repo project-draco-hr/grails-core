@@ -1,0 +1,10 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  String forwardUrl=buildDispatchUrlForMapping(info);
+  RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
+  populateWebRequestWithInfo(webRequest,info);
+  exposeForwardRequestAttributes(request);
+  exposeRequestAttributes(request,model);
+  dispatcher.forward(request,response);
+  return forwardUrl;
+}

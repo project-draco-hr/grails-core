@@ -8,10 +8,12 @@
         newTrace.add(stackTraceElement);
       }
     }
-    STACK_LOG.error("Sanitizing stacktrace:",t);
-    StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
-    newTrace.toArray(clean);
-    t.setStackTrace(clean);
+    if (newTrace.size() > 0) {
+      STACK_LOG.error("Sanitizing stacktrace:",t);
+      StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
+      newTrace.toArray(clean);
+      t.setStackTrace(clean);
+    }
   }
   return t;
 }

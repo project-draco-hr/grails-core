@@ -1,17 +1,4 @@
 {
-  View v;
-  if (viewName.startsWith(String.valueOf(SLASH))) {
-    v=viewResolver.resolveViewName(viewName,request.getLocale());
-  }
- else {
-    String controllerName=info.getControllerName();
-    StringBuffer buf=new StringBuffer();
-    buf.append(SLASH);
-    if (controllerName != null) {
-      buf.append(controllerName).append(SLASH);
-    }
-    buf.append(viewName);
-    v=viewResolver.resolveViewName(buf.toString(),request.getLocale());
-  }
-  return v;
+  String controllerName=info.getControllerName();
+  return resolveView(request,viewName,controllerName,viewResolver);
 }

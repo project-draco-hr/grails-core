@@ -1,0 +1,11 @@
+{
+  super(type,"");
+  PropertyDescriptor[] descriptors;
+  try {
+    descriptors=java.beans.Introspector.getBeanInfo(type).getPropertyDescriptors();
+  }
+ catch (  IntrospectionException e) {
+    throw new MappingException("Failed to use class [" + type + "] as a component. Cannot introspect! "+ e.getMessage());
+  }
+  this.properties=createDomainClassProperties(this,descriptors);
+}

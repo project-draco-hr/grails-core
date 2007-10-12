@@ -1,0 +1,7 @@
+{
+  for (int i=0; i < properties.length; i++) {
+    GrailsDomainClassProperty property=properties[i];
+    if (property.getName().equals(name))     return property;
+  }
+  return null;
+}

@@ -1,0 +1,6 @@
+{
+  String mappedByForRelation=(String)mappedBy.get(relatedClassPropertyName);
+  if (mappedByForRelation == null)   return true;
+ else   if (!property.getName().equals(mappedByForRelation))   return false;
+  return true;
+}

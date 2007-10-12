@@ -10,7 +10,7 @@
   if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
     String relatedClassPropertyName=findOneToManyThatMatchesType(property,relatedClassRelationships);
     PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(getClazz(),property.getType());
-    if (descriptors.length == 1) {
+    if (descriptors.length == 1 && isNotMappedToDifferentProperty(property,relatedClassPropertyName,mappedBy)) {
       if (!StringUtils.isBlank(relatedClassPropertyName)) {
         property.setReferencePropertyName(relatedClassPropertyName);
         relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,relatedClassPropertyName);

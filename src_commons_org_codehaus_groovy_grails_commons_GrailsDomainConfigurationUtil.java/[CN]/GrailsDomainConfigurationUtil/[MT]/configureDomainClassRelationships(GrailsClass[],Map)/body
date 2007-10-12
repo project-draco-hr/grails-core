@@ -41,9 +41,10 @@
  else {
             GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
             for (int k=0; k < referencedProperties.length; k++) {
-              if (prop.equals(referencedProperties[k]) && prop.isBidirectional())               continue;
-              if (domainClasses[i].getClazz().equals(referencedProperties[k].getReferencedPropertyType())) {
-                prop.setOtherSide(referencedProperties[k]);
+              GrailsDomainClassProperty referencedProp=referencedProperties[k];
+              if (prop.equals(referencedProp) && prop.isBidirectional())               continue;
+              if (isCandidateForOtherSide(domainClass,prop,referencedProp)) {
+                prop.setOtherSide(referencedProp);
                 break;
               }
             }

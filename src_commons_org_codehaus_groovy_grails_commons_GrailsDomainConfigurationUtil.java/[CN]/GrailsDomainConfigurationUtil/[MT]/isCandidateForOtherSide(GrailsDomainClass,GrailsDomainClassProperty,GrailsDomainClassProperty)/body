@@ -1,0 +1,6 @@
+{
+  boolean isTypeCompatible=domainClass.getClazz().equals(referencedProp.getReferencedPropertyType());
+  Map mappedBy=domainClass.getMappedBy();
+  Object propertyMapping=mappedBy.get(prop.getName());
+  return !(propertyMapping != null && !propertyMapping.equals(referencedProp.getName())) && isTypeCompatible;
+}

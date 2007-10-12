@@ -1,5 +1,5 @@
 {
   this.params=Collections.unmodifiableMap(params);
-  this.id=(String)params.get(ID_PARAM);
+  this.id=params.get(ID_PARAM);
   this.urlData=urlData;
 }

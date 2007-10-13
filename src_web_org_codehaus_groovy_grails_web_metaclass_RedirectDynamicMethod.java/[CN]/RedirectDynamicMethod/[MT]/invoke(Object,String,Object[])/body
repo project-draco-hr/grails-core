@@ -43,8 +43,12 @@
       if (LOG.isDebugEnabled() && urlMapping == null) {
         LOG.debug("Dynamic method [redirect] no URL mapping found for params [" + params + "]");
       }
+      String encoding=request.getCharacterEncoding();
+      if (encoding == null) {
+        encoding="UTF-8";
+      }
       String action=actionName != null ? actionName : webRequest.getActionName();
-      actualUri=attrs.getApplicationUri(request) + urlMapping.createURL(controllerName,action,params,request.getCharacterEncoding());
+      actualUri=attrs.getApplicationUri(request) + urlMapping.createURL(controllerName,action,params,encoding);
       if (LOG.isDebugEnabled()) {
         LOG.debug("Dynamic method [redirect] mapped to URL [" + actualUri + "]");
       }

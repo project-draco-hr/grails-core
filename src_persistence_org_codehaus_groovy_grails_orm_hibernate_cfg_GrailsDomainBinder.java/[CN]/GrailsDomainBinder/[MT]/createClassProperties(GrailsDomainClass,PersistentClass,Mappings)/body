@@ -5,10 +5,9 @@
   for (int i=0; i < persistentProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistentProperties[i];
     if (currentGrailsProp.isInherited() && !isBidirectionalManyToOne(currentGrailsProp))     continue;
- else     if (domainClass.hasSubClasses() && (currentGrailsProp.isOneToOne() || currentGrailsProp.isManyToOne()))     continue;
     if (isCompositeIdProperty(gormMapping,currentGrailsProp))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
-    Value value=null;
+    Value value;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     if (collectionType != null) {
       Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings);

@@ -3,6 +3,10 @@
   if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   ColumnConfig cc=getColumnConfig(property);
   if (collection.isOneToMany()) {
+    GrailsDomainClass referenced=property.getReferencedDomainClass();
+    if (referenced != null && !referenced.isRoot()) {
+      collection.setWhere(RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME + " = '" + referenced.getFullName()+ "'");
+    }
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();
     associatedClass=(PersistentClass)persistentClasses.get(associatedClassName);

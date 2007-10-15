@@ -1,3 +1,3 @@
 {
-  getXStream().toXML(target,out);
+  ConverterUtil.getXStream(getClass()).toXML(target,out);
 }

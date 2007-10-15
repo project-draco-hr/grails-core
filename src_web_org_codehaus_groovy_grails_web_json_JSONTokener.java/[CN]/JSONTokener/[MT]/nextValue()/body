@@ -32,6 +32,17 @@ return Boolean.FALSE;
 if (s.equalsIgnoreCase("null")) {
 return JSONObject.NULL;
 }
+if (s.startsWith("new Date(")) {
+try {
+Matcher matcher=Pattern.compile("^\\s*new\\s+Date\\(\\s*(\\d+)\\s*\\)\\s*$").matcher(s);
+if (matcher.find()) {
+long time=Long.parseLong(matcher.group(1));
+return new Date(time);
+}
+}
+ catch (Exception e) {
+}
+}
 if ((b >= '0' && b <= '9') || b == '.' || b == '-' || b == '+') {
 if (b == '0') {
 if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {

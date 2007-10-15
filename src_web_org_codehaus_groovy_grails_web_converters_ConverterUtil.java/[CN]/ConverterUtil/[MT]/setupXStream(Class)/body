@@ -1,0 +1,18 @@
+{
+  XStream xs=new XStream();
+  xs.setMode(XStream.XPATH_ABSOLUTE_REFERENCES);
+  for (Iterator iterator=ALIAS_MAP.keySet().iterator(); iterator.hasNext(); ) {
+    Class cls=(Class)iterator.next();
+    String alias=(String)ALIAS_MAP.get(cls);
+    xs.alias(alias,cls);
+  }
+  try {
+    XML instance=(XML)converter.newInstance();
+    instance.configureXStream(xs);
+    XSTREAM_MAP.put(converter,xs);
+  }
+ catch (  Exception e) {
+    log.error("Error configuring XStream for Converter " + converter.getName(),e);
+  }
+  return xs;
+}

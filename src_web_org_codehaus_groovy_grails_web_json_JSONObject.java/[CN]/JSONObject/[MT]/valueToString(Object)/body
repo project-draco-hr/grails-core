@@ -5,6 +5,9 @@
   if (value instanceof Number) {
     return numberToString((Number)value);
   }
+  if (value instanceof Date) {
+    return dateToString((Date)value);
+  }
   if (value instanceof Boolean || value instanceof JSONObject || value instanceof JSONArray) {
     return value.toString();
   }

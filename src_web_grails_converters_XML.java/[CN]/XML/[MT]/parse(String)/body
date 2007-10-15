@@ -1,0 +1,8 @@
+{
+  try {
+    return new XmlSlurper().parse(source);
+  }
+ catch (  Exception e) {
+    throw new ConverterException("Error parsing XML",e);
+  }
+}

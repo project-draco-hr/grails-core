@@ -1,0 +1,10 @@
+{
+  String encoding=request.getCharacterEncoding();
+  if (encoding == null)   encoding=Converter.DEFAULT_REQUEST_ENCODING;
+  try {
+    return parse(request.getInputStream(),encoding);
+  }
+ catch (  IOException e) {
+    throw new ConverterException("Error parsing XML",e);
+  }
+}

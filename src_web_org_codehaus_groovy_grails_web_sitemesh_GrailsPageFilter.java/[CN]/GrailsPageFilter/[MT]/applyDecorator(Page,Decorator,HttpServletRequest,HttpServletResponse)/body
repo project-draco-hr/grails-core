@@ -2,12 +2,6 @@
   final String uriPath=decorator.getURIPath();
   if (uriPath != null && uriPath.endsWith(".gsp")) {
     request.setAttribute(PAGE,page);
-    ServletContext context=filterConfig.getServletContext();
-    if (decorator.getURIPath() != null) {
-      if (context.getContext(decorator.getURIPath()) != null) {
-        context=context.getContext(decorator.getURIPath());
-      }
-    }
     RequestDispatcher rd=request.getRequestDispatcher(decorator.getURIPath());
     if (!response.isCommitted()) {
       if (LOG.isDebugEnabled()) {

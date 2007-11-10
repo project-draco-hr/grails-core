@@ -3,6 +3,9 @@
   setTypeForColumnConfig(grailsProp,simpleValue,cc);
   Table table=simpleValue.getTable();
   Column column=new Column();
+  if (cc != null && cc.getColumn() != null) {
+    column.setName(cc.getColumn());
+  }
   column.setValue(simpleValue);
   bindColumn(grailsProp,column,path,table);
   if (table != null)   table.addColumn(column);

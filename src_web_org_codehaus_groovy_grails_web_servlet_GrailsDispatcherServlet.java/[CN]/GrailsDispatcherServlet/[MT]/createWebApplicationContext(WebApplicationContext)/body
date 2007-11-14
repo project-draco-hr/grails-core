@@ -7,9 +7,9 @@
   }
  else {
     webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
+    GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
   }
   initGrailsController(webContext);
   this.interceptors=establishInterceptors(webContext);
-  GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
   return webContext;
 }

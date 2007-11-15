@@ -1,4 +1,5 @@
 {
   scan=new Scan(readStream(in));
+  this.pageName=filename;
   makeName(name);
 }

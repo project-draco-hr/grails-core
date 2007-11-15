@@ -60,7 +60,13 @@ catch (    Exception ex) {
       mv=processHandlerException(request,response,handler,ex);
     }
     if (mv != null && !mv.wasCleared()) {
-      render(mv,processedRequest,response);
+      try {
+        render(mv,processedRequest,response);
+      }
+ catch (      Exception e) {
+        mv=super.processHandlerException(processedRequest,response,mappedHandler,e);
+        render(mv,processedRequest,response);
+      }
     }
  else {
       if (logger.isDebugEnabled()) {
@@ -71,13 +77,11 @@ catch (    Exception ex) {
   }
  catch (  Exception ex) {
     triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,ex);
-    System.out.println("Exception handler in doDispatch took the crash");
     throw ex;
   }
 catch (  Error err) {
     ServletException ex=new NestedServletException("Handler processing failed",err);
     triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,ex);
-    System.out.println("Error handler in doDispatch took the crash");
     throw ex;
   }
  finally {

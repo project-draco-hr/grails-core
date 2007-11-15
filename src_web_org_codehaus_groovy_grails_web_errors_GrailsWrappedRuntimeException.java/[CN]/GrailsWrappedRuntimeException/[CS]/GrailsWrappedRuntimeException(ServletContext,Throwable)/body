@@ -53,6 +53,9 @@
   }
   LineNumberReader reader=null;
   try {
+    if (cause instanceof SourceCodeAware && className.equals(UNKNOWN)) {
+      className=((SourceCodeAware)cause).getFileName();
+    }
     if (getLineNumber() > -1) {
       String url;
       String fileName=this.className.replace('.','/') + ".groovy";

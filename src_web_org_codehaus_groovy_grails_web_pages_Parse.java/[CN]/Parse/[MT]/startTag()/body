@@ -41,6 +41,7 @@
   tm.name=tagName;
   tm.namespace=ns;
   tm.hasAttributes=!attrs.isEmpty();
+  tm.lineNumber=getCurrentOutputLineNumber();
   tagMetaStack.add(tm);
   if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
     if (this.tagContext == null) {

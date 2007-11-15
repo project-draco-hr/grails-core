@@ -38,42 +38,6 @@ if (includeExclude.containsKey(EXCLUDE_MAP_KEY)) {
 Object o=includeExclude.get(EXCLUDE_MAP_KEY);
 exclude=convertToListIfString(o);
 }
-GrailsDataBinder dataBinder;
-if (bindParams instanceof GrailsParameterMap) {
-GrailsParameterMap parameterMap=(GrailsParameterMap)bindParams;
-HttpServletRequest request=parameterMap.getRequest();
-dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),request);
-includeExcludeFields(dataBinder,include,exclude);
-if (filter != null) {
-Object o=parameterMap.get(filter);
-if (o instanceof GrailsParameterMap) {
-dataBinder.bind((GrailsParameterMap)o);
-}
- else {
-dataBinder.bind(parameterMap);
-}
-}
- else {
-dataBinder.bind(parameterMap);
-}
-}
- else if (bindParams instanceof HttpServletRequest) {
-GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),webRequest.getCurrentRequest());
-includeExcludeFields(dataBinder,include,exclude);
-dataBinder.bind((HttpServletRequest)bindParams,filter);
-}
- else if (bindParams instanceof Map) {
-dataBinder=new GrailsDataBinder(targetObject,targetObject.getClass().getName());
-PropertyValues pv=new MutablePropertyValues((Map)bindParams);
-includeExcludeFields(dataBinder,include,exclude);
-dataBinder.bind(pv,filter);
-}
- else {
-GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-dataBinder=GrailsDataBinder.createBinder(targetObject,targetObject.getClass().getName(),webRequest.getCurrentRequest());
-includeExcludeFields(dataBinder,include,exclude);
-dataBinder.bind(webRequest.getCurrentRequest(),filter);
-}
+DataBindingUtils.bindObjectToInstance(targetObject,bindParams,include,exclude,filter);
 return targetObject;
 }

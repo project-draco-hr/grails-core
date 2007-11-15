@@ -1,28 +1,3 @@
 {
-  BindingResult bindingResult=null;
-  if (source instanceof GrailsParameterMap) {
-    GrailsParameterMap parameterMap=(GrailsParameterMap)source;
-    HttpServletRequest request=parameterMap.getRequest();
-    GrailsDataBinder dataBinder=GrailsDataBinder.createBinder(object,object.getClass().getName(),request);
-    dataBinder.bind(parameterMap);
-    bindingResult=dataBinder.getBindingResult();
-  }
- else   if (source instanceof HttpServletRequest) {
-    HttpServletRequest request=(HttpServletRequest)source;
-    ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(object,object.getClass().getName(),request);
-    dataBinder.bind(request);
-    bindingResult=dataBinder.getBindingResult();
-  }
- else   if (source instanceof Map) {
-    Map propertyMap=(Map)source;
-    propertyMap=convertPotentialGStrings(propertyMap);
-    GrailsDataBinder binder=GrailsDataBinder.createBinder(object,object.getClass().getName());
-    binder.bind(new MutablePropertyValues(propertyMap));
-    bindingResult=binder.getBindingResult();
-  }
-  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
-  if (mc.hasProperty(object,"errors") != null && bindingResult != null) {
-    mc.setProperty(object,"errors",bindingResult);
-  }
-  return bindingResult;
+  return bindObjectToInstance(object,source,Collections.EMPTY_LIST,Collections.EMPTY_LIST,null);
 }

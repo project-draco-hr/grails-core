@@ -1,17 +1,17 @@
 {
   if (grailsProp.isAssociation()) {
     if (column.getName() == null) {
+      String columnName=getColumnNameForPropertyAndPath(grailsProp,path);
       if (!grailsProp.isBidirectional() && grailsProp.isOneToMany()) {
         String prefix=namingStrategy.classToTableName(grailsProp.getDomainClass().getName());
-        String columnName=getColumnNameForPropertyAndPath(grailsProp,path);
         column.setName(prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX);
       }
  else {
         if (grailsProp.isInherited() && isBidirectionalManyToOne(grailsProp)) {
-          column.setName(namingStrategy.propertyToColumnName(grailsProp.getDomainClass().getName()) + '_' + namingStrategy.propertyToColumnName(grailsProp.getName())+ FOREIGN_KEY_SUFFIX);
+          column.setName(namingStrategy.propertyToColumnName(grailsProp.getDomainClass().getName()) + '_' + columnName+ FOREIGN_KEY_SUFFIX);
         }
  else {
-          column.setName(namingStrategy.propertyToColumnName(grailsProp.getName()) + FOREIGN_KEY_SUFFIX);
+          column.setName(columnName + FOREIGN_KEY_SUFFIX);
         }
       }
     }

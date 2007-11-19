@@ -1,0 +1,13 @@
+{
+  try {
+    return associatedClass.getProperty(propertyName);
+  }
+ catch (  MappingException e) {
+    if (associatedClass.getKey() instanceof Component) {
+      return ((Component)associatedClass.getKey()).getProperty(propertyName);
+    }
+ else {
+      throw e;
+    }
+  }
+}

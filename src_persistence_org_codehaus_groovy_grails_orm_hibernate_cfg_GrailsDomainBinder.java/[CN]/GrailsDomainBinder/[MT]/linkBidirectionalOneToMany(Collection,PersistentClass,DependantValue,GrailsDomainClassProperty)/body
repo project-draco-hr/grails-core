@@ -1,6 +1,6 @@
 {
   collection.setInverse(true);
-  Iterator mappedByColumns=associatedClass.getProperty(otherSide.getName()).getValue().getColumnIterator();
+  Iterator mappedByColumns=getProperty(associatedClass,otherSide.getName()).getValue().getColumnIterator();
   while (mappedByColumns.hasNext()) {
     Column column=(Column)mappedByColumns.next();
     linkValueUsingAColumnCopy(otherSide,column,key);

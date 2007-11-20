@@ -33,7 +33,12 @@
     }
   }
  else {
-    bindDependentKeyValue(property,key,mappings);
+    if (cc != null && cc.getJoinTable() != null && cc.getJoinTable().getKey() != null) {
+      bindSimpleValue("long",key,false,cc.getJoinTable().getKey(),mappings);
+    }
+ else {
+      bindDependentKeyValue(property,key,mappings);
+    }
   }
   collection.setKey(key);
   if (cc != null) {

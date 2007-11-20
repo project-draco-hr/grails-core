@@ -4,6 +4,6 @@
     actualUriBuf.append(URLEncoder.encode(name.toString(),request.getCharacterEncoding())).append('=').append(URLEncoder.encode(value.toString(),request.getCharacterEncoding()));
   }
  catch (  UnsupportedEncodingException ex) {
-    throw new ControllerExecutionException("Error redirecting request for url [" + name + ":"+ value+ "]: "+ ex.getMessage(),ex);
+    throw new ControllerExecutionException("Error creating URL, encoding problem appending parameter to url [" + name + ":"+ value+ "]: "+ ex.getMessage(),ex);
   }
 }

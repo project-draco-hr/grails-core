@@ -7,6 +7,7 @@
   Object actionRef=argMap.get(ARGUMENT_ACTION);
   String controllerName=argMap.containsKey(ARGUMENT_CONTROLLER) ? argMap.get(ARGUMENT_CONTROLLER).toString() : null;
   Object id=argMap.get(ARGUMENT_ID);
+  String frag=argMap.get(ARGUMENT_FRAGMENT) != null ? argMap.get(ARGUMENT_FRAGMENT).toString() : null;
   Object uri=argMap.get(ARGUMENT_URI);
   String url=argMap.containsKey(ARGUMENT_URL) ? argMap.get(ARGUMENT_URL).toString() : null;
   Map params=(Map)argMap.get(ARGUMENT_PARAMS);
@@ -48,7 +49,7 @@
         encoding="UTF-8";
       }
       String action=actionName != null ? actionName : webRequest.getActionName();
-      actualUri=attrs.getApplicationUri(request) + urlMapping.createURL(controllerName,action,params,encoding);
+      actualUri=attrs.getApplicationUri(request) + urlMapping.createURL(controllerName,action,params,encoding,frag);
       if (LOG.isDebugEnabled()) {
         LOG.debug("Dynamic method [redirect] mapped to URL [" + actualUri + "]");
       }

@@ -18,9 +18,9 @@
       collection.setCollectionTable(associatedClass.getTable());
     }
     bindCollectionForColumnConfig(collection,cc);
-    if (isSorted(property)) {
-      collection.setSorted(true);
-    }
+  }
+  if (isSorted(property)) {
+    collection.setSorted(true);
   }
   DependantValue key=createPrimaryKeyValue(property,collection,persistentClasses);
   if (property.isBidirectional()) {

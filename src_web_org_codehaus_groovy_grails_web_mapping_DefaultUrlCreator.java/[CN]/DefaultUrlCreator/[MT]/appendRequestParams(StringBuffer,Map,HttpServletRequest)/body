@@ -8,7 +8,7 @@
       querySeparator=true;
     }
  else {
-      actualUriBuf.append('&');
+      actualUriBuf.append(ENTITY_AMPERSAND);
     }
     Object value=params.get(name);
     appendRequestParam(actualUriBuf,name,value,request);

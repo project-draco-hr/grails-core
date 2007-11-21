@@ -10,7 +10,7 @@
         addedParams=true;
       }
  else {
-        uri.append(AMPERSAND);
+        uri.append(ENTITY_AMPERSAND);
       }
       Object value=parameterValues.get(name);
       if (value != null && value instanceof Collection) {
@@ -19,7 +19,7 @@
           Object o=j.next();
           appendValueToURI(encoding,uri,name,o);
           if (j.hasNext()) {
-            uri.append(AMPERSAND);
+            uri.append(ENTITY_AMPERSAND);
           }
         }
       }
@@ -29,7 +29,7 @@
           Object o=multiValues[j];
           appendValueToURI(encoding,uri,name,o);
           if (j + 1 < multiValues.length) {
-            uri.append(AMPERSAND);
+            uri.append(ENTITY_AMPERSAND);
           }
         }
       }

@@ -1,5 +1,5 @@
 {
-  BeanBuilder bb=new BeanBuilder(getParentCtx());
+  BeanBuilder bb=new BeanBuilder(getParentCtx(),new GroovyClassLoader(application.getClassLoader()));
   bb.invokeMethod("beans",new Object[]{closure});
   return bb;
 }

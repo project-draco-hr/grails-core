@@ -1,0 +1,6 @@
+{
+  finalizeDeferredProperties();
+  ctx.setClassLoader(this.classLoader);
+  ctx.getBeanFactory().setBeanClassLoader(this.classLoader);
+  springConfig.registerBeansWithContext(ctx);
+}

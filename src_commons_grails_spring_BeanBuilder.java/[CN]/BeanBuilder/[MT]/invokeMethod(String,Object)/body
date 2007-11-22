@@ -1,17 +1,14 @@
 {
   Object[] args=(Object[])arg;
   if (CREATE_APPCTX.equals(name)) {
-    finalizeDeferredProperties();
-    return springConfig.getApplicationContext();
+    return createApplicationContext();
   }
- else   if (REGISTER_BEANS.equals(name) && args.length == 1 && args[0] instanceof StaticApplicationContext) {
-    finalizeDeferredProperties();
-    StaticApplicationContext ctx=(StaticApplicationContext)args[0];
-    springConfig.registerBeansWithContext(ctx);
+ else   if (REGISTER_BEANS.equals(name) && args.length == 1 && args[0] instanceof GenericApplicationContext) {
+    registerBeans((GenericApplicationContext)args[0]);
     return null;
   }
  else   if (BEANS.equals(name) && args.length == 1 && args[0] instanceof Closure) {
-    return invokeBeanDefiningClosure(args[0]);
+    return beans((Closure)args[0]);
   }
   if (args.length == 0)   throw new MissingMethodException(name,getClass(),args);
   if (REF.equals(name)) {

@@ -1,4 +1,3 @@
 {
-  super();
-  this.classLoader=classLoader;
+  this(null,classLoader);
 }

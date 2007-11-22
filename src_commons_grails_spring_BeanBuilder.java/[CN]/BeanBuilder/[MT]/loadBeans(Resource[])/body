@@ -1,7 +1,7 @@
 {
   Closure beans=new Closure(this){
     public Object call(    Object[] args){
-      invokeBeanDefiningClosure(args[0]);
+      invokeBeanDefiningClosure((Closure)args[0]);
       return null;
     }
   }

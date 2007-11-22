@@ -9,7 +9,9 @@
     }
   }
   if (containsRuntimeRefs) {
-    return new ManagedMap(map);
+    Map managedMap=new ManagedMap();
+    managedMap.putAll(map);
+    return managedMap;
   }
   return value;
 }

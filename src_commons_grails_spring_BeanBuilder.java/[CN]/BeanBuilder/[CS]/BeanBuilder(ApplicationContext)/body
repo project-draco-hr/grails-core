@@ -1,5 +1,3 @@
 {
-  super();
-  this.parentCtx=parent;
-  this.springConfig=new DefaultRuntimeSpringConfiguration(parent);
+  this(parent,null);
 }

@@ -1,9 +1,9 @@
 {
-  try {
+  if (parent.containsBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN)) {
     Object classLoader=parent.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN);
     if (classLoader instanceof ClassLoader) {
+      ClassLoader cl=(ClassLoader)classLoader;
+      setClassLoaderOnContext(cl);
     }
-  }
- catch (  NoSuchBeanDefinitionException nsbde) {
   }
 }

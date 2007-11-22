@@ -23,11 +23,16 @@
   if (max > -1)   c.setMaxResults(max);
   if (offset > -1)   c.setFirstResult(offset);
   if (sort != null) {
+    boolean ignoreCase=true;
+    Object caseArg=argMap.get(ARGUMENT_IGNORE_CASE);
+    if (caseArg instanceof Boolean) {
+      ignoreCase=((Boolean)caseArg).booleanValue();
+    }
     if (ORDER_DESC.equals(order)) {
-      c.addOrder(Order.desc(sort));
+      c.addOrder(ignoreCase ? Order.desc(sort).ignoreCase() : Order.desc(sort));
     }
  else {
-      c.addOrder(Order.asc(sort));
+      c.addOrder(ignoreCase ? Order.asc(sort).ignoreCase() : Order.asc(sort));
     }
   }
 }

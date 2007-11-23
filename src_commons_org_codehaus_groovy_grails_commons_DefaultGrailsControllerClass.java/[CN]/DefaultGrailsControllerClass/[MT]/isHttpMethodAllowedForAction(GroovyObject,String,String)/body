@@ -1,7 +1,9 @@
 {
   boolean isAllowed=true;
-  final Map controllerProperties=DefaultGroovyMethods.getProperties(controller);
-  Object methodRestrictionsProperty=controllerProperties.get(ALLOWED_HTTP_METHODS_PROPERTY);
+  Object methodRestrictionsProperty=null;
+  if (controller.getMetaClass().hasProperty(controller,ALLOWED_HTTP_METHODS_PROPERTY) != null) {
+    methodRestrictionsProperty=controller.getProperty(ALLOWED_HTTP_METHODS_PROPERTY);
+  }
   if (methodRestrictionsProperty instanceof Map) {
     Map map=(Map)methodRestrictionsProperty;
     if (map.containsKey(actionName)) {

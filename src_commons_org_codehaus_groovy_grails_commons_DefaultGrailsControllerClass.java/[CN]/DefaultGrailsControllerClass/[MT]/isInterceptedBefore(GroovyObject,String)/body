@@ -1,4 +1,3 @@
 {
-  final Map controllerProperties=DefaultGroovyMethods.getProperties(controller);
-  return isIntercepted(controllerProperties.get(BEFORE_INTERCEPTOR),action);
+  return controller.getMetaClass().hasProperty(controller,BEFORE_INTERCEPTOR) != null && isIntercepted(controller.getProperty(BEFORE_INTERCEPTOR),action);
 }

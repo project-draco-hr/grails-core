@@ -2,5 +2,10 @@
   if (!finalPass)   return;
   if (LOG.isDebugEnabled())   LOG.debug("parse: expr");
   String text=scan.getToken().trim();
-  out.printlnToResponse(GroovyPage.fromHtml(text));
+  if (contentType.indexOf("text/html") > -1) {
+    out.printlnToResponse("HtmlUtils.htmlEscape(" + text + "?.toString())");
+  }
+ else {
+    out.printlnToResponse(text);
+  }
 }

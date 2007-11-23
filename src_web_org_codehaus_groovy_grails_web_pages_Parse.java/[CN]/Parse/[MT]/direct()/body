@@ -3,5 +3,5 @@
   if (LOG.isDebugEnabled())   LOG.debug("parse: direct");
   String text=scan.getToken();
   text=text.trim();
-  if (text.startsWith("page "))   directPage(text);
+  directPage(text);
 }

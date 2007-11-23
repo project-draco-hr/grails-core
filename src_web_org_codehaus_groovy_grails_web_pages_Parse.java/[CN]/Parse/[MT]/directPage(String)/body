@@ -1,5 +1,5 @@
 {
-  text=text.substring(5).trim();
+  text=text.trim();
   Pattern pat=Pattern.compile("(\\w+)\\s*=\\s*\"([^\"]*)\"");
   Matcher mat=pat.matcher(text);
   for (int ix=0; ; ) {

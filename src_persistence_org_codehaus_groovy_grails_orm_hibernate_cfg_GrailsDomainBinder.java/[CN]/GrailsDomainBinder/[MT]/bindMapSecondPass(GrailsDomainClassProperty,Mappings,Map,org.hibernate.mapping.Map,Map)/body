@@ -2,7 +2,7 @@
   bindCollectionSecondPass(property,mappings,persistentClasses,map,inheritedMetas);
   String columnName=namingStrategy.propertyToColumnName(property.getName());
   SimpleValue value=new SimpleValue(map.getCollectionTable());
-  bindSimpleValue(STRING_TYPE,value,false,columnName + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
+  bindSimpleValue(STRING_TYPE,value,true,columnName + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
   if (!value.isTypeSpecified()) {
     throw new MappingException("map index element must specify a type: " + map.getRole());
   }

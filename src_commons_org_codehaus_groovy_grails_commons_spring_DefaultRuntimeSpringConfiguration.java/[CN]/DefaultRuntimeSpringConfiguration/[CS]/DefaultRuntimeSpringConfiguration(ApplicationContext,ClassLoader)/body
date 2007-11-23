@@ -1,10 +1,5 @@
 {
   super();
-  this.context=new GrailsWebApplicationContext(parent);
-  if (parent != null && cl == null) {
-    trySettingClassLoaderOnContextIfFoundInParent(parent);
-  }
- else   if (cl != null) {
-    setClassLoaderOnContext(cl);
-  }
+  this.parent=parent;
+  this.classLoader=cl;
 }

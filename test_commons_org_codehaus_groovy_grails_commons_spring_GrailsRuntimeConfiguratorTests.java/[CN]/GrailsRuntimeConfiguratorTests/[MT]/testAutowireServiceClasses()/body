@@ -8,7 +8,7 @@
   parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager(new Resource[0]));
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
   conf.setLoadExternalPersistenceConfig(false);
-  GrailsWebApplicationContext ctx=(GrailsWebApplicationContext)conf.configure(new MockServletContext(),false);
+  GrailsApplicationContext ctx=(GrailsApplicationContext)conf.configure(new MockServletContext(),false);
   assertNotNull(ctx);
   GroovyObject anotherService=(GroovyObject)ctx.getBean("anotherService");
   assertEquals("hello",anotherService.invokeMethod("anotherMethod",null));

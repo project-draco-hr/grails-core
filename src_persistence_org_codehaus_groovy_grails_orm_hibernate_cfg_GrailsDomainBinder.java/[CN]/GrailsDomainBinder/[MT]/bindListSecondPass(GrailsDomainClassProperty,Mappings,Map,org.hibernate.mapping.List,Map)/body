@@ -2,7 +2,7 @@
   bindCollectionSecondPass(property,mappings,persistentClasses,list,inheritedMetas);
   String columnName=namingStrategy.propertyToColumnName(property.getName() + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME);
   SimpleValue iv=new SimpleValue(list.getCollectionTable());
-  bindSimpleValue("integer",iv,false,columnName,mappings);
+  bindSimpleValue("integer",iv,true,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);
   String entityName;
@@ -22,6 +22,6 @@
   ib.setCollectionRole(list.getRole());
   ib.setEntityName(list.getOwner().getEntityName());
   ib.setValue(list.getIndex());
-  ((Column)((SimpleValue)list.getIndex()).getColumnIterator().next()).setNullable(true);
   referenced.addProperty(ib);
+  list.setInverse(false);
 }

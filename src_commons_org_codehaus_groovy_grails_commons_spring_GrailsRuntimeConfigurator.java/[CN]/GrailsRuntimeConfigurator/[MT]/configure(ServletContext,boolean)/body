@@ -1,6 +1,6 @@
 {
   Assert.notNull(application);
-  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration(parent,application.getClassLoader());
+  WebRuntimeSpringConfiguration springConfig=new WebRuntimeSpringConfiguration(parent,application.getClassLoader());
   if (context != null) {
     springConfig.setServletContext(context);
     this.pluginManager.setServletContext(context);
@@ -16,7 +16,7 @@
   this.pluginManager.doRuntimeConfiguration(springConfig);
   LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
   if (loadExternalBeans)   doPostResourceConfiguration(springConfig);
-  WebApplicationContext ctx=springConfig.getApplicationContext();
+  WebApplicationContext ctx=(WebApplicationContext)springConfig.getApplicationContext();
   this.pluginManager.setApplicationContext(ctx);
   this.pluginManager.doDynamicMethods();
   ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));

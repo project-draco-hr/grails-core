@@ -1,6 +1,6 @@
 {
   GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(getServletContext());
-  context=(GrailsWebApplicationContext)attrs.getApplicationContext();
+  context=(GrailsApplicationContext)attrs.getApplicationContext();
   if (LOG.isDebugEnabled()) {
     LOG.debug("Executing Grails reload filter...");
   }

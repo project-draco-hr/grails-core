@@ -11,7 +11,9 @@
         }
       }
     }
-    if (applicationContext.containsBeanDefinition(bc.getName()))     applicationContext.removeBeanDefinition(bc.getName());
+    if (applicationContext.containsBeanDefinition(bc.getName())) {
+      removeBeanDefinition(applicationContext,bc.getName());
+    }
     applicationContext.registerBeanDefinition(bc.getName(),bc.getBeanDefinition());
   }
   for (Iterator i=beanDefinitions.keySet().iterator(); i.hasNext(); ) {
@@ -29,7 +31,7 @@
     }
     final String beanName=key.toString();
     if (applicationContext.containsBean(beanName)) {
-      applicationContext.removeBeanDefinition(beanName);
+      removeBeanDefinition(applicationContext,beanName);
     }
     applicationContext.registerBeanDefinition(beanName,bd);
   }

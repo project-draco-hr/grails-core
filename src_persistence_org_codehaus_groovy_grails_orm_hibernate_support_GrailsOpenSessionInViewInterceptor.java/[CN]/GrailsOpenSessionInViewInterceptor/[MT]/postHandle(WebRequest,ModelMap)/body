@@ -1,4 +1,9 @@
 {
   final boolean isWebRequest=request.getAttribute(IS_FLOW_REQUEST_ATTRIBUTE,WebRequest.SCOPE_REQUEST) != null;
-  if (!isWebRequest)   super.postHandle(request,model);
+  if (!isWebRequest) {
+    super.postHandle(request,model);
+    SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(getSessionFactory());
+    Session session=sessionHolder.getSession();
+    session.setFlushMode(FlushMode.MANUAL);
+  }
 }

@@ -1,0 +1,10 @@
+{
+  ConfigObject co=ConfigurationHolder.getConfig();
+  if (co != null) {
+    Object o=co.flatten().get(ENABLE_FILE_EXTENSIONS);
+    if (o != null && o instanceof Boolean) {
+      return ((Boolean)o).booleanValue();
+    }
+  }
+  return true;
+}

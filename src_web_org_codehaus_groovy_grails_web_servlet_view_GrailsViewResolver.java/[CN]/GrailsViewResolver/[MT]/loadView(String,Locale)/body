@@ -6,21 +6,26 @@
   HttpServletRequest request=webRequest.getCurrentRequest();
   GroovyObject controller=webRequest.getAttributes().getController(request);
   GrailsApplication application=webRequest.getAttributes().getGrailsApplication();
-  String gspView=localPrefix + viewName + GSP_SUFFIX;
-  Resource res=resourceLoader.getResource(gspView);
-  if (!res.exists()) {
-    gspView=resolveViewForController(controller,application,viewName,resourceLoader);
+  String format=request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT) != null ? request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT).toString() : null;
+  String gspView=localPrefix + viewName + DOT+ format+ GSP_SUFFIX;
+  Resource res=null;
+  if (format != null) {
     res=resourceLoader.getResource(gspView);
+    if (!res.exists()) {
+      gspView=resolveViewForController(controller,application,viewName,resourceLoader);
+      res=resourceLoader.getResource(gspView);
+    }
+  }
+  if (res == null || !res.exists()) {
+    gspView=localPrefix + viewName + GSP_SUFFIX;
+    res=resourceLoader.getResource(gspView);
+    if (!res.exists()) {
+      gspView=resolveViewForController(controller,application,viewName,resourceLoader);
+      res=resourceLoader.getResource(gspView);
+    }
   }
   if (res.exists()) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Resolved GSP view at URI [" + gspView + "]");
-    }
-    GroovyPageView gspSpringView=new GroovyPageView();
-    gspSpringView.setServletContext(webRequest.getServletContext());
-    gspSpringView.setUrl(gspView);
-    gspSpringView.setApplicationContext(this.getApplicationContext());
-    return gspSpringView;
+    return createGroovyPageView(webRequest,gspView);
   }
  else {
     AbstractUrlBasedView view=buildView(viewName);

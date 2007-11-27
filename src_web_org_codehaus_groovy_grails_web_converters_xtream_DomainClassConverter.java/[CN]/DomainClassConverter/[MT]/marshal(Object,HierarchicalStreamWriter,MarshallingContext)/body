@@ -58,9 +58,7 @@
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
           GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();
           if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
-            writer.startNode(referencedDomainClass.getPropertyName());
             writer.addAttribute("id",String.valueOf(extractIdValue(referenceObject,referencedIdProperty)));
-            writer.endNode();
           }
  else {
             String refPropertyName=referencedDomainClass.getPropertyName();

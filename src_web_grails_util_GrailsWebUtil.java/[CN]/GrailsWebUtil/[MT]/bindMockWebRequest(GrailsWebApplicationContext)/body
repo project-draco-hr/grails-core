@@ -2,6 +2,11 @@
   MockHttpServletRequest request=new MockHttpServletRequest();
   GrailsWebRequest webRequest=new GrailsWebRequest(request,new MockHttpServletResponse(),ctx.getServletContext());
   request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
+  String[] paramListenerBeans=ctx.getBeanNamesForType(ParameterCreationListener.class);
+  for (int i=0; i < paramListenerBeans.length; i++) {
+    ParameterCreationListener creationListenerBean=(ParameterCreationListener)ctx.getBean(paramListenerBeans[i]);
+    webRequest.addParameterListener(creationListenerBean);
+  }
   RequestContextHolder.setRequestAttributes(webRequest);
   return webRequest;
 }

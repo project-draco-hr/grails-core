@@ -1,16 +1,17 @@
 {
   LocaleContextHolder.setLocale(request.getLocale());
-  ServletRequestAttributes requestAttributes=new GrailsWebRequest(request,response,getServletContext());
-  RequestContextHolder.setRequestAttributes(requestAttributes);
+  GrailsWebRequest webRequest=new GrailsWebRequest(request,response,getServletContext());
+  configureParameterCreationListeners(webRequest);
+  RequestContextHolder.setRequestAttributes(webRequest);
   if (logger.isDebugEnabled()) {
     logger.debug("Bound Grails request context to thread: " + request);
   }
   try {
-    request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,requestAttributes);
+    request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
     filterChain.doFilter(request,response);
   }
   finally {
-    requestAttributes.requestCompleted();
+    webRequest.requestCompleted();
     request.removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
     RequestContextHolder.setRequestAttributes(null);
     LocaleContextHolder.setLocale(null);

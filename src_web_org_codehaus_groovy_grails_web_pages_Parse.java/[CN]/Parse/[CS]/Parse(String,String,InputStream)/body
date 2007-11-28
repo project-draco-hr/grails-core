@@ -3,8 +3,6 @@
   this.pageName=filename;
   makeName(name);
   Map config=ConfigurationHolder.getFlatConfig();
-  Object o=config.get(AUTO_ESCAPE_HTML);
-  if (o != null) {
-    this.escapeHTML=DefaultTypeTransformation.castToBoolean(o);
-  }
+  Object o=config.get(DEFAULT_CODEC);
+  lookupCodec(o);
 }

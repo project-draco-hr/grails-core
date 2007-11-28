@@ -1,3 +1,4 @@
 {
   assertEquals("myFunky",GrailsClassUtils.getLogicalPropertyName("MyFunkyController","Controller"));
+  assertEquals("HTML",GrailsClassUtils.getLogicalPropertyName("HTMLCodec","Codec"));
 }

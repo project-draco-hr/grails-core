@@ -2,8 +2,8 @@
   if (!finalPass)   return;
   if (LOG.isDebugEnabled())   LOG.debug("parse: expr");
   String text=scan.getToken().trim();
-  if (contentType.indexOf("text/html") > -1 && escapeHTML) {
-    out.printlnToResponse("HtmlUtils.htmlEscape(" + text + "?.toString())");
+  if (codecName != null) {
+    out.printlnToResponse("Codec.encode(" + text + ")");
   }
  else {
     out.printlnToResponse(text);

@@ -7,12 +7,6 @@
     out.println(" extends GroovyPage {");
     out.println("public Object run() {");
   }
- else {
-    for (int i=0; i < DEFAULT_IMPORTS.length; i++) {
-      out.print("import ");
-      out.println(DEFAULT_IMPORTS[i]);
-    }
-  }
   loop:   for (; ; ) {
     if (doNextScan)     state=scan.nextToken();
  else     doNextScan=true;
@@ -23,7 +17,7 @@ case HTML:
     html();
   break;
 case JEXPR:
-expr();
+scriptletExpr();
 break;
 case JSCRIPT:
 script(false);
@@ -65,5 +59,16 @@ String name=(String)i.next();
 out.println("static final " + name + " = "+ constants.get(name));
 }
 out.println("}");
+}
+ else {
+for (int i=0; i < DEFAULT_IMPORTS.length; i++) {
+out.print("import ");
+out.println(DEFAULT_IMPORTS[i]);
+}
+if (codecName != null) {
+out.print("import ");
+out.print(codecName);
+out.println(" as Codec");
+}
 }
 }

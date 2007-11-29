@@ -1,0 +1,16 @@
+{
+  if (expect == null || result == null) {
+    if (expect == null && result == null) {
+      return;
+    }
+ else {
+      fail(label + " Null expect=" + expect+ " result="+ result);
+    }
+  }
+  if (expect.length != result.length) {
+    fail(label + " Length expect=" + expect.length+ " result="+ result.length);
+  }
+  for (int i=0; i < expect.length; i++) {
+    assertEquals(label + " value[" + i+ "]",expect[i],result[i]);
+  }
+}

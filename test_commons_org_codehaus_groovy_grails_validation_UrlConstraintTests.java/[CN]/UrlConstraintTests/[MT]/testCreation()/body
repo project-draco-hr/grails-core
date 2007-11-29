@@ -7,8 +7,29 @@
   assertFalse(constraint.supports(Object.class));
   assertFalse(constraint.supports(null));
   try {
-    getConstraint("testString","wrong");
-    fail("UrlConstraint must throw an exception for non-boolean parameters.");
+    getConstraint("testString",Boolean.TRUE);
+  }
+ catch (  IllegalArgumentException iae) {
+    fail("UrlConstraint should allow boolean parameters.");
+  }
+  try {
+    getConstraint("testString","localhost");
+  }
+ catch (  IllegalArgumentException iae) {
+    fail("UrlConstraint should allow string parameters.");
+  }
+  try {
+    List regexps=new ArrayList();
+    regexps.add("aaa");
+    regexps.add("bbb");
+    getConstraint("testString",regexps);
+  }
+ catch (  IllegalArgumentException iae) {
+    fail("UrlConstraint should allow list parameters.");
+  }
+  try {
+    getConstraint("testString",new Double(1.0));
+    fail("UrlConstraint must throw an exception for non-boolean, non-string and non-list parameters.");
   }
  catch (  IllegalArgumentException iae) {
   }

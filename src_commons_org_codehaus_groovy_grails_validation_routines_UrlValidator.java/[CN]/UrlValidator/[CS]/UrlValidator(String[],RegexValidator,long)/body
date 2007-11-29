@@ -1,0 +1,14 @@
+{
+  this.options=options;
+  if (isOn(ALLOW_ALL_SCHEMES)) {
+    this.allowedSchemes=Collections.EMPTY_SET;
+  }
+ else {
+    if (schemes == null) {
+      schemes=DEFAULT_SCHEMES;
+    }
+    this.allowedSchemes=new HashSet();
+    this.allowedSchemes.addAll(Arrays.asList(schemes));
+  }
+  this.authorityValidator=authorityValidator;
+}

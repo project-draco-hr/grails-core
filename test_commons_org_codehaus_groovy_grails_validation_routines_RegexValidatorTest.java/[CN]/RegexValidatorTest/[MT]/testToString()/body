@@ -1,0 +1,6 @@
+{
+  RegexValidator single=new RegexValidator(REGEX);
+  assertEquals("Single","RegexValidator{" + REGEX + "}",single.toString());
+  RegexValidator multiple=new RegexValidator(new String[]{REGEX,REGEX});
+  assertEquals("Multiple","RegexValidator{" + REGEX + ","+ REGEX+ "}",multiple.toString());
+}

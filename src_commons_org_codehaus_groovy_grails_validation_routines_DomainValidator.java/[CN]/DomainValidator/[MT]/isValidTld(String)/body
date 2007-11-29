@@ -1,0 +1,3 @@
+{
+  return isValidInfrastructureTld(tld) || isValidGenericTld(tld) || isValidCountryCodeTld(tld);
+}

@@ -1,0 +1,6 @@
+{
+  RegexValidator validator=new RegexValidator(REGEX);
+  assertEquals("Instance isValid()",false,validator.isValid(null));
+  assertEquals("Instance validate()",null,validator.validate(null));
+  assertEquals("Instance match()",null,validator.match(null));
+}

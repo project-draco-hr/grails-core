@@ -1,0 +1,12 @@
+{
+  assertTrue("class A IP should be valid",validator.isValid("24.25.231.12"));
+  assertFalse("illegal class A IP should be invalid",validator.isValid("2.41.32.324"));
+  assertTrue("class B IP should be valid",validator.isValid("135.14.44.12"));
+  assertFalse("illegal class B IP should be invalid",validator.isValid("154.123.441.123"));
+  assertTrue("class C IP should be valid",validator.isValid("213.25.224.32"));
+  assertFalse("illegal class C IP should be invalid",validator.isValid("201.543.23.11"));
+  assertTrue("class D IP should be valid",validator.isValid("229.35.159.6"));
+  assertFalse("illegal class D IP should be invalid",validator.isValid("231.54.11.987"));
+  assertTrue("class E IP should be valid",validator.isValid("248.85.24.92"));
+  assertFalse("illegal class E IP should be invalid",validator.isValid("250.21.323.48"));
+}

@@ -1,0 +1,6 @@
+{
+  UrlValidatorTest fct=new UrlValidatorTest("url test");
+  fct.setUp();
+  fct.testIsValid();
+  fct.testIsValidScheme();
+}

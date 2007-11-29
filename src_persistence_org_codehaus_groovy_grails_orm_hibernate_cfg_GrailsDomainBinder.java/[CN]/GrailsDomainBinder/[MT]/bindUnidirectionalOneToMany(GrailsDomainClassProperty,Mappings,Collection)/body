@@ -1,8 +1,10 @@
 {
   Value v=collection.getElement();
+  v.createForeignKey();
   String entityName;
   if (v instanceof ManyToOne) {
-    entityName=((ManyToOne)v).getReferencedEntityName();
+    ManyToOne manyToOne=(ManyToOne)v;
+    entityName=manyToOne.getReferencedEntityName();
   }
  else {
     entityName=((OneToMany)v).getReferencedEntityName();

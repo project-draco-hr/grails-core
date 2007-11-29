@@ -36,10 +36,10 @@
       }
     }
  catch (    IOException e) {
-      e.printStackTrace();
+      throw new GrailsConfigurationException("Error loading plug-in descriptor [" + pluginDescriptor + "]:"+ e.getMessage(),e);
     }
 catch (    DocumentException e) {
-      e.printStackTrace();
+      throw new GrailsConfigurationException("Error loading plug-in descriptor [" + pluginDescriptor + "]:"+ e.getMessage(),e);
     }
   }
 }

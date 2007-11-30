@@ -5,7 +5,7 @@
     for (Iterator i=constructorArgs.iterator(); i.hasNext(); ) {
       cav.addGenericArgumentValue(i.next());
     }
-    if (StringUtils.isBlank(parentName)) {
+    if (parentName == null) {
       bd=new RootBeanDefinition(clazz,cav,null);
     }
  else {
@@ -14,7 +14,7 @@
     bd.setSingleton(singleton);
   }
  else {
-    if (StringUtils.isBlank(parentName)) {
+    if (parentName == null) {
       bd=new RootBeanDefinition(clazz,singleton);
     }
  else {

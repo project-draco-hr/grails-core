@@ -4,13 +4,23 @@
   for (int i=0; i < pluginResources.length; i++) {
     Resource r=pluginResources[i];
     Class pluginClass=loadPluginClass(gcl,r);
-    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,r,application);
-    grailsUserPlugins.add(plugin);
+    if (isGrailsPlugin(pluginClass)) {
+      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,r,application);
+      grailsUserPlugins.add(plugin);
+    }
+ else {
+      LOG.warn("Class [" + pluginClass + "] not loaded as plug-in. Grails plug-ins must end with the convention 'GrailsPlugin'!");
+    }
   }
   for (int i=0; i < pluginClasses.length; i++) {
     Class pluginClass=pluginClasses[i];
-    GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
-    grailsUserPlugins.add(plugin);
+    if (isGrailsPlugin(pluginClass)) {
+      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+      grailsUserPlugins.add(plugin);
+    }
+ else {
+      LOG.warn("Class [" + pluginClass + "] not loaded as plug-in. Grails plug-ins must end with the convention 'GrailsPlugin'!");
+    }
   }
   return grailsUserPlugins;
 }

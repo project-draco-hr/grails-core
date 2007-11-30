@@ -1,0 +1,3 @@
+{
+  return response.getContentType() != null && response.getContentType().indexOf("text/json") > -1;
+}

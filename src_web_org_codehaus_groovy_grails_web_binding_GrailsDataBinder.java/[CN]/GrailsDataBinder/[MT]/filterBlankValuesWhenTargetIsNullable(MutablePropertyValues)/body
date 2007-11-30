@@ -1,0 +1,15 @@
+{
+  Object target=getTarget();
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
+  if (mc.hasProperty(target,CONSTRAINTS_PROPERTY) != null) {
+    Map constrainedProperties=(Map)mc.getProperty(target,CONSTRAINTS_PROPERTY);
+    PropertyValue[] valueArray=mpvs.getPropertyValues();
+    for (int i=0; i < valueArray.length; i++) {
+      PropertyValue propertyValue=valueArray[i];
+      ConstrainedProperty cp=(ConstrainedProperty)constrainedProperties.get(propertyValue.getName());
+      if (shouldNullifyBlankString(propertyValue,cp)) {
+        propertyValue.setConvertedValue(null);
+      }
+    }
+  }
+}

@@ -2,6 +2,12 @@
   ConfigObject c=ConfigurationHolder.getConfig();
   if (c == null) {
     ConfigSlurper configSlurper=new ConfigSlurper(GrailsUtil.getEnvironment());
+    Map binding=new HashMap();
+    binding.put(CONFIG_BINDING_USER_HOME,System.getProperty("user.home"));
+    binding.put(CONFIG_BINDING_GRAILS_HOME,System.getProperty("grails.home"));
+    binding.put(CONFIG_BINDING_APP_NAME,getMetadata().get("app.name"));
+    binding.put(CONFIG_BINDING_APP_VERSION,getMetadata().get("app.version"));
+    configSlurper.setBinding(binding);
     try {
       Class scriptClass=getClassLoader().loadClass(CONFIG_CLASS);
       c=configSlurper.parse(scriptClass);

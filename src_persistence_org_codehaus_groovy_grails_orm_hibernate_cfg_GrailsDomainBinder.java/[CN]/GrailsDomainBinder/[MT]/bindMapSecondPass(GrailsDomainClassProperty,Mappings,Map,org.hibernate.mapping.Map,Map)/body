@@ -1,6 +1,6 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,map,inheritedMetas);
-  String columnName=namingStrategy.propertyToColumnName(property.getName());
+  String columnName=getColumnNameForPropertyAndPath(property,"");
   SimpleValue value=new SimpleValue(map.getCollectionTable());
   bindSimpleValue(STRING_TYPE,value,true,columnName + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
   if (!value.isTypeSpecified()) {
@@ -10,21 +10,12 @@
   if (!property.isOneToMany()) {
     SimpleValue elt=new SimpleValue(map.getCollectionTable());
     map.setElement(elt);
-    map.setInverse(false);
     bindSimpleValue(STRING_TYPE,elt,false,columnName + UNDERSCORE + IndexedCollection.DEFAULT_ELEMENT_COLUMN_NAME,mappings);
     elt.setTypeName(STRING_TYPE);
+    map.setInverse(false);
   }
  else {
-    Value element=map.getElement();
-    String entityName=((OneToMany)element).getReferencedEntityName();
-    PersistentClass referenced=mappings.getClass(entityName);
-    IndexBackref ib=new IndexBackref();
-    ib.setName(UNDERSCORE + property.getName() + "IndexBackref");
-    ib.setUpdateable(false);
-    ib.setSelectable(false);
-    ib.setCollectionRole(map.getRole());
-    ib.setEntityName(map.getOwner().getEntityName());
-    ib.setValue(map.getIndex());
-    referenced.addProperty(ib);
+    if (property.isBidirectional())     map.setInverse(true);
+ else     map.setInverse(false);
   }
 }

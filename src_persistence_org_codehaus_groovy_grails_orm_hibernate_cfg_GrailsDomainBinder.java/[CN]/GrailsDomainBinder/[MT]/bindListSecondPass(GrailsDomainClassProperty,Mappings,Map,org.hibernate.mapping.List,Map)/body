@@ -5,23 +5,25 @@
   bindSimpleValue("integer",iv,true,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);
-  String entityName;
-  Value element=list.getElement();
-  if (element instanceof ManyToOne) {
-    ManyToOne manyToOne=(ManyToOne)element;
-    entityName=manyToOne.getReferencedEntityName();
-  }
- else {
-    entityName=((OneToMany)element).getReferencedEntityName();
-  }
-  PersistentClass referenced=mappings.getClass(entityName);
-  IndexBackref ib=new IndexBackref();
-  ib.setName(UNDERSCORE + property.getName() + "IndexBackref");
-  ib.setUpdateable(false);
-  ib.setSelectable(false);
-  ib.setCollectionRole(list.getRole());
-  ib.setEntityName(list.getOwner().getEntityName());
-  ib.setValue(list.getIndex());
-  referenced.addProperty(ib);
   list.setInverse(false);
+  if (property.isBidirectional()) {
+    String entityName;
+    Value element=list.getElement();
+    if (element instanceof ManyToOne) {
+      ManyToOne manyToOne=(ManyToOne)element;
+      entityName=manyToOne.getReferencedEntityName();
+    }
+ else {
+      entityName=((OneToMany)element).getReferencedEntityName();
+    }
+    PersistentClass referenced=mappings.getClass(entityName);
+    IndexBackref ib=new IndexBackref();
+    ib.setName(UNDERSCORE + property.getName() + "IndexBackref");
+    ib.setUpdateable(false);
+    ib.setSelectable(false);
+    ib.setCollectionRole(list.getRole());
+    ib.setEntityName(list.getOwner().getEntityName());
+    ib.setValue(list.getIndex());
+    referenced.addProperty(ib);
+  }
 }

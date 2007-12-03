@@ -1,5 +1,3 @@
 {
-  ColumnConfig cc=getColumnConfig(property);
-  boolean join=cc != null && cc.getJoinTable() != null;
-  return isUnidirectionalOneToMany(property) && !isListOrMapCollection(property) && join;
+  return isUnidirectionalOneToMany(property);
 }

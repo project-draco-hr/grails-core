@@ -6,7 +6,7 @@
  else {
     ColumnConfig cc=getColumnConfig(property);
     JoinTable jt=cc != null ? cc.getJoinTable() : null;
-    if (property.isManyToMany() && jt != null) {
+    if (property.isManyToMany() && jt != null && jt.getName() != null) {
       return jt.getName();
     }
  else {
@@ -16,11 +16,11 @@
         return left + UNDERSCORE + right;
       }
  else       if (shouldCollectionBindWithJoinColumn(property)) {
-        left=trimBackTigs(left);
-        right=trimBackTigs(right);
         if (jt != null && jt.getName() != null) {
           return jt.getName();
         }
+        left=trimBackTigs(left);
+        right=trimBackTigs(right);
         return left + UNDERSCORE + right;
       }
  else {

@@ -9,6 +9,7 @@
  else {
     entityName=((OneToMany)v).getReferencedEntityName();
   }
+  collection.setInverse(false);
   PersistentClass referenced=mappings.getClass(entityName);
   Backref prop=new Backref();
   prop.setEntityName(property.getDomainClass().getFullName());

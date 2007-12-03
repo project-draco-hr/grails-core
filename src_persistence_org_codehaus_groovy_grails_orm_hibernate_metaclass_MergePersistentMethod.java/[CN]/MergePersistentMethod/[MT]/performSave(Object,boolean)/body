@@ -4,7 +4,7 @@
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       session.merge(target);
       session.lock(target,LockMode.NONE);
-      if (flush && FlushMode.isManualFlushMode(session.getFlushMode()))       getHibernateTemplate().flush();
+      if (flush)       getHibernateTemplate().flush();
       return target;
     }
   }

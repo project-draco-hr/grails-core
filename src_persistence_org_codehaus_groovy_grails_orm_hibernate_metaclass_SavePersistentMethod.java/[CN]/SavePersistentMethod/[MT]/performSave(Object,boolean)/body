@@ -3,7 +3,7 @@
   ht.execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       session.saveOrUpdate(target);
-      if (flush && FlushMode.isManualFlushMode(session.getFlushMode()))       getHibernateTemplate().flush();
+      if (flush)       getHibernateTemplate().flush();
       return target;
     }
   }

@@ -16,6 +16,8 @@
         return left + UNDERSCORE + right;
       }
  else       if (shouldCollectionBindWithJoinColumn(property)) {
+        left=trimBackTigs(left);
+        right=trimBackTigs(right);
         if (jt != null && jt.getName() != null) {
           return jt.getName();
         }

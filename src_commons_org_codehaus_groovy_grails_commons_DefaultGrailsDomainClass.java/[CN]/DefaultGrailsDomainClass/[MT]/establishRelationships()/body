@@ -2,10 +2,7 @@
   for (Iterator i=this.propertyMap.values().iterator(); i.hasNext(); ) {
     DefaultGrailsDomainClassProperty currentProp=(DefaultGrailsDomainClassProperty)i.next();
     Class currentPropType=currentProp.getType();
-    if (Collection.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
-      establishRelationshipForCollection(currentProp);
-    }
- else     if (Map.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
+    if (Collection.class.isAssignableFrom(currentPropType) || Map.class.isAssignableFrom(currentPropType) && currentProp.isPersistent()) {
       establishRelationshipForCollection(currentProp);
     }
  else     if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {

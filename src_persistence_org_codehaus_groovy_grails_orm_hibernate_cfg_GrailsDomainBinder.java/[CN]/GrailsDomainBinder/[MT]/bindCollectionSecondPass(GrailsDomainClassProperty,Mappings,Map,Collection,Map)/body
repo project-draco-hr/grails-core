@@ -25,10 +25,10 @@
   DependantValue key=createPrimaryKeyValue(property,collection,persistentClasses);
   if (property.isBidirectional()) {
     GrailsDomainClassProperty otherSide=property.getOtherSide();
-    if (otherSide.isManyToOne()) {
+    if (otherSide.isManyToOne() && shouldBindCollectionWithForeignKey(property)) {
       linkBidirectionalOneToMany(collection,associatedClass,key,otherSide);
     }
- else     if (property.isManyToMany()) {
+ else     if (property.isManyToMany() || Map.class.isAssignableFrom(property.getType())) {
       bindDependentKeyValue(property,key,mappings);
     }
   }
@@ -47,7 +47,7 @@
       collection.setCacheConcurrencyStrategy(cacheConfig.getUsage());
     }
   }
-  if (property.isManyToMany()) {
+  if (property.isManyToMany() || isBidirectionalOneToManyMap(property)) {
     GrailsDomainClassProperty otherSide=property.getOtherSide();
     if (property.isBidirectional()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Mapping other side " + otherSide.getDomainClass().getName() + "."+ otherSide.getName()+ " -> "+ collection.getCollectionTable().getName()+ " as ManyToOne");

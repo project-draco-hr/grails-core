@@ -15,7 +15,6 @@
     map.setInverse(false);
   }
  else {
-    if (property.isBidirectional())     map.setInverse(true);
- else     map.setInverse(false);
+    map.setInverse(false);
   }
 }

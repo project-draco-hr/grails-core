@@ -1,4 +1,5 @@
 {
+  application.registerArtefactHandler(new AnnotationDomainClassArtefactHandler());
   this.grailsApplication=application;
   if (this.grailsApplication != null) {
     GrailsClass[] existingDomainClasses=this.grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);

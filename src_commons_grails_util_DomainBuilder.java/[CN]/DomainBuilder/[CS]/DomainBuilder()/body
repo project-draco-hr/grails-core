@@ -1,0 +1,5 @@
+{
+  super();
+  setChildPropertySetter(new DefaultGrailsChildPropertySetter());
+  setClassLoader(ApplicationHolder.getApplication().getClassLoader());
+}

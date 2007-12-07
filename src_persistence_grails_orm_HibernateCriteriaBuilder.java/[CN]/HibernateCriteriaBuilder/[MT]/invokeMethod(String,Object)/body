@@ -1,7 +1,10 @@
 {
   Object[] args=obj.getClass().isArray() ? (Object[])obj : new Object[]{obj};
+  if (this.criteria != null)   this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
   if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(LIST_DISTINCT_CALL)|| name.equals(GET_CALL)|| name.equals(COUNT_CALL)|| name.equals(SCROLL_CALL) && args.length == 1 && args[0] instanceof Closure) {
-    if (this.criteria != null)     throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    if (this.criteria != null) {
+      throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    }
     if (name.equals(GET_CALL)) {
       this.uniqueResult=true;
     }
@@ -22,7 +25,6 @@
       this.session=sessionFactory.openSession();
     }
     this.criteria=this.session.createCriteria(targetClass);
-    this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
     invokeClosureNode(args);
     if (resultTransformer != null) {
       this.criteria.setResultTransformer(resultTransformer);

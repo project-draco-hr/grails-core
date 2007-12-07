@@ -121,8 +121,18 @@
         Criteria crit=session.createCriteria(clazz);
         crit.add(example);
         if (arguments.length > 1 && arguments[0] instanceof Map) {
-          populateArgumentsForCriteria(crit,(Map)arguments[0]);
+          populateArgumentsForCriteria(crit,(Map)arguments[1]);
         }
+        return crit.list();
+      }
+    }
+);
+  }
+ else   if (arguments[0] instanceof Map) {
+    return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        Criteria crit=session.createCriteria(clazz);
+        populateArgumentsForCriteria(crit,(Map)arguments[0]);
         return crit.list();
       }
     }

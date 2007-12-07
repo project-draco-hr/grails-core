@@ -1,3 +1,4 @@
 {
+  if (name.indexOf('-') > -1)   name=GrailsClassUtils.getPropertyNameForLowerCaseHyphenSeparatedName(name);
   return (GrailsPlugin)this.plugins.get(name);
 }

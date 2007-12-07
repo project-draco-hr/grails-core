@@ -1,4 +1,5 @@
 {
+  if (name.indexOf('-') > -1)   name=GrailsClassUtils.getPropertyNameForLowerCaseHyphenSeparatedName(name);
   GrailsPlugin plugin=(GrailsPlugin)this.plugins.get(name);
   if (plugin != null) {
     if (GrailsPluginUtils.isValidVersion(plugin.getVersion(),version.toString()))     return plugin;

@@ -10,5 +10,5 @@
   if (System.getProperty(GrailsApplication.ENVIRONMENT) != null) {
     meta.setProperty(GrailsApplication.ENVIRONMENT,System.getProperty(GrailsApplication.ENVIRONMENT));
   }
-  applicationMeta=Collections.unmodifiableMap(meta);
+  return Collections.unmodifiableMap(meta);
 }

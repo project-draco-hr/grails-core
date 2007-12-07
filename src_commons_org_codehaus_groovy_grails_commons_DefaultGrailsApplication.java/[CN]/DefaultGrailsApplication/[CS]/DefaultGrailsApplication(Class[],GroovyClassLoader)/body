@@ -8,5 +8,5 @@
   }
   this.allClasses=classes;
   this.cl=classLoader;
-  loadMetadata();
+  this.applicationMeta=loadMetadata();
 }

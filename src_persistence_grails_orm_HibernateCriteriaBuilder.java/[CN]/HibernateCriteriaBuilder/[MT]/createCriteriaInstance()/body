@@ -1,0 +1,11 @@
+{
+  if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
+    this.participate=true;
+    this.session=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();
+  }
+ else {
+    this.session=sessionFactory.openSession();
+  }
+  this.criteria=this.session.createCriteria(targetClass);
+  this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
+}

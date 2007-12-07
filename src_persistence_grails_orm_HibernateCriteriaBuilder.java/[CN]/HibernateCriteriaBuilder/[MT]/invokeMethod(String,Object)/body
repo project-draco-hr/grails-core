@@ -1,7 +1,6 @@
 {
   Object[] args=obj.getClass().isArray() ? (Object[])obj : new Object[]{obj};
-  if (this.criteria != null)   this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
-  if (name.equals(ROOT_CALL) || name.equals(LIST_CALL) || name.equals(LIST_DISTINCT_CALL)|| name.equals(GET_CALL)|| name.equals(COUNT_CALL)|| name.equals(SCROLL_CALL) && args.length == 1 && args[0] instanceof Closure) {
+  if (isCriteriaConstructionMethod(name,args)) {
     if (this.criteria != null) {
       throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
     }
@@ -17,14 +16,7 @@
  else     if (name.equals(LIST_DISTINCT_CALL)) {
       this.resultTransformer=CriteriaSpecification.DISTINCT_ROOT_ENTITY;
     }
-    if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
-      this.participate=true;
-      this.session=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();
-    }
- else {
-      this.session=sessionFactory.openSession();
-    }
-    this.criteria=this.session.createCriteria(targetClass);
+    createCriteriaInstance();
     invokeClosureNode(args);
     if (resultTransformer != null) {
       this.criteria.setResultTransformer(resultTransformer);
@@ -51,6 +43,7 @@
     return result;
   }
  else {
+    if (criteria == null)     createCriteriaInstance();
     MetaMethod metaMethod=getMetaClass().getMetaMethod(name,args);
     if (metaMethod != null) {
       return metaMethod.invoke(this,args);

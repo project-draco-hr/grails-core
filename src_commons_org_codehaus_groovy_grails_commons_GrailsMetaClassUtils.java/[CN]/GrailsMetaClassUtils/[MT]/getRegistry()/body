@@ -1,3 +1,3 @@
 {
-  return InvokerHelper.getInstance().getMetaRegistry();
+  return GroovySystem.getMetaClassRegistry();
 }

@@ -4,10 +4,11 @@
     writeInputStreamToResponse(metaInfo.getGroovySource(),out);
   }
  else {
-    if (LOG.isDebugEnabled() && !response.isCommitted()) {
+    boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
+    if (LOG.isDebugEnabled() && !contentTypeAlreadySet) {
       LOG.debug("Writing response to [" + response.getClass() + "] with content type: "+ metaInfo.getContentType());
     }
-    if (!response.isCommitted()) {
+    if (!contentTypeAlreadySet) {
       response.setContentType(metaInfo.getContentType());
     }
     Binding binding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);

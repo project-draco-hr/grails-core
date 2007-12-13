@@ -1,5 +1,8 @@
 {
   if (fragment != null) {
+    if (encoding == null) {
+      encoding=DEFAULT_ENCODING;
+    }
     try {
       return url + '#' + URLEncoder.encode(fragment,encoding);
     }

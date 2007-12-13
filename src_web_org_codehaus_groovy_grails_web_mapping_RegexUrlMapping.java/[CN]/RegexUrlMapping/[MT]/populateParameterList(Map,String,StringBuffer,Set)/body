@@ -2,6 +2,9 @@
   boolean addedParams=false;
   usedParams.add("controller");
   usedParams.add("action");
+  if (encoding == null) {
+    encoding=DEFAULT_ENCODING;
+  }
   for (Iterator i=parameterValues.keySet().iterator(); i.hasNext(); ) {
     String name=i.next().toString();
     if (!usedParams.contains(name)) {

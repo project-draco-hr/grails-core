@@ -4,7 +4,8 @@
   List result=new ArrayList();
   for (Iterator i=resources.iterator(); i.hasNext(); ) {
     Resource res=(Resource)i.next();
-    if (pathMatcher.match(res.getDescription(),StringUtils.removeStart(res.getDescription(),"/"))) {
+    String path=res instanceof ClassPathResource ? ((ClassPathResource)res).getPath() : res.getDescription();
+    if (pathMatcher.match(locationPattern,path)) {
       result.add(res);
     }
   }

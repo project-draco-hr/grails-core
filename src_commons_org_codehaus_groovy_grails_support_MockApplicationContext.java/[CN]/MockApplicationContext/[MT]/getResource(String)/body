@@ -5,5 +5,11 @@
       return mockResource;
     }
   }
+  for (Iterator i=ignoredClassLocations.iterator(); i.hasNext(); ) {
+    String resourceLocation=(String)i.next();
+    if (pathMatcher.match(StringUtils.removeStart(location,"/"),resourceLocation)) {
+      return null;
+    }
+  }
   return new ClassPathResource(location);
 }

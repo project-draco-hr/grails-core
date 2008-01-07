@@ -17,16 +17,4 @@
   }
  catch (  IllegalArgumentException iae) {
   }
-  try {
-    getConstraint("{ Long param1, param2 -> return true}");
-    fail("ValidatorConstraint must throw exception about wrong closure param type");
-  }
- catch (  IllegalArgumentException iae) {
-  }
-  try {
-    getConstraint("{ param1, String param2 -> return true}");
-    fail("ValidatorConstraint must throw exception about wrong closure param type");
-  }
- catch (  IllegalArgumentException iae) {
-  }
 }

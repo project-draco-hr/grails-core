@@ -11,7 +11,7 @@
       Class clazz=allClasses[i];
       if (TestCase.class.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
         log.debug("Adding test [" + clazz.getName() + "]");
-        s.addTest(new GrailsTestSuite(appCtx.getBeanFactory(),clazz));
+        s.addTest(new GrailsTestSuite(appCtx,clazz));
       }
  else {
         log.debug("[" + clazz.getName() + "] is not a test case.");

@@ -1,7 +1,7 @@
 {
   Object[] args=(Object[])arg;
   final boolean isResponseCode=isResponseCode(methodName);
-  this.parameterValues.clear();
+  this.parameterValues=new HashMap();
   if (methodName.startsWith(SLASH) || isResponseCode) {
     try {
       urlDefiningMode=false;

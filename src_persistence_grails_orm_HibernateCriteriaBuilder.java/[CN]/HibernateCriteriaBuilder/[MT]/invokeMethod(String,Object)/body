@@ -77,7 +77,7 @@
       if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
         if (this.criteria == null)         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
         this.logicalExpressionStack.add(new LogicalExpression(name));
-        invokeClosureNode(args);
+        invokeClosureNode(args[0]);
         LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
         addToCriteria(logicalExpression.toCriterion());
         return name;
@@ -85,7 +85,7 @@
  else       if (name.equals(PROJECTIONS) && args.length == 1 && (args[0] instanceof Closure)) {
         if (this.criteria == null)         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
         this.projectionList=Projections.projectionList();
-        invokeClosureNode(args);
+        invokeClosureNode(args[0]);
         if (this.projectionList != null && this.projectionList.getLength() > 0) {
           this.criteria.setProjection(this.projectionList);
         }
@@ -95,7 +95,7 @@
         this.criteria.createAlias(name.toString(),name.toString() + ALIAS,CriteriaSpecification.LEFT_JOIN);
         this.aliasStack.add(name.toString() + ALIAS);
         logicalExpressionStack.push(new LogicalExpression(AND));
-        invokeClosureNode(args);
+        invokeClosureNode(args[0]);
         aliasStack.remove(aliasStack.size() - 1);
         LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
         if (!logicalExpression.args.isEmpty()) {

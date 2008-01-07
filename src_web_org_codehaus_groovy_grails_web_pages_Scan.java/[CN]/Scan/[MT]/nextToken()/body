@@ -106,7 +106,15 @@ return found(HTML,1);
 }
 break;
 case GTAG_EXPR:
-if (c == '}') return found(GSTART_TAG,1);
+if (c == '{') exprBracketCount++;
+ else if (c == '}') {
+if (exprBracketCount > 0) {
+exprBracketCount--;
+}
+ else {
+return found(GSTART_TAG,1);
+}
+}
 break;
 case GEXPR:
 case GDIRECT:

@@ -9,8 +9,8 @@
       if (arguments != null && arguments.length > 0) {
         if (arguments[0] instanceof Map) {
           Map argMap=(Map)arguments[0];
-          argMap.put(ARGUMENT_SORT,propertyName);
-          populateArgumentsForCriteria(crit,argMap);
+          argMap.put(GrailsHibernateUtil.ARGUMENT_SORT,propertyName);
+          GrailsHibernateUtil.populateArgumentsForCriteria(crit,argMap);
         }
  else {
           crit.addOrder(Order.asc(propertyName));

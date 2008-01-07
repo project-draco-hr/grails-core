@@ -6,7 +6,7 @@
       if (arguments.length > 0) {
         if (arguments[0] instanceof Map) {
           Map argMap=(Map)arguments[0];
-          populateArgumentsForCriteria(c,argMap);
+          GrailsHibernateUtil.populateArgumentsForCriteria(c,argMap);
         }
       }
       if (operator.equals(OPERATOR_OR)) {

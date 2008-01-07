@@ -16,8 +16,15 @@
  else     if (name.equals(LIST_DISTINCT_CALL)) {
       this.resultTransformer=CriteriaSpecification.DISTINCT_ROOT_ENTITY;
     }
+    boolean paginationEnabledList=false;
     createCriteriaInstance();
-    invokeClosureNode(args);
+    if (name.equals(LIST_CALL) && args.length == 2) {
+      paginationEnabledList=true;
+      invokeClosureNode(args[1]);
+    }
+ else {
+      invokeClosureNode(args[0]);
+    }
     if (resultTransformer != null) {
       this.criteria.setResultTransformer(resultTransformer);
     }
@@ -29,6 +36,16 @@
  else       if (count) {
         this.criteria.setProjection(Projections.rowCount());
         result=this.criteria.uniqueResult();
+      }
+ else       if (paginationEnabledList) {
+        GrailsHibernateUtil.populateArgumentsForCriteria(this.criteria,(Map)args[0]);
+        PagedResultList pagedRes=new PagedResultList(this.criteria.list());
+        this.criteria.setFirstResult(0);
+        this.criteria.setMaxResults(Integer.MAX_VALUE);
+        this.criteria.setProjection(Projections.rowCount());
+        int totalCount=((Integer)this.criteria.uniqueResult()).intValue();
+        pagedRes.setTotalCount(totalCount);
+        result=pagedRes;
       }
  else {
         result=this.criteria.list();

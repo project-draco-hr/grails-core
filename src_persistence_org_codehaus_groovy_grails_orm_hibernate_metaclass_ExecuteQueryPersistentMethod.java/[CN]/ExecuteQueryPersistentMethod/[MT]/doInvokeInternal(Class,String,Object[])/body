@@ -7,11 +7,11 @@
   return getHibernateTemplate().executeFind(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(query);
-      if (paginateParams.containsKey(ARGUMENT_MAX)) {
-        q.setMaxResults(((Number)paginateParams.get(ARGUMENT_MAX)).intValue());
+      if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
+        q.setMaxResults(((Number)paginateParams.get(GrailsHibernateUtil.ARGUMENT_MAX)).intValue());
       }
-      if (paginateParams.containsKey(ARGUMENT_OFFSET)) {
-        q.setFirstResult(((Number)paginateParams.remove(ARGUMENT_OFFSET)).intValue());
+      if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET)) {
+        q.setFirstResult(((Number)paginateParams.remove(GrailsHibernateUtil.ARGUMENT_OFFSET)).intValue());
       }
       int index=0;
       for (Iterator iterator=positionalParams.iterator(); iterator.hasNext(); index++) {

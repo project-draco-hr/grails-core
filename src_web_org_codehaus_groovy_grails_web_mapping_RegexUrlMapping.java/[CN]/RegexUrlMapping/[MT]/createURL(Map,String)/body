@@ -1,6 +1,7 @@
 {
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
-  StringBuffer uri=new StringBuffer();
+  StringBuffer uri=new StringBuffer(webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest()));
   Set usedParams=new HashSet();
   String[] tokens=urlData.getTokens();
   int paramIndex=0;

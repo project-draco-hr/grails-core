@@ -4,7 +4,7 @@
     GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,persistentClass.getName());
     if (dc == null) {
       GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,cmd);
-      hibernateDomainClassMap.put(persistentClass.getClass().getName(),ghdc);
+      hibernateDomainClassMap.put(persistentClass.getName(),ghdc);
       dc=(GrailsDomainClass)application.addArtefact(DomainClassArtefactHandler.TYPE,ghdc);
     }
   }

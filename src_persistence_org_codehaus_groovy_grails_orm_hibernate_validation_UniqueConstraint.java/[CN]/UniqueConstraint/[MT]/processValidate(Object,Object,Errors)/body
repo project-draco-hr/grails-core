@@ -1,7 +1,9 @@
 {
   if (unique) {
     final Object id=InvokerHelper.invokeMethod(target,"ident",null);
-    List results=this.constraintHibernateTemplate.executeFind(new HibernateCallback(){
+    HibernateTemplate hibernateTemplate=getHibernateTemplate();
+    if (hibernateTemplate == null)     throw new IllegalStateException("Unable use [unique] constraint, no Hibernate SessionFactory found!");
+    List results=hibernateTemplate.executeFind(new HibernateCallback(){
       public Object doInHibernate(      Session session) throws HibernateException {
         session.setFlushMode(FlushMode.MANUAL);
         try {

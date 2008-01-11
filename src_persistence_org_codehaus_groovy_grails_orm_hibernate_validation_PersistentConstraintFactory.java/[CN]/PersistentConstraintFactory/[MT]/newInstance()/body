@@ -1,7 +1,7 @@
 {
   try {
     PersistentConstraint instance=(PersistentConstraint)constraintClass.newInstance();
-    instance.setHibernateTemplate(new HibernateTemplate(sessionFactory,false));
+    instance.setApplicationContext(applicationContext);
     return instance;
   }
  catch (  InstantiationException e) {

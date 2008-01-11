@@ -1,7 +1,8 @@
 {
   cl.parseClass("dataSource {\n" + "\t\t\tdbCreate = \"create-drop\" // one of 'create', 'create-drop','update'\n" + "\t\t\turl = \"jdbc:hsqldb:mem:devDB\" \n"+ "\tpooled = false\n"+ "\tdriverClassName = \"org.hsqldb.jdbcDriver\"\n"+ "\tusername = \"sa\"\n"+ "\tpassword = \"\"\n"+ "}","DataSource");
-  Class groovyClass=cl.parseClass("public class CriteriaBuilderTestClass {\n" + "\n" + "\tLong id; \n"+ "\tLong version; \n"+ "\tdef relatesToMany = [children:CriteriaBuilderTestClass]; \n"+ "\t\n"+ "\tString firstName; \n"+ "\tString lastName; \n"+ "\tInteger age;\n"+ "\tSet children;\n"+ "\tCriteriaBuilderTestClass parent;\n"+ "\t\n"+ "\tstatic constraints = {\n"+ "\t\tfirstName(size:4..15)\n"+ "\t\tage(nullable:true)\n"+ "\t\tparent(nullable:true)\n"+ "\t}\n"+ "}");
-  grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass},cl);
+  Class groovyClass2=cl.parseClass("public class CriteriaBuilderTestClass2 {\n" + "\n" + "\tLong id; \n"+ "\tLong version; \n"+ "\tString firstName; \n"+ "}");
+  Class groovyClass=cl.parseClass("public class CriteriaBuilderTestClass {\n" + "\n" + "\tLong id; \n"+ "\tLong version; \n"+ "\tdef hasMany = [children:CriteriaBuilderTestClass, children2:CriteriaBuilderTestClass2]; \n"+ "\t\n"+ "\tString firstName; \n"+ "\tString lastName; \n"+ "\tInteger age;\n"+ "\tSet children;\n"+ "\tSet children2;\n"+ "\tCriteriaBuilderTestClass parent;\n"+ "\t\n"+ "\tstatic constraints = {\n"+ "\t\tfirstName(size:4..15)\n"+ "\t\tage(nullable:true)\n"+ "\t\tparent(nullable:true)\n"+ "\t}\n"+ "}");
+  grailsApplication=new DefaultGrailsApplication(new Class[]{groovyClass,groovyClass2},cl);
   ExpandoMetaClass.enableGlobally();
   MockApplicationContext parent=new MockApplicationContext();
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,grailsApplication);

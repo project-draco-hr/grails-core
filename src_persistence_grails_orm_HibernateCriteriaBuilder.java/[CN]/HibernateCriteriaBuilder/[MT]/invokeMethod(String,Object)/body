@@ -92,16 +92,36 @@
         return name;
       }
  else       if (targetBean.isReadableProperty(name.toString())) {
-        this.criteria.createAlias(name.toString(),name.toString() + ALIAS,CriteriaSpecification.LEFT_JOIN);
-        this.aliasStack.add(name.toString() + ALIAS);
-        logicalExpressionStack.push(new LogicalExpression(AND));
-        invokeClosureNode(args[0]);
-        aliasStack.remove(aliasStack.size() - 1);
-        LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
-        if (!logicalExpression.args.isEmpty()) {
-          addToCriteria(logicalExpression.toCriterion());
+        ClassMetadata meta=sessionFactory.getClassMetadata(targetBean.getWrappedClass());
+        Type type=meta.getPropertyType(name.toString());
+        if (type.isAssociationType()) {
+          String otherSideEntityName=((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
+          Class oldTargetClass=targetClass;
+          targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
+          BeanWrapper oldTargetBean=targetBean;
+          targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
+          associationStack.push(name.toString());
+          String newAlias=name.toString() + ALIAS + aliasStack.size();
+          StringBuffer fullPath=new StringBuffer();
+          for (Iterator i=associationStack.iterator(); i.hasNext(); ) {
+            String propertyName=(String)i.next();
+            if (fullPath.length() > 0)             fullPath.append(".");
+            fullPath.append(propertyName);
+          }
+          this.criteria.createAlias(fullPath.toString(),newAlias,CriteriaSpecification.LEFT_JOIN);
+          this.aliasStack.add(newAlias);
+          logicalExpressionStack.push(new LogicalExpression(AND));
+          invokeClosureNode(args[0]);
+          aliasStack.remove(aliasStack.size() - 1);
+          LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+          if (!logicalExpression.args.isEmpty()) {
+            addToCriteria(logicalExpression.toCriterion());
+          }
+          associationStack.pop();
+          targetClass=oldTargetClass;
+          targetBean=oldTargetBean;
+          return name;
         }
-        return name;
       }
     }
  else     if (args.length == 1 && args[0] != null) {

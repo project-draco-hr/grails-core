@@ -13,11 +13,16 @@
   obj2.setProperty("parent",obj);
   obj2.invokeMethod("save",null);
   GroovyObject obj3=(GroovyObject)domainClass.newInstance();
-  obj3.setProperty("firstName","list");
+  obj3.setProperty("firstName","lisa");
   obj3.setProperty("lastName","simpson");
   obj3.setProperty("age",new Integer(9));
-  obj3.setProperty("parent",obj);
+  obj3.setProperty("parent",obj2);
   obj3.invokeMethod("save",null);
-  List results=(List)parse(".list { " + "children { " + "eq('firstName','bart');"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
+  GroovyObject obj4=(GroovyObject)domainClass.newInstance();
+  obj4.setProperty("firstName","maggie");
+  obj4.setProperty("lastName","simpson");
+  obj4.setProperty("age",new Integer(9));
+  obj4.invokeMethod("save",null);
+  List results=(List)parse(".list { " + "children { " + "eq('firstName','bart');"+ "children { "+ "eq('firstName','lisa');"+ "}"+ "}"+ "}","Test1","CriteriaBuilderTestClass");
   assertEquals(1,results.size());
 }

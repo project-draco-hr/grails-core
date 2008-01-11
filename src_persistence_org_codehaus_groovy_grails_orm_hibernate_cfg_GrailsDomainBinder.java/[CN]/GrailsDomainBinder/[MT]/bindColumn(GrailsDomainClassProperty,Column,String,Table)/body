@@ -31,6 +31,19 @@
       }
     }
   }
+  ConstrainedProperty cp=getConstrainedProperty(grailsProp);
+  if (cp != null && cp.hasAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT)) {
+    UniqueConstraint uc=(UniqueConstraint)cp.getAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT);
+    if (uc != null && uc.isUnique() && !uc.isUniqueWithinGroup()) {
+      column.setUnique(true);
+    }
+  }
+ else {
+    Object val=cp != null ? cp.getMetaConstraintValue(UniqueConstraint.UNIQUE_CONSTRAINT) : null;
+    if (val instanceof Boolean) {
+      column.setUnique(((Boolean)val).booleanValue());
+    }
+  }
   bindIndex(grailsProp,column,table);
   if (!grailsProp.getDomainClass().isRoot()) {
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Sub class property [" + grailsProp.getName() + "] for column name ["+ column.getName()+ "] in table ["+ table.getName()+ "] set to nullable");

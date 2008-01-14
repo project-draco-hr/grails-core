@@ -6,4 +6,5 @@
   if (order != null && List.class.isAssignableFrom(order.getClass())) {
     cleaningOrder=(List)order;
   }
+  this.testClass=clazz;
 }

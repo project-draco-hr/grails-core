@@ -1,5 +1,6 @@
 {
   List expressions=new ArrayList();
+  if (arguments == null)   arguments=new Object[0];
   Matcher match=super.getPattern().matcher(methodName);
   match.find();
   String[] queryParameters;

@@ -1,0 +1,5 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(MANY_TO_MANY_CLASSES_DEFINITION);
+  assertColumnNotNullable("vet_specialty","vets_id",config);
+  assertColumnNotNullable("vet_specialty","specialities_id",config);
+}

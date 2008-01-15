@@ -1,0 +1,6 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(MANY_TO_MANY_CLASSES_DEFINITION);
+  Table table=getTableMapping("vet_specialty",config);
+  assertNotNull("VET_SPECIALTY table has a PK",table.getPrimaryKey());
+  assertEquals("VET_SPECIALTY table has a 2 column PK",2,table.getPrimaryKey().getColumns().size());
+}

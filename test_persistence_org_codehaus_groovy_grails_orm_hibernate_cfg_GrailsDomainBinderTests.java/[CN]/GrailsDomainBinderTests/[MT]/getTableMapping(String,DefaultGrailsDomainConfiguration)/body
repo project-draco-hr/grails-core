@@ -1,0 +1,10 @@
+{
+  Table result=null;
+  for (Iterator tableMappings=config.getTableMappings(); tableMappings.hasNext(); ) {
+    Table table=(Table)tableMappings.next();
+    if (tablename.equals(table.getName())) {
+      result=table;
+    }
+  }
+  return result;
+}

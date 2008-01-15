@@ -1,3 +1,5 @@
 {
-  return isUnidirectionalOneToMany(property);
+  ColumnConfig cc=getColumnConfig(property);
+  JoinTable jt=cc != null ? cc.getJoinTable() : new JoinTable();
+  return isUnidirectionalOneToMany(property) && jt != null;
 }

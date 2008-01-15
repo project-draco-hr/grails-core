@@ -1,7 +1,7 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(cl.parseClass("public class BinderTestClass {\n" + "    Long id; \n" + "    Long version; \n"+ "\n"+ "    String firstName; \n"+ "    String lastName; \n"+ "    String comment; \n"+ "    Integer age;\n"+ "    boolean active = true"+ "\n"+ "    static constraints = {\n"+ "        firstName(nullable:true,size:4..15)\n"+ "        lastName(nullable:false)\n"+ "        age(nullable:true)\n"+ "    }\n"+ "}"));
-  DefaultGrailsDomainConfiguration config=getDomainConfig(cl,new Class[]{domainClass.getClazz()});
+  DefaultGrailsDomainConfiguration config=getDomainConfig(cl,cl.getLoadedClasses());
   PersistentClass persistentClass=config.getClassMapping("BinderTestClass");
   assertTrue("Property [firstName] must be optional in db mapping",persistentClass.getProperty("firstName").isOptional());
   assertFalse("Property [lastName] must be required in db mapping",persistentClass.getProperty("lastName").isOptional());

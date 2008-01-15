@@ -15,7 +15,10 @@
         }
       }
     }
-    column.setNullable(true);
+    if (grailsProp.isManyToMany())     column.setNullable(false);
+ else {
+      column.setNullable(grailsProp.isOptional());
+    }
   }
  else {
     String columnName=getColumnNameForPropertyAndPath(grailsProp,path);

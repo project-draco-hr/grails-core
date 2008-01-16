@@ -36,8 +36,6 @@
   if (StringUtils.isBlank(actionName)) {
     if (controllerClass.isScaffolding() && !scaffolder.supportsAction(actionName))     throw new NoClosurePropertyForURIException("Could not find closure property for URI [" + uri + "] for controller ["+ controllerClass.getFullName()+ "]!");
   }
-  FlashScope fs=this.grailsAttributes.getFlashScope(request);
-  fs.next();
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,this.grailsAttributes);
   String viewName=controllerClass.getViewByURI(uri);
   boolean executeAction=invokeBeforeInterceptor(controller,controllerClass);

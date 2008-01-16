@@ -8,6 +8,8 @@
   }
   try {
     request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
+    FlashScope fs=webRequest.getAttributes().getFlashScope(request);
+    fs.next();
     filterChain.doFilter(request,response);
   }
   finally {

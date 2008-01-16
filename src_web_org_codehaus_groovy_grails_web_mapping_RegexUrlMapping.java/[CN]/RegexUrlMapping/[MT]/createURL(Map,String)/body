@@ -1,7 +1,15 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  ServletContext servletContext=ServletContextHolder.getServletContext();
+  String contextPath;
+  if (servletContext != null) {
+    contextPath=servletContext.getContextPath();
+  }
+ else {
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    contextPath=webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest());
+  }
   if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
-  StringBuffer uri=new StringBuffer(webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest()));
+  StringBuffer uri=new StringBuffer(contextPath);
   Set usedParams=new HashSet();
   String[] tokens=urlData.getTokens();
   int paramIndex=0;

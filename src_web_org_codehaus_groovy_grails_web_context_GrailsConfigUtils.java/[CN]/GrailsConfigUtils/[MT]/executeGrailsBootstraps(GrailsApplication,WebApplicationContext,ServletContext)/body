@@ -1,0 +1,23 @@
+{
+  PersistenceContextInterceptor interceptor=null;
+  String[] beanNames=webContext.getBeanNamesForType(PersistenceContextInterceptor.class);
+  if (beanNames.length > 0) {
+    interceptor=(PersistenceContextInterceptor)webContext.getBean(beanNames[0]);
+  }
+  if (interceptor != null) {
+    interceptor.init();
+    try {
+      GrailsClass[] bootstraps=application.getArtefacts(BootstrapArtefactHandler.TYPE);
+      for (int i=0; i < bootstraps.length; i++) {
+        final GrailsBootstrapClass bootstrapClass=(GrailsBootstrapClass)bootstraps[i];
+        final Object instance=bootstrapClass.getReference().getWrappedInstance();
+        webContext.getAutowireCapableBeanFactory().autowireBeanProperties(instance,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
+        bootstrapClass.callInit(servletContext);
+      }
+      interceptor.flush();
+    }
+  finally {
+      interceptor.destroy();
+    }
+  }
+}

@@ -4,7 +4,7 @@
   if (parameterValues.containsKey(ARGUMENT_ID)) {
     id=parameterValues.get(ARGUMENT_ID).toString();
   }
-  StringBuffer actualUriBuf=new StringBuffer(webRequest.getAttributes().getApplicationUri(request));
+  StringBuffer actualUriBuf=includeContextPath ? new StringBuffer(webRequest.getAttributes().getApplicationUri(request)) : new StringBuffer();
   if (actionName != null) {
     if (actionName.indexOf(SLASH) > -1) {
       actualUriBuf.append(actionName);

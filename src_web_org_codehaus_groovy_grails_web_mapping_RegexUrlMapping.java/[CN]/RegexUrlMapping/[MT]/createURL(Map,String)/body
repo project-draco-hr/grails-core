@@ -1,36 +1,3 @@
 {
-  ServletContext servletContext=ServletContextHolder.getServletContext();
-  String contextPath;
-  if (servletContext != null) {
-    contextPath=servletContext.getContextPath();
-  }
- else {
-    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-    contextPath=webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest());
-  }
-  if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
-  StringBuffer uri=new StringBuffer(contextPath);
-  Set usedParams=new HashSet();
-  String[] tokens=urlData.getTokens();
-  int paramIndex=0;
-  for (int i=0; i < tokens.length; i++) {
-    String token=tokens[i];
-    if (CAPTURED_WILDCARD.equals(token) || CAPTURED_DOUBLE_WILDCARD.equals(token)) {
-      ConstrainedProperty prop=this.constraints[paramIndex++];
-      String propName=prop.getPropertyName();
-      Object value=parameterValues.get(propName);
-      usedParams.add(propName);
-      if (value == null && !prop.isNullable())       throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
- else       if (value == null)       break;
-      uri.append(SLASH).append(value);
-    }
- else {
-      uri.append(SLASH).append(token);
-    }
-  }
-  populateParameterList(parameterValues,encoding,uri,usedParams);
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Created reverse URL mapping [" + uri.toString() + "] for parameters ["+ parameterValues+ "]");
-  }
-  return uri.toString();
+  return createURLInternal(parameterValues,encoding,true);
 }

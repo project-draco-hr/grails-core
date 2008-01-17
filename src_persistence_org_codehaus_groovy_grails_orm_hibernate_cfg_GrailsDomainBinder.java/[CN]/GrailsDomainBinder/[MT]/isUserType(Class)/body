@@ -1,0 +1,4 @@
+{
+  if (userType == null)   return false;
+  return UserType.class.isAssignableFrom(userType);
+}

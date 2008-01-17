@@ -1,0 +1,17 @@
+{
+  Class userType=null;
+  ColumnConfig cc=getColumnConfig(currentGrailsProp);
+  Object typeObj=cc != null ? cc.getType() : null;
+  if (typeObj instanceof Class) {
+    userType=(Class)typeObj;
+  }
+ else   if (typeObj != null) {
+    String typeName=typeObj.toString();
+    try {
+      userType=Class.forName(typeName);
+    }
+ catch (    ClassNotFoundException e) {
+    }
+  }
+  return userType;
+}

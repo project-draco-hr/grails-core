@@ -9,6 +9,7 @@
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
+    Class userType=getUserType(currentGrailsProp);
     if (collectionType != null) {
       Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings);
       mappings.addCollection(collection);
@@ -19,7 +20,7 @@
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
     }
- else     if (currentGrailsProp.isOneToOne() && !UserType.class.isAssignableFrom(currentGrailsProp.getType())) {
+ else     if (currentGrailsProp.isOneToOne() && !isUserType(userType)) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);

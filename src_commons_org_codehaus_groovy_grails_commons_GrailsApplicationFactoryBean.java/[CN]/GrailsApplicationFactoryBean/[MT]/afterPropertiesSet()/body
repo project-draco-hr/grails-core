@@ -1,6 +1,8 @@
 {
   if (descriptor != null && descriptor.exists()) {
-    GroovyClassLoader classLoader=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
+    CompilerConfiguration config=CompilerConfiguration.DEFAULT;
+    config.setSourceEncoding("UTF-8");
+    GroovyClassLoader classLoader=new GroovyClassLoader(Thread.currentThread().getContextClassLoader(),config);
     List classes=new ArrayList();
     SAXReader reader=new SAXReader();
     InputStream inputStream=null;

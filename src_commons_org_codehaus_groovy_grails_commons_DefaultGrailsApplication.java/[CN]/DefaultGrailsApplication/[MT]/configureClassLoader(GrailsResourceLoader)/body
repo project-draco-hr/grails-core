@@ -1,13 +1,14 @@
 {
   final ClassLoader contextLoader=Thread.currentThread().getContextClassLoader();
+  CompilerConfiguration config=CompilerConfiguration.DEFAULT;
+  config.setSourceEncoding("UTF-8");
   ClassLoader rootLoader=DefaultGroovyMethods.getRootLoader(contextLoader);
-  ClassLoader parentLoader=beanClassLoader != null ? beanClassLoader : contextLoader;
   GroovyClassLoader cl;
   if (rootLoader != null) {
-    cl=new GrailsClassLoader(contextLoader,resourceLoader);
+    cl=new GrailsClassLoader(contextLoader,config,resourceLoader);
   }
  else {
-    GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader);
+    GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader,config);
     if (resourceLoader != null)     gcl.setResourceLoader(resourceLoader);
     gcl.setClassInjectors(new ClassInjector[]{new DefaultGrailsDomainClassInjector()});
     cl=gcl;

@@ -1,6 +1,6 @@
 {
   try {
-    Reader reader=new InputStreamReader(in);
+    Reader reader=new InputStreamReader(in,encoding);
     char[] buf=new char[8192];
     for (; ; ) {
       int read=reader.read(buf);

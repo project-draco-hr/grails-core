@@ -1,9 +1,13 @@
 {
   StringWriter sw=new StringWriter();
   PrintWriter pw=new PrintWriter(sw);
-  InputStream gspIn=new ByteArrayInputStream(gsp.getBytes());
+  Object enc=ConfigurationHolder.getFlatConfig().get("grails.views.gsp.encoding");
+  if ((enc == null) || (enc.toString().trim().length() == 0)) {
+    enc=System.getProperty("file.encoding","us-ascii");
+  }
+  InputStream gspIn=new ByteArrayInputStream(gsp.getBytes(enc.toString()));
   Parse parse=new Parse(uri,uri,gspIn);
   InputStream in=parse.parse();
-  send(in,pw);
+  send(in,pw,enc.toString());
   return sw.toString();
 }

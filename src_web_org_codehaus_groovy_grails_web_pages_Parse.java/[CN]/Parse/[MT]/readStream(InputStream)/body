@@ -7,7 +7,7 @@
       if (read <= 0)       break;
       out.write(buf,0,read);
     }
-    return out.toString();
+    return out.toString(gspEncoding);
   }
   finally {
     out.close();

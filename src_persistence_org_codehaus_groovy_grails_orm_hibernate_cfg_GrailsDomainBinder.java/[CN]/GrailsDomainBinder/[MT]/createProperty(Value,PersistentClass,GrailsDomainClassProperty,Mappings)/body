@@ -1,15 +1,14 @@
 {
   value.setTypeUsingReflection(persistentClass.getClassName(),grailsProperty.getName());
-  if (value instanceof ToOne) {
-    ToOne toOne=(ToOne)value;
-    String propertyRef=toOne.getReferencedPropertyName();
-    if (propertyRef != null) {
-    }
-  }
- else   if (value instanceof Collection) {
-  }
   if (value.getTable() != null)   value.createForeignKey();
   Property prop=new Property();
+  ColumnConfig cc=getColumnConfig(grailsProperty);
+  if (cc != null) {
+    prop.setLazy(cc.getLazy());
+  }
+ else   if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
+    prop.setLazy(true);
+  }
   prop.setValue(value);
   bindProperty(grailsProperty,prop,mappings);
   return prop;

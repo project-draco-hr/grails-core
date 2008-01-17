@@ -5,8 +5,10 @@
     manyToOne.setLazy(cc.getLazy());
   }
  else {
-    manyToOne.setLazy(true);
+    manyToOne.setLazy(false);
   }
   manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
-  manyToOne.setIgnoreNotFound(true);
+  if (manyToOne.isLazy()) {
+    manyToOne.setIgnoreNotFound(false);
+  }
 }

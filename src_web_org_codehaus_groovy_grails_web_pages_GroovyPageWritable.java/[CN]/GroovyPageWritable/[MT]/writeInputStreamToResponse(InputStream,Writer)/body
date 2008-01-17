@@ -1,7 +1,7 @@
 {
   try {
     in.reset();
-    Reader reader=new InputStreamReader(in);
+    Reader reader=new InputStreamReader(in,"UTF-8");
     char[] buf=new char[8192];
     for (; ; ) {
       int read=reader.read(buf);

@@ -1,7 +1,8 @@
 {
+  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   View v;
   if (viewName.startsWith(String.valueOf(SLASH))) {
-    v=viewResolver.resolveViewName(viewName,request.getLocale());
+    v=viewResolver.resolveViewName(viewName,webRequest.getLocale());
   }
  else {
     StringBuffer buf=new StringBuffer();
@@ -10,7 +11,7 @@
       buf.append(controllerName).append(SLASH);
     }
     buf.append(viewName);
-    v=viewResolver.resolveViewName(buf.toString(),request.getLocale());
+    v=viewResolver.resolveViewName(buf.toString(),webRequest.getLocale());
   }
   return v;
 }

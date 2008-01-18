@@ -1,6 +1,6 @@
 {
   String src="This is just plain ASCII to make sure test works on all platforms";
-  assertFalse(src.contains("?"));
+  assertEquals(src.indexOf('?'),-1);
   ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"\"");
   ConfigurationHolder.setConfig(config);
   String output=null;

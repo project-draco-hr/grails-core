@@ -1,6 +1,6 @@
 {
   String src="Chinese text: \u3421\u3437\u343f\u3443\u3410\u3405\u38b3\u389a\u395e\u3947\u3adb\u3b5a\u3b67";
-  assertFalse(src.contains("?"));
+  assertEquals(src.indexOf('?'),-1);
   ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"UTF-8\"");
   ConfigurationHolder.setConfig(config);
   String output=null;

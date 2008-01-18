@@ -18,6 +18,7 @@
           }
         }
  catch (        ClassNotFoundException e) {
+          GrailsUtil.deepSanitize(e);
           log.error("Class not found attempting to load class " + e.getMessage(),e);
         }
       }
@@ -28,6 +29,7 @@
           c=cl.loadClass(resourceHolder.getClassName(resources[i]));
         }
  catch (        ClassNotFoundException e) {
+          GrailsUtil.deepSanitize(e);
           log.error("Class not found attempting to load class " + e.getMessage(),e);
         }
         if (c != null)         loadedClasses.add(c);

@@ -5,6 +5,7 @@
     meta.load(r.getInputStream());
   }
  catch (  IOException e) {
+    GrailsUtil.deepSanitize(e);
     log.warn("No application metadata file found at " + r);
   }
   if (System.getProperty(GrailsApplication.ENVIRONMENT) != null) {

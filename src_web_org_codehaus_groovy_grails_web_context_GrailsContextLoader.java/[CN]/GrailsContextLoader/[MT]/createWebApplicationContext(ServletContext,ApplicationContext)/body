@@ -3,9 +3,16 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("[GrailsContextLoader] Loading context. Creating parent application context");
   }
-  WebApplicationContext ctx=super.createWebApplicationContext(servletContext,parent);
-  GrailsApplication application=(GrailsApplication)ctx.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-  ctx=GrailsConfigUtils.configureWebApplicationContext(servletContext,ctx);
-  GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
+  WebApplicationContext ctx=null;
+  try {
+    ctx=super.createWebApplicationContext(servletContext,parent);
+    GrailsApplication application=(GrailsApplication)ctx.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    ctx=GrailsConfigUtils.configureWebApplicationContext(servletContext,ctx);
+    GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
+  }
+ catch (  BeansException e) {
+    GrailsUtil.deepSanitize(e);
+    throw e;
+  }
   return ctx;
 }

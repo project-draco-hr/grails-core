@@ -1,12 +1,8 @@
 {
-  ServletContext servletContext=ServletContextHolder.getServletContext();
   String contextPath="";
   if (includeContextPath) {
-    if (servletContext != null) {
-      contextPath=servletContext.getContextPath();
-    }
- else {
-      GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+    if (webRequest != null) {
       contextPath=webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest());
     }
   }

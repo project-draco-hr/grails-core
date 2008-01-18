@@ -1,3 +1,4 @@
 {
+  if (optionalTokens.size() >= index)   return true;
   return optionalTokens.get(index).equals(Boolean.TRUE);
 }

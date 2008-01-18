@@ -1,5 +1,9 @@
 {
   GrailsDomainConfiguration config=(GrailsDomainConfiguration)BeanUtils.instantiateClass(configClass);
   config.setGrailsApplication(grailsApplication);
+  if (currentSessionContextClass != null) {
+    ((Configuration)config).setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS,currentSessionContextClass.getName());
+    setExposeTransactionAwareSessionFactory(false);
+  }
   return (Configuration)config;
 }

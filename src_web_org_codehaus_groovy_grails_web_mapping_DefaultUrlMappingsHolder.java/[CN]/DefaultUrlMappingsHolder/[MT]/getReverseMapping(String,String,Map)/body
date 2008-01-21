@@ -1,6 +1,6 @@
 {
   if (params == null)   params=Collections.EMPTY_MAP;
-  UrlMapping mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,action,params.keySet()));
+  UrlMapping mapping=lookupMapping(controller,action,params);
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
     mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,action,Collections.EMPTY_SET));
   }

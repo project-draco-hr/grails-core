@@ -1,0 +1,11 @@
+{
+  Set paramSet=params.keySet();
+  List paramList=new ArrayList(paramSet);
+  UrlMapping mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,action,paramSet));
+  while (!paramList.isEmpty() && mapping == null) {
+    paramList.remove(paramList.size() - 1);
+    paramSet=new HashSet(paramList);
+    mapping=(UrlMapping)mappingsLookup.get(new UrlMappingKey(controller,action,paramSet));
+  }
+  return mapping;
+}

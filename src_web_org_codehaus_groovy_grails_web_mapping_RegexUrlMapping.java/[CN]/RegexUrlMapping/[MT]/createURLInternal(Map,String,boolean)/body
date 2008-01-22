@@ -1,4 +1,5 @@
 {
+  if (encoding == null)   encoding="utf-8";
   String contextPath="";
   if (includeContextPath) {
     GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();

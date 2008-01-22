@@ -1,5 +1,5 @@
 {
-  if (domainClass.getMappingStrategy().equalsIgnoreCase(GrailsDomainClass.GORM)) {
+  if (!AnnotationDomainClassArtefactHandler.isJPADomainClass(domainClass.getClazz())) {
     this.domainClasses.add(domainClass);
   }
   return this;

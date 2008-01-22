@@ -1,0 +1,12 @@
+{
+  ColumnConfig cc=getColumnConfig(property);
+  oneToOne.setConstrained(!property.isOwningSide());
+  oneToOne.setForeignKeyType(!property.isOwningSide() ? ForeignKeyDirection.FOREIGN_KEY_FROM_PARENT : ForeignKeyDirection.FOREIGN_KEY_TO_PARENT);
+  if (cc != null) {
+    oneToOne.setLazy(cc.getLazy());
+  }
+ else {
+    oneToOne.setLazy(false);
+  }
+  bindSimpleValue(property,oneToOne,path,mappings);
+}

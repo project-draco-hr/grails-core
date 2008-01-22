@@ -16,6 +16,9 @@
       }
     }
     if (grailsProp.isManyToMany())     column.setNullable(false);
+ else     if ((grailsProp.isOneToOne() || grailsProp.isManyToOne()) && grailsProp.isBidirectional() && !grailsProp.isOwningSide()) {
+      column.setNullable(true);
+    }
  else {
       column.setNullable(grailsProp.isOptional());
     }

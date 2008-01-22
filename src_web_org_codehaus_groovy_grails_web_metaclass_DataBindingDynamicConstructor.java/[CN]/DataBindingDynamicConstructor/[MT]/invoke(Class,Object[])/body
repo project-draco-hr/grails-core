@@ -17,6 +17,36 @@ catch (    IllegalAccessException e1) {
   }
   if (map != null) {
     DataBindingUtils.bindObjectToInstance(instance,map);
+    GrailsDomainClass domainClass=null;
+    String domainClassBeanName=clazz.getName() + "DomainClass";
+    if (applicationContext != null && applicationContext.containsBean(domainClassBeanName)) {
+      domainClass=(GrailsDomainClass)applicationContext.getBean(domainClassBeanName);
+    }
+    if (map instanceof Map && domainClass != null) {
+      Map theMap=(Map)map;
+      for (Iterator i=theMap.keySet().iterator(); i.hasNext(); ) {
+        Object key=i.next();
+        String propertyName=key.toString();
+        if (propertyName.indexOf('.') > -1) {
+          propertyName=propertyName.substring(0,propertyName.indexOf('.'));
+        }
+        if (domainClass.hasPersistentProperty(propertyName)) {
+          GrailsDomainClassProperty prop=domainClass.getPropertyByName(propertyName);
+          if (prop != null && prop.isOneToOne() && prop.isBidirectional()) {
+            Object val=theMap.get(key);
+            GrailsDomainClassProperty otherSide=prop.getOtherSide();
+            if (val != null && otherSide != null) {
+              MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(val.getClass());
+              try {
+                mc.setProperty(val,otherSide.getName(),instance);
+              }
+ catch (              Exception e) {
+              }
+            }
+          }
+        }
+      }
+    }
   }
   return instance;
 }

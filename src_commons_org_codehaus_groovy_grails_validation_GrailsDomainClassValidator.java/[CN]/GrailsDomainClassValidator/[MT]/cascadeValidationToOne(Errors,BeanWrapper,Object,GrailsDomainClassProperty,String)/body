@@ -1,6 +1,6 @@
 {
   if (associatedObject != null) {
-    GrailsDomainClass associatedDomainClass=persistentProperty.getReferencedDomainClass();
+    GrailsDomainClass associatedDomainClass=persistentProperty.isEmbedded() ? persistentProperty.getComponent() : persistentProperty.getReferencedDomainClass();
     if (associatedDomainClass != null && associatedDomainClass.isOwningClass(bean.getWrappedClass())) {
       GrailsDomainClassProperty otherSide=null;
       if (persistentProperty.isBidirectional()) {

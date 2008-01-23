@@ -9,7 +9,7 @@
     if (constrainedProperties.containsKey(propertyName)) {
       validatePropertyWithConstraint(propertyName,obj,errors,bean,constrainedProperties);
     }
-    if (persistentProperty.isAssociation() && cascade) {
+    if ((persistentProperty.isAssociation() || persistentProperty.isEmbedded()) && cascade) {
       cascadeToAssociativeProperty(errors,bean,persistentProperty);
     }
   }

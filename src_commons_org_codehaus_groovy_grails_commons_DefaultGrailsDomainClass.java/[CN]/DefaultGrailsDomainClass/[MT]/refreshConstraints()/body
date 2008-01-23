@@ -1,3 +1,8 @@
 {
-  evaluateConstraints();
+  try {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),this.persistantProperties);
+  }
+ catch (  IntrospectionException e) {
+    LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);
+  }
 }

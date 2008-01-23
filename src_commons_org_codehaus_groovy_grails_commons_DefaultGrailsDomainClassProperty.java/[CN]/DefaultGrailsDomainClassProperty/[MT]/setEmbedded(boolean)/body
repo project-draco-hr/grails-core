@@ -1,3 +1,6 @@
 {
   this.embedded=isEmbedded;
+  if (isEmbedded) {
+    this.component=new ComponentDomainClass(getType());
+  }
 }

@@ -1,3 +1,4 @@
 {
-  return getGrailsApplication().isArtefactOfType(DomainClassArtefactHandler.TYPE,clazz);
+  String name=trimProxySuffix(clazz.getName());
+  return getGrailsApplication().isArtefactOfType(DomainClassArtefactHandler.TYPE,name);
 }

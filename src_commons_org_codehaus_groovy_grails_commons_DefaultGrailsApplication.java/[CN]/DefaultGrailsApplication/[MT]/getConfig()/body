@@ -14,8 +14,7 @@
       ConfigurationHolder.setConfig(c);
     }
  catch (    ClassNotFoundException e) {
-      GrailsUtil.deepSanitize(e);
-      log.debug("Could not find config class [" + CONFIG_CLASS + "]. This is probably nothing to worry about, it is not required to have a config: "+ e.getMessage(),e);
+      log.debug("Could not find config class [" + CONFIG_CLASS + "]. This is probably nothing to worry about, it is not required to have a config: "+ e.getMessage());
       c=new ConfigObject();
     }
     try {
@@ -23,7 +22,6 @@
       c.merge(configSlurper.parse(dataSourceClass));
     }
  catch (    ClassNotFoundException e) {
-      GrailsUtil.deepSanitize(e);
       log.debug("Cound not find data source class [" + DATA_SOURCE_CLASS + "]. This may be what you are expecting, but will result in Grails loading with an in-memory database");
     }
   }

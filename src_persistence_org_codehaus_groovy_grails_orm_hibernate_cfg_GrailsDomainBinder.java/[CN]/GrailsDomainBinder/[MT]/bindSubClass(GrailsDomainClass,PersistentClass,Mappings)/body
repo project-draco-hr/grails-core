@@ -1,4 +1,5 @@
 {
+  evaluateMapping(sub);
   Mapping m=getMapping(parent.getClassName());
   Subclass subClass;
   boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();

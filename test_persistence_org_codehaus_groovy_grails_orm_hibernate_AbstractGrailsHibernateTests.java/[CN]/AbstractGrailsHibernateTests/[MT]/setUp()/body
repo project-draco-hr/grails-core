@@ -10,7 +10,6 @@
     Class aClass=gcl.getLoadedClasses()[i];
     GroovySystem.getMetaClassRegistry().removeMetaClass(aClass);
   }
-  System.out.println("gcl.getLoadedClasses() = " + ArrayUtils.toString(gcl.getLoadedClasses()));
   ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
   ApplicationHolder.setApplication(ga);
   MockApplicationContext mc=new MockApplicationContext();

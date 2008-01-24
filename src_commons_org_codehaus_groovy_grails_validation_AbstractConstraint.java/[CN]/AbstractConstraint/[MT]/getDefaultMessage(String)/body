@@ -1,7 +1,7 @@
 {
   String defaultMessage;
   try {
-    if (messageSource != null)     defaultMessage=messageSource.getMessage(code,null,Locale.getDefault());
+    if (messageSource != null)     defaultMessage=messageSource.getMessage(code,null,LocaleContextHolder.getLocale());
  else     defaultMessage=(String)ConstrainedProperty.DEFAULT_MESSAGES.get(code);
   }
  catch (  Exception e) {

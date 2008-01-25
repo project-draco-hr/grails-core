@@ -1,0 +1,13 @@
+{
+  writer.object();
+  Class enumClass=en.getClass();
+  property("enumType",enumClass.getName());
+  Method nameMethod=BeanUtils.findDeclaredMethod(enumClass,"name",null);
+  try {
+    property("name",nameMethod.invoke(en,null));
+  }
+ catch (  Exception e) {
+    property("name","");
+  }
+  writer.endObject();
+}

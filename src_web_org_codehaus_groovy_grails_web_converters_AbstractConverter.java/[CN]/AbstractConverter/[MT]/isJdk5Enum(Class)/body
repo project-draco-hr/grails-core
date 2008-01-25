@@ -1,0 +1,8 @@
+{
+  if (JdkVersion.getMajorJavaVersion() >= JdkVersion.JAVA_15) {
+    return type.isEnum();
+  }
+ else {
+    return false;
+  }
+}

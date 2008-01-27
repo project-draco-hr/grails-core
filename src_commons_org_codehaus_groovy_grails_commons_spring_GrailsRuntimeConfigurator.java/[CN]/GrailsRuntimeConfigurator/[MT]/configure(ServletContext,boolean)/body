@@ -1,13 +1,6 @@
 {
   Assert.notNull(application);
   WebRuntimeSpringConfiguration springConfig=new WebRuntimeSpringConfiguration(parent,application.getClassLoader());
-  if (parent != null) {
-    Map beans=parent.getBeansOfType(BeanFactoryPostProcessor.class);
-    for (Iterator i=beans.values().iterator(); i.hasNext(); ) {
-      BeanFactoryPostProcessor bfpp=(BeanFactoryPostProcessor)i.next();
-      springConfig.registerPostProcessor(bfpp);
-    }
-  }
   if (context != null) {
     springConfig.setServletContext(context);
     this.pluginManager.setServletContext(context);

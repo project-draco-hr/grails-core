@@ -1,0 +1,19 @@
+{
+  try {
+    Class groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,classLoader);
+    if (groovySpringResourcesClass != null) {
+      final BeanBuilder bb=new BeanBuilder(Thread.currentThread().getContextClassLoader());
+      bb.setSpringConfig(config);
+      Script script=(Script)groovySpringResourcesClass.newInstance();
+      script.run();
+      Object beans=script.getProperty("beans");
+      bb.beans((Closure)beans);
+      if (context != null) {
+        bb.registerBeans(context);
+      }
+    }
+  }
+ catch (  Exception ex) {
+    LOG.warn("[RuntimeConfiguration] Unable to perform load beans from resources.groovy",ex);
+  }
+}

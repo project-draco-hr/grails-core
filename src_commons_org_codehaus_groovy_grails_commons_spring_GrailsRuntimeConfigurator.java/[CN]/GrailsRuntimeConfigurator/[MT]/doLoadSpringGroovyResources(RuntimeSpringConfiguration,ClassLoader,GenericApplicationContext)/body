@@ -1,6 +1,11 @@
 {
   try {
-    Class groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,classLoader);
+    Class groovySpringResourcesClass=null;
+    try {
+      groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,classLoader);
+    }
+ catch (    ClassNotFoundException e) {
+    }
     if (groovySpringResourcesClass != null) {
       final BeanBuilder bb=new BeanBuilder(Thread.currentThread().getContextClassLoader());
       bb.setSpringConfig(config);

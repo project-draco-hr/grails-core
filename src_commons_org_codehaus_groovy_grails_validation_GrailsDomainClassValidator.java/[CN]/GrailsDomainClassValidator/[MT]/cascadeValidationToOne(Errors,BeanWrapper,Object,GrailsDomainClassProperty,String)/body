@@ -14,6 +14,7 @@
         for (int i=0; i < associatedPersistentProperties.length; i++) {
           GrailsDomainClassProperty associatedPersistentProperty=associatedPersistentProperties[i];
           if (associatedPersistentProperty.equals(otherSide))           continue;
+          if (persistentProperty.isEmbedded() && EMBEDDED_EXCLUDES.contains(associatedPersistentProperty.getName()))           continue;
           String associatedPropertyName=associatedPersistentProperty.getName();
           if (associatedConstraintedProperties.containsKey(associatedPropertyName)) {
             validatePropertyWithConstraint(errors.getNestedPath() + associatedPropertyName,associatedObject,errors,new BeanWrapperImpl(associatedObject),associatedConstraintedProperties);

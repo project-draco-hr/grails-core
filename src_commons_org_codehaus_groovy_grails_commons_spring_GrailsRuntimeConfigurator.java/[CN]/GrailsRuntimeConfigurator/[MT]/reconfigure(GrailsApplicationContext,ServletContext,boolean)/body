@@ -13,5 +13,5 @@
   }
   this.pluginManager.doDynamicMethods();
   this.pluginManager.doPostProcessing(current);
-  if (loadExternalBeans)   doPostResourceConfiguration(springConfig);
+  if (loadExternalBeans)   doPostResourceConfiguration(application,springConfig);
 }

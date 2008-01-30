@@ -2,7 +2,15 @@
   super();
   this.request=request;
   this.parameterMap=new HashMap();
-  final Map requestMap=request.getParameterMap();
+  final Map requestMap=new HashMap(request.getParameterMap());
+  if (request instanceof MultipartHttpServletRequest) {
+    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
+    Map fileMap=multipartRequest.getFileMap();
+    for (Iterator i=fileMap.keySet().iterator(); i.hasNext(); ) {
+      Object fileName=i.next();
+      requestMap.put(fileName,multipartRequest.getFile((String)fileName));
+    }
+  }
   for (Iterator it=requestMap.keySet().iterator(); it.hasNext(); ) {
     String key=(String)it.next();
     Object paramValue=getParameterValue(requestMap,key);

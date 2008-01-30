@@ -1,0 +1,9 @@
+{
+  if (application.isWarDeployed()) {
+    return super.getResource(location);
+  }
+ else {
+    location=getRealLocationInProject(location);
+    return super.getResource(location);
+  }
+}

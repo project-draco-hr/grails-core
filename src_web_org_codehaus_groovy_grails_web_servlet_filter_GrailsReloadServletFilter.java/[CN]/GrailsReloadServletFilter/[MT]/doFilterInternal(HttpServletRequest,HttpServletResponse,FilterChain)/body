@@ -23,15 +23,6 @@
     filterChain.doFilter(httpServletRequest,httpServletResponse);
     return;
   }
-  if (copyScript == null) {
-    copyScript=new GrailsResourceCopier();
-  }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Running copy script...");
-  }
-  if (copyScript != null) {
-    copyScript.copyResourceBundles();
-  }
   if (manager == null) {
     manager=PluginManagerHolder.getPluginManager();
   }

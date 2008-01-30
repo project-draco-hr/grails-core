@@ -18,7 +18,8 @@
   try {
     ModelAndView mv=null;
     try {
-      processedRequest=checkMultipart(request);
+      Object exceptionAttribute=request.getAttribute(EXCEPTION_ATTRIBUTE);
+      if (exceptionAttribute == null)       processedRequest=checkMultipart(request);
       previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
       copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);

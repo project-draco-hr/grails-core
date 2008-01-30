@@ -1,6 +1,6 @@
 {
   try {
-    BeanWrapper beanWrapper=new BeanWrapperImpl(o);
+    BeanWrapper beanWrapper=createBeanWrapper(o);
     GrailsDomainClass domainClass=ConverterUtil.getDomainClass(o.getClass().getName());
     if (domainClass != null) {
       writer.object();

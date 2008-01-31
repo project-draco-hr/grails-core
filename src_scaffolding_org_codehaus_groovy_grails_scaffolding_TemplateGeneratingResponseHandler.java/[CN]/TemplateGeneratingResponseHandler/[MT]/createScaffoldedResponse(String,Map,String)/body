@@ -10,7 +10,7 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("Generating view [" + uri + "] for scaffolded class ["+ scaffoldedClass+ "]");
     }
-    if (!GrailsUtil.isDevelopmentEnv()) {
+    if (grailsApplication.isWarDeployed()) {
       templateGenerator.setResourceLoader(this.applicationContext);
     }
     templateGenerator.generateView((GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,scaffoldedClass.getName()),actionName,pw);

@@ -1,7 +1,8 @@
 {
   ResourceLoader resourceLoader;
   ApplicationContext ctx=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  if (ctx.containsBean(GroovyPageResourceLoader.BEAN_ID) && GrailsUtil.isDevelopmentEnv()) {
+  GrailsApplication application=(GrailsApplication)ctx.getBean(GrailsApplication.APPLICATION_ID);
+  if (ctx.containsBean(GroovyPageResourceLoader.BEAN_ID) && !application.isWarDeployed()) {
     resourceLoader=(ResourceLoader)ctx.getBean(GroovyPageResourceLoader.BEAN_ID);
   }
  else {

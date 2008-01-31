@@ -1,6 +1,6 @@
 {
   GroovyPagesTemplateEngine templateEngine=(GroovyPagesTemplateEngine)applicationContext.getBean(GroovyPagesTemplateEngine.BEAN_ID);
-  if (!GrailsUtil.isDevelopmentEnv()) {
+  if (this.grailsApplication.isWarDeployed()) {
     templateEngine.setResourceLoader(this.applicationContext);
   }
   return templateEngine;

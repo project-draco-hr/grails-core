@@ -1,0 +1,9 @@
+{
+  Collection properties=metaClass.getProperties();
+  Collection values=new ArrayList();
+  for (Iterator i=properties.iterator(); i.hasNext(); ) {
+    MetaProperty mp=(MetaProperty)i.next();
+    values.add(mp.getProperty(instance));
+  }
+  return values;
+}

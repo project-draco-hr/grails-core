@@ -1,0 +1,9 @@
+{
+  Collection properties=metaClass.getProperties();
+  Set entries=new HashSet();
+  for (Iterator i=properties.iterator(); i.hasNext(); ) {
+    MetaProperty mp=(MetaProperty)i.next();
+    entries.add(new MapEntry(mp.getName(),mp.getProperty(instance)));
+  }
+  return entries;
+}

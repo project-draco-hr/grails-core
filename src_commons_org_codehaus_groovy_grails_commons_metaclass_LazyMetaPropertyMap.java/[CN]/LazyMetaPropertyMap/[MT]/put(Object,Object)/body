@@ -1,0 +1,11 @@
+{
+  if (propertyName instanceof GString)   propertyName=propertyName.toString();
+  if (!(propertyName instanceof String))   throw new IllegalArgumentException("This map implementation only supports String based keys!");
+  Object old=null;
+  MetaProperty mp=metaClass.getMetaProperty((String)propertyName);
+  if (mp != null) {
+    old=mp.getProperty(instance);
+    mp.setProperty(instance,propertyValue);
+  }
+  return old;
+}

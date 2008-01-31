@@ -1,0 +1,5 @@
+{
+  if (propertyName instanceof GString)   propertyName=propertyName.toString();
+  if (!(propertyName instanceof String))   throw new IllegalArgumentException("This map implementation only supports String based keys!");
+  return metaClass.getMetaProperty((String)propertyName) != null;
+}

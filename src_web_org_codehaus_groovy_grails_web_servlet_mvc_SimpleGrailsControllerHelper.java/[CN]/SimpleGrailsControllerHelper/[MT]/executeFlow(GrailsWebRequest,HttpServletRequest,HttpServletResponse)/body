@@ -11,12 +11,14 @@
     ServletExternalContext externalContext=new ServletExternalContext(getServletContext(),request,response){
       public String getDispatcherPath(){
         String forwardURI=(String)request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
-        if (!StringUtils.isBlank(forwardURI)) {
-          forwardURI=forwardURI.substring(1);
-          forwardURI=forwardURI.substring(forwardURI.indexOf('/'),forwardURI.length());
+        UrlPathHelper pathHelper=new UrlPathHelper();
+        String contextPath=pathHelper.getContextPath(request);
+        if (forwardURI.startsWith(contextPath)) {
+          return forwardURI.substring(contextPath.length(),forwardURI.length());
+        }
+ else {
           return forwardURI;
         }
-        return super.getDispatcherPath();
       }
     }
 ;

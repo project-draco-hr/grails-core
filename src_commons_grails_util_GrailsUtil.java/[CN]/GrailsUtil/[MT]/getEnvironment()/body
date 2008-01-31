@@ -5,8 +5,8 @@
     Map metadata=app.getMetadata();
     if (metadata != null)     envName=(String)metadata.get(GrailsApplication.ENVIRONMENT);
   }
-  if (StringUtils.isBlank(envName))   envName=System.getProperty(GrailsApplication.ENVIRONMENT);
-  if (StringUtils.isBlank(envName)) {
+  if (isBlank(envName))   envName=System.getProperty(GrailsApplication.ENVIRONMENT);
+  if (isBlank(envName)) {
     return GrailsApplication.ENV_DEVELOPMENT;
   }
  else {

@@ -6,12 +6,13 @@
   HttpServletResponse response=webRequest.getCurrentResponse();
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;
-  if (response.getContentType() == null)   response.setContentType(TEXT_HTML);
   if ((arguments[0] instanceof String) || (arguments[0] instanceof GString)) {
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
     String text=arguments[0].toString();
     renderView=renderText(text,response);
   }
  else   if (arguments[0] instanceof Closure) {
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
     Closure closure=(Closure)arguments[arguments.length - 1];
     renderView=renderMarkup(closure,response);
   }
@@ -21,14 +22,15 @@
     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
       String contentType=argMap.get(ARGUMENT_CONTENT_TYPE).toString();
       String encoding=argMap.get(ARGUMENT_ENCODING).toString();
-      response.setContentType(contentType + ";charset=" + encoding);
+      setContentType(response,contentType,encoding);
       out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
  else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
-      response.setContentType(argMap.get(ARGUMENT_CONTENT_TYPE).toString());
+      setContentType(response,argMap.get(ARGUMENT_CONTENT_TYPE).toString(),DEFAULT_ENCODING);
       out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
  else {
+      setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
       out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
     webRequest.setOut(out);

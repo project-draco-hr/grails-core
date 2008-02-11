@@ -1,3 +1,6 @@
 {
-  parameterMap.putAll(map);
+  for (Iterator i=map.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    put(key,map.get(key));
+  }
 }

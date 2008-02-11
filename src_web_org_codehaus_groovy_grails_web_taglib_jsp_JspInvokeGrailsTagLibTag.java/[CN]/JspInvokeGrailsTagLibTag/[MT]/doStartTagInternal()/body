@@ -32,7 +32,7 @@
             invocationArgs.add(ZERO_ARGUMENTS);
           }
           out.print("<jsp-body-gen" + invocationCount + ">");
-          return null;
+          return "";
         }
       }
 ;

@@ -1,0 +1,4 @@
+{
+  super(sessionFactory,transactionManager);
+  this.localSessionFactory=sessionFactory;
+}

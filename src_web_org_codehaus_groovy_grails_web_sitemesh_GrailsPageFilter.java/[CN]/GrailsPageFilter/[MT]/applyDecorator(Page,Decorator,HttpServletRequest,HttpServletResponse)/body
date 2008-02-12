@@ -2,6 +2,7 @@
   final String uriPath=decorator.getURIPath();
   if (uriPath != null && uriPath.endsWith(".gsp")) {
     request.setAttribute(PAGE,page);
+    detectContentTypeFromPage(page,response);
     RequestDispatcher rd=request.getRequestDispatcher(decorator.getURIPath());
     if (!response.isCommitted()) {
       if (LOG.isDebugEnabled()) {

@@ -1,3 +1,3 @@
 {
-  return metaClass.getProperties().size();
+  return keySet().size();
 }

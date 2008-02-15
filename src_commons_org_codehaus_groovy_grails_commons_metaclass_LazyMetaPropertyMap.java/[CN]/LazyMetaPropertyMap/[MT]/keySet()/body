@@ -3,6 +3,7 @@
   Set names=new HashSet();
   for (Iterator i=properties.iterator(); i.hasNext(); ) {
     MetaProperty mp=(MetaProperty)i.next();
+    if (EXCLUDES.contains(mp.getName()))     continue;
     names.add(mp.getName());
   }
   return names;

@@ -1,5 +1,5 @@
 {
-  response.setContentType("text/xml");
+  response.setContentType(GrailsWebUtil.getContentType("text/xml",this.encoding));
   try {
     Writer writer=response.getWriter();
     String encoding=response.getCharacterEncoding();

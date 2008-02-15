@@ -1,10 +1,19 @@
 {
   if (value != null) {
-    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
-    if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
-      Object errors=mc.getProperty(value,ERRORS_PROPERTY);
-      if (errors != null) {
-        next.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
+    if (value instanceof Collection) {
+      Collection values=(Collection)value;
+      for (Iterator i=values.iterator(); i.hasNext(); ) {
+        Object current=i.next();
+        storeErrorsIfPossible(current);
+      }
+    }
+ else {
+      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
+      if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
+        Object errors=mc.getProperty(value,ERRORS_PROPERTY);
+        if (errors != null) {
+          next.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
+        }
       }
     }
   }

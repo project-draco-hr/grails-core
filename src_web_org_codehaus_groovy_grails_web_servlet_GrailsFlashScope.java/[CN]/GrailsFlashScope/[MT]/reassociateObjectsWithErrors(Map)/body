@@ -5,13 +5,6 @@
     if (value instanceof Map) {
       reassociateObjectsWithErrors((Map)value);
     }
-    String errorsKey=ERRORS_PREFIX + System.identityHashCode(value);
-    Object errors=scope.get(errorsKey);
-    if (value != null && errors != null) {
-      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
-      if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
-        mc.setProperty(value,ERRORS_PROPERTY,errors);
-      }
-    }
+    reasssociateObjectWithErrors(scope,value);
   }
 }

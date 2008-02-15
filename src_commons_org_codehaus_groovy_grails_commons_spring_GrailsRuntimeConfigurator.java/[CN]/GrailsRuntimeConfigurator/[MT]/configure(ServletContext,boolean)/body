@@ -13,9 +13,12 @@
     application.initialise();
   }
   this.pluginManager.registerProvidedArtefacts(application);
+  registerParentBeanFactoryPostProcessors(springConfig);
   this.pluginManager.doRuntimeConfiguration(springConfig);
   LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
-  if (loadExternalBeans)   doPostResourceConfiguration(application,springConfig);
+  if (loadExternalBeans) {
+    doPostResourceConfiguration(application,springConfig);
+  }
   WebApplicationContext ctx=(WebApplicationContext)springConfig.getApplicationContext();
   this.pluginManager.setApplicationContext(ctx);
   this.pluginManager.doDynamicMethods();

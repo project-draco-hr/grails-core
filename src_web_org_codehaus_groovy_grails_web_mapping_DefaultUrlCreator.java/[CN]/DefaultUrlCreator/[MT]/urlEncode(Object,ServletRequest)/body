@@ -1,7 +1,6 @@
 {
   try {
-    String charset=request.getCharacterEncoding();
-    return URLEncoder.encode(obj.toString(),(charset != null) ? charset : GrailsWebUtil.DEFAULT_ENCODING);
+    return URLEncoder.encode(obj.toString(),request.getCharacterEncoding());
   }
  catch (  UnsupportedEncodingException ex) {
     throw new ControllerExecutionException("Error creating URL, cannot URLEncode to the client's character encoding: " + ex.getMessage(),ex);

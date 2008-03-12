@@ -1,5 +1,6 @@
 {
   SessionFactory sf=super.newSessionFactory(config);
-  GrailsHibernateUtil.configureHibernateDomainClasses(sf,getGrailsApplication());
+  GrailsApplication application=getGrailsApplication();
+  if (application != null)   GrailsHibernateUtil.configureHibernateDomainClasses(sf,application);
   return sf;
 }

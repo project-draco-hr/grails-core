@@ -5,7 +5,10 @@
   bindSimpleValue("integer",iv,true,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);
+  list.setBaseIndex(0);
   list.setInverse(false);
+  Value v=list.getElement();
+  v.createForeignKey();
   if (property.isBidirectional()) {
     String entityName;
     Value element=list.getElement();
@@ -17,6 +20,19 @@
       entityName=((OneToMany)element).getReferencedEntityName();
     }
     PersistentClass referenced=mappings.getClass(entityName);
+    Backref prop=new Backref();
+    prop.setEntityName(property.getDomainClass().getFullName());
+    prop.setName(UNDERSCORE + property.getDomainClass().getShortName() + UNDERSCORE+ property.getName()+ "Backref");
+    prop.setSelectable(false);
+    prop.setUpdateable(false);
+    prop.setInsertable(true);
+    prop.setCollectionRole(list.getRole());
+    prop.setValue(list.getKey());
+    DependantValue value=(DependantValue)prop.getValue();
+    value.setNullable(false);
+    value.setUpdateable(true);
+    prop.setOptional(false);
+    referenced.addProperty(prop);
     IndexBackref ib=new IndexBackref();
     ib.setName(UNDERSCORE + property.getName() + "IndexBackref");
     ib.setUpdateable(false);

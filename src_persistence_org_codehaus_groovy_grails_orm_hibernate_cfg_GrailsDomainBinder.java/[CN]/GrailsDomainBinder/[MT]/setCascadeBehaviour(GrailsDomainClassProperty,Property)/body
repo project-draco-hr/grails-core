@@ -19,7 +19,7 @@
     }
  else     if (grailsProperty.isManyToOne()) {
       if (referenced != null && referenced.isOwningClass(domainClass.getClazz()))       cascadeStrategy=CASCADE_ALL;
- else       cascadeStrategy=CASCADE_MERGE;
+ else       cascadeStrategy=CASCADE_NONE;
     }
   }
  else   if (Map.class.isAssignableFrom(grailsProperty.getType())) {

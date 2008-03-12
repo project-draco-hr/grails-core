@@ -1,7 +1,13 @@
 {
   prop.setName(grailsProperty.getName());
-  prop.setInsertable(true);
-  prop.setUpdateable(true);
+  if (isBidirectionalManyToOneWithListMapping(grailsProperty,prop)) {
+    prop.setInsertable(false);
+    prop.setUpdateable(false);
+  }
+ else {
+    prop.setInsertable(true);
+    prop.setUpdateable(true);
+  }
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());
   setCascadeBehaviour(grailsProperty,prop);

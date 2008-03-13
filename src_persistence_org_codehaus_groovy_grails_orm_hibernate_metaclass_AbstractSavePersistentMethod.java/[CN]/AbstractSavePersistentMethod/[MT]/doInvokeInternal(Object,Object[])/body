@@ -27,6 +27,5 @@
   if (domainClass != null) {
     autoRetrieveAssocations(domainClass,target);
   }
-  performSave(target,shouldFlush(arguments));
-  return target;
+  return performSave(target,shouldFlush(arguments));
 }

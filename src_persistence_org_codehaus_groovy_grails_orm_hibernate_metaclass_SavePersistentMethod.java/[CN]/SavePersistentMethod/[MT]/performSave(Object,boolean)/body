@@ -1,6 +1,6 @@
 {
   HibernateTemplate ht=getHibernateTemplate();
-  ht.execute(new HibernateCallback(){
+  return ht.execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       session.saveOrUpdate(target);
       if (flush)       getHibernateTemplate().flush();

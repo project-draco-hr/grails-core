@@ -61,12 +61,18 @@
     }
  else     if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
       String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
+      Object cp=argMap.get(ARGUMENT_CONTEXTPATH);
+      String contextPath=(cp != null ? cp.toString() : "");
       String var=(String)argMap.get(ARGUMENT_VAR);
       GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)controller.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
       String templateUri=attrs.getTemplateUri(templateName,request);
       GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
       try {
-        Template t=engine.createTemplate(templateUri);
+        Resource r=engine.getResourceForUri(contextPath + templateUri);
+        if (!r.exists()) {
+          r=engine.getResourceForUri(contextPath + "/grails-app/views/" + templateUri);
+        }
+        Template t=engine.createTemplate(r);
         if (t == null) {
           throw new ControllerExecutionException("Unable to load template for uri [" + templateUri + "]. Template not found.");
         }

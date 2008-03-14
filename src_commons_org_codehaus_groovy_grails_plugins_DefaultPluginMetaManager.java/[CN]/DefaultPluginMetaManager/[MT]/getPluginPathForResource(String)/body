@@ -1,7 +1,9 @@
 {
   PluginMeta pluginMeta=(PluginMeta)resourceToPluginMap.get(resourceName);
   if (pluginMeta != null) {
-    return PLUGINS_PATH + pluginMeta.name + '-'+ pluginMeta.version;
+    String path=PLUGINS_PATH + pluginMeta.name + '-'+ pluginMeta.version;
+    path=path.substring(1);
+    return path;
   }
   return null;
 }

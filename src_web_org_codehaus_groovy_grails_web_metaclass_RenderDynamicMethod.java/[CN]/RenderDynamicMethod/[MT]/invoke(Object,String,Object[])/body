@@ -7,12 +7,12 @@
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;
   if ((arguments[0] instanceof String) || (arguments[0] instanceof GString)) {
-    setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
     String text=arguments[0].toString();
     renderView=renderText(text,response);
   }
  else   if (arguments[0] instanceof Closure) {
-    setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
     Closure closure=(Closure)arguments[arguments.length - 1];
     renderView=renderMarkup(closure,response);
   }
@@ -30,7 +30,7 @@
       out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
  else {
-      setContentType(response,TEXT_HTML,DEFAULT_ENCODING);
+      setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
       out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
     }
     webRequest.setOut(out);

@@ -1,0 +1,10 @@
+{
+  if (referenced == null)   return null;
+  Class current=referenced.getClazz();
+  while (true) {
+    Class superClass=current.getSuperclass();
+    if (Object.class.equals(superClass))     break;
+    current=superClass;
+  }
+  return getMapping(current.getName());
+}

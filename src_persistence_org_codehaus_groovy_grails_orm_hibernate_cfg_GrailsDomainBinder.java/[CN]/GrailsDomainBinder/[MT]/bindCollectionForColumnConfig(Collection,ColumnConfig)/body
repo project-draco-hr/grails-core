@@ -1,6 +1,6 @@
 {
   if (cc != null) {
-    collection.setLazy(cc.getLazy());
+    collection.setLazy(cc.isLazy());
   }
  else {
     collection.setLazy(true);

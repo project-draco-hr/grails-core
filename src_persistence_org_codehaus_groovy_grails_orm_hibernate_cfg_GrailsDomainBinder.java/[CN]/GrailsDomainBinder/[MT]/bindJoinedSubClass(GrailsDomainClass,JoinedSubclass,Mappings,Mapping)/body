@@ -8,8 +8,9 @@
   LOG.info("Mapping joined-subclass: " + joinedSubclass.getEntityName() + " -> "+ joinedSubclass.getTable().getName());
   SimpleValue key=new DependantValue(mytable,joinedSubclass.getIdentifier());
   joinedSubclass.setKey(key);
-  String columnName=namingStrategy.propertyToColumnName(sub.getIdentifier().getName());
-  bindSimpleValue(sub.getIdentifier().getType().getName(),key,false,columnName,mappings);
+  GrailsDomainClassProperty identifier=sub.getIdentifier();
+  String columnName=getColumnNameForPropertyAndPath(identifier,EMPTY_PATH);
+  bindSimpleValue(identifier.getType().getName(),key,false,columnName,mappings);
   joinedSubclass.createPrimaryKey();
   createClassProperties(sub,joinedSubclass,mappings);
 }

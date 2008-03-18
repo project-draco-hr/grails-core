@@ -5,7 +5,7 @@
   if (collection.isOneToMany()) {
     GrailsDomainClass referenced=property.getReferencedDomainClass();
     Mapping m=getRootMapping(referenced);
-    boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
+    boolean tablePerSubclass=m != null && !m.isTablePerHierarchy();
     if (referenced != null && !referenced.isRoot() && !tablePerSubclass) {
       collection.setWhere(RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME + " = '" + referenced.getFullName()+ "'");
     }

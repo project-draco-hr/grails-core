@@ -5,14 +5,14 @@
     Mapping m=getMapping(domainClass.getName());
     if (m != null) {
       CacheConfig cc=m.getCache();
-      if (cc != null && cc.getEnabled()) {
+      if (cc != null && cc.isEnabled()) {
         root.setCacheConcurrencyStrategy(cc.getUsage());
         root.setLazyPropertiesCacheable(!"non-lazy".equals(cc.getInclude()));
       }
     }
     bindRootPersistentClassCommonValues(domainClass,root,mappings);
     if (!domainClass.getSubClasses().isEmpty()) {
-      boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
+      boolean tablePerSubclass=m != null && !m.isTablePerHierarchy();
       if (!tablePerSubclass) {
         bindDiscriminatorProperty(root.getTable(),root,mappings);
       }

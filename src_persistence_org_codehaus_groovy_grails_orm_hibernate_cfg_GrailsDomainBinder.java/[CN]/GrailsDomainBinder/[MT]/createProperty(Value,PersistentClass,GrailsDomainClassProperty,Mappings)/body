@@ -4,7 +4,7 @@
   Property prop=new Property();
   ColumnConfig cc=getColumnConfig(grailsProperty);
   if (cc != null) {
-    prop.setLazy(cc.getLazy());
+    prop.setLazy(cc.isLazy());
   }
  else   if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
     prop.setLazy(true);

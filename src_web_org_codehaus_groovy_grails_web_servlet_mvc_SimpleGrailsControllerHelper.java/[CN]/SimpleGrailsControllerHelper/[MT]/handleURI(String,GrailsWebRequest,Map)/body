@@ -5,9 +5,6 @@
   HttpServletRequest request=webRequest.getCurrentRequest();
   HttpServletResponse response=webRequest.getCurrentResponse();
   configureStateForWebRequest(webRequest,request);
-  if (StringUtils.isBlank(actionName)) {
-    uri=checkDispatchAction(request,uri);
-  }
   if (uri.endsWith("/")) {
     uri=uri.substring(0,uri.length() - 1);
   }

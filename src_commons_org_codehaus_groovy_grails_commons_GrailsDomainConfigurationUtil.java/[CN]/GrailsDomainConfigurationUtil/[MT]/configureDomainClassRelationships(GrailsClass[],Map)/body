@@ -36,7 +36,9 @@
  catch (          UnsupportedOperationException e) {
           }
           if (!StringUtils.isBlank(refPropertyName)) {
-            prop.setOtherSide(referenced.getPropertyByName(refPropertyName));
+            GrailsDomainClassProperty otherSide=referenced.getPropertyByName(refPropertyName);
+            prop.setOtherSide(otherSide);
+            otherSide.setOtherSide(prop);
           }
  else {
             GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();

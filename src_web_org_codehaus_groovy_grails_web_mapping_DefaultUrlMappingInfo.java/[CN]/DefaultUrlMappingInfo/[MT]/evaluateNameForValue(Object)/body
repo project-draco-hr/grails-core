@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
   if (value == null) {
     return null;
   }
@@ -16,6 +16,6 @@
  else {
     name=value.toString();
   }
-  if (StringUtils.isBlank(name))   return checkDispatchAction(webRequest.getRequest(),name);
+  if (StringUtils.isBlank(name) && webRequest != null)   return checkDispatchAction(webRequest.getRequest(),name);
  else   return name;
 }

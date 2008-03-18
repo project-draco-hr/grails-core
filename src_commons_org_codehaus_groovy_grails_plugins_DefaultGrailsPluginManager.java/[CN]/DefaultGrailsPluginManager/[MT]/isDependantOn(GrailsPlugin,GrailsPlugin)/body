@@ -1,9 +1,0 @@
-{
-  String[] dependencies=plugin.getDependencyNames();
-  for (int i=0; i < dependencies.length; i++) {
-    String name=dependencies[i];
-    String version=plugin.getDependentVersion(name);
-    if (name.equals(dependancy.getName()) && version.equals(dependancy.getVersion()))     return true;
-  }
-  return false;
-}

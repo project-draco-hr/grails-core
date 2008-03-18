@@ -13,7 +13,7 @@
       boolean foundInDelayed=false;
       for (Iterator i=delayedLoadPlugins.iterator(); i.hasNext(); ) {
         GrailsPlugin remainingPlugin=(GrailsPlugin)i.next();
-        if (isDependantOn(plugin,remainingPlugin)) {
+        if (isDependentOn(plugin,remainingPlugin)) {
           foundInDelayed=true;
           break;
         }

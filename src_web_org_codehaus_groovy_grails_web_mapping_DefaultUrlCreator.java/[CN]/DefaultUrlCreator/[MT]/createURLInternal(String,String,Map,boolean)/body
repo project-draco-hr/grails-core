@@ -1,4 +1,5 @@
 {
+  if (parameterValues == null)   parameterValues=new HashMap();
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   boolean blankController=StringUtils.isBlank(controller);
   boolean blankAction=StringUtils.isBlank(action);

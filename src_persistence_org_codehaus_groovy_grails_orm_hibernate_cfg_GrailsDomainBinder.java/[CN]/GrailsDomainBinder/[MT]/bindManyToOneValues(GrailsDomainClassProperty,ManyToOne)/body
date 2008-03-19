@@ -2,7 +2,7 @@
   manyToOne.setFetchMode(FetchMode.DEFAULT);
   ColumnConfig cc=getColumnConfig(property);
   if (cc != null) {
-    manyToOne.setLazy(cc.isLazy());
+    manyToOne.setLazy(cc.getLazy());
   }
  else {
     manyToOne.setLazy(false);

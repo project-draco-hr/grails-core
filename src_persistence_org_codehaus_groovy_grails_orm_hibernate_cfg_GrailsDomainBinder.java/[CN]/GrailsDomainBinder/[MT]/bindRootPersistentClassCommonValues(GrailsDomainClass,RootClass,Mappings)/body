@@ -7,7 +7,7 @@
   Mapping m=getMapping(domainClass.getFullName());
   bindIdentity(domainClass,root,mappings,m);
   if (m != null) {
-    if (m.isVersioned()) {
+    if (m.getVersioned()) {
       bindVersion(domainClass.getVersion(),root,mappings);
     }
   }

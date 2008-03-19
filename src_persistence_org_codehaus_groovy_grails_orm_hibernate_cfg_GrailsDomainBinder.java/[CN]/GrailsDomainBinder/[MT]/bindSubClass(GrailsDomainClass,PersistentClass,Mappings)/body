@@ -2,7 +2,7 @@
   evaluateMapping(sub);
   Mapping m=getMapping(parent.getClassName());
   Subclass subClass;
-  boolean tablePerSubclass=m != null && !m.isTablePerHierarchy();
+  boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
   if (tablePerSubclass) {
     subClass=new JoinedSubclass(parent);
   }

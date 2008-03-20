@@ -3,8 +3,8 @@
     if (!nullable) {
       Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
       super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_NULL_MESSAGE_CODE,ConstrainedProperty.NULLABLE_CONSTRAINT,args);
+      return true;
     }
-    return true;
   }
   return false;
 }

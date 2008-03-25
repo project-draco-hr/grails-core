@@ -1,10 +1,11 @@
 {
   Object domainObject=domain.newInstance();
-  ServletRequestDataBinder dataBinder=GrailsDataBinder.createBinder(domainObject,domain.getName(),request);
-  dataBinder.bind(request);
+  WebRequest webRequest=(WebRequest)RequestContextHolder.currentRequestAttributes();
+  InvokerHelper.setProperty(domainObject,"properties",webRequest.getParameterMap());
+  Errors domainObjectErrors=(Errors)InvokerHelper.getProperty(domainObject,"errors");
   Map model=new HashMap();
   model.put(domain.getSingularName(),domainObject);
-  if (this.domain.save(domainObject,callback)) {
+  if (!domainObjectErrors.hasErrors() && this.domain.save(domainObject,callback)) {
     BeanWrapper domainBean=new BeanWrapperImpl(domainObject);
     Object identity=domainBean.getPropertyValue(domain.getIdentityPropertyName());
     model.put(PARAM_ID,identity);

@@ -20,7 +20,7 @@
   text=buf.toString();
   String tagName;
   Map attrs=new TreeMap();
-  text=text.replaceAll("[\r\n]"," ");
+  text=text.replaceAll("[\r\n\t]"," ");
   if (text.indexOf(' ') > -1) {
     int i=text.indexOf(' ');
     tagName=text.substring(0,i);

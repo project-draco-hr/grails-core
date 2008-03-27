@@ -15,7 +15,7 @@
   this.pluginManager.registerProvidedArtefacts(application);
   registerParentBeanFactoryPostProcessors(springConfig);
   this.pluginManager.doRuntimeConfiguration(springConfig);
-  LOG.debug("[RuntimeConfiguration] Proccessing additional external configurations");
+  LOG.debug("[RuntimeConfiguration] Processing additional external configurations");
   if (loadExternalBeans) {
     doPostResourceConfiguration(application,springConfig);
   }

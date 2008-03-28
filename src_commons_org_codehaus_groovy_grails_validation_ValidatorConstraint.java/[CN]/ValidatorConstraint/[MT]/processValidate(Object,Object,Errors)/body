@@ -8,6 +8,9 @@
     if (numValidatorParams == 3) {
       params[2]=errors;
     }
+    final ValidatorDelegate delegate=new ValidatorDelegate();
+    delegate.setPropertyName(getPropertyName());
+    validator.setDelegate(delegate);
     final Object result=validator.call(params);
     if (numValidatorParams == 3) {
       return;

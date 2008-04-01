@@ -4,7 +4,7 @@
   Table table=mappings.addTable(schema,catalog,getTableName(domainClass),null,false);
   root.setTable(table);
   if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
-  Mapping m=getMapping(domainClass.getFullName());
+  Mapping m=getMapping(domainClass.getClazz());
   bindIdentity(domainClass,root,mappings,m);
   if (m != null) {
     if (m.getVersioned()) {

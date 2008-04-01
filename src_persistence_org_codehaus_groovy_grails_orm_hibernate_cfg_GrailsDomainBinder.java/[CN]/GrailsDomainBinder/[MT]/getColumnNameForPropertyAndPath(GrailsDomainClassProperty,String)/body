@@ -1,7 +1,7 @@
 {
   GrailsDomainClass domainClass=grailsProp.getDomainClass();
   String columnName=null;
-  Mapping m=getMapping(domainClass.getFullName());
+  Mapping m=getMapping(domainClass.getClazz());
   if (m != null) {
     ColumnConfig c=m.getColumn(grailsProp.getName());
     if (c != null && c.getColumn() != null) {

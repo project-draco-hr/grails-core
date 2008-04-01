@@ -1,0 +1,3 @@
+{
+  return (Mapping)MAPPING_CACHE.get(theClass.getName());
+}

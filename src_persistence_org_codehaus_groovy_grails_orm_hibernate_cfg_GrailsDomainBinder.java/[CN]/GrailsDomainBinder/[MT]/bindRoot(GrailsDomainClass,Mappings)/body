@@ -2,7 +2,7 @@
   if (mappings.getClass(domainClass.getFullName()) == null) {
     RootClass root=new RootClass();
     bindClass(domainClass,root,mappings);
-    Mapping m=getMapping(domainClass.getName());
+    Mapping m=getMapping(domainClass.getClazz());
     if (m != null) {
       CacheConfig cc=m.getCache();
       if (cc != null && cc.getEnabled()) {

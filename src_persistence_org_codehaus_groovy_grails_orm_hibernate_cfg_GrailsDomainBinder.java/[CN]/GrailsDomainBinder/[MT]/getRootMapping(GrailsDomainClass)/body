@@ -6,5 +6,5 @@
     if (Object.class.equals(superClass))     break;
     current=superClass;
   }
-  return getMapping(current.getName());
+  return getMapping(current);
 }

@@ -1,6 +1,6 @@
 {
   evaluateMapping(sub);
-  Mapping m=getMapping(parent.getClassName());
+  Mapping m=getMapping(parent.getMappedClass());
   Subclass subClass;
   boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
   if (tablePerSubclass) {

@@ -1,5 +1,5 @@
 {
-  Mapping m=getMapping(domainClass.getFullName());
+  Mapping m=getMapping(domainClass.getClazz());
   String tableName=null;
   if (m != null && m.getTableName() != null) {
     tableName=m.getTableName();

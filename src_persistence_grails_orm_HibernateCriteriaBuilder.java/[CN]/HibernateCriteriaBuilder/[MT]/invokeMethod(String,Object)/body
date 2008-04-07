@@ -38,12 +38,13 @@
         result=this.criteria.uniqueResult();
       }
  else       if (paginationEnabledList) {
-        GrailsHibernateUtil.populateArgumentsForCriteria(this.criteria,(Map)args[0]);
-        PagedResultList pagedRes=new PagedResultList(this.criteria.list());
         this.criteria.setFirstResult(0);
         this.criteria.setMaxResults(Integer.MAX_VALUE);
         this.criteria.setProjection(Projections.rowCount());
         int totalCount=((Integer)this.criteria.uniqueResult()).intValue();
+        this.criteria.setProjection(null);
+        GrailsHibernateUtil.populateArgumentsForCriteria(this.criteria,(Map)args[0]);
+        PagedResultList pagedRes=new PagedResultList(this.criteria.list());
         pagedRes.setTotalCount(totalCount);
         result=pagedRes;
       }

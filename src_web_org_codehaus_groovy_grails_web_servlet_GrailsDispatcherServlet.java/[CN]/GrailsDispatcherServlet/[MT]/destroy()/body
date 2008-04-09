@@ -5,5 +5,11 @@
   for (int i=0; i < bootstraps.length; i++) {
     ((GrailsBootstrapClass)bootstraps[i]).callDestroy();
   }
+  if (application.isWarDeployed()) {
+    ApplicationHolder.setApplication(null);
+    ServletContextHolder.setServletContext(null);
+    PluginManagerHolder.setPluginManager(null);
+    ConfigurationHolder.setConfig(null);
+  }
   super.destroy();
 }

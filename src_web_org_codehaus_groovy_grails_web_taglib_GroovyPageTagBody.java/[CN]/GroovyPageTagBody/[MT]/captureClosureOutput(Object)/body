@@ -4,17 +4,15 @@
     final GroovyPageTagWriter capturedOut=createWriter();
     if (args != null) {
       if (args instanceof Map) {
-        Map delegate=binding.getVariables();
-        final Map argMap=(Map)args;
-        delegate.putAll(argMap);
+        Map currentBinding=binding.getVariables();
+        Map originalBinding=new HashMap(currentBinding);
+        currentBinding.putAll((Map)args);
         try {
           bodyClosure.call(args);
         }
   finally {
-          for (Iterator i=argMap.keySet().iterator(); i.hasNext(); ) {
-            Object o=i.next();
-            delegate.remove(o);
-          }
+          currentBinding.clear();
+          currentBinding.putAll(originalBinding);
         }
       }
  else {

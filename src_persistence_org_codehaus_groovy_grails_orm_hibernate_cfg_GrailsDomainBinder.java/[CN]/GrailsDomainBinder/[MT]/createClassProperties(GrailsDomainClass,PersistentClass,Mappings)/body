@@ -4,7 +4,9 @@
   Mapping gormMapping=getMapping(domainClass.getClazz());
   for (int i=0; i < persistentProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistentProperties[i];
-    if (currentGrailsProp.isInherited() && !isBidirectionalManyToOne(currentGrailsProp))     continue;
+    boolean isBidirectionalManyToOne=isBidirectionalManyToOne(currentGrailsProp);
+    if (currentGrailsProp.isInherited() && !isBidirectionalManyToOne)     continue;
+ else     if (currentGrailsProp.isInherited() && isBidirectionalManyToOne && currentGrailsProp.isCircular())     continue;
     if (isCompositeIdProperty(gormMapping,currentGrailsProp))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value;

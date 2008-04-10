@@ -1,0 +1,10 @@
+{
+  super.closeWebApplicationContext(servletContext);
+  if (application != null && application.isWarDeployed()) {
+    ApplicationHolder.setApplication(null);
+    ServletContextHolder.setServletContext(null);
+    PluginManagerHolder.setPluginManager(null);
+    ConfigurationHolder.setConfig(null);
+    application=null;
+  }
+}

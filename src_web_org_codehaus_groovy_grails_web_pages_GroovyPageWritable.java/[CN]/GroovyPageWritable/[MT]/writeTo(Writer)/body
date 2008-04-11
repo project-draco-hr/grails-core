@@ -1,7 +1,7 @@
 {
   if (showSource) {
     response.setContentType(GROOVY_SOURCE_CONTENT_TYPE);
-    writeInputStreamToResponse(metaInfo.getGroovySource(),out);
+    writeGroovySourceToResponse(metaInfo,out);
   }
  else {
     boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;

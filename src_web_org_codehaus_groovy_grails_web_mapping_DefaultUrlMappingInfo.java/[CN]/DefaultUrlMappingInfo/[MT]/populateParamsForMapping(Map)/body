@@ -20,6 +20,14 @@
     if (param instanceof Closure) {
       param=evaluateNameForValue(param);
     }
+    if (param instanceof String) {
+      try {
+        param=decoder.decode((String)param,"UTF-8");
+      }
+ catch (      UnsupportedEncodingException e) {
+        param=evaluateNameForValue(param);
+      }
+    }
     dispatchParams.put(name,param);
   }
 }

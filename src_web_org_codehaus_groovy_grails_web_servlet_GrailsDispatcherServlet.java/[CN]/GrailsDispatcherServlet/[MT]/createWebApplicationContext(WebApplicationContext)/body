@@ -8,7 +8,16 @@
   }
  else {
     webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
-    GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
+    try {
+      GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
+    }
+ catch (    Exception e) {
+      GrailsUtil.deepSanitize(e);
+      if (e instanceof BeansException)       throw (BeansException)e;
+ else {
+        throw new BootstrapException("Error executing bootstraps",e);
+      }
+    }
   }
   initGrailsController(webContext);
   this.interceptors=establishInterceptors(webContext);

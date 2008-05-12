@@ -10,9 +10,12 @@
     ctx=GrailsConfigUtils.configureWebApplicationContext(servletContext,ctx);
     GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
   }
- catch (  BeansException e) {
+ catch (  Exception e) {
     GrailsUtil.deepSanitize(e);
-    throw e;
+    if (e instanceof BeansException)     throw (BeansException)e;
+ else {
+      throw new BootstrapException("Error executing bootstraps",e);
+    }
   }
   return ctx;
 }

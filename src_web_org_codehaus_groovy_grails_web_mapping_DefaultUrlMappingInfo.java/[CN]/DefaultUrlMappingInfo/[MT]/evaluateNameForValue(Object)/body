@@ -1,21 +1,4 @@
 {
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
-  if (value == null) {
-    return null;
-  }
-  String name;
-  if (value instanceof Closure) {
-    Closure callable=(Closure)value;
-    Object result=((Closure)callable.clone()).call();
-    name=result != null ? result.toString() : null;
-  }
- else   if (value instanceof Map) {
-    Map httpMethods=(Map)value;
-    name=(String)httpMethods.get(webRequest.getCurrentRequest().getMethod());
-  }
- else {
-    name=value.toString();
-  }
-  if (StringUtils.isBlank(name) && webRequest != null)   return checkDispatchAction(webRequest.getRequest(),name);
- else   return name;
+  return evaluateNameForValue(value,webRequest);
 }

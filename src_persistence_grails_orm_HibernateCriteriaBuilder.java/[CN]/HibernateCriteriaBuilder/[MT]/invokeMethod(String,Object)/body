@@ -43,6 +43,7 @@
         this.criteria.setProjection(Projections.rowCount());
         int totalCount=((Integer)this.criteria.uniqueResult()).intValue();
         this.criteria.setProjection(null);
+        this.criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
         GrailsHibernateUtil.populateArgumentsForCriteria(this.criteria,(Map)args[0]);
         PagedResultList pagedRes=new PagedResultList(this.criteria.list());
         pagedRes.setTotalCount(totalCount);

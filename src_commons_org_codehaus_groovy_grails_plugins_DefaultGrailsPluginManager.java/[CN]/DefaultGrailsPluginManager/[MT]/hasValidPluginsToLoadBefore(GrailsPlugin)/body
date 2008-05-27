@@ -4,7 +4,9 @@
     GrailsPlugin other=(GrailsPlugin)i.next();
     for (int j=0; j < loadAfterNames.length; j++) {
       String name=loadAfterNames[j];
-      if (other.getName().equals(name) && areDependenciesResolved(other))       return true;
+      if (other.getName().equals(name)) {
+        return hasDelayedDependencies(other) || areDependenciesResolved(other);
+      }
     }
   }
   return false;

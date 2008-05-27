@@ -1,7 +1,7 @@
 {
   super(clazz,CONTROLLER);
   this.uri=SLASH + WordUtils.uncapitalize(getName());
-  String defaultActionName=(String)getPropertyOrStaticPropertyOrFieldValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  defaultActionName=(String)getPropertyOrStaticPropertyOrFieldValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;
   }
@@ -91,6 +91,7 @@
   }
   if (closureNames.size() == 1) {
     String closureName=((String)closureNames.iterator().next());
+    this.defaultActionName=closureName;
     this.uri2closureMap.put(uri,closureName);
     this.uri2closureMap.put(controllerPath,closureName);
     if (!this.uri2viewMap.isEmpty()) {

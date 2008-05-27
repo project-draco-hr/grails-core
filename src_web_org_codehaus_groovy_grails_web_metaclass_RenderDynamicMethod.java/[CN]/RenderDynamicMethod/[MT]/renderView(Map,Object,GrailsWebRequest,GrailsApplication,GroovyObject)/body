@@ -1,4 +1,6 @@
 {
+  String viewName=argMap.get(ARGUMENT_VIEW).toString();
+  Object modelObject=argMap.get(ARGUMENT_MODEL);
   GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefact(ControllerArtefactHandler.TYPE,target.getClass().getName());
   if (controllerClass == null && webRequest.getControllerName() != null) {
     controllerClass=(GrailsControllerClass)application.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,webRequest.getControllerName());

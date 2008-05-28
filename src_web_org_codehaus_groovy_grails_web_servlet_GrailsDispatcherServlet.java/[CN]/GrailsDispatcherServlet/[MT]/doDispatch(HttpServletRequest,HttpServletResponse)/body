@@ -23,7 +23,7 @@
       previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
       copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
-      RequestContextHolder.setRequestAttributes(requestAttributes);
+      WebUtils.storeGrailsWebRequest(requestAttributes);
       if (logger.isDebugEnabled()) {
         logger.debug("Bound request context to thread: " + request);
         logger.debug("Using response object: " + response.getClass());
@@ -93,7 +93,7 @@ catch (  Error err) {
     }
     if (requestAttributes != null) {
       requestAttributes.requestCompleted();
-      RequestContextHolder.setRequestAttributes(previousRequestAttributes);
+      WebUtils.storeGrailsWebRequest(previousRequestAttributes);
     }
     LocaleContextHolder.setLocaleContext(previousLocaleContext);
     if (logger.isDebugEnabled()) {

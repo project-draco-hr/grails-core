@@ -9,6 +9,12 @@
     }
     this.binding.getVariables().clear();
   }
+  if (urlMapping.getControllerName() != null) {
+    this.parameterValues.put("controller",urlMapping.getControllerName());
+  }
+  if (urlMapping.getActionName() != null) {
+    this.parameterValues.put("action",urlMapping.getActionName());
+  }
   urlMapping.setParameterValues(this.parameterValues);
   urlMappings.add(urlMapping);
 }

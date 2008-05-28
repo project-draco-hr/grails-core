@@ -1,9 +1,9 @@
 {
   Object[] args=(Object[])arg;
   final boolean isResponseCode=isResponseCode(methodName);
-  this.parameterValues=new HashMap();
   if (methodName.startsWith(SLASH) || isResponseCode) {
     try {
+      this.parameterValues=new HashMap();
       urlDefiningMode=false;
       args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
       if (args[0] instanceof Closure) {

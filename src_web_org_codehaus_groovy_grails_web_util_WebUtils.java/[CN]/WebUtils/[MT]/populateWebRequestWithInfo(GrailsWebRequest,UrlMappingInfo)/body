@@ -7,5 +7,6 @@
     }
     String id=info.getId();
     if (!StringUtils.isBlank(id))     webRequest.getParams().put(GrailsWebRequest.ID_PARAMETER,id);
+    webRequest.getParams().putAll(info.getParameters());
   }
 }

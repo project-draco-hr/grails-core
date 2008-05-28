@@ -2,20 +2,18 @@
   LocaleContextHolder.setLocale(request.getLocale());
   GrailsWebRequest webRequest=new GrailsWebRequest(request,response,getServletContext());
   configureParameterCreationListeners(webRequest);
-  RequestContextHolder.setRequestAttributes(webRequest);
   if (logger.isDebugEnabled()) {
     logger.debug("Bound Grails request context to thread: " + request);
   }
   try {
-    request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
+    WebUtils.storeGrailsWebRequest(webRequest);
     FlashScope fs=webRequest.getAttributes().getFlashScope(request);
     fs.next();
     filterChain.doFilter(request,response);
   }
   finally {
     webRequest.requestCompleted();
-    request.removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
-    RequestContextHolder.setRequestAttributes(null);
+    WebUtils.clearGrailsWebRequest();
     LocaleContextHolder.setLocale(null);
     if (logger.isDebugEnabled()) {
       logger.debug("Cleared Grails thread-bound request context: " + request);

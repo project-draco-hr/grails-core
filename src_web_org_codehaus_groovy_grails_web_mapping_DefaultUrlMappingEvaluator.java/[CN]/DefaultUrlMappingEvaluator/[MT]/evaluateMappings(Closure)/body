@@ -1,6 +1,7 @@
 {
   UrlMappingBuilder builder=new UrlMappingBuilder();
   closure.setDelegate(builder);
+  closure.setResolveStrategy(Closure.DELEGATE_FIRST);
   closure.call();
   builder.urlDefiningMode=false;
   List mappings=builder.getUrlMappings();

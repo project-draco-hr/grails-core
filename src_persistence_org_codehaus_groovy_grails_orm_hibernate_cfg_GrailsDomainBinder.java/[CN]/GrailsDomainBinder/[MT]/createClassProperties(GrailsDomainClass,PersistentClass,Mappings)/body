@@ -17,6 +17,10 @@
       mappings.addCollection(collection);
       value=collection;
     }
+ else     if (currentGrailsProp.isEnum()) {
+      value=new SimpleValue(table);
+      bindEnumType(currentGrailsProp,(SimpleValue)value,EMPTY_PATH,mappings);
+    }
  else     if (currentGrailsProp.isManyToOne()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
       value=new ManyToOne(table);

@@ -6,7 +6,7 @@
  else     if (o instanceof GroovyObject && ConverterUtil.isDomainClass(o.getClass())) {
       domain(o);
     }
- else     if (isJdk5Enum(o.getClass())) {
+ else     if (GrailsClassUtils.isJdk5Enum(o.getClass())) {
       enumeration(o);
     }
  else     if (o instanceof Class) {

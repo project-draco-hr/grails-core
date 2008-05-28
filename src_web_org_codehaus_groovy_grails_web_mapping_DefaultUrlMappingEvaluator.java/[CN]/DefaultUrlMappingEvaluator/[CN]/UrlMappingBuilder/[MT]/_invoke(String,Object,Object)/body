@@ -4,7 +4,6 @@
   if (methodName.startsWith(SLASH) || isResponseCode) {
     this.parameterValues=new HashMap();
     try {
-      this.parameterValues=new HashMap();
       urlDefiningMode=false;
       args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
       if (args[0] instanceof Closure) {

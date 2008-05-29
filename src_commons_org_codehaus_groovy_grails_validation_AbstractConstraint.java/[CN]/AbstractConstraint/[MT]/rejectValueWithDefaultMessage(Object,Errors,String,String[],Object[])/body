@@ -1,9 +1,10 @@
 {
   BindingResult result=(BindingResult)errors;
-  List newCodes=new ArrayList();
-  String[] resolved=result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName);
-  newCodes.addAll(Arrays.asList(resolved));
+  Set newCodes=new LinkedHashSet();
+  newCodes.addAll(Arrays.asList(result.resolveMessageCodes(constraintOwningClass.getName() + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName)));
+  newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName)));
   for (int i=0; i < codes.length; i++) {
+    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(constraintOwningClass.getName() + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
     newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
     newCodes.addAll(Arrays.asList(result.resolveMessageCodes(codes[i],constraintPropertyName)));
   }

@@ -1,6 +1,6 @@
 {
   if (!this.initialized) {
-    String[] beanNames=this.beanFactory.getBeanNamesForType(PlatformTransactionManager.class);
+    String[] beanNames=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(this.beanFactory,PlatformTransactionManager.class,false,false);
     if (beanNames.length > 0) {
       this.transactionManager=(PlatformTransactionManager)beanFactory.getBean(beanNames[0]);
     }

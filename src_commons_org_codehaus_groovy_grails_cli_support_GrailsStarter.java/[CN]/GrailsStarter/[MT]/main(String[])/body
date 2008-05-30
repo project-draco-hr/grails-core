@@ -3,6 +3,8 @@
     rootLoader(args);
   }
  catch (  Throwable t) {
-    t.printStackTrace();
+    System.out.println("Error starting Grails: " + t.getMessage());
+    t.printStackTrace(System.err);
+    System.exit(1);
   }
 }

@@ -3,6 +3,14 @@
   if (application != null && application.isWarDeployed()) {
     ApplicationHolder.setApplication(null);
     ServletContextHolder.setServletContext(null);
+    GrailsPluginManager pluginManager=PluginManagerHolder.currentPluginManager();
+    try {
+      pluginManager.shutdown();
+    }
+ catch (    Exception e) {
+      GrailsUtil.sanitize(e);
+      LOG.error("Error occurred shutting down plug-in manager: " + e.getMessage(),e);
+    }
     PluginManagerHolder.setPluginManager(null);
     ConfigurationHolder.setConfig(null);
     application=null;

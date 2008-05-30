@@ -13,6 +13,9 @@ switch (eventKind) {
 case EVENT_ON_CHANGE:
     notifyOfEvent(event);
   break;
+case EVENT_ON_SHUTDOWN:
+invokeOnShutdownEventListener(event);
+break;
 case EVENT_ON_CONFIG_CHANGE:
 invokeOnConfigChangeListener(event);
 break;

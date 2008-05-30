@@ -1,42 +1,20 @@
 {
-  GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(getServletContext());
-  context=(GrailsApplicationContext)attrs.getApplicationContext();
   if (LOG.isDebugEnabled()) {
     LOG.debug("Executing Grails reload filter...");
   }
-  if (context == null) {
-    filterChain.doFilter(httpServletRequest,httpServletResponse);
-    return;
-  }
-  application=(GrailsApplication)context.getBean(GrailsApplication.APPLICATION_ID);
-  if (application == null) {
-    filterChain.doFilter(httpServletRequest,httpServletResponse);
-    return;
-  }
-  if (config == null) {
-    this.parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
-    config=new GrailsRuntimeConfigurator(application,parent);
-  }
-  String uri=urlHelper.getPathWithinApplication(httpServletRequest);
-  String lastPart=uri.substring(uri.lastIndexOf("/"));
-  if (lastPart.indexOf('.') > -1) {
-    filterChain.doFilter(httpServletRequest,httpServletResponse);
-    return;
-  }
-  if (manager == null) {
-    manager=PluginManagerHolder.getPluginManager();
-  }
   try {
+    GrailsApplication application=(GrailsApplication)context.getBean(GrailsApplication.APPLICATION_ID);
+    GrailsPluginManager manager=PluginManagerHolder.getPluginManager();
     if (manager != null) {
-      if (LOG.isDebugEnabled())       LOG.debug("Checking Plugin manager for changes..");
+      LOG.debug("Checking Plugin manager for changes..");
       manager.checkForChanges();
       if (!application.isInitialised()) {
         application.rebuild();
-        config=new GrailsRuntimeConfigurator(application,parent);
+        GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
         config.reconfigure(context,getServletContext(),true);
       }
     }
- else     if (LOG.isDebugEnabled()) {
+ else {
       LOG.debug("Plugin manager not found, skipping change check");
     }
   }
@@ -44,7 +22,7 @@
     GrailsUtil.deepSanitize(e);
     LOG.error("Error occured reloading application: " + e.getMessage(),e);
     httpServletResponse.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-    GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
+    GroovyPagesTemplateEngine engine=appAttributes.getPagesTemplateEngine();
     Template t=engine.createTemplate(GrailsApplicationAttributes.PATH_TO_VIEWS + "/error.gsp");
     GrailsWrappedRuntimeException wrapped=new GrailsWrappedRuntimeException(getServletContext(),e);
     Map model=new HashMap();

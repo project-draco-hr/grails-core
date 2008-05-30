@@ -1,6 +1,6 @@
 {
   final Properties meta=new Properties();
-  Resource r=new ClassPathResource(PROJECT_META_FILE);
+  Resource r=new ClassPathResource(PROJECT_META_FILE,getClassLoader());
   try {
     meta.load(r.getInputStream());
   }

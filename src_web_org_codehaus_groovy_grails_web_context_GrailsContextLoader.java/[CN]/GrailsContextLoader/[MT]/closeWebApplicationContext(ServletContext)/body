@@ -1,8 +1,14 @@
 {
-  super.closeWebApplicationContext(servletContext);
   if (application != null && application.isWarDeployed()) {
-    ApplicationHolder.setApplication(null);
-    ServletContextHolder.setServletContext(null);
+    if (application != null) {
+      GroovyClassLoader classLoader=application.getClassLoader();
+      MetaClassRegistry metaClassRegistry=GroovySystem.getMetaClassRegistry();
+      Class[] loadedClasses=classLoader.getLoadedClasses();
+      for (int i=0; i < loadedClasses.length; i++) {
+        Class loadedClass=loadedClasses[i];
+        metaClassRegistry.removeMetaClass(loadedClass);
+      }
+    }
     GrailsPluginManager pluginManager=PluginManagerHolder.currentPluginManager();
     try {
       pluginManager.shutdown();
@@ -11,8 +17,19 @@
       GrailsUtil.sanitize(e);
       LOG.error("Error occurred shutting down plug-in manager: " + e.getMessage(),e);
     }
+    WebApplicationContext ctx=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+    ConfigurableApplicationContext parent=(ConfigurableApplicationContext)ctx.getParent();
+    super.closeWebApplicationContext(servletContext);
+    if (parent != null) {
+      LOG.info("Destroying Spring parent WebApplicationContext " + parent.getDisplayName());
+      parent.close();
+    }
+    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+    ApplicationHolder.setApplication(null);
+    ServletContextHolder.setServletContext(null);
     PluginManagerHolder.setPluginManager(null);
     ConfigurationHolder.setConfig(null);
+    ExpandoMetaClass.disableGlobally();
     application=null;
   }
 }

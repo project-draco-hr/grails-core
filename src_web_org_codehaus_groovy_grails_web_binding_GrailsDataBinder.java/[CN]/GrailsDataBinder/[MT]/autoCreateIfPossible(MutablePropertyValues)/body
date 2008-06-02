@@ -4,30 +4,17 @@
     PropertyValue pv=pvs[i];
     String propertyName=pv.getName();
     if (propertyName.indexOf('.') > -1) {
-      propertyName=propertyName.split("\\.")[0];
-    }
-    Class type=bean.getPropertyType(propertyName);
-    LOG.debug("Checking if auto-create is possible for property [" + propertyName + "] and type ["+ type+ "]");
-    if (type != null) {
-      if (GroovyObject.class.isAssignableFrom(type)) {
-        if (bean.getPropertyValue(propertyName) == null) {
-          if (bean.isWritableProperty(propertyName)) {
-            try {
-              MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(type);
-              if (mc != null) {
-                Object created=mc.invokeStaticMethod(type,CreateDynamicMethod.METHOD_NAME,new Object[0]);
-                bean.setPropertyValue(propertyName,created);
-              }
-            }
- catch (            MissingMethodException mme) {
-              LOG.warn("Unable to auto-create type, 'create' method not found");
-            }
-catch (            GroovyRuntimeException gre) {
-              LOG.warn("Unable to auto-create type, Groovy Runtime error: " + gre.getMessage(),gre);
-            }
-          }
-        }
+      String[] propertyNames=propertyName.split("\\.");
+      ConfigurablePropertyAccessor currentBean=bean;
+      for (int j=0; j < propertyNames.length; j++) {
+        String name=propertyNames[j];
+        Object created=autoCreatePropertyIfPossible(currentBean,name);
+        if (created != null)         currentBean=new BeanWrapperImpl(created);
+ else         break;
       }
+    }
+ else {
+      autoCreatePropertyIfPossible(bean,propertyName);
     }
   }
 }

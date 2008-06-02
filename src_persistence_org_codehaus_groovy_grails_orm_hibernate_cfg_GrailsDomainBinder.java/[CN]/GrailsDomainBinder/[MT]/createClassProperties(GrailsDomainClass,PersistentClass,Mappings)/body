@@ -5,7 +5,7 @@
   for (int i=0; i < persistentProperties.length; i++) {
     GrailsDomainClassProperty currentGrailsProp=persistentProperties[i];
     boolean isBidirectionalManyToOne=isBidirectionalManyToOne(currentGrailsProp);
-    if (currentGrailsProp.isInherited() && !isBidirectionalManyToOne)     continue;
+    if (currentGrailsProp.isInherited())     continue;
  else     if (currentGrailsProp.isInherited() && isBidirectionalManyToOne && currentGrailsProp.isCircular())     continue;
     if (isCompositeIdProperty(gormMapping,currentGrailsProp))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");

@@ -4,7 +4,16 @@
       Collection values=(Collection)value;
       for (Iterator i=values.iterator(); i.hasNext(); ) {
         Object current=i.next();
-        storeErrorsIfPossible(current);
+        storeErrorsIfPossible(scope,current);
+      }
+    }
+ else     if (value instanceof Map) {
+      Map map=(Map)value;
+      Set keys=map.keySet();
+      for (Iterator i=keys.iterator(); i.hasNext(); ) {
+        Object key=i.next();
+        Object val=map.get(key);
+        storeErrorsIfPossible(map,val);
       }
     }
  else {
@@ -12,7 +21,7 @@
       if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
         Object errors=mc.getProperty(value,ERRORS_PROPERTY);
         if (errors != null) {
-          next.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
+          scope.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
         }
       }
     }

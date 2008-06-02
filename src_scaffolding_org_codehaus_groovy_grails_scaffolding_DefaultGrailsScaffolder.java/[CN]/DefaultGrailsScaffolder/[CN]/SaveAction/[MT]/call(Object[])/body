@@ -14,7 +14,7 @@
     Closure showAction=(Closure)controller.getProperty(SHOW_ACTION);
     Map arguments=new HashMap();
     arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,showAction);
-    arguments.put(RedirectDynamicMethod.ARGUMENT_ID,model.get(ChainDynamicMethod.ARGUMENT_ID));
+    arguments.put(RedirectDynamicMethod.ARGUMENT_ID,model.get(RedirectDynamicMethod.ARGUMENT_ID));
     return controller.invokeMethod(RedirectDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
   }
  else {

@@ -3,5 +3,6 @@
   testConstraintPassed(getConstraint("testString",Boolean.FALSE),"someData");
   testConstraintPassed(getConstraint("testString",Boolean.TRUE),"someData");
   testConstraintFailedAndVetoed(getConstraint("testString",Boolean.FALSE),"");
+  testConstraintFailed(getConstraint("testString",Boolean.FALSE),"    ");
   testConstraintDefaultMessage(getConstraint("testString",Boolean.FALSE),"","Property [{0}] of class [{1}] cannot be blank");
 }

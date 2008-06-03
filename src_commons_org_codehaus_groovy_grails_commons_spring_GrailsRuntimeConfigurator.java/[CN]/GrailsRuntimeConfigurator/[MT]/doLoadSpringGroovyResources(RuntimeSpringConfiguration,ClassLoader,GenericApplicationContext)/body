@@ -1,5 +1,5 @@
 {
-  if (!springGroovyResourcesLoaded) {
+  if (springGroovyResourcesBeanBuilder == null) {
     try {
       Class groovySpringResourcesClass=null;
       try {
@@ -8,20 +8,34 @@
  catch (      ClassNotFoundException e) {
       }
       if (groovySpringResourcesClass != null) {
-        final BeanBuilder bb=new BeanBuilder(Thread.currentThread().getContextClassLoader());
-        bb.setSpringConfig(config);
+        springGroovyResourcesBeanBuilder=new BeanBuilder(Thread.currentThread().getContextClassLoader());
+        springGroovyResourcesBeanBuilder.setSpringConfig(config);
         Script script=(Script)groovySpringResourcesClass.newInstance();
         script.run();
         Object beans=script.getProperty("beans");
-        bb.beans((Closure)beans);
-        if (context != null) {
-          bb.registerBeans(context);
-        }
+        springGroovyResourcesBeanBuilder.beans((Closure)beans);
       }
     }
  catch (    Exception ex) {
       LOG.warn("[RuntimeConfiguration] Unable to perform load beans from resources.groovy",ex);
     }
-    springGroovyResourcesLoaded=true;
+  }
+ else {
+    RuntimeSpringConfiguration existingSpringConfig=springGroovyResourcesBeanBuilder.getSpringConfig();
+    List beanNames=existingSpringConfig.getBeanNames();
+    for (Iterator i=beanNames.iterator(); i.hasNext(); ) {
+      String beanName=i.next().toString();
+      BeanConfiguration beanConfig=existingSpringConfig.getBeanConfig(beanName);
+      if (beanConfig != null) {
+        config.addBeanConfiguration(beanName,beanConfig);
+      }
+ else {
+        BeanDefinition definition=existingSpringConfig.getBeanDefinition(beanName);
+        if (definition != null)         config.addBeanDefinition(beanName,definition);
+      }
+    }
+  }
+  if (context != null) {
+    springGroovyResourcesBeanBuilder.registerBeans(context);
   }
 }

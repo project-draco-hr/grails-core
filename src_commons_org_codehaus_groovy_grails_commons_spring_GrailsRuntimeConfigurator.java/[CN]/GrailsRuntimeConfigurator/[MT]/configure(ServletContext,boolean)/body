@@ -19,6 +19,7 @@
   if (loadExternalBeans) {
     doPostResourceConfiguration(application,springConfig);
   }
+  reset();
   WebApplicationContext ctx=(WebApplicationContext)springConfig.getApplicationContext();
   this.pluginManager.setApplicationContext(ctx);
   this.pluginManager.doDynamicMethods();

@@ -22,7 +22,6 @@
   servletContext.setAttribute(GrailsApplication.APPLICATION_ID,application);
   ServletContextHolder.setServletContext(servletContext);
   WebApplicationContext webContext=configurator.configure(servletContext);
-  configurator.reset();
   configurator.getPluginManager().setApplicationContext(webContext);
   servletContext.setAttribute(ApplicationAttributes.APPLICATION_CONTEXT,webContext);
   servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,webContext);

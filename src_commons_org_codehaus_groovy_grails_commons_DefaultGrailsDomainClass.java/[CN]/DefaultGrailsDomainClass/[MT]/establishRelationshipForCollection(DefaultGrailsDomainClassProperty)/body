@@ -5,35 +5,36 @@
     if (DomainClassArtefactHandler.isDomainClass(relatedClassType)) {
       Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(relatedClassType);
       Class relatedClassPropertyType=null;
-      if (isRelationshipManyToMany(property,relatedClassType,relatedClassRelationships)) {
-        String relatedClassPropertyName=null;
-        for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
-          String currentKey=(String)i.next();
-          Class currentClass=(Class)relatedClassRelationships.get(currentKey);
-          if (currentClass.getName().equals(getClazz().getName())) {
-            relatedClassPropertyName=currentKey;
-            break;
-          }
-        }
-        if (relatedClassPropertyName != null) {
-          relatedClassPropertyType=GrailsClassUtils.getPropertyType(relatedClassType,relatedClassPropertyName);
-        }
+      String mappingProperty=(String)this.mappedBy.get(property.getName());
+      if (!StringUtils.isBlank(mappingProperty)) {
+        PropertyDescriptor pd=findProperty(GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz()),mappingProperty);
+        if (pd == null)         pd=findProperty(GrailsClassUtils.getPropertiesAssignableToType(relatedClassType,Collection.class),mappingProperty);
+        if (pd == null)         throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
+        relatedClassPropertyType=pd.getPropertyType();
+        property.setReferencePropertyName(pd.getName());
       }
-      if (relatedClassPropertyType == null) {
-        PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz());
-        if (descriptors.length == 1) {
-          relatedClassPropertyType=descriptors[0].getPropertyType();
-          property.setReferencePropertyName(descriptors[0].getName());
-        }
- else         if (descriptors.length > 1) {
-          String mappingProperty=(String)this.mappedBy.get(property.getName());
-          if (!StringUtils.isBlank(mappingProperty)) {
-            PropertyDescriptor pd=findProperty(descriptors,mappingProperty);
-            if (pd == null)             throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
-            relatedClassPropertyType=pd.getPropertyType();
-            property.setReferencePropertyName(pd.getName());
-          }
  else {
+        if (isRelationshipManyToMany(property,relatedClassType,relatedClassRelationships)) {
+          String relatedClassPropertyName=null;
+          for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
+            String currentKey=(String)i.next();
+            Class currentClass=(Class)relatedClassRelationships.get(currentKey);
+            if (currentClass.isAssignableFrom(getClazz())) {
+              relatedClassPropertyName=currentKey;
+              break;
+            }
+          }
+          if (relatedClassPropertyName != null) {
+            relatedClassPropertyType=GrailsClassUtils.getPropertyType(relatedClassType,relatedClassPropertyName);
+          }
+        }
+        if (relatedClassPropertyType == null) {
+          PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz());
+          if (descriptors.length == 1) {
+            relatedClassPropertyType=descriptors[0].getPropertyType();
+            property.setReferencePropertyName(descriptors[0].getName());
+          }
+ else           if (descriptors.length > 1) {
             String classPropertyName=getPropertyName();
             PropertyDescriptor pd=findProperty(descriptors,classPropertyName);
             if (pd == null) {

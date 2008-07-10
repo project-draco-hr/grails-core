@@ -4,9 +4,9 @@
     Comparable from=range.getFrom();
     Comparable to=range.getTo();
     if (from instanceof Number && propertyValue instanceof Number) {
-      from=((Number)from).longValue();
-      to=((Number)to).longValue();
-      propertyValue=((Number)propertyValue).longValue();
+      from=new Long(((Number)from).longValue());
+      to=new Long(((Number)to).longValue());
+      propertyValue=new Long(((Number)propertyValue).longValue());
     }
     if (from.compareTo(propertyValue) > 0) {
       super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_INVALID_RANGE_MESSAGE_CODE,ConstrainedProperty.RANGE_CONSTRAINT + ConstrainedProperty.TOOSMALL_SUFFIX,args);

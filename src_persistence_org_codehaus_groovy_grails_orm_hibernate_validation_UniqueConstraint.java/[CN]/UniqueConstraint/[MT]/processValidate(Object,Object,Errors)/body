@@ -7,14 +7,23 @@
       public Object doInHibernate(      Session session) throws HibernateException {
         session.setFlushMode(FlushMode.MANUAL);
         try {
-          Criteria criteria=session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
-          if (uniquenessGroup != null) {
-            for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
-              String propertyName=(String)it.next();
-              criteria.add(Restrictions.eq(propertyName,GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,propertyName)));
-            }
+          boolean shouldValidate=true;
+          if (propertyValue != null && DomainClassArtefactHandler.isDomainClass(propertyValue.getClass())) {
+            shouldValidate=session.contains(propertyValue);
           }
-          return criteria.list();
+          if (shouldValidate) {
+            Criteria criteria=session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
+            if (uniquenessGroup != null) {
+              for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
+                String propertyName=(String)it.next();
+                criteria.add(Restrictions.eq(propertyName,GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,propertyName)));
+              }
+            }
+            return criteria.list();
+          }
+ else {
+            return Collections.EMPTY_LIST;
+          }
         }
   finally {
           session.setFlushMode(FlushMode.AUTO);

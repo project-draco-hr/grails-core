@@ -1,0 +1,4 @@
+{
+  this.pluginChangeScanner.start();
+  LOG.info("Started to scan for plugin changes in every " + SCAN_INTERVAL + "ms.");
+}

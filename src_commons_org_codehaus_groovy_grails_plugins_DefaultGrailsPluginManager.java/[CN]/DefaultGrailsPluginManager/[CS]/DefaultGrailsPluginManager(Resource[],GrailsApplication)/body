@@ -4,4 +4,5 @@
   this.pluginResources=pluginFiles;
   this.application=application;
   setPluginFilter();
+  startPluginChangeScanner();
 }

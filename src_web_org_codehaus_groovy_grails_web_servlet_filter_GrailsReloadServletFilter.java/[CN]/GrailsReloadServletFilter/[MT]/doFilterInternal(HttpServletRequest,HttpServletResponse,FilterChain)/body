@@ -4,18 +4,10 @@
   }
   try {
     GrailsApplication application=(GrailsApplication)context.getBean(GrailsApplication.APPLICATION_ID);
-    GrailsPluginManager manager=PluginManagerHolder.getPluginManager();
-    if (manager != null) {
-      LOG.debug("Checking Plugin manager for changes..");
-      manager.checkForChanges();
-      if (!application.isInitialised()) {
-        application.rebuild();
-        GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
-        config.reconfigure(context,getServletContext(),true);
-      }
-    }
- else {
-      LOG.debug("Plugin manager not found, skipping change check");
+    if (!application.isInitialised()) {
+      application.rebuild();
+      GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
+      config.reconfigure(context,getServletContext(),true);
     }
   }
  catch (  Exception e) {

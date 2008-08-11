@@ -22,7 +22,7 @@
   establishRelationships();
   establishPersistentProperties();
   try {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),this.persistantProperties);
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),this.persistentProperties);
   }
  catch (  IntrospectionException e) {
     LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);

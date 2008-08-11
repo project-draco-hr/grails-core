@@ -6,5 +6,5 @@
       tempList.add(currentProp);
     }
   }
-  this.persistantProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+  this.persistentProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
 }

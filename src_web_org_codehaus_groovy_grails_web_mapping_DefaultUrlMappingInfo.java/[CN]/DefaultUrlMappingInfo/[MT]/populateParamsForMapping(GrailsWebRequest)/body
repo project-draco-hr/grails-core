@@ -1,4 +1,7 @@
 {
+  Map dispatchParams=webRequest.getParams();
+  String encoding=webRequest.getRequest().getCharacterEncoding();
+  if (encoding == null)   encoding="UTF-8";
   Collection keys=this.params.keySet();
   keys=DefaultGroovyMethods.toList(keys);
   Collections.sort((List)keys,new Comparator(){
@@ -22,12 +25,24 @@
     }
     if (param instanceof String) {
       try {
-        param=decoder.decode((String)param,"UTF-8");
+        param=URLDecoder.decode((String)param,encoding);
       }
  catch (      UnsupportedEncodingException e) {
         param=evaluateNameForValue(param);
       }
     }
     dispatchParams.put(name,param);
+  }
+  final String viewName=getViewName();
+  if (viewName == null) {
+    webRequest.setControllerName(getControllerName());
+    webRequest.setActionName(getActionName());
+  }
+  String id=getId();
+  if (!StringUtils.isBlank(id))   try {
+    dispatchParams.put(GrailsWebRequest.ID_PARAMETER,URLDecoder.decode(id,encoding));
+  }
+ catch (  UnsupportedEncodingException e) {
+    dispatchParams.put(GrailsWebRequest.ID_PARAMETER,id);
   }
 }

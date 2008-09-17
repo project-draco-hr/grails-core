@@ -1,7 +1,7 @@
 {
   PersistentClass associatedClass=null;
   if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
-  ColumnConfig cc=getColumnConfig(property);
+  PropertyConfig propConfig=getPropertyConfig(property);
   if (collection.isOneToMany()) {
     GrailsDomainClass referenced=property.getReferencedDomainClass();
     Mapping m=getRootMapping(referenced);
@@ -19,7 +19,7 @@
     if (shouldBindCollectionWithForeignKey(property)) {
       collection.setCollectionTable(associatedClass.getTable());
     }
-    bindCollectionForColumnConfig(collection,cc);
+    bindCollectionForPropertyConfig(collection,propConfig);
   }
   if (isSorted(property)) {
     collection.setSorted(true);
@@ -35,16 +35,16 @@
     }
   }
  else {
-    if (cc != null && cc.getJoinTable() != null && cc.getJoinTable().getKey() != null) {
-      bindSimpleValue("long",key,false,cc.getJoinTable().getKey(),mappings);
+    if (propConfig != null && propConfig.getJoinTable() != null && propConfig.getJoinTable().getKey() != null) {
+      bindSimpleValue("long",key,false,propConfig.getJoinTable().getKey(),mappings);
     }
  else {
       bindDependentKeyValue(property,key,mappings);
     }
   }
   collection.setKey(key);
-  if (cc != null) {
-    CacheConfig cacheConfig=cc.getCache();
+  if (propConfig != null) {
+    CacheConfig cacheConfig=propConfig.getCache();
     if (cacheConfig != null) {
       collection.setCacheConcurrencyStrategy(cacheConfig.getUsage());
     }
@@ -56,13 +56,13 @@
       ManyToOne element=new ManyToOne(collection.getCollectionTable());
       bindManyToMany(otherSide,element,mappings);
       collection.setElement(element);
-      bindCollectionForColumnConfig(collection,cc);
+      bindCollectionForPropertyConfig(collection,propConfig);
     }
  else {
     }
   }
  else   if (shouldCollectionBindWithJoinColumn(property)) {
-    bindCollectionWithJoinTable(property,mappings,collection,cc);
+    bindCollectionWithJoinTable(property,mappings,collection,propConfig);
   }
  else   if (isUnidirectionalOneToMany(property)) {
     bindUnidirectionalOneToMany(property,mappings,collection);

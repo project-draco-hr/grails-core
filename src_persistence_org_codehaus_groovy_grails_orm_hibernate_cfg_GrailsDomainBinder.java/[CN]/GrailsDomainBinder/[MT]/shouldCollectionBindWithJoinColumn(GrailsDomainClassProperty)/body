@@ -1,5 +1,5 @@
 {
-  ColumnConfig cc=getColumnConfig(property);
-  JoinTable jt=cc != null ? cc.getJoinTable() : new JoinTable();
+  PropertyConfig config=getPropertyConfig(property);
+  JoinTable jt=config != null ? config.getJoinTable() : new JoinTable();
   return isUnidirectionalOneToMany(property) && jt != null;
 }

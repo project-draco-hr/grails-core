@@ -9,7 +9,7 @@
   SimpleValue key=new DependantValue(mytable,joinedSubclass.getIdentifier());
   joinedSubclass.setKey(key);
   GrailsDomainClassProperty identifier=sub.getIdentifier();
-  String columnName=getColumnNameForPropertyAndPath(identifier,EMPTY_PATH);
+  String columnName=getColumnNameForPropertyAndPath(identifier,EMPTY_PATH,null);
   bindSimpleValue(identifier.getType().getName(),key,false,columnName,mappings);
   joinedSubclass.createPrimaryKey();
   createClassProperties(sub,joinedSubclass,mappings);

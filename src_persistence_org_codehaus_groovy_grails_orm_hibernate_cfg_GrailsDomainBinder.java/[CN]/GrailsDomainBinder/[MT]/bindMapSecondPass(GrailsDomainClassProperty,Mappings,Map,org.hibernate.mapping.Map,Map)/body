@@ -1,6 +1,6 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,map,inheritedMetas);
-  String columnName=getColumnNameForPropertyAndPath(property,"");
+  String columnName=getColumnNameForPropertyAndPath(property,"",null);
   SimpleValue value=new SimpleValue(map.getCollectionTable());
   bindSimpleValue(STRING_TYPE,value,true,columnName + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME,mappings);
   if (!value.isTypeSpecified()) {

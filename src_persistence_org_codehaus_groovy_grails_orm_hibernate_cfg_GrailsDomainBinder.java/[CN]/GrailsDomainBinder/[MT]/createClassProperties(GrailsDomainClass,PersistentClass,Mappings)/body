@@ -26,7 +26,7 @@
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
     }
- else     if (currentGrailsProp.isOneToOne() && !isUserType(userType)) {
+ else     if (currentGrailsProp.isOneToOne() && userType == null) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
       value=new ManyToOne(table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);

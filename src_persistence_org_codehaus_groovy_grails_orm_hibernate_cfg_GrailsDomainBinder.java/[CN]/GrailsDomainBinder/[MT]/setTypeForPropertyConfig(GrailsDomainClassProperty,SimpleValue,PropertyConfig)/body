@@ -1,6 +1,6 @@
 {
-  if (cc != null && cc.getType() != null) {
-    Object type=cc.getType();
+  if (config != null && config.getType() != null) {
+    Object type=config.getType();
     if (type instanceof Class) {
       simpleValue.setTypeName(((Class)type).getName());
     }

@@ -1,7 +1,7 @@
 {
   Class userType=null;
-  ColumnConfig cc=getColumnConfig(currentGrailsProp);
-  Object typeObj=cc != null ? cc.getType() : null;
+  PropertyConfig config=getPropertyConfig(currentGrailsProp);
+  Object typeObj=config != null ? config.getType() : null;
   if (typeObj instanceof Class) {
     userType=(Class)typeObj;
   }

@@ -1,10 +1,10 @@
 {
   String cascadeStrategy="none";
   GrailsDomainClass domainClass=grailsProperty.getDomainClass();
-  ColumnConfig cc=getColumnConfig(grailsProperty);
+  PropertyConfig config=getPropertyConfig(grailsProperty);
   GrailsDomainClass referenced=grailsProperty.getReferencedDomainClass();
-  if (cc != null && cc.getCascade() != null) {
-    cascadeStrategy=cc.getCascade();
+  if (config != null && config.getCascade() != null) {
+    cascadeStrategy=config.getCascade();
   }
  else   if (grailsProperty.isAssociation()) {
     if (grailsProperty.isOneToOne()) {

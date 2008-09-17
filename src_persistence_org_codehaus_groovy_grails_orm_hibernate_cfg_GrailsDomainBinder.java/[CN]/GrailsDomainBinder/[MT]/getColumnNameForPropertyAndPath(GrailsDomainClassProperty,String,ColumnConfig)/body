@@ -1,11 +1,16 @@
 {
-  GrailsDomainClass domainClass=grailsProp.getDomainClass();
   String columnName=null;
-  Mapping m=getMapping(domainClass.getClazz());
-  if (m != null) {
-    ColumnConfig c=m.getColumn(grailsProp.getName());
-    if (c != null && c.getColumn() != null) {
-      columnName=c.getColumn();
+  if (cc != null) {
+    columnName=cc.getName();
+  }
+ else {
+    GrailsDomainClass domainClass=grailsProp.getDomainClass();
+    Mapping m=getMapping(domainClass.getClazz());
+    if (m != null) {
+      PropertyConfig c=m.getPropertyConfig(grailsProp.getName());
+      if (c != null && c.getColumn() != null) {
+        columnName=c.getColumn();
+      }
     }
   }
   if (columnName == null) {

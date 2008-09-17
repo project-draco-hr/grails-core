@@ -4,8 +4,8 @@
     return tablePrefix + "_" + namingStrategy.propertyToColumnName(property.getName());
   }
  else {
-    ColumnConfig cc=getColumnConfig(property);
-    JoinTable jt=cc != null ? cc.getJoinTable() : null;
+    PropertyConfig config=getPropertyConfig(property);
+    JoinTable jt=config != null ? config.getJoinTable() : null;
     if (property.isManyToMany() && jt != null && jt.getName() != null) {
       return jt.getName();
     }

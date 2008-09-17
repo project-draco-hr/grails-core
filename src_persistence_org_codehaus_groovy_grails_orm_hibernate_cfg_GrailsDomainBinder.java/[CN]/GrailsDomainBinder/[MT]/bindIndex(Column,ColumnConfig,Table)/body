@@ -1,5 +1,4 @@
 {
-  ColumnConfig cc=getColumnConfig(grailsProp);
   if (cc != null) {
     String indexDefinition=cc.getIndex();
     if (indexDefinition != null) {

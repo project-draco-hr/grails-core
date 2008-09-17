@@ -2,9 +2,9 @@
   value.setTypeUsingReflection(persistentClass.getClassName(),grailsProperty.getName());
   if (value.getTable() != null)   value.createForeignKey();
   Property prop=new Property();
-  ColumnConfig cc=getColumnConfig(grailsProperty);
-  if (cc != null) {
-    prop.setLazy(cc.getLazy());
+  PropertyConfig config=getPropertyConfig(grailsProperty);
+  if (config != null) {
+    prop.setLazy(config.getLazy());
   }
  else   if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
     prop.setLazy(true);

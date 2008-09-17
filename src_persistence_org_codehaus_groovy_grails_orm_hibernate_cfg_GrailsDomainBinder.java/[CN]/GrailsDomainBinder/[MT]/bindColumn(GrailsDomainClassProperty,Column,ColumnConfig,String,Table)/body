@@ -1,7 +1,8 @@
 {
-  if (grailsProp.isAssociation()) {
+  Class userType=getUserType(grailsProp);
+  if (grailsProp.isAssociation() && userType == null) {
     if (column.getName() == null) {
-      String columnName=getColumnNameForPropertyAndPath(grailsProp,path);
+      String columnName=getColumnNameForPropertyAndPath(grailsProp,path,cc);
       if (!grailsProp.isBidirectional() && grailsProp.isOneToMany()) {
         String prefix=namingStrategy.classToTableName(grailsProp.getDomainClass().getName());
         column.setName(prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX);
@@ -24,7 +25,7 @@
     }
   }
  else {
-    String columnName=getColumnNameForPropertyAndPath(grailsProp,path);
+    String columnName=getColumnNameForPropertyAndPath(grailsProp,path,cc);
     column.setName(columnName);
     column.setNullable(grailsProp.isOptional());
     ConstrainedProperty constrainedProperty=getConstrainedProperty(grailsProp);
@@ -50,7 +51,7 @@
       column.setUnique(((Boolean)val).booleanValue());
     }
   }
-  bindIndex(grailsProp,column,table);
+  bindIndex(column,cc,table);
   if (!grailsProp.getDomainClass().isRoot()) {
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Sub class property [" + grailsProp.getName() + "] for column name ["+ column.getName()+ "] in table ["+ table.getName()+ "] set to nullable");
     column.setNullable(true);

@@ -3,7 +3,7 @@
   bindUnidirectionalOneToManyInverseValues(property,element);
   collection.setInverse(false);
   String columnName;
-  JoinTable jt=cc != null ? cc.getJoinTable() : null;
+  JoinTable jt=config != null ? config.getJoinTable() : null;
   if (jt != null && jt.getKey() != null) {
     columnName=jt.getColumn();
   }
@@ -12,5 +12,5 @@
   }
   bindSimpleValue("long",element,true,columnName,mappings);
   collection.setElement(element);
-  bindCollectionForColumnConfig(collection,cc);
+  bindCollectionForPropertyConfig(collection,config);
 }

@@ -11,4 +11,6 @@
   assertTrue(listFile.exists());
   File editFile=new File("test/grails-app/views/test/edit.gsp");
   assertTrue(editFile.exists());
+  File createFile=new File("test/grails-app/views/test/create.gsp");
+  assertTrue(createFile.exists());
 }

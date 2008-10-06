@@ -1,5 +1,5 @@
 {
-  if (shouldInject(classNode)) {
+  if (shouldInjectClass(classNode)) {
     injectIdProperty(classNode);
     injectVersionProperty(classNode);
     injectToStringMethod(classNode);

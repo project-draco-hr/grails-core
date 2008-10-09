@@ -22,7 +22,20 @@
       if (value == null && !prop.isNullable())       throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
  else       if (value == null)       break;
       try {
-        uri.append(SLASH).append(URLEncoder.encode(value.toString(),encoding));
+        String v=value.toString();
+        if (v.contains(SLASH) && CAPTURED_DOUBLE_WILDCARD.equals(token)) {
+          if (v.startsWith(SLASH)) {
+            v=v.substring(SLASH.length());
+          }
+          String[] segs=v.split(SLASH);
+          for (int s=0; s < segs.length; s++) {
+            String segment=segs[s];
+            uri.append(SLASH).append(URLEncoder.encode(segment,encoding));
+          }
+        }
+ else {
+          uri.append(SLASH).append(URLEncoder.encode(v,encoding));
+        }
       }
  catch (      UnsupportedEncodingException e) {
         throw new ControllerExecutionException("Error creating URL for parameters [" + parameterValues + "], problem encoding URL part ["+ value+ "]: "+ e.getMessage(),e);

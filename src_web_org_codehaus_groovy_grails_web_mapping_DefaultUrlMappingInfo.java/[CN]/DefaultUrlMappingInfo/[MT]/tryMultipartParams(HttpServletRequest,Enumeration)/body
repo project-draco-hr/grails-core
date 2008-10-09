@@ -1,0 +1,18 @@
+{
+  Enumeration paramNames=originalParams;
+  boolean disabled=getMultipartDisabled();
+  if (!disabled) {
+    MultipartResolver resolver=getResolver();
+    if (resolver.isMultipart(request)) {
+      MultipartHttpServletRequest resolvedMultipartRequest=getResolvedRequest(request,resolver);
+      paramNames=resolvedMultipartRequest.getParameterNames();
+    }
+ else {
+      MultipartRequestHolder.setMultipartRequest(null);
+    }
+  }
+ else {
+    MultipartRequestHolder.setMultipartRequest(null);
+  }
+  return paramNames;
+}

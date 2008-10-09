@@ -8,7 +8,7 @@
     script.setBinding(b);
     script.run();
     Closure mappings=closure.getMappings();
-    UrlMappingBuilder builder=new UrlMappingBuilder(script.getBinding());
+    UrlMappingBuilder builder=new UrlMappingBuilder(script.getBinding(),servletContext);
     mappings.setDelegate(builder);
     mappings.call();
     builder.urlDefiningMode=false;

@@ -1,5 +1,0 @@
-{
-  this(params,urlData);
-  this.viewName=viewName;
-  if (viewName == null)   throw new IllegalArgumentException("Argument [viewName] cannot be null or blank");
-}

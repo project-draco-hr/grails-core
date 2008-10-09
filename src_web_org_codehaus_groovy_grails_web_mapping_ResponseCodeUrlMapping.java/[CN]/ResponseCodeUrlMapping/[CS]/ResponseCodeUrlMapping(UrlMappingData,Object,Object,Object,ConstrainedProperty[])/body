@@ -1,9 +1,0 @@
-{
-  this.urlData=(ResponseCodeMappingData)urlData;
-  this.controllerName=controllerName;
-  this.actionName=actionName;
-  this.viewName=viewName;
-  if (constraints != null && constraints.length > 0) {
-    throw new IllegalArgumentException("Constraints can't be used for response code url mapping");
-  }
-}

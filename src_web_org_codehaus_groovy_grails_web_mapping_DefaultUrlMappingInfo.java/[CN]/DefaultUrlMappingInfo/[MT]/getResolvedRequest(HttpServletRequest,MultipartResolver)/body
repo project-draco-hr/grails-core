@@ -1,0 +1,8 @@
+{
+  MultipartHttpServletRequest resolvedMultipartRequest=MultipartRequestHolder.getMultipartRequest();
+  if (resolvedMultipartRequest == null) {
+    resolvedMultipartRequest=resolver.resolveMultipart(request);
+    MultipartRequestHolder.setMultipartRequest(resolvedMultipartRequest);
+  }
+  return resolvedMultipartRequest;
+}

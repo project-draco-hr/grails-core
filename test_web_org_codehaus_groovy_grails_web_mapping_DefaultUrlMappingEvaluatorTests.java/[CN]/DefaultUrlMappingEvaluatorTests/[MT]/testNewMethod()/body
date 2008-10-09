@@ -5,7 +5,6 @@
   script.setBinding(binding);
   script.run();
   Closure closure=(Closure)binding.getVariable("mappings");
-  DefaultUrlMappingEvaluator evaluator=new DefaultUrlMappingEvaluator();
   List mappings=evaluator.evaluateMappings(closure);
   assertEquals(1,mappings.size());
   UrlMapping mapping=(UrlMapping)mappings.get(0);

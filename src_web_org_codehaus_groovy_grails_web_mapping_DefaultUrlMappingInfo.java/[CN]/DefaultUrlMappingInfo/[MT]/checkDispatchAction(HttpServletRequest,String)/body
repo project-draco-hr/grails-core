@@ -1,6 +1,10 @@
 {
-  for (Enumeration e=request.getParameterNames(); e.hasMoreElements(); ) {
-    String name=(String)e.nextElement();
+  Enumeration paramNames=request.getParameterNames();
+  if (!paramNames.hasMoreElements()) {
+    paramNames=tryMultipartParams(request,paramNames);
+  }
+  for (; paramNames.hasMoreElements(); ) {
+    String name=(String)paramNames.nextElement();
     if (name.startsWith(WebUtils.DISPATCH_ACTION_PARAMETER)) {
       if (name.endsWith(".x") || name.endsWith(".y")) {
         name=name.substring(0,name.length() - 2);

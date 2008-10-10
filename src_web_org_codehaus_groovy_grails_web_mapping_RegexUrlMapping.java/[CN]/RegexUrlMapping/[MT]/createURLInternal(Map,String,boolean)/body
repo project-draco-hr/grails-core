@@ -23,7 +23,7 @@
  else       if (value == null)       break;
       try {
         String v=value.toString();
-        if (v.contains(SLASH) && CAPTURED_DOUBLE_WILDCARD.equals(token)) {
+        if (v.indexOf(SLASH) > -1 && CAPTURED_DOUBLE_WILDCARD.equals(token)) {
           if (v.startsWith(SLASH)) {
             v=v.substring(SLASH.length());
           }

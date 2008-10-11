@@ -23,9 +23,12 @@
   WrappedResponseHolder.setWrappedResponse(response);
   boolean dispatched=false;
   try {
+    Map backupParameters=new HashMap(webRequest.getParams());
     for (int i=0; i < urlInfos.length; i++) {
       UrlMappingInfo info=urlInfos[i];
       if (info != null) {
+        webRequest.getParams().clear();
+        webRequest.getParams().putAll(backupParameters);
         info.configure(webRequest);
         String action=info.getActionName() == null ? "" : info.getActionName();
         final String viewName=info.getViewName();

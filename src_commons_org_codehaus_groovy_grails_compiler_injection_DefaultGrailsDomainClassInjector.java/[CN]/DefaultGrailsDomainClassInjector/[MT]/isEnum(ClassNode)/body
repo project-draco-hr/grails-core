@@ -1,0 +1,8 @@
+{
+  ClassNode parent=classNode.getSuperClass();
+  while (parent != null) {
+    if (parent.getName().equals("java.lang.Enum"))     return true;
+    parent=parent.getSuperClass();
+  }
+  return false;
+}

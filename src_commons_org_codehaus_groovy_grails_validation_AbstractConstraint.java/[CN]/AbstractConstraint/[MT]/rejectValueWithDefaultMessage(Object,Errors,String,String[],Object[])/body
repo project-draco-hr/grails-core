@@ -8,6 +8,6 @@
     newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
     newCodes.addAll(Arrays.asList(result.resolveMessageCodes(codes[i],constraintPropertyName)));
   }
-  FieldError error=new FieldError(errors.getObjectName(),constraintPropertyName,getPropertyValue(errors,target),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
+  FieldError error=new FieldError(errors.getObjectName(),errors.getNestedPath() + constraintPropertyName,getPropertyValue(errors,target),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
   ((BindingResult)errors).addError(error);
 }

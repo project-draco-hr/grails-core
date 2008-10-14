@@ -1,8 +1,8 @@
 {
-  GrailsApplication app=(GrailsApplication)servletContext.getAttribute(GrailsApplication.APPLICATION_ID);
+  GrailsApplication app=WebUtils.lookupApplication(servletContext);
   ConfigObject config=app.getConfig();
   boolean disabled=false;
-  Object disableMultipart=config.get("disbableMultipart");
+  Object disableMultipart=config.get("disableMultipart");
   if (disableMultipart instanceof Boolean) {
     disabled=((Boolean)disableMultipart).booleanValue();
   }

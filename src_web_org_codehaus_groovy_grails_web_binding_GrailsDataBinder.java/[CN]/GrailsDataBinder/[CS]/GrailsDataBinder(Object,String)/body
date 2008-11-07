@@ -16,4 +16,5 @@
   }
   setDisallowedFields(disallowed);
   setAllowedFields(ALL_OTHER_FIELDS_ALLOWED_BY_DEFAULT);
+  registerCustomEditors();
 }

@@ -1,4 +1,3 @@
 {
-  if (servletContext != null)   throw new IllegalStateException("ServletContext already set!");
   ServletContextHolder.servletContext=servletContext;
 }

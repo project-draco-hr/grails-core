@@ -1,0 +1,8 @@
+{
+  SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(localSessionFactory);
+  Session session=null;
+  if (sessionHolder != null) {
+    session=sessionHolder.getSession();
+  }
+  return session;
+}

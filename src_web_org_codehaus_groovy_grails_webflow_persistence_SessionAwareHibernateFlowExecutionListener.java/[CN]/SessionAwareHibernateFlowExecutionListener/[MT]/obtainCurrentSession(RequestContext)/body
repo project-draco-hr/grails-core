@@ -1,7 +1,7 @@
 {
   MutableAttributeMap flowScope=context.getFlowScope();
   if (flowScope.get(HIBERNATE_SESSION_ATTRIBUTE) == null) {
-    SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(localSessionFactory);
-    if (sessionHolder != null)     flowScope.put(HIBERNATE_SESSION_ATTRIBUTE,sessionHolder.getSession());
+    final Session session=getCurrentSession();
+    flowScope.put(HIBERNATE_SESSION_ATTRIBUTE,session);
   }
 }

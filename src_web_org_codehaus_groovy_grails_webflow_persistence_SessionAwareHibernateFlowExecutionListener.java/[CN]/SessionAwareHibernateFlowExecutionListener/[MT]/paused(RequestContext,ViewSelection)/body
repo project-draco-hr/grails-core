@@ -1,0 +1,7 @@
+{
+  final Session session=getCurrentSession();
+  unbind(session);
+  if (session != null) {
+    session.disconnect();
+  }
+}

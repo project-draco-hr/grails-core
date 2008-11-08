@@ -1,8 +1,8 @@
 {
   Class userType=getUserType(grailsProp);
+  String columnName=getColumnNameForPropertyAndPath(grailsProp,path,cc);
   if (grailsProp.isAssociation() && userType == null) {
     if (column.getName() == null) {
-      String columnName=getColumnNameForPropertyAndPath(grailsProp,path,cc);
       if (!grailsProp.isBidirectional() && grailsProp.isOneToMany()) {
         String prefix=namingStrategy.classToTableName(grailsProp.getDomainClass().getName());
         column.setName(prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX);
@@ -25,7 +25,6 @@
     }
   }
  else {
-    String columnName=getColumnNameForPropertyAndPath(grailsProp,path,cc);
     column.setName(columnName);
     column.setNullable(grailsProp.isOptional());
     ConstrainedProperty constrainedProperty=getConstrainedProperty(grailsProp);
@@ -41,14 +40,25 @@
   ConstrainedProperty cp=getConstrainedProperty(grailsProp);
   if (cp != null && cp.hasAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT)) {
     UniqueConstraint uc=(UniqueConstraint)cp.getAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT);
-    if (uc != null && uc.isUnique() && !uc.isUniqueWithinGroup()) {
-      column.setUnique(true);
+    if (uc != null && uc.isUnique()) {
+      if (!uc.isUniqueWithinGroup()) {
+        column.setUnique(true);
+      }
+ else       if (uc.getUniquenessGroup().size() > 0) {
+        createKeyForProps(grailsProp,path,table,columnName,uc.getUniquenessGroup());
+      }
     }
   }
  else {
     Object val=cp != null ? cp.getMetaConstraintValue(UniqueConstraint.UNIQUE_CONSTRAINT) : null;
     if (val instanceof Boolean) {
       column.setUnique(((Boolean)val).booleanValue());
+    }
+ else     if (val instanceof String) {
+      createKeyForProps(grailsProp,path,table,columnName,Arrays.asList(new String[]{(String)val}));
+    }
+ else     if (val instanceof List && ((List)val).size() > 0) {
+      createKeyForProps(grailsProp,path,table,columnName,(List)val);
     }
   }
   bindIndex(column,cc,table);

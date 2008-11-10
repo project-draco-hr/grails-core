@@ -3,7 +3,7 @@
   for (int i=0; i < pvs.length; i++) {
     PropertyValue pv=pvs[i];
     String propertyName=pv.getName();
-    if (propertyName.indexOf('.') > -1) {
+    if (propertyName.indexOf(PATH_SEPARATOR) > -1) {
       String[] propertyNames=propertyName.split("\\.");
       ConfigurablePropertyAccessor currentBean=bean;
       for (int j=0; j < propertyNames.length; j++) {

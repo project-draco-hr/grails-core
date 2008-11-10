@@ -11,5 +11,7 @@
   binder.registerCustomEditor(Long.class,new CustomNumberEditor(Long.class,integerFormat,true));
   binder.registerCustomEditor(Integer.class,new CustomNumberEditor(Integer.class,integerFormat,true));
   binder.registerCustomEditor(Short.class,new CustomNumberEditor(Short.class,integerFormat,true));
+  binder.registerCustomEditor(Date.class,new StructuredDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,locale),true));
+  binder.registerCustomEditor(Calendar.class,new StructuredDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,locale),true));
   return binder;
 }

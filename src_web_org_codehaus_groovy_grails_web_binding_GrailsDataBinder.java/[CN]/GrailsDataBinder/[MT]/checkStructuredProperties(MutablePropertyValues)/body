@@ -1,0 +1,50 @@
+{
+  PropertyValue[] pvs=propertyValues.getPropertyValues();
+  for (int i=0; i < pvs.length; i++) {
+    PropertyValue propertyValue=pvs[i];
+    if (!isStructured(propertyValue)) {
+      continue;
+    }
+    String propertyName=getNameOf(propertyValue);
+    Class type=bean.getPropertyType(propertyName);
+    if (type != null) {
+      PropertyEditor editor=findCustomEditor(type,propertyName);
+      if (null != editor && StructuredPropertyEditor.class.isAssignableFrom(editor.getClass())) {
+        StructuredPropertyEditor structuredEditor=(StructuredPropertyEditor)editor;
+        List fields=new ArrayList();
+        fields.addAll(structuredEditor.getRequiredFields());
+        fields.addAll(structuredEditor.getOptionalFields());
+        Map fieldValues=new HashMap();
+        try {
+          for (int j=0; j < fields.size(); j++) {
+            String field=(String)fields.get(j);
+            PropertyValue requiredProperty=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + field);
+            if (requiredProperty == null && structuredEditor.getRequiredFields().contains(field)) {
+              break;
+            }
+ else             if (requiredProperty == null)             continue;
+            fieldValues.put(field,getStringValue(requiredProperty));
+          }
+          try {
+            Object value=structuredEditor.assemble(type,fieldValues);
+            if (null != value) {
+              for (int j=0; j < fields.size(); j++) {
+                String requiredField=(String)fields.get(j);
+                PropertyValue requiredProperty=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + requiredField);
+                if (null != requiredProperty) {
+                  requiredProperty.setConvertedValue(getStringValue(requiredProperty));
+                }
+              }
+              propertyValues.addPropertyValue(new PropertyValue(propertyName,value));
+            }
+          }
+ catch (          IllegalArgumentException iae) {
+            LOG.warn("Unable to parse structured date from request for date [" + propertyName + "]",iae);
+          }
+        }
+ catch (        InvalidPropertyException ipe) {
+        }
+      }
+    }
+  }
+}

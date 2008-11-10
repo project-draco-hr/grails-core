@@ -1,0 +1,7 @@
+{
+  String name=propertyValue.getName();
+  if (name.indexOf(STRUCTURED_PROPERTY_SEPERATOR) == -1) {
+    return name;
+  }
+  return name.substring(0,name.indexOf(STRUCTURED_PROPERTY_SEPERATOR));
+}

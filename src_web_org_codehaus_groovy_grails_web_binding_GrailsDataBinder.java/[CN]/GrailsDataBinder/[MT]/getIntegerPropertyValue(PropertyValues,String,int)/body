@@ -1,8 +1,0 @@
-{
-  int returnValue=defaultValue;
-  PropertyValue propertyValue=propertyValues.getPropertyValue(propertyName);
-  if (propertyValue != null) {
-    returnValue=Integer.parseInt(getStringValue(propertyValue));
-  }
-  return returnValue;
-}

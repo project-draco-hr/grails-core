@@ -35,6 +35,7 @@
           if (LOG.isDebugEnabled()) {
             LOG.debug("Matched URI [" + uri + "] to URL mapping ["+ info+ "], forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
           }
+          return null;
         }
       }
     }

@@ -9,25 +9,32 @@
   final UrlMappingsHolder urlMappingsHolder=lookupUrlMappings();
   final UrlMappingInfo urlMappingInfo=urlMappingsHolder.matchStatusCode(statusCode);
   if (urlMappingInfo != null) {
-    final GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
-    urlMappingInfo.configure(webRequest);
-    String viewName=urlMappingInfo.getViewName();
-    if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
-      WebUtils.forwardRequestForUrlMappingInfo(request,response,urlMappingInfo);
-    }
- else {
-      ViewResolver viewResolver=WebUtils.lookupViewResolver(getServletContext());
-      if (viewResolver != null) {
-        View v;
-        try {
-          v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
-          v.render(Collections.EMPTY_MAP,request,response);
+    GrailsWebRequestFilter grailsWebRequestFilter=new GrailsWebRequestFilter();
+    grailsWebRequestFilter.setServletContext(getServletContext());
+    grailsWebRequestFilter.doFilter(request,response,new FilterChain(){
+      public void doFilter(      ServletRequest servletRequest,      ServletResponse servletResponse) throws IOException, ServletException {
+        final GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+        urlMappingInfo.configure(webRequest);
+        String viewName=urlMappingInfo.getViewName();
+        if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
+          WebUtils.forwardRequestForUrlMappingInfo(request,response,urlMappingInfo);
         }
- catch (        Exception e) {
-          throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+ else {
+          ViewResolver viewResolver=WebUtils.lookupViewResolver(getServletContext());
+          if (viewResolver != null) {
+            View v;
+            try {
+              v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
+              v.render(Collections.EMPTY_MAP,request,response);
+            }
+ catch (            Exception e) {
+              throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+            }
+          }
         }
       }
     }
+);
   }
  else {
     renderDefaultResponse(response,statusCode);

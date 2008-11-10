@@ -1,4 +1,5 @@
 {
   ExpandoMetaClass.disableGlobally();
+  ApplicationContextHolder.setApplicationContext(null);
   super.tearDown();
 }

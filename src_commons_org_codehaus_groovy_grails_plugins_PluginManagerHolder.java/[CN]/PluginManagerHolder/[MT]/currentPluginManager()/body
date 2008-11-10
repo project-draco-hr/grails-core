@@ -1,5 +1,5 @@
 {
   GrailsPluginManager current=getPluginManager();
-  if (current == null)   throw new IllegalStateException("No thread-bound PluginManager");
+  if (current == null)   throw new IllegalStateException("No PluginManager set");
   return current;
 }

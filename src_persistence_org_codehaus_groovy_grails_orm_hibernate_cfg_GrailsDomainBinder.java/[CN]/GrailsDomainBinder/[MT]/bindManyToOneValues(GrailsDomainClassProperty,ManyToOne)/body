@@ -5,7 +5,7 @@
     manyToOne.setLazy(config.getLazy());
   }
  else {
-    manyToOne.setLazy(false);
+    manyToOne.setLazy(true);
   }
   manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
   if (manyToOne.isLazy()) {

@@ -42,5 +42,4 @@
   assertEquals(c,gcc.getClazz());
   GroovyObject controller=(GroovyObject)ctx.getBean("TestController");
   assertEquals(c,controller.getClass());
-  assertSame(ctx,ApplicationContextHolder.getApplicationContext());
 }

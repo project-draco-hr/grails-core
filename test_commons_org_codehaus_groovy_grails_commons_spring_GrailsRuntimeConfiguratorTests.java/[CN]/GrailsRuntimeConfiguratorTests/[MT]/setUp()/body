@@ -1,6 +1,5 @@
 {
   ExpandoMetaClass.enableGlobally();
   ConfigurationHolder.setConfig(null);
-  ApplicationContextHolder.setApplicationContext(null);
   super.setUp();
 }

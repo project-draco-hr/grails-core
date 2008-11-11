@@ -26,6 +26,5 @@
   ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));
   performPostProcessing(ctx);
   application.refreshConstraints();
-  ApplicationContextHolder.setApplicationContext(ctx);
   return ctx;
 }

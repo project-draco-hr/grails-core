@@ -56,35 +56,40 @@
         }
  else {
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
-          GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();
-          if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
-            writer.addAttribute("id",String.valueOf(extractIdValue(referenceObject,referencedIdProperty)));
+          if (GrailsClassUtils.isJdk5Enum(property.getType())) {
+            context.convertAnother(referenceObject);
           }
  else {
-            String refPropertyName=referencedDomainClass.getPropertyName();
-            if (referenceObject instanceof Collection) {
-              Collection o=(Collection)referenceObject;
-              for (Iterator it=o.iterator(); it.hasNext(); ) {
-                Object el=(Object)it.next();
-                writer.startNode(refPropertyName);
-                writer.addAttribute("id",String.valueOf(extractIdValue(el,referencedIdProperty)));
-                writer.endNode();
-              }
+            GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();
+            if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
+              writer.addAttribute("id",String.valueOf(extractIdValue(referenceObject,referencedIdProperty)));
             }
- else             if (referenceObject instanceof Map) {
-              Map map=(Map)referenceObject;
-              Iterator iterator=map.keySet().iterator();
-              while (iterator.hasNext()) {
-                String key=String.valueOf(iterator.next());
-                Object o=map.get(key);
-                writer.startNode("entry");
-                writer.startNode("string");
-                writer.setValue(key);
-                writer.endNode();
-                writer.startNode(refPropertyName);
-                writer.addAttribute("id",String.valueOf(extractIdValue(o,referencedIdProperty)));
-                writer.endNode();
-                writer.endNode();
+ else {
+              String refPropertyName=referencedDomainClass.getPropertyName();
+              if (referenceObject instanceof Collection) {
+                Collection o=(Collection)referenceObject;
+                for (Iterator it=o.iterator(); it.hasNext(); ) {
+                  Object el=(Object)it.next();
+                  writer.startNode(refPropertyName);
+                  writer.addAttribute("id",String.valueOf(extractIdValue(el,referencedIdProperty)));
+                  writer.endNode();
+                }
+              }
+ else               if (referenceObject instanceof Map) {
+                Map map=(Map)referenceObject;
+                Iterator iterator=map.keySet().iterator();
+                while (iterator.hasNext()) {
+                  String key=String.valueOf(iterator.next());
+                  Object o=map.get(key);
+                  writer.startNode("entry");
+                  writer.startNode("string");
+                  writer.setValue(key);
+                  writer.endNode();
+                  writer.startNode(refPropertyName);
+                  writer.addAttribute("id",String.valueOf(extractIdValue(o,referencedIdProperty)));
+                  writer.endNode();
+                  writer.endNode();
+                }
               }
             }
           }

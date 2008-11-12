@@ -1,6 +1,5 @@
 {
   try {
-    sleep(15000);
     while (enabled) {
       pluginManager.checkForChanges();
       sleep(DefaultGrailsPluginManager.SCAN_INTERVAL);

@@ -4,5 +4,4 @@
   resolver=new PathMatchingResourcePatternResolver();
   this.application=application;
   setPluginFilter();
-  startPluginChangeScanner();
 }

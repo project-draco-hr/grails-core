@@ -1,7 +1,7 @@
 {
-  boolean inTestSuite=System.getProperty("grails.cli.testing") != null;
-  if (!application.isWarDeployed() && GrailsUtil.isDevelopmentEnv() && !inTestSuite) {
-    this.pluginChangeScanner.start();
-    LOG.info("Started to scan for plugin changes in every " + SCAN_INTERVAL + "ms.");
+  if (this.pluginChangeScanner.isAlive()) {
+    throw new IllegalStateException("Plugin change scanner is already running!");
   }
+  this.pluginChangeScanner.start();
+  LOG.info("Started to scan for plugin changes in every " + SCAN_INTERVAL + "ms.");
 }

@@ -18,5 +18,4 @@
   this.pluginResources=(Resource[])resourceList.toArray(new Resource[resourceList.size()]);
   this.application=application;
   setPluginFilter();
-  startPluginChangeScanner();
 }

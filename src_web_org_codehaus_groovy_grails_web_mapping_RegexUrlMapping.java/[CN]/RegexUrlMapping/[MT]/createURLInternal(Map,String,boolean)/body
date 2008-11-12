@@ -50,6 +50,9 @@
  else         if (v.length() > 0) {
           uri.append(SLASH).append(URLEncoder.encode(v,encoding));
         }
+ else {
+          break;
+        }
       }
  catch (      UnsupportedEncodingException e) {
         throw new ControllerExecutionException("Error creating URL for parameters [" + parameterValues + "], problem encoding URL part ["+ buf+ "]: "+ e.getMessage(),e);

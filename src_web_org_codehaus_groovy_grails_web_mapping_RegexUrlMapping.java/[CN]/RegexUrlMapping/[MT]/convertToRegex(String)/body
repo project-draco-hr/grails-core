@@ -2,7 +2,9 @@
   Pattern regex;
   String pattern=null;
   try {
-    pattern="^" + url.replaceAll("([^\\*])\\*([^\\*])","$1[^/]+$2").replaceAll("([^\\*])\\*$","$1[^/]+").replaceAll("\\*\\*",".*");
+    pattern=StringUtils.replace(url,".","\\.");
+    pattern=StringUtils.replace(pattern,"+","\\+");
+    pattern="^" + pattern.replaceAll("([^\\*])\\*([^\\*])","$1[^/]+$2").replaceAll("([^\\*])\\*$","$1[^/]+").replaceAll("\\*\\*",".*");
     pattern+="/??$";
     regex=Pattern.compile(pattern);
   }

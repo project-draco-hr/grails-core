@@ -10,19 +10,33 @@
   if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
   StringBuffer uri=new StringBuffer(contextPath);
   Set usedParams=new HashSet();
+  Pattern p=Pattern.compile("\\(\\*\\*?\\)");
   String[] tokens=urlData.getTokens();
   int paramIndex=0;
   for (int i=0; i < tokens.length; i++) {
     String token=tokens[i];
-    if (CAPTURED_WILDCARD.equals(token) || CAPTURED_DOUBLE_WILDCARD.equals(token)) {
-      ConstrainedProperty prop=this.constraints[paramIndex++];
-      String propName=prop.getPropertyName();
-      Object value=parameterValues.get(propName);
-      usedParams.add(propName);
-      if (value == null && !prop.isNullable())       throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
- else       if (value == null)       break;
+    Matcher m=p.matcher(token);
+    if (m.find()) {
+      StringBuffer buf=new StringBuffer();
+      do {
+        ConstrainedProperty prop=this.constraints[paramIndex++];
+        String propName=prop.getPropertyName();
+        Object value=parameterValues.get(propName);
+        usedParams.add(propName);
+        if (value == null && !prop.isNullable()) {
+          throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
+        }
+ else         if (value == null) {
+          m.appendReplacement(buf,"");
+        }
+ else {
+          m.appendReplacement(buf,value.toString());
+        }
+      }
+ while (m.find());
+      m.appendTail(buf);
       try {
-        String v=value.toString();
+        String v=buf.toString();
         if (v.indexOf(SLASH) > -1 && CAPTURED_DOUBLE_WILDCARD.equals(token)) {
           if (v.startsWith(SLASH)) {
             v=v.substring(SLASH.length());
@@ -33,12 +47,12 @@
             uri.append(SLASH).append(URLEncoder.encode(segment,encoding));
           }
         }
- else {
+ else         if (v.length() > 0) {
           uri.append(SLASH).append(URLEncoder.encode(v,encoding));
         }
       }
  catch (      UnsupportedEncodingException e) {
-        throw new ControllerExecutionException("Error creating URL for parameters [" + parameterValues + "], problem encoding URL part ["+ value+ "]: "+ e.getMessage(),e);
+        throw new ControllerExecutionException("Error creating URL for parameters [" + parameterValues + "], problem encoding URL part ["+ buf+ "]: "+ e.getMessage(),e);
       }
     }
  else {

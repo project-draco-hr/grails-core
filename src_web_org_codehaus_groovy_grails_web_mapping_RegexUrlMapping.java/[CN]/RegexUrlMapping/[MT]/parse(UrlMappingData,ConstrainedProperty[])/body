@@ -10,11 +10,21 @@
     this.patterns[i]=pattern;
   }
   if (constraints != null) {
+    String pattern=data.getUrlPattern();
+    int pos=0;
     for (int i=0; i < constraints.length; i++) {
       ConstrainedProperty constraint=constraints[i];
-      if (data.isOptional(i)) {
+      pos=pattern.indexOf("(*)",pos);
+      if (pos == -1) {
         constraint.setNullable(true);
       }
+ else       if (pos + 3 < pattern.length() && pattern.charAt(pos + 3) == '?') {
+        constraint.setNullable(true);
+      }
+ else {
+        constraint.setNullable(false);
+      }
+      pos+=3;
     }
   }
 }

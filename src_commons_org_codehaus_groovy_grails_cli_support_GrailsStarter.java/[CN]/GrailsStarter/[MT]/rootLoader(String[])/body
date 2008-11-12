@@ -48,7 +48,53 @@
       exit(e);
     }
   }
-  GrailsRootLoader loader=new GrailsRootLoader(lc);
+  String servletVersion="2.4";
+  Pattern standardJarPattern=Pattern.compile(".+?standard-\\d\\.\\d\\.jar");
+  Pattern jstlJarPattern=Pattern.compile(".+?jstl-\\d\\.\\d\\.jar");
+  Properties metadata=new Properties();
+  File metadataFile=new File("./application.properties");
+  if (metadataFile.exists()) {
+    FileInputStream inputStream=null;
+    try {
+      inputStream=new FileInputStream(metadataFile);
+      metadata.load(inputStream);
+      Object version=metadata.get("app.servlet.version");
+      if (version != null) {
+        servletVersion=version.toString();
+      }
+    }
+ catch (    IOException e) {
+    }
+ finally {
+      try {
+        if (inputStream != null)         inputStream.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+  GrailsRootLoader loader=new GrailsRootLoader();
+  Thread.currentThread().setContextClassLoader(loader);
+  final String standardJarName="standard-" + servletVersion + ".jar";
+  final String jstlJarName="jstl-" + servletVersion + ".jar";
+  URL[] urls=lc.getClassPathUrls();
+  for (int i=0; i < urls.length; i++) {
+    URL url=urls[i];
+    final String path=url.getPath();
+    if (standardJarPattern.matcher(path).find()) {
+      if (path.endsWith(standardJarName)) {
+        loader.addURL(url);
+      }
+    }
+ else     if (jstlJarPattern.matcher(path).find()) {
+      if (path.endsWith(jstlJarName)) {
+        loader.addURL(url);
+      }
+    }
+ else {
+      loader.addURL(url);
+    }
+  }
   String javaVersion=System.getProperty("java.version");
   String grailsHome=System.getProperty("grails.home");
   if (javaVersion != null && grailsHome != null) {
@@ -63,8 +109,7 @@
         vmLoaderConfig.configure(in);
         URL[] vmSpecificClassPath=vmLoaderConfig.getClassPathUrls();
         for (int i=0; i < vmSpecificClassPath.length; i++) {
-          URL url=vmSpecificClassPath[i];
-          loader.addURL(url);
+          loader.addURL(vmSpecificClassPath[i]);
         }
       }
  catch (      IOException e) {

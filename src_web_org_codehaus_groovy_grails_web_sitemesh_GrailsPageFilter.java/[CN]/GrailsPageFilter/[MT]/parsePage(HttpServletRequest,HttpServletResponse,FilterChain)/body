@@ -1,6 +1,6 @@
 {
   try {
-    PageResponseWrapper pageResponse=new PageResponseWrapper(response,factory);
+    GrailsPageResponseWrapper pageResponse=new GrailsPageResponseWrapper(response,factory);
     UrlPathHelper urlHelper=new UrlPathHelper();
     String requestURI=urlHelper.getOriginatingRequestUri(request);
     if (requestURI.endsWith(HTML_EXT)) {

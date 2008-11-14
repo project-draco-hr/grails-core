@@ -1,0 +1,9 @@
+{
+  GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+  try {
+    super.sendError(sc,msg);
+  }
+  finally {
+    WebUtils.storeGrailsWebRequest(webRequest);
+  }
+}

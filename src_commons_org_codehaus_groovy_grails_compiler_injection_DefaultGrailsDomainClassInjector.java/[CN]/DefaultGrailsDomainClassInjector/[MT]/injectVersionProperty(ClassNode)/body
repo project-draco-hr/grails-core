@@ -1,5 +1,5 @@
 {
-  final boolean hasVersion=GrailsASTUtils.hasProperty(classNode,GrailsDomainClassProperty.VERSION);
+  final boolean hasVersion=GrailsASTUtils.hasOrInheritsProperty(classNode,GrailsDomainClassProperty.VERSION);
   if (!hasVersion) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsDomainInjector] Adding property [" + GrailsDomainClassProperty.VERSION + "] to class ["+ classNode.getName()+ "]");

@@ -1,5 +1,5 @@
 {
-  final boolean hasId=GrailsASTUtils.hasProperty(classNode,GrailsDomainClassProperty.IDENTITY);
+  final boolean hasId=GrailsASTUtils.hasOrInheritsProperty(classNode,GrailsDomainClassProperty.IDENTITY);
   if (!hasId) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsDomainInjector] Adding property [" + GrailsDomainClassProperty.IDENTITY + "] to class ["+ classNode.getName()+ "]");

@@ -3,7 +3,9 @@
   List properties=classNode.getProperties();
   for (Iterator i=properties.iterator(); i.hasNext(); ) {
     PropertyNode pn=(PropertyNode)i.next();
-    if (pn.getName().equals(propertyName))     return true;
+    if (pn.getName().equals(propertyName) && !pn.isPrivate()) {
+      return true;
+    }
   }
   return false;
 }

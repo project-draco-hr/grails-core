@@ -1,5 +1,5 @@
 {
-  final boolean hasToString=GrailsASTUtils.implementsZeroArgMethod(classNode,"toString");
+  final boolean hasToString=GrailsASTUtils.implementsOrInheritsZeroArgMethod(classNode,"toString",classesWithInjectedToString);
   if (!hasToString && !isEnum(classNode)) {
     GStringExpression ge=new GStringExpression(classNode.getName() + " : ${id}");
     ge.addString(new ConstantExpression(classNode.getName() + " : "));
@@ -10,5 +10,6 @@
       LOG.debug("[GrailsDomainInjector] Adding method [toString()] to class [" + classNode.getName() + "]");
     }
     classNode.addMethod(mn);
+    classesWithInjectedToString.add(classNode);
   }
 }

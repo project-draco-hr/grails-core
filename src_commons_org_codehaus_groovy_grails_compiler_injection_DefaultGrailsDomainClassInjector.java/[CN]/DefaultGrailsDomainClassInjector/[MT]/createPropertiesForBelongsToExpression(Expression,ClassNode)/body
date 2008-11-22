@@ -6,8 +6,7 @@
     for (Iterator i=mapEntries.iterator(); i.hasNext(); ) {
       MapEntryExpression mme=(MapEntryExpression)i.next();
       String key=mme.getKeyExpression().getText();
-      String type=mme.getValueExpression().getText();
-      properties.add(new PropertyNode(key,Modifier.PUBLIC,ClassHelper.make(type),classNode,null,null,null));
+      properties.add(new PropertyNode(key,Modifier.PUBLIC,mme.getValueExpression().getType(),classNode,null,null,null));
     }
   }
   return properties;

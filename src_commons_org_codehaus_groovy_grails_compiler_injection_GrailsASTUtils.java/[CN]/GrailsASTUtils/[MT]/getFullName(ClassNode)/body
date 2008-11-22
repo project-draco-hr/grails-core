@@ -1,4 +1,3 @@
 {
-  String className=classNode.getPackageName();
-  return className == null ? classNode.getName() : (className+=classNode.getName());
+  return classNode.getName();
 }

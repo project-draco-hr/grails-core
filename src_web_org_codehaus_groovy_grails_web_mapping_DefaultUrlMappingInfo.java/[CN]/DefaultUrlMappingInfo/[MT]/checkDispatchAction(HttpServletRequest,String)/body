@@ -3,6 +3,9 @@
   if (!paramNames.hasMoreElements()) {
     paramNames=tryMultipartParams(request,paramNames);
   }
+ else {
+    MultipartRequestHolder.setMultipartRequest(null);
+  }
   for (; paramNames.hasMoreElements(); ) {
     String name=(String)paramNames.nextElement();
     if (name.startsWith(WebUtils.DISPATCH_ACTION_PARAMETER)) {

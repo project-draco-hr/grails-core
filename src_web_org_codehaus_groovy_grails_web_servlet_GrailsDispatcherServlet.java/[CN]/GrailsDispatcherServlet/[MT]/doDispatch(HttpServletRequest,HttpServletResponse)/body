@@ -95,6 +95,7 @@ catch (  Error err) {
     if (processedRequest instanceof MultipartHttpServletRequest && processedRequest != request) {
       if (multipartResolver != null)       this.multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
     }
+    MultipartRequestHolder.setMultipartRequest(null);
     if (requestAttributes != null) {
       requestAttributes.requestCompleted();
       WebUtils.storeGrailsWebRequest(previousRequestAttributes);

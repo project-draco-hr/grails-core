@@ -42,7 +42,10 @@
             String stringKey=(String)entry.getKey();
             if (GrailsHibernateUtil.ARGUMENT_MAX.equals(stringKey) || GrailsHibernateUtil.ARGUMENT_OFFSET.equals(stringKey))             continue;
             Object value=entry.getValue();
-            if (value instanceof GString) {
+            if (value == null) {
+              q.setParameter(stringKey,null);
+            }
+ else             if (value instanceof GString) {
               q.setParameter(stringKey,value.toString());
             }
  else             if (List.class.isAssignableFrom(value.getClass())) {

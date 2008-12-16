@@ -23,8 +23,13 @@
           crit.add(current.getCriterion());
         }
       }
-      crit.setMaxResults(1);
-      return crit.uniqueResult();
+      try {
+        return crit.uniqueResult();
+      }
+ catch (      HibernateException e) {
+        crit.setMaxResults(1);
+        return crit.uniqueResult();
+      }
     }
   }
 );

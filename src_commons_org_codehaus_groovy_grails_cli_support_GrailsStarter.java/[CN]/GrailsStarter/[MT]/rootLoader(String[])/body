@@ -1,4 +1,32 @@
 {
+  final String separator=System.getProperty("file.separator");
+  String javaVersion=System.getProperty("java.version");
+  String grailsHome=System.getProperty("grails.home");
+  if (System.getProperty("base.dir") == null)   System.setProperty("base.dir",".");
+  if (System.getProperty("program.name") == null)   System.setProperty("program.name","grails");
+  if (System.getProperty("groovy.starter.conf") == null) {
+    System.setProperty("groovy.starter.conf",grailsHome + separator + "conf"+ separator+ "groovy-starter.conf");
+  }
+  if (System.getProperty("grails.version") == null) {
+    Properties grailsProps=new Properties();
+    FileInputStream is=null;
+    try {
+      is=new FileInputStream(grailsHome + separator + "build.properties");
+      grailsProps.load(is);
+      System.setProperty("grails.version",grailsProps.getProperty("grails.version"));
+    }
+ catch (    IOException ex) {
+      System.out.println("Failed to load Grails file: " + ex.getMessage());
+      System.exit(1);
+    }
+ finally {
+      if (is != null)       try {
+        is.close();
+      }
+ catch (      IOException ex2) {
+      }
+    }
+  }
   String conf=System.getProperty("groovy.starter.conf",null);
   LoaderConfiguration lc=new LoaderConfiguration();
   boolean hadMain=false, hadConf=false, hadCP=false;
@@ -95,8 +123,6 @@
       loader.addURL(url);
     }
   }
-  String javaVersion=System.getProperty("java.version");
-  String grailsHome=System.getProperty("grails.home");
   if (javaVersion != null && grailsHome != null) {
     javaVersion=javaVersion.substring(0,3);
     File vmConfig=new File(grailsHome + "/conf/groovy-starter-java-" + javaVersion+ ".conf");

@@ -60,7 +60,7 @@
       break;
     }
   }
-  if (lc.getMainClass() == null && conf == null) {
+  if (lc.getMainClass() == null) {
     lc.setMainClass("org.codehaus.groovy.grails.cli.GrailsScriptRunner");
   }
   String[] newArgs=new String[args.length - argsOffset];

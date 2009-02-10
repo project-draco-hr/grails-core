@@ -61,7 +61,7 @@
     }
   }
   if (lc.getMainClass() == null && conf == null) {
-    exit("no configuration file or main class specified");
+    lc.setMainClass("org.codehaus.groovy.grails.cli.GrailsScriptRunner");
   }
   String[] newArgs=new String[args.length - argsOffset];
   for (int i=0; i < newArgs.length; i++) {

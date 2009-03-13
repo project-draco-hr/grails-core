@@ -1,0 +1,7 @@
+{
+  if (!addedNames.contains(plugin.getName())) {
+    addedNames.add(plugin.getName());
+    additionalList.add(plugin);
+    addPluginDependencies(additionalList,plugin);
+  }
+}

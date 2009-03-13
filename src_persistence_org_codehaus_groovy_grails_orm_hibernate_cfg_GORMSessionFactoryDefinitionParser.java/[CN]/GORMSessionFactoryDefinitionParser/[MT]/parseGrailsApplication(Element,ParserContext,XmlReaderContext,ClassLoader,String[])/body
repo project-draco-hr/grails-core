@@ -1,0 +1,25 @@
+{
+  BeanDefinitionRegistry simpleRegistry=new SimpleBeanDefinitionRegistry();
+  ClassPathBeanDefinitionScanner scanner=configureScanner(parserContext,simpleRegistry);
+  scanner.scan(basePackages);
+  BeanDefinitionRegistry targetRegistry=parserContext.getRegistry();
+  AbstractBeanDefinition grailsApplicationBean=new GenericBeanDefinition();
+  grailsApplicationBean.setBeanClass(DefaultGrailsApplication.class);
+  grailsApplicationBean.setInitMethodName("initialise");
+  ConstructorArgumentValues constructorArgs=grailsApplicationBean.getConstructorArgumentValues();
+  Set<Class> classes=new HashSet<Class>();
+  for (  String beanName : simpleRegistry.getBeanDefinitionNames()) {
+    BeanDefinition beanDef=simpleRegistry.getBeanDefinition(beanName);
+    try {
+      Class entityClass=beanClassLoader.loadClass(beanDef.getBeanClassName());
+      classes.add(entityClass);
+      registerDomainBean(entityClass,targetRegistry,element.getAttribute(MESSAGE_SOURCE_ATTRIBUTE));
+    }
+ catch (    ClassNotFoundException e) {
+      throw new BeanDefinitionParsingException(new Problem("Unable to load class whilst configuring GORM: " + e.getMessage(),new Location(readerContext.getResource()),null,e));
+    }
+  }
+  constructorArgs.addGenericArgumentValue(classes.toArray(new Class[classes.size()]));
+  constructorArgs.addGenericArgumentValue(new GroovyClassLoader(beanClassLoader));
+  targetRegistry.registerBeanDefinition(GrailsApplication.APPLICATION_ID,grailsApplicationBean);
+}

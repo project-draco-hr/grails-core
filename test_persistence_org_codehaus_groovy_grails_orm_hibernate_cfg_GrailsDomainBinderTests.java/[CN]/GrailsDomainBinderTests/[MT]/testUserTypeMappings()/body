@@ -1,0 +1,26 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(MULTI_COLUMN_USER_TYPE_DEFINITION);
+  PersistentClass persistentClass=config.getClassMapping("Item");
+  Property nameProperty=persistentClass.getProperty("name");
+  assertEquals(1,nameProperty.getColumnSpan());
+  assertEquals("name",nameProperty.getName());
+  Column column=(Column)nameProperty.getColumnIterator().next();
+  assertEquals("s_name",column.getName());
+  assertEquals("text",column.getSqlType());
+  Property otherProperty=persistentClass.getProperty("other");
+  assertEquals(1,otherProperty.getColumnSpan());
+  assertEquals("other",otherProperty.getName());
+  column=(Column)otherProperty.getColumnIterator().next();
+  assertEquals("other",column.getName());
+  assertEquals("wrapper-characters",column.getSqlType());
+  Property priceProperty=persistentClass.getProperty("price");
+  assertEquals(2,priceProperty.getColumnSpan());
+  assertEquals("price",priceProperty.getName());
+  Iterator colIter=priceProperty.getColumnIterator();
+  column=(Column)colIter.next();
+  assertEquals("value",column.getName());
+  assertNull("SQL type should have been 'null' for 'value' column.",column.getSqlType());
+  column=(Column)colIter.next();
+  assertEquals("currency_code",column.getName());
+  assertEquals("text",column.getSqlType());
+}

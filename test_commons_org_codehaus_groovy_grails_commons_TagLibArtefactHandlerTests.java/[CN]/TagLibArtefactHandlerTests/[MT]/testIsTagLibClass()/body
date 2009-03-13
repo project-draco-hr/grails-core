@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class c=gcl.parseClass("class TestTagLib { }\n");
+  ArtefactHandler handler=new TagLibArtefactHandler();
+  assertTrue(handler.isArtefact(c));
+}

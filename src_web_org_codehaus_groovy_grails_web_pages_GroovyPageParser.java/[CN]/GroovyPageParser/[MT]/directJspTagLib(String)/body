@@ -1,0 +1,16 @@
+{
+  text=text.substring(TAGLIB_DIRECTIVE.length() + 1,text.length());
+  Map attrs=new HashMap();
+  populateMapWithAttributes(attrs,text + '>');
+  String prefix=(String)attrs.get("\"prefix\"");
+  String uri=(String)attrs.get("\"uri\"");
+  if (uri != null && prefix != null) {
+    final String namespace=prefix.substring(1,prefix.length() - 1);
+    if (!GroovyPage.DEFAULT_NAMESPACE.equals(namespace)) {
+      jspTags.put(namespace,uri.substring(1,uri.length() - 1));
+    }
+ else {
+      LOG.error("You cannot override the default 'g' namespace with the directive <%@ taglib prefix=\"g\" %>. Please select another namespace.");
+    }
+  }
+}

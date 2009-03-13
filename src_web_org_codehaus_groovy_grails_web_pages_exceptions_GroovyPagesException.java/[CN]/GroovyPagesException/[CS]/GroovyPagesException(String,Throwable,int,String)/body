@@ -1,0 +1,5 @@
+{
+  super(message,exception);
+  this.lineNumber=lineNumber;
+  this.fileName=fileName;
+}

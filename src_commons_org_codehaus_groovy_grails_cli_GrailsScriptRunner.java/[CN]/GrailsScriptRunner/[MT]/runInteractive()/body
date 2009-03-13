@@ -1,0 +1,22 @@
+{
+  String message="Interactive mode ready, type your command name in to continue (hit ENTER to run the last command):\n";
+  System.setProperty("grails.interactive.mode","true");
+  int messageNumber=0;
+  ScriptAndArgs script=new ScriptAndArgs();
+  while (true) {
+    out.println("--------------------------------------------------------");
+    String enteredName=userInput(message);
+    if (enteredName != null && enteredName.trim().length() > 0) {
+      script=processArgumentsAndReturnScriptName(enteredName);
+    }
+    if (script.name == null) {
+      out.println("You must enter a command.\n");
+      continue;
+    }
+    long now=System.currentTimeMillis();
+    callPluginOrGrailsScript(script.name);
+    long end=System.currentTimeMillis();
+    out.println("--------------------------------------------------------");
+    out.println("Command [" + script.name + " completed in "+ (end - now)+ "ms");
+  }
+}

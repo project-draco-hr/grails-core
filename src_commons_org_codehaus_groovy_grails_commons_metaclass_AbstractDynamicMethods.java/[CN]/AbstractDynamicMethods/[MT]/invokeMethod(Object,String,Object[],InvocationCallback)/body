@@ -1,0 +1,29 @@
+{
+  if (LOG.isTraceEnabled()) {
+    LOG.debug("[DynamicMethods] Attempting invocation of dynamic method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
+  }
+  for (Iterator iter=this.dynamicMethodInvocations.iterator(); iter.hasNext(); ) {
+    DynamicMethodInvocation methodInvocation=(DynamicMethodInvocation)iter.next();
+    if (methodInvocation.isMethodMatch(methodName)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("[DynamicMethods] Dynamic method [" + methodName + "] matched, attempting to invoke.");
+      }
+      try {
+        Object result=methodInvocation.invoke(object,methodName,arguments);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("[DynamicMethods] Instance method [" + methodName + "] invoked successfully with result ["+ result+ "]. Marking as invoked");
+        }
+        callback.setInvoker(methodInvocation);
+        callback.markInvoked();
+        return result;
+      }
+ catch (      MissingMethodException e) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("[DynamicMethods] Instance method [" + methodName + "] threw MissingMethodException. Returning null and falling back to standard MetaClass",e);
+        }
+        return null;
+      }
+    }
+  }
+  return null;
+}

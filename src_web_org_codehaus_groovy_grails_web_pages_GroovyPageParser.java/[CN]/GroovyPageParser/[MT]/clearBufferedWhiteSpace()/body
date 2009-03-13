@@ -1,0 +1,4 @@
+{
+  whitespaceBuffer.delete(0,whitespaceBuffer.length());
+  currentlyBufferingWhitespace=false;
+}

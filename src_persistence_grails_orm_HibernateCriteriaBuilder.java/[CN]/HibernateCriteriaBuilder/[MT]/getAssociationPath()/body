@@ -1,0 +1,10 @@
+{
+  StringBuilder fullPath=new StringBuilder();
+  for (  Object anAssociationStack : associationStack) {
+    String propertyName=(String)anAssociationStack;
+    if (fullPath.length() > 0)     fullPath.append(".");
+    fullPath.append(propertyName);
+  }
+  final String associationPath=fullPath.toString();
+  return associationPath;
+}

@@ -1,0 +1,8 @@
+{
+  NotEqualConstraint constraint=(NotEqualConstraint)getConstraint("testString","12345");
+  assertEquals(ConstrainedProperty.NOT_EQUAL_CONSTRAINT,constraint.getName());
+  assertTrue(constraint.supports(String.class));
+  assertTrue(constraint.supports(Object.class));
+  assertFalse(constraint.supports(null));
+  assertEquals("12345",constraint.getNotEqualTo());
+}

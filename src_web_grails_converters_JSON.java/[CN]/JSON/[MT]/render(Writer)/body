@@ -1,0 +1,9 @@
+{
+  prepareRender(out);
+  try {
+    value(this.target);
+  }
+  finally {
+    finalizeRender(out);
+  }
+}

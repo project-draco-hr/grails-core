@@ -1,0 +1,20 @@
+{
+  try {
+    curChar=input_stream.readChar();
+  }
+ catch (  java.io.IOException e) {
+    jjStopStringLiteralDfa_0(0,active0);
+    return 1;
+  }
+switch (curChar) {
+case 97:
+    return jjMoveStringLiteralDfa2_0(active0,0x10000000L);
+case 114:
+  return jjMoveStringLiteralDfa2_0(active0,0x8000000L);
+case 117:
+return jjMoveStringLiteralDfa2_0(active0,0x400000L);
+default :
+break;
+}
+return jjStartNfa_0(0,active0);
+}

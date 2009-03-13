@@ -1,0 +1,5 @@
+{
+  HttpServletRequest resolvedRequest=(HttpServletRequest)request.getAttribute(MultipartHttpServletRequest.class.getName());
+  if (resolvedRequest != null)   return resolvedRequest;
+  return request;
+}

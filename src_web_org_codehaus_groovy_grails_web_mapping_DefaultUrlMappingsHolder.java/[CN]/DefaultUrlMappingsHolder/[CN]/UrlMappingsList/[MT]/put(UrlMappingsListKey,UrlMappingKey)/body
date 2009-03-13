@@ -1,0 +1,8 @@
+{
+  SortedSet<UrlMappingKey> mappingsList=mappingsListLookup.get(key);
+  if (null == mappingsList) {
+    mappingsList=new TreeSet<UrlMappingKey>();
+    mappingsListLookup.put(key,mappingsList);
+  }
+  mappingsList.add(mapping);
+}

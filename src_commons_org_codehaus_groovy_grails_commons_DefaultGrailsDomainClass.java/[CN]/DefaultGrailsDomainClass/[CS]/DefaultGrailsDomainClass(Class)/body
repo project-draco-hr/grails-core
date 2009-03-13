@@ -1,0 +1,30 @@
+{
+  super(clazz,"");
+  PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
+  if (!clazz.getSuperclass().equals(GroovyObject.class) && !clazz.getSuperclass().equals(Object.class) && !Modifier.isAbstract(clazz.getSuperclass().getModifiers())) {
+    this.root=false;
+  }
+  this.propertyMap=new LinkedHashMap();
+  this.relationshipMap=getAssociationMap();
+  this.embedded=getEmbeddedList();
+  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class) != null)   this.mappingStrategy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
+  this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
+  if (this.mappedBy == null)   this.mappedBy=Collections.EMPTY_MAP;
+  establishRelationshipOwners();
+  populateDomainClassProperties(propertyDescriptors);
+  if (this.identifier == null) {
+    throw new GrailsDomainException("Identity property not found, but required in domain class [" + getFullName() + "]");
+  }
+  if (this.version == null) {
+    throw new GrailsDomainException("Version property not found, but required in domain class [" + getFullName() + "]");
+  }
+  this.properties=(GrailsDomainClassProperty[])this.propertyMap.values().toArray(new GrailsDomainClassProperty[this.propertyMap.size()]);
+  establishRelationships();
+  establishPersistentProperties();
+  try {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),this.persistentProperties);
+  }
+ catch (  IntrospectionException e) {
+    LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);
+  }
+}

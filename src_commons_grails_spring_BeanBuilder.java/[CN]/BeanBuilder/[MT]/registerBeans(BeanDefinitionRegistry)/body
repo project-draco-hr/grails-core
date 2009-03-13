@@ -1,0 +1,9 @@
+{
+  finalizeDeferredProperties();
+  if (registry instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)registry;
+    ctx.setClassLoader(this.classLoader);
+    ctx.getBeanFactory().setBeanClassLoader(this.classLoader);
+  }
+  springConfig.registerBeansWithRegistry(registry);
+}

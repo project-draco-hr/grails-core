@@ -1,0 +1,8 @@
+{
+  Map<Object,Object> map=(Map<Object,Object>)o;
+  for (  Map.Entry<Object,Object> entry : map.entrySet()) {
+    xml.startNode("entry").attribute("key",entry.getKey().toString());
+    xml.convertAnother(entry.getValue());
+    xml.end();
+  }
+}

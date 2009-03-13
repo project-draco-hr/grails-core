@@ -1,0 +1,41 @@
+{
+  bindManyToOneValues(property,manyToOne);
+  GrailsDomainClass refDomainClass=property.isManyToMany() ? property.getDomainClass() : property.getReferencedDomainClass();
+  Mapping mapping=getMapping(refDomainClass);
+  if (hasCompositeIdentifier(mapping)) {
+    CompositeIdentity ci=(CompositeIdentity)mapping.getIdentity();
+    bindCompositeIdentifierToManyToOne(property,manyToOne,ci,refDomainClass,path);
+  }
+ else {
+    if (property.isCircular() && property.isManyToMany()) {
+      PropertyConfig pc=getPropertyConfig(property);
+      if (pc == null) {
+        if (mapping == null) {
+          mapping=new Mapping();
+          MAPPING_CACHE.put(refDomainClass.getClazz(),mapping);
+        }
+        pc=new PropertyConfig();
+        mapping.getColumns().put(property.getName(),pc);
+      }
+      if (!hasJoinKeyMapping(pc)) {
+        JoinTable jt=new JoinTable();
+        final ColumnConfig columnConfig=new ColumnConfig();
+        columnConfig.setName(namingStrategy.propertyToColumnName(property.getName()) + UNDERSCORE + FOREIGN_KEY_SUFFIX);
+        jt.setKey(columnConfig);
+        pc.setJoinTable(jt);
+      }
+      bindSimpleValue(property,manyToOne,path,pc);
+    }
+ else {
+      bindSimpleValue(property,manyToOne,path,mappings);
+    }
+  }
+  PropertyConfig config=getPropertyConfig(property);
+  if (property.isOneToOne()) {
+    manyToOne.setAlternateUniqueKey(true);
+    Column c=getColumnForSimpleValue(manyToOne);
+    if (config != null) {
+      c.setUnique(config.isUnique());
+    }
+  }
+}

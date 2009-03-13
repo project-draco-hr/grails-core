@@ -1,0 +1,25 @@
+{
+  if (source != null) {
+    for (    Object key : source.keySet()) {
+      String propertyName=key.toString();
+      if (propertyName.indexOf('.') > -1) {
+        propertyName=propertyName.substring(0,propertyName.indexOf('.'));
+      }
+      if (domainClass.hasPersistentProperty(propertyName)) {
+        GrailsDomainClassProperty prop=domainClass.getPropertyByName(propertyName);
+        if (prop != null && prop.isOneToOne() && prop.isBidirectional()) {
+          Object val=source.get(key);
+          GrailsDomainClassProperty otherSide=prop.getOtherSide();
+          if (val != null && otherSide != null) {
+            MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(val.getClass());
+            try {
+              mc.setProperty(val,otherSide.getName(),object);
+            }
+ catch (            Exception e) {
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  registerObjectMarshaller(new ClosureOjectMarshaller<JSON>(clazz,callable),priority);
+}

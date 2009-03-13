@@ -1,0 +1,60 @@
+{
+  boolean viewNameBlank=(viewName == null || viewName.length() == 0);
+  ModelAndView explicityModelAndView=(ModelAndView)controller.getProperty(ControllerDynamicMethods.MODEL_AND_VIEW_PROPERTY);
+  if (!webRequest.isRenderView()) {
+    return null;
+  }
+ else   if (explicityModelAndView != null) {
+    return explicityModelAndView;
+  }
+ else   if (returnValue == null) {
+    if (viewNameBlank) {
+      return null;
+    }
+ else {
+      Map model;
+      if (!this.chainModel.isEmpty()) {
+        model=new CompositeMap(this.chainModel,new BeanMap(controller));
+      }
+ else {
+        model=new BeanMap(controller);
+      }
+      return new ModelAndView(viewName,model);
+    }
+  }
+ else   if (returnValue instanceof Map) {
+    Map returnModel=(Map)returnValue;
+    removeProxiesFromModelObjects(returnModel);
+    if (!this.chainModel.isEmpty()) {
+      returnModel.putAll(this.chainModel);
+    }
+    return new ModelAndView(viewName,returnModel);
+  }
+ else   if (returnValue instanceof ModelAndView) {
+    ModelAndView modelAndView=(ModelAndView)returnValue;
+    Map modelMap=modelAndView.getModel();
+    removeProxiesFromModelObjects(modelMap);
+    if (!this.chainModel.isEmpty()) {
+      modelAndView.addAllObjects(this.chainModel);
+    }
+    if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
+      if (viewNameBlank) {
+        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controller.getClass()+ "]!");
+      }
+ else {
+        modelAndView.setViewName(viewName);
+      }
+    }
+    return modelAndView;
+  }
+ else {
+    Map model;
+    if (!this.chainModel.isEmpty()) {
+      model=new CompositeMap(this.chainModel,new BeanMap(controller));
+    }
+ else {
+      model=new BeanMap(controller);
+    }
+    return new ModelAndView(viewName,model);
+  }
+}

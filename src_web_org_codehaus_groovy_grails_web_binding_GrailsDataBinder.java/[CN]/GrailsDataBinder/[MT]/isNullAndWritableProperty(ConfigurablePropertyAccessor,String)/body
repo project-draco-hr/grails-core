@@ -1,0 +1,3 @@
+{
+  return bean.getPropertyValue(propertyName) == null && bean.isWritableProperty(propertyName);
+}

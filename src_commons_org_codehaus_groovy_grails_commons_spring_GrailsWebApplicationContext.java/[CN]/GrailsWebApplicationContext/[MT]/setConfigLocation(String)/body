@@ -1,0 +1,4 @@
+{
+  Assert.notNull(configLocation,"Argument [configLocation] cannot be null");
+  this.configLocations=new String[]{configLocation};
+}

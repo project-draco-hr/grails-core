@@ -1,0 +1,8 @@
+{
+  if (str.startsWith(".")) {
+    return str.substring(1);
+  }
+ else {
+    return str;
+  }
+}

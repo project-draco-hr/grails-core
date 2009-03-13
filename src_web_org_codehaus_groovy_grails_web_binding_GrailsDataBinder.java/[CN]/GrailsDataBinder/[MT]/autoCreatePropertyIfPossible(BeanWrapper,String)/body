@@ -1,0 +1,83 @@
+{
+  propertyName=PropertyAccessorUtils.canonicalPropertyName(propertyName);
+  int currentKeyStart=propertyName.indexOf(PropertyAccessor.PROPERTY_KEY_PREFIX_CHAR);
+  int currentKeyEnd=propertyName.indexOf(PropertyAccessor.PROPERTY_KEY_SUFFIX_CHAR);
+  String propertyNameWithIndex=propertyName;
+  if (currentKeyStart > -1) {
+    propertyName=propertyName.substring(0,currentKeyStart);
+  }
+  Class type=bean.getPropertyType(propertyName);
+  Object val=bean.isReadableProperty(propertyName) ? bean.getPropertyValue(propertyName) : null;
+  LOG.debug("Checking if auto-create is possible for property [" + propertyName + "] and type ["+ type+ "]");
+  if (type != null && val == null && GroovyObject.class.isAssignableFrom(type)) {
+    if (isNullAndWritableProperty(bean,propertyName)) {
+      Object created=autoInstantiateDomainInstance(type);
+      if (created != null) {
+        val=created;
+        bean.setPropertyValue(propertyName,created);
+      }
+    }
+  }
+ else {
+    final Object beanInstance=bean.getWrappedInstance();
+    if (type != null && Collection.class.isAssignableFrom(type)) {
+      Collection c;
+      final Class referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
+      if (isNullAndWritableProperty(bean,propertyName)) {
+        c=decorateCollectionForDomainAssociation(GrailsClassUtils.createConcreteCollection(type),referencedType);
+      }
+ else {
+        c=decorateCollectionForDomainAssociation((Collection)bean.getPropertyValue(propertyName),referencedType);
+      }
+      bean.setPropertyValue(propertyName,c);
+      val=c;
+      if (c != null && currentKeyStart > -1 && currentKeyEnd > -1) {
+        String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
+        int index=Integer.parseInt(indexString);
+        if (DomainClassArtefactHandler.isDomainClass(referencedType)) {
+          Object instance=findIndexedValue(c,index);
+          if (instance != null) {
+            val=instance;
+          }
+ else {
+            instance=autoInstantiateDomainInstance(referencedType);
+            if (instance != null) {
+              val=instance;
+              if (index == c.size()) {
+                addAssociationToTarget(propertyName,beanInstance,instance);
+              }
+ else               if (index > c.size()) {
+                while (index > c.size()) {
+                  addAssociationToTarget(propertyName,beanInstance,autoInstantiateDomainInstance(referencedType));
+                }
+                addAssociationToTarget(propertyName,beanInstance,instance);
+              }
+            }
+          }
+        }
+      }
+    }
+ else     if (type != null && Map.class.isAssignableFrom(type)) {
+      Map map;
+      if (isNullAndWritableProperty(bean,propertyName)) {
+        map=new HashMap();
+        bean.setPropertyValue(propertyName,map);
+      }
+ else {
+        map=(Map)bean.getPropertyValue(propertyName);
+      }
+      val=map;
+      bean.setPropertyValue(propertyName,val);
+      if (currentKeyStart > -1 && currentKeyEnd > -1) {
+        String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
+        Class referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
+        if (DomainClassArtefactHandler.isDomainClass(referencedType)) {
+          final Object domainInstance=autoInstantiateDomainInstance(referencedType);
+          val=domainInstance;
+          map.put(indexString,domainInstance);
+        }
+      }
+    }
+  }
+  return val;
+}

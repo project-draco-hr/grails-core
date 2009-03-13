@@ -1,0 +1,5 @@
+{
+  String lastAlias=getLastAlias();
+  if (lastAlias != null)   return lastAlias + '.' + propertyName;
+ else   return propertyName;
+}

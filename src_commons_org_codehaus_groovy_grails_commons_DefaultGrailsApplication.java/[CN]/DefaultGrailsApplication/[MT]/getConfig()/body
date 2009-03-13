@@ -1,0 +1,7 @@
+{
+  ConfigObject c=ConfigurationHolder.getConfig();
+  if (c == null) {
+    c=ConfigurationHelper.loadConfigFromClasspath(this);
+  }
+  return c;
+}

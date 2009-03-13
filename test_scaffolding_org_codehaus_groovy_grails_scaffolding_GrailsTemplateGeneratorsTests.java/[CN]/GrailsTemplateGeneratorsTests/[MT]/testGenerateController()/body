@@ -1,0 +1,33 @@
+{
+  GrailsTemplateGenerator generator;
+  GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
+  generator=new DefaultGrailsTemplateGenerator();
+  Class dc=gcl.parseClass("class Test { \n Long id;\n  Long version;  }");
+  GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
+  File generatedFile=new File("test/grails-app/controllers/TestController.groovy");
+  if (generatedFile.exists()) {
+    generatedFile.delete();
+  }
+  StringWriter sw=new StringWriter();
+  generator.generateController(domainClass,sw);
+  String text=sw.toString();
+  Class controllerClass=gcl.parseClass(text);
+  BeanWrapper bean=new BeanWrapperImpl(controllerClass.newInstance());
+  assertEquals("TestController",controllerClass.getName());
+  assertTrue(bean.isReadableProperty("list"));
+  assertTrue(bean.isReadableProperty("update"));
+  assertTrue(bean.isReadableProperty("create"));
+  assertTrue(bean.isReadableProperty("list"));
+  assertTrue(bean.isReadableProperty("show"));
+  assertTrue(bean.isReadableProperty("edit"));
+  assertTrue(bean.isReadableProperty("delete"));
+  Object propertyValue=GrailsClassUtils.getStaticPropertyValue(controllerClass,"allowedMethods");
+  assertTrue("allowedMethods property was the wrong type",propertyValue instanceof Map);
+  Map map=(Map)propertyValue;
+  assertTrue("allowedMethods did not contain the delete action",map.containsKey("delete"));
+  assertTrue("allowedMethods did not contain the save action",map.containsKey("save"));
+  assertTrue("allowedMethods did not contain the update action",map.containsKey("update"));
+  assertEquals("allowedMethods had incorrect value for delete action","POST",map.get("delete"));
+  assertEquals("allowedMethods had incorrect value for save action","POST",map.get("save"));
+  assertEquals("allowedMethods had incorrect value for update action","POST",map.get("update"));
+}

@@ -1,0 +1,8 @@
+{
+  Errors errors=testConstraintFailed(constraint,value);
+  FieldError fieldError=errors.getFieldError(constraint.getPropertyName());
+  for (int j=0; j < code.length; j++) {
+    checkCode(fieldError,code[j]);
+  }
+  checkArguments(args,fieldError.getArguments());
+}

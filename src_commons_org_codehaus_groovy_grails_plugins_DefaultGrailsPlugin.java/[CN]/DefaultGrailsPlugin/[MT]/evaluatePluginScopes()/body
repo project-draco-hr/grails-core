@@ -1,0 +1,23 @@
+{
+  this.pluginScopes=evaluateIncludeExcludeProperty(SCOPES,new Closure(this){
+    @Override public Object call(    Object arguments){
+      final String scopeName=((String)arguments).toUpperCase();
+      try {
+        return BuildScope.valueOf(scopeName);
+      }
+ catch (      IllegalArgumentException e) {
+        throw new GrailsConfigurationException("Plugin " + this + " specifies invalid scope ["+ scopeName+ "]");
+      }
+    }
+  }
+);
+  this.pluginEnvs=evaluateIncludeExcludeProperty(ENVIRONMENTS,new Closure(this){
+    @Override public Object call(    Object arguments){
+      String envName=(String)arguments;
+      Environment env=Environment.getEnvironment(envName);
+      if (env != null)       return env.getName();
+      return arguments;
+    }
+  }
+);
+}

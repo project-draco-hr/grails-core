@@ -1,0 +1,8 @@
+{
+  final File basedir=findBaseDir();
+  final File grailsHome=findGrailsHome();
+  System.setProperty(BuildSettings.APP_BASE_DIR,basedir.getPath());
+  grailsSettings=new BuildSettings(grailsHome,basedir);
+  customizeBuildSettings(grailsSettings);
+  BuildSettingsHolder.setSettings(grailsSettings);
+}

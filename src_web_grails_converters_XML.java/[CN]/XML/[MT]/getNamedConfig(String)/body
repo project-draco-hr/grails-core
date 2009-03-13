@@ -1,0 +1,5 @@
+{
+  ConverterConfiguration<XML> cfg=ConvertersConfigurationHolder.getNamedConverterConfiguration(configName,XML.class);
+  if (cfg == null)   throw new ConverterException(String.format("Converter Configuration with name '%s' not found!",configName));
+  return cfg;
+}

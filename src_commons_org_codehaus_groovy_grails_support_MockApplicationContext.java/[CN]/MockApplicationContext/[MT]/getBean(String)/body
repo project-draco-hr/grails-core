@@ -1,0 +1,4 @@
+{
+  if (!beans.containsKey(name))   throw new NoSuchBeanDefinitionException(name);
+  return beans.get(name);
+}

@@ -1,0 +1,8 @@
+{
+  if (buf != null) {
+    buf.write(c);
+  }
+ else {
+    getEnclosingWriter().write(c);
+  }
+}

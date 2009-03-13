@@ -1,0 +1,7 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [sizeEq] with propertyName [" + propertyName + "] and size ["+ size+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  return addToCriteria(Restrictions.sizeGe(propertyName,size));
+}

@@ -1,0 +1,19 @@
+{
+  String lastAlias=getLastAlias();
+  if (shouldLock) {
+    if (lastAlias != null) {
+      this.criteria.setLockMode(lastAlias,LockMode.UPGRADE);
+    }
+ else {
+      this.criteria.setLockMode(LockMode.UPGRADE);
+    }
+  }
+ else {
+    if (lastAlias != null) {
+      this.criteria.setLockMode(lastAlias,LockMode.NONE);
+    }
+ else {
+      this.criteria.setLockMode(LockMode.NONE);
+    }
+  }
+}

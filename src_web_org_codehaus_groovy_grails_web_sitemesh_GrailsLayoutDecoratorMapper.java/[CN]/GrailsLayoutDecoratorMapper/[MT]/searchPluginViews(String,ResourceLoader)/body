@@ -1,0 +1,15 @@
+{
+  String pluginViewLocation=null;
+  ResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(resourceLoader);
+  try {
+    Resource[] resources=resourceResolver.getResources(GrailsResourceUtils.WEB_INF + "/plugins/*/" + GrailsResourceUtils.GRAILS_APP_DIR+ "/views/layouts/"+ name);
+    if (resources.length > 0 && resources[0].exists()) {
+      Resource r=resources[0];
+      String url=r.getURL().toString();
+      pluginViewLocation=GrailsResourceUtils.WEB_INF + url.substring(url.indexOf("/plugins"));
+    }
+  }
+ catch (  Exception e) {
+  }
+  return pluginViewLocation;
+}

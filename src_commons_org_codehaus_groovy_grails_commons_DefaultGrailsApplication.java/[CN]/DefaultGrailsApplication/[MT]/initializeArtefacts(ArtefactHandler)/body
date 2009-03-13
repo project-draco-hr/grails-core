@@ -1,0 +1,8 @@
+{
+  if (handler != null) {
+    ArtefactInfo info=getArtefactInfo(handler.getType());
+    if (info != null) {
+      handler.initialize(info);
+    }
+  }
+}

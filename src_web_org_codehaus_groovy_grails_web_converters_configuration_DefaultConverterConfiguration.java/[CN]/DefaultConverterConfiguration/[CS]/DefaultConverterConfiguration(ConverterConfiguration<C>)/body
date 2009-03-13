@@ -1,0 +1,6 @@
+{
+  this.delegate=delegate;
+  this.prettyPrint=delegate.isPrettyPrint();
+  this.circularReferenceBehaviour=delegate.getCircularReferenceBehaviour();
+  this.encoding=delegate.getEncoding();
+}

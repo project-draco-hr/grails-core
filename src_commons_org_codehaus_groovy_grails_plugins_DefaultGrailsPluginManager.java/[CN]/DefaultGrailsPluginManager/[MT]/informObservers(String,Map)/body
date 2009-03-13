@@ -1,0 +1,10 @@
+{
+  GrailsPlugin plugin=getGrailsPlugin(pluginName);
+  if (plugin != null) {
+    Collection observers=getPluginObservers(plugin);
+    for (Iterator i=observers.iterator(); i.hasNext(); ) {
+      GrailsPlugin observingPlugin=(GrailsPlugin)i.next();
+      observingPlugin.notifyOfEvent(event);
+    }
+  }
+}

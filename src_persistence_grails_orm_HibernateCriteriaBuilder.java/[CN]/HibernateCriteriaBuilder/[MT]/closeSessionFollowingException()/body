@@ -1,0 +1,8 @@
+{
+  if (this.hibernateSession != null && this.hibernateSession.isOpen() && !this.participate) {
+    this.hibernateSession.close();
+  }
+  if (this.criteria != null) {
+    this.criteria=null;
+  }
+}

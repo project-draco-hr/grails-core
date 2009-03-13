@@ -1,0 +1,6 @@
+{
+  if (!AnnotationDomainClassArtefactHandler.isJPADomainClass(domainClass.getClazz())) {
+    this.domainClasses.add(domainClass);
+  }
+  return this;
+}

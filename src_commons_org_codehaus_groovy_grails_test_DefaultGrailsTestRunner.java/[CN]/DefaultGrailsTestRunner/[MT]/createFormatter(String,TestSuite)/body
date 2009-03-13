@@ -1,0 +1,11 @@
+{
+  if (type.equals("xml")) {
+    return new FormattedOutput(new File(reportsDir,"TEST-" + test.getName() + ".xml"),new XMLFormatter());
+  }
+ else   if (type.equals("plain")) {
+    return new FormattedOutput(new File(reportsDir,"plain/TEST-" + test.getName() + ".txt"),new PlainFormatter());
+  }
+ else {
+    throw new RuntimeException("Unknown formatter type: $type");
+  }
+}

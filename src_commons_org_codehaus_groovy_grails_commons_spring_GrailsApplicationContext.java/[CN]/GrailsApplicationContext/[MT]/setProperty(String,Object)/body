@@ -1,0 +1,11 @@
+{
+  if (newValue instanceof BeanDefinition) {
+    if (containsBean(property)) {
+      removeBeanDefinition(property);
+    }
+    registerBeanDefinition(property,(BeanDefinition)newValue);
+  }
+ else {
+    metaClass.setProperty(this,property,newValue);
+  }
+}

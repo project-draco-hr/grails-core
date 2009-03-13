@@ -1,0 +1,7 @@
+{
+  PropertyConfig pc=getPropertyConfig(property);
+  if (hasJoinTableColumnNameMapping(pc)) {
+    return pc.getJoinTable().getColumn().getName();
+  }
+  return namingStrategy.propertyToColumnName(property.getName()) + UNDERSCORE + IndexedCollection.DEFAULT_ELEMENT_COLUMN_NAME;
+}

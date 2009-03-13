@@ -1,0 +1,79 @@
+{
+  if (!finalPass)   return;
+  tagIndex++;
+  String text;
+  StringBuffer buf=new StringBuffer(scan.getToken().trim());
+  String ns=scan.getNamespace();
+  state=scan.nextToken();
+  while (state != HTML && state != GEND_TAG && state != EOF) {
+    if (state == GTAG_EXPR) {
+      buf.append("${");
+      buf.append(scan.getToken().trim());
+      buf.append("}");
+    }
+ else {
+      buf.append(scan.getToken().trim());
+    }
+    state=scan.nextToken();
+  }
+  doNextScan=false;
+  text=buf.toString();
+  String tagName;
+  Map attrs=new TreeMap();
+  text=text.replaceAll("[\r\n\t]"," ");
+  if (text.indexOf(' ') > -1) {
+    int i=text.indexOf(' ');
+    tagName=text.substring(0,i);
+    String attrTokens=text.substring(i,text.length());
+    attrTokens+='>';
+    populateMapWithAttributes(attrs,attrTokens);
+  }
+ else {
+    tagName=text;
+  }
+  if (state == EOF) {
+    throw new GrailsTagException("Unexpected end of file encountered parsing Tag [" + tagName + "] for "+ className+ ". Are you missing a closing brace '}'?");
+  }
+  TagMeta tm=new TagMeta();
+  tm.name=tagName;
+  tm.namespace=ns;
+  tm.hasAttributes=!attrs.isEmpty();
+  tm.lineNumber=getCurrentOutputLineNumber();
+  tagMetaStack.add(tm);
+  if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
+    if (this.tagContext == null) {
+      this.tagContext=new HashMap();
+      this.tagContext.put(GroovyPage.OUT,out);
+      this.tagContext.put(GroovyPageParser.class,this);
+    }
+    GroovySyntaxTag tag=(GroovySyntaxTag)tagRegistry.newTag(tagName);
+    tag.init(tagContext);
+    tag.setAttributes(attrs);
+    if (tag.isKeepPrecedingWhiteSpace() && currentlyBufferingWhitespace) {
+      flushBufferedWhiteSpace();
+    }
+ else     if (!tag.isAllowPrecedingContent() && previousContentWasNonWhitespace) {
+      throw new GrailsTagException("Tag [" + tag.getName() + "] cannot have non-whitespace characters directly preceding it.");
+    }
+ else {
+      clearBufferedWhiteSpace();
+    }
+    tag.doStartTag();
+    tm.instance=tag;
+  }
+ else {
+    flushBufferedWhiteSpace();
+    if (attrs.size() > 0) {
+      out.print("attrs" + tagIndex + " = [");
+      for (Iterator i=attrs.keySet().iterator(); i.hasNext(); ) {
+        String name=(String)i.next();
+        out.print(name);
+        out.print(':');
+        out.print(getExpressionText(attrs.get(name).toString()));
+        if (i.hasNext())         out.print(',');
+ else         out.println(']');
+      }
+    }
+    out.println("body" + tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
+  }
+}

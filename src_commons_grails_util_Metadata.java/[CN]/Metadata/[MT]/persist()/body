@@ -1,0 +1,19 @@
+{
+  if (metadataFile != null) {
+    FileOutputStream out=null;
+    try {
+      out=new FileOutputStream(metadataFile);
+      store(out,"utf-8");
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Error persisting metadata to file [" + metadataFile + "]: "+ e.getMessage(),e);
+    }
+ finally {
+      try {
+        if (out != null)         out.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+}

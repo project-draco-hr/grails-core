@@ -1,0 +1,9 @@
+{
+  checkInitialised();
+  for (  Object aPluginList : pluginList) {
+    GrailsPlugin plugin=(GrailsPlugin)aPluginList;
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_SHUTDOWN,plugin);
+    }
+  }
+}

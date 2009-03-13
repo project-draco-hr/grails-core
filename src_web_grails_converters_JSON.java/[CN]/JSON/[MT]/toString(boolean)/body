@@ -1,0 +1,9 @@
+{
+  String json=super.toString();
+  if (prettyPrint) {
+    Object jsonObject=new JSONTokener(json).nextValue();
+    if (jsonObject instanceof JSONObject)     return ((JSONObject)jsonObject).toString(3);
+ else     if (jsonObject instanceof JSONArray)     return ((JSONArray)jsonObject).toString(3);
+  }
+  return json;
+}

@@ -1,0 +1,5 @@
+{
+  if (StringUtils.isBlank(txt))   throw new IllegalArgumentException("Argument [txt] cannot be null or blank");
+  if (StringUtils.isBlank(pageName))   throw new IllegalArgumentException("Argument [pageName] cannot be null or blank");
+  return createTemplate(new ByteArrayResource(txt.getBytes(),pageName),pageName);
+}

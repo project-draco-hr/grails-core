@@ -1,0 +1,3 @@
+{
+  return this.pattern.matcher(methodName.subSequence(0,methodName.length())).find();
+}

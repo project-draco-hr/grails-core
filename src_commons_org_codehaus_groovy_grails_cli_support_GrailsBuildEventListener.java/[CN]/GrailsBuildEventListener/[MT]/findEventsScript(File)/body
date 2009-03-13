@@ -1,0 +1,10 @@
+{
+  File f=new File(dir,"_Events.groovy");
+  if (!f.exists()) {
+    f=new File(dir,"Events.groovy");
+    if (f.exists()) {
+      GrailsUtil.deprecated("Use of 'Events.groovy' is DEPRECATED.  Please rename to '_Events.groovy'.");
+    }
+  }
+  return f.exists() ? f : null;
+}

@@ -1,0 +1,7 @@
+{
+  ApplicationHolder.setApplication(new DefaultGrailsApplication());
+  builder=new DomainBuilder();
+  childPropertySetter=builder.getChildPropertySetter();
+  employer=new Employer();
+  employer.setName("Spacely Space Sprockets");
+}

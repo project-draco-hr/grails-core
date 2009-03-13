@@ -1,0 +1,13 @@
+{
+  Collection elements;
+  if (interfaceType.equals(List.class)) {
+    elements=new ArrayList();
+  }
+ else   if (interfaceType.equals(SortedSet.class)) {
+    elements=new TreeSet();
+  }
+ else {
+    elements=new HashSet();
+  }
+  return elements;
+}

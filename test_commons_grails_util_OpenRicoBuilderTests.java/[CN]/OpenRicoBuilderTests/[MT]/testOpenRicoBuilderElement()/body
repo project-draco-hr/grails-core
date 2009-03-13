@@ -1,0 +1,19 @@
+{
+  parse("ajax{ element(id:\"test\") { } }");
+  try {
+    parse("ajax{ test(id:\"test\") { } }");
+    fail();
+  }
+ catch (  InvokerInvocationException e) {
+  }
+  try {
+    parse("element{ test(id:\"test\") { } }");
+    fail();
+  }
+ catch (  InvokerInvocationException e) {
+  }
+  parse("ajax{ element(id:\"test\") { testTag {} } }");
+  parse("ajax() { element(id:\"test\") { testTag {} }; element(id:\"test2\") {}  }");
+  parse("ajax { object(id:\"test\") { testTag {} }; object(id:\"test2\") {}  }");
+  parse("ajax { element(id:\"test\") { select(name:\"test\") { for (name in names) { span(name) } } } }");
+}

@@ -1,0 +1,11 @@
+{
+  if (email) {
+    EmailValidator emailValidator=EmailValidator.getInstance();
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+    String value=propertyValue.toString();
+    if (StringUtils.isBlank(value))     return;
+    if (!emailValidator.isValid(value)) {
+      super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_INVALID_EMAIL_MESSAGE_CODE,ConstrainedProperty.EMAIL_CONSTRAINT + ConstrainedProperty.INVALID_SUFFIX,args);
+    }
+  }
+}

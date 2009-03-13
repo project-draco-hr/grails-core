@@ -1,0 +1,16 @@
+{
+  if (!isEnabled())   return false;
+  if (GrailsClassUtils.isJdk5Enum(enumClass)) {
+    try {
+      Method idAccessor=enumClass.getMethod(ENUM_ID_ACCESSOR);
+      int mods=idAccessor.getModifiers();
+      if (Modifier.isPublic(mods) && !Modifier.isStatic(mods)) {
+        Class returnType=idAccessor.getReturnType();
+        return returnType != null && TypeFactory.basic(returnType.getName()) instanceof NullableType;
+      }
+    }
+ catch (    NoSuchMethodException e) {
+    }
+  }
+  return false;
+}

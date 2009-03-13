@@ -1,0 +1,7 @@
+{
+  super(application);
+  resolver=new PathMatchingResourcePatternResolver();
+  this.pluginResources=pluginFiles;
+  this.application=application;
+  setPluginFilter();
+}

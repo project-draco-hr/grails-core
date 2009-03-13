@@ -1,0 +1,13 @@
+{
+  ConverterConfiguration<XML> cfg=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
+  if (!(cfg instanceof DefaultConverterConfiguration)) {
+    cfg=new DefaultConverterConfiguration<XML>(cfg);
+  }
+  try {
+    callable.call(cfg);
+    ConvertersConfigurationHolder.setDefaultConfiguration(XML.class,cfg);
+  }
+ catch (  Throwable t) {
+    throw ConverterUtil.resolveConverterException(t);
+  }
+}

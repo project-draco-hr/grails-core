@@ -1,0 +1,19 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+switch (scope) {
+case PAGE_SCOPE:
+    setAttribute(name,value);
+  break;
+case REQUEST_SCOPE:
+request.setAttribute(name,value);
+break;
+case SESSION_SCOPE:
+request.getSession(true).setAttribute(name,value);
+break;
+case APPLICATION_SCOPE:
+servletContext.setAttribute(name,value);
+break;
+default :
+setAttribute(name,value);
+}
+}

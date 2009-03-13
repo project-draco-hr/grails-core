@@ -1,0 +1,13 @@
+{
+  String in=(String)attributes.get(ATTRIBUTE_IN);
+  String expr=(String)attributes.get(ATTRIBUTE_EXPR);
+  if (StringUtils.isBlank(in))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_IN+ "]");
+  if (StringUtils.isBlank(expr))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_EXPR+ "]");
+  StringBuilder builder=new StringBuilder();
+  builder.append(in);
+  builder.append(".findAll {");
+  expr=calculateExpression(expr);
+  builder.append(expr);
+  builder.append("}");
+  doEachMethod(builder.toString());
+}

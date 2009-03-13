@@ -1,0 +1,10 @@
+{
+  for (  Resource r : watchedResources) {
+    try {
+      r.getFile().setLastModified(System.currentTimeMillis());
+    }
+ catch (    IOException e) {
+    }
+    if (fireEvent)     fireModifiedEvent(r,this);
+  }
+}

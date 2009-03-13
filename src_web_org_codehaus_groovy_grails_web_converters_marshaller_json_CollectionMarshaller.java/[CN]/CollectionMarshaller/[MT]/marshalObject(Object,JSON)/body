@@ -1,0 +1,8 @@
+{
+  JSONWriter writer=converter.getWriter();
+  writer.array();
+  for (  Object o1 : ((Collection)o)) {
+    converter.convertAnother(o1);
+  }
+  writer.endArray();
+}

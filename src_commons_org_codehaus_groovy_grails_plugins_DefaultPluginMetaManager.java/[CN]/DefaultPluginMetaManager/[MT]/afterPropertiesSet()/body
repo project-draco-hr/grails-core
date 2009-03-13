@@ -1,0 +1,20 @@
+{
+  PathMatchingResourcePatternResolver patternResolver=new PathMatchingResourcePatternResolver(resourceLoader);
+  Resource[] pluginDescriptors=new Resource[0];
+  try {
+    if (grailsApplication != null && grailsApplication.isWarDeployed()) {
+      pluginDescriptors=patternResolver.getResources(resourcePattern);
+    }
+ else {
+      BuildSettings settings=BuildSettingsHolder.getSettings();
+      File pluginDir=settings != null ? settings.getProjectPluginsDir() : null;
+      if (pluginDir != null) {
+        pluginDescriptors=GrailsPluginUtils.getPluginXmlMetadata(pluginDir.getPath());
+      }
+    }
+  }
+ catch (  Throwable e) {
+    LOG.debug("Error resolving plug-in descriptors: " + e.getMessage());
+  }
+  configureMetaManager(pluginDescriptors);
+}

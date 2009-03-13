@@ -1,0 +1,29 @@
+{
+  String viewName=argMap.get(ARGUMENT_VIEW).toString();
+  Object modelObject=argMap.get(ARGUMENT_MODEL);
+  GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefact(ControllerArtefactHandler.TYPE,target.getClass().getName());
+  if (controllerClass == null && webRequest.getControllerName() != null) {
+    controllerClass=(GrailsControllerClass)application.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,webRequest.getControllerName());
+  }
+  String viewUri;
+  if (viewName.indexOf('/') > -1) {
+    if (!viewName.startsWith("/")) {
+      viewName='/' + viewName;
+    }
+    viewUri=viewName;
+  }
+ else {
+    viewUri=controllerClass.getViewByName(viewName);
+  }
+  Map model;
+  if (modelObject instanceof Map) {
+    model=(Map)modelObject;
+  }
+ else   if (controllerClass.getClazz().isInstance(target)) {
+    model=new BeanMap(target);
+  }
+ else {
+    model=new HashMap();
+  }
+  controller.setProperty(ControllerDynamicMethods.MODEL_AND_VIEW_PROPERTY,new ModelAndView(viewUri,model));
+}

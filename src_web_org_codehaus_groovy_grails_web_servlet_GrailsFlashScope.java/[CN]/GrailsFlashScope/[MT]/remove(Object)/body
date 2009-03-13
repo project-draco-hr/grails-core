@@ -1,0 +1,4 @@
+{
+  if (current.containsKey(key))   return current.remove(key);
+ else   return next.remove(key);
+}

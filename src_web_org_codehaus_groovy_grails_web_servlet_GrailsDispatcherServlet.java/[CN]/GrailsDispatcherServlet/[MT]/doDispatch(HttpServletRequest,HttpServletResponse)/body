@@ -1,0 +1,108 @@
+{
+  HttpServletRequest processedRequest=request;
+  HandlerExecutionChain mappedHandler=null;
+  int interceptorIndex=-1;
+  final LocaleResolver localeResolver=(LocaleResolver)request.getAttribute(LOCALE_RESOLVER_ATTRIBUTE);
+  LocaleContext previousLocaleContext=LocaleContextHolder.getLocaleContext();
+  LocaleContextHolder.setLocaleContext(new LocaleContext(){
+    public Locale getLocale(){
+      return localeResolver.resolveLocale(request);
+    }
+  }
+);
+  if (WebUtils.isIncludeRequest(request)) {
+    response=useWrappedOrOriginalResponse(response);
+  }
+  GrailsWebRequest requestAttributes=null;
+  GrailsWebRequest previousRequestAttributes=null;
+  Exception handlerException=null;
+  try {
+    ModelAndView mv=null;
+    try {
+      Object exceptionAttribute=request.getAttribute(EXCEPTION_ATTRIBUTE);
+      if (exceptionAttribute == null)       processedRequest=checkMultipart(request);
+      previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+      requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
+      copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
+      WebUtils.storeGrailsWebRequest(requestAttributes);
+      if (logger.isDebugEnabled()) {
+        logger.debug("Bound request context to thread: " + request);
+        logger.debug("Using response object: " + response.getClass());
+      }
+      mappedHandler=getHandler(processedRequest,false);
+      if (mappedHandler == null || mappedHandler.getHandler() == null) {
+        noHandlerFound(processedRequest,response);
+        return;
+      }
+      if (mappedHandler.getInterceptors() != null) {
+        for (int i=0; i < mappedHandler.getInterceptors().length; i++) {
+          HandlerInterceptor interceptor=mappedHandler.getInterceptors()[i];
+          if (!interceptor.preHandle(processedRequest,response,mappedHandler.getHandler())) {
+            triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,null);
+            return;
+          }
+          interceptorIndex=i;
+        }
+      }
+      HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
+      mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
+      if (mappedHandler.getInterceptors() != null) {
+        for (int i=mappedHandler.getInterceptors().length - 1; i >= 0; i--) {
+          HandlerInterceptor interceptor=mappedHandler.getInterceptors()[i];
+          interceptor.postHandle(processedRequest,response,mappedHandler.getHandler(),mv);
+        }
+      }
+    }
+ catch (    ModelAndViewDefiningException ex) {
+      GrailsUtil.deepSanitize(ex);
+      handlerException=ex;
+      if (logger.isDebugEnabled())       logger.debug("ModelAndViewDefiningException encountered",ex);
+      mv=ex.getModelAndView();
+    }
+catch (    Exception ex) {
+      GrailsUtil.deepSanitize(ex);
+      handlerException=ex;
+      Object handler=(mappedHandler != null ? mappedHandler.getHandler() : null);
+      mv=processHandlerException(request,response,handler,ex);
+    }
+    if (mv != null && !mv.wasCleared()) {
+      try {
+        render(mv,processedRequest,response);
+      }
+ catch (      Exception e) {
+        mv=super.processHandlerException(processedRequest,response,mappedHandler,e);
+        handlerException=e;
+        render(mv,processedRequest,response);
+      }
+    }
+ else {
+      if (logger.isDebugEnabled()) {
+        logger.debug("Null ModelAndView returned to DispatcherServlet with name '" + getServletName() + "': assuming HandlerAdapter completed request handling");
+      }
+    }
+    triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,handlerException);
+  }
+ catch (  Exception ex) {
+    triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,ex);
+    throw ex;
+  }
+catch (  Error err) {
+    ServletException ex=new NestedServletException("Handler processing failed",err);
+    triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,ex);
+    throw ex;
+  }
+ finally {
+    if (processedRequest instanceof MultipartHttpServletRequest && processedRequest != request) {
+      if (multipartResolver != null)       this.multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
+    }
+    request.removeAttribute(MultipartHttpServletRequest.class.getName());
+    if (requestAttributes != null) {
+      requestAttributes.requestCompleted();
+      WebUtils.storeGrailsWebRequest(previousRequestAttributes);
+    }
+    LocaleContextHolder.setLocaleContext(previousLocaleContext);
+    if (logger.isDebugEnabled()) {
+      logger.debug("Cleared thread-bound request context: " + request);
+    }
+  }
+}

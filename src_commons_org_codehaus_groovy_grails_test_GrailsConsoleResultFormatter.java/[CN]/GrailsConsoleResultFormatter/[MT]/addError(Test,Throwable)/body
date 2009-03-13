@@ -1,0 +1,6 @@
+{
+  failureCount++;
+  if (test instanceof TestCase) {
+    printFailedTest((TestCase)test);
+  }
+}

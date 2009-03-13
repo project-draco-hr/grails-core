@@ -1,0 +1,13 @@
+{
+  SimpleValue val=new SimpleValue(entity.getTable());
+  bindSimpleValue(version,val,EMPTY_PATH,mappings);
+  if (!val.isTypeSpecified()) {
+    val.setTypeName("version".equals(version.getName()) ? "integer" : "timestamp");
+  }
+  Property prop=new Property();
+  prop.setValue(val);
+  bindProperty(version,prop,mappings);
+  val.setNullValue("undefined");
+  entity.setVersion(prop);
+  entity.addProperty(prop);
+}

@@ -1,0 +1,38 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class dc=gcl.parseClass("class Test { Long id; Long version; }");
+  Class c=gcl.parseClass("class TestController { def list = {} }");
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{dc,c},gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  parent.registerMockBean("classLoader",gcl);
+  parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager());
+  app.setApplicationContext(parent);
+  GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  DefaultGrailsPluginManager manager=new DefaultGrailsPluginManager(new Class[0],app);
+  manager.setParentApplicationContext(parent);
+  parent.registerMockBean("manager",manager);
+  conf.setPluginManager(manager);
+  ApplicationContext ctx=conf.configure(new MockServletContext());
+  assertNotNull(ctx);
+  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN) instanceof GroovyClassLoader);
+  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_EDITOR_BEAN) instanceof ClassEditor);
+  GrailsExceptionResolver er=(GrailsExceptionResolver)ctx.getBean(GrailsRuntimeConfigurator.EXCEPTION_HANDLER_BEAN);
+  assertNotNull(er);
+  ModelAndView mv=er.resolveException(new MockHttpServletRequest(),new MockHttpServletResponse(),null,new Exception());
+  assertEquals("/error",mv.getViewName());
+  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.MULTIPART_RESOLVER_BEAN) instanceof CommonsMultipartResolver);
+  MessageSource ms=(MessageSource)ctx.getBean(GrailsRuntimeConfigurator.MESSAGE_SOURCE_BEAN);
+  assertNotNull(ms);
+  GrailsDomainClass domainClass=(GrailsDomainClass)ctx.getBean("TestDomainClass");
+  assertNotNull(domainClass);
+  assertEquals("Test",domainClass.getShortName());
+  Class persistentClass=(Class)ctx.getBean("TestPersistentClass");
+  assertEquals(dc,persistentClass);
+  org.codehaus.groovy.grails.validation.GrailsDomainClassValidator validator=(org.codehaus.groovy.grails.validation.GrailsDomainClassValidator)ctx.getBean("TestValidator");
+  assertTrue(validator.supports(dc));
+  HotSwappableTargetSource ts=(HotSwappableTargetSource)ctx.getBean(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE);
+  assertNotNull(ts.getTarget());
+  GroovyObject controller=(GroovyObject)ctx.getBean("TestController");
+  assertEquals(c,controller.getClass());
+}

@@ -1,0 +1,4 @@
+{
+  this.applicationContext=applicationContext;
+  this.controllerTestPattern=Pattern.compile("^(\\w+)Controller" + testSuffix + "$");
+}

@@ -1,0 +1,36 @@
+{
+  if (showSource) {
+    response.setContentType(GROOVY_SOURCE_CONTENT_TYPE);
+    writeGroovySourceToResponse(metaInfo,out);
+  }
+ else {
+    if (metaInfo.getCompilationException() != null) {
+      throw metaInfo.getCompilationException();
+    }
+    boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
+    if (LOG.isDebugEnabled() && !contentTypeAlreadySet) {
+      LOG.debug("Writing response to [" + response.getClass() + "] with content type: "+ metaInfo.getContentType());
+    }
+    if (!contentTypeAlreadySet) {
+      response.setContentType(metaInfo.getContentType());
+    }
+    Binding binding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+    Binding oldBinding=null;
+    if (binding == null) {
+      binding=createBinding();
+      formulateBinding(request,response,binding,out);
+    }
+ else {
+      oldBinding=binding;
+      binding=createBinding();
+      formulateBinding(request,response,binding,out);
+    }
+    GroovyPage page=(GroovyPage)InvokerHelper.createScript(metaInfo.getPageClass(),binding);
+    page.setJspTags(metaInfo.getJspTags());
+    page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
+    page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
+    page.run();
+    request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
+  }
+  return out;
+}

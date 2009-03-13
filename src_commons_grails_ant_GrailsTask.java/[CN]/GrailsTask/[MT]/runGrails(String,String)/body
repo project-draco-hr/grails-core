@@ -1,0 +1,37 @@
+{
+  List<URL> urls=new ArrayList<URL>();
+  if (classpath != null) {
+    urls.addAll(pathsToUrls(classpath));
+  }
+ else {
+    urls.addAll(getRequiredLibsFromHome());
+  }
+  if (includeRuntimeClasspath && runtimeClasspath != null) {
+    urls.addAll(pathsToUrls(runtimeClasspath));
+  }
+  try {
+    URL[] loaderUrls=urls.toArray(new URL[urls.size()]);
+    GrailsRootLoader rootLoader=new GrailsRootLoader(loaderUrls,getClass().getClassLoader());
+    GrailsBuildHelper helper;
+    if (getProject().getBaseDir() != null) {
+      helper=new GrailsBuildHelper(rootLoader,home == null ? null : home.getCanonicalPath(),getProject().getBaseDir().getCanonicalPath());
+    }
+ else {
+      helper=new GrailsBuildHelper(rootLoader,home == null ? null : home.getCanonicalPath());
+    }
+    configureBuildSettings(helper);
+    int retval;
+    if (environment == null) {
+      retval=helper.execute(targetName,args);
+    }
+ else {
+      retval=helper.execute(targetName,args,environment);
+    }
+    if (retval != 0) {
+      throw new BuildException("Grails returned non-zero value: " + retval);
+    }
+  }
+ catch (  Exception ex) {
+    throw new BuildException("Unable to start Grails: " + ex.getMessage(),ex);
+  }
+}

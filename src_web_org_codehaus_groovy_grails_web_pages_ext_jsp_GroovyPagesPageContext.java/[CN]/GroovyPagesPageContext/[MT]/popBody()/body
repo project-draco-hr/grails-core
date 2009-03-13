@@ -1,0 +1,4 @@
+{
+  popWriter();
+  return (JspWriter)getAttribute(OUT);
+}

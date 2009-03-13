@@ -1,0 +1,9 @@
+{
+  for (  String dn : dependencyNames) {
+    GrailsPlugin current=getGrailsPlugin(dn);
+    if (current == null)     throw new PluginException("Cannot load Plugin. Dependency [" + current + "] not found");
+    String[] pluginDependencies=current.getDependencyNames();
+    if (pluginDependencies.length > 0)     doRuntimeConfigurationForDependencies(pluginDependencies,springConfig);
+    current.doWithRuntimeConfiguration(springConfig);
+  }
+}

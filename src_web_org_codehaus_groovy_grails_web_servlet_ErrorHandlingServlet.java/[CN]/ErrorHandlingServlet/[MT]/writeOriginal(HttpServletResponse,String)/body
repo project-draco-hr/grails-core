@@ -1,0 +1,16 @@
+{
+  try {
+    PrintWriter printWriter;
+    try {
+      printWriter=response.getWriter();
+    }
+ catch (    IllegalStateException e) {
+      printWriter=new PrintWriter(new OutputStreamWriter(response.getOutputStream()));
+    }
+    printWriter.write(contents);
+    printWriter.flush();
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException("Error writing out error page: " + e.getMessage(),e);
+  }
+}

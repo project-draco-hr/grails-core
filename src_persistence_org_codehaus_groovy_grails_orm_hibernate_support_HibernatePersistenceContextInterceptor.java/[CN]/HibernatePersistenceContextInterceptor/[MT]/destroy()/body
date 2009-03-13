@@ -1,0 +1,13 @@
+{
+  if (!participate) {
+    SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+    LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
+    try {
+      Session session=holder.getSession();
+      SessionFactoryUtils.releaseSession(session,sessionFactory);
+    }
+ catch (    RuntimeException ex) {
+      LOG.error("Unexpected exception on closing Hibernate Session",ex);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  if (this.mode == INIT || this.mode == OBJECT || this.mode == ARRAY) {
+    this.push(ARRAY);
+    this.append("[");
+    this.comma=false;
+    return this;
+  }
+ else   throw new JSONException("Misplaced array.");
+}

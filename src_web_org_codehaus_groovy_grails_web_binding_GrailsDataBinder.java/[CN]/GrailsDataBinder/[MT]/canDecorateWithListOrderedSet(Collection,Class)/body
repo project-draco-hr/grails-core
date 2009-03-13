@@ -1,0 +1,3 @@
+{
+  return (c instanceof Set) && !(c instanceof ListOrderedSet) && !(c instanceof SortedSet)&& DomainClassArtefactHandler.isDomainClass(referencedType);
+}

@@ -1,0 +1,4 @@
+{
+  Assert.notNull(sessionFactory,"Session factory is required!");
+  return new HibernateTemplate(this.sessionFactory);
+}

@@ -1,0 +1,7 @@
+{
+  String className=GrailsResourceUtils.getClassName(resource);
+  if (className != null) {
+    return attemptClassReload(className);
+  }
+  return null;
+}

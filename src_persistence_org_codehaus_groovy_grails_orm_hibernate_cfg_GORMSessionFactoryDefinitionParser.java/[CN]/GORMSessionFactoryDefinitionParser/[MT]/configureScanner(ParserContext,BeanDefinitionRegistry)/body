@@ -1,0 +1,10 @@
+{
+  XmlReaderContext readerContext=parserContext.getReaderContext();
+  ClassPathBeanDefinitionScanner scanner=new ClassPathBeanDefinitionScanner(registry,false);
+  scanner.setIncludeAnnotationConfig(false);
+  scanner.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
+  scanner.setResourceLoader(readerContext.getResourceLoader());
+  scanner.setBeanDefinitionDefaults(parserContext.getDelegate().getBeanDefinitionDefaults());
+  scanner.setAutowireCandidatePatterns(parserContext.getDelegate().getAutowireCandidatePatterns());
+  return scanner;
+}

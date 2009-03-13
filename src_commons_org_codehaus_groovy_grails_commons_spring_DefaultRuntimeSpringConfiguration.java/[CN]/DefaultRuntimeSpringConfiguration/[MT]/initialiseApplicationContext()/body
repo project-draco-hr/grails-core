@@ -1,0 +1,12 @@
+{
+  if (this.context == null) {
+    this.context=createApplicationContext(this.parent);
+    if (parent != null && classLoader == null) {
+      trySettingClassLoaderOnContextIfFoundInParent(parent);
+    }
+ else     if (classLoader != null) {
+      setClassLoaderOnContext(classLoader);
+    }
+    Assert.notNull(context);
+  }
+}

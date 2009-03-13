@@ -1,0 +1,7 @@
+{
+  Object propertyValue=propertyMap.get(property);
+  if (propertyValue == null) {
+    propertyValue=InvokerHelper.getMetaClass(getAdaptee()).getProperty(getAdaptee(),property);
+  }
+  return propertyValue;
+}

@@ -1,0 +1,13 @@
+{
+  try {
+    this.classLoader=classLoader;
+    Class clazz=classLoader.loadClass("grails.util.BuildSettings");
+    File grailsHomeFile=grailsHome == null ? null : new File(grailsHome);
+    File baseDirFile=baseDir == null ? null : new File(baseDir);
+    this.settings=clazz.getConstructor(File.class,File.class).newInstance(grailsHomeFile,baseDirFile);
+    invokeMethod(this.settings,"setRootLoader",new Class[]{URLClassLoader.class},new Object[]{classLoader});
+  }
+ catch (  Exception ex) {
+    throw new RuntimeException(ex);
+  }
+}

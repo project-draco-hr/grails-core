@@ -1,0 +1,13 @@
+{
+  this.marshallerList=cfg.getOrderedObjectMarshallers();
+  encoding=cfg.getEncoding();
+  prettyPrint=cfg.isPrettyPrint();
+  circularReferenceBehaviour=cfg.getCircularReferenceBehaviour();
+  List<ObjectMarshaller<C>> oms=new ArrayList<ObjectMarshaller<C>>(marshallerList);
+  Collections.reverse(oms);
+  ChainedObjectMarshaller<C> prev=null;
+  for (  ObjectMarshaller<C> om : oms) {
+    prev=new ChainedObjectMarshaller<C>(om,prev);
+  }
+  root=prev;
+}

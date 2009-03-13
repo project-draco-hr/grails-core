@@ -1,0 +1,29 @@
+{
+  super(pluginClass,application);
+  this.dependencies=Collections.EMPTY_MAP;
+  this.resolver=new PathMatchingResourcePatternResolver();
+  if (resource != null) {
+    try {
+      pluginUrl=resource.getURL();
+      URLConnection urlConnection=null;
+      try {
+        urlConnection=pluginUrl.openConnection();
+        this.pluginLastModified=urlConnection.getLastModified();
+      }
+  finally {
+        try {
+          InputStream is=urlConnection != null ? urlConnection.getInputStream() : null;
+          if (is != null) {
+            is.close();
+          }
+        }
+ catch (        IOException e) {
+        }
+      }
+    }
+ catch (    IOException e) {
+      LOG.warn("I/O error reading last modified date of plug-in [" + pluginClass + "], you won't be able to reload changes: "+ e.getMessage(),e);
+    }
+  }
+  initialisePlugin(pluginClass);
+}

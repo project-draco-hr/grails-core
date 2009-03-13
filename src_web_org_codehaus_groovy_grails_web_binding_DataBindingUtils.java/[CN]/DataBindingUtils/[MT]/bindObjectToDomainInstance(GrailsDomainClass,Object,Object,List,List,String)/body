@@ -1,0 +1,56 @@
+{
+  BindingResult bindingResult=null;
+  if (source instanceof GrailsParameterMap) {
+    GrailsParameterMap parameterMap=(GrailsParameterMap)source;
+    HttpServletRequest request=parameterMap.getRequest();
+    GrailsDataBinder dataBinder=createDataBinder(object,include,exclude,request);
+    dataBinder.bind(parameterMap);
+    bindingResult=dataBinder.getBindingResult();
+  }
+ else   if (source instanceof HttpServletRequest) {
+    HttpServletRequest request=(HttpServletRequest)source;
+    GrailsDataBinder dataBinder=createDataBinder(object,include,exclude,request);
+    performBindFromRequest(dataBinder,request,filter);
+    bindingResult=dataBinder.getBindingResult();
+  }
+ else   if (source instanceof Map) {
+    Map propertyMap=(Map)source;
+    propertyMap=convertPotentialGStrings(propertyMap);
+    GrailsDataBinder binder=createDataBinder(object,include,exclude,null);
+    performBindFromPropertyValues(binder,new MutablePropertyValues(propertyMap),filter);
+    bindingResult=binder.getBindingResult();
+  }
+ else {
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+    if (webRequest != null) {
+      GrailsDataBinder binder=createDataBinder(object,include,exclude,webRequest.getCurrentRequest());
+      HttpServletRequest request=webRequest.getCurrentRequest();
+      performBindFromRequest(binder,request,filter);
+    }
+  }
+  if (domain != null && bindingResult != null) {
+    BindingResult newResult=new BeanPropertyBindingResult(object,object.getClass().getName());
+    for (    Object error : bindingResult.getAllErrors()) {
+      if (error instanceof FieldError) {
+        FieldError fieldError=(FieldError)error;
+        if (domain.hasPersistentProperty(fieldError.getField())) {
+          if (!domain.getPropertyByName(fieldError.getField()).isOptional()) {
+            newResult.addError(fieldError);
+          }
+        }
+ else {
+          newResult.addError(fieldError);
+        }
+      }
+ else {
+        newResult.addError((ObjectError)error);
+      }
+    }
+    bindingResult=newResult;
+  }
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
+  if (mc.hasProperty(object,"errors") != null && bindingResult != null) {
+    mc.setProperty(object,"errors",bindingResult);
+  }
+  return bindingResult;
+}

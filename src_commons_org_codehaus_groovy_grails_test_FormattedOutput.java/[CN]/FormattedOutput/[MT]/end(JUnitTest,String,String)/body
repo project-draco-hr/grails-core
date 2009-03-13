@@ -1,0 +1,17 @@
+{
+  if (file.getName().endsWith(".txt")) {
+    String baseName=file.getName().substring(0,file.getName().length() - 4);
+    writeToFile(new File(file.getParentFile(),baseName + "-out.txt"),out);
+    writeToFile(new File(file.getParentFile(),baseName + "-err.txt"),err);
+  }
+  formatter.setSystemOutput(out);
+  formatter.setSystemError(err);
+  formatter.endTestSuite(test);
+  if (output != null) {
+    try {
+      output.close();
+    }
+ catch (    IOException ex) {
+    }
+  }
+}

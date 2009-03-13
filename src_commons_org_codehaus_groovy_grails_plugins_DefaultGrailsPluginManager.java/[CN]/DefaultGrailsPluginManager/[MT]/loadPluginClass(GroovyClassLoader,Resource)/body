@@ -1,0 +1,13 @@
+{
+  Class pluginClass;
+  try {
+    pluginClass=gcl.parseClass(r.getInputStream());
+  }
+ catch (  CompilationFailedException e) {
+    throw new PluginException("Error compiling plugin [" + r.getFilename() + "] "+ e.getMessage(),e);
+  }
+catch (  IOException e) {
+    throw new PluginException("Error reading plugin [" + r.getFilename() + "] "+ e.getMessage(),e);
+  }
+  return pluginClass;
+}

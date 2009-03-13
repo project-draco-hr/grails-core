@@ -1,0 +1,13 @@
+{
+  if (o != null) {
+    this.codecName=o.toString();
+    GrailsApplication app=ApplicationHolder.getApplication();
+    if (app != null) {
+      GrailsClass codecClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
+      if (codecClass == null)       codecClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
+      if (codecClass != null) {
+        this.codecClassName=codecClass.getFullName();
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  Properties props=new Properties();
+  props.put("firstName","ThisFirstNameIsTooLong");
+  props.put("lastName","Gosling");
+  props.put("age","300");
+  ModelAndView modelAndView=execute("/test/multiplecommandobjects","test","multiplecommandobjects",props);
+  assertNotNull("null modelAndView",modelAndView);
+  Map model=modelAndView.getModelMap();
+  assertEquals("wrong firstName","ThisFirstNameIsTooLong",model.get("theFirstName"));
+  assertEquals("wrong lastName","Gosling",model.get("theLastName"));
+  assertEquals("wrong age",new Integer(300),model.get("theAge"));
+  Errors mcoErrors=(Errors)model.get("mcoErrors");
+  assertEquals("wrong number of mco errors",1,mcoErrors.getErrorCount());
+  Errors acoErrors=(Errors)model.get("acoErrors");
+  assertEquals("wrong number of aco errors",1,acoErrors.getErrorCount());
+}

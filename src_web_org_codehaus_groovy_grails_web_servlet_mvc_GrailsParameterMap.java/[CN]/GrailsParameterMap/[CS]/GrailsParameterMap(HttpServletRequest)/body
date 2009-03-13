@@ -1,0 +1,19 @@
+{
+  super();
+  this.request=request;
+  this.parameterMap=new HashMap();
+  final Map requestMap=new LinkedHashMap(request.getParameterMap());
+  if (request instanceof MultipartHttpServletRequest) {
+    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
+    Map fileMap=multipartRequest.getFileMap();
+    for (    Object fileName : fileMap.keySet()) {
+      requestMap.put(fileName,multipartRequest.getFile((String)fileName));
+    }
+  }
+  for (  Object o : requestMap.keySet()) {
+    String key=(String)o;
+    Object paramValue=getParameterValue(requestMap,key);
+    parameterMap.put(key,paramValue);
+    processNestedKeys(request,requestMap,key,key,parameterMap);
+  }
+}

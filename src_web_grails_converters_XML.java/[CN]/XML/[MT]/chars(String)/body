@@ -1,0 +1,10 @@
+{
+  checkState();
+  try {
+    this.writer.characters(chars);
+  }
+ catch (  Exception e) {
+    throw ConverterUtil.resolveConverterException(e);
+  }
+  return this;
+}

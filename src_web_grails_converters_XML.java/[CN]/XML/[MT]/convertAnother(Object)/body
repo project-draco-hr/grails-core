@@ -1,0 +1,35 @@
+{
+  try {
+    if (o == null) {
+    }
+ else     if (o instanceof String) {
+      writer.characters((String)o);
+    }
+ else     if (o instanceof Class) {
+      writer.characters(((Class)o).getName());
+    }
+ else     if ((o.getClass().isPrimitive() && !o.getClass().equals(byte[].class)) || o instanceof Number || o instanceof Boolean) {
+      writer.characters(String.valueOf(o));
+    }
+ else     if (o instanceof GString) {
+      writer.characters(o.toString());
+    }
+ else {
+      if (referenceStack.contains(o)) {
+        handleCircularRelationship(o);
+      }
+ else {
+        referenceStack.push(o);
+        ObjectMarshaller<XML> marshaller=config.getMarshaller(o);
+        if (marshaller == null) {
+          throw new ConverterException("Unconvertable Object of class: " + o.getClass().getName());
+        }
+        marshaller.marshalObject(o,this);
+        referenceStack.pop();
+      }
+    }
+  }
+ catch (  Throwable t) {
+    throw ConverterUtil.resolveConverterException(t);
+  }
+}

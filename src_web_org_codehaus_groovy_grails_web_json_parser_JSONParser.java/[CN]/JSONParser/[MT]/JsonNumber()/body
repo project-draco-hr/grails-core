@@ -1,0 +1,42 @@
+{
+  String intpart=null, fracpart=null, exppart=null;
+  intpart=JsonInt();
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case 30:
+    fracpart=JsonFrac();
+  break;
+default :
+jj_la1[8]=jj_gen;
+;
+}
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case E:
+exppart=JsonExp();
+break;
+default :
+jj_la1[9]=jj_gen;
+;
+}
+Number n;
+if (exppart != null) {
+n=new java.math.BigDecimal(intpart + fracpart + exppart);
+}
+ else if (fracpart != null) {
+n=new Double(intpart + fracpart);
+}
+ else {
+if (intpart.length() < 10) {
+n=new Integer(intpart);
+}
+ else if (intpart.length() < 19) {
+n=new Long(intpart);
+}
+ else {
+n=new java.math.BigInteger(intpart);
+}
+}
+{
+if (true) return n;
+}
+throw new Error("Missing return statement in function");
+}

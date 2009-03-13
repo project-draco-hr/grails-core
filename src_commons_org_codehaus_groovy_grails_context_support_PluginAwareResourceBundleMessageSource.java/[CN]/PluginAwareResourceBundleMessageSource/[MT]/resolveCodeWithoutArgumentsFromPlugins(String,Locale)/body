@@ -1,0 +1,21 @@
+{
+  if (this.pluginCacheMillis < 0) {
+    PropertiesHolder propHolder=getMergedPluginProperties(locale);
+    String result=propHolder.getProperty(code);
+    if (result != null) {
+      return result;
+    }
+  }
+ else {
+    for (    String pluginBaseName : pluginBaseNames) {
+      List filenames=calculateAllFilenames(pluginBaseName,locale);
+      for (      Object o : filenames) {
+        String filename=(String)o;
+        PropertiesHolder holder=getProperties(filename);
+        String result=holder.getProperty(code);
+        if (result != null)         return result;
+      }
+    }
+  }
+  return null;
+}

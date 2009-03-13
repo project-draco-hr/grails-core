@@ -1,0 +1,4 @@
+{
+  this.classLoader=classLoader == null ? getClass().getClassLoader() : classLoader;
+  initializeBeanBuilderForClassLoader(classLoader);
+}

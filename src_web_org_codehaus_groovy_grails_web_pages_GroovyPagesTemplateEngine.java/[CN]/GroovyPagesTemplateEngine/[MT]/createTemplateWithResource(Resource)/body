@@ -1,0 +1,9 @@
+{
+  InputStream in=resource.getInputStream();
+  try {
+    return createTemplate(in,resource,null);
+  }
+  finally {
+    in.close();
+  }
+}

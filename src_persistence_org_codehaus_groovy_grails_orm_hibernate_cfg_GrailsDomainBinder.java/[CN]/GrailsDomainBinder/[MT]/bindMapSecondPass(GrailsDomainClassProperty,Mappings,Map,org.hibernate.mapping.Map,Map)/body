@@ -1,0 +1,35 @@
+{
+  bindCollectionSecondPass(property,mappings,persistentClasses,map,inheritedMetas);
+  SimpleValue value=new SimpleValue(map.getCollectionTable());
+  bindSimpleValue(getIndexColumnType(property,STRING_TYPE),value,true,getIndexColumnName(property),mappings);
+  PropertyConfig pc=getPropertyConfig(property);
+  if (pc != null && pc.getIndexColumn() != null) {
+    bindColumnConfigToColumn(getColumnForSimpleValue(value),getSingleColumnConfig(pc.getIndexColumn()));
+  }
+  if (!value.isTypeSpecified()) {
+    throw new MappingException("map index element must specify a type: " + map.getRole());
+  }
+  map.setIndex(value);
+  if (!property.isOneToMany() && !property.isManyToMany()) {
+    SimpleValue elt=new SimpleValue(map.getCollectionTable());
+    map.setElement(elt);
+    String typeName=getTypeName(getPropertyConfig(property));
+    if (typeName == null) {
+      if (property.isBasicCollectionType()) {
+        typeName=property.getReferencedPropertyType().getName();
+      }
+ else {
+        typeName=Hibernate.STRING.getName();
+      }
+    }
+    bindSimpleValue(typeName,elt,false,getMapElementName(property),mappings);
+    if (pc != null) {
+      bindColumnConfigToColumn(getColumnForSimpleValue(elt),getSingleColumnConfig(pc));
+    }
+    elt.setTypeName(typeName);
+    map.setInverse(false);
+  }
+ else {
+    map.setInverse(false);
+  }
+}

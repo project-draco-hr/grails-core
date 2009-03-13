@@ -1,0 +1,15 @@
+{
+  if (BINDING.equals(property))   return getBinding();
+  MetaProperty mp=getMetaClass().getMetaProperty(property);
+  if (mp != null)   return mp.getProperty(this);
+  Object value=getBinding().getVariables().get(property);
+  if (value == null) {
+    value=gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupNamespaceDispatcher(property) : null;
+  }
+  if (value == null && jspTags.containsKey(property)) {
+    TagLibraryResolver tagResolver=getTagLibraryResolver();
+    String uri=(String)jspTags.get(property);
+    if (uri != null)     value=tagResolver.resolveTagLibrary(uri);
+  }
+  return value;
+}

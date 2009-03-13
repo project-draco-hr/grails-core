@@ -1,0 +1,8 @@
+{
+  try {
+    for (int i=0; i < indentLevel; i++)     writer.write(indentStr);
+  }
+ catch (  IOException e) {
+    throw new JSONException(e);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (Metadata.getCurrent().isWarDeployed()) {
+    this.localResourceLoader=resourceLoader;
+  }
+ else {
+    BuildSettings settings=BuildSettingsHolder.getSettings();
+    this.localResourceLoader=new DevelopmentResourceLoader(this.application,settings != null ? settings.getResourcesDir().getPath() : null);
+  }
+  super.setResourceLoader(localResourceLoader);
+  this.resourceResolver=new PathMatchingResourcePatternResolver(this.localResourceLoader);
+}

@@ -1,0 +1,18 @@
+{
+  Object v=pv.getValue();
+  Collection collection=(Collection)bean.getPropertyValue(pv.getName());
+  collection.clear();
+  if (v != null && v.getClass().isArray()) {
+    Object[] identifiers=(Object[])v;
+    for (    Object id : identifiers) {
+      if (id != null) {
+        associateObjectForId(pv,id);
+      }
+    }
+    mpvs.removePropertyValue(pv);
+  }
+ else   if (v != null && (v instanceof String)) {
+    associateObjectForId(pv,v);
+    mpvs.removePropertyValue(pv);
+  }
+}

@@ -1,0 +1,6 @@
+{
+  Collection c=new ArrayList();
+  c.addAll(current.values());
+  c.addAll(next.values());
+  return c;
+}

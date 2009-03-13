@@ -1,0 +1,6 @@
+{
+  Matcher m=PARSE_TAG_FIRST_PASS.matcher(attrTokens);
+  populateAttributesFromMatcher(m,attrs);
+  m=PARSE_TAG_SECOND_PASS.matcher(attrTokens);
+  populateAttributesFromMatcher(m,attrs);
+}

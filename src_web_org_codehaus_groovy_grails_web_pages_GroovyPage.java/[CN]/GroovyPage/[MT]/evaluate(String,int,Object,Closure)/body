@@ -1,0 +1,8 @@
+{
+  try {
+    return evaluator.call(outerIt);
+  }
+ catch (  Exception e) {
+    throw new GroovyPagesException("Error evaluating expression [" + exprText + "] on line ["+ lineNumber+ "]: "+ e.getMessage(),e,lineNumber,getGroovyPageFileName());
+  }
+}

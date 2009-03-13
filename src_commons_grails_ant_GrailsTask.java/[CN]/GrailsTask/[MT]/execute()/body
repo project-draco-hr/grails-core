@@ -1,0 +1,10 @@
+{
+  if (script == null)   throw new BuildException("'script' must be provided.");
+  if (home == null && classpath == null) {
+    throw new BuildException("One of 'home' or 'classpath' must be provided.");
+  }
+ else   if (home != null && classpath != null) {
+    throw new BuildException("You cannot use both 'home' and 'classpath' with the Grails task.");
+  }
+  runGrails(script,args);
+}

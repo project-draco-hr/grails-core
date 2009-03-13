@@ -1,0 +1,33 @@
+{
+  if (descriptor != null && descriptor.exists()) {
+    CompilerConfiguration config=CompilerConfiguration.DEFAULT;
+    config.setSourceEncoding("UTF-8");
+    GroovyClassLoader classLoader=new GroovyClassLoader(Thread.currentThread().getContextClassLoader(),config);
+    List classes=new ArrayList();
+    InputStream inputStream=null;
+    try {
+      inputStream=descriptor.getInputStream();
+      XPath xpath=XPathFactory.newInstance().newXPath();
+      NodeList grailsClasses=(NodeList)xpath.evaluate("/grails/resources/resource",new InputSource(inputStream),XPathConstants.NODESET);
+      for (int i=0; i < grailsClasses.getLength(); i++) {
+        Node node=grailsClasses.item(i);
+        try {
+          classes.add(classLoader.loadClass(node.getTextContent()));
+        }
+ catch (        ClassNotFoundException e) {
+          LOG.warn("Class with name [" + node.getTextContent() + "] was not found, and hence not loaded. Possible empty class or script definition?");
+        }
+      }
+    }
+  finally {
+      if (inputStream != null)       inputStream.close();
+    }
+    Class[] loadedClasses=(Class[])classes.toArray(new Class[classes.size()]);
+    this.grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
+  }
+ else {
+    Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
+    this.grailsApplication=new DefaultGrailsApplication(this.resourceLoader);
+  }
+  ApplicationHolder.setApplication(this.grailsApplication);
+}

@@ -1,0 +1,4 @@
+{
+  this.servletContextLoader=new ServletContextResourceLoader(servletContext);
+  if (this.resourceLoader == null)   this.resourceLoader=new ServletContextResourceLoader(servletContext);
+}

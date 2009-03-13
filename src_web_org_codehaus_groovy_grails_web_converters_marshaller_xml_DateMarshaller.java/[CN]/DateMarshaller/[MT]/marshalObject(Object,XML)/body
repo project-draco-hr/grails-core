@@ -1,0 +1,8 @@
+{
+  try {
+    xml.chars(XML_DATE_FORMAT.format(object));
+  }
+ catch (  Exception e) {
+    throw ConverterUtil.resolveConverterException(e);
+  }
+}

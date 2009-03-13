@@ -1,0 +1,16 @@
+{
+  if (applicationContext.containsBean(UrlMappingFactoryBean.URL_MAP_BEAN)) {
+    Object o=applicationContext.getBean(UrlMappingFactoryBean.URL_MAP_BEAN);
+    if (o instanceof Map) {
+      mappings.putAll((Map)o);
+    }
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[UrlMappingFactoryBean] Creating URL mappings as...");
+    for (Iterator i=mappings.keySet().iterator(); i.hasNext(); ) {
+      Object key=i.next();
+      LOG.debug("[UrlMappingFactoryBean] " + key + "="+ mappings.get(key));
+    }
+  }
+  return mappings;
+}

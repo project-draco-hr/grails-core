@@ -1,0 +1,17 @@
+{
+  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      Criteria c=session.createCriteria(clazz);
+      if (arguments.length > 0 && arguments[0] instanceof Map) {
+        Map argMap=(Map)arguments[0];
+        GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,argMap);
+      }
+ else {
+        GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,Collections.EMPTY_MAP);
+      }
+      c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+      return c.list();
+    }
+  }
+);
+}

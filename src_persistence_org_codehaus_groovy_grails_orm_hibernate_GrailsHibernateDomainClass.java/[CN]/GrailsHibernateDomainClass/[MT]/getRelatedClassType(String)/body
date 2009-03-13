@@ -1,0 +1,7 @@
+{
+  GrailsDomainClassProperty prop=getPropertyByName(propertyName);
+  if (prop == null)   return null;
+ else {
+    return prop.getReferencedPropertyType();
+  }
+}

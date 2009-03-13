@@ -1,0 +1,15 @@
+{
+  if (implementsZeroArgMethod(classNode,methodName)) {
+    return true;
+  }
+ else {
+    ClassNode parent=classNode.getSuperClass();
+    while (parent != null && !getFullName(parent).equals("java.lang.Object")) {
+      if (!ignoreClasses.contains(parent) && implementsZeroArgMethod(parent,methodName)) {
+        return true;
+      }
+      parent=parent.getSuperClass();
+    }
+  }
+  return false;
+}

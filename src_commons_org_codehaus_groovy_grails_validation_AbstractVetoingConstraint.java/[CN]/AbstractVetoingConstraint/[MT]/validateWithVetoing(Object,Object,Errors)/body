@@ -1,0 +1,5 @@
+{
+  checkState();
+  if (propertyValue == null && skipNullValues())   return false;
+  return processValidateWithVetoing(target,propertyValue,errors);
+}

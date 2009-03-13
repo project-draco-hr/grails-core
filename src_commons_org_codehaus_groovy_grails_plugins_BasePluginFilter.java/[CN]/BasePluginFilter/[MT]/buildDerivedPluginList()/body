@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < explicitlyNamedPlugins.size(); i++) {
+    GrailsPlugin plugin=(GrailsPlugin)explicitlyNamedPlugins.get(i);
+    addPluginDependencies(derivedPlugins,plugin);
+  }
+}

@@ -1,0 +1,7 @@
+{
+  if (currentlyBufferingWhitespace) {
+    out.printlnToResponse(whitespaceBuffer.toString());
+    clearBufferedWhiteSpace();
+  }
+  currentlyBufferingWhitespace=false;
+}

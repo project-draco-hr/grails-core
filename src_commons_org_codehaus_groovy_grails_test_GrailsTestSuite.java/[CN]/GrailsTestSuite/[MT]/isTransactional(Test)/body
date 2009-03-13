@@ -1,0 +1,4 @@
+{
+  Object val=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(test,TRANSACTIONAL);
+  return !(val instanceof Boolean) || (Boolean)val;
+}

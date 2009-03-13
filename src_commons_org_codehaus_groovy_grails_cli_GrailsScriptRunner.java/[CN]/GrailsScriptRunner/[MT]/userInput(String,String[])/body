@@ -1,0 +1,33 @@
+{
+  String responsesString=null;
+  if (validResponses != null) {
+    responsesString=DefaultGroovyMethods.join(validResponses,",");
+  }
+  BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+  for (int it=0; it < 3; it++) {
+    out.print(message);
+    if (responsesString != null) {
+      out.print(" [");
+      out.print(responsesString);
+      out.print("] ");
+    }
+    try {
+      String line=reader.readLine();
+      if (validResponses == null)       return line;
+      for (      String validResponse : validResponses) {
+        if (line != null && line.equals(validResponse)) {
+          return line;
+        }
+      }
+      out.println();
+      out.println("Invalid option '" + line + "' - must be one of: ["+ responsesString+ "]");
+      out.println();
+    }
+ catch (    IOException ex) {
+      ex.printStackTrace();
+      return null;
+    }
+  }
+  out.println("No valid response entered - giving up asking.");
+  return null;
+}

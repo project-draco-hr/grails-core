@@ -1,0 +1,29 @@
+{
+  if (data == null)   throw new IllegalArgumentException("Argument [pattern] cannot be null");
+  String[] urls=data.getLogicalUrls();
+  this.urlData=data;
+  this.patterns=new Pattern[urls.length];
+  for (int i=0; i < urls.length; i++) {
+    String url=urls[i];
+    Pattern pattern=convertToRegex(url);
+    if (pattern == null)     throw new IllegalStateException("Cannot use null pattern in regular expression mapping for url [" + data.getUrlPattern() + "]");
+    this.patterns[i]=pattern;
+  }
+  if (constraints != null) {
+    String pattern=data.getUrlPattern();
+    int pos=0;
+    for (    ConstrainedProperty constraint : constraints) {
+      pos=pattern.indexOf("(*)",pos);
+      if (pos == -1) {
+        constraint.setNullable(true);
+      }
+ else       if (pos + 3 < pattern.length() && pattern.charAt(pos + 3) == '?') {
+        constraint.setNullable(true);
+      }
+ else {
+        constraint.setNullable(false);
+      }
+      pos+=3;
+    }
+  }
+}

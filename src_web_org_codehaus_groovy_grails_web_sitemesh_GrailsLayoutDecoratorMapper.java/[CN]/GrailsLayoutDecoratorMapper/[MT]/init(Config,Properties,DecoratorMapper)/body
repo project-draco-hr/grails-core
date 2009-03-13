@@ -1,0 +1,6 @@
+{
+  super.init(config,properties,parent);
+  this.servletContext=config.getServletContext();
+  this.applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  this.pluginMetaManager=(PluginMetaManager)applicationContext.getBean(PluginMetaManager.BEAN_ID);
+}

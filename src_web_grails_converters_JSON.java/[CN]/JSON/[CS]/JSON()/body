@@ -1,0 +1,8 @@
+{
+  config=initConfig();
+  if (config == null)   throw new RuntimeException("Error: JSON Configuration could not be retrieved!!");
+  this.encoding=this.config.getEncoding();
+  this.circularReferenceBehaviour=this.config.getCircularReferenceBehaviour();
+  this.prettyPrint=this.config.isPrettyPrint();
+  this.target=null;
+}

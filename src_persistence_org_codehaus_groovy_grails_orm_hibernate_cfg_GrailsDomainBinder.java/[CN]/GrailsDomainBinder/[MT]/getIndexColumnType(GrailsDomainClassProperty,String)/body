@@ -1,0 +1,7 @@
+{
+  PropertyConfig pc=getPropertyConfig(property);
+  if (pc != null && pc.getIndexColumn() != null && pc.getIndexColumn().getType() != null) {
+    return getTypeName(pc.getIndexColumn());
+  }
+  return defaultType;
+}

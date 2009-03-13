@@ -1,0 +1,81 @@
+{
+  int startsAt=0;
+  jjnewStateCnt=4;
+  int i=1;
+  jjstateSet[0]=startState;
+  int kind=0x7fffffff;
+  for (; ; ) {
+    if (++jjround == 0x7fffffff)     ReInitRounds();
+    if (curChar < 64) {
+      long l=1L << curChar;
+      do {
+switch (jjstateSet[--i]) {
+case 0:
+          if ((0x3ff000000000000L & l) != 0L)           jjstateSet[jjnewStateCnt++]=1;
+        break;
+case 1:
+      if ((0x3ff000000000000L & l) != 0L)       jjstateSet[jjnewStateCnt++]=2;
+    break;
+case 2:
+  if ((0x3ff000000000000L & l) != 0L)   jjstateSet[jjnewStateCnt++]=3;
+break;
+case 3:
+if ((0x3ff000000000000L & l) != 0L && kind > 19) kind=19;
+break;
+default :
+break;
+}
+}
+ while (i != startsAt);
+}
+ else if (curChar < 128) {
+long l=1L << (curChar & 077);
+do {
+switch (jjstateSet[--i]) {
+case 0:
+if ((0x7e0000007eL & l) != 0L) jjstateSet[jjnewStateCnt++]=1;
+break;
+case 1:
+if ((0x7e0000007eL & l) != 0L) jjstateSet[jjnewStateCnt++]=2;
+break;
+case 2:
+if ((0x7e0000007eL & l) != 0L) jjstateSet[jjnewStateCnt++]=3;
+break;
+case 3:
+if ((0x7e0000007eL & l) != 0L && kind > 19) kind=19;
+break;
+default :
+break;
+}
+}
+ while (i != startsAt);
+}
+ else {
+int hiByte=(int)(curChar >> 8);
+int i1=hiByte >> 6;
+long l1=1L << (hiByte & 077);
+int i2=(curChar & 0xff) >> 6;
+long l2=1L << (curChar & 077);
+do {
+switch (jjstateSet[--i]) {
+default :
+break;
+}
+}
+ while (i != startsAt);
+}
+if (kind != 0x7fffffff) {
+jjmatchedKind=kind;
+jjmatchedPos=curPos;
+kind=0x7fffffff;
+}
+++curPos;
+if ((i=jjnewStateCnt) == (startsAt=4 - (jjnewStateCnt=startsAt))) return curPos;
+try {
+curChar=input_stream.readChar();
+}
+ catch (java.io.IOException e) {
+return curPos;
+}
+}
+}

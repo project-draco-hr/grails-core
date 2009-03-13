@@ -1,0 +1,15 @@
+{
+  GrailsUtil.deepSanitize(exception);
+  if (LOG.isErrorEnabled())   LOG.error("Error processing GSP: " + exception.getMessage(),exception);
+  try {
+    Template t=engine.createTemplate(ERRORS_VIEW);
+    Map model=new HashMap();
+    model.put(EXCEPTION_MODEL_KEY,new GrailsWrappedRuntimeException(context,exception));
+    Writable w=t.make(model);
+    w.writeTo(out);
+  }
+ catch (  Throwable t) {
+    LOG.error("Error attempting to render errors view : " + t.getMessage(),t);
+    LOG.error("Original exception : " + exception.getMessage(),exception);
+  }
+}

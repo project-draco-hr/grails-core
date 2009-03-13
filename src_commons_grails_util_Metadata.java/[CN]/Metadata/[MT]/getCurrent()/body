@@ -1,0 +1,17 @@
+{
+  if (!metadata.initialized) {
+    try {
+      InputStream input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
+      if (input != null) {
+        metadata.load(input);
+      }
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
+    }
+ finally {
+      metadata.initialized=true;
+    }
+  }
+  return metadata;
+}

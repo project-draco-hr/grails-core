@@ -1,0 +1,5 @@
+{
+  if (isDomainClass(classNode,source) && shouldInjectClass(classNode)) {
+    performInjectionOnAnnotatedEntity(classNode);
+  }
+}

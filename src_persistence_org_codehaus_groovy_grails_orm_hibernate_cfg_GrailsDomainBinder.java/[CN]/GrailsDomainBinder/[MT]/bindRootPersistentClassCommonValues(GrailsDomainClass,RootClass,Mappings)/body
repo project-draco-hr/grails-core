@@ -1,0 +1,24 @@
+{
+  Mapping m=getMapping(domainClass.getClazz());
+  String schema=mappings.getSchemaName();
+  String catalog=mappings.getCatalogName();
+  final boolean hasTableDefinition=m != null && m.getTable() != null;
+  if (hasTableDefinition && m.getTable().getSchema() != null) {
+    schema=m.getTable().getSchema();
+  }
+  if (hasTableDefinition && m.getTable().getCatalog() != null) {
+    catalog=m.getTable().getCatalog();
+  }
+  Table table=mappings.addTable(schema,catalog,getTableName(domainClass),null,false);
+  root.setTable(table);
+  if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
+  bindIdentity(domainClass,root,mappings,m);
+  if (m != null) {
+    if (m.getVersioned()) {
+      bindVersion(domainClass.getVersion(),root,mappings);
+    }
+  }
+ else   bindVersion(domainClass.getVersion(),root,mappings);
+  root.createPrimaryKey();
+  createClassProperties(domainClass,root,mappings);
+}

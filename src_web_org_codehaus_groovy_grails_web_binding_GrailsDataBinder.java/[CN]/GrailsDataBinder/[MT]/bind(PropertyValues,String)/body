@@ -1,0 +1,8 @@
+{
+  PropertyValues values=filterPropertyValues(propertyValues,prefix);
+  if (propertyValues instanceof MutablePropertyValues) {
+    MutablePropertyValues mutablePropertyValues=(MutablePropertyValues)propertyValues;
+    preProcessMutablePropertyValues(mutablePropertyValues);
+  }
+  super.bind(values);
+}

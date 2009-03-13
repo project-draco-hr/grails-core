@@ -1,0 +1,13 @@
+{
+  text=text.trim();
+  Matcher mat=PAGE_DIRECTIVE_PATTERN.matcher(text);
+  for (int ix=0; ; ) {
+    if (!mat.find(ix))     return;
+    String name=mat.group(1);
+    String value=mat.group(2);
+    if (name.equals(IMPORT_DIRECTIVE))     pageImport(value);
+    if (name.equals(CONTENT_TYPE_DIRECTIVE))     contentType(value);
+    if (name.equals(DEFAULT_CODEC_DIRECTIVE))     lookupCodec(value);
+    ix=mat.end();
+  }
+}

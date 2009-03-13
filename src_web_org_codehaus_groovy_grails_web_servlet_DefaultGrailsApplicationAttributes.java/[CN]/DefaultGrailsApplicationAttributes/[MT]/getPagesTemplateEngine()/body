@@ -1,0 +1,9 @@
+{
+  ApplicationContext appCtx=getApplicationContext();
+  if (appCtx.containsBean(GroovyPagesTemplateEngine.BEAN_ID)) {
+    return (GroovyPagesTemplateEngine)appCtx.getBean(GroovyPagesTemplateEngine.BEAN_ID);
+  }
+ else {
+    throw new GroovyPagesException("No bean named [" + GroovyPagesTemplateEngine.BEAN_ID + "] defined in Spring application context!");
+  }
+}

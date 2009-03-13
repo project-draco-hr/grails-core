@@ -1,0 +1,54 @@
+{
+  if (!gsp) {
+    out.print(text);
+    return;
+  }
+  for (int ix=0, ixz=text.length(); ix < ixz; ix++) {
+    char c=text.charAt(ix);
+    String rep=null;
+    if (Character.isWhitespace(c)) {
+      for (ix++; ix < ixz; ix++) {
+        if (Character.isWhitespace(text.charAt(ix)))         continue;
+        ix--;
+        rep=" ";
+        break;
+      }
+    }
+ else     if (c == '&') {
+      if (match("&semi;",text,ix)) {
+        rep=";";
+        ix+=5;
+      }
+ else       if (match("&amp;",text,ix)) {
+        rep="&";
+        ix+=4;
+      }
+ else       if (match("&lt;",text,ix)) {
+        rep="<";
+        ix+=3;
+      }
+ else       if (match("&gt;",text,ix)) {
+        rep=">";
+        ix+=3;
+      }
+    }
+ else     if (c == '<') {
+      if (match("<br>",text,ix) || match("<hr>",text,ix)) {
+        rep="\n";
+        incrementLineNumber();
+        ix+=3;
+      }
+ else {
+        int end=match(PARA_BREAK,text,ix);
+        if (end <= 0)         end=match(ROW_BREAK,text,ix);
+        if (end > 0) {
+          rep="\n";
+          incrementLineNumber();
+          ix=end;
+        }
+      }
+    }
+    if (rep != null)     out.print(rep);
+ else     out.print(c);
+  }
+}

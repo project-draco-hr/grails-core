@@ -1,0 +1,32 @@
+{
+  Object tagLibProp;
+  Writer originalOut=webRequest.getOut();
+  try {
+    final GroovyPageTagWriter out=new GroovyPageTagWriter(new FastStringWriter());
+    webRequest.setOut(out);
+    Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
+    tagLibProp=tagLib.getProperty(methodName);
+    if (tagLibProp instanceof Closure) {
+      Closure tag=(Closure)((Closure)tagLibProp).clone();
+      if (tag.getParameterTypes().length == 1) {
+        tag.call(new Object[]{attrs});
+        if (actualBody != null) {
+          actualBody.call();
+        }
+      }
+ else       if (tag.getParameterTypes().length == 2) {
+        tag.call(new Object[]{attrs,actualBody});
+      }
+ else {
+        throw new GrailsTagException("Tag [" + methodName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
+      }
+      return out.getValue();
+    }
+ else {
+      throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
+    }
+  }
+  finally {
+    webRequest.setOut(originalOut);
+  }
+}

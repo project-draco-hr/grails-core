@@ -1,0 +1,8 @@
+{
+  String[] imports=Pattern.compile(";").split(value.subSequence(0,value.length()));
+  for (int ix=0; ix < imports.length; ix++) {
+    out.print("import ");
+    out.print(imports[ix]);
+    out.println();
+  }
+}

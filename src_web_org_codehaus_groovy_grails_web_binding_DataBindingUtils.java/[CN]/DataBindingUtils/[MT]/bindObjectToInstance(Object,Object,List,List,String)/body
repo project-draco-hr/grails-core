@@ -1,0 +1,8 @@
+{
+  GrailsApplication application=ApplicationHolder.getApplication();
+  GrailsDomainClass domain=null;
+  if (application != null) {
+    domain=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName());
+  }
+  return bindObjectToDomainInstance(domain,object,source,include,exclude,filter);
+}

@@ -1,0 +1,22 @@
+{
+  JSONWriter writer=json.getWriter();
+  try {
+    writer.object();
+    Class enumClass=en.getClass();
+    json.property("enumType",enumClass.getName());
+    Method nameMethod=BeanUtils.findDeclaredMethod(enumClass,"name",null);
+    try {
+      json.property("name",nameMethod.invoke(en));
+    }
+ catch (    Exception e) {
+      json.property("name","");
+    }
+    writer.endObject();
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  Exception e) {
+    throw new ConverterException("Error converting Enum with class " + en.getClass().getName(),e);
+  }
+}

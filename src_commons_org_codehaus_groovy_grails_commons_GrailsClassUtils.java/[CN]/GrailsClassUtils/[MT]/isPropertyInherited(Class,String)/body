@@ -1,0 +1,10 @@
+{
+  if (clz == null)   return false;
+  if (StringUtils.isBlank(propertyName))   throw new IllegalArgumentException("Argument [propertyName] cannot be null or blank");
+  Class superClass=clz.getSuperclass();
+  PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(superClass,propertyName);
+  if (pd != null && pd.getReadMethod() != null) {
+    return true;
+  }
+  return false;
+}

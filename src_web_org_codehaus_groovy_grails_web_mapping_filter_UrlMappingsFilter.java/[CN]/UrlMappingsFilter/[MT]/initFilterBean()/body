@@ -1,0 +1,8 @@
+{
+  super.initFilterBean();
+  urlHelper.setUrlDecode(false);
+  final ServletContext servletContext=getServletContext();
+  this.handlerInterceptors=WebUtils.lookupHandlerInterceptors(servletContext);
+  this.application=WebUtils.lookupApplication(servletContext);
+  this.viewResolver=WebUtils.lookupViewResolver(servletContext);
+}

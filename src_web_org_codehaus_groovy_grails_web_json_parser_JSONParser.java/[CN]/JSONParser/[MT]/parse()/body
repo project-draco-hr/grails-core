@@ -1,0 +1,30 @@
+{
+  Object json=null;
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case 20:
+    json=JsonObject();
+  break;
+case 25:
+json=JsonArray();
+break;
+case DIGITS:
+case SINGLE_QUOTE_LITERAL:
+case DOUBLE_QUOTE_LITERAL:
+case 27:
+case 28:
+case 29:
+json=JsonPrimitive();
+break;
+case 22:
+json=JsonNull();
+break;
+default :
+jj_la1[0]=jj_gen;
+jj_consume_token(-1);
+throw new ParseException();
+}
+{
+if (true) return json;
+}
+throw new Error("Missing return statement in function");
+}

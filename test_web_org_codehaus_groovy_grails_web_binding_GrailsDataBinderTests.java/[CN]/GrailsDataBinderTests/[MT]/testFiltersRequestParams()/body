@@ -1,0 +1,9 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  request.addParameter("joe.name","joe");
+  request.addParameter("tom.name","tom");
+  TestBean testBean=new TestBean();
+  GrailsDataBinder binder=new GrailsDataBinder(testBean,"testBean");
+  binder.bind(request,"joe");
+  assertEquals("joe",testBean.getName());
+}

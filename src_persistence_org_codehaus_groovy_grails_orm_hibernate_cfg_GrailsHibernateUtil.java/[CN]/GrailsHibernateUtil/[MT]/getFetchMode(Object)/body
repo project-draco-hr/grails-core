@@ -1,0 +1,10 @@
+{
+  String name=object != null ? object.toString() : "default";
+  if (name.equalsIgnoreCase(FetchMode.JOIN.toString()) || name.equalsIgnoreCase("eager")) {
+    return FetchMode.JOIN;
+  }
+ else   if (name.equalsIgnoreCase(FetchMode.SELECT.toString()) || name.equalsIgnoreCase("lazy")) {
+    return FetchMode.SELECT;
+  }
+  return FetchMode.DEFAULT;
+}

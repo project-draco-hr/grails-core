@@ -1,0 +1,19 @@
+{
+  String gspView;
+  if (controller != null && application != null) {
+    String pathToView=this.pluginMetaManager.getPluginViewsPathForResource(controller.getClass().getName());
+    if (pathToView != null) {
+      gspView=GrailsResourceUtils.WEB_INF + pathToView + viewName+ GSP_SUFFIX;
+    }
+ else {
+      gspView=localPrefix + viewName + GSP_SUFFIX;
+    }
+  }
+ else {
+    gspView=localPrefix + viewName + GSP_SUFFIX;
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Attempting to resolve view for URI [" + gspView + "] using ResourceLoader ["+ resourceLoader.getClass()+ "]");
+  }
+  return gspView;
+}

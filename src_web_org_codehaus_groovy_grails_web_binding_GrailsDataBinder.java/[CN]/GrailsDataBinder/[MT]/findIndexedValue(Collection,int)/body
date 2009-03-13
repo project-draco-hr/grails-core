@@ -1,0 +1,15 @@
+{
+  if (index < c.size()) {
+    if (c instanceof List) {
+      return ((List)c).get(index);
+    }
+ else {
+      int j=0;
+      for (Iterator i=c.iterator(); i.hasNext(); j++) {
+        Object o=i.next();
+        if (j == index)         return o;
+      }
+    }
+  }
+  return null;
+}

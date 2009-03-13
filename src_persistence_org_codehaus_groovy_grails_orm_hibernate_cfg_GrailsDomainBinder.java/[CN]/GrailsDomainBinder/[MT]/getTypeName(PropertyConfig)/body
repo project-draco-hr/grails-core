@@ -1,0 +1,12 @@
+{
+  if (config != null && config.getType() != null) {
+    final Object typeObj=config.getType();
+    if (typeObj instanceof Class) {
+      return ((Class)typeObj).getName();
+    }
+ else {
+      return typeObj.toString();
+    }
+  }
+  return null;
+}

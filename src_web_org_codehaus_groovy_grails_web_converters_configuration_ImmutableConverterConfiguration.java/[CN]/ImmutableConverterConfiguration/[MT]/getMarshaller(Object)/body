@@ -1,0 +1,8 @@
+{
+  for (  ObjectMarshaller<C> om : marshallers) {
+    if (om.supports(o)) {
+      return om;
+    }
+  }
+  return null;
+}

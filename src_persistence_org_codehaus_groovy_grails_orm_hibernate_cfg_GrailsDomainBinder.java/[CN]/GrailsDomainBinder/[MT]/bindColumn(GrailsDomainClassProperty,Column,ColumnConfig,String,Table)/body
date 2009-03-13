@@ -1,0 +1,64 @@
+{
+  Class userType=getUserType(property);
+  String columnName=getColumnNameForPropertyAndPath(property,path,cc);
+  if ((property.isAssociation() || property.isBasicCollectionType()) && userType == null) {
+    if (column.getName() == null) {
+      column.setName(columnName);
+    }
+    if (property.isManyToMany()) {
+      column.setNullable(false);
+    }
+ else     if (property.isOneToOne() && property.isBidirectional() && !property.isOwningSide()) {
+      column.setNullable(true);
+    }
+ else     if ((property.isManyToOne() || property.isOneToOne()) && property.isCircular()) {
+      column.setNullable(true);
+    }
+ else {
+      column.setNullable(property.isOptional());
+    }
+  }
+ else {
+    column.setName(columnName);
+    column.setNullable(property.isOptional());
+    ConstrainedProperty constrainedProperty=getConstrainedProperty(property);
+    if (constrainedProperty != null) {
+      if (String.class.isAssignableFrom(property.getType()) || byte[].class.isAssignableFrom(property.getType())) {
+        bindStringColumnConstraints(column,constrainedProperty);
+      }
+      if (Number.class.isAssignableFrom(property.getType())) {
+        bindNumericColumnConstraints(column,constrainedProperty);
+      }
+    }
+  }
+  ConstrainedProperty cp=getConstrainedProperty(property);
+  if (cp != null && cp.hasAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT)) {
+    UniqueConstraint uc=(UniqueConstraint)cp.getAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT);
+    if (uc != null && uc.isUnique()) {
+      if (!uc.isUniqueWithinGroup()) {
+        column.setUnique(true);
+      }
+ else       if (uc.getUniquenessGroup().size() > 0) {
+        createKeyForProps(property,path,table,columnName,uc.getUniquenessGroup());
+      }
+    }
+  }
+ else {
+    Object val=cp != null ? cp.getMetaConstraintValue(UniqueConstraint.UNIQUE_CONSTRAINT) : null;
+    if (val instanceof Boolean) {
+      column.setUnique(((Boolean)val).booleanValue());
+    }
+ else     if (val instanceof String) {
+      createKeyForProps(property,path,table,columnName,Arrays.asList(new String[]{(String)val}));
+    }
+ else     if (val instanceof List && ((List)val).size() > 0) {
+      createKeyForProps(property,path,table,columnName,(List)val);
+    }
+  }
+  bindIndex(column,cc,table);
+  if (!property.getDomainClass().isRoot()) {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Sub class property [" + property.getName() + "] for column name ["+ column.getName()+ "] in table ["+ table.getName()+ "] set to nullable");
+    column.setNullable(true);
+  }
+  if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] bound property [" + property.getName() + "] to column name ["+ column.getName()+ "] in table ["+ table.getName()+ "]");
+}

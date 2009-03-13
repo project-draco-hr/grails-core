@@ -1,0 +1,15 @@
+{
+  Map resultMap=new HashMap();
+  Object propertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,name);
+  if (propertyValue instanceof Map) {
+    Map containedMap=(Map)propertyValue;
+    Object includes=containedMap.get(INCLUDES);
+    evaluateAndAddIncludeExcludeObject(resultMap,includes,true,converter);
+    Object excludes=containedMap.get(EXCLUDES);
+    evaluateAndAddIncludeExcludeObject(resultMap,excludes,false,converter);
+  }
+ else {
+    evaluateAndAddIncludeExcludeObject(resultMap,propertyValue,true,converter);
+  }
+  return resultMap;
+}

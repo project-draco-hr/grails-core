@@ -1,0 +1,11 @@
+{
+  String[] dependencyNames=other.getDependencyNames();
+  for (int i=0; i < dependencyNames.length; i++) {
+    String dependencyName=dependencyNames[i];
+    for (Iterator j=delayedLoadPlugins.iterator(); j.hasNext(); ) {
+      GrailsPlugin grailsPlugin=(GrailsPlugin)j.next();
+      if (grailsPlugin.getName().equals(dependencyName))       return true;
+    }
+  }
+  return false;
+}

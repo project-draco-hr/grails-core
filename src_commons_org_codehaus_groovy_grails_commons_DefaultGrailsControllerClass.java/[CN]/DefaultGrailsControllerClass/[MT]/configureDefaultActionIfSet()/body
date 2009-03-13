@@ -1,0 +1,9 @@
+{
+  if (defaultActionName != null) {
+    this.uri2closureMap.put(uri,defaultActionName);
+    this.uri2closureMap.put(controllerPath,defaultActionName);
+    this.uri2viewMap.put(controllerPath,controllerPath + defaultActionName);
+    this.uri2viewMap.put(uri,controllerPath + defaultActionName);
+    this.viewNames.put(defaultActionName,controllerPath + defaultActionName);
+  }
+}

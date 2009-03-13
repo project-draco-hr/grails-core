@@ -1,0 +1,16 @@
+{
+  if (o1.equals(domainClass.getIdentifier()))   return -1;
+ else   if (o2.equals(domainClass.getIdentifier()))   return 1;
+  GrailsDomainClassProperty prop1=(GrailsDomainClassProperty)o1;
+  GrailsDomainClassProperty prop2=(GrailsDomainClassProperty)o2;
+  ConstrainedProperty cp1=(ConstrainedProperty)constrainedProperties.get(prop1.getName());
+  ConstrainedProperty cp2=(ConstrainedProperty)constrainedProperties.get(prop2.getName());
+  if (cp1 == null & cp2 == null)   return prop1.getName().compareTo(prop2.getName());
+  if (cp1 == null)   return 1;
+ else   if (cp2 == null)   return -1;
+ else {
+    if (cp1.getOrder() > cp2.getOrder())     return 1;
+ else     if (cp1.getOrder() < cp2.getOrder())     return -1;
+ else     return 0;
+  }
+}

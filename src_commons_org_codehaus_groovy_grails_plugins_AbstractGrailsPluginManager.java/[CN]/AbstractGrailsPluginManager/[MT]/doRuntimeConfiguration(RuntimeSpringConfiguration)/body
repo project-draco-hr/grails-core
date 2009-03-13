@@ -1,0 +1,8 @@
+{
+  checkInitialised();
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      plugin.doWithRuntimeConfiguration(springConfig);
+    }
+  }
+}

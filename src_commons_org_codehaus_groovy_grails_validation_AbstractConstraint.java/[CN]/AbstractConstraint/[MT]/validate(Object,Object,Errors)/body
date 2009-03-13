@@ -1,0 +1,8 @@
+{
+  checkState();
+  if (propertyValue == null && skipNullValues())   return;
+  if (skipBlankValues() && propertyValue instanceof String && StringUtils.isBlank((String)propertyValue)) {
+    return;
+  }
+  processValidate(target,propertyValue,errors);
+}

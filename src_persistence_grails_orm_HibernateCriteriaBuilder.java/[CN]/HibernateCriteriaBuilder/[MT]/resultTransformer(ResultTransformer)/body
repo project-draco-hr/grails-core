@@ -1,0 +1,6 @@
+{
+  if (criteria == null) {
+    throwRuntimeException(new IllegalArgumentException("Call to [resultTransformer] not supported here"));
+  }
+  this.resultTransformer=resultTransformer;
+}

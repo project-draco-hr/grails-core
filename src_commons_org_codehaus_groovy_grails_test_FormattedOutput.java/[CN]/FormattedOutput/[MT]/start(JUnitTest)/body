@@ -1,0 +1,10 @@
+{
+  try {
+    output=new BufferedOutputStream(new FileOutputStream(file));
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+  formatter.setOutput(output);
+  formatter.startTestSuite(test);
+}

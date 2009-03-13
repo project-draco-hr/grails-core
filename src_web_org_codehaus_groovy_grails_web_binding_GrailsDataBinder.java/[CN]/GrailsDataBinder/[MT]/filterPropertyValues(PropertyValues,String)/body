@@ -1,0 +1,11 @@
+{
+  if (prefix == null || prefix.length() == 0)   return propertyValues;
+  PropertyValue[] valueArray=propertyValues.getPropertyValues();
+  MutablePropertyValues newValues=new MutablePropertyValues();
+  for (  PropertyValue propertyValue : valueArray) {
+    if (propertyValue.getName().startsWith(prefix + PREFIX_SEPERATOR)) {
+      newValues.addPropertyValue(propertyValue.getName().replaceFirst(prefix + PREFIX_SEPERATOR,""),propertyValue.getValue());
+    }
+  }
+  return newValues;
+}

@@ -1,0 +1,39 @@
+{
+  String sessionFactoryId=StringUtils.hasText(element.getAttribute(ID_ATTRIBUTE)) ? element.getAttribute(ID_ATTRIBUTE) : "sessionFactory";
+  AbstractBeanDefinition sessionFactoryBean=new GenericBeanDefinition();
+  sessionFactoryBean.setBeanClass(ConfigurableLocalSessionFactoryBean.class);
+  MutablePropertyValues propertyValues=sessionFactoryBean.getPropertyValues();
+  final RuntimeBeanReference dataSourceRef=new RuntimeBeanReference(dataSourceId);
+  propertyValues.addPropertyValue("dataSource",dataSourceRef);
+  if (JdkVersion.isAtLeastJava15()) {
+    propertyValues.addPropertyValue("configClass",GrailsAnnotationConfiguration.class);
+  }
+ else {
+    propertyValues.addPropertyValue("configClass",DefaultGrailsDomainConfiguration.class);
+  }
+  propertyValues.addPropertyValue(GrailsApplication.APPLICATION_ID,new RuntimeBeanReference(GrailsApplication.APPLICATION_ID));
+  targetRegistry.registerBeanDefinition(sessionFactoryId,sessionFactoryBean);
+  final String lobHandlerRef=element.getAttribute(LOB_HANDLER_ATTRIBUTE);
+  if (StringUtils.hasText(lobHandlerRef)) {
+    propertyValues.addPropertyValue("lobHandler",new RuntimeBeanReference(lobHandlerRef));
+  }
+ else {
+    GenericBeanDefinition lobHandler=new GenericBeanDefinition();
+    lobHandler.setBeanClass(SpringLobHandlerDetectorFactoryBean.class);
+    lobHandler.getPropertyValues().addPropertyValue("pooledConnection",true);
+    lobHandler.getPropertyValues().addPropertyValue("dataSource",dataSourceRef);
+    propertyValues.addPropertyValue("lobHandler",lobHandler);
+  }
+  String transactionManagerRef=element.getAttribute(TRANSACTION_MANAGER_ATTRIBUTE);
+  if (StringUtils.hasText(transactionManagerRef)) {
+    targetRegistry.registerAlias("transactionManager",transactionManagerRef);
+  }
+ else {
+    GenericBeanDefinition transactionManagerBean=new GenericBeanDefinition();
+    transactionManagerBean.setBeanClass(HibernateTransactionManager.class);
+    transactionManagerBean.getPropertyValues().addPropertyValue("sessionFactory",new RuntimeBeanReference(sessionFactoryId));
+    targetRegistry.registerBeanDefinition("transactionManager",transactionManagerBean);
+  }
+  parserContext.getDelegate().parsePropertyElements(element,sessionFactoryBean);
+  return sessionFactoryBean;
+}

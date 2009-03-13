@@ -1,0 +1,25 @@
+{
+  if (domainClass != null) {
+    if (arguments.length > 0) {
+      if (arguments[0] instanceof Boolean) {
+        return ((Boolean)arguments[0]).booleanValue();
+      }
+ else       if (arguments[0] instanceof Map) {
+        Map argsMap=(Map)arguments[0];
+        if (argsMap.containsKey(ARGUMENT_VALIDATE)) {
+          return GrailsClassUtils.getBooleanFromMap(ARGUMENT_VALIDATE,argsMap);
+        }
+ else {
+          return true;
+        }
+      }
+ else {
+        return true;
+      }
+    }
+ else {
+      return true;
+    }
+  }
+  return false;
+}

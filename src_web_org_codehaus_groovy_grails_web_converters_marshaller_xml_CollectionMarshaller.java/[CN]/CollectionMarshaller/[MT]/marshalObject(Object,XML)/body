@@ -1,0 +1,8 @@
+{
+  Collection col=(Collection)object;
+  for (  Object o : col) {
+    xml.startNode(xml.getElementName(o));
+    xml.convertAnother(o);
+    xml.end();
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (value == null) {
+    pstmt.setNull(idx,sqlTypes[0]);
+  }
+ else {
+    type.set(pstmt,bidiMap.getKey(value),idx);
+  }
+}

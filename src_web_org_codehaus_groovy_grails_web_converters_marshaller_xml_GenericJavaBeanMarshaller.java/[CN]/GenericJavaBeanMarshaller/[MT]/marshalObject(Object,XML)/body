@@ -1,0 +1,31 @@
+{
+  try {
+    BeanInfo info=Introspector.getBeanInfo(o.getClass());
+    PropertyDescriptor[] properties=info.getPropertyDescriptors();
+    for (    PropertyDescriptor property : properties) {
+      String name=property.getName();
+      Method readMethod=property.getReadMethod();
+      if (readMethod != null) {
+        Object value=readMethod.invoke(o,(Object[])null);
+        xml.startNode(name);
+        xml.convertAnother(value);
+        xml.end();
+      }
+    }
+    Field[] fields=o.getClass().getDeclaredFields();
+    for (    Field field : fields) {
+      int modifiers=field.getModifiers();
+      if (field.isAccessible() && Modifier.isPublic(modifiers) && !(Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers))) {
+        xml.startNode(field.getName());
+        xml.convertAnother(field.get(o));
+        xml.end();
+      }
+    }
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  Exception e) {
+    throw new ConverterException("Error converting Bean with class " + o.getClass().getName(),e);
+  }
+}

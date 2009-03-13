@@ -1,0 +1,22 @@
+{
+  Properties props=new Properties();
+  props.put("birthday","struct");
+  props.put("birthday_day","03");
+  props.put("birthday_month","05");
+  props.put("birthday_year","1973");
+  ModelAndView modelAndView=execute("/test/codatestruct","test","codatestruct",props);
+  assertNotNull("null modelAndView",modelAndView);
+  Map model=modelAndView.getModelMap();
+  Errors validationErrors=(Errors)model.get("validationErrors");
+  assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
+  System.out.println("model = " + model);
+  Date birthDate=(Date)model.get("theDate");
+  assertNotNull("null birthday",birthDate);
+  Calendar expectedCalendar=Calendar.getInstance();
+  expectedCalendar.clear();
+  expectedCalendar.set(Calendar.DAY_OF_MONTH,3);
+  expectedCalendar.set(Calendar.MONTH,Calendar.MAY);
+  expectedCalendar.set(Calendar.YEAR,1973);
+  Date expectedDate=expectedCalendar.getTime();
+  assertEquals("wrong date",expectedDate,birthDate);
+}

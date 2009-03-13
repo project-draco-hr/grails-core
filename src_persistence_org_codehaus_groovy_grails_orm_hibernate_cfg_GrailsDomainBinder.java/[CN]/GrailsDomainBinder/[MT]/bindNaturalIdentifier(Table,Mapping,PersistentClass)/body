@@ -1,0 +1,20 @@
+{
+  Object o=mapping != null ? mapping.getIdentity() : null;
+  if (o instanceof Identity) {
+    Identity identity=(Identity)o;
+    final NaturalId naturalId=identity.getNatural();
+    if (naturalId != null && !naturalId.getPropertyNames().isEmpty()) {
+      UniqueKey uk=new UniqueKey();
+      uk.setName("_UniqueKey");
+      uk.setTable(table);
+      boolean mutable=naturalId.isMutable();
+      for (      String propertyName : naturalId.getPropertyNames()) {
+        Property property=persistentClass.getProperty(propertyName);
+        property.setNaturalIdentifier(true);
+        if (!mutable)         property.setUpdateable(false);
+        uk.addColumns(property.getColumnIterator());
+      }
+      table.addUniqueKey(uk);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  System.setProperty(Environment.KEY,"");
+  assertEquals(Environment.DEVELOPMENT.getName(),GrailsUtil.getEnvironment());
+  System.setProperty(Environment.KEY,"prod");
+  assertEquals(Environment.PRODUCTION.getName(),GrailsUtil.getEnvironment());
+  System.setProperty(Environment.KEY,"dev");
+  assertEquals(Environment.DEVELOPMENT.getName(),GrailsUtil.getEnvironment());
+  System.setProperty(Environment.KEY,"test");
+  assertEquals(Environment.TEST.getName(),GrailsUtil.getEnvironment());
+  System.setProperty(Environment.KEY,"myenvironment");
+  assertEquals("myenvironment",GrailsUtil.getEnvironment());
+}

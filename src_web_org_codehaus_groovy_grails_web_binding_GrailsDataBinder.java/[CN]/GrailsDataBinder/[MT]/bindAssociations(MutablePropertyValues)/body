@@ -1,0 +1,30 @@
+{
+  PropertyValue[] pvs=mpvs.getPropertyValues();
+  for (  PropertyValue pv : pvs) {
+    String propertyName=pv.getName();
+    if (propertyName.endsWith(IDENTIFIER_SUFFIX)) {
+      propertyName=propertyName.substring(0,propertyName.length() - 3);
+      if (isReadableAndPersistent(propertyName) && bean.isWritableProperty(propertyName)) {
+        if (NULL_ASSOCIATION.equals(pv.getValue())) {
+          bean.setPropertyValue(propertyName,null);
+          mpvs.removePropertyValue(pv);
+        }
+ else {
+          Class type=bean.getPropertyType(propertyName);
+          Object persisted=getPersistentInstance(type,pv.getValue());
+          if (persisted != null) {
+            bean.setPropertyValue(propertyName,persisted);
+          }
+        }
+      }
+    }
+ else {
+      if (isReadableAndPersistent(propertyName)) {
+        Class type=bean.getPropertyType(propertyName);
+        if (Collection.class.isAssignableFrom(type)) {
+          bindCollectionAssociation(mpvs,pv);
+        }
+      }
+    }
+  }
+}

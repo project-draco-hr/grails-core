@@ -1,0 +1,28 @@
+{
+  LOG.debug("Initializing default XML Converters Configuration...");
+  List<ObjectMarshaller<XML>> marshallers=new ArrayList<ObjectMarshaller<XML>>();
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.ArrayMarshaller());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.CollectionMarshaller());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.MapMarshaller());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.EnumMarshaller());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DateMarshaller());
+  marshallers.add(new ProxyUnwrappingMarshaller<XML>());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.ToStringBeanMarshaller());
+  if (GrailsConfig.get("grails.converters.xml.default.deep",false)) {
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller());
+  }
+ else {
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DomainClassMarshaller());
+  }
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GroovyBeanMarshaller());
+  marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GenericJavaBeanMarshaller());
+  DefaultConverterConfiguration<XML> cfg=new DefaultConverterConfiguration<XML>(marshallers);
+  cfg.setEncoding(GrailsConfig.get("grails.converters.encoding","UTF-8"));
+  String defaultCirRefBehaviour=GrailsConfig.get("grails.converters.default.circular.reference.behaviour","DEFAULT");
+  cfg.setCircularReferenceBehaviour(Converter.CircularReferenceBehaviour.valueOf(GrailsConfig.get("grails.converters.xml.circular.reference.behaviour",defaultCirRefBehaviour,Arrays.asList("DEFAULT","EXCEPTION","INSERT_NULL"))));
+  Boolean defaultPrettyPrint=GrailsConfig.get("grails.converters.default.pretty.print",false);
+  Boolean prettyPrint=GrailsConfig.get("grails.converters.xml.pretty.print",defaultPrettyPrint);
+  cfg.setPrettyPrint(prettyPrint);
+  registerObjectMarshallersFromApplicationContext(cfg,XML.class);
+  ConvertersConfigurationHolder.setDefaultConfiguration(XML.class,new ChainedConverterConfiguration<XML>(cfg));
+}

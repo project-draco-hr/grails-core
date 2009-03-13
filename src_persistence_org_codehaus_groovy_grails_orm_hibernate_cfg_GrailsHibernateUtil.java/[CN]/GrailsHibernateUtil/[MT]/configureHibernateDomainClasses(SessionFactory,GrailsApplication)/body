@@ -1,0 +1,8 @@
+{
+  Map hibernateDomainClassMap=new HashMap();
+  for (  Object o : sessionFactory.getAllClassMetadata().values()) {
+    ClassMetadata classMetadata=(ClassMetadata)o;
+    configureDomainClass(sessionFactory,application,classMetadata,classMetadata.getMappedClass(EntityMode.POJO),hibernateDomainClassMap);
+  }
+  configureInheritanceMappings(hibernateDomainClassMap);
+}

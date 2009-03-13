@@ -1,0 +1,4 @@
+{
+  if (clazz == null)   return null;
+ else   return getScriptName(clazz.getName());
+}

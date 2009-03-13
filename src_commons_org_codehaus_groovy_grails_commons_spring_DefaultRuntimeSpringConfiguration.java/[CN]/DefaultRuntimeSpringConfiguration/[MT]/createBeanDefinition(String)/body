@@ -1,0 +1,7 @@
+{
+  if (containsBean(name)) {
+    if (beanDefinitions.containsKey(name))     return (AbstractBeanDefinition)beanDefinitions.get(name);
+ else     if (beanConfigs.containsKey(name))     return beanConfigs.get(name).getBeanDefinition();
+  }
+  return null;
+}

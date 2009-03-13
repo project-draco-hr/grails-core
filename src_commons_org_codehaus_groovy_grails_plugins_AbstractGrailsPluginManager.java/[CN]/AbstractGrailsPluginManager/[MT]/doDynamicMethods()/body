@@ -1,0 +1,14 @@
+{
+  checkInitialised();
+  Class[] allClasses=application.getAllClasses();
+  if (allClasses != null) {
+    for (    Class c : allClasses) {
+      ExpandoMetaClass emc=new ExpandoMetaClass(c,true,true);
+      emc.initialize();
+    }
+    for (    Object aPluginList : pluginList) {
+      GrailsPlugin plugin=(GrailsPlugin)aPluginList;
+      plugin.doWithDynamicMethods(applicationContext);
+    }
+  }
+}

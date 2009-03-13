@@ -1,0 +1,4 @@
+{
+  final String propertyName=property.getDomainClass().getPropertyName();
+  return namingStrategy.propertyToColumnName(propertyName) + FOREIGN_KEY_SUFFIX;
+}

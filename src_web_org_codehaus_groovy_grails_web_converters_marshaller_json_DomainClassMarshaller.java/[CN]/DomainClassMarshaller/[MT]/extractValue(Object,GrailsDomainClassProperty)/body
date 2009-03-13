@@ -1,0 +1,4 @@
+{
+  BeanWrapper beanWrapper=new BeanWrapperImpl(domainObject);
+  return beanWrapper.getPropertyValue(property.getName());
+}

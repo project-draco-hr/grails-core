@@ -1,0 +1,36 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  request.addPreferredLocale(Locale.US);
+  String securityNumber="349,587,927,070";
+  String bigNumber="4,120,834,546";
+  String credit="1,203.45";
+  String angle="103.48674";
+  request.addParameter("securityNumber",securityNumber);
+  request.addParameter("bigNumber",bigNumber);
+  request.addParameter("credit",credit);
+  request.addParameter("angle",angle);
+  TestBean testBean=new TestBean();
+  GrailsDataBinder binder=GrailsDataBinder.createBinder(testBean,"testBean",request);
+  binder.bind(request);
+  assertEquals(349587927070L,testBean.getSecurityNumber().longValue());
+  assertEquals(new BigInteger("4120834546"),testBean.getBigNumber());
+  assertEquals(new BigDecimal("1203.45"),testBean.getCredit());
+  assertEquals(103.48674D,testBean.getAngle().doubleValue(),0.1D);
+  request=new MockHttpServletRequest();
+  request.addPreferredLocale(Locale.GERMANY);
+  securityNumber="349.587.927.070";
+  bigNumber="4.120.834.546";
+  credit="1.203,45";
+  angle="103,48674";
+  request.addParameter("securityNumber",securityNumber);
+  request.addParameter("bigNumber",bigNumber);
+  request.addParameter("credit",credit);
+  request.addParameter("angle",angle);
+  testBean=new TestBean();
+  binder=GrailsDataBinder.createBinder(testBean,"testBean",request);
+  binder.bind(request);
+  assertEquals(349587927070L,testBean.getSecurityNumber().longValue());
+  assertEquals(new BigInteger("4120834546"),testBean.getBigNumber());
+  assertEquals(new BigDecimal("1203.45"),testBean.getCredit());
+  assertEquals(103.48674D,testBean.getAngle().doubleValue(),0.1D);
+}

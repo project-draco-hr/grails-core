@@ -1,0 +1,20 @@
+{
+  for (  Object key : beanDefinitions.keySet()) {
+    BeanDefinition bd=beanDefinitions.get(key);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("[RuntimeConfiguration] Registering bean [" + key + "]");
+      if (LOG.isTraceEnabled()) {
+        PropertyValue[] pvs=bd.getPropertyValues().getPropertyValues();
+        for (        PropertyValue pv : pvs) {
+          LOG.trace("[RuntimeConfiguration] With property [" + pv.getName() + "] set to ["+ pv.getValue()+ "]");
+        }
+      }
+    }
+    final String beanName=key.toString();
+    if (registry.containsBeanDefinition(beanName)) {
+      removeBeanDefinition(registry,beanName);
+    }
+    registry.registerBeanDefinition(beanName,bd);
+    registerBeanAliases(registry,beanName);
+  }
+}

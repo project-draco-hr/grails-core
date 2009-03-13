@@ -1,0 +1,12 @@
+{
+  if (this.pluginBean.isReadableProperty(EVICT)) {
+    List pluginsToEvict=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,EVICT);
+    if (pluginsToEvict != null) {
+      this.evictionList=new String[pluginsToEvict.size()];
+      int index=0;
+      for (      Object o : pluginsToEvict) {
+        evictionList[index++]=o != null ? o.toString() : "";
+      }
+    }
+  }
+}

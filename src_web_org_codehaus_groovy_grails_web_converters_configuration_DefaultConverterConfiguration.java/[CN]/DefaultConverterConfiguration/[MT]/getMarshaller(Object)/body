@@ -1,0 +1,8 @@
+{
+  for (  Entry entry : objectMarshallers) {
+    if (entry.marshaller.supports(o)) {
+      return entry.marshaller;
+    }
+  }
+  return delegate != null ? delegate.getMarshaller(o) : null;
+}

@@ -1,0 +1,8 @@
+{
+  if (currentlyBufferingWhitespace) {
+    whitespaceBuffer.append(s);
+  }
+ else {
+    out.printlnToResponse(s);
+  }
+}

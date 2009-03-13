@@ -1,0 +1,15 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+switch (scope) {
+case PAGE_SCOPE:
+    return getAttribute(name);
+case REQUEST_SCOPE:
+  return request.getAttribute(name);
+case SESSION_SCOPE:
+return request.getSession(true).getAttribute(name);
+case APPLICATION_SCOPE:
+return servletContext.getAttribute(name);
+default :
+return getAttribute(name);
+}
+}

@@ -1,0 +1,14 @@
+{
+  final int BEFORE=-1;
+  final int EQUAL=0;
+  final int AFTER=1;
+  if (this == o)   return EQUAL;
+  final UrlMappingKey other=(UrlMappingKey)o;
+  if (this.paramNames.size() < other.paramNames.size())   return BEFORE;
+  if (this.paramNames.size() > other.paramNames.size())   return AFTER;
+  int comparison=controller != null ? this.controller.compareTo(other.controller) : EQUAL;
+  if (comparison != EQUAL)   return comparison;
+  comparison=action != null ? this.action.compareTo(other.action) : EQUAL;
+  if (comparison != EQUAL)   return comparison;
+  return EQUAL;
+}

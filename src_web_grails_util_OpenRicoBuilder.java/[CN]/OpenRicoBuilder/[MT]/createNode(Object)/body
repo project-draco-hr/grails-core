@@ -1,0 +1,17 @@
+{
+  if (responseOnly) {
+    throw new IllegalArgumentException(OPENRICO + "only call to [element { }] is allowed with attribute [id], not [" + name+ "{ }]!");
+  }
+  if (start && AJAX.equals(name)) {
+    ajaxOnly=false;
+    responseOnly=true;
+    start=false;
+    return super.createNode(AJAX_RESPONSE);
+  }
+ else   if (ajaxOnly) {
+    throw new IllegalArgumentException(OPENRICO + "only call to [ajax { }] is allowed, not [" + name+ " { }]!");
+  }
+ else {
+    return super.createNode(name);
+  }
+}

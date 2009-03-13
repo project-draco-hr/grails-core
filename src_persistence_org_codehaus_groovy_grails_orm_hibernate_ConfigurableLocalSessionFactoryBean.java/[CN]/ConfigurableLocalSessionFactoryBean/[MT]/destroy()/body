@@ -1,0 +1,10 @@
+{
+  MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+  Map classMetaData=getSessionFactory().getAllClassMetadata();
+  for (  Object o : classMetaData.values()) {
+    ClassMetadata classMetadata=(ClassMetadata)o;
+    Class mappedClass=classMetadata.getMappedClass(EntityMode.POJO);
+    registry.removeMetaClass(mappedClass);
+  }
+  super.destroy();
+}

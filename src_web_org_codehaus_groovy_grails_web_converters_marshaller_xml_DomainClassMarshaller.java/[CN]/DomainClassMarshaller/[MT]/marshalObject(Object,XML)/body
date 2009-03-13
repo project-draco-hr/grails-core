@@ -1,0 +1,84 @@
+{
+  Class clazz=value.getClass();
+  GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
+  BeanWrapper beanWrapper=new BeanWrapperImpl(value);
+  GrailsDomainClassProperty id=domainClass.getIdentifier();
+  Object idValue=extractIdValue(value,id);
+  if (idValue != null)   xml.attribute("id",String.valueOf(idValue));
+  GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
+  for (  GrailsDomainClassProperty property : properties) {
+    xml.startNode(property.getName());
+    if (!property.isAssociation()) {
+      Object val=beanWrapper.getPropertyValue(property.getName());
+      xml.convertAnother(val);
+    }
+ else {
+      Object referenceObject=beanWrapper.getPropertyValue(property.getName());
+      if (isRenderDomainClassRelations()) {
+        if (referenceObject == null) {
+        }
+ else {
+          if (referenceObject instanceof AbstractPersistentCollection) {
+            AbstractPersistentCollection acol=(AbstractPersistentCollection)referenceObject;
+            acol.forceInitialization();
+            if (referenceObject instanceof SortedMap) {
+              referenceObject=new TreeMap((SortedMap)referenceObject);
+            }
+ else             if (referenceObject instanceof SortedSet) {
+              referenceObject=new TreeSet((SortedSet)referenceObject);
+            }
+ else             if (referenceObject instanceof Set) {
+              referenceObject=new HashSet((Set)referenceObject);
+            }
+ else             if (referenceObject instanceof Map) {
+              referenceObject=new HashMap((Map)referenceObject);
+            }
+ else {
+              referenceObject=new ArrayList((Collection)referenceObject);
+            }
+          }
+ else           if (!Hibernate.isInitialized(referenceObject)) {
+            Hibernate.initialize(referenceObject);
+          }
+          xml.convertAnother(referenceObject);
+        }
+      }
+ else {
+        if (referenceObject != null) {
+          GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
+          if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
+            if (GrailsClassUtils.isJdk5Enum(property.getType())) {
+              xml.convertAnother(referenceObject);
+            }
+ else {
+              asShortObject(referenceObject,xml,referencedDomainClass.getIdentifier(),referencedDomainClass);
+            }
+          }
+ else {
+            GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();
+            String refPropertyName=referencedDomainClass.getPropertyName();
+            if (referenceObject instanceof Collection) {
+              Collection o=(Collection)referenceObject;
+              for (              Object el : o) {
+                xml.startNode(xml.getElementName(el));
+                asShortObject(el,xml,referencedIdProperty,referencedDomainClass);
+                xml.end();
+              }
+            }
+ else             if (referenceObject instanceof Map) {
+              Map<Object,Object> map=(Map<Object,Object>)referenceObject;
+              for (              Map.Entry<Object,Object> entry : map.entrySet()) {
+                String key=String.valueOf(entry.getKey());
+                Object o=entry.getValue();
+                xml.startNode("entry").attribute("key",key);
+                asShortObject(o,xml,referencedIdProperty,referencedDomainClass);
+                xml.end();
+              }
+            }
+          }
+        }
+      }
+    }
+    xml.end();
+  }
+}

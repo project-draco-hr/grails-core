@@ -1,0 +1,37 @@
+{
+  PropertyDescriptor[] pds=this.bean.getPropertyDescriptors();
+  for (int i=0; i < pds.length; i++) {
+    PropertyDescriptor pd=pds[i];
+    if (pd.getPropertyType() == String.class && !pd.getName().equals(NAME_ATTRIBUTE) && this.bean.isWritableProperty(pd.getName()) && this.bean.isReadableProperty(pd.getName())) {
+      String propertyValue=(String)this.bean.getPropertyValue(pd.getName());
+      if (propertyValue != null) {
+        String trimmed=propertyValue.trim();
+        if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+          trimmed=trimmed.substring(1,trimmed.length() - 1);
+          Matcher m=ATTRIBUTE_MAP.matcher(trimmed);
+          Map attributeMap=new HashMap();
+          while (m.find()) {
+            String attributeName=m.group(1);
+            String attributeValue=m.group(2);
+            if (ExpressionEvaluationUtils.isExpressionLanguage(attributeValue)) {
+              attributeMap.put(attributeName,ExpressionEvaluationUtils.evaluate(attributeName,attributeValue,Object.class,super.pageContext));
+            }
+ else {
+              attributeMap.put(attributeName,attributeValue);
+            }
+          }
+          this.attributes.put(pd.getName(),attributeMap);
+        }
+ else {
+          if (ExpressionEvaluationUtils.isExpressionLanguage(propertyValue)) {
+            this.attributes.put(pd.getName(),ExpressionEvaluationUtils.evaluate(pd.getName(),propertyValue,Object.class,super.pageContext));
+          }
+ else {
+            this.attributes.put(pd.getName(),propertyValue);
+          }
+        }
+      }
+    }
+  }
+  return doStartTagInternal();
+}

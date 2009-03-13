@@ -1,0 +1,26 @@
+{
+  Map<String,Object> event=new HashMap<String,Object>(){
+{
+      put(PLUGIN_CHANGE_EVENT_SOURCE,source);
+      put(PLUGIN_CHANGE_EVENT_PLUGIN,plugin);
+      put(PLUGIN_CHANGE_EVENT_APPLICATION,application);
+      put(PLUGIN_CHANGE_EVENT_MANAGER,getManager());
+      put(PLUGIN_CHANGE_EVENT_CTX,applicationContext);
+    }
+  }
+;
+switch (eventKind) {
+case EVENT_ON_CHANGE:
+    notifyOfEvent(event);
+  break;
+case EVENT_ON_SHUTDOWN:
+invokeOnShutdownEventListener(event);
+break;
+case EVENT_ON_CONFIG_CHANGE:
+invokeOnConfigChangeListener(event);
+break;
+default :
+notifyOfEvent(event);
+}
+return event;
+}

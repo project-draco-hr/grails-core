@@ -1,0 +1,30 @@
+{
+  Closure beans=new Closure(this){
+    public Object call(    Object[] args){
+      invokeBeanDefiningClosure((Closure)args[0]);
+      return null;
+    }
+  }
+;
+  Binding b=new Binding(){
+    @Override public void setVariable(    String name,    Object value){
+      if (currentBeanConfig != null) {
+        setPropertyOnBeanConfig(name,value);
+      }
+ else {
+        super.setVariable(name,value);
+      }
+    }
+  }
+;
+  b.setVariable("beans",beans);
+  for (  Resource resource : resources) {
+    try {
+      GroovyShell shell=classLoader != null ? new GroovyShell(classLoader,b) : new GroovyShell(b);
+      shell.evaluate(resource.getInputStream());
+    }
+ catch (    Throwable e) {
+      throw new BeanDefinitionParsingException(new Problem("Error evaluating bean definition script: " + e.getMessage(),new Location(resource),null,e));
+    }
+  }
+}

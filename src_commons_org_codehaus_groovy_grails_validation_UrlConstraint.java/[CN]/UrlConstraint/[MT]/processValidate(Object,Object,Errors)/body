@@ -1,0 +1,8 @@
+{
+  if (url) {
+    if (!validator.isValid(propertyValue.toString())) {
+      Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+      super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_INVALID_URL_MESSAGE_CODE,ConstrainedProperty.URL_CONSTRAINT + ConstrainedProperty.INVALID_SUFFIX,args);
+    }
+  }
+}

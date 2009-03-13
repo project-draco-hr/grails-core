@@ -1,0 +1,36 @@
+{
+  if (args.length != argumentsRequired)   throw new IllegalArgumentException("Method expression '" + this.type + "' requires "+ argumentsRequired+ " arguments");
+  GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,targetClass.getName());
+  GrailsDomainClassProperty prop=dc.getPropertyByName(propertyName);
+  if (prop == null)   throw new IllegalArgumentException("Property " + propertyName + " doesn't exist for method expression '"+ this.type+ "'");
+  for (int i=0; i < args.length; i++) {
+    if (args[i] == null)     continue;
+    if (prop.getType() == String.class && (args[i] instanceof GString)) {
+      args[i]=args[i].toString();
+    }
+ else     if (!prop.getType().isAssignableFrom(args[i].getClass()) && !(GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(prop.getType(),args[i].getClass()))) {
+      try {
+        if (type.equals(IN_LIST)) {
+          args[i]=converter.convertIfNecessary(args[i],Collection.class);
+        }
+ else {
+          args[i]=converter.convertIfNecessary(args[i],prop.getType());
+        }
+      }
+ catch (      TypeMismatchException tme) {
+        if (Number.class.isAssignableFrom(args[i].getClass())) {
+          try {
+            args[i]=converter.convertIfNecessary(args[i].toString(),prop.getType());
+          }
+ catch (          TypeMismatchException tme1) {
+            throw new IllegalArgumentException("Cannot convert value " + args[i] + " of property '"+ propertyName+ "' to required type "+ prop.getType()+ ": "+ tme1.getMessage());
+          }
+        }
+ else {
+          throw new IllegalArgumentException("Cannot convert value " + args[i] + " of property '"+ propertyName+ "' to required type "+ prop.getType());
+        }
+      }
+    }
+  }
+  this.arguments=args;
+}

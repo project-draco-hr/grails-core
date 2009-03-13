@@ -1,0 +1,5 @@
+{
+  xmlBeanDefinitionReader.setBeanClassLoader(classLoader);
+  this.namespaceHandlerResolver=new DefaultNamespaceHandlerResolver(this.classLoader);
+  this.readerContext=new XmlReaderContext(beanBuildResource,new FailFastProblemReporter(),new EmptyReaderEventListener(),new NullSourceExtractor(),xmlBeanDefinitionReader,namespaceHandlerResolver);
+}

@@ -1,0 +1,30 @@
+{
+  ScriptAndArgs info=new ScriptAndArgs();
+  if (allArgs == null || allArgs.length() == 0)   return info;
+  String[] splitArgs=processSystemArguments(allArgs).trim().split(" ");
+  int currentParamIndex=0;
+  if (Environment.isSystemSet()) {
+    info.env=Environment.getCurrent().getName();
+  }
+ else   if (isEnvironmentArgs(splitArgs[currentParamIndex])) {
+    String env=splitArgs[currentParamIndex++];
+    info.env=(String)ENV_ARGS.get(env);
+  }
+  if (currentParamIndex >= splitArgs.length) {
+    System.out.println("You should specify a script to run. Run 'grails help' for a complete list of available scripts.");
+    System.exit(0);
+  }
+  String paramName=splitArgs[currentParamIndex++];
+  if (paramName.charAt(0) == '-') {
+    paramName=paramName.substring(1);
+  }
+  info.name=GrailsNameUtils.getNameFromScript(paramName);
+  if (currentParamIndex < splitArgs.length) {
+    StringBuilder b=new StringBuilder(splitArgs[currentParamIndex]);
+    for (int i=currentParamIndex + 1; i < splitArgs.length; i++) {
+      b.append(' ').append(splitArgs[i]);
+    }
+    info.args=b.toString();
+  }
+  return info;
+}

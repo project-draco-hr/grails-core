@@ -1,0 +1,56 @@
+{
+  Map params=new HashMap();
+  Errors errors=new MapBindingResult(params,"urlMapping");
+  String lastGroup=null;
+  for (int i=0; i < m.groupCount(); i++) {
+    lastGroup=m.group(i + 1);
+    int j=lastGroup.indexOf('?');
+    if (j > -1) {
+      lastGroup=lastGroup.substring(0,j);
+    }
+    if (constraints.length > i) {
+      ConstrainedProperty cp=constraints[i];
+      cp.validate(this,lastGroup,errors);
+      if (errors.hasErrors())       return null;
+ else {
+        params.put(cp.getPropertyName(),lastGroup);
+      }
+    }
+  }
+  if (lastGroup != null) {
+    String remainingUri=uri.substring(uri.lastIndexOf(lastGroup) + lastGroup.length());
+    if (remainingUri.length() > 0) {
+      if (remainingUri.startsWith(SLASH))       remainingUri=remainingUri.substring(1);
+      String[] tokens=remainingUri.split(SLASH);
+      for (int i=0; i < tokens.length; i=i + 2) {
+        String token=tokens[i];
+        if ((i + 1) < tokens.length) {
+          params.put(token,tokens[i + 1]);
+        }
+      }
+    }
+  }
+  for (  Object key : this.parameterValues.keySet()) {
+    params.put(key,this.parameterValues.get(key));
+  }
+  if (controllerName == null) {
+    this.controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,this.constraints);
+  }
+  if (actionName == null) {
+    this.actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,this.constraints);
+  }
+  if (viewName == null) {
+    this.viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,this.constraints);
+  }
+  DefaultUrlMappingInfo info;
+  if (viewName != null && this.controllerName == null) {
+    info=new DefaultUrlMappingInfo(viewName,params,this.urlData,servletContext);
+  }
+ else {
+    info=new DefaultUrlMappingInfo(this.controllerName,this.actionName,getViewName(),params,this.urlData,servletContext);
+  }
+  if (parseRequest) {
+    info.setParsingRequest(parseRequest);
+  }
+  return info;
+}

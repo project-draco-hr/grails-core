@@ -1,0 +1,24 @@
+{
+  if (propertyName instanceof GString)   propertyName=propertyName.toString();
+  if (propertyName instanceof List) {
+    Map submap=new HashMap();
+    List propertyNames=(List)propertyName;
+    for (Iterator i=propertyNames.iterator(); i.hasNext(); ) {
+      Object currentName=i.next();
+      if (currentName != null) {
+        currentName=currentName.toString();
+        if (containsKey(currentName)) {
+          submap.put(currentName,get(currentName));
+        }
+      }
+    }
+    return submap;
+  }
+ else   if (EXCLUDES.contains(propertyName))   return null;
+  Object val=null;
+  MetaProperty mp=metaClass.getMetaProperty((String)propertyName);
+  if (mp != null) {
+    val=mp.getProperty(this.instance);
+  }
+  return val;
+}

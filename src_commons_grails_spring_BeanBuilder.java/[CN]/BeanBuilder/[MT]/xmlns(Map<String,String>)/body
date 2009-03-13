@@ -1,0 +1,21 @@
+{
+  Assert.notNull(namespaceHandlerResolver,"You cannot define a Spring namespace without a [namespaceHandlerResolver] set");
+  if (!definition.isEmpty()) {
+    for (    Map.Entry<String,String> entry : definition.entrySet()) {
+      String namespace=entry.getKey();
+      String uri=null;
+      if (entry.getValue() != null) {
+        uri=entry.getValue();
+      }
+      if (uri == null) {
+        throw new IllegalArgumentException("Namespace definition cannot supply a null URI");
+      }
+      final NamespaceHandler namespaceHandler=namespaceHandlerResolver.resolve(uri);
+      if (namespaceHandler == null) {
+        throw new BeanDefinitionParsingException(new Problem("No namespace handler found for URI: " + uri,new Location(this.readerContext.getResource())));
+      }
+      namespaceHandlers.put(namespace,namespaceHandler);
+      namespaces.put(namespace,uri);
+    }
+  }
+}

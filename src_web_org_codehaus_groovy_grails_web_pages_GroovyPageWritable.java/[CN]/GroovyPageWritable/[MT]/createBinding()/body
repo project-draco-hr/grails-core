@@ -1,0 +1,6 @@
+{
+  Binding binding=new Binding();
+  request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
+  binding.setVariable(GroovyPage.PAGE_SCOPE,binding);
+  return binding;
+}

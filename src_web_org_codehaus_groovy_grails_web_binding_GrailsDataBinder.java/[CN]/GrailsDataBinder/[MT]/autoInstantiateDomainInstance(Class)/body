@@ -1,0 +1,16 @@
+{
+  Object created=null;
+  try {
+    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(type);
+    if (mc != null) {
+      created=mc.invokeStaticMethod(type,CreateDynamicMethod.METHOD_NAME,new Object[0]);
+    }
+  }
+ catch (  MissingMethodException mme) {
+    LOG.warn("Unable to auto-create type, 'create' method not found");
+  }
+catch (  GroovyRuntimeException gre) {
+    LOG.warn("Unable to auto-create type, Groovy Runtime error: " + gre.getMessage(),gre);
+  }
+  return created;
+}

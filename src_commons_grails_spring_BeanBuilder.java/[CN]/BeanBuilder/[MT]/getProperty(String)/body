@@ -1,0 +1,32 @@
+{
+  if (binding.containsKey(name)) {
+    return binding.get(name);
+  }
+ else {
+    if (namespaceHandlers.containsKey(name)) {
+      return createDynamicElementReader(name,currentBeanConfig != null);
+    }
+    if (springConfig.containsBean(name)) {
+      BeanConfiguration beanConfig=springConfig.getBeanConfig(name);
+      if (beanConfig != null) {
+        return new ConfigurableRuntimeBeanReference(name,springConfig.getBeanConfig(name),false);
+      }
+ else       return new RuntimeBeanReference(name,false);
+    }
+ else     if (currentBeanConfig != null) {
+      if (currentBeanConfig.hasProperty(name))       return currentBeanConfig.getPropertyValue(name);
+ else {
+        DeferredProperty dp=deferredProperties.get(currentBeanConfig.getName() + name);
+        if (dp != null) {
+          return dp.value;
+        }
+ else {
+          return super.getProperty(name);
+        }
+      }
+    }
+ else {
+      return super.getProperty(name);
+    }
+  }
+}

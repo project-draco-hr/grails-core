@@ -1,0 +1,4 @@
+{
+  PluginMeta pluginMeta=(PluginMeta)this.pluginInfo.get(pluginName);
+  return pluginMeta.pluginResources;
+}

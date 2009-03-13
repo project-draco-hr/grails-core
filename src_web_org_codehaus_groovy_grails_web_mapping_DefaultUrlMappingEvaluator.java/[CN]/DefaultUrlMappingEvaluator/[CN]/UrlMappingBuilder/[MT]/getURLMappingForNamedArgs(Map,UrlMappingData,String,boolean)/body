@@ -1,0 +1,47 @@
+{
+  Object controllerName;
+  Object actionName;
+  final Map bindingVariables=binding != null ? binding.getVariables() : null;
+  boolean restRequest=false;
+  if (namedArguments.containsKey(RESOURCE)) {
+    controllerName=namedArguments.get(RESOURCE);
+    actionName=DEFAULT_REST_MAPPING;
+    restRequest=true;
+  }
+ else {
+    controllerName=getControllerName(namedArguments,bindingVariables);
+    actionName=getActionName(namedArguments,bindingVariables);
+  }
+  Object viewName=getViewName(namedArguments,bindingVariables);
+  if (actionName != null && viewName != null) {
+    viewName=null;
+    LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
+  }
+  ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+  final UrlMapping urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+  Object exceptionArg=getException(namedArguments,bindingVariables);
+  if (isResponseCode && exceptionArg != null) {
+    if (exceptionArg instanceof Class) {
+      Class exClass=(Class)exceptionArg;
+      if (Throwable.class.isAssignableFrom(exClass)) {
+        ((ResponseCodeUrlMapping)urlMapping).setExceptionType(exClass);
+      }
+ else {
+        LOG.error("URL mapping argument [exception] with value [" + exceptionArg + "] must be a subclass of java.lang.Throwable");
+      }
+    }
+ else {
+      LOG.error("URL mapping argument [exception] with value [" + exceptionArg + "] must be a valid class");
+    }
+  }
+  if (restRequest) {
+    urlMapping.setParseRequest(true);
+  }
+ else {
+    Object parseRequest=getParseRequest(namedArguments,bindingVariables);
+    if (parseRequest instanceof Boolean) {
+      urlMapping.setParseRequest((Boolean)parseRequest);
+    }
+  }
+  return urlMapping;
+}

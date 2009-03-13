@@ -1,0 +1,4 @@
+{
+  Metadata metadata=(Metadata)getMetadata();
+  return metadata.isWarDeployed();
+}

@@ -1,0 +1,4 @@
+{
+  if (tableName.startsWith(BACKTICK))   return tableName.substring(1,tableName.length() - 1);
+  return tableName;
+}

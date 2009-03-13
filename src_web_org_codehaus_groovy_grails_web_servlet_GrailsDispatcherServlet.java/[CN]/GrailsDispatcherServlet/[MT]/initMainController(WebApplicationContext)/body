@@ -1,0 +1,5 @@
+{
+  if (webContext.containsBean(MAIN_SIMPLE_CONTROLLER)) {
+    this.mainController=(Controller)webContext.getBean(MAIN_SIMPLE_CONTROLLER);
+  }
+}

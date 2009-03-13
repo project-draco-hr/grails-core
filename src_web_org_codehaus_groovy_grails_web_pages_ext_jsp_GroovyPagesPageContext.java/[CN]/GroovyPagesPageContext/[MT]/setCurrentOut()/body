@@ -1,0 +1,5 @@
+{
+  setAttribute(OUT,jspOut);
+  setAttribute(GroovyPage.OUT,jspOut);
+  webRequest.setOut(jspOut);
+}

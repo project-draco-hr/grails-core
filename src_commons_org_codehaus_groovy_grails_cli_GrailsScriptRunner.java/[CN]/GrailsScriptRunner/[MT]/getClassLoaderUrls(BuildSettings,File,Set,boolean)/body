@@ -1,0 +1,26 @@
+{
+  List<URL> urls=new ArrayList<URL>();
+  if (settings.getGrailsHome() != null) {
+    urls.add(cacheDir.toURI().toURL());
+  }
+  if (settings.getResourcesDir() != null && settings.getResourcesDir().exists()) {
+    urls.add(settings.getResourcesDir().toURI().toURL());
+  }
+  List runtimeDeps=settings.getRuntimeDependencies();
+  for (Iterator iter=runtimeDeps.iterator(); iter.hasNext(); ) {
+    File file=(File)iter.next();
+    if (!excludes.contains(file.getName())) {
+      urls.add(file.toURI().toURL());
+      excludes.add(file.getName());
+    }
+  }
+  if (settings.getGrailsHome() != null) {
+    addLibs(new File(settings.getGrailsHome(),"lib"),urls,excludes);
+  }
+  if (!skipPlugins) {
+    for (    File dir : listKnownPluginDirs(settings)) {
+      addPluginLibs(dir,urls);
+    }
+  }
+  return urls.toArray(new URL[urls.size()]);
+}

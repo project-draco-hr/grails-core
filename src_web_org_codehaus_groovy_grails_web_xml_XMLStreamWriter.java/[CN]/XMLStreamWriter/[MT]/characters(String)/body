@@ -1,0 +1,8 @@
+{
+  if (mode == TAG) {
+    endStartTag();
+  }
+  mode=CONTENT;
+  writer.escaped().write(data);
+  return this;
+}

@@ -1,0 +1,17 @@
+{
+  try {
+    enumClass=(Class<? extends Enum>)ApplicationHolder.getApplication().getClassLoader().loadClass((String)properties.get(PARAM_ENUM_CLASS));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(String.format("Building ID-mapping for Enum Class %s",enumClass.getName()));
+    }
+    bidiMap=getBidiEnumMap(enumClass);
+    type=(NullableType)TypeFactory.basic(bidiMap.keyType.getName());
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(String.format("Mapped Basic Type is %s",type));
+    }
+    sqlTypes=new int[]{type.sqlType()};
+  }
+ catch (  Exception e) {
+    throw new MappingException("Error mapping Enum Class using IdentifierEnumType",e);
+  }
+}

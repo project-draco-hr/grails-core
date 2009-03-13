@@ -1,0 +1,26 @@
+{
+  GrailsDomainClassProperty identifierProp=domainClass.getIdentifier();
+  if (gormMapping != null) {
+    Object id=gormMapping.getIdentity();
+    if (id instanceof CompositeIdentity) {
+      bindCompositeId(domainClass,root,(CompositeIdentity)id,gormMapping,mappings);
+    }
+ else {
+      final Identity identity=(Identity)id;
+      String propertyName=identity.getName();
+      if (propertyName != null) {
+        GrailsDomainClassProperty namedIdentityProp=domainClass.getPropertyByName(propertyName);
+        if (namedIdentityProp == null) {
+          throw new MappingException("Mapping specifies an identifier property name that doesn't exist [" + propertyName + "]");
+        }
+        if (!namedIdentityProp.equals(identifierProp)) {
+          identifierProp=namedIdentityProp;
+        }
+      }
+      bindSimpleId(identifierProp,root,mappings,identity);
+    }
+  }
+ else {
+    bindSimpleId(identifierProp,root,mappings,null);
+  }
+}

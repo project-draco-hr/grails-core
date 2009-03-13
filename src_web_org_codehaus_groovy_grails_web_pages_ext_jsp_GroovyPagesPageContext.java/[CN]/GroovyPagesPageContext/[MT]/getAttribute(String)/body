@@ -1,0 +1,5 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+  if (pageScope.getVariables().containsKey(name))   return pageScope.getVariable(name);
+  return null;
+}

@@ -1,0 +1,13 @@
+{
+  Resource r;
+  r=getResourceWithinContext(uri);
+  if (r == null || !r.exists()) {
+    String pluginUri=GrailsResourceUtils.WEB_INF + uri;
+    r=getResourceWithinContext(pluginUri);
+    if (r == null || !r.exists()) {
+      uri=getUriWithinGrailsViews(uri);
+      return getResourceWithinContext(uri);
+    }
+  }
+  return r;
+}

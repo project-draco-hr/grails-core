@@ -1,0 +1,3 @@
+{
+  return grailsProperty.getType().equals(grailsProperty.getDomainClass().getClazz());
+}

@@ -1,0 +1,10 @@
+{
+  simpleValue.setTypeName(type);
+  Table t=simpleValue.getTable();
+  Column column=new Column();
+  column.setNullable(nullable);
+  column.setValue(simpleValue);
+  column.setName(columnName);
+  if (t != null)   t.addColumn(column);
+  simpleValue.addColumn(column);
+}

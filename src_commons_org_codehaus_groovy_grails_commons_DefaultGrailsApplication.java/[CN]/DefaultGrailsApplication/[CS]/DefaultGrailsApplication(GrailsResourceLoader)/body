@@ -1,0 +1,10 @@
+{
+  this.resourceLoader=resourceLoader;
+  try {
+    this.applicationMeta=Metadata.getCurrent();
+    loadGrailsApplicationFromResources(resourceLoader.getResources());
+  }
+ catch (  IOException e) {
+    throw new GrailsConfigurationException("I/O exception loading Grails: " + e.getMessage(),e);
+  }
+}

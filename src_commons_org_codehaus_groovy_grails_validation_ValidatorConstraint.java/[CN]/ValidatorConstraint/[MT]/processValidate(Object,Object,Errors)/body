@@ -1,0 +1,54 @@
+{
+  if (validator != null) {
+    Object[] params=new Object[numValidatorParams];
+    params[0]=propertyValue;
+    if (numValidatorParams >= 2) {
+      params[1]=target;
+    }
+    if (numValidatorParams == 3) {
+      params[2]=errors;
+    }
+    final ValidatorDelegate delegate=new ValidatorDelegate();
+    delegate.setPropertyName(getPropertyName());
+    validator.setDelegate(delegate);
+    final Object result=validator.call(params);
+    if (numValidatorParams == 3) {
+      return;
+    }
+    boolean bad=false;
+    String errmsg=null;
+    Object[] args=null;
+    if (result != null) {
+      if (result instanceof Boolean) {
+        bad=!((Boolean)result).booleanValue();
+      }
+ else       if (result instanceof String) {
+        bad=true;
+        errmsg=(String)result;
+      }
+ else       if ((result instanceof Collection) || result.getClass().isArray()) {
+        bad=true;
+        Object[] values=(result instanceof Collection) ? ((Collection)result).toArray() : (Object[])result;
+        if (!(values[0] instanceof String)) {
+          throw new IllegalArgumentException("Return value from validation closure [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] is returning a list but the first element must be a string "+ "containing the error message code");
+        }
+        errmsg=(String)values[0];
+        args=new Object[values.length - 1 + 3];
+        int i=0;
+        args[i++]=constraintPropertyName;
+        args[i++]=constraintOwningClass;
+        args[i++]=propertyValue;
+        System.arraycopy(values,1,args,i,values.length - 1);
+      }
+ else {
+        throw new IllegalArgumentException("Return value from validation closure [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean, a string, an array or a collection");
+      }
+    }
+    if (bad) {
+      if (args == null) {
+        args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+      }
+      super.rejectValue(target,errors,ConstrainedProperty.DEFAULT_INVALID_VALIDATOR_MESSAGE_CODE,errmsg == null ? ConstrainedProperty.VALIDATOR_CONSTRAINT + ConstrainedProperty.INVALID_SUFFIX : errmsg,args);
+    }
+  }
+}

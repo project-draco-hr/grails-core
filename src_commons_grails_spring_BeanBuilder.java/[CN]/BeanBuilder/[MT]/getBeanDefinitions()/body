@@ -1,0 +1,10 @@
+{
+  Map<String,BeanDefinition> beanDefinitions=new HashMap<String,BeanDefinition>();
+  final List beanNames=getSpringConfig().getBeanNames();
+  for (  Object beanName1 : beanNames) {
+    String beanName=(String)beanName1;
+    BeanDefinition bd=getSpringConfig().getBeanConfig(beanName).getBeanDefinition();
+    beanDefinitions.put(beanName,bd);
+  }
+  return beanDefinitions;
+}

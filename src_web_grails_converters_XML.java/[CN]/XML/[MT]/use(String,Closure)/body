@@ -1,0 +1,11 @@
+{
+  ConverterConfiguration<XML> old=ConvertersConfigurationHolder.getThreadLocalConverterConfiguration(XML.class);
+  ConverterConfiguration<XML> cfg=getNamedConfig(configName);
+  ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,cfg);
+  try {
+    return callable.call();
+  }
+  finally {
+    ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,old);
+  }
+}

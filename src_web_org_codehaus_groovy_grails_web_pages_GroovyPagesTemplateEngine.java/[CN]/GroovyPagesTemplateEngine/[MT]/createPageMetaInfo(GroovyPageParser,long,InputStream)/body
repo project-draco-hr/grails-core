@@ -1,0 +1,13 @@
+{
+  GroovyPageMetaInfo pageMeta=new GroovyPageMetaInfo();
+  pageMeta.setJspTagLibraryResolver(jspTagLibraryResolver);
+  pageMeta.setTagLibraryLookup(tagLibraryLookup);
+  pageMeta.setContentType(parse.getContentType());
+  pageMeta.setLineNumbers(parse.getLineNumberMatrix());
+  pageMeta.setLastModified(lastModified);
+  pageMeta.setJspTags(parse.getJspTags());
+  if (isReloadEnabled() || GrailsUtil.isDevelopmentEnv()) {
+    pageMeta.setGroovySource(in);
+  }
+  return pageMeta;
+}

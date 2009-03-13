@@ -1,0 +1,10 @@
+{
+  GrailsPlugin pluginToEvict=plugins.get(evicteeName);
+  if (pluginToEvict != null) {
+    pluginList.remove(pluginToEvict);
+    plugins.remove(pluginToEvict.getName());
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Grails plug-in " + pluginToEvict + " was evicted by "+ evictor);
+    }
+  }
+}

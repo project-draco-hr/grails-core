@@ -1,0 +1,42 @@
+{
+  Closure c=settings.getGrailsScriptClosure();
+  c.setDelegate(binding);
+  binding.setVariable("grailsScript",c);
+  binding.setVariable("grailsSettings",settings);
+  binding.setVariable("basedir",settings.getBaseDir().getPath());
+  binding.setVariable("baseFile",settings.getBaseDir());
+  binding.setVariable("baseName",settings.getBaseDir().getName());
+  binding.setVariable("grailsHome",(settings.getGrailsHome() != null ? settings.getGrailsHome().getPath() : null));
+  binding.setVariable("grailsVersion",settings.getGrailsVersion());
+  binding.setVariable("userHome",settings.getUserHome());
+  binding.setVariable("grailsEnv",settings.getGrailsEnv());
+  binding.setVariable("defaultEnv",Boolean.valueOf(settings.getDefaultEnv()));
+  binding.setVariable("buildConfig",settings.getConfig());
+  binding.setVariable("rootLoader",settings.getRootLoader());
+  binding.setVariable("grailsWorkDir",settings.getGrailsWorkDir().getPath());
+  binding.setVariable("projectWorkDir",settings.getProjectWorkDir().getPath());
+  binding.setVariable("classesDirPath",settings.getClassesDir().getPath());
+  binding.setVariable("testDirPath",settings.getTestClassesDir().getPath());
+  binding.setVariable("resourcesDirPath",settings.getResourcesDir().getPath());
+  binding.setVariable("pluginsDirPath",settings.getProjectPluginsDir().getPath());
+  binding.setVariable("globalPluginsDirPath",settings.getGlobalPluginsDir().getPath());
+  binding.setVariable("Ant",binding.getVariable("ant"));
+  try {
+    List descriptors=new ArrayList();
+    File desc=getPluginDescriptor(settings.getBaseDir());
+    if (desc != null)     descriptors.add(desc);
+    for (    File dir : listKnownPluginDirs(settings)) {
+      File pluginDescriptor=getPluginDescriptor(dir);
+      if (pluginDescriptor != null)       descriptors.add(pluginDescriptor);
+    }
+    for (int i=0, n=descriptors.size(); i < n; i++) {
+      desc=(File)descriptors.get(i);
+      Matcher matcher=pluginDescriptorPattern.matcher(desc.getName());
+      matcher.find();
+      String pluginName=GrailsNameUtils.getPropertyName(matcher.group(1));
+      binding.setVariable(pluginName + "PluginDir",desc.getParentFile());
+    }
+  }
+ catch (  Exception e) {
+  }
+}

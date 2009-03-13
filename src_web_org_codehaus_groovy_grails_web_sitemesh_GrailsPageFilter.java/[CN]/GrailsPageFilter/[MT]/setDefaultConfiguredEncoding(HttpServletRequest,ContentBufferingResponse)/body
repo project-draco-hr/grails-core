@@ -1,0 +1,9 @@
+{
+  UrlPathHelper urlHelper=new UrlPathHelper();
+  String requestURI=urlHelper.getOriginatingRequestUri(request);
+  if (requestURI.endsWith(HTML_EXT)) {
+    String encoding=(String)ConfigurationHolder.getFlatConfig().get(CONFIG_OPTION_GSP_ENCODING);
+    if (encoding == null)     encoding=UTF_8_ENCODING;
+    contentBufferingResponse.setContentType("text/html;charset=" + encoding);
+  }
+}

@@ -1,0 +1,5 @@
+{
+  ConverterConfiguration<JSON> cfg=ConvertersConfigurationHolder.getNamedConverterConfiguration(configName,JSON.class);
+  if (cfg == null)   throw new ConverterException(String.format("Converter Configuration with name '%s' not found!",configName));
+  return cfg;
+}

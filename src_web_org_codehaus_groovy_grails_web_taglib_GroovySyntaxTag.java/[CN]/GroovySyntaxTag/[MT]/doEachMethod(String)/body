@@ -1,0 +1,23 @@
+{
+  String var=(String)attributes.get(ATTRIBUTE_VAR);
+  String status=(String)attributes.get(ATTRIBUTES_STATUS);
+  var=extractAttributeValue(var);
+  status=extractAttributeValue(status);
+  boolean hasStatus=!StringUtils.isBlank(status);
+  boolean hasVar=!StringUtils.isBlank(var);
+  boolean hasSafeDeref=in != null && in.trim().endsWith("?");
+  if (hasStatus && !hasVar)   throw new GrailsTagException(ERROR_NO_VAR_WITH_STATUS);
+  String methodName=hasStatus ? METHOD_EACH_WITH_INDEX : METHOD_EACH;
+  if (var.equals(status) && (hasStatus))   throw new GrailsTagException("Attribute [" + ATTRIBUTE_VAR + "] cannot have the same value as attribute ["+ ATTRIBUTES_STATUS+ "]");
+  out.print(parser != null ? parser.getExpressionText(in) : in);
+  out.print('.');
+  out.print(methodName);
+  out.print(" { ");
+  if (hasVar || hasStatus)   out.print(hasVar ? var : "it");
+  if (hasStatus) {
+    out.print(",");
+    out.print(status);
+  }
+  if (hasVar || hasStatus)   out.print(" ->");
+  out.println();
+}

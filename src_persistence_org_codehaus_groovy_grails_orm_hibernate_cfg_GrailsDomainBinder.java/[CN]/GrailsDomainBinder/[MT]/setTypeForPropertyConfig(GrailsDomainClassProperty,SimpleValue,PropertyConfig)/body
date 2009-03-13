@@ -1,0 +1,14 @@
+{
+  if (config != null && config.getType() != null) {
+    Object type=config.getType();
+    if (type instanceof Class) {
+      simpleValue.setTypeName(((Class)type).getName());
+    }
+ else {
+      simpleValue.setTypeName(type.toString());
+    }
+  }
+ else {
+    simpleValue.setTypeName(grailsProp.getType().getName());
+  }
+}

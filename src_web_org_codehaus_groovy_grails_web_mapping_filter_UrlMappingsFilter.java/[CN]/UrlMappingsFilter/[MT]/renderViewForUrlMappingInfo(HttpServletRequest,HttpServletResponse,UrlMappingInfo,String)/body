@@ -1,0 +1,32 @@
+{
+  if (viewResolver != null) {
+    View v;
+    try {
+      for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
+        if (!handlerInterceptor.preHandle(request,response,this))         return false;
+      }
+      final ModelAndView modelAndView=new ModelAndView(viewName);
+      for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
+        handlerInterceptor.postHandle(request,response,this,modelAndView);
+      }
+      v=WebUtils.resolveView(request,info,modelAndView.getViewName(),viewResolver);
+      v.render(modelAndView.getModel(),request,response);
+      for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
+        handlerInterceptor.afterCompletion(request,response,this,null);
+      }
+    }
+ catch (    Exception e) {
+      GrailsUtil.deepSanitize(e);
+      for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
+        try {
+          handlerInterceptor.afterCompletion(request,response,this,e);
+        }
+ catch (        Exception e1) {
+          throw new UrlMappingException("Error executing filter after view error: " + e1.getMessage() + ". Original error: "+ e.getMessage(),e1);
+        }
+      }
+      throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+    }
+  }
+  return true;
+}

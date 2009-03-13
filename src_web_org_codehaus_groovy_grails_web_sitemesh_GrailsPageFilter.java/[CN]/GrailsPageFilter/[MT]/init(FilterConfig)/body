@@ -1,0 +1,6 @@
+{
+  super.init(filterConfig);
+  this.filterConfig=filterConfig;
+  this.containerTweaks=new ContainerTweaks();
+  FactoryHolder.setFactory(Factory.getInstance(new Config(filterConfig)));
+}

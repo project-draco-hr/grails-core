@@ -1,0 +1,10 @@
+{
+  if (StringUtils.isBlank(pattern)) {
+    throw new IllegalArgumentException("Argument [pattern] must be a valid regular expression");
+  }
+  if (closure == null) {
+    throw new IllegalArgumentException("Argument [closure] cannot be null");
+  }
+  this.pattern=Pattern.compile(pattern);
+  this.callable=closure;
+}

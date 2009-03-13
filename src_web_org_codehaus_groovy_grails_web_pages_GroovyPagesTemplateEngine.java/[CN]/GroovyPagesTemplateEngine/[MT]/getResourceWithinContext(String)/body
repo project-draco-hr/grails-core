@@ -1,0 +1,6 @@
+{
+  if (resourceLoader == null)   throw new IllegalStateException("TemplateEngine not initialised correctly, no [resourceLoader] specified!");
+  Resource r=servletContextLoader.getResource(uri);
+  if (r.exists())   return r;
+  return resourceLoader.getResource(uri);
+}

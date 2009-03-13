@@ -1,0 +1,8 @@
+{
+  GrailsPluginManager manager=PluginManagerHolder.getPluginManager();
+  if (manager != null) {
+    GrailsPlugin controllerPlugin=manager.getGrailsPlugin("controllers");
+    GroovyObject pluginInstance=controllerPlugin.getInstance();
+    WebMetaUtils.registerCommonWebProperties(GrailsMetaClassUtils.getExpandoMetaClass(script.getClass()),null);
+  }
+}

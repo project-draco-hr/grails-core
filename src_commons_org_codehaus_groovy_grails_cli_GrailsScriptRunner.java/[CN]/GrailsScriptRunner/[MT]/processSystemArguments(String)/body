@@ -1,0 +1,14 @@
+{
+  String lastMatch=null;
+  Pattern sysPropPattern=Pattern.compile("-D(.+?)=(.+?)\\s+?");
+  Matcher m=sysPropPattern.matcher(allArgs);
+  while (m.find()) {
+    System.setProperty(m.group(1).trim(),m.group(2).trim());
+    lastMatch=m.group();
+  }
+  if (lastMatch != null) {
+    int i=allArgs.lastIndexOf(lastMatch) + lastMatch.length();
+    allArgs=allArgs.substring(i);
+  }
+  return allArgs;
+}

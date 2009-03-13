@@ -1,0 +1,19 @@
+{
+  InputStream inputStream=null;
+  try {
+    inputStream=resource.getInputStream();
+    return evaluateMappings(classLoader.parseClass(inputStream));
+  }
+ catch (  IOException e) {
+    throw new UrlMappingException("Unable to read mapping file [" + resource.getFilename() + "]: "+ e.getMessage(),e);
+  }
+ finally {
+    if (inputStream != null) {
+      try {
+        inputStream.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+}

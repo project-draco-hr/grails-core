@@ -1,0 +1,18 @@
+{
+  PropertyValue[] pvs=mpvs.getPropertyValues();
+  for (  PropertyValue pv : pvs) {
+    String propertyName=pv.getName();
+    if (propertyName.indexOf(PATH_SEPARATOR) > -1) {
+      String[] propertyNames=propertyName.split("\\.");
+      BeanWrapper currentBean=bean;
+      for (      String name : propertyNames) {
+        Object created=autoCreatePropertyIfPossible(currentBean,name);
+        if (created != null)         currentBean=new BeanWrapperImpl(created);
+ else         break;
+      }
+    }
+ else {
+      autoCreatePropertyIfPossible(bean,propertyName);
+    }
+  }
+}

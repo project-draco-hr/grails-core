@@ -1,0 +1,16 @@
+{
+  Mapping m=getMapping(entity.getMappedClass());
+  SimpleValue d=new SimpleValue(table);
+  entity.setDiscriminator(d);
+  entity.setDiscriminatorValue(m != null && m.getDiscriminator() != null ? m.getDiscriminator() : entity.getClassName());
+  bindSimpleValue(STRING_TYPE,d,false,RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME,mappings);
+  ColumnConfig cc=m != null ? m.getDiscriminatorColumn() : null;
+  if (cc != null) {
+    Column c=(Column)d.getColumnIterator().next();
+    if (cc.getName() != null) {
+      c.setName(cc.getName());
+    }
+    bindColumnConfigToColumn(c,cc);
+  }
+  entity.setPolymorphic(true);
+}

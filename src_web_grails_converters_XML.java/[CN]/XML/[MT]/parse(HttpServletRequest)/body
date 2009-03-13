@@ -1,0 +1,16 @@
+{
+  Object xml=request.getAttribute(CACHED_XML);
+  if (xml != null)   return xml;
+  String encoding=request.getCharacterEncoding();
+  if (encoding == null)   encoding=Converter.DEFAULT_REQUEST_ENCODING;
+  try {
+    if (!request.getMethod().equalsIgnoreCase("GET")) {
+      xml=parse(request.getInputStream(),encoding);
+      request.setAttribute(CACHED_XML,xml);
+    }
+    return xml;
+  }
+ catch (  IOException e) {
+    throw new ConverterException("Error parsing XML",e);
+  }
+}

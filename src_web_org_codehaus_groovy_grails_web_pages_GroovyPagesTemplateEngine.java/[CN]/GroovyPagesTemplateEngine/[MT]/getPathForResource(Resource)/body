@@ -1,0 +1,10 @@
+{
+  String path=null;
+  try {
+    path=res.getFile().getAbsolutePath();
+  }
+ catch (  IOException e) {
+  }
+  path=path != null ? path : res.getDescription();
+  return path;
+}

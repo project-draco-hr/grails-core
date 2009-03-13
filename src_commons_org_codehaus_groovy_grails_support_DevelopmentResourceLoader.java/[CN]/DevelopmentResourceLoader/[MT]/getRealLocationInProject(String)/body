@@ -1,0 +1,34 @@
+{
+  if (!location.startsWith(SLASH))   location=SLASH + location;
+  if (location.startsWith(GrailsResourceUtils.WEB_INF)) {
+    final String noWebInf=location.substring(GrailsResourceUtils.WEB_INF.length() + 1);
+    final String defaultPath="file:" + baseLocation + SLASH+ noWebInf;
+    if (noWebInf.startsWith(PLUGINS_PREFIX)) {
+      BuildSettings settings=BuildSettingsHolder.getSettings();
+      String pluginPath=StringUtils.substringAfter(noWebInf,SLASH);
+      String pluginName=StringUtils.substringBefore(pluginPath,SLASH);
+      String remainingPath=StringUtils.substringAfter(pluginPath,SLASH);
+      Resource r=GrailsPluginUtils.getPluginDirForName(pluginName);
+      if (r != null) {
+        try {
+          return "file:" + r.getFile().getAbsolutePath() + SLASH+ remainingPath;
+        }
+ catch (        IOException e) {
+          return defaultPath;
+        }
+      }
+ else       if (settings != null) {
+        return "file:" + settings.getProjectPluginsDir().getAbsolutePath() + SLASH+ pluginName+ SLASH+ remainingPath;
+      }
+ else {
+        return defaultPath;
+      }
+    }
+ else {
+      return defaultPath;
+    }
+  }
+ else {
+    return GrailsResourceUtils.WEB_APP_DIR + location;
+  }
+}

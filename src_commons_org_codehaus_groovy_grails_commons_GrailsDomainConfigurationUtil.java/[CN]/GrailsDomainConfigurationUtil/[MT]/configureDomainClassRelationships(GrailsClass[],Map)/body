@@ -1,0 +1,55 @@
+{
+  for (  GrailsClass grailsClass : domainClasses) {
+    GrailsDomainClass domainClass=(GrailsDomainClass)grailsClass;
+    if (!domainClass.isRoot()) {
+      Class superClass=grailsClass.getClazz().getSuperclass();
+      while (!superClass.equals(Object.class) && !superClass.equals(GroovyObject.class)) {
+        GrailsDomainClass gdc=(GrailsDomainClass)domainMap.get(superClass.getName());
+        if (gdc == null || gdc.getSubClasses() == null)         break;
+        gdc.getSubClasses().add((GrailsDomainClass)grailsClass);
+        superClass=superClass.getSuperclass();
+      }
+    }
+    GrailsDomainClassProperty[] props=domainClass.getPersistentProperties();
+    for (    GrailsDomainClassProperty prop : props) {
+      if (prop != null && prop.isAssociation()) {
+        GrailsDomainClass referencedGrailsDomainClass=(GrailsDomainClass)domainMap.get(prop.getReferencedPropertyType().getName());
+        prop.setReferencedDomainClass(referencedGrailsDomainClass);
+      }
+    }
+  }
+  for (  GrailsClass domainClass1 : domainClasses) {
+    GrailsDomainClass domainClass=(GrailsDomainClass)domainClass1;
+    GrailsDomainClassProperty[] props=domainClass.getPersistentProperties();
+    for (    GrailsDomainClassProperty prop : props) {
+      if (prop != null && prop.isAssociation()) {
+        GrailsDomainClass referenced=prop.getReferencedDomainClass();
+        if (referenced != null) {
+          boolean isOwnedBy=referenced.isOwningClass(domainClass.getClazz());
+          prop.setOwningSide(isOwnedBy);
+          String refPropertyName=null;
+          try {
+            refPropertyName=prop.getReferencedPropertyName();
+          }
+ catch (          UnsupportedOperationException e) {
+          }
+          if (!StringUtils.isBlank(refPropertyName)) {
+            GrailsDomainClassProperty otherSide=referenced.getPropertyByName(refPropertyName);
+            prop.setOtherSide(otherSide);
+            otherSide.setOtherSide(prop);
+          }
+ else {
+            GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
+            for (            GrailsDomainClassProperty referencedProp : referencedProperties) {
+              if (prop.equals(referencedProp) && prop.isBidirectional())               continue;
+              if (isCandidateForOtherSide(domainClass,prop,referencedProp)) {
+                prop.setOtherSide(referencedProp);
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

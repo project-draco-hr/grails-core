@@ -1,0 +1,11 @@
+{
+  try {
+    ClassLoader loader=Thread.currentThread().getContextClassLoader();
+    Class clazz=loader.loadClass("grails.util.GrailsUtil");
+    Method method=clazz.getMethod("deepSanitize",new Class[]{Throwable.class});
+    method.invoke(null,new Object[]{t});
+  }
+ catch (  Exception ex) {
+    ex.printStackTrace();
+  }
+}

@@ -1,0 +1,12 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class dc=gcl.parseClass("class Test { Long id; Long version; }");
+  Class c=gcl.parseClass("class TestController { def scaffold = Test }");
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{dc,c},gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager());
+  GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  ApplicationContext ctx=conf.configure(new MockServletContext());
+  assertNotNull(ctx);
+}

@@ -1,0 +1,12 @@
+{
+  List<File> dirs=new ArrayList<File>();
+  dirs.addAll(Arrays.asList(listPluginDirs(settings.getGlobalPluginsDir())));
+  dirs.addAll(Arrays.asList(listPluginDirs(settings.getProjectPluginsDir())));
+  Map<String,?> buildConfig=settings.getConfig().flatten();
+  for (  Map.Entry<String,?> entry : buildConfig.entrySet()) {
+    if (entry.getKey().startsWith("grails.plugin.location.")) {
+      dirs.add(new File(entry.getValue().toString()));
+    }
+  }
+  return dirs;
+}

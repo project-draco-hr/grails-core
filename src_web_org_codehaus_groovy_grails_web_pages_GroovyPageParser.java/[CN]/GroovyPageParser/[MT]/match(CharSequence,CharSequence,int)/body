@@ -1,0 +1,11 @@
+{
+  int ix=start, ixz=text.length(), ixy=start + pat.length();
+  if (ixz > ixy)   ixz=ixy;
+  if (pat.length() > ixz - start)   return false;
+  for (; ix < ixz; ix++) {
+    if (Character.toLowerCase(text.charAt(ix)) != Character.toLowerCase(pat.charAt(ix - start))) {
+      return false;
+    }
+  }
+  return true;
+}

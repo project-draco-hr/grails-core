@@ -1,0 +1,9 @@
+{
+  try {
+    WrappedResponseHolder.setWrappedResponse(response);
+    if (filterChain != null)     filterChain.doFilter(request,response);
+  }
+  finally {
+    WrappedResponseHolder.setWrappedResponse(null);
+  }
+}

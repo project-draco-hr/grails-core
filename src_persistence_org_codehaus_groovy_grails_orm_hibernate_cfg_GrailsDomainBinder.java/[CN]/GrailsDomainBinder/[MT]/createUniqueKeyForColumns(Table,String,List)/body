@@ -1,0 +1,9 @@
+{
+  Collections.reverse(keyList);
+  UniqueKey key=table.getOrCreateUniqueKey("unique-" + columnName);
+  List columns=key.getColumns();
+  if (columns.size() == 0) {
+    LOG.debug("create unique key for " + table.getName() + " columns = "+ keyList);
+    key.addColumns(keyList.iterator());
+  }
+}

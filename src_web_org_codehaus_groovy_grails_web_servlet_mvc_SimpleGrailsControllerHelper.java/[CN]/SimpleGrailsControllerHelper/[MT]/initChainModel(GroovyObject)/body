@@ -1,0 +1,7 @@
+{
+  FlashScope fs=this.grailsAttributes.getFlashScope((HttpServletRequest)controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY));
+  if (fs.containsKey(PROPERTY_CHAIN_MODEL)) {
+    this.chainModel=(Map)fs.get(PROPERTY_CHAIN_MODEL);
+    if (this.chainModel == null)     this.chainModel=Collections.EMPTY_MAP;
+  }
+}

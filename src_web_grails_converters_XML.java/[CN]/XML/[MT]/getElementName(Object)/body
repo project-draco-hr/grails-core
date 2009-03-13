@@ -1,0 +1,7 @@
+{
+  ObjectMarshaller<XML> om=config.getMarshaller(o);
+  if (om instanceof NameAwareMarshaller) {
+    return ((NameAwareMarshaller)om).getElementName(o);
+  }
+  return GrailsNameUtils.getPropertyName(o.getClass());
+}

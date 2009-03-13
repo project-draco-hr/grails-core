@@ -1,0 +1,18 @@
+{
+  Object persisted;
+  ClassLoader currentClassLoader=Thread.currentThread().getContextClassLoader();
+  ClassLoader grailsClassLoader=getTarget().getClass().getClassLoader();
+  try {
+    Thread.currentThread().setContextClassLoader(grailsClassLoader);
+    try {
+      persisted=InvokerHelper.invokeStaticMethod(type,"get",id);
+    }
+ catch (    MissingMethodException e) {
+      return null;
+    }
+  }
+  finally {
+    Thread.currentThread().setContextClassLoader(currentClassLoader);
+  }
+  return persisted;
+}

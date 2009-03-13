@@ -1,0 +1,6 @@
+{
+  GrailsPlugin plugin=plugins.get(name);
+  if (plugin != null) {
+    plugin.refresh();
+  }
+}

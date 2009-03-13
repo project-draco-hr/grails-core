@@ -1,0 +1,5 @@
+{
+  if (usingStream)   throw new IllegalStateException("Method getOutputStream() already called");
+  usingWriter=true;
+  return pw;
+}

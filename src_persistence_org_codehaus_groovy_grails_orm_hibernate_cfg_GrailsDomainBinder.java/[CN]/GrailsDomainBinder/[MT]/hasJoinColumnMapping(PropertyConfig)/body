@@ -1,0 +1,3 @@
+{
+  return config != null && config.getJoinTable() != null && config.getJoinTable().getColumn() != null;
+}

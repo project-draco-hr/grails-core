@@ -1,0 +1,8 @@
+{
+  if (property.equals("beanName"))   return getBeanName();
+ else   if (property.equals("source"))   return getSource();
+ else   if (this.beanConfig != null) {
+    return new WrappedPropertyValue(property,beanConfig.getPropertyValue(property));
+  }
+ else   return this.metaClass.getProperty(this,property);
+}

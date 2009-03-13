@@ -1,0 +1,4 @@
+{
+  ArtefactHandler handler=(ArtefactHandler)artefactHandlersByName.get(artefactType);
+  return handler.getArtefactForFeature(featureID);
+}

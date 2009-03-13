@@ -1,0 +1,29 @@
+{
+  if (eventScript != null) {
+    try {
+      Script script=(Script)classLoader.parseClass(eventScript).newInstance();
+      script.setBinding(new Binding(this.binding.getVariables()){
+        @Override public void setVariable(        String var,        Object o){
+          final Matcher matcher=EVENT_NAME_PATTERN.matcher(var);
+          if (matcher.matches() && (o instanceof Closure)) {
+            String eventName=matcher.group(1);
+            List<Closure> hooks=globalEventHooks.get(eventName);
+            if (hooks == null) {
+              hooks=new ArrayList<Closure>();
+              globalEventHooks.put(eventName,hooks);
+            }
+            hooks.add((Closure)o);
+          }
+          super.setVariable(var,o);
+        }
+      }
+);
+      script.run();
+    }
+ catch (    Throwable e) {
+      GrailsUtil.deepSanitize(e);
+      e.printStackTrace();
+      System.out.println("Error loading event script from file [" + eventScript + "] "+ e.getMessage());
+    }
+  }
+}

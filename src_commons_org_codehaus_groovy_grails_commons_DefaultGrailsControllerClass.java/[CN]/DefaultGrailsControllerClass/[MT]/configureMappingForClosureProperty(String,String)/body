@@ -1,0 +1,7 @@
+{
+  String tmpUri=controllerPath + closureName;
+  uri2closureMap.put(tmpUri,closureName);
+  uri2closureMap.put(tmpUri + SLASH + "**",closureName);
+  this.uri2viewMap.put(tmpUri,tmpUri);
+  this.viewNames.put(closureName,tmpUri);
+}

@@ -1,0 +1,15 @@
+{
+  if (!this.initialised) {
+    GroovyClassLoader gcl=application.getClassLoader();
+    attemptLoadPlugins(gcl);
+    if (!delayedLoadPlugins.isEmpty()) {
+      loadDelayedPlugins();
+    }
+    if (!delayedEvictions.isEmpty()) {
+      processDelayedEvictions();
+    }
+    pluginList=sortPlugins(pluginList);
+    initializePlugins();
+    initialised=true;
+  }
+}

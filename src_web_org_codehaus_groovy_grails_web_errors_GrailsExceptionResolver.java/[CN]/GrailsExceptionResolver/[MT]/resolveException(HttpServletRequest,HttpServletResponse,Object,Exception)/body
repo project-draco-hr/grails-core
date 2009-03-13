@@ -1,0 +1,55 @@
+{
+  ModelAndView mv=super.resolveException(request,response,handler,ex);
+  response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+  request.setAttribute(WebUtils.ERROR_STATUS_CODE_ATTRIBUTE,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+  GrailsUtil.deepSanitize(ex);
+  LOG.error(ex.getMessage(),ex);
+  GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(servletContext,ex);
+  mv.addObject("exception",gwrex);
+  UrlMappingsHolder urlMappings=null;
+  try {
+    urlMappings=WebUtils.lookupUrlMappings(servletContext);
+  }
+ catch (  Exception e) {
+  }
+  if (urlMappings != null) {
+    UrlMappingInfo info=urlMappings.matchStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,ex);
+    if (info == null) {
+      info=urlMappings.matchStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,getRootCause(ex));
+    }
+    if (info == null) {
+      info=urlMappings.matchStatusCode(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+    try {
+      if (info != null && info.getViewName() != null) {
+        ViewResolver viewResolver=WebUtils.lookupViewResolver(servletContext);
+        View v=WebUtils.resolveView(request,info,info.getViewName(),viewResolver);
+        if (v != null) {
+          mv.setView(v);
+        }
+      }
+ else       if (info != null && info.getControllerName() != null) {
+        String uri;
+        if (request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE) != null) {
+          uri=(String)request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
+        }
+ else {
+          uri=request.getRequestURI();
+        }
+        if (!response.isCommitted()) {
+          info.configure(WebUtils.retrieveGrailsWebRequest());
+          String forwardUrl=WebUtils.forwardRequestForUrlMappingInfo(request,response,info,mv.getModel());
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Matched URI [" + uri + "] to URL mapping ["+ info+ "], forwarding to ["+ forwardUrl+ "] with response ["+ response.getClass()+ "]");
+          }
+          return null;
+        }
+      }
+    }
+ catch (    Exception e) {
+      LOG.error("Unable to render errors view: " + e.getMessage(),e);
+      throw new GrailsRuntimeException(e);
+    }
+  }
+  return mv;
+}

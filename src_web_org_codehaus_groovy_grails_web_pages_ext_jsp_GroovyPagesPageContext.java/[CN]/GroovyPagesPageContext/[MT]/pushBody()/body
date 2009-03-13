@@ -1,0 +1,5 @@
+{
+  BodyContent bc=new BodyContentImpl(getOut(),true);
+  pushWriter(bc);
+  return bc;
+}

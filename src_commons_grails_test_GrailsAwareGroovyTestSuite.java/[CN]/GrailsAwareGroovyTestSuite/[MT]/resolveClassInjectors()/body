@@ -1,0 +1,6 @@
+{
+  List<ClassInjector> classInjectors=new ArrayList<ClassInjector>();
+  classInjectors.add(new DefaultGrailsDomainClassInjector());
+  customizeClassInjectors(classInjectors);
+  return classInjectors.toArray(new ClassInjector[classInjectors.size()]);
+}

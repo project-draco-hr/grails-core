@@ -1,0 +1,11 @@
+{
+  Integer minSize=null;
+  MinSizeConstraint minSizeConstraint=(MinSizeConstraint)this.appliedConstraints.get(MIN_SIZE_CONSTRAINT);
+  SizeConstraint sizeConstraint=(SizeConstraint)this.appliedConstraints.get(SIZE_CONSTRAINT);
+  if ((minSizeConstraint != null) || (sizeConstraint != null)) {
+    int minSizeConstraintValue=minSizeConstraint != null ? minSizeConstraint.getMinSize() : Integer.MIN_VALUE;
+    int sizeConstraintLowValue=sizeConstraint != null ? sizeConstraint.getRange().getFromInt() : Integer.MIN_VALUE;
+    minSize=new Integer(Math.max(minSizeConstraintValue,sizeConstraintLowValue));
+  }
+  return minSize;
+}

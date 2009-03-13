@@ -1,0 +1,10 @@
+{
+  GrailsAwareGroovyTestSuite suite=new GrailsAwareGroovyTestSuite();
+  try {
+    suite.loadTestSuite();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException((new StringBuilder()).append("Could not create the test suite: ").append(e).toString(),e);
+  }
+  return suite;
+}

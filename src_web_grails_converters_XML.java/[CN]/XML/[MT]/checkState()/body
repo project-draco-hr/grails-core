@@ -1,0 +1,3 @@
+{
+  if (!isRendering)   throw new IllegalStateException("Illegal XML Converter call!");
+}

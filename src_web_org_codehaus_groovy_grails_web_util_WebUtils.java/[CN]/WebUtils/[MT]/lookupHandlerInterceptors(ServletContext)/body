@@ -1,0 +1,11 @@
+{
+  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  final Collection<HandlerInterceptor> allHandlerInterceptors=new ArrayList<HandlerInterceptor>();
+  WebRequestInterceptor[] webRequestInterceptors=lookupWebRequestInterceptors(servletContext);
+  for (  WebRequestInterceptor webRequestInterceptor : webRequestInterceptors) {
+    allHandlerInterceptors.add(new WebRequestHandlerInterceptorAdapter(webRequestInterceptor));
+  }
+  final Collection<HandlerInterceptor> handlerInterceptors=wac.getBeansOfType(HandlerInterceptor.class).values();
+  allHandlerInterceptors.addAll(handlerInterceptors);
+  return allHandlerInterceptors.toArray(new HandlerInterceptor[allHandlerInterceptors.size()]);
+}

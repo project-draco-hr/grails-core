@@ -1,0 +1,12 @@
+{
+  BeanWrapper beanWrapper;
+  try {
+    Class c=Class.forName(PERSISTENCE_BEAN_WRAPPER_CLASS);
+    Constructor init=c.getConstructor(new Class[]{Object.class});
+    beanWrapper=(BeanWrapper)init.newInstance(new Object[]{o});
+  }
+ catch (  Exception e) {
+    beanWrapper=new BeanWrapperImpl(o);
+  }
+  return beanWrapper;
+}

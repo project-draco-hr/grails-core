@@ -1,0 +1,17 @@
+{
+  String className=packagePrefix + ".el.ExpressionFactoryImpl";
+  try {
+    Class cl=ClassUtils.forName(className);
+    if (ExpressionFactory.class.isAssignableFrom(cl)) {
+      LOG.info("Using " + className + " as implementation of "+ ExpressionFactory.class.getName());
+      return (ExpressionFactory)cl.newInstance();
+    }
+    LOG.warn("Class " + className + " does not implement "+ ExpressionFactory.class.getName());
+  }
+ catch (  ClassNotFoundException e) {
+  }
+catch (  Exception e) {
+    LOG.error("Failed to instantiate " + className,e);
+  }
+  return null;
+}

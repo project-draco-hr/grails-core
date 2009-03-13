@@ -1,0 +1,5 @@
+{
+  if (usingWriter)   throw new IllegalStateException("Method getWriter() already called");
+  usingStream=true;
+  return sos;
+}

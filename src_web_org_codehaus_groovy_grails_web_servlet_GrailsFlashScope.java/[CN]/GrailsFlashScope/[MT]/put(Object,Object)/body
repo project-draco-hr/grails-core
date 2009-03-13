@@ -1,0 +1,8 @@
+{
+  registerWithSessionIfNecessary();
+  if (current.containsKey(key)) {
+    current.remove(key);
+  }
+  storeErrorsIfPossible(next,value);
+  return next.put(key,value);
+}

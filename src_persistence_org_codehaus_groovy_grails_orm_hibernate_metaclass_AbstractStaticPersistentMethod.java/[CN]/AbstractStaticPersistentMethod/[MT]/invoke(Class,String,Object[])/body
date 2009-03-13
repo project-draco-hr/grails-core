@@ -1,0 +1,10 @@
+{
+  ClassLoader originalClassLoader=Thread.currentThread().getContextClassLoader();
+  try {
+    Thread.currentThread().setContextClassLoader(this.classLoader);
+    return doInvokeInternal(clazz,methodName,arguments);
+  }
+  finally {
+    Thread.currentThread().setContextClassLoader(originalClassLoader);
+  }
+}

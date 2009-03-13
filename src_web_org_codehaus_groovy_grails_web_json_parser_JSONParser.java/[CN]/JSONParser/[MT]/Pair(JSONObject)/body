@@ -1,0 +1,8 @@
+{
+  String property;
+  Object value;
+  property=JsonString();
+  jj_consume_token(24);
+  value=JsonValue();
+  o.put(property,value);
+}

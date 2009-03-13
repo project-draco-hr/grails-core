@@ -1,0 +1,7 @@
+{
+  JSONWriter writer=json.getWriter();
+  writer.object();
+  writer.key("class").value(referencedDomainClass.getName());
+  writer.key("id").value(extractValue(refObj,idProperty));
+  writer.endObject();
+}

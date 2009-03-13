@@ -1,0 +1,36 @@
+{
+  if (mappings.getClass(domainClass.getFullName()) == null) {
+    RootClass root=new RootClass();
+    bindClass(domainClass,root,mappings);
+    Mapping m=getMapping(domainClass);
+    if (m != null) {
+      CacheConfig cc=m.getCache();
+      if (cc != null && cc.getEnabled()) {
+        root.setCacheConcurrencyStrategy(cc.getUsage());
+        root.setLazyPropertiesCacheable(!"non-lazy".equals(cc.getInclude()));
+      }
+      Integer bs=m.getBatchSize();
+      if (bs != null) {
+        root.setBatchSize(bs.intValue());
+      }
+      if (m.getDynamicUpdate()) {
+        root.setDynamicUpdate(true);
+      }
+      if (m.getDynamicInsert()) {
+        root.setDynamicInsert(true);
+      }
+    }
+    bindRootPersistentClassCommonValues(domainClass,root,mappings);
+    if (!domainClass.getSubClasses().isEmpty()) {
+      boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
+      if (!tablePerSubclass) {
+        bindDiscriminatorProperty(root.getTable(),root,mappings);
+      }
+      bindSubClasses(domainClass,root,mappings);
+    }
+    mappings.addClass(root);
+  }
+ else {
+    LOG.info("[GrailsDomainBinder] Class [" + domainClass.getFullName() + "] is already mapped, skipping.. ");
+  }
+}

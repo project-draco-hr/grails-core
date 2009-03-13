@@ -1,0 +1,23 @@
+{
+  if (getCurrent() == null && stack.peek() == BuilderMode.OBJECT)   throw new IllegalArgumentException("only call to [element { }] is allowed when creating array");
+  try {
+    int retVal=0;
+    if (stack.peek().equals(BuilderMode.ARRAY)) {
+      writeObject();
+      retVal=1;
+    }
+    if (value instanceof Collection) {
+      Collection c=(Collection)value;
+      writer.key(String.valueOf(key));
+      handleCollectionRecurse(c);
+    }
+ else {
+      writer.key(String.valueOf(key));
+      json.convertAnother(value);
+    }
+    return retVal != 0 ? retVal : null;
+  }
+ catch (  JSONException e) {
+    throw new IllegalArgumentException("invalid element");
+  }
+}

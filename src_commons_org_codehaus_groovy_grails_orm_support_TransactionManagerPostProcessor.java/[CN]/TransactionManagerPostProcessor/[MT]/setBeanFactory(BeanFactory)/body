@@ -1,0 +1,6 @@
+{
+  if (!(beanFactory instanceof ConfigurableListableBeanFactory)) {
+    throw new IllegalArgumentException("TransactionManagerPostProcessor requires a ConfigurableListableBeanFactory");
+  }
+  this.beanFactory=(ConfigurableListableBeanFactory)beanFactory;
+}

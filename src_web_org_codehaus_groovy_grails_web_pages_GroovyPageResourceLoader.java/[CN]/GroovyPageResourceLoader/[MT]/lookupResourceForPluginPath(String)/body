@@ -1,0 +1,21 @@
+{
+  Resource resource=null;
+  String pluginPath=location.substring(8,location.length());
+  int firstSlash=pluginPath.indexOf('/');
+  if (firstSlash > -1) {
+    String pluginName=pluginPath.substring(0,firstSlash);
+    String viewPath=pluginPath.substring(firstSlash + 1,pluginPath.length());
+    Resource pluginBase=GrailsPluginUtils.getPluginDirForName(pluginName);
+    if (pluginBase != null) {
+      try {
+        Resource tmp=new FileSystemResource(pluginBase.getFile().getAbsolutePath() + '/' + viewPath);
+        if (tmp.exists()) {
+          resource=tmp;
+        }
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+  return resource;
+}

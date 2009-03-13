@@ -1,0 +1,11 @@
+{
+  Writer out=webRequest.getOut();
+  if (out instanceof JspWriter) {
+    return (JspWriter)out;
+  }
+ else {
+    out=new JspWriterDelegate(out);
+    webRequest.setOut(out);
+    return (JspWriter)out;
+  }
+}

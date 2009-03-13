@@ -1,0 +1,6 @@
+{
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Class clazz=cl.parseClass("class OverviewController { }");
+  GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
+  assertEquals(2,grailsClass.getURIs().length);
+}

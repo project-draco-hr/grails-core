@@ -1,0 +1,15 @@
+{
+  checkInitialised();
+  for (  Object aPluginList : pluginList) {
+    GrailsPlugin plugin=(GrailsPlugin)aPluginList;
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      final Class[] artefacts=plugin.getProvidedArtefacts();
+      for (      Class artefact : artefacts) {
+        String shortName=GrailsNameUtils.getShortName(artefact);
+        if (!isAlreadyRegistered(application,artefact,shortName)) {
+          application.addArtefact(artefact);
+        }
+      }
+    }
+  }
+}

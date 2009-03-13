@@ -1,0 +1,25 @@
+{
+  JSONArray array=new JSONArray();
+  jj_consume_token(25);
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case DIGITS:
+case SINGLE_QUOTE_LITERAL:
+case DOUBLE_QUOTE_LITERAL:
+case 20:
+case 22:
+case 25:
+case 27:
+case 28:
+case 29:
+    Elements(array);
+  break;
+default :
+jj_la1[4]=jj_gen;
+;
+}
+jj_consume_token(26);
+{
+if (true) return array;
+}
+throw new Error("Missing return statement in function");
+}

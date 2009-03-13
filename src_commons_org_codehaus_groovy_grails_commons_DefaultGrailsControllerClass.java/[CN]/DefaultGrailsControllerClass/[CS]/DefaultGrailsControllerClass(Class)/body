@@ -1,0 +1,41 @@
+{
+  super(clazz,CONTROLLER);
+  this.uri=SLASH + WordUtils.uncapitalize(getName());
+  defaultActionName=(String)getPropertyOrStaticPropertyOrFieldValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  if (defaultActionName == null) {
+    defaultActionName=INDEX_ACTION;
+  }
+  Collection closureNames=new ArrayList();
+  this.uri2viewMap=new HashMap();
+  this.uri2closureMap=new HashMap();
+  this.viewNames=new HashMap();
+  this.controllerPath=uri + SLASH;
+  PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
+  for (int i=0; i < propertyDescriptors.length; i++) {
+    PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
+    Closure closure=(Closure)getPropertyOrStaticPropertyOrFieldValue(propertyDescriptor.getName(),Closure.class);
+    if (closure != null) {
+      String closureName=propertyDescriptor.getName();
+      if (closureName.endsWith(FLOW_SUFFIX)) {
+        String flowId=closureName.substring(0,closureName.length() - FLOW_SUFFIX.length());
+        flows.put(flowId,closure);
+        closureName=flowId;
+      }
+ else {
+        configureCommandObjectIfPresent(closure,closureName);
+      }
+      closureNames.add(closureName);
+      configureMappingForClosureProperty(controllerPath,closureName);
+    }
+ else     if (ALLOWED_HTTP_METHODS_PROPERTY.equals(propertyDescriptor.getName())) {
+      if (!GrailsClassUtils.isStaticProperty(clazz,ALLOWED_HTTP_METHODS_PROPERTY)) {
+        log.error("The allowedMethods property in " + clazz.getName() + " should be declared static.  "+ "The non static version is supported for now but has been deprecated and may not work in "+ "future versions of Grails.");
+      }
+    }
+  }
+  if (!getReference().isReadableProperty(defaultActionName) && closureNames.size() == 1) {
+    defaultActionName=((String)closureNames.iterator().next());
+  }
+  configureDefaultActionIfSet();
+  configureURIsForCurrentState();
+}

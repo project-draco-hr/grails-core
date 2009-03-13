@@ -1,0 +1,8 @@
+{
+  MultipartHttpServletRequest resolvedMultipartRequest=(MultipartHttpServletRequest)request.getAttribute(MultipartHttpServletRequest.class.getName());
+  if (resolvedMultipartRequest == null) {
+    resolvedMultipartRequest=resolver.resolveMultipart(request);
+    request.setAttribute(MultipartHttpServletRequest.class.getName(),resolvedMultipartRequest);
+  }
+  return resolvedMultipartRequest;
+}

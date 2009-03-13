@@ -1,0 +1,11 @@
+{
+  String actionName="";
+  if (actionRef instanceof String) {
+    actionName=(String)actionRef;
+  }
+ else   if (actionRef instanceof Closure) {
+    Closure c=(Closure)actionRef;
+    actionName=GrailsClassUtils.findPropertyNameForValue(target,c);
+  }
+  return actionName;
+}

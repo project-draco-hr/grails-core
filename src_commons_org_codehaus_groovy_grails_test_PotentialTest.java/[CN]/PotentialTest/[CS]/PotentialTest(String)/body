@@ -1,0 +1,11 @@
+{
+  if (containsMethodName(testPattern)) {
+    int pos=testPattern.lastIndexOf('.');
+    this.methodName=testPattern.substring(pos + 1);
+    this.classPattern=testPattern.substring(0,pos);
+  }
+ else {
+    this.classPattern=testPattern;
+  }
+  this.filePattern=classPatternToFilePattern(this.classPattern);
+}

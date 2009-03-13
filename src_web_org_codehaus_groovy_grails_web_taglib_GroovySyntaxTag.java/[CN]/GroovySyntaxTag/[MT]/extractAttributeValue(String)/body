@@ -1,0 +1,7 @@
+{
+  if (StringUtils.isBlank(attr))   return "";
+  if (attr.startsWith("\"") && attr.endsWith("\"") && attr.length() > 1) {
+    attr=attr.substring(1,attr.length() - 1);
+  }
+  return attr;
+}

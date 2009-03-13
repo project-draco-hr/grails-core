@@ -1,0 +1,4 @@
+{
+  if (cfgName == null || "default".equals(cfgName))   ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,null);
+ else   ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,getNamedConfig(cfgName));
+}

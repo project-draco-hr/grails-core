@@ -1,0 +1,15 @@
+{
+  NamespaceHandler handler=namespaceHandlers.get(namespace);
+  ParserContext parserContext=new ParserContext(readerContext,new BeanDefinitionParserDelegate(readerContext));
+  final DynamicElementReader dynamicElementReader=new DynamicElementReader(namespace,this.namespaces,handler,parserContext);
+  dynamicElementReader.setClassLoader(classLoader);
+  if (currentBeanConfig != null) {
+    dynamicElementReader.setBeanConfiguration(currentBeanConfig);
+  }
+ else   if (!decorator) {
+    currentBeanConfig=new DefaultBeanConfiguration(namespace);
+    dynamicElementReader.setBeanConfiguration(currentBeanConfig);
+  }
+  dynamicElementReader.setBeanDecorator(decorator);
+  return dynamicElementReader;
+}

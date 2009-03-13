@@ -1,0 +1,7 @@
+{
+  PropertyConfig pc=getPropertyConfig(property);
+  if (pc != null && pc.getIndexColumn() != null && pc.getIndexColumn().getColumn() != null) {
+    return pc.getIndexColumn().getColumn();
+  }
+  return namingStrategy.propertyToColumnName(property.getName()) + UNDERSCORE + IndexedCollection.DEFAULT_INDEX_COLUMN_NAME;
+}

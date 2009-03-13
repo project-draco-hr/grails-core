@@ -1,0 +1,35 @@
+{
+  if (params == null)   params=Collections.EMPTY_MAP;
+  UrlMapping mapping=lookupMapping(controller,action,params);
+  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
+    mapping=mappingsLookup.get(new UrlMappingKey(controller,action,Collections.EMPTY_SET));
+  }
+  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
+    Set lookupParams=new HashSet(DEFAULT_ACTION_PARAMS);
+    Set paramKeys=new HashSet(params.keySet());
+    paramKeys.removeAll(lookupParams);
+    lookupParams.addAll(paramKeys);
+    mapping=mappingsLookup.get(new UrlMappingKey(controller,null,lookupParams));
+    if (mapping == null) {
+      lookupParams.removeAll(paramKeys);
+      mapping=mappingsLookup.get(new UrlMappingKey(controller,null,lookupParams));
+    }
+  }
+  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
+    Set lookupParams=new HashSet(DEFAULT_CONTROLLER_PARAMS);
+    Set paramKeys=new HashSet(params.keySet());
+    paramKeys.removeAll(lookupParams);
+    lookupParams.addAll(paramKeys);
+    mapping=mappingsLookup.get(new UrlMappingKey(null,null,lookupParams));
+    if (mapping == null) {
+      lookupParams.removeAll(paramKeys);
+      mapping=mappingsLookup.get(new UrlMappingKey(null,null,lookupParams));
+    }
+  }
+  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
+    return new DefaultUrlCreator(controller,action);
+  }
+ else {
+    return mapping;
+  }
+}

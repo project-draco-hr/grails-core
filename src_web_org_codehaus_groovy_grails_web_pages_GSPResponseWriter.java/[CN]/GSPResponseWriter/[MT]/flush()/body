@@ -1,0 +1,29 @@
+{
+  if (trouble)   return;
+  super.flush();
+  if (out1 == null) {
+    try {
+      out1=response.getWriter();
+    }
+ catch (    IOException e) {
+      LOG.debug("I/O excepton flushing output in GSP response writer: " + e.getMessage(),e);
+      trouble=true;
+      return;
+    }
+  }
+  try {
+    String contents=out0.toString();
+    out1.write(contents.toCharArray());
+    try {
+      totalLength+=getContentLength(contents);
+    }
+ catch (    UnsupportedEncodingException e) {
+      LOG.error("Encoding error getting content length: " + e.getMessage(),e);
+    }
+    out0.reset();
+  }
+ catch (  IOException e) {
+    LOG.debug("I/O excepton flushing output in GSP response writer: " + e.getMessage(),e);
+    trouble=true;
+  }
+}

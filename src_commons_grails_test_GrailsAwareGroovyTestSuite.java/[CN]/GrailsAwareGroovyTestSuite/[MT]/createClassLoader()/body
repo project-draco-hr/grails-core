@@ -1,0 +1,6 @@
+{
+  gcl=new GrailsAwareClassLoader(getClass().getClassLoader());
+  gcl.setClassInjectors(resolveClassInjectors());
+  gcl.setResourceLoader(new GrailsResourceLoader(resolveGrailsResources()));
+  customizeClassLoader(gcl);
+}

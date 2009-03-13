@@ -1,0 +1,30 @@
+{
+  while (enabled) {
+    int sleepTime=DefaultGrailsPluginManager.SCAN_INTERVAL;
+    if (scanner != null && scanner.isAlive()) {
+      LOG.warn("plugin change scanner is still running after the scanning interval. You should set " + "the grails.scan.interval system property to a higher value. The current value is " + DefaultGrailsPluginManager.SCAN_INTERVAL + " ms");
+      scanner.interrupt();
+    }
+ else {
+      try {
+        scanner=new Thread(){
+          public void run(){
+            pluginManager.checkForChanges();
+          }
+        }
+;
+        scanner.start();
+      }
+ catch (      Throwable e) {
+        GrailsUtil.deepSanitize(e);
+        LOG.error("Error occured scanning for changes: " + e.getMessage(),e);
+        sleepTime=DefaultGrailsPluginManager.SCAN_INTERVAL * 5;
+      }
+    }
+    try {
+      sleep(sleepTime);
+    }
+ catch (    InterruptedException ie) {
+    }
+  }
+}

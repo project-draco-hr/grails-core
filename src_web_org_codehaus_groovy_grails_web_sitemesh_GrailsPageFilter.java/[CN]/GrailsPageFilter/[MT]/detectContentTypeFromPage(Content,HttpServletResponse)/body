@@ -1,0 +1,6 @@
+{
+  String contentType=page.getProperty("meta.http-equiv.Content-Type");
+  if (contentType != null && "text/html".equals(response.getContentType())) {
+    response.setContentType(contentType);
+  }
+}

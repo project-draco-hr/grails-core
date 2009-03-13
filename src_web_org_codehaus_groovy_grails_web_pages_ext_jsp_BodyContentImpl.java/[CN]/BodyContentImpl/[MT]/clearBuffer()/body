@@ -1,0 +1,8 @@
+{
+  if (buf != null) {
+    buf=new CharArrayWriter();
+  }
+ else {
+    throw new IOException("Can't clear");
+  }
+}

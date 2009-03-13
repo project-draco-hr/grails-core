@@ -1,0 +1,16 @@
+{
+  DynamicMethods dm=new AbstractDynamicMethods(){
+  }
+;
+  dm.addDynamicConstructor(new AbstractDynamicConstructor(new Class[]{String.class,Integer.class}){
+    public Object invoke(    Class clazz,    Object[] args){
+      return args[0] + "" + args[1];
+    }
+  }
+);
+  InvocationCallback callback=new InvocationCallback();
+  Object result=dm.invokeConstructor(new Object[]{"test",new Integer(1)},callback);
+  assertTrue(callback.isInvoked());
+  assertNotNull(result);
+  assertEquals("test1",result);
+}

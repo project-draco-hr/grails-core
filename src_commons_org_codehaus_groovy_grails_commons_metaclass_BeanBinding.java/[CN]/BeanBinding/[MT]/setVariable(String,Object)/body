@@ -1,0 +1,4 @@
+{
+  MetaClass mc=getBeanMetaClass();
+  mc.setProperty(bean,name,value);
+}

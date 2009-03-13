@@ -1,0 +1,4 @@
+{
+  if (key instanceof String)   return get((String)key);
+ else   return getConfig().get(key);
+}

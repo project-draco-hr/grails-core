@@ -1,0 +1,23 @@
+{
+  if (!String.class.isInstance(propertyType)) {
+    throw new MissingPropertyException("Email constraint can only be applied to a String property",EMAIL_CONSTRAINT,owningClass);
+  }
+  Constraint c=(Constraint)this.appliedConstraints.get(EMAIL_CONSTRAINT);
+  if (email) {
+    if (c != null) {
+      c.setParameter(Boolean.valueOf(email));
+    }
+ else {
+      c=new EmailConstraint();
+      c.setOwningClass(this.owningClass);
+      c.setPropertyName(this.propertyName);
+      c.setParameter(Boolean.valueOf(email));
+      this.appliedConstraints.put(EMAIL_CONSTRAINT,c);
+    }
+  }
+ else {
+    if (c != null) {
+      this.appliedConstraints.remove(EMAIL_CONSTRAINT);
+    }
+  }
+}

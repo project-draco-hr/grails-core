@@ -1,0 +1,12 @@
+{
+  String[] loadAfterNames=plugin.getLoadAfterNames();
+  for (  Object delayedLoadPlugin : this.delayedLoadPlugins) {
+    GrailsPlugin other=(GrailsPlugin)delayedLoadPlugin;
+    for (    String name : loadAfterNames) {
+      if (other.getName().equals(name)) {
+        return hasDelayedDependencies(other) || areDependenciesResolved(other);
+      }
+    }
+  }
+  return false;
+}

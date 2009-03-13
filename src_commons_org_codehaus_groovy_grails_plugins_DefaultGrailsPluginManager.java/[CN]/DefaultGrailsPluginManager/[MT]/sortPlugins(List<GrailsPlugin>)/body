@@ -1,0 +1,24 @@
+{
+  List<GrailsPlugin> newList=new ArrayList<GrailsPlugin>(pluginList);
+  for (  GrailsPlugin plugin : pluginList) {
+    int i=newList.indexOf(plugin);
+    for (    String loadBefore : plugin.getLoadBeforeNames()) {
+      final GrailsPlugin loadBeforePlugin=getGrailsPlugin(loadBefore);
+      int j=newList.indexOf(loadBeforePlugin);
+      if (i > j) {
+        newList.remove(plugin);
+        newList.add(j,plugin);
+      }
+    }
+    i=newList.indexOf(plugin);
+    for (    String loadAfter : plugin.getLoadAfterNames()) {
+      final GrailsPlugin loadAfterPlugin=getGrailsPlugin(loadAfter);
+      int j=newList.indexOf(loadAfterPlugin);
+      if (i < j) {
+        newList.remove(plugin);
+        newList.add(j,plugin);
+      }
+    }
+  }
+  return newList;
+}

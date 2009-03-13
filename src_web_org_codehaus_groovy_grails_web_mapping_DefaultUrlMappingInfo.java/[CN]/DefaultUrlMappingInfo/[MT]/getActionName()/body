@@ -1,0 +1,8 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+  String name=webRequest != null ? checkDispatchAction(webRequest.getCurrentRequest(),null) : null;
+  if (name == null) {
+    name=evaluateNameForValue(this.actionName,webRequest);
+  }
+  return name;
+}

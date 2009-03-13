@@ -1,0 +1,21 @@
+{
+  final int nestedIndex=nestedKey.indexOf('.');
+  if (nestedIndex > -1) {
+    final String nestedPrefix=nestedKey.substring(0,nestedIndex);
+    Object prefixValue=nestedLevel.get(nestedPrefix);
+    if (prefixValue == null) {
+      prefixValue=new GrailsParameterMap(new HashMap(),request);
+      nestedLevel.put(nestedPrefix,prefixValue);
+    }
+    if (prefixValue instanceof Map) {
+      Map nestedMap=(Map)prefixValue;
+      if (nestedIndex < nestedKey.length() - 1) {
+        final String remainderOfKey=nestedKey.substring(nestedIndex + 1,nestedKey.length());
+        nestedMap.put(remainderOfKey,getParameterValue(requestMap,key));
+        if (remainderOfKey.indexOf('.') > -1) {
+          processNestedKeys(request,requestMap,key,remainderOfKey,nestedMap);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  foundPluginClasses.clear();
+  try {
+    Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/**/*GrailsPlugin.class");
+    if (resources.length > 0) {
+      loadCorePluginsFromResources(resources);
+    }
+ else {
+      LOG.warn("WARNING: Grails was unable to load core plugins dynamically. This is normally a problem with the container class loader configuration, see troubleshooting and FAQ for more info. ");
+      loadCorePluginsStatically();
+    }
+  }
+ catch (  IOException e) {
+    throw new PluginException("I/O exception configuring core plug-ins: " + e.getMessage(),e);
+  }
+  return foundPluginClasses;
+}

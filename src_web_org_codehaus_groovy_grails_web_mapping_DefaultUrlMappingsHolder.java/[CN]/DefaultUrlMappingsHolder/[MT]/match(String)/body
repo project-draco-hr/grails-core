@@ -1,0 +1,17 @@
+{
+  UrlMappingInfo info=null;
+  if (cachedMatches.containsKey(uri)) {
+    return cachedMatches.get(uri);
+  }
+ else {
+    for (    UrlMapping mapping : mappings) {
+      if (LOG.isDebugEnabled())       LOG.debug("Attempting to match URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "]");
+      info=mapping.match(uri);
+      if (info != null) {
+        cachedMatches.put(uri,info);
+        break;
+      }
+    }
+  }
+  return info;
+}

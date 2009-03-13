@@ -1,0 +1,20 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+switch (scope) {
+case PAGE_SCOPE:
+    removeAttribute(name);
+  break;
+case REQUEST_SCOPE:
+request.removeAttribute(name);
+break;
+case SESSION_SCOPE:
+HttpSession session=request.getSession(false);
+if (session != null) session.removeAttribute(name);
+break;
+case APPLICATION_SCOPE:
+servletContext.removeAttribute(name);
+break;
+default :
+removeAttribute(name);
+}
+}

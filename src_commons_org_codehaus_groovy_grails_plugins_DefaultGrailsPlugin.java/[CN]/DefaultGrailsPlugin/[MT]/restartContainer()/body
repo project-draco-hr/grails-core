@@ -1,0 +1,14 @@
+{
+  try {
+    BuildSettings settings=BuildSettingsHolder.getSettings();
+    File classesDir=settings != null ? settings.getClassesDir() : null;
+    if (classesDir == null) {
+      Resource r=this.applicationContext.getResource("/WEB-INF/classes");
+      classesDir=r.getFile();
+    }
+    classesDir.setLastModified(System.currentTimeMillis());
+  }
+ catch (  IOException e) {
+    LOG.error("Error retrieving /WEB-INF/classes directory: " + e.getMessage(),e);
+  }
+}

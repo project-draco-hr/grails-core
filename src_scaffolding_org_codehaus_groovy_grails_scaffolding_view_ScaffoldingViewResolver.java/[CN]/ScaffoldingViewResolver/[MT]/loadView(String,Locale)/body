@@ -1,0 +1,40 @@
+{
+  final View resolvedView=super.loadView(viewName,locale);
+  if (templateGenerator == null || resolvedView instanceof GroovyPageView) {
+    return resolvedView;
+  }
+ else {
+    GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+    List controllerActions=(List)scaffoldedActionMap.get(webRequest.getControllerName());
+    if (controllerActions != null && controllerActions.contains(webRequest.getActionName())) {
+      GrailsDomainClass domainClass=(GrailsDomainClass)scaffoldedDomains.get(webRequest.getControllerName());
+      if (domainClass != null) {
+        String viewFileName;
+        final int i=viewName.lastIndexOf('/');
+        if (i > -1) {
+          viewFileName=viewName.substring(i,viewName.length());
+        }
+ else {
+          viewFileName=viewName;
+        }
+        final ViewKey viewKey=new ViewKey(webRequest.getControllerName(),viewFileName);
+        View v=scaffoldedViews.get(viewKey);
+        if (v == null) {
+          String viewCode=null;
+          try {
+            viewCode=generateViewSource(webRequest,domainClass);
+          }
+ catch (          Exception e) {
+            GrailsUtil.deepSanitize(e);
+            LOG.error("Error generating scaffolded view [" + viewName + "]: "+ e.getMessage(),e);
+            return resolvedView;
+          }
+          v=createScaffoldedView(viewName,viewCode);
+          scaffoldedViews.put(viewKey,v);
+        }
+        if (v != null)         return v;
+      }
+    }
+  }
+  return resolvedView;
+}

@@ -1,0 +1,3 @@
+{
+  return GrailsNameUtils.getScriptName(getName()) + '-' + getVersion();
+}

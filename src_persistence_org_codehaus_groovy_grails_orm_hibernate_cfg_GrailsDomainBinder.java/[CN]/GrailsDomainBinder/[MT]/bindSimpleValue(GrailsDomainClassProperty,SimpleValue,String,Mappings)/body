@@ -1,0 +1,4 @@
+{
+  PropertyConfig propertyConfig=getPropertyConfig(grailsProp);
+  bindSimpleValue(grailsProp,simpleValue,path,propertyConfig);
+}

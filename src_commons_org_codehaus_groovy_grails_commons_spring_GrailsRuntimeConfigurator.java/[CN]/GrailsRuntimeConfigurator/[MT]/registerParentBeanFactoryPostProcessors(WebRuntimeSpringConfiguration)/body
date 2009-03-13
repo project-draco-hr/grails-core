@@ -1,0 +1,9 @@
+{
+  if (parent != null) {
+    Map parentPostProcessors=parent.getBeansOfType(BeanFactoryPostProcessor.class);
+    for (    Object o : parentPostProcessors.values()) {
+      BeanFactoryPostProcessor postProcessor=(BeanFactoryPostProcessor)o;
+      ((ConfigurableApplicationContext)springConfig.getUnrefreshedApplicationContext()).addBeanFactoryPostProcessor(postProcessor);
+    }
+  }
+}

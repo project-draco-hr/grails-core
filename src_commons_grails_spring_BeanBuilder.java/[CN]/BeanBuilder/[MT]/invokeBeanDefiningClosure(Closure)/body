@@ -1,0 +1,6 @@
+{
+  callable.setDelegate(this);
+  callable.call();
+  finalizeDeferredProperties();
+  return this;
+}

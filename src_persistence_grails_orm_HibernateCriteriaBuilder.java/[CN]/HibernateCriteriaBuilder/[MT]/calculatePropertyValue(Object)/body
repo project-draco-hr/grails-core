@@ -1,0 +1,6 @@
+{
+  if (propertyValue instanceof GString) {
+    return propertyValue.toString();
+  }
+  return propertyValue;
+}

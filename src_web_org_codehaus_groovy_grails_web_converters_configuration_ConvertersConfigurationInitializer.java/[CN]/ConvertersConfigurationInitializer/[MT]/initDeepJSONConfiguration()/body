@@ -1,0 +1,5 @@
+{
+  DefaultConverterConfiguration<JSON> deepConfig=new DefaultConverterConfiguration<JSON>(ConvertersConfigurationHolder.getConverterConfiguration(JSON.class));
+  deepConfig.registerObjectMarshaller(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller());
+  ConvertersConfigurationHolder.setNamedConverterConfiguration(JSON.class,"deep",deepConfig);
+}

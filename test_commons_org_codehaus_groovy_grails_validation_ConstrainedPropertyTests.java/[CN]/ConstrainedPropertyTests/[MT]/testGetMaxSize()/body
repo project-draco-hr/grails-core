@@ -1,0 +1,17 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(this.getClass(),"testURL",String.class);
+  assertNull(cp.getMaxSize());
+  cp.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(5));
+  assertEquals(5,cp.getMaxSize().intValue());
+  cp=new ConstrainedProperty(this.getClass(),"testURL",String.class);
+  cp.applyConstraint(ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(10,20));
+  assertEquals(20,cp.getMaxSize().intValue());
+  cp=new ConstrainedProperty(this.getClass(),"testURL",String.class);
+  cp.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(29));
+  cp.applyConstraint(ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(11,21));
+  assertEquals(21,cp.getMaxSize().intValue());
+  cp=new ConstrainedProperty(this.getClass(),"testURL",String.class);
+  cp.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(12));
+  cp.applyConstraint(ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(9,22));
+  assertEquals(12,cp.getMaxSize().intValue());
+}

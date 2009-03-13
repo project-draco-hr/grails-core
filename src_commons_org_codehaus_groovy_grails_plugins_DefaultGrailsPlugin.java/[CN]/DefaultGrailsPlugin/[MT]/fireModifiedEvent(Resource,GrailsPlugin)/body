@@ -1,0 +1,23 @@
+{
+  Class loadedClass=null;
+  String className=GrailsResourceUtils.getClassName(resource);
+  Object source;
+  if (className != null) {
+    Class oldClass=application.getClassForName(className);
+    loadedClass=attemptClassReload(className);
+    source=loadedClass != null ? loadedClass : oldClass;
+  }
+ else {
+    source=resource;
+  }
+  if (loadedClass != null && Modifier.isAbstract(loadedClass.getModifiers())) {
+    restartContainer();
+  }
+ else   if (source != null) {
+    Map event=notifyOfEvent(EVENT_ON_CHANGE,source);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Firing onChange event listener with event object [" + event + "]");
+    }
+    getManager().informObservers(getName(),event);
+  }
+}

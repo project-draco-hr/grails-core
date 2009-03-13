@@ -1,0 +1,38 @@
+{
+  boolean querySeparator=false;
+  for (  Object name : params.keySet()) {
+    if (name.equals(GrailsControllerClass.CONTROLLER) || name.equals(GrailsControllerClass.ACTION) || name.equals(ARGUMENT_ID))     continue;
+    if (!querySeparator) {
+      actualUriBuf.append('?');
+      querySeparator=true;
+    }
+ else {
+      actualUriBuf.append(ENTITY_AMPERSAND);
+    }
+    Object value=params.get(name);
+    if (value instanceof Collection) {
+      Collection values=(Collection)value;
+      Iterator valueIterator=values.iterator();
+      while (valueIterator.hasNext()) {
+        Object currentValue=valueIterator.next();
+        appendRequestParam(actualUriBuf,name,currentValue,request);
+        if (valueIterator.hasNext()) {
+          actualUriBuf.append(ENTITY_AMPERSAND);
+        }
+      }
+    }
+ else     if (value != null && value.getClass().isArray()) {
+      Object[] array=(Object[])value;
+      for (int j=0; j < array.length; j++) {
+        Object currentValue=array[j];
+        appendRequestParam(actualUriBuf,name,currentValue,request);
+        if (j < (array.length - 1)) {
+          actualUriBuf.append(ENTITY_AMPERSAND);
+        }
+      }
+    }
+ else {
+      appendRequestParam(actualUriBuf,name,value,request);
+    }
+  }
+}

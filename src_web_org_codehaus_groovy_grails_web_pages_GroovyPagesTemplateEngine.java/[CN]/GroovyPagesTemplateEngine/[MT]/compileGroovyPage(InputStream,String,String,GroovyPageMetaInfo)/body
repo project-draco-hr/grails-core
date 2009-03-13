@@ -1,0 +1,16 @@
+{
+  Class scriptClass;
+  try {
+    scriptClass=this.classLoader.parseClass(in,name);
+  }
+ catch (  CompilationFailedException e) {
+    LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);
+    int lineNumber=GrailsExceptionResolver.extractLineNumber(e);
+    final int[] lineMappings=metaInfo.getLineNumbers();
+    if (lineNumber > 0 && lineNumber < lineMappings.length) {
+      lineNumber=lineMappings[lineNumber - 1];
+    }
+    throw new GroovyPagesException("Could not parse script [" + name + "]: "+ e.getMessage(),e,lineNumber,pageName);
+  }
+  return scriptClass;
+}

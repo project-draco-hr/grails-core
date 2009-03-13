@@ -1,0 +1,3 @@
+{
+  return getGrailsApplication().getArtefactInfo(DomainClassArtefactHandler.TYPE).getClassesByName().keySet();
+}

@@ -1,0 +1,12 @@
+{
+  List scripts=new ArrayList();
+  if (settings.getGrailsHome() != null) {
+    addCommandScripts(new File(settings.getGrailsHome(),"scripts"),scripts);
+  }
+  addCommandScripts(new File(settings.getBaseDir(),"scripts"),scripts);
+  addCommandScripts(new File(settings.getUserHome(),".grails/scripts"),scripts);
+  for (  File dir : listKnownPluginDirs(settings)) {
+    addPluginScripts(dir,scripts);
+  }
+  return scripts;
+}

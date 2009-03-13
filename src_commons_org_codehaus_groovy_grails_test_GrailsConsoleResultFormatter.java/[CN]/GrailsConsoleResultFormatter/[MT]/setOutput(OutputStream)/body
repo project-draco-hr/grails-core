@@ -1,0 +1,8 @@
+{
+  if (outputStream instanceof PrintStream) {
+    this.out=(PrintStream)outputStream;
+  }
+ else {
+    this.out=new PrintStream(outputStream);
+  }
+}

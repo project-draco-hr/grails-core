@@ -1,0 +1,20 @@
+{
+  String uri=this.urlPathHelper.getPathWithinApplication(request);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("[SimpleGrailsController] Processing request for uri [" + uri + "]");
+  }
+  RequestAttributes ra=RequestContextHolder.getRequestAttributes();
+  if (!(ra instanceof GrailsWebRequest)) {
+    throw new IllegalStateException("Bound RequestContext is not an instance of GrailsWebRequest");
+  }
+  GrailsWebRequest webRequest=(GrailsWebRequest)ra;
+  ApplicationContext context=webRequest.getAttributes().getApplicationContext();
+  SimpleGrailsControllerHelper helper=new SimpleGrailsControllerHelper(this.application,context,this.servletContext);
+  ModelAndView mv=helper.handleURI(uri,webRequest);
+  if (LOG.isDebugEnabled()) {
+    if (mv != null) {
+      LOG.debug("[SimpleGrailsController] Forwarding model and view [" + mv + "] with class ["+ (mv.getView() != null ? mv.getView().getClass().getName() : mv.getViewName())+ "]");
+    }
+  }
+  return mv;
+}

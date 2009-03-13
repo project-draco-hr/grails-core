@@ -1,0 +1,23 @@
+{
+  super(target,objectName);
+  bean=(BeanWrapper)((BeanPropertyBindingResult)super.getBindingResult()).getPropertyAccessor();
+  Object tmpTransients=GrailsClassUtils.getStaticPropertyValue(bean.getWrappedClass(),GrailsDomainClassProperty.TRANSIENT);
+  if (tmpTransients instanceof List) {
+    this.transients=(List)tmpTransients;
+  }
+  String[] disallowed=new String[0];
+  GrailsApplication grailsApplication=ApplicationHolder.getApplication();
+  if (grailsApplication != null && grailsApplication.isArtefactOfType(DomainClassArtefactHandler.TYPE,target.getClass())) {
+    if (target instanceof GroovyObject) {
+      disallowed=GROOVY_DOMAINCLASS_DISALLOWED;
+    }
+ else {
+      disallowed=DOMAINCLASS_DISALLOWED;
+    }
+  }
+ else   if (target instanceof GroovyObject) {
+    disallowed=GROOVY_DISALLOWED;
+  }
+  setDisallowedFields(disallowed);
+  setAllowedFields(ALL_OTHER_FIELDS_ALLOWED_BY_DEFAULT);
+}

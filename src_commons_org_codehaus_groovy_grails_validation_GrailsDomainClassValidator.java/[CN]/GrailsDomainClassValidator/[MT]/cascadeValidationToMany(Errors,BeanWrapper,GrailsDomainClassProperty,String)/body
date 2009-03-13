@@ -1,0 +1,16 @@
+{
+  Object collection=bean.getPropertyValue(propertyName);
+  if (collection instanceof Collection) {
+    for (Iterator i=((Collection)collection).iterator(); i.hasNext(); ) {
+      Object associatedObject=i.next();
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+    }
+  }
+ else   if (collection instanceof Map) {
+    Map map=(Map)collection;
+    for (Iterator i=map.keySet().iterator(); i.hasNext(); ) {
+      Object key=i.next();
+      cascadeValidationToOne(errors,bean,map.get(key),persistentProperty,propertyName);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  ConverterConfiguration<JSON> cfg=ConvertersConfigurationHolder.getConverterConfiguration(JSON.class);
+  if (cfg == null)   throw new ConverterException("Default Configuration not found for class " + JSON.class.getName());
+  if (!(cfg instanceof DefaultConverterConfiguration)) {
+    cfg=new DefaultConverterConfiguration<JSON>(cfg);
+    ConvertersConfigurationHolder.setDefaultConfiguration(JSON.class,cfg);
+  }
+  ((DefaultConverterConfiguration<JSON>)cfg).registerObjectMarshaller(om,priority);
+}

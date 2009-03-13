@@ -1,0 +1,55 @@
+{
+  if (!finalPass)   return;
+  if (LOG.isDebugEnabled())   LOG.debug("parse: html");
+  String text=scan.getToken();
+  if (text.length() == 0)   return;
+  boolean contentIsWhitespace=!Pattern.compile("\\S").matcher(text).find();
+  if (!contentIsWhitespace && currentlyBufferingWhitespace) {
+    flushBufferedWhiteSpace();
+  }
+ else {
+    currentlyBufferingWhitespace=contentIsWhitespace;
+  }
+  previousContentWasNonWhitespace=!contentIsWhitespace;
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  String[] lines=splitLinesKeepingBlanks(text);
+  if (lines.length == 0)   return;
+  if (lines.length == 1) {
+    if (lines[0].length() == 0)     lines[0]="\n";
+    bufferedPrintlnToResponse('\'' + escapeGroovy((CharSequence)lines[0]) + '\'');
+  }
+ else {
+    pw.print(START_MULTILINE_STRING);
+    String prevcontent=null;
+    boolean firstLine=true;
+    for (    String line : lines) {
+      if (line.length() == 0) {
+        line="\n";
+      }
+      final String content=escapeGroovy((CharSequence)line);
+      if (firstLine) {
+        pw.print(content);
+        firstLine=false;
+      }
+ else {
+        if (!"\\n".equals(prevcontent)) {
+          incrementLineNumber();
+          pw.println();
+        }
+        pw.print(content);
+      }
+      prevcontent=content;
+    }
+    pw.print(END_MULTILINE_STRING);
+    pw.println();
+    final String constantValue=sw.toString();
+    String constantName=(String)constantsToNames.get(constantValue);
+    if (constantName == null) {
+      constantName="STATIC_HTML_CONTENT_" + constantCount++;
+      constants.put(constantName,constantValue);
+      constantsToNames.put(constantValue,constantName);
+    }
+    bufferedPrintlnToResponse(constantName);
+  }
+}

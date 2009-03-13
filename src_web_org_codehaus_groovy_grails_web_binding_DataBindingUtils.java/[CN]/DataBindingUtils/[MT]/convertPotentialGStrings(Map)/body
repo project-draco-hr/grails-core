@@ -1,0 +1,14 @@
+{
+  Map newArgs=new java.util.HashMap();
+  for (  Object key : args.keySet()) {
+    Object value=args.get(key);
+    if (key instanceof GString) {
+      key=key.toString();
+    }
+    if (value instanceof GString) {
+      value=value.toString();
+    }
+    newArgs.put(key,value);
+  }
+  return newArgs;
+}

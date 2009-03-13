@@ -1,0 +1,4 @@
+{
+  super(PROPERTY_NAME,request,response);
+  this.paramsMap=new GrailsParameterMap(request);
+}

@@ -1,0 +1,8 @@
+{
+  try {
+    converter.getWriter().value(object);
+  }
+ catch (  JSONException e) {
+    throw new ConverterException(e);
+  }
+}

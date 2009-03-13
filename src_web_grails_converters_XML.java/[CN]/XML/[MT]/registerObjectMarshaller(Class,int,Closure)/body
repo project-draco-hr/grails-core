@@ -1,0 +1,3 @@
+{
+  registerObjectMarshaller(new ClosureOjectMarshaller<XML>(clazz,callable),priority);
+}

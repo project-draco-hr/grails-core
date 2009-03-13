@@ -1,0 +1,8 @@
+{
+  Assert.notNull(grailsResourceHolder,"Property [grailsResourceHolder] must be set!");
+  this.resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
+  if (resourceLoader == null) {
+    this.resourceLoader=new GrailsResourceLoader(grailsResourceHolder.getResources());
+    GrailsResourceLoaderHolder.setResourceLoader(this.resourceLoader);
+  }
+}

@@ -1,0 +1,14 @@
+{
+  Enumeration paramNames=tryMultipartParams(request,request.getParameterNames());
+  for (; paramNames.hasMoreElements(); ) {
+    String name=(String)paramNames.nextElement();
+    if (name.startsWith(WebUtils.DISPATCH_ACTION_PARAMETER)) {
+      if (name.endsWith(".x") || name.endsWith(".y")) {
+        name=name.substring(0,name.length() - 2);
+      }
+      actionName=GrailsNameUtils.getPropertyNameRepresentation(name.substring((WebUtils.DISPATCH_ACTION_PARAMETER).length()));
+      break;
+    }
+  }
+  return actionName;
+}

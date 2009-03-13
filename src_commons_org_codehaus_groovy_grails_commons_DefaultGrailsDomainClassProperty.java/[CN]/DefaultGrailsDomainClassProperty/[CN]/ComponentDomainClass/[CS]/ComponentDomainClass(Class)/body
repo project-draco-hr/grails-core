@@ -1,0 +1,19 @@
+{
+  super(type,"");
+  PropertyDescriptor[] descriptors;
+  try {
+    descriptors=java.beans.Introspector.getBeanInfo(type).getPropertyDescriptors();
+  }
+ catch (  IntrospectionException e) {
+    throw new GrailsDomainException("Failed to use class [" + type + "] as a component. Cannot introspect! "+ e.getMessage());
+  }
+  List tmp=(List)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.TRANSIENT,List.class);
+  if (tmp != null)   this.transients=tmp;
+  this.properties=createDomainClassProperties(this,descriptors);
+  try {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),properties);
+  }
+ catch (  IntrospectionException e) {
+    LOG.error("Error reading embedded component [" + getClazz() + "] constraints: "+ e.getMessage(),e);
+  }
+}

@@ -1,0 +1,23 @@
+{
+  Value v=collection.getElement();
+  v.createForeignKey();
+  String entityName;
+  if (v instanceof ManyToOne) {
+    ManyToOne manyToOne=(ManyToOne)v;
+    entityName=manyToOne.getReferencedEntityName();
+  }
+ else {
+    entityName=((OneToMany)v).getReferencedEntityName();
+  }
+  collection.setInverse(false);
+  PersistentClass referenced=mappings.getClass(entityName);
+  Backref prop=new Backref();
+  prop.setEntityName(property.getDomainClass().getFullName());
+  prop.setName(UNDERSCORE + property.getDomainClass().getShortName() + UNDERSCORE+ property.getName()+ "Backref");
+  prop.setUpdateable(false);
+  prop.setInsertable(true);
+  prop.setCollectionRole(collection.getRole());
+  prop.setValue(collection.getKey());
+  prop.setOptional(true);
+  referenced.addProperty(prop);
+}

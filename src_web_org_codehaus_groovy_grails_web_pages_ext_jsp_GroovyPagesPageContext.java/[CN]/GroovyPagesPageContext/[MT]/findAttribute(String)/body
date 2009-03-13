@@ -1,0 +1,8 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+  int scope=getAttributesScope(name);
+  if (scope > 0) {
+    return getAttribute(name,scope);
+  }
+  return null;
+}

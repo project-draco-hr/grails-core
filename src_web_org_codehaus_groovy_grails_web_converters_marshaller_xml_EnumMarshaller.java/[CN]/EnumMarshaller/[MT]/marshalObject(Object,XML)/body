@@ -1,0 +1,18 @@
+{
+  try {
+    Class enumClass=en.getClass();
+    xml.attribute("enumType",enumClass.getName());
+    Method nameMethod=BeanUtils.findDeclaredMethod(enumClass,"name",null);
+    try {
+      xml.chars(nameMethod.invoke(en).toString());
+    }
+ catch (    Exception e) {
+    }
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  Exception e) {
+    throw new ConverterException("Error converting Enum with class " + en.getClass().getName(),e);
+  }
+}

@@ -1,0 +1,15 @@
+{
+  try {
+    return super.resumeExecution(flowExecutionKey,context);
+  }
+ catch (  FlowExecutionRestorationFailureException e) {
+    if (e.getCause() instanceof SnapshotUnmarshalException) {
+      LOG.info("Classes changed during reload, restarting flow...");
+      GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+      return super.launchExecution(webRequest.getActionName(),context.getRequestMap(),context);
+    }
+ else {
+      throw e;
+    }
+  }
+}

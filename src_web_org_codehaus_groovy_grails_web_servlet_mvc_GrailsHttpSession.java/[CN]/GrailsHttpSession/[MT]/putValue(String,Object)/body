@@ -1,0 +1,6 @@
+{
+  createSessionIfNecessary();
+synchronized (this) {
+    adaptee.setAttribute(name,value);
+  }
+}

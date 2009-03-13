@@ -1,0 +1,4 @@
+{
+  this.writer=this.prettyPrint ? new PrettyPrintJSONWriter(out) : new JSONWriter(out);
+  referenceStack=new Stack<Object>();
+}

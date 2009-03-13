@@ -1,0 +1,14 @@
+{
+  if (buildSettings != null) {
+    loadEventsScript(findEventsScript(new File(buildSettings.getUserHome(),".grails/scripts")));
+    loadEventsScript(findEventsScript(new File(buildSettings.getBaseDir(),"scripts")));
+    for (    Resource pluginBase : GrailsPluginUtils.getPluginDirectories()) {
+      try {
+        loadEventsScript(findEventsScript(new File(pluginBase.getFile(),"scripts")));
+      }
+ catch (      IOException ex) {
+        throw new RuntimeException(ex);
+      }
+    }
+  }
+}

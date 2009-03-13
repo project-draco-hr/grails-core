@@ -1,0 +1,8 @@
+{
+  Object o=null;
+  jj_consume_token(22);
+{
+    if (true)     return o;
+  }
+  throw new Error("Missing return statement in function");
+}

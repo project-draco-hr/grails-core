@@ -1,0 +1,44 @@
+{
+  boolean addedParams=false;
+  usedParams.add("controller");
+  usedParams.add("action");
+  if (encoding == null) {
+    encoding=DEFAULT_ENCODING;
+  }
+  for (  Object o1 : parameterValues.keySet()) {
+    String name=o1.toString();
+    if (!usedParams.contains(name)) {
+      if (!addedParams) {
+        uri.append(QUESTION_MARK);
+        addedParams=true;
+      }
+ else {
+        uri.append(AMPERSAND);
+      }
+      Object value=parameterValues.get(name);
+      if (value != null && value instanceof Collection) {
+        Collection multiValues=(Collection)value;
+        for (Iterator j=multiValues.iterator(); j.hasNext(); ) {
+          Object o=j.next();
+          appendValueToURI(encoding,uri,name,o);
+          if (j.hasNext()) {
+            uri.append(AMPERSAND);
+          }
+        }
+      }
+ else       if (value != null && value.getClass().isArray()) {
+        Object[] multiValues=(Object[])value;
+        for (int j=0; j < multiValues.length; j++) {
+          Object o=multiValues[j];
+          appendValueToURI(encoding,uri,name,o);
+          if (j + 1 < multiValues.length) {
+            uri.append(AMPERSAND);
+          }
+        }
+      }
+ else {
+        appendValueToURI(encoding,uri,name,value);
+      }
+    }
+  }
+}

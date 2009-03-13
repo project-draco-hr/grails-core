@@ -1,0 +1,6 @@
+{
+  if (target != null) {
+    return HtmlUtils.htmlEscape(target.toString());
+  }
+  return null;
+}

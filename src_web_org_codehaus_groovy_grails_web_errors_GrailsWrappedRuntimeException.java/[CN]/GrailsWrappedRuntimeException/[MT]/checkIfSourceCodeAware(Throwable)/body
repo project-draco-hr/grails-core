@@ -1,0 +1,12 @@
+{
+  if (cause instanceof SourceCodeAware) {
+    final SourceCodeAware codeAware=(SourceCodeAware)cause;
+    if (codeAware.getFileName() != null) {
+      if (className == null || UNKNOWN.equals(className)) {
+        className=codeAware.getFileName();
+        fileName=codeAware.getFileName();
+      }
+    }
+    if (codeAware.getLineNumber() > -1)     lineNumber=codeAware.getLineNumber();
+  }
+}

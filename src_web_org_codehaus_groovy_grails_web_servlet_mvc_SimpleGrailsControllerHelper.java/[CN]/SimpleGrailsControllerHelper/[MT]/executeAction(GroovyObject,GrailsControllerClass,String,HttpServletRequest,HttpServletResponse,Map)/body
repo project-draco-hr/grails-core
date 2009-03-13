@@ -1,0 +1,60 @@
+{
+  ClassLoader cl=Thread.currentThread().getContextClassLoader();
+  try {
+    Closure action;
+    try {
+      action=(Closure)controller.getProperty(actionName);
+    }
+ catch (    MissingPropertyException mpe) {
+      try {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        return null;
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error sending 404 error",e);
+      }
+    }
+    Object returnValue=handleAction(controller,action,request,response,params);
+    initChainModel(controller);
+    if (response.isCommitted()) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Response has been redirected, returning null model and view");
+      }
+      return null;
+    }
+ else {
+      TokenResponseHandler handler=(TokenResponseHandler)request.getAttribute(TokenResponseHandler.KEY);
+      if (handler != null && !handler.wasInvoked() && handler.wasInvalidToken()) {
+        String uri=(String)request.getAttribute(SynchronizerToken.URI);
+        if (uri == null) {
+          uri=WebUtils.getForwardURI(request);
+        }
+        try {
+          FlashScope flashScope=webRequest.getFlashScope();
+          flashScope.put("invalidToken",request.getParameter(SynchronizerToken.KEY));
+          response.sendRedirect(uri);
+          return null;
+        }
+ catch (        IOException e) {
+          throw new ControllerExecutionException("I/O error sending redirect to URI: " + uri,e);
+        }
+      }
+ else       if (request.getAttribute(ForwardMethod.CALLED) == null) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
+        }
+        ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
+        }
+        return mv;
+      }
+ else {
+        return null;
+      }
+    }
+  }
+  finally {
+    Thread.currentThread().setContextClassLoader(cl);
+  }
+}

@@ -1,0 +1,10 @@
+{
+  super();
+  setClazz(clazz);
+  this.reference=new BeanWrapperImpl(newInstance());
+  this.fullName=clazz.getName();
+  this.packageName=ClassUtils.getPackageName(clazz);
+  this.naturalName=GrailsNameUtils.getNaturalName(clazz.getName());
+  this.shortName=getShortClassname(clazz);
+  this.name=GrailsNameUtils.getLogicalName(clazz,trailingName);
+}

@@ -1,0 +1,13 @@
+{
+  testConstraintMessageCodes(getConstraint("testString",new Integer(10)),"12345678901",new String[]{"testClass.testString.maxSize.error","testClass.testString.maxSize.exceeded"},new Object[]{"testString",TestClass.class,"12345678901",new Integer(10)});
+  testConstraintFailed(getConstraint("testArray",new Integer(2)),new String[]{"one","two","three"});
+  List list=new ArrayList();
+  list.add("one");
+  list.add("two");
+  list.add("three");
+  testConstraintFailed(getConstraint("testCollection",new Integer(2)),list);
+  testConstraintPassed(getConstraint("testCollection",new Integer(3)),list);
+  testConstraintPassed(getConstraint("testString",new Integer(5)),"12345");
+  testConstraintPassed(getConstraint("testString",new Integer(5)),null);
+  testConstraintDefaultMessage(getConstraint("testString",new Integer(5)),"123456","Property [{0}] of class [{1}] with value [{2}] exceeds the maximum size of [{3}]");
+}

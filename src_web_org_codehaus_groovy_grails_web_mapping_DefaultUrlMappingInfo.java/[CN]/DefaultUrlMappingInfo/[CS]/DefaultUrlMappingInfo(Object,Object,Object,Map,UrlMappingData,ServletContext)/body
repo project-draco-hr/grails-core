@@ -1,0 +1,8 @@
+{
+  this(params,urlData,servletContext);
+  if (controllerName == null && viewName == null)   throw new IllegalArgumentException("URL mapping must either provide a controller or view name to map to!");
+  if (params == null)   throw new IllegalArgumentException("Argument [params] cannot be null");
+  this.controllerName=controllerName;
+  this.actionName=actionName;
+  if (actionName == null)   this.viewName=viewName;
+}

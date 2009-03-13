@@ -1,0 +1,13 @@
+{
+  ExpandoMetaClass.enableGlobally();
+  super.setUp();
+  System.out.println("Setting up test");
+  ctx=new MockApplicationContext();
+  ctx.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager());
+  ctx.registerMockBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN,gcl);
+  onSetUp();
+  ga=new DefaultGrailsApplication(gcl.getLoadedClasses(),gcl);
+  ga.setApplicationContext(ctx);
+  ga.initialise();
+  ctx.registerMockBean(GrailsApplication.APPLICATION_ID,ga);
+}

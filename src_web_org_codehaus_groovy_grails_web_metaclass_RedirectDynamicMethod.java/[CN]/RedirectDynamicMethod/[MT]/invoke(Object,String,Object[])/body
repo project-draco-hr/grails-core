@@ -1,0 +1,58 @@
+{
+  if (arguments.length == 0)   throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  Map argMap=arguments[0] instanceof Map ? (Map)arguments[0] : Collections.EMPTY_MAP;
+  if (argMap.size() == 0) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  Object actionRef=argMap.get(ARGUMENT_ACTION);
+  String controllerName=argMap.containsKey(ARGUMENT_CONTROLLER) ? argMap.get(ARGUMENT_CONTROLLER).toString() : null;
+  Object id=argMap.get(ARGUMENT_ID);
+  String frag=argMap.get(ARGUMENT_FRAGMENT) != null ? argMap.get(ARGUMENT_FRAGMENT).toString() : null;
+  Object uri=argMap.get(ARGUMENT_URI);
+  String url=argMap.containsKey(ARGUMENT_URL) ? argMap.get(ARGUMENT_URL).toString() : null;
+  Map params=(Map)argMap.get(ARGUMENT_PARAMS);
+  if (params == null)   params=new HashMap();
+  Errors errors=(Errors)argMap.get(ARGUMENT_ERRORS);
+  GroovyObject controller=(GroovyObject)target;
+  Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
+  if (controllerErrors != null) {
+    controllerErrors.addAllErrors(errors);
+  }
+ else {
+    controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+  }
+  String actualUri;
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  GrailsApplicationAttributes attrs=webRequest.getAttributes();
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  if (uri != null) {
+    actualUri=attrs.getApplicationUri(request) + uri.toString();
+  }
+ else   if (url != null) {
+    actualUri=url;
+  }
+ else {
+    String actionName=establishActionName(actionRef,target,webRequest);
+    controllerName=controllerName != null ? controllerName : webRequest.getControllerName();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Dynamic method [redirect] looking up URL mapping for controller [" + controllerName + "] and action ["+ actionName+ "] and params ["+ params+ "] with ["+ urlMappingsHolder+ "]");
+    }
+    try {
+      if (id != null)       params.put(ARGUMENT_ID,id);
+      UrlCreator urlMapping=urlMappingsHolder.getReverseMapping(controllerName,actionName,params);
+      if (LOG.isDebugEnabled() && urlMapping == null) {
+        LOG.debug("Dynamic method [redirect] no URL mapping found for params [" + params + "]");
+      }
+      String action=actionName != null ? actionName : webRequest.getActionName();
+      actualUri=urlMapping.createURL(controllerName,action,params,request.getCharacterEncoding(),frag);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Dynamic method [redirect] mapped to URL [" + actualUri + "]");
+      }
+    }
+  finally {
+      if (id != null)       params.remove(ARGUMENT_ID);
+    }
+  }
+  return redirectResponse(actualUri,response);
+}

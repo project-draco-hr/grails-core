@@ -1,0 +1,5 @@
+{
+  Map config=ConfigurationHolder.getFlatConfig();
+  Object o=config.get(ENABLE_FILE_EXTENSIONS);
+  return !(o != null && o instanceof Boolean) || ((Boolean)o).booleanValue();
+}

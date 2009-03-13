@@ -1,0 +1,8 @@
+{
+  if (name == null)   return null;
+  if (name.endsWith(".groovy")) {
+    name=name.substring(0,name.length() - 7);
+  }
+  String naturalName=getNaturalName(getShortName(name));
+  return naturalName.replaceAll("\\s","-").toLowerCase();
+}

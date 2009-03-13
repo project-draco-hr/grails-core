@@ -1,0 +1,5 @@
+{
+  BeanConfiguration bc=new DefaultBeanConfiguration(name,true);
+  registerBeanConfiguration(name,bc);
+  return bc;
+}

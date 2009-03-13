@@ -1,0 +1,8 @@
+{
+  bindClass(sub,subClass,mappings);
+  if (subClass.getEntityPersisterClass() == null) {
+    subClass.getRootClass().setEntityPersisterClass(SingleTableEntityPersister.class);
+  }
+  if (LOG.isDebugEnabled())   LOG.debug("Mapping subclass: " + subClass.getEntityName() + " -> "+ subClass.getTable().getName());
+  createClassProperties(sub,subClass,mappings);
+}

@@ -1,0 +1,10 @@
+{
+  DefaultConverterConfiguration<XML> cfg=new DefaultConverterConfiguration<XML>(ConvertersConfigurationHolder.getConverterConfiguration(XML.class));
+  try {
+    callable.call(cfg);
+    ConvertersConfigurationHolder.setNamedConverterConfiguration(XML.class,name,cfg);
+  }
+ catch (  Exception e) {
+    throw ConverterUtil.resolveConverterException(e);
+  }
+}

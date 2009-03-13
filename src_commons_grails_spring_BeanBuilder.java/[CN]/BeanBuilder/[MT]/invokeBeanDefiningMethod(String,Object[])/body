@@ -1,0 +1,57 @@
+{
+  boolean hasClosureArgument=args[args.length - 1] instanceof Closure;
+  if (args[0] instanceof Class) {
+    Class beanClass=args[0] instanceof Class ? (Class)args[0] : args[0].getClass();
+    if (args.length >= 1) {
+      if (hasClosureArgument) {
+        if (args.length - 1 != 1) {
+          currentBeanConfig=springConfig.addSingletonBean(name,beanClass,resolveConstructorArguments(args,1,args.length - 1));
+        }
+ else {
+          currentBeanConfig=springConfig.addSingletonBean(name,beanClass);
+        }
+      }
+ else {
+        currentBeanConfig=springConfig.addSingletonBean(name,beanClass,resolveConstructorArguments(args,1,args.length));
+      }
+    }
+  }
+ else   if (args[0] instanceof RuntimeBeanReference) {
+    currentBeanConfig=springConfig.addSingletonBean(name);
+    currentBeanConfig.setFactoryBean(((RuntimeBeanReference)args[0]).getBeanName());
+  }
+ else   if (args[0] instanceof Map) {
+    if (args.length > 1 && args[1] instanceof Class) {
+      List constructorArgs=resolveConstructorArguments(args,2,hasClosureArgument ? args.length - 1 : args.length);
+      currentBeanConfig=springConfig.addSingletonBean(name,(Class)args[1],constructorArgs);
+      Map namedArgs=(Map)args[0];
+      for (      Object o : namedArgs.keySet()) {
+        String propName=(String)o;
+        setProperty(propName,namedArgs.get(propName));
+      }
+    }
+ else {
+      currentBeanConfig=springConfig.addSingletonBean(name);
+      Map.Entry factoryBeanEntry=(Map.Entry)((Map)args[0]).entrySet().iterator().next();
+      currentBeanConfig.setFactoryBean(factoryBeanEntry.getKey().toString());
+      currentBeanConfig.setFactoryMethod(factoryBeanEntry.getValue().toString());
+    }
+  }
+ else   if (args[0] instanceof Closure) {
+    currentBeanConfig=springConfig.addAbstractBean(name);
+  }
+ else {
+    List constructorArgs=resolveConstructorArguments(args,0,hasClosureArgument ? args.length - 1 : args.length);
+    currentBeanConfig=new DefaultBeanConfiguration(name,null,constructorArgs);
+    springConfig.addBeanConfiguration(name,currentBeanConfig);
+  }
+  if (hasClosureArgument) {
+    Closure callable=(Closure)args[args.length - 1];
+    callable.setDelegate(this);
+    callable.setResolveStrategy(Closure.DELEGATE_FIRST);
+    callable.call(new Object[]{currentBeanConfig});
+  }
+  BeanConfiguration beanConfig=currentBeanConfig;
+  currentBeanConfig=null;
+  return beanConfig;
+}

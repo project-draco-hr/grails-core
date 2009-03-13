@@ -1,0 +1,3 @@
+{
+  return circularReferenceBehaviour != null ? circularReferenceBehaviour : (delegate != null ? delegate.getCircularReferenceBehaviour() : null);
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    writer.write(text);
+    return false;
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException(e.getMessage(),e);
+  }
+}

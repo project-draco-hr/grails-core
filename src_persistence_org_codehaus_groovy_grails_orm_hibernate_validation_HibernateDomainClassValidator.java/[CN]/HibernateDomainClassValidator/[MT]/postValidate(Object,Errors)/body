@@ -1,0 +1,24 @@
+{
+  try {
+    if (applicationContext != null && applicationContext.containsBean("sessionFactory")) {
+      SessionFactory sessionFactory=(SessionFactory)applicationContext.getBean("sessionFactory");
+      if (errors.hasErrors()) {
+        GrailsHibernateUtil.setObjectToReadyOnly(obj,sessionFactory);
+        List invalidInstances=(List)validatedInstances.get();
+        for (Iterator i=invalidInstances.iterator(); i.hasNext(); ) {
+          Object instance=i.next();
+          GrailsHibernateUtil.setObjectToReadyOnly(instance,sessionFactory);
+        }
+      }
+ else {
+        GrailsHibernateUtil.setObjectToReadWrite(obj,sessionFactory);
+      }
+    }
+  }
+  finally {
+    List validatedInstancesList=(List)validatedInstances.get();
+    if (validatedInstancesList != null) {
+      validatedInstancesList.clear();
+    }
+  }
+}

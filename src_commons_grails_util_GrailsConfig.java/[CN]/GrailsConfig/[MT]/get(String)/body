@@ -1,0 +1,4 @@
+{
+  if (key.indexOf(".") != -1)   return (T)getFlatConfig().get(key);
+ else   return (T)getConfig().get(key);
+}

@@ -1,0 +1,15 @@
+{
+switch (scope) {
+case PAGE_SCOPE:
+    return new IteratorEnumeration(pageScope.getVariables().keySet().iterator());
+case REQUEST_SCOPE:
+  return request.getAttributeNames();
+case SESSION_SCOPE:
+HttpSession session=request.getSession(false);
+if (session != null) return session.getAttributeNames();
+ else return EMPTY_ENUMERATION;
+case APPLICATION_SCOPE:
+return servletContext.getAttributeNames();
+}
+return EMPTY_ENUMERATION;
+}

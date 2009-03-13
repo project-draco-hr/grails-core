@@ -1,0 +1,8 @@
+{
+  if (obj != null) {
+    MetaClassRegistry reg=GroovySystem.getMetaClassRegistry();
+    MetaClass mc=reg.getMetaClass(target.getClass());
+    final String addMethodName="addTo" + GrailsNameUtils.getClassNameRepresentation(name);
+    mc.invokeMethod(target,addMethodName,obj);
+  }
+}

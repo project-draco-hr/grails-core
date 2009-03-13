@@ -1,0 +1,13 @@
+{
+  String[] dependencies=plugin.getDependencyNames();
+  if (dependencies.length > 0) {
+    for (int i=0; i < dependencies.length; i++) {
+      String name=dependencies[i];
+      String version=plugin.getDependentVersion(name);
+      if (!hasGrailsPlugin(name,version)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

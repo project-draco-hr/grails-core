@@ -1,0 +1,23 @@
+{
+  if (s == null) {
+    throw new JSONException("Null key.");
+  }
+  if (mode == KEY) {
+    try {
+      if (comma) {
+        comma();
+      }
+      newline();
+      indent();
+      writer.write(JSONObject.quote(s));
+      writer.write(": ");
+      comma=false;
+      mode=OBJECT;
+      return this;
+    }
+ catch (    IOException e) {
+      throw new JSONException(e);
+    }
+  }
+  throw new JSONException("Misplaced key.");
+}

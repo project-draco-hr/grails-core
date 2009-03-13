@@ -1,0 +1,18 @@
+{
+  String name=entry.getKey().toString();
+  if (name.indexOf(".") > -1)   return false;
+  Object value=entry.getValue();
+  if (value == null)   value="";
+ else   if (value instanceof GrailsParameterMap) {
+    GrailsParameterMap child=(GrailsParameterMap)value;
+    Set nestedEntrySet=child.entrySet();
+    for (    Object aNestedEntrySet : nestedEntrySet) {
+      Map.Entry childEntry=(Map.Entry)aNestedEntrySet;
+      appendEntry(childEntry,queryString,encoding,entry.getKey().toString() + '.');
+    }
+  }
+ else {
+    queryString.append(URLEncoder.encode(path + name,encoding)).append('=').append(URLEncoder.encode(value.toString(),encoding));
+  }
+  return true;
+}

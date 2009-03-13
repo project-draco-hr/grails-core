@@ -1,0 +1,6 @@
+{
+  final ScaffoldedGroovyPageView view=new ScaffoldedGroovyPageView(viewName,viewCode);
+  view.setApplicationContext(getApplicationContext());
+  view.setServletContext(getServletContext());
+  return view;
+}

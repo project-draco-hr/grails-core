@@ -1,0 +1,7 @@
+{
+  ConverterConfiguration<C> cfg=getThreadLocalConverterConfiguration(converterClass);
+  if (cfg == null) {
+    cfg=(ConverterConfiguration<C>)getInstance().defaultConfiguration.get(converterClass);
+  }
+  return cfg;
+}

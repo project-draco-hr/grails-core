@@ -1,0 +1,4 @@
+{
+  initialiseApplicationContext();
+  this.context.addBeanFactoryPostProcessor(processor);
+}

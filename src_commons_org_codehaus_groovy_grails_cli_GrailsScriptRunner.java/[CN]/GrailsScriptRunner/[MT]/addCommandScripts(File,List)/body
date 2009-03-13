@@ -1,0 +1,10 @@
+{
+  if (dir.exists()) {
+    File[] files=dir.listFiles();
+    for (int i=0; i < files.length; i++) {
+      if (scriptFilePattern.matcher(files[i].getName()).matches()) {
+        scripts.add(files[i]);
+      }
+    }
+  }
+}

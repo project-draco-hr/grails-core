@@ -1,0 +1,4 @@
+{
+  GrailsPlugin plugin=getGrailsPlugin(pluginName);
+  return plugin == null || plugin.supportsScope(BuildScope.getCurrent());
+}

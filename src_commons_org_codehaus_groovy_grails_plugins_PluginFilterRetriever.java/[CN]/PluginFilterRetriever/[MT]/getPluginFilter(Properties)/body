@@ -1,0 +1,6 @@
+{
+  Assert.notNull(properties);
+  String includes=properties.getProperty("plugin.includes");
+  String excludes=properties.getProperty("plugin.excludes");
+  return getPluginFilter(includes,excludes);
+}

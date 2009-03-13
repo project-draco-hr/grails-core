@@ -1,0 +1,15 @@
+{
+  final XmlReaderContext readerContext=parserContext.getReaderContext();
+  final ClassLoader beanClassLoader=readerContext.getBeanClassLoader() != null ? readerContext.getBeanClassLoader() : GORMSessionFactoryDefinitionParser.class.getClassLoader();
+  String[] basePackages=StringUtils.commaDelimitedListToStringArray(element.getAttribute(BASE_PACKAGE_ATTRIBUTE));
+  String dataSourceId=element.getAttribute(DATA_SOURCE_ATTRIBUTE);
+  if (!StringUtils.hasText(dataSourceId)) {
+    throw new BeanDefinitionParsingException(new Problem("Attribute [" + DATA_SOURCE_ATTRIBUTE + "] of tag <gorm:sessionFactory> must be specified!",new Location(readerContext.getResource())));
+  }
+  BeanDefinitionRegistry targetRegistry=parserContext.getRegistry();
+  parseGrailsApplication(element,parserContext,readerContext,beanClassLoader,basePackages);
+  GenericBeanDefinition postProccessingBeanDef=new GenericBeanDefinition();
+  postProccessingBeanDef.setBeanClass(GORMEnhancingBeanPostProcessor.class);
+  targetRegistry.registerBeanDefinition("gormEnhancingPostProcessor",postProccessingBeanDef);
+  return parseSessionFactory(element,dataSourceId,targetRegistry,parserContext);
+}

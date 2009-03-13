@@ -1,0 +1,13 @@
+{
+  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+  if (pageScope.getVariables().containsKey(name))   return PAGE_SCOPE;
+ else   if (request.getAttribute(name) != null)   return REQUEST_SCOPE;
+ else {
+    HttpSession session=request.getSession(false);
+    if (session != null && session.getAttribute(name) != null)     return SESSION_SCOPE;
+ else     if (servletContext.getAttribute(name) != null) {
+      return APPLICATION_SCOPE;
+    }
+  }
+  return 0;
+}

@@ -1,0 +1,35 @@
+{
+  if (StringUtils.isBlank(name))   return null;
+  if (Environment.getCurrent() != Environment.DEVELOPMENT && decoratorMap.containsKey(name)) {
+    return (Decorator)decoratorMap.get(name);
+  }
+ else {
+    String decoratorName=name;
+    if (!name.matches("(.+)(\\.)(\\w{2}|\\w{3})")) {
+      name+=DEFAULT_VIEW_TYPE;
+    }
+    String decoratorPage=DEFAULT_DECORATOR_PATH + '/' + name;
+    ResourceLoader resourceLoader=establishResourceLoader();
+    Resource res=resourceLoader.getResource(decoratorPage);
+    Decorator d=null;
+    if (!res.exists()) {
+      String pathToView=lookupPathToControllerView(request,name);
+      res=pathToView != null ? resourceLoader.getResource(pathToView) : null;
+      if (res != null && res.exists()) {
+        decoratorPage=pathToView;
+        d=useExistingDecorator(request,decoratorName,decoratorPage);
+      }
+ else {
+        final String pluginViewLocation=searchPluginViews(name,resourceLoader);
+        if (pluginViewLocation != null) {
+          decoratorPage=pluginViewLocation;
+          d=useExistingDecorator(request,decoratorName,decoratorPage);
+        }
+      }
+    }
+ else {
+      d=useExistingDecorator(request,decoratorName,decoratorPage);
+    }
+    return d;
+  }
+}

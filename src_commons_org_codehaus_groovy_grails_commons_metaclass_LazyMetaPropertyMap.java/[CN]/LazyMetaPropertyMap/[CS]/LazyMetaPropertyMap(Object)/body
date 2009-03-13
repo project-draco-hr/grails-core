@@ -1,0 +1,6 @@
+{
+  super();
+  if (o == null)   throw new IllegalArgumentException("Object cannot be null");
+  this.instance=o;
+  this.metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(o.getClass());
+}

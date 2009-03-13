@@ -1,0 +1,21 @@
+{
+  try {
+    int argCount=closure.getParameterTypes().length;
+    Object result=null;
+    if (argCount <= 1) {
+      result=closure.call(object);
+    }
+ else     if (argCount == 2) {
+      result=closure.call(new Object[]{object,converter});
+    }
+ else {
+      throw new ConverterException("Invalid Parameter count for registered Object Marshaller for class " + clazz.getName());
+    }
+    if (result != null && result != object && result != converter) {
+      converter.convertAnother(result);
+    }
+  }
+ catch (  Exception e) {
+    throw e instanceof ConverterException ? (ConverterException)e : new ConverterException(e);
+  }
+}

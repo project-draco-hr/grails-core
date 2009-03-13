@@ -1,0 +1,23 @@
+{
+  HibernateTemplate template=new HibernateTemplate(sessionFactory);
+  template.setExposeNativeSession(true);
+  template.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      if (canModifyReadWriteState(session,target)) {
+        SessionImplementor sessionImpl=(SessionImplementor)session;
+        EntityEntry ee=sessionImpl.getPersistenceContext().getEntry(target);
+        if (ee != null && ee.getStatus() == Status.READ_ONLY) {
+          Object actualTarget=target;
+          if (target instanceof HibernateProxy) {
+            actualTarget=((HibernateProxy)target).getHibernateLazyInitializer().getImplementation();
+          }
+          session.setReadOnly(actualTarget,false);
+          session.setFlushMode(FlushMode.AUTO);
+          incrementVersion(target);
+        }
+      }
+      return null;
+    }
+  }
+);
+}

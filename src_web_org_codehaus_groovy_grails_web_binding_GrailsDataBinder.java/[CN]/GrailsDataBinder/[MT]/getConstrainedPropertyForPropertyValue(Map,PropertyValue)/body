@@ -1,0 +1,19 @@
+{
+  final String propertyName=propertyValue.getName();
+  if (propertyName.indexOf(PATH_SEPARATOR) > -1) {
+    String[] propertyNames=propertyName.split("\\.");
+    Object target=getTarget();
+    Object value=getPropertyValueForPath(target,propertyNames);
+    if (value != null) {
+      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
+      if (mc.hasProperty(value,CONSTRAINTS_PROPERTY) != null) {
+        Map nestedConstrainedProperties=(Map)mc.getProperty(value,CONSTRAINTS_PROPERTY);
+        return (ConstrainedProperty)nestedConstrainedProperties.get(propertyNames[propertyNames.length - 1]);
+      }
+    }
+  }
+ else {
+    return (ConstrainedProperty)constrainedProperties.get(propertyName);
+  }
+  return null;
+}

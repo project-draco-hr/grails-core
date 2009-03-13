@@ -1,0 +1,11 @@
+{
+  List keyList=new ArrayList();
+  keyList.add(new Column(columnName));
+  for (Iterator i=((List)propertyNames).iterator(); i.hasNext(); ) {
+    String propertyName=(String)i.next();
+    GrailsDomainClassProperty otherProp=grailsProp.getDomainClass().getPropertyByName(propertyName);
+    String otherColumnName=getColumnNameForPropertyAndPath(otherProp,path,null);
+    keyList.add(new Column(otherColumnName));
+  }
+  createUniqueKeyForColumns(table,columnName,keyList);
+}

@@ -1,0 +1,9 @@
+{
+  File[] dirs=dir.listFiles(new FileFilter(){
+    public boolean accept(    File path){
+      return path.isDirectory() && (!path.getName().startsWith(".") && path.getName().indexOf('-') > -1);
+    }
+  }
+);
+  return dirs == null ? new File[0] : dirs;
+}

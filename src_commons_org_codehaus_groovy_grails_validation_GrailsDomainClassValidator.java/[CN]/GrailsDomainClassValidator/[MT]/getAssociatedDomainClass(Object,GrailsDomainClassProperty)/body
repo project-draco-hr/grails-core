@@ -1,0 +1,9 @@
+{
+  if (persistentProperty.isEmbedded()) {
+    return persistentProperty.getComponent();
+  }
+ else {
+    if (grailsApplication != null)     return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObject.getClass().getName());
+ else     return persistentProperty.getReferencedDomainClass();
+  }
+}

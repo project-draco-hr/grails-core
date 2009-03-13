@@ -1,0 +1,7 @@
+{
+  String nonNullNamesapce=namespace == null ? GroovyPage.DEFAULT_NAMESPACE : namespace;
+  String fullTagName=nonNullNamesapce + ":" + tagName;
+  GrailsTagLibClass tagLibClass=(GrailsTagLibClass)getGrailsApplication().getArtefactForFeature(TagLibArtefactHandler.TYPE,fullTagName);
+  if (tagLibClass == null)   return null;
+  return (GroovyObject)getApplicationContext().getBean(tagLibClass.getFullName());
+}

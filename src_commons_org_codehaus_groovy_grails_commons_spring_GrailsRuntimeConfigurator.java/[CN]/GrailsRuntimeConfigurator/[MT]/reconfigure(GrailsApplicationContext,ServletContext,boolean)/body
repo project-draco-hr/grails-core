@@ -1,0 +1,18 @@
+{
+  RuntimeSpringConfiguration springConfig=parent != null ? new DefaultRuntimeSpringConfiguration(parent) : new DefaultRuntimeSpringConfiguration();
+  if (!this.pluginManager.isInitialised())   throw new IllegalStateException("Cannot re-configure Grails application when it hasn't even been configured yet!");
+  this.pluginManager.doRuntimeConfiguration(springConfig);
+  List beanNames=springConfig.getBeanNames();
+  for (  Object beanName : beanNames) {
+    String name=(String)beanName;
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Re-creating bean definition [" + name + "]");
+    }
+    current.registerBeanDefinition(name,springConfig.createBeanDefinition(name));
+    current.getBean(name);
+  }
+  this.pluginManager.doDynamicMethods();
+  this.pluginManager.doPostProcessing(current);
+  if (loadExternalBeans)   doPostResourceConfiguration(application,springConfig);
+  reset();
+}

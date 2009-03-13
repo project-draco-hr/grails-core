@@ -1,0 +1,14 @@
+{
+  Object json=request.getAttribute(CACHED_JSON);
+  if (json != null)   return json;
+  String encoding=request.getCharacterEncoding();
+  if (encoding == null)   encoding=Converter.DEFAULT_REQUEST_ENCODING;
+  try {
+    json=parse(request.getInputStream(),encoding);
+    request.setAttribute(CACHED_JSON,json);
+    return json;
+  }
+ catch (  IOException e) {
+    throw new ConverterException("Error parsing JSON",e);
+  }
+}

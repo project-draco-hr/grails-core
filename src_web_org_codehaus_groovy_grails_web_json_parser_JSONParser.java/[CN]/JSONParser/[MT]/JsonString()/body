@@ -1,0 +1,19 @@
+{
+  Token t;
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case SINGLE_QUOTE_LITERAL:
+    t=jj_consume_token(SINGLE_QUOTE_LITERAL);
+  break;
+case DOUBLE_QUOTE_LITERAL:
+t=jj_consume_token(DOUBLE_QUOTE_LITERAL);
+break;
+default :
+jj_la1[11]=jj_gen;
+jj_consume_token(-1);
+throw new ParseException();
+}
+{
+if (true) return StringUnmarshaller.unmarshall(t.image);
+}
+throw new Error("Missing return statement in function");
+}

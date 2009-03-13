@@ -1,0 +1,13 @@
+{
+  String in=(String)attributes.get(ATTRIBUTE_IN);
+  String filter=(String)attributes.get(ATTRIBUTE_FILTER);
+  if (StringUtils.isBlank(in))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_IN+ "]");
+  if (StringUtils.isBlank(filter))   throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_FILTER+ "]");
+  StringBuilder builder=new StringBuilder();
+  builder.append(in);
+  builder.append(".grep(");
+  filter=calculateExpression(filter);
+  builder.append(filter);
+  builder.append(")");
+  doEachMethod(builder.toString());
+}

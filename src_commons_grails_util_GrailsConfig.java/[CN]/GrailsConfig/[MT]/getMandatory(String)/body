@@ -1,0 +1,5 @@
+{
+  T v=(T)getFlatConfig().get(key);
+  if (v == null)   throw new GrailsConfigurationException(String.format("Mandatory configuration value (%s) is not defined!",key));
+ else   return v;
+}

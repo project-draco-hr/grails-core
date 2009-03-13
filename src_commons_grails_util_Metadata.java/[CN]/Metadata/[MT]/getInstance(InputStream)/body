@@ -1,0 +1,11 @@
+{
+  metadata=new Metadata();
+  try {
+    metadata.load(inputStream);
+    metadata.initialized=true;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
+  }
+  return metadata;
+}

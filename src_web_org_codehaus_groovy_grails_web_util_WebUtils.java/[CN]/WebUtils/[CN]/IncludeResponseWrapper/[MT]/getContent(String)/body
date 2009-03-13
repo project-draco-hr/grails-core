@@ -1,0 +1,7 @@
+{
+  if (usingWriter)   return sw.toString();
+ else   if (usingStream) {
+    return os.toString(encoding);
+  }
+  return "".intern();
+}

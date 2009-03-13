@@ -1,0 +1,13 @@
+{
+  List<Closure> handlers=globalEventHooks.get(eventName);
+  if (handlers != null) {
+    for (    Closure handler : handlers) {
+      handler.setDelegate(binding);
+      try {
+        handler.call(arguments);
+      }
+ catch (      MissingPropertyException mpe) {
+      }
+    }
+  }
+}

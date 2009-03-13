@@ -1,0 +1,5 @@
+{
+  if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  return createURLWithWebRequest(parameterValues,webRequest,true);
+}

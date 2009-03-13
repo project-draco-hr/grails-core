@@ -1,0 +1,9 @@
+{
+  ConverterConfiguration<XML> cfg=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
+  if (cfg == null)   throw new ConverterException("Default Configuration not found for class " + XML.class.getName());
+  if (!(cfg instanceof DefaultConverterConfiguration)) {
+    cfg=new DefaultConverterConfiguration<XML>(cfg);
+    ConvertersConfigurationHolder.setDefaultConfiguration(XML.class,cfg);
+  }
+  ((DefaultConverterConfiguration<XML>)cfg).registerObjectMarshaller(om,priority);
+}

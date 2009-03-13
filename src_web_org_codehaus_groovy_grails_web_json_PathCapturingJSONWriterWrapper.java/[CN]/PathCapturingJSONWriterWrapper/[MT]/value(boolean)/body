@@ -1,0 +1,7 @@
+{
+  pathStack.pop();
+  if (mode == Mode.ARRAY) {
+    pathStack.push(new IndexElement(((IndexElement)pathStack.peek()).index));
+  }
+  return delegate.value(b);
+}

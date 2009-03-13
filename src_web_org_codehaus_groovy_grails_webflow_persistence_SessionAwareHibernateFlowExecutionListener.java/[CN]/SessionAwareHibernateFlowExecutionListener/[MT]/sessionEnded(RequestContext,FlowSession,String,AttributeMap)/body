@@ -1,0 +1,8 @@
+{
+  if (isPersistenceContext(session.getDefinition()) && session.isRoot()) {
+    super.sessionEnded(context,session,outcome,output);
+  }
+ else {
+    super.paused(context);
+  }
+}

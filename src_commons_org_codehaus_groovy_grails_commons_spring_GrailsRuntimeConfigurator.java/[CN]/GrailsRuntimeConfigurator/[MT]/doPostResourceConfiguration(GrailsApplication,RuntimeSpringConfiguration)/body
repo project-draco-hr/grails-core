@@ -1,0 +1,49 @@
+{
+  ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  try {
+    Resource springResources;
+    if (application.isWarDeployed()) {
+      springResources=parent.getResource(GrailsRuntimeConfigurator.SPRING_RESOURCES_XML);
+    }
+ else {
+      ResourcePatternResolver patternResolver=new PathMatchingResourcePatternResolver();
+      springResources=patternResolver.getResource(DEVELOPMENT_SPRING_RESOURCES_XML);
+    }
+    if (springResources != null && springResources.exists()) {
+      LOG.debug("[RuntimeConfiguration] Configuring additional beans from " + springResources.getURL());
+      XmlBeanFactory xmlBf=new XmlBeanFactory(springResources);
+      xmlBf.setBeanClassLoader(classLoader);
+      String[] beanNames=xmlBf.getBeanDefinitionNames();
+      LOG.debug("[RuntimeConfiguration] Found [" + beanNames.length + "] beans to configure");
+      for (      String beanName : beanNames) {
+        BeanDefinition bd=xmlBf.getBeanDefinition(beanName);
+        final String beanClassName=bd.getBeanClassName();
+        Class beanClass=beanClassName == null ? null : ClassUtils.forName(beanClassName,classLoader);
+        if (SESSION_FACTORY_BEAN.equals(beanName)) {
+          Class configurableLocalSessionFactoryBeanClass=ConfigurableLocalSessionFactoryBean.class;
+          if (beanClass == null || !configurableLocalSessionFactoryBeanClass.isAssignableFrom(beanClass)) {
+            LOG.warn("[RuntimeConfiguration] Found custom Hibernate SessionFactory bean defined in " + springResources.getURL() + ". The bean will not be configured as Grails needs to use its own specialized Hibernate SessionFactoryBean"+ " in order to inject dynamic bahavior into domain classes."+ " Use specialized Hibernate SessionFactoryBean '"+ configurableLocalSessionFactoryBeanClass+ "' for custom Hibernate SessionFactory bean defined in '"+ springResources.getURL()+ "' instead of '"+ beanClassName+ "' in order to configure custom Hibernate SessionFactory bean.");
+            continue;
+          }
+        }
+        springConfig.addBeanDefinition(beanName,bd);
+        String[] aliases=xmlBf.getAliases(beanName);
+        for (        String alias : aliases) {
+          springConfig.addAlias(alias,beanName);
+        }
+        if (beanClass != null) {
+          if (BeanFactoryPostProcessor.class.isAssignableFrom(beanClass)) {
+            ((ConfigurableApplicationContext)springConfig.getUnrefreshedApplicationContext()).addBeanFactoryPostProcessor((BeanFactoryPostProcessor)xmlBf.getBean(beanName));
+          }
+        }
+      }
+    }
+ else     if (LOG.isDebugEnabled()) {
+      LOG.debug("[RuntimeConfiguration] " + GrailsRuntimeConfigurator.SPRING_RESOURCES_XML + " not found. Skipping configuration.");
+    }
+    GrailsRuntimeConfigurator.loadSpringGroovyResources(springConfig,classLoader);
+  }
+ catch (  Exception ex) {
+    LOG.warn("[RuntimeConfiguration] Unable to perform post initialization config: " + SPRING_RESOURCES_XML,ex);
+  }
+}

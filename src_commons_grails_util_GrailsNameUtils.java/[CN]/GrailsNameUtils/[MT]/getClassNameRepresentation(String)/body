@@ -1,0 +1,13 @@
+{
+  String className;
+  StringBuilder buf=new StringBuilder();
+  if (name != null && name.length() > 0) {
+    String[] tokens=name.split("[^\\w\\d]");
+    for (    String token1 : tokens) {
+      String token=token1.trim();
+      buf.append(token.substring(0,1).toUpperCase(Locale.ENGLISH)).append(token.substring(1));
+    }
+  }
+  className=buf.toString();
+  return className;
+}

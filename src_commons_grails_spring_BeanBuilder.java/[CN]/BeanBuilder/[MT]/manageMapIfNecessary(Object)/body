@@ -1,0 +1,16 @@
+{
+  Map map=(Map)value;
+  boolean containsRuntimeRefs=false;
+  for (  Object e : map.values()) {
+    if (e instanceof RuntimeBeanReference) {
+      containsRuntimeRefs=true;
+      break;
+    }
+  }
+  if (containsRuntimeRefs) {
+    Map managedMap=new ManagedMap();
+    managedMap.putAll(map);
+    return managedMap;
+  }
+  return value;
+}

@@ -1,0 +1,24 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(UNIQUE_PROPERTIES);
+  assertEquals("Tables created",1,getTableCount(config));
+  List expectedKeyColumns1=Arrays.asList(new Column[]{new Column("camel_cased"),new Column("group"),new Column("login")});
+  List expectedKeyColumns2=Arrays.asList(new Column[]{new Column("camel_cased"),new Column("group")});
+  Table mapping=(Table)config.getTableMappings().next();
+  int cnt=0;
+  boolean found1=false, found2=false;
+  for (Iterator i=mapping.getUniqueKeyIterator(); i.hasNext(); ) {
+    UniqueKey key=(UniqueKey)i.next();
+    List keyColumns=key.getColumns();
+    if (keyColumns.equals(expectedKeyColumns1)) {
+      found1=true;
+    }
+    if (keyColumns.equals(expectedKeyColumns2)) {
+      found2=true;
+    }
+    cnt++;
+  }
+  assertEquals(2,cnt);
+  assertEquals(true,mapping.getColumn(new Column("employeeID")).isUnique());
+  assertEquals(true,found1);
+  assertEquals(true,found2);
+}

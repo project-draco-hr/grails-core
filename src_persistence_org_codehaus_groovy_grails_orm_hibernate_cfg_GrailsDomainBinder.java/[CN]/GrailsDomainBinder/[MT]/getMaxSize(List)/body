@@ -1,0 +1,8 @@
+{
+  int maxSize=0;
+  for (Iterator iter=inListValues.iterator(); iter.hasNext(); ) {
+    String value=(String)iter.next();
+    maxSize=Math.max(value.length(),maxSize);
+  }
+  return maxSize;
+}

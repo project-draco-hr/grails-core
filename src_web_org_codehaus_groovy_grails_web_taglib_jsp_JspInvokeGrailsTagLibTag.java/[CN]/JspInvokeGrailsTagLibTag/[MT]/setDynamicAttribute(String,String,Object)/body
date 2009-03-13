@@ -1,0 +1,33 @@
+{
+  if (value instanceof String) {
+    String stringValue=(String)value;
+    String trimmed=stringValue.trim();
+    if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+      trimmed=trimmed.substring(1,trimmed.length() - 1);
+      Matcher m=ATTRIBUTE_MAP.matcher(trimmed);
+      Map attributeMap=new HashMap();
+      while (m.find()) {
+        String attributeName=m.group(1);
+        String attributeValue=m.group(2);
+        if (ExpressionEvaluationUtils.isExpressionLanguage(attributeValue)) {
+          attributeMap.put(attributeName,ExpressionEvaluationUtils.evaluate(attributeName,attributeValue,Object.class,super.pageContext));
+        }
+ else {
+          attributeMap.put(attributeName,attributeValue);
+        }
+      }
+      this.attributes.put(localName,attributeMap);
+    }
+ else {
+      if (ExpressionEvaluationUtils.isExpressionLanguage(stringValue)) {
+        this.attributes.put(localName,ExpressionEvaluationUtils.evaluate(localName,stringValue,Object.class,this.pageContext));
+      }
+ else {
+        this.attributes.put(localName,value);
+      }
+    }
+  }
+ else {
+    this.attributes.put(localName,value);
+  }
+}

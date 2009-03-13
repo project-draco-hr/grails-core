@@ -1,0 +1,4 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(ONE_TO_ONE_CLASSES_DEFINITION);
+  assertForeignKey("species","pet",config);
+}

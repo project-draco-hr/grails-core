@@ -1,0 +1,13 @@
+{
+  formulateBindingFromWebRequest(binding,request,response,out,(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER));
+  binding.getVariables().putAll(oldBinding.getVariables());
+  for (  Object o : additionalBinding.keySet()) {
+    String key=(String)o;
+    if (!GroovyPage.isReservedName(key)) {
+      binding.setVariable(key,additionalBinding.get(key));
+    }
+ else {
+      LOG.debug("Variable [" + key + "] cannot be placed within the GSP model, the name used is a reserved name.");
+    }
+  }
+}

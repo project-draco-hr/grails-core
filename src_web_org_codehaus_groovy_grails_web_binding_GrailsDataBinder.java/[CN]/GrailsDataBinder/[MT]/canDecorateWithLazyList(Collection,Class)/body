@@ -1,0 +1,3 @@
+{
+  return (c instanceof List) && !(c instanceof LazyList) && DomainClassArtefactHandler.isDomainClass(referencedType);
+}

@@ -1,0 +1,35 @@
+{
+  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,bean.getClass().getName());
+  if (domainClass != null) {
+    this.constrainedProperties=domainClass.getConstrainedProperties();
+  }
+  this.beanWrapper=new BeanWrapperImpl(bean);
+  PropertyDescriptor pd=null;
+  try {
+    pd=this.beanWrapper.getPropertyDescriptor(property);
+  }
+ catch (  BeansException e) {
+    throw new GrailsTagException("Property [" + property + "] is not a valid bean property in tag [renderInput]:"+ e.getMessage(),e);
+  }
+  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)servletContext.getAttribute(GrailsApplicationAttributes.GSP_TEMPLATE_ENGINE);
+  Template t=null;
+  try {
+    String uri=findUriForType(pd.getPropertyType());
+    t=engine.createTemplate(uri);
+    if (t == null)     throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag [scaffold]. No template found.");
+    Map binding=new HashMap();
+    binding.put("name",pd.getName());
+    binding.put("value",this.beanWrapper.getPropertyValue(property));
+    if (this.constrainedProperties.containsKey(property)) {
+      binding.put("constraints",this.constrainedProperties.get(property));
+    }
+ else {
+      binding.put("constraints",null);
+    }
+    Writable w=t.make(binding);
+    w.writeTo(out);
+  }
+ catch (  IOException e) {
+    throw new GrailsTagException("I/O error writing tag [" + getName() + "] to writer: "+ e.getMessage(),e);
+  }
+}

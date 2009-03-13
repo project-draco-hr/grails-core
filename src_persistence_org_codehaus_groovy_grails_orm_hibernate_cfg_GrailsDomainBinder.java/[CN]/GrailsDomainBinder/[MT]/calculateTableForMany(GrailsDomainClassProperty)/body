@@ -1,0 +1,51 @@
+{
+  String propertyColumnName=namingStrategy.propertyToColumnName(property.getName());
+  if (Map.class.isAssignableFrom(property.getType())) {
+    String tablePrefix=getTableName(property.getDomainClass());
+    return tablePrefix + "_" + propertyColumnName;
+  }
+ else {
+    PropertyConfig config=getPropertyConfig(property);
+    JoinTable jt=config != null ? config.getJoinTable() : null;
+    boolean hasJoinTableMapping=jt != null && jt.getName() != null;
+    String left=getTableName(property.getDomainClass());
+    if (property.isBasicCollectionType()) {
+      if (hasJoinTableMapping) {
+        return jt.getName();
+      }
+ else {
+        return left + UNDERSCORE + propertyColumnName;
+      }
+    }
+ else {
+      String right=getTableName(property.getReferencedDomainClass());
+      if (property.isManyToMany()) {
+        if (hasJoinTableMapping) {
+          return jt.getName();
+        }
+        if (property.isOwningSide()) {
+          return left + UNDERSCORE + propertyColumnName;
+        }
+ else {
+          return right + UNDERSCORE + namingStrategy.propertyToColumnName(property.getOtherSide().getName());
+        }
+      }
+ else {
+        if (shouldCollectionBindWithJoinColumn(property)) {
+          if (hasJoinTableMapping) {
+            return jt.getName();
+          }
+          left=trimBackTigs(left);
+          right=trimBackTigs(right);
+          return left + UNDERSCORE + right;
+        }
+        if (property.isOwningSide()) {
+          return left + UNDERSCORE + right;
+        }
+ else {
+          return right + UNDERSCORE + left;
+        }
+      }
+    }
+  }
+}

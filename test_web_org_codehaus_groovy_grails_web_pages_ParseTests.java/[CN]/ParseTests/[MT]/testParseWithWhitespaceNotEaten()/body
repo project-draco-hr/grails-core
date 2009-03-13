@@ -1,0 +1,7 @@
+{
+  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print(STATIC_HTML_CONTENT_0)\n"+ "out.print(evaluate('uri', 3, it) { return uri })\n"+ "out.print(STATIC_HTML_CONTENT_1)\n"+ "}\n"+ "static final STATIC_HTML_CONTENT_0 = '''Please click the link below to confirm your email address:\n\\n'''\n"+ "\n"+ "static final STATIC_HTML_CONTENT_1 = '''\\n\\n\\nThanks'''\n"+ "\n"+ "}\n";
+  String output=parseCode("myTest","Please click the link below to confirm your email address:\n" + "\n" + "${uri}\n"+ "\n"+ "\n"+ "Thanks");
+  System.out.println("Output: " + output);
+  System.out.println("Expect: " + expected);
+  assertEquals(expected,output);
+}

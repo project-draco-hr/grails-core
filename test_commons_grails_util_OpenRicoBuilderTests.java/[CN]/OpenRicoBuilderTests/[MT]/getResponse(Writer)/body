@@ -1,0 +1,9 @@
+{
+  final PrintWriter printer=new PrintWriter(writer);
+  return new MockHttpServletResponse(){
+    public PrintWriter getWriter() throws UnsupportedEncodingException {
+      return printer;
+    }
+  }
+;
+}

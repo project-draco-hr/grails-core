@@ -1,0 +1,6 @@
+{
+  this.params=Collections.unmodifiableMap(params);
+  this.id=params.get(ID_PARAM);
+  this.urlData=urlData;
+  this.servletContext=servletContext;
+}

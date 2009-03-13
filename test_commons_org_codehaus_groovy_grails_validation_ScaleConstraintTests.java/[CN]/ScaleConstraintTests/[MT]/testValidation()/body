@@ -1,0 +1,17 @@
+{
+  testFloat(3,0.1234f,0.123f);
+  testFloat(3,0.1235f,0.124f);
+  testFloat(3,0.12f,0.120f);
+  testFloat(3,47f,47.000f);
+  testFloat(0,0.123f,0f);
+  testDouble(3,0.1234,0.123);
+  testDouble(3,0.1235,0.124);
+  testDouble(3,0.12,0.120);
+  testDouble(3,47d,47.000);
+  testDouble(0,0.123,0d);
+  testBigDecimal(3,"0.1234","0.123");
+  testBigDecimal(3,"0.1235","0.124");
+  testBigDecimal(3,"0.12","0.120");
+  testBigDecimal(3,"47","47.000");
+  testBigDecimal(0,"0.123","0");
+}

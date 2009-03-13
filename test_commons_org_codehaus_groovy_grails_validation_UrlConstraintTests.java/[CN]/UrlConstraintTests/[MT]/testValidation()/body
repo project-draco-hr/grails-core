@@ -1,0 +1,21 @@
+{
+  testConstraintMessageCodes(getConstraint("testURL",Boolean.TRUE),"wrong_url",new String[]{"testClass.testURL.url.error","testClass.testURL.url.invalid"},new Object[]{"testURL",TestClass.class,"wrong_url"});
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"http://www.google.com");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"https://www.google.com/");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),"https://www.google.com/answers.py?test=1&second=2");
+  testConstraintFailed(getConstraint("testURL",Boolean.TRUE),"http://localhost/tau_gwi_00/clif/cb/19");
+  testConstraintPassed(getConstraint("testURL","localhost"),"http://localhost/tau_gwi_00/clif/cb/19");
+  testConstraintPassed(getConstraint("testURL","localhost(:(\\d{1,5}))?"),"http://localhost:8080/tau_gwi_00/clif/cb/19");
+  testConstraintPassed(getConstraint("testURL",".*\\.localdomain"),"http://localhost.localdomain/myApp/?test=1&second=2");
+  testConstraintPassed(getConstraint("testURL",".*\\.localdomain"),"http://mytest.localdomain/myApp/?test=1&second=2");
+  List regexps=new ArrayList();
+  regexps.add("localhost");
+  regexps.add("my-machine");
+  testConstraintPassed(getConstraint("testURL",regexps),"https://localhost/myApp/?test=1&second=2");
+  testConstraintPassed(getConstraint("testURL",regexps),"https://my-machine/myApp/?test=1&second=2");
+  testConstraintFailed(getConstraint("testURL",regexps),"https://another-machine/myApp/?test=1&second=2");
+  testConstraintPassed(getConstraint("testURL",regexps),"http://www.google.com/");
+  testConstraintPassed(getConstraint("testURL",Boolean.FALSE),"wrong_url");
+  testConstraintPassed(getConstraint("testURL",Boolean.TRUE),null);
+  testConstraintDefaultMessage(getConstraint("testURL",Boolean.TRUE),"wrong_url","Property [{0}] of class [{1}] with value [{2}] is not a valid URL");
+}

@@ -1,0 +1,20 @@
+{
+  Writer out=createResponseWriter(response);
+  try {
+    Template t=engine.createTemplate(pageResource);
+    if (t == null) {
+      context.log("GroovyPagesServlet:  \"" + pageResource.getDescription() + "\" not found");
+      response.sendError(404,"\"" + pageResource.getDescription() + "\" not found.");
+      return;
+    }
+    Writable w=t.make();
+    w.writeTo(out);
+  }
+ catch (  Exception e) {
+    out=createResponseWriter(response);
+    handleException(e,out,engine);
+  }
+ finally {
+    if (out != null)     out.close();
+  }
+}

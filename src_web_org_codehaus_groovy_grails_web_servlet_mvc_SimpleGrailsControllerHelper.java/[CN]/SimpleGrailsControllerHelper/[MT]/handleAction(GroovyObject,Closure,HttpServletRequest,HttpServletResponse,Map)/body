@@ -1,0 +1,9 @@
+{
+  GrailsParameterMap paramsMap=(GrailsParameterMap)controller.getProperty("params");
+  if (params != null && !params.isEmpty()) {
+    paramsMap.putAll(params);
+  }
+  Object returnValue=action.call();
+  request.setAttribute(GrailsApplicationAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
+  return returnValue;
+}

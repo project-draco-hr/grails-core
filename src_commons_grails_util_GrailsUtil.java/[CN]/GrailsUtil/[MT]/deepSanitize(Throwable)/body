@@ -1,0 +1,7 @@
+{
+  Throwable current=t;
+  while (current.getCause() != null) {
+    current=sanitize(current.getCause());
+  }
+  return sanitize(t);
+}

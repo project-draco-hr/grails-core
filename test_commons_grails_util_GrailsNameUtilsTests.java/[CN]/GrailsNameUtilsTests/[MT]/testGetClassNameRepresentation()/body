@@ -1,0 +1,4 @@
+{
+  assertEquals("MyClass",GrailsNameUtils.getClassNameRepresentation("my-class"));
+  assertEquals("MyClass",GrailsNameUtils.getClassNameRepresentation("MyClass"));
+}

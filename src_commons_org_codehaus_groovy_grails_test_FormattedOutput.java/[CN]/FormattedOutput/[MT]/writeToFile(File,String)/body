@@ -1,0 +1,20 @@
+{
+  FileWriter writer=null;
+  try {
+    writer=new FileWriter(file);
+    writer.write(text);
+    writer.close();
+  }
+ catch (  IOException ex) {
+    throw new RuntimeException(ex);
+  }
+ finally {
+    if (writer != null) {
+      try {
+        writer.close();
+      }
+ catch (      IOException ex) {
+      }
+    }
+  }
+}

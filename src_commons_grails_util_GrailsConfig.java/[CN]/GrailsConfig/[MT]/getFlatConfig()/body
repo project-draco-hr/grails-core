@@ -1,0 +1,5 @@
+{
+synchronized (GrailsConfig.class) {
+    return flatConfig != null ? flatConfig : (flatConfig=ConfigurationHolder.getFlatConfig());
+  }
+}

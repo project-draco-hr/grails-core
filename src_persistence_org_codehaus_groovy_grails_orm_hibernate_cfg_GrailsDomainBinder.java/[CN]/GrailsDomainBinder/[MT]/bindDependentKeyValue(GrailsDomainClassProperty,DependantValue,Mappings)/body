@@ -1,0 +1,12 @@
+{
+  if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] binding  [" + property.getName() + "] with dependant key");
+  GrailsDomainClass refDomainClass=property.getDomainClass();
+  final Mapping mapping=getMapping(refDomainClass.getClazz());
+  if (shouldCollectionBindWithJoinColumn(property) && hasCompositeIdentifier(mapping)) {
+    CompositeIdentity ci=(CompositeIdentity)mapping.getIdentity();
+    bindCompositeIdentifierToManyToOne(property,key,ci,refDomainClass,EMPTY_PATH);
+  }
+ else {
+    bindSimpleValue(property,key,EMPTY_PATH,mappings);
+  }
+}

@@ -1,0 +1,26 @@
+{
+  if (s == null) {
+    throw new JSONException("Null pointer");
+  }
+  if (mode == OBJECT || mode == ARRAY) {
+    try {
+      if (comma && mode == ARRAY) {
+        comma();
+      }
+      if (mode == ARRAY) {
+        newline();
+        indent();
+      }
+      writer.write(s);
+    }
+ catch (    IOException e) {
+      throw new JSONException(e);
+    }
+    if (mode == OBJECT) {
+      mode=KEY;
+    }
+    comma=true;
+    return this;
+  }
+  throw new JSONException("Value out of sequence.");
+}

@@ -1,0 +1,13 @@
+{
+  if (targetSpringConfig != null) {
+    ApplicationContext ctx=targetSpringConfig.getUnrefreshedApplicationContext();
+    if (ctx instanceof BeanDefinitionRegistry) {
+      final BeanDefinitionRegistry registry=(BeanDefinitionRegistry)ctx;
+      registerUnrefreshedBeansWithRegistry(registry);
+      registerBeansWithRegistry(registry);
+    }
+    for (    Map.Entry<String,BeanConfiguration> beanEntry : beanConfigs.entrySet()) {
+      targetSpringConfig.addBeanConfiguration(beanEntry.getKey(),beanEntry.getValue());
+    }
+  }
+}

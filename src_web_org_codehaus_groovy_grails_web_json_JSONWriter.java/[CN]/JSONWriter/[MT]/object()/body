@@ -1,0 +1,12 @@
+{
+  if (this.mode == INIT) {
+    this.mode=OBJECT;
+  }
+  if (this.mode == OBJECT || this.mode == ARRAY) {
+    this.append("{");
+    this.push(KEY);
+    this.comma=false;
+    return this;
+  }
+  throw new JSONException("Misplaced object.");
+}

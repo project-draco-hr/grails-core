@@ -1,0 +1,43 @@
+{
+  HttpServletRequest request=(HttpServletRequest)rq;
+  HttpServletResponse response=(HttpServletResponse)rs;
+  ServletContext servletContext=filterConfig.getServletContext();
+  SiteMeshWebAppContext webAppContext=new SiteMeshWebAppContext(request,response,servletContext);
+  ContentProcessor contentProcessor=initContentProcessor(webAppContext);
+  DecoratorSelector decoratorSelector=initDecoratorSelector(webAppContext);
+  if (filterAlreadyAppliedForRequest(request)) {
+    chain.doFilter(request,response);
+    return;
+  }
+  if (!contentProcessor.handles(webAppContext)) {
+    chain.doFilter(request,response);
+    return;
+  }
+  if (containerTweaks.shouldAutoCreateSession()) {
+    request.getSession(true);
+  }
+  try {
+    Content content=obtainContent(contentProcessor,webAppContext,request,response,chain);
+    if (content == null) {
+      return;
+    }
+    detectContentTypeFromPage(content,response);
+    Decorator decorator=decoratorSelector.selectDecorator(content,webAppContext);
+    decorator.render(content,webAppContext);
+  }
+ catch (  IllegalStateException e) {
+    if (!containerTweaks.shouldIgnoreIllegalStateExceptionOnErrorPage()) {
+      throw e;
+    }
+  }
+catch (  RuntimeException e) {
+    if (containerTweaks.shouldLogUnhandledExceptions()) {
+      servletContext.log("Unhandled exception occurred whilst decorating page",e);
+    }
+    throw e;
+  }
+catch (  ServletException e) {
+    request.setAttribute(ALREADY_APPLIED_KEY,null);
+    throw e;
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return name.startsWith(REGEX_START) && name.endsWith(REGEX_END) && value instanceof Closure;
+}

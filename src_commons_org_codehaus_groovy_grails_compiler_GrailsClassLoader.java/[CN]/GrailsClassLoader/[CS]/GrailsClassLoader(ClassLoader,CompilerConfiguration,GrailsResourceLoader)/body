@@ -1,0 +1,5 @@
+{
+  super(parent,config);
+  this.parent=parent;
+  this.grailsResourceLoader=resourceLoader;
+}

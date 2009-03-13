@@ -1,0 +1,7 @@
+{
+  if (clazz == null)   return false;
+  if (!clazz.getName().endsWith(DefaultGrailsCodecClass.CODEC)) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,11 @@
+{
+  if (encoding == null)   encoding="UTF-8";
+  StringBuilder queryString=new StringBuilder("?");
+  for (Iterator i=params.entrySet().iterator(); i.hasNext(); ) {
+    Map.Entry entry=(Map.Entry)i.next();
+    boolean hasMore=i.hasNext();
+    boolean wasAppended=appendEntry(entry,queryString,encoding,"");
+    if (hasMore && wasAppended)     queryString.append('&');
+  }
+  return queryString.toString();
+}

@@ -1,0 +1,6 @@
+{
+  StringWriter strw=new StringWriter();
+  render(strw);
+  strw.flush();
+  return strw.toString();
+}

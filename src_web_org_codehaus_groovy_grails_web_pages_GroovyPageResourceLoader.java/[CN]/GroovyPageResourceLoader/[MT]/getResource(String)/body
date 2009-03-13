@@ -1,0 +1,22 @@
+{
+  if (StringUtils.isBlank(location))   throw new IllegalArgumentException("Argument [location] cannot be null or blank");
+  if (location.startsWith(PLUGINS_PATH)) {
+    Resource r=super.getResource(location.substring(1));
+    if (r.exists())     return r;
+  }
+  location=getRealLocationInProject(location);
+  Resource resource=super.getResource(location);
+  if (!resource.exists() && location.startsWith(PLUGINS_PATH)) {
+    if (location.equals(PLUGINS_PATH)) {
+      return new FileSystemResource(GrailsPluginUtils.getPluginBaseDirectories().get(0));
+    }
+ else {
+      final Resource pluginResource=lookupResourceForPluginPath(location);
+      if (pluginResource != null)       resource=pluginResource;
+    }
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Resolved GSP location [" + location + "] to resource ["+ resource+ "] (exists? ["+ resource.exists()+ "]) using base resource ["+ localBaseResource+ "]");
+  }
+  return resource;
+}

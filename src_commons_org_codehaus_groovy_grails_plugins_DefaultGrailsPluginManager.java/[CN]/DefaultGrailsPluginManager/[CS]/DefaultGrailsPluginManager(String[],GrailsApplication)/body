@@ -1,0 +1,21 @@
+{
+  super(application);
+  resolver=new PathMatchingResourcePatternResolver();
+  List resourceList=new ArrayList();
+  for (int i=0; i < pluginResources.length; i++) {
+    String resourcePath=pluginResources[i];
+    try {
+      Resource[] resources=resolver.getResources(resourcePath);
+      for (int j=0; j < resources.length; j++) {
+        Resource resource=resources[j];
+        resourceList.add(resource);
+      }
+    }
+ catch (    IOException ioe) {
+      LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);
+    }
+  }
+  this.pluginResources=(Resource[])resourceList.toArray(new Resource[resourceList.size()]);
+  this.application=application;
+  setPluginFilter();
+}

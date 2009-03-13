@@ -1,0 +1,7 @@
+{
+  MutableAttributeMap flowScope=context.getFlowScope();
+  if (flowScope.get(PERSISTENCE_CONTEXT_ATTRIBUTE) == null) {
+    SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(localSessionFactory);
+    if (sessionHolder != null)     flowScope.put(PERSISTENCE_CONTEXT_ATTRIBUTE,sessionHolder.getSession());
+  }
+}

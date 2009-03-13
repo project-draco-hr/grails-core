@@ -1,0 +1,6 @@
+{
+  if (args.length > 0 && (args[0] instanceof Closure)) {
+    this.mappings=(Closure)args[0];
+  }
+  return null;
+}

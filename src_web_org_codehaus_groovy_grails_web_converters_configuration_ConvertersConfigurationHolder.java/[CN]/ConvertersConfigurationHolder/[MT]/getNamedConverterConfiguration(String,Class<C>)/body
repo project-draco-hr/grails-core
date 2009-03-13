@@ -1,0 +1,4 @@
+{
+  Map<String,ConverterConfiguration> map=getNamedConfigMapForConverter(converterClass,false);
+  return map != null ? map.get(name) : null;
+}

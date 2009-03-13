@@ -1,0 +1,19 @@
+{
+switch (circularReferenceBehaviour) {
+case DEFAULT:
+    Map<String,Object> props=new HashMap<String,Object>();
+  props.put("class",o.getClass());
+StringBuilder ref=new StringBuilder();
+int idx=referenceStack.indexOf(o);
+for (int i=referenceStack.size() - 1; i > idx; i--) {
+ref.append("../");
+}
+props.put("_ref",ref.substring(0,ref.length() - 1));
+value(props);
+break;
+case EXCEPTION:
+throw new ConverterException("Circular Reference detected: class " + o.getClass().getName());
+case INSERT_NULL:
+value(null);
+}
+}

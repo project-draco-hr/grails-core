@@ -1,0 +1,12 @@
+{
+  if (environment == Environment.DEVELOPMENT || environment == Environment.TEST) {
+    boolean safeDereference=false;
+    if (text.endsWith("?")) {
+      text=text.substring(0,text.length() - 1);
+      safeDereference=true;
+    }
+    String escaped=escapeGroovy(text);
+    text="evaluate('" + escaped + "', "+ getCurrentOutputLineNumber()+ ", it) { return "+ text+ " }"+ (safeDereference ? "?" : "");
+  }
+  return text;
+}

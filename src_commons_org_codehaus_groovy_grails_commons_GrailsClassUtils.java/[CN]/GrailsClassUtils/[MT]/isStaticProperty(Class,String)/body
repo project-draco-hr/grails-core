@@ -1,0 +1,17 @@
+{
+  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(propertyName),null);
+  if (getter != null) {
+    return isPublicStatic(getter);
+  }
+ else {
+    try {
+      Field f=clazz.getDeclaredField(propertyName);
+      if (f != null) {
+        return isPublicStatic(f);
+      }
+    }
+ catch (    NoSuchFieldException e) {
+    }
+  }
+  return false;
+}

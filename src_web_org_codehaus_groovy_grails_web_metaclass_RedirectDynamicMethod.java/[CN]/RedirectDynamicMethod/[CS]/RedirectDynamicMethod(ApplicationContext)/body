@@ -1,0 +1,9 @@
+{
+  super(METHOD_PATTERN);
+  if (applicationContext.containsBean(UrlMappingsHolder.BEAN_ID))   this.urlMappingsHolder=(UrlMappingsHolder)applicationContext.getBean(UrlMappingsHolder.BEAN_ID);
+  GrailsApplication application=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
+  Object o=application.getFlatConfig().get(GRAILS_VIEWS_ENABLE_JSESSIONID);
+  if (o instanceof Boolean) {
+    useJessionId=(Boolean)o;
+  }
+}

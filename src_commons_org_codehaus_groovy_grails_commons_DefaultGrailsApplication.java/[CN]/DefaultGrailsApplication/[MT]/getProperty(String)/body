@@ -1,0 +1,11 @@
+{
+  final Matcher match=GETCLASSESPROP_PATTERN.matcher(propertyName);
+  match.find();
+  if (match.matches()) {
+    String artefactName=GrailsNameUtils.getClassNameRepresentation(match.group(1));
+    if (artefactHandlersByName.containsKey(artefactName)) {
+      return getArtefacts(artefactName);
+    }
+  }
+  return super.getProperty(propertyName);
+}

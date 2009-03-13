@@ -1,0 +1,18 @@
+{
+  if (colObject instanceof Collection) {
+    Collection c=(Collection)colObject;
+    for (Iterator i=c.iterator(); i.hasNext(); ) {
+      Object o=i.next();
+      if (StringUtils.isBlank(var))       binding.put(DEFAULT_ARGUMENT,o);
+ else       binding.put(var,o);
+      Writable w=template.make(binding);
+      w.writeTo(out);
+    }
+  }
+ else {
+    if (StringUtils.isBlank(var))     binding.put(DEFAULT_ARGUMENT,colObject);
+ else     binding.put(var,colObject);
+    Writable w=template.make(binding);
+    w.writeTo(out);
+  }
+}

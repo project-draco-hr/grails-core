@@ -1,0 +1,5 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(MANY_TO_MANY_CLASSES_DEFINITION);
+  assertForeignKey("specialty","vet_specialities",config);
+  assertForeignKey("vet","vet_specialities",config);
+}

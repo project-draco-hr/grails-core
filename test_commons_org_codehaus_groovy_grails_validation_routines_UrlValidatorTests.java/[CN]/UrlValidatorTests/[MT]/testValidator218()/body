@@ -1,0 +1,4 @@
+{
+  UrlValidator validator=new UrlValidator(UrlValidator.ALLOW_2_SLASHES);
+  assertTrue("parentheses should be valid in URLs",validator.isValid("http://somewhere.com/pathxyz/file(1).html"));
+}

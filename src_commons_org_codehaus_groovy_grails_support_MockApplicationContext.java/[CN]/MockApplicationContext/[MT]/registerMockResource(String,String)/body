@@ -1,0 +1,3 @@
+{
+  resources.add(new MockResource(StringUtils.removeStart(location,"/"),contents));
+}

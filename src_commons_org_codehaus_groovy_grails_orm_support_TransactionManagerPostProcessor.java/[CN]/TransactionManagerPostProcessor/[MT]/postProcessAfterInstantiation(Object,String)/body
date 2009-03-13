@@ -1,0 +1,14 @@
+{
+  if (!this.initialized) {
+    String[] beanNames=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(this.beanFactory,PlatformTransactionManager.class,false,false);
+    if (beanNames.length > 0) {
+      this.transactionManager=(PlatformTransactionManager)beanFactory.getBean(beanNames[0]);
+    }
+    this.initialized=true;
+  }
+  if (bean instanceof TransactionManagerAware) {
+    TransactionManagerAware tma=(TransactionManagerAware)bean;
+    tma.setTransactionManager(this.transactionManager);
+  }
+  return true;
+}

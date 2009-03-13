@@ -1,0 +1,6 @@
+{
+  if (componentProperty == null)   return false;
+  final GrailsDomainClass domainClass=componentProperty.getDomainClass();
+  final Mapping mapping=getMapping(domainClass.getClazz());
+  return !domainClass.isRoot() && (mapping == null || mapping.isTablePerHierarchy()) || componentProperty.isOptional();
+}

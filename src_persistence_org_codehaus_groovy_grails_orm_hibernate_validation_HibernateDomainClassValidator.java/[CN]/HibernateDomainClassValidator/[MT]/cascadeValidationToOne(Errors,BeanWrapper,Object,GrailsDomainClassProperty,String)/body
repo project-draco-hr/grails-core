@@ -1,0 +1,5 @@
+{
+  List validatedInstancesList=(List)validatedInstances.get();
+  validatedInstancesList.add(associatedObject);
+  super.cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+}

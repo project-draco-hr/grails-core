@@ -1,0 +1,11 @@
+{
+  String fullName=GrailsASTUtils.getFullName(classNode);
+  String mappingFile=GrailsDomainConfigurationUtil.getMappingFileName(fullName);
+  if (getClass().getResource(mappingFile) != null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("[GrailsDomainInjector] Mapping file [" + mappingFile + "] found. Skipping property injection.");
+    }
+    return false;
+  }
+  return !isEnum(classNode);
+}

@@ -1,0 +1,11 @@
+{
+  String[] propertyNames=compositeId.getPropertyNames();
+  PropertyConfig config=getPropertyConfig(property);
+  if (config == null)   config=new PropertyConfig();
+  for (  String propertyName : propertyNames) {
+    final ColumnConfig cc=new ColumnConfig();
+    cc.setName(namingStrategy.classToTableName(refDomainClass.getShortName()) + UNDERSCORE + getDefaultColumnName(refDomainClass.getPropertyByName(propertyName)));
+    config.getColumns().add(cc);
+  }
+  bindSimpleValue(property,value,path,config);
+}

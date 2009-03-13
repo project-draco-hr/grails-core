@@ -1,0 +1,12 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class ds=gcl.parseClass("class TestDataSource { def dialect = org.hibernate.dialect.Oracle9Dialect.class;String driverClassName = 'org.hsqldb.jdbcDriver';String url = 'jdbc:hsqldb:mem:testDB';String username ='sa'; String password =''; }");
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{ds},gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  parent.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager());
+  GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);
+  conf.setLoadExternalPersistenceConfig(false);
+  GrailsApplicationContext ctx=(GrailsApplicationContext)conf.configure(new MockServletContext());
+  assertNotNull(ctx);
+}

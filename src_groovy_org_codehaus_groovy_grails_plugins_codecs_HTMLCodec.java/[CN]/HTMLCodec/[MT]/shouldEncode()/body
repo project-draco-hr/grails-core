@@ -1,0 +1,10 @@
+{
+  final RequestAttributes attributes=RequestContextHolder.getRequestAttributes();
+  if (attributes != null) {
+    Object codecName=attributes.getAttribute("org.codehaus.groovy.grails.GSP_CODEC",RequestAttributes.SCOPE_REQUEST);
+    if (codecName != null && codecName.toString().equalsIgnoreCase("html")) {
+      return false;
+    }
+  }
+  return true;
+}

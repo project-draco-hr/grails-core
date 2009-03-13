@@ -1,0 +1,11 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+  if (webRequest != null) {
+    GroovyObject controller=webRequest.getAttributes().getController(request);
+    if (controller != null) {
+      String pathToView=this.pluginMetaManager.getPluginViewsPathForResource(controller.getClass().getName());
+      return GrailsResourceUtils.WEB_INF + pathToView + "/layouts/"+ viewName;
+    }
+  }
+  return null;
+}

@@ -1,0 +1,9 @@
+{
+  int len=Array.getLength(o);
+  for (int i=0; i < len; i++) {
+    Object cur=Array.get(o,i);
+    xml.startNode(xml.getElementName(cur));
+    xml.convertAnother(cur);
+    xml.end();
+  }
+}

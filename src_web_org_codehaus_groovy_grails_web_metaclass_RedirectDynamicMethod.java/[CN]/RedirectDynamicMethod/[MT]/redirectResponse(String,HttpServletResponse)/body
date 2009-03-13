@@ -1,0 +1,16 @@
+{
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Dynamic method [redirect] forwarding request to [" + actualUri + "]");
+  }
+  try {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Executing redirect with response [" + response + "]");
+    }
+    String redirectUrl=useJessionId ? response.encodeRedirectURL(actualUri) : actualUri;
+    response.sendRedirect(redirectUrl);
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);
+  }
+  return null;
+}

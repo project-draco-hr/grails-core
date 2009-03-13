@@ -1,0 +1,10 @@
+{
+  GrailsUtil.deepSanitize(exception);
+  LOG.error("Error processing GroovyPageView: " + exception.getMessage(),exception);
+  if (exception instanceof GroovyPagesException) {
+    throw (GroovyPagesException)exception;
+  }
+ else {
+    throw new GroovyPagesException("Error processing GroovyPageView: " + exception.getMessage(),exception,-1,getUrl());
+  }
+}

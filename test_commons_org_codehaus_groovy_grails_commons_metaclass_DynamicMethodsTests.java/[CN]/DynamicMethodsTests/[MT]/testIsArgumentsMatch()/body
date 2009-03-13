@@ -1,0 +1,12 @@
+{
+  DynamicConstructor dc=new AbstractDynamicConstructor(new Class[]{String.class,Integer.class}){
+    public Object invoke(    Class clazz,    Object[] args){
+      return null;
+    }
+  }
+;
+  assertTrue(dc.isArgumentsMatch(new Object[]{"test",new Integer(1)}));
+  assertFalse(dc.isArgumentsMatch(new Object[]{"test"}));
+  assertFalse(dc.isArgumentsMatch(new Object[]{"test",new Date()}));
+  assertFalse(dc.isArgumentsMatch(new Object[]{"test",new Integer(1),"test"}));
+}

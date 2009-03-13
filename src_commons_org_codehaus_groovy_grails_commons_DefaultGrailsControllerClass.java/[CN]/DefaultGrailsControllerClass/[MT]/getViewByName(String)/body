@@ -1,0 +1,8 @@
+{
+  if (this.viewNames.containsKey(viewName)) {
+    return (String)this.viewNames.get(viewName);
+  }
+ else {
+    return this.uri + SLASH + viewName;
+  }
+}

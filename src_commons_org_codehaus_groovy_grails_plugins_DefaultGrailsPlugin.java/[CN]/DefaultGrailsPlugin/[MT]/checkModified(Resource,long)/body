@@ -1,0 +1,14 @@
+{
+  if (!r.exists())   return -1;
+  try {
+    if (LOG.isDebugEnabled())     LOG.debug("Checking modified for resource " + r);
+    long lastModified=r.lastModified();
+    if (previousModifiedTime < lastModified) {
+      return lastModified;
+    }
+  }
+ catch (  IOException e) {
+    LOG.debug("Unable to read last modified date of plugin resource" + e.getMessage(),e);
+  }
+  return -1;
+}

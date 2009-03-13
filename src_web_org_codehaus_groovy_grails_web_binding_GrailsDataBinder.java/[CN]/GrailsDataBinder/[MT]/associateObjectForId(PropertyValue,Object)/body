@@ -1,0 +1,8 @@
+{
+  final Object target=getTarget();
+  final Class associatedType=getReferencedTypeForCollection(pv.getName(),target);
+  if (isDomainAssociation(associatedType)) {
+    final Object obj=getPersistentInstance(associatedType,id);
+    addAssociationToTarget(pv.getName(),target,obj);
+  }
+}

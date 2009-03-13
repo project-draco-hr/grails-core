@@ -1,0 +1,6 @@
+{
+  super.setUp();
+  sw=new StringWriter();
+  tag=new GroovyCollectTag();
+  tag.setWriter(new PrintWriter(sw));
+}

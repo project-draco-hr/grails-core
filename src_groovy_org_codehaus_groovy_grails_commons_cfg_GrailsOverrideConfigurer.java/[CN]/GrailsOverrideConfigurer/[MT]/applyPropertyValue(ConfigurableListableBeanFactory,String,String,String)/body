@@ -1,0 +1,6 @@
+{
+  if (factory.containsBeanDefinition(beanName)) {
+    BeanDefinition bd=factory.getBeanDefinition(beanName);
+    bd.getPropertyValues().addPropertyValue(property,value);
+  }
+}

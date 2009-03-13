@@ -1,0 +1,7 @@
+{
+  Object id=type.get(resultSet,names[0]);
+  if ((!resultSet.wasNull()) && id != null) {
+    return bidiMap.getEnumValue(id);
+  }
+  return null;
+}

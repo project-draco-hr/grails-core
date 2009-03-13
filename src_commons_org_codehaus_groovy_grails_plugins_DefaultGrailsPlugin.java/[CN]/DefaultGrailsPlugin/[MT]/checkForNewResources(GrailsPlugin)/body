@@ -1,0 +1,47 @@
+{
+  if (resourcesReferences != null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Plugin " + plugin + " checking ["+ ArrayUtils.toString(resourcesReferences)+ "] resource references new resources that have been added..");
+    }
+    for (int i=0; i < resourcesReferences.length; i++) {
+      String resourcesReference=resourcesReferences[i];
+      try {
+        Resource[] tmp=resolver.getResources(resourcesReference);
+        if (resourceCount[i] < tmp.length) {
+          Resource newResource=null;
+          resourceCount[i]=tmp.length;
+          for (          Resource resource : tmp) {
+            if (!ArrayUtils.contains(watchedResources,resource)) {
+              newResource=resource;
+              break;
+            }
+          }
+          if (newResource != null) {
+            watchedResources=(Resource[])ArrayUtils.add(watchedResources,newResource);
+            if (LOG.isInfoEnabled())             LOG.info("Found new Grails plug-in resource [" + newResource + "], adding to application..");
+            if (newResource.getFilename().endsWith(".groovy")) {
+              if (LOG.isDebugEnabled())               LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, registering resource with class loader...");
+              GroovyClassLoader classLoader=this.application.getClassLoader();
+              GrailsResourceLoader resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
+              Resource[] classLoaderResources=resourceLoader.getResources();
+              classLoaderResources=(Resource[])ArrayUtils.add(classLoaderResources,newResource);
+              resourceLoader.setResources(classLoaderResources);
+              if (classLoader instanceof GrailsClassLoader) {
+                ((GrailsClassLoader)classLoader).setGrailsResourceLoader(resourceLoader);
+              }
+            }
+            initializeModifiedTimes();
+            if (LOG.isDebugEnabled())             LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, firing event if possible..");
+            fireModifiedEvent(newResource,plugin);
+          }
+        }
+      }
+ catch (      IllegalArgumentException e) {
+        LOG.debug("Plugin " + this + "  was unable to check for new plugin resources: "+ e.getMessage());
+      }
+catch (      IOException e) {
+        LOG.debug("Plugin " + this + "  was unable to check for new plugin resources: "+ e.getMessage());
+      }
+    }
+  }
+}

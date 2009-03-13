@@ -1,0 +1,16 @@
+{
+  try {
+    RequestContext requestContext=RequestContextHolder.getRequestContext();
+    Session s=null;
+    if (requestContext != null) {
+      FlowExecutionContext context=requestContext.getFlowExecutionContext();
+      MutableAttributeMap flowScope=context.getActiveSession().getScope();
+      s=(Session)flowScope.get(HibernateFlowExecutionListener.PERSISTENCE_CONTEXT_ATTRIBUTE,org.hibernate.Session.class);
+    }
+    if (s == null)     return super.currentSession();
+ else     return s;
+  }
+ catch (  IllegalStateException e) {
+    return super.currentSession();
+  }
+}

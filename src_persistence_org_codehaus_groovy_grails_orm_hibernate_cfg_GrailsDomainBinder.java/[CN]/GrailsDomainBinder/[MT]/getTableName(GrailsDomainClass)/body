@@ -1,0 +1,11 @@
+{
+  Mapping m=getMapping(domainClass.getClazz());
+  String tableName=null;
+  if (m != null && m.getTableName() != null) {
+    tableName=m.getTableName();
+  }
+  if (tableName == null) {
+    tableName=namingStrategy.classToTableName(domainClass.getShortName());
+  }
+  return tableName;
+}

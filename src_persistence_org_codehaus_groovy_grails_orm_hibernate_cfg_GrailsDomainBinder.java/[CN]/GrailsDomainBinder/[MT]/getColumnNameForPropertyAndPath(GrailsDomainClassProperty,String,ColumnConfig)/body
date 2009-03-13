@@ -1,0 +1,39 @@
+{
+  String columnName=null;
+  if (cc != null) {
+    if (supportsJoinColumnMapping(grailsProp)) {
+      PropertyConfig pc=getPropertyConfig(grailsProp);
+      if (hasJoinKeyMapping(pc)) {
+        columnName=pc.getJoinTable().getKey().getName();
+      }
+ else {
+        columnName=cc.getName();
+      }
+    }
+ else {
+      columnName=cc.getName();
+    }
+  }
+ else {
+    GrailsDomainClass domainClass=grailsProp.getDomainClass();
+    Mapping m=getMapping(domainClass.getClazz());
+    if (m != null) {
+      PropertyConfig c=m.getPropertyConfig(grailsProp.getName());
+      if (supportsJoinColumnMapping(grailsProp) && hasJoinKeyMapping(c)) {
+        columnName=c.getJoinTable().getKey().getName();
+      }
+ else       if (c != null && c.getColumn() != null) {
+        columnName=c.getColumn();
+      }
+    }
+  }
+  if (columnName == null) {
+    if (StringHelper.isNotEmpty(path)) {
+      columnName=namingStrategy.propertyToColumnName(path) + UNDERSCORE + getDefaultColumnName(grailsProp);
+    }
+ else {
+      columnName=getDefaultColumnName(grailsProp);
+    }
+  }
+  return columnName;
+}

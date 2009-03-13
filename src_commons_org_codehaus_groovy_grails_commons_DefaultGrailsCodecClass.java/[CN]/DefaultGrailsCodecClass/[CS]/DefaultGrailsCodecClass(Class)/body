@@ -1,0 +1,5 @@
+{
+  super(clazz,CODEC);
+  this.encodeMethod=getMethodOrClosureMethod("encode");
+  this.decodeMethod=getMethodOrClosureMethod("decode");
+}

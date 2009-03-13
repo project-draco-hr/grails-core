@@ -1,0 +1,10 @@
+{
+  if (factory != null) {
+    PageParser pageParser=factory.getPageParser(response.getContentType() != null ? response.getContentType() : "text/html");
+    if (pageParser == null) {
+      pageParser=factory.getPageParser("text/html;charset=UTF-8");
+    }
+    return pageParser;
+  }
+  return null;
+}

@@ -1,0 +1,6 @@
+{
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(registry.getClass());
+  if (mc.respondsTo(registry,"removeBeanDefinition").size() > 0) {
+    mc.invokeMethod(registry,"removeBeanDefinition",new Object[]{beanName});
+  }
+}

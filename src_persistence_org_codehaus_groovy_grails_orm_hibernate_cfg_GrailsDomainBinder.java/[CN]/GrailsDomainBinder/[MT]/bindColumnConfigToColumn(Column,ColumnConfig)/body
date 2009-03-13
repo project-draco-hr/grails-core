@@ -1,0 +1,9 @@
+{
+  if (columnConfig != null) {
+    column.setLength(columnConfig.getLength());
+    column.setPrecision(columnConfig.getPrecision());
+    column.setSqlType(columnConfig.getSqlType());
+    column.setUnique(columnConfig.getUnique());
+    column.setScale(columnConfig.getScale());
+  }
+}

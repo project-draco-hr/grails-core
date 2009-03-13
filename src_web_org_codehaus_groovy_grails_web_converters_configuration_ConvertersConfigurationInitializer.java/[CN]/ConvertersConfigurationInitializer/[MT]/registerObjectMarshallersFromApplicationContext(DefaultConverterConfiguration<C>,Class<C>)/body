@@ -1,0 +1,10 @@
+{
+  if (applicationContext != null) {
+    for (    Object o : applicationContext.getBeansOfType(ObjectMarshallerRegisterer.class).values()) {
+      ObjectMarshallerRegisterer omr=(ObjectMarshallerRegisterer)o;
+      if (omr.getConverterClass() == converterClass) {
+        cfg.registerObjectMarshaller(omr.getMarshaller(),omr.getPriority());
+      }
+    }
+  }
+}

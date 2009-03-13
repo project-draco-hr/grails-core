@@ -1,0 +1,12 @@
+{
+  try {
+    Class loaderClass=loader.getClass();
+    Method method=loaderClass.getMethod("addURL",URL.class);
+    for (    URL url : urls) {
+      method.invoke(loader,url);
+    }
+  }
+ catch (  Exception ex) {
+    throw new RuntimeException("Cannot dynamically add URLs to GrailsScriptRunner's" + " class loader - make sure that it is loaded by Groovy's" + " RootLoader or a sub-class.");
+  }
+}

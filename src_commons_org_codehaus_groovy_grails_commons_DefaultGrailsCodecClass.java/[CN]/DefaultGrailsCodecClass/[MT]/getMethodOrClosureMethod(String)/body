@@ -1,0 +1,10 @@
+{
+  Closure closure=(Closure)getPropertyOrStaticPropertyOrFieldValue(methodName,Closure.class);
+  if (closure == null) {
+    MetaMethod method=getMetaClass().getMetaMethod(methodName,new Object[]{Object.class});
+    if (method != null) {
+      closure=new MethodClosure(getReference().getWrappedInstance(),methodName);
+    }
+  }
+  return closure;
+}

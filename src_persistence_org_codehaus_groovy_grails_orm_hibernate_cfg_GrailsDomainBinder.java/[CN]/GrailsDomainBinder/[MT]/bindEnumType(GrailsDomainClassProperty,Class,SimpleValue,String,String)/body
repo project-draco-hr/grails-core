@@ -1,0 +1,26 @@
+{
+  Properties enumProperties=new Properties();
+  enumProperties.put(ENUM_CLASS_PROP,propertyType.getName());
+  PropertyConfig pc=getPropertyConfig(property);
+  String enumType=pc != null ? pc.getEnumType() : null;
+  if (enumType == null && IdentityEnumType.supports(propertyType)) {
+    simpleValue.setTypeName(IdentityEnumType.class.getName());
+  }
+ else {
+    simpleValue.setTypeName(ENUM_TYPE_CLASS);
+    if (enumType == null || "string".equalsIgnoreCase(enumType)) {
+      enumProperties.put(ENUM_TYPE_PROP,String.valueOf(Types.VARCHAR));
+    }
+ else     if (!"ordinal".equalsIgnoreCase(enumType)) {
+      LOG.warn("Invalid enumType specified when mapping property [" + property.getName() + "] of class ["+ property.getDomainClass().getClazz()+ "]. Using defaults instead.");
+    }
+  }
+  simpleValue.setTypeParameters(enumProperties);
+  Table t=simpleValue.getTable();
+  Column column=new Column();
+  column.setNullable(property.isOptional());
+  column.setValue(simpleValue);
+  column.setName(columnName);
+  if (t != null)   t.addColumn(column);
+  simpleValue.addColumn(column);
+}

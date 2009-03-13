@@ -1,0 +1,39 @@
+{
+  try {
+    if (o == null) {
+      writer.value(null);
+    }
+ else     if (o instanceof String) {
+      writer.value(o);
+    }
+ else     if (o instanceof Class) {
+      writer.value(((Class)o).getName());
+    }
+ else     if ((o.getClass().isPrimitive() && !o.getClass().equals(byte[].class)) || o instanceof Number || o instanceof Boolean) {
+      writer.value(o);
+    }
+ else     if (o instanceof GString) {
+      value(o.toString());
+    }
+ else {
+      if (referenceStack.contains(o)) {
+        handleCircularRelationship(o);
+      }
+ else {
+        referenceStack.push(o);
+        ObjectMarshaller<JSON> marshaller=config.getMarshaller(o);
+        if (marshaller == null) {
+          throw new ConverterException("Unconvertable Object of class: " + o.getClass().getName());
+        }
+        marshaller.marshalObject(o,this);
+        referenceStack.pop();
+      }
+    }
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  JSONException e) {
+    throw new ConverterException(e);
+  }
+}

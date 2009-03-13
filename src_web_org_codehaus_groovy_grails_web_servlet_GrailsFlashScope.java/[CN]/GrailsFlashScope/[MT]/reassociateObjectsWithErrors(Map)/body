@@ -1,0 +1,10 @@
+{
+  for (Iterator i=scope.keySet().iterator(); i.hasNext(); ) {
+    Object key=i.next();
+    Object value=scope.get(key);
+    if (value instanceof Map) {
+      reassociateObjectsWithErrors((Map)value);
+    }
+    reasssociateObjectWithErrors(scope,value);
+  }
+}

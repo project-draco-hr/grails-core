@@ -1,0 +1,18 @@
+{
+  List delayedConstraints=new ArrayList();
+  for (Iterator i=this.appliedConstraints.values().iterator(); i.hasNext(); ) {
+    Constraint c=(Constraint)i.next();
+    if (c instanceof VetoingConstraint) {
+      c.setMessageSource(this.messageSource);
+      if (((VetoingConstraint)c).validateWithVetoing(target,propertyValue,errors))       return;
+    }
+ else {
+      delayedConstraints.add(c);
+    }
+  }
+  for (Iterator i=delayedConstraints.iterator(); i.hasNext(); ) {
+    Constraint c=(Constraint)i.next();
+    c.setMessageSource(this.messageSource);
+    c.validate(target,propertyValue,errors);
+  }
+}

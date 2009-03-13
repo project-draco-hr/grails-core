@@ -1,0 +1,10 @@
+{
+  if (this.grailsApplication != null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("[GrailsAnnotationConfiguration] Setting context class loader to Grails GroovyClassLoader");
+    }
+    Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
+  }
+  SessionFactory sessionFactory=super.buildSessionFactory();
+  return sessionFactory;
+}

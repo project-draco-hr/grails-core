@@ -1,0 +1,8 @@
+{
+  ApplicationContext appCtx=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  String[] paramListenerBeans=appCtx.getBeanNamesForType(ParameterCreationListener.class);
+  for (int i=0; i < paramListenerBeans.length; i++) {
+    ParameterCreationListener creationListenerBean=(ParameterCreationListener)appCtx.getBean(paramListenerBeans[i]);
+    webRequest.addParameterListener(creationListenerBean);
+  }
+}

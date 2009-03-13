@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  UrlMappingsListKey that=(UrlMappingsListKey)o;
+  if (action != null && !action.equals(that.action))   return false;
+  if (controller != null && !controller.equals(that.controller))   return false;
+  return true;
+}

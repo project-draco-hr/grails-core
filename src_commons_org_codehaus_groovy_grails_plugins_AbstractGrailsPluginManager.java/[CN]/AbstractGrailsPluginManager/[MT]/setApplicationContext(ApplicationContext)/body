@@ -1,0 +1,7 @@
+{
+  this.applicationContext=applicationContext;
+  for (  Object aPluginList : pluginList) {
+    GrailsPlugin plugin=(GrailsPlugin)aPluginList;
+    plugin.setApplicationContext(applicationContext);
+  }
+}

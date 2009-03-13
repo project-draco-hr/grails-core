@@ -1,0 +1,78 @@
+{
+  int statusCode;
+  if (request.getAttribute("javax.servlet.error.status_code") != null) {
+    statusCode=Integer.parseInt(request.getAttribute("javax.servlet.error.status_code").toString());
+  }
+ else {
+    statusCode=500;
+  }
+  Throwable t=null;
+  if (request.getAttribute("javax.servlet.error.exception") != null) {
+    t=(Throwable)request.getAttribute("javax.servlet.error.exception");
+    if (!(t instanceof GrailsWrappedRuntimeException) && request.getAttribute("exception") == null) {
+      request.setAttribute("exception",new GrailsWrappedRuntimeException(getServletContext(),t));
+    }
+  }
+  final UrlMappingsHolder urlMappingsHolder=lookupUrlMappings();
+  UrlMappingInfo matchedInfo=null;
+  if (t != null) {
+    matchedInfo=urlMappingsHolder.matchStatusCode(statusCode,t);
+    if (matchedInfo == null) {
+      matchedInfo=urlMappingsHolder.matchStatusCode(statusCode,GrailsExceptionResolver.getRootCause(t));
+    }
+  }
+  if (matchedInfo == null) {
+    matchedInfo=urlMappingsHolder.matchStatusCode(statusCode);
+  }
+  final UrlMappingInfo urlMappingInfo=matchedInfo;
+  if (urlMappingInfo != null) {
+    GrailsWebRequestFilter grailsWebRequestFilter=new GrailsWebRequestFilter();
+    grailsWebRequestFilter.setServletContext(getServletContext());
+    grailsWebRequestFilter.doFilter(request,response,new FilterChain(){
+      public void doFilter(      ServletRequest servletRequest,      ServletResponse servletResponse) throws IOException, ServletException {
+        final GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+        urlMappingInfo.configure(webRequest);
+        String viewName=urlMappingInfo.getViewName();
+        if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
+          String contents=WebUtils.includeForUrlMappingInfo(request,response,urlMappingInfo,Collections.EMPTY_MAP);
+          final Factory factory=FactoryHolder.getFactory();
+          PageParser parser=getPageParser(factory,response);
+          Page p=parser != null ? parser.parse(contents.toCharArray()) : null;
+          String layout=p != null ? p.getProperty("meta.layout") : null;
+          if (layout != null && p != null) {
+            final HTMLPage2Content content=new HTMLPage2Content((HTMLPage)p);
+            DecoratorSelector decoratorSelector=new DecoratorMapper2DecoratorSelector(factory.getDecoratorMapper());
+            SiteMeshWebAppContext webAppContext=new SiteMeshWebAppContext(request,response,webRequest.getServletContext());
+            com.opensymphony.sitemesh.Decorator d=decoratorSelector.selectDecorator(content,webAppContext);
+            if (d != null) {
+              d.render(content,webAppContext);
+            }
+ else {
+              writeOriginal(response,contents);
+            }
+          }
+ else {
+            writeOriginal(response,contents);
+          }
+        }
+ else {
+          ViewResolver viewResolver=WebUtils.lookupViewResolver(getServletContext());
+          if (viewResolver != null) {
+            View v;
+            try {
+              v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
+              v.render(Collections.EMPTY_MAP,request,response);
+            }
+ catch (            Exception e) {
+              throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+            }
+          }
+        }
+      }
+    }
+);
+  }
+ else {
+    renderDefaultResponse(response,statusCode);
+  }
+}

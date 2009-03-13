@@ -1,0 +1,49 @@
+{
+  Object[] args=(Object[])arg;
+  if (CREATE_APPCTX.equals(name)) {
+    return createApplicationContext();
+  }
+ else   if (REGISTER_BEANS.equals(name) && args.length == 1 && args[0] instanceof GenericApplicationContext) {
+    registerBeans((GenericApplicationContext)args[0]);
+    return null;
+  }
+ else   if (BEANS.equals(name) && args.length == 1 && args[0] instanceof Closure) {
+    return beans((Closure)args[0]);
+  }
+ else   if (REF.equals(name)) {
+    String refName;
+    if (args[0] == null)     throw new IllegalArgumentException("Argument to ref() is not a valid bean or was not found");
+    if (args[0] instanceof RuntimeBeanReference) {
+      refName=((RuntimeBeanReference)args[0]).getBeanName();
+    }
+ else {
+      refName=args[0].toString();
+    }
+    boolean parentRef=false;
+    if (args.length > 1) {
+      if (args[1] instanceof Boolean) {
+        parentRef=(Boolean)args[1];
+      }
+    }
+    return new RuntimeBeanReference(refName,parentRef);
+  }
+ else   if (namespaceHandlers.containsKey(name) && args.length > 0 && (args[0] instanceof Closure)) {
+    DynamicElementReader reader=createDynamicElementReader(name,true);
+    reader.invokeMethod("doCall",args);
+  }
+ else   if (args.length > 0 && args[0] instanceof Closure) {
+    return invokeBeanDefiningMethod(name,args);
+  }
+ else   if (args.length > 0 && args[0] instanceof Class || args.length > 0 && args[0] instanceof RuntimeBeanReference || args.length > 0 && args[0] instanceof Map) {
+    return invokeBeanDefiningMethod(name,args);
+  }
+ else   if (args.length > 1 && args[args.length - 1] instanceof Closure) {
+    return invokeBeanDefiningMethod(name,args);
+  }
+  ApplicationContext ctx=springConfig.getUnrefreshedApplicationContext();
+  MetaClass mc=DefaultGroovyMethods.getMetaClass(ctx);
+  if (!mc.respondsTo(ctx,name,args).isEmpty()) {
+    return mc.invokeMethod(ctx,name,args);
+  }
+  return this;
+}

@@ -1,0 +1,31 @@
+{
+  String allArgs=args.length > 0 ? args[0].trim() : "";
+  ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs);
+  String grailsHome=System.getProperty("grails.home");
+  BuildSettings build=new BuildSettings(new File(grailsHome));
+  final File grailsHomeInSettings=build.getGrailsHome();
+  if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
+    System.out.println("Grails' installation directory not found: " + build.getGrailsHome());
+    System.exit(1);
+  }
+  System.out.println("Welcome to Grails " + build.getGrailsVersion() + " - http://grails.org/"+ '\n'+ "Licensed under Apache Standard License 2.0"+ '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
+  if (script.name == null) {
+    System.out.println("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
+    System.exit(0);
+  }
+  System.out.println("Base Directory: " + build.getBaseDir().getPath());
+  try {
+    GrailsScriptRunner runner=new GrailsScriptRunner(build);
+    int exitCode=runner.executeCommand(script.name,script.args,script.env);
+    System.exit(exitCode);
+  }
+ catch (  ScriptNotFoundException ex) {
+    System.out.println("Script not found: " + ex.getScriptName());
+  }
+catch (  Throwable t) {
+    System.out.println("Error executing script " + script.name + ": "+ t.getMessage());
+    sanitizeStacktrace(t);
+    t.printStackTrace(System.out);
+    System.exit(1);
+  }
+}

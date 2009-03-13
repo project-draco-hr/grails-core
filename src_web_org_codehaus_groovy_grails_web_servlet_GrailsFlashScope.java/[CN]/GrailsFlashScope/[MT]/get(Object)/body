@@ -1,0 +1,4 @@
+{
+  if (next.containsKey(key))   return next.get(key);
+  return current.get(key);
+}

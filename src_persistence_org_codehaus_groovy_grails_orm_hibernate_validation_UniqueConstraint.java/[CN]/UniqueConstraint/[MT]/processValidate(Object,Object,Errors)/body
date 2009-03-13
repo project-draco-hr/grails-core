@@ -1,0 +1,58 @@
+{
+  if (unique) {
+    final Object id;
+    try {
+      id=InvokerHelper.invokeMethod(target,"ident",null);
+    }
+ catch (    Exception e) {
+      throw new GrailsRuntimeException("Target of [unique] constraints [" + target + "] is not a domain instance. Unique constraint can only be applied to to domain classes and not custom user types or embedded instances");
+    }
+    HibernateTemplate hibernateTemplate=getHibernateTemplate();
+    if (hibernateTemplate == null)     throw new IllegalStateException("Unable use [unique] constraint, no Hibernate SessionFactory found!");
+    List results=hibernateTemplate.executeFind(new HibernateCallback(){
+      public Object doInHibernate(      Session session) throws HibernateException {
+        session.setFlushMode(FlushMode.MANUAL);
+        try {
+          boolean shouldValidate=true;
+          if (propertyValue != null && DomainClassArtefactHandler.isDomainClass(propertyValue.getClass())) {
+            shouldValidate=session.contains(propertyValue);
+          }
+          if (shouldValidate) {
+            Criteria criteria=session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
+            if (uniquenessGroup != null) {
+              for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
+                String propertyName=(String)it.next();
+                criteria.add(Restrictions.eq(propertyName,GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,propertyName)));
+              }
+            }
+            return criteria.list();
+          }
+ else {
+            return Collections.EMPTY_LIST;
+          }
+        }
+  finally {
+          session.setFlushMode(FlushMode.AUTO);
+        }
+      }
+    }
+);
+    if (results.size() > 0) {
+      boolean reject=false;
+      if (id != null) {
+        Object existing=results.get(0);
+        Object existingId=InvokerHelper.invokeMethod(existing,"ident",null);
+        if (!id.equals(existingId)) {
+          reject=true;
+        }
+      }
+ else {
+        reject=true;
+      }
+      if (reject) {
+        Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+        super.rejectValue(target,errors,UNIQUE_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_UNIQUE_MESSAGE_CODE));
+      }
+    }
+  }
+}

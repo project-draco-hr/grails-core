@@ -1,0 +1,15 @@
+{
+  CorePluginFinder finder=new CorePluginFinder(application);
+  Set classes=finder.getPluginClasses();
+  Iterator classesIterator=classes.iterator();
+  List<GrailsPlugin> grailsCorePlugins=new ArrayList<GrailsPlugin>();
+  while (classesIterator.hasNext()) {
+    Class pluginClass=(Class)classesIterator.next();
+    if (pluginClass != null && !Modifier.isAbstract(pluginClass.getModifiers()) && pluginClass != DefaultGrailsPlugin.class) {
+      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+      plugin.setApplicationContext(applicationContext);
+      grailsCorePlugins.add(plugin);
+    }
+  }
+  return grailsCorePlugins;
+}

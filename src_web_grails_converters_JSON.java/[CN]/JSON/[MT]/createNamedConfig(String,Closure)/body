@@ -1,0 +1,10 @@
+{
+  DefaultConverterConfiguration<JSON> cfg=new DefaultConverterConfiguration<JSON>(ConvertersConfigurationHolder.getConverterConfiguration(JSON.class));
+  try {
+    callable.call(cfg);
+    ConvertersConfigurationHolder.setNamedConverterConfiguration(JSON.class,name,cfg);
+  }
+ catch (  Exception e) {
+    throw ConverterUtil.resolveConverterException(e);
+  }
+}

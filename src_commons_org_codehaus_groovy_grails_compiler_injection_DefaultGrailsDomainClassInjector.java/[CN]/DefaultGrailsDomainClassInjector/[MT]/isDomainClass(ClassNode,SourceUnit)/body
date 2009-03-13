@@ -1,0 +1,6 @@
+{
+  String clsName=classNode.getNameWithoutPackage();
+  String sourcePath=sourceNode.getName();
+  String sourceFileName=sourcePath.substring(Math.max(sourcePath.lastIndexOf("/"),sourcePath.lastIndexOf("\\")) + 1);
+  return String.format("%s.groovy",clsName).equals(sourceFileName);
+}

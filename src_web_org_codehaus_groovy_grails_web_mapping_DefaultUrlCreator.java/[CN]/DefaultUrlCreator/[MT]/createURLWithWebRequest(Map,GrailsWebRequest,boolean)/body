@@ -1,0 +1,27 @@
+{
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  String id=null;
+  if (parameterValues.containsKey(ARGUMENT_ID)) {
+    id=parameterValues.get(ARGUMENT_ID).toString();
+  }
+  StringBuilder actualUriBuf=includeContextPath ? new StringBuilder(webRequest.getAttributes().getApplicationUri(request)) : new StringBuilder();
+  if (actionName != null) {
+    if (actionName.indexOf(SLASH) > -1) {
+      actualUriBuf.append(actionName);
+    }
+ else {
+      if (controllerName != null) {
+        appendUrlToken(actualUriBuf,controllerName,request);
+      }
+ else {
+        actualUriBuf.append(webRequest.getAttributes().getControllerUri(request));
+      }
+    }
+    appendUrlToken(actualUriBuf,actionName,request);
+  }
+  if (id != null) {
+    appendUrlToken(actualUriBuf,id,request);
+  }
+  appendRequestParams(actualUriBuf,parameterValues,request);
+  return actualUriBuf.toString();
+}

@@ -1,0 +1,13 @@
+{
+  if (isRegexMethod(property,newValue)) {
+    registerDynamicMethodInvocation(property,newValue);
+  }
+ else   if (newValue instanceof Closure) {
+    if (isStatic) {
+      registerStaticMethod(property,(Closure)newValue);
+    }
+ else {
+      registerInstanceMethod(property,(Closure)newValue);
+    }
+  }
+}

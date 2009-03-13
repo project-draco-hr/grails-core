@@ -1,0 +1,20 @@
+{
+  PropertiesHolder mergedHolder=this.cachedMergedPluginProperties.get(locale);
+  if (mergedHolder != null) {
+    return mergedHolder;
+  }
+  Properties mergedProps=new Properties();
+  mergedHolder=new PropertiesHolder(mergedProps,-1);
+  for (  String basename : pluginBaseNames) {
+    List filenames=calculateAllFilenames(basename,locale);
+    for (int j=filenames.size() - 1; j >= 0; j--) {
+      String filename=(String)filenames.get(j);
+      PropertiesHolder propHolder=getProperties(filename);
+      if (propHolder.getProperties() != null) {
+        mergedProps.putAll(propHolder.getProperties());
+      }
+    }
+  }
+  this.cachedMergedPluginProperties.put(locale,mergedHolder);
+  return mergedHolder;
+}

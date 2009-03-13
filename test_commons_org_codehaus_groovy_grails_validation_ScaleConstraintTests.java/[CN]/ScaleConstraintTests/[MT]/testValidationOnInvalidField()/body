@@ -1,9 +1,0 @@
-{
-  Constraint constraint=getConstraint("testString",new Integer(2));
-  try {
-    proceedValidation(constraint,"123");
-    fail("ScaleConstraint must throw an exception when applied to field with unsupported type");
-  }
- catch (  IllegalArgumentException iae) {
-  }
-}

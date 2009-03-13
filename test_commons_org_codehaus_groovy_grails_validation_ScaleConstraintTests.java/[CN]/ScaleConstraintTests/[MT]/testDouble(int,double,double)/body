@@ -1,4 +1,0 @@
-{
-  Constraint constraint=getConstraint("testDouble",new Integer(scale));
-  assertEquals(new Double(result),proceedValidation(constraint,new Double(value)));
-}

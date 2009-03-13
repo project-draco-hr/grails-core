@@ -1,8 +1,0 @@
-{
-  if (flatConfig == null) {
-    ConfigObject config=getConfig();
-    if (config != null)     flatConfig=config.flatten();
- else     flatConfig=Collections.EMPTY_MAP;
-  }
-  return flatConfig;
-}

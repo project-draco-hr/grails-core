@@ -1,3 +1,0 @@
-{
-  return arguments.length > 0 && arguments[0] instanceof Map && GrailsClassUtils.getBooleanFromMap(ARGUMENT_INSERT,(Map)arguments[0]);
-}

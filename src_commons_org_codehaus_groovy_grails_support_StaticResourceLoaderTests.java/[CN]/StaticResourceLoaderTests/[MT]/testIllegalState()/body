@@ -1,9 +1,0 @@
-{
-  StaticResourceLoader srl=new StaticResourceLoader();
-  try {
-    srl.getResource("/foo");
-    fail("Should have thrown IllegalStateException");
-  }
- catch (  IllegalStateException ise) {
-  }
-}

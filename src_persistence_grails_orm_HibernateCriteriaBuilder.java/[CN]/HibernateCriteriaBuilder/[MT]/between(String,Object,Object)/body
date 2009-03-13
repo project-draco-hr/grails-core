@@ -1,7 +1,0 @@
-{
-  if (!validateSimpleExpression()) {
-    throwRuntimeException(new IllegalArgumentException("Call to [between] with propertyName [" + propertyName + "]  not allowed here."));
-  }
-  propertyName=calculatePropertyName(propertyName);
-  return addToCriteria(Restrictions.between(propertyName,lo,hi));
-}

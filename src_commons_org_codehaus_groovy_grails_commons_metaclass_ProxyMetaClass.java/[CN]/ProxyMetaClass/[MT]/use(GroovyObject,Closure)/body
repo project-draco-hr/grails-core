@@ -1,9 +1,0 @@
-{
-  object.setMetaClass(this);
-  try {
-    closure.call();
-  }
-  finally {
-    object.setMetaClass(adaptee);
-  }
-}

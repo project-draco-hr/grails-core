@@ -1,4 +1,0 @@
-{
-  final int modifiers=f.getModifiers();
-  return Modifier.isPublic(modifiers) && Modifier.isStatic(modifiers);
-}

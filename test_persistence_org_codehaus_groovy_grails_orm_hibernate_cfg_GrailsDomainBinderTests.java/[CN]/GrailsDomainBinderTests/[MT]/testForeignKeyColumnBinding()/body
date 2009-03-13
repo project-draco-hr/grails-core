@@ -1,9 +1,0 @@
-{
-  GroovyClassLoader cl=new GroovyClassLoader();
-  GrailsDomainClass oneClass=new DefaultGrailsDomainClass(cl.parseClass("class TestOneSide {\n" + "    Long id \n" + "    Long version \n"+ "    String name \n"+ "    String description \n"+ "}"));
-  GrailsDomainClass domainClass=new DefaultGrailsDomainClass(cl.parseClass("class TestManySide {\n" + "    Long id \n" + "    Long version \n"+ "    String name \n"+ "    TestOneSide testOneSide \n"+ "\n"+ "    static mapping = {\n"+ "        columns {\n"+ "            testOneSide column:'EXPECTED_COLUMN_NAME'"+ "        }\n"+ "    }\n"+ "}"));
-  DefaultGrailsDomainConfiguration config=getDomainConfig(cl,new Class[]{oneClass.getClazz(),domainClass.getClazz()});
-  PersistentClass persistentClass=config.getClassMapping("TestManySide");
-  Column column=(Column)persistentClass.getProperty("testOneSide").getColumnIterator().next();
-  assertEquals("EXPECTED_COLUMN_NAME",column.getName());
-}

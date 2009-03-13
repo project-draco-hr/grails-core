@@ -1,9 +1,0 @@
-{
-  SessionFactory sf=lookupSessionFactory();
-  if (sf != null) {
-    super.doFilterInternal(request,response,filterChain);
-  }
- else {
-    filterChain.doFilter(request,response);
-  }
-}

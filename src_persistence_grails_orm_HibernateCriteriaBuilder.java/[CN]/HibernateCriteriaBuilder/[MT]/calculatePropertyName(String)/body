@@ -1,6 +1,0 @@
-{
-  if (this.aliasStack.size() > 0) {
-    return this.aliasStack.get(this.aliasStack.size() - 1).toString() + '.' + propertyName;
-  }
-  return propertyName;
-}

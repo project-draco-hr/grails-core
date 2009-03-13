@@ -1,6 +1,0 @@
-{
-  current.clear();
-  current=(HashMap)next.clone();
-  next.clear();
-  reassociateObjectsWithErrors(current);
-}

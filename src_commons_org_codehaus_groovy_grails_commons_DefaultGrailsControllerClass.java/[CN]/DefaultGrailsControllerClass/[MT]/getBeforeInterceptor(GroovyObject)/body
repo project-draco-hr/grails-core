@@ -1,6 +1,0 @@
-{
-  if (getReference().isReadableProperty(BEFORE_INTERCEPTOR)) {
-    return getInterceptor(controller.getProperty(BEFORE_INTERCEPTOR));
-  }
-  return null;
-}

@@ -1,5 +1,0 @@
-{
-  super(response.getWriter());
-  response.setContentType(GrailsWebUtil.getContentType(TEXT_XML,UTF_8));
-  getPrinter().println(XML_HEADER);
-}

@@ -1,8 +1,0 @@
-{
-  BeanWrapper constrainedBean=new BeanWrapperImpl(new TestClass());
-  constrainedBean.setPropertyValue(constraint.getPropertyName(),value);
-  Errors errors=new BindException(constrainedBean.getWrappedInstance(),constrainedBean.getWrappedClass().getName());
-  assertFalse(errors.hasErrors());
-  constraint.validate(constrainedBean.getWrappedInstance(),value,errors);
-  return constrainedBean.getPropertyValue(constraint.getPropertyName());
-}

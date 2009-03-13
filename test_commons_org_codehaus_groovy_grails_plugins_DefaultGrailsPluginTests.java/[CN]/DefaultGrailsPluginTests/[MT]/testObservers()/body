@@ -1,5 +1,0 @@
-{
-  GrailsPlugin observingPlugin=new DefaultGrailsPlugin(observed,ga);
-  assertEquals(1,observingPlugin.getObservedPluginNames().length);
-  assertEquals("another",observingPlugin.getObservedPluginNames()[0]);
-}

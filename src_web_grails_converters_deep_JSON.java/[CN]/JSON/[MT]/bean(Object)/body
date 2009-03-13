@@ -1,9 +1,0 @@
-{
-  if (stack.contains(o)) {
-    handleCircularRelationship(o);
-    return;
-  }
-  stack.push(o);
-  super.bean(o);
-  stack.pop();
-}

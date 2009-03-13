@@ -1,6 +1,0 @@
-{
-  if (applicationContext.containsBean(FLOW_EXECUTOR_BEAN)) {
-    return (FlowExecutor)applicationContext.getBean(FLOW_EXECUTOR_BEAN);
-  }
-  return null;
-}

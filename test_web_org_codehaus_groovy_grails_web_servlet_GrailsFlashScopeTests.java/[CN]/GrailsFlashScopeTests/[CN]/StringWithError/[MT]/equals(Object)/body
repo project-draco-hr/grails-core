@@ -1,8 +1,0 @@
-{
-  if (value == null) {
-    return (obj == null);
-  }
- else {
-    return value.equals(obj);
-  }
-}

@@ -1,4 +1,0 @@
-{
-  if (url == null)   return false;
-  return DOMAIN_PATH_PATTERN.matcher(url.getFile()).find();
-}

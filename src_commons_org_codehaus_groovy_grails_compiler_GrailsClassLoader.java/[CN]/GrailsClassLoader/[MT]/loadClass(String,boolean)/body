@@ -1,7 +1,0 @@
-{
-  GroovyClassLoader innerLoader=(GroovyClassLoader)innerClassLoaderMap.get(name);
-  if (innerLoader != null) {
-    return innerLoader.loadClass(name);
-  }
-  return super.loadClass(name,resolve);
-}

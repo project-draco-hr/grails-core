@@ -1,5 +1,0 @@
-{
-  if (StringUtils.isBlank(name))   throw new IllegalArgumentException("Argument [name] cannot be null");
-  if (constraintClass == null || !Constraint.class.isAssignableFrom(constraintClass))   throw new IllegalArgumentException("Argument [constraintClass] with value [" + constraintClass + "] is not a valid constraint");
-  constraints.put(name,constraintClass);
-}

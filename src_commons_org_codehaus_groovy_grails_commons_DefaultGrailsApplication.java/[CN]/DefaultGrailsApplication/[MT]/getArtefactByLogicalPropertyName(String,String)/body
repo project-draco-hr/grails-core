@@ -1,4 +1,0 @@
-{
-  ArtefactInfo info=getArtefactInfo(type);
-  return info == null ? null : info.getGrailsClassByLogicalPropertyName(logicalName);
-}

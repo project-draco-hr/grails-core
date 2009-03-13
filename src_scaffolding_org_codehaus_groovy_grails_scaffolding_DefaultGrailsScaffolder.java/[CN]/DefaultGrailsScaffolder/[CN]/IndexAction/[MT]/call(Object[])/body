@@ -1,5 +1,0 @@
-{
-  Map arguments=new HashMap();
-  arguments.put(RedirectDynamicMethod.ARGUMENT_ACTION,LIST_ACTION);
-  return controller.invokeMethod(RedirectDynamicMethod.METHOD_SIGNATURE,new Object[]{arguments});
-}

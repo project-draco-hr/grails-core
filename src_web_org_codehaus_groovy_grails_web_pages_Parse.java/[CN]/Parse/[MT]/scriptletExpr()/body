@@ -1,6 +1,0 @@
-{
-  if (!finalPass)   return;
-  if (LOG.isDebugEnabled())   LOG.debug("parse: expr");
-  String text=scan.getToken().trim();
-  out.printlnToResponse(text);
-}

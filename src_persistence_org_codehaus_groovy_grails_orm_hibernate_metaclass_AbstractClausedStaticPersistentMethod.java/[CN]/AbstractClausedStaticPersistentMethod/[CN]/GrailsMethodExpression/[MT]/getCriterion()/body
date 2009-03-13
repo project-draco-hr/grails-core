@@ -1,9 +1,0 @@
-{
-  if (arguments == null)   throw new IllegalStateException("Parameters array must be set before retrieving Criterion");
-  if (negation) {
-    return Expression.not(createCriterion());
-  }
- else {
-    return createCriterion();
-  }
-}

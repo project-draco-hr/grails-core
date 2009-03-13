@@ -1,8 +1,0 @@
-{
-  for (int i=0; i < artefactHandlers.length; i++) {
-    ArtefactHandler artefactHandler=artefactHandlers[i];
-    if (artefactHandler.isArtefact(artefact)) {
-      addArtefact(artefactHandler.getType(),artefact);
-    }
-  }
-}

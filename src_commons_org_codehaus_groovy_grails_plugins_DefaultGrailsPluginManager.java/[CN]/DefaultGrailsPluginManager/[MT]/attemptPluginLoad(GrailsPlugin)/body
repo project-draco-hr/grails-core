@@ -1,8 +1,0 @@
-{
-  if (areDependenciesResolved(plugin) && areNoneToLoadBefore(plugin)) {
-    registerPlugin(plugin);
-  }
- else {
-    delayedLoadPlugins.add(plugin);
-  }
-}

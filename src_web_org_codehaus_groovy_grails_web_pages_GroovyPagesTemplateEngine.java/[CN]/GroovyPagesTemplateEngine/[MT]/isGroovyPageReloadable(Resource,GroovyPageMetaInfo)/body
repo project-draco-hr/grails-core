@@ -1,3 +1,0 @@
-{
-  return isReloadEnabled() && (establishLastModified(resource) > meta.getLastModified());
-}

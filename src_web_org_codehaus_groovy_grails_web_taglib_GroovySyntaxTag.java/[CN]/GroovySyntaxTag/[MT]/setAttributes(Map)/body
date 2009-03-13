@@ -1,6 +1,0 @@
-{
-  for (Iterator i=attributes.keySet().iterator(); i.hasNext(); ) {
-    String attrName=(String)i.next();
-    setAttribute(attrName,attributes.get(attrName));
-  }
-}

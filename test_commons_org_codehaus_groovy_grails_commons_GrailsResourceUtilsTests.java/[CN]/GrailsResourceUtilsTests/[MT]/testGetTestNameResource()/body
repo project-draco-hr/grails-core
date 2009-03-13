@@ -1,4 +1,0 @@
-{
-  Resource r=new UrlResource(new URL(UNIT_TESTS_URL));
-  assertEquals("SomeTests",GrailsResourceUtils.getClassName(r));
-}

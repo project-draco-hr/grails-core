@@ -1,7 +1,0 @@
-{
-  Object result=InvokerHelper.invokeMethod(domainObject,SavePersistentMethod.METHOD_SIGNATURE,new Object[0]);
-  if (result == null) {
-    callback.setErrors((Errors)InvokerHelper.getProperty(domainObject,org.codehaus.groovy.grails.orm.hibernate.metaclass.DomainClassMethods.ERRORS_PROPERTY));
-  }
-  return result != null;
-}

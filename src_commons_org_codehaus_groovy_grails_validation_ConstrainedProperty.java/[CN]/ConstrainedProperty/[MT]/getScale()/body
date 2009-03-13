@@ -1,8 +1,0 @@
-{
-  Integer scale=null;
-  ScaleConstraint scaleConstraint=(ScaleConstraint)this.appliedConstraints.get(SCALE_CONSTRAINT);
-  if (scaleConstraint != null) {
-    scale=new Integer(scaleConstraint.getScale());
-  }
-  return scale;
-}

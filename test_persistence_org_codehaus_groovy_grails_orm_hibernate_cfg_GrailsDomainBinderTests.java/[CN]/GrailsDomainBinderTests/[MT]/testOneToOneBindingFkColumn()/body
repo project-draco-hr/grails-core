@@ -1,4 +1,0 @@
-{
-  DefaultGrailsDomainConfiguration config=getDomainConfig(ONE_TO_ONE_CLASSES_DEFINITION);
-  assertColumnNotNullable("pet","species_id",config);
-}

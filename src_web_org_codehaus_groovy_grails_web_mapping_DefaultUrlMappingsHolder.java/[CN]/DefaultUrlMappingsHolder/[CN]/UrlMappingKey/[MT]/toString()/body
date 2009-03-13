@@ -1,3 +1,0 @@
-{
-  return new ToStringCreator(this).append("controller",controller).append("action",action).append("params",paramNames).toString();
-}

@@ -1,4 +1,0 @@
-{
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  return (Serializable)webRequest.getParams().get(PARAM_ID);
-}

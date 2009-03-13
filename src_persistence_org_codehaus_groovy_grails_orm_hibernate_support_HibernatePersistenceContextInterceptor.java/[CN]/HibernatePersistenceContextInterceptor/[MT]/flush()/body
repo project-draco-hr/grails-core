@@ -1,4 +1,0 @@
-{
-  Session session=SessionFactoryUtils.getSession(sessionFactory,true);
-  session.flush();
-}

@@ -1,4 +1,0 @@
-{
-  Object result=invokeConstructor(args,callback);
-  return callback.isInvoked() ? result : null;
-}

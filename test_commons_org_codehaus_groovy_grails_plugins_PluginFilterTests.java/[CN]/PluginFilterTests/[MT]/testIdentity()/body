@@ -1,4 +1,0 @@
-{
-  List pluginList=getPluginList();
-  assertEquals(new IdentityPluginFilter().filterPluginList(pluginList),pluginList);
-}

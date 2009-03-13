@@ -1,6 +1,0 @@
-{
-  super.initFilterBean();
-  appAttributes=new DefaultGrailsApplicationAttributes(getServletContext());
-  context=(GrailsApplicationContext)appAttributes.getApplicationContext();
-  parent=(WebApplicationContext)getServletContext().getAttribute(GrailsApplicationAttributes.PARENT_APPLICATION_CONTEXT);
-}

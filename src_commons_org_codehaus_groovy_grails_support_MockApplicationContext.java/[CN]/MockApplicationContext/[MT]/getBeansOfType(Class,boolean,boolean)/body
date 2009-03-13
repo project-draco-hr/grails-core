@@ -1,9 +1,0 @@
-{
-  String[] beanNames=getBeanNamesForType(type);
-  Map newMap=new HashMap();
-  for (int i=0; i < beanNames.length; i++) {
-    String beanName=beanNames[i];
-    newMap.put(beanName,getBean(beanName));
-  }
-  return newMap;
-}

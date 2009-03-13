@@ -1,7 +1,0 @@
-{
-  if (propertyValue instanceof BeanConfiguration) {
-    propertyValue=((BeanConfiguration)propertyValue).getBeanDefinition();
-  }
-  getBeanDefinition().getPropertyValues().addPropertyValue(propertyName,propertyValue);
-  return this;
-}

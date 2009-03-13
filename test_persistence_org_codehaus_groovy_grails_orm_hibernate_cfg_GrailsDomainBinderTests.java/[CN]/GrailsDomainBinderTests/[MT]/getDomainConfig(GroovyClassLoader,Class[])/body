@@ -1,8 +1,0 @@
-{
-  GrailsApplication grailsApplication=new DefaultGrailsApplication(classes,cl);
-  grailsApplication.initialise();
-  DefaultGrailsDomainConfiguration config=new DefaultGrailsDomainConfiguration();
-  config.setGrailsApplication(grailsApplication);
-  config.buildMappings();
-  return config;
-}

@@ -1,7 +1,0 @@
-{
-  for (int i=0; i < properties.length; i++) {
-    GrailsDomainClassProperty persistantProperty=properties[i];
-    if (persistantProperty.getName().equals(propertyName))     return true;
-  }
-  return false;
-}

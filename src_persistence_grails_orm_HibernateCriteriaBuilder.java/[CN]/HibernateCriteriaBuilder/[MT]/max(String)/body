@@ -1,8 +1,0 @@
-{
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [max] must be within a [projections] node"));
-  }
- else {
-    this.projectionList.add(Projections.max(propertyName));
-  }
-}

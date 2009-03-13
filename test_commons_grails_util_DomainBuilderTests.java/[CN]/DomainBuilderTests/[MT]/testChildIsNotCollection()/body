@@ -1,8 +1,0 @@
-{
-  Address address=new Address();
-  address.setStreet("Park Pl.");
-  childPropertySetter.setChild(employer,address,null,"address");
-  Address a=employer.getAddress();
-  assertEquals(address.getStreet(),a.getStreet());
-  assertEquals(0,employer.getEmployees().size());
-}

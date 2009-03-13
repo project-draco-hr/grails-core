@@ -1,6 +1,0 @@
-{
-  ConfigObject config=ConfigurationHolder.getConfig();
-  if (config != null) {
-    props.putAll(config.toProperties());
-  }
-}

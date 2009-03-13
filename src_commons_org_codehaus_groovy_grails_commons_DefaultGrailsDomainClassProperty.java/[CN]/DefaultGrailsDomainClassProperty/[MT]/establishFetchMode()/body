@@ -1,8 +1,0 @@
-{
-  Map fetchMap=(Map)domainClass.getPropertyValue(GrailsDomainClassProperty.FETCH_MODE,Map.class);
-  if (fetchMap != null && fetchMap.containsKey(this.name)) {
-    if ("eager".equals(fetchMap.get(this.name))) {
-      this.fetchMode=FETCH_EAGER;
-    }
-  }
-}

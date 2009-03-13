@@ -1,3 +1,0 @@
-{
-  return grailsProperty.isBidirectional() && prop.getValue() instanceof ManyToOne && List.class.isAssignableFrom(grailsProperty.getOtherSide().getType());
-}

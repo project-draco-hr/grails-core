@@ -1,7 +1,0 @@
-{
-  XStream xs=(XStream)XSTREAM_MAP.get(clazz);
-  if (xs == null) {
-    xs=setupXStream(clazz);
-  }
-  return xs;
-}

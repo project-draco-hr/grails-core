@@ -1,6 +1,0 @@
-{
-  if (StringUtils.isBlank(contents))   throw new IllegalArgumentException("Argument [contents] cannot be blank or null");
-  if (StringUtils.isBlank(uri))   throw new IllegalArgumentException("Argument [uri] cannot be blank or null");
-  this.contents=contents;
-  setUrl(uri);
-}

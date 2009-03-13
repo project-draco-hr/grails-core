@@ -1,6 +1,0 @@
-{
-  StaticResourceLoader srl=new StaticResourceLoader();
-  srl.setBaseResource(new UrlResource("http://grails.org"));
-  Resource r=srl.getResource("/Home");
-  assertEquals("http://grails.org/Home",r.getURL().toString());
-}

@@ -1,6 +1,0 @@
-{
-  if (closureHook != null) {
-    closureHook.setDelegate(this);
-    closureHook.call(new Object[]{event});
-  }
-}

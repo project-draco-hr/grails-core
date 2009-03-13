@@ -1,7 +1,0 @@
-{
-  if (tagRegistry.containsKey(tagName)) {
-    Class tagClass=(Class)tagRegistry.get(tagName);
-    return RequestContextTag.class.isAssignableFrom(tagClass);
-  }
-  return false;
-}

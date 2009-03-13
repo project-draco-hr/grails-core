@@ -1,5 +1,0 @@
-{
-  UrlMappingData data=new DefaultUrlMappingData("/surveys/(*)?");
-  assertEquals(2,data.getTokens().length);
-  assertTrue(data.isOptional(0));
-}

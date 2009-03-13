@@ -1,5 +1,0 @@
-{
-  Errors errors=validateConstraint(constraint,value,Boolean.TRUE);
-  assertEquals(true,errors.hasErrors());
-  return errors;
-}

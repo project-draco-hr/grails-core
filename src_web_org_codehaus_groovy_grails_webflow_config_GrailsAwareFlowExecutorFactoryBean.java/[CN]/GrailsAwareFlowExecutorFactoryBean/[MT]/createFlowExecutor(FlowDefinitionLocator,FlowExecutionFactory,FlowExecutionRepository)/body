@@ -1,7 +1,0 @@
-{
-  FlowExecutorImpl flowExecutor=new GrailsFlowExecutor(definitionLocator,executionFactory,executionRepository);
-  if (getInputMapper() != null) {
-    flowExecutor.setInputMapper(getInputMapper());
-  }
-  return flowExecutor;
-}

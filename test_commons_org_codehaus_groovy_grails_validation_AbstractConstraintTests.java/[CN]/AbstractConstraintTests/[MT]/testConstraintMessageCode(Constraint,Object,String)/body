@@ -1,4 +1,0 @@
-{
-  Errors errors=testConstraintFailed(constraint,value);
-  checkCode(errors.getFieldError(constraint.getPropertyName()),code);
-}

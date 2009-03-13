@@ -1,3 +1,0 @@
-{
-  return relatedClassRelationships != null && !relatedClassRelationships.isEmpty() && !relatedClassType.equals(property.getDomainClass().getClazz());
-}

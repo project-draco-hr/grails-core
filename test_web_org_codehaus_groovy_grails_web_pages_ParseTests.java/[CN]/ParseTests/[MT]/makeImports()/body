@@ -1,7 +1,0 @@
-{
-  StringBuffer result=new StringBuffer();
-  for (int i=0; i < Parse.DEFAULT_IMPORTS.length; i++) {
-    result.append("import " + Parse.DEFAULT_IMPORTS[i] + "\n");
-  }
-  return result.toString();
-}

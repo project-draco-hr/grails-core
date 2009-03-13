@@ -1,5 +1,0 @@
-{
-  String output=parseCode("myTest","<g:message code=\"[\"/>");
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public Object run() {\n"+ "attrs1 = [\"code\":\"[\"]\n"+ "body1 = new GroovyPageTagBody(this,binding.webRequest) {\n"+ "}\n"+ "invokeTag('message','g',attrs1,body1)\n"+ "}\n"+ "}";
-  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output));
-}

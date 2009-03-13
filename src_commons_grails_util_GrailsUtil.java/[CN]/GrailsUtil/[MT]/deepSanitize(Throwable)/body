@@ -1,7 +1,0 @@
-{
-  Throwable current=t;
-  while (current.getCause() != null) {
-    current=GrailsUtil.sanitize(current.getCause());
-  }
-  return GrailsUtil.sanitize(t);
-}

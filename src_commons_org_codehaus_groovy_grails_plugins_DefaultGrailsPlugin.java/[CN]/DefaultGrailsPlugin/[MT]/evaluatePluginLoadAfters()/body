@@ -1,8 +1,0 @@
-{
-  if (this.pluginBean.isReadableProperty(PLUGIN_LOAD_AFTER_NAMES)) {
-    List loadAfterNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,PLUGIN_LOAD_AFTER_NAMES);
-    if (loadAfterNamesList != null) {
-      this.loadAfterNames=(String[])loadAfterNamesList.toArray(new String[loadAfterNamesList.size()]);
-    }
-  }
-}

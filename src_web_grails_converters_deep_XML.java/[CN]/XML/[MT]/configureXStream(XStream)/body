@@ -1,5 +1,0 @@
-{
-  DomainClassConverter dcConverter=new DomainClassConverter();
-  dcConverter.setRenderDomainClassRelations(true);
-  xs.registerConverter(dcConverter);
-}

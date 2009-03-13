@@ -1,7 +1,0 @@
-{
-  if (this.pluginChangeScanner.isAlive()) {
-    throw new IllegalStateException("Plugin change scanner is already running!");
-  }
-  this.pluginChangeScanner.start();
-  LOG.info("Started to scan for plugin changes in every " + SCAN_INTERVAL + "ms.");
-}

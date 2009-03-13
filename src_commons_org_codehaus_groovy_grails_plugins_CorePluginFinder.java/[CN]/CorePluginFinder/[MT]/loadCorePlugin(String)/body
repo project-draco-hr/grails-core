@@ -1,6 +1,0 @@
-{
-  Class pluginClass=attemptCorePluginClassLoad(pluginClassName);
-  if (pluginClass != null) {
-    addPlugin(pluginClass);
-  }
-}

@@ -1,4 +1,0 @@
-{
-  if (StringUtils.isBlank(encoding))   encoding=DEFAULT_ENCODING;
-  return name + CHARSET_ATTRIBUTE + encoding;
-}

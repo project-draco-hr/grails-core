@@ -1,5 +1,0 @@
-{
-  String output=parseCode("myTest","<div>hi</div>");
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public Object run() {\n"+ "out.print('<div>hi</div>')\n"+ "}\n"+ "}";
-  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output));
-}

@@ -1,8 +1,0 @@
-{
-  beanFactory.registerScope(SCOPE_REQUEST,new RequestScope());
-  beanFactory.registerScope(SCOPE_SESSION,new SessionScope(false));
-  beanFactory.registerScope(SCOPE_GLOBAL_SESSION,new SessionScope(true));
-  new ScopeRegistrar().postProcessBeanFactory(beanFactory);
-  beanFactory.addBeanPostProcessor(new ServletContextAwareProcessor(this.servletContext));
-  beanFactory.ignoreDependencyInterface(ServletContextAware.class);
-}

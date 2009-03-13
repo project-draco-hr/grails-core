@@ -1,8 +1,0 @@
-{
-  try {
-    return new JSONTokener(source).nextValue();
-  }
- catch (  JSONException e) {
-    throw new ConverterException("Error parsing JSON",e);
-  }
-}

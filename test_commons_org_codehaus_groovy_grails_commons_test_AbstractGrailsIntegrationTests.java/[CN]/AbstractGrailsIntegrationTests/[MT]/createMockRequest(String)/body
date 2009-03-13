@@ -1,6 +1,0 @@
-{
-  MockHttpServletRequest request=new MockHttpServletRequest(servletContext);
-  request.setRequestURI(uri);
-  request.setAttribute(DispatcherServlet.LOCALE_RESOLVER_ATTRIBUTE,new AcceptHeaderLocaleResolver());
-  return request;
-}

@@ -1,5 +1,0 @@
-{
-  super(sessionFactory,transactionManager);
-  this.localSessionFactory=sessionFactory;
-  this.localTransactionTemplate=new TransactionTemplate(transactionManager);
-}

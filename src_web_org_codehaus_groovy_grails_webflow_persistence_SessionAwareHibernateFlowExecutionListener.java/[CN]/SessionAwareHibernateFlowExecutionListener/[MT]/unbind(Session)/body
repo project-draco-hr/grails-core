@@ -1,5 +1,0 @@
-{
-  if (TransactionSynchronizationManager.hasResource(localSessionFactory)) {
-    TransactionSynchronizationManager.unbindResource(localSessionFactory);
-  }
-}

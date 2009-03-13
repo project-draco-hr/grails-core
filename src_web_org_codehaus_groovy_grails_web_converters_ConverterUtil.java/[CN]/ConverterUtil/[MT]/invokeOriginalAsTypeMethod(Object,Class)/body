@@ -1,9 +1,0 @@
-{
-  if (delegate instanceof Collection)   return DefaultGroovyMethods.asType((Collection)delegate,clazz);
- else   if (delegate instanceof Closure)   return DefaultGroovyMethods.asType((Closure)delegate,clazz);
- else   if (delegate instanceof Map)   return DefaultGroovyMethods.asType((Map)delegate,clazz);
- else   if (delegate instanceof Number)   return DefaultGroovyMethods.asType((Number)delegate,clazz);
- else   if (delegate instanceof File)   return DefaultGroovyMethods.asType((File)delegate,clazz);
- else   if (delegate instanceof String)   return DefaultGroovyMethods.asType((String)delegate,clazz);
- else   return DefaultGroovyMethods.asType(delegate,clazz);
-}

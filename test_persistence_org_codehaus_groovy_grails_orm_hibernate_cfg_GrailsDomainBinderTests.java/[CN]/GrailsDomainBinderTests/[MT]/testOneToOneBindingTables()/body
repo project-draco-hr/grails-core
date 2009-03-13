@@ -1,4 +1,0 @@
-{
-  DefaultGrailsDomainConfiguration config=getDomainConfig(ONE_TO_ONE_CLASSES_DEFINITION);
-  assertEquals("Tables created",2,getTableCount(config));
-}

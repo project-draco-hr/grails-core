@@ -1,5 +1,0 @@
-{
-  Session session=localSessionFactory.openSession();
-  session.setFlushMode(FlushMode.MANUAL);
-  return session;
-}

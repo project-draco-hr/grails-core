@@ -1,9 +1,0 @@
-{
-  super(sessionFactory,classLoader,pattern);
-  this.application=application;
-  this.operators=operators;
-  this.operatorPatterns=new Pattern[this.operators.length];
-  for (int i=0; i < operators.length; i++) {
-    this.operatorPatterns[i]=Pattern.compile("(\\w+)(" + this.operators[i] + ")(\\p{Upper})(\\w+)");
-  }
-}

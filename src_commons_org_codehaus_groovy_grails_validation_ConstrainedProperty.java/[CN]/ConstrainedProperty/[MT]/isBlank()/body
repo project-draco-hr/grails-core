@@ -1,4 +1,0 @@
-{
-  Object cons=this.appliedConstraints.get(BLANK_CONSTRAINT);
-  return cons == null || ((Boolean)((BlankConstraint)cons).getParameter()).booleanValue();
-}

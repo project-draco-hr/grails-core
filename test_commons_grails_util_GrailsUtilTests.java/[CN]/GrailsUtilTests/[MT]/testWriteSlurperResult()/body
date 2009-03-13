@@ -1,9 +1,0 @@
-{
-  String testXml="<root><books><book isbn=\"45734957\">" + "<title>Misery</title><author>Stephen King</author>" + "</book></books></root>";
-  GPathResult result=new XmlSlurper().parseText(testXml);
-  StringWriter output=new StringWriter(testXml.length() + 20);
-  GrailsUtil.writeSlurperResult(result,output);
-  testXml=testXml.replaceAll("<root>","<root xmlns='http://java.sun.com/xml/ns/j2ee'>");
-  testXml=testXml.replace('"','\'');
-  assertEquals(testXml,output.toString());
-}

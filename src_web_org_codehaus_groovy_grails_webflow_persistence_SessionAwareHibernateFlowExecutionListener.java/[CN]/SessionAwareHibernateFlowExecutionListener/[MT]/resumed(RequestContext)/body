@@ -1,8 +1,0 @@
-{
-  if (!TransactionSynchronizationManager.hasResource(localSessionFactory)) {
-    super.resumed(context);
-  }
- else {
-    obtainCurrentSession(context);
-  }
-}

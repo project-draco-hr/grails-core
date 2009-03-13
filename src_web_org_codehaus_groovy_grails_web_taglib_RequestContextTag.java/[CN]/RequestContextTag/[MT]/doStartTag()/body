@@ -1,4 +1,0 @@
-{
-  if (!init)   throw new IllegalStateException("Tag not initialised called 'init' first");
-  doStartTagInternal();
-}

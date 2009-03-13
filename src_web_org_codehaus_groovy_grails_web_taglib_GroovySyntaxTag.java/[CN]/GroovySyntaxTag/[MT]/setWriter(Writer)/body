@@ -1,8 +1,0 @@
-{
-  if (w instanceof PrintWriter) {
-    this.out=(PrintWriter)w;
-  }
- else {
-    throw new IllegalArgumentException("A GroovySynax tag requires a java.io.PrintWriter instance");
-  }
-}

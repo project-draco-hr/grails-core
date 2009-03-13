@@ -1,8 +1,0 @@
-{
-  try {
-    doWebDescriptor(new FileInputStream(descriptor),target);
-  }
- catch (  FileNotFoundException e) {
-    throw new PluginException("Unable to read web.xml [" + descriptor + "]: "+ e.getMessage(),e);
-  }
-}

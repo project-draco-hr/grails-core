@@ -1,5 +1,0 @@
-{
-  TestBean bean=new TestBean();
-  assertTrue(GrailsClassUtils.isPublicField(bean,"favouriteArtist"));
-  assertEquals("Cardiacs",GrailsClassUtils.getFieldValue(bean,"favouriteArtist"));
-}

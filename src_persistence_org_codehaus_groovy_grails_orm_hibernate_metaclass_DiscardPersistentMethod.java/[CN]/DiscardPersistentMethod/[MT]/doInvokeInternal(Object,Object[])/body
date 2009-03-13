@@ -1,6 +1,0 @@
-{
-  if (getHibernateTemplate().contains(target)) {
-    getHibernateTemplate().evict(target);
-  }
-  return target;
-}

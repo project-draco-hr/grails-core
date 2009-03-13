@@ -1,8 +1,0 @@
-{
-  if (this.validator == null) {
-    org.codehaus.groovy.grails.validation.GrailsDomainClassValidator gdcv=new GrailsDomainClassValidator();
-    gdcv.setDomainClass(this);
-    this.validator=gdcv;
-  }
-  return this.validator;
-}

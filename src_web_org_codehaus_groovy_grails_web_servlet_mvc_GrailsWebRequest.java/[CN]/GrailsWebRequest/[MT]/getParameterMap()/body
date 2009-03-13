@@ -1,7 +1,0 @@
-{
-  if (this.params == null) {
-    this.params=new GrailsParameterMap(getCurrentRequest());
-    fireParametersCreated();
-  }
-  return this.params;
-}

@@ -1,6 +1,0 @@
-{
-  super(owner);
-  controller=(GroovyObject)getOwner();
-  request=(HttpServletRequest)controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
-  response=(HttpServletResponse)controller.getProperty(ControllerDynamicMethods.RESPONSE_PROPERTY);
-}

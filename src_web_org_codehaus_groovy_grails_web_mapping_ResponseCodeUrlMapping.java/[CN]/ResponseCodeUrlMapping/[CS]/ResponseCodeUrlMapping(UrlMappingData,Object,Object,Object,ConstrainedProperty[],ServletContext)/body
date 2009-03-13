@@ -1,7 +1,0 @@
-{
-  super(controllerName,actionName,viewName,constraints,servletContext);
-  this.urlData=(ResponseCodeMappingData)urlData;
-  if (constraints != null && constraints.length > 0) {
-    throw new IllegalArgumentException("Constraints can't be used for response code url mapping");
-  }
-}

@@ -1,5 +1,0 @@
-{
-  if (session != null && session.getFlushMode() != FlushMode.MANUAL) {
-    super.flushIfNecessary(session,existingTransaction);
-  }
-}

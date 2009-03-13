@@ -1,9 +1,0 @@
-{
-  LOG.trace("Configuring dynamic methods");
-  Collection classMetaData=sessionFactory.getAllClassMetadata().values();
-  for (Iterator i=classMetaData.iterator(); i.hasNext(); ) {
-    ClassMetadata cmd=(ClassMetadata)i.next();
-    Class persistentClass=cmd.getMappedClass(EntityMode.POJO);
-    configureDynamicMethodsFor(sessionFactory,application,persistentClass);
-  }
-}

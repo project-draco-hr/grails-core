@@ -1,9 +1,0 @@
-{
-  Object propertyValue=super.getProperty(name);
-  if (propertyValue instanceof ExpandoMetaProperty) {
-    return new DynamicExpandoMetaProperty((ExpandoMetaProperty)propertyValue);
-  }
- else {
-    return propertyValue;
-  }
-}

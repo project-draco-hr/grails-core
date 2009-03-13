@@ -1,6 +1,0 @@
-{
-  LOG.info("Loading Grails environment");
-  ApplicationContext parent=new ClassPathXmlApplicationContext("applicationContext.xml");
-  DefaultGrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
-  return createGrailsApplicationContext(parent,application);
-}

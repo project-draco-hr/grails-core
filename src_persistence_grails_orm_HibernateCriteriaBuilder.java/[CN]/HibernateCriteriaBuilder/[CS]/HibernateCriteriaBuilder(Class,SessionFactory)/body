@@ -1,6 +1,0 @@
-{
-  super();
-  this.targetClass=targetClass;
-  this.targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
-  this.sessionFactory=sessionFactory;
-}

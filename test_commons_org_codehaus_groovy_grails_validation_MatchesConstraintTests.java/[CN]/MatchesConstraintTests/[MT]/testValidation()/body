@@ -1,6 +1,0 @@
-{
-  testConstraintMessageCodes(getConstraint("testString","[a-zA-Z]"),"$",new String[]{"testClass.testString.matches.error","testClass.testString.matches.invalid"},new Object[]{"testString",TestClass.class,"$","[a-zA-Z]"});
-  testConstraintPassed(getConstraint("testString","[a-zA-Z]+"),"asdfdf");
-  testConstraintPassed(getConstraint("testString","[a-zA-Z]+"),null);
-  testConstraintDefaultMessage(getConstraint("testString","[a-zA-Z]+"),"$","Property [{0}] of class [{1}] with value [{2}] does not match the required pattern [{3}]");
-}

@@ -1,9 +1,0 @@
-{
-  if (test instanceof TestCase) {
-    applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(test,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
-  }
-  if (test instanceof ApplicationContextAware) {
-    ((ApplicationContextAware)test).setApplicationContext(this.applicationContext);
-  }
-  test.run(result);
-}

@@ -1,5 +1,0 @@
-{
-  String alias=(String)ALIAS_MAP.get(cls);
-  if (alias == null)   return cls.getName();
- else   return alias;
-}

@@ -1,7 +1,0 @@
-{
-  if (finalPass)   return;
-  if (LOG.isDebugEnabled())   LOG.debug("parse: direct");
-  String text=scan.getToken();
-  text=text.trim();
-  directPage(text);
-}

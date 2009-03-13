@@ -1,8 +1,0 @@
-{
-  if (StringUtils.isBlank(varName)) {
-    binding.put(DEFAULT_ARGUMENT,bean);
-  }
- else   binding.put(varName,bean);
-  Writable w=template.make(binding);
-  w.writeTo(out);
-}

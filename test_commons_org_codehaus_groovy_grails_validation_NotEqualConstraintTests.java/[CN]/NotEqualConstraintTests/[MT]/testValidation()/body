@@ -1,7 +1,0 @@
-{
-  testConstraintMessageCodes(getConstraint("testString","12345"),"12345",new String[]{"testClass.testString.notEqual.error","testClass.testString.notEqual"},new Object[]{"testString",TestClass.class,"12345","12345"});
-  testConstraintPassed(getConstraint("testString","12345"),"1234");
-  testConstraintPassed(getConstraint("testLong",new Long(123)),new Long(122));
-  testConstraintPassed(getConstraint("testDate",new Date(123)),null);
-  testConstraintDefaultMessage(getConstraint("testString","123"),"123","Property [{0}] of class [{1}] with value [{2}] cannot equal [{3}]");
-}

@@ -1,5 +1,0 @@
-{
-  PluginFilterRetriever fb=new PluginFilterRetriever();
-  PluginFilter bean=fb.getPluginFilter(null,null);
-  assertTrue(bean instanceof IdentityPluginFilter);
-}

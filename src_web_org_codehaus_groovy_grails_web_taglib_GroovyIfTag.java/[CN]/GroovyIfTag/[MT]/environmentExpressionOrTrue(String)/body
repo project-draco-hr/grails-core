@@ -1,7 +1,0 @@
-{
-  String expression="true";
-  if (envAttributeValue != null) {
-    expression="(GrailsUtil.environment == '" + calculateExpression(envAttributeValue) + "')";
-  }
-  return expression;
-}

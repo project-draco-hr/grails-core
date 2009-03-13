@@ -1,8 +1,0 @@
-{
-  preProcessMutablePropertyValues(mpvs);
-  if (request instanceof MultipartHttpServletRequest) {
-    MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;
-    bindMultipartFiles(multipartRequest.getFileMap(),mpvs);
-  }
-  doBind(mpvs);
-}

@@ -1,9 +1,0 @@
-{
-  for (Iterator iter=this.dynamicMethodInvocations.iterator(); iter.hasNext(); ) {
-    DynamicMethodInvocation methodInvocation=(DynamicMethodInvocation)iter.next();
-    if (methodInvocation.isMethodMatch(method_signature)) {
-      return methodInvocation;
-    }
-  }
-  return null;
-}

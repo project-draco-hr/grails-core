@@ -1,7 +1,0 @@
-{
-  if (applicationContext instanceof GenericApplicationContext) {
-    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
-    ctx.getBeanFactory().addBeanPostProcessor(new GrailsApplicationAwareBeanPostProcessor(grailsApplication));
-    ctx.getBeanFactory().ignoreDependencyInterface(GrailsApplicationAware.class);
-  }
-}

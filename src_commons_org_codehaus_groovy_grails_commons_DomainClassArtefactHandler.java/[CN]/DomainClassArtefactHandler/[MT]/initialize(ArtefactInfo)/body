@@ -1,4 +1,0 @@
-{
-  log.debug("Configuring domain class relationships");
-  GrailsDomainConfigurationUtil.configureDomainClassRelationships(artefacts.getGrailsClasses(),artefacts.getGrailsClassesByName());
-}

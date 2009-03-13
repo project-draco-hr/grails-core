@@ -1,8 +1,0 @@
-{
-  if (this.bean.isWritableProperty(name)) {
-    this.bean.setPropertyValue(name,value);
-  }
- else {
-    this.attributes.put(name,value);
-  }
-}

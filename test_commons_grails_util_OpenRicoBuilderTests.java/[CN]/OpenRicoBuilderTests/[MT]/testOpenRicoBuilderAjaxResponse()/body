@@ -1,5 +1,0 @@
-{
-  StringWriter sw=new StringWriter();
-  new OpenRicoBuilder(getResponse(sw));
-  System.out.println(sw.getBuffer().toString());
-}

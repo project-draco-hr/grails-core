@@ -1,7 +1,0 @@
-{
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public Object run() {\n"+ "out.print(STATIC_HTML_CONTENT_0)\n"+ "body1 = new GroovyPageTagBody(this,binding.webRequest) {\n"+ "}\n"+ "invokeTag('form','tt',[:],body1)\n"+ "out.print(STATIC_HTML_CONTENT_1)\n"+ "}\n"+ "static final STATIC_HTML_CONTENT_0 = '''<tbody>'''\n"+ "\n"+ "static final STATIC_HTML_CONTENT_1 = '''</tbody>'''\n"+ "\n"+ "}";
-  String output=parseCode("myTest","<tbody>\n" + "  <tt:form />\n" + "</tbody>");
-  System.out.println("|" + trimAndRemoveCR(output) + "|");
-  System.out.println("|" + trimAndRemoveCR(expected) + "|");
-  assertTrue("should have call to tag with 'tt' namespace",output.indexOf("invokeTag('form','tt',[:],body1)") > -1);
-}

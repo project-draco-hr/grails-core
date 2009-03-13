@@ -1,3 +1,0 @@
-{
-  return new ToStringBuilder(this).append(this.owningClass).append(this.propertyName).append(this.propertyType).append(this.appliedConstraints).toString();
-}

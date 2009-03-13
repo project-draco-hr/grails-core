@@ -1,5 +1,0 @@
-{
-  Mapping m=getMapping(property.getDomainClass().getClazz());
-  PropertyConfig config=m != null ? m.getPropertyConfig(property.getName()) : null;
-  return config;
-}

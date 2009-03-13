@@ -1,6 +1,0 @@
-{
-  super();
-  if (defaultResponseHandler == null)   throw new IllegalStateException("Argument 'defaultResponseHandler' is required");
-  if (application == null)   throw new IllegalStateException("Argument 'application' is required");
-  this.defaultResponseHandler=defaultResponseHandler;
-}

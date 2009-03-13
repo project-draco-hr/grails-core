@@ -1,4 +1,0 @@
-{
-  Object val=GrailsClassUtils.getPropertyValueOfNewInstance(testClass,TRANSACTIONAL);
-  return !(val instanceof Boolean) || ((Boolean)val).booleanValue();
-}

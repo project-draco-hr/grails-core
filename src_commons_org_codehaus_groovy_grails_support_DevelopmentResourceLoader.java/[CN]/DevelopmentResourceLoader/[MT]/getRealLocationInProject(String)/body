@@ -1,9 +1,0 @@
-{
-  if (!location.startsWith("/"))   location="/" + location;
-  if (location.startsWith(GrailsResourceUtils.WEB_INF)) {
-    return "file:" + baseLocation + "/"+ location.substring(GrailsResourceUtils.WEB_INF.length() + 1);
-  }
- else {
-    return GrailsResourceUtils.WEB_APP_DIR + location;
-  }
-}

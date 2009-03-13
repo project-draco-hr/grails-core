@@ -1,8 +1,0 @@
-{
-  if (statusCode == 404) {
-    renderDefaultResponse(response,statusCode,"Not Found","Page not found.");
-  }
- else {
-    renderDefaultResponse(response,statusCode,"Internal Error","Internal server error.");
-  }
-}

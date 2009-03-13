@@ -1,4 +1,0 @@
-{
-  String controllerName=info.getControllerName();
-  return resolveView(request,viewName,controllerName,viewResolver);
-}

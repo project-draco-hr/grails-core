@@ -1,7 +1,0 @@
-{
-  if (o instanceof LazyMetaPropertyMap) {
-    LazyMetaPropertyMap other=(LazyMetaPropertyMap)o;
-    return this.instance.equals(other.getInstance());
-  }
-  return false;
-}

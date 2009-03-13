@@ -1,6 +1,0 @@
-{
-  createSessionIfNecessary();
-synchronized (this) {
-    return adaptee.getCreationTime();
-  }
-}

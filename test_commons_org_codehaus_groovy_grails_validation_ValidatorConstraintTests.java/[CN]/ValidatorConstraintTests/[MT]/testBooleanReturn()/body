@@ -1,9 +1,0 @@
-{
-  testConstraintMessageCodes(getConstraint("{val,obj -> return false}"),"test",new String[]{"testClass.testString.validator.error","testClass.testString.validator.invalid"},new Object[]{"testString",TestClass.class,"test"});
-  testConstraintPassed(getConstraint("{val,obj -> return true}"),"test");
-  testConstraintDefaultMessage(getConstraint("{val,obj -> return false}"),"test","Property [{0}] of class [{1}] with value [{2}] does not pass custom validation");
-  testConstraintFailed(getConstraint("{val,obj -> return val == null}"),"test");
-  testConstraintPassed(getConstraint("{val,obj -> return val == null}"),null);
-  testConstraintFailed(getConstraint("{val,obj -> return val?.trim() == ''}"),"test");
-  testConstraintPassed(getConstraint("{val,obj -> return val?.trim() == ''}"),"     ");
-}

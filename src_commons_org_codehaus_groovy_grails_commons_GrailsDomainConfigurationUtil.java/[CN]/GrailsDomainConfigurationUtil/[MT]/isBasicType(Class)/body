@@ -1,6 +1,0 @@
-{
-  if (propType.isArray()) {
-    return isBasicType(propType.getComponentType());
-  }
-  return BASIC_TYPES.contains(propType.getName());
-}

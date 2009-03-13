@@ -1,6 +1,0 @@
-{
-  createSessionIfNecessary();
-synchronized (this) {
-    adaptee.setMaxInactiveInterval(arg0);
-  }
-}

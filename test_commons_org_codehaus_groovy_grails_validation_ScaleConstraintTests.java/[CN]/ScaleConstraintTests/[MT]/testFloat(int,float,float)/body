@@ -1,4 +1,0 @@
-{
-  Constraint constraint=getConstraint("testFloat",new Integer(scale));
-  assertEquals(new Float(result),proceedValidation(constraint,new Float(value)));
-}

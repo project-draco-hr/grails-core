@@ -1,8 +1,0 @@
-{
-  if (classLoader instanceof GroovyClassLoader) {
-    this.classLoader=(GroovyClassLoader)classLoader;
-  }
- else {
-    throw new IllegalArgumentException("Property [classLoader] must be an instance of GroovyClassLoader");
-  }
-}

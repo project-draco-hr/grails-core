@@ -1,8 +1,0 @@
-{
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [sum] must be within a [projections] node"));
-  }
- else {
-    this.projectionList.add(Projections.sum(propertyName));
-  }
-}

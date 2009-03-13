@@ -1,8 +1,0 @@
-{
-  UrlMappingData data=new DefaultUrlMappingData("/blog/(*)?/2007/*/*?");
-  String[] urls=data.getLogicalUrls();
-  assertEquals(3,urls.length);
-  assertEquals("/blog/(*)/2007/*/*",urls[0]);
-  assertEquals("/blog/(*)/2007/*",urls[1]);
-  assertEquals("/blog",urls[2]);
-}

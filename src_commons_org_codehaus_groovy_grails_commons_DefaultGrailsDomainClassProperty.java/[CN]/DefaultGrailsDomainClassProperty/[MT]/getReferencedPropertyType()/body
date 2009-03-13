@@ -1,8 +1,0 @@
-{
-  if (isDomainAssociation()) {
-    return this.referencedPropertyType;
-  }
- else {
-    return getType();
-  }
-}

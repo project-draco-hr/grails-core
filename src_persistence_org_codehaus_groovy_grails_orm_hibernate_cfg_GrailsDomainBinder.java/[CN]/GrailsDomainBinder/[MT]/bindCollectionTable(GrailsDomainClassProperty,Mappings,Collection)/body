@@ -1,5 +1,0 @@
-{
-  String tableName=calculateTableForMany(property);
-  Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
-  collection.setCollectionTable(t);
-}

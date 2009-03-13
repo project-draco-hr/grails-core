@@ -1,4 +1,0 @@
-{
-  MultipartHttpServletRequest mpr=MultipartRequestHolder.getMultipartRequest();
-  return mpr == null ? request : mpr;
-}

@@ -1,9 +1,0 @@
-{
-  String[] dependencies=plugin.getDependencyNames();
-  for (int i=0; i < dependencies.length; i++) {
-    String name=dependencies[i];
-    String requiredVersion=plugin.getDependentVersion(name);
-    if (name.equals(dependancy.getName()) && GrailsPluginUtils.isValidVersion(dependancy.getVersion(),requiredVersion))     return true;
-  }
-  return false;
-}

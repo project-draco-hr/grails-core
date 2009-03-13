@@ -1,5 +1,0 @@
-{
-  if (domainClass == null)   throw new IllegalArgumentException("Argument 'domainClass' is required!");
-  this.constrainedProperties=domainClass.getConstrainedProperties();
-  this.domainClass=domainClass;
-}

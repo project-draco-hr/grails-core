@@ -1,3 +1,0 @@
-{
-  return type != null && (BigDecimal.class.isAssignableFrom(type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Float.class,type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Double.class,type));
-}

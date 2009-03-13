@@ -1,5 +1,0 @@
-{
-  MessageSource messageSource=(MessageSource)getBean("messageSource");
-  if (messageSource == null)   throw new BeanCreationException("No bean [messageSource] found in MockApplicationContext");
-  return messageSource.getMessage(resolvable,locale);
-}

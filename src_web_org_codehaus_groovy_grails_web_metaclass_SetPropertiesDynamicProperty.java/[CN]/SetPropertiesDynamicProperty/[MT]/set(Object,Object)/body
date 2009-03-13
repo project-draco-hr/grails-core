@@ -1,5 +1,0 @@
-{
-  if (newValue == null)   return;
-  BindingResult result=DataBindingUtils.bindObjectToInstance(object,newValue);
-  if (result == null)   throw new MissingPropertyException(PROPERTY_NAME,object.getClass());
-}

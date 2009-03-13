@@ -1,5 +1,0 @@
-{
-  HibernateTemplate t=getHibernateTemplate();
-  t.delete(target);
-  return null;
-}

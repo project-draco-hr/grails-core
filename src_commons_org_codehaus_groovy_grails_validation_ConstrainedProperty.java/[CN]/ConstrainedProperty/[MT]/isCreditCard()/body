@@ -1,6 +1,0 @@
-{
-  if (!String.class.isInstance(propertyType)) {
-    throw new MissingPropertyException("CreditCard constraint only applies to a String property",CREDIT_CARD_CONSTRAINT,owningClass);
-  }
-  return this.appliedConstraints.containsKey(CREDIT_CARD_CONSTRAINT);
-}

@@ -1,8 +1,0 @@
-{
-  if (this.application == null)   initPageState();
-  GrailsClass tagLibClass=application.getArtefactForFeature(TagLibArtefactHandler.TYPE,namespace);
-  if (tagLibClass != null) {
-    return (GroovyObject)applicationContext.getBean(tagLibClass.getFullName());
-  }
-  return null;
-}

@@ -1,5 +1,0 @@
-{
-  testConstraintMessageCodes(getConstraint("testString",Boolean.TRUE),"wrong_email",new String[]{"testClass.testString.email.error","testClass.testString.email.invalid"},new Object[]{"testString",TestClass.class,"wrong_email"});
-  testConstraintPassed(getConstraint("testString",Boolean.TRUE),"test@example.com");
-  testConstraintDefaultMessage(getConstraint("testString",Boolean.TRUE),"wrong_email","Property [{0}] of class [{1}] with value [{2}] is not a valid e-mail address");
-}

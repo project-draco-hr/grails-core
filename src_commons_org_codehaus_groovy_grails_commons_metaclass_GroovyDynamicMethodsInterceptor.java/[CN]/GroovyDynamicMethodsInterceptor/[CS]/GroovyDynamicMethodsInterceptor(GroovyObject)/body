@@ -1,6 +1,0 @@
-{
-  super(go.getClass(),false);
-  this.pmc=ProxyMetaClass.getInstance(go.getClass());
-  pmc.setInterceptor(this);
-  go.setMetaClass(pmc);
-}

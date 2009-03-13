@@ -1,3 +1,0 @@
-{
-  return (property.isOneToMany() && property.isBidirectional() || !shouldCollectionBindWithJoinColumn(property)) && !Map.class.isAssignableFrom(property.getType()) && !property.isManyToMany();
-}

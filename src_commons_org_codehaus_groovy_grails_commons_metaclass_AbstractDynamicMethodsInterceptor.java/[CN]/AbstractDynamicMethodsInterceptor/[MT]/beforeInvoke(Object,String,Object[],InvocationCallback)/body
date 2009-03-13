@@ -1,4 +1,0 @@
-{
-  Object returnValue=invokeMethod(target,methodName,arguments,callback);
-  return callback.isInvoked() ? returnValue : null;
-}

@@ -1,3 +1,0 @@
-{
-  return type != null && (Comparable.class.isAssignableFrom(type) || GrailsClassUtils.isAssignableOrConvertibleFrom(Number.class,type));
-}

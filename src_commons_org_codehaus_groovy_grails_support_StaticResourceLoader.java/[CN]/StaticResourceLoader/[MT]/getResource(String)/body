@@ -1,9 +1,0 @@
-{
-  if (baseResource == null)   throw new IllegalStateException("Property [baseResource] not set!");
-  try {
-    return baseResource.createRelative(location);
-  }
- catch (  IOException e) {
-    return null;
-  }
-}

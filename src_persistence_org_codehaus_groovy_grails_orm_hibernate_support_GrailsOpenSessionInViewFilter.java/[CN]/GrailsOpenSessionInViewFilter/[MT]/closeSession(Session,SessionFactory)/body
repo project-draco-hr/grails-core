@@ -1,6 +1,0 @@
-{
-  if (!FlushMode.MANUAL.equals(session.getFlushMode())) {
-    session.flush();
-  }
-  super.closeSession(session,sessionFactory);
-}

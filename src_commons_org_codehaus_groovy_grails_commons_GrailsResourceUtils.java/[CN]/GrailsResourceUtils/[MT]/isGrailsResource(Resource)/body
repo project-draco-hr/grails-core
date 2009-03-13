@@ -1,8 +1,0 @@
-{
-  try {
-    return isGrailsPath(r.getURL().getFile());
-  }
- catch (  IOException e) {
-    return false;
-  }
-}

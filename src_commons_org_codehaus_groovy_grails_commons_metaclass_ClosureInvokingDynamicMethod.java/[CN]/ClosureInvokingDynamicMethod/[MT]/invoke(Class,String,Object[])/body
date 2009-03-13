@@ -1,5 +1,0 @@
-{
-  Closure c=(Closure)callable.clone();
-  c.setDelegate(clazz);
-  return invokeMethod(methodName,arguments,c);
-}

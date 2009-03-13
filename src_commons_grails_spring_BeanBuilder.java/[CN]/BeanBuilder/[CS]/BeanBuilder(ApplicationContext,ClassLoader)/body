@@ -1,6 +1,0 @@
-{
-  super();
-  this.classLoader=classLoader == null ? getClass().getClassLoader() : classLoader;
-  this.parentCtx=parent;
-  this.springConfig=createRuntimeSpringConfiguration(parent,classLoader);
-}

@@ -1,9 +1,0 @@
-{
-  List beanAliases=(List)aliases.get(beanName);
-  if (beanAliases != null && !beanAliases.isEmpty()) {
-    for (Iterator j=beanAliases.iterator(); j.hasNext(); ) {
-      String alias=(String)j.next();
-      applicationContext.registerAlias(beanName,alias);
-    }
-  }
-}

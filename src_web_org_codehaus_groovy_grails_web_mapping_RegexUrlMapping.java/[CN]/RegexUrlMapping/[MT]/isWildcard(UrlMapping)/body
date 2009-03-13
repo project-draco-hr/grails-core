@@ -1,7 +1,0 @@
-{
-  String[] tokens=mapping.getUrlData().getTokens();
-  for (int i=0; i < tokens.length; i++) {
-    if (isWildcard(tokens[i]))     return true;
-  }
-  return false;
-}

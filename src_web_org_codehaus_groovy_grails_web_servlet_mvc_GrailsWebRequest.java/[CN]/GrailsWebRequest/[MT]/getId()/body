@@ -1,4 +1,0 @@
-{
-  Object id=getParams().get(ID_PARAMETER);
-  return id != null ? id.toString() : null;
-}

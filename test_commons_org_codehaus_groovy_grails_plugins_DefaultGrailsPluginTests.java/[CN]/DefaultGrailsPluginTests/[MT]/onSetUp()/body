@@ -1,8 +1,0 @@
-{
-  versioned=gcl.parseClass("class MyGrailsPlugin {\n" + "def version = 1.1;" + "def doWithSpring = {"+ "classEditor(org.springframework.beans.propertyeditors.ClassEditor,application.classLoader )"+ "}\n"+ "def doWithApplicationContext = { ctx ->"+ "assert ctx != null"+ "}"+ "}");
-  notVersion=gcl.parseClass("class AnotherGrailsPlugin {\n" + "}");
-  notPluginClass=gcl.parseClass("class SomeOtherPlugin {\n" + "def version = 1.4;" + "}");
-  disabled=gcl.parseClass("class DisabledGrailsPlugin {" + "def version = 1.1; " + "def status = 'disabled'; }");
-  observed=gcl.parseClass("class ObservingGrailsPlugin {" + "def observe = ['another'];" + "def version = 1.1; "+ "def status = 'disabled'; }");
-  camelCased=gcl.parseClass("class CamelCasedGrailsPlugin {" + "def version = 2.1; " + "def status = 'disabled'; }");
-}

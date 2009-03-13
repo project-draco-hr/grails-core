@@ -1,8 +1,0 @@
-{
-  DynamicProperty getter=(DynamicProperty)this.dynamicProperties.get(propertyName);
-  if (getter != null && getter.isPropertyMatch(propertyName)) {
-    callback.markInvoked();
-    return getter.get(object);
-  }
-  return null;
-}

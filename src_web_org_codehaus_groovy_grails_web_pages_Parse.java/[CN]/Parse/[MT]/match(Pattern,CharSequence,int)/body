@@ -1,7 +1,0 @@
-{
-  Matcher mat=pat.matcher(text);
-  if (mat.find(start) && mat.start() == start) {
-    return mat.end();
-  }
-  return 0;
-}

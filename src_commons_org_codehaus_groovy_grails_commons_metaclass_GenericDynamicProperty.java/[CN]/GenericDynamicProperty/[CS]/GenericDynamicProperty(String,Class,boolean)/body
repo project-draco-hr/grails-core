@@ -1,7 +1,0 @@
-{
-  super(propertyName);
-  if (type == null)   throw new IllegalArgumentException("Constructor argument 'type' cannot be null");
-  this.readyOnly=readOnly;
-  this.type=type;
-  ;
-}

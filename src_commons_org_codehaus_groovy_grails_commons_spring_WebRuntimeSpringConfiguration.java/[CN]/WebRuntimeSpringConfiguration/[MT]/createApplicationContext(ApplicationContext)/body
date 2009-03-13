@@ -1,4 +1,0 @@
-{
-  if (parent != null)   return new GrailsWebApplicationContext(parent);
-  return new GrailsWebApplicationContext();
-}

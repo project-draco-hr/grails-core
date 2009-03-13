@@ -1,7 +1,0 @@
-{
-  GroovyObject controller=getController(request);
-  if (controller != null)   return (String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_URI_PROPERTY);
- else {
-    return "/" + request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE);
-  }
-}

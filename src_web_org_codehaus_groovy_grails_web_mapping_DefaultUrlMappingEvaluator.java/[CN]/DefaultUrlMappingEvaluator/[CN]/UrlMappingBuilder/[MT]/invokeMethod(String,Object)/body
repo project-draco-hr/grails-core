@@ -1,6 +1,0 @@
-{
-  if (binding == null) {
-    return invokeMethodClosure(methodName,arg);
-  }
-  return invokeMethodScript(methodName,arg);
-}

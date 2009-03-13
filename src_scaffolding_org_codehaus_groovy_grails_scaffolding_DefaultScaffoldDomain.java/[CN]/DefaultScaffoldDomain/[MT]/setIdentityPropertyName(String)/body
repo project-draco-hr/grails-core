@@ -1,5 +1,0 @@
-{
-  PropertyDescriptor identityProp=this.bean.getPropertyDescriptor(identityPropertyName);
-  identityClass=identityProp.getPropertyType();
-  this.identityPropertyName=identityPropertyName;
-}

@@ -1,4 +1,0 @@
-{
-  String shortTypeName=ClassUtils.getShortClassName(this.type);
-  return shortTypeName.substring(0,1).toLowerCase(Locale.ENGLISH) + shortTypeName.substring(1);
-}

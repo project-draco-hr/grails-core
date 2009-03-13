@@ -1,6 +1,0 @@
-{
-  if (bean instanceof ClassLoaderAware) {
-    ((ClassLoaderAware)bean).setClassLoader(classLoader);
-  }
-  return bean;
-}

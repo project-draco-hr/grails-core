@@ -1,4 +1,0 @@
-{
-  assertTrue("localhost IP should be valid",validator.isValid("127.0.0.1"));
-  assertTrue("broadcast IP should be valid",validator.isValid("255.255.255.255"));
-}

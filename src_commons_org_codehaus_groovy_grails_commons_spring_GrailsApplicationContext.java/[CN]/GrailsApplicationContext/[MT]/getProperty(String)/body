@@ -1,9 +1,0 @@
-{
-  if (containsBean(property)) {
-    return getBean(property);
-  }
- else   if (ctxBean.isReadableProperty(property)) {
-    return ctxBean.getPropertyValue(property);
-  }
-  return null;
-}

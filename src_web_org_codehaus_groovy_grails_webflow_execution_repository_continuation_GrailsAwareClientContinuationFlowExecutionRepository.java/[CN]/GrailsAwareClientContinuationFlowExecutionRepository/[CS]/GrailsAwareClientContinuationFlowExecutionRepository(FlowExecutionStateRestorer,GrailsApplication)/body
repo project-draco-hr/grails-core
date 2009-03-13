@@ -1,5 +1,0 @@
-{
-  super(executionStateRestorer);
-  setContinuationFactory(new GrailsAwareSerializedFlowExecutionContinuationFactory(grailsApplication));
-  this.grailsApplication=grailsApplication;
-}

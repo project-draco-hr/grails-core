@@ -1,9 +1,0 @@
-{
-  try {
-    PrintWriter writer=response.getWriter();
-    return renderText(text,writer);
-  }
- catch (  IOException e) {
-    throw new ControllerExecutionException(e.getMessage(),e);
-  }
-}

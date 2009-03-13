@@ -1,4 +1,0 @@
-{
-  if (factory == null)   throw new IllegalStateException("Cannot return Sitemesh factory it has not been set!");
-  return factory;
-}

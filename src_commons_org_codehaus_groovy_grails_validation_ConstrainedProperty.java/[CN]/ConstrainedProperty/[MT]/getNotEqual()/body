@@ -1,5 +1,0 @@
-{
-  NotEqualConstraint c=(NotEqualConstraint)this.appliedConstraints.get(NOT_EQUAL_CONSTRAINT);
-  if (c == null)   return null;
-  return c.getNotEqualTo();
-}

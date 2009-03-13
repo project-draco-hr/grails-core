@@ -1,6 +1,0 @@
-{
-  initialiseApplicationContext();
-  registerBeansWithContext(context);
-  context.refresh();
-  return context;
-}

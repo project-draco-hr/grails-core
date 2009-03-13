@@ -1,5 +1,0 @@
-{
-  if (webContext.containsBean(SimpleGrailsController.APPLICATION_CONTEXT_ID)) {
-    this.grailsController=(SimpleGrailsController)webContext.getBean(SimpleGrailsController.APPLICATION_CONTEXT_ID);
-  }
-}

@@ -1,8 +1,0 @@
-{
-  Map previousParams=previousRequestAttributes.getParams();
-  Map params=requestAttributes.getParams();
-  for (Iterator i=previousParams.keySet().iterator(); i.hasNext(); ) {
-    String name=(String)i.next();
-    params.put(name,previousParams.get(name));
-  }
-}

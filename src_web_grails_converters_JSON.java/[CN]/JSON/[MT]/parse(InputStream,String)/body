@@ -1,8 +1,0 @@
-{
-  try {
-    return parse(IOUtils.toString(is,encoding));
-  }
- catch (  IOException e) {
-    throw new ConverterException("Error parsing JSON",e);
-  }
-}

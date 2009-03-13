@@ -1,5 +1,0 @@
-{
-  Column column=new Column();
-  GrailsDomainBinder.bindStringColumnConstraints(column,constrainedProperty);
-  assertEquals(expectedLength,column.getLength());
-}

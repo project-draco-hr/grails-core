@@ -1,6 +1,0 @@
-{
-  assertTrue("www.apache.org IP should be valid",validator.isValid("140.211.11.130"));
-  assertTrue("www.l.google.com IP should be valid",validator.isValid("72.14.253.103"));
-  assertTrue("fsf.org IP should be valid",validator.isValid("199.232.41.5"));
-  assertTrue("appscs.ign.com IP should be valid",validator.isValid("216.35.123.87"));
-}

@@ -1,7 +1,0 @@
-{
-  super(theClass);
-  addStaticMethodInvocation(new FindAllByPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new FindByPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new CountByPersistentMethod(application,sessionFactory,classLoader));
-  addStaticMethodInvocation(new ListOrderByPersistentMethod(sessionFactory,classLoader));
-}

@@ -1,7 +1,0 @@
-{
-  TestBean bean=new TestBean();
-  assertEquals("hello",GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(bean,"welcomeMessage"));
-  assertEquals("marc",GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(bean,"userName"));
-  assertEquals("indian",GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(bean,"favouriteFood"));
-  assertEquals("Cardiacs",GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(bean,"favouriteArtist"));
-}

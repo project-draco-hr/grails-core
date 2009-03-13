@@ -1,6 +1,0 @@
-{
-  for (Iterator i=parameterCreationListeners.iterator(); i.hasNext(); ) {
-    ParameterCreationListener parameterCreationListener=(ParameterCreationListener)i.next();
-    parameterCreationListener.paramsCreated(this.params);
-  }
-}

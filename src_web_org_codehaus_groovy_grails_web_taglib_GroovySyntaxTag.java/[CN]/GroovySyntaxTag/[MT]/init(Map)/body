@@ -1,7 +1,0 @@
-{
-  this.tagContext=tagContext;
-  Object outObj=tagContext.get(GroovyPage.OUT);
-  if (outObj instanceof PrintWriter) {
-    this.out=(PrintWriter)tagContext.get(GroovyPage.OUT);
-  }
-}

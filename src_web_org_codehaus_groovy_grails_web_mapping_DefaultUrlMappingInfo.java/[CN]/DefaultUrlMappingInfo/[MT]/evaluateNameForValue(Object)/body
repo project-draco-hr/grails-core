@@ -1,4 +1,0 @@
-{
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
-  return evaluateNameForValue(value,webRequest);
-}

@@ -1,5 +1,0 @@
-{
-  context=config.getServletContext();
-  context.log("GSP servlet initialized");
-  this.grailsAttributes=new DefaultGrailsApplicationAttributes(context);
-}

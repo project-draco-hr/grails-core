@@ -1,8 +1,0 @@
-{
-  nameMap=new HashMap();
-  Iterator pluginsInterator=originalPlugins.iterator();
-  while (pluginsInterator.hasNext()) {
-    GrailsPlugin plugin=(GrailsPlugin)pluginsInterator.next();
-    nameMap.put(plugin.getName(),plugin);
-  }
-}

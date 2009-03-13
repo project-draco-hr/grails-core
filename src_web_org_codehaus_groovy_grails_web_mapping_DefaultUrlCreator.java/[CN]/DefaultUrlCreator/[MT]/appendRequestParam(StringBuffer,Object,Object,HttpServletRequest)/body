@@ -1,4 +1,0 @@
-{
-  if (value == null)   value="";
-  actualUriBuf.append(urlEncode(name,request)).append('=').append(urlEncode(value,request));
-}

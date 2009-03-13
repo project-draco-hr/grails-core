@@ -1,8 +1,0 @@
-{
-  super();
-  this.clazz=theClass;
-  this.dynamicMethodInvocations=new ArrayList();
-  this.staticMethodInvocations=new ArrayList();
-  this.dynamicProperties=new HashMap();
-  this.dynamicConstructors=new ArrayList();
-}

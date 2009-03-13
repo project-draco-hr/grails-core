@@ -1,3 +1,0 @@
-{
-  return !location.startsWith("classpath:") && !location.startsWith("classpath*:") && !location.startsWith("file:");
-}

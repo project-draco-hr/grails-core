@@ -1,0 +1,15 @@
+{
+  Binding b=new Binding();
+  b.setVariable("node",result);
+  String namespace;
+  Metadata metadata=Metadata.getCurrent();
+  String servletVersion=metadata.getServletVersion();
+  if (servletVersion == null || "2.4".equals(servletVersion)) {
+    namespace="http://java.sun.com/xml/ns/j2ee";
+  }
+ else {
+    namespace="http://java.sun.com/xml/ns/javaee";
+  }
+  Writable w=(Writable)new GroovyShell(b).evaluate("new groovy.xml.StreamingMarkupBuilder().bind {" + " mkp.declareNamespace(\"\":  \"" + namespace + "\");"+ " mkp.yield node}");
+  w.writeTo(output);
+}

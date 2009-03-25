@@ -1,0 +1,9 @@
+{
+  if (trouble)   return;
+  try {
+    out.write(c);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

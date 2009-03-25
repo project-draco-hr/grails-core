@@ -1,0 +1,7 @@
+{
+  int spaceLeft=currentWriteChunk.spaceLeft();
+  if (spaceLeft == 0) {
+    spaceLeft=endCurrentWriteChunk();
+  }
+  return spaceLeft;
+}

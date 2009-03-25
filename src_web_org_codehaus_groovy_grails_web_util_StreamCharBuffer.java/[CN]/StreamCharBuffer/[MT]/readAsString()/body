@@ -1,0 +1,9 @@
+{
+  if (calculateTotalCharsUnread() > 0) {
+    char[] buf=readAsCharArray();
+    return StringCharArrayAccessor.createString(buf);
+  }
+ else {
+    return "";
+  }
+}

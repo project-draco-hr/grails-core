@@ -1,0 +1,19 @@
+{
+  if (enabled) {
+    char[] value;
+    int internalOffset;
+    try {
+      value=(char[])valueField.get(str);
+      internalOffset=offsetField.getInt(str);
+    }
+ catch (    Exception e) {
+      handleError(e);
+      writeStringFallback(writer,str,off,len);
+      return;
+    }
+    writer.write(value,internalOffset + off,len);
+  }
+ else {
+    writeStringFallback(writer,str,off,len);
+  }
+}

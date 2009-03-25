@@ -1,0 +1,6 @@
+{
+  if (str.length() == 0)   return;
+  if (calculationActive) {
+    update(str.toCharArray());
+  }
+}

@@ -1,0 +1,11 @@
+{
+  char[] buf=new char[calculateTotalCharsUnread()];
+  if (buf.length > 0) {
+    try {
+      reader.readImpl(buf,0,buf.length);
+    }
+ catch (    EOFException e) {
+    }
+  }
+  return buf;
+}

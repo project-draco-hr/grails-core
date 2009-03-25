@@ -1,12 +1,15 @@
 {
-  if (!response.isCommitted()) {
-    try {
-      response.setContentLength(totalLength+=getContentLength(out0.toString()));
+  flush();
+  if (CONTENT_LENGTH_COUNTING_ENABLED && bytesCounter != null && response != null && !response.isCommitted()) {
+    int size=bytesCounter.size();
+    if (size > 0) {
+      response.setContentLength(size);
     }
- catch (    UnsupportedEncodingException e) {
-      LOG.error("Encoding error setting content length: " + e.getMessage(),e);
+    try {
+      response.getWriter().flush();
+    }
+ catch (    IOException e) {
+      handleIOException(e);
     }
   }
-  flush();
-  super.close();
 }

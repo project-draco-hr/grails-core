@@ -1,0 +1,8 @@
+{
+  while (prepareRead(flushAll) != -1) {
+    totalCharsUnread-=currentReadChunk.writeTo(target);
+  }
+  if (flushTarget) {
+    target.flush();
+  }
+}

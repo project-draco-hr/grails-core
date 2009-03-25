@@ -1,0 +1,9 @@
+{
+  if (testbuffer == null) {
+    for (int i=0; i < TESTROUNDS; i++) {
+      for (int j=0; j < (2 ^ 16); j++) {
+        testbuffer[i * 2 ^ 16 + j]=(char)j;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  Writer wrapped=getOut();
+  if (!isFinalTargetHere()) {
+    while (wrapped instanceof GrailsPrintWriter) {
+      wrapped=((GrailsPrintWriter)wrapped).getFinalTarget();
+    }
+  }
+  return wrapped;
+}

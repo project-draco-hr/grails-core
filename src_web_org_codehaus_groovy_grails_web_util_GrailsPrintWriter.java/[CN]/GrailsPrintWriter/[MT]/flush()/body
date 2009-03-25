@@ -1,0 +1,9 @@
+{
+  if (trouble)   return;
+  try {
+    out.flush();
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

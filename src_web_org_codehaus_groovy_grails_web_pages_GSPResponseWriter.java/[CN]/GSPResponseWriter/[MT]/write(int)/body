@@ -1,7 +1,0 @@
-{
-  if (trouble)   return;
-  super.write(c);
-  if (out0.size() >= max) {
-    flush();
-  }
-}

@@ -1,0 +1,14 @@
+{
+  if (growProcent == 0) {
+    return;
+  }
+ else   if (growProcent == 100) {
+    chunkSize=Math.min(totalChunkSize,maxChunkSize);
+  }
+ else   if (growProcent == 200) {
+    chunkSize=Math.min(totalChunkSize << 1,maxChunkSize);
+  }
+ else   if (growProcent > 0) {
+    chunkSize=Math.max(Math.min((totalChunkSize * growProcent) / 100,maxChunkSize),firstChunkSize);
+  }
+}

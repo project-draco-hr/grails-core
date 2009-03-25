@@ -1,0 +1,28 @@
+{
+  if (b == null) {
+    throw new NullPointerException();
+  }
+ else   if ((off < 0) || (off > b.length) || (len < 0)|| ((off + len) > b.length)|| ((off + len) < 0)) {
+    throw new IndexOutOfBoundsException();
+  }
+ else   if (len == 0) {
+    return;
+  }
+  writerUsed=true;
+  if (shouldWriteDirectly(len)) {
+    flushCurrentWriteChunkInConnectedMode();
+    connectedWritersWriter.write(b,off,len);
+  }
+ else {
+    int charsLeft=len;
+    int currentOffset=off;
+    while (charsLeft > 0) {
+      int spaceLeft=allocateSpace();
+      int writeChars=Math.min(spaceLeft,charsLeft);
+      currentWriteChunk.write(b,currentOffset,writeChars);
+      charsLeft-=writeChars;
+      currentOffset+=writeChars;
+    }
+    totalCharsUnread+=len;
+  }
+}

@@ -1,0 +1,9 @@
+{
+  try {
+    out.append(c);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+  return this;
+}

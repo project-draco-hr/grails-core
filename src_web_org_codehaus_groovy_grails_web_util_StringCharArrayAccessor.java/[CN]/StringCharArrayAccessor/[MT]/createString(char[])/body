@@ -1,0 +1,24 @@
+{
+  if (enabled) {
+    String str=new String();
+    try {
+synchronized (str) {
+        valueField.set(str,charBuf);
+        countField.set(str,charBuf.length);
+      }
+synchronized (str) {
+        if (str.length() != charBuf.length) {
+          throw new IllegalStateException("Fast java.lang.String construction failed.");
+        }
+      }
+    }
+ catch (    Exception e) {
+      handleError(e);
+      str=createStringFallback(charBuf);
+    }
+    return str;
+  }
+ else {
+    return createStringFallback(charBuf);
+  }
+}

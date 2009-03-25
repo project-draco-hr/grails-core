@@ -1,0 +1,3 @@
+{
+  return used - pointer + unreadCharsInStringChunkGroups + ((readingStringChunkGroup != null) ? readingStringChunkGroup.getUnreadChars() : 0);
+}

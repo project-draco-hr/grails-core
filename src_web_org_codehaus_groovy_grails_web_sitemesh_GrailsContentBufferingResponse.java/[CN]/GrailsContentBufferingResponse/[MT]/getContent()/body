@@ -1,0 +1,9 @@
+{
+  char[] data=pageResponseWrapper.getContents();
+  if (data != null) {
+    return contentProcessor.build(data,webAppContext);
+  }
+ else {
+    return null;
+  }
+}

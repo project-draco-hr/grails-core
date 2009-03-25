@@ -1,3 +1,4 @@
 {
-  buf=new CharArrayWriter();
+  streamBuffer=new StreamCharBuffer();
+  streamBufferWriter=streamBuffer.getWriter();
 }

@@ -1,0 +1,13 @@
+{
+  chunks=new LinkedList<StreamCharBufferChunk>();
+  totalCharsUnreadInList=0;
+  totalCharsUnread=0;
+  if (resetChunkSize) {
+    chunkSize=firstChunkSize;
+    totalChunkSize=0;
+  }
+  currentWriteChunk=new StreamCharBufferChunk(chunkSize);
+  currentReadChunk=null;
+  cachedToString=null;
+  cachedToCharArray=null;
+}

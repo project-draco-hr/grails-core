@@ -1,0 +1,15 @@
+{
+  if (bufferedStream == null) {
+    if (bufferedWriter != null) {
+      throw new IllegalStateException("response.getOutputStream() called after response.getWriter()");
+    }
+    bufferedStream=new FastByteArrayOutputStream();
+    exposedStream=new ServletOutputStream(){
+      public void write(      int b){
+        bufferedStream.write(b);
+      }
+    }
+;
+  }
+  return exposedStream;
+}

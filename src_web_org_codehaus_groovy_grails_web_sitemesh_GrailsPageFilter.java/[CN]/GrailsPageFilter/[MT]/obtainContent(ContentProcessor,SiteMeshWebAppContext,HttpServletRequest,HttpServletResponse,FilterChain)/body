@@ -1,25 +1,5 @@
 {
-  ContentBufferingResponse contentBufferingResponse=new ContentBufferingResponse(response,contentProcessor,webAppContext){
-    public void sendError(    int sc) throws IOException {
-      GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
-      try {
-        super.sendError(sc);
-      }
-  finally {
-        WebUtils.storeGrailsWebRequest(webRequest);
-      }
-    }
-    public void sendError(    int sc,    String msg) throws IOException {
-      GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
-      try {
-        super.sendError(sc,msg);
-      }
-  finally {
-        WebUtils.storeGrailsWebRequest(webRequest);
-      }
-    }
-  }
-;
+  GrailsContentBufferingResponse contentBufferingResponse=new GrailsContentBufferingResponse(response,contentProcessor,webAppContext);
   setDefaultConfiguredEncoding(request,contentBufferingResponse);
   chain.doFilter(request,contentBufferingResponse);
   webAppContext.setUsingStream(contentBufferingResponse.isUsingStream());

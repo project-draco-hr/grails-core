@@ -1,0 +1,9 @@
+{
+  try {
+    out.append(csq,start,end);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+  return this;
+}

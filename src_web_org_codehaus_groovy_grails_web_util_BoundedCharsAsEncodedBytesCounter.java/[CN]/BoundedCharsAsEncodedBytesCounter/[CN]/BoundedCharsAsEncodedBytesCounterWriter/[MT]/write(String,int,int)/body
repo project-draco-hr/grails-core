@@ -1,0 +1,4 @@
+{
+  if (!calculationActive)   return;
+  StringCharArrayAccessor.writeStringAsCharArray(this,str,off,len);
+}

@@ -1,0 +1,9 @@
+{
+  if (used < size) {
+    buffer[used++]=ch;
+    return true;
+  }
+ else {
+    return false;
+  }
+}

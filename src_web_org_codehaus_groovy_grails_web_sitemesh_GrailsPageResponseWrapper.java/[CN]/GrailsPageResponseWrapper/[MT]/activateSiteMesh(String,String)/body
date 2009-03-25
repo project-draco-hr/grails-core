@@ -1,0 +1,19 @@
+{
+  if (parseablePage) {
+    return;
+  }
+  buffer=new GrailsBuffer(parserSelector.getPageParser(contentType),encoding);
+  routablePrintWriter.updateDestination(new GrailsRoutablePrintWriter.DestinationFactory(){
+    public PrintWriter activateDestination(){
+      return buffer.getWriter();
+    }
+  }
+);
+  routableServletOutputStream.updateDestination(new RoutableServletOutputStream.DestinationFactory(){
+    public ServletOutputStream create(){
+      return buffer.getOutputStream();
+    }
+  }
+);
+  parseablePage=true;
+}

@@ -1,0 +1,11 @@
+{
+  if (destination == null) {
+    try {
+      destination=factory.activateDestination();
+    }
+ catch (    IOException e) {
+      setError();
+    }
+  }
+  return destination;
+}

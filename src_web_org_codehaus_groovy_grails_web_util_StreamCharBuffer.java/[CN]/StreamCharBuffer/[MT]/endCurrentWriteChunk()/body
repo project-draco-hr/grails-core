@@ -1,0 +1,11 @@
+{
+  int spaceLeft;
+  chunks.add(currentWriteChunk);
+  totalCharsUnreadInList+=currentWriteChunk.charsUnread();
+  totalChunkSize+=currentWriteChunk.chunkSize();
+  resizeChunkSizeAsProcentageOfTotalSize();
+  currentWriteChunk=new StreamCharBufferChunk(chunkSize);
+  spaceLeft=currentWriteChunk.spaceLeft();
+  flushIfConnected(false,true);
+  return spaceLeft;
+}

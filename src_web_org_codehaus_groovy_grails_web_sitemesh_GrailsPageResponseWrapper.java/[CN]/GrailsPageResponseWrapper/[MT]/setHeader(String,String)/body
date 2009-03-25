@@ -1,0 +1,8 @@
+{
+  if (name.toLowerCase().equals("content-type")) {
+    setContentType(value);
+  }
+ else   if (!parseablePage || !name.toLowerCase().equals("content-length")) {
+    super.setHeader(name,value);
+  }
+}

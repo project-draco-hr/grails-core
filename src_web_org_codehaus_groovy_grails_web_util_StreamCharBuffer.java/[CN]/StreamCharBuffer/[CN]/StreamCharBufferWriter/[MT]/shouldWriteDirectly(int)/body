@@ -1,0 +1,6 @@
+{
+  if (connectedWriters.isEmpty()) {
+    return false;
+  }
+  return writeDirectlyToConnectedMinSize >= 0 && len > writeDirectlyToConnectedMinSize;
+}

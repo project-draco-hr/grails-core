@@ -1,8 +1,8 @@
 {
   GroovyObject tagLib=getTagLib(getTagName());
   if (tagLib != null) {
-    sw=new StringWriter();
-    out=new PrintWriter(sw);
+    sw=new FastStringWriter();
+    out=sw;
     tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
     Object tagLibProp;
     final Map tagLibProperties=DefaultGroovyMethods.getProperties(tagLib);

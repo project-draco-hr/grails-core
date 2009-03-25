@@ -1,0 +1,13 @@
+{
+  int totalChars=0;
+  int readLen=Math.min(getUnreadChars(),len);
+  int readOff=off;
+  while (readLen > 0 && prepareReading()) {
+    int readCharsLen=currentStringChunkUnderRead.read(ch,readOff,readLen);
+    readLen-=readCharsLen;
+    readOff+=readCharsLen;
+    totalChars+=readCharsLen;
+  }
+  afterReading();
+  return totalChars;
+}

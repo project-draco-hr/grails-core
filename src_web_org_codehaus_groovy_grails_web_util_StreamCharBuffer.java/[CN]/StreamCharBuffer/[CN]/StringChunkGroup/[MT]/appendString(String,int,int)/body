@@ -1,0 +1,11 @@
+{
+  if (str.length() > 0) {
+    StringChunk child=new StringChunk(str,off,len);
+    unreadStringChunks.add(child);
+    unreadChars+=child.getUnreadChars();
+    return child.getUnreadChars();
+  }
+ else {
+    return 0;
+  }
+}

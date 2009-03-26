@@ -9,7 +9,7 @@
     try {
       WrappedResponseHolder.setWrappedResponse(responseWrapper);
       dispatcher.include(request,responseWrapper);
-      return responseWrapper.getContent();
+      return new IncludedContent(responseWrapper.getContentType(),responseWrapper.getContent());
     }
   finally {
       WrappedResponseHolder.setWrappedResponse(wrapped);

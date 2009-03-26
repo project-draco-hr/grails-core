@@ -1,13 +1,14 @@
 {
   try {
     PrintWriter printWriter;
+    response.setContentType(includeResult.getContentType());
     try {
       printWriter=response.getWriter();
     }
  catch (    IllegalStateException e) {
       printWriter=new PrintWriter(new OutputStreamWriter(response.getOutputStream()));
     }
-    printWriter.write(contents);
+    printWriter.write(includeResult.getContent());
     printWriter.flush();
   }
  catch (  IOException e) {

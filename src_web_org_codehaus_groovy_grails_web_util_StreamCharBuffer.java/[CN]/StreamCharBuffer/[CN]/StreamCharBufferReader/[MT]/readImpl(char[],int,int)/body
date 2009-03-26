@@ -1,0 +1,37 @@
+{
+  if (b == null) {
+    throw new NullPointerException();
+  }
+ else   if ((off < 0) || (off > b.length) || (len < 0)|| ((off + len) > b.length)|| ((off + len) < 0)) {
+    throw new IndexOutOfBoundsException();
+  }
+ else   if (len == 0) {
+    return 0;
+  }
+  int charsLeft=len;
+  int currentOffset=off;
+  int charsUnread=prepareRead();
+  if (charsUnread == 0 && eofReached) {
+    throw new EOFException();
+  }
+  int totalCharsRead=0;
+  while (charsLeft > 0 && charsUnread != -1) {
+    int readChars=Math.min(charsUnread,charsLeft);
+    currentReadChunk.read(b,currentOffset,readChars);
+    charsLeft-=readChars;
+    currentOffset+=readChars;
+    totalCharsRead+=readChars;
+    if (charsLeft > 0) {
+      charsUnread=prepareRead();
+    }
+  }
+  if (totalCharsRead > 0) {
+    totalCharsUnread-=totalCharsRead;
+    eofReached=false;
+    return totalCharsRead;
+  }
+ else {
+    eofReached=true;
+    return -1;
+  }
+}

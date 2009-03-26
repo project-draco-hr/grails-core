@@ -2,7 +2,7 @@
   Object tagLibProp;
   Writer originalOut=webRequest.getOut();
   try {
-    final GroovyPageTagWriter out=new GroovyPageTagWriter(new FastStringWriter());
+    final GroovyPageTagWriter out=new GroovyPageTagWriter();
     webRequest.setOut(out);
     Closure actualBody=createTagOutputCapturingClosure(tagLib,methodName,out,body);
     tagLibProp=tagLib.getProperty(methodName);

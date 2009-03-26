@@ -1,0 +1,11 @@
+{
+  StreamCharBuffer charBuffer=new StreamCharBuffer(100,0,100);
+  Writer writer=charBuffer.getWriter();
+  StringBuffer sb=new StringBuffer("ABCDE12345ABCDEABCDE67890");
+  writer.append(sb);
+  writer.close();
+  assertEquals(25,charBuffer.size());
+  assertEquals("ABCDE12345ABCDEABCDE67890",charBuffer.toString());
+  assertEquals(0,charBuffer.charsAvailable());
+  assertEquals(0,charBuffer.size());
+}

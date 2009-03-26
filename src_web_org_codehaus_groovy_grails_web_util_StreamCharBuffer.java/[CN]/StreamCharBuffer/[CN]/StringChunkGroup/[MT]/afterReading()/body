@@ -1,0 +1,5 @@
+{
+  if (currentStringChunkUnderRead != null && currentStringChunkUnderRead.getUnreadChars() == 0) {
+    currentStringChunkUnderRead=null;
+  }
+}

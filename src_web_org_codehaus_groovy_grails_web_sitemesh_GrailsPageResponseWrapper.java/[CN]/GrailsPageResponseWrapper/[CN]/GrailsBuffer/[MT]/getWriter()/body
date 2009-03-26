@@ -1,0 +1,11 @@
+{
+  if (bufferedWriter == null) {
+    if (bufferedStream != null) {
+      throw new IllegalStateException("response.getWriter() called after response.getOutputStream()");
+    }
+    bufferedWriter=streamBuffer.getWriter();
+    exposedWriter=new GrailsPrintWriter(bufferedWriter);
+    exposedWriter.setFinalTargetHere(true);
+  }
+  return exposedWriter;
+}

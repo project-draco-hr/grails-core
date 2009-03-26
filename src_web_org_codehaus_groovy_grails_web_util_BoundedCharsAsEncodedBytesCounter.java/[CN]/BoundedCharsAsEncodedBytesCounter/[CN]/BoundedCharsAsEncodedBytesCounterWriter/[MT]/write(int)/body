@@ -1,0 +1,5 @@
+{
+  if (!calculationActive)   return;
+  writeBuffer[0]=(char)b;
+  update(writeBuffer,0,1);
+}

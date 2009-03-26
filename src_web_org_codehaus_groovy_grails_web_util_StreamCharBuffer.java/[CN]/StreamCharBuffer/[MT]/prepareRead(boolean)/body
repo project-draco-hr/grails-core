@@ -1,0 +1,21 @@
+{
+  int charsUnread=(currentReadChunk != null) ? currentReadChunk.charsUnread() : 0;
+  if (charsUnread == 0) {
+    if (!chunks.isEmpty()) {
+      currentReadChunk=chunks.removeFirst();
+      charsUnread=currentReadChunk.charsUnread();
+      totalCharsUnreadInList-=charsUnread;
+    }
+ else     if (readLast && currentReadChunk != currentWriteChunk) {
+      currentReadChunk=currentWriteChunk;
+      charsUnread=currentReadChunk.charsUnread();
+      if (charsUnread == 0) {
+        charsUnread=-1;
+      }
+    }
+ else {
+      charsUnread=-1;
+    }
+  }
+  return charsUnread;
+}

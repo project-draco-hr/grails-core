@@ -1,0 +1,9 @@
+{
+  this.firstChunkSize=chunkSize;
+  this.growProcent=growProcent;
+  this.maxChunkSize=maxChunkSize;
+  this.stringChunkMinSize=STRING_CHUNK_MIN_SIZE;
+  writer=new StreamCharBufferWriter();
+  reader=new StreamCharBufferReader();
+  reset(true);
+}

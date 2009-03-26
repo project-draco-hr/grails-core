@@ -1,0 +1,20 @@
+{
+  super(new GrailsPageResponseWrapper(response,new PageParserSelector(){
+    public boolean shouldParsePage(    String contentType){
+      return contentProcessor.handles(contentType);
+    }
+    public PageParser getPageParser(    String contentType){
+      return null;
+    }
+  }
+){
+    public void setContentType(    String contentType){
+      webAppContext.setContentType(contentType);
+      super.setContentType(contentType);
+    }
+  }
+);
+  this.contentProcessor=contentProcessor;
+  this.webAppContext=webAppContext;
+  pageResponseWrapper=(GrailsPageResponseWrapper)getResponse();
+}

@@ -1,0 +1,9 @@
+{
+  if (!trouble) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("I/O exception in GrailsPrintWriter: " + e.getMessage(),e);
+    }
+    trouble=true;
+    setError();
+  }
+}

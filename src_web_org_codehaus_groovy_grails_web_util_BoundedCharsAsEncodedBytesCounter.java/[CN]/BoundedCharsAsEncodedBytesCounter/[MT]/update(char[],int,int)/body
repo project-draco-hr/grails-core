@@ -1,0 +1,24 @@
+{
+  if (calculationActive && len > 0) {
+    try {
+      CharBuffer cb=CharBuffer.wrap(buf,off,len);
+      ce.reset();
+      CoderResult cr=ce.encode(cb,bb,true);
+      if (!cr.isUnderflow()) {
+        terminateCalculation();
+        return;
+      }
+      cr=ce.flush(bb);
+      if (!cr.isUnderflow()) {
+        terminateCalculation();
+        return;
+      }
+    }
+ catch (    BufferOverflowException e) {
+      terminateCalculation();
+    }
+catch (    Exception x) {
+      terminateCalculation();
+    }
+  }
+}

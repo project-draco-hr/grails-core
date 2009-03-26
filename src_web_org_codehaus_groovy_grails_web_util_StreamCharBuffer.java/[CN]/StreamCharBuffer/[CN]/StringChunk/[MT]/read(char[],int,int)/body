@@ -1,0 +1,7 @@
+{
+  int readCharsLen=Math.min(unreadChars,len);
+  str.getChars(readOffset,(readOffset + readCharsLen),ch,off);
+  readOffset+=readCharsLen;
+  unreadChars-=readCharsLen;
+  return readCharsLen;
+}

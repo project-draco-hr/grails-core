@@ -1,0 +1,18 @@
+{
+  if (trouble || obj == null) {
+    return;
+  }
+ else {
+    if (obj instanceof CharSequence) {
+      try {
+        out.append((CharSequence)obj);
+      }
+ catch (      IOException e) {
+        handleIOException(e);
+      }
+    }
+ else {
+      write(String.valueOf(obj));
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  parseablePage=false;
+  buffer=null;
+  routablePrintWriter.updateDestination(new GrailsRoutablePrintWriter.DestinationFactory(){
+    public PrintWriter activateDestination() throws IOException {
+      return getResponse().getWriter();
+    }
+  }
+);
+  routableServletOutputStream.updateDestination(new RoutableServletOutputStream.DestinationFactory(){
+    public ServletOutputStream create() throws IOException {
+      return getResponse().getOutputStream();
+    }
+  }
+);
+}

@@ -1,5 +1,5 @@
 {
-  StringWriter writer=new StringWriter();
+  FastStringWriter writer=new FastStringWriter();
   try {
     render(writer);
   }

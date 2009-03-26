@@ -1,6 +1,6 @@
 {
-  if (buf != null) {
-    buf.write(cbuf,off,len);
+  if (streamBufferWriter != null) {
+    streamBufferWriter.write(cbuf,off,len);
   }
  else {
     getEnclosingWriter().write(cbuf,off,len);

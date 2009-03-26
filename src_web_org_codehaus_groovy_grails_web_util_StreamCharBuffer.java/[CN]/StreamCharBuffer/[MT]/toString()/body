@@ -1,0 +1,14 @@
+{
+  if (cachedToString == null) {
+    cachedToString=readAsString();
+  }
+ else   if (calculateTotalCharsUnread() > 0) {
+    if (cachedToString.length() > 0) {
+      cachedToString=new StringBuilder(cachedToString).append(readAsString()).toString();
+    }
+ else {
+      cachedToString=readAsString();
+    }
+  }
+  return cachedToString;
+}

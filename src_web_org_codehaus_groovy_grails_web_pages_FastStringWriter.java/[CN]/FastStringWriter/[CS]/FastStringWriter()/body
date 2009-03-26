@@ -1,3 +1,4 @@
 {
-  this.builder=new StringBuilder();
+  super(new StreamCharBuffer().getWriter());
+  this.streamBuffer=((StreamCharBuffer.StreamCharBufferWriter)this.out).getBuffer();
 }

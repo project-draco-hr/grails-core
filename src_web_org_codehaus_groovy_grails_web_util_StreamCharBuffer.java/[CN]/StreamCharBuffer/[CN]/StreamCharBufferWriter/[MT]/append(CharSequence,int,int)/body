@@ -1,0 +1,33 @@
+{
+  writerUsed=true;
+  if (csq == null) {
+    write("null");
+  }
+ else {
+    if (csq instanceof StringBuilder || csq instanceof StringBuffer || csq instanceof String) {
+      int len=end - start;
+      int charsLeft=len;
+      int currentOffset=start;
+      while (charsLeft > 0) {
+        int spaceLeft=allocateSpace();
+        int writeChars=Math.min(spaceLeft,charsLeft);
+        if (csq instanceof StringBuilder) {
+          currentWriteChunk.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
+        }
+ else         if (csq instanceof StringBuffer) {
+          currentWriteChunk.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
+        }
+ else         if (csq instanceof String) {
+          currentWriteChunk.writeString((String)csq,currentOffset,writeChars);
+        }
+        charsLeft-=writeChars;
+        currentOffset+=writeChars;
+      }
+      totalCharsUnread+=len;
+    }
+ else {
+      write(csq.subSequence(start,end).toString());
+    }
+  }
+  return this;
+}

@@ -1,0 +1,22 @@
+{
+  if (enabled) {
+    char[] value=null;
+    int internalOffset=0;
+    try {
+      value=(char[])valueField.get(str);
+      internalOffset=offsetField.getInt(str);
+    }
+ catch (    Exception e) {
+      handleError(e);
+    }
+    if (value != null && internalOffset == 0) {
+      return value;
+    }
+ else {
+      return getValueFallback(str);
+    }
+  }
+ else {
+    return getValueFallback(str);
+  }
+}

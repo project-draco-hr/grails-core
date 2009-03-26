@@ -1,0 +1,8 @@
+{
+  if (calculationActive) {
+    return bb.position();
+  }
+ else {
+    return -1;
+  }
+}

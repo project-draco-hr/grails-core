@@ -1,0 +1,8 @@
+{
+  enabled=false;
+  System.err.println("Unable to use direct char[] access of java.lang.String. Disabling this method.");
+  valueField=null;
+  countField=null;
+  offsetField=null;
+  e.printStackTrace(System.err);
+}

@@ -1,3 +1,3 @@
 {
-  return MAPPING_CACHE.get(domainClass.getClazz());
+  return domainClass != null ? MAPPING_CACHE.get(domainClass.getClazz()) : null;
 }

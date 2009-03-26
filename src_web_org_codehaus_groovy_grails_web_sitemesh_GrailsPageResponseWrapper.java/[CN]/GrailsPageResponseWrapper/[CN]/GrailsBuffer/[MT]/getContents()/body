@@ -1,0 +1,11 @@
+{
+  if (bufferedWriter != null) {
+    return streamBuffer.toCharArray();
+  }
+ else   if (bufferedStream != null) {
+    return TEXT_ENCODER.encode(bufferedStream.toByteArray(),encoding);
+  }
+ else {
+    return new char[0];
+  }
+}

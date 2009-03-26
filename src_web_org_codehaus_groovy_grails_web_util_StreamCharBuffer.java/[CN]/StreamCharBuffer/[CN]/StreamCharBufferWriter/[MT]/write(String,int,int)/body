@@ -1,0 +1,24 @@
+{
+  if (len == 0)   return;
+  writerUsed=true;
+  if (shouldWriteDirectly(len)) {
+    flushCurrentWriteChunkInConnectedMode();
+    connectedWritersWriter.write(str,off,len);
+  }
+ else   if (len > stringChunkMinSize) {
+    currentWriteChunk.appendStringChunk(str,off,len);
+    totalCharsUnread+=len;
+  }
+ else {
+    int charsLeft=len;
+    int currentOffset=off;
+    while (charsLeft > 0) {
+      int spaceLeft=allocateSpace();
+      int writeChars=Math.min(spaceLeft,charsLeft);
+      currentWriteChunk.writeString(str,currentOffset,writeChars);
+      charsLeft-=writeChars;
+      currentOffset+=writeChars;
+    }
+    totalCharsUnread+=len;
+  }
+}

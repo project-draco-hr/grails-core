@@ -1,0 +1,8 @@
+{
+  if (aborted || !parseablePage) {
+    return null;
+  }
+ else {
+    return buffer.parse();
+  }
+}

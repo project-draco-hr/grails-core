@@ -3,12 +3,6 @@
   if (value.getTable() != null)   value.createForeignKey();
   Property prop=new Property();
   PropertyConfig config=getPropertyConfig(grailsProperty);
-  if (config != null) {
-    prop.setLazy(config.getLazy());
-  }
- else   if (grailsProperty.isManyToOne() || grailsProperty.isOneToOne()) {
-    prop.setLazy(true);
-  }
   prop.setValue(value);
   bindProperty(grailsProperty,prop,mappings);
   return prop;

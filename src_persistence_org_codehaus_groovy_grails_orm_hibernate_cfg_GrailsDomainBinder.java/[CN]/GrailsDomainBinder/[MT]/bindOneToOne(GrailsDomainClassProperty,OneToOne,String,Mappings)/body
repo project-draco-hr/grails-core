@@ -9,12 +9,6 @@
  else {
     oneToOne.setFetchMode(FetchMode.DEFAULT);
   }
-  if (config != null) {
-    oneToOne.setLazy(config.getLazy());
-  }
- else {
-    oneToOne.setLazy(true);
-  }
   final GrailsDomainClassProperty otherSide=property.getOtherSide();
   oneToOne.setReferencedEntityName(otherSide.getDomainClass().getFullName());
   oneToOne.setReferencedPropertyName(otherSide.getName());

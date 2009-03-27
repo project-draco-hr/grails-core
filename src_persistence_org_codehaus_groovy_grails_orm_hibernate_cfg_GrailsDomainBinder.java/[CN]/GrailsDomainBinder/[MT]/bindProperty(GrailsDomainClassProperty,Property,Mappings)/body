@@ -11,5 +11,13 @@
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());
   setCascadeBehaviour(grailsProperty,prop);
-  prop.setLazy(true);
+  boolean isLazyable=grailsProperty.isOneToOne() || grailsProperty.isManyToOne() || grailsProperty.isEmbedded()|| grailsProperty.isPersistent() && !grailsProperty.isAssociation() && !grailsProperty.isIdentity();
+  if (isLazyable) {
+    PropertyConfig config=getPropertyConfig(grailsProperty);
+    final boolean isLazy=config != null ? config.getLazy() : true;
+    prop.setLazy(isLazy);
+    if (isLazy && (grailsProperty.isManyToOne() || grailsProperty.isOneToOne())) {
+      HibernatePluginSupport.handleLazyProxy(grailsProperty.getDomainClass(),grailsProperty);
+    }
+  }
 }

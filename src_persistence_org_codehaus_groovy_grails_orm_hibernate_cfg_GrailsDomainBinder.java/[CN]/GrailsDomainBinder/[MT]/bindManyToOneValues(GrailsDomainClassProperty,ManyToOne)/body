@@ -7,11 +7,7 @@
     manyToOne.setFetchMode(FetchMode.DEFAULT);
   }
   if (config != null) {
-    manyToOne.setLazy(config.getLazy());
     manyToOne.setIgnoreNotFound(config.getIgnoreNotFound());
-  }
- else {
-    manyToOne.setLazy(true);
   }
   manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
 }

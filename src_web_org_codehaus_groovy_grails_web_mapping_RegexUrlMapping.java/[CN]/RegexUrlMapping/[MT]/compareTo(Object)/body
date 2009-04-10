@@ -1,33 +1,9 @@
 {
   if (!(o instanceof UrlMapping))   throw new IllegalArgumentException("Cannot compare with Object [" + o + "]. It is not an instance of UrlMapping!");
   UrlMapping other=(UrlMapping)o;
-  String[] otherTokens=other.getUrlData().getTokens();
-  String[] tokens=getUrlData().getTokens();
-  if (isWildcard(this) && !isWildcard(other))   return -1;
-  if (!isWildcard(this) && isWildcard(other))   return 1;
-  if (tokens.length < otherTokens.length) {
-    return -1;
-  }
- else   if (tokens.length > otherTokens.length) {
-    return 1;
-  }
-  int result=0;
-  for (int i=0; i < tokens.length; i++) {
-    String token=tokens[i];
-    if (otherTokens.length > i) {
-      String otherToken=otherTokens[i];
-      if (isWildcard(token) && !isWildcard(otherToken)) {
-        result=-1;
-        break;
-      }
- else       if (!isWildcard(token) && isWildcard(otherToken)) {
-        result=1;
-        break;
-      }
-    }
- else {
-      break;
-    }
-  }
-  return result;
+  Integer wildDiff=getWildcardCount(other) - getWildcardCount(this);
+  if (wildDiff != 0)   return wildDiff;
+  Integer staticDiff=getStaticTokenCount(this) - getStaticTokenCount(other);
+  if (staticDiff != 0)   return staticDiff;
+  return 0;
 }

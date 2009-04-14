@@ -1,0 +1,5 @@
+{
+  while (prepareRead() != -1) {
+    currentReadChunk.writeTo(target);
+  }
+}

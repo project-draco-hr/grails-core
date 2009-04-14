@@ -1,0 +1,6 @@
+{
+  this.chunkSize=chunkSize;
+  currentWriteChunk=new StreamByteBufferChunk(chunkSize);
+  output=new StreamByteBufferOutputStream();
+  input=new StreamByteBufferInputStream();
+}

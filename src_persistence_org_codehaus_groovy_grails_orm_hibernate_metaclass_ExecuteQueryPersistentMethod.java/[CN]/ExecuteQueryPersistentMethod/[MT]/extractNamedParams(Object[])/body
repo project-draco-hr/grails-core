@@ -4,5 +4,6 @@
   result.putAll((Map)arguments[1]);
   result.remove(GrailsHibernateUtil.ARGUMENT_MAX);
   result.remove(GrailsHibernateUtil.ARGUMENT_OFFSET);
+  result.remove(GrailsHibernateUtil.ARGUMENT_CACHE);
   return result;
 }

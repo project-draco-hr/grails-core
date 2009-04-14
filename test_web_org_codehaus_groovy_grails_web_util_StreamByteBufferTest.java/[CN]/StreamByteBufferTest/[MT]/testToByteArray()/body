@@ -1,0 +1,5 @@
+{
+  StreamByteBuffer byteBuffer=createTestInstance();
+  byte[] result=byteBuffer.readAsByteArray();
+  assertTrue(Arrays.equals(testbuffer,result));
+}

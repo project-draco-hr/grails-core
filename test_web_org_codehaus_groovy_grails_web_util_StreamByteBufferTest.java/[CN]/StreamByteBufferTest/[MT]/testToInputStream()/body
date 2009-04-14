@@ -1,0 +1,8 @@
+{
+  StreamByteBuffer byteBuffer=createTestInstance();
+  InputStream input=byteBuffer.getInputStream();
+  ByteArrayOutputStream bytesOut=new ByteArrayOutputStream(byteBuffer.totalBytesUnread());
+  copy(input,bytesOut,2048);
+  byte[] result=bytesOut.toByteArray();
+  assertTrue(Arrays.equals(testbuffer,result));
+}

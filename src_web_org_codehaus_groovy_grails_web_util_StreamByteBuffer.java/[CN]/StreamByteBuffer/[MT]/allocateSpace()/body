@@ -1,0 +1,10 @@
+{
+  int spaceLeft=currentWriteChunk.spaceLeft();
+  if (spaceLeft == 0) {
+    chunks.add(currentWriteChunk);
+    totalBytesUnreadInList+=currentWriteChunk.bytesUnread();
+    currentWriteChunk=new StreamByteBufferChunk(chunkSize);
+    spaceLeft=currentWriteChunk.spaceLeft();
+  }
+  return spaceLeft;
+}

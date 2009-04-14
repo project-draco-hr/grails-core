@@ -1,0 +1,9 @@
+{
+  int count=0;
+  int b;
+  while (-1 != (b=input.read())) {
+    output.write(b);
+    count++;
+  }
+  return count;
+}

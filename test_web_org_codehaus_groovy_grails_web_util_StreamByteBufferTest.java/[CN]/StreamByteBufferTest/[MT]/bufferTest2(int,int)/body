@@ -1,0 +1,18 @@
+{
+  StreamByteBuffer streamBuf=new StreamByteBuffer(streamByteBufferSize);
+  OutputStream output=streamBuf.getOutputStream();
+  for (int i=0; i < testBufferSize; i++) {
+    output.write(i % (Byte.MAX_VALUE * 2));
+  }
+  output.close();
+  InputStream input=streamBuf.getInputStream();
+  assertEquals(testBufferSize,input.available());
+  for (int i=0; i < testBufferSize; i++) {
+    assertEquals((i % (Byte.MAX_VALUE * 2)),input.read());
+  }
+  assertEquals(-1,input.read());
+  assertEquals(-1,input.read());
+  assertEquals(-1,input.read());
+  assertEquals(-1,input.read());
+  input.close();
+}

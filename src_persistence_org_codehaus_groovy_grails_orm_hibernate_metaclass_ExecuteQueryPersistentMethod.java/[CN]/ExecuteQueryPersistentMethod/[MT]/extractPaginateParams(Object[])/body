@@ -7,6 +7,7 @@
     Map sourceMap=(Map)arguments[paginateParamsIndex];
     if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_MAX))     result.put(GrailsHibernateUtil.ARGUMENT_MAX,sourceMap.get(GrailsHibernateUtil.ARGUMENT_MAX));
     if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET))     result.put(GrailsHibernateUtil.ARGUMENT_OFFSET,sourceMap.get(GrailsHibernateUtil.ARGUMENT_OFFSET));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_CACHE))     result.put(GrailsHibernateUtil.ARGUMENT_CACHE,sourceMap.get(GrailsHibernateUtil.ARGUMENT_CACHE));
   }
   return result;
 }

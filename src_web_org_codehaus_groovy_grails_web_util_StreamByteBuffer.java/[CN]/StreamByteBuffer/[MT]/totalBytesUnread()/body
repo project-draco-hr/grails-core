@@ -1,0 +1,10 @@
+{
+  int total=totalBytesUnreadInList;
+  if (currentReadChunk != null) {
+    total+=currentReadChunk.bytesUnread();
+  }
+  if (currentWriteChunk != currentReadChunk && currentWriteChunk != null) {
+    total+=currentWriteChunk.bytesUnread();
+  }
+  return total;
+}

@@ -1,0 +1,29 @@
+{
+  if (b == null) {
+    throw new NullPointerException();
+  }
+ else   if ((off < 0) || (off > b.length) || (len < 0)|| ((off + len) > b.length)|| ((off + len) < 0)) {
+    throw new IndexOutOfBoundsException();
+  }
+ else   if (len == 0) {
+    return 0;
+  }
+  int bytesLeft=len;
+  int currentOffset=off;
+  int bytesUnread=prepareRead();
+  int totalBytesRead=0;
+  while (bytesLeft > 0 && bytesUnread != -1) {
+    int readBytes=Math.min(bytesUnread,bytesLeft);
+    currentReadChunk.read(b,currentOffset,readBytes);
+    bytesLeft-=readBytes;
+    currentOffset+=readBytes;
+    totalBytesRead+=readBytes;
+    bytesUnread=prepareRead();
+  }
+  if (totalBytesRead > 0) {
+    return totalBytesRead;
+  }
+ else {
+    return -1;
+  }
+}

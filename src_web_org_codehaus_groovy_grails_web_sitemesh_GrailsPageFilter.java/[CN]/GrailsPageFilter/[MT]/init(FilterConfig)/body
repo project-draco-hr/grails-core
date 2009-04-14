@@ -2,5 +2,9 @@
   super.init(filterConfig);
   this.filterConfig=filterConfig;
   this.containerTweaks=new ContainerTweaks();
-  FactoryHolder.setFactory(Factory.getInstance(new Config(filterConfig)));
+  Config config=new Config(filterConfig);
+  DefaultFactory defaultFactory=new DefaultFactory(config);
+  config.getServletContext().setAttribute("sitemesh.factory",defaultFactory);
+  defaultFactory.refresh();
+  FactoryHolder.setFactory(defaultFactory);
 }

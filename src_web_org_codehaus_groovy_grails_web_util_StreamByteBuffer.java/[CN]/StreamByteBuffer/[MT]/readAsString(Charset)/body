@@ -25,7 +25,7 @@
       int len=charbuffer.remaining();
       char[] ch=charbuffer.array();
       if (len != ch.length) {
-        ch=Arrays.copyOfRange(ch,0,len);
+        ch=ArrayUtils.subarray(ch,0,len);
       }
       str=StringCharArrayAccessor.createString(ch);
     }

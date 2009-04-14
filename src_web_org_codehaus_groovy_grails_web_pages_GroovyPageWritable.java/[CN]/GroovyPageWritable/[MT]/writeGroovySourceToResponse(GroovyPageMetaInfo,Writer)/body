@@ -1,7 +1,11 @@
 {
   InputStream in=info.getGroovySource();
   try {
-    in.reset();
+    try {
+      in.reset();
+    }
+ catch (    IOException e) {
+    }
     BufferedReader reader=new BufferedReader(new InputStreamReader(in,"UTF-8"));
     int lineNum=1;
     int maxPaddingSize=3;

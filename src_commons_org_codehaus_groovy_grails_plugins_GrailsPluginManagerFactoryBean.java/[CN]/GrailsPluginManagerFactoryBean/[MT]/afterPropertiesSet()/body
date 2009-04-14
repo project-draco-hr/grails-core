@@ -7,11 +7,12 @@
     InputStream inputStream=null;
     try {
       inputStream=descriptor.getInputStream();
-      XPath xpath=XPathFactory.newInstance().newXPath();
-      NodeList nodes=(NodeList)xpath.evaluate("/grails/plugins/plugin",new InputSource(inputStream),XPathConstants.NODESET);
-      for (int i=0; i < nodes.getLength(); i++) {
-        Node node=nodes.item(i);
-        final String pluginName=node.getTextContent();
+      SAXReader reader=new SAXReader();
+      XPath xpath=DocumentHelper.createXPath("/grails/plugins/plugin");
+      List nodes=xpath.selectNodes(reader.read(inputStream));
+      for (int i=0; i < nodes.size(); i++) {
+        Element node=(Element)nodes.get(i);
+        final String pluginName=node.getText();
         classes.add(classLoader.loadClass(pluginName));
       }
     }

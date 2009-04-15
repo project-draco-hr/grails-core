@@ -1,10 +1,22 @@
 {
-  int total=totalBytesUnreadInList;
+  int total=0;
+  if (readMode == ReadMode.REMOVE_AFTER_READING) {
+    total=totalBytesUnreadInList;
+  }
+ else   if (readMode == ReadMode.RETAIN_AFTER_READING) {
+    prepareRetainAfterReading();
+    total=totalBytesUnreadInIterator;
+  }
   if (currentReadChunk != null) {
     total+=currentReadChunk.bytesUnread();
   }
   if (currentWriteChunk != currentReadChunk && currentWriteChunk != null) {
-    total+=currentWriteChunk.bytesUnread();
+    if (readMode == ReadMode.REMOVE_AFTER_READING) {
+      total+=currentWriteChunk.bytesUnread();
+    }
+ else     if (readMode == ReadMode.RETAIN_AFTER_READING) {
+      total+=currentWriteChunk.bytesUsed();
+    }
   }
   return total;
 }

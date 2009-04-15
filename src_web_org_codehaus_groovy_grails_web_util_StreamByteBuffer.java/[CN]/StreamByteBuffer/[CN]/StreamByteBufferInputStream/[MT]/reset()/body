@@ -1,0 +1,8 @@
+{
+  if (readMode == ReadMode.RETAIN_AFTER_READING) {
+    StreamByteBuffer.this.reset();
+  }
+ else {
+    super.reset();
+  }
+}

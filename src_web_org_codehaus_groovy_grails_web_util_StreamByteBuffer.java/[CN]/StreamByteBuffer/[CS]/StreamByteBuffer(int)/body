@@ -1,6 +1,3 @@
 {
-  this.chunkSize=chunkSize;
-  currentWriteChunk=new StreamByteBufferChunk(chunkSize);
-  output=new StreamByteBufferOutputStream();
-  input=new StreamByteBufferInputStream();
+  this(chunkSize,ReadMode.REMOVE_AFTER_READING);
 }

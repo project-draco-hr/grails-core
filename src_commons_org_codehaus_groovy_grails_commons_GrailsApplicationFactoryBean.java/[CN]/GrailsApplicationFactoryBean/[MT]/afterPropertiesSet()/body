@@ -7,15 +7,16 @@
     InputStream inputStream=null;
     try {
       inputStream=descriptor.getInputStream();
-      XPath xpath=XPathFactory.newInstance().newXPath();
-      NodeList grailsClasses=(NodeList)xpath.evaluate("/grails/resources/resource",new InputSource(inputStream),XPathConstants.NODESET);
-      for (int i=0; i < grailsClasses.getLength(); i++) {
-        Node node=grailsClasses.item(i);
+      GPathResult root=new XmlSlurper().parse(inputStream);
+      GPathResult resources=(GPathResult)root.getProperty("resources");
+      GPathResult grailsClasses=(GPathResult)resources.getProperty("resource");
+      for (int i=0; i < grailsClasses.size(); i++) {
+        GPathResult node=(GPathResult)grailsClasses.getAt(i);
         try {
-          classes.add(classLoader.loadClass(node.getTextContent()));
+          classes.add(classLoader.loadClass(node.text()));
         }
  catch (        ClassNotFoundException e) {
-          LOG.warn("Class with name [" + node.getTextContent() + "] was not found, and hence not loaded. Possible empty class or script definition?");
+          LOG.warn("Class with name [" + node.text() + "] was not found, and hence not loaded. Possible empty class or script definition?");
         }
       }
     }

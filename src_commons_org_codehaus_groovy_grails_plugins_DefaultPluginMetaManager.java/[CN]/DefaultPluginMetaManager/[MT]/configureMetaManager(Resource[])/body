@@ -4,19 +4,17 @@
     InputStream inputStream=null;
     try {
       inputStream=pluginDescriptor.getInputStream();
-      DocumentBuilder builder=DocumentBuilderFactory.newInstance().newDocumentBuilder();
-      Document doc=builder.parse(inputStream);
-      Element pluginElement=doc.getDocumentElement();
-      String pluginName=pluginElement.getAttribute("name");
-      String pluginVersion=pluginElement.getAttribute("version");
+      GPathResult pluginElement=new XmlSlurper().parse(inputStream);
+      String pluginName=((GPathResult)(pluginElement.getProperty("@name"))).text();
+      String pluginVersion=((GPathResult)(pluginElement.getProperty("@version"))).text();
       if (StringUtils.isBlank(pluginName))       throw new GrailsConfigurationException("Plug-in descriptor [" + pluginDescriptor + "] doesn't specify a plug-in name. It must be corrupted, try re-install the plug-in");
       if (StringUtils.isBlank(pluginVersion))       throw new GrailsConfigurationException("Plug-in descriptor [" + pluginDescriptor + "] with name ["+ pluginName+ "] doesn't specify a plug-in version. It must be corrupted, try re-install the plug-in");
-      XPath xpath=XPathFactory.newInstance().newXPath();
-      NodeList nodes=(NodeList)xpath.evaluate("/plugin/resources/resource",doc,XPathConstants.NODESET);
+      GPathResult resources=(GPathResult)pluginElement.getProperty("resources");
+      GPathResult nodes=(GPathResult)resources.getProperty("resource");
       List pluginResources=new ArrayList();
-      for (int j=0; j < nodes.getLength(); j++) {
-        Node node=nodes.item(j);
-        pluginResources.add(node.getTextContent());
+      for (int j=0; j < nodes.size(); j++) {
+        GPathResult node=(GPathResult)nodes.getAt(j);
+        pluginResources.add(node.text());
       }
       PluginMeta pluginMeta=new PluginMeta(pluginName,pluginVersion);
       pluginMeta.pluginResources=(String[])pluginResources.toArray(new String[pluginResources.size()]);

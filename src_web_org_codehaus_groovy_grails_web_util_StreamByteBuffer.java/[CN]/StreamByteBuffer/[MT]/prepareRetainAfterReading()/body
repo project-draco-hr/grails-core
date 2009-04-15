@@ -1,0 +1,7 @@
+{
+  if (readMode == ReadMode.RETAIN_AFTER_READING && readIterator == null) {
+    readIterator=chunks.iterator();
+    totalBytesUnreadInIterator=totalBytesUnreadInList;
+    currentReadChunk=null;
+  }
+}

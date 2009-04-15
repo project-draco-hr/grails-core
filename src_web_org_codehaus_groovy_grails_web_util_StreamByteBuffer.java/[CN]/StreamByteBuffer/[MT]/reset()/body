@@ -1,0 +1,9 @@
+{
+  if (readMode == ReadMode.RETAIN_AFTER_READING) {
+    readIterator=null;
+    prepareRetainAfterReading();
+    if (currentWriteChunk != null) {
+      currentWriteChunk.reset();
+    }
+  }
+}

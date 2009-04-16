@@ -1,0 +1,9 @@
+{
+  StreamByteBuffer byteBuffer=new StreamByteBuffer(1024,StreamByteBuffer.ReadMode.RETAIN_AFTER_READING);
+  PrintWriter pw=new PrintWriter(new OutputStreamWriter(byteBuffer.getOutputStream(),"UTF-8"));
+  pw.print("Hello ????????????");
+  pw.close();
+  assertEquals("Hello ????????????",byteBuffer.readAsString("UTF-8"));
+  byteBuffer.reset();
+  assertEquals("Hello ????????????",byteBuffer.readAsString("UTF-8"));
+}

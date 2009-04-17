@@ -31,7 +31,18 @@
           String res=resourcesReferences[i];
           Resource[] tmp=new Resource[0];
           try {
-            tmp=resolver.getResources(res);
+            final Environment env=Environment.getCurrent();
+            if (Metadata.getCurrent().isWarDeployed() && env.isReloadEnabled()) {
+              String location=env.getReloadLocation();
+              if (!location.endsWith(File.separator))               location=location + File.separator;
+              if (res.startsWith("."))               res=res.substring(1);
+ else               if (res.startsWith("file:./"))               res=res.substring(7);
+              res="file:" + location + res;
+              tmp=resolver.getResources(res);
+            }
+ else {
+              tmp=resolver.getResources(res);
+            }
           }
  catch (          IllegalArgumentException ex) {
             LOG.debug("Resource pattern [" + res + "] is not valid - maybe base directory does not exist?");

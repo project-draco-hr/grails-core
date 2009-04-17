@@ -2,7 +2,16 @@
   if (descriptor != null && descriptor.exists()) {
     CompilerConfiguration config=CompilerConfiguration.DEFAULT;
     config.setSourceEncoding("UTF-8");
-    GroovyClassLoader classLoader=new GroovyClassLoader(Thread.currentThread().getContextClassLoader(),config);
+    GroovyClassLoader classLoader;
+    final ClassLoader parentLoader=Thread.currentThread().getContextClassLoader();
+    if (Environment.getCurrent().isReloadEnabled()) {
+      CompilerConfiguration compilerConfig=CompilerConfiguration.DEFAULT;
+      config.setSourceEncoding("UTF-8");
+      classLoader=new GrailsClassLoader(parentLoader,compilerConfig,resourceLoader);
+    }
+ else {
+      classLoader=new GroovyClassLoader(parentLoader,config);
+    }
     List classes=new ArrayList();
     InputStream inputStream=null;
     try {

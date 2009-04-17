@@ -13,6 +13,10 @@
     gcl.setClassInjectors(new ClassInjector[]{new DefaultGrailsDomainClassInjector()});
     cl=gcl;
   }
-  Thread.currentThread().setContextClassLoader(cl);
+  try {
+    Thread.currentThread().setContextClassLoader(cl);
+  }
+ catch (  java.security.AccessControlException e) {
+  }
   return cl;
 }

@@ -1,17 +1,17 @@
 {
-  this.tag2libMap=new HashMap();
+  this.tag2libMap=new HashMap<String,GrailsTagLibClass>();
   GrailsClass[] classes=artefacts.getGrailsClasses();
-  for (int i=0; i < classes.length; i++) {
-    GrailsTagLibClass taglibClass=(GrailsTagLibClass)classes[i];
+  for (  GrailsClass aClass : classes) {
+    GrailsTagLibClass taglibClass=(GrailsTagLibClass)aClass;
     String namespace=taglibClass.getNamespace();
     namespace2tagLibMap.put(namespace,taglibClass);
-    for (Iterator j=taglibClass.getTagNames().iterator(); j.hasNext(); ) {
-      String tagName=namespace + ":" + (String)j.next();
+    for (    Object o : taglibClass.getTagNames()) {
+      String tagName=namespace + ":" + o;
       if (!tag2libMap.containsKey(tagName)) {
         this.tag2libMap.put(tagName,taglibClass);
       }
  else {
-        GrailsTagLibClass current=(GrailsTagLibClass)tag2libMap.get(tagName);
+        GrailsTagLibClass current=tag2libMap.get(tagName);
         if (!taglibClass.equals(current)) {
           LOG.info("There are conflicting tags: " + taglibClass.getFullName() + "."+ tagName+ " vs. "+ current.getFullName()+ "."+ tagName+ ". The former will take precedence.");
           this.tag2libMap.put(tagName,taglibClass);

@@ -1,14 +1,3 @@
 {
-  grailsClassesByName=new HashMap(grailsClassesByName);
-  classesByName=new HashMap(classesByName);
-  Class actualClass=artefactClass.getClazz();
-  boolean addToGrailsClasses=true;
-  if (artefactClass instanceof InjectableGrailsClass) {
-    addToGrailsClasses=((InjectableGrailsClass)artefactClass).getAvailable();
-  }
-  if (addToGrailsClasses) {
-    grailsClassesByName.put(actualClass.getName(),artefactClass);
-  }
-  classesByName.put(actualClass.getName(),actualClass);
-  logicalPropertyNameToClassMap.put(artefactClass.getLogicalPropertyName(),artefactClass);
+  addGrailsClassInternal(artefactClass,false);
 }

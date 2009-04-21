@@ -11,7 +11,8 @@
     }
   }
  catch (  IOException e) {
-    throw new PluginException("I/O exception configuring core plug-ins: " + e.getMessage(),e);
+    LOG.warn("WARNING: I/O exception loading core plugin dynamically, attempting static load. This is usually due to deployment onto containers with unusual classloading setups. Message: " + e.getMessage());
+    loadCorePluginsStatically();
   }
   return foundPluginClasses;
 }

@@ -1,7 +1,7 @@
 {
   bindClass(sub,subClass,mappings);
   if (subClass.getEntityPersisterClass() == null) {
-    subClass.getRootClass().setEntityPersisterClass(SingleTableEntityPersister.class);
+    subClass.getRootClass().setEntityPersisterClass(GroovyAwareSingleTableEntityPersister.class);
   }
   if (LOG.isDebugEnabled())   LOG.debug("Mapping subclass: " + subClass.getEntityName() + " -> "+ subClass.getTable().getName());
   createClassProperties(sub,subClass,mappings);

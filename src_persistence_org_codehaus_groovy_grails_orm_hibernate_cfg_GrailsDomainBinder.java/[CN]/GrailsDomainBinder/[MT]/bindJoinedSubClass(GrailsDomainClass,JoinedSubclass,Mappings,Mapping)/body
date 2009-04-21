@@ -1,7 +1,7 @@
 {
   bindClass(sub,joinedSubclass,mappings);
   if (joinedSubclass.getEntityPersisterClass() == null) {
-    joinedSubclass.getRootClass().setEntityPersisterClass(JoinedSubclassEntityPersister.class);
+    joinedSubclass.getRootClass().setEntityPersisterClass(GroovyAwareJoinedSubclassEntityPersister.class);
   }
   Table mytable=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),getJoinedSubClassTableName(sub,joinedSubclass,null,mappings),null,false);
   joinedSubclass.setTable(mytable);

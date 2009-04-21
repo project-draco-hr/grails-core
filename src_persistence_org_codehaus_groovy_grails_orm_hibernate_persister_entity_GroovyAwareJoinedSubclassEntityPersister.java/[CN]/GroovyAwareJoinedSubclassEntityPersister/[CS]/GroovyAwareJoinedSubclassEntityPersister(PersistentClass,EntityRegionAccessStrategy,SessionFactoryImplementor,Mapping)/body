@@ -1,0 +1,4 @@
+{
+  super(persistentClass,cacheAccessStrategy,factory,mapping);
+  this.proxyFactory=GrailsHibernateUtil.buildProxyFactory(persistentClass);
+}

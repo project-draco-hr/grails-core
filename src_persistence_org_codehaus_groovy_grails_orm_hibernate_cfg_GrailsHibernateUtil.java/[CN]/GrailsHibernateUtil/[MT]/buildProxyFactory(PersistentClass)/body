@@ -1,0 +1,20 @@
+{
+  GroovyAwareJavassistProxyFactory proxyFactory=new GroovyAwareJavassistProxyFactory();
+  Set<Class> proxyInterfaces=new HashSet<Class>(){
+{
+      add(HibernateProxy.class);
+    }
+  }
+;
+  final Class javaClass=persistentClass.getMappedClass();
+  final Getter idGetter=persistentClass.getIdentifierProperty().getGetter(javaClass);
+  final Setter idSetter=persistentClass.getIdentifierProperty().getSetter(javaClass);
+  try {
+    proxyFactory.postInstantiate(persistentClass.getEntityName(),javaClass,proxyInterfaces,idGetter.getMethod(),idSetter.getMethod(),persistentClass.hasEmbeddedIdentifier() ? (AbstractComponentType)persistentClass.getIdentifier().getType() : null);
+  }
+ catch (  HibernateException e) {
+    LOG.warn("Cannot instantiate proxy factory: " + e.getMessage());
+    return null;
+  }
+  return proxyFactory;
+}

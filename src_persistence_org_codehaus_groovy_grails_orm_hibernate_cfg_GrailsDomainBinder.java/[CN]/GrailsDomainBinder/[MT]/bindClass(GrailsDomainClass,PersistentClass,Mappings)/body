@@ -3,7 +3,6 @@
   persistentClass.setEntityName(domainClass.getFullName());
   persistentClass.setProxyInterfaceName(domainClass.getFullName());
   persistentClass.setClassName(domainClass.getFullName());
-  persistentClass.setEntityPersisterClass(GroovyAwareSingleTableEntityPersister.class);
   persistentClass.setDynamicInsert(false);
   persistentClass.setDynamicUpdate(false);
   persistentClass.setSelectBeforeUpdate(false);

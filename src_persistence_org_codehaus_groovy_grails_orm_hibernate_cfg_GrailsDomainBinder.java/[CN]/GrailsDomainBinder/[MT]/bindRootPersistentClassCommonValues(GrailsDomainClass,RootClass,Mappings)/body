@@ -2,6 +2,23 @@
   Mapping m=getMapping(domainClass.getClazz());
   String schema=mappings.getSchemaName();
   String catalog=mappings.getCatalogName();
+  if (m != null) {
+    CacheConfig cc=m.getCache();
+    if (cc != null && cc.getEnabled()) {
+      root.setCacheConcurrencyStrategy(cc.getUsage());
+      root.setLazyPropertiesCacheable(!"non-lazy".equals(cc.getInclude()));
+    }
+    Integer bs=m.getBatchSize();
+    if (bs != null) {
+      root.setBatchSize(bs.intValue());
+    }
+    if (m.getDynamicUpdate()) {
+      root.setDynamicUpdate(true);
+    }
+    if (m.getDynamicInsert()) {
+      root.setDynamicInsert(true);
+    }
+  }
   final boolean hasTableDefinition=m != null && m.getTable() != null;
   if (hasTableDefinition && m.getTable().getSchema() != null) {
     schema=m.getTable().getSchema();

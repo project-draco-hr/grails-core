@@ -1,7 +1,10 @@
 {
   if (!metadata.initialized) {
     try {
-      InputStream input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
+      InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
+      if (input == null) {
+        input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
+      }
       if (input != null) {
         metadata.load(input);
       }

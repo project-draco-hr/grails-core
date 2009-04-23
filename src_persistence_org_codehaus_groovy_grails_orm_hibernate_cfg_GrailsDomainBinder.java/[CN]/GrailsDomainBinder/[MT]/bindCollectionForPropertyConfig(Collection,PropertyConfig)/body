@@ -3,6 +3,7 @@
     collection.setLazy(config.getLazy());
   }
  else {
-    collection.setLazy(false);
+    collection.setLazy(true);
+    collection.setExtraLazy(false);
   }
 }

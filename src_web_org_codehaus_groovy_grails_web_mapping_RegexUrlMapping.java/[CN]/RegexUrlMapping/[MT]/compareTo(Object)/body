@@ -4,7 +4,8 @@
   UrlMapping other=(UrlMapping)o;
   final int thisStaticTokenCount=getStaticTokenCount(this);
   final int otherStaticTokenCount=getStaticTokenCount(other);
-  if (otherStaticTokenCount == 0)   return 1;
+  if (otherStaticTokenCount == 0 && thisStaticTokenCount > 0)   return 1;
+ else   if (thisStaticTokenCount == 0 && otherStaticTokenCount > 0)   return -1;
   int wildDiff=getWildcardCount(other) - getWildcardCount(this);
   if (wildDiff != 0)   return wildDiff;
   int staticDiff=thisStaticTokenCount - otherStaticTokenCount;

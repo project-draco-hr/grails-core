@@ -1,9 +1,13 @@
 {
   if (!(o instanceof UrlMapping))   throw new IllegalArgumentException("Cannot compare with Object [" + o + "]. It is not an instance of UrlMapping!");
+  if (this.equals(o))   return 0;
   UrlMapping other=(UrlMapping)o;
-  Integer wildDiff=getWildcardCount(other) - getWildcardCount(this);
+  final int thisStaticTokenCount=getStaticTokenCount(this);
+  final int otherStaticTokenCount=getStaticTokenCount(other);
+  if (otherStaticTokenCount == 0)   return 1;
+  int wildDiff=getWildcardCount(other) - getWildcardCount(this);
   if (wildDiff != 0)   return wildDiff;
-  Integer staticDiff=getStaticTokenCount(this) - getStaticTokenCount(other);
+  int staticDiff=thisStaticTokenCount - otherStaticTokenCount;
   if (staticDiff != 0)   return staticDiff;
   return 0;
 }

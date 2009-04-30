@@ -1,0 +1,14 @@
+{
+  Dialect dialect=criteriaQuery.getFactory().getDialect();
+  String[] columns=criteriaQuery.getColumnsUsingProjection(criteria,propertyName);
+  if (columns.length != 1)   throw new HibernateException("ilike may only be used with single-column properties");
+  if (dialect instanceof MySQLDialect) {
+    return columns[0] + " rlike ?";
+  }
+ else   if (isOracleDialect(dialect)) {
+    return " REGEXP_LIKE ( " + columns[0] + ", ? )";
+  }
+ else {
+    return columns[0] + " like ?";
+  }
+}

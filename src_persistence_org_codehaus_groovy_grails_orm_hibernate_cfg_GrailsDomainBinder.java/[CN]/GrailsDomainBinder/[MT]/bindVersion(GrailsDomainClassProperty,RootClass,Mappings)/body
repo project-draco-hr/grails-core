@@ -1,6 +1,6 @@
 {
   SimpleValue val=new SimpleValue(entity.getTable());
-  bindSimpleValue(version,val,EMPTY_PATH,mappings);
+  bindSimpleValue(version,null,val,EMPTY_PATH,mappings);
   if (!val.isTypeSpecified()) {
     val.setTypeName("version".equals(version.getName()) ? "integer" : "timestamp");
   }

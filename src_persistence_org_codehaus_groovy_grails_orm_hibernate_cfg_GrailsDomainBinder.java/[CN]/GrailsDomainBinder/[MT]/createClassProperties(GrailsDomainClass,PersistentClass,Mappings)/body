@@ -44,7 +44,7 @@
  else {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
       value=new SimpleValue(table);
-      bindSimpleValue(currentGrailsProp,(SimpleValue)value,EMPTY_PATH,mappings);
+      bindSimpleValue(currentGrailsProp,null,(SimpleValue)value,EMPTY_PATH,mappings);
     }
     if (value != null) {
       Property property=createProperty(value,persistentClass,currentGrailsProp,mappings);

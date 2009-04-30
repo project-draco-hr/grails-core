@@ -20,7 +20,7 @@
   }
  else {
     column.setName(columnName);
-    column.setNullable(property.isOptional());
+    column.setNullable(property.isOptional() || (parentProperty != null && parentProperty.isOptional()));
     ConstrainedProperty constrainedProperty=getConstrainedProperty(property);
     if (constrainedProperty != null) {
       if (String.class.isAssignableFrom(property.getType()) || byte[].class.isAssignableFrom(property.getType())) {

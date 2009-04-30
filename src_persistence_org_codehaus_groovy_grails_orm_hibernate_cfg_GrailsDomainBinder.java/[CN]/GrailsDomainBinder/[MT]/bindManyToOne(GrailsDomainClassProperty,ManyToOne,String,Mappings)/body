@@ -27,7 +27,7 @@
       bindSimpleValue(property,manyToOne,path,pc);
     }
  else {
-      bindSimpleValue(property,manyToOne,path,mappings);
+      bindSimpleValue(property,null,manyToOne,path,mappings);
     }
   }
   PropertyConfig config=getPropertyConfig(property);

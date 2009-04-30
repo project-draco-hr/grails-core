@@ -1,0 +1,22 @@
+{
+  setTypeForPropertyConfig(grailsProp,simpleValue,propertyConfig);
+  Table table=simpleValue.getTable();
+  List columnDefinitions=propertyConfig != null ? propertyConfig.getColumns() : Arrays.asList(new Object[]{null});
+  if (columnDefinitions.isEmpty())   columnDefinitions=Arrays.asList(new Object[]{null});
+  for (int i=0, n=columnDefinitions.size(); i < n; i++) {
+    ColumnConfig cc=(ColumnConfig)columnDefinitions.get(i);
+    Column column=new Column();
+    if (cc != null) {
+      if (cc.getName() != null) {
+        column.setName(cc.getName());
+      }
+      if (cc.getSqlType() != null) {
+        column.setSqlType(cc.getSqlType());
+      }
+    }
+    column.setValue(simpleValue);
+    bindColumn(grailsProp,parentProperty,column,cc,path,table);
+    if (table != null)     table.addColumn(column);
+    simpleValue.addColumn(column);
+  }
+}

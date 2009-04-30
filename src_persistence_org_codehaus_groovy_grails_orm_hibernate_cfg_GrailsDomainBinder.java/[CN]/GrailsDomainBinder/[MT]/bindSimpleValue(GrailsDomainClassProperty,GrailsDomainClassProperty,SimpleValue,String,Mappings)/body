@@ -1,0 +1,4 @@
+{
+  PropertyConfig propertyConfig=getPropertyConfig(property);
+  bindSimpleValue(property,parentProperty,simpleValue,path,propertyConfig);
+}

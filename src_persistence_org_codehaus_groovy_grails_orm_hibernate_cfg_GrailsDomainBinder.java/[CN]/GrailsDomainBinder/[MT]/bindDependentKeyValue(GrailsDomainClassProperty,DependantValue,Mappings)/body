@@ -7,6 +7,6 @@
     bindCompositeIdentifierToManyToOne(property,key,ci,refDomainClass,EMPTY_PATH);
   }
  else {
-    bindSimpleValue(property,key,EMPTY_PATH,mappings);
+    bindSimpleValue(property,null,key,EMPTY_PATH,mappings);
   }
 }

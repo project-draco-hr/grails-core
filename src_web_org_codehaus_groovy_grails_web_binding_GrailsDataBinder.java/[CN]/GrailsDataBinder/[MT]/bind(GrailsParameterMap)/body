@@ -1,3 +1,3 @@
 {
-  bindWithRequestAndPropertyValues(params.getRequest(),new MutablePropertyValues(params));
+  bind(params,null);
 }

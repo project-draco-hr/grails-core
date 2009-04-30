@@ -1,0 +1,8 @@
+{
+  Map paramsMap=params;
+  if (prefix != null) {
+    Object o=params.get(prefix);
+    if (o instanceof Map)     paramsMap=(Map)o;
+  }
+  bindWithRequestAndPropertyValues(params.getRequest(),new MutablePropertyValues(paramsMap));
+}

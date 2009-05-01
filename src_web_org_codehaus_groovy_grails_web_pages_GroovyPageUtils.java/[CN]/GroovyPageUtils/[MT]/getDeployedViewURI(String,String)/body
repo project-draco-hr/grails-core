@@ -1,4 +1,4 @@
 {
-  FastStringWriter buf=new FastStringWriter();
+  FastStringWriter buf=new FastStringWriter(PATH_TO_VIEWS);
   return getViewURIInternal(controllerName,viewName,buf,true);
 }

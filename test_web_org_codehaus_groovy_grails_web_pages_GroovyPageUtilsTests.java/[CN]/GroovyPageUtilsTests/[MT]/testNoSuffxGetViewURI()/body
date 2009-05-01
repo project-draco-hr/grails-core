@@ -1,0 +1,5 @@
+{
+  assertEquals("/foo/bar",GroovyPageUtils.getNoSuffixViewURI("foo","bar"));
+  assertEquals("/bar/foo",GroovyPageUtils.getNoSuffixViewURI("foo","/bar/foo"));
+  assertEquals("/foo/bar/foo",GroovyPageUtils.getNoSuffixViewURI("foo","bar/foo"));
+}

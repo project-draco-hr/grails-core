@@ -6,7 +6,7 @@
       Map editors=context.getBeansOfType(PropertyEditorRegistrar.class);
       for (      Object o : editors.entrySet()) {
         PropertyEditorRegistrar editorRegistrar=(PropertyEditorRegistrar)((Map.Entry)o).getValue();
-        editorRegistrar.registerCustomEditors(binder.getPropertyEditorRegistry());
+        editorRegistrar.registerCustomEditors(registry);
       }
     }
   }

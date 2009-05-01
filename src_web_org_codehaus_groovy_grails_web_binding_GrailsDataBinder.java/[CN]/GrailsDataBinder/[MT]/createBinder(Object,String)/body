@@ -6,5 +6,6 @@
   binder.registerCustomEditor(Locale.class,new LocaleEditor());
   binder.registerCustomEditor(TimeZone.class,new TimeZoneEditor());
   binder.registerCustomEditor(URI.class,new UriEditor());
+  registerCustomEditors(binder);
   return binder;
 }

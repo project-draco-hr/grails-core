@@ -1,0 +1,20 @@
+{
+  NumberFormat floatFormat=NumberFormat.getInstance(locale);
+  NumberFormat integerFormat=NumberFormat.getIntegerInstance(locale);
+  registry.registerCustomEditor(Date.class,new CustomDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,locale),true));
+  registry.registerCustomEditor(BigDecimal.class,new CustomNumberEditor(BigDecimal.class,floatFormat,true));
+  registry.registerCustomEditor(BigInteger.class,new CustomNumberEditor(BigInteger.class,floatFormat,true));
+  registry.registerCustomEditor(Double.class,new CustomNumberEditor(Double.class,floatFormat,true));
+  registry.registerCustomEditor(double.class,new CustomNumberEditor(Double.class,floatFormat,true));
+  registry.registerCustomEditor(Float.class,new CustomNumberEditor(Float.class,floatFormat,true));
+  registry.registerCustomEditor(float.class,new CustomNumberEditor(Float.class,floatFormat,true));
+  registry.registerCustomEditor(Long.class,new CustomNumberEditor(Long.class,integerFormat,true));
+  registry.registerCustomEditor(long.class,new CustomNumberEditor(Long.class,integerFormat,true));
+  registry.registerCustomEditor(Integer.class,new CustomNumberEditor(Integer.class,integerFormat,true));
+  registry.registerCustomEditor(int.class,new CustomNumberEditor(Integer.class,integerFormat,true));
+  registry.registerCustomEditor(Short.class,new CustomNumberEditor(Short.class,integerFormat,true));
+  registry.registerCustomEditor(short.class,new CustomNumberEditor(Short.class,integerFormat,true));
+  registry.registerCustomEditor(Date.class,new StructuredDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,locale),true));
+  registry.registerCustomEditor(Calendar.class,new StructuredDateEditor(DateFormat.getDateInstance(DateFormat.SHORT,locale),true));
+  registerCustomEditors(registry);
+}

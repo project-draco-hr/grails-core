@@ -1,3 +1,13 @@
 {
-  return GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE);
+  ServletRequest request=null;
+  try {
+    request=(ServletRequest)controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
+  }
+ catch (  MissingPropertyException mpe) {
+  }
+  String logicalName=request != null ? (String)request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE) : null;
+  if (logicalName == null) {
+    logicalName=GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE);
+  }
+  return logicalName;
 }

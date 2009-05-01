@@ -3,9 +3,8 @@
   String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
   String contextPath=getContextPath(webRequest,argMap);
   String var=(String)argMap.get(ARGUMENT_VAR);
-  GrailsApplicationAttributes attrs=(GrailsApplicationAttributes)controller.getProperty(ControllerDynamicMethods.GRAILS_ATTRIBUTES);
-  String templateUri=attrs.getTemplateUri(templateName,webRequest.getRequest());
-  GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
+  String templateUri=GroovyPageUtils.getTemplateURI(controller,templateName);
+  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)webRequest.getApplicationContext().getBean(GroovyPagesTemplateEngine.BEAN_ID);
   try {
     Resource r=engine.getResourceForUri(contextPath + templateUri);
     if (!r.exists()) {

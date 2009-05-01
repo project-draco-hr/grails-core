@@ -1,0 +1,16 @@
+{
+  String viewName=argMap.get(ARGUMENT_VIEW).toString();
+  Object modelObject=argMap.get(ARGUMENT_MODEL);
+  String viewUri=GroovyPageUtils.getViewURI((GroovyObject)target,viewName);
+  Map model;
+  if (modelObject instanceof Map) {
+    model=(Map)modelObject;
+  }
+ else   if (target instanceof GroovyObject) {
+    model=new BeanMap(target);
+  }
+ else {
+    model=new HashMap();
+  }
+  controller.setProperty(ControllerDynamicMethods.MODEL_AND_VIEW_PROPERTY,new ModelAndView(viewUri,model));
+}

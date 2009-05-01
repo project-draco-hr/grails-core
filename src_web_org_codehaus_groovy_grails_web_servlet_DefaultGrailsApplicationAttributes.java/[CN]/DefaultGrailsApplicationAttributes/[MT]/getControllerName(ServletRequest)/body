@@ -1,0 +1,9 @@
+{
+  GroovyObject controller=getController(request);
+  String controllerName;
+  if (controller != null)   controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
+ else {
+    controllerName=(String)request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE);
+  }
+  return controllerName != null ? controllerName : "";
+}

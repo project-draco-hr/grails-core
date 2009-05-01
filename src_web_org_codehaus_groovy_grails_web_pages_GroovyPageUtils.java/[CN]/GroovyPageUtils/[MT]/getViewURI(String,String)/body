@@ -1,0 +1,20 @@
+{
+  FastStringWriter buf=new FastStringWriter();
+  if (viewName.startsWith(SLASH_STR)) {
+    String tmp=viewName.substring(1,viewName.length());
+    if (tmp.indexOf(SLASH) > -1) {
+      buf.append(SLASH);
+      buf.append(tmp.substring(0,tmp.lastIndexOf(SLASH)));
+      buf.append(SLASH);
+      buf.append(tmp.substring(tmp.lastIndexOf(SLASH) + 1,tmp.length()));
+    }
+ else {
+      buf.append(SLASH);
+      buf.append(viewName.substring(1,viewName.length()));
+    }
+  }
+ else {
+    buf.append(SLASH).append(controllerName).append(SLASH).append(viewName);
+  }
+  return buf.append(GroovyPage.SUFFIX).toString();
+}

@@ -1,0 +1,6 @@
+{
+  GroovyObject controller=(GroovyObject)new GroovyClassLoader().parseClass("class FooController { }").newInstance();
+  assertEquals("/foo/bar.gsp",GroovyPageUtils.getViewURI(controller,"bar"));
+  assertEquals("/bar/foo.gsp",GroovyPageUtils.getViewURI(controller,"/bar/foo"));
+  assertEquals("/foo/bar/foo.gsp",GroovyPageUtils.getViewURI(controller,"bar/foo"));
+}

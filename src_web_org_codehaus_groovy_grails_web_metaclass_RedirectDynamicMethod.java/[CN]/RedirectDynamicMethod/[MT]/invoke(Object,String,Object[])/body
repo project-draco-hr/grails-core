@@ -5,7 +5,7 @@
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
   Object actionRef=argMap.get(ARGUMENT_ACTION);
-  String controllerName=argMap.containsKey(ARGUMENT_CONTROLLER) ? argMap.get(ARGUMENT_CONTROLLER).toString() : null;
+  String controllerName=getControllerName(target,argMap);
   Object id=argMap.get(ARGUMENT_ID);
   String frag=argMap.get(ARGUMENT_FRAGMENT) != null ? argMap.get(ARGUMENT_FRAGMENT).toString() : null;
   Object uri=argMap.get(ARGUMENT_URI);

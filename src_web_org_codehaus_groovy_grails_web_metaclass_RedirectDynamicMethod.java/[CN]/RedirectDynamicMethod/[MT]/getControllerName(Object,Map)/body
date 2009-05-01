@@ -1,0 +1,3 @@
+{
+  return argMap.containsKey(ARGUMENT_CONTROLLER) ? argMap.get(ARGUMENT_CONTROLLER).toString() : GrailsNameUtils.getLogicalPropertyName(target.getClass().getName(),ControllerArtefactHandler.TYPE);
+}

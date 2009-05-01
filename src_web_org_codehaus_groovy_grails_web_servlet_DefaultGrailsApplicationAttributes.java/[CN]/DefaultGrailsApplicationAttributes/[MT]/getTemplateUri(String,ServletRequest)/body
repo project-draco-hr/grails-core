@@ -1,27 +1,3 @@
 {
-  StringBuilder buf=new StringBuilder();
-  if (templateName.startsWith("/")) {
-    String tmp=templateName.substring(1,templateName.length());
-    if (tmp.indexOf('/') > -1) {
-      buf.append('/');
-      int i=tmp.lastIndexOf('/');
-      buf.append(tmp.substring(0,i));
-      buf.append("/_");
-      buf.append(tmp.substring(i + 1,tmp.length()));
-    }
- else {
-      buf.append("/_");
-      buf.append(templateName.substring(1,templateName.length()));
-    }
-  }
- else {
-    String pathToTemplate="";
-    int lastSlash=templateName.lastIndexOf('/');
-    if (lastSlash > -1) {
-      pathToTemplate=templateName.substring(0,lastSlash + 1);
-      templateName=templateName.substring(lastSlash + 1);
-    }
-    buf.append(getControllerUri(request)).append("/").append(pathToTemplate).append("_").append(templateName);
-  }
-  return buf.append(".gsp").toString();
+  return GroovyPageUtils.getTemplateURI(getControllerName(request),templateName);
 }

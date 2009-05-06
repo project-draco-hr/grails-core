@@ -1,5 +1,3 @@
 {
-  super(METHOD_PATTERN,sessionFactory,classLoader);
-  if (application == null)   throw new IllegalArgumentException("Constructor argument 'application' cannot be null");
-  this.application=application;
+  this(sessionFactory,classLoader,application,null);
 }

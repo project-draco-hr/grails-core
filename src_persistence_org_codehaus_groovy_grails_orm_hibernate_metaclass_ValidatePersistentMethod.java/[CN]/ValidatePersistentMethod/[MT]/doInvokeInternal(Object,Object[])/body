@@ -3,8 +3,7 @@
   Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
   mc.setProperty(target,ERRORS_PROPERTY,errors);
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
-  Validator validator=null;
-  if (domainClass != null)   validator=domainClass.getValidator();
+  if (validator == null && domainClass != null)   validator=domainClass.getValidator();
   Boolean valid=Boolean.TRUE;
   if (validator != null) {
     boolean evict=false;

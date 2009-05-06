@@ -1,5 +1,10 @@
 {
-  SortedSet mappingKeysSet=mappingsListLookup.get(new UrlMappingsListKey(controller,action));
+  final UrlMappingsListKey lookupKey=new UrlMappingsListKey(controller,action);
+  SortedSet mappingKeysSet=mappingsListLookup.get(lookupKey);
+  if (null == mappingKeysSet) {
+    lookupKey.action=null;
+    mappingKeysSet=mappingsListLookup.get(lookupKey);
+  }
   if (null == mappingKeysSet)   return null;
   UrlMappingKey[] mappingKeys=(UrlMappingKey[])mappingKeysSet.toArray(new UrlMappingKey[mappingKeysSet.size()]);
   Set mappingConstraintNames=new HashSet();

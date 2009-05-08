@@ -1,0 +1,4 @@
+{
+  GrailsPageResponseWrapper superResponse=(GrailsPageResponseWrapper)getResponse();
+  return superResponse.isSitemeshActive();
+}

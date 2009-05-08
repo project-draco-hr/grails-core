@@ -1,0 +1,8 @@
+{
+  try {
+    Session session=SessionFactoryUtils.getSession(sessionFactory,false);
+    session.disconnect();
+  }
+ catch (  IllegalStateException e) {
+  }
+}

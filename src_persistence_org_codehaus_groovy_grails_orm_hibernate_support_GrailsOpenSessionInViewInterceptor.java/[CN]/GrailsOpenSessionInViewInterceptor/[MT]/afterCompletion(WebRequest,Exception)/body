@@ -1,6 +1,33 @@
 {
   final boolean isWebRequest=request.getAttribute(IS_FLOW_REQUEST_ATTRIBUTE,WebRequest.SCOPE_REQUEST) != null;
   if (!isWebRequest) {
-    super.afterCompletion(request,ex);
+    request=(WebRequest)RequestContextHolder.currentRequestAttributes();
+    if (request instanceof GrailsWebRequest) {
+      GrailsWebRequest webRequest=(GrailsWebRequest)request;
+      HttpServletResponse response=webRequest.getCurrentResponse();
+      if (response instanceof GrailsContentBufferingResponse) {
+        GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
+        if (bufferingResponse.isActive()) {
+          try {
+            Session session=SessionFactoryUtils.getSession(getSessionFactory(),false);
+            if (session != null) {
+              session.disconnect();
+            }
+          }
+ catch (          IllegalStateException e) {
+            super.afterCompletion(request,ex);
+          }
+        }
+ else {
+          super.afterCompletion(request,ex);
+        }
+      }
+ else {
+        super.afterCompletion(request,ex);
+      }
+    }
+ else {
+      super.afterCompletion(request,ex);
+    }
   }
 }

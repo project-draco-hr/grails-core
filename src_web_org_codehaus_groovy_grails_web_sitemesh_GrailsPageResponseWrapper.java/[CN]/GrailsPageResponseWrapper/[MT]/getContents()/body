@@ -1,5 +1,5 @@
 {
-  if (aborted || !parseablePage) {
+  if (isSitemeshNotActive()) {
     return null;
   }
  else {

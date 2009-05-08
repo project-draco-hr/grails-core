@@ -4,7 +4,7 @@
     LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
     try {
       Session session=holder.getSession();
-      SessionFactoryUtils.releaseSession(session,sessionFactory);
+      SessionFactoryUtils.closeSession(session);
     }
  catch (    RuntimeException ex) {
       LOG.error("Unexpected exception on closing Hibernate Session",ex);

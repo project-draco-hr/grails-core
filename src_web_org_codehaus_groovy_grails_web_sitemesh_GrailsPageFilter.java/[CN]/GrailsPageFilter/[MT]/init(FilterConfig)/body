@@ -7,4 +7,9 @@
   config.getServletContext().setAttribute("sitemesh.factory",defaultFactory);
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);
+  this.applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(filterConfig.getServletContext());
+  Map interceptors=applicationContext.getBeansOfType(PersistenceContextInterceptor.class);
+  if (!interceptors.isEmpty()) {
+    persistenceInterceptor=(PersistenceContextInterceptor)interceptors.values().iterator().next();
+  }
 }

@@ -1,0 +1,9 @@
+{
+  try {
+    Session session=SessionFactoryUtils.getSession(sessionFactory,false);
+    return session.isOpen();
+  }
+ catch (  IllegalStateException e) {
+    return false;
+  }
+}

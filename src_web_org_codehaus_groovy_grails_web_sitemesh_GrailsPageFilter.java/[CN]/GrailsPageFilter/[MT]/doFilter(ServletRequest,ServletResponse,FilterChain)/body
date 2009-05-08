@@ -23,6 +23,7 @@
     }
     detectContentTypeFromPage(content,response);
     Decorator decorator=decoratorSelector.selectDecorator(content,webAppContext);
+    persistenceInterceptor.reconnect();
     decorator.render(content,webAppContext);
   }
  catch (  IllegalStateException e) {
@@ -39,5 +40,10 @@ catch (  RuntimeException e) {
 catch (  ServletException e) {
     request.setAttribute(ALREADY_APPLIED_KEY,null);
     throw e;
+  }
+ finally {
+    if (persistenceInterceptor.isOpen()) {
+      persistenceInterceptor.destroy();
+    }
   }
 }

@@ -3,7 +3,7 @@
   WebRuntimeSpringConfiguration springConfig=new WebRuntimeSpringConfiguration(this.parentCtx);
   springConfig.setServletContext(getServletContext());
   this.doRuntimeConfiguration(plugin.getName(),springConfig);
-  springConfig.registerBeansWithContext((StaticApplicationContext)this.applicationContext);
+  springConfig.registerBeansWithContext((GenericApplicationContext)this.applicationContext);
   plugin.doWithApplicationContext(this.applicationContext);
   plugin.doWithDynamicMethods(this.applicationContext);
 }

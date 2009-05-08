@@ -1,0 +1,14 @@
+{
+  if (aClass != null && application != null) {
+    ArtefactHandler handler=application.getArtefactType(aClass);
+    if (handler != null) {
+      String pluginName=handler.getPluginName();
+      if (pluginName != null) {
+        GrailsPlugin plugin=getGrailsPlugin(pluginName);
+        if (plugin != null) {
+          plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,aClass);
+        }
+      }
+    }
+  }
+}

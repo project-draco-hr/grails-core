@@ -1,0 +1,26 @@
+{
+  if (Environment.getCurrent().isReloadEnabled()) {
+    setInstantiationStrategy(new CglibSubclassingInstantiationStrategy(){
+      @Override public Object instantiate(      RootBeanDefinition beanDefinition,      String beanName,      BeanFactory owner){
+        if (beanDefinition.getMethodOverrides().isEmpty()) {
+          Constructor constructorToUse;
+          Class clazz=beanDefinition.getBeanClass();
+          if (clazz.isInterface()) {
+            throw new BeanInstantiationException(clazz,"Specified class is an interface");
+          }
+          try {
+            constructorToUse=clazz.getDeclaredConstructor((Class[])null);
+          }
+ catch (          Exception ex) {
+            throw new BeanInstantiationException(clazz,"No default constructor found",ex);
+          }
+          return BeanUtils.instantiateClass(constructorToUse,null);
+        }
+ else {
+          return instantiateWithMethodInjection(beanDefinition,beanName,owner);
+        }
+      }
+    }
+);
+  }
+}

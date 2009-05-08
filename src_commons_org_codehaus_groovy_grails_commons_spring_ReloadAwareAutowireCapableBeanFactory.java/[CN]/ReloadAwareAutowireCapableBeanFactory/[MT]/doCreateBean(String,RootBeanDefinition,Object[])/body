@@ -1,0 +1,36 @@
+{
+  if (Environment.getCurrent().isReloadEnabled()) {
+    try {
+      return super.doCreateBean(beanName,mbd,args);
+    }
+ catch (    BeanCreationException t) {
+      if (t.getCause() instanceof TypeMismatchException) {
+        final Class beanClass=mbd.getBeanClass();
+        if (GroovyObject.class.isAssignableFrom(beanClass)) {
+          GrailsApplication application=(GrailsApplication)getBean(GrailsApplication.APPLICATION_ID);
+          ClassLoader classLoader=application.getClassLoader();
+          if (classLoader instanceof GrailsClassLoader) {
+            GrailsClassLoader gcl=(GrailsClassLoader)classLoader;
+            gcl.reloadClass(beanClass.getName());
+            try {
+              Class newBeanClass=gcl.loadClass(beanClass.getName());
+              mbd.setBeanClass(newBeanClass);
+              if (!newBeanClass.equals(beanClass)) {
+                GrailsPluginManager pluginManager=(GrailsPluginManager)getBean(GrailsPluginManager.BEAN_NAME);
+                pluginManager.informOfClassChange(newBeanClass);
+                return super.doCreateBean(beanName,mbd,args);
+              }
+            }
+ catch (            ClassNotFoundException e) {
+              throw t;
+            }
+          }
+        }
+      }
+      throw t;
+    }
+  }
+ else {
+    return super.doCreateBean(beanName,mbd,args);
+  }
+}

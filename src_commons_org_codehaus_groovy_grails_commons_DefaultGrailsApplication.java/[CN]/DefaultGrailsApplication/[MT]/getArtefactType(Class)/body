@@ -1,0 +1,6 @@
+{
+  for (  ArtefactHandler artefactHandler : artefactHandlers) {
+    if (artefactHandler.isArtefact(theClass))     return artefactHandler;
+  }
+  return null;
+}

@@ -8,7 +8,6 @@
   try {
     GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest(applicationContext);
     webRequest.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,applicationContext);
-    GrailsConfigUtils.executeGrailsBootstraps(webRequest.getAttributes().getGrailsApplication(),applicationContext,webRequest.getServletContext());
     if (isTransactional(test)) {
       if (applicationContext.containsBean("transactionManager")) {
         TransactionTemplate template=new TransactionTemplate((PlatformTransactionManager)applicationContext.getBean("transactionManager"));

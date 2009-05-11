@@ -7,4 +7,6 @@
  else   if (obj instanceof BeanConfiguration) {
     this.parentName=((BeanConfiguration)obj).getName();
   }
+  getBeanDefinition().setParentName(parentName);
+  setAbstract(false);
 }

@@ -33,8 +33,13 @@
     for (    Object error : bindingResult.getAllErrors()) {
       if (error instanceof FieldError) {
         FieldError fieldError=(FieldError)error;
-        if (domain.hasPersistentProperty(fieldError.getField())) {
-          if (!domain.getPropertyByName(fieldError.getField()).isOptional()) {
+        final boolean isBlank=BLANK.equals(fieldError.getRejectedValue());
+        if (!isBlank) {
+          newResult.addError(fieldError);
+        }
+ else         if (domain.hasPersistentProperty(fieldError.getField())) {
+          final boolean isOptional=domain.getPropertyByName(fieldError.getField()).isOptional();
+          if (!isOptional) {
             newResult.addError(fieldError);
           }
         }

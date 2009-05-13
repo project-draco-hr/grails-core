@@ -24,7 +24,13 @@
  else {
     System.setProperty("grails.cli.args","");
   }
-  settings.loadConfig();
+  try {
+    settings.loadConfig();
+  }
+ catch (  Exception e) {
+    System.err.println("WARNING: There was an error loading the BuildConfig: " + e.getMessage());
+    e.printStackTrace(System.err);
+  }
   settings.setGrailsEnv(env);
   settings.setDefaultEnv(useDefaultEnv);
   BuildSettingsHolder.setSettings(settings);

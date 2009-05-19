@@ -4,6 +4,6 @@
   HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
   this.response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
   this.context=webRequest.getServletContext();
-  this.showSource=request.getParameter("showSource") != null && GrailsUtil.isDevelopmentEnv();
+  this.showSource=request.getParameter("showSource") != null && GrailsUtil.isDevelopmentEnv() && metaInfo.getGroovySource() != null;
   this.metaInfo=metaInfo;
 }

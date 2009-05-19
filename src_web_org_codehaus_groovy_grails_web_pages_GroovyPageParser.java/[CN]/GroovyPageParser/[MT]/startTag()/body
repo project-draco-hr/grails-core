@@ -4,8 +4,9 @@
   String text;
   StringBuffer buf=new StringBuffer(scan.getToken().trim());
   String ns=scan.getNamespace();
+  boolean emptyTag=false;
   state=scan.nextToken();
-  while (state != HTML && state != GEND_TAG && state != EOF) {
+  while (state != HTML && state != GEND_TAG && state != GEND_EMPTY_TAG && state != EOF) {
     if (state == GTAG_EXPR) {
       buf.append("${");
       buf.append(scan.getToken().trim());
@@ -15,6 +16,9 @@
       buf.append(scan.getToken().trim());
     }
     state=scan.nextToken();
+  }
+  if (state == GEND_EMPTY_TAG) {
+    emptyTag=true;
   }
   doNextScan=false;
   text=buf.toString();
@@ -39,6 +43,7 @@
   tm.namespace=ns;
   tm.hasAttributes=!attrs.isEmpty();
   tm.lineNumber=getCurrentOutputLineNumber();
+  tm.emptyTag=emptyTag;
   tagMetaStack.add(tm);
   if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
     if (this.tagContext == null) {
@@ -74,6 +79,8 @@
  else         out.println(']');
       }
     }
-    out.println("body" + tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
+    if (!emptyTag) {
+      out.println("body" + tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
+    }
   }
 }

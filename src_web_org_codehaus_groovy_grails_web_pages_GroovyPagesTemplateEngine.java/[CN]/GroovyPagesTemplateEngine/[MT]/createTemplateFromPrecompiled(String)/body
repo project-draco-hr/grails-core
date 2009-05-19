@@ -1,0 +1,13 @@
+{
+  if (isReloadEnabled()) {
+    return null;
+  }
+  GroovyPageTemplate t=createTemplateFromPrecompiled(uri,uri);
+  if (t == null) {
+    t=createTemplateFromPrecompiled(uri,"/WEB-INF" + uri);
+  }
+  if (t == null) {
+    t=createTemplateFromPrecompiled(uri,getUriWithinGrailsViews(uri));
+  }
+  return t;
+}

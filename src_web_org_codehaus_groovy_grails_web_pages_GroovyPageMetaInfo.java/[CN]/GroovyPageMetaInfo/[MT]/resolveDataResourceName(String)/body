@@ -1,0 +1,9 @@
+{
+  String dataResourceName=pageClass.getName();
+  int pos=dataResourceName.lastIndexOf('.');
+  if (pos > -1) {
+    dataResourceName=dataResourceName.substring(pos + 1);
+  }
+  dataResourceName+=postfix;
+  return dataResourceName;
+}

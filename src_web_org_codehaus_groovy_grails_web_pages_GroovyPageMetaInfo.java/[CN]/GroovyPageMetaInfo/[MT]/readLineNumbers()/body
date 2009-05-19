@@ -1,0 +1,15 @@
+{
+  String dataResourceName=resolveDataResourceName(LINENUMBERS_DATA_POSTFIX);
+  DataInputStream input=null;
+  try {
+    input=new DataInputStream(pageClass.getResourceAsStream(dataResourceName));
+    int arrayLen=input.readInt();
+    lineNumbers=new int[arrayLen];
+    for (int i=0; i < arrayLen; i++) {
+      lineNumbers[i]=input.readInt();
+    }
+  }
+  finally {
+    IOUtils.closeQuietly(input);
+  }
+}

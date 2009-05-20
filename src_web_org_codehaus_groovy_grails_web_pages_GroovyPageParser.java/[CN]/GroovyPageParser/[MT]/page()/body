@@ -15,7 +15,6 @@
       out.println("request.setAttribute('org.codehaus.groovy.grails.GSP_CODEC', '" + codecName + "')");
     }
   }
-  int lastState=-1;
   loop:   for (; ; ) {
     if (doNextScan)     state=scan.nextToken();
  else     doNextScan=true;
@@ -61,11 +60,9 @@ case GEND_TAG:
 endTag();
 break;
 }
-lastState=state;
 }
 if (finalPass) {
 if (!tagMetaStack.isEmpty()) {
-TagMeta tag=(TagMeta)tagMetaStack.iterator().next();
 throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "] in GSP "+ pageName+ "",pageName,out.getCurrentLineNumber());
 }
 out.println("}");

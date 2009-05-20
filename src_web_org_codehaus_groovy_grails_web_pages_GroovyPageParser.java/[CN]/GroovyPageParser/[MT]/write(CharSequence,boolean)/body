@@ -35,7 +35,6 @@
  else     if (c == '<') {
       if (match("<br>",text,ix) || match("<hr>",text,ix)) {
         rep="\n";
-        incrementLineNumber();
         ix+=3;
       }
  else {
@@ -43,7 +42,6 @@
         if (end <= 0)         end=match(ROW_BREAK,text,ix);
         if (end > 0) {
           rep="\n";
-          incrementLineNumber();
           ix=end;
         }
       }

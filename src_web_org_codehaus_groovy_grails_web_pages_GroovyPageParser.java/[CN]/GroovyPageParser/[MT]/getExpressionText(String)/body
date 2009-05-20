@@ -8,5 +8,8 @@
     String escaped=escapeGroovy(text);
     text="evaluate('" + escaped + "', "+ getCurrentOutputLineNumber()+ ", it) { return "+ text+ " }"+ (safeDereference ? "?" : "");
   }
+ else {
+    text="(" + text + ")";
+  }
   return text;
 }

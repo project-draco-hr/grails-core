@@ -1,15 +1,6 @@
 {
   MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
-  Errors originalErrors=(Errors)mc.getProperty(target,ERRORS_PROPERTY);
-  Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
-  List originalFieldErrors=originalErrors.getFieldErrors();
-  for (  Object o : originalFieldErrors) {
-    FieldError fe=(FieldError)o;
-    if (fe.isBindingFailure()) {
-      errors.rejectValue(fe.getField(),fe.getCode(),fe.getArguments(),fe.getDefaultMessage());
-    }
-  }
-  mc.setProperty(target,ERRORS_PROPERTY,errors);
+  Errors errors=setupErrorsProperty(target);
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   if (validator == null && domainClass != null)   validator=domainClass.getValidator();
   Boolean valid=Boolean.TRUE;

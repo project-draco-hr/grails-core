@@ -2,25 +2,29 @@
   if (!(o instanceof UrlMapping))   throw new IllegalArgumentException("Cannot compare with Object [" + o + "]. It is not an instance of UrlMapping!");
   if (this.equals(o))   return 0;
   UrlMapping other=(UrlMapping)o;
+  final int otherDoubleWildcardCount=getDoubleWildcardCount(other);
+  final int thisDoubleWildcardCount=getDoubleWildcardCount(this);
+  final int doubleWildcardDiff=otherDoubleWildcardCount - thisDoubleWildcardCount;
+  if (doubleWildcardDiff != 0)   return doubleWildcardDiff;
+  final int otherSingleWildcardCount=getSingleWildcardCount(other);
+  final int thisSingleWildcardCount=getSingleWildcardCount(this);
+  final int singleWildcardDiff=otherSingleWildcardCount - thisSingleWildcardCount;
+  if (singleWildcardDiff != 0)   return singleWildcardDiff;
   final int thisStaticTokenCount=getStaticTokenCount(this);
   final int otherStaticTokenCount=getStaticTokenCount(other);
-  final int otherWildcardCount=getWildcardCount(other);
-  final int thisWildcardCount=getWildcardCount(this);
-  int wildDiff=otherWildcardCount - thisWildcardCount;
-  if (wildDiff != 0)   return wildDiff;
   if (otherStaticTokenCount == 0 && thisStaticTokenCount > 0) {
     return 1;
   }
  else   if (thisStaticTokenCount == 0 && otherStaticTokenCount > 0) {
     return -1;
   }
-  int staticDiff=thisStaticTokenCount - otherStaticTokenCount;
+  final int staticDiff=thisStaticTokenCount - otherStaticTokenCount;
   if (staticDiff != 0)   return staticDiff;
   String[] thisTokens=this.getUrlData().getTokens();
   String[] otherTokens=other.getUrlData().getTokens();
   for (int i=0; i < thisTokens.length; i++) {
-    boolean thisTokenIsWildcard=isWildcard(thisTokens[i]);
-    boolean otherTokenIsWildcard=isWildcard(otherTokens[i]);
+    boolean thisTokenIsWildcard=isSingleWildcard(thisTokens[i]);
+    boolean otherTokenIsWildcard=isSingleWildcard(otherTokens[i]);
     if (thisTokenIsWildcard && !otherTokenIsWildcard) {
       return -1;
     }

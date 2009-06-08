@@ -1,0 +1,8 @@
+{
+  if (theClass != MetadataGeneratingExpandoMetaClass.class && theClass != ExpandoMetaClass.class && theClass != DocumentationContext.class && theClass != DocumentedMethod.class && theClass != DocumentedProperty.class && theClass != DocumentedElement.class && theClass != DocumentationContextThreadLocal.class && !Closure.class.isAssignableFrom(theClass)) {
+    return new MetadataGeneratingExpandoMetaClass(theClass);
+  }
+ else {
+    return super.createNormalMetaClass(theClass,registry);
+  }
+}

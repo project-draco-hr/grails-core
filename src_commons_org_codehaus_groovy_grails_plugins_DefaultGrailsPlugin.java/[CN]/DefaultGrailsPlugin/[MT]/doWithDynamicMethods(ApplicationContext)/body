@@ -1,7 +1,15 @@
 {
-  if (this.pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
-    Closure c=(Closure)this.plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
-    c.setDelegate(this);
-    c.call(new Object[]{applicationContext});
+  try {
+    if (this.pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
+      Closure c=(Closure)this.plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
+      if (isBasePlugin()) {
+        DocumentationContext.getInstance().setActive(true);
+      }
+      c.setDelegate(this);
+      c.call(new Object[]{applicationContext});
+    }
+  }
+  finally {
+    DocumentationContext.getInstance().reset();
   }
 }

@@ -1,0 +1,5 @@
+{
+  for (  Map.Entry<String,UrlMapping> entry : m.entrySet()) {
+    entry.getValue().setMappingName(entry.getKey());
+  }
+}

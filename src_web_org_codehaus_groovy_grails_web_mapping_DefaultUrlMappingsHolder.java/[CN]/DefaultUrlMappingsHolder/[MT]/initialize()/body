@@ -3,6 +3,10 @@
   Collections.reverse(this.urlMappings);
   this.mappings=this.urlMappings.toArray(new UrlMapping[this.urlMappings.size()]);
   for (  UrlMapping mapping : mappings) {
+    String mappingName=mapping.getMappingName();
+    if (mappingName != null) {
+      namedMappings.put(mappingName,mapping);
+    }
     String controllerName=mapping.getControllerName() instanceof String ? mapping.getControllerName().toString() : null;
     String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
     ConstrainedProperty[] params=mapping.getConstraints();

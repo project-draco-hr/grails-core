@@ -1,0 +1,12 @@
+{
+  super.registerInstanceMethod(method);
+  DocumentationContext context=DocumentationContext.getInstance();
+  if (context.isActive() && isInitialized()) {
+    if (method.isStatic()) {
+      context.documentStaticMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
+    }
+ else {
+      context.documentMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
+    }
+  }
+}

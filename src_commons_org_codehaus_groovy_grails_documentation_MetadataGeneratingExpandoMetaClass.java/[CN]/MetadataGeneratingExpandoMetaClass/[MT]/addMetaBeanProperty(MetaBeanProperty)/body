@@ -1,0 +1,7 @@
+{
+  super.addMetaBeanProperty(mp);
+  DocumentationContext context=DocumentationContext.getInstance();
+  if (context.isActive() && isInitialized()) {
+    context.documentProperty(context.getArtefactType(),getJavaClass(),mp.getName());
+  }
+}

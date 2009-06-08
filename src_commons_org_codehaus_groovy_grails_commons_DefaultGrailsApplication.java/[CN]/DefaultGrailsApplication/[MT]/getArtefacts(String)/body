@@ -1,4 +1,5 @@
 {
+  DocumentationContext.getInstance().setArtefactType(artefactType);
   ArtefactInfo info=getArtefactInfo(artefactType,true);
   return info.getGrailsClasses();
 }

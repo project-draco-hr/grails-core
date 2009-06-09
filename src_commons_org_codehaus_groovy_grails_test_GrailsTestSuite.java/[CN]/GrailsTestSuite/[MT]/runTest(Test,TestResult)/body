@@ -7,6 +7,7 @@
   }
   try {
     GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest(applicationContext);
+    ServletContextHolder.setServletContext(webRequest.getServletContext());
     webRequest.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,applicationContext);
     if (isTransactional(test)) {
       if (applicationContext.containsBean("transactionManager")) {
@@ -30,5 +31,6 @@
   }
   finally {
     RequestContextHolder.setRequestAttributes(null);
+    ServletContextHolder.setServletContext(null);
   }
 }

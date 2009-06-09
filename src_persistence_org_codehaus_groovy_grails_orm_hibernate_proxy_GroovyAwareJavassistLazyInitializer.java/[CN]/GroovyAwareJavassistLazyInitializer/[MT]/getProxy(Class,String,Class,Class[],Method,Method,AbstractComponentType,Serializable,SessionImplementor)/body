@@ -9,6 +9,7 @@
   }
   ((ProxyObject)proxy).setHandler(instance);
   instance.constructed=true;
+  HibernatePluginSupport.initializeDomain(persistentClass);
   HibernatePluginSupport.enhanceProxy(proxy);
   return proxy;
 }

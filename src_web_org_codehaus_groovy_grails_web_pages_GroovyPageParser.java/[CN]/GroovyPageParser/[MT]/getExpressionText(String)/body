@@ -1,15 +1,15 @@
 {
+  boolean safeDereference=false;
+  if (text.endsWith("?")) {
+    text=text.substring(0,text.length() - 1);
+    safeDereference=true;
+  }
   if (!precompileMode && (environment == Environment.DEVELOPMENT || environment == Environment.TEST)) {
-    boolean safeDereference=false;
-    if (text.endsWith("?")) {
-      text=text.substring(0,text.length() - 1);
-      safeDereference=true;
-    }
     String escaped=escapeGroovy(text);
     text="evaluate('" + escaped + "', "+ getCurrentOutputLineNumber()+ ", it) { return "+ text+ " }"+ (safeDereference ? "?" : "");
   }
  else {
-    text="(" + text + ")";
+    text="(" + text + ")"+ (safeDereference ? "?" : "");
   }
   return text;
 }

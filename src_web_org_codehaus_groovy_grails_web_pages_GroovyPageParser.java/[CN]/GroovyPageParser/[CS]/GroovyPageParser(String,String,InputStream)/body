@@ -16,15 +16,4 @@
   makeName(name);
   Object o=config.get(CONFIG_PROPERTY_DEFAULT_CODEC);
   lookupCodec(o);
-  Object keepDirObj=config.get(CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR);
-  if (keepDirObj instanceof File) {
-    keepGeneratedDirectory=((File)keepDirObj);
-  }
- else   if (keepDirObj != null) {
-    keepGeneratedDirectory=new File(String.valueOf(keepDirObj));
-  }
-  if (keepGeneratedDirectory != null && !keepGeneratedDirectory.isDirectory()) {
-    LOG.warn("The directory specified with " + CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR + " config parameter doesn't exist or isn't a readable directory. Absolute path: '"+ keepGeneratedDirectory.getAbsolutePath()+ "' Keepgenerated will be disabled.");
-    keepGeneratedDirectory=null;
-  }
 }

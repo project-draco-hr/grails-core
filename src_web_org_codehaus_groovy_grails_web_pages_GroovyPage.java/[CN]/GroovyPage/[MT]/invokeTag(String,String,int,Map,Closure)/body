@@ -45,7 +45,7 @@ case 1:
         break;
 case 2:
       if (tag.getParameterTypes().length == 2) {
-        tag.call(new Object[]{attrs,body});
+        tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
       }
     break;
 }

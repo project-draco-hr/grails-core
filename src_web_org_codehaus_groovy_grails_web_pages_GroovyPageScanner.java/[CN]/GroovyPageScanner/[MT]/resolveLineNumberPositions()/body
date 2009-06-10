@@ -1,0 +1,9 @@
+{
+  lineNumberPositions=new ArrayList<Integer>();
+  lineNumberPositions.add(0);
+  for (int i=0; i < len; i++) {
+    if (text.charAt(i) == '\n') {
+      lineNumberPositions.add(i + 1);
+    }
+  }
+}

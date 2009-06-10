@@ -1,0 +1,6 @@
+{
+  File tempdir=new File(System.getProperty("java.io.tmpdir"),"gspgen");
+  tempdir.mkdir();
+  ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.keepgenerateddir = \"" + tempdir.getAbsolutePath() + "\"");
+  ConfigurationHolder.setConfig(config);
+}

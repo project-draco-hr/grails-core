@@ -1,17 +1,8 @@
 {
   try {
-    Resource r=getResourceForUri(url);
-    if (r != null) {
-      InputStream inputStream=r.getInputStream();
-      try {
-        GroovyPageMetaInfo metaInfo=buildPageMetaInfo(inputStream,r,null);
-        if (metaInfo != null) {
-          return metaInfo.getLineNumbers();
-        }
-      }
-  finally {
-        inputStream.close();
-      }
+    Template t=createTemplate(url);
+    if (t != null && t instanceof GroovyPageTemplate) {
+      return ((GroovyPageTemplate)t).getMetaInfo().getLineNumbers();
     }
   }
  catch (  Exception e) {

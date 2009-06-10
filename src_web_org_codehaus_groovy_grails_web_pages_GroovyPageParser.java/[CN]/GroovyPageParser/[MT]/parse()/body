@@ -1,4 +1,5 @@
 {
+  File keepGeneratedDirectory=resolveKeepGeneratedDirectory();
   StreamCharBuffer streamBuffer=new StreamCharBuffer(1024);
   StreamByteBuffer byteOutputBuffer=new StreamByteBuffer(1024,StreamByteBuffer.ReadMode.RETAIN_AFTER_READING);
   try {
@@ -20,15 +21,9 @@
     }
     streamBuffer.connectTo(keepGeneratedWriter,true);
   }
+  Writer target=streamBuffer.getWriter();
   try {
-    out=new GSPWriter(streamBuffer.getWriter(),this);
-    page();
-    finalPass=true;
-    scan.reset();
-    previousContentWasNonWhitespace=false;
-    currentlyBufferingWhitespace=false;
-    page();
-    out.flush();
+    generateGsp(target,false);
     if (LOG.isDebugEnabled()) {
       if (keepGeneratedFile != null) {
         LOG.debug("Compiled GSP into Groovy code. Source is in " + keepGeneratedFile);
@@ -37,7 +32,6 @@
         LOG.debug("Configure " + CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR + " property to view generated source.");
       }
     }
-    scan=null;
     InputStream in=byteOutputBuffer.getInputStream();
     return in;
   }

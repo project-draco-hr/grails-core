@@ -1,0 +1,25 @@
+{
+  Template t=null;
+  if (!isReloadEnabled()) {
+    for (int i=0; i < uri.length; i++) {
+      t=createTemplateFromPrecompiled(uri[i]);
+      if (t != null) {
+        return t;
+      }
+    }
+  }
+  Resource resource=null;
+  for (int i=0; i < uri.length; i++) {
+    Resource r=getResourceForUri(uri[i]);
+    if (r.exists()) {
+      resource=r;
+      break;
+    }
+  }
+  if (resource != null) {
+    return createTemplate(resource);
+  }
+ else {
+    return null;
+  }
+}

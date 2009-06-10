@@ -29,6 +29,7 @@
     page.setJspTags(metaInfo.getJspTags());
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
+    page.setHtmlParts(metaInfo.getHtmlParts());
     page.run();
     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
   }

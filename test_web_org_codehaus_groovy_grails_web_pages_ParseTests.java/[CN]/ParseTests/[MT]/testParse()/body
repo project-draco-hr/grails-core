@@ -1,5 +1,6 @@
 {
-  String output=parseCode("myTest","<div>hi</div>");
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print('<div>hi</div>')\n"+ "}\n"+ "}";
-  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output));
+  ParsedResult result=parseCode("myTest1","<div>hi</div>");
+  String expected=makeImports() + "\n" + "class myTest1 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest1\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print(htmlParts[0])\n"+ "}\n"+ GSP_FOOTER;
+  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(result.generatedGsp));
+  assertEquals("<div>hi</div>",result.htmlParts[0]);
 }

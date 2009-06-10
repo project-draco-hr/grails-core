@@ -1,7 +1,9 @@
 {
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print(STATIC_HTML_CONTENT_0)\n"+ "out.print(evaluate('uri', 3, it) { return uri })\n"+ "out.print(STATIC_HTML_CONTENT_1)\n"+ "}\n"+ "static final STATIC_HTML_CONTENT_0 = '''Please click the link below to confirm your email address:\n\\n'''\n"+ "\n"+ "static final STATIC_HTML_CONTENT_1 = '''\\n\\n\\nThanks'''\n"+ "\n"+ "}\n";
-  String output=parseCode("myTest","Please click the link below to confirm your email address:\n" + "\n" + "${uri}\n"+ "\n"+ "\n"+ "Thanks");
-  System.out.println("Output: " + output);
+  String expected=makeImports() + "\n" + "class myTest7 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest7\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print(htmlParts[0])\n"+ "out.print(evaluate('uri', 3, it) { return uri })\n"+ "out.print(htmlParts[1])\n"+ "}\n"+ GSP_FOOTER;
+  ParsedResult output=parseCode("myTest7","Please click the link below to confirm your email address:\n" + "\n" + "${uri}\n"+ "\n"+ "\n"+ "Thanks");
+  System.out.println("Output: " + output.generatedGsp);
   System.out.println("Expect: " + expected);
-  assertEquals(expected,output);
+  assertEquals(expected,output.generatedGsp);
+  assertEquals("Please click the link below to confirm your email address:\n\n",output.htmlParts[0]);
+  assertEquals("\n\n\nThanks",output.htmlParts[1]);
 }

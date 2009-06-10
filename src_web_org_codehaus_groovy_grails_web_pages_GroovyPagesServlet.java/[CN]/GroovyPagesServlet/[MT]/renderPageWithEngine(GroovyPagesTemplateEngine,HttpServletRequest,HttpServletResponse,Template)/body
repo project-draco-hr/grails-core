@@ -1,0 +1,14 @@
+{
+  Writer out=createResponseWriter(response);
+  try {
+    Writable w=t.make();
+    w.writeTo(out);
+  }
+ catch (  Exception e) {
+    out=createResponseWriter(response);
+    handleException(e,out,engine);
+  }
+ finally {
+    if (out != null)     out.close();
+  }
+}

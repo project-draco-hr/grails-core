@@ -5,7 +5,7 @@
   }
   String name=establishPageName(resource,null);
   if (pageCache.containsKey(name)) {
-    GroovyPageMetaInfo meta=(GroovyPageMetaInfo)pageCache.get(name);
+    GroovyPageMetaInfo meta=pageCache.get(name);
     if (isGroovyPageReloadable(resource,meta)) {
       try {
         return createTemplateWithResource(resource);

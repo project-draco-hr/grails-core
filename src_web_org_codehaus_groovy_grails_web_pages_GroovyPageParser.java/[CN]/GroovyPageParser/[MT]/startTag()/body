@@ -2,7 +2,7 @@
   if (!finalPass)   return;
   tagIndex++;
   String text;
-  StringBuffer buf=new StringBuffer(scan.getToken().trim());
+  StringBuffer buf=new StringBuffer(scan.getToken());
   String ns=scan.getNamespace();
   boolean emptyTag=false;
   state=scan.nextToken();

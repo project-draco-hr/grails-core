@@ -8,7 +8,7 @@
  else     if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
       establishDomainClassRelationship(currentProp);
     }
- else     if (!GrailsDomainConfigurationUtil.isBasicType(currentProp)) {
+ else     if (embedded.contains(currentProp.getName())) {
       establishDomainClassRelationship(currentProp);
     }
   }

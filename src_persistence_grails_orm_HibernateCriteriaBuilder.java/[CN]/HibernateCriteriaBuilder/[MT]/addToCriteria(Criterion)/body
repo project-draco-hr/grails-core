@@ -1,6 +1,6 @@
 {
   if (!logicalExpressionStack.isEmpty()) {
-    ((LogicalExpression)logicalExpressionStack.peek()).args.add(c);
+    logicalExpressionStack.get(logicalExpressionStack.size() - 1).args.add(c);
   }
  else {
     this.criteria.add(c);

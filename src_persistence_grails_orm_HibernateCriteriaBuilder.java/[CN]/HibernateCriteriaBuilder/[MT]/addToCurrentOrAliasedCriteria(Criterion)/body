@@ -1,0 +1,9 @@
+{
+  if (!aliasInstanceStack.isEmpty()) {
+    Criteria c=aliasInstanceStack.get(aliasInstanceStack.size() - 1);
+    c.add(criterion);
+  }
+ else {
+    this.criteria.add(criterion);
+  }
+}

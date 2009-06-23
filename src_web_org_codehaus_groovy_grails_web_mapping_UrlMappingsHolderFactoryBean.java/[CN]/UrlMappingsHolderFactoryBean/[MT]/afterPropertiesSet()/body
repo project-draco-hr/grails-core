@@ -4,8 +4,8 @@
   List excludePatterns=new ArrayList();
   GrailsClass[] mappings=grailsApplication.getArtefacts(UrlMappingsArtefactHandler.TYPE);
   this.mappingEvaluator=new DefaultUrlMappingEvaluator(servletContext);
-  for (int i=0; i < mappings.length; i++) {
-    GrailsUrlMappingsClass mappingClass=(GrailsUrlMappingsClass)mappings[i];
+  for (  GrailsClass mapping : mappings) {
+    GrailsUrlMappingsClass mappingClass=(GrailsUrlMappingsClass)mapping;
     List grailsClassMappings;
     if (Script.class.isAssignableFrom(mappingClass.getClass())) {
       grailsClassMappings=mappingEvaluator.evaluateMappings(mappingClass.getClazz());

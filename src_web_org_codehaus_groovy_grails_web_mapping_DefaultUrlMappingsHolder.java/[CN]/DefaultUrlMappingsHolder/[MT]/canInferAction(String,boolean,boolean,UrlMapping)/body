@@ -1,0 +1,3 @@
+{
+  return secondAttempt && (mapping.getActionName() == null || indexAction || (mapping.isRestfulMapping() && UrlMappingEvaluator.DEFAULT_REST_MAPPING.containsValue(actionName)));
+}

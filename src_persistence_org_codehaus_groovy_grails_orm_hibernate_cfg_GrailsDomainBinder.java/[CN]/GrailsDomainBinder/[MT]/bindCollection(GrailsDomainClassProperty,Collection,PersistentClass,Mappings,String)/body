@@ -22,9 +22,6 @@
       collection.setInverse(true);
     }
   }
-  if (pc != null && !StringUtils.isBlank(pc.getSort())) {
-    collection.setOrderBy(pc.getSort());
-  }
   if (pc != null && pc.getBatchSize() != null) {
     collection.setBatchSize(pc.getBatchSize().intValue());
   }

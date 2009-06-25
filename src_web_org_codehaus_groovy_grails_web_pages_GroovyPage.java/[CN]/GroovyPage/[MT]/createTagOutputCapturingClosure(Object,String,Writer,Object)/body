@@ -2,6 +2,9 @@
   if (body1 == null) {
     return EMPTY_BODY_CLOSURE;
   }
+ else   if (body1 instanceof GroovyPageTagBody) {
+    return (Closure)body1;
+  }
  else {
     return new Closure(wrappedInstance){
       public Object doCall(      Object obj){

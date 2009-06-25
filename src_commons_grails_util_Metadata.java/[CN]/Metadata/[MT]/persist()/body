@@ -1,4 +1,5 @@
 {
+  if (propertiesHaveNotChanged())   return;
   if (metadataFile != null) {
     FileOutputStream out=null;
     try {

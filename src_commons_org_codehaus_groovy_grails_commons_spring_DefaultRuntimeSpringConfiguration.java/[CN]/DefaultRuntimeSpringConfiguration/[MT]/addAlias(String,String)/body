@@ -1,5 +1,5 @@
 {
-  List beanAliases=(List)this.aliases.get(beanName);
+  List beanAliases=this.aliases.get(beanName);
   if (beanAliases == null) {
     beanAliases=new ArrayList();
     this.aliases.put(beanName,beanAliases);

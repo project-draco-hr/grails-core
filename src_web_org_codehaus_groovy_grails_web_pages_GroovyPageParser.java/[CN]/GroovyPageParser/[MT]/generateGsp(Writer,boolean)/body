@@ -1,0 +1,16 @@
+{
+  this.precompileMode=precompileMode;
+  out=new GSPWriter(target,this);
+  if (packageName != null) {
+    out.println("package " + packageName);
+    out.println();
+  }
+  page();
+  finalPass=true;
+  scan.reset();
+  previousContentWasNonWhitespace=false;
+  currentlyBufferingWhitespace=false;
+  page();
+  out.flush();
+  scan=null;
+}

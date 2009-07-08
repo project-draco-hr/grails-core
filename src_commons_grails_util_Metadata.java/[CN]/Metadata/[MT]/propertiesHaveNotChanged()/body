@@ -1,0 +1,7 @@
+{
+  Metadata transientMetadata=metadata;
+  Metadata persistedMetadata=Metadata.reload();
+  boolean result=transientMetadata.equals(persistedMetadata);
+  metadata=transientMetadata;
+  return result;
+}

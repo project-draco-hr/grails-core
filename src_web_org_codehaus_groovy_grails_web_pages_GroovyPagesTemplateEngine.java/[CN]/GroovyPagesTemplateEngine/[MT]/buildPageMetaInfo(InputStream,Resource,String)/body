@@ -13,6 +13,7 @@
   GroovyPageMetaInfo metaInfo=createPageMetaInfo(parser,lastModified,in);
   try {
     metaInfo.setPageClass(compileGroovyPage(in,name,path,metaInfo));
+    metaInfo.setHtmlParts(parser.getHtmlPartsArray());
   }
  catch (  GroovyPagesException e) {
     metaInfo.setCompilationException(e);

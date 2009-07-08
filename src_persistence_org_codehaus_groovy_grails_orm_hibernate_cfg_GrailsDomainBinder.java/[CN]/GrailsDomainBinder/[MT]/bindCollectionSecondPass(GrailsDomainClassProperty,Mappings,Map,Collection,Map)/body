@@ -2,6 +2,13 @@
   PersistentClass associatedClass=null;
   if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   PropertyConfig propConfig=getPropertyConfig(property);
+  if (propConfig != null && !StringUtils.isBlank(propConfig.getSort())) {
+    GrailsDomainClass referenced=property.getReferencedDomainClass();
+    if (referenced != null) {
+      GrailsDomainClassProperty propertyToSortBy=referenced.getPropertyByName(propConfig.getSort());
+      collection.setOrderBy(getColumnNameForPropertyAndPath(propertyToSortBy,"",null));
+    }
+  }
   if (collection.isOneToMany()) {
     GrailsDomainClass referenced=property.getReferencedDomainClass();
     Mapping m=getRootMapping(referenced);

@@ -1,5 +1,5 @@
 {
-  String output=parseCode("myTest","<tbody>\n" + "  <tt:form />\n" + "</tbody>");
+  String output=parseCode("myTest6","<tbody>\n" + "  <tt:form />\n" + "</tbody>").generatedGsp;
   System.out.println("output = " + output);
-  assertTrue("should have call to tag with 'tt' namespace",output.indexOf("invokeTag('form','tt',2,[:],body1)") > -1);
+  assertTrue("should have call to tag with 'tt' namespace",output.indexOf("invokeTag('form','tt',2,[:],null)") > -1);
 }

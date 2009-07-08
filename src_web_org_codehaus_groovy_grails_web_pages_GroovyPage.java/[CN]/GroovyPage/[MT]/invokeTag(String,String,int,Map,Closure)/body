@@ -12,6 +12,21 @@
     }
 ;
   }
+ else   if (tagNamespace.equals(LINK_NAMESPACE)) {
+    final String tmpTagName=tagName;
+    final Map tmpAttrs=attrs;
+    tagName="link";
+    tagNamespace=DEFAULT_NAMESPACE;
+    attrs=new HashMap(){
+{
+        if (tmpAttrs.size() > 0) {
+          put("params",tmpAttrs);
+        }
+        put("mapping",tmpTagName);
+      }
+    }
+;
+  }
   final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
   final Writer out=webRequest.getOut();
   try {
@@ -30,7 +45,7 @@ case 1:
         break;
 case 2:
       if (tag.getParameterTypes().length == 2) {
-        tag.call(new Object[]{attrs,body});
+        tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
       }
     break;
 }

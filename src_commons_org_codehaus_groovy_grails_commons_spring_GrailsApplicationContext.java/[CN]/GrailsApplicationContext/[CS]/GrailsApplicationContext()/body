@@ -1,4 +1,3 @@
 {
-  super(new ReloadAwareAutowireCapableBeanFactory());
   this.metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(getClass());
 }

@@ -1,3 +1,7 @@
 {
-  return createTemplate(getResourceForUri(uri));
+  Template t=createTemplateFromPrecompiled(uri);
+  if (t == null) {
+    t=createTemplate(getResourceForUri(uri));
+  }
+  return t;
 }

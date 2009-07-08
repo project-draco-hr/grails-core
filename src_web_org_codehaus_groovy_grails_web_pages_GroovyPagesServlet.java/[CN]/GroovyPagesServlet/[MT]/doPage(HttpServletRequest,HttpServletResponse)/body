@@ -6,11 +6,11 @@
   if (StringUtils.isBlank(pageName)) {
     pageName=engine.getCurrentRequestUri(request);
   }
-  Resource page=engine.getResourceForUri(pageName);
-  if (page == null) {
+  Template template=engine.createTemplateForUri(pageName);
+  if (template == null) {
     context.log("GroovyPagesServlet:  \"" + pageName + "\" not found");
     response.sendError(404,"\"" + pageName + "\" not found.");
     return;
   }
-  renderPageWithEngine(engine,request,response,page);
+  renderPageWithEngine(engine,request,response,template);
 }

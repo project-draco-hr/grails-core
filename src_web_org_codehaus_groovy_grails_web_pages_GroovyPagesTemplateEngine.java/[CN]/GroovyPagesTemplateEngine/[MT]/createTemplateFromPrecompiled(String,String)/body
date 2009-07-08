@@ -1,0 +1,33 @@
+{
+  if (precompiledGspMap != null) {
+    GroovyPageMetaInfo meta=precompiledCache.get(uri);
+    if (meta != null) {
+      return new GroovyPageTemplate(meta);
+    }
+    String gspClassName=precompiledGspMap.get(uri);
+    if (gspClassName != null) {
+      Class<GroovyPage> gspClass=null;
+      try {
+        gspClass=(Class<GroovyPage>)this.getClass().getClassLoader().loadClass(gspClassName);
+      }
+ catch (      ClassNotFoundException e) {
+        LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
+      }
+      if (gspClass != null) {
+        meta=new GroovyPageMetaInfo(gspClass);
+        meta.setJspTagLibraryResolver(jspTagLibraryResolver);
+        meta.setTagLibraryLookup(tagLibraryLookup);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Adding GSP class GroovyPageMetaInfo in cache for uri " + uri + " classname is "+ gspClassName);
+        }
+        precompiledCache.put(uri,meta);
+        precompiledCache.put(originalUri,meta);
+        return new GroovyPageTemplate(meta);
+      }
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("No precompiled template found for uri '" + uri + "'");
+    }
+  }
+  return null;
+}

@@ -55,6 +55,7 @@ break;
 case GSTART_TAG:
 startTag();
 break;
+case GEND_EMPTY_TAG:
 case GEND_TAG:
 endTag();
 break;
@@ -62,14 +63,27 @@ break;
 }
 if (finalPass) {
 if (!tagMetaStack.isEmpty()) {
-TagMeta tag=(TagMeta)tagMetaStack.iterator().next();
 throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "] in GSP "+ pageName+ "",pageName,out.getCurrentLineNumber());
 }
 out.println("}");
-for (Iterator i=constants.keySet().iterator(); i.hasNext(); ) {
-String name=(String)i.next();
-out.println("static final " + name + " = "+ constants.get(name));
+out.println("public static final Map " + CONSTANT_NAME_JSP_TAGS + " = new HashMap()");
+if (jspTags != null && jspTags.size() > 0) {
+out.println("static {");
+for (Iterator iterator=jspTags.entrySet().iterator(); iterator.hasNext(); ) {
+Map.Entry entry=(Map.Entry)iterator.next();
+out.print("\t" + CONSTANT_NAME_JSP_TAGS + ".put('");
+out.print(escapeGroovy(String.valueOf(entry.getKey())));
+out.print("','");
+out.print(escapeGroovy(String.valueOf(entry.getValue())));
+out.println("')");
 }
+out.println("}");
+}
+out.println("protected void init() {");
+out.println("\tthis.jspTags = " + CONSTANT_NAME_JSP_TAGS);
+out.println("}");
+out.println("public static final String " + CONSTANT_NAME_CONTENT_TYPE + " = '"+ escapeGroovy(contentType)+ "'");
+out.println("public static final long " + CONSTANT_NAME_LAST_MODIFIED + " = "+ lastModified+ "L");
 out.println("}");
 }
  else {

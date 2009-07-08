@@ -17,14 +17,10 @@
       configurator.setPluginManager(pluginManager);
     }
   }
-  servletContext.setAttribute(ApplicationAttributes.PLUGIN_MANAGER,configurator.getPluginManager());
-  servletContext.setAttribute(ApplicationAttributes.PARENT_APPLICATION_CONTEXT,parent);
-  servletContext.setAttribute(GrailsApplication.APPLICATION_ID,application);
-  ServletContextHolder.setServletContext(servletContext);
+  final GrailsPluginManager pluginManager=configurator.getPluginManager();
   WebApplicationContext webContext=configurator.configure(servletContext);
-  configurator.getPluginManager().setApplicationContext(webContext);
-  servletContext.setAttribute(ApplicationAttributes.APPLICATION_CONTEXT,webContext);
-  servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,webContext);
+  pluginManager.setApplicationContext(webContext);
+  configureServletContextAttributes(servletContext,application,pluginManager,webContext);
   LOG.info("[GrailsContextLoader] Grails application loaded.");
   return webContext;
 }

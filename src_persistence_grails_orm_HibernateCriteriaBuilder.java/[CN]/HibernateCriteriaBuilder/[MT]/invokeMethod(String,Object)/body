@@ -80,7 +80,7 @@
         if (this.criteria == null)         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
         this.logicalExpressionStack.add(new LogicalExpression(name));
         invokeClosureNode(args[0]);
-        LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+        LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
         addToCriteria(logicalExpression.toCriterion());
         return name;
       }
@@ -102,17 +102,20 @@
           targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
           BeanWrapper oldTargetBean=targetBean;
           targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
-          associationStack.push(name.toString());
+          associationStack.add(name.toString());
           final String associationPath=getAssociationPath();
           createAliasIfNeccessary(name,associationPath);
-          logicalExpressionStack.push(new LogicalExpression(AND));
+          logicalExpressionStack.add(new LogicalExpression(AND));
           invokeClosureNode(args[0]);
           aliasStack.remove(aliasStack.size() - 1);
-          LogicalExpression logicalExpression=(LogicalExpression)logicalExpressionStack.pop();
+          if (!aliasInstanceStack.isEmpty()) {
+            aliasInstanceStack.remove(aliasInstanceStack.size() - 1);
+          }
+          LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
           if (!logicalExpression.args.isEmpty()) {
             addToCriteria(logicalExpression.toCriterion());
           }
-          associationStack.pop();
+          associationStack.remove(associationStack.size() - 1);
           targetClass=oldTargetClass;
           targetBean=oldTargetBean;
           return name;
@@ -124,7 +127,7 @@
       Object value=args[0];
       Criterion c=null;
       if (name.equals(ID_EQUALS)) {
-        c=Restrictions.idEq(value);
+        return eq("id",value);
       }
  else {
         if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {

@@ -7,7 +7,10 @@
  else {
     constrainedPropertyName=propertyName;
   }
-  ConstrainedProperty c=(ConstrainedProperty)constrainedProperties.get(constrainedPropertyName);
-  c.setMessageSource(this.messageSource);
-  c.validate(obj,bean.getPropertyValue(constrainedPropertyName),errors);
+  FieldError fieldError=errors.getFieldError(constrainedPropertyName);
+  if (fieldError == null) {
+    ConstrainedProperty c=(ConstrainedProperty)constrainedProperties.get(constrainedPropertyName);
+    c.setMessageSource(this.messageSource);
+    c.validate(obj,bean.getPropertyValue(constrainedPropertyName),errors);
+  }
 }

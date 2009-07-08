@@ -1,5 +1,5 @@
 {
-  String output=parseCode("myTest","<g:message code=\"[\"/>");
-  String expected=makeImports() + "\n" + "class myTest extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "attrs1 = [\"code\":evaluate('\"[\"', 1, it) { return \"[\" }]\n"+ "body1 = new GroovyPageTagBody(this,binding.webRequest) {\n"+ "}\n"+ "invokeTag('message','g',1,attrs1,body1)\n"+ "}\n"+ "}";
+  String output=parseCode("myTest2","<g:message code=\"[\"/>").generatedGsp;
+  String expected=makeImports() + "\n" + "class myTest2 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest2\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "attrs1 = [\"code\":evaluate('\"[\"', 1, it) { return \"[\" }]\n"+ "invokeTag('message','g',1,attrs1,null)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output));
 }

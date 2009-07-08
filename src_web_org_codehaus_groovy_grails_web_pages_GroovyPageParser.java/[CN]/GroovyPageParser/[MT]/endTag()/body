@@ -20,19 +20,23 @@
     }
   }
  else {
-    out.println("}");
+    String bodyTagClosureName="null";
+    if (!tm.emptyTag) {
+      bodyTagClosureName="body" + tagIndex;
+      out.println("}");
+    }
     if (jspTags.containsKey(ns)) {
       String uri=(String)jspTags.get(ns);
       out.println("jspTag = tagLibraryResolver?.resolveTagLibrary('" + uri + "')?.getTag('"+ tagName+ "')");
       out.println("if(!jspTag) throw new GrailsTagException('Unknown JSP tag " + ns + ":"+ tagName+ "')");
-      out.println("jspTag.doTag(out,attrs" + tagIndex + ", body"+ tagIndex+ ")");
+      out.println("jspTag.doTag(out,attrs" + tagIndex + ", "+ bodyTagClosureName+ ")");
     }
  else {
       if (tm.hasAttributes) {
-        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",attrs"+ tagIndex+ ",body"+ tagIndex+ ")");
+        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",attrs"+ tagIndex+ ","+ bodyTagClosureName+ ")");
       }
  else {
-        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",[:],body"+ tagIndex+ ")");
+        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",[:],"+ bodyTagClosureName+ ")");
       }
     }
   }

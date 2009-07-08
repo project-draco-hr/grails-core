@@ -1,0 +1,7 @@
+{
+  super.addMetaBeanProperty(mp);
+  DocumentationContext context=DocumentationContext.getInstance();
+  if (context.isActive() && getExpandoProperties().contains(mp)) {
+    context.documentProperty(context.getArtefactType(),getJavaClass(),mp.getName());
+  }
+}

@@ -1,3 +1,8 @@
 {
-  return lineNumbers;
+  if (precompiledMode) {
+    return getPrecompiledLineNumbers();
+  }
+ else {
+    return lineNumbers;
+  }
 }

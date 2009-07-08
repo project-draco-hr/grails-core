@@ -2,9 +2,7 @@
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   if (shouldValidate(arguments,domainClass)) {
     Validator validator=domainClass.getValidator();
-    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
-    Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
-    mc.setProperty(target,ERRORS_PROPERTY,errors);
+    Errors errors=setupErrorsProperty(target);
     if (validator != null) {
       boolean deepValidate=true;
       if (arguments.length > 0) {

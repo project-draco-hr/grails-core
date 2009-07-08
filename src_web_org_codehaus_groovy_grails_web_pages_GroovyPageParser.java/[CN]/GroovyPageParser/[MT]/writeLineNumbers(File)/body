@@ -1,0 +1,15 @@
+{
+  DataOutputStream dataOut=null;
+  try {
+    dataOut=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));
+    int lineNumbersCount=this.out.getCurrentLineNumber() - 1;
+    int[] lineNumbers=this.out.getLineNumbers();
+    dataOut.writeInt(lineNumbersCount);
+    for (int i=0; i < lineNumbersCount; i++) {
+      dataOut.writeInt(lineNumbers[i]);
+    }
+  }
+  finally {
+    IOUtils.closeQuietly(dataOut);
+  }
+}

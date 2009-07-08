@@ -1,0 +1,4 @@
+{
+  super(defaultListableBeanFactory);
+  this.metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(getClass());
+}

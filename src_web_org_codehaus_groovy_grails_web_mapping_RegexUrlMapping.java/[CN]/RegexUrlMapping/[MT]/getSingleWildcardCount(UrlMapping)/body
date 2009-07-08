@@ -1,0 +1,8 @@
+{
+  String[] tokens=mapping.getUrlData().getTokens();
+  int count=0;
+  for (  String token : tokens) {
+    if (isSingleWildcard(token))     count++;
+  }
+  return count;
+}

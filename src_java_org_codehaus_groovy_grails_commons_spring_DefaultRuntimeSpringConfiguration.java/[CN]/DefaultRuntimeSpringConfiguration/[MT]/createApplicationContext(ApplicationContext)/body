@@ -1,7 +1,7 @@
 {
   if (parent != null && beanFactory != null) {
     if (beanFactory instanceof DefaultListableBeanFactory) {
-      return new GrailsWebApplicationContext((DefaultListableBeanFactory)beanFactory,parent);
+      return new GrailsApplicationContext((DefaultListableBeanFactory)beanFactory,parent);
     }
  else {
       throw new IllegalArgumentException("ListableBeanFactory set must be a subclass of DefaultListableBeanFactory");
@@ -9,13 +9,16 @@
   }
  else   if (beanFactory != null) {
     if (beanFactory instanceof DefaultListableBeanFactory) {
-      return new GrailsWebApplicationContext((DefaultListableBeanFactory)beanFactory);
+      return new GrailsApplicationContext((DefaultListableBeanFactory)beanFactory);
     }
  else {
       throw new IllegalArgumentException("ListableBeanFactory set must be a subclass of DefaultListableBeanFactory");
     }
   }
+ else   if (parent != null) {
+    return new GrailsApplicationContext(parent);
+  }
  else {
-    return new GrailsWebApplicationContext();
+    return new GrailsApplicationContext();
   }
 }

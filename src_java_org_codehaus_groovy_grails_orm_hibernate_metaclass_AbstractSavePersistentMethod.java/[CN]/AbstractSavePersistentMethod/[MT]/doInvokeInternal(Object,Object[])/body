@@ -19,7 +19,11 @@
         validator.validate(target,errors);
       }
       if (errors.hasErrors()) {
-        return handleValidationError(target,errors);
+        handleValidationError(target,errors);
+        if (GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap)) {
+          throw new ValidationException("Validation Error(s) Occurred During Save");
+        }
+        return null;
       }
  else {
         setObjectToReadWrite(target);

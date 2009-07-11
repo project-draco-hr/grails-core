@@ -20,7 +20,15 @@
       }
       if (errors.hasErrors()) {
         handleValidationError(target,errors);
-        if (GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap)) {
+        boolean shouldFail=false;
+        final Map config=ConfigurationHolder.getFlatConfig();
+        if (config.containsKey(FAIL_ON_ERROR_CONFIG_PROPERTY)) {
+          shouldFail=Boolean.TRUE == config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
+        }
+ else {
+          shouldFail=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap);
+        }
+        if (shouldFail) {
           throw new ValidationException("Validation Error(s) Occurred During Save");
         }
         return null;

@@ -14,9 +14,10 @@
       interceptors=this.interceptors;
     }
     if (controllerClass.isFlowAction(actionName)) {
+      final String flowid=controllerClass.getLogicalPropertyName() + "/" + actionName;
       FlowHandler flowHandler=new AbstractFlowHandler(){
         public String getFlowId(){
-          return actionName;
+          return flowid;
         }
       }
 ;

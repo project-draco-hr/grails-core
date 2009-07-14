@@ -1,0 +1,10 @@
+{
+  Map<String,Object> submap=new HashMap<String,Object>();
+  for (  Object beanName : beans.keySet()) {
+    Object bean=beans.get(beanName);
+    if (bean != null && bean.getClass().getAnnotation(annotation) != null) {
+      submap.put(beanName.toString(),bean);
+    }
+  }
+  return submap;
+}

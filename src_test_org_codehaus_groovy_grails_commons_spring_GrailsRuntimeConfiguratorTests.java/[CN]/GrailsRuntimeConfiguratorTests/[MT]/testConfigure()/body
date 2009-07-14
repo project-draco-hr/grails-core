@@ -16,7 +16,6 @@
   ApplicationContext ctx=conf.configure(new MockServletContext());
   assertNotNull(ctx);
   assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN) instanceof GroovyClassLoader);
-  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_EDITOR_BEAN) instanceof ClassEditor);
   GrailsExceptionResolver er=(GrailsExceptionResolver)ctx.getBean(GrailsRuntimeConfigurator.EXCEPTION_HANDLER_BEAN);
   assertNotNull(er);
   ModelAndView mv=er.resolveException(new MockHttpServletRequest(),new MockHttpServletResponse(),null,new Exception());

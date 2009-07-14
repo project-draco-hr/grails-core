@@ -1,0 +1,4 @@
+{
+  deregisterJDBCDrivers();
+  super.contextDestroyed(event);
+}

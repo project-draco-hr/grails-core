@@ -1,0 +1,12 @@
+{
+  Enumeration<Driver> drivers=DriverManager.getDrivers();
+  while (drivers.hasMoreElements()) {
+    Driver driver=drivers.nextElement();
+    try {
+      DriverManager.deregisterDriver(driver);
+    }
+ catch (    SQLException e) {
+      LOG.error("Error deregisetring JDBC driver [" + driver + "]: "+ e.getMessage(),e);
+    }
+  }
+}

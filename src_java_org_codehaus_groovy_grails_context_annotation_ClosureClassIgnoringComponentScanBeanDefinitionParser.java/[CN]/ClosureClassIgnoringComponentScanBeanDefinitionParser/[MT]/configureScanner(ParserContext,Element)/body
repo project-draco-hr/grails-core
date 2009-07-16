@@ -1,0 +1,16 @@
+{
+  final ClassPathBeanDefinitionScanner scanner=super.configureScanner(parserContext,element);
+  final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parserContext.getReaderContext().getResourceLoader());
+  resourceResolver.setPathMatcher(new AntPathMatcher(){
+    @Override public boolean match(    String pattern,    String path){
+      if (path.endsWith(".class")) {
+        String filename=FilenameUtils.getBaseName(path);
+        if (filename.indexOf("$") > -1)         return false;
+      }
+      return super.match(pattern,path);
+    }
+  }
+);
+  scanner.setResourceLoader(resourceResolver);
+  return scanner;
+}

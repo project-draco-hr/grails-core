@@ -4,8 +4,7 @@
       GroovyClassLoader classLoader=application.getClassLoader();
       MetaClassRegistry metaClassRegistry=GroovySystem.getMetaClassRegistry();
       Class[] loadedClasses=classLoader.getLoadedClasses();
-      for (int i=0; i < loadedClasses.length; i++) {
-        Class loadedClass=loadedClasses[i];
+      for (      Class loadedClass : loadedClasses) {
         metaClassRegistry.removeMetaClass(loadedClass);
       }
     }

@@ -7,7 +7,9 @@
       final boolean warDeployed=Metadata.getCurrent().isWarDeployed();
       if (!warDeployed) {
         BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-        classesDir=buildSettings.getClassesDir().toURI().toURL();
+        if (buildSettings != null && buildSettings.getClassesDir() != null) {
+          classesDir=buildSettings.getClassesDir().toURI().toURL();
+        }
       }
       String path=location;
       if (path.startsWith("/")) {
@@ -19,7 +21,7 @@
         if (!warDeployed && classesDir != null && url.equals(classesDir)) {
           result.add(convertClassLoaderURL(url));
         }
- else {
+ else         if (warDeployed) {
           result.add(convertClassLoaderURL(url));
         }
       }

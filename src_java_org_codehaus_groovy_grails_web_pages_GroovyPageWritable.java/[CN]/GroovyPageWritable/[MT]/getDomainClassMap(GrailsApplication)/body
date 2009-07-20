@@ -1,0 +1,12 @@
+{
+  GrailsClass[] domainClasses=application.getArtefacts(DomainClassArtefactHandler.TYPE);
+  if (domainClasses.length == domainsWithoutPackage.size())   return domainsWithoutPackage;
+ else {
+    domainsWithoutPackage.clear();
+    for (    GrailsClass domainClass : domainClasses) {
+      final Class theClass=domainClass.getClazz();
+      domainsWithoutPackage.put(theClass.getName(),theClass);
+    }
+    return domainsWithoutPackage;
+  }
+}

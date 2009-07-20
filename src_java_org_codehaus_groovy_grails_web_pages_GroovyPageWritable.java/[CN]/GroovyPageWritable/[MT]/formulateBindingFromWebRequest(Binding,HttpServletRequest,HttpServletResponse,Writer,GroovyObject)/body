@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
   binding.setVariable(GroovyPage.WEB_REQUEST,webRequest);
   binding.setVariable(GroovyPage.REQUEST,request);
   binding.setVariable(GroovyPage.RESPONSE,response);
@@ -7,7 +7,13 @@
   binding.setVariable(GroovyPage.SERVLET_CONTEXT,context);
   ApplicationContext appCtx=webRequest.getAttributes().getApplicationContext();
   binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appCtx);
-  if (appCtx != null)   binding.setVariable(GrailsApplication.APPLICATION_ID,webRequest.getAttributes().getGrailsApplication());
+  if (appCtx != null) {
+    GrailsApplication app=appCtx.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    binding.setVariable(GrailsApplication.APPLICATION_ID,app);
+    Map<String,Class> domainClassesWithoutPackage=getDomainClassMap(app);
+    final Map variables=binding.getVariables();
+    variables.putAll(domainClassesWithoutPackage);
+  }
   binding.setVariable(GroovyPage.SESSION,webRequest.getSession());
   binding.setVariable(GroovyPage.PARAMS,webRequest.getParams());
   binding.setVariable(GroovyPage.ACTION_NAME,webRequest.getActionName());

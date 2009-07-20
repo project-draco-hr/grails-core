@@ -10,7 +10,7 @@
   if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
   StringBuilder uri=new StringBuilder(contextPath);
   Set usedParams=new HashSet();
-  Pattern p=Pattern.compile("\\(\\*\\*?\\)");
+  Pattern p=DOUBLE_WILDCARD_PATTERN;
   String[] tokens=urlData.getTokens();
   int paramIndex=0;
   for (  String token : tokens) {

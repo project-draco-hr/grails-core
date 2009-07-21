@@ -5,15 +5,21 @@
     Object bodyResult;
     if (args != null) {
       if (args instanceof Map) {
-        Map currentBinding=binding.getVariables();
-        Map originalBinding=new HashMap(currentBinding);
-        currentBinding.putAll((Map)args);
+        Map currentBinding=null;
+        Map originalBinding=null;
+        if (binding != null) {
+          currentBinding=binding.getVariables();
+          originalBinding=new HashMap(currentBinding);
+          currentBinding.putAll((Map)args);
+        }
         try {
           bodyResult=bodyClosure.call(args);
         }
   finally {
-          currentBinding.clear();
-          currentBinding.putAll(originalBinding);
+          if (binding != null) {
+            currentBinding.clear();
+            currentBinding.putAll(originalBinding);
+          }
         }
       }
  else {

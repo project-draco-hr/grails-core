@@ -6,5 +6,8 @@
   this.webRequest=webRequest;
   binding=null;
   if (owner instanceof GroovyPage)   binding=((GroovyPage)owner).getBinding();
+ else   if (owner != null && owner.getClass().getName().endsWith(TagLibArtefactHandler.TYPE)) {
+    binding=(Binding)((GroovyObject)owner).getProperty(GroovyPage.PAGE_SCOPE);
+  }
   this.writeStringResult=writeStringResult;
 }

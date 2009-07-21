@@ -6,13 +6,13 @@
       String[] propertyNames=propertyName.split("\\.");
       BeanWrapper currentBean=bean;
       for (      String name : propertyNames) {
-        Object created=autoCreatePropertyIfPossible(currentBean,name);
+        Object created=autoCreatePropertyIfPossible(currentBean,name,pv.getValue());
         if (created != null)         currentBean=new BeanWrapperImpl(created);
  else         break;
       }
     }
  else {
-      autoCreatePropertyIfPossible(bean,propertyName);
+      autoCreatePropertyIfPossible(bean,propertyName,pv.getValue());
     }
   }
 }

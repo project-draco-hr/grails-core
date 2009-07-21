@@ -12,7 +12,7 @@
     renderView=renderText(text,response);
   }
  else   if (arguments[0] instanceof Closure) {
-    setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
+    setContentType(response,TEXT_HTML,gspEncoding,true);
     Closure closure=(Closure)arguments[arguments.length - 1];
     renderView=renderMarkup(closure,response);
   }

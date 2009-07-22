@@ -1,0 +1,5 @@
+{
+  final Object target=getTarget();
+  final Object obj=getPersistentInstance(associatedType,id);
+  addAssociationToTarget(pv.getName(),target,obj);
+}

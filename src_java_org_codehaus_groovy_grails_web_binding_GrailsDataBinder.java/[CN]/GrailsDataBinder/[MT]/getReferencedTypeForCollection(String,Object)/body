@@ -4,7 +4,7 @@
     GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
     if (domainClass != null) {
       GrailsDomainClassProperty domainProperty=domainClass.getPropertyByName(name);
-      if (domainProperty != null && (domainProperty.isOneToMany() || domainProperty.isManyToMany())) {
+      if (domainProperty != null) {
         return domainProperty.getReferencedPropertyType();
       }
     }

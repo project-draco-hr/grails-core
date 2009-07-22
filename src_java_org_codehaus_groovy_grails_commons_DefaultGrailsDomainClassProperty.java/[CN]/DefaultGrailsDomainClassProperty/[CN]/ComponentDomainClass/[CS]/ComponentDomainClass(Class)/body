@@ -12,6 +12,7 @@
   this.properties=createDomainClassProperties(this,descriptors);
   try {
     this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),properties);
+    DomainClassGrailsPlugin.registerConstraintsProperty(getMetaClass(),this);
   }
  catch (  IntrospectionException e) {
     LOG.error("Error reading embedded component [" + getClazz() + "] constraints: "+ e.getMessage(),e);

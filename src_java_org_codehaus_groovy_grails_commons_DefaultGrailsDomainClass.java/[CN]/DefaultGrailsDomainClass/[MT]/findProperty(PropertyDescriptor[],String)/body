@@ -1,7 +1,6 @@
 {
   PropertyDescriptor d=null;
-  for (int i=0; i < descriptors.length; i++) {
-    PropertyDescriptor descriptor=descriptors[i];
+  for (  PropertyDescriptor descriptor : descriptors) {
     if (descriptor.getName().equals(propertyName)) {
       d=descriptor;
       break;

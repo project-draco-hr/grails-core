@@ -9,7 +9,8 @@
       column.setNullable(false);
     }
  else     if (property.isOneToOne() && property.isBidirectional() && !property.isOwningSide()) {
-      column.setNullable(true);
+      if (property.getOtherSide().isHasOne())       column.setNullable(false);
+ else       column.setNullable(true);
     }
  else     if ((property.isManyToOne() || property.isOneToOne()) && property.isCircular()) {
       column.setNullable(true);

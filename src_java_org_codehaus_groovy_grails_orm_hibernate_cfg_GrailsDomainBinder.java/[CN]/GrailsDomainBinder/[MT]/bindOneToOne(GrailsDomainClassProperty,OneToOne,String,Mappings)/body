@@ -1,7 +1,8 @@
 {
   PropertyConfig config=getPropertyConfig(property);
-  oneToOne.setConstrained(false);
-  oneToOne.setForeignKeyType(ForeignKeyDirection.FOREIGN_KEY_TO_PARENT);
+  final GrailsDomainClassProperty otherSide=property.getOtherSide();
+  oneToOne.setConstrained(otherSide.isHasOne());
+  oneToOne.setForeignKeyType(oneToOne.isConstrained() ? ForeignKeyDirection.FOREIGN_KEY_FROM_PARENT : ForeignKeyDirection.FOREIGN_KEY_TO_PARENT);
   oneToOne.setAlternateUniqueKey(true);
   if (config != null && config.getFetch() != null) {
     oneToOne.setFetchMode(config.getFetch());
@@ -9,7 +10,12 @@
  else {
     oneToOne.setFetchMode(FetchMode.DEFAULT);
   }
-  final GrailsDomainClassProperty otherSide=property.getOtherSide();
   oneToOne.setReferencedEntityName(otherSide.getDomainClass().getFullName());
-  oneToOne.setReferencedPropertyName(otherSide.getName());
+  if (otherSide.isHasOne()) {
+    PropertyConfig pc=getPropertyConfig(property);
+    bindSimpleValue(property,oneToOne,path,pc);
+  }
+ else {
+    oneToOne.setReferencedPropertyName(otherSide.getName());
+  }
 }

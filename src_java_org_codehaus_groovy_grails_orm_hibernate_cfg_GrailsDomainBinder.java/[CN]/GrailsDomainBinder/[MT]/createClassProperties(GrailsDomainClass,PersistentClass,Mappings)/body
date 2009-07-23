@@ -9,7 +9,7 @@
     if (isCompositeIdProperty(gormMapping,currentGrailsProp))     continue;
     if (isIdentityProperty(gormMapping,currentGrailsProp))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
-    Value value;
+    Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     Class userType=getUserType(currentGrailsProp);
     if (collectionType != null) {
@@ -28,13 +28,22 @@
     }
  else     if (currentGrailsProp.isOneToOne() && userType == null) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
-      if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
+      if (currentGrailsProp.isHasOne() && !currentGrailsProp.isBidirectional()) {
+        throw new MappingException("hasOne property [" + currentGrailsProp.getDomainClass().getName() + "."+ currentGrailsProp.getName()+ "] is not bidirectional. Specify the other side of the relationship!");
+      }
+ else       if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
         value=new OneToOne(table,persistentClass);
         bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH,mappings);
       }
  else {
-        value=new ManyToOne(table);
-        bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
+        if (currentGrailsProp.isHasOne() && currentGrailsProp.isBidirectional()) {
+          value=new OneToOne(table,persistentClass);
+          bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH,mappings);
+        }
+ else {
+          value=new ManyToOne(table);
+          bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
+        }
       }
     }
  else     if (currentGrailsProp.isEmbedded()) {

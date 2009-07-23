@@ -1,6 +1,7 @@
 {
   if (currentGrailsProp.isBidirectional()) {
     final GrailsDomainClassProperty otherSide=currentGrailsProp.getOtherSide();
+    if (otherSide.isHasOne())     return false;
     if (!currentGrailsProp.isOwningSide() && (otherSide != null && otherSide.isOwningSide())) {
       return true;
     }

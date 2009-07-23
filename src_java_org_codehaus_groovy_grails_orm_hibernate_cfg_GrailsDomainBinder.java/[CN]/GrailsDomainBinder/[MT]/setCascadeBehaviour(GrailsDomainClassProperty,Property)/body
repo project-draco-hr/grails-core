@@ -7,7 +7,10 @@
     cascadeStrategy=config.getCascade();
   }
  else   if (grailsProperty.isAssociation()) {
-    if (grailsProperty.isOneToOne()) {
+    if (grailsProperty.isHasOne()) {
+      cascadeStrategy=CASCADE_ALL;
+    }
+ else     if (grailsProperty.isOneToOne()) {
       if (referenced != null && referenced.isOwningClass(domainClass.getClazz()))       cascadeStrategy=CASCADE_ALL;
     }
  else     if (grailsProperty.isOneToMany()) {

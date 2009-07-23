@@ -1,7 +1,7 @@
 {
   String relatedClassPropertyName=null;
-  for (Iterator i=relatedClassRelationships.keySet().iterator(); i.hasNext(); ) {
-    String currentKey=(String)i.next();
+  for (  Object o : relatedClassRelationships.keySet()) {
+    String currentKey=(String)o;
     Class currentClass=(Class)relatedClassRelationships.get(currentKey);
     if (property.getDomainClass().getClazz().getName().equals(currentClass.getName())) {
       relatedClassPropertyName=currentKey;

@@ -1,8 +1,7 @@
 {
   try {
     this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),this.persistentProperties);
-    for (int i=0; i < this.persistentProperties.length; i++) {
-      GrailsDomainClassProperty property=this.persistentProperties[i];
+    for (    GrailsDomainClassProperty property : this.persistentProperties) {
       if (property.isEmbedded()) {
         property.getComponent().refreshConstraints();
       }

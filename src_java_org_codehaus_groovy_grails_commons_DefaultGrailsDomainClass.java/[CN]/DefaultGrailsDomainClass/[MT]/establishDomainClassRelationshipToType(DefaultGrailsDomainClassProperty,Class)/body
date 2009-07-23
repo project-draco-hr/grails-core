@@ -1,5 +1,8 @@
 {
   if (relatedClassPropertyType == null) {
+    if (hasOneMap.containsKey(property.getName())) {
+      property.setHasOne(true);
+    }
     property.setOneToOne(true);
     property.setBidirectional(false);
   }
@@ -8,6 +11,9 @@
     property.setBidirectional(true);
   }
  else   if (DomainClassArtefactHandler.isDomainClass(relatedClassPropertyType)) {
+    if (hasOneMap.containsKey(property.getName())) {
+      property.setHasOne(true);
+    }
     property.setOneToOne(true);
     if (!getClazz().equals(relatedClassPropertyType))     property.setBidirectional(true);
   }

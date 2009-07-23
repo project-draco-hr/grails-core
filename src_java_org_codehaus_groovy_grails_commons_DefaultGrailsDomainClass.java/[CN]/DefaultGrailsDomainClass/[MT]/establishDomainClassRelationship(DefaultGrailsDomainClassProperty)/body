@@ -18,8 +18,8 @@
     }
  else     if (descriptors.length > 1) {
       if (mappedBy.containsValue(property.getName())) {
-        for (Iterator i=mappedBy.keySet().iterator(); i.hasNext(); ) {
-          String mappedByPropertyName=(String)i.next();
+        for (        Object o : mappedBy.keySet()) {
+          String mappedByPropertyName=(String)o;
           if (property.getName().equals(mappedBy.get(mappedByPropertyName))) {
             Class mappedByRelatedType=(Class)relatedClassRelationships.get(mappedByPropertyName);
             if (mappedByRelatedType != null && propType.isAssignableFrom(mappedByRelatedType))             relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,mappedByPropertyName);

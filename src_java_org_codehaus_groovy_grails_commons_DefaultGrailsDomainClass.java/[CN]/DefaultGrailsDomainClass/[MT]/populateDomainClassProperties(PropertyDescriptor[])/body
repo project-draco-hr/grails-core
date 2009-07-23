@@ -1,6 +1,5 @@
 {
-  for (int i=0; i < propertyDescriptors.length; i++) {
-    PropertyDescriptor descriptor=propertyDescriptors[i];
+  for (  PropertyDescriptor descriptor : propertyDescriptors) {
     if (GrailsDomainConfigurationUtil.isNotConfigurational(descriptor)) {
       GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
       this.propertyMap.put(property.getName(),property);

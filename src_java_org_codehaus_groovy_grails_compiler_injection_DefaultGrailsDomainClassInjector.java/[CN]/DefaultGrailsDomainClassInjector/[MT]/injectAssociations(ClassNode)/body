@@ -1,14 +1,15 @@
 {
   List properties=classNode.getProperties();
   List propertiesToAdd=new ArrayList();
-  for (Iterator p=properties.iterator(); p.hasNext(); ) {
-    PropertyNode pn=(PropertyNode)p.next();
-    final boolean isHasManyProperty=pn.getName().equals(GrailsDomainClassProperty.RELATES_TO_MANY) || pn.getName().equals(GrailsDomainClassProperty.HAS_MANY);
+  for (  Object property : properties) {
+    PropertyNode pn=(PropertyNode)property;
+    final String name=pn.getName();
+    final boolean isHasManyProperty=name.equals(GrailsDomainClassProperty.RELATES_TO_MANY) || name.equals(GrailsDomainClassProperty.HAS_MANY);
     if (isHasManyProperty) {
       Expression e=pn.getInitialExpression();
       propertiesToAdd.addAll(createPropertiesForHasManyExpression(e,classNode));
     }
-    final boolean isBelongsTo=pn.getName().equals(GrailsDomainClassProperty.BELONGS_TO);
+    final boolean isBelongsTo=name.equals(GrailsDomainClassProperty.BELONGS_TO) || name.equals(GrailsDomainClassProperty.HAS_ONE);
     if (isBelongsTo) {
       Expression e=pn.getInitialExpression();
       propertiesToAdd.addAll(createPropertiesForBelongsToExpression(e,classNode));

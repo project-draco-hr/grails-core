@@ -1,10 +1,10 @@
 {
-  Collection tempList=new ArrayList();
-  for (Iterator i=this.propertyMap.values().iterator(); i.hasNext(); ) {
-    GrailsDomainClassProperty currentProp=(GrailsDomainClassProperty)i.next();
+  Collection<GrailsDomainClassProperty> tempList=new ArrayList<GrailsDomainClassProperty>();
+  for (  Object o : this.propertyMap.values()) {
+    GrailsDomainClassProperty currentProp=(GrailsDomainClassProperty)o;
     if (currentProp.getType() != Object.class && currentProp.isPersistent() && !currentProp.isIdentity() && !currentProp.getName().equals(GrailsDomainClassProperty.VERSION)) {
       tempList.add(currentProp);
     }
   }
-  this.persistentProperties=(GrailsDomainClassProperty[])tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
+  this.persistentProperties=tempList.toArray(new GrailsDomainClassProperty[tempList.size()]);
 }

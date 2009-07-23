@@ -3,5 +3,5 @@
   if (potentialList instanceof Collection) {
     return (Collection)potentialList;
   }
-  return Collections.EMPTY_LIST;
+  return EMPTY_LIST;
 }

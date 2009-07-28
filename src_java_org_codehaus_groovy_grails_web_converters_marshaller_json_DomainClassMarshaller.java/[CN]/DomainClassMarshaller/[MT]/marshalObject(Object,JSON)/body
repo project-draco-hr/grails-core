@@ -7,11 +7,11 @@
   writer.key("class").value(domainClass.getName());
   GrailsDomainClassProperty id=domainClass.getIdentifier();
   Object idValue=extractValue(value,id);
-  json.property("id",idValue != null ? String.valueOf(idValue) : null);
+  json.property("id",idValue);
   if (isIncludeVersion()) {
     GrailsDomainClassProperty versionProperty=domainClass.getVersion();
     Object version=extractValue(value,versionProperty);
-    json.property("version",version != null ? String.valueOf(version) : null);
+    json.property("version",version);
   }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {

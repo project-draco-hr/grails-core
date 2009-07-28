@@ -12,6 +12,7 @@
     throw new ConverterException(e);
   }
  finally {
+    finalizeRender(out);
     isRendering=false;
   }
 }

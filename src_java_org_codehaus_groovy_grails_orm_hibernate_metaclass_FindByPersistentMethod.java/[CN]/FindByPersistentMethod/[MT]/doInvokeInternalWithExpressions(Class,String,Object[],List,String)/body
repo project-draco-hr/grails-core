@@ -10,6 +10,10 @@
         }
       }
       if (operator.equals(OPERATOR_OR)) {
+        if (firstExpressionIsRequiredBoolean()) {
+          GrailsMethodExpression expression=(GrailsMethodExpression)expressions.remove(0);
+          crit.add(expression.getCriterion());
+        }
         Disjunction dis=Restrictions.disjunction();
         for (Iterator i=expressions.iterator(); i.hasNext(); ) {
           GrailsMethodExpression current=(GrailsMethodExpression)i.next();

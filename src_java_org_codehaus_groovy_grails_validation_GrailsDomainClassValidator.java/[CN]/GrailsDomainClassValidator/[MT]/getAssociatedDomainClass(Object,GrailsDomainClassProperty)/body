@@ -3,7 +3,7 @@
     return persistentProperty.getComponent();
   }
  else {
-    if (grailsApplication != null)     return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObject.getClass().getName());
+    if (grailsApplication != null && !(associatedObject instanceof HibernateProxy))     return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObject.getClass().getName());
  else     return persistentProperty.getReferencedDomainClass();
   }
 }

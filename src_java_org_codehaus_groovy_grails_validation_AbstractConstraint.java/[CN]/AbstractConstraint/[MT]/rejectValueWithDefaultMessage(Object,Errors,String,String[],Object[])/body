@@ -1,13 +1,40 @@
 {
   BindingResult result=(BindingResult)errors;
-  Set newCodes=new LinkedHashSet();
+  Set<String> newCodes=new LinkedHashSet<String>();
+  if (args.length > 1) {
+    if ((args[0] instanceof String) && (args[1] instanceof Class)) {
+      final Locale locale=LocaleContextHolder.getLocale();
+      final Class constrainedClass=(Class)args[1];
+      final String fullClassName=constrainedClass.getName();
+      String classNameCode=fullClassName + ".label";
+      String resolvedClassName=messageSource.getMessage(classNameCode,null,fullClassName,locale);
+      final String classAsPropertyName=GrailsNameUtils.getPropertyName(constrainedClass);
+      if (resolvedClassName.equals(fullClassName)) {
+        classNameCode=classAsPropertyName + ".label";
+        resolvedClassName=messageSource.getMessage(classNameCode,null,fullClassName,locale);
+      }
+      if (!resolvedClassName.equals(fullClassName)) {
+        args[1]=resolvedClassName;
+      }
+      String propertyName=(String)args[0];
+      String propertyNameCode=fullClassName + '.' + propertyName+ ".label";
+      String resolvedPropertyName=messageSource.getMessage(propertyNameCode,null,propertyName,locale);
+      if (resolvedPropertyName.equals(propertyName)) {
+        propertyNameCode=classAsPropertyName + '.' + propertyName+ ".label";
+        resolvedPropertyName=messageSource.getMessage(propertyNameCode,null,propertyName,locale);
+      }
+      if (!resolvedPropertyName.equals(propertyName)) {
+        args[0]=resolvedPropertyName;
+      }
+    }
+  }
   newCodes.addAll(Arrays.asList(result.resolveMessageCodes(constraintOwningClass.getName() + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName)));
   newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ getName()+ ".error",constraintPropertyName)));
-  for (int i=0; i < codes.length; i++) {
-    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(constraintOwningClass.getName() + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
-    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ codes[i],constraintPropertyName)));
-    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(codes[i],constraintPropertyName)));
+  for (  String code : codes) {
+    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(constraintOwningClass.getName() + '.' + constraintPropertyName+ '.'+ code,constraintPropertyName)));
+    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(classShortName + '.' + constraintPropertyName+ '.'+ code,constraintPropertyName)));
+    newCodes.addAll(Arrays.asList(result.resolveMessageCodes(code,constraintPropertyName)));
   }
-  FieldError error=new FieldError(errors.getObjectName(),errors.getNestedPath() + constraintPropertyName,getPropertyValue(errors,target),false,(String[])newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
+  FieldError error=new FieldError(errors.getObjectName(),errors.getNestedPath() + constraintPropertyName,getPropertyValue(errors,target),false,newCodes.toArray(new String[newCodes.size()]),args,defaultMessage);
   ((BindingResult)errors).addError(error);
 }

@@ -1,16 +1,15 @@
 {
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
   request.setAttribute(GroovyPagesServlet.SERVLET_INSTANCE,this);
-  GroovyPagesTemplateEngine engine=grailsAttributes.getPagesTemplateEngine();
   String pageName=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
   if (StringUtils.isBlank(pageName)) {
-    pageName=engine.getCurrentRequestUri(request);
+    pageName=templateEngine.getCurrentRequestUri(request);
   }
-  Template template=engine.createTemplateForUri(pageName);
+  Template template=templateEngine.createTemplateForUri(pageName);
   if (template == null) {
     context.log("GroovyPagesServlet:  \"" + pageName + "\" not found");
     response.sendError(404,"\"" + pageName + "\" not found.");
     return;
   }
-  renderPageWithEngine(engine,request,response,template);
+  renderPageWithEngine(templateEngine,request,response,template);
 }

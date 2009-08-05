@@ -1,0 +1,20 @@
+{
+  if (exceptionResolvers != null) {
+    ModelAndView exMv=null;
+    for (    HandlerExceptionResolver exceptionResolver : exceptionResolvers) {
+      exMv=exceptionResolver.resolveException(request,response,this,exception);
+      if (exMv != null)       break;
+    }
+    if (exMv != null) {
+      try {
+        exMv.getView().render(exMv.getModel(),request,response);
+      }
+ catch (      Exception e) {
+        defaultExceptionHandling(exception,out,engine);
+      }
+    }
+  }
+ else {
+    defaultExceptionHandling(exception,out,engine);
+  }
+}

@@ -1,12 +1,12 @@
 {
   Writer out=createResponseWriter(response);
   try {
-    Writable w=t.make();
+    Writable w=template.make();
     w.writeTo(out);
   }
  catch (  Exception e) {
     out=createResponseWriter(response);
-    handleException(e,out,engine);
+    handleException(request,response,e,out,engine);
   }
  finally {
     if (out != null)     out.close();

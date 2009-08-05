@@ -17,8 +17,8 @@
     }
   }
 );
-  for (Iterator j=keys.iterator(); j.hasNext(); ) {
-    String name=(String)j.next();
+  for (  Object key : keys) {
+    String name=(String)key;
     Object param=this.params.get(name);
     if (param instanceof Closure) {
       param=evaluateNameForValue(param);

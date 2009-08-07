@@ -27,5 +27,7 @@
       return new HandlerExecutionChain(mainController,interceptors);
     }
   }
-  return null;
+ else {
+    return super.getHandler(request,cache);
+  }
 }

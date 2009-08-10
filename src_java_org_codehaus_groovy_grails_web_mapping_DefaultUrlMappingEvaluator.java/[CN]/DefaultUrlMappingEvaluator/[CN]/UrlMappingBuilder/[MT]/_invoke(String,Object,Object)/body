@@ -14,18 +14,32 @@
         Object controllerName;
         Object actionName;
         Object viewName;
+        Object uri;
         if (binding != null) {
           controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
           actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
           viewName=binding.getVariables().get(GrailsControllerClass.VIEW);
+          uri=binding.getVariables().get("uri");
         }
  else {
           controllerName=this.controllerName;
           actionName=this.actionName;
           viewName=this.viewName;
+          uri=this.uri;
         }
         ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-        UrlMapping urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+        UrlMapping urlMapping;
+        if (uri != null) {
+          try {
+            urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,servletContext);
+          }
+ catch (          URISyntaxException e) {
+            throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
+          }
+        }
+ else {
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+        }
         configureUrlMapping(urlMapping);
         return urlMapping;
       }

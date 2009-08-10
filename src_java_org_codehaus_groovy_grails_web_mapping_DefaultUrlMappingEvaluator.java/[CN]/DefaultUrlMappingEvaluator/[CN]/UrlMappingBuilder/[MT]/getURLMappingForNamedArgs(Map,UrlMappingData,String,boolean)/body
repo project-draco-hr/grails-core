@@ -17,8 +17,20 @@
     viewName=null;
     LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
   }
+  Object uri=getURI(namedArguments,bindingVariables);
   ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-  final UrlMapping urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+  UrlMapping urlMapping;
+  if (uri != null) {
+    try {
+      urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,servletContext);
+    }
+ catch (    URISyntaxException e) {
+      throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
+    }
+  }
+ else {
+    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+  }
   Object exceptionArg=getException(namedArguments,bindingVariables);
   if (isResponseCode && exceptionArg != null) {
     if (exceptionArg instanceof Class) {

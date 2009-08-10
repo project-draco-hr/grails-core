@@ -1,0 +1,5 @@
+{
+  this(Collections.EMPTY_MAP,data,servletContext);
+  this.uri=uri;
+  if (uri == null)   throw new IllegalArgumentException("Argument [uri] cannot be null or blank");
+}

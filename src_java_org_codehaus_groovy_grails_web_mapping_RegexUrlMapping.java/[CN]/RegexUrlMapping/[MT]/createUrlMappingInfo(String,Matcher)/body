@@ -43,7 +43,10 @@
     this.viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,this.constraints);
   }
   DefaultUrlMappingInfo info;
-  if (viewName != null && this.controllerName == null) {
+  if (forwardURI != null && this.controllerName == null) {
+    info=new DefaultUrlMappingInfo(forwardURI,this.urlData,servletContext);
+  }
+ else   if (viewName != null && this.controllerName == null) {
     info=new DefaultUrlMappingInfo(viewName,params,this.urlData,servletContext);
   }
  else {

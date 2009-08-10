@@ -1,24 +1,29 @@
 {
-  final StringBuilder forwardUrl=new StringBuilder();
-  if (info.getViewName() != null) {
-    String viewName=info.getViewName();
-    forwardUrl.append(SLASH).append(viewName);
+  if (info.getURI() != null) {
+    return info.getURI();
   }
  else {
-    forwardUrl.append(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);
-    forwardUrl.append(SLASH).append(info.getControllerName());
-    if (!StringUtils.isBlank(info.getActionName())) {
-      forwardUrl.append(SLASH).append(info.getActionName());
+    final StringBuilder forwardUrl=new StringBuilder();
+    if (info.getViewName() != null) {
+      String viewName=info.getViewName();
+      forwardUrl.append(SLASH).append(viewName);
     }
-    forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
+ else {
+      forwardUrl.append(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);
+      forwardUrl.append(SLASH).append(info.getControllerName());
+      if (!StringUtils.isBlank(info.getActionName())) {
+        forwardUrl.append(SLASH).append(info.getActionName());
+      }
+      forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
+    }
+    if (info.getParameters() != null && includeParams) {
+      try {
+        forwardUrl.append(toQueryString(info.getParameters()));
+      }
+ catch (      UnsupportedEncodingException e) {
+        throw new ControllerExecutionException("Unable to include ");
+      }
+    }
+    return forwardUrl.toString();
   }
-  if (info.getParameters() != null && includeParams) {
-    try {
-      forwardUrl.append(toQueryString(info.getParameters()));
-    }
- catch (    UnsupportedEncodingException e) {
-      throw new ControllerExecutionException("Unable to include ");
-    }
-  }
-  return forwardUrl.toString();
 }

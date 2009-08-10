@@ -55,7 +55,7 @@
           info.configure(webRequest);
           String action=info.getActionName() == null ? "" : info.getActionName();
           viewName=info.getViewName();
-          if (viewName == null) {
+          if (viewName == null && info.getURI() == null) {
             final String controllerName=info.getControllerName();
             GrailsClass controller=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,WebUtils.SLASH + controllerName + WebUtils.SLASH+ action);
             if (controller == null) {

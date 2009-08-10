@@ -1,0 +1,13 @@
+{
+  try {
+    Object o=GrailsClassUtils.getStaticPropertyValue(domainClass.getClazz(),GrailsDomainClassProperty.NAMED_QUERIES);
+    if (o instanceof Closure) {
+      HibernateNamedQueriesBuilder builder=new HibernateNamedQueriesBuilder(domainClass);
+      builder.evaluate((Closure)o);
+    }
+  }
+ catch (  Exception e) {
+    GrailsUtil.deepSanitize(e);
+    throw new GrailsDomainException("Error evaluating named queries block for domain [" + domainClass.getFullName() + "]:  "+ e.getMessage(),e);
+  }
+}

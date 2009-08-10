@@ -7,8 +7,10 @@
     SimpleGrailsController controller=new SimpleGrailsController();
     appCtx.registerMockBean(SimpleGrailsController.APPLICATION_CONTEXT_ID,controller);
     appCtx.registerMockBean("simpleControllerHandlerAdapter",new SimpleControllerHandlerAdapter());
+    appCtx.registerMockBean("handlerMappings",new SimpleUrlHandlerMapping());
     GrailsDispatcherServlet dispatcherServlet=new GrailsDispatcherServlet(){
       protected WebApplicationContext initWebApplicationContext() throws BeansException {
+        initStrategies(appCtx);
         return appCtx;
       }
     }

@@ -1,0 +1,3 @@
+{
+  return priority == entry.priority ? entry.seq - seq : entry.priority - priority;
+}

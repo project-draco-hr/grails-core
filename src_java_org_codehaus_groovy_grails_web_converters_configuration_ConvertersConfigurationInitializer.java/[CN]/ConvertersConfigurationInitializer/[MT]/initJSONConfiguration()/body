@@ -16,12 +16,13 @@
     marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DateMarshaller());
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.ToStringBeanMarshaller());
+  boolean includeDomainVersion=includeDomainVersionProperty("json");
   if (GrailsConfig.get("grails.converters.json.default.deep",false)) {
     LOG.debug("Using DeepDomainClassMarshaller as default.");
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller());
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion));
   }
  else {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller());
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion));
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GroovyBeanMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GenericJavaBeanMarshaller());

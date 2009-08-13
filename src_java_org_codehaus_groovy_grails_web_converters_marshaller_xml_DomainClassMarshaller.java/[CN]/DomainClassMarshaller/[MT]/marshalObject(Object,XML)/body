@@ -3,8 +3,12 @@
   GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
-  Object idValue=extractIdValue(value,id);
+  Object idValue=beanWrapper.getPropertyValue(id.getName());
   if (idValue != null)   xml.attribute("id",String.valueOf(idValue));
+  if (includeVersion) {
+    Object versionValue=beanWrapper.getPropertyValue(domainClass.getVersion().getName());
+    xml.attribute("version",String.valueOf(versionValue));
+  }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {
     xml.startNode(property.getName());

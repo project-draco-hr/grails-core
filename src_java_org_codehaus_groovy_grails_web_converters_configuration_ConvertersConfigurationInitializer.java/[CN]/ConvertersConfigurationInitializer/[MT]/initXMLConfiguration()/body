@@ -8,11 +8,12 @@
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DateMarshaller());
   marshallers.add(new ProxyUnwrappingMarshaller<XML>());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.ToStringBeanMarshaller());
+  boolean includeDomainVersion=includeDomainVersionProperty("xml");
   if (GrailsConfig.get("grails.converters.xml.default.deep",false)) {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller());
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion));
   }
  else {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DomainClassMarshaller());
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DomainClassMarshaller(includeDomainVersion));
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GroovyBeanMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GenericJavaBeanMarshaller());

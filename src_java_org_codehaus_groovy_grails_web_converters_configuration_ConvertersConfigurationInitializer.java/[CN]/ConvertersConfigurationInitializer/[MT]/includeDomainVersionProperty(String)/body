@@ -1,0 +1,3 @@
+{
+  return GrailsConfig.get(String.format("grails.converters.%s.domain.include.version",converterType),GrailsConfig.get("grails.converters.domain.include.version",false));
+}

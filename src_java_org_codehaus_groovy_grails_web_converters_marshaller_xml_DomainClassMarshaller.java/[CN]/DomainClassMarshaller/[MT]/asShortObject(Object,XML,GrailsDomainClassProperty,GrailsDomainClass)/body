@@ -1,3 +1,4 @@
 {
-  xml.attribute("id",String.valueOf(extractIdValue(refObj,idProperty)));
+  Object idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+  xml.attribute("id",String.valueOf(idValue));
 }

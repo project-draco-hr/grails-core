@@ -3,8 +3,12 @@
   GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
-  Object idValue=extractIdValue(value,id);
+  Object idValue=beanWrapper.getPropertyValue(id.getName());
   if (idValue != null)   xml.attribute("id",String.valueOf(idValue));
+  if (includeVersion) {
+    Object versionValue=beanWrapper.getPropertyValue(domainClass.getVersion().getName());
+    xml.attribute("version",String.valueOf(versionValue));
+  }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {
     xml.startNode(property.getName());
@@ -46,13 +50,11 @@
  else {
         if (referenceObject != null) {
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
-          if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
-            if (GrailsClassUtils.isJdk5Enum(property.getType())) {
-              xml.convertAnother(referenceObject);
-            }
- else {
-              asShortObject(referenceObject,xml,referencedDomainClass.getIdentifier(),referencedDomainClass);
-            }
+          if (referencedDomainClass == null || property.isEmbedded() || GrailsClassUtils.isJdk5Enum(property.getType())) {
+            xml.convertAnother(referenceObject);
+          }
+ else           if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
+            asShortObject(referenceObject,xml,referencedDomainClass.getIdentifier(),referencedDomainClass);
           }
  else {
             GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();

@@ -1,4 +1,5 @@
 {
   this.marshaller=marshaller;
   this.priority=priority;
+  this.seq=MARSHALLER_SEQUENCE.incrementAndGet();
 }

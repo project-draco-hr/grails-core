@@ -58,13 +58,11 @@
         }
  else {
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
-          if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
-            if (GrailsClassUtils.isJdk5Enum(property.getType())) {
-              json.convertAnother(referenceObject);
-            }
- else {
-              asShortObject(referenceObject,json,referencedDomainClass.getIdentifier(),referencedDomainClass);
-            }
+          if (referencedDomainClass == null || property.isEmbedded() || GrailsClassUtils.isJdk5Enum(property.getType())) {
+            json.convertAnother(referenceObject);
+          }
+ else           if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {
+            asShortObject(referenceObject,json,referencedDomainClass.getIdentifier(),referencedDomainClass);
           }
  else {
             GrailsDomainClassProperty referencedIdProperty=referencedDomainClass.getIdentifier();

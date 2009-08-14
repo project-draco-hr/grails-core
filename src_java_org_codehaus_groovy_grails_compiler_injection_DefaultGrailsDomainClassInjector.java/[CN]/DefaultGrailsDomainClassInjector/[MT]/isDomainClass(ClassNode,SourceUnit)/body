@@ -1,6 +1,14 @@
 {
   String clsName=classNode.getNameWithoutPackage();
   String sourcePath=sourceNode.getName();
-  String sourceFileName=sourcePath.substring(Math.max(sourcePath.lastIndexOf("/"),sourcePath.lastIndexOf("\\")) + 1);
-  return String.format("%s.groovy",clsName).equals(sourceFileName);
+  File sourceFile=new File(sourcePath);
+  File parent=sourceFile.getParentFile();
+  while (parent != null) {
+    File parentParent=parent.getParentFile();
+    if (parent.getName().equals(DOMAIN_DIR) && parentParent != null && parentParent.getName().equals(GRAILS_APP_DIR)) {
+      return true;
+    }
+    parent=parentParent;
+  }
+  return false;
 }

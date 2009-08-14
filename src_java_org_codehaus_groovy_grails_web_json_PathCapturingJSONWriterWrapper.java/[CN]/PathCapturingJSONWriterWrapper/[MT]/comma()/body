@@ -1,3 +1,7 @@
 {
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug("comma()");
+  }
   delegate.comma();
 }

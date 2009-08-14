@@ -1,3 +1,11 @@
 {
-  return delegate.object();
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug(delegate.mode.name() + " > " + String.format("object()"));
+  }
+  if (delegate.mode == Mode.ARRAY) {
+    pushNextIndex();
+  }
+  delegate.object();
+  return this;
 }

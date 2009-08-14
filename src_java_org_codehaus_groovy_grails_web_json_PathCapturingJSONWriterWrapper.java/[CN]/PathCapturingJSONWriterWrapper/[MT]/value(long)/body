@@ -1,4 +1,14 @@
 {
-  pathStack.pop();
-  return delegate.value(l);
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug(delegate.mode.name() + " > " + String.format("value(long %s)",l));
+  }
+  if (delegate.mode == Mode.ARRAY) {
+    pushNextIndex();
+  }
+ else {
+    pathStack.pop();
+  }
+  delegate.value(l);
+  return this;
 }

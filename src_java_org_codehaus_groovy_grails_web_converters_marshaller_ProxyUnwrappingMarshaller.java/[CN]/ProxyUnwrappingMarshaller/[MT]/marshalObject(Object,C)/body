@@ -1,4 +1,4 @@
 {
   Object unwrapped=unwrap(object);
-  converter.convertAnother(unwrapped);
+  converter.lookupObjectMarshaller(unwrapped).marshalObject(unwrapped,converter);
 }

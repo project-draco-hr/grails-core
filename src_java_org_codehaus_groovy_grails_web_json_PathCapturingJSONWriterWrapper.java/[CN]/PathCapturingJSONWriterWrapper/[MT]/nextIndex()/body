@@ -1,7 +1,8 @@
 {
+  int x=((IndexElement)pathStack.peek()).index + 1;
   if (log.isDebugEnabled()) {
     if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
-    log.debug(delegate.mode.name() + " > " + String.format("push(%s)",c));
+    log.debug(delegate.mode.name() + " > " + String.format("Next index: " + x));
   }
-  delegate.push(c);
+  return x;
 }

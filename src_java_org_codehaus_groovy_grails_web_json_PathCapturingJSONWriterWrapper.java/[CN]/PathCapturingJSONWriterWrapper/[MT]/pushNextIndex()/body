@@ -1,0 +1,5 @@
+{
+  int x=nextIndex();
+  pathStack.pop();
+  pathStack.push(new IndexElement(x));
+}

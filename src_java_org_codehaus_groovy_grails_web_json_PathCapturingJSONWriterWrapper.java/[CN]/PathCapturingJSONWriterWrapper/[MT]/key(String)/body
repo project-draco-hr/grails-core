@@ -1,4 +1,9 @@
 {
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug(delegate.mode.name() + " > " + String.format("key(%s)",s));
+  }
   pathStack.push(new PropertyElement(s));
-  return delegate.key(s);
+  delegate.key(s);
+  return this;
 }

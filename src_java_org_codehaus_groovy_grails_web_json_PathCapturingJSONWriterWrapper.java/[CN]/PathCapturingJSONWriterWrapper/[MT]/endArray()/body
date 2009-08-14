@@ -1,3 +1,12 @@
 {
-  return delegate.endArray();
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug(delegate.mode.name() + " > " + String.format("endArray()"));
+  }
+  pathStack.pop();
+  delegate.endArray();
+  if (delegate.mode == Mode.KEY) {
+    pathStack.pop();
+  }
+  return this;
 }

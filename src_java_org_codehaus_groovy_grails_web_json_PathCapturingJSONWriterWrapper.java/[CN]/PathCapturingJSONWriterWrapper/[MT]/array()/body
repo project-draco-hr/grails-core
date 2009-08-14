@@ -1,3 +1,9 @@
 {
-  return delegate.array();
+  if (log.isDebugEnabled()) {
+    if (debugCurrentStack)     log.debug(delegate.mode.name() + " > " + String.format(">> " + getCurrentStrackReference()));
+    log.debug(delegate.mode.name() + " > " + String.format("array()"));
+  }
+  pathStack.push(new IndexElement(-1));
+  delegate.array();
+  return this;
 }

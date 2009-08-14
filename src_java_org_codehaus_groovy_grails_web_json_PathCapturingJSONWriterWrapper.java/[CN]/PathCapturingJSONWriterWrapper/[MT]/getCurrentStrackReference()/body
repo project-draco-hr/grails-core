@@ -1,0 +1,7 @@
+{
+  StringBuilder out=new StringBuilder();
+  for (  PathElement el : pathStack) {
+    out.append(el.toString());
+  }
+  return out.toString();
+}

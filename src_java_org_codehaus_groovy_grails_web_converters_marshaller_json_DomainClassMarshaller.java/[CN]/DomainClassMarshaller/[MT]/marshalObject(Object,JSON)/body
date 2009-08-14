@@ -4,7 +4,7 @@
   GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   writer.object();
-  writer.key("class").value(domainClass.getName());
+  writer.key("class").value(domainClass.getClazz().getName());
   GrailsDomainClassProperty id=domainClass.getIdentifier();
   Object idValue=extractValue(value,id);
   json.property("id",idValue);

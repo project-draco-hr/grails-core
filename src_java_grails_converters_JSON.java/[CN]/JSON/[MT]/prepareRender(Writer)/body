@@ -1,4 +1,10 @@
 {
   this.writer=this.prettyPrint ? new PrettyPrintJSONWriter(out) : new JSONWriter(out);
+  if (this.circularReferenceBehaviour == CircularReferenceBehaviour.PATH) {
+    if (log.isInfoEnabled()) {
+      log.info(String.format("Using experimental CircularReferenceBehaviour.PATH for %s",getClass().getName()));
+    }
+    this.writer=new PathCapturingJSONWriterWrapper(this.writer);
+  }
   referenceStack=new Stack<Object>();
 }

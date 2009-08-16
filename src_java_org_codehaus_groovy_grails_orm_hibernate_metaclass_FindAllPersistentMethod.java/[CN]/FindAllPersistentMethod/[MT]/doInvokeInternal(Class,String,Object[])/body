@@ -85,7 +85,7 @@
           }
           if (arguments.length > 2 && result == -1) {
             if (isMapWithValue(arguments[2],GrailsHibernateUtil.ARGUMENT_OFFSET)) {
-              result=((Number)((Map)arguments[2]).get(GrailsHibernateUtil.ARGUMENT_OFFSET)).intValue();
+              result=retrieveInt(arguments[2],GrailsHibernateUtil.ARGUMENT_OFFSET);
             }
  else             if (isIntegerOrLong(arguments[1]) && isIntegerOrLong(arguments[2])) {
               result=((Number)arguments[2]).intValue();
@@ -101,7 +101,8 @@
       }
       private int retrieveInt(      Object param,      String key){
         if (isMapWithValue(param,key)) {
-          return ((Number)((Map)param).get(key)).intValue();
+          Integer convertedParam=converter.convertIfNecessary(((Map)param).get(key),Integer.class);
+          return convertedParam.intValue();
         }
  else         if (isIntegerOrLong(param)) {
           return ((Number)param).intValue();

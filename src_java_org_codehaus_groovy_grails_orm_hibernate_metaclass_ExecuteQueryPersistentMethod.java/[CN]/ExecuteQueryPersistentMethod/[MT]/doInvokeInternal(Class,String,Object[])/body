@@ -8,7 +8,8 @@
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(query);
       if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
-        q.setMaxResults(((Number)paginateParams.get(GrailsHibernateUtil.ARGUMENT_MAX)).intValue());
+        Integer maxParam=(Integer)converter.convertIfNecessary(paginateParams.get(GrailsHibernateUtil.ARGUMENT_MAX),Integer.class);
+        q.setMaxResults(maxParam.intValue());
       }
       if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET)) {
         q.setFirstResult(((Number)paginateParams.remove(GrailsHibernateUtil.ARGUMENT_OFFSET)).intValue());

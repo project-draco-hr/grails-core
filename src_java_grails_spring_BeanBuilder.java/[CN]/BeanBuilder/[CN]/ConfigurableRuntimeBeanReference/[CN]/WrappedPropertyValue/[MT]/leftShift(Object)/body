@@ -1,6 +1,4 @@
 {
   InvokerHelper.invokeMethod(propertyValue,"leftShift",value);
-  if (value instanceof RuntimeBeanReference) {
-    deferredProperties.put(beanConfig.getName(),new DeferredProperty(beanConfig,propertyName,propertyValue));
-  }
+  updateDeferredProperties(value);
 }

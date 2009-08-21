@@ -1,6 +1,6 @@
 {
   super(clazz,CONTROLLER);
-  this.uri=SLASH + WordUtils.uncapitalize(getName());
+  this.uri=SLASH + GrailsNameUtils.getPropertyNameRepresentation(getName());
   defaultActionName=(String)getPropertyOrStaticPropertyOrFieldValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;

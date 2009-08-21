@@ -1,0 +1,10 @@
+{
+  GroovyClassLoader cl=new GroovyClassLoader();
+  Class clazz=cl.parseClass("class MYdemoController { def action = { return null }; } ");
+  GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
+  assertEquals("MYdemo",grailsClass.getName());
+  assertEquals("MYdemoController",grailsClass.getFullName());
+  assertTrue(grailsClass.mapsToURI("/MYdemo"));
+  assertTrue(grailsClass.mapsToURI("/MYdemo/action"));
+  assertTrue(grailsClass.mapsToURI("/MYdemo/action/**"));
+}

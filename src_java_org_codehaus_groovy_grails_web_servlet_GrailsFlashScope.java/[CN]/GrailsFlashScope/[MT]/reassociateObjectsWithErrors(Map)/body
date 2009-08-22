@@ -5,6 +5,6 @@
     if (value instanceof Map) {
       reassociateObjectsWithErrors((Map)value);
     }
-    reasssociateObjectWithErrors(scope,value);
+    reassociateObjectWithErrors(scope,value);
   }
 }

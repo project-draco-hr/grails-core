@@ -3,7 +3,7 @@
     Collection values=(Collection)value;
     for (Iterator i=values.iterator(); i.hasNext(); ) {
       Object current=i.next();
-      reasssociateObjectWithErrors(scope,current);
+      reassociateObjectWithErrors(scope,current);
     }
   }
  else {

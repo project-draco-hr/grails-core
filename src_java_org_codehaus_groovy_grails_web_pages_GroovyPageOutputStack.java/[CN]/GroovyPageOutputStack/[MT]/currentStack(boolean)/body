@@ -1,0 +1,3 @@
+{
+  return currentStack(allowCreate,(Writer)RequestContextHolder.currentRequestAttributes().getAttribute(GrailsApplicationAttributes.OUT,RequestAttributes.SCOPE_REQUEST),true,false);
+}

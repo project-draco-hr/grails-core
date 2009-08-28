@@ -1,5 +1,5 @@
 {
-  String expected=makeImports() + "\n" + "class myTest7 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest7\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "out.print(htmlParts[0])\n"+ "out.print(evaluate('uri', 3, it) { return uri })\n"+ "out.print(htmlParts[1])\n"+ "}\n"+ GSP_FOOTER;
+  String expected=makeImports() + "\n" + "class myTest7 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest7\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "printHtmlPart(0)\n"+ "printToOut(evaluate('uri', 3, it) { return uri })\n"+ "printHtmlPart(1)\n"+ "}\n"+ GSP_FOOTER;
   ParsedResult output=parseCode("myTest7","Please click the link below to confirm your email address:\n" + "\n" + "${uri}\n"+ "\n"+ "\n"+ "Thanks");
   System.out.println("Output: " + output.generatedGsp);
   System.out.println("Expect: " + expected);

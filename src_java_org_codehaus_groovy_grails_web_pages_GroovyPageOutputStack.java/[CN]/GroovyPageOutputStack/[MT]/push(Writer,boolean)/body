@@ -1,0 +1,23 @@
+{
+  if (newWriter == proxyWriter) {
+    stack.push(stack.peek());
+    return;
+  }
+  if (checkExisting) {
+    for (    WriterPair item : stack) {
+      if (item.originalTarget == newWriter) {
+        log.warn("Pushed a writer to stack a second time. Writer type " + newWriter.getClass().getName(),new Exception());
+      }
+    }
+  }
+  Writer unwrappedWriter=unwrapTargetWriter(newWriter);
+  if (unwrappedWriter == proxyWriter) {
+    stack.push(stack.peek());
+    return;
+  }
+  stack.push(new WriterPair(newWriter,unwrappedWriter));
+  proxyWriter.setOut(newWriter);
+  if (autoSync) {
+    applyWriterThreadLocals(newWriter);
+  }
+}

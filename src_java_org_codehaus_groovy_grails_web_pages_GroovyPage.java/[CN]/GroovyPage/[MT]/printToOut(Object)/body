@@ -1,0 +1,14 @@
+{
+  if (value == null) {
+    return;
+  }
+  if (value instanceof String) {
+    out.print((String)value);
+  }
+ else   if (value instanceof char[]) {
+    out.print((char[])value);
+  }
+ else {
+    out.print(value);
+  }
+}

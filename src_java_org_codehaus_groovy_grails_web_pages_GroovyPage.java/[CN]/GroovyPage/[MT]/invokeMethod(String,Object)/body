@@ -4,28 +4,20 @@
   Object body=null;
   GroovyObject tagLib=getTagLib(methodName);
   if (tagLib != null) {
-    final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
-    Writer originalOut=webRequest.getOut();
-    try {
-      if (args instanceof Object[]) {
-        Object[] argArray=(Object[])args;
-        if (argArray.length > 0 && argArray[0] instanceof Map)         attrs=(Map)argArray[0];
-        if (argArray.length > 1) {
-          body=argArray[1];
-        }
+    if (args instanceof Object[]) {
+      Object[] argArray=(Object[])args;
+      if (argArray.length > 0 && argArray[0] instanceof Map)       attrs=(Map)argArray[0];
+      if (argArray.length > 1) {
+        body=argArray[1];
       }
- else       if (args instanceof Map) {
-        attrs=(Map)args;
-      }
-      if (attrs == null) {
-        attrs=new HashMap();
-      }
-      return captureTagOutput(tagLib,methodName,attrs,body,webRequest);
     }
-  finally {
-      getBinding().setVariable(OUT,originalOut);
-      webRequest.setOut(originalOut);
+ else     if (args instanceof Map) {
+      attrs=(Map)args;
     }
+    if (attrs == null) {
+      attrs=new HashMap();
+    }
+    return captureTagOutput(tagLib,methodName,attrs,body,webRequest,false);
   }
  else {
     return super.invokeMethod(methodName,args);

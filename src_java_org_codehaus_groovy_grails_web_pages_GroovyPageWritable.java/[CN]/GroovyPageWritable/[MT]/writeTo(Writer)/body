@@ -30,7 +30,13 @@
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
     page.setHtmlParts(metaInfo.getHtmlParts());
-    page.run();
+    page.initRun(out,webRequest);
+    try {
+      page.run();
+    }
+  finally {
+      page.cleanup();
+    }
     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
   }
   return out;

@@ -1,0 +1,11 @@
+{
+  if (tm.bufferMode) {
+    tm.bufferMode=false;
+    if (!bodyVarsDefined.contains(tm.tagIndex)) {
+      out.print("def ");
+      bodyVarsDefined.add(tm.tagIndex);
+    }
+    out.println("body" + tm.tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
+    closureLevel++;
+  }
+}

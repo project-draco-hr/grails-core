@@ -1,0 +1,8 @@
+{
+  if (targetWriter instanceof GrailsPrintWriter) {
+    return ((GrailsPrintWriter)targetWriter).getOut();
+  }
+ else {
+    return targetWriter;
+  }
+}

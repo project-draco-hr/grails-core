@@ -1,0 +1,5 @@
+{
+  GroovyPageOutputStack instance=new GroovyPageOutputStack(topWriter,autoCreated);
+  instances.set(instance);
+  return instance;
+}

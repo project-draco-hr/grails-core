@@ -1,10 +1,9 @@
 {
   super(t.getMessage(),t);
   this.cause=t;
-  StringWriter sw=new StringWriter();
-  PrintWriter pw=new PrintWriter(sw);
+  FastStringWriter pw=new FastStringWriter();
   cause.printStackTrace(pw);
-  this.stackTrace=sw.toString();
+  this.stackTrace=pw.toString();
   while (cause.getCause() != cause) {
     if (cause.getCause() == null) {
       break;

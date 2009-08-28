@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  if (webRequest != null) {
+    webRequest.setOut(writer);
+  }
+}

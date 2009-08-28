@@ -11,6 +11,9 @@
         handleIOException(e);
       }
     }
+ else     if (obj instanceof StreamCharBuffer) {
+      this.write((StreamCharBuffer)obj);
+    }
  else {
       write(String.valueOf(obj));
     }

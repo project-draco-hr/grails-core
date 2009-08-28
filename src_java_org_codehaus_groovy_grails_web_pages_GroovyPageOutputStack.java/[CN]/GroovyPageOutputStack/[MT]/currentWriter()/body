@@ -4,6 +4,6 @@
     return outputStack.getProxyWriter();
   }
  else {
-    return (Writer)RequestContextHolder.currentRequestAttributes().getAttribute(GrailsApplicationAttributes.OUT,RequestAttributes.SCOPE_REQUEST);
+    return defaultRequest();
   }
 }

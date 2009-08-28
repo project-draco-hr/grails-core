@@ -1,5 +1,5 @@
 {
-  if (newWriter == proxyWriter) {
+  if (newWriter == proxyWriter && stack.size() > 0) {
     stack.push(stack.peek());
     return;
   }
@@ -11,7 +11,7 @@
     }
   }
   Writer unwrappedWriter=unwrapTargetWriter(newWriter);
-  if (unwrappedWriter == proxyWriter) {
+  if (unwrappedWriter == proxyWriter && stack.size() > 0) {
     stack.push(stack.peek());
     return;
   }

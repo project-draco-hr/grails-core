@@ -1,5 +1,6 @@
 {
   InputStream in=info.getGroovySource();
+  if (in == null)   return;
   try {
     try {
       in.reset();

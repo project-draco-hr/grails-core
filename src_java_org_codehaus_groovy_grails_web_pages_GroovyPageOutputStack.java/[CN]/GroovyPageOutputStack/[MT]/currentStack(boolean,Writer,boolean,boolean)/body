@@ -1,0 +1,15 @@
+{
+  GroovyPageOutputStack outputStack=instances.get();
+  if (outputStack != null) {
+    if (pushTop) {
+      outputStack.push(topWriter);
+    }
+    return outputStack;
+  }
+ else   if (allowCreate) {
+    return createNew(topWriter,autoSync);
+  }
+ else {
+    return null;
+  }
+}

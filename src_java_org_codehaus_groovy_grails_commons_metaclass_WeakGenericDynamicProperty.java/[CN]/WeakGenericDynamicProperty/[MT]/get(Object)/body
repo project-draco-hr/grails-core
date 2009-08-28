@@ -1,15 +1,17 @@
 {
   String propertyKey=System.identityHashCode(object) + getPropertyName();
-  if (propertyToInstanceMap.containsKey(propertyKey)) {
-    return propertyToInstanceMap.get(propertyKey);
+  SoftReference<Object> ref=propertyToInstanceMap.get(propertyKey);
+  Object val=(ref != null) ? ref.get() : null;
+  if (val != null) {
+    return val;
   }
  else   if (this.initialValueGenerator != null) {
     final Object value=this.initialValueGenerator.execute(object);
-    propertyToInstanceMap.put(propertyKey,value);
+    propertyToInstanceMap.put(propertyKey,new SoftReference<Object>(value));
     return value;
   }
  else   if (this.initialValue != null) {
-    propertyToInstanceMap.put(propertyKey,this.initialValue);
+    propertyToInstanceMap.put(propertyKey,new SoftReference<Object>(this.initialValue));
     return this.initialValue;
   }
   return null;

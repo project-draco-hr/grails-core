@@ -2,13 +2,13 @@
   if (!finalPass)   return;
   String tagName=scan.getToken().trim();
   String ns=scan.getNamespace();
-  if (tagMetaStack.isEmpty())   throw new GrailsTagException("Found closing Grails tag with no opening [" + tagName + "]");
-  TagMeta tm=(TagMeta)tagMetaStack.remove(this.tagMetaStack.size() - 1);
+  if (tagMetaStack.isEmpty())   throw new GrailsTagException("Found closing Grails tag with no opening [" + tagName + "]",pageName,out.getCurrentLineNumber());
+  TagMeta tm=(TagMeta)tagMetaStack.pop();
   String lastInStack=tm.name;
   String lastNamespaceInStack=tm.namespace;
   if (StringUtils.isBlank(tagName))   tagName=lastInStack;
   if (!lastInStack.equals(tagName) || !lastNamespaceInStack.equals(ns)) {
-    throw new GrailsTagException("Grails tag [" + lastNamespaceInStack + ":"+ lastInStack+ "] was not closed");
+    throw new GrailsTagException("Grails tag [" + lastNamespaceInStack + ":"+ lastInStack+ "] was not closed",pageName,out.getCurrentLineNumber());
   }
   if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
     if (tm.instance instanceof GroovySyntaxTag) {
@@ -16,29 +16,40 @@
       tag.doEndTag();
     }
  else {
-      throw new GrailsTagException("Grails tag [" + tagName + "] was not closed");
+      throw new GrailsTagException("Grails tag [" + tagName + "] was not closed",pageName,out.getCurrentLineNumber());
     }
   }
  else {
     String bodyTagClosureName="null";
-    if (!tm.emptyTag) {
+    if (!tm.emptyTag && !tm.bufferMode) {
       bodyTagClosureName="body" + tagIndex;
       out.println("}");
+      closureLevel--;
+    }
+    if (tm.bufferMode && tm.bufferPartNumber != -1) {
+      if (!bodyVarsDefined.contains(tm.tagIndex)) {
+        out.print("def ");
+        bodyVarsDefined.add(tm.tagIndex);
+      }
+      out.println("body" + tm.tagIndex + " = createClosureForHtmlPart("+ tm.bufferPartNumber+ ")");
+      bodyTagClosureName="body" + tm.tagIndex;
+      tm.bufferMode=false;
     }
     if (jspTags.containsKey(ns)) {
       String uri=(String)jspTags.get(ns);
       out.println("jspTag = tagLibraryResolver?.resolveTagLibrary('" + uri + "')?.getTag('"+ tagName+ "')");
       out.println("if(!jspTag) throw new GrailsTagException('Unknown JSP tag " + ns + ":"+ tagName+ "')");
-      out.println("jspTag.doTag(out,attrs" + tagIndex + ", "+ bodyTagClosureName+ ")");
+      out.println("jspTag.doTag(out," + attrsVarsMapDefinition.get(tagIndex) + ", "+ bodyTagClosureName+ ")");
     }
  else {
       if (tm.hasAttributes) {
-        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",attrs"+ tagIndex+ ","+ bodyTagClosureName+ ")");
+        out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ","+ attrsVarsMapDefinition.get(tagIndex)+ ","+ bodyTagClosureName+ ")");
       }
  else {
         out.println("invokeTag('" + tagName + "','"+ ns+ "',"+ getCurrentOutputLineNumber()+ ",[:],"+ bodyTagClosureName+ ")");
       }
     }
   }
+  tm.bufferMode=false;
   tagIndex--;
 }

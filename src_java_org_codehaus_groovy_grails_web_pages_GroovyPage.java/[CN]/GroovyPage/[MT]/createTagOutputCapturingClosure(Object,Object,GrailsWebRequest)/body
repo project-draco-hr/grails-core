@@ -1,0 +1,14 @@
+{
+  if (body1 == null) {
+    return EMPTY_BODY_CLOSURE;
+  }
+ else   if (body1 instanceof GroovyPageTagBody) {
+    return (GroovyPageTagBody)body1;
+  }
+ else   if (body1 instanceof Closure) {
+    return new GroovyPageTagBody(wrappedInstance,webRequest,(Closure)body1);
+  }
+ else {
+    return new ConstantClosure(body1);
+  }
+}

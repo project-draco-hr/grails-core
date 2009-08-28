@@ -1,0 +1,9 @@
+{
+  if (trouble)   return;
+  try {
+    otherBuffer.writeTo(getOut(),true,false);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

@@ -1,7 +1,7 @@
 {
   String namespace=taglib.getNamespace();
-  namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,applicationContext));
+  namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,this));
   for (  String tagName : taglib.getTagNames()) {
-    tagLibraries.put(namespace + ':' + tagName,(GroovyObject)applicationContext.getBean(taglib.getFullName()));
+    tagLibraries.put(namespace + ':' + tagName,taglib.getFullName());
   }
 }

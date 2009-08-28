@@ -27,8 +27,6 @@
     }
 ;
   }
-  final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
-  final Writer out=webRequest.getOut();
   try {
     if (gspTagLibraryLookup.hasNamespace(tagNamespace)) {
       GroovyObject tagLib=getTagLib(tagName,tagNamespace);
@@ -39,7 +37,7 @@
 switch (tag.getParameterTypes().length) {
 case 1:
             tag.call(new Object[]{attrs});
-          if (body != null) {
+          if (body != null && body != EMPTY_BODY_CLOSURE) {
             body.call();
           }
         break;
@@ -67,7 +65,6 @@ Map.Entry entry=(Map.Entry)o;
 plainTag.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
 }
 plainTag.append(">");
-try {
 out.write(plainTag.toString());
 if (body != null) {
 Object bodyOutput=body.call();
@@ -75,12 +72,11 @@ if (bodyOutput != null) out.write(bodyOutput.toString());
 }
 out.write("</" + fullTagName + ">");
 }
- catch (IOException e) {
-throw new GrailsTagException("I/O error invoking tag library closure as method: " + e.getMessage(),getGroovyPageFileName(),0);
-}
-}
 }
  catch (Exception e) {
+if (LOG.isTraceEnabled()) {
+LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
+}
 Throwable cause=GrailsExceptionResolver.getRootCause(e);
 if (cause instanceof GrailsTagException) {
 throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumber);
@@ -88,9 +84,5 @@ throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumb
  else {
 throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
 }
-}
- finally {
-getBinding().setVariable(OUT,out);
-webRequest.setOut(out);
 }
 }

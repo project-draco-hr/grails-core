@@ -1,0 +1,8 @@
+{
+  this.proxyWriter=new GroovyPageProxyWriter();
+  this.autoSync=autoSync;
+  push(topWriter);
+  if (!autoSync) {
+    applyWriterThreadLocals(proxyWriter);
+  }
+}

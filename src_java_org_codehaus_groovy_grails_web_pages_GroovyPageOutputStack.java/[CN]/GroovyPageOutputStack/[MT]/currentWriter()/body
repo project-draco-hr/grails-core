@@ -1,0 +1,9 @@
+{
+  GroovyPageOutputStack outputStack=currentStack(false);
+  if (outputStack != null) {
+    return outputStack.getProxyWriter();
+  }
+ else {
+    return (Writer)RequestContextHolder.currentRequestAttributes().getAttribute(GrailsApplicationAttributes.OUT,RequestAttributes.SCOPE_REQUEST);
+  }
+}

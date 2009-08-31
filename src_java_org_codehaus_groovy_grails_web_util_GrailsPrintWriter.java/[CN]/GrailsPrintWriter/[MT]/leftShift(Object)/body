@@ -1,5 +1,6 @@
 {
   if (value != null) {
+    usageFlag=true;
     InvokerHelper.write(this,value);
   }
   return this;

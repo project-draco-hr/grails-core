@@ -1,0 +1,9 @@
+{
+  State xml=new State();
+  html.addRule(new StateTransitionRule("xml",xml));
+  html.addRule(new HtmlAttributesRule(page));
+  html.addRule(new MetaTagRule(page));
+  html.addRule(new ParameterExtractingRule(page));
+  html.addRule(new ContentBlockExtractingRule(page));
+  xml.addRule(new MSOfficeDocumentPropertiesRule(page));
+}

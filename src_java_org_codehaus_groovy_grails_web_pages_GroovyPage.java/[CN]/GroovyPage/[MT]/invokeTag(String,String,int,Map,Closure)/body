@@ -27,6 +27,7 @@
     }
 ;
   }
+  boolean prevUsed=out.resetUsed();
   try {
     if (gspTagLibraryLookup.hasNamespace(tagNamespace)) {
       GroovyObject tagLib=getTagLib(tagName,tagNamespace);
@@ -34,18 +35,25 @@
         Object tagLibProp=tagLib.getProperty(tagName);
         if (tagLibProp instanceof Closure) {
           Closure tag=(Closure)((Closure)tagLibProp).clone();
+          Object tagresult=null;
 switch (tag.getParameterTypes().length) {
 case 1:
-            tag.call(new Object[]{attrs});
-          if (body != null && body != EMPTY_BODY_CLOSURE) {
-            body.call();
+            tagresult=tag.call(new Object[]{attrs});
+          if (tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+            out.print(tagresult);
           }
-        break;
+        if (body != null && body != EMPTY_BODY_CLOSURE) {
+          body.call();
+        }
+      break;
 case 2:
-      if (tag.getParameterTypes().length == 2) {
-        tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
+    if (tag.getParameterTypes().length == 2) {
+      tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
+      if (tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+        out.print(tagresult);
       }
-    break;
+    }
+  break;
 }
 }
  else {
@@ -83,6 +91,11 @@ throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumb
 }
  else {
 throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
+}
+}
+ finally {
+if (prevUsed) {
+out.setUsed(true);
 }
 }
 }

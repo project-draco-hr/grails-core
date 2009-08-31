@@ -2,14 +2,14 @@
   int writtenCount=0;
   while (charsUnread() > 0) {
     if (prepareChildArrayChunkReading()) {
-      writtenCount+=readingStringChunkGroup.writeTo(target);
-      if (readingStringChunkGroup.getUnreadChars() == 0) {
-        readingStringChunkGroup=null;
+      writtenCount+=readingSubChunkGroup.writeTo(target);
+      if (readingSubChunkGroup.getUnreadChars() == 0) {
+        readingSubChunkGroup=null;
       }
     }
     int nextCharArrPointerPos=-1;
-    if (StringChunkGroups != null && !StringChunkGroups.isEmpty()) {
-      nextCharArrPointerPos=StringChunkGroups.peek().getOwnerIndex();
+    if (subChunkGroups != null && !subChunkGroups.isEmpty()) {
+      nextCharArrPointerPos=subChunkGroups.peek().getOwnerIndex();
     }
     if (pointer < used) {
       int limit=(nextCharArrPointerPos != -1) ? nextCharArrPointerPos : used;

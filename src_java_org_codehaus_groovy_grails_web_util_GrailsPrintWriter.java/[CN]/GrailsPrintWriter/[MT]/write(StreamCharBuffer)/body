@@ -1,6 +1,7 @@
 {
   if (trouble)   return;
   try {
+    usageFlag=true;
     otherBuffer.writeTo(getOut(),true,false);
   }
  catch (  IOException e) {

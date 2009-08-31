@@ -1,8 +1,13 @@
 {
-  while (prepareRead(flushAll) != -1) {
-    totalCharsUnread-=currentReadChunk.writeTo(target);
+  if (target instanceof StreamCharBufferWriter) {
+    ((StreamCharBufferWriter)target).write(this);
   }
-  if (flushTarget) {
-    target.flush();
+ else {
+    while (prepareRead(flushAll) != -1) {
+      totalCharsUnread-=currentReadChunk.writeTo(target);
+    }
+    if (flushTarget) {
+      target.flush();
+    }
   }
 }

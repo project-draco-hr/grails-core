@@ -4,7 +4,8 @@
     try {
       reader.readImpl(buf,0,buf.length);
     }
- catch (    EOFException e) {
+ catch (    IOException e) {
+      throw new RuntimeException("Unexpected IOException",e);
     }
   }
   return buf;

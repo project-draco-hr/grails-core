@@ -1,0 +1,12 @@
+{
+  if (currentSubChunkUnderRead != null && currentSubChunkUnderRead.getUnreadChars() > 0) {
+    return true;
+  }
+  if (!unreadSubChunks.isEmpty()) {
+    currentSubChunkUnderRead=unreadSubChunks.removeFirst();
+    unreadChars-=currentSubChunkUnderRead.getUnreadChars();
+    return true;
+  }
+  currentSubChunkUnderRead=null;
+  return false;
+}

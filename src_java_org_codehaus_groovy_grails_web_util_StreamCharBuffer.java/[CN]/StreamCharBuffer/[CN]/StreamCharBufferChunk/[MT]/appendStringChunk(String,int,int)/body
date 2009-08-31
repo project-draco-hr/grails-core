@@ -1,10 +1,6 @@
 {
-  if (writingStringChunkGroup == null || used != writingStringChunkGroup.getOwnerIndex()) {
-    writingStringChunkGroup=new StringChunkGroup(used);
-    if (StringChunkGroups == null) {
-      StringChunkGroups=new LinkedList<StringChunkGroup>();
-    }
-    StringChunkGroups.add(writingStringChunkGroup);
-  }
-  unreadCharsInStringChunkGroups+=writingStringChunkGroup.appendString(str,off,len);
+  prepareWrite();
+  int appendlen=writingSubChunkGroup.appendString(str,off,len);
+  unreadCharsInSubChunkGroups+=appendlen;
+  return appendlen;
 }

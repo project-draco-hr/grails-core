@@ -1,6 +1,7 @@
 {
   if (trouble || s == null || s.length() == 0)   return;
   try {
+    usageFlag=true;
     out.write(s,off,len);
   }
  catch (  IOException e) {

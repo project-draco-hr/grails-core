@@ -3,17 +3,17 @@
   int readOff=off;
   while (readLen > 0) {
     if (prepareChildArrayChunkReading()) {
-      int readCharsLen=readingStringChunkGroup.read(ch,readOff,readLen);
+      int readCharsLen=readingSubChunkGroup.read(ch,readOff,readLen);
       readLen-=readCharsLen;
       readOff+=readCharsLen;
-      if (readingStringChunkGroup.getUnreadChars() == 0) {
-        readingStringChunkGroup=null;
+      if (readingSubChunkGroup.getUnreadChars() == 0) {
+        readingSubChunkGroup=null;
       }
     }
     if (readLen > 0) {
       int nextCharArrPointerPos=-1;
-      if (StringChunkGroups != null && !StringChunkGroups.isEmpty()) {
-        nextCharArrPointerPos=StringChunkGroups.peek().getOwnerIndex();
+      if (subChunkGroups != null && !subChunkGroups.isEmpty()) {
+        nextCharArrPointerPos=subChunkGroups.peek().getOwnerIndex();
       }
       int actualReadLen=readLen;
       if (nextCharArrPointerPos != -1 && nextCharArrPointerPos < pointer + readLen) {

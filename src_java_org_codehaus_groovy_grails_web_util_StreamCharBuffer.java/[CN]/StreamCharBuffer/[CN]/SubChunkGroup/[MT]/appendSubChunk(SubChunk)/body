@@ -1,0 +1,5 @@
+{
+  unreadSubChunks.add(child);
+  unreadChars+=child.getUnreadChars();
+  return child.getUnreadChars();
+}

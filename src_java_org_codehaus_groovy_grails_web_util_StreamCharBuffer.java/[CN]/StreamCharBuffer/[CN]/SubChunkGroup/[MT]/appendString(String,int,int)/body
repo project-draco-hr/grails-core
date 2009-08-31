@@ -1,0 +1,9 @@
+{
+  if (str.length() > 0) {
+    SubChunk child=new StringSubChunk(str,off,len);
+    return appendSubChunk(child);
+  }
+ else {
+    return 0;
+  }
+}

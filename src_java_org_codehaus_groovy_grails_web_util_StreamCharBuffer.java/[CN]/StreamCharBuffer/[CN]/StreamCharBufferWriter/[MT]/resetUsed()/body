@@ -1,0 +1,5 @@
+{
+  boolean prevUsed=this.writerUsed;
+  this.writerUsed=false;
+  return prevUsed;
+}

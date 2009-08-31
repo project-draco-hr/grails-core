@@ -3,6 +3,7 @@
     return;
   }
   try {
+    usageFlag=true;
     out.write(s);
   }
  catch (  IOException e) {

@@ -1,0 +1,6 @@
+{
+  prepareWrite();
+  int appendlen=writingSubChunkGroup.appendStreamCharBuffer(subBuffer);
+  unreadCharsInSubChunkGroups+=appendlen;
+  return appendlen;
+}

@@ -1,17 +1,17 @@
 {
-  if (StringChunkGroups == null) {
+  if (subChunkGroups == null) {
     return false;
   }
-  if (readingStringChunkGroup != null && readingStringChunkGroup.hasUnreadChars()) {
+  if (readingSubChunkGroup != null && readingSubChunkGroup.hasUnreadChars()) {
     return true;
   }
-  if (StringChunkGroups.isEmpty()) {
+  if (subChunkGroups.isEmpty()) {
     return false;
   }
-  if (StringChunkGroups.peek().getOwnerIndex() != pointer) {
+  if (subChunkGroups.peek().getOwnerIndex() != pointer) {
     return false;
   }
-  readingStringChunkGroup=StringChunkGroups.removeFirst();
-  unreadCharsInStringChunkGroups-=readingStringChunkGroup.getUnreadChars();
+  readingSubChunkGroup=subChunkGroups.removeFirst();
+  unreadCharsInSubChunkGroups-=readingSubChunkGroup.getUnreadChars();
   return true;
 }

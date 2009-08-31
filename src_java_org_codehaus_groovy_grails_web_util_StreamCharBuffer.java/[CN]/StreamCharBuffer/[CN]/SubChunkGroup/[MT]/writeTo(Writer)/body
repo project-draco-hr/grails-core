@@ -1,0 +1,8 @@
+{
+  int writtenCount=0;
+  while (prepareReading()) {
+    writtenCount+=currentSubChunkUnderRead.writeTo(target);
+  }
+  afterReading();
+  return writtenCount;
+}

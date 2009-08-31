@@ -10,7 +10,8 @@
     try {
       reader.readImpl(cachedToCharArray,previousCharArray.length,addedLen);
     }
- catch (    EOFException e) {
+ catch (    IOException e) {
+      throw new RuntimeException("Unexpected IOException",e);
     }
   }
   return cachedToCharArray;

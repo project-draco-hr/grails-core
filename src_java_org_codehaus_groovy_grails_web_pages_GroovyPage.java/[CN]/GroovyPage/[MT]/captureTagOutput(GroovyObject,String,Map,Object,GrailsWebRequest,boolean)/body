@@ -11,8 +11,8 @@
         bodyResult=tag.call(new Object[]{attrs});
         if (actualBody != null && actualBody != EMPTY_BODY_CLOSURE) {
           Object bodyResult2=actualBody.call();
-          if (bodyResult == null) {
-            bodyResult=bodyResult2;
+          if (bodyResult2 != null) {
+            out.print(bodyResult2);
           }
         }
       }
@@ -26,7 +26,7 @@
       if (buffer.charsAvailable() == 0 && bodyResult != null && !(bodyResult instanceof Writer)) {
         return bodyResult;
       }
-      return buffer.toString();
+      return buffer;
     }
  else {
       throw new GrailsTagException("Tag [" + methodName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");

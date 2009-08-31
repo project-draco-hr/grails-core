@@ -1,9 +1,9 @@
 {
-  if (s == null || s.trim().length() == 0) {
+  if (StringUtils.isEmpty(s)) {
     return;
   }
   parse.flushTagBuffering();
-  super.print("printToOut(");
+  super.print("out.print(");
   super.print(s);
   super.print(")");
   println();

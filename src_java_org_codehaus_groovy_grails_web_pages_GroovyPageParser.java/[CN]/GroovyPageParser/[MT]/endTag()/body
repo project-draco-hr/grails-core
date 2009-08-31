@@ -28,7 +28,6 @@
     }
     if (tm.bufferMode && tm.bufferPartNumber != -1) {
       if (!bodyVarsDefined.contains(tm.tagIndex)) {
-        out.print("def ");
         bodyVarsDefined.add(tm.tagIndex);
       }
       out.println("body" + tm.tagIndex + " = createClosureForHtmlPart("+ tm.bufferPartNumber+ ")");

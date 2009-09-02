@@ -1,0 +1,15 @@
+{
+  final String actionName=(String)request.getAttribute(GrailsApplicationAttributes.ACTION_NAME_ATTRIBUTE);
+  if (controllerClass != null && actionName != null) {
+    if (controllerClass.isFlowAction(actionName)) {
+      final String flowid=controllerClass.getLogicalPropertyName() + "/" + actionName;
+      return new AbstractFlowHandler(){
+        public String getFlowId(){
+          return flowid;
+        }
+      }
+;
+    }
+  }
+  return null;
+}

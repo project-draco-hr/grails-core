@@ -1,0 +1,10 @@
+{
+  if (controllerClass != null) {
+    try {
+      return getWebApplicationContext().getBean(MAIN_CONTROLLER_BEAN,Controller.class);
+    }
+ catch (    NoSuchBeanDefinitionException e) {
+    }
+  }
+  return null;
+}

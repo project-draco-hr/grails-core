@@ -1,9 +1,9 @@
 {
   WebApplicationContext webContext=getWebApplicationContext();
-  GrailsApplication application=(GrailsApplication)webContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+  GrailsApplication application=webContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   GrailsClass[] bootstraps=application.getArtefacts(BootstrapArtefactHandler.TYPE);
-  for (int i=0; i < bootstraps.length; i++) {
-    ((GrailsBootstrapClass)bootstraps[i]).callDestroy();
+  for (  GrailsClass bootstrap : bootstraps) {
+    ((GrailsBootstrapClass)bootstrap).callDestroy();
   }
   super.destroy();
 }

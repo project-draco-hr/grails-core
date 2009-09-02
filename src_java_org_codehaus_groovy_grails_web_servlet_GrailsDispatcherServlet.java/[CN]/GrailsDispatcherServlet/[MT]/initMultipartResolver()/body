@@ -1,6 +1,6 @@
 {
   try {
-    this.multipartResolver=(MultipartResolver)getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
+    this.multipartResolver=getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
     if (logger.isInfoEnabled()) {
       logger.info("Using MultipartResolver [" + this.multipartResolver + "]");
     }

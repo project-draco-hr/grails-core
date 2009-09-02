@@ -17,7 +17,7 @@
   GrailsWebRequest previousRequestAttributes=null;
   Exception handlerException=null;
   try {
-    ModelAndView mv=null;
+    ModelAndView mv;
     try {
       Object exceptionAttribute=request.getAttribute(EXCEPTION_ATTRIBUTE);
       if (exceptionAttribute == null)       processedRequest=checkMultipart(request);

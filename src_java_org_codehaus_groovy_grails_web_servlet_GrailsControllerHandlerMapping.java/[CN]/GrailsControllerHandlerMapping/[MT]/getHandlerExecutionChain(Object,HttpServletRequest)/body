@@ -1,0 +1,10 @@
+{
+  if (handler instanceof HandlerExecutionChain) {
+    HandlerExecutionChain chain=(HandlerExecutionChain)handler;
+    chain.addInterceptors(lookupInterceptors(getWebApplicationContext()));
+    return chain;
+  }
+ else {
+    return new HandlerExecutionChain(handler,lookupInterceptors(getWebApplicationContext()));
+  }
+}

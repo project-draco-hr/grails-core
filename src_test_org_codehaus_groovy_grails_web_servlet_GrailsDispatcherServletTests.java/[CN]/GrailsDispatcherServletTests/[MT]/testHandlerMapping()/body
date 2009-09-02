@@ -5,9 +5,9 @@
     appCtx.registerMockBean("localeInterceptor",new LocaleChangeInterceptor());
     appCtx.registerMockBean("openSessionInView",new OpenSessionInViewInterceptor());
     SimpleGrailsController controller=new SimpleGrailsController();
-    appCtx.registerMockBean(SimpleGrailsController.APPLICATION_CONTEXT_ID,controller);
-    appCtx.registerMockBean("simpleControllerHandlerAdapter",new SimpleControllerHandlerAdapter());
-    appCtx.registerMockBean("handlerMappings",new SimpleUrlHandlerMapping());
+    appCtx.registerMockBean("mainSimpleController",controller);
+    GrailsControllerHandlerMapping handlerMapping=new GrailsControllerHandlerMapping();
+    appCtx.registerMockBean("controllerHandlerMappings",handlerMapping);
     GrailsDispatcherServlet dispatcherServlet=new GrailsDispatcherServlet(){
       protected WebApplicationContext initWebApplicationContext() throws BeansException {
         initStrategies(appCtx);
@@ -19,6 +19,8 @@
     cl.parseClass("class TestController {" + "def action = {} " + "}");
     final DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication(cl.getLoadedClasses(),cl);
     grailsApplication.initialise();
+    handlerMapping.setGrailsApplication(grailsApplication);
+    handlerMapping.setApplicationContext(appCtx);
     dispatcherServlet.setApplication(grailsApplication);
     dispatcherServlet.init(new MockServletConfig(new MockServletContext()));
     MockHttpServletRequest request=new MockHttpServletRequest("GET","/test/action");

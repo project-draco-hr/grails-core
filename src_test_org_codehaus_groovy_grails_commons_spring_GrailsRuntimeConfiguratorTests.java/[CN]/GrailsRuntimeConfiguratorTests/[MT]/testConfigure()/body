@@ -30,8 +30,6 @@
   assertEquals(dc,persistentClass);
   org.codehaus.groovy.grails.validation.GrailsDomainClassValidator validator=(org.codehaus.groovy.grails.validation.GrailsDomainClassValidator)ctx.getBean("TestValidator");
   assertTrue(validator.supports(dc));
-  HotSwappableTargetSource ts=(HotSwappableTargetSource)ctx.getBean(GrailsUrlHandlerMapping.APPLICATION_CONTEXT_TARGET_SOURCE);
-  assertNotNull(ts.getTarget());
   GroovyObject controller=(GroovyObject)ctx.getBean("TestController");
   assertEquals(c,controller.getClass());
 }

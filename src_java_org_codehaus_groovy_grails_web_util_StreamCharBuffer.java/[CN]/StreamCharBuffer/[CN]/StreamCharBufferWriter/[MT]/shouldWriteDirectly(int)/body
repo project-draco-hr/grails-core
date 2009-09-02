@@ -1,5 +1,5 @@
 {
-  if (connectedWriters.isEmpty()) {
+  if (connectedWriters == null || connectedWriters.isEmpty()) {
     return false;
   }
   return writeDirectlyToConnectedMinSize >= 0 && len > writeDirectlyToConnectedMinSize;

@@ -2,7 +2,7 @@
   if (methodName.equals("invokeTag"))   return super.invokeMethod(methodName,args);
   Map attrs=null;
   Object body=null;
-  GroovyObject tagLib=getTagLib(methodName);
+  GroovyObject tagLib=getTagLibForDefaultNamespace(methodName);
   if (tagLib != null) {
     if (args instanceof Object[]) {
       Object[] argArray=(Object[])args;
@@ -17,7 +17,7 @@
     if (attrs == null) {
       attrs=new HashMap();
     }
-    return captureTagOutput(tagLib,methodName,attrs,body,webRequest,false);
+    return captureTagOutput(gspTagLibraryLookup,DEFAULT_NAMESPACE,methodName,attrs,body,webRequest);
   }
  else {
     return super.invokeMethod(methodName,args);

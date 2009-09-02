@@ -1,7 +1,7 @@
 {
+  usageFlag=true;
   if (trouble)   return;
   try {
-    usageFlag=true;
     out.write(c);
   }
  catch (  IOException e) {

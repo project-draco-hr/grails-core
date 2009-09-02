@@ -3,6 +3,12 @@
     return null;
   }
  else {
-    return buffer.parse();
+    GSPSitemeshPage page=(GSPSitemeshPage)request.getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+    if (page != null && page.isUsed()) {
+      return page;
+    }
+ else {
+      return buffer.parse();
+    }
   }
 }

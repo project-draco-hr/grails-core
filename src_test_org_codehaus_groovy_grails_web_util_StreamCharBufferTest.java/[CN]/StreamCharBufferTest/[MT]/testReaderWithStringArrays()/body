@@ -1,6 +1,6 @@
 {
   StreamCharBuffer charBuffer=new StreamCharBuffer(10);
-  charBuffer.setStringChunkMinSize(6);
+  charBuffer.setSubStringChunkMinSize(6);
   Writer writer=charBuffer.getWriter();
   writer.write("ABCDE");
   writer.write("12345".toCharArray());

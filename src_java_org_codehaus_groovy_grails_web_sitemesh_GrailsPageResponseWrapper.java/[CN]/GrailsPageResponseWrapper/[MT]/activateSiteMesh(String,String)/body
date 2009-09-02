@@ -2,7 +2,7 @@
   if (parseablePage) {
     return;
   }
-  buffer=new GrailsBuffer(parserSelector.getPageParser(contentType),encoding);
+  buffer=new GrailsBuffer(parserSelector.getPageParser(contentType),encoding,gspSitemeshPage);
   routablePrintWriter.updateDestination(new GrailsRoutablePrintWriter.DestinationFactory(){
     public PrintWriter activateDestination(){
       return buffer.getWriter();

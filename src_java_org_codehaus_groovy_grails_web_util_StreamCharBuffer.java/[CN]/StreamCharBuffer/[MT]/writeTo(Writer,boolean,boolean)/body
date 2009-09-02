@@ -1,13 +1,18 @@
 {
   if (target instanceof StreamCharBufferWriter) {
-    ((StreamCharBufferWriter)target).write(this);
+    int otherMinSize=((StreamCharBufferWriter)target).getBuffer().getSubBufferChunkMinSize();
+    if (preferSubChunkWhenWritingToOtherBuffer || otherMinSize <= 0 || calculateTotalCharsUnread() >= otherMinSize) {
+      if (target == writer) {
+        throw new IllegalArgumentException("Cannot write buffer to itself.");
+      }
+      ((StreamCharBufferWriter)target).write(this);
+      return;
+    }
   }
- else {
-    while (prepareRead(flushAll) != -1) {
-      totalCharsUnread-=currentReadChunk.writeTo(target);
-    }
-    if (flushTarget) {
-      target.flush();
-    }
+  while (prepareRead(flushAll) != -1) {
+    totalCharsUnread-=currentReadChunk.writeTo(target);
+  }
+  if (flushTarget) {
+    target.flush();
   }
 }

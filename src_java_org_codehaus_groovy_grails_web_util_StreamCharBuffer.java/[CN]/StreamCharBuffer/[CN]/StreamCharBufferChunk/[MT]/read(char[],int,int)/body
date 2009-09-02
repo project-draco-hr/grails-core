@@ -2,7 +2,7 @@
   int readLen=len;
   int readOff=off;
   while (readLen > 0) {
-    if (prepareChildArrayChunkReading()) {
+    if (prepareSubChunkRead()) {
       int readCharsLen=readingSubChunkGroup.read(ch,readOff,readLen);
       readLen-=readCharsLen;
       readOff+=readCharsLen;

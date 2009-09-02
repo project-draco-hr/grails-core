@@ -1,5 +1,6 @@
 {
   if (trouble || obj == null) {
+    usageFlag=true;
     return;
   }
  else {

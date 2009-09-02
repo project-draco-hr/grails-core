@@ -2,7 +2,7 @@
   Writer target=null;
   StreamCharBuffer streamBuffer=null;
   BoundedCharsAsEncodedBytesCounter bytesCounter=null;
-  if (!(response instanceof GrailsContentBufferingResponse)) {
+  if (!(response instanceof GrailsContentBufferingResponse) && (BUFFERING_ENABLED || CONTENT_LENGTH_COUNTING_ENABLED)) {
     streamBuffer=new StreamCharBuffer(max,0,max);
     target=streamBuffer.getWriter();
     if (CONTENT_LENGTH_COUNTING_ENABLED) {

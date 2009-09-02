@@ -5,7 +5,7 @@
     flushCurrentWriteChunkInConnectedMode();
     connectedWritersWriter.write(str,off,len);
   }
- else   if (len > stringChunkMinSize) {
+ else   if (len > subStringChunkMinSize) {
     currentWriteChunk.appendStringChunk(str,off,len);
     totalCharsUnread+=len;
   }

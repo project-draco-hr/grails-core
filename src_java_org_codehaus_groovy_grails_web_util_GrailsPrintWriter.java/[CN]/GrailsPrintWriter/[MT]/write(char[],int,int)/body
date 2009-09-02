@@ -1,7 +1,7 @@
 {
+  usageFlag=true;
   if (trouble || buf == null || len == 0)   return;
   try {
-    usageFlag=true;
     out.write(buf,off,len);
   }
  catch (  IOException e) {

@@ -1,6 +1,6 @@
 {
   StreamCharBuffer charBuffer=new StreamCharBuffer(10,0,10);
-  charBuffer.setStringChunkMinSize(6);
+  charBuffer.setSubStringChunkMinSize(6);
   charBuffer.setWriteDirectlyToConnectedMinSize(6);
   doBufferedTesting(charBuffer);
 }

@@ -75,11 +75,15 @@
       buffer.print('[');
       for (Iterator i=attrs.keySet().iterator(); i.hasNext(); ) {
         String name=(String)i.next();
-        buffer.print(name);
+        String cleanedName=name;
+        if (name.startsWith("\"") && name.endsWith("\"")) {
+          cleanedName="'" + name.substring(1,name.length() - 1) + "'";
+        }
+        buffer.print(cleanedName);
         buffer.print(':');
         buffer.print(getExpressionText(attrs.get(name).toString()));
         if (i.hasNext())         buffer.print(',');
- else         buffer.println(']');
+ else         buffer.print(']');
       }
       attrsVarsMapDefinition.put(tagIndex,buffer.toString());
     }

@@ -1,6 +1,11 @@
 {
-  StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
-  streamBuffer.connectTo(target);
-  Writer writer=streamBuffer.getWriter();
-  return new GSPResponseWriter(writer);
+  if (BUFFERING_ENABLED && !(target instanceof GrailsRoutablePrintWriter) && !(target instanceof StreamCharBufferWriter)) {
+    StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
+    streamBuffer.connectTo(target,false);
+    Writer writer=streamBuffer.getWriter();
+    return new GSPResponseWriter(writer);
+  }
+ else {
+    return new GSPResponseWriter(target);
+  }
 }

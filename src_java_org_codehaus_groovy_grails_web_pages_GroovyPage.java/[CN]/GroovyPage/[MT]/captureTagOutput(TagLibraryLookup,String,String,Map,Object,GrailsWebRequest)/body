@@ -1,0 +1,40 @@
+{
+  GroovyObject tagLib=lookupCachedTagLib(webRequest,gspTagLibraryLookup,namespace,tagName);
+  boolean preferSubChunkWhenWritingToOtherBuffer=resolvePreferSubChunk(namespace,tagName);
+  Closure actualBody=createOutputCapturingClosure(tagLib,body,webRequest,preferSubChunkWhenWritingToOtherBuffer);
+  final GroovyPageTagWriter out=new GroovyPageTagWriter(preferSubChunkWhenWritingToOtherBuffer);
+  try {
+    GroovyPageOutputStack.currentStack().push(out);
+    Object tagLibProp=tagLib.getProperty(tagName);
+    if (tagLibProp instanceof Closure) {
+      Closure tag=(Closure)((Closure)tagLibProp).clone();
+      Object bodyResult=null;
+      if (tag.getParameterTypes().length == 1) {
+        bodyResult=tag.call(new Object[]{attrs});
+        if (actualBody != null && actualBody != EMPTY_BODY_CLOSURE) {
+          Object bodyResult2=actualBody.call();
+          if (bodyResult2 != null) {
+            out.print(bodyResult2);
+          }
+        }
+      }
+ else       if (tag.getParameterTypes().length == 2) {
+        bodyResult=tag.call(new Object[]{attrs,actualBody});
+      }
+ else {
+        throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
+      }
+      boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
+      if (returnsObject && !out.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
+        return bodyResult;
+      }
+      return out.getBuffer();
+    }
+ else {
+      throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
+    }
+  }
+  finally {
+    GroovyPageOutputStack.currentStack().pop();
+  }
+}

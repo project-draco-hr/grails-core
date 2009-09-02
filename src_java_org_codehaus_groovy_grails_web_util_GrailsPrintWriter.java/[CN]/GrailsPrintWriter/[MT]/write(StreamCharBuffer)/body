@@ -1,8 +1,8 @@
 {
+  usageFlag=true;
   if (trouble)   return;
   try {
-    usageFlag=true;
-    otherBuffer.writeTo(getOut(),true,false);
+    otherBuffer.writeTo(findStreamCharBufferTarget());
   }
  catch (  IOException e) {
     handleIOException(e);

@@ -4,21 +4,21 @@
     write("null");
   }
  else {
-    if (csq instanceof StringBuilder || csq instanceof StringBuffer || csq instanceof String) {
+    if (csq instanceof String || csq instanceof StringBuffer || csq instanceof StringBuilder) {
       int len=end - start;
       int charsLeft=len;
       int currentOffset=start;
       while (charsLeft > 0) {
         int spaceLeft=allocateSpace();
         int writeChars=Math.min(spaceLeft,charsLeft);
-        if (csq instanceof StringBuilder) {
-          currentWriteChunk.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
+        if (csq instanceof String) {
+          currentWriteChunk.writeString((String)csq,currentOffset,writeChars);
         }
  else         if (csq instanceof StringBuffer) {
           currentWriteChunk.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
         }
- else         if (csq instanceof String) {
-          currentWriteChunk.writeString((String)csq,currentOffset,writeChars);
+ else         if (csq instanceof StringBuilder) {
+          currentWriteChunk.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
         }
         charsLeft-=writeChars;
         currentOffset+=writeChars;

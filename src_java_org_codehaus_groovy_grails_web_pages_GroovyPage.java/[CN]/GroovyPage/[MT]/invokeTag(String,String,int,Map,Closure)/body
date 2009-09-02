@@ -29,17 +29,22 @@
   }
   boolean prevUsed=out.resetUsed();
   try {
-    if (gspTagLibraryLookup.hasNamespace(tagNamespace)) {
-      GroovyObject tagLib=getTagLib(tagName,tagNamespace);
+    GroovyObject tagLib=getTagLib(tagNamespace,tagName);
+    if (tagLib != null || gspTagLibraryLookup.hasNamespace(tagNamespace)) {
       if (tagLib != null) {
+        boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(tagNamespace,tagName);
         Object tagLibProp=tagLib.getProperty(tagName);
         if (tagLibProp instanceof Closure) {
           Closure tag=(Closure)((Closure)tagLibProp).clone();
           Object tagresult=null;
+          boolean preferSubChunkWhenWritingToOtherBuffer=resolvePreferSubChunk(tagNamespace,tagName);
+          if (body instanceof GroovyPageTagBody && preferSubChunkWhenWritingToOtherBuffer) {
+            ((GroovyPageTagBody)body).setPreferSubChunkWhenWritingToOtherBuffer(true);
+          }
 switch (tag.getParameterTypes().length) {
 case 1:
             tagresult=tag.call(new Object[]{attrs});
-          if (tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+          if (returnsObject && tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
             out.print(tagresult);
           }
         if (body != null && body != EMPTY_BODY_CLOSURE) {
@@ -49,7 +54,7 @@ case 1:
 case 2:
     if (tag.getParameterTypes().length == 2) {
       tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
-      if (tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+      if (returnsObject && tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
         out.print(tagresult);
       }
     }

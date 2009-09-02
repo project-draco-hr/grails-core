@@ -1,0 +1,6 @@
+{
+  if (connectedWriters == null) {
+    connectedWriters=new ArrayList<ConnectedWriter>(2);
+    connectedWritersWriter=new MultiOutputWriter(connectedWriters);
+  }
+}

@@ -1,9 +1,9 @@
 {
+  usageFlag=true;
   if (trouble || s == null) {
     return;
   }
   try {
-    usageFlag=true;
     out.write(s);
   }
  catch (  IOException e) {

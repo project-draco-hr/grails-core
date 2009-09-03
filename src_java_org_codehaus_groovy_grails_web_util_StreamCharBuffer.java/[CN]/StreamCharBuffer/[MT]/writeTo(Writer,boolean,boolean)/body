@@ -1,5 +1,5 @@
 {
-  if (target instanceof StreamCharBufferWriter) {
+  if (target instanceof StreamCharBufferWriter && cachedToString == null) {
     int otherMinSize=((StreamCharBufferWriter)target).getBuffer().getSubBufferChunkMinSize();
     if (preferSubChunkWhenWritingToOtherBuffer || otherMinSize <= 0 || calculateTotalCharsUnread() >= otherMinSize) {
       if (target == writer) {
@@ -8,6 +8,9 @@
       ((StreamCharBufferWriter)target).write(this);
       return;
     }
+  }
+ else   if (cachedToString != null) {
+    target.write(cachedToString);
   }
   while (prepareRead(flushAll) != -1) {
     totalCharsUnread-=currentReadChunk.writeTo(target);

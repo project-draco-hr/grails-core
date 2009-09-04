@@ -1,6 +1,0 @@
-{
-  prepareSubChunkWrite();
-  int appendlen=writingSubChunkGroup.appendString(str,off,len);
-  unreadCharsInSubChunkGroups+=appendlen;
-  return appendlen;
-}

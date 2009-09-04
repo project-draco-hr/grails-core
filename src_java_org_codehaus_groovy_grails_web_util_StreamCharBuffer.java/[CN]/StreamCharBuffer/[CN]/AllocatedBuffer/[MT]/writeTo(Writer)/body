@@ -1,0 +1,5 @@
+{
+  if (used - chunkStart > 0) {
+    target.write(buffer,chunkStart,used - chunkStart);
+  }
+}

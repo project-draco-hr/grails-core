@@ -3,9 +3,7 @@
   Writer writer=charBuffer.getWriter();
   writer.write("Hello world!");
   writer.close();
-  assertEquals(0,charBuffer.filledChunkCount());
   String str=charBuffer.readAsString();
   assertEquals("Hello world!",str);
-  assertEquals(0,charBuffer.charsAvailable());
-  assertEquals(0,charBuffer.size());
+  assertEquals(12,charBuffer.size());
 }

@@ -10,28 +10,25 @@
   }
   int charsLeft=len;
   int currentOffset=off;
-  int charsUnread=prepareRead();
-  if (charsUnread == 0 && eofReached) {
+  int readChars=prepareRead(charsLeft);
+  if (eofException) {
     throw new EOFException();
   }
   int totalCharsRead=0;
-  while (charsLeft > 0 && charsUnread != -1) {
-    int readChars=Math.min(charsUnread,charsLeft);
-    currentReadChunk.read(b,currentOffset,readChars);
+  while (charsLeft > 0 && readChars > 0) {
+    chunkReader.read(b,currentOffset,readChars);
     charsLeft-=readChars;
     currentOffset+=readChars;
     totalCharsRead+=readChars;
     if (charsLeft > 0) {
-      charsUnread=prepareRead();
+      readChars=prepareRead(charsLeft);
     }
   }
   if (totalCharsRead > 0) {
-    totalCharsUnread-=totalCharsRead;
-    eofReached=false;
     return totalCharsRead;
   }
  else {
-    eofReached=true;
+    eofException=true;
     return -1;
   }
 }

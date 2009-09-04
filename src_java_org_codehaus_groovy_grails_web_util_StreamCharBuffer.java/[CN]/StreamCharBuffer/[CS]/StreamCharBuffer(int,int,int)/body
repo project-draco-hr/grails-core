@@ -3,6 +3,5 @@
   this.growProcent=growProcent;
   this.maxChunkSize=maxChunkSize;
   writer=new StreamCharBufferWriter();
-  reader=new StreamCharBufferReader();
   reset(true);
 }

@@ -4,12 +4,12 @@
   Writer writer=charBuffer.getWriter();
   writer.write("ABCDE");
   writer.write("12345".toCharArray());
-  writer.write("A");
+  writer.write("!");
   writer.write("1234567");
   writer.write("ABCDE");
   writer.write("67890".toCharArray());
   writer.close();
-  assertEquals("ABCDE12345A1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
-  assertEquals(0,charBuffer.charsAvailable());
-  assertEquals(0,charBuffer.size());
+  assertEquals("ABCDE12345!1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+  assertEquals("ABCDE12345!1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+  assertEquals(28,charBuffer.size());
 }

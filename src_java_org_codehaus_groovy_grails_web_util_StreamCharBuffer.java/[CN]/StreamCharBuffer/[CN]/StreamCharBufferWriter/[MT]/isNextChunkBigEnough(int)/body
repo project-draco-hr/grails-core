@@ -1,0 +1,3 @@
+{
+  return chunkMinSize <= 0 || allocBuffer.charsUsed() >= chunkMinSize || len > allocBuffer.spaceLeft();
+}

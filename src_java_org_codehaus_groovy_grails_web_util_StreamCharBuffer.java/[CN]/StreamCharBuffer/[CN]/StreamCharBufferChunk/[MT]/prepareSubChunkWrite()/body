@@ -1,9 +1,0 @@
-{
-  if (writingSubChunkGroup == null || used != writingSubChunkGroup.getOwnerIndex()) {
-    writingSubChunkGroup=new SubChunkGroup(used);
-    if (subChunkGroups == null) {
-      subChunkGroups=new LinkedList<SubChunkGroup>();
-    }
-    subChunkGroups.add(writingSubChunkGroup);
-  }
-}

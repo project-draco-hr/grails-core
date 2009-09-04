@@ -1,5 +1,11 @@
 {
   writerUsed=true;
-  int len=currentWriteChunk.appendStreamCharBuffer(subBuffer);
-  totalCharsUnread+=len;
+  int len=subBuffer.size();
+  if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || (len > subBufferChunkMinSize && isNextChunkBigEnough(len))) {
+    appendStreamCharBufferChunk(subBuffer);
+    subBuffer.addParentBuffer(StreamCharBuffer.this);
+  }
+ else {
+    subBuffer.writeToImpl(this,false,false);
+  }
 }

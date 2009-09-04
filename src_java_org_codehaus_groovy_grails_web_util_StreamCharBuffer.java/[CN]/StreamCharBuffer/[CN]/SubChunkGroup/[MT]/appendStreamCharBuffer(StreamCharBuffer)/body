@@ -1,8 +1,0 @@
-{
-  if (subBuffer.calculateTotalCharsUnread() > 0) {
-    return appendSubChunk(new StreamCharBufferSubChunk(subBuffer));
-  }
- else {
-    return 0;
-  }
-}

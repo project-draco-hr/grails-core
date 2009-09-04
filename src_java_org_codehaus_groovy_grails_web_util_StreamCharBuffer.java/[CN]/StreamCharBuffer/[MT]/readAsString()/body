@@ -1,6 +1,6 @@
 {
-  if (calculateTotalCharsUnread() > 0) {
-    char[] buf=readAsCharArray();
+  char[] buf=readAsCharArray();
+  if (buf.length > 0) {
     return StringCharArrayAccessor.createString(buf);
   }
  else {

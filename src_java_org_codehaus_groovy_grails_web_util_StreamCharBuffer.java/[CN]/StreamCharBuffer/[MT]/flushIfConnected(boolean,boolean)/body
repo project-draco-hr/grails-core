@@ -1,5 +1,0 @@
-{
-  if (connectedWriters != null && !connectedWriters.isEmpty()) {
-    writeTo(connectedWritersWriter,flushAll,flushTarget);
-  }
-}

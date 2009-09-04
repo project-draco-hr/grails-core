@@ -9,6 +9,5 @@
   writer.close();
   assertEquals(25,charBuffer.size());
   assertEquals("ABCDE12345ABCDEABCDE67890",charBuffer.toString());
-  assertEquals(0,charBuffer.charsAvailable());
-  assertEquals(0,charBuffer.size());
+  assertEquals(25,charBuffer.size());
 }

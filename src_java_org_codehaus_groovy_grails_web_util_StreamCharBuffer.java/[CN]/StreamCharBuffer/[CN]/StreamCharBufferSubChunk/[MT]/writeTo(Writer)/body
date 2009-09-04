@@ -1,6 +1,3 @@
 {
-  int charsBefore=streamCharBuffer.calculateTotalCharsUnread();
   streamCharBuffer.writeTo(target);
-  int totalRead=charsBefore - streamCharBuffer.calculateTotalCharsUnread();
-  return totalRead;
 }

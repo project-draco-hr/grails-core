@@ -1,0 +1,5 @@
+{
+  for (  ConnectedWriter writer : writers) {
+    writer.getWriter().write(str,off,len);
+  }
+}

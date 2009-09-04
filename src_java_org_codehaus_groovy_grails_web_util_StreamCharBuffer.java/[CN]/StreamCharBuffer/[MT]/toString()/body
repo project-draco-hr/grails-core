@@ -1,14 +1,13 @@
 {
-  if (cachedToString == null) {
-    cachedToString=readAsString();
+  if (firstChunk == lastChunk && firstChunk instanceof StringChunk) {
+    return ((StringChunk)firstChunk).str;
   }
- else   if (calculateTotalCharsUnread() > 0) {
-    if (cachedToString.length() > 0) {
-      cachedToString=new StringBuilder(cachedToString).append(readAsString()).toString();
-    }
  else {
-      cachedToString=readAsString();
+    String str=readAsString();
+    reset();
+    if (str.length() > 0) {
+      addChunk(new StringChunk(str,0,str.length()));
     }
+    return str;
   }
-  return cachedToString;
 }

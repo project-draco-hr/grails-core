@@ -1,0 +1,11 @@
+{
+  StreamCharBufferSubChunk subChunk=dynamicChunkMap.get(buffer);
+  if (subChunk == null) {
+    return false;
+  }
+  if (subChunk.resetSize()) {
+    totalCharsInDynamicChunks=-1;
+    notifyBufferChange();
+  }
+  return true;
+}

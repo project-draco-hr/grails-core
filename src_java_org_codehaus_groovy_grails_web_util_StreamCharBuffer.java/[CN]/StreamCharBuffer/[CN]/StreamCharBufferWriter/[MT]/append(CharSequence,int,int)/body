@@ -12,18 +12,17 @@
         int spaceLeft=allocateSpace();
         int writeChars=Math.min(spaceLeft,charsLeft);
         if (csq instanceof String) {
-          currentWriteChunk.writeString((String)csq,currentOffset,writeChars);
+          allocBuffer.writeString((String)csq,currentOffset,writeChars);
         }
  else         if (csq instanceof StringBuffer) {
-          currentWriteChunk.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
+          allocBuffer.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
         }
  else         if (csq instanceof StringBuilder) {
-          currentWriteChunk.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
+          allocBuffer.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
         }
         charsLeft-=writeChars;
         currentOffset+=writeChars;
       }
-      totalCharsUnread+=len;
     }
  else {
       write(csq.subSequence(start,end).toString());

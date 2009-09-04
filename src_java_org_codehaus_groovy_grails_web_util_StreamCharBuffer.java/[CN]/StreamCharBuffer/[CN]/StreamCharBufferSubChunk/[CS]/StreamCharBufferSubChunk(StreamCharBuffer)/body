@@ -1,4 +1,7 @@
 {
   this.streamCharBuffer=streamCharBuffer;
-  this.reader=streamCharBuffer.getReader();
+  this.cachedSize=streamCharBuffer.size();
+  if (totalCharsInDynamicChunks != -1) {
+    totalCharsInDynamicChunks+=cachedSize;
+  }
 }

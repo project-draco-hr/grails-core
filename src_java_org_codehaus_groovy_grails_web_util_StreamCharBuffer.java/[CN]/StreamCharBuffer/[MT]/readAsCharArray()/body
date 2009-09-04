@@ -1,8 +1,9 @@
 {
-  char[] buf=new char[calculateTotalCharsUnread()];
+  char[] buf=new char[size()];
   if (buf.length > 0) {
+    StreamCharBufferReader reader=new StreamCharBufferReader();
     try {
-      reader.readImpl(buf,0,buf.length);
+      reader.read(buf,0,buf.length);
     }
  catch (    IOException e) {
       throw new RuntimeException("Unexpected IOException",e);

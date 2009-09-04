@@ -1,0 +1,6 @@
+{
+  if (parentBuffers == null) {
+    parentBuffers=new HashSet<SoftReference<StreamCharBuffer>>();
+  }
+  parentBuffers.add(new SoftReference<StreamCharBuffer>(parent));
+}

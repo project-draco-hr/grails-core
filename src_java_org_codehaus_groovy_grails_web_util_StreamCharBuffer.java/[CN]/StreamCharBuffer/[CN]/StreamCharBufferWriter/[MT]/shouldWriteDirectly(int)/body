@@ -1,6 +1,9 @@
 {
-  if (connectedWriters == null || connectedWriters.isEmpty()) {
+  if (!isConnectedMode()) {
     return false;
   }
-  return writeDirectlyToConnectedMinSize >= 0 && len > writeDirectlyToConnectedMinSize;
+  if (!(writeDirectlyToConnectedMinSize >= 0 && len > writeDirectlyToConnectedMinSize)) {
+    return false;
+  }
+  return isNextChunkBigEnough(len);
 }

@@ -12,6 +12,5 @@
   StringWriter sw=new StringWriter();
   charBuffer.writeTo(sw);
   assertEquals("ABCDE12345ABCDEABCDE67890",sw.toString());
-  assertEquals(0,charBuffer.charsAvailable());
-  assertEquals(0,charBuffer.size());
+  assertEquals(25,charBuffer.size());
 }

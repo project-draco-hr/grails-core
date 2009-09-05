@@ -1,5 +1,5 @@
 {
   for (  ConnectedWriter writer : writers) {
-    writer.getWriter().write(str,off,len);
+    StringCharArrayAccessor.writeStringAsCharArray(writer.getWriter(),str,off,len);
   }
 }

@@ -2,7 +2,7 @@
   if (!isConnectedMode()) {
     return false;
   }
-  if (!(writeDirectlyToConnectedMinSize >= 0 && len > writeDirectlyToConnectedMinSize)) {
+  if (!(writeDirectlyToConnectedMinSize >= 0 && len >= writeDirectlyToConnectedMinSize)) {
     return false;
   }
   return isNextChunkBigEnough(len);

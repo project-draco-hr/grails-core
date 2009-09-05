@@ -5,7 +5,7 @@
     appendCharBufferChunk(true);
     connectedWritersWriter.write(str,off,len);
   }
- else   if (len > subStringChunkMinSize && isNextChunkBigEnough(len)) {
+ else   if (len >= subStringChunkMinSize && isNextChunkBigEnough(len)) {
     appendStringChunk(str,off,len);
   }
  else {

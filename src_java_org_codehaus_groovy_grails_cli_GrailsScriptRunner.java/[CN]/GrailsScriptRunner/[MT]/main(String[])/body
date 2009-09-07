@@ -23,9 +23,11 @@
     System.out.println("Script not found: " + ex.getScriptName());
   }
 catch (  Throwable t) {
-    System.out.println("Error executing script " + script.name + ": "+ t.getMessage());
+    String msg="Error executing script " + script.name + ": "+ t.getMessage();
+    System.out.println(msg);
     sanitizeStacktrace(t);
     t.printStackTrace(System.out);
+    System.out.println(msg);
     System.exit(1);
   }
 }

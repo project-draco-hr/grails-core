@@ -6,26 +6,12 @@
   if (settings.getResourcesDir() != null && settings.getResourcesDir().exists()) {
     urls.add(settings.getResourcesDir().toURI().toURL());
   }
-  List compileDependencies=settings.getCompileDependencies();
-  for (  Object compileDependency : compileDependencies) {
-    File file=(File)compileDependency;
-    if (!excludes.contains(file.getName())) {
-      urls.add(file.toURI().toURL());
-      excludes.add(file.getName());
-    }
-  }
-  List runtimeDeps=settings.getRuntimeDependencies();
-  for (Iterator iter=runtimeDeps.iterator(); iter.hasNext(); ) {
-    File file=(File)iter.next();
-    if (urls.contains(file))     continue;
-    if (!excludes.contains(file.getName())) {
-      urls.add(file.toURI().toURL());
-      excludes.add(file.getName());
-    }
-  }
-  if (settings.getGrailsHome() != null) {
-    addLibs(new File(settings.getGrailsHome(),"lib"),urls,excludes);
-  }
+  System.out.println("Resolving dependencies...");
+  long now=System.currentTimeMillis();
+  addDependenciesToURLs(excludes,urls,settings.getBuildDependencies());
+  addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
+  addDependenciesToURLs(excludes,urls,settings.getRuntimeDependencies());
+  System.out.println("Dependencies resolved in " + (System.currentTimeMillis() - now) + "ms.");
   if (!skipPlugins) {
     for (    File dir : listKnownPluginDirs(settings)) {
       addPluginLibs(dir,urls);

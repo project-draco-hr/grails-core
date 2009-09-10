@@ -1,17 +1,3 @@
 {
-  if (cachedToCharArray == null || cachedToCharArray.length == 0) {
-    cachedToCharArray=readAsCharArray();
-  }
- else   if (calculateTotalCharsUnread() > 0) {
-    char[] previousCharArray=cachedToCharArray;
-    int addedLen=calculateTotalCharsUnread();
-    cachedToCharArray=new char[previousCharArray.length + addedLen];
-    arrayCopy(previousCharArray,0,cachedToCharArray,0,previousCharArray.length);
-    try {
-      reader.readImpl(cachedToCharArray,previousCharArray.length,addedLen);
-    }
- catch (    EOFException e) {
-    }
-  }
-  return cachedToCharArray;
+  return readAsCharArray();
 }

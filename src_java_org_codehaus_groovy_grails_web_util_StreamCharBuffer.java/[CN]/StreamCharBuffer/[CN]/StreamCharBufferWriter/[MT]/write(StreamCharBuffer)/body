@@ -1,0 +1,15 @@
+{
+  writerUsed=true;
+  int len=subBuffer.size();
+  if (shouldWriteDirectly(len)) {
+    appendCharBufferChunk(true);
+    subBuffer.writeToImpl(connectedWritersWriter,false,false);
+  }
+ else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || (len >= subBufferChunkMinSize && isNextChunkBigEnough(len))) {
+    appendStreamCharBufferChunk(subBuffer);
+    subBuffer.addParentBuffer(StreamCharBuffer.this);
+  }
+ else {
+    subBuffer.writeToImpl(this,false,false);
+  }
+}

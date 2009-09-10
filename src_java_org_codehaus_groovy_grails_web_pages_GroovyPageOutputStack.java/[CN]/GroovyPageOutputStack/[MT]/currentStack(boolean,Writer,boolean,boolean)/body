@@ -1,0 +1,18 @@
+{
+  GroovyPageOutputStack outputStack=instances.get();
+  if (outputStack != null) {
+    if (pushTop && topWriter != null) {
+      outputStack.push(topWriter);
+    }
+    return outputStack;
+  }
+ else   if (allowCreate) {
+    if (topWriter == null) {
+      topWriter=defaultRequest();
+    }
+    return createNew(topWriter,autoSync);
+  }
+ else {
+    return null;
+  }
+}

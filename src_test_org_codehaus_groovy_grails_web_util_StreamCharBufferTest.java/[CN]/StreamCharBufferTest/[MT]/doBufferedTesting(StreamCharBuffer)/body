@@ -7,6 +7,7 @@
   writer.write("A");
   assertEquals("ABCDE12345",sw.toString());
   writer.write("1234567");
+  writer.flush();
   if (StringCharArrayAccessor.isEnabled()) {
     assertEquals("ABCDE12345A1234567",sw.toString());
   }
@@ -14,6 +15,5 @@
   writer.write("67890".toCharArray());
   writer.close();
   assertEquals("ABCDE12345A1234567ABCDE67890",sw.toString());
-  assertEquals(0,charBuffer.charsAvailable());
   assertEquals(0,charBuffer.size());
 }

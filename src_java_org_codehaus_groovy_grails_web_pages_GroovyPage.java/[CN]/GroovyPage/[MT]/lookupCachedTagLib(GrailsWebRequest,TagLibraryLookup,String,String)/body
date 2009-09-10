@@ -1,0 +1,24 @@
+{
+  if (webRequest != null) {
+    String tagKey=namespace + ":" + tagName;
+    Map<String,GroovyObject> tagLibCache=(Map<String,GroovyObject>)webRequest.getCurrentRequest().getAttribute(REQUEST_TAGLIB_CACHE);
+    GroovyObject tagLib=null;
+    if (tagLibCache == null) {
+      tagLibCache=new HashMap<String,GroovyObject>();
+      webRequest.getCurrentRequest().setAttribute(REQUEST_TAGLIB_CACHE,tagLibCache);
+    }
+ else {
+      tagLib=tagLibCache.get(tagKey);
+    }
+    if (tagLib == null) {
+      tagLib=gspTagLibraryLookup.lookupTagLibrary(namespace,tagName);
+      if (tagLib != null) {
+        tagLibCache.put(tagKey,tagLib);
+      }
+    }
+    return tagLib;
+  }
+ else {
+    return gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupTagLibrary(namespace,tagName) : null;
+  }
+}

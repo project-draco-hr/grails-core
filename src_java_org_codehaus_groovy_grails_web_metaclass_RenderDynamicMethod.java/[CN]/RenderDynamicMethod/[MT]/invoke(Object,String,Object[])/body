@@ -23,15 +23,15 @@
       String contentType=argMap.get(ARGUMENT_CONTENT_TYPE).toString();
       String encoding=argMap.get(ARGUMENT_ENCODING).toString();
       setContentType(response,contentType,encoding);
-      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
+      out=GSPResponseWriter.getInstance(response);
     }
  else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
       setContentType(response,argMap.get(ARGUMENT_CONTENT_TYPE).toString(),DEFAULT_ENCODING);
-      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
+      out=GSPResponseWriter.getInstance(response);
     }
  else {
       setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
-      out=GSPResponseWriter.getInstance(response,BUFFER_SIZE);
+      out=GSPResponseWriter.getInstance(response);
     }
     if (argMap.containsKey(ARGUMENT_STATUS)) {
       Object statusObj=argMap.get(ARGUMENT_STATUS);

@@ -1,0 +1,18 @@
+{
+  AbstractChunk current=firstChunk;
+  while (current != null) {
+    current.writeTo(target);
+    current=current.next;
+  }
+  if (emptyAfter) {
+    firstChunk=null;
+    lastChunk=null;
+  }
+  allocBuffer.writeTo(target);
+  if (emptyAfter) {
+    allocBuffer.reuseBuffer();
+  }
+  if (flushTarget) {
+    target.flush();
+  }
+}

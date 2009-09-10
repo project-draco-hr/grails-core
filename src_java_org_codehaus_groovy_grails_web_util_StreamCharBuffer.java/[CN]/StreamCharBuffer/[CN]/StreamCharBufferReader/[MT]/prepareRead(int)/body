@@ -1,0 +1,27 @@
+{
+  if (chunkReader == null && !eofReached) {
+    if (firstChunk != null) {
+      chunkReader=firstChunk.getChunkReader();
+    }
+ else {
+      chunkReader=new AllocatedBufferReader(allocBuffer);
+    }
+  }
+  int available=0;
+  if (chunkReader != null) {
+    available=chunkReader.getReadLenLimit(len);
+    while (available == 0 && chunkReader != null) {
+      chunkReader=chunkReader.next();
+      if (chunkReader != null) {
+        available=chunkReader.getReadLenLimit(len);
+      }
+ else {
+        available=0;
+      }
+    }
+  }
+  if (chunkReader == null) {
+    eofReached=true;
+  }
+  return available;
+}

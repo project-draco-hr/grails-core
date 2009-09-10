@@ -1,6 +1,5 @@
 {
   writerUsed=true;
   allocateSpace();
-  currentWriteChunk.write((char)b);
-  totalCharsUnread++;
+  allocBuffer.write((char)b);
 }

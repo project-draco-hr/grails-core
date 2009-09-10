@@ -11,6 +11,7 @@
     out.println("def request = binding.request");
     out.println("def flash = binding.flash");
     out.println("def response = binding.response");
+    out.println("def out = binding.out");
     if (codecClassName != null) {
       out.println("request.setAttribute('org.codehaus.groovy.grails.GSP_CODEC', '" + codecName + "')");
     }

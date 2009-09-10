@@ -1,7 +1,6 @@
 {
   if (currentlyBufferingWhitespace) {
-    out.printlnToResponse(whitespaceBuffer.toString());
-    clearBufferedWhiteSpace();
+    appendHtmlPart(null);
   }
   currentlyBufferingWhitespace=false;
 }

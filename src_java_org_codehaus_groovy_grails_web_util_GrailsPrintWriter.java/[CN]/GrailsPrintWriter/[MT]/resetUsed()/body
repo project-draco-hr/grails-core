@@ -1,0 +1,5 @@
+{
+  boolean prevUsed=this.usageFlag;
+  this.usageFlag=false;
+  return prevUsed;
+}

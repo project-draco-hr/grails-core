@@ -1,0 +1,6 @@
+{
+  if (cachedSize == -1) {
+    cachedSize=streamCharBuffer.size();
+  }
+  return cachedSize;
+}

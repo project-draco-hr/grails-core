@@ -1,0 +1,10 @@
+{
+  usageFlag=true;
+  if (trouble)   return;
+  try {
+    otherBuffer.writeTo(findStreamCharBufferTarget());
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

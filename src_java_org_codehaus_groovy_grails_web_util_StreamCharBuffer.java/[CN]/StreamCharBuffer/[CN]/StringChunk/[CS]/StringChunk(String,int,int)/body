@@ -1,5 +1,6 @@
 {
   this.str=str;
-  this.readOffset=off;
-  this.unreadChars=len;
+  this.offset=offset;
+  this.length=length;
+  this.lastposition=offset + length;
 }

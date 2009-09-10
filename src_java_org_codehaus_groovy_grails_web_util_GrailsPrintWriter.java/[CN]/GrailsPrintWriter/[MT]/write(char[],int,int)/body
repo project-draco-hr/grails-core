@@ -1,4 +1,5 @@
 {
+  usageFlag=true;
   if (trouble || buf == null || len == 0)   return;
   try {
     out.write(buf,off,len);

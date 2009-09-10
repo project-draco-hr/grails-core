@@ -1,0 +1,5 @@
+{
+  arrayCopy(parent.buffer,position,ch,off,len);
+  position+=len;
+  return len;
+}

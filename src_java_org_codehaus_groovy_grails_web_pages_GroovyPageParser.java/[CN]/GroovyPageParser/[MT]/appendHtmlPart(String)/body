@@ -1,0 +1,16 @@
+{
+  if (whitespaceBuffer.length() > 0) {
+    if (text != null) {
+      whitespaceBuffer.append(text);
+    }
+    text=whitespaceBuffer.toString();
+    clearBufferedWhiteSpace();
+  }
+  Integer constantNumber=constantsToNumbers.get(text);
+  if (constantNumber == null) {
+    constantNumber=new Integer(constantCount++);
+    constantsToNumbers.put(text,constantNumber);
+    htmlParts.add(text);
+  }
+  htmlPartPrintlnToResponse(constantNumber);
+}

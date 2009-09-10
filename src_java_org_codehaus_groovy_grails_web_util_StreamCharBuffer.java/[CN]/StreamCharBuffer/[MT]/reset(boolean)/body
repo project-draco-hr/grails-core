@@ -1,13 +1,13 @@
 {
-  chunks=new LinkedList<StreamCharBufferChunk>();
-  totalCharsUnreadInList=0;
-  totalCharsUnread=0;
+  firstChunk=null;
+  lastChunk=null;
+  totalCharsInList=0;
+  totalCharsInDynamicChunks=0;
   if (resetChunkSize) {
     chunkSize=firstChunkSize;
     totalChunkSize=0;
   }
-  currentWriteChunk=new StreamCharBufferChunk(chunkSize);
-  currentReadChunk=null;
-  cachedToString=null;
-  cachedToCharArray=null;
+  allocBuffer=new AllocatedBuffer(chunkSize);
+  dynamicChunkMap=new HashMap<StreamCharBuffer,StreamCharBufferSubChunk>();
+  parentBuffers=null;
 }

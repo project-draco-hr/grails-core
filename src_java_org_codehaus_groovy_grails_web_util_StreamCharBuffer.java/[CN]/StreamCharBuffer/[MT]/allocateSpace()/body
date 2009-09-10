@@ -1,7 +1,7 @@
 {
-  int spaceLeft=currentWriteChunk.spaceLeft();
+  int spaceLeft=allocBuffer.spaceLeft();
   if (spaceLeft == 0) {
-    spaceLeft=endCurrentWriteChunk();
+    spaceLeft=appendCharBufferChunk(true);
   }
   return spaceLeft;
 }

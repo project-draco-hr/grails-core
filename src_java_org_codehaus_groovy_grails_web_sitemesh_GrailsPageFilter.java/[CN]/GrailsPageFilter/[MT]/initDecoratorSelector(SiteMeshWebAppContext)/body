@@ -4,14 +4,15 @@
   return new DecoratorMapper2DecoratorSelector(factory.getDecoratorMapper()){
     public Decorator selectDecorator(    Content content,    SiteMeshContext context){
       SiteMeshWebAppContext webAppContext=(SiteMeshWebAppContext)context;
-      final com.opensymphony.module.sitemesh.Decorator decorator=factory.getDecoratorMapper().getDecorator(webAppContext.getRequest(),new Content2HTMLPage(content));
+      final com.opensymphony.module.sitemesh.Decorator decorator=factory.getDecoratorMapper().getDecorator(webAppContext.getRequest(),content2htmlPage(content));
       if (decorator == null || decorator.getPage() == null) {
         return new NoDecorator();
       }
  else {
         return new OldDecorator2NewDecorator(decorator){
           protected void render(          Content content,          HttpServletRequest request,          HttpServletResponse response,          ServletContext servletContext,          SiteMeshWebAppContext webAppContext) throws IOException, ServletException {
-            request.setAttribute(PAGE,new Content2HTMLPage(content));
+            HTMLPage htmlPage=content2htmlPage(content);
+            request.setAttribute(PAGE,htmlPage);
             if (decorator.getURIPath() != null) {
               if (servletContext.getContext(decorator.getURIPath()) != null) {
                 servletContext=servletContext.getContext(decorator.getURIPath());

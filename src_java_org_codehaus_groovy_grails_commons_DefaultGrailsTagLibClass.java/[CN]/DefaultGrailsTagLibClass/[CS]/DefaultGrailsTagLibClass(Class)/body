@@ -23,4 +23,10 @@
   if (ns != null && !"".equals(ns.trim())) {
     namespace=ns.trim();
   }
+  List returnObjectForTagsList=(List)getPropertyOrStaticPropertyOrFieldValue(RETURN_OBJECT_FOR_TAGS_FIELD_NAME,List.class);
+  if (returnObjectForTagsList != null) {
+    for (    Object tagName : returnObjectForTagsList) {
+      returnObjectForTagsSet.add(String.valueOf(tagName));
+    }
+  }
 }

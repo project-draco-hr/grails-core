@@ -1,0 +1,12 @@
+{
+  if (!tagMetaStack.isEmpty()) {
+    TagMeta tm=tagMetaStack.peek();
+    if (tm.bufferMode) {
+      writeTagBodyStart(tm);
+      if (tm.bufferPartNumber != -1) {
+        htmlPartPrintlnRaw(tm.bufferPartNumber);
+      }
+      tm.bufferMode=false;
+    }
+  }
+}

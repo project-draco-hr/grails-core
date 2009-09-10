@@ -1,0 +1,5 @@
+{
+  CharBufferChunk chunk=new CharBufferChunk(buffer,chunkStart,used - chunkStart);
+  chunkStart=used;
+  return chunk;
+}

@@ -1,0 +1,8 @@
+{
+  super(owner);
+  if (bodyClosure == null)   throw new IllegalStateException("Argument [bodyClosure] cannot be null!");
+  if (webRequest == null)   throw new IllegalStateException("Argument [webRequest] cannot be null!");
+  this.bodyClosure=bodyClosure;
+  this.binding=GroovyPageUtils.findPageScopeBinding(owner,webRequest);
+  this.preferSubChunkWhenWritingToOtherBuffer=preferSubChunkWhenWritingToOtherBuffer;
+}

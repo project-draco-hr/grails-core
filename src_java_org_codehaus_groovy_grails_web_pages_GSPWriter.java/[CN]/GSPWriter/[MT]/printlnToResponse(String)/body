@@ -1,5 +1,8 @@
 {
-  if (s == null)   s="''";
+  if (StringUtils.isEmpty(s)) {
+    return;
+  }
+  parse.flushTagBuffering();
   super.print("out.print(");
   super.print(s);
   super.print(")");

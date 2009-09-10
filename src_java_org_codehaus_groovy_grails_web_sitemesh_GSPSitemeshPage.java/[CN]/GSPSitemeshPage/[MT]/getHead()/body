@@ -1,0 +1,6 @@
+{
+  if (headBuffer != null) {
+    return headBuffer.toString();
+  }
+  return null;
+}

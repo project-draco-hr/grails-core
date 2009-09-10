@@ -1,8 +1,10 @@
 {
-  while (prepareRead(flushAll) != -1) {
-    totalCharsUnread-=currentReadChunk.writeTo(target);
+  if (target instanceof StreamCharBufferWriter) {
+    if (target == writer) {
+      throw new IllegalArgumentException("Cannot write buffer to itself.");
+    }
+    ((StreamCharBufferWriter)target).write(this);
+    return;
   }
-  if (flushTarget) {
-    target.flush();
-  }
+  writeToImpl(target,flushTarget,emptyAfter);
 }

@@ -1,0 +1,11 @@
+{
+  GroovyPageOutputStack instance=new GroovyPageOutputStack(topWriter,autoSync);
+  RequestContextHolder.currentRequestAttributes().registerDestructionCallback(GroovyPageOutputStack.class.getName(),new Runnable(){
+    @Override public void run(){
+      GroovyPageOutputStack.removeCurrentInstance();
+    }
+  }
+,RequestAttributes.SCOPE_REQUEST);
+  instances.set(instance);
+  return instance;
+}

@@ -1,0 +1,9 @@
+{
+  TestBean bean=bindDateTimeWithCustomEditor("01/01/2009","01:00 PM");
+  assertNotNull(bean.getMyDateTime());
+  SimpleDateFormat dateFormat=new SimpleDateFormat(DATE_TIME_FORMAT);
+  assertEquals("01/01/2009 01:00 PM",dateFormat.format(bean.getMyDateTime().getDateTime()));
+  bean=bindDateTimeWithCustomEditor("01/01/2009","");
+  assertNotNull(bean.getMyDateTime());
+  assertEquals("01/01/2009 12:00 AM",dateFormat.format(bean.getMyDateTime().getDateTime()));
+}

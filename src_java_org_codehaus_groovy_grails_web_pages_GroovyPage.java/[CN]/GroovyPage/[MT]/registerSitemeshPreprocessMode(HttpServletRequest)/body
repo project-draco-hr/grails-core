@@ -1,4 +1,6 @@
 {
   GSPSitemeshPage page=(GSPSitemeshPage)request.getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
-  page.setUsed(true);
+  if (page != null) {
+    page.setUsed(true);
+  }
 }

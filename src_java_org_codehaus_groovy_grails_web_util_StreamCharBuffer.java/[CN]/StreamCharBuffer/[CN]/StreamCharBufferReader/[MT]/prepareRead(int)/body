@@ -1,10 +1,21 @@
 {
-  if (chunkReader == null && !eofReached) {
+  if (eofReachedCounter != 0) {
+    int currentWriterCounter=writer.writerUsedCounter;
+    if (eofReachedCounter != currentWriterCounter) {
+      eofReachedCounter=0;
+      eofException=false;
+      repositionChunkReader();
+    }
+  }
+  if (chunkReader == null && eofReachedCounter == 0) {
     if (firstChunk != null) {
-      chunkReader=firstChunk.getChunkReader();
+      chunkReader=firstChunk.getChunkReader(removeAfterReading);
+      if (removeAfterReading) {
+        firstChunk.subtractFromTotalCount();
+      }
     }
  else {
-      chunkReader=new AllocatedBufferReader(allocBuffer);
+      chunkReader=new AllocatedBufferReader(allocBuffer,removeAfterReading);
     }
   }
   int available=0;
@@ -21,7 +32,10 @@
     }
   }
   if (chunkReader == null) {
-    eofReached=true;
+    eofReachedCounter=writer.writerUsedCounter;
+  }
+ else {
+    lastChunkReader=chunkReader;
   }
   return available;
 }

@@ -1,5 +1,8 @@
 {
   arrayCopy(parent.buffer,position,ch,off,len);
   position+=len;
+  if (removeAfterReading) {
+    parent.chunkStart=position;
+  }
   return len;
 }

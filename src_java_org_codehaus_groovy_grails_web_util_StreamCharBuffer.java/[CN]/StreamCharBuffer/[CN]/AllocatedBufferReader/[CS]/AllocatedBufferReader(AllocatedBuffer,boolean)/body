@@ -1,0 +1,6 @@
+{
+  this.parent=parent;
+  this.position=parent.chunkStart;
+  this.writerUsedCounter=writer.writerUsedCounter;
+  this.removeAfterReading=removeAfterReading;
+}

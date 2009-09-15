@@ -1,5 +1,5 @@
 {
-  boolean prevUsed=this.writerUsed;
-  this.writerUsed=false;
+  int prevUsed=writerUsedCounter;
+  writerUsedCounter=0;
   return prevUsed;
 }

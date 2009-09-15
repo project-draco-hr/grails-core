@@ -1,6 +1,6 @@
 {
   if (len == 0)   return;
-  writerUsed=true;
+  writerUsedCounter++;
   if (shouldWriteDirectly(len)) {
     appendCharBufferChunk(true);
     connectedWritersWriter.write(str,off,len);

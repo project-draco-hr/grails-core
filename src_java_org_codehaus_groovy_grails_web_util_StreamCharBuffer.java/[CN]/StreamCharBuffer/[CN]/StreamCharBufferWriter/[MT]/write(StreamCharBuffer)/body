@@ -1,5 +1,5 @@
 {
-  writerUsed=true;
+  writerUsedCounter++;
   int len=subBuffer.size();
   if (shouldWriteDirectly(len)) {
     appendCharBufferChunk(true);

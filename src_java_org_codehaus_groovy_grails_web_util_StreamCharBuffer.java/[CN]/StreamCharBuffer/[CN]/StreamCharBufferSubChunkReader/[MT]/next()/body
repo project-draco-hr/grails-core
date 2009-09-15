@@ -1,8 +1,0 @@
-{
-  if (parent.next != null) {
-    return parent.next.getChunkReader();
-  }
- else {
-    return new AllocatedBufferReader(allocBuffer);
-  }
-}

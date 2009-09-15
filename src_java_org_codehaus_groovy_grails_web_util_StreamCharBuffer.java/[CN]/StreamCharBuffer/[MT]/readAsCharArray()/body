@@ -1,7 +1,7 @@
 {
   char[] buf=new char[size()];
   if (buf.length > 0) {
-    StreamCharBufferReader reader=new StreamCharBufferReader();
+    StreamCharBufferReader reader=new StreamCharBufferReader(false);
     try {
       reader.read(buf,0,buf.length);
     }

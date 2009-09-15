@@ -1,6 +1,7 @@
 {
   if (lastChunk != null) {
     lastChunk.next=newChunk;
+    newChunk.prev=lastChunk;
   }
   lastChunk=newChunk;
   if (firstChunk == null) {

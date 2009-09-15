@@ -17,6 +17,7 @@
       LOG.debug("Preprocessing " + filename + " for sitemesh. Replacing head, title, meta and body elements with g:capture*.");
     }
     gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
+    sitemeshPreprocessMode=true;
   }
   scan=new GroovyPageScanner(gspSource);
   this.pageName=filename;

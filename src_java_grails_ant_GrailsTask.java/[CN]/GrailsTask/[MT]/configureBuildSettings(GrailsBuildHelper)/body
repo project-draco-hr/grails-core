@@ -1,5 +1,0 @@
-{
-  helper.setCompileDependencies(pathsToFiles(compileClasspath));
-  helper.setTestDependencies(pathsToFiles(testClasspath));
-  helper.setRuntimeDependencies(pathsToFiles(runtimeClasspath));
-}

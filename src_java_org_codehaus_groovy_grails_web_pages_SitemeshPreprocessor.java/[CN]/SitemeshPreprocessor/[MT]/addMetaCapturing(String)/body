@@ -1,6 +1,5 @@
 {
   StringBuffer sb=new StringBuffer((int)(headContent.length() * 1.2));
-  Pattern metaPattern=Pattern.compile("<meta([^>]+)>",Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
   Matcher m=metaPattern.matcher(headContent);
   while (m.find()) {
     m.appendReplacement(sb,"");

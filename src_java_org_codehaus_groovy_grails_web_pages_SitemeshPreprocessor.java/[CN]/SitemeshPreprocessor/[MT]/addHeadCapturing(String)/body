@@ -1,0 +1,14 @@
+{
+  StringBuffer sb=new StringBuffer((int)(gspSource.length() * 1.2));
+  Matcher m=headPattern.matcher(gspSource);
+  if (m.find()) {
+    m.appendReplacement(sb,"");
+    sb.append("<g:captureHead");
+    if (m.group(1) != null)     sb.append(m.group(1));
+    sb.append(">");
+    sb.append(addMetaCapturing(addTitleCapturing(m.group(2))));
+    sb.append("</g:captureHead>");
+  }
+  m.appendTail(sb);
+  return sb;
+}

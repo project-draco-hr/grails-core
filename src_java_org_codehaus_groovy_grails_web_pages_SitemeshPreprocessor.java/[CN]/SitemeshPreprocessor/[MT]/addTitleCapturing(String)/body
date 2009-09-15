@@ -1,10 +1,11 @@
 {
   StringBuffer sb=new StringBuffer((int)(headContent.length() * 1.2));
-  Pattern titlePattern=Pattern.compile("<title([^>]*)>(.*?)</title>",Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
   Matcher m=titlePattern.matcher(headContent);
   if (m.find()) {
     m.appendReplacement(sb,"");
-    sb.append("<g:captureTitle").append(m.group(1)).append(">");
+    sb.append("<g:captureTitle");
+    if (m.group(1) != null)     sb.append(m.group(1));
+    sb.append(">");
     sb.append(m.group(2));
     sb.append("</g:captureTitle>");
   }

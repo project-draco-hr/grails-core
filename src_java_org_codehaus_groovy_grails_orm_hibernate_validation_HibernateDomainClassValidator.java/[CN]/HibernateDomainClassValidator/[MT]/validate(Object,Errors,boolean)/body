@@ -1,0 +1,16 @@
+{
+  final Session session=sessionFactory.getCurrentSession();
+  FlushMode previousMode=null;
+  try {
+    if (session != null) {
+      previousMode=session.getFlushMode();
+      session.setFlushMode(FlushMode.MANUAL);
+    }
+    super.validate(obj,errors,cascade);
+  }
+  finally {
+    if (session != null && previousMode != null) {
+      session.setFlushMode(previousMode);
+    }
+  }
+}

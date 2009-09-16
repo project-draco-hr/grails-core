@@ -1,5 +1,5 @@
 {
-  writerUsedCounter++;
+  markUsed();
   if (csq == null) {
     write("null");
   }

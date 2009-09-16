@@ -8,7 +8,7 @@
  else   if (len == 0) {
     return;
   }
-  writerUsedCounter++;
+  markUsed();
   if (shouldWriteDirectly(len)) {
     appendCharBufferChunk(true);
     connectedWritersWriter.write(b,off,len);

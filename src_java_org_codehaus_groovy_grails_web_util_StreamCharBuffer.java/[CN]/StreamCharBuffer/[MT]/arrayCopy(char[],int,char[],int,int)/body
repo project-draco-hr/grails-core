@@ -2,7 +2,7 @@
   if (length == 1) {
     dest[destPos]=src[srcPos];
   }
- else   if (length > 0) {
+ else {
     System.arraycopy(src,srcPos,dest,destPos,length);
   }
 }

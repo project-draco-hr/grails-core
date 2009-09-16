@@ -1,6 +1,11 @@
 {
   this.parent=parent;
   this.position=parent.chunkStart;
-  this.writerUsedCounter=writer.writerUsedCounter;
+  if (hasReaders) {
+    this.writerUsedCounter=writer.writerUsedCounter;
+  }
+ else {
+    this.writerUsedCounter=1;
+  }
   this.removeAfterReading=removeAfterReading;
 }

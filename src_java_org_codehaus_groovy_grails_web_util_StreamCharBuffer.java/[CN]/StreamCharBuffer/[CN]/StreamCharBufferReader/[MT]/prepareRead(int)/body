@@ -1,7 +1,6 @@
 {
-  if (eofReachedCounter != 0) {
-    int currentWriterCounter=writer.writerUsedCounter;
-    if (eofReachedCounter != currentWriterCounter) {
+  if (hasReaders && eofReachedCounter != 0) {
+    if (eofReachedCounter != writer.writerUsedCounter) {
       eofReachedCounter=0;
       eofException=false;
       repositionChunkReader();
@@ -32,9 +31,14 @@
     }
   }
   if (chunkReader == null) {
-    eofReachedCounter=writer.writerUsedCounter;
-  }
+    if (hasReaders) {
+      eofReachedCounter=writer.writerUsedCounter;
+    }
  else {
+      eofReachedCounter=1;
+    }
+  }
+ else   if (hasReaders) {
     lastChunkReader=chunkReader;
   }
   return available;

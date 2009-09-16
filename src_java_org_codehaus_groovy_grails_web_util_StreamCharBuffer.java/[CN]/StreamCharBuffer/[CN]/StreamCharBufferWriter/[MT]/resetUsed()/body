@@ -1,5 +1,6 @@
 {
   int prevUsed=writerUsedCounter;
   writerUsedCounter=0;
+  increaseCounter=true;
   return prevUsed;
 }

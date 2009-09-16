@@ -3,10 +3,6 @@
   if (finalPass) {
     out.println();
     out.print("class ");
-    if (packageName != null) {
-      out.print(packageName);
-      out.print('_');
-    }
     out.print(className);
     out.println(" extends GroovyPage {");
     out.println("public String getGroovyPageFileName() { \"" + pageName.replaceAll("\\\\","/") + "\" }");

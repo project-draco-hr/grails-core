@@ -2,7 +2,4 @@
   this.pageParser=pageParser;
   this.encoding=encoding;
   this.gspSitemeshPage=gspSitemeshPage;
-  if (gspSitemeshPage != null) {
-    gspSitemeshPage.setPageBuffer(streamBuffer);
-  }
 }

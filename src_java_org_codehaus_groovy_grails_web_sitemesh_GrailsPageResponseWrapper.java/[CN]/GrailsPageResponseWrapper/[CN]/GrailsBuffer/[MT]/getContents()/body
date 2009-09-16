@@ -1,9 +1,9 @@
 {
-  if (bufferedWriter != null) {
-    return streamBuffer.toCharArray();
+  if (charBuffer != null) {
+    return charBuffer.toCharArray();
   }
- else   if (bufferedStream != null) {
-    return TEXT_ENCODER.encode(bufferedStream.toByteArray(),encoding);
+ else   if (byteBuffer != null) {
+    return TEXT_ENCODER.encode(byteBuffer.readAsByteArray(),encoding);
   }
  else {
     return new char[0];

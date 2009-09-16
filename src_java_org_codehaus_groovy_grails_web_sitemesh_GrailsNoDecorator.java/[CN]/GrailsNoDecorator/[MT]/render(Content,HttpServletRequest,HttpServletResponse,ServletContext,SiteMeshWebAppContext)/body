@@ -1,0 +1,13 @@
+{
+  if (webAppContext.isUsingStream()) {
+    OutputStream output=response.getOutputStream();
+    PrintWriter writer=new PrintWriter(output);
+    content.writeOriginal(writer);
+    writer.flush();
+  }
+ else {
+    PrintWriter writer=response.getWriter();
+    content.writeOriginal(writer);
+    writer.flush();
+  }
+}

@@ -5,11 +5,15 @@
     factory.setSuperclass(interfaces.length == 1 ? persistentClass : null);
     factory.setInterfaces(interfaces);
     factory.setFilter(METHOD_FILTERS);
-    Class cl=factory.createClass();
-    final HibernateProxy proxy=(HibernateProxy)cl.newInstance();
+    if (WRITE_CLASSES_DIRECTORY != null) {
+      factory.writeDirectory=WRITE_CLASSES_DIRECTORY;
+    }
+    Class proxyClass=factory.createClass();
+    HibernatePluginSupport.enhanceProxyClass(proxyClass);
+    final HibernateProxy proxy=(HibernateProxy)proxyClass.newInstance();
     ((ProxyObject)proxy).setHandler(instance);
-    instance.constructed=true;
     HibernatePluginSupport.enhanceProxy(proxy);
+    instance.constructed=true;
     return proxy;
   }
  catch (  Throwable t) {

@@ -1,5 +1,5 @@
 {
-  if (!String.class.isInstance(propertyType)) {
+  if (isNotValidStringType()) {
     throw new MissingPropertyException("Matches constraint only applies to a String property",MATCHES_CONSTRAINT,owningClass);
   }
   MatchesConstraint c=(MatchesConstraint)this.appliedConstraints.get(MATCHES_CONSTRAINT);

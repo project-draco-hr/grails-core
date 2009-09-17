@@ -25,7 +25,7 @@
         throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
       }
       boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
-      if (returnsObject && !out.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
+      if (returnsObject && bodyResult != null && !(bodyResult instanceof Writer)) {
         return bodyResult;
       }
       return out.getBuffer();

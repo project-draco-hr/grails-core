@@ -27,7 +27,6 @@
     }
 ;
   }
-  boolean prevUsed=out.resetUsed();
   try {
     GroovyObject tagLib=getTagLib(tagNamespace,tagName);
     if (tagLib != null || gspTagLibraryLookup.hasNamespace(tagNamespace)) {
@@ -44,7 +43,7 @@
 switch (tag.getParameterTypes().length) {
 case 1:
             tagresult=tag.call(new Object[]{attrs});
-          if (returnsObject && tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+          if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
             out.print(tagresult);
           }
         if (body != null && body != EMPTY_BODY_CLOSURE) {
@@ -54,7 +53,7 @@ case 1:
 case 2:
     if (tag.getParameterTypes().length == 2) {
       tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
-      if (returnsObject && tagresult != null && !(tagresult instanceof Writer) && !out.isUsed()) {
+      if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
         out.print(tagresult);
       }
     }
@@ -70,20 +69,29 @@ throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag libra
 }
 }
  else {
-StringBuilder plainTag=new StringBuilder();
-String fullTagName=tagNamespace + ":" + tagName;
-plainTag.append("<").append(fullTagName);
+out.append('<').append(tagNamespace).append(':').append(tagName);
 for (Object o : attrs.entrySet()) {
 Map.Entry entry=(Map.Entry)o;
-plainTag.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
+out.append(' ').append(entry.getKey()).append('=');
+String value=String.valueOf(entry.getValue());
+boolean containsQuotes=(value.indexOf('"') > -1);
+boolean containsSingleQuote=(value.indexOf('\'') > -1);
+if (containsQuotes && !containsSingleQuote) {
+out.append('\'').append(value).append('\'');
 }
-plainTag.append(">");
-out.write(plainTag.toString());
+ else if (containsQuotes & containsSingleQuote) {
+out.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
+}
+ else {
+out.append('\"').append(value).append('\"');
+}
+}
+out.append('>');
 if (body != null) {
 Object bodyOutput=body.call();
-if (bodyOutput != null) out.write(bodyOutput.toString());
+if (bodyOutput != null) out.print(bodyOutput);
 }
-out.write("</" + fullTagName + ">");
+out.append("</").append(tagNamespace).append(':').append(tagName).append('>');
 }
 }
  catch (Exception e) {
@@ -96,11 +104,6 @@ throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumb
 }
  else {
 throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
-}
-}
- finally {
-if (prevUsed) {
-out.setUsed(true);
 }
 }
 }

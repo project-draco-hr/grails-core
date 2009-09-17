@@ -72,7 +72,8 @@ throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag libra
 out.append('<').append(tagNamespace).append(':').append(tagName);
 for (Object o : attrs.entrySet()) {
 Map.Entry entry=(Map.Entry)o;
-out.append(' ').append(entry.getKey()).append('=');
+out.append(' ');
+out.append(entry.getKey()).append('=');
 String value=String.valueOf(entry.getValue());
 boolean containsQuotes=(value.indexOf('"') > -1);
 boolean containsSingleQuote=(value.indexOf('\'') > -1);

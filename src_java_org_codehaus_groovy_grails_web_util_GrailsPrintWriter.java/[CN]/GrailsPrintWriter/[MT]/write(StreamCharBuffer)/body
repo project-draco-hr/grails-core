@@ -2,7 +2,7 @@
   usageFlag=true;
   if (trouble)   return;
   try {
-    otherBuffer.writeTo(findStreamCharBufferTarget());
+    otherBuffer.writeTo(findStreamCharBufferTarget(true));
   }
  catch (  IOException e) {
     handleIOException(e);

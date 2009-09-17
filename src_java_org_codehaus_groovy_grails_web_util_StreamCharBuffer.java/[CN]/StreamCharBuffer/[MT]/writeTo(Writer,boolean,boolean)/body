@@ -1,4 +1,7 @@
 {
+  if (target instanceof GrailsPrintWriter) {
+    target=((GrailsPrintWriter)target).getOut();
+  }
   if (target instanceof StreamCharBufferWriter) {
     if (target == writer) {
       throw new IllegalArgumentException("Cannot write buffer to itself.");

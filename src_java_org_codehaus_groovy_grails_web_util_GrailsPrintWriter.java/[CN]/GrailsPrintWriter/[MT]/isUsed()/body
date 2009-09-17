@@ -2,7 +2,7 @@
   if (this.usageFlag) {
     return true;
   }
-  Writer target=findStreamCharBufferTarget();
+  Writer target=findStreamCharBufferTarget(false);
   if (target instanceof StreamCharBufferWriter) {
     StreamCharBuffer buffer=((StreamCharBufferWriter)target).getBuffer();
     if (buffer.size() > 0) {

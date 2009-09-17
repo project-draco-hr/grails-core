@@ -2,7 +2,9 @@
   Writer target=getOut();
   while (target instanceof GrailsPrintWriter) {
     GrailsPrintWriter gpr=((GrailsPrintWriter)target);
-    gpr.setUsed(true);
+    if (markUsed) {
+      gpr.setUsed(true);
+    }
     target=gpr.getOut();
   }
   if (target instanceof StreamCharBufferWriter) {

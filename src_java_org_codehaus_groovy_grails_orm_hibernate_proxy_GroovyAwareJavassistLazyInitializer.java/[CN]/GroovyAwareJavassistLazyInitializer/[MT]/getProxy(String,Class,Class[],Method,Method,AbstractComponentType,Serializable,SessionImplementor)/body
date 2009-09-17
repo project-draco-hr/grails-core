@@ -1,13 +1,7 @@
 {
   try {
     final GroovyAwareJavassistLazyInitializer instance=new GroovyAwareJavassistLazyInitializer(entityName,persistentClass,interfaces,id,getIdentifierMethod,setIdentifierMethod,componentIdType,session);
-    ProxyFactory factory=new ProxyFactory();
-    factory.setSuperclass(interfaces.length == 1 ? persistentClass : null);
-    factory.setInterfaces(interfaces);
-    factory.setFilter(METHOD_FILTERS);
-    if (WRITE_CLASSES_DIRECTORY != null) {
-      factory.writeDirectory=WRITE_CLASSES_DIRECTORY;
-    }
+    ProxyFactory factory=createProxyFactory(persistentClass,interfaces);
     Class proxyClass=factory.createClass();
     HibernatePluginSupport.enhanceProxyClass(proxyClass);
     final HibernateProxy proxy=(HibernateProxy)proxyClass.newInstance();

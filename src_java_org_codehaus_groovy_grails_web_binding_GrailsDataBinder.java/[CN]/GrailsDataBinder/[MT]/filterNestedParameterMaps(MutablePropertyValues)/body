@@ -1,7 +1,8 @@
 {
   PropertyValue[] values=mpvs.getPropertyValues();
   for (  PropertyValue pv : values) {
-    if (pv.getValue() instanceof GrailsParameterMap) {
+    final Object value=pv.getValue();
+    if (isNotCandidateForBinding(value)) {
       mpvs.removePropertyValue(pv);
     }
   }

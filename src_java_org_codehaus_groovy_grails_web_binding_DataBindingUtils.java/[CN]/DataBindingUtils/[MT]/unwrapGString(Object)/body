@@ -1,0 +1,6 @@
+{
+  if (value instanceof GString) {
+    return value.toString();
+  }
+  return value;
+}

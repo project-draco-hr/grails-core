@@ -1,5 +1,7 @@
 {
   if (!pluginDir.exists())   return;
+  File dependencyDefinition=new File(pluginDir,"dependencies.groovy");
+  if (dependencyDefinition.exists())   return;
   File libDir=new File(pluginDir,"lib");
   if (libDir.exists())   addLibs(libDir,urls,Collections.EMPTY_SET);
 }

@@ -1,0 +1,14 @@
+{
+  if (content == null) {
+    return new char[0];
+  }
+  if (content instanceof StreamCharBuffer) {
+    return ((StreamCharBuffer)content).toCharArray();
+  }
+ else   if (content instanceof String) {
+    return ((String)content).toCharArray();
+  }
+ else {
+    return String.valueOf(content).toCharArray();
+  }
+}

@@ -7,6 +7,9 @@
         if (arguments[0] instanceof Map) {
           Map argMap=(Map)arguments[0];
           GrailsHibernateUtil.populateArgumentsForCriteria(clazz,crit,argMap);
+          if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
+            crit.setMaxResults(1);
+          }
         }
       }
       if (operator.equals(OPERATOR_OR)) {
@@ -15,20 +18,23 @@
           crit.add(expression.getCriterion());
         }
         Disjunction dis=Restrictions.disjunction();
-        for (Iterator i=expressions.iterator(); i.hasNext(); ) {
-          GrailsMethodExpression current=(GrailsMethodExpression)i.next();
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
           dis.add(current.getCriterion());
         }
         crit.add(dis);
       }
  else {
-        for (Iterator i=expressions.iterator(); i.hasNext(); ) {
-          GrailsMethodExpression current=(GrailsMethodExpression)i.next();
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
           crit.add(current.getCriterion());
         }
       }
-      crit.setMaxResults(1);
-      return crit.uniqueResult();
+      final List list=crit.list();
+      if (!list.isEmpty()) {
+        return list.get(0);
+      }
+      return null;
     }
   }
 );

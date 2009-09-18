@@ -8,7 +8,7 @@
  catch (    IllegalStateException e) {
       printWriter=new PrintWriter(new OutputStreamWriter(response.getOutputStream()));
     }
-    printWriter.write(includeResult.getContent());
+    includeResult.writeTo(printWriter);
     printWriter.flush();
   }
  catch (  IOException e) {

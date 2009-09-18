@@ -1,5 +1,9 @@
 {
   if (usingStream)   throw new IllegalStateException("Method getOutputStream() already called");
-  usingWriter=true;
+  if (!usingWriter) {
+    usingWriter=true;
+    charBuffer=new StreamCharBuffer();
+    pw=new GrailsPrintWriter(charBuffer.getWriter());
+  }
   return pw;
 }

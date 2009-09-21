@@ -1,6 +1,7 @@
 {
   boolean querySeparator=false;
-  for (  Object name : params.keySet()) {
+  for (  Map.Entry<Object,Object> entry : params.entrySet()) {
+    Object name=entry.getKey();
     if (name.equals(GrailsControllerClass.CONTROLLER) || name.equals(GrailsControllerClass.ACTION) || name.equals(ARGUMENT_ID))     continue;
     if (!querySeparator) {
       actualUriBuf.append('?');
@@ -9,7 +10,7 @@
  else {
       actualUriBuf.append(ENTITY_AMPERSAND);
     }
-    Object value=params.get(name);
+    Object value=entry.getValue();
     if (value instanceof Collection) {
       Collection values=(Collection)value;
       Iterator valueIterator=values.iterator();

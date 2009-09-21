@@ -1,0 +1,7 @@
+{
+  Map newArgs=new java.util.HashMap(args.size());
+  for (  Map.Entry<Object,Object> entry : args.entrySet()) {
+    newArgs.put(unwrapGString(entry.getKey()),unwrapGString(entry.getValue()));
+  }
+  return newArgs;
+}

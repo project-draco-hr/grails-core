@@ -1,3 +1,6 @@
 {
+  if (property.equals("variables")) {
+    return super.getVariables();
+  }
   return getVariable(property);
 }

@@ -5,8 +5,7 @@
   BuildSettings build=new BuildSettings(new File(grailsHome));
   final File grailsHomeInSettings=build.getGrailsHome();
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
-    System.out.println("Grails' installation directory not found: " + build.getGrailsHome());
-    System.exit(1);
+    exitWithError("Grails' installation directory not found: " + build.getGrailsHome());
   }
   System.out.println("Welcome to Grails " + build.getGrailsVersion() + " - http://grails.org/"+ '\n'+ "Licensed under Apache Standard License 2.0"+ '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
   if (script.name == null) {

@@ -95,16 +95,21 @@ if (bodyOutput != null) out.print(bodyOutput);
 out.append("</").append(tagNamespace).append(':').append(tagName).append('>');
 }
 }
- catch (Exception e) {
+ catch (Throwable e) {
 if (LOG.isTraceEnabled()) {
 LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
 }
-Throwable cause=GrailsExceptionResolver.getRootCause(e);
-if (cause instanceof GrailsTagException) {
-throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumber);
+if (tagName.matches("capture(Body|Head|Meta|Title|Component)")) {
+RuntimeException rte=GrailsExceptionResolver.getFirstRuntimeException(e);
+if (rte == null) {
+throwRootCause(tagName,tagNamespace,lineNumber,e);
 }
  else {
-throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
+throw rte;
+}
+}
+ else {
+throwRootCause(tagName,tagNamespace,lineNumber,e);
 }
 }
 }

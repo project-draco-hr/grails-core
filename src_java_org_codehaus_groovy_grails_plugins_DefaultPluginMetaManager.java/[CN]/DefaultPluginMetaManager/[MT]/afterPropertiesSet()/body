@@ -6,11 +6,10 @@
       pluginDescriptors=patternResolver.getResources(resourcePattern);
     }
  else {
-      BuildSettings settings=BuildSettingsHolder.getSettings();
-      File pluginDir=settings != null ? settings.getProjectPluginsDir() : null;
-      if (pluginDir != null) {
-        pluginDescriptors=GrailsPluginUtils.getPluginXmlMetadata(pluginDir.getPath());
+      if (pluginSettings == null) {
+        throw new RuntimeException("Plugin meta manager has not been configured with the plugin settings");
       }
+      pluginDescriptors=pluginSettings.getPluginXmlMetadata();
     }
   }
  catch (  Throwable e) {

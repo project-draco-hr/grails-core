@@ -3,6 +3,7 @@
   final File grailsHome=findGrailsHome();
   System.setProperty(BuildSettings.APP_BASE_DIR,basedir.getPath());
   grailsSettings=new BuildSettings(grailsHome,basedir);
+  pluginSettings=new PluginBuildSettings(grailsSettings);
   customizeBuildSettings(grailsSettings);
   BuildSettingsHolder.setSettings(grailsSettings);
 }

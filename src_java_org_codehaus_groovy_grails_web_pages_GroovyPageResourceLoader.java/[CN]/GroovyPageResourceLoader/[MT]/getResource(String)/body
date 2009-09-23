@@ -8,7 +8,8 @@
   Resource resource=super.getResource(location);
   if (!resource.exists() && location.startsWith(PLUGINS_PATH)) {
     if (location.equals(PLUGINS_PATH)) {
-      return new FileSystemResource(GrailsPluginUtils.getPluginBaseDirectories().get(0));
+      if (pluginSettings == null)       throw new RuntimeException("'pluginsettings' has not been initialised.");
+      return new FileSystemResource(pluginSettings.getPluginBaseDirectories().get(0));
     }
  else {
       final Resource pluginResource=lookupResourceForPluginPath(location);

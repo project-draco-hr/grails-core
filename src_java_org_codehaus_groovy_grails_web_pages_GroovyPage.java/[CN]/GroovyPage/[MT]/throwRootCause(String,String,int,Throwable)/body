@@ -1,0 +1,9 @@
+{
+  Throwable cause=GrailsExceptionResolver.getRootCause(e);
+  if (cause instanceof GrailsTagException) {
+    throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumber);
+  }
+ else {
+    throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
+  }
+}

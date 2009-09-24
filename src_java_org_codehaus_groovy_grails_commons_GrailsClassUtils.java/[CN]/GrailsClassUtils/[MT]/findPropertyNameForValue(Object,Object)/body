@@ -2,8 +2,10 @@
   MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
   List<MetaProperty> metaProperties=mc.getProperties();
   for (  MetaProperty metaProperty : metaProperties) {
-    Object val=metaProperty.getProperty(target);
-    if (val != null && val.equals(obj))     return metaProperty.getName();
+    if (isAssignableOrConvertibleFrom(metaProperty.getType(),obj.getClass())) {
+      Object val=metaProperty.getProperty(target);
+      if (val != null && val.equals(obj))       return metaProperty.getName();
+    }
   }
   return null;
 }

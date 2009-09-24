@@ -1,10 +1,19 @@
 {
   if (instance == null || propertyValue == null)   return null;
-  BeanWrapper wrapper=new BeanWrapperImpl(instance);
-  PropertyDescriptor[] descriptors=wrapper.getPropertyDescriptors();
+  PropertyDescriptor[] descriptors=BeanUtils.getPropertyDescriptors(instance.getClass());
   for (int i=0; i < descriptors.length; i++) {
-    Object value=wrapper.getPropertyValue(descriptors[i].getName());
-    if (propertyValue.equals(value))     return descriptors[i];
+    PropertyDescriptor pd=descriptors[i];
+    if (isAssignableOrConvertibleFrom(pd.getPropertyType(),propertyValue.getClass())) {
+      Object value;
+      try {
+        ReflectionUtils.makeAccessible(pd.getReadMethod());
+        value=pd.getReadMethod().invoke(instance,(Object[])null);
+      }
+ catch (      Exception e) {
+        throw new FatalBeanException("Problem calling readMethod of " + pd,e);
+      }
+      if (propertyValue.equals(value))       return pd;
+    }
   }
   return null;
 }

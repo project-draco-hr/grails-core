@@ -1,0 +1,5 @@
+{
+  this.readMethod=readMethod;
+  this.staticMethod=staticMethod;
+  ReflectionUtils.makeAccessible(readMethod);
+}

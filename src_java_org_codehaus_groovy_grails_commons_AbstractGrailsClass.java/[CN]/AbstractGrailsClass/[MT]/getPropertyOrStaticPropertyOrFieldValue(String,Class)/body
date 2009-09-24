@@ -1,17 +1,4 @@
 {
-  BeanWrapper ref=getReference();
-  Object value=null;
-  if (ref.isReadableProperty(name)) {
-    value=ref.getPropertyValue(name);
-  }
- else   if (GrailsClassUtils.isPublicField(ref.getWrappedInstance(),name)) {
-    value=GrailsClassUtils.getFieldValue(ref.getWrappedInstance(),name);
-  }
- else {
-    value=GrailsClassUtils.getStaticPropertyValue(clazz,name);
-  }
-  if ((value != null) && GrailsClassUtils.isGroovyAssignableFrom(type,value.getClass())) {
-    return value;
-  }
-  return null;
+  Object value=classPropertyFetcher.getPropertyValue(name);
+  return returnOnlyIfInstanceOf(value,type);
 }

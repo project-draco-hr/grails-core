@@ -1,7 +1,3 @@
 {
-  Object obj=this.reference.getWrappedInstance();
-  if (obj instanceof GroovyObject) {
-    ((GroovyObject)obj).setMetaClass(GroovySystem.getMetaClassRegistry().getMetaClass(getClazz()));
-  }
   return this.reference;
 }

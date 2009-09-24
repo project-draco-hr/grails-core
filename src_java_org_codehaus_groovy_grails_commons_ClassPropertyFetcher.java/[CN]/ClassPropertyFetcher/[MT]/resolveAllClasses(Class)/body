@@ -1,0 +1,10 @@
+{
+  List<Class> list=new ArrayList<Class>();
+  Class currentClass=c;
+  while (currentClass != null) {
+    list.add(currentClass);
+    currentClass=currentClass.getSuperclass();
+  }
+  Collections.reverse(list);
+  return list;
+}

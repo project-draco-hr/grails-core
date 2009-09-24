@@ -1,9 +1,9 @@
 {
   if (clazz == null || StringUtils.isBlank(propertyName))   return null;
   try {
-    BeanWrapper wrapper=new BeanWrapperImpl(clazz);
-    if (wrapper.isReadableProperty(propertyName)) {
-      return wrapper.getPropertyType(propertyName);
+    PropertyDescriptor desc=BeanUtils.getPropertyDescriptor(clazz,propertyName);
+    if (desc != null) {
+      return desc.getPropertyType();
     }
  else {
       return null;

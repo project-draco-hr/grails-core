@@ -1,9 +1,8 @@
 {
   super(clazz,"");
-  BeanWrapper bean=getReference();
   String ident=metaData.getIdentifierPropertyName();
   if (ident != null) {
-    Class identType=bean.getPropertyType(ident);
+    Class identType=getPropertyType(ident);
     this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
     this.identifier.setIdentity(true);
     this.identifier.setType(identType);
@@ -14,7 +13,7 @@
     String propertyName=propertyNames[i];
     if (!propertyName.equals(ident)) {
       GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
-      prop.setType(bean.getPropertyType(propertyName));
+      prop.setType(getPropertyType(propertyName));
       Type hibernateType=metaData.getPropertyType(propertyName);
       if (hibernateType.isAssociationType()) {
         prop.setAssociation(true);

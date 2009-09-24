@@ -2,16 +2,16 @@
   super(type,"");
   PropertyDescriptor[] descriptors;
   try {
-    descriptors=java.beans.Introspector.getBeanInfo(type).getPropertyDescriptors();
+    descriptors=BeanUtils.getPropertyDescriptors(type);
   }
- catch (  IntrospectionException e) {
-    throw new GrailsDomainException("Failed to use class [" + type + "] as a component. Cannot introspect! "+ e.getMessage());
+ catch (  BeansException e) {
+    throw new GrailsDomainException("Failed to use class [" + type + "] as a component. Cannot introspect! "+ e.getMessage(),e);
   }
   List tmp=(List)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.TRANSIENT,List.class);
   if (tmp != null)   this.transients=tmp;
   this.properties=createDomainClassProperties(this,descriptors);
   try {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),properties);
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),properties);
     DomainClassGrailsPlugin.registerConstraintsProperty(getMetaClass(),this);
   }
  catch (  IntrospectionException e) {

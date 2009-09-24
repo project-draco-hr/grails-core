@@ -11,7 +11,7 @@
       supportedControllers=tmp;
     }
   }
-  PropertyDescriptor[] props=getReference().getPropertyDescriptors();
+  PropertyDescriptor[] props=getPropertyDescriptors();
   for (int i=0; i < props.length; i++) {
     PropertyDescriptor prop=props[i];
     Closure tag=(Closure)getPropertyOrStaticPropertyOrFieldValue(prop.getName(),Closure.class);

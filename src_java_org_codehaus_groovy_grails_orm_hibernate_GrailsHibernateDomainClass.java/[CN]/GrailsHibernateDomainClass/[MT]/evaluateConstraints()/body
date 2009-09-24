@@ -1,7 +1,7 @@
 {
   Map existing=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.CONSTRAINTS,Map.class);
   if (existing == null) {
-    Object instance=getReference().getWrappedInstance();
+    Object instance=getReferenceInstance();
     try {
       DynamicMethods interceptor=new AbstractDynamicMethodsInterceptor(){
       }

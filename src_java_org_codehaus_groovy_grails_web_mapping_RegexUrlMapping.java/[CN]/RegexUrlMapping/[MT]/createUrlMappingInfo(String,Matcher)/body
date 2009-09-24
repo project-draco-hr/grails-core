@@ -17,7 +17,8 @@
       }
     }
   }
-  if (lastGroup != null) {
+  Map<String,Object> config=ConfigurationHolder.getFlatConfig();
+  if (lastGroup != null && config != null && Boolean.TRUE.equals(config.get("grails.mapping.legacyMapping"))) {
     String remainingUri=uri.substring(uri.lastIndexOf(lastGroup) + lastGroup.length());
     if (remainingUri.length() > 0) {
       if (remainingUri.startsWith(SLASH))       remainingUri=remainingUri.substring(1);

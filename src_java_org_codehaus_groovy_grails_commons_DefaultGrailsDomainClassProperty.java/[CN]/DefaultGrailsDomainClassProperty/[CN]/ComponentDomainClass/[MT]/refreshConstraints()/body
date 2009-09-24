@@ -1,7 +1,7 @@
 {
   try {
     GrailsDomainClassProperty[] props=getPersistentProperties();
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReference().getWrappedInstance(),props);
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),props);
   }
  catch (  IntrospectionException e) {
     LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);

@@ -7,7 +7,7 @@
     }
  else {
       if (pluginSettings == null) {
-        throw new RuntimeException("Plugin meta manager has not been configured with the plugin settings");
+        pluginSettings=new PluginBuildSettings(BuildSettingsHolder.getSettings());
       }
       pluginDescriptors=pluginSettings.getPluginXmlMetadata();
     }

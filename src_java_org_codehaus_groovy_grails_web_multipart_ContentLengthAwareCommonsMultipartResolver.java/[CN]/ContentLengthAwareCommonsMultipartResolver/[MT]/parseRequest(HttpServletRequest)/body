@@ -5,7 +5,7 @@
  catch (  MultipartException e) {
     if (e.getCause() != null && e.getCause().getClass().equals(FileUploadBase.UnknownSizeException.class)) {
       LOG.warn(e.getMessage());
-      return new MultipartParsingResult(Collections.EMPTY_MAP,Collections.EMPTY_MAP);
+      return new MultipartParsingResult(EMPTY_MULTI_VALUE_MAP,Collections.EMPTY_MAP);
     }
  else {
       throw e;

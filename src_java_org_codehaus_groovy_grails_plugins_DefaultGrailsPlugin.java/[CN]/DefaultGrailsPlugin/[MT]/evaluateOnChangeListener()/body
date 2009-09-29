@@ -44,7 +44,7 @@
               tmp=resolver.getResources(res);
             }
           }
- catch (          IllegalArgumentException ex) {
+ catch (          Exception ex) {
             LOG.debug("Resource pattern [" + res + "] is not valid - maybe base directory does not exist?");
           }
           resourceCount[i]=tmp.length;

@@ -1,4 +1,4 @@
 {
-  super(contents.getBytes());
+  super(contents.getBytes("UTF-8"));
   this.fileName=fileName;
 }

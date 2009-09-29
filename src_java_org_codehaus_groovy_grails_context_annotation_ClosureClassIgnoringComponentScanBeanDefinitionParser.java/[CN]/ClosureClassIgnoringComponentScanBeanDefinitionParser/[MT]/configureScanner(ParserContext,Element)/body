@@ -1,10 +1,21 @@
 {
   final ClassPathBeanDefinitionScanner scanner=super.configureScanner(parserContext,element);
-  final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parserContext.getReaderContext().getResourceLoader()){
+  final boolean warDeployed=Metadata.getCurrent().isWarDeployed();
+  final ResourceLoader originalResourceLoader=parserContext.getReaderContext().getResourceLoader();
+  final ResourceLoader filteringResourceLoader=(!warDeployed) ? originalResourceLoader : new ResourceLoader(){
+    ClassLoader filteringClassLoader=new FilteringClassLoader(originalResourceLoader.getClassLoader());
+    public Resource getResource(    String location){
+      return originalResourceLoader.getResource(location);
+    }
+    public ClassLoader getClassLoader(){
+      return filteringClassLoader;
+    }
+  }
+;
+  final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(filteringResourceLoader){
     @Override protected Resource[] findAllClassPathResources(    String location) throws IOException {
       Set<Resource> result=new LinkedHashSet<Resource>(16);
       URL classesDir=null;
-      final boolean warDeployed=Metadata.getCurrent().isWarDeployed();
       if (!warDeployed) {
         BuildSettings buildSettings=BuildSettingsHolder.getSettings();
         if (buildSettings != null && buildSettings.getClassesDir() != null) {

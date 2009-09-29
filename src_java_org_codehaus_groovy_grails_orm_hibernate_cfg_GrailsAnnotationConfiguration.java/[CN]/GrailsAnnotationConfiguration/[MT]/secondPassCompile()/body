@@ -1,18 +1,17 @@
 {
-  if (configLocked) {
-    return;
-  }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("[GrailsAnnotationConfiguration] [" + this.domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
-  }
-  for (  GrailsDomainClass domainClass : this.domainClasses) {
-    GrailsDomainBinder.evaluateMapping(domainClass);
-  }
-  for (  GrailsDomainClass domainClass : this.domainClasses) {
+  if (!configLocked) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("[GrailsAnnotationConfiguration] Binding persistent class [" + domainClass.getFullName() + "]");
+      LOG.debug("[GrailsAnnotationConfiguration] [" + this.domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
     }
-    GrailsDomainBinder.bindClass(domainClass,super.createMappings());
+    for (    GrailsDomainClass domainClass : this.domainClasses) {
+      GrailsDomainBinder.evaluateMapping(domainClass);
+    }
+    for (    GrailsDomainClass domainClass : this.domainClasses) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("[GrailsAnnotationConfiguration] Binding persistent class [" + domainClass.getFullName() + "]");
+      }
+      GrailsDomainBinder.bindClass(domainClass,super.createMappings());
+    }
   }
   super.secondPassCompile();
   this.configLocked=true;

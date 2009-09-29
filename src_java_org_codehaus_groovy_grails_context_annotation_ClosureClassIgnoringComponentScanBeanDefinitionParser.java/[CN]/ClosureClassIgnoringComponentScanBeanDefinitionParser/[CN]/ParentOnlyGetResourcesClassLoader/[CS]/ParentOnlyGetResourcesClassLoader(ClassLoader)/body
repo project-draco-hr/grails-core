@@ -1,0 +1,4 @@
+{
+  super(parent);
+  this.rootLoader=DefaultGroovyMethods.getRootLoader(parent);
+}

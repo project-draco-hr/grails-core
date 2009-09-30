@@ -1,0 +1,8 @@
+{
+  if (rootLoader != null) {
+    return findResourceRecursive(getParent(),name);
+  }
+ else {
+    return invokeFindResource(getParent(),name);
+  }
+}

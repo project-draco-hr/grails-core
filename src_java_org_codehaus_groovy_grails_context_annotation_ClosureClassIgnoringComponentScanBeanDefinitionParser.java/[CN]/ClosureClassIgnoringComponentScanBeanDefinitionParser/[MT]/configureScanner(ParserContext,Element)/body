@@ -1,6 +1,20 @@
 {
   final ClassPathBeanDefinitionScanner scanner=super.configureScanner(parserContext,element);
-  final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parserContext.getReaderContext().getResourceLoader()){
+  final ResourceLoader originalResourceLoader=parserContext.getReaderContext().getResourceLoader();
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Scanning only this classloader:" + originalResourceLoader.getClassLoader());
+  }
+  final ResourceLoader parentOnlyResourceLoader=new ResourceLoader(){
+    ClassLoader parentOnlyGetResourcesClassLoader=new ParentOnlyGetResourcesClassLoader(originalResourceLoader.getClassLoader());
+    public Resource getResource(    String location){
+      return originalResourceLoader.getResource(location);
+    }
+    public ClassLoader getClassLoader(){
+      return parentOnlyGetResourcesClassLoader;
+    }
+  }
+;
+  final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parentOnlyResourceLoader){
     @Override protected Resource[] findAllClassPathResources(    String location) throws IOException {
       Set<Resource> result=new LinkedHashSet<Resource>(16);
       URL classesDir=null;
@@ -15,15 +29,13 @@
       if (path.startsWith("/")) {
         path=path.substring(1);
       }
-      Enumeration resourceUrls=getClassLoader().getResources(path);
+      Enumeration<URL> resourceUrls=getClassLoader().getResources(path);
       while (resourceUrls.hasMoreElements()) {
-        URL url=(URL)resourceUrls.nextElement();
-        if (!warDeployed && classesDir != null && url.equals(classesDir)) {
-          result.add(convertClassLoaderURL(url));
+        URL url=resourceUrls.nextElement();
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Scanning URL " + url.toExternalForm() + " while searching for '"+ location+ "'");
         }
- else         if (warDeployed) {
-          result.add(convertClassLoaderURL(url));
-        }
+        result.add(convertClassLoaderURL(url));
       }
       return result.toArray(new Resource[result.size()]);
     }

@@ -25,6 +25,8 @@
         return new GroovyPageTemplate(meta);
       }
     }
+    if (precompiledGspMap.size() > 0) {
+    }
     if (LOG.isDebugEnabled()) {
       LOG.debug("No precompiled template found for uri '" + uri + "'");
     }

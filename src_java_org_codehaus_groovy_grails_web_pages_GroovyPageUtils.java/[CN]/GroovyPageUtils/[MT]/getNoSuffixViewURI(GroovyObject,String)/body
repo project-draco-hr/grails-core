@@ -1,4 +1,3 @@
 {
-  if (controller == null)   throw new IllegalArgumentException("Argument [controller] cannot be null");
-  return getNoSuffixViewURI(getLogicalName(controller),viewName);
+  return getInstance().getNoSuffixViewURI(controller,viewName);
 }

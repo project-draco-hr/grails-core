@@ -1,0 +1,12 @@
+{
+  TupleStringKey key=new TupleStringKey(controllerName,viewName);
+  String uri=deployedViewURICache.get(key);
+  if (uri == null) {
+    uri=super.getDeployedViewURI(controllerName,viewName);
+    String prevuri=deployedViewURICache.putIfAbsent(key,uri);
+    if (prevuri != null) {
+      return prevuri;
+    }
+  }
+  return uri;
+}

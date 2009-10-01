@@ -1,0 +1,9 @@
+{
+  try {
+    return appContext.getBean(name);
+  }
+ catch (  BeansException e) {
+    LOG.warn("Bean named '" + name + "' is missing.");
+    return null;
+  }
+}

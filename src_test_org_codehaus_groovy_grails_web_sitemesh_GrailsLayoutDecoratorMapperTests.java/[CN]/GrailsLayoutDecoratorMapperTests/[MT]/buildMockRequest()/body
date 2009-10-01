@@ -1,0 +1,8 @@
+{
+  MockApplicationContext appCtx=new MockApplicationContext();
+  appCtx.registerMockBean(PluginMetaManager.BEAN_ID,new DefaultPluginMetaManager());
+  appCtx.registerMockBean(GroovyPagesUriService.BEAN_ID,new DefaultGroovyPagesUriService());
+  appCtx.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
+  appCtx.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,appCtx);
+  return GrailsWebUtil.bindMockWebRequest(appCtx);
+}

@@ -1,9 +1,11 @@
 {
-  GroovyObject controller=getController(request);
-  String controllerName;
-  if (controller != null)   controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
- else {
-    controllerName=(String)request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE);
+  String controllerName=(String)request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE);
+  if (controllerName == null || controllerName.length() == 0) {
+    GroovyObject controller=getController(request);
+    if (controller != null) {
+      controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
+      request.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE,controllerName);
+    }
   }
   return controllerName != null ? controllerName : "";
 }

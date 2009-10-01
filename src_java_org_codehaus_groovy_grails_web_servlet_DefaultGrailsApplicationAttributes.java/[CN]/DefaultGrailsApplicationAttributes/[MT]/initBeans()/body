@@ -1,0 +1,15 @@
+{
+  if (appContext != null) {
+    this.pagesTemplateEngine=(GroovyPagesTemplateEngine)fetchBeanFromAppCtx(GroovyPagesTemplateEngine.BEAN_ID);
+    this.grailsApplication=(GrailsApplication)fetchBeanFromAppCtx(GrailsApplication.APPLICATION_ID);
+    this.metaManager=(PluginMetaManager)fetchBeanFromAppCtx(PluginMetaManager.BEAN_ID);
+    this.groovyPagesUriService=(GroovyPagesUriService)fetchBeanFromAppCtx(GroovyPagesUriService.BEAN_ID);
+    this.messageSource=(MessageSource)fetchBeanFromAppCtx("messageSource");
+  }
+ else {
+    LOG.warn("ApplicationContext not found in " + APPLICATION_CONTEXT + " attribute of servlet context.");
+  }
+  if (this.groovyPagesUriService == null) {
+    this.groovyPagesUriService=new DefaultGroovyPagesUriService();
+  }
+}

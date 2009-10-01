@@ -17,6 +17,11 @@
     }
   }
   if (resource != null) {
+    if (precompiledGspMap != null && precompiledGspMap.size() > 0) {
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("Precompiled GSP not found for uri: " + Arrays.asList(uri) + ". Using resource "+ resource);
+      }
+    }
     return createTemplate(resource);
   }
  else {

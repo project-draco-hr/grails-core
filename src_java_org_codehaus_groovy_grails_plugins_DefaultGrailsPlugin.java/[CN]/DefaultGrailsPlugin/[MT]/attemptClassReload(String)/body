@@ -1,5 +1,5 @@
 {
-  final GroovyClassLoader loader=application.getClassLoader();
+  final ClassLoader loader=application.getClassLoader();
   if (loader instanceof GrailsClassLoader) {
     GrailsClassLoader grailsLoader=(GrailsClassLoader)loader;
     return grailsLoader.reloadClass(className);

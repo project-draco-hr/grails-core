@@ -1,6 +1,7 @@
 {
   GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
   this.cl=configureClassLoader(resourceLoader);
+  GroovyClassLoader gcl=(GroovyClassLoader)cl;
   Collection loadedResources=new ArrayList();
   this.loadedClasses=new HashSet();
   try {
@@ -10,7 +11,7 @@
           String className=resourceHolder.getClassName(resources[i]);
           log.debug("Loading groovy file from resource loader :[" + resources[i].getFile().getAbsolutePath() + "] with name ["+ className+ "]");
           if (!StringUtils.isBlank(className)) {
-            Class c=cl.loadClass(className,true,false);
+            Class c=gcl.loadClass(className,true,false);
             Assert.notNull(c,"Groovy Bug! GCL loadClass method returned a null class!");
             loadedClasses.add(c);
             log.debug("Added Groovy class [" + c + "] to loaded classes");

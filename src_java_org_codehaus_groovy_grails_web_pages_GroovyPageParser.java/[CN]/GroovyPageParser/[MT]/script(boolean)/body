@@ -1,4 +1,5 @@
 {
+  flushTagBuffering();
   if (!finalPass)   return;
   if (LOG.isDebugEnabled())   LOG.debug("parse: script");
   out.println();

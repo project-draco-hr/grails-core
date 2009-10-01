@@ -1,4 +1,3 @@
 {
-  FastStringWriter buf=new FastStringWriter();
-  return getViewURIInternal(controllerName,viewName,buf,true);
+  return getInstance().getViewURI(controllerName,viewName);
 }

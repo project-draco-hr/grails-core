@@ -1,0 +1,4 @@
+{
+  if (controller == null)   throw new IllegalArgumentException("Argument [controller] cannot be null");
+  return getViewURI(getLogicalControllerName(controller),viewName);
+}

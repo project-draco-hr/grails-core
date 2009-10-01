@@ -1,3 +1,3 @@
 {
-  return GroovyPageUtils.getDeployedViewURI(getControllerName(request),viewName);
+  return groovyPagesUriService.getDeployedViewURI(getControllerName(request),viewName);
 }

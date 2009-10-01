@@ -1,0 +1,12 @@
+{
+  TupleStringKey key=new TupleStringKey(controllerName,templateName);
+  String uri=templateURICache.get(key);
+  if (uri == null) {
+    uri=super.getTemplateURI(controllerName,templateName);
+    String prevuri=templateURICache.putIfAbsent(key,uri);
+    if (prevuri != null) {
+      return prevuri;
+    }
+  }
+  return uri;
+}

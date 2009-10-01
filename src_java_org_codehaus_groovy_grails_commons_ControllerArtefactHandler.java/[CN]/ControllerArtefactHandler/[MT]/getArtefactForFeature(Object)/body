@@ -1,11 +1,19 @@
 {
   String uri=feature.toString();
   if (controllerClasses != null) {
-    for (    GrailsClass controllerClass : controllerClasses) {
-      if (((GrailsControllerClass)controllerClass).mapsToURI(uri)) {
-        return controllerClass;
+    GrailsClass controllerClass=uriToControllerClassCache.get(uri);
+    if (controllerClass == null) {
+      for (      GrailsClass c : controllerClasses) {
+        if (((GrailsControllerClass)c).mapsToURI(uri)) {
+          controllerClass=c;
+          break;
+        }
+      }
+      if (controllerClass != null) {
+        uriToControllerClassCache.putIfAbsent(uri,controllerClass);
       }
     }
+    return controllerClass;
   }
   return null;
 }

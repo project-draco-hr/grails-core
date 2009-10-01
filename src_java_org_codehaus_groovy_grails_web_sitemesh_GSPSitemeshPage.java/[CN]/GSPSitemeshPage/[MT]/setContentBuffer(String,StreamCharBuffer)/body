@@ -1,0 +1,9 @@
+{
+  this.used=true;
+  if (contentBuffers == null) {
+    contentBuffers=new HashMap<String,StreamCharBuffer>();
+  }
+  String propertyName="page." + tagName;
+  contentBuffers.put(propertyName,buffer);
+  super.addProperty(propertyName,"");
+}

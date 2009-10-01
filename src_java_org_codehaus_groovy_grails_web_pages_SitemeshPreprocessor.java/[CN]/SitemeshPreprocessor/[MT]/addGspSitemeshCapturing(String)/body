@@ -1,6 +1,6 @@
 {
   StringBuffer sb=addHeadCapturing(gspSource);
   sb=addBodyCapturing(sb);
-  sb=addComponentCapturing(sb);
+  sb=addContentCapturing(sb);
   return sb.toString();
 }

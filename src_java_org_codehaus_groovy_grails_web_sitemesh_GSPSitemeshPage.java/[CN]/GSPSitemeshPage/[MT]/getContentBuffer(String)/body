@@ -1,0 +1,6 @@
+{
+  if (contentBuffers == null) {
+    return null;
+  }
+  return contentBuffers.get(name);
+}

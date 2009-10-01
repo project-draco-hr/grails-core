@@ -1,3 +1,4 @@
 {
   controllerClasses=artefacts.getGrailsClasses();
+  uriToControllerClassCache=new ConcurrentHashMap<String,GrailsClass>();
 }

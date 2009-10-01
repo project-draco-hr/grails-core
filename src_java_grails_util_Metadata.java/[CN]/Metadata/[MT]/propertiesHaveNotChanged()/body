@@ -1,7 +1,14 @@
 {
   Metadata transientMetadata=metadata;
+  Metadata allStringValuesMetadata=new Metadata();
+  Map<Object,Object> transientMap=(Map<Object,Object>)transientMetadata;
+  for (  Map.Entry<Object,Object> entry : transientMap.entrySet()) {
+    if (entry.getValue() != null) {
+      allStringValuesMetadata.put(entry.getKey().toString(),entry.getValue().toString());
+    }
+  }
   Metadata persistedMetadata=Metadata.reload();
-  boolean result=transientMetadata.equals(persistedMetadata);
+  boolean result=allStringValuesMetadata.equals(persistedMetadata);
   metadata=transientMetadata;
   return result;
 }

@@ -1,7 +1,8 @@
 {
   if (!metadata.initialized) {
+    InputStream input=null;
     try {
-      InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
+      input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
       if (input == null) {
         input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
       }
@@ -13,6 +14,11 @@
       throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
     }
  finally {
+      try {
+        if (input != null)         input.close();
+      }
+ catch (      IOException e) {
+      }
       metadata.initialized=true;
     }
   }

@@ -6,5 +6,6 @@
   gspSpringView.setServletContext(webRequest.getServletContext());
   gspSpringView.setUrl(gspView);
   gspSpringView.setApplicationContext(this.getApplicationContext());
+  gspSpringView.setTemplateEngine(templateEngine);
   return gspSpringView;
 }

@@ -8,7 +8,7 @@
     if (gspClassName != null) {
       Class<GroovyPage> gspClass=null;
       try {
-        gspClass=(Class<GroovyPage>)this.getClass().getClassLoader().loadClass(gspClassName);
+        gspClass=(Class<GroovyPage>)Class.forName(gspClassName);
       }
  catch (      ClassNotFoundException e) {
         LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);

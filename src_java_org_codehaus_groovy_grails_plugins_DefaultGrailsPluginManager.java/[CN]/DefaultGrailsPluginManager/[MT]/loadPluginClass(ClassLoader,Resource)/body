@@ -1,0 +1,27 @@
+{
+  Class pluginClass;
+  if (cl instanceof GroovyClassLoader) {
+    try {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Parsing & compiling " + r.getFilename());
+      }
+      pluginClass=((GroovyClassLoader)cl).parseClass(r.getInputStream());
+    }
+ catch (    CompilationFailedException e) {
+      throw new PluginException("Error compiling plugin [" + r.getFilename() + "] "+ e.getMessage(),e);
+    }
+catch (    IOException e) {
+      throw new PluginException("Error reading plugin [" + r.getFilename() + "] "+ e.getMessage(),e);
+    }
+  }
+ else {
+    String className=GrailsResourceUtils.getClassName(r);
+    try {
+      pluginClass=Class.forName(className,true,cl);
+    }
+ catch (    ClassNotFoundException e) {
+      throw new PluginException("Cannot find plugin class [" + className + "] resource: ["+ r.getFilename()+ "]",e);
+    }
+  }
+  return pluginClass;
+}

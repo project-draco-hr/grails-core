@@ -4,11 +4,11 @@
   String[] webRequestInterceptors=webContext.getBeanNamesForType(WebRequestInterceptor.class);
   interceptors=new HandlerInterceptor[interceptorNames.length + webRequestInterceptors.length];
   int j=0;
-  for (int i=0; i < webRequestInterceptors.length; i++) {
-    interceptors[j++]=new WebRequestHandlerInterceptorAdapter((WebRequestInterceptor)webContext.getBean(webRequestInterceptors[i]));
+  for (  String webRequestInterceptor : webRequestInterceptors) {
+    interceptors[j++]=new WebRequestHandlerInterceptorAdapter((WebRequestInterceptor)webContext.getBean(webRequestInterceptor));
   }
-  for (int i=0; i < interceptorNames.length; i++) {
-    interceptors[j++]=(HandlerInterceptor)webContext.getBean(interceptorNames[i]);
+  for (  String interceptorName : interceptorNames) {
+    interceptors[j++]=(HandlerInterceptor)webContext.getBean(interceptorName);
   }
   return interceptors;
 }

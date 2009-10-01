@@ -2,8 +2,8 @@
   try {
     if (o == null) {
     }
- else     if (o instanceof String) {
-      writer.characters((String)o);
+ else     if (o instanceof CharSequence) {
+      writer.characters(o.toString());
     }
  else     if (o instanceof Class) {
       writer.characters(((Class)o).getName());

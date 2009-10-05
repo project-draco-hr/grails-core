@@ -25,6 +25,8 @@
   }
  else {
     binding=new GantBinding();
+    AntBuilder antBuilder=(AntBuilder)binding.getVariable("ant");
+    antBuilder.getAntProject().setDefaultInputStream(System.in);
     List list=getAvailableScripts(settings);
     potentialScripts=new ArrayList();
     for (Iterator iter=list.iterator(); iter.hasNext(); ) {

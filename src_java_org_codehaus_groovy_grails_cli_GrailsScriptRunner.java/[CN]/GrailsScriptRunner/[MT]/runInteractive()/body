@@ -1,5 +1,6 @@
 {
   String message="Interactive mode ready, type your command name in to continue (hit ENTER to run the last command):\n";
+  System.setProperty("grails.disable.exit","true");
   System.setProperty("grails.interactive.mode","true");
   int messageNumber=0;
   ScriptAndArgs script=new ScriptAndArgs();
@@ -14,9 +15,23 @@
       continue;
     }
     long now=System.currentTimeMillis();
-    callPluginOrGrailsScript(script.name);
+    try {
+      callPluginOrGrailsScript(script.name);
+    }
+ catch (    ScriptNotFoundException ex) {
+      out.println("No script found for " + script.name);
+    }
+catch (    TargetExecutionException ex) {
+      if (ex.getCause() instanceof ScriptExitException) {
+        out.println("Script exited with code " + ((ScriptExitException)ex.getCause()).getExitCode());
+      }
+ else {
+        out.println("Script threw exception");
+        ex.printStackTrace(out);
+      }
+    }
     long end=System.currentTimeMillis();
     out.println("--------------------------------------------------------");
-    out.println("Command [" + script.name + " completed in "+ (end - now)+ "ms");
+    out.println("Command " + script.name + " completed in "+ (end - now)+ "ms");
   }
 }

@@ -26,7 +26,20 @@
           shouldFail=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap);
         }
  else         if (config.containsKey(FAIL_ON_ERROR_CONFIG_PROPERTY)) {
-          shouldFail=Boolean.TRUE == config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
+          Object configProperty=config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
+          if (configProperty instanceof Boolean) {
+            shouldFail=Boolean.TRUE == configProperty;
+          }
+ else           if (configProperty instanceof List) {
+            String domainClassName=domainClass.getClazz().getName();
+            List packageList=(List)configProperty;
+            for (            Object packageName : packageList) {
+              if (domainClassName.startsWith(packageName.toString())) {
+                shouldFail=true;
+                break;
+              }
+            }
+          }
         }
         if (shouldFail) {
           throw new ValidationException("Validation Error(s) Occurred During Save");

@@ -1,14 +1,4 @@
 {
-  StringBuffer sb=new StringBuffer((int)(headContent.length() * 1.2));
   Matcher m=titlePattern.matcher(headContent);
-  if (m.find()) {
-    m.appendReplacement(sb,"");
-    sb.append("<g:captureTitle");
-    if (m.group(1) != null)     sb.append(m.group(1));
-    sb.append(">");
-    sb.append(m.group(2));
-    sb.append("</g:captureTitle>");
-  }
-  m.appendTail(sb);
-  return sb.toString();
+  return m.replaceAll("<sitemesh:captureTitle$1>$2</sitemesh:captureTitle>");
 }

@@ -1,16 +1,16 @@
 {
-  Template t=null;
+  Template t;
   if (!isReloadEnabled()) {
-    for (int i=0; i < uri.length; i++) {
-      t=createTemplateFromPrecompiled(uri[i]);
+    for (    String anUri : uri) {
+      t=createTemplateFromPrecompiled(anUri);
       if (t != null) {
         return t;
       }
     }
   }
   Resource resource=null;
-  for (int i=0; i < uri.length; i++) {
-    Resource r=getResourceForUri(uri[i]);
+  for (  String anUri : uri) {
+    Resource r=getResourceForUri(anUri);
     if (r.exists()) {
       resource=r;
       break;

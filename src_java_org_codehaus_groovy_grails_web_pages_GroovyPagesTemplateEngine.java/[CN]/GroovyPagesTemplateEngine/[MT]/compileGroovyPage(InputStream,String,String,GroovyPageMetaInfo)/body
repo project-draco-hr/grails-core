@@ -1,10 +1,11 @@
 {
+  ClassLoader classLoader=this.classLoader;
   if (!(classLoader instanceof GroovyClassLoader)) {
-    throw new GroovyPagesException("Application default classloader is not GroovyClassLoader. Enable reloading in application settings.");
+    classLoader=new GroovyClassLoader(classLoader);
   }
   Class scriptClass;
   try {
-    scriptClass=((GroovyClassLoader)this.classLoader).parseClass(in,name);
+    scriptClass=((GroovyClassLoader)classLoader).parseClass(in,name);
   }
  catch (  CompilationFailedException e) {
     LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);

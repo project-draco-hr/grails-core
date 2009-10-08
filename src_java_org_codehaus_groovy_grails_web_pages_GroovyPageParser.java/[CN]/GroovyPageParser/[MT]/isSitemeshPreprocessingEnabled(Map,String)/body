@@ -1,4 +1,4 @@
 {
   Object sitemeshPreprocessEnabled=config.get(CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
-  return !filename.contains("/layouts/") && (sitemeshPreprocessEnabled == null || (sitemeshPreprocessEnabled instanceof Boolean && ((Boolean)sitemeshPreprocessEnabled).booleanValue()));
+  return (sitemeshPreprocessEnabled == null || (sitemeshPreprocessEnabled instanceof Boolean && ((Boolean)sitemeshPreprocessEnabled).booleanValue()));
 }

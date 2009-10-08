@@ -8,7 +8,7 @@
     System.clearProperty("grails.env.set");
     System.clearProperty(Environment.KEY);
     out.println("--------------------------------------------------------");
-    String enteredName=userInput(message);
+    String enteredName=helper.userInput(message);
     if (enteredName != null && enteredName.trim().length() > 0) {
       script=processArgumentsAndReturnScriptName(enteredName);
       if (script.args != null) {

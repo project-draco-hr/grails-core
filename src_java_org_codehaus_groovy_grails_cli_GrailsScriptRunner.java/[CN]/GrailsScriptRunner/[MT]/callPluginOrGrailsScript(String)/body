@@ -81,7 +81,7 @@
         out.println("[" + (i + 1) + "] "+ potentialScripts.get(i));
         validArgs[i]=String.valueOf(i + 1);
       }
-      String enteredValue=userInput("Enter #",validArgs);
+      String enteredValue=helper.userInput("Enter #",validArgs);
       if (enteredValue == null)       return 1;
       int number=Integer.valueOf(enteredValue);
       out.println("Running script " + ((File)potentialScripts.get(number - 1)).getAbsolutePath());

@@ -1,0 +1,18 @@
+{
+  try {
+    autowiringBeanPropertiesFlag.set(Boolean.TRUE);
+    if (!Environment.getCurrent().isReloadEnabled()) {
+      Set<String> beanProps=autowiringByNameCacheForClass.get(ClassUtils.getUserClass(existingBean.getClass()));
+      if (beanProps != null && beanProps.size() == 0) {
+        if (logger.isDebugEnabled()) {
+          logger.debug("Nothing to autowire for bean of class " + existingBean.getClass().getName());
+        }
+        return;
+      }
+    }
+    super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
+  }
+  finally {
+    autowiringBeanPropertiesFlag.remove();
+  }
+}

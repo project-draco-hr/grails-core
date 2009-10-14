@@ -1,5 +1,10 @@
 {
-  if (!metadata.initialized) {
+  Metadata m=metadata.get();
+  if (m == null) {
+    metadata=new SoftReference<Metadata>(new Metadata());
+    m=metadata.get();
+  }
+  if (!m.initialized) {
     InputStream input=null;
     try {
       input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
@@ -7,7 +12,7 @@
         input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
       }
       if (input != null) {
-        metadata.load(input);
+        m.load(input);
       }
     }
  catch (    Exception e) {
@@ -19,8 +24,8 @@
       }
  catch (      IOException e) {
       }
-      metadata.initialized=true;
+      m.initialized=true;
     }
   }
-  return metadata;
+  return m;
 }

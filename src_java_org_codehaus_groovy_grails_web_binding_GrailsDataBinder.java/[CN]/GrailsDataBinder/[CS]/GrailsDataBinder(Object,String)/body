@@ -14,6 +14,7 @@
  else {
       disallowed=DOMAINCLASS_DISALLOWED;
     }
+    domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
   }
  else   if (target instanceof GroovyObject) {
     disallowed=GROOVY_DISALLOWED;

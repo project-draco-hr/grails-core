@@ -7,10 +7,16 @@
       GrailsDomainBinder.evaluateMapping(domainClass);
     }
     for (    GrailsDomainClass domainClass : this.domainClasses) {
+      GrailsDomainBinder.evaluateNamedQueries(domainClass);
+    }
+    for (    GrailsDomainClass domainClass : this.domainClasses) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("[GrailsAnnotationConfiguration] Binding persistent class [" + domainClass.getFullName() + "]");
       }
-      GrailsDomainBinder.bindClass(domainClass,super.createMappings());
+      final Mappings mappings=super.createMappings();
+      Mapping m=GrailsDomainBinder.getMapping(domainClass);
+      mappings.setAutoImport(m == null || m.getAutoImport());
+      GrailsDomainBinder.bindClass(domainClass,mappings);
     }
   }
   super.secondPassCompile();

@@ -1,0 +1,12 @@
+{
+  boolean valid=true;
+  if (arguments.length == 0 || arguments.length > 2) {
+    valid=false;
+  }
+ else   if (arguments.length == 2 && !(arguments[1] instanceof Map || arguments[1] instanceof Collection)) {
+    valid=false;
+  }
+  if (!valid) {
+    throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
+  }
+}

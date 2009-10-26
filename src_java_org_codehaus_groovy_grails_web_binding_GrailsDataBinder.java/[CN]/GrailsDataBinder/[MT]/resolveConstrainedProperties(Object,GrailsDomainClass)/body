@@ -1,0 +1,17 @@
+{
+  Map constrainedProperties=null;
+  if (domainClass != null) {
+    constrainedProperties=domainClass.getConstrainedProperties();
+  }
+ else {
+    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
+    MetaProperty metaProp=mc.getMetaProperty(CONSTRAINTS_PROPERTY);
+    if (metaProp != null) {
+      Object constrainedPropsObj=getMetaPropertyValue(metaProp,object);
+      if (constrainedPropsObj instanceof Map) {
+        constrainedProperties=(Map)constrainedPropsObj;
+      }
+    }
+  }
+  return constrainedProperties;
+}

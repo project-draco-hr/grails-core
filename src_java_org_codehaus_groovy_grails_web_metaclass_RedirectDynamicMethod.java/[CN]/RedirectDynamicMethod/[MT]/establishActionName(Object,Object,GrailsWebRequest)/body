@@ -1,5 +1,5 @@
 {
-  String actionName="";
+  String actionName=null;
   if (actionRef instanceof String) {
     actionName=(String)actionRef;
   }

@@ -1,0 +1,34 @@
+{
+  checkMethodSignature(clazz,arguments);
+  return getHibernateTemplate().execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      Query q=session.createQuery(arguments[0].toString());
+      SessionFactoryUtils.applyTransactionTimeout(q,getHibernateTemplate().getSessionFactory());
+      int index=0;
+      for (      Object parameter : extractPositionalParams(arguments)) {
+        q.setParameter(index++,parameter);
+      }
+      for (      Map.Entry entry : (Set<Map.Entry>)extractNamedParams(arguments).entrySet()) {
+        if (!(entry.getKey() instanceof String)) {
+          throw new GrailsQueryException("Named parameter's name must be of type String");
+        }
+        String parameterName=(String)entry.getKey();
+        Object parameterValue=entry.getValue();
+        if (Collection.class.isAssignableFrom(parameterValue.getClass())) {
+          q.setParameterList(parameterName,(Collection)parameterValue);
+        }
+ else         if (parameterValue.getClass().isArray()) {
+          q.setParameterList(parameterName,(Object[])parameterValue);
+        }
+ else         if (parameterValue instanceof GString) {
+          q.setParameter(parameterName,parameterValue.toString());
+        }
+ else {
+          q.setParameter(parameterName,parameterValue);
+        }
+      }
+      return q.executeUpdate();
+    }
+  }
+);
+}

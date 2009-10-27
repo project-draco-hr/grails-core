@@ -1,6 +1,7 @@
 {
   List<GrailsPlugin> grailsCorePlugins=loadCorePlugins ? findCorePlugins() : new ArrayList<GrailsPlugin>();
   List<GrailsPlugin> grailsUserPlugins=findUserPlugins(gcl);
+  this.userPlugins=grailsUserPlugins;
   List<GrailsPlugin> allPlugins=new ArrayList<GrailsPlugin>(grailsCorePlugins);
   allPlugins.addAll(grailsUserPlugins);
   List<GrailsPlugin> filteredPlugins=getPluginFilter().filterPluginList(allPlugins);

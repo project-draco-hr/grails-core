@@ -1,6 +1,9 @@
 {
-  String allArgs=args.length > 0 ? args[0].trim() : "";
-  ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs);
+  StringBuilder allArgs=new StringBuilder("");
+  for (  String arg : args) {
+    allArgs.append(" " + arg);
+  }
+  ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=new BuildSettings(new File(grailsHome));
   final File grailsHomeInSettings=build.getGrailsHome();

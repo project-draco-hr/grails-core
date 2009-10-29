@@ -1,13 +1,21 @@
 {
-  boolean renderView;
-  JSonBuilder jsonBuilder;
-  try {
-    jsonBuilder=new JSonBuilder(response);
+  boolean renderView=true;
+  if (!useLegacyJSONBuilder) {
+    JSONBuilder builder=new JSONBuilder();
+    JSON json=builder.build(callable);
+    json.render(response);
     renderView=false;
   }
- catch (  IOException e) {
-    throw new ControllerExecutionException("I/O error executing render method for arguments [" + callable + "]: "+ e.getMessage(),e);
+ else {
+    JSonBuilder jsonBuilder;
+    try {
+      jsonBuilder=new JSonBuilder(response);
+      renderView=false;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error executing render method for arguments [" + callable + "]: "+ e.getMessage(),e);
+    }
+    jsonBuilder.invokeMethod("json",new Object[]{callable});
   }
-  jsonBuilder.invokeMethod("json",new Object[]{callable});
   return renderView;
 }

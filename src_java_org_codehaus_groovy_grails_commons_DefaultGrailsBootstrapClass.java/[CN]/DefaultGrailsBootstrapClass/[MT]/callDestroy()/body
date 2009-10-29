@@ -1,4 +1,6 @@
 {
   Closure destroy=getDestroyClosure();
-  destroy.call();
+  if (destroy != null) {
+    Environment.executeForCurrentEnvironment(destroy);
+  }
 }

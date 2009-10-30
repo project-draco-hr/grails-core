@@ -1,0 +1,12 @@
+{
+  if (pluginsDir != null) {
+    final File[] files=pluginsDir.listFiles();
+    if (files != null) {
+      for (      File f : files) {
+        if (f.isDirectory()) {
+          addArtifactPattern(f.getAbsolutePath() + LIB_DIR_PATTERN);
+        }
+      }
+    }
+  }
+}

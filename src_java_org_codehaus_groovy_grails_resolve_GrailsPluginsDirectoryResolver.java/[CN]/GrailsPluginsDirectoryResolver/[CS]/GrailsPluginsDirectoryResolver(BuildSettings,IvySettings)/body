@@ -1,0 +1,7 @@
+{
+  final File pluginsDir=buildSettings.getProjectPluginsDir();
+  addPatternsForPluginsDirectory(pluginsDir);
+  addPatternsForPluginsDirectory(buildSettings.getGlobalPluginsDir());
+  setName(GRAILS_PLUGINS);
+  setSettings(ivySettings);
+}

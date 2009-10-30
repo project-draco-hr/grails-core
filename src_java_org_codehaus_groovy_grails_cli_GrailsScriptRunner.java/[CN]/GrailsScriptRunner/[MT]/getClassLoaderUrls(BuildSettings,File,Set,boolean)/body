@@ -18,7 +18,7 @@
   System.out.println("Dependencies resolved in " + (System.currentTimeMillis() - now) + "ms.");
   if (!skipPlugins) {
     for (    File dir : listKnownPluginDirs(settings)) {
-      addPluginLibs(dir,urls);
+      addPluginLibs(dir,urls,settings);
     }
   }
   return urls.toArray(new URL[urls.size()]);

@@ -13,6 +13,11 @@
   column=(Column)otherProperty.getColumnIterator().next();
   assertEquals("other",column.getName());
   assertEquals("wrapper-characters",column.getSqlType());
+  assertEquals(MyUserType.class.getName(),column.getValue().getType().getName());
+  assertTrue(column.getValue() instanceof SimpleValue);
+  SimpleValue v=(SimpleValue)column.getValue();
+  assertEquals("myParam1",v.getTypeParameters().get("param1"));
+  assertEquals("myParam2",v.getTypeParameters().get("param2"));
   Property priceProperty=persistentClass.getProperty("price");
   assertEquals(2,priceProperty.getColumnSpan());
   assertEquals("price",priceProperty.getName());

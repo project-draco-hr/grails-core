@@ -4,7 +4,10 @@
   if (parameterValues.containsKey(ARGUMENT_ID)) {
     id=parameterValues.get(ARGUMENT_ID).toString();
   }
-  StringBuilder actualUriBuf=includeContextPath ? new StringBuilder(webRequest.getAttributes().getApplicationUri(request)) : new StringBuilder();
+  FastStringWriter actualUriBuf=new FastStringWriter();
+  if (includeContextPath) {
+    actualUriBuf.append(webRequest.getContextPath());
+  }
   if (actionName != null) {
     if (actionName.indexOf(SLASH) > -1) {
       actualUriBuf.append(actionName);

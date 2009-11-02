@@ -1,0 +1,8 @@
+{
+  final HttpServletRequest request=getCurrentRequest();
+  String appUri=(String)request.getAttribute(GrailsApplicationAttributes.APP_URI_ATTRIBUTE);
+  if (appUri == null) {
+    appUri=this.urlHelper.getContextPath(request);
+  }
+  return appUri;
+}

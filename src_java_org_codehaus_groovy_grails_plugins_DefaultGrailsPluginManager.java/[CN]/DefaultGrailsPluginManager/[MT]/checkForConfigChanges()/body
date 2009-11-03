@@ -23,6 +23,7 @@
             config=slurper.parse(configURL);
             ConfigurationHolder.setConfig(config);
             configLastModified=lastModified;
+            application.configChanged();
             informPluginsOfConfigChange();
           }
  catch (          GroovyRuntimeException gre) {

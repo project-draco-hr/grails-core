@@ -1,8 +1,0 @@
-{
-  this.grailsApplication=grailsApplication;
-  Object constraints=Eval.x(grailsApplication,"x?.config?.grails?.gorm?.default?.constraints");
-  if (constraints instanceof Closure) {
-    ClosureToMapPopulator populator=new ClosureToMapPopulator();
-    this.defaultConstraints=populator.populate((Closure)constraints);
-  }
-}

@@ -1,6 +1,11 @@
 {
   try {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
+    if (defaultConstraints != null) {
+      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
+    }
+ else {
+      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
+    }
     for (    GrailsDomainClassProperty property : this.persistentProperties) {
       if (property.isEmbedded()) {
         property.getComponent().refreshConstraints();

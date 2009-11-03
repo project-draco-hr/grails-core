@@ -25,6 +25,7 @@
   establishPersistentProperties();
   try {
     if (defaultConstraints != null) {
+      this.defaultConstraints=defaultConstraints;
       this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
     }
  else {

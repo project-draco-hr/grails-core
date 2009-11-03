@@ -1,5 +1,5 @@
 {
-  LinkedList classChain=getSuperClassChain(instance);
+  LinkedList classChain=getSuperClassChain(instance.getClass());
   Class clazz;
   ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(instance);
   for (  Object aClassChain : classChain) {

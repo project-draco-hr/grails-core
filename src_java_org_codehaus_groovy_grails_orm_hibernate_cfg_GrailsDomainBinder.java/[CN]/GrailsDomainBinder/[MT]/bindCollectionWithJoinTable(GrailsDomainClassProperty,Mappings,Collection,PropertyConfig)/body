@@ -24,7 +24,7 @@
       bindEnumType(property,referencedType,element,columnName,"");
     }
  else {
-      String typeName=getTypeName(config);
+      String typeName=getTypeName(property,config,getMapping(property.getDomainClass()));
       if (typeName == null) {
         Type type=TypeFactory.basic(className);
         if (type != null) {

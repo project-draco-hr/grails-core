@@ -13,7 +13,7 @@
   if (!property.isOneToMany() && !property.isManyToMany()) {
     SimpleValue elt=new SimpleValue(map.getCollectionTable());
     map.setElement(elt);
-    String typeName=getTypeName(getPropertyConfig(property));
+    String typeName=getTypeName(property,getPropertyConfig(property),getMapping(property.getDomainClass()));
     if (typeName == null) {
       if (property.isBasicCollectionType()) {
         typeName=property.getReferencedPropertyType().getName();

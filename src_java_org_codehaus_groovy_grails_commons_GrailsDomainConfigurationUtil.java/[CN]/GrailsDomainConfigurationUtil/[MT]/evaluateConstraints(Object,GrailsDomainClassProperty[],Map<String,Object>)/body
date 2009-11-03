@@ -26,7 +26,7 @@
         cp.setOrder(constrainedProperties.size() + 1);
         constrainedProperties.put(propertyName,cp);
       }
-      applyDefaultConstraints(propertyName,p,cp,defaultConstraints);
+      applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraints());
     }
   }
   return constrainedProperties;

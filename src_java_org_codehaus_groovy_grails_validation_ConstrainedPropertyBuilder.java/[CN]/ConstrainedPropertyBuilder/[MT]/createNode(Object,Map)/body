@@ -3,7 +3,7 @@
     String property=(String)name;
     ConstrainedProperty cp;
     if (constrainedProperties.containsKey(property)) {
-      cp=(ConstrainedProperty)constrainedProperties.get(property);
+      cp=constrainedProperties.get(property);
     }
  else {
       PropertyDescriptor pd=this.bean.getPropertyDescriptor(property);
@@ -11,8 +11,8 @@
       cp.setOrder(order++);
       constrainedProperties.put(property,cp);
     }
-    for (Iterator i=attributes.keySet().iterator(); i.hasNext(); ) {
-      String constraintName=(String)i.next();
+    for (    Object o : attributes.keySet()) {
+      String constraintName=(String)o;
       if (cp.supportsContraint(constraintName)) {
         cp.applyConstraint(constraintName,attributes.get(constraintName));
       }

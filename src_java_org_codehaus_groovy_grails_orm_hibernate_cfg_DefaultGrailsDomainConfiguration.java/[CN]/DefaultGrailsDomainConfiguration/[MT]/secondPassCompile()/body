@@ -3,12 +3,7 @@
     return;
   }
   if (this.grailsApplication != null)   Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
-  for (  GrailsDomainClass domainClass : this.domainClasses) {
-    GrailsDomainBinder.evaluateMapping(domainClass);
-  }
-  for (  GrailsDomainClass domainClass : this.domainClasses) {
-    GrailsDomainBinder.evaluateNamedQueries(domainClass);
-  }
+  configureDomainBinder(this.grailsApplication,this.domainClasses);
   for (  GrailsDomainClass domainClass : this.domainClasses) {
     final Mappings mappings=super.createMappings();
     Mapping m=GrailsDomainBinder.getMapping(domainClass);

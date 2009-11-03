@@ -3,12 +3,7 @@
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsAnnotationConfiguration] [" + this.domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
     }
-    for (    GrailsDomainClass domainClass : this.domainClasses) {
-      GrailsDomainBinder.evaluateMapping(domainClass);
-    }
-    for (    GrailsDomainClass domainClass : this.domainClasses) {
-      GrailsDomainBinder.evaluateNamedQueries(domainClass);
-    }
+    DefaultGrailsDomainConfiguration.configureDomainBinder(grailsApplication,domainClasses);
     for (    GrailsDomainClass domainClass : this.domainClasses) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("[GrailsAnnotationConfiguration] Binding persistent class [" + domainClass.getFullName() + "]");

@@ -1,0 +1,33 @@
+{
+  LinkedList classChain=getSuperClassChain(instance);
+  Class clazz;
+  ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(instance);
+  for (  Object aClassChain : classChain) {
+    clazz=(Class)aClassChain;
+    Closure c=(Closure)GrailsClassUtils.getStaticPropertyValue(clazz,PROPERTY_NAME);
+    if (c == null) {
+      c=getConstraintsFromScript(instance);
+    }
+    if (c != null) {
+      c.setDelegate(delegate);
+      c.call();
+    }
+ else {
+      LOG.debug("User-defined constraints not found on class [" + clazz + "], applying default constraints");
+    }
+  }
+  Map<String,ConstrainedProperty> constrainedProperties=delegate.getConstrainedProperties();
+  if (properties != null) {
+    for (    GrailsDomainClassProperty p : properties) {
+      final String propertyName=p.getName();
+      ConstrainedProperty cp=constrainedProperties.get(propertyName);
+      if (cp == null) {
+        cp=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
+        cp.setOrder(constrainedProperties.size() + 1);
+        constrainedProperties.put(propertyName,cp);
+      }
+      applyDefaultConstraints(propertyName,p,cp,defaultConstraints);
+    }
+  }
+  return constrainedProperties;
+}

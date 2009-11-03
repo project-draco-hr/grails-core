@@ -1,7 +1,7 @@
 {
   String className=object.getClass().getName();
   String constraintsScript=className.replaceAll("\\.","/") + CONSTRAINTS_GROOVY;
-  InputStream stream=getClass().getClassLoader().getResourceAsStream(constraintsScript);
+  InputStream stream=GrailsDomainConfigurationUtil.class.getClassLoader().getResourceAsStream(constraintsScript);
   if (stream != null) {
     GroovyClassLoader gcl=new GroovyClassLoader();
     try {

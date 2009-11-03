@@ -1,0 +1,9 @@
+{
+  LinkedList<Class> classChain=new LinkedList<Class>();
+  Class clazz=instance.getClass();
+  while (clazz != Object.class) {
+    classChain.addFirst(clazz);
+    clazz=clazz.getSuperclass();
+  }
+  return classChain;
+}

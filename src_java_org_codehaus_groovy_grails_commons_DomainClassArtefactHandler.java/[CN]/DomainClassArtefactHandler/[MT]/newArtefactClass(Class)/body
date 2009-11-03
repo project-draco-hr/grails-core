@@ -1,3 +1,6 @@
 {
+  if (grailsApplication != null) {
+    return new DefaultGrailsDomainClass(artefactClass,defaultConstraints);
+  }
   return new DefaultGrailsDomainClass(artefactClass);
 }

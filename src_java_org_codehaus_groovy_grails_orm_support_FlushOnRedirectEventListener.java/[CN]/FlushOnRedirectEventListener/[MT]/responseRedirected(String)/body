@@ -1,0 +1,10 @@
+{
+  HibernateTemplate ht=new HibernateTemplate(sessionFactory);
+  ht.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      session.flush();
+      return null;
+    }
+  }
+);
+}

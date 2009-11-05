@@ -8,10 +8,14 @@
     }
     String redirectUrl=useJessionId ? response.encodeRedirectURL(actualUri) : actualUri;
     response.sendRedirect(redirectUrl);
+    Map<String,RedirectEventListener> redirectListeners=applicationContext.getBeansOfType(RedirectEventListener.class);
+    for (    RedirectEventListener redirectEventListener : redirectListeners.values()) {
+      redirectEventListener.responseRedirected(redirectUrl);
+    }
     request.setAttribute(GRAILS_REDIRECT_ISSUED,true);
   }
  catch (  IOException e) {
-    throw new ControllerExecutionException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);
+    throw new CannotRedirectException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);
   }
   return null;
 }

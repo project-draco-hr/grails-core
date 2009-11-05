@@ -6,6 +6,7 @@
  else {
     manyToOne.setFetchMode(FetchMode.DEFAULT);
   }
+  manyToOne.setLazy(getLazyiness(property));
   if (config != null) {
     manyToOne.setIgnoreNotFound(config.getIgnoreNotFound());
   }

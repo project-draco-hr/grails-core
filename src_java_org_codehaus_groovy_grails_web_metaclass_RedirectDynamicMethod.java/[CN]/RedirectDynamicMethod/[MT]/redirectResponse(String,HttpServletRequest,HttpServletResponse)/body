@@ -8,6 +8,7 @@
     }
     String redirectUrl=useJessionId ? response.encodeRedirectURL(actualUri) : actualUri;
     response.sendRedirect(redirectUrl);
+    request.setAttribute(GRAILS_REDIRECT_ISSUED,true);
   }
  catch (  IOException e) {
     throw new ControllerExecutionException("Error redirecting request for url [" + actualUri + "]: "+ e.getMessage(),e);

@@ -6,9 +6,6 @@
     ge.addValue(new VariableExpression("id"));
     Statement s=new ReturnStatement(ge);
     MethodNode mn=new MethodNode("toString",Modifier.PUBLIC,new ClassNode(String.class),new Parameter[0],new ClassNode[0],s);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("[GrailsDomainInjector] Adding method [toString()] to class [" + classNode.getName() + "]");
-    }
     classNode.addMethod(mn);
     classesWithInjectedToString.add(classNode);
   }

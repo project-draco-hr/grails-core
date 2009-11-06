@@ -1,0 +1,20 @@
+{
+  super(pattern,sessionFactory,classLoader);
+  if (application == null)   throw new IllegalArgumentException("Constructor argument 'application' cannot be null");
+  this.application=application;
+  this.shouldFail=false;
+  final Map config=application.getConfig().flatten();
+  if (config.containsKey(FAIL_ON_ERROR_CONFIG_PROPERTY)) {
+    Object configProperty=config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
+    if (configProperty instanceof Boolean) {
+      shouldFail=Boolean.TRUE == configProperty;
+    }
+ else     if (configProperty instanceof List) {
+      if (domainClass != null) {
+        final Class theClass=domainClass.getClazz();
+        List packageList=(List)configProperty;
+        shouldFail=GrailsClassUtils.isClassBelowPackage(theClass,packageList);
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  String classPackage=theClass.getPackage().getName();
+  for (  Object packageName : packageList) {
+    if (packageName != null) {
+      if (classPackage.startsWith(packageName.toString())) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

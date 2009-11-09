@@ -10,4 +10,7 @@
       }
     }
   }
+  if (externalEventReceiver != null) {
+    externalEventReceiver.receiveGrailsCliEvent(eventName,arguments);
+  }
 }

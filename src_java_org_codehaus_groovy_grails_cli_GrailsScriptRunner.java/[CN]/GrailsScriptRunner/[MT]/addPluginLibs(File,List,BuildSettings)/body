@@ -6,16 +6,8 @@
   if (libDir.exists()) {
     final IvyDependencyManager dependencyManager=settings.getDependencyManager();
     final Map pluginExcludes=dependencyManager.getPluginExcludes();
-    String pluginName=pluginDir.getName();
-    int i=pluginName.lastIndexOf('-');
-    if (i > -1) {
-      Collection excludes=null;
-      while (i > -1 && excludes == null) {
-        pluginName=pluginName.substring(0,i);
-        excludes=(Collection)pluginExcludes.get(pluginName);
-        i=pluginName.indexOf('-');
-      }
-      addLibs(libDir,urls,excludes != null ? excludes : Collections.emptyList());
-    }
+    String pluginName=getPluginName(pluginDir);
+    Collection excludes=(Collection)pluginExcludes.get(pluginName);
+    addLibs(libDir,urls,excludes != null ? excludes : Collections.emptyList());
   }
 }

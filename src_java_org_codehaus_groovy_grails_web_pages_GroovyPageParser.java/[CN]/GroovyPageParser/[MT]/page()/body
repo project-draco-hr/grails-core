@@ -2,6 +2,9 @@
   if (LOG.isDebugEnabled())   LOG.debug("parse: page");
   if (finalPass) {
     out.println();
+    if (pluginAnnotation != null) {
+      out.println(pluginAnnotation);
+    }
     out.print("class ");
     out.print(className);
     out.println(" extends GroovyPage {");

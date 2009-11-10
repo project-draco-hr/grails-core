@@ -1,8 +1,8 @@
 {
   if (appContext != null) {
     this.pagesTemplateEngine=(GroovyPagesTemplateEngine)fetchBeanFromAppCtx(GroovyPagesTemplateEngine.BEAN_ID);
+    this.pluginManager=(GrailsPluginManager)fetchBeanFromAppCtx(GrailsPluginManager.BEAN_NAME);
     this.grailsApplication=(GrailsApplication)fetchBeanFromAppCtx(GrailsApplication.APPLICATION_ID);
-    this.metaManager=(PluginMetaManager)fetchBeanFromAppCtx(PluginMetaManager.BEAN_ID);
     this.groovyPagesUriService=(GroovyPagesUriService)fetchBeanFromAppCtx(GroovyPagesUriService.BEAN_ID);
     this.messageSource=(MessageSource)fetchBeanFromAppCtx("messageSource");
   }

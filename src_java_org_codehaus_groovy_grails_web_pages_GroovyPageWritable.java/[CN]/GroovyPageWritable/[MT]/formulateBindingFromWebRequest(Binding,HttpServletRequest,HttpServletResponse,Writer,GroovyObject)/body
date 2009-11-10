@@ -20,7 +20,6 @@
   binding.setVariable(GroovyPage.CONTROLLER_NAME,webRequest.getControllerName());
   if (controller != null) {
     binding.setVariable(GrailsApplicationAttributes.CONTROLLER,controller);
-    binding.setVariable(GroovyPage.PLUGIN_CONTEXT_PATH,controller.getProperty(GroovyPage.PLUGIN_CONTEXT_PATH));
   }
   binding.setVariable(GroovyPage.OUT,out);
 }

@@ -1,5 +1,4 @@
 {
-  String clsName=classNode.getNameWithoutPackage();
   String sourcePath=sourceNode.getName();
   File sourceFile=new File(sourcePath);
   File parent=sourceFile.getParentFile();

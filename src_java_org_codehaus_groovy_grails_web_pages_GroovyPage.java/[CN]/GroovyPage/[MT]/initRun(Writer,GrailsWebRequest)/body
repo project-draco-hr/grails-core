@@ -2,6 +2,14 @@
   this.outputStack=GroovyPageOutputStack.currentStack(true,target,false,true);
   this.out=outputStack.getProxyWriter();
   this.webRequest=webRequest;
+  final Map map=getBinding().getVariables();
+  if (map.containsKey(APPLICATION_CONTEXT)) {
+    final ApplicationContext applicationContext=(ApplicationContext)map.get(APPLICATION_CONTEXT);
+    if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      final GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+      this.pluginContextPath=pluginManager.getPluginPathForInstance(this);
+    }
+  }
   if (webRequest != null) {
     this.webRequest.setOut(this.out);
   }

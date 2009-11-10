@@ -1,0 +1,6 @@
+{
+  if (bean instanceof PluginManagerAware) {
+    ((PluginManagerAware)bean).setPluginManager(pluginManager);
+  }
+  return bean;
+}

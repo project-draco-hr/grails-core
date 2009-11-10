@@ -1,0 +1,31 @@
+{
+  Map config=ConfigurationHolder.getFlatConfig();
+  PluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
+  if (info != null) {
+    pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
+  }
+  Object gspEnc=config.get(CONFIG_PROPERTY_GSP_ENCODING);
+  if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
+    gspEncoding=gspEnc.toString();
+  }
+ else {
+    gspEncoding=System.getProperty("file.encoding","us-ascii");
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("GSP file encoding set to: " + gspEncoding);
+  }
+  String gspSource=readStream(in);
+  if (isSitemeshPreprocessingEnabled(config,uri)) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with g:capture*.");
+    }
+    gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
+    sitemeshPreprocessMode=true;
+  }
+  scan=new GroovyPageScanner(gspSource);
+  this.pageName=uri;
+  this.environment=Environment.getCurrent();
+  makeName(name);
+  Object o=config.get(CONFIG_PROPERTY_DEFAULT_CODEC);
+  lookupCodec(o);
+}

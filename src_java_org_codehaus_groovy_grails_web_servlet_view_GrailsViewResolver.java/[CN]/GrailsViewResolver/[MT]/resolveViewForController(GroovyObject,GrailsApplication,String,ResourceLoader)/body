@@ -1,7 +1,7 @@
 {
   String gspView;
   if (controller != null && application != null) {
-    String pathToView=this.pluginMetaManager.getPluginViewsPathForResource(controller.getClass().getName());
+    String pathToView=pluginManager != null ? pluginManager.getPluginViewsPathForInstance(controller) : null;
     if (pathToView != null) {
       gspView=GrailsResourceUtils.WEB_INF + pathToView + viewName+ GSP_SUFFIX;
     }

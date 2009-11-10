@@ -1,7 +1,7 @@
 {
   if (StringUtils.isBlank(name))   return null;
   if (Environment.getCurrent() != Environment.DEVELOPMENT && decoratorMap.containsKey(name)) {
-    return (Decorator)decoratorMap.get(name);
+    return decoratorMap.get(name);
   }
  else {
     String decoratorName=name;

@@ -10,7 +10,7 @@
       }
     }
   }
-  if (externalEventReceiver != null) {
-    externalEventReceiver.receiveGrailsCliEvent(eventName,arguments);
+  for (  GrailsBuildListener buildListener : buildListeners) {
+    buildListener.receiveGrailsBuildEvent(eventName,arguments);
   }
 }

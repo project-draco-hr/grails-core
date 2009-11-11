@@ -1,0 +1,13 @@
+{
+  for (  Object listener : buildSettings.getBuildListeners()) {
+    if (listener instanceof String) {
+      addGrailsBuildListener((String)listener);
+    }
+ else     if (listener instanceof Class) {
+      addGrailsBuildListener((Class)listener);
+    }
+ else {
+      throw new IllegalStateException("buildSettings.getBuildListeners() returned a " + listener.getClass().getName());
+    }
+  }
+}

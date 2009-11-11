@@ -1,7 +1,7 @@
 {
   if (theClass != null) {
     final String path=getPluginPathForClass(theClass);
-    if (path != null)     return path + '/' + GrailsResourceUtils.GRAILS_APP_DIR+ "/views";
+    if (StringUtils.hasText(path))     return path + '/' + GrailsResourceUtils.GRAILS_APP_DIR+ "/views";
   }
   return null;
 }

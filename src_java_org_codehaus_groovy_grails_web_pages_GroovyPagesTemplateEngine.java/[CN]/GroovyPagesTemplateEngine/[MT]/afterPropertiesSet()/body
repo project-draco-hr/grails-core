@@ -1,5 +1,5 @@
 {
   if (classLoader == null) {
-    classLoader=new GroovyClassLoader();
+    this.classLoader=initGroovyClassLoader(Thread.currentThread().getContextClassLoader());
   }
 }

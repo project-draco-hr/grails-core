@@ -1,11 +1,8 @@
 {
-  ClassLoader classLoader=this.classLoader;
-  if (!(classLoader instanceof GroovyClassLoader)) {
-    classLoader=new GroovyClassLoader(classLoader);
-  }
+  GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
   Class scriptClass;
   try {
-    scriptClass=((GroovyClassLoader)classLoader).parseClass(in,name);
+    scriptClass=groovyClassLoader.parseClass(in,name);
   }
  catch (  CompilationFailedException e) {
     LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);

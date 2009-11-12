@@ -1,13 +1,3 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [distinct] must be within a [projections] node"));
-  }
- else {
-    ProjectionList list=Projections.projectionList();
-    for (Iterator i=propertyNames.iterator(); i.hasNext(); ) {
-      Object o=i.next();
-      list.add(Projections.property(calculatePropertyName(o.toString())));
-    }
-    this.projectionList.add(Projections.distinct(list));
-  }
+  distinct(propertyNames,null);
 }

@@ -1,8 +1,3 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [count] must be within a [projections] node"));
-  }
- else {
-    this.projectionList.add(Projections.count(calculatePropertyName(propertyName)));
-  }
+  count(propertyName,null);
 }

@@ -1,0 +1,9 @@
+{
+  if (this.projectionList == null) {
+    throwRuntimeException(new IllegalArgumentException("call to [countDistinct] must be within a [projections] node"));
+  }
+ else {
+    final CountProjection proj=Projections.countDistinct(calculatePropertyName(propertyName));
+    addProjectionToList(proj,alias);
+  }
+}

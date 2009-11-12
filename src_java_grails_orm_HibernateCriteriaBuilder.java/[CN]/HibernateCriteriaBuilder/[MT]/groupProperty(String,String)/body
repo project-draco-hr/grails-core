@@ -1,0 +1,9 @@
+{
+  if (this.projectionList == null) {
+    throwRuntimeException(new IllegalArgumentException("call to [groupProperty] must be within a [projections] node"));
+  }
+ else {
+    final PropertyProjection proj=Projections.groupProperty(calculatePropertyName(propertyName));
+    addProjectionToList(proj,alias);
+  }
+}

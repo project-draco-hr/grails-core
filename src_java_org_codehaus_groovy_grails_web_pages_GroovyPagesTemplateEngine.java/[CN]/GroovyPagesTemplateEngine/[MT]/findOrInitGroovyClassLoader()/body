@@ -1,0 +1,6 @@
+{
+  if (!(this.classLoader instanceof GroovyClassLoader)) {
+    this.classLoader=initGroovyClassLoader(this.classLoader);
+  }
+  return (GroovyClassLoader)this.classLoader;
+}

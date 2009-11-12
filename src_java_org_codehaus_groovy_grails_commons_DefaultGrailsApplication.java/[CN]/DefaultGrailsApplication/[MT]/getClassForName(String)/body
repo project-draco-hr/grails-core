@@ -2,8 +2,7 @@
   if (StringUtils.isBlank(className)) {
     return null;
   }
-  for (int i=0; i < allClasses.length; i++) {
-    Class c=allClasses[i];
+  for (  Class c : allClasses) {
     if (c.getName().equals(className)) {
       return c;
     }

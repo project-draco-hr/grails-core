@@ -1,4 +1,4 @@
 {
-  ArtefactHandler handler=(ArtefactHandler)artefactHandlersByName.get(artefactType);
+  ArtefactHandler handler=artefactHandlersByName.get(artefactType);
   initializeArtefacts(handler);
 }

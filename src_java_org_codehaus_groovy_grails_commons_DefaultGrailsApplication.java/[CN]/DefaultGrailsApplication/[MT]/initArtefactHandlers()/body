@@ -6,5 +6,5 @@
   registerArtefactHandler(new BootstrapArtefactHandler());
   registerArtefactHandler(new CodecArtefactHandler());
   registerArtefactHandler(new UrlMappingsArtefactHandler());
-  this.artefactHandlers=((ArtefactHandler[])this.artefactHandlersByName.values().toArray(new ArtefactHandler[artefactHandlersByName.size()]));
+  this.artefactHandlers=this.artefactHandlersByName.values().toArray(new ArtefactHandler[artefactHandlersByName.size()]);
 }

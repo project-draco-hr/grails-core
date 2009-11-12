@@ -1,5 +1,5 @@
 {
-  ArtefactHandler handler=(ArtefactHandler)artefactHandlersByName.get(artefactType);
+  ArtefactHandler handler=artefactHandlersByName.get(artefactType);
   if (handler == null)   throw new GrailsConfigurationException("Unable to locate arefact handler for specified type: " + artefactType);
   return handler.isArtefact(theClazz);
 }

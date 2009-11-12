@@ -1,6 +1,6 @@
 {
-  for (Iterator it=artefactInfo.values().iterator(); it.hasNext(); ) {
-    DefaultArtefactInfo info=(DefaultArtefactInfo)it.next();
+  for (  Object o : artefactInfo.values()) {
+    DefaultArtefactInfo info=(DefaultArtefactInfo)o;
     info.updateComplete();
   }
 }

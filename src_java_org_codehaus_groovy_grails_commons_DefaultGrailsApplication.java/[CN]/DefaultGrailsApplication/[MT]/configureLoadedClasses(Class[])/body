@@ -4,35 +4,28 @@
   allArtefactClasses.clear();
   allArtefactClassesArray=null;
   this.allClasses=classes;
-  suspectArtefactInit=true;
-  try {
-    log.debug("Going to inspect artefact classes.");
-    for (int i=0; i < classes.length; i++) {
-      final Class theClass=classes[i];
-      log.debug("Inspecting [" + theClass.getName() + "]");
-      if (Modifier.isAbstract(theClass.getModifiers())) {
-        log.debug("[" + theClass.getName() + "] is abstract.");
-        continue;
-      }
-      if (allArtefactClasses.contains(theClass))       continue;
-      for (int j=0; j < artefactHandlers.length; j++) {
-        if (artefactHandlers[j].isArtefact(theClass)) {
-          log.debug("Adding artefact " + theClass + " of kind "+ artefactHandlers[j].getType());
-          GrailsClass gclass=addArtefact(artefactHandlers[j].getType(),theClass);
-          allArtefactClasses.add(theClass);
-          DefaultArtefactInfo info=getArtefactInfo(artefactHandlers[j].getType(),true);
-          info.addGrailsClass(gclass);
-          break;
-        }
+  log.debug("Going to inspect artefact classes.");
+  for (  final Class theClass : classes) {
+    log.debug("Inspecting [" + theClass.getName() + "]");
+    if (Modifier.isAbstract(theClass.getModifiers())) {
+      log.debug("[" + theClass.getName() + "] is abstract.");
+      continue;
+    }
+    if (allArtefactClasses.contains(theClass))     continue;
+    for (    ArtefactHandler artefactHandler : artefactHandlers) {
+      if (artefactHandler.isArtefact(theClass)) {
+        log.debug("Adding artefact " + theClass + " of kind "+ artefactHandler.getType());
+        GrailsClass gclass=addArtefact(artefactHandler.getType(),theClass);
+        allArtefactClasses.add(theClass);
+        DefaultArtefactInfo info=getArtefactInfo(artefactHandler.getType(),true);
+        info.addGrailsClass(gclass);
+        break;
       }
     }
-    refreshArtefactGrailsClassCaches();
   }
-  finally {
-    suspectArtefactInit=false;
-  }
-  allArtefactClassesArray=(Class[])allArtefactClasses.toArray(new Class[allArtefactClasses.size()]);
-  for (int j=0; j < artefactHandlers.length; j++) {
-    initializeArtefacts(artefactHandlers[j]);
+  refreshArtefactGrailsClassCaches();
+  allArtefactClassesArray=allArtefactClasses.toArray(new Class[allArtefactClasses.size()]);
+  for (  ArtefactHandler artefactHandler : artefactHandlers) {
+    initializeArtefacts(artefactHandler);
   }
 }

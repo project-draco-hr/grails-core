@@ -1,4 +1,4 @@
 {
-  this.allClasses=(Class[])loadedClasses.toArray(new Class[loadedClasses.size()]);
+  this.allClasses=loadedClasses.toArray(new Class[loadedClasses.size()]);
   return allClasses;
 }

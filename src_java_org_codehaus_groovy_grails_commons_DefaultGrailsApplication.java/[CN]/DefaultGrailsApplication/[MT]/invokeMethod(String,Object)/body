@@ -24,7 +24,7 @@
         throw new IllegalArgumentException("Dynamic method is<Artefact>Class(artefactClass) requires a " + "single Class parameter");
       }
  else {
-        return Boolean.valueOf(isArtefactOfType(match.group(2),(Class)argsv[0]));
+        return isArtefactOfType(match.group(2),(Class)argsv[0]);
       }
     }
  else {

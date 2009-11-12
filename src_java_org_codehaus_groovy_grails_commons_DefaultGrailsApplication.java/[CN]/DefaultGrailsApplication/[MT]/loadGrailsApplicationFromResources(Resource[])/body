@@ -38,7 +38,7 @@
     }
   }
  catch (  CompilationFailedException e) {
-    if (GrailsUtil.isDevelopmentEnv()) {
+    if (Environment.getCurrent() == Environment.DEVELOPMENT) {
       log.fatal("Compilation error loading Grails application: " + e.getMessage(),e);
       System.exit(1);
     }

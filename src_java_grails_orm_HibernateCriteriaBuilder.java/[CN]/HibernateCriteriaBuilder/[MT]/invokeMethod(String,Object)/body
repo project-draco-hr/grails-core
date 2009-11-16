@@ -155,6 +155,5 @@
       }
     }
   }
-  closeSessionFollowingException();
   throw new MissingMethodException(name,getClass(),args);
 }

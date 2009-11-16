@@ -1,9 +1,4 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [avg] must be within a [projections] node"));
-  }
- else {
-    final AggregateProjection aggregateProjection=Projections.avg(calculatePropertyName(propertyName));
-    addProjectionToList(aggregateProjection,alias);
-  }
+  final AggregateProjection aggregateProjection=Projections.avg(calculatePropertyName(propertyName));
+  addProjectionToList(aggregateProjection,alias);
 }

@@ -1,9 +1,4 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [max] must be within a [projections] node"));
-  }
- else {
-    final AggregateProjection proj=Projections.max(calculatePropertyName(propertyName));
-    addProjectionToList(proj,alias);
-  }
+  final AggregateProjection proj=Projections.max(calculatePropertyName(propertyName));
+  addProjectionToList(proj,alias);
 }

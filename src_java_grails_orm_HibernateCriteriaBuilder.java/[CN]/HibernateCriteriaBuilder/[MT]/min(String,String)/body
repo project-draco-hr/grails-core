@@ -1,9 +1,4 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [min] must be within a [projections] node"));
-  }
- else {
-    final AggregateProjection aggregateProjection=Projections.min(calculatePropertyName(propertyName));
-    addProjectionToList(aggregateProjection,alias);
-  }
+  final AggregateProjection aggregateProjection=Projections.min(calculatePropertyName(propertyName));
+  addProjectionToList(aggregateProjection,alias);
 }

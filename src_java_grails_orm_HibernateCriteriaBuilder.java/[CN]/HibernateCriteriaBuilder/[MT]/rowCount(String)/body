@@ -1,9 +1,4 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [rowCount] must be within a [projections] node"));
-  }
- else {
-    final Projection proj=Projections.rowCount();
-    addProjectionToList(proj,alias);
-  }
+  final Projection proj=Projections.rowCount();
+  addProjectionToList(proj,alias);
 }

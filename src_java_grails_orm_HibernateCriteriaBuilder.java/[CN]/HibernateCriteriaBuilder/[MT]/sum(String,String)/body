@@ -1,9 +1,4 @@
 {
-  if (this.projectionList == null) {
-    throwRuntimeException(new IllegalArgumentException("call to [sum] must be within a [projections] node"));
-  }
- else {
-    final AggregateProjection proj=Projections.sum(calculatePropertyName(propertyName));
-    addProjectionToList(proj,alias);
-  }
+  final AggregateProjection proj=Projections.sum(calculatePropertyName(propertyName));
+  addProjectionToList(proj,alias);
 }

@@ -1,0 +1,5 @@
+{
+  for (  JUnitResultFormatter report : reports) {
+    report.addFailure(test,t);
+  }
+}

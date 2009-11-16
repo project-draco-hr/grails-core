@@ -1,0 +1,11 @@
+{
+  if (format.equals(PLAIN)) {
+    return new PlainFormatter(name,new File(reportsDir,"plain/TEST-" + name + ".txt"));
+  }
+ else   if (format.equals(XML)) {
+    return new XMLFormatter(new File(reportsDir,"TEST-" + name + ".xml"));
+  }
+ else {
+    throw new IllegalArgumentException("Unknown format type: " + format);
+  }
+}

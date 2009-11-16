@@ -1,24 +1,21 @@
 {
-  GrailsConsoleResultFormatter consoleFormatter=new GrailsConsoleResultFormatter();
   TestResult result=new TestResult();
+  GrailsConsoleResultFormatter consoleFormatter=new GrailsConsoleResultFormatter();
+  consoleFormatter.setOutput(System.out);
   result.addListener(consoleFormatter);
   for (Enumeration tests=suite.tests(); tests.hasMoreElements(); ) {
     TestSuite test=(TestSuite)tests.nextElement();
-    reset();
     JUnitTest junitTest=new JUnitTest(test.getName());
+    JUnitReports reports=(JUnitReports)reportsFactory.createReports(test.getName());
     try {
-      prepareReports(test);
-      consoleFormatter.setOutput(System.out);
-      outAndErrSwapper.swapIn();
+      result.addListener(reports);
       consoleFormatter.startTestSuite(junitTest);
-      for (      FormattedOutput output : formattedOutputs) {
-        result.addListener(output.getFormatter());
-        output.start(junitTest);
-      }
+      reports.startTestSuite(junitTest);
       long start=System.currentTimeMillis();
       int runCount=result.runCount();
       int failureCount=result.failureCount();
       int errorCount=result.errorCount();
+      outAndErrSwapper.swapIn();
       for (int i=0; i < test.testCount(); i++) {
         TestCase t=(TestCase)test.testAt(i);
         System.out.println("--Output from " + t.getName() + "--");
@@ -30,13 +27,12 @@
     }
   finally {
       List<OutputStream> outAndErr=outAndErrSwapper.swapOut();
-      String out=outAndErr.get(0).toString();
-      String err=outAndErr.get(1).toString();
-      for (      FormattedOutput output : formattedOutputs) {
-        output.end(junitTest,out,err);
-      }
+      reports.setSystemOutput(outAndErr.get(0).toString());
+      reports.setSystemError(outAndErr.get(1).toString());
+      reports.endTestSuite(junitTest);
       consoleFormatter.endTestSuite(junitTest);
     }
+    result.removeListener(reports);
   }
   return result;
 }

@@ -1,0 +1,4 @@
+{
+  String associatedObjectType=associatedObject.getClass().getName();
+  return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObjectType);
+}

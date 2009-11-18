@@ -4,11 +4,7 @@
   }
  else {
     if (grailsApplication != null) {
-      String associatedObjectType=associatedObject.getClass().getName();
-      if (associatedObject instanceof HibernateProxy) {
-        associatedObjectType=((HibernateProxy)associatedObject).getHibernateLazyInitializer().getEntityName();
-      }
-      return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObjectType);
+      return getAssociatedDomainClassFromApplication(associatedObject);
     }
  else     return persistentProperty.getReferencedDomainClass();
   }

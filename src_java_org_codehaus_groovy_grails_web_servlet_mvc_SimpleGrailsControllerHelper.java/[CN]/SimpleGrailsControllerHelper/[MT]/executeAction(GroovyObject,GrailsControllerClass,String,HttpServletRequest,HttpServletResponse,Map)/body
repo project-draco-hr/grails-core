@@ -14,7 +14,14 @@
         throw new ControllerExecutionException("I/O error sending 404 error",e);
       }
     }
-    Object returnValue=handleAction(controller,action,request,response,params);
+    Object returnValue=null;
+    try {
+      returnValue=handleAction(controller,action,request,response,params);
+    }
+ catch (    Throwable t) {
+      GrailsUtil.deepSanitize(t);
+      throw new ControllerExecutionException("Error executing action [" + actionName + "] on controller ["+ controller.getClass().getName()+ "]: "+ t.getMessage(),t);
+    }
     initChainModel(controller);
     if (response.isCommitted()) {
       if (LOG.isDebugEnabled()) {

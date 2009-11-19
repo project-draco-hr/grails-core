@@ -20,7 +20,9 @@
     }
  catch (    Throwable t) {
       GrailsUtil.deepSanitize(t);
-      throw new ControllerExecutionException("Error executing action [" + actionName + "] on controller ["+ controller.getClass().getName()+ "]: "+ t.getMessage(),t);
+      String pluginName=GrailsPluginUtils.getPluginName(controller.getClass());
+      pluginName=pluginName != null ? "in plugin [" + pluginName + "]" : "";
+      throw new ControllerExecutionException("Executing action [" + actionName + "] of controller ["+ controller.getClass().getName()+ "] "+ pluginName+ " caused exception: "+ t.getMessage(),t);
     }
     initChainModel(controller);
     if (response.isCommitted()) {

@@ -1,4 +1,11 @@
 {
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup((HttpServletRequest)request);
+  if (webRequest != null) {
+    final Map<String,BindEventListener> bindEventListenerMap=webRequest.getApplicationContext().getBeansOfType(BindEventListener.class);
+    for (    BindEventListener bindEventListener : bindEventListenerMap.values()) {
+      bindEventListener.doBind(getTarget(),mpvs,getTypeConverter());
+    }
+  }
   preProcessMutablePropertyValues(mpvs);
   if (request instanceof MultipartHttpServletRequest) {
     MultipartHttpServletRequest multipartRequest=(MultipartHttpServletRequest)request;

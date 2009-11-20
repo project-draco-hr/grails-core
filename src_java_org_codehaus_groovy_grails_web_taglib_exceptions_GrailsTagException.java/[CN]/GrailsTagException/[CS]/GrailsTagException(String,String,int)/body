@@ -1,5 +1,5 @@
 {
-  super(message + " (" + pageName+ ":"+ lineNumber+ ")");
+  super(message);
   this.fileName=pageName;
   this.lineNumber=lineNumber;
 }

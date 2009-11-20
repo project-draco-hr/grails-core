@@ -1,9 +1,12 @@
 {
   GrailsWebRequest webRequest=GrailsWebRequest.lookup((HttpServletRequest)request);
   if (webRequest != null) {
-    final Map<String,BindEventListener> bindEventListenerMap=webRequest.getApplicationContext().getBeansOfType(BindEventListener.class);
-    for (    BindEventListener bindEventListener : bindEventListenerMap.values()) {
-      bindEventListener.doBind(getTarget(),mpvs,getTypeConverter());
+    final ApplicationContext applicationContext=webRequest.getApplicationContext();
+    if (applicationContext != null) {
+      final Map<String,BindEventListener> bindEventListenerMap=applicationContext.getBeansOfType(BindEventListener.class);
+      for (      BindEventListener bindEventListener : bindEventListenerMap.values()) {
+        bindEventListener.doBind(getTarget(),mpvs,getTypeConverter());
+      }
     }
   }
   preProcessMutablePropertyValues(mpvs);

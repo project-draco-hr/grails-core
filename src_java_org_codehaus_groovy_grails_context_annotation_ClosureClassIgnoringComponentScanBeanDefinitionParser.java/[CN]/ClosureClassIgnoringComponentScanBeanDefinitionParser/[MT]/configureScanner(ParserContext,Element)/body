@@ -4,16 +4,22 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("Scanning only this classloader:" + originalResourceLoader.getClassLoader());
   }
-  final ResourceLoader parentOnlyResourceLoader=new ResourceLoader(){
-    ClassLoader parentOnlyGetResourcesClassLoader=new ParentOnlyGetResourcesClassLoader(originalResourceLoader.getClassLoader());
-    public Resource getResource(    String location){
-      return originalResourceLoader.getResource(location);
+  ResourceLoader parentOnlyResourceLoader;
+  try {
+    parentOnlyResourceLoader=new ResourceLoader(){
+      ClassLoader parentOnlyGetResourcesClassLoader=new ParentOnlyGetResourcesClassLoader(originalResourceLoader.getClassLoader());
+      public Resource getResource(      String location){
+        return originalResourceLoader.getResource(location);
+      }
+      public ClassLoader getClassLoader(){
+        return parentOnlyGetResourcesClassLoader;
+      }
     }
-    public ClassLoader getClassLoader(){
-      return parentOnlyGetResourcesClassLoader;
-    }
-  }
 ;
+  }
+ catch (  Throwable t) {
+    parentOnlyResourceLoader=originalResourceLoader;
+  }
   final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parentOnlyResourceLoader){
     @Override protected Resource[] findAllClassPathResources(    String location) throws IOException {
       Set<Resource> result=new LinkedHashSet<Resource>(16);

@@ -15,6 +15,7 @@
 ;
   MethodCallback methodCallback=new ReflectionUtils.MethodCallback(){
     public void doWith(    Method method) throws IllegalArgumentException, IllegalAccessException {
+      if (!Modifier.isPublic(method.getModifiers()))       return;
       if (Modifier.isStatic(method.getModifiers()) && method.getReturnType() != Void.class) {
         if (method.getParameterTypes().length == 0) {
           String name=method.getName();

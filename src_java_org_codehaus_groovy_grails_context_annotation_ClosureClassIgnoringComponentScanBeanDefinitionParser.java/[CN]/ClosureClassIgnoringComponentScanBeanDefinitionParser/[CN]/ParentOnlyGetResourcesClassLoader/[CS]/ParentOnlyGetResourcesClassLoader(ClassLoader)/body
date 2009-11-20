@@ -1,4 +1,6 @@
 {
   super(parent);
   this.rootLoader=DefaultGroovyMethods.getRootLoader(parent);
+  ReflectionUtils.makeAccessible(findResourceMethod);
+  ReflectionUtils.makeAccessible(findResourcesMethod);
 }

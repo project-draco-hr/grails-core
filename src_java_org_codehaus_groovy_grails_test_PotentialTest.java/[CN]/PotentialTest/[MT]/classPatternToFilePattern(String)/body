@@ -1,8 +1,0 @@
-{
-  if (classPattern.indexOf('.') != -1) {
-    return classPattern.replace('.','/');
-  }
- else {
-    return "**/" + classPattern;
-  }
-}

@@ -10,4 +10,7 @@
       }
     }
   }
+  for (  GrailsBuildListener buildListener : buildListeners) {
+    buildListener.receiveGrailsBuildEvent(eventName,arguments);
+  }
 }

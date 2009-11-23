@@ -1,0 +1,13 @@
+{
+  if (!GrailsBuildListener.class.isAssignableFrom(listenerClass)) {
+    throw new RuntimeException("Intended grails build listener class of " + listenerClass.getName() + " does not implement "+ GrailsBuildListener.class.getName());
+  }
+  GrailsBuildListener listener;
+  try {
+    listener=(GrailsBuildListener)listenerClass.newInstance();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Could not instantiate " + listenerClass.getName(),e);
+  }
+  addGrailsBuildListener(listener);
+}

@@ -1,4 +1,0 @@
-{
-  if (value instanceof GString)   value=value.toString();
-  return parameterMap.put(key,value);
-}

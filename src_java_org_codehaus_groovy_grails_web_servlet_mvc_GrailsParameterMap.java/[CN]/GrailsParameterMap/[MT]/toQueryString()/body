@@ -1,9 +1,0 @@
-{
-  String encoding=request.getCharacterEncoding();
-  try {
-    return WebUtils.toQueryString(this,encoding);
-  }
- catch (  UnsupportedEncodingException e) {
-    throw new ControllerExecutionException("Unable to convert parameter map [" + this + "] to a query string: "+ e.getMessage(),e);
-  }
-}

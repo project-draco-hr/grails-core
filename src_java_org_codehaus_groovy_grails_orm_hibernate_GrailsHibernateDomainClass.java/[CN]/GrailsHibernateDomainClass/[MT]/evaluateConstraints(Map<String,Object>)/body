@@ -1,0 +1,9 @@
+{
+  Map existing=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.CONSTRAINTS,Map.class);
+  if (existing == null) {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),getProperties(),defaultContraints);
+  }
+ else {
+    this.constraints=existing;
+  }
+}

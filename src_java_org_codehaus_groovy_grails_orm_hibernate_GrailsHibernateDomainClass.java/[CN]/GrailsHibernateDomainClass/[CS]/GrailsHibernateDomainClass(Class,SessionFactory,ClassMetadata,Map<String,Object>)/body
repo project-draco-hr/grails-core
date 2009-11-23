@@ -1,6 +1,7 @@
 {
   super(clazz,"");
   String ident=metaData.getIdentifierPropertyName();
+  this.defaultConstraints=defaultContraints;
   if (ident != null) {
     Class identType=getPropertyType(ident);
     this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
@@ -9,8 +10,7 @@
     propertyMap.put(ident,identifier);
   }
   String[] propertyNames=metaData.getPropertyNames();
-  for (int i=0; i < propertyNames.length; i++) {
-    String propertyName=propertyNames[i];
+  for (  String propertyName : propertyNames) {
     if (!propertyName.equals(ident)) {
       GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
       prop.setType(getPropertyType(propertyName));
@@ -18,7 +18,7 @@
       if (hibernateType.isAssociationType()) {
         prop.setAssociation(true);
         AssociationType assType=(AssociationType)hibernateType;
-        if (assType instanceof org.hibernate.type.AnyType)         continue;
+        if (assType instanceof AnyType)         continue;
         try {
           String associatedEntity=assType.getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
           ClassMetadata associatedMetaData=sessionFactory.getClassMetadata(associatedEntity);
@@ -40,6 +40,6 @@
       propertyMap.put(propertyName,prop);
     }
   }
-  this.properties=(GrailsDomainClassProperty[])propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
-  evaluateConstraints();
+  this.properties=propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
+  evaluateConstraints(defaultContraints);
 }

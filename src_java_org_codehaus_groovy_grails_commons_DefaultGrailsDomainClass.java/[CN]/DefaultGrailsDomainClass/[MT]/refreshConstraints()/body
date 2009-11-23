@@ -1,18 +1,13 @@
 {
-  try {
-    if (defaultConstraints != null) {
-      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
-    }
- else {
-      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
-    }
-    for (    GrailsDomainClassProperty property : this.persistentProperties) {
-      if (property.isEmbedded()) {
-        property.getComponent().refreshConstraints();
-      }
-    }
+  if (defaultConstraints != null) {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
   }
- catch (  IntrospectionException e) {
-    LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);
+ else {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
+  }
+  for (  GrailsDomainClassProperty property : this.persistentProperties) {
+    if (property.isEmbedded()) {
+      property.getComponent().refreshConstraints();
+    }
   }
 }

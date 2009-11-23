@@ -23,16 +23,11 @@
   this.properties=this.propertyMap.values().toArray(new GrailsDomainClassProperty[this.propertyMap.size()]);
   establishRelationships();
   establishPersistentProperties();
-  try {
-    if (defaultConstraints != null) {
-      this.defaultConstraints=defaultConstraints;
-      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
-    }
- else {
-      this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
-    }
+  if (defaultConstraints != null) {
+    this.defaultConstraints=defaultConstraints;
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
   }
- catch (  IntrospectionException e) {
-    LOG.error("Error reading class [" + getClazz() + "] constraints: "+ e.getMessage(),e);
+ else {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
   }
 }

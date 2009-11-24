@@ -7,6 +7,7 @@
   this.propertyMap=new LinkedHashMap<String,GrailsDomainClassProperty>();
   this.relationshipMap=getAssociationMap();
   this.embedded=getEmbeddedList();
+  this.defaultConstraints=defaultConstraints;
   if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class) != null)   this.mappingStrategy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
   this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
   this.hasOneMap=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.HAS_ONE,Map.class);
@@ -23,11 +24,4 @@
   this.properties=this.propertyMap.values().toArray(new GrailsDomainClassProperty[this.propertyMap.size()]);
   establishRelationships();
   establishPersistentProperties();
-  if (defaultConstraints != null) {
-    this.defaultConstraints=defaultConstraints;
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
-  }
- else {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
-  }
 }

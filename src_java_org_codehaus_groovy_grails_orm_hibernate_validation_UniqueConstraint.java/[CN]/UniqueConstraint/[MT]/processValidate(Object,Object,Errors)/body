@@ -14,14 +14,27 @@
         session.setFlushMode(FlushMode.MANUAL);
         try {
           boolean shouldValidate=true;
+          Class constraintClass=constraintOwningClass;
           if (propertyValue != null && DomainClassArtefactHandler.isDomainClass(propertyValue.getClass())) {
             shouldValidate=session.contains(propertyValue);
           }
           if (shouldValidate) {
-            Criteria criteria=session.createCriteria(constraintOwningClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
+            GrailsApplication application=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
+            GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,constraintClass.getName());
+            if (domainClass != null && !domainClass.isRoot()) {
+              GrailsDomainClassProperty property=domainClass.getPropertyByName(constraintPropertyName);
+              while (property.isInherited() && domainClass != null) {
+                domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,domainClass.getClazz().getSuperclass().getName());
+                if (domainClass != null) {
+                  property=domainClass.getPropertyByName(constraintPropertyName);
+                }
+              }
+              constraintClass=domainClass != null ? domainClass.getClazz() : constraintClass;
+            }
+            Criteria criteria=session.createCriteria(constraintClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
             if (uniquenessGroup != null) {
-              for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
-                String uniquenessGroupPropertyName=(String)it.next();
+              for (              Object anUniquenessGroup : uniquenessGroup) {
+                String uniquenessGroupPropertyName=(String)anUniquenessGroup;
                 Object uniquenessGroupPropertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,uniquenessGroupPropertyName);
                 if (DomainClassArtefactHandler.isDomainClass(uniquenessGroupPropertyValue.getClass())) {
                   try {
@@ -60,7 +73,12 @@
       boolean reject=false;
       if (id != null) {
         Object existing=results.get(0);
-        Object existingId=InvokerHelper.invokeMethod(existing,"ident",null);
+        Object existingId=null;
+        try {
+          existingId=InvokerHelper.invokeMethod(existing,"ident",null);
+        }
+ catch (        Exception e) {
+        }
         if (!id.equals(existingId)) {
           reject=true;
         }

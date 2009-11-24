@@ -3,8 +3,7 @@
     throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
   }
   if (constraintParameter instanceof List) {
-    for (Iterator it=((List)constraintParameter).iterator(); it.hasNext(); ) {
-      Object parameter=it.next();
+    for (    Object parameter : ((List)constraintParameter)) {
       if (!(parameter instanceof String || parameter instanceof GString)) {
         throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
       }
@@ -22,8 +21,8 @@
   }
   if (uniquenessGroup.size() > 0) {
     unique=true;
-    for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
-      String propertyName=(String)it.next();
+    for (    Object anUniquenessGroup : uniquenessGroup) {
+      String propertyName=(String)anUniquenessGroup;
       if (GrailsClassUtils.getPropertyType(constraintOwningClass,propertyName) == null) {
         throw new IllegalArgumentException("Scope for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a valid property name of same class");
       }

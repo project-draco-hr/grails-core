@@ -1,4 +1,5 @@
 {
+  if (disableTransformation)   return;
   ASTNode astNode=astNodes[0];
   if (astNode instanceof ModuleNode) {
     ModuleNode moduleNode=(ModuleNode)astNode;
@@ -8,6 +9,7 @@
       File sourcePath=new File(sourceUnit.getName());
       try {
         String absolutePath=sourcePath.getCanonicalPath();
+        PluginBuildSettings pluginBuildSettings=GrailsPluginUtils.getPluginBuildSettings();
         if (pluginBuildSettings != null) {
           PluginInfo info=pluginBuildSettings.getPluginInfoForSource(absolutePath);
           if (info != null) {

@@ -83,7 +83,7 @@
         buffer.print(':');
         buffer.print(getExpressionText(attrs.get(name).toString()));
         if (i.hasNext())         buffer.print(',');
- else         buffer.print(']');
+ else         buffer.print("] as GroovyPageAttributes");
       }
       attrsVarsMapDefinition.put(tagIndex,buffer.toString());
     }

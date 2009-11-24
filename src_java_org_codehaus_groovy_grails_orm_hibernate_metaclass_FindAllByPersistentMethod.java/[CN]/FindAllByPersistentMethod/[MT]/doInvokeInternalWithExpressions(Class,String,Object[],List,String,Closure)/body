@@ -1,0 +1,31 @@
+{
+  final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
+  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      final Criteria c=getCriteria(session,additionalCriteria,clazz);
+      Map argsMap=(arguments.length > 0 && (arguments[0] instanceof Map)) ? (Map)arguments[0] : Collections.EMPTY_MAP;
+      GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,argsMap);
+      if (operator.equals(OPERATOR_OR)) {
+        Disjunction dis=Restrictions.disjunction();
+        if (firstExpressionIsRequiredBoolean()) {
+          GrailsMethodExpression expression=(GrailsMethodExpression)expressions.remove(0);
+          c.add(expression.getCriterion());
+        }
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
+          dis.add(current.getCriterion());
+        }
+        c.add(dis);
+      }
+ else {
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
+          c.add(current.getCriterion());
+        }
+      }
+      c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+      return c.list();
+    }
+  }
+);
+}

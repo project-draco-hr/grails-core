@@ -23,12 +23,14 @@
     }
   }
  else   if (returnValue instanceof Map) {
-    Map returnModel=(Map)returnValue;
-    removeProxiesFromModelObjects(returnModel);
+    Map finalModel=new LinkedHashMap();
     if (!this.chainModel.isEmpty()) {
-      returnModel.putAll(this.chainModel);
+      finalModel.putAll(this.chainModel);
     }
-    return new ModelAndView(viewName,returnModel);
+    Map returnModel=(Map)returnValue;
+    finalModel.putAll(returnModel);
+    removeProxiesFromModelObjects(finalModel);
+    return new ModelAndView(viewName,finalModel);
   }
  else   if (returnValue instanceof ModelAndView) {
     ModelAndView modelAndView=(ModelAndView)returnValue;

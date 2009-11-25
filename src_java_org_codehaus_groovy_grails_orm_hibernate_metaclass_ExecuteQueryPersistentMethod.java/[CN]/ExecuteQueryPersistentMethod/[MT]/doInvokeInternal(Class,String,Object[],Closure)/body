@@ -21,10 +21,10 @@
       int index=0;
       for (Iterator iterator=positionalParams.iterator(); iterator.hasNext(); index++) {
         Object parameter=iterator.next();
-        q.setParameter(index,parameter);
+        q.setParameter(index,parameter instanceof CharSequence ? parameter.toString() : parameter);
       }
-      for (Iterator iterator=namedParams.entrySet().iterator(); iterator.hasNext(); ) {
-        Map.Entry entry=(Map.Entry)iterator.next();
+      for (      Object o : namedParams.entrySet()) {
+        Map.Entry entry=(Map.Entry)o;
         if (!(entry.getKey() instanceof String))         throw new GrailsQueryException("Named parameter's name must be of type String");
         String parameterName=(String)entry.getKey();
         Object parameterValue=entry.getValue();
@@ -34,7 +34,7 @@
  else         if (parameterValue.getClass().isArray()) {
           q.setParameterList(parameterName,(Object[])parameterValue);
         }
- else         if (parameterValue instanceof GString) {
+ else         if (parameterValue instanceof CharSequence) {
           q.setParameter(parameterName,parameterValue.toString());
         }
  else {

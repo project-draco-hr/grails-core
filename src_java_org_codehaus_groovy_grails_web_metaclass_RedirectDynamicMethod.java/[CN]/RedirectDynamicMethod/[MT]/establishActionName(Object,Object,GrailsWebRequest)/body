@@ -3,7 +3,7 @@
   if (actionRef instanceof String) {
     actionName=(String)actionRef;
   }
- else   if (actionRef instanceof GString) {
+ else   if (actionRef instanceof CharSequence) {
     actionName=actionRef.toString();
   }
  else   if (actionRef instanceof Closure) {

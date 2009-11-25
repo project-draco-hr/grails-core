@@ -6,5 +6,6 @@
     Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
   }
   SessionFactory sessionFactory=super.buildSessionFactory();
+  if (grailsApplication != null)   GrailsHibernateUtil.configureHibernateDomainClasses(sessionFactory,grailsApplication);
   return sessionFactory;
 }

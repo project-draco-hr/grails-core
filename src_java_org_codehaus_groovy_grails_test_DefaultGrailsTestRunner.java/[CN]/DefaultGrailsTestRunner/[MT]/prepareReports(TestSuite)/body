@@ -1,6 +1,0 @@
-{
-  formattedOutputs=new ArrayList<FormattedOutput>(formats.size());
-  for (  String format : formats) {
-    formattedOutputs.add(createFormatter(format,test));
-  }
-}

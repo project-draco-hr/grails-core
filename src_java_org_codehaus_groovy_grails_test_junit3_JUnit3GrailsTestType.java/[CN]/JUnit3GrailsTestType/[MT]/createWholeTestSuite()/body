@@ -1,0 +1,43 @@
+{
+  TestSuite theWholeTestSuite=new TestSuite("Grails Test Suite");
+  ClassLoader testClassLoader=getTestClassLoader();
+  for (  GrailsTestTargetPattern targetPattern : this.getTestTargetPatterns()) {
+    for (    Resource sourceResource : findSource(targetPattern)) {
+      String className;
+      try {
+        className=sourceFileToClassName(sourceResource.getFile());
+      }
+ catch (      IOException e) {
+        throw new RuntimeException("could not get file for test resource",e);
+      }
+      Class clazz;
+      try {
+        clazz=testClassLoader.loadClass(className);
+      }
+ catch (      Exception e) {
+        throw new RuntimeException("Could not load test class",e);
+      }
+      if (TestCase.class.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
+        TestSuite testSuite=null;
+        String targetMethodName=targetPattern.getMethodName();
+        if (targetMethodName != null) {
+          try {
+            clazz.getMethod(targetMethodName);
+            testSuite=createTestSuite();
+            testSuite.setName(className);
+            testSuite.addTest(TestSuite.createTest(clazz,targetMethodName));
+          }
+ catch (          NoSuchMethodException e) {
+          }
+        }
+ else {
+          testSuite=createTestSuite(clazz);
+        }
+        if (testSuite != null) {
+          theWholeTestSuite.addTest(testSuite);
+        }
+      }
+    }
+  }
+  return theWholeTestSuite;
+}

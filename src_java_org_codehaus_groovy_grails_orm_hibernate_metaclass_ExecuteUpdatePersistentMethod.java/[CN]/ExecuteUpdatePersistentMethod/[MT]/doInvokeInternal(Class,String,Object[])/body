@@ -20,7 +20,7 @@
  else         if (parameterValue.getClass().isArray()) {
           q.setParameterList(parameterName,(Object[])parameterValue);
         }
- else         if (parameterValue instanceof GString) {
+ else         if (parameterValue instanceof CharSequence) {
           q.setParameter(parameterName,parameterValue.toString());
         }
  else {

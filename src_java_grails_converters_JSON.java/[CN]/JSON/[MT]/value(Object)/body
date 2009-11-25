@@ -12,9 +12,6 @@
  else     if ((o.getClass().isPrimitive() && !o.getClass().equals(byte[].class)) || o instanceof Number || o instanceof Boolean) {
       writer.value(o);
     }
- else     if (o instanceof GString) {
-      value(o.toString());
-    }
  else {
       if (referenceStack.contains(o)) {
         handleCircularRelationship(o);

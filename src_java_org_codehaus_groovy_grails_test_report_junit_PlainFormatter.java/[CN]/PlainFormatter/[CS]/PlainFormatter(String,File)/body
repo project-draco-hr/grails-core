@@ -1,0 +1,10 @@
+{
+  this.name=name;
+  this.file=file;
+  try {
+    super.setOutput(new BufferedOutputStream(new FileOutputStream(file)));
+  }
+ catch (  FileNotFoundException e) {
+    throw new RuntimeException(e);
+  }
+}

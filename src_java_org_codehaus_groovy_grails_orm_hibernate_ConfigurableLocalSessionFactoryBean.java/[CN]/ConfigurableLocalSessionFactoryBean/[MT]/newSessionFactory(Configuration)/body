@@ -1,9 +1,16 @@
 {
   try {
-    SessionFactory sf=super.newSessionFactory(config);
-    GrailsApplication application=getGrailsApplication();
-    if (application != null)     GrailsHibernateUtil.configureHibernateDomainClasses(sf,application);
-    return sf;
+    if (applicationContext != null && (config instanceof AnnotationConfiguration)) {
+      Collection entityBeans=new ArrayList(applicationContext.getBeansWithAnnotation(Entity.class).values());
+      if (applicationContext.getParent() != null) {
+        entityBeans.addAll(applicationContext.getParent().getBeansWithAnnotation(Entity.class).values());
+      }
+      AnnotationConfiguration ac=(AnnotationConfiguration)config;
+      for (      Object entityBean : entityBeans) {
+        ac.addAnnotatedClass(entityBean.getClass());
+      }
+    }
+    return super.newSessionFactory(config);
   }
  catch (  HibernateException e) {
     Throwable cause=e.getCause();

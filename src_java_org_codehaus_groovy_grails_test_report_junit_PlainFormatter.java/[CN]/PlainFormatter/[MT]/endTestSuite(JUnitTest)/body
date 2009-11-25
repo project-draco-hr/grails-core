@@ -1,0 +1,6 @@
+{
+  super.endTestSuite(suite);
+  File parentFile=file.getParentFile();
+  writeToFile(new File(parentFile,"TEST-" + name + "-out.txt"),systemOutput);
+  writeToFile(new File(parentFile,"TEST-" + name + "-err.txt"),systemError);
+}

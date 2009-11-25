@@ -2,9 +2,6 @@
   TestResult result=new TestResult();
   JUnit3ListenerEventPublisherAdapter eventPublisherAdapter=new JUnit3ListenerEventPublisherAdapter(eventPublisher);
   result.addListener(eventPublisherAdapter);
-  GrailsConsoleResultFormatter consoleFormatter=new GrailsConsoleResultFormatter();
-  consoleFormatter.setOutput(System.out);
-  result.addListener(consoleFormatter);
   for (Enumeration tests=suite.tests(); tests.hasMoreElements(); ) {
     TestSuite test=(TestSuite)tests.nextElement();
     JUnitTest junitTest=new JUnitTest(test.getName());
@@ -12,7 +9,6 @@
     try {
       outAndErrSwapper.swapIn();
       result.addListener(reports);
-      consoleFormatter.startTestSuite(junitTest);
       reports.startTestSuite(junitTest);
       eventPublisherAdapter.startTestSuite(junitTest);
       long start=System.currentTimeMillis();
@@ -35,10 +31,8 @@
       reports.setSystemOutput(out);
       reports.setSystemError(err);
       reports.endTestSuite(junitTest);
-      consoleFormatter.endTestSuite(junitTest);
       eventPublisherAdapter.endTestSuite(junitTest,out,err);
     }
-    result.removeListener(consoleFormatter);
     result.removeListener(reports);
   }
   return result;

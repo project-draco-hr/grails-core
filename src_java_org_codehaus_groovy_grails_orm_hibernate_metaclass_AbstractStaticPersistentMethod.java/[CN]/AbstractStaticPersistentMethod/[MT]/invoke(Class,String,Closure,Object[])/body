@@ -2,7 +2,7 @@
   ClassLoader originalClassLoader=Thread.currentThread().getContextClassLoader();
   try {
     Thread.currentThread().setContextClassLoader(this.classLoader);
-    return doInvokeInternal(clazz,methodName,arguments,additionalCriteria);
+    return doInvokeInternal(clazz,methodName,additionalCriteria,arguments);
   }
   finally {
     Thread.currentThread().setContextClassLoader(originalClassLoader);

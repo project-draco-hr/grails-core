@@ -5,7 +5,7 @@
   for (Enumeration tests=suite.tests(); tests.hasMoreElements(); ) {
     TestSuite test=(TestSuite)tests.nextElement();
     JUnitTest junitTest=new JUnitTest(test.getName());
-    JUnitReports reports=(JUnitReports)reportsFactory.createReports(test.getName());
+    JUnitReports reports=reportsFactory.createReports(test.getName());
     try {
       outAndErrSwapper.swapIn();
       result.addListener(reports);

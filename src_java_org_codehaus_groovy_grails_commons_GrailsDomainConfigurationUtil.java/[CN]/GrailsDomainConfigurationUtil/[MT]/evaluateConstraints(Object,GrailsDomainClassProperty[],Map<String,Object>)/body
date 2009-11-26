@@ -1,5 +1,7 @@
 {
-  LinkedList classChain=getSuperClassChain(instance.getClass());
+  final Class<?> theClass=instance.getClass();
+  boolean javaEntity=theClass.isAnnotationPresent(Entity.class);
+  LinkedList classChain=getSuperClassChain(theClass);
   Class clazz;
   ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(instance);
   for (  Object aClassChain : classChain) {
@@ -17,7 +19,7 @@
     }
   }
   Map<String,ConstrainedProperty> constrainedProperties=delegate.getConstrainedProperties();
-  if (properties != null) {
+  if (properties != null && !(constrainedProperties.isEmpty() && javaEntity)) {
     for (    GrailsDomainClassProperty p : properties) {
       final String propertyName=p.getName();
       ConstrainedProperty cp=constrainedProperties.get(propertyName);

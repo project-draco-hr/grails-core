@@ -1,10 +1,23 @@
 {
-  application.registerArtefactHandler(new AnnotationDomainClassArtefactHandler());
   this.grailsApplication=application;
   if (this.grailsApplication != null) {
     GrailsClass[] existingDomainClasses=this.grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
     for (    GrailsClass existingDomainClass : existingDomainClasses) {
       addDomainClass((GrailsDomainClass)existingDomainClass);
+    }
+    ArtefactHandler handler=this.grailsApplication.getArtefactHandler(DomainClassArtefactHandler.TYPE);
+    if (handler instanceof AnnotationDomainClassArtefactHandler) {
+      Set<String> jpaDomainNames=((AnnotationDomainClassArtefactHandler)handler).getJpaClassNames();
+      if (jpaDomainNames != null) {
+        final ClassLoader loader=grailsApplication.getClassLoader();
+        for (        String jpaDomainName : jpaDomainNames) {
+          try {
+            addAnnotatedClass(loader.loadClass(jpaDomainName));
+          }
+ catch (          ClassNotFoundException e) {
+          }
+        }
+      }
     }
   }
 }

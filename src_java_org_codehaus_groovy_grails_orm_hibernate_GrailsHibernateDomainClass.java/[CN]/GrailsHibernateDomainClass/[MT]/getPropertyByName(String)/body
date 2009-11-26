@@ -1,3 +1,8 @@
 {
-  return propertyMap.get(name);
+  if (this.propertyMap.containsKey(name)) {
+    return this.propertyMap.get(name);
+  }
+ else {
+    throw new InvalidPropertyException("No property found for name [" + name + "] for class ["+ getClazz()+ "]");
+  }
 }

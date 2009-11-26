@@ -9,9 +9,15 @@
     this.identifier.setType(identType);
     propertyMap.put(ident,identifier);
   }
+  final int versionIndex=metaData.getVersionProperty();
+  String versionPropertyName=null;
+  if (versionIndex > -1) {
+    versionPropertyName=metaData.getPropertyNames()[versionIndex];
+    this.version=new GrailsHibernateDomainClassProperty(this,versionPropertyName);
+  }
   String[] propertyNames=metaData.getPropertyNames();
   for (  String propertyName : propertyNames) {
-    if (!propertyName.equals(ident)) {
+    if (!propertyName.equals(ident) && !(versionPropertyName != null && propertyName.equals(versionPropertyName))) {
       GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
       prop.setType(getPropertyType(propertyName));
       Type hibernateType=metaData.getPropertyType(propertyName);

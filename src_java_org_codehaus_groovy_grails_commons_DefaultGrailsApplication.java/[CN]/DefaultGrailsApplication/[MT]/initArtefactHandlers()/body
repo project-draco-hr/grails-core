@@ -1,5 +1,5 @@
 {
-  final DomainClassArtefactHandler domainClassArtefactHandler=new DomainClassArtefactHandler();
+  final DomainClassArtefactHandler domainClassArtefactHandler=new AnnotationDomainClassArtefactHandler();
   if (!hasArtefactHandler(domainClassArtefactHandler.getType()))   registerArtefactHandler(domainClassArtefactHandler);
   final ControllerArtefactHandler controllerArtefactHandler=new ControllerArtefactHandler();
   if (!hasArtefactHandler(controllerArtefactHandler.getType()))   registerArtefactHandler(controllerArtefactHandler);

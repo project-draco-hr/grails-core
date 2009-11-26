@@ -1,9 +1,9 @@
 {
   if (format.equals(PLAIN)) {
-    return new PlainFormatter(name,new File(reportsDir,"plain/TEST-" + name + ".txt"));
+    return new PlainFormatter(name,new File(reportsDir,"plain/TEST-" + phaseName + "-"+ typeName+ "-"+ name+ ".txt"));
   }
  else   if (format.equals(XML)) {
-    return new XMLFormatter(new File(reportsDir,"TEST-" + name + ".xml"));
+    return new XMLFormatter(new File(reportsDir,"TEST-" + phaseName + "-"+ typeName+ "-"+ name+ ".xml"));
   }
  else {
     throw new IllegalArgumentException("Unknown format type: " + format);

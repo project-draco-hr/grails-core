@@ -1,0 +1,6 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [sqlRestriction] with value [" + sqlRestriction + "] not allowed here."));
+  }
+  return addToCriteria(Restrictions.sqlRestriction(sqlRestriction));
+}

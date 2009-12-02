@@ -1,13 +1,15 @@
 {
-  pluginChangeScanner.enabled=false;
-  try {
+  if (pluginChangeScanner != null) {
+    pluginChangeScanner.enabled=false;
     try {
-      pluginChangeScanner.join(5000);
+      try {
+        pluginChangeScanner.join(5000);
+      }
+ catch (      InterruptedException e) {
+      }
     }
- catch (    InterruptedException e) {
-    }
-  }
   finally {
-    pluginChangeScanner=new GrailsPluginChangeChecker(this);
+      pluginChangeScanner=new GrailsPluginChangeChecker(this);
+    }
   }
 }

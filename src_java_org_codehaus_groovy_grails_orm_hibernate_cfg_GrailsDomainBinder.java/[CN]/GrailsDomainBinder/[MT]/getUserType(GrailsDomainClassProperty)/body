@@ -11,8 +11,10 @@
       userType=Class.forName(typeName,true,Thread.currentThread().getContextClassLoader());
     }
  catch (    ClassNotFoundException e) {
-      if (LOG.isWarnEnabled()) {
-        LOG.warn("UserType not found ",e);
+      if (typeName.indexOf(".") > -1) {
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("UserType not found ",e);
+        }
       }
     }
   }

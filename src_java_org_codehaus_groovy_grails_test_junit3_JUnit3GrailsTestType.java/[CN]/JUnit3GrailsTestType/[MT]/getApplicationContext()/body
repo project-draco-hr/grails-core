@@ -1,0 +1,7 @@
+{
+  ApplicationContext appCtx=(ApplicationContext)getBuildBinding().getProperty("appCtx");
+  if (appCtx == null) {
+    throw new IllegalStateException("ApplicationContext requested, but is not present in the build binding");
+  }
+  return appCtx;
+}

@@ -1,8 +1,8 @@
 {
-  if (mode.equals(JUnit3GrailsTestTypeMode.NOT_WITH_GRAILS_ENVIRONMENT)) {
+  if (mode == null) {
     return new TestSuite(clazz);
   }
  else {
-    return new JUnit3GrailsEnvironmentTestSuite(clazz,(ApplicationContext)getBuildBinding().getProperty("appCtx"));
+    return new JUnit3GrailsEnvironmentTestSuite(clazz,getApplicationContext(),mode);
   }
 }

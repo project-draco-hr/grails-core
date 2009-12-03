@@ -1,4 +1,12 @@
 {
+  if (configClass == null) {
+    try {
+      configClass=this.classLoader.loadClass("org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsAnnotationConfiguration");
+    }
+ catch (    Throwable e) {
+      configClass=DefaultGrailsDomainConfiguration.class;
+    }
+  }
   Object config=BeanUtils.instantiateClass(configClass);
   if (config instanceof GrailsDomainConfiguration) {
     GrailsDomainConfiguration grailsConfig=(GrailsDomainConfiguration)config;

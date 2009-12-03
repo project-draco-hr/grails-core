@@ -25,11 +25,15 @@
     System.setProperty("grails.cli.args","");
   }
   try {
+    System.setProperty("disable.grails.plugin.transform","true");
     settings.loadConfig();
   }
  catch (  Exception e) {
     System.err.println("WARNING: There was an error loading the BuildConfig: " + e.getMessage());
     e.printStackTrace(System.err);
+  }
+ finally {
+    System.setProperty("disable.grails.plugin.transform","false");
   }
   settings.setGrailsEnv(env);
   settings.setDefaultEnv(useDefaultEnv);

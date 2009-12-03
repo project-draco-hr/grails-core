@@ -36,7 +36,7 @@
               for (              Object anUniquenessGroup : uniquenessGroup) {
                 String uniquenessGroupPropertyName=(String)anUniquenessGroup;
                 Object uniquenessGroupPropertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,uniquenessGroupPropertyName);
-                if (DomainClassArtefactHandler.isDomainClass(uniquenessGroupPropertyValue.getClass())) {
+                if (uniquenessGroupPropertyValue != null && DomainClassArtefactHandler.isDomainClass(uniquenessGroupPropertyValue.getClass())) {
                   try {
                     session.lock(uniquenessGroupPropertyValue,LockMode.NONE);
                   }

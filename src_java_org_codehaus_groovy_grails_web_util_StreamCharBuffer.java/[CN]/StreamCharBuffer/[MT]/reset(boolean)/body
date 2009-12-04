@@ -8,6 +8,6 @@
     totalChunkSize=0;
   }
   allocBuffer=new AllocatedBuffer(chunkSize);
-  dynamicChunkMap=new HashMap<StreamCharBuffer,StreamCharBufferSubChunk>();
+  dynamicChunkMap=new HashMap<StreamCharBufferKey,StreamCharBufferSubChunk>();
   parentBuffers=null;
 }

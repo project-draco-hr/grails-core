@@ -1,11 +1,11 @@
 {
   if (parentBuffers != null) {
-    for (Iterator<SoftReference<StreamCharBuffer>> i=parentBuffers.iterator(); i.hasNext(); ) {
-      SoftReference<StreamCharBuffer> ref=i.next();
-      StreamCharBuffer parent=ref.get();
+    for (Iterator<SoftReference<StreamCharBufferKey>> i=parentBuffers.iterator(); i.hasNext(); ) {
+      SoftReference<StreamCharBufferKey> ref=i.next();
+      StreamCharBuffer parent=ref.get().getBuffer();
       boolean removeIt=true;
       if (parent != null) {
-        removeIt=!parent.bufferChanged(this);
+        removeIt=!bufferKey.getBuffer().bufferChanged(this);
       }
       if (removeIt) {
         i.remove();

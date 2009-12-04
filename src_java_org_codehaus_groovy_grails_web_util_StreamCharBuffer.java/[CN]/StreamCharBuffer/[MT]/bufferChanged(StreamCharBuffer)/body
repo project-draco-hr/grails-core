@@ -1,5 +1,5 @@
 {
-  StreamCharBufferSubChunk subChunk=dynamicChunkMap.get(buffer);
+  StreamCharBufferSubChunk subChunk=dynamicChunkMap.get(buffer.bufferKey);
   if (subChunk == null) {
     return false;
   }

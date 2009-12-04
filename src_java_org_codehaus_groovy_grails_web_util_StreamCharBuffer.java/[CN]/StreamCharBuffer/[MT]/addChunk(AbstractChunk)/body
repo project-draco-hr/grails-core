@@ -11,7 +11,7 @@
   }
   if (newChunk instanceof StreamCharBufferSubChunk) {
     StreamCharBufferSubChunk bufSubChunk=(StreamCharBufferSubChunk)newChunk;
-    dynamicChunkMap.put(bufferKey,bufSubChunk);
+    dynamicChunkMap.put(bufSubChunk.streamCharBuffer.bufferKey,bufSubChunk);
   }
  else {
     totalCharsInList+=newChunk.size();

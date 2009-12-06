@@ -1,4 +1,7 @@
 {
+  if (!(attrs instanceof GroovyPageAttributes)) {
+    attrs=new GroovyPageAttributes(attrs);
+  }
   GroovyObject tagLib=lookupCachedTagLib(webRequest,gspTagLibraryLookup,namespace,tagName);
   boolean preferSubChunkWhenWritingToOtherBuffer=resolvePreferSubChunk(namespace,tagName);
   Closure actualBody=createOutputCapturingClosure(tagLib,body,webRequest,preferSubChunkWhenWritingToOtherBuffer);

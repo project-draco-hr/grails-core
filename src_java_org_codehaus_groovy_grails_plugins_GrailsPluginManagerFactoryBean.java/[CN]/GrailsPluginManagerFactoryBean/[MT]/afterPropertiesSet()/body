@@ -3,7 +3,7 @@
   if (pluginManager == null) {
     if (descriptor == null)     throw new IllegalStateException("Cannot create PluginManager, /WEB-INF/grails.xml not found!");
     ClassLoader classLoader=application.getClassLoader();
-    List classes=new ArrayList();
+    List<Class> classes=new ArrayList<Class>();
     InputStream inputStream=null;
     try {
       inputStream=descriptor.getInputStream();
@@ -20,7 +20,7 @@
  else {
           clazz=Class.forName(pluginName,true,classLoader);
         }
-        classes.add(clazz);
+        if (!classes.contains(clazz))         classes.add(clazz);
       }
     }
   finally {

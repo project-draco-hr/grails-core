@@ -1,22 +1,9 @@
 {
   TestSuite theWholeTestSuite=new TestSuite("Grails Test Suite");
-  ClassLoader testClassLoader=getTestClassLoader();
   for (  GrailsTestTargetPattern targetPattern : this.getTestTargetPatterns()) {
-    for (    Resource sourceResource : findSource(targetPattern)) {
-      String className;
-      try {
-        className=sourceFileToClassName(sourceResource.getFile());
-      }
- catch (      IOException e) {
-        throw new RuntimeException("could not get file for test resource",e);
-      }
-      Class clazz;
-      try {
-        clazz=testClassLoader.loadClass(className);
-      }
- catch (      Exception e) {
-        throw new RuntimeException("Could not load test class",e);
-      }
+    for (    File sourceFile : findSourceFiles(targetPattern)) {
+      String className=sourceFileToClassName(sourceFile);
+      Class clazz=sourceFileToClass(sourceFile);
       if (TestCase.class.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
         TestSuite testSuite=null;
         String targetMethodName=targetPattern.getMethodName();

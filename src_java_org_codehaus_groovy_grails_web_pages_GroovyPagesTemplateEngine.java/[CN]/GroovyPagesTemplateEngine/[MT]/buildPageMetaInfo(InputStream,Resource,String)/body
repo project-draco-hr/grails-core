@@ -18,6 +18,8 @@
  catch (  GroovyPagesException e) {
     metaInfo.setCompilationException(e);
   }
-  pageCache.put(name,metaInfo);
+  if (!name.startsWith(GENERATED_GSP_NAME_PREFIX)) {
+    pageCache.put(name,metaInfo);
+  }
   return metaInfo;
 }

@@ -2,7 +2,7 @@
   try {
     return errors.getFieldValue(constraintPropertyName);
   }
- catch (  NotReadablePropertyException nre) {
+ catch (  Exception nre) {
     int i=constraintPropertyName.lastIndexOf(".");
     String propertyName;
     if (i > -1) {

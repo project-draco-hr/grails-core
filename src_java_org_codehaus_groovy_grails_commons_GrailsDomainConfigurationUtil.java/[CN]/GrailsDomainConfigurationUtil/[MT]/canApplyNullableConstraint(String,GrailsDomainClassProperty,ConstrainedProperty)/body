@@ -1,4 +1,5 @@
 {
+  if (property == null || property.getType() == null)   return false;
   final GrailsDomainClass domainClass=property.getDomainClass();
   if (!GroovyObject.class.isAssignableFrom(domainClass.getClazz()))   return false;
   final GrailsDomainClassProperty versionProperty=domainClass.getVersion();

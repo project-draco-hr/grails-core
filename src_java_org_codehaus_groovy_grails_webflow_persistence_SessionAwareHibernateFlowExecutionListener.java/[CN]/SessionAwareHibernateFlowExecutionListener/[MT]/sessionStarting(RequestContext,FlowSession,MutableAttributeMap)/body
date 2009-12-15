@@ -1,8 +1,10 @@
 {
-  if (!TransactionSynchronizationManager.hasResource(localSessionFactory)) {
+  if (!isSessionAlreadyBound()) {
+    LOG.debug("sessionStarting: Binding Hibernate session to flow");
     super.sessionStarting(context,session,input);
   }
  else {
+    LOG.debug("sessionStarting: Obtaining current Hibernate session");
     obtainCurrentSession(context);
   }
 }

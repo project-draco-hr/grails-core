@@ -1,0 +1,9 @@
+{
+  Map<String,Object> results=new LinkedHashMap<String,Object>();
+  for (  String beanName : this.beanFactory.getBeanNamesForType(Object.class)) {
+    if (findAnnotationOnBean(beanName,annotationType) != null) {
+      results.put(beanName,this.beanFactory.getBean(beanName));
+    }
+  }
+  return results;
+}

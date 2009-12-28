@@ -1,0 +1,6 @@
+{
+  ParsedResult result=parseCode("GRAILS5598","<body class=\"${page.name} ${page.group.name.toLowerCase()}\">text</body>");
+  String expected=makeImports() + "\n" + "class GRAILS5598 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"GRAILS5598\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "def out = binding.out\n"+ "registerSitemeshPreprocessMode(request)\n"+ "body1 = createClosureForHtmlPart(0)\n"+ "invokeTag('captureBody','sitemesh',1,['class':evaluate('\"${page.name} ${page.group.name.toLowerCase()}\"', 1, it) { return \"${page.name} ${page.group.name.toLowerCase()}\" }] as GroovyPageAttributes,body1)\n"+ "}\n"+ GSP_FOOTER;
+  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(result.generatedGsp));
+  assertEquals("text",result.htmlParts[0]);
+}

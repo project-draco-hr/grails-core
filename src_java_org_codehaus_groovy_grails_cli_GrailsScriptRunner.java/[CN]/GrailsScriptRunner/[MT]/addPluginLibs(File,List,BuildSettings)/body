@@ -1,0 +1,13 @@
+{
+  if (!pluginDir.exists())   return;
+  File dependencyDefinition=new File(pluginDir,"dependencies.groovy");
+  if (dependencyDefinition.exists())   return;
+  File libDir=new File(pluginDir,"lib");
+  if (libDir.exists()) {
+    final IvyDependencyManager dependencyManager=settings.getDependencyManager();
+    final Map pluginExcludes=dependencyManager.getPluginExcludes();
+    String pluginName=getPluginName(pluginDir);
+    Collection excludes=(Collection)pluginExcludes.get(pluginName);
+    addLibs(libDir,urls,excludes != null ? excludes : Collections.emptyList());
+  }
+}

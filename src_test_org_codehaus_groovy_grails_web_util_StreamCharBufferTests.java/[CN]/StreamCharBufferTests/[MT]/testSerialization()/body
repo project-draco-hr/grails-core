@@ -1,0 +1,15 @@
+{
+  StreamCharBuffer charBuffer=new StreamCharBuffer();
+  Writer writer=charBuffer.getWriter();
+  writer.write("ABCDE");
+  writer.flush();
+  ByteArrayOutputStream bos=new ByteArrayOutputStream();
+  ObjectOutputStream out=new ObjectOutputStream(bos);
+  out.writeObject(charBuffer);
+  out.close();
+  byte[] bytes=bos.toByteArray();
+  ObjectInputStream in=new ObjectInputStream(new ByteArrayInputStream(bytes));
+  charBuffer=(StreamCharBuffer)in.readObject();
+  assertEquals("ABCDE",charBuffer.toString());
+  assertEquals(5,charBuffer.size());
+}

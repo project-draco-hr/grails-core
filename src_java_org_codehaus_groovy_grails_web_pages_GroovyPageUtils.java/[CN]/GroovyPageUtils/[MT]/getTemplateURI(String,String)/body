@@ -1,27 +1,3 @@
 {
-  FastStringWriter buf=new FastStringWriter();
-  if (templateName.startsWith(SLASH_STR)) {
-    String tmp=templateName.substring(1,templateName.length());
-    if (tmp.indexOf(SLASH) > -1) {
-      buf.append(SLASH);
-      int i=tmp.lastIndexOf(SLASH);
-      buf.append(tmp.substring(0,i));
-      buf.append(SLASH_UNDR);
-      buf.append(tmp.substring(i + 1,tmp.length()));
-    }
- else {
-      buf.append(SLASH_UNDR);
-      buf.append(templateName.substring(1,templateName.length()));
-    }
-  }
- else {
-    String pathToTemplate=BLANK;
-    int lastSlash=templateName.lastIndexOf(SLASH);
-    if (lastSlash > -1) {
-      pathToTemplate=templateName.substring(0,lastSlash + 1);
-      templateName=templateName.substring(lastSlash + 1);
-    }
-    buf.append(SLASH).append(controllerName).append(SLASH).append(pathToTemplate).append(UNDERSCORE).append(templateName);
-  }
-  return buf.append(GroovyPage.EXTENSION).toString();
+  return getInstance().getTemplateURI(controllerName,templateName);
 }

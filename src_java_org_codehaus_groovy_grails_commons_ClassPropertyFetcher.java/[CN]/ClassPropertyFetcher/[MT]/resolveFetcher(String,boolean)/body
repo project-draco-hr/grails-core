@@ -1,0 +1,10 @@
+{
+  PropertyFetcher fetcher=null;
+  if (!onlyInstanceProperties) {
+    fetcher=staticFetchers.get(name);
+  }
+  if (fetcher == null) {
+    fetcher=instanceFetchers.get(name);
+  }
+  return fetcher;
+}

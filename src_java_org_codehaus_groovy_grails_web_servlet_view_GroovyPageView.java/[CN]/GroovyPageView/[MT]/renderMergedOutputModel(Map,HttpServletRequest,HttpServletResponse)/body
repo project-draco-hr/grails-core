@@ -1,6 +1,5 @@
 {
-  super.exposeModelAsRequestAttributes(model,request);
-  GroovyPagesTemplateEngine templateEngine=(GroovyPagesTemplateEngine)getApplicationContext().getBean(GroovyPagesTemplateEngine.BEAN_ID);
   if (templateEngine == null)   throw new IllegalStateException("No GroovyPagesTemplateEngine found in ApplicationContext!");
+  super.exposeModelAsRequestAttributes(model,request);
   renderWithTemplateEngine(templateEngine,model,response,request);
 }

@@ -10,7 +10,7 @@
   this.uri2closureMap=new HashMap();
   this.viewNames=new HashMap();
   this.controllerPath=uri + SLASH;
-  PropertyDescriptor[] propertyDescriptors=getReference().getPropertyDescriptors();
+  PropertyDescriptor[] propertyDescriptors=getPropertyDescriptors();
   for (int i=0; i < propertyDescriptors.length; i++) {
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
     Closure closure=(Closure)getPropertyOrStaticPropertyOrFieldValue(propertyDescriptor.getName(),Closure.class);
@@ -33,7 +33,7 @@
       }
     }
   }
-  if (!getReference().isReadableProperty(defaultActionName) && closureNames.size() == 1) {
+  if (!isReadableProperty(defaultActionName) && closureNames.size() == 1) {
     defaultActionName=((String)closureNames.iterator().next());
   }
   configureDefaultActionIfSet();

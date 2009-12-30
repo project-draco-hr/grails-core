@@ -1,0 +1,14 @@
+{
+  Class configClass=GrailsAnnotationConfiguration.class;
+  final ClassLoader classLoader=parserContext.getReaderContext().getBeanClassLoader();
+  final String configClassName=element.getAttribute(CONFIG_CLASS_ATTRIBUTE);
+  if (StringUtils.hasText(configClassName)) {
+    try {
+      configClass=classLoader.loadClass(configClassName);
+    }
+ catch (    ClassNotFoundException e) {
+      throw new BeanDefinitionParsingException(new Problem("Unable to load specified SessionFactory configClass implementation: " + e.getMessage(),new Location(parserContext.getReaderContext().getResource()),null,e));
+    }
+  }
+  return configClass;
+}

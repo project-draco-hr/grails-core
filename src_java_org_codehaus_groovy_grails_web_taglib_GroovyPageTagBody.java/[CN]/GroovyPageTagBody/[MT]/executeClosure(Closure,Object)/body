@@ -1,0 +1,10 @@
+{
+  Object bodyResult=null;
+  if (args != null) {
+    bodyResult=bodyClosure.call(args);
+  }
+ else {
+    bodyResult=bodyClosure.call();
+  }
+  return bodyResult;
+}

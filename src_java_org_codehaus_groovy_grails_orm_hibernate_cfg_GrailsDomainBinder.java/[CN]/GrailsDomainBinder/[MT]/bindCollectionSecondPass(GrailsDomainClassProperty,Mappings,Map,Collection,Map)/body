@@ -3,10 +3,18 @@
   if (LOG.isDebugEnabled())   LOG.debug("Mapping collection: " + collection.getRole() + " -> "+ collection.getCollectionTable().getName());
   PropertyConfig propConfig=getPropertyConfig(property);
   if (propConfig != null && !StringUtils.isBlank(propConfig.getSort())) {
+    if (!property.isBidirectional() && property.isOneToMany()) {
+      String message="WARNING: Sorting by a child property does " + "not work with unidirectional one to many relationships " + "due to http://opensource.atlassian.com/projects/hibernate/browse/HHH-4394";
+      LOG.warn(message);
+    }
     GrailsDomainClass referenced=property.getReferencedDomainClass();
     if (referenced != null) {
       GrailsDomainClassProperty propertyToSortBy=referenced.getPropertyByName(propConfig.getSort());
-      collection.setOrderBy(getColumnNameForPropertyAndPath(propertyToSortBy,"",null));
+      String columnName=getColumnNameForPropertyAndPath(propertyToSortBy,"",null);
+      if (propConfig.getOrder() != null) {
+        columnName+=" " + propConfig.getOrder();
+      }
+      collection.setOrderBy(columnName);
     }
   }
   if (collection.isOneToMany()) {
@@ -14,7 +22,20 @@
     Mapping m=getRootMapping(referenced);
     boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
     if (referenced != null && !referenced.isRoot() && !tablePerSubclass) {
-      collection.setWhere(RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME + " = '" + referenced.getFullName()+ "'");
+      Mapping referencedMapping=getMapping(referenced);
+      Mapping rootMapping=getRootMapping(referenced);
+      String discriminatorColumnName=RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME;
+      String discriminator=referenced.getFullName();
+      if (rootMapping != null) {
+        final ColumnConfig discriminatorColumn=rootMapping.getDiscriminatorColumn();
+        if (discriminatorColumn != null) {
+          discriminatorColumnName=discriminatorColumn.getName();
+        }
+      }
+      if (referencedMapping != null && referencedMapping.getDiscriminator() != null) {
+        discriminator=referencedMapping.getDiscriminator();
+      }
+      collection.setWhere(discriminatorColumnName + " = '" + discriminator+ "'");
     }
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();

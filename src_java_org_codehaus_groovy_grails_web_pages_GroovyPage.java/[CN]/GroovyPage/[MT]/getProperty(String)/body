@@ -1,15 +1,26 @@
 {
+  if (OUT.equals(property))   return out;
   if (BINDING.equals(property))   return getBinding();
-  MetaProperty mp=getMetaClass().getMetaProperty(property);
-  if (mp != null)   return mp.getProperty(this);
   Object value=getBinding().getVariables().get(property);
+  if (value != null) {
+    return value;
+  }
+  if (value == null) {
+    MetaProperty mp=getMetaClass().getMetaProperty(property);
+    if (mp != null) {
+      return mp.getProperty(this);
+    }
+  }
   if (value == null) {
     value=gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupNamespaceDispatcher(property) : null;
-  }
-  if (value == null && jspTags.containsKey(property)) {
-    TagLibraryResolver tagResolver=getTagLibraryResolver();
-    String uri=(String)jspTags.get(property);
-    if (uri != null)     value=tagResolver.resolveTagLibrary(uri);
+    if (value == null && jspTags.containsKey(property)) {
+      TagLibraryResolver tagResolver=getTagLibraryResolver();
+      String uri=(String)jspTags.get(property);
+      if (uri != null)       value=tagResolver.resolveTagLibrary(uri);
+    }
+    if (value != null) {
+      getBinding().setVariable(property,value);
+    }
   }
   return value;
 }

@@ -1,0 +1,14 @@
+{
+  CharArray head=new CharArray(64);
+  CharArray body=new CharArray(4096);
+  GrailsTokenizedHTMLPage page=new GrailsTokenizedHTMLPage(data,body,head);
+  HTMLProcessor processor=new HTMLProcessor(data,body);
+  State html=processor.defaultState();
+  html.addRule(new HeadExtractingRule(head));
+  html.addRule(new BodyTagRule(page,body));
+  html.addRule(new TitleExtractingRule(page));
+  html.addRule(new FramesetRule(page));
+  addUserDefinedRules(html,page);
+  processor.process();
+  return page;
+}

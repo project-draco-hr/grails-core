@@ -1,7 +1,10 @@
 {
-  String actionName="";
+  String actionName=null;
   if (actionRef instanceof String) {
     actionName=(String)actionRef;
+  }
+ else   if (actionRef instanceof CharSequence) {
+    actionName=actionRef.toString();
   }
  else   if (actionRef instanceof Closure) {
     Closure c=(Closure)actionRef;

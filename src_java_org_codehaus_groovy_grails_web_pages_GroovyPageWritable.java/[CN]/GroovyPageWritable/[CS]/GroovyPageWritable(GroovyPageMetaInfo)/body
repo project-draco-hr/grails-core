@@ -1,9 +1,11 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  this.webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  final ApplicationContext applicationContext=webRequest.getApplicationContext();
+  if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME))   this.pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
   this.request=webRequest.getCurrentRequest();
   HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
   this.response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
   this.context=webRequest.getServletContext();
-  this.showSource=request.getParameter("showSource") != null && GrailsUtil.isDevelopmentEnv() && metaInfo.getGroovySource() != null;
+  this.showSource=shouldShowGroovySource(metaInfo);
   this.metaInfo=metaInfo;
 }

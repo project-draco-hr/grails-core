@@ -1,8 +1,0 @@
-{
-  GroovyPageTagWriter out=new GroovyPageTagWriter();
-  if (binding != null) {
-    binding.setVariable(GroovyPage.OUT,out);
-  }
-  webRequest.setOut(out);
-  return out;
-}

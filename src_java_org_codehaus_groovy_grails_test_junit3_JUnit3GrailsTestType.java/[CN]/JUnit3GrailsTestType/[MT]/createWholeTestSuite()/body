@@ -1,0 +1,30 @@
+{
+  TestSuite theWholeTestSuite=new TestSuite("Grails Test Suite");
+  for (  GrailsTestTargetPattern targetPattern : this.getTestTargetPatterns()) {
+    for (    File sourceFile : findSourceFiles(targetPattern)) {
+      String className=sourceFileToClassName(sourceFile);
+      Class clazz=sourceFileToClass(sourceFile);
+      if (TestCase.class.isAssignableFrom(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
+        TestSuite testSuite=null;
+        String targetMethodName=targetPattern.getMethodName();
+        if (targetMethodName != null) {
+          try {
+            clazz.getMethod(targetMethodName);
+            testSuite=createTestSuite();
+            testSuite.setName(className);
+            testSuite.addTest(TestSuite.createTest(clazz,targetMethodName));
+          }
+ catch (          NoSuchMethodException e) {
+          }
+        }
+ else {
+          testSuite=createTestSuite(clazz);
+        }
+        if (testSuite != null) {
+          theWholeTestSuite.addTest(testSuite);
+        }
+      }
+    }
+  }
+  return theWholeTestSuite;
+}

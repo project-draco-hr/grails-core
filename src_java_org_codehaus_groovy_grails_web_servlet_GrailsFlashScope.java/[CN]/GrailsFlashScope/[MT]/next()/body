@@ -1,6 +1,6 @@
 {
   current.clear();
-  current=(HashMap)next.clone();
+  current=new ConcurrentHashMap(next);
   next.clear();
   reassociateObjectsWithErrors(current);
 }

@@ -1,0 +1,11 @@
+{
+  if (totalCharsInDynamicChunks != -1) {
+    totalCharsInDynamicChunks-=size();
+  }
+  for (Iterator<Map.Entry<StreamCharBufferKey,StreamCharBufferSubChunk>> it=dynamicChunkMap.entrySet().iterator(); it.hasNext(); ) {
+    Map.Entry<StreamCharBufferKey,StreamCharBufferSubChunk> entry=it.next();
+    if (entry.getValue() == this) {
+      it.remove();
+    }
+  }
+}

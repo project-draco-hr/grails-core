@@ -1,0 +1,8 @@
+{
+  if (alias != null) {
+    this.projectionList.add(propertyProjection,alias);
+  }
+ else {
+    this.projectionList.add(propertyProjection);
+  }
+}

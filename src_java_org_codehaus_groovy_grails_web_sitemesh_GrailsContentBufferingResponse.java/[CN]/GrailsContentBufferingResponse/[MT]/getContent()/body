@@ -1,9 +1,15 @@
 {
-  char[] data=pageResponseWrapper.getContents();
-  if (data != null) {
-    return contentProcessor.build(data,webAppContext);
+  GSPSitemeshPage content=(GSPSitemeshPage)webAppContext.getRequest().getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+  if (content != null && content.isUsed()) {
+    return content;
   }
  else {
-    return null;
+    char[] data=pageResponseWrapper.getContents();
+    if (data != null) {
+      return contentProcessor.build(data,webAppContext);
+    }
+ else {
+      return null;
+    }
   }
 }

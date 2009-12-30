@@ -1,0 +1,5 @@
+{
+  parent.str.getChars(position,(position + len),ch,off);
+  position+=len;
+  return len;
+}

@@ -1,8 +1,0 @@
-{
-  this.savedOut=System.out;
-  this.savedErr=System.err;
-  out=new ByteArrayOutputStream();
-  err=new ByteArrayOutputStream();
-  System.setOut(new PrintStream(out));
-  System.setErr(new PrintStream(err));
-}

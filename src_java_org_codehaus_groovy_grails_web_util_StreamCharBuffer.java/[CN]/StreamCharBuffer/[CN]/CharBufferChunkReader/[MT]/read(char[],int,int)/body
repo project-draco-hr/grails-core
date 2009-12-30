@@ -1,0 +1,5 @@
+{
+  arrayCopy(parent.buffer,pointer,ch,off,len);
+  pointer+=len;
+  return len;
+}

@@ -1,22 +1,13 @@
 {
-  BeanWrapper ref=getReference();
-  Object value=null;
-  if (ref.isReadableProperty(name)) {
-    value=ref.getPropertyValue(name);
-  }
- else {
-    Object inst=ref.getWrappedInstance();
+  Object value=classPropertyFetcher.getPropertyValue(name);
+  if (value == null) {
+    Object inst=getReferenceInstance();
     if (inst instanceof GroovyObject) {
-      final Map properties=DefaultGroovyMethods.getProperties(inst);
-      if (properties.containsKey(name)) {
-        value=properties.get(name);
+      MetaProperty metaProperty=getMetaClass().getMetaProperty(name);
+      if (metaProperty != null) {
+        value=metaProperty.getProperty(inst);
       }
     }
   }
-  if (value != null && (type.isAssignableFrom(value.getClass()) || GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(type,value.getClass()))) {
-    return value;
-  }
- else {
-    return null;
-  }
+  return returnOnlyIfInstanceOf(value,type);
 }

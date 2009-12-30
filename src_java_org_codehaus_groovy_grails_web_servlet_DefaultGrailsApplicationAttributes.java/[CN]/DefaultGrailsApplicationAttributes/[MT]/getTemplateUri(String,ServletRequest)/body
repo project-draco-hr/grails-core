@@ -1,3 +1,3 @@
 {
-  return GroovyPageUtils.getTemplateURI(getControllerName(request),templateName);
+  return groovyPagesUriService.getTemplateURI(getControllerName(request),templateName);
 }

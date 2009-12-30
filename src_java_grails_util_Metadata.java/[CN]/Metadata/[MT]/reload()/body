@@ -1,4 +1,7 @@
 {
-  if (metadataFile != null)   metadata=getInstance(metadataFile);
-  return metadata;
+  File f=getCurrent().metadataFile;
+  if (f != null) {
+    return getInstance(f);
+  }
+  return getCurrent();
 }

@@ -4,7 +4,7 @@
   match.find();
   if (match.matches()) {
     if (argsv.length > 0) {
-      if (argsv[0] instanceof GString)       argsv[0]=argsv[0].toString();
+      if (argsv[0] instanceof CharSequence)       argsv[0]=argsv[0].toString();
       if ((argsv.length != 1) || !(argsv[0] instanceof String)) {
         throw new IllegalArgumentException("Dynamic method get<Artefact>Class(artefactName) requires a " + "single String parameter");
       }
@@ -24,7 +24,7 @@
         throw new IllegalArgumentException("Dynamic method is<Artefact>Class(artefactClass) requires a " + "single Class parameter");
       }
  else {
-        return Boolean.valueOf(isArtefactOfType(match.group(2),(Class)argsv[0]));
+        return isArtefactOfType(match.group(2),(Class)argsv[0]);
       }
     }
  else {

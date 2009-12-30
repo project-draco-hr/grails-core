@@ -1,0 +1,8 @@
+{
+  if (defaultConstraints != null) {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties,defaultConstraints);
+  }
+ else {
+    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),this.persistentProperties);
+  }
+}

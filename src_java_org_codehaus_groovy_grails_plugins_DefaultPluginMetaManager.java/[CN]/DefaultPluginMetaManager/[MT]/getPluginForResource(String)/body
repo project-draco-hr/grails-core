@@ -1,8 +1,3 @@
 {
-  PluginMeta pluginMeta=(PluginMeta)resourceToPluginMap.get(name);
-  if (pluginMeta != null) {
-    if (pluginManager == null)     throw new IllegalStateException("Property [pluginManager] not set!");
-    return pluginManager.getGrailsPlugin(pluginMeta.name,pluginMeta.version);
-  }
   return null;
 }

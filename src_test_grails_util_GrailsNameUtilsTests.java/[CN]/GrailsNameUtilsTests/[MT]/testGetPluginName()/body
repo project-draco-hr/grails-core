@@ -1,0 +1,12 @@
+{
+  assertEquals("db-utils",GrailsNameUtils.getPluginName("DbUtilsGrailsPlugin.groovy"));
+  assertEquals("shiro",GrailsNameUtils.getPluginName("ShiroGrailsPlugin.groovy"));
+  assertEquals("",GrailsNameUtils.getPluginName(""));
+  assertNull(GrailsNameUtils.getPluginName(null));
+  try {
+    GrailsNameUtils.getPluginName("NotAPlugin.groovy");
+    fail("GrailsNameUtils.getPluginName() should have thrown an IllegalArgumentException.");
+  }
+ catch (  IllegalArgumentException ex) {
+  }
+}

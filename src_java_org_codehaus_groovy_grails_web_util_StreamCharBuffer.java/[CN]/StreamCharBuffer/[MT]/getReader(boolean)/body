@@ -1,0 +1,5 @@
+{
+  readerCount++;
+  hasReaders=true;
+  return new StreamCharBufferReader(removeAfterReading);
+}

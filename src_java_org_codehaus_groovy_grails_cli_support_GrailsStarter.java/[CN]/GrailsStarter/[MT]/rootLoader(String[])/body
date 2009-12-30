@@ -64,9 +64,7 @@
     lc.setMainClass("org.codehaus.groovy.grails.cli.GrailsScriptRunner");
   }
   String[] newArgs=new String[args.length - argsOffset];
-  for (int i=0; i < newArgs.length; i++) {
-    newArgs[i]=args[i + argsOffset];
-  }
+  System.arraycopy(args,argsOffset,newArgs,0,newArgs.length);
   String basedir=System.getProperty("base.dir");
   if (basedir != null) {
     try {
@@ -84,11 +82,36 @@
       exit(e);
     }
   }
-  GrailsRootLoader loader=new GrailsRootLoader();
+  RootLoader loader=null;
+  File loaderFile=new File(LOADER_FILE);
+  if (loaderFile.exists()) {
+    Properties loaderProps=new Properties();
+    FileInputStream input=null;
+    try {
+      input=new FileInputStream(loaderFile);
+      loaderProps.load(input);
+      String loaderClassName=loaderProps.getProperty(GRAILS_ROOT_CLASSLOADER);
+      if (loaderClassName != null) {
+        Class loaderClass=GrailsStarter.class.getClassLoader().loadClass(loaderClassName);
+        loader=(RootLoader)loaderClass.newInstance();
+      }
+    }
+ catch (    Exception e) {
+      System.out.println("ERROR: There was an error loading a Grails custom classloader using the properties file [" + loaderFile.getAbsolutePath() + "]: "+ e.getMessage());
+    }
+ finally {
+      try {
+        if (input != null)         input.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+  if (loader == null)   loader=new GrailsRootLoader();
   Thread.currentThread().setContextClassLoader(loader);
   URL[] urls=lc.getClassPathUrls();
-  for (int i=0; i < urls.length; i++) {
-    loader.addURL(urls[i]);
+  for (  URL url : urls) {
+    loader.addURL(url);
   }
   if (javaVersion != null && grailsHome != null) {
     javaVersion=javaVersion.substring(0,3);
@@ -101,8 +124,8 @@
         vmLoaderConfig.setRequireMain(false);
         vmLoaderConfig.configure(in);
         URL[] vmSpecificClassPath=vmLoaderConfig.getClassPathUrls();
-        for (int i=0; i < vmSpecificClassPath.length; i++) {
-          loader.addURL(vmSpecificClassPath[i]);
+        for (        URL aVmSpecificClassPath : vmSpecificClassPath) {
+          loader.addURL(aVmSpecificClassPath);
         }
       }
  catch (      IOException e) {

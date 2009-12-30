@@ -1,5 +1,5 @@
 {
-  if (!String.class.isInstance(propertyType)) {
+  if (isNotValidStringType()) {
     throw new MissingPropertyException("Blank constraint can only be applied to a String property",BLANK_CONSTRAINT,owningClass);
   }
   if (!blank) {

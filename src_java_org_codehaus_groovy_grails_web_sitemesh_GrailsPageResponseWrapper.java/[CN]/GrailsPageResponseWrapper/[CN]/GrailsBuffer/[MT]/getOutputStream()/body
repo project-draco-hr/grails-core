@@ -1,12 +1,19 @@
 {
-  if (bufferedStream == null) {
-    if (bufferedWriter != null) {
+  if (byteBuffer == null) {
+    if (charBuffer != null) {
       throw new IllegalStateException("response.getOutputStream() called after response.getWriter()");
     }
-    bufferedStream=new FastByteArrayOutputStream();
+    byteBuffer=new StreamByteBuffer();
+    final OutputStream out=byteBuffer.getOutputStream();
     exposedStream=new ServletOutputStream(){
-      public void write(      int b){
-        bufferedStream.write(b);
+      @Override public void write(      byte[] b,      int off,      int len) throws IOException {
+        out.write(b,off,len);
+      }
+      @Override public void write(      byte[] b) throws IOException {
+        out.write(b);
+      }
+      @Override public void write(      int b) throws IOException {
+        out.write(b);
       }
     }
 ;

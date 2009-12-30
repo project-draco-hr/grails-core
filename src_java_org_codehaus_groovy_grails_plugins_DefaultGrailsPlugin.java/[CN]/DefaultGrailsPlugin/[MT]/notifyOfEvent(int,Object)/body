@@ -12,7 +12,8 @@
 switch (eventKind) {
 case EVENT_ON_CHANGE:
     notifyOfEvent(event);
-  break;
+  getManager().informObservers(getName(),event);
+break;
 case EVENT_ON_SHUTDOWN:
 invokeOnShutdownEventListener(event);
 break;

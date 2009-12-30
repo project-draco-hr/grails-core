@@ -1,7 +1,16 @@
 {
-  GrailsContentBufferingResponse contentBufferingResponse=new GrailsContentBufferingResponse(response,contentProcessor,webAppContext);
-  setDefaultConfiguredEncoding(request,contentBufferingResponse);
-  chain.doFilter(request,contentBufferingResponse);
-  webAppContext.setUsingStream(contentBufferingResponse.isUsingStream());
-  return contentBufferingResponse.getContent();
+  Object oldGspSiteMeshPage=request.getAttribute(GSP_SITEMESH_PAGE);
+  try {
+    request.setAttribute(GSP_SITEMESH_PAGE,new GSPSitemeshPage());
+    GrailsContentBufferingResponse contentBufferingResponse=new GrailsContentBufferingResponse(response,contentProcessor,webAppContext);
+    setDefaultConfiguredEncoding(request,contentBufferingResponse);
+    chain.doFilter(request,contentBufferingResponse);
+    webAppContext.setUsingStream(contentBufferingResponse.isUsingStream());
+    return contentBufferingResponse.getContent();
+  }
+  finally {
+    if (oldGspSiteMeshPage != null) {
+      request.setAttribute(GSP_SITEMESH_PAGE,oldGspSiteMeshPage);
+    }
+  }
 }

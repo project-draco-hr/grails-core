@@ -1,5 +1,5 @@
 {
-  if (propertyValue instanceof GString) {
+  if (propertyValue instanceof CharSequence) {
     return propertyValue.toString();
   }
   return propertyValue;

@@ -1,0 +1,8 @@
+{
+  if (out instanceof PrintWriter) {
+    head.writeTo((PrintWriter)out);
+  }
+ else {
+    super.writeHead(out);
+  }
+}

@@ -1,6 +1,4 @@
 {
-  if (bean instanceof GrailsApplicationAware) {
-    ((GrailsApplicationAware)bean).setGrailsApplication(grailsApplication);
-  }
+  processAwareInterfaces(grailsApplication,bean);
   return bean;
 }

@@ -1,3 +1,6 @@
 {
-  connectedWriters.clear();
+  if (connectedWriters != null) {
+    connectedWriters.clear();
+    connectedWritersWriter=null;
+  }
 }

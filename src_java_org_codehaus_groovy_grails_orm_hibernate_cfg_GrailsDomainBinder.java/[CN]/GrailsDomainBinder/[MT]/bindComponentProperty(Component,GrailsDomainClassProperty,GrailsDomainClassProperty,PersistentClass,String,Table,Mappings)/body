@@ -25,7 +25,12 @@
  else {
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
     value=new SimpleValue(table);
-    bindSimpleValue(currentGrailsProp,componentProperty,(SimpleValue)value,path,mappings);
+    if (currentGrailsProp.isEnum()) {
+      bindEnumType(currentGrailsProp,(SimpleValue)value,path,mappings);
+    }
+ else {
+      bindSimpleValue(currentGrailsProp,componentProperty,(SimpleValue)value,path,mappings);
+    }
   }
   if (value != null) {
     Property persistentProperty=createProperty(value,persistentClass,currentGrailsProp,mappings);

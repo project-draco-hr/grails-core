@@ -1,0 +1,5 @@
+{
+  PropertyConfig config=getPropertyConfig(grailsProperty);
+  final boolean isLazy=config != null ? config.getLazy() : true;
+  return isLazy;
+}

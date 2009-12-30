@@ -2,7 +2,8 @@
   if (buildSettings != null) {
     loadEventsScript(findEventsScript(new File(buildSettings.getUserHome(),".grails/scripts")));
     loadEventsScript(findEventsScript(new File(buildSettings.getBaseDir(),"scripts")));
-    for (    Resource pluginBase : GrailsPluginUtils.getPluginDirectories()) {
+    PluginBuildSettings pluginSettings=(PluginBuildSettings)binding.getVariable("pluginSettings");
+    for (    Resource pluginBase : pluginSettings.getPluginDirectories()) {
       try {
         loadEventsScript(findEventsScript(new File(pluginBase.getFile(),"scripts")));
       }

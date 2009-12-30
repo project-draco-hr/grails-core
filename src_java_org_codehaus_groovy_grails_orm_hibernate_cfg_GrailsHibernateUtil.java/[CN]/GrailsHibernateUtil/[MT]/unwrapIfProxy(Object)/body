@@ -1,0 +1,8 @@
+{
+  if (instance instanceof HibernateProxy) {
+    return unwrapProxy((HibernateProxy)instance);
+  }
+ else {
+    return instance;
+  }
+}

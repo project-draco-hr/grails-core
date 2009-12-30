@@ -1,6 +1,6 @@
 {
   if (!this.initialised) {
-    GroovyClassLoader gcl=application.getClassLoader();
+    ClassLoader gcl=application.getClassLoader();
     attemptLoadPlugins(gcl);
     if (!delayedLoadPlugins.isEmpty()) {
       loadDelayedPlugins();

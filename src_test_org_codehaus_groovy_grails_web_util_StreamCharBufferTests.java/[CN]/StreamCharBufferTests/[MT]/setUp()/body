@@ -1,0 +1,9 @@
+{
+  if (testbuffer == null) {
+    for (int i=0; i < TESTROUNDS; i++) {
+      for (int j=0; j < Short.MAX_VALUE; j++) {
+        testbuffer[i * Short.MAX_VALUE + j]=(char)j;
+      }
+    }
+  }
+}

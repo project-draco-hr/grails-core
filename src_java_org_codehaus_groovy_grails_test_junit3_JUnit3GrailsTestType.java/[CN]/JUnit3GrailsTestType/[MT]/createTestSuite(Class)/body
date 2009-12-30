@@ -1,0 +1,8 @@
+{
+  if (mode == null) {
+    return new TestSuite(clazz);
+  }
+ else {
+    return new JUnit3GrailsEnvironmentTestSuite(clazz,getApplicationContext(),mode);
+  }
+}

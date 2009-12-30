@@ -1,7 +1,3 @@
 {
-  final String logicalName=getName();
-  if (StringUtils.isBlank(logicalName)) {
-    return GrailsNameUtils.getPropertyNameRepresentation(getShortName());
-  }
-  return GrailsNameUtils.getPropertyNameRepresentation(logicalName);
+  return this.logicalPropertyName;
 }

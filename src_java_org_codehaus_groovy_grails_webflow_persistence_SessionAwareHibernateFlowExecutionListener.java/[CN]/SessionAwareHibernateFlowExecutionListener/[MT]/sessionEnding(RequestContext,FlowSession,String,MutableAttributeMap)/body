@@ -1,0 +1,7 @@
+{
+  final Session hibernateSession=getBoundHibernateSession(session);
+  if (hibernateSession != null && session.isRoot()) {
+    LOG.debug("sessionEnding: Commit transaction and unbinding Hibernate session");
+    super.sessionEnding(context,session,outcome,output);
+  }
+}

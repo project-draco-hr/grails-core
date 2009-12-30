@@ -6,4 +6,5 @@
   if (o instanceof Boolean) {
     useJessionId=(Boolean)o;
   }
+  this.applicationContext=applicationContext;
 }

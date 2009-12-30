@@ -1,0 +1,8 @@
+{
+  if (hasReaders) {
+    writerUsedCounter=writer.writerUsedCounter;
+  }
+ else {
+    writerUsedCounter=1;
+  }
+}

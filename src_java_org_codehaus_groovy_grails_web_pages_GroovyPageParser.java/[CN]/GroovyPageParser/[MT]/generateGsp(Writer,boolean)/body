@@ -1,7 +1,7 @@
 {
   this.precompileMode=precompileMode;
   out=new GSPWriter(target,this);
-  if (packageName != null) {
+  if (packageName != null && packageName.length() > 0) {
     out.println("package " + packageName);
     out.println();
   }

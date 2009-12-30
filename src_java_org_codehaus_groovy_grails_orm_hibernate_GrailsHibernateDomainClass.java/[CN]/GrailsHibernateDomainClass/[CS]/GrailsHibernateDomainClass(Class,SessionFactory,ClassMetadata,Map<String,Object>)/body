@@ -1,0 +1,52 @@
+{
+  super(clazz,"");
+  this.metadata=new StandardAnnotationMetadata(clazz);
+  String ident=metaData.getIdentifierPropertyName();
+  this.defaultConstraints=defaultContraints;
+  if (ident != null) {
+    Class identType=getPropertyType(ident);
+    this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
+    this.identifier.setIdentity(true);
+    this.identifier.setType(identType);
+    propertyMap.put(ident,identifier);
+  }
+  final int versionIndex=metaData.getVersionProperty();
+  String versionPropertyName=null;
+  if (versionIndex > -1) {
+    versionPropertyName=metaData.getPropertyNames()[versionIndex];
+    this.version=new GrailsHibernateDomainClassProperty(this,versionPropertyName);
+  }
+  String[] propertyNames=metaData.getPropertyNames();
+  for (  String propertyName : propertyNames) {
+    if (!propertyName.equals(ident) && !(versionPropertyName != null && propertyName.equals(versionPropertyName))) {
+      GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
+      prop.setType(getPropertyType(propertyName));
+      Type hibernateType=metaData.getPropertyType(propertyName);
+      if (hibernateType.isAssociationType()) {
+        prop.setAssociation(true);
+        AssociationType assType=(AssociationType)hibernateType;
+        if (assType instanceof AnyType)         continue;
+        try {
+          String associatedEntity=assType.getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
+          ClassMetadata associatedMetaData=sessionFactory.getClassMetadata(associatedEntity);
+          prop.setRelatedClassType(associatedMetaData.getMappedClass(EntityMode.POJO));
+        }
+ catch (        MappingException me) {
+          if (hibernateType.isCollectionType()) {
+            prop.setRelatedClassType(Collection.class);
+          }
+        }
+        if (hibernateType.isCollectionType()) {
+          prop.setOneToMany(true);
+        }
+ else         if (hibernateType.isEntityType()) {
+          prop.setManyToOne(true);
+          prop.setOneToOne(true);
+        }
+      }
+      propertyMap.put(propertyName,prop);
+    }
+  }
+  this.properties=propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
+  evaluateConstraints(defaultContraints);
+}

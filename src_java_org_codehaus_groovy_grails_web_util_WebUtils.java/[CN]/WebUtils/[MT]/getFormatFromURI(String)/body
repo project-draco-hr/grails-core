@@ -7,7 +7,11 @@
     String lastToken=uri.substring(idx + 1,uri.length());
     idx=lastToken.lastIndexOf('.');
     if (idx > -1 && idx != lastToken.length() - 1) {
-      return lastToken.substring(idx + 1);
+      String extension=lastToken.substring(idx + 1,lastToken.length());
+      MimeType[] mimeTypes=MimeType.getConfiguredMimeTypes();
+      for (      MimeType mimeType : mimeTypes) {
+        if (mimeType.getExtension().equals(extension))         return extension;
+      }
     }
   }
   return null;

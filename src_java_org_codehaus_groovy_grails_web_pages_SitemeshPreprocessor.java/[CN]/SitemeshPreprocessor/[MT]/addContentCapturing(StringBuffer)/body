@@ -1,0 +1,4 @@
+{
+  Matcher m=contentPattern.matcher(sb);
+  return new StringBuffer(m.replaceAll("<sitemesh:captureContent$1>$2</sitemesh:captureContent>"));
+}

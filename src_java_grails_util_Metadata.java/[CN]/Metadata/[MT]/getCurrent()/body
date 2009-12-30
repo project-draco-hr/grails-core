@@ -1,20 +1,31 @@
 {
-  if (!metadata.initialized) {
+  Metadata m=metadata.get();
+  if (m == null) {
+    metadata=new SoftReference<Metadata>(new Metadata());
+    m=metadata.get();
+  }
+  if (!m.initialized) {
+    InputStream input=null;
     try {
-      InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
+      input=Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE);
       if (input == null) {
         input=Metadata.class.getClassLoader().getResourceAsStream(FILE);
       }
       if (input != null) {
-        metadata.load(input);
+        m.load(input);
       }
     }
  catch (    Exception e) {
       throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
     }
  finally {
-      metadata.initialized=true;
+      try {
+        if (input != null)         input.close();
+      }
+ catch (      IOException e) {
+      }
+      m.initialized=true;
     }
   }
-  return metadata;
+  return m;
 }

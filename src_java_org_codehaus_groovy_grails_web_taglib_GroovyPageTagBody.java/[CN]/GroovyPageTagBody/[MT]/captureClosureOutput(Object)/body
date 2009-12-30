@@ -1,7 +1,7 @@
 {
-  Writer originalOut=webRequest.getOut();
+  final GroovyPageTagWriter capturedOut=new GroovyPageTagWriter(preferSubChunkWhenWritingToOtherBuffer);
   try {
-    final GroovyPageTagWriter capturedOut=createWriter();
+    GroovyPageOutputStack.currentStack().push(capturedOut);
     Object bodyResult;
     if (args != null) {
       if (args instanceof Map) {
@@ -13,7 +13,7 @@
           currentBinding.putAll((Map)args);
         }
         try {
-          bodyResult=bodyClosure.call(args);
+          bodyResult=executeClosure(bodyClosure,args);
         }
   finally {
           if (binding != null) {
@@ -23,30 +23,18 @@
         }
       }
  else {
-        bodyResult=bodyClosure.call(args);
+        bodyResult=executeClosure(bodyClosure,args);
       }
     }
  else {
-      bodyResult=bodyClosure.call();
+      bodyResult=executeClosure(bodyClosure,null);
     }
-    String output=capturedOut.getValue();
-    if (org.apache.commons.lang.StringUtils.isBlank(output)) {
-      if (bodyResult instanceof String) {
-        return bodyResult;
-      }
- else       if (bodyResult instanceof GString) {
-        return bodyResult.toString();
-      }
- else {
-        return BLANK_STRING;
-      }
+    if (!capturedOut.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
+      return bodyResult;
     }
-    return output;
+    return capturedOut.getBuffer();
   }
   finally {
-    if (binding != null) {
-      binding.setVariable(GroovyPage.OUT,originalOut);
-    }
-    webRequest.setOut(originalOut);
+    GroovyPageOutputStack.currentStack().pop();
   }
 }

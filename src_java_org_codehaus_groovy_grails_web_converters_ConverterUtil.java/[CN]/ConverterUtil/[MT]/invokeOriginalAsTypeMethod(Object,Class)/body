@@ -1,5 +1,23 @@
 {
-  if (delegate instanceof Collection)   return DefaultGroovyMethods.asType((Collection)delegate,clazz);
+  if (clazz.isInstance(delegate))   return delegate;
+ else   if (delegate instanceof Collection && clazz.isArray()) {
+    int size=((Collection)delegate).size();
+    if (clazz.getComponentType() == Object.class) {
+      if (size == 0) {
+        return EMPTY_OBJECT_ARRAY;
+      }
+ else {
+        return ((Collection)delegate).toArray((Object[])Array.newInstance(clazz.getComponentType(),size));
+      }
+    }
+ else     if (size == 0) {
+      return Array.newInstance(clazz.getComponentType(),0);
+    }
+ else {
+      return DefaultTypeTransformation.asArray(delegate,clazz);
+    }
+  }
+ else   if (delegate instanceof Collection)   return DefaultGroovyMethods.asType((Collection)delegate,clazz);
  else   if (delegate instanceof Closure)   return DefaultGroovyMethods.asType((Closure)delegate,clazz);
  else   if (delegate instanceof Map)   return DefaultGroovyMethods.asType((Map)delegate,clazz);
  else   if (delegate instanceof Number)   return DefaultGroovyMethods.asType((Number)delegate,clazz);

@@ -1,5 +1,5 @@
 {
-  if (!String.class.isInstance(propertyType)) {
+  if (isNotValidStringType()) {
     throw new MissingPropertyException("Email constraint can only be applied to a String property",EMAIL_CONSTRAINT,owningClass);
   }
   Constraint c=(Constraint)this.appliedConstraints.get(EMAIL_CONSTRAINT);

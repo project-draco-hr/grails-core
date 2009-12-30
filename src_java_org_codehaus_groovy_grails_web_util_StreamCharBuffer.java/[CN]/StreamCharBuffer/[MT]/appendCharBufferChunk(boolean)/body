@@ -1,0 +1,26 @@
+{
+  int spaceLeft=0;
+  if (flushInConnected && isConnectedMode()) {
+    flushToConnected();
+    if (!isChunkSizeResizeable()) {
+      allocBuffer.reuseBuffer();
+      spaceLeft=allocBuffer.spaceLeft();
+    }
+ else {
+      spaceLeft=0;
+    }
+  }
+ else {
+    if (allocBuffer.hasChunk()) {
+      addChunk(allocBuffer.createChunk());
+    }
+    spaceLeft=allocBuffer.spaceLeft();
+  }
+  if (spaceLeft == 0) {
+    totalChunkSize+=allocBuffer.chunkSize();
+    resizeChunkSizeAsProcentageOfTotalSize();
+    allocBuffer=new AllocatedBuffer(chunkSize);
+    spaceLeft=allocBuffer.spaceLeft();
+  }
+  return spaceLeft;
+}

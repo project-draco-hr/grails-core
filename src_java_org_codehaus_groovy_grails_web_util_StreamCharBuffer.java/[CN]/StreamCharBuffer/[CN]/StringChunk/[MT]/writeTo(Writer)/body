@@ -1,7 +1,3 @@
 {
-  int len=unreadChars;
-  target.write(str,readOffset,len);
-  readOffset+=len;
-  unreadChars-=len;
-  return len;
+  target.write(str,offset,length);
 }

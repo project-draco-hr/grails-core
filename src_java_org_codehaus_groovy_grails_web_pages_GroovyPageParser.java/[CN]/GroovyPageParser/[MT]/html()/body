@@ -11,11 +11,10 @@
     currentlyBufferingWhitespace=contentIsWhitespace;
   }
   previousContentWasNonWhitespace=!contentIsWhitespace;
-  String constantName=(String)constantsToNames.get(text);
-  if (constantName == null) {
-    constantName="htmlParts[" + (constantCount++) + "]";
-    constantsToNames.put(text,constantName);
-    htmlParts.add(text);
+  if (currentlyBufferingWhitespace) {
+    whitespaceBuffer.append(text);
   }
-  bufferedPrintlnToResponse(constantName);
+ else {
+    appendHtmlPart(text);
+  }
 }

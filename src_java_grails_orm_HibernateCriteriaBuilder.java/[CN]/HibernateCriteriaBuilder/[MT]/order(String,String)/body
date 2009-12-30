@@ -8,6 +8,11 @@
  else {
     o=Order.asc(propertyName);
   }
-  this.criteria.addOrder(o);
+  if (this.paginationEnabledList) {
+    orderEntries.add(o);
+  }
+ else {
+    this.criteria.addOrder(o);
+  }
   return o;
 }

@@ -2,9 +2,6 @@
   for (  Object aPropertiesToAdd : propertiesToAdd) {
     PropertyNode pn=(PropertyNode)aPropertiesToAdd;
     if (!GrailsASTUtils.hasProperty(classNode,pn.getName())) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("[GrailsDomainInjector] Adding property [" + pn.getName() + "] to class ["+ classNode.getName()+ "]");
-      }
       classNode.addProperty(pn);
     }
   }

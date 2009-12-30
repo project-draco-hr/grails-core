@@ -1,5 +1,6 @@
 {
-  if (!TransactionSynchronizationManager.hasResource(localSessionFactory)) {
+  if (!isSessionAlreadyBound()) {
+    LOG.debug("resuming: Resumed flow, obtaining existing Hibernate session");
     super.resuming(context);
   }
  else {

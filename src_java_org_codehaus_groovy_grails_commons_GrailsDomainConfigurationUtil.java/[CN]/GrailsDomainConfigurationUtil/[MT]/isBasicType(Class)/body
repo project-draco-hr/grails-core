@@ -1,4 +1,5 @@
 {
+  if (propType == null)   return false;
   if (propType.isArray()) {
     return isBasicType(propType.getComponentType());
   }

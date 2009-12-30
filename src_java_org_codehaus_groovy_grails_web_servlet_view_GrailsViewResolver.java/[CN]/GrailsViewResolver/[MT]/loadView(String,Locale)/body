@@ -1,6 +1,5 @@
 {
   if (this.templateEngine == null)   throw new IllegalStateException("Property [templateEngine] cannot be null");
-  if (this.pluginMetaManager == null)   throw new IllegalStateException("Property [pluginMetaManager] cannot be null");
   if (VIEW_CACHE.containsKey(viewName) && !templateEngine.isReloadEnabled()) {
     return VIEW_CACHE.get(viewName);
   }

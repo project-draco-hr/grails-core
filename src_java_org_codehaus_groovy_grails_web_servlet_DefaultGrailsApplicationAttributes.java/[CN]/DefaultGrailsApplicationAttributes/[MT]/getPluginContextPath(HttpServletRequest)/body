@@ -1,10 +1,7 @@
 {
   GroovyObject controller=getController(request);
-  GrailsApplication application=getGrailsApplication();
-  if (controller != null && application != null) {
-    final Class controllerClass=controller.getClass();
-    PluginMetaManager metaManager=(PluginMetaManager)getApplicationContext().getBean(PluginMetaManager.BEAN_ID);
-    String path=metaManager.getPluginPathForResource(controllerClass.getName());
+  if (controller != null) {
+    String path=pluginManager.getPluginPathForInstance(controller);
     return path == null ? "" : path;
   }
  else {

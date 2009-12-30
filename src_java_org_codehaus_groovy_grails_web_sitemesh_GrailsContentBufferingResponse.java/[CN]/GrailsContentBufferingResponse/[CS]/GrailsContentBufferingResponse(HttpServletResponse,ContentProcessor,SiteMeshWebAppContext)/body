@@ -1,5 +1,5 @@
 {
-  super(new GrailsPageResponseWrapper(response,new PageParserSelector(){
+  super(new GrailsPageResponseWrapper(webAppContext.getRequest(),response,new PageParserSelector(){
     public boolean shouldParsePage(    String contentType){
       return contentProcessor.handles(contentType);
     }

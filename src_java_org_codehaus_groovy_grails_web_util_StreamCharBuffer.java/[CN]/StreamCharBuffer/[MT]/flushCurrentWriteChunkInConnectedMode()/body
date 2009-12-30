@@ -1,9 +1,0 @@
-{
-  if (isChunkSizeResizeable()) {
-    endCurrentWriteChunk();
-  }
- else {
-    flushIfConnected(true,true);
-    currentWriteChunk.reuseBuffer();
-  }
-}

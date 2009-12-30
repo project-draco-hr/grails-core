@@ -15,27 +15,25 @@
         fields.addAll(structuredEditor.getOptionalFields());
         Map<String,String> fieldValues=new HashMap<String,String>();
         try {
-          for (          Object field1 : fields) {
-            String field=(String)field1;
-            PropertyValue requiredProperty=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + field);
-            if (requiredProperty == null && structuredEditor.getRequiredFields().contains(field)) {
-              break;
+          for (          Object fld : fields) {
+            String field=(String)fld;
+            PropertyValue partialStructValue=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + field);
+            if (partialStructValue == null && structuredEditor.getRequiredFields().contains(field)) {
+              throw new MissingPropertyException("Required structured property is missing [" + field + "]");
             }
- else             if (requiredProperty == null)             continue;
-            fieldValues.put(field,getStringValue(requiredProperty));
+ else             if (partialStructValue == null)             continue;
+            fieldValues.put(field,getStringValue(partialStructValue));
           }
           try {
             Object value=structuredEditor.assemble(type,fieldValues);
-            if (null != value) {
-              for (              Object field : fields) {
-                String requiredField=(String)field;
-                PropertyValue requiredProperty=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + requiredField);
-                if (null != requiredProperty) {
-                  requiredProperty.setConvertedValue(getStringValue(requiredProperty));
-                }
+            for (            Object fld : fields) {
+              String field=(String)fld;
+              PropertyValue partialStructValue=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + field);
+              if (null != partialStructValue) {
+                partialStructValue.setConvertedValue(getStringValue(partialStructValue));
               }
-              propertyValues.addPropertyValue(new PropertyValue(propertyName,value));
             }
+            propertyValues.addPropertyValue(new PropertyValue(propertyName,value));
           }
  catch (          IllegalArgumentException iae) {
             LOG.warn("Unable to parse structured date from request for date [" + propertyName + "]",iae);

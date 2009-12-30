@@ -1,5 +1,5 @@
 {
   GrailsDomainClass grailsClass=(GrailsDomainClass)super.newArtefactClass(artefactClass);
-  grailsClass.setMappingStrategy(JPA_MAPPING_STRATEGY);
+  if (isJPADomainClass(artefactClass))   grailsClass.setMappingStrategy(JPA_MAPPING_STRATEGY);
   return grailsClass;
 }

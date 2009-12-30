@@ -1,3 +1,5 @@
 {
-  configureLoadedClasses(this.cl.getLoadedClasses());
+  if (this.cl instanceof GroovyClassLoader) {
+    configureLoadedClasses(((GroovyClassLoader)this.cl).getLoadedClasses());
+  }
 }

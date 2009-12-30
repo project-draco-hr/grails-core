@@ -1,0 +1,11 @@
+{
+  if (!application.isWarDeployed()) {
+    ClassLoader classLoader=application.getClassLoader();
+    if (classLoader instanceof GrailsClassLoader) {
+      GrailsClassLoader gcl=(GrailsClassLoader)classLoader;
+      if (gcl.hasCompilationErrors()) {
+        throw gcl.getCompilationError();
+      }
+    }
+  }
+}

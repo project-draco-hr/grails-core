@@ -16,9 +16,10 @@
       }
       forwardUrl.append(GrailsUrlPathHelper.GRAILS_DISPATCH_EXTENSION);
     }
-    if (info.getParameters() != null && includeParams) {
+    final Map parameters=info.getParameters();
+    if (parameters != null && !parameters.isEmpty() && includeParams) {
       try {
-        forwardUrl.append(toQueryString(info.getParameters()));
+        forwardUrl.append(toQueryString(parameters));
       }
  catch (      UnsupportedEncodingException e) {
         throw new ControllerExecutionException("Unable to include ");

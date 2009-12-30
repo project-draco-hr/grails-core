@@ -4,7 +4,7 @@
     for (    GrailsClass grailsClass : taglibs) {
       registerTagLib((GrailsTagLibClass)grailsClass);
     }
-    namespaceDispatchers.put(GroovyPage.TEMPLATE_NAMESPACE,new NamespacedTagDispatcher(GroovyPage.DEFAULT_NAMESPACE,GroovyPage.class,grailsApplication,applicationContext){
+    namespaceDispatchers.put(GroovyPage.TEMPLATE_NAMESPACE,new NamespacedTagDispatcher(GroovyPage.DEFAULT_NAMESPACE,GroovyPage.class,grailsApplication,this){
       @Override public Object invokeMethod(      final String name,      Object args){
         Map attrs=new HashMap(){
 {

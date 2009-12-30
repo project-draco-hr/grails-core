@@ -6,9 +6,6 @@
  else {
     urls.addAll(getRequiredLibsFromHome());
   }
-  if (includeRuntimeClasspath && runtimeClasspath != null) {
-    urls.addAll(pathsToUrls(runtimeClasspath));
-  }
   try {
     URL[] loaderUrls=urls.toArray(new URL[urls.size()]);
     GrailsRootLoader rootLoader=new GrailsRootLoader(loaderUrls,getClass().getClassLoader());
@@ -19,7 +16,6 @@
  else {
       helper=new GrailsBuildHelper(rootLoader,home == null ? null : home.getCanonicalPath());
     }
-    configureBuildSettings(helper);
     int retval;
     if (environment == null) {
       retval=helper.execute(targetName,args);

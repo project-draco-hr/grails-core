@@ -27,27 +27,37 @@
     }
 ;
   }
-  final GrailsWebRequest webRequest=(GrailsWebRequest)getBinding().getVariable(WEB_REQUEST);
-  final Writer out=webRequest.getOut();
   try {
-    if (gspTagLibraryLookup.hasNamespace(tagNamespace)) {
-      GroovyObject tagLib=getTagLib(tagName,tagNamespace);
+    GroovyObject tagLib=getTagLib(tagNamespace,tagName);
+    if (tagLib != null || gspTagLibraryLookup.hasNamespace(tagNamespace)) {
       if (tagLib != null) {
+        boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(tagNamespace,tagName);
         Object tagLibProp=tagLib.getProperty(tagName);
         if (tagLibProp instanceof Closure) {
           Closure tag=(Closure)((Closure)tagLibProp).clone();
+          Object tagresult=null;
+          boolean preferSubChunkWhenWritingToOtherBuffer=resolvePreferSubChunk(tagNamespace,tagName);
+          if (body instanceof GroovyPageTagBody && preferSubChunkWhenWritingToOtherBuffer) {
+            ((GroovyPageTagBody)body).setPreferSubChunkWhenWritingToOtherBuffer(true);
+          }
 switch (tag.getParameterTypes().length) {
 case 1:
-            tag.call(new Object[]{attrs});
-          if (body != null) {
-            body.call();
+            tagresult=tag.call(new Object[]{attrs});
+          if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
+            out.print(tagresult);
           }
-        break;
+        if (body != null && body != EMPTY_BODY_CLOSURE) {
+          body.call();
+        }
+      break;
 case 2:
-      if (tag.getParameterTypes().length == 2) {
-        tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
+    if (tag.getParameterTypes().length == 2) {
+      tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
+      if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
+        out.print(tagresult);
       }
-    break;
+    }
+  break;
 }
 }
  else {
@@ -59,38 +69,47 @@ throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag libra
 }
 }
  else {
-StringBuilder plainTag=new StringBuilder();
-String fullTagName=tagNamespace + ":" + tagName;
-plainTag.append("<").append(fullTagName);
+out.append('<').append(tagNamespace).append(':').append(tagName);
 for (Object o : attrs.entrySet()) {
 Map.Entry entry=(Map.Entry)o;
-plainTag.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
+out.append(' ');
+out.append(entry.getKey()).append('=');
+String value=String.valueOf(entry.getValue());
+boolean containsQuotes=(value.indexOf('"') > -1);
+boolean containsSingleQuote=(value.indexOf('\'') > -1);
+if (containsQuotes && !containsSingleQuote) {
+out.append('\'').append(value).append('\'');
 }
-plainTag.append(">");
-try {
-out.write(plainTag.toString());
-if (body != null) {
-Object bodyOutput=body.call();
-if (bodyOutput != null) out.write(bodyOutput.toString());
-}
-out.write("</" + fullTagName + ">");
-}
- catch (IOException e) {
-throw new GrailsTagException("I/O error invoking tag library closure as method: " + e.getMessage(),getGroovyPageFileName(),0);
-}
-}
-}
- catch (Exception e) {
-Throwable cause=GrailsExceptionResolver.getRootCause(e);
-if (cause instanceof GrailsTagException) {
-throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumber);
+ else if (containsQuotes & containsSingleQuote) {
+out.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
 }
  else {
-throw new GrailsTagException("Error executing tag <" + tagNamespace + ":"+ tagName+ ">: "+ e.getMessage(),e,getGroovyPageFileName(),lineNumber);
+out.append('\"').append(value).append('\"');
 }
 }
- finally {
-getBinding().setVariable(OUT,out);
-webRequest.setOut(out);
+out.append('>');
+if (body != null) {
+Object bodyOutput=body.call();
+if (bodyOutput != null) out.print(bodyOutput);
+}
+out.append("</").append(tagNamespace).append(':').append(tagName).append('>');
+}
+}
+ catch (Throwable e) {
+if (LOG.isTraceEnabled()) {
+LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
+}
+if (tagName.matches("capture(Body|Head|Meta|Title|Component)")) {
+RuntimeException rte=GrailsExceptionResolver.getFirstRuntimeException(e);
+if (rte == null) {
+throwRootCause(tagName,tagNamespace,lineNumber,e);
+}
+ else {
+throw rte;
+}
+}
+ else {
+throwRootCause(tagName,tagNamespace,lineNumber,e);
+}
 }
 }

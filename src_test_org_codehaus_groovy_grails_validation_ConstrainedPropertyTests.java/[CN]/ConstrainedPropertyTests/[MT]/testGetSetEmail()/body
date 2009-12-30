@@ -1,0 +1,5 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",String.class);
+  cp.setEmail(true);
+  assertTrue("should be an email",cp.isEmail());
+}

@@ -1,0 +1,12 @@
+{
+  URL url=invokeFindResource(parent,name);
+  if (url != null) {
+    return url;
+  }
+ else   if (parent != rootLoader) {
+    return findResourceRecursive(parent.getParent(),name);
+  }
+ else {
+    return null;
+  }
+}

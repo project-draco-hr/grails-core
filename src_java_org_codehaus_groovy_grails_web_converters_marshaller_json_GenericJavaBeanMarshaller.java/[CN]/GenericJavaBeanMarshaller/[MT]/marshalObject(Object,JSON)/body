@@ -2,8 +2,7 @@
   JSONWriter writer=json.getWriter();
   try {
     writer.object();
-    BeanInfo info=Introspector.getBeanInfo(o.getClass());
-    PropertyDescriptor[] properties=info.getPropertyDescriptors();
+    PropertyDescriptor[] properties=BeanUtils.getPropertyDescriptors(o.getClass());
     for (    PropertyDescriptor property : properties) {
       String name=property.getName();
       Method readMethod=property.getReadMethod();

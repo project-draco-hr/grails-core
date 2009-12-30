@@ -1,5 +1,21 @@
 {
   if (usingWriter)   throw new IllegalStateException("Method getWriter() already called");
-  usingStream=true;
+  if (!usingStream) {
+    usingStream=true;
+    byteBuffer=new StreamByteBuffer();
+    os=byteBuffer.getOutputStream();
+    sos=new ServletOutputStream(){
+      @Override public void write(      byte[] b,      int off,      int len) throws IOException {
+        os.write(b,off,len);
+      }
+      @Override public void write(      byte[] b) throws IOException {
+        os.write(b);
+      }
+      @Override public void write(      int b) throws IOException {
+        os.write(b);
+      }
+    }
+;
+  }
   return sos;
 }

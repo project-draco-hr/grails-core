@@ -1,0 +1,4 @@
+{
+  if (LOG.isDebugEnabled())   LOG.debug("paused: Disconnecting Hibernate session");
+  super.paused(context);
+}

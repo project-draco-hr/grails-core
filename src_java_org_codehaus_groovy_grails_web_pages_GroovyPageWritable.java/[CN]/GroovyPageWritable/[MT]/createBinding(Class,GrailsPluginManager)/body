@@ -1,0 +1,6 @@
+{
+  GroovyPageBinding binding=pluginManager != null ? new GroovyPageBinding(pluginManager.getPluginPathForClass(pageClass)) : new GroovyPageBinding();
+  request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
+  binding.setVariable(GroovyPage.PAGE_SCOPE,binding);
+  return binding;
+}

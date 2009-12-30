@@ -1,7 +1,7 @@
 {
-  if (usingWriter)   return sw.toString();
+  if (usingWriter)   return charBuffer;
  else   if (usingStream) {
-    return os.toString(encoding);
+    return byteBuffer.readAsString(encoding);
   }
-  return "".intern();
+  return "";
 }

@@ -1,0 +1,4 @@
+{
+  final Projection proj=Projections.distinct(Projections.property(calculatePropertyName(propertyName)));
+  addProjectionToList(proj,alias);
+}

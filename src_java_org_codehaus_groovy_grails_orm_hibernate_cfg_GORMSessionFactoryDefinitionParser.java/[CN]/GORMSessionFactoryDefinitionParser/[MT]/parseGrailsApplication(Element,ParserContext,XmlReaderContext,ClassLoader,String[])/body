@@ -11,7 +11,7 @@
   for (  String beanName : simpleRegistry.getBeanDefinitionNames()) {
     BeanDefinition beanDef=simpleRegistry.getBeanDefinition(beanName);
     try {
-      Class entityClass=beanClassLoader.loadClass(beanDef.getBeanClassName());
+      Class entityClass=Class.forName(beanDef.getBeanClassName(),true,beanClassLoader);
       classes.add(entityClass);
       registerDomainBean(entityClass,targetRegistry,element.getAttribute(MESSAGE_SOURCE_ATTRIBUTE));
     }
@@ -20,6 +20,6 @@
     }
   }
   constructorArgs.addGenericArgumentValue(classes.toArray(new Class[classes.size()]));
-  constructorArgs.addGenericArgumentValue(new GroovyClassLoader(beanClassLoader));
+  constructorArgs.addGenericArgumentValue(beanClassLoader);
   targetRegistry.registerBeanDefinition(GrailsApplication.APPLICATION_ID,grailsApplicationBean);
 }

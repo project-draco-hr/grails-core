@@ -1,4 +1,7 @@
 {
-  metadata.clear();
-  metadata.initialized=false;
+  Metadata m=metadata.get();
+  if (m != null) {
+    m.clear();
+    m.initialized=false;
+  }
 }

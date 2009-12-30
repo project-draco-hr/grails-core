@@ -1,12 +1,12 @@
 {
-  metadata=new Metadata();
-  metadataFile=file;
+  Metadata m=new Metadata(file);
+  metadata=new FinalReference<Metadata>(m);
   if (file != null && file.exists()) {
     FileInputStream input=null;
     try {
       input=new FileInputStream(file);
-      metadata.load(input);
-      metadata.initialized=true;
+      m.load(input);
+      m.initialized=true;
     }
  catch (    Exception e) {
       throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
@@ -19,5 +19,5 @@
       }
     }
   }
-  return metadata;
+  return m;
 }

@@ -1,5 +1,0 @@
-{
-  if (!pluginDir.exists())   return;
-  File libDir=new File(pluginDir,"lib");
-  if (libDir.exists())   addLibs(libDir,urls,Collections.EMPTY_SET);
-}

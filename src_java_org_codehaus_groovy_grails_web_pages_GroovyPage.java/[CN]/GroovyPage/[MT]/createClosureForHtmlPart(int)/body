@@ -1,0 +1,4 @@
+{
+  final String htmlPart=htmlParts[partNumber];
+  return new ConstantClosure(htmlPart);
+}

@@ -1,0 +1,16 @@
+{
+  Class<?> handlerType=this.beanFactory.getType(beanName);
+  A ann=AnnotationUtils.findAnnotation(handlerType,annotationType);
+  if (ann == null && this.beanFactory instanceof ConfigurableBeanFactory && this.beanFactory.containsBeanDefinition(beanName)) {
+    ConfigurableBeanFactory cbf=(ConfigurableBeanFactory)this.beanFactory;
+    BeanDefinition bd=cbf.getMergedBeanDefinition(beanName);
+    if (bd instanceof AbstractBeanDefinition) {
+      AbstractBeanDefinition abd=(AbstractBeanDefinition)bd;
+      if (abd.hasBeanClass()) {
+        Class<?> beanClass=abd.getBeanClass();
+        ann=AnnotationUtils.findAnnotation(beanClass,annotationType);
+      }
+    }
+  }
+  return ann;
+}

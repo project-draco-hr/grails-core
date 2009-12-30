@@ -1,10 +1,25 @@
 {
-  super();
-  setClazz(clazz);
+  if (clazz == null) {
+    throw new IllegalArgumentException("Clazz parameter should not be null");
+  }
+  this.clazz=clazz;
   this.reference=new BeanWrapperImpl(newInstance());
   this.fullName=clazz.getName();
   this.packageName=ClassUtils.getPackageName(clazz);
   this.naturalName=GrailsNameUtils.getNaturalName(clazz.getName());
-  this.shortName=getShortClassname(clazz);
+  this.shortName=ClassUtils.getShortClassName(clazz);
   this.name=GrailsNameUtils.getLogicalName(clazz,trailingName);
+  this.propertyName=GrailsNameUtils.getPropertyNameRepresentation(this.shortName);
+  if (StringUtils.isBlank(this.name)) {
+    this.logicalPropertyName=this.propertyName;
+  }
+ else {
+    this.logicalPropertyName=GrailsNameUtils.getPropertyNameRepresentation(this.name);
+  }
+  this.classPropertyFetcher=new ClassPropertyFetcher(clazz,new ClassPropertyFetcher.ReferenceInstanceCallback(){
+    public Object getReferenceInstance(){
+      return AbstractGrailsClass.this.getReferenceInstance();
+    }
+  }
+);
 }

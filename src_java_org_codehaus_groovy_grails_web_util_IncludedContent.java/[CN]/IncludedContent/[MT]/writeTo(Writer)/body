@@ -1,0 +1,14 @@
+{
+  if (content == null) {
+    return;
+  }
+  if (content instanceof StreamCharBuffer) {
+    ((StreamCharBuffer)content).writeTo(target);
+  }
+ else   if (content instanceof String) {
+    target.write((String)content);
+  }
+ else {
+    target.write(String.valueOf(content));
+  }
+}

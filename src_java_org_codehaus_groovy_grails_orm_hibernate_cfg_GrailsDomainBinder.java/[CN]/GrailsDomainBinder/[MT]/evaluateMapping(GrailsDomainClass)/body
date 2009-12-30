@@ -1,16 +1,3 @@
 {
-  try {
-    Object o=GrailsClassUtils.getStaticPropertyValue(domainClass.getClazz(),GrailsDomainClassProperty.MAPPING);
-    if (o instanceof Closure) {
-      HibernateMappingBuilder builder=new HibernateMappingBuilder(domainClass.getFullName());
-      Mapping m=builder.evaluate((Closure)o);
-      MAPPING_CACHE.put(domainClass.getClazz(),m);
-      return m;
-    }
-  }
- catch (  Exception e) {
-    GrailsUtil.deepSanitize(e);
-    throw new GrailsDomainException("Error evaluating ORM mappings block for domain [" + domainClass.getFullName() + "]:  "+ e.getMessage(),e);
-  }
-  return null;
+  return evaluateMapping(domainClass,null);
 }

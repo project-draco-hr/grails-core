@@ -1,6 +1,3 @@
 {
-  if (this.criteria == null) {
-    return false;
-  }
-  return true;
+  return this.criteria != null;
 }

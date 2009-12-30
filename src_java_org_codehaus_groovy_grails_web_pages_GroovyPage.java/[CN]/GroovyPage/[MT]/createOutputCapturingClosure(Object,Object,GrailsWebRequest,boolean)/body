@@ -1,0 +1,19 @@
+{
+  if (body1 == null) {
+    return EMPTY_BODY_CLOSURE;
+  }
+ else   if (body1 instanceof GroovyPageTagBody) {
+    GroovyPageTagBody gptb=(GroovyPageTagBody)body1;
+    gptb.setPreferSubChunkWhenWritingToOtherBuffer(preferSubChunkWhenWritingToOtherBuffer);
+    return gptb;
+  }
+ else   if (body1 instanceof ConstantClosure) {
+    return (Closure)body1;
+  }
+ else   if (body1 instanceof Closure) {
+    return new GroovyPageTagBody(wrappedInstance,webRequest,(Closure)body1,preferSubChunkWhenWritingToOtherBuffer);
+  }
+ else {
+    return new ConstantClosure(body1);
+  }
+}

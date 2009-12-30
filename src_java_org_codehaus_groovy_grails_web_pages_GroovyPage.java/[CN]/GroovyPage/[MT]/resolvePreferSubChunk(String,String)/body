@@ -1,0 +1,7 @@
+{
+  boolean preferSubChunkWhenWritingToOtherBuffer=false;
+  if (DEFAULT_NAMESPACE.equals(tagNamespace) && tagName.startsWith("capture")) {
+    preferSubChunkWhenWritingToOtherBuffer=true;
+  }
+  return preferSubChunkWhenWritingToOtherBuffer;
+}

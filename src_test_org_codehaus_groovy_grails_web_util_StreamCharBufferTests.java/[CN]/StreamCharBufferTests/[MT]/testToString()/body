@@ -1,0 +1,9 @@
+{
+  StreamCharBuffer charBuffer=new StreamCharBuffer();
+  Writer writer=charBuffer.getWriter();
+  writer.write("Hello world!");
+  writer.close();
+  String str=charBuffer.readAsString();
+  assertEquals("Hello world!",str);
+  assertEquals(12,charBuffer.size());
+}

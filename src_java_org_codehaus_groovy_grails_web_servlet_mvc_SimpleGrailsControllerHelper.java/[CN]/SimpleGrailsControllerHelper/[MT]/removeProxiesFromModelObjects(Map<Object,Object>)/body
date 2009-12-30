@@ -1,0 +1,7 @@
+{
+  for (  Map.Entry entry : model.entrySet()) {
+    if (entry.getValue() instanceof Proxy) {
+      entry.setValue(((Proxy)entry.getValue()).getAdaptee());
+    }
+  }
+}

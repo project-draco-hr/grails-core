@@ -1,9 +1,0 @@
-{
-  String classSource="package org.codehaus.groovy.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   def constraints = {\n"+ "      name( nullable: false, validator : { 'called' } )\n"+ "   }"+ "}";
-  try {
-    ensureConstraintsPresent(new String[]{classSource},0,2);
-    fail("Non-static constraints should throw an exception as of v0.4");
-  }
- catch (  Exception e) {
-  }
-}

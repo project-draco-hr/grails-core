@@ -5,7 +5,12 @@
   MutablePropertyValues propertyValues=sessionFactoryBean.getPropertyValues();
   final RuntimeBeanReference dataSourceRef=new RuntimeBeanReference(dataSourceId);
   propertyValues.addPropertyValue("dataSource",dataSourceRef);
-  propertyValues.addPropertyValue("configClass",GrailsAnnotationConfiguration.class);
+  Class configClass=lookupConfigClass(element,parserContext);
+  propertyValues.addPropertyValue("configClass",configClass);
+  final String configLocation=element.getAttribute(CONFIG_LOCATION_ATTRIBUTE);
+  if (StringUtils.hasText(configLocation)) {
+    propertyValues.addPropertyValue("configLocation",configLocation);
+  }
   propertyValues.addPropertyValue(GrailsApplication.APPLICATION_ID,new RuntimeBeanReference(GrailsApplication.APPLICATION_ID));
   targetRegistry.registerBeanDefinition(sessionFactoryId,sessionFactoryBean);
   final String lobHandlerRef=element.getAttribute(LOB_HANDLER_ATTRIBUTE);

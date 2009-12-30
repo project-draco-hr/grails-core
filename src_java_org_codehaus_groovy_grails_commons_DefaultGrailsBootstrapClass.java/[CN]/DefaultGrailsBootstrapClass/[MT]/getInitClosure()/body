@@ -1,5 +1,5 @@
 {
-  Object obj=getReference().getPropertyValue(INIT_CLOSURE);
+  Object obj=getPropertyValueObject(INIT_CLOSURE);
   if (obj instanceof Closure) {
     return (Closure)obj;
   }

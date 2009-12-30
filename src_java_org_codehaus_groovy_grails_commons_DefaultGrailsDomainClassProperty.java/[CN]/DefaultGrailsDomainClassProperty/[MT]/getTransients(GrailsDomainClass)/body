@@ -1,10 +1,15 @@
 {
-  List transientProps;
-  transientProps=(List)domainClass.getPropertyValue(TRANSIENT,List.class);
-  List evanescent=(List)domainClass.getPropertyValue(EVANESCENT,List.class);
-  if (evanescent != null) {
-    if (transientProps == null)     transientProps=new ArrayList();
-    transientProps.addAll(evanescent);
+  List allTransientProps=new ArrayList();
+  List<GrailsDomainClass> allClasses=resolveAllDomainClassesInHierarchy(domainClass);
+  for (  GrailsDomainClass currentDomainClass : allClasses) {
+    List transientProps=(List)currentDomainClass.getPropertyValue(TRANSIENT,List.class);
+    if (transientProps != null) {
+      allTransientProps.addAll(transientProps);
+    }
+    List evanescent=(List)currentDomainClass.getPropertyValue(EVANESCENT,List.class);
+    if (evanescent != null) {
+      allTransientProps.addAll(evanescent);
+    }
   }
-  return transientProps;
+  return allTransientProps;
 }

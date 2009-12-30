@@ -1,0 +1,3 @@
+{
+  return (allocBuffer == parent && (lastChunk == null || lastChunk.writerUsedCounter < writerUsedCounter));
+}

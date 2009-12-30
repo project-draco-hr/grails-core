@@ -1,6 +1,6 @@
 {
   text=text.substring(TAGLIB_DIRECTIVE.length() + 1,text.length());
-  Map attrs=new HashMap();
+  Map attrs=new LinkedHashMap();
   populateMapWithAttributes(attrs,text + '>');
   String prefix=(String)attrs.get("\"prefix\"");
   String uri=(String)attrs.get("\"uri\"");

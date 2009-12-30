@@ -1,0 +1,10 @@
+{
+  ProxyFactory factory=new ProxyFactory();
+  factory.setSuperclass(interfaces.length == 1 ? persistentClass : null);
+  factory.setInterfaces(interfaces);
+  factory.setFilter(METHOD_FILTERS);
+  if (WRITE_CLASSES_DIRECTORY != null) {
+    factory.writeDirectory=WRITE_CLASSES_DIRECTORY;
+  }
+  return factory;
+}

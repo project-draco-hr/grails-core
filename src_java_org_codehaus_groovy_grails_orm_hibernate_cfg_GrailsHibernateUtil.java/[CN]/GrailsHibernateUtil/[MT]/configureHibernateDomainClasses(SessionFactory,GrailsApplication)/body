@@ -1,8 +1,14 @@
 {
   Map hibernateDomainClassMap=new HashMap();
+  ArtefactHandler artefactHandler=application.getArtefactHandler(DomainClassArtefactHandler.TYPE);
+  Map defaultContraints=Collections.emptyMap();
+  if (artefactHandler instanceof DomainClassArtefactHandler) {
+    final Map map=((DomainClassArtefactHandler)artefactHandler).getDefaultConstraints();
+    if (map != null)     defaultContraints=map;
+  }
   for (  Object o : sessionFactory.getAllClassMetadata().values()) {
     ClassMetadata classMetadata=(ClassMetadata)o;
-    configureDomainClass(sessionFactory,application,classMetadata,classMetadata.getMappedClass(EntityMode.POJO),hibernateDomainClassMap);
+    configureDomainClass(sessionFactory,application,classMetadata,classMetadata.getMappedClass(EntityMode.POJO),hibernateDomainClassMap,defaultContraints);
   }
   configureInheritanceMappings(hibernateDomainClassMap);
 }

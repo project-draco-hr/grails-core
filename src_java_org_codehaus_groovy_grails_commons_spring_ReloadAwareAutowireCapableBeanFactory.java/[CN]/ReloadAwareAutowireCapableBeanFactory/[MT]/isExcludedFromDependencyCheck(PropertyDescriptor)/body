@@ -1,0 +1,3 @@
+{
+  return super.isExcludedFromDependencyCheck(pd) || pd.getName().indexOf('$') > -1;
+}

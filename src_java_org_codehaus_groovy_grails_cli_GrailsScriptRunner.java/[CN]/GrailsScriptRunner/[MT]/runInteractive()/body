@@ -1,22 +1,58 @@
 {
-  String message="Interactive mode ready, type your command name in to continue (hit ENTER to run the last command):\n";
+  String message="Interactive mode ready. Enter a Grails command or type \"exit\" to quit interactive mode (hit ENTER to run the last command):\n";
+  System.setProperty("grails.disable.exit","true");
   System.setProperty("grails.interactive.mode","true");
   int messageNumber=0;
   ScriptAndArgs script=new ScriptAndArgs();
   while (true) {
+    System.clearProperty("grails.env.set");
+    System.clearProperty(Environment.KEY);
     out.println("--------------------------------------------------------");
-    String enteredName=userInput(message);
+    String enteredName=helper.userInput(message);
     if (enteredName != null && enteredName.trim().length() > 0) {
       script=processArgumentsAndReturnScriptName(enteredName);
+      if (script.args != null) {
+        System.setProperty("grails.cli.args",script.args);
+      }
+ else {
+        System.setProperty("grails.cli.args","");
+      }
+      if (script.env != null) {
+        settings.setGrailsEnv(script.env);
+        settings.setDefaultEnv(false);
+      }
+ else {
+        String defaultEnv=(String)DEFAULT_ENVS.get(script.name);
+        if (defaultEnv == null)         defaultEnv=Environment.DEVELOPMENT.getName();
+        settings.setGrailsEnv(defaultEnv);
+        settings.setDefaultEnv(true);
+      }
     }
     if (script.name == null) {
       out.println("You must enter a command.\n");
       continue;
     }
+ else     if (script.name.equalsIgnoreCase("exit") || script.name.equalsIgnoreCase("quit")) {
+      return;
+    }
     long now=System.currentTimeMillis();
-    callPluginOrGrailsScript(script.name);
+    try {
+      callPluginOrGrailsScript(script.name);
+    }
+ catch (    ScriptNotFoundException ex) {
+      out.println("No script found for " + script.name);
+    }
+catch (    TargetExecutionException ex) {
+      if (ex.getCause() instanceof ScriptExitException) {
+        out.println("Script exited with code " + ((ScriptExitException)ex.getCause()).getExitCode());
+      }
+ else {
+        out.println("Script threw exception");
+        ex.printStackTrace(out);
+      }
+    }
     long end=System.currentTimeMillis();
     out.println("--------------------------------------------------------");
-    out.println("Command [" + script.name + " completed in "+ (end - now)+ "ms");
+    out.println("Command " + script.name + " completed in "+ (end - now)+ "ms");
   }
 }

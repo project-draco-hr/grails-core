@@ -14,15 +14,16 @@
     if (!contentTypeAlreadySet) {
       response.setContentType(metaInfo.getContentType());
     }
-    Binding binding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
-    Binding oldBinding=null;
+    GroovyPageBinding binding=(GroovyPageBinding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+    GroovyPageBinding oldBinding=null;
     if (binding == null) {
-      binding=createBinding();
+      binding=createBinding(metaInfo.getPageClass(),pluginManager);
       formulateBinding(request,response,binding,out);
     }
  else {
       oldBinding=binding;
-      binding=createBinding();
+      binding=createBinding(metaInfo.getPageClass(),pluginManager);
+      binding.setPluginContextPath(oldBinding.getPluginContextPath());
       formulateBinding(request,response,binding,out);
     }
     GroovyPage page=(GroovyPage)InvokerHelper.createScript(metaInfo.getPageClass(),binding);
@@ -30,7 +31,13 @@
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
     page.setHtmlParts(metaInfo.getHtmlParts());
-    page.run();
+    page.initRun(out,webRequest);
+    try {
+      page.run();
+    }
+  finally {
+      page.cleanup();
+    }
     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
   }
   return out;

@@ -2,5 +2,5 @@
   super.init(config,properties,parent);
   this.servletContext=config.getServletContext();
   this.applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  this.pluginMetaManager=(PluginMetaManager)applicationContext.getBean(PluginMetaManager.BEAN_ID);
+  if (applicationContext.containsBean(GrailsPluginManager.BEAN_NAME))   this.pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
 }

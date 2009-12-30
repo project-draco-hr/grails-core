@@ -1,3 +1,4 @@
 {
-  writeTo(target,true,true);
+  writeTo(target,false,false);
+  return getWriter();
 }

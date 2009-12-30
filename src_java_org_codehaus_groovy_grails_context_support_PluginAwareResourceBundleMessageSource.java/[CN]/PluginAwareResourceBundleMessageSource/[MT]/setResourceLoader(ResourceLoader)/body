@@ -4,7 +4,19 @@
   }
  else {
     BuildSettings settings=BuildSettingsHolder.getSettings();
-    this.localResourceLoader=new DevelopmentResourceLoader(this.application,settings != null ? settings.getResourcesDir().getPath() : null);
+    String location=null;
+    if (settings != null) {
+      location=settings.getResourcesDir().getPath();
+    }
+ else     if (Environment.getCurrent().isReloadEnabled()) {
+      location=Environment.getCurrent().getReloadLocation();
+    }
+    if (location != null) {
+      this.localResourceLoader=new DevelopmentResourceLoader(this.application,location);
+    }
+ else {
+      this.localResourceLoader=resourceLoader;
+    }
   }
   super.setResourceLoader(localResourceLoader);
   this.resourceResolver=new PathMatchingResourcePatternResolver(this.localResourceLoader);

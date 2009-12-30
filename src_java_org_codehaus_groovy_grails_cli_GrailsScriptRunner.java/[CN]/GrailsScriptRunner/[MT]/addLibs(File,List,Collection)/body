@@ -1,0 +1,16 @@
+{
+  if (dir.exists()) {
+    File[] files=dir.listFiles();
+    for (    File file : files) {
+      boolean include=true;
+      for (      Object me : excludes) {
+        String exclude=me.toString();
+        if (file.getName().contains(exclude)) {
+          include=false;
+          break;
+        }
+      }
+      if (include)       urls.add(file.toURI().toURL());
+    }
+  }
+}

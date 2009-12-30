@@ -1,0 +1,12 @@
+{
+  PropertyFetcher fetcher=resolveFetcher(name,onlyInstanceProperties);
+  if (fetcher != null) {
+    try {
+      return fetcher.get(callback);
+    }
+ catch (    Exception e) {
+      AbstractGrailsClass.LOG.warn("Error fetching property's " + name + " value from class "+ clazz.getName(),e);
+    }
+  }
+  return null;
+}

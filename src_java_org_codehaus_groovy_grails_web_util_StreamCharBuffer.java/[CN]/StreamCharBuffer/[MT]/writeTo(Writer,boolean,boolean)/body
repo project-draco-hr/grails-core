@@ -1,8 +1,13 @@
 {
-  while (prepareRead(flushAll) != -1) {
-    totalCharsUnread-=currentReadChunk.writeTo(target);
+  if (target instanceof GrailsPrintWriter) {
+    target=((GrailsPrintWriter)target).getOut();
   }
-  if (flushTarget) {
-    target.flush();
+  if (target instanceof StreamCharBufferWriter) {
+    if (target == writer) {
+      throw new IllegalArgumentException("Cannot write buffer to itself.");
+    }
+    ((StreamCharBufferWriter)target).write(this);
+    return;
   }
+  writeToImpl(target,flushTarget,emptyAfter);
 }

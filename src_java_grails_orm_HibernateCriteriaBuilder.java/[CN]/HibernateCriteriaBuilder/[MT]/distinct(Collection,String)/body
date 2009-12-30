@@ -1,0 +1,8 @@
+{
+  ProjectionList list=Projections.projectionList();
+  for (  Object o : propertyNames) {
+    list.add(Projections.property(calculatePropertyName(o.toString())));
+  }
+  final Projection proj=Projections.distinct(list);
+  addProjectionToList(proj,alias);
+}

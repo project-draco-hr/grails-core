@@ -1,8 +1,7 @@
 {
   if (value instanceof Collection) {
     Collection values=(Collection)value;
-    for (Iterator i=values.iterator(); i.hasNext(); ) {
-      Object current=i.next();
+    for (    Object current : values) {
       reassociateObjectWithErrors(scope,current);
     }
   }

@@ -1,0 +1,12 @@
+{
+  String prefix="TEST-" + phaseName + "-"+ typeName+ "-"+ name;
+  if (format.equals(PLAIN)) {
+    return new PlainFormatter(prefix,new File(reportsDir,"plain/" + prefix + ".txt"));
+  }
+ else   if (format.equals(XML)) {
+    return new XMLFormatter(new File(reportsDir,prefix + ".xml"));
+  }
+ else {
+    throw new IllegalArgumentException("Unknown format type: " + format);
+  }
+}

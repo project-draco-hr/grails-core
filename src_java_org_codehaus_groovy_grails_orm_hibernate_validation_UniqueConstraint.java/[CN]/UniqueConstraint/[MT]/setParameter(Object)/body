@@ -1,11 +1,10 @@
 {
-  if (!(constraintParameter instanceof Boolean || constraintParameter instanceof String || constraintParameter instanceof GString|| constraintParameter instanceof List)) {
+  if (!(constraintParameter instanceof Boolean || constraintParameter instanceof String || constraintParameter instanceof CharSequence|| constraintParameter instanceof List)) {
     throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
   }
   if (constraintParameter instanceof List) {
-    for (Iterator it=((List)constraintParameter).iterator(); it.hasNext(); ) {
-      Object parameter=it.next();
-      if (!(parameter instanceof String || parameter instanceof GString)) {
+    for (    Object parameter : ((List)constraintParameter)) {
+      if (!(parameter instanceof String || parameter instanceof CharSequence)) {
         throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
       }
  else {
@@ -13,7 +12,7 @@
       }
     }
   }
- else   if (constraintParameter instanceof String || constraintParameter instanceof GString) {
+ else   if (constraintParameter instanceof String || constraintParameter instanceof CharSequence) {
     this.uniquenessGroup.add(constraintParameter.toString());
     this.unique=true;
   }
@@ -22,8 +21,8 @@
   }
   if (uniquenessGroup.size() > 0) {
     unique=true;
-    for (Iterator it=uniquenessGroup.iterator(); it.hasNext(); ) {
-      String propertyName=(String)it.next();
+    for (    Object anUniquenessGroup : uniquenessGroup) {
+      String propertyName=(String)anUniquenessGroup;
       if (GrailsClassUtils.getPropertyType(constraintOwningClass,propertyName) == null) {
         throw new IllegalArgumentException("Scope for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a valid property name of same class");
       }

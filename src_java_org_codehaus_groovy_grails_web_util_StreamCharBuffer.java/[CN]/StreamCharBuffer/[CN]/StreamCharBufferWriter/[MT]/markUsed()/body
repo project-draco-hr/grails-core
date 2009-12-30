@@ -1,0 +1,8 @@
+{
+  if (increaseCounter) {
+    writerUsedCounter++;
+    if (!hasReaders) {
+      increaseCounter=false;
+    }
+  }
+}

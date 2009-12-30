@@ -6,29 +6,20 @@
   if (settings.getResourcesDir() != null && settings.getResourcesDir().exists()) {
     urls.add(settings.getResourcesDir().toURI().toURL());
   }
-  List compileDependencies=settings.getCompileDependencies();
-  for (  Object compileDependency : compileDependencies) {
-    File file=(File)compileDependency;
-    if (!excludes.contains(file.getName())) {
-      urls.add(file.toURI().toURL());
-      excludes.add(file.getName());
-    }
+  final boolean dependenciesExternallyConfigured=settings.isDependenciesExternallyConfigured();
+  if (!dependenciesExternallyConfigured)   System.out.println("Resolving dependencies...");
+  long now=System.currentTimeMillis();
+  final List<File> buildDependencies=settings.getBuildDependencies();
+  if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
+    exitWithError("Required Grails build dependencies were not found. Either GRAILS_HOME is not set or your dependencies are misconfigured in grails-app/conf/BuildConfig.groovy");
   }
-  List runtimeDeps=settings.getRuntimeDependencies();
-  for (Iterator iter=runtimeDeps.iterator(); iter.hasNext(); ) {
-    File file=(File)iter.next();
-    if (urls.contains(file))     continue;
-    if (!excludes.contains(file.getName())) {
-      urls.add(file.toURI().toURL());
-      excludes.add(file.getName());
-    }
-  }
-  if (settings.getGrailsHome() != null) {
-    addLibs(new File(settings.getGrailsHome(),"lib"),urls,excludes);
-  }
+  addDependenciesToURLs(excludes,urls,buildDependencies);
+  addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
+  addDependenciesToURLs(excludes,urls,settings.getTestDependencies());
+  if (!dependenciesExternallyConfigured)   System.out.println("Dependencies resolved in " + (System.currentTimeMillis() - now) + "ms.");
   if (!skipPlugins) {
     for (    File dir : listKnownPluginDirs(settings)) {
-      addPluginLibs(dir,urls);
+      addPluginLibs(dir,urls,settings);
     }
   }
   return urls.toArray(new URL[urls.size()]);

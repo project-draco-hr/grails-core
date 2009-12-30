@@ -1,0 +1,17 @@
+{
+  if (o != null) {
+    if (o.getClass().isArray()) {
+      Object[] args=(Object[])o;
+      if (args.length == 1) {
+        map.put(name,args[0]);
+      }
+ else {
+        map.put(name,Arrays.asList(args));
+      }
+    }
+ else {
+      map.put(name,o);
+    }
+  }
+  return null;
+}

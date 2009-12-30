@@ -3,14 +3,10 @@
   String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
   String contextPath=getContextPath(webRequest,argMap);
   String var=(String)argMap.get(ARGUMENT_VAR);
-  String templateUri=GroovyPageUtils.getTemplateURI(controller,templateName);
-  GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)webRequest.getApplicationContext().getBean(GroovyPagesTemplateEngine.BEAN_ID);
+  String templateUri=webRequest.getAttributes().getTemplateURI(controller,templateName);
+  GroovyPagesTemplateEngine engine=webRequest.getAttributes().getPagesTemplateEngine();
   try {
-    Resource r=engine.getResourceForUri(contextPath + templateUri);
-    if (!r.exists()) {
-      r=engine.getResourceForUri(contextPath + "/grails-app/views/" + templateUri);
-    }
-    Template t=engine.createTemplate(r);
+    Template t=engine.createTemplateForUri(new String[]{contextPath + templateUri,contextPath + "/grails-app/views/" + templateUri});
     if (t == null) {
       throw new ControllerExecutionException("Unable to load template for uri [" + templateUri + "]. Template not found.");
     }

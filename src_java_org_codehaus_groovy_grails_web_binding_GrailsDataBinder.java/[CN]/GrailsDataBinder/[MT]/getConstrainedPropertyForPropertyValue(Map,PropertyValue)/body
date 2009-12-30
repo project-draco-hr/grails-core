@@ -5,9 +5,8 @@
     Object target=getTarget();
     Object value=getPropertyValueForPath(target,propertyNames);
     if (value != null) {
-      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
-      if (mc.hasProperty(value,CONSTRAINTS_PROPERTY) != null) {
-        Map nestedConstrainedProperties=(Map)mc.getProperty(value,CONSTRAINTS_PROPERTY);
+      Map nestedConstrainedProperties=resolveConstrainedProperties(value);
+      if (nestedConstrainedProperties != null) {
         return (ConstrainedProperty)nestedConstrainedProperties.get(propertyNames[propertyNames.length - 1]);
       }
     }

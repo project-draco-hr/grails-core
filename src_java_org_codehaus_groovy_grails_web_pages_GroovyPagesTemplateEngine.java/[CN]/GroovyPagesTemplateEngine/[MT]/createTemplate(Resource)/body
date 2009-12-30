@@ -4,6 +4,14 @@
     throw new GroovyPagesException("No Groovy page found for URI: " + getCurrentRequestUri(webRequest.getCurrentRequest()));
   }
   String name=establishPageName(resource,null);
+  if (!isReloadEnabled()) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Creating template using resource " + resource,new Exception("Creating template using resource " + resource));
+    }
+ else     if (LOG.isInfoEnabled()) {
+      LOG.info("Creating template using resource " + resource);
+    }
+  }
   if (pageCache.containsKey(name)) {
     GroovyPageMetaInfo meta=pageCache.get(name);
     if (isGroovyPageReloadable(resource,meta)) {

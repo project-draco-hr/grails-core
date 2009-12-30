@@ -1,17 +1,16 @@
 {
-  if (cachedToCharArray == null || cachedToCharArray.length == 0) {
-    cachedToCharArray=readAsCharArray();
+  if (firstChunk == lastChunk && firstChunk instanceof CharBufferChunk && allocBuffer.charsUsed() == 0 && ((CharBufferChunk)firstChunk).isSingleBuffer()) {
+    return ((CharBufferChunk)firstChunk).buffer;
   }
- else   if (calculateTotalCharsUnread() > 0) {
-    char[] previousCharArray=cachedToCharArray;
-    int addedLen=calculateTotalCharsUnread();
-    cachedToCharArray=new char[previousCharArray.length + addedLen];
-    arrayCopy(previousCharArray,0,cachedToCharArray,0,previousCharArray.length);
-    try {
-      reader.readImpl(cachedToCharArray,previousCharArray.length,addedLen);
+ else {
+    int initialReaderCount=readerCount;
+    char[] buf=readAsCharArray();
+    if (initialReaderCount == 0) {
+      reset();
+      if (buf.length > 0) {
+        addChunk(new CharBufferChunk(-1,buf,0,buf.length));
+      }
     }
- catch (    EOFException e) {
-    }
+    return buf;
   }
-  return cachedToCharArray;
 }

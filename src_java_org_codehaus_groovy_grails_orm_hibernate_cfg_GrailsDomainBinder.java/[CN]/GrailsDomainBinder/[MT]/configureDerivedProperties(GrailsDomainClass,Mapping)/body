@@ -1,0 +1,8 @@
+{
+  for (  GrailsDomainClassProperty prop : domainClass.getPersistentProperties()) {
+    PropertyConfig propertyConfig=m.getPropertyConfig(prop.getName());
+    if (propertyConfig != null && propertyConfig.getFormula() != null) {
+      prop.setDerived(true);
+    }
+  }
+}

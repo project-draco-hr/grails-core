@@ -23,4 +23,6 @@
     }
 );
   }
+  setParameterNameDiscoverer(new LocalVariableTableParameterNameDiscoverer());
+  setAutowireCandidateResolver(new QualifierAnnotationAutowireCandidateResolver());
 }

@@ -1,6 +1,6 @@
 {
   if (content == null) {
-    return;
+    return target;
   }
   if (content instanceof StreamCharBuffer) {
     ((StreamCharBuffer)content).writeTo(target);
@@ -11,4 +11,5 @@
  else {
     target.write(String.valueOf(content));
   }
+  return target;
 }

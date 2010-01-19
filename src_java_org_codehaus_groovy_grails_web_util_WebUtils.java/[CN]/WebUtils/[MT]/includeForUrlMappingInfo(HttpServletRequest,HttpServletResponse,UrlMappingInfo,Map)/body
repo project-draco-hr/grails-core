@@ -4,6 +4,7 @@
   String currentController=null;
   String currentAction=null;
   String currentId=null;
+  ModelAndView currentMv=null;
   Map currentParams=null;
   if (webRequest != null) {
     currentController=webRequest.getControllerName();
@@ -11,12 +12,14 @@
     currentId=webRequest.getId();
     currentParams=new HashMap();
     currentParams.putAll(webRequest.getParameterMap());
+    currentMv=(ModelAndView)webRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
   }
   try {
     if (webRequest != null) {
       webRequest.getParameterMap().clear();
       info.configure(webRequest);
       webRequest.getParameterMap().putAll(info.getParameters());
+      webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
     }
     return includeForUrl(includeUrl,request,response,model);
   }
@@ -27,6 +30,9 @@
       webRequest.setId(currentId);
       webRequest.setControllerName(currentController);
       webRequest.setActionName(currentAction);
+      if (currentMv != null) {
+        webRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,currentMv,0);
+      }
     }
   }
 }

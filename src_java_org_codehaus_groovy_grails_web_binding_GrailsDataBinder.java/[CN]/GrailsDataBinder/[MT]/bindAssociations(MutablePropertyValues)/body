@@ -2,7 +2,12 @@
   PropertyValue[] pvs=mpvs.getPropertyValues();
   for (  PropertyValue pv : pvs) {
     String propertyName=pv.getName();
-    if (!isAllowed(propertyName))     continue;
+    String propertyNameToCheck=propertyName;
+    final int i=propertyName.indexOf('.');
+    if (i > -1) {
+      propertyNameToCheck=propertyName.substring(0,i);
+    }
+    if (!isAllowed(propertyNameToCheck))     continue;
     if (propertyName.endsWith(IDENTIFIER_SUFFIX)) {
       propertyName=propertyName.substring(0,propertyName.length() - 3);
       if (!isAllowed(propertyName))       continue;

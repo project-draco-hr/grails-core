@@ -1,5 +1,6 @@
 {
   if (headBuffer != null) {
-    headBuffer.writeTo(out);
+    String headAsString=headBuffer.toString();
+    out.write(headAsString.replaceFirst("<title(\\s[^>]*)?>(.*?)</title>",""));
   }
 }

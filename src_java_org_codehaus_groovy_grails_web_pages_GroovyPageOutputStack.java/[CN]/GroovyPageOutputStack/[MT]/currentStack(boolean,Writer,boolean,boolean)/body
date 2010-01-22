@@ -1,5 +1,5 @@
 {
-  GroovyPageOutputStack outputStack=instances.get();
+  GroovyPageOutputStack outputStack=(GroovyPageOutputStack)RequestContextHolder.currentRequestAttributes().getAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
   if (outputStack != null) {
     if (pushTop && topWriter != null) {
       outputStack.push(topWriter);

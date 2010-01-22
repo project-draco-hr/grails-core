@@ -1,3 +1,9 @@
 {
-  return (Writer)RequestContextHolder.currentRequestAttributes().getAttribute(GrailsApplicationAttributes.OUT,RequestAttributes.SCOPE_REQUEST);
+  GrailsWebRequest webRequest=getGrailsWebRequest();
+  if (webRequest != null) {
+    return webRequest.getOut();
+  }
+ else {
+    return null;
+  }
 }

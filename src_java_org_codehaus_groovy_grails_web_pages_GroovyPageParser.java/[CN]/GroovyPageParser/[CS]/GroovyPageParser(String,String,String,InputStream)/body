@@ -15,9 +15,10 @@
     LOG.debug("GSP file encoding set to: " + gspEncoding);
   }
   String gspSource=readStream(in);
-  if (isSitemeshPreprocessingEnabled(config,uri)) {
+  Map<String,String> directives=parseDirectives(gspSource);
+  if (isSitemeshPreprocessingEnabled(config,directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with g:capture*.");
+      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with sitemesh:capture*.");
     }
     gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
     sitemeshPreprocessMode=true;

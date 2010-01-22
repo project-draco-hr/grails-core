@@ -26,6 +26,13 @@
       binding.setPluginContextPath(oldBinding.getPluginContextPath());
       formulateBinding(request,response,binding,out);
     }
+    if (metaInfo.getCodecClass() != null) {
+      request.setAttribute("org.codehaus.groovy.grails.GSP_CODEC",metaInfo.getCodecName());
+      binding.setVariable("Codec",metaInfo.getCodecClass());
+    }
+ else {
+      binding.setVariable("Codec",gspNoneCodeInstance);
+    }
     GroovyPage page=(GroovyPage)InvokerHelper.createScript(metaInfo.getPageClass(),binding);
     page.setJspTags(metaInfo.getJspTags());
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());

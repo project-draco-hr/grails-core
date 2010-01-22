@@ -26,6 +26,4 @@
   this.pageName=uri;
   this.environment=Environment.getCurrent();
   makeName(name);
-  Object o=config.get(CONFIG_PROPERTY_DEFAULT_CODEC);
-  lookupCodec(o);
 }

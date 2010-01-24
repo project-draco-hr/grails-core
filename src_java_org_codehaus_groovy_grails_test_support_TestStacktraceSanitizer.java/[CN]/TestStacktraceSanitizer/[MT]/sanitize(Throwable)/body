@@ -1,0 +1,18 @@
+{
+  GrailsUtil.deepSanitize(t);
+  StackTraceElement[] trace=t.getStackTrace();
+  List newTrace=new ArrayList();
+  for (int i=0; i < trace.length; i++) {
+    StackTraceElement stackTraceElement=trace[i];
+    if (stackTraceElement.getClassName().startsWith(TEST_RUNNING_CLASS)) {
+      break;
+    }
+ else {
+      newTrace.add(stackTraceElement);
+    }
+  }
+  StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
+  newTrace.toArray(clean);
+  t.setStackTrace(clean);
+  return t;
+}

@@ -3,12 +3,10 @@
   if (LOG.isDebugEnabled())   LOG.debug("parse: expr");
   String text=scan.getToken().trim();
   text=getExpressionText(text);
-  if (environment == Environment.DEVELOPMENT) {
-  }
-  if (codecClassName != null) {
-    out.printlnToResponse("Codec.encode(" + text + ")");
+  if (text.startsWith("(") && text.endsWith(")")) {
+    out.printlnToResponse("Codec.encode" + text);
   }
  else {
-    out.printlnToResponse(text);
+    out.printlnToResponse("Codec.encode(" + text + ")");
   }
 }

@@ -8,7 +8,13 @@
     sb.append(">");
     sb.append(addMetaCapturing(addTitleCapturing(m.group(2))));
     sb.append("</sitemesh:captureHead>");
+    m.appendTail(sb);
   }
-  m.appendTail(sb);
+ else   if (!bodyPattern.matcher(gspSource).find()) {
+    sb.append(addMetaCapturing(addTitleCapturing(gspSource)));
+  }
+ else {
+    sb.append(gspSource);
+  }
   return sb;
 }

@@ -1,4 +1,16 @@
 {
   Object sitemeshPreprocessEnabled=config.get(CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
-  return (sitemeshPreprocessEnabled == null || (sitemeshPreprocessEnabled instanceof Boolean && ((Boolean)sitemeshPreprocessEnabled).booleanValue()));
+  if (gspFilePreprocessDirective != null) {
+    sitemeshPreprocessEnabled=gspFilePreprocessDirective;
+  }
+  if (sitemeshPreprocessEnabled == null || (sitemeshPreprocessEnabled instanceof Boolean && ((Boolean)sitemeshPreprocessEnabled).booleanValue())) {
+    return true;
+  }
+ else   if (sitemeshPreprocessEnabled instanceof Number && ((Number)sitemeshPreprocessEnabled).intValue() != 0) {
+    return true;
+  }
+ else   if (BooleanUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim())) {
+    return true;
+  }
+  return false;
 }

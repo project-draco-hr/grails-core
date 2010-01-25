@@ -1,0 +1,14 @@
+{
+  try {
+    if (writer instanceof PrintWriter) {
+      ((PrintWriter)writer).print(text);
+    }
+ else {
+      writer.write(text.toString());
+    }
+    return false;
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException(e.getMessage(),e);
+  }
+}

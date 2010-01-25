@@ -1,4 +1,4 @@
 {
-  GrailsUtil.deepSanitize(throwable);
+  TestStacktraceSanitizer.sanitize(throwable);
   super.addError(test,throwable);
 }

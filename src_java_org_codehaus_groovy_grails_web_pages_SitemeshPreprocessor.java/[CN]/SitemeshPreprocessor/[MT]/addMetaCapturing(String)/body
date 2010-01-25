@@ -1,5 +1,5 @@
 {
   Matcher m=metaPattern.matcher(headContent);
-  final String result=parameterPattern.matcher(m.replaceAll("<sitemesh:captureMeta$1/>")).replaceAll("<sitemesh:parameter$1/>");
+  final String result=parameterPattern.matcher(m.replaceAll("<sitemesh:captureMeta " + XML_CLOSING_FOR_EMPTY_TAG_ATTRIBUTE_NAME + "=\"$2\"$1/>")).replaceAll("<sitemesh:parameter$1/>");
   return result;
 }

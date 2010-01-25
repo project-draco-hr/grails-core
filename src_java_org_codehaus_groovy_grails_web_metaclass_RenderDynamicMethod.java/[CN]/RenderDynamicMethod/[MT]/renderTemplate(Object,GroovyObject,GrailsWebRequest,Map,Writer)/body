@@ -2,7 +2,7 @@
   boolean renderView;
   String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
   String contextPath=getContextPath(webRequest,argMap);
-  String var=(String)argMap.get(ARGUMENT_VAR);
+  String var=String.valueOf(argMap.get(ARGUMENT_VAR));
   String templateUri=webRequest.getAttributes().getTemplateURI(controller,templateName);
   GroovyPagesTemplateEngine engine=webRequest.getAttributes().getPagesTemplateEngine();
   try {

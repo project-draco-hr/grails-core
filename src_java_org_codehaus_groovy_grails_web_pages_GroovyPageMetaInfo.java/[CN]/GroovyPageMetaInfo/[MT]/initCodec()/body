@@ -1,0 +1,25 @@
+{
+  if (codecName == null) {
+    Map config=ConfigurationHolder.getFlatConfig();
+    if (config != null) {
+      Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
+      if (o != null) {
+        codecName=o.toString();
+      }
+    }
+  }
+  GrailsClass codecGrailsClass=null;
+  GrailsApplication app=ApplicationHolder.getApplication();
+  if (codecName != null) {
+    if (app != null) {
+      codecGrailsClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
+      if (codecGrailsClass == null)       codecGrailsClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
+    }
+  }
+  if (codecGrailsClass == null && StringUtils.isNotBlank(codecName) && !"none".equalsIgnoreCase(codecName)) {
+    LOG.warn("Couldn't initialize Codec by name '" + codecName + "' , pageClass="+ pageClass.getName());
+  }
+  if (codecGrailsClass != null) {
+    codecClass=codecGrailsClass.getClazz();
+  }
+}

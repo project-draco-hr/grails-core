@@ -13,5 +13,8 @@
  else   if (!bodyPattern.matcher(gspSource).find()) {
     sb.append(addMetaCapturing(addTitleCapturing(gspSource)));
   }
+ else {
+    sb.append(gspSource);
+  }
   return sb;
 }

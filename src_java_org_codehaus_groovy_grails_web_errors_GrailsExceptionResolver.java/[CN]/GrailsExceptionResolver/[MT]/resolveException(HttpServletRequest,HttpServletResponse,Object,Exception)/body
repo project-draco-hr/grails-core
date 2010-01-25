@@ -1,5 +1,5 @@
 {
-  if (ex instanceof InvokerInvocationException) {
+  if ((ex instanceof InvokerInvocationException) || (ex instanceof GrailsMVCException)) {
     Throwable t=getRootCause(ex);
     if (t instanceof Exception) {
       ex=(Exception)t;

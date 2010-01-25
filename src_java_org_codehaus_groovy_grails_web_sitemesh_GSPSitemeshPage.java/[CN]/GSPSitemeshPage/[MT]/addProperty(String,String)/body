@@ -1,4 +1,7 @@
 {
-  super.addProperty(name,(value == null ? null : value));
+  if ("title".equals(name)) {
+    titleCaptured=true;
+  }
+  super.addProperty(name,value);
   this.used=true;
 }

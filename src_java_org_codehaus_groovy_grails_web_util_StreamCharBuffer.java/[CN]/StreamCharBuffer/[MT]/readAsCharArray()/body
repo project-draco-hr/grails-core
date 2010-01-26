@@ -1,13 +1,16 @@
 {
-  char[] buf=new char[size()];
-  if (buf.length > 0) {
-    StreamCharBufferReader reader=new StreamCharBufferReader(false);
+  int currentSize=size();
+  if (currentSize > 0) {
+    FixedCharArrayWriter target=new FixedCharArrayWriter(currentSize);
     try {
-      reader.read(buf,0,buf.length);
+      writeTo(target);
     }
  catch (    IOException e) {
       throw new RuntimeException("Unexpected IOException",e);
     }
+    return target.getCharArray();
   }
-  return buf;
+ else {
+    return new char[0];
+  }
 }

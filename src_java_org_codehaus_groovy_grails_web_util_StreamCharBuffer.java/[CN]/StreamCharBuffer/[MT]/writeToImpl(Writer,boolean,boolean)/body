@@ -7,6 +7,9 @@
   if (emptyAfter) {
     firstChunk=null;
     lastChunk=null;
+    totalCharsInList=0;
+    totalCharsInDynamicChunks=0;
+    dynamicChunkMap.clear();
   }
   allocBuffer.writeTo(target);
   if (emptyAfter) {

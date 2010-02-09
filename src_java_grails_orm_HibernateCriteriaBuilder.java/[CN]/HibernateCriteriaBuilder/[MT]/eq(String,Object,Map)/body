@@ -1,0 +1,15 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [eq] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  propertyValue=calculatePropertyValue(propertyValue);
+  SimpleExpression eq=Restrictions.eq(propertyName,propertyValue);
+  if (params != null) {
+    Object ignoreCase=params.get("ignoreCase");
+    if (ignoreCase instanceof Boolean && (Boolean)ignoreCase) {
+      eq=eq.ignoreCase();
+    }
+  }
+  return addToCriteria(eq);
+}

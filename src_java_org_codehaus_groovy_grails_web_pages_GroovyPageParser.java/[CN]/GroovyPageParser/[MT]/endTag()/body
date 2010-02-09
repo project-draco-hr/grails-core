@@ -23,7 +23,7 @@
     String bodyTagClosureName="null";
     if (!tm.emptyTag && !tm.bufferMode) {
       bodyTagClosureName="body" + tagIndex;
-      out.println("}");
+      out.println("})");
       closureLevel--;
     }
     if (tm.bufferMode && tm.bufferPartNumber != -1) {

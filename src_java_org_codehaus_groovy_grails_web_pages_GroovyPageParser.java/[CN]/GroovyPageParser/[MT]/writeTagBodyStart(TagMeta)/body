@@ -4,7 +4,7 @@
     if (!bodyVarsDefined.contains(tm.tagIndex)) {
       bodyVarsDefined.add(tm.tagIndex);
     }
-    out.println("body" + tm.tagIndex + " = new GroovyPageTagBody(this,binding.webRequest) {");
+    out.println("body" + tm.tagIndex + " = new GroovyPageTagBody(this,binding.webRequest, {");
     closureLevel++;
   }
 }

@@ -1,6 +1,3 @@
 {
-  super();
-  this.resolver=new PathMatchingResourcePatternResolver();
-  this.application=application;
-  this.foundPluginClasses=new HashSet();
+  this(application.getClassLoader());
 }

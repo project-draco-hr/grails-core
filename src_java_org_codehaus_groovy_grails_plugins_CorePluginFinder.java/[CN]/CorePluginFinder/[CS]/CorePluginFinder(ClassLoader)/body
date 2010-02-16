@@ -1,0 +1,5 @@
+{
+  this.classLoader=classLoader;
+  this.resolver=new PathMatchingResourcePatternResolver(classLoader);
+  this.foundPluginClasses=new HashSet();
+}

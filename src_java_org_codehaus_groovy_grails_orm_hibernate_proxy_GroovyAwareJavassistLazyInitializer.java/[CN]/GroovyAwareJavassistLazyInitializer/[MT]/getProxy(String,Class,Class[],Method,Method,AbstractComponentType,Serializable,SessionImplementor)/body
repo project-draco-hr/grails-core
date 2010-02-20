@@ -2,7 +2,7 @@
   try {
     final GroovyAwareJavassistLazyInitializer instance=new GroovyAwareJavassistLazyInitializer(entityName,persistentClass,interfaces,id,getIdentifierMethod,setIdentifierMethod,componentIdType,session);
     ProxyFactory factory=createProxyFactory(persistentClass,interfaces);
-    Class proxyClass=factory.createClass();
+    Class<?> proxyClass=factory.createClass();
     HibernatePluginSupport.enhanceProxyClass(proxyClass);
     final HibernateProxy proxy=(HibernateProxy)proxyClass.newInstance();
     ((ProxyObject)proxy).setHandler(instance);

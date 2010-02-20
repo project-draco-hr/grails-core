@@ -1,8 +1,8 @@
 {
-  if (this.constructed) {
+  if (constructed) {
     Object result;
     try {
-      result=this.invoke(thisMethod,args,proxy);
+      result=invoke(thisMethod,args,proxy);
     }
  catch (    Throwable t) {
       throw new Exception(t.getCause());
@@ -29,16 +29,10 @@
         throw ite.getTargetException();
       }
     }
- else {
-      return result;
-    }
+    return result;
   }
- else {
-    if (thisMethod.getName().equals("getHibernateLazyInitializer")) {
-      return this;
-    }
- else {
-      return proceed.invoke(proxy,args);
-    }
+  if (thisMethod.getName().equals("getHibernateLazyInitializer")) {
+    return this;
   }
+  return proceed.invoke(proxy,args);
 }

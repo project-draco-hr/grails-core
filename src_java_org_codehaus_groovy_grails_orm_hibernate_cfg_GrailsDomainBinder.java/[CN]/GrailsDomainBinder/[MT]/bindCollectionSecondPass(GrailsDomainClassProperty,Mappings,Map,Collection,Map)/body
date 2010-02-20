@@ -25,17 +25,18 @@
       Mapping referencedMapping=getMapping(referenced);
       Mapping rootMapping=getRootMapping(referenced);
       String discriminatorColumnName=RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME;
-      String discriminator=referenced.getFullName();
       if (rootMapping != null) {
         final ColumnConfig discriminatorColumn=rootMapping.getDiscriminatorColumn();
         if (discriminatorColumn != null) {
           discriminatorColumnName=discriminatorColumn.getName();
         }
+        if (rootMapping.getDiscriminatorMap().get("formula") != null) {
+          discriminatorColumnName=(String)m.getDiscriminatorMap().get("formula");
+        }
       }
-      if (referencedMapping != null && referencedMapping.getDiscriminator() != null) {
-        discriminator=referencedMapping.getDiscriminator();
-      }
-      collection.setWhere(discriminatorColumnName + " = '" + discriminator+ "'");
+      Set discSet=buildDiscriminatorSet(referenced);
+      String inclause=StringUtils.join(discSet,',');
+      collection.setWhere(discriminatorColumnName + " in (" + inclause+ ")");
     }
     OneToMany oneToMany=(OneToMany)collection.getElement();
     String associatedClassName=oneToMany.getReferencedEntityName();

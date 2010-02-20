@@ -1,5 +1,6 @@
 {
   List<String> testSuffixes=new LinkedList<String>();
   testSuffixes.add(TESTS_SUFFIX);
+  testSuffixes.add(TEST_SUFFIX);
   return testSuffixes;
 }

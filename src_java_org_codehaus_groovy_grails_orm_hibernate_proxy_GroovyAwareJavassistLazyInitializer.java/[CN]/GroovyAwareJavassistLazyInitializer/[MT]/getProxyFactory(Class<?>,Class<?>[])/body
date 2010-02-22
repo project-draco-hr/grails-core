@@ -1,7 +1,7 @@
 {
   try {
     ProxyFactory factory=createProxyFactory(persistentClass,interfaces);
-    Class proxyClass=factory.createClass();
+    Class<?> proxyClass=factory.createClass();
     HibernatePluginSupport.enhanceProxyClass(proxyClass);
     return proxyClass;
   }

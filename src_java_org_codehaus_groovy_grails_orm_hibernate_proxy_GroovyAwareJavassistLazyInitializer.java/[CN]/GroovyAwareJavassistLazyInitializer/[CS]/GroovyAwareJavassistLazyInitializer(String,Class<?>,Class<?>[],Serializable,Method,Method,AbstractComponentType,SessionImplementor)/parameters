@@ -1,9 +1,8 @@
-Class factory
 String entityName
-Class persistentClass
-Class[] interfaces
+Class<?> persistentClass
+Class<?>[] interfaces
+Serializable id
 Method getIdentifierMethod
 Method setIdentifierMethod
 AbstractComponentType componentIdType
-Serializable id
 SessionImplementor session

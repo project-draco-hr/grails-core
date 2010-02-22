@@ -1,0 +1,11 @@
+{
+  Map<String,String> newMap=new LinkedHashMap<String,String>();
+  for (  Map.Entry<Object,Object> entry : entrySet()) {
+    String key=entry.getKey().toString();
+    Object val=entry.getValue();
+    if (key.startsWith("plugin.") && val != null) {
+      newMap.put(key.substring(7),val.toString());
+    }
+  }
+  return newMap;
+}

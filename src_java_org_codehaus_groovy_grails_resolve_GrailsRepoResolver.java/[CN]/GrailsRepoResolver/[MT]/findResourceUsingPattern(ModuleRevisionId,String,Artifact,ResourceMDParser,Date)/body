@@ -1,0 +1,4 @@
+{
+  pattern=transformGrailsRepositoryPattern(mrid,pattern);
+  return super.findResourceUsingPattern(mrid,pattern,artifact,rmdparser,date);
+}

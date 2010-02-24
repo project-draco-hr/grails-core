@@ -1,5 +1,5 @@
 {
-  if (isExcludedClass(theClass)) {
+  if (!isExcludedClass(theClass)) {
     return new MetadataGeneratingExpandoMetaClass(theClass);
   }
  else {

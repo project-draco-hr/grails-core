@@ -1,0 +1,11 @@
+{
+  final String revision=mrid.getRevision();
+  String versionTag;
+  if (revision.equals("latest.integration")) {
+    versionTag="LATEST_RELEASE";
+  }
+ else {
+    versionTag="RELEASE_" + revision.replace('.','_');
+  }
+  return pattern.replace("RELEASE_*",versionTag);
+}

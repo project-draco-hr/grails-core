@@ -1,12 +1,14 @@
 {
   super.registerInstanceMethod(method);
-  DocumentationContext context=DocumentationContext.getInstance();
-  if (context != null && context.isActive() && isInitialized()) {
-    if (method.isStatic()) {
-      context.documentStaticMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
-    }
+  if (!MetadataGeneratingMetaClassCreationHandle.isExcludedClass(getJavaClass())) {
+    DocumentationContext context=DocumentationContext.getInstance();
+    if (context != null && context.isActive() && isInitialized()) {
+      if (method.isStatic()) {
+        context.documentStaticMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
+      }
  else {
-      context.documentMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
+        context.documentMethod(context.getArtefactType(),getJavaClass(),method.getName(),method.getNativeParameterTypes());
+      }
     }
   }
 }

@@ -4,7 +4,7 @@
     String prop=getterName.substring(3);
     return convertPropertyName(prop);
   }
- else   if (getterName.startsWith("is")) {
+  if (getterName.startsWith("is")) {
     String prop=getterName.substring(2);
     return convertPropertyName(prop);
   }

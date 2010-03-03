@@ -3,15 +3,13 @@
   if (getter != null) {
     return isPublicStatic(getter);
   }
- else {
-    try {
-      Field f=clazz.getDeclaredField(propertyName);
-      if (f != null) {
-        return isPublicStatic(f);
-      }
+  try {
+    Field f=clazz.getDeclaredField(propertyName);
+    if (f != null) {
+      return isPublicStatic(f);
     }
- catch (    NoSuchFieldException e) {
-    }
+  }
+ catch (  NoSuchFieldException ignored) {
   }
   return false;
 }

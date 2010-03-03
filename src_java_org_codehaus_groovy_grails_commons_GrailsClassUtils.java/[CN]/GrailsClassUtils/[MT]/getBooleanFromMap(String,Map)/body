@@ -3,12 +3,10 @@
   if (map.containsKey(key)) {
     Object o=map.get(key);
     if (o == null)     return false;
- else     if (o instanceof Boolean) {
+    if (o instanceof Boolean) {
       return ((Boolean)o).booleanValue();
     }
- else {
-      return Boolean.valueOf(o.toString()).booleanValue();
-    }
+    return Boolean.valueOf(o.toString()).booleanValue();
   }
   return false;
 }

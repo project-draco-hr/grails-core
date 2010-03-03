@@ -1,5 +1,5 @@
 {
-  List scripts=new ArrayList();
+  List<File> scripts=new ArrayList<File>();
   if (settings.getGrailsHome() != null) {
     addCommandScripts(new File(settings.getGrailsHome(),"scripts"),scripts);
   }

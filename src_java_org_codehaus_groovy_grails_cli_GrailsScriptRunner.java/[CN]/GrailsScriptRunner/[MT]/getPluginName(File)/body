@@ -3,7 +3,5 @@
   if (desc == null) {
     throw new RuntimeException("Cannot find plugin descriptor in plugin directory '" + pluginDir + "'.");
   }
- else {
-    return GrailsNameUtils.getPluginName(desc.getName());
-  }
+  return GrailsNameUtils.getPluginName(desc.getName());
 }

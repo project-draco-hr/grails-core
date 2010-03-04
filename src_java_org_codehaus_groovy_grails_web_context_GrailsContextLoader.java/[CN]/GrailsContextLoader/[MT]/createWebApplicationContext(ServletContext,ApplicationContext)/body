@@ -1,4 +1,5 @@
 {
+  System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
   ExpandoMetaClass.enableGlobally();
   Metadata metadata=Metadata.getCurrent();
   if (metadata != null && metadata.isWarDeployed()) {

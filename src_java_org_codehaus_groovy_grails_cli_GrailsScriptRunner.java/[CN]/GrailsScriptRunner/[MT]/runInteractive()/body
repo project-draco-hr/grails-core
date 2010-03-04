@@ -2,7 +2,6 @@
   String message="Interactive mode ready. Enter a Grails command or type \"exit\" to quit interactive mode (hit ENTER to run the last command):\n";
   System.setProperty("grails.disable.exit","true");
   System.setProperty("grails.interactive.mode","true");
-  int messageNumber=0;
   ScriptAndArgs script=new ScriptAndArgs();
   while (true) {
     System.clearProperty("grails.env.set");
@@ -22,7 +21,7 @@
         settings.setDefaultEnv(false);
       }
  else {
-        String defaultEnv=(String)DEFAULT_ENVS.get(script.name);
+        String defaultEnv=DEFAULT_ENVS.get(script.name);
         if (defaultEnv == null)         defaultEnv=Environment.DEVELOPMENT.getName();
         settings.setGrailsEnv(defaultEnv);
         settings.setDefaultEnv(true);

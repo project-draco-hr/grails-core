@@ -32,19 +32,18 @@
   binding.setVariable("globalPluginsDirPath",settings.getGlobalPluginsDir().getPath());
   binding.setVariable("Ant",binding.getVariable("ant"));
   try {
-    List descriptors=new ArrayList();
+    List<File> descriptors=new ArrayList<File>();
     File desc=getPluginDescriptor(basedir);
     if (desc != null)     descriptors.add(desc);
     for (    File dir : listKnownPluginDirs(settings)) {
       File pluginDescriptor=getPluginDescriptor(dir);
       if (pluginDescriptor != null)       descriptors.add(pluginDescriptor);
     }
-    for (int i=0, n=descriptors.size(); i < n; i++) {
-      desc=(File)descriptors.get(i);
-      Matcher matcher=pluginDescriptorPattern.matcher(desc.getName());
+    for (    File file : descriptors) {
+      Matcher matcher=pluginDescriptorPattern.matcher(file.getName());
       matcher.find();
       String pluginName=GrailsNameUtils.getPropertyName(matcher.group(1));
-      binding.setVariable(pluginName + "PluginDir",desc.getParentFile());
+      binding.setVariable(pluginName + "PluginDir",file.getParentFile());
     }
   }
  catch (  Exception e) {

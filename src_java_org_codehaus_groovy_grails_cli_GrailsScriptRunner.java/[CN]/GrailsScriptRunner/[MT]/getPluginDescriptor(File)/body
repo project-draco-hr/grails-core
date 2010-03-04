@@ -5,6 +5,5 @@
     }
   }
 );
-  if (files.length > 0)   return files[0];
- else   return null;
+  return files.length > 0 ? files[0] : null;
 }

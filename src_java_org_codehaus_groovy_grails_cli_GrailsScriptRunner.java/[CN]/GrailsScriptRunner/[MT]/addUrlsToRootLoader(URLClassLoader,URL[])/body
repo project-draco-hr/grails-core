@@ -1,6 +1,6 @@
 {
   try {
-    Class loaderClass=loader.getClass();
+    Class<?> loaderClass=loader.getClass();
     Method method=loaderClass.getMethod("addURL",URL.class);
     for (    URL url : urls) {
       method.invoke(loader,url);

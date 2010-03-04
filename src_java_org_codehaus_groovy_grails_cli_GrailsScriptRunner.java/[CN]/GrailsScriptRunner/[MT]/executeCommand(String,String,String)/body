@@ -4,7 +4,7 @@
   }
   boolean useDefaultEnv=env == null;
   if (useDefaultEnv) {
-    env=(String)DEFAULT_ENVS.get(scriptName);
+    env=DEFAULT_ENVS.get(scriptName);
     env=env != null ? env : Environment.DEVELOPMENT.getName();
   }
   System.setProperty("base.dir",settings.getBaseDir().getPath());
@@ -46,7 +46,5 @@
     runInteractive();
     return 0;
   }
- else {
-    return callPluginOrGrailsScript(scriptName);
-  }
+  return callPluginOrGrailsScript(scriptName);
 }

@@ -1,7 +1,0 @@
-{
-  Map mappedByMap=(Map)GrailsClassUtils.getPropertyValueOfNewInstance(domainClass,GrailsDomainClassProperty.MAPPED_BY,Map.class);
-  if (mappedByMap == null) {
-    return Collections.EMPTY_MAP;
-  }
-  return mappedByMap;
-}

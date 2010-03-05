@@ -6,7 +6,7 @@
         DocumentationContext.getInstance().setActive(true);
       }
       c.setDelegate(this);
-      c.call(new Object[]{applicationContext});
+      c.call(new Object[]{ctx});
     }
   }
   finally {

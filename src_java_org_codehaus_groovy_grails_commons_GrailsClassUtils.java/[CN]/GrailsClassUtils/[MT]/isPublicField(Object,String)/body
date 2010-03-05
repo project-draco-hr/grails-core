@@ -1,8 +1,7 @@
 {
-  Class clazz=obj.getClass();
-  Field f=null;
+  Class<?> clazz=obj.getClass();
   try {
-    f=clazz.getDeclaredField(name);
+    Field f=clazz.getDeclaredField(name);
     return Modifier.isPublic(f.getModifiers());
   }
  catch (  NoSuchFieldException e) {

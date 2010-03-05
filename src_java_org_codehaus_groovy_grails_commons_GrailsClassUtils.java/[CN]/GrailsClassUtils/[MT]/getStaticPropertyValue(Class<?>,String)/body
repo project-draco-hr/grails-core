@@ -1,0 +1,15 @@
+{
+  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(name),null);
+  try {
+    if (getter != null) {
+      return getter.invoke(null);
+    }
+    Field f=clazz.getDeclaredField(name);
+    if (f != null) {
+      return f.get(null);
+    }
+  }
+ catch (  Exception ignored) {
+  }
+  return null;
+}

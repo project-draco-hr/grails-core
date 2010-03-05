@@ -2,11 +2,9 @@
   checkInitialised();
   MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
   for (int i=0; i < COMMON_CLASSES.length; i++) {
-    Class commonClass=COMMON_CLASSES[i];
-    registry.removeMetaClass(commonClass);
+    registry.removeMetaClass(COMMON_CLASSES[i]);
   }
-  for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
-    GrailsPlugin plugin=(GrailsPlugin)i.next();
+  for (  GrailsPlugin plugin : pluginList) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {
       try {
         plugin.doWithDynamicMethods(applicationContext);

@@ -1,0 +1,15 @@
+{
+  if (clazz == null || StringUtils.isBlank(propertyName)) {
+    return null;
+  }
+  try {
+    PropertyDescriptor desc=BeanUtils.getPropertyDescriptor(clazz,propertyName);
+    if (desc != null) {
+      return desc.getPropertyType();
+    }
+    return null;
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

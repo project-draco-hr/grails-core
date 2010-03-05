@@ -1,0 +1,13 @@
+{
+  if (type == null || clazz == null) {
+    return false;
+  }
+  if (type.isPrimitive()) {
+    Class<?> primitiveClass=GrailsClassUtils.PRIMITIVE_TYPE_COMPATIBLE_CLASSES.get(type);
+    if (primitiveClass == null) {
+      return false;
+    }
+    return clazz.isAssignableFrom(primitiveClass);
+  }
+  return clazz.isAssignableFrom(type);
+}

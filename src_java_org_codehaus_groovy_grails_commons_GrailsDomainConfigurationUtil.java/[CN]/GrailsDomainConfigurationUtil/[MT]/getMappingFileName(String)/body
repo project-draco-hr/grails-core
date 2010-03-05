@@ -1,4 +1,3 @@
 {
-  String fileName=className.replaceAll("\\.","/");
-  return fileName+=".hbm.xml";
+  return className.replaceAll("\\.","/") + ".hbm.xml";
 }

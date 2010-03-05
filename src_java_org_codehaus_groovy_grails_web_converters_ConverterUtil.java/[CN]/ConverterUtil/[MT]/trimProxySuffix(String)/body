@@ -2,6 +2,9 @@
   int i=name.indexOf("$$");
   if (i > -1) {
     name=name.substring(0,i);
+    while (name.endsWith("_")) {
+      name=name.substring(0,name.length() - 1);
+    }
   }
   return name;
 }

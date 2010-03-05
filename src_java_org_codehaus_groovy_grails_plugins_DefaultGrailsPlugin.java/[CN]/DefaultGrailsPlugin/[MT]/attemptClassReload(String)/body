@@ -4,8 +4,6 @@
     GrailsClassLoader grailsLoader=(GrailsClassLoader)loader;
     return grailsLoader.reloadClass(className);
   }
- else {
-    LOG.warn("Expected GrailsClassLoader - got " + loader.getClass());
-  }
+  LOG.warn("Expected GrailsClassLoader - got " + loader.getClass());
   return null;
 }

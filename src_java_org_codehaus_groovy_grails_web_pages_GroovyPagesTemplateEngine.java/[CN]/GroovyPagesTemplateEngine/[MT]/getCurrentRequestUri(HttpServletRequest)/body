@@ -3,7 +3,5 @@
   if (includePath != null) {
     return ((String)includePath).intern();
   }
- else {
-    return request.getServletPath().intern();
-  }
+  return request.getServletPath().intern();
 }

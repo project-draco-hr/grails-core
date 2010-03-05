@@ -12,8 +12,7 @@
     }
 );
     GPathResult result=slurper.parse(inputStream);
-    for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
-      GrailsPlugin plugin=(GrailsPlugin)i.next();
+    for (    GrailsPlugin plugin : pluginList) {
       if (plugin.supportsCurrentScopeAndEnvironment()) {
         plugin.doWithWebDescriptor(result);
       }

@@ -11,5 +11,7 @@
       }
     }
   }
-  if (observedPlugins == null)   observedPlugins=new String[0];
+  if (observedPlugins == null) {
+    observedPlugins=new String[0];
+  }
 }

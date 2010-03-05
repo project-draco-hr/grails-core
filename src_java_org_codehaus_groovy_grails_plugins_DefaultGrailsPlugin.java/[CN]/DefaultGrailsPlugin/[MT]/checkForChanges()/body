@@ -6,7 +6,9 @@
       conn=pluginUrl.openConnection();
       currentModified=conn.getLastModified();
       if (currentModified > pluginLastModified) {
-        if (LOG.isInfoEnabled())         LOG.info("Grails plug-in " + this + " changed, reloading changes..");
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Grails plug-in " + this + " changed, reloading changes..");
+        }
         GroovyClassLoader gcl=new GroovyClassLoader(application.getClassLoader());
         initialisePlugin(gcl.parseClass(conn.getInputStream()));
         pluginLastModified=currentModified;

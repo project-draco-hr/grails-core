@@ -4,7 +4,7 @@
       for (      String sharedConstraintReference : sharedConstraints) {
         final Object o=defaultConstraints.get(sharedConstraintReference);
         if (o instanceof Map) {
-          applyMapOfConstraints((Map)o,propertyName,p,cp);
+          applyMapOfConstraints((Map<String,Object>)o,propertyName,p,cp);
         }
  else {
           throw new GrailsConfigurationException("Domain class property [" + p.getDomainClass().getFullName() + '.'+ p.getName()+ "] references shared constraint ["+ sharedConstraintReference+ ":"+ o+ "], which doesn't exist!");
@@ -14,7 +14,7 @@
     if (defaultConstraints.containsKey("*")) {
       final Object o=defaultConstraints.get("*");
       if (o instanceof Map) {
-        Map<String,Object> globalConstraints=(Map)o;
+        Map<String,Object> globalConstraints=(Map<String,Object>)o;
         applyMapOfConstraints(globalConstraints,propertyName,p,cp);
       }
     }

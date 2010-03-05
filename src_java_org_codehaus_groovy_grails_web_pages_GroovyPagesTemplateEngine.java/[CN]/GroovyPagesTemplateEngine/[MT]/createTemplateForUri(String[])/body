@@ -24,7 +24,5 @@
     }
     return createTemplate(resource);
   }
- else {
-    return null;
-  }
+  return null;
 }

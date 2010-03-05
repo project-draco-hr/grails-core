@@ -3,9 +3,7 @@
   if (Environment.getCurrent().isReloadEnabled() && Metadata.getCurrent().isWarDeployed()) {
     return resourceLoader.getResource(uri);
   }
- else {
-    Resource r=servletContextLoader.getResource(uri);
-    if (r.exists())     return r;
-    return resourceLoader.getResource(uri);
-  }
+  Resource r=servletContextLoader.getResource(uri);
+  if (r.exists())   return r;
+  return resourceLoader.getResource(uri);
 }

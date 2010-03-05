@@ -5,7 +5,7 @@
     }
  catch (    BeanCreationException t) {
       if (t.getCause() instanceof TypeMismatchException) {
-        final Class beanClass=mbd.getBeanClass();
+        final Class<?> beanClass=mbd.getBeanClass();
         if (GroovyObject.class.isAssignableFrom(beanClass)) {
           GrailsApplication application=(GrailsApplication)getBean(GrailsApplication.APPLICATION_ID);
           ClassLoader classLoader=application.getClassLoader();
@@ -13,7 +13,7 @@
             GrailsClassLoader gcl=(GrailsClassLoader)classLoader;
             gcl.reloadClass(beanClass.getName());
             try {
-              Class newBeanClass=gcl.loadClass(beanClass.getName());
+              Class<?> newBeanClass=gcl.loadClass(beanClass.getName());
               mbd.setBeanClass(newBeanClass);
               if (!newBeanClass.equals(beanClass)) {
                 GrailsPluginManager pluginManager=(GrailsPluginManager)getBean(GrailsPluginManager.BEAN_NAME);
@@ -30,7 +30,5 @@
       throw t;
     }
   }
- else {
-    return super.doCreateBean(beanName,mbd,args);
-  }
+  return super.doCreateBean(beanName,mbd,args);
 }

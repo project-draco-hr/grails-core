@@ -12,10 +12,8 @@
       if (binding.getVariables().containsKey(PROPERTY_NAME)) {
         return (Closure)binding.getVariable(PROPERTY_NAME);
       }
- else {
-        LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!");
-        return null;
-      }
+      LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!");
+      return null;
     }
  catch (    CompilationFailedException e) {
       LOG.error("Compilation error evaluating constraints for class [" + object.getClass() + "]: "+ e.getMessage(),e);
@@ -30,7 +28,5 @@ catch (    IllegalAccessException e) {
       return null;
     }
   }
- else {
-    return null;
-  }
+  return null;
 }

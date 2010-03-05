@@ -1,7 +1,7 @@
 {
   try {
     Template t=createTemplate(url);
-    if (t != null && t instanceof GroovyPageTemplate) {
+    if (t instanceof GroovyPageTemplate) {
       return ((GroovyPageTemplate)t).getMetaInfo().getLineNumbers();
     }
   }

@@ -1,7 +1,6 @@
 {
   checkForConfigChanges();
-  for (Iterator i=pluginList.iterator(); i.hasNext(); ) {
-    GrailsPlugin plugin=(GrailsPlugin)i.next();
+  for (  GrailsPlugin plugin : pluginList) {
     if (plugin.checkForChanges()) {
       LOG.info("Plugin " + plugin + " changed, re-registering beans...");
       reloadPlugin(plugin);

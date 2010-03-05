@@ -1,11 +1,11 @@
 {
   final Class<?> theClass=instance.getClass();
   boolean javaEntity=theClass.isAnnotationPresent(Entity.class);
-  LinkedList classChain=getSuperClassChain(theClass);
-  Class clazz;
+  LinkedList<?> classChain=getSuperClassChain(theClass);
+  Class<?> clazz;
   ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(instance);
   for (  Object aClassChain : classChain) {
-    clazz=(Class)aClassChain;
+    clazz=(Class<?>)aClassChain;
     Closure c=(Closure)GrailsClassUtils.getStaticPropertyValue(clazz,PROPERTY_NAME);
     if (c == null) {
       c=getConstraintsFromScript(instance);

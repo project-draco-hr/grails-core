@@ -10,10 +10,8 @@
   if (path != null) {
     return path;
   }
- else   if (res.getDescription() != null) {
+  if (res.getDescription() != null) {
     return res.getDescription();
   }
- else {
-    return "";
-  }
+  return "";
 }

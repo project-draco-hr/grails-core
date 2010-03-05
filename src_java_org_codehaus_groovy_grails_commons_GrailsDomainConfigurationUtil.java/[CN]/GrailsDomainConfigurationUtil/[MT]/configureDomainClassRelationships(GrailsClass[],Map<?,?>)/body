@@ -2,10 +2,12 @@
   for (  GrailsClass grailsClass : domainClasses) {
     GrailsDomainClass domainClass=(GrailsDomainClass)grailsClass;
     if (!domainClass.isRoot()) {
-      Class superClass=grailsClass.getClazz().getSuperclass();
+      Class<?> superClass=grailsClass.getClazz().getSuperclass();
       while (!superClass.equals(Object.class) && !superClass.equals(GroovyObject.class)) {
         GrailsDomainClass gdc=(GrailsDomainClass)domainMap.get(superClass.getName());
-        if (gdc == null || gdc.getSubClasses() == null)         break;
+        if (gdc == null || gdc.getSubClasses() == null) {
+          break;
+        }
         gdc.getSubClasses().add((GrailsDomainClass)grailsClass);
         superClass=superClass.getSuperclass();
       }

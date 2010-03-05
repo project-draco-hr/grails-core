@@ -8,7 +8,7 @@
  else {
       try {
         scanner=new Thread(){
-          public void run(){
+          @Override public void run(){
             pluginManager.checkForChanges();
           }
         }

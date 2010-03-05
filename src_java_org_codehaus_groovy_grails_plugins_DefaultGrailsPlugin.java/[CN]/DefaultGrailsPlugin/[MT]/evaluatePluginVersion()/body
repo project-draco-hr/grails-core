@@ -1,10 +1,12 @@
 {
-  if (this.pluginBean.isReadableProperty(VERSION)) {
-    Object vobj=this.plugin.getProperty(VERSION);
-    if (vobj != null)     this.version=vobj.toString();
- else     throw new PluginException("Plugin " + this + " must specify a version. eg: def version = 0.1");
+  if (!this.pluginBean.isReadableProperty(VERSION)) {
+    throw new PluginException("Plugin [" + getName() + "] must specify a version!");
+  }
+  Object vobj=this.plugin.getProperty(VERSION);
+  if (vobj != null) {
+    this.version=vobj.toString();
   }
  else {
-    throw new PluginException("Plugin [" + getName() + "] must specify a version!");
+    throw new PluginException("Plugin " + this + " must specify a version. eg: def version = 0.1");
   }
 }

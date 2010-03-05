@@ -8,6 +8,8 @@
   for (  String token : tokens) {
     buf.append('/').append(token);
   }
-  if (!relativeUri.endsWith(GroovyPage.EXTENSION))   buf.append(GroovyPage.EXTENSION);
+  if (!relativeUri.endsWith(GroovyPage.EXTENSION)) {
+    buf.append(GroovyPage.EXTENSION);
+  }
   return buf.toString();
 }

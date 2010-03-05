@@ -1,6 +1,6 @@
 {
   try {
-    return classLoader.loadClass(pluginClassName);
+    return application.getClassLoader().loadClass(pluginClassName);
   }
  catch (  ClassNotFoundException e) {
     LOG.warn("[GrailsPluginManager] Core plugin [" + pluginClassName + "] not found, resuming load without..");

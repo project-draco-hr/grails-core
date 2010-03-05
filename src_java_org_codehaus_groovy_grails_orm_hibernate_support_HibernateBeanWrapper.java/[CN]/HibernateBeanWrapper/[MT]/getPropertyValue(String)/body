@@ -3,7 +3,7 @@
   Method method=desc.getReadMethod();
   Object owner=getWrappedInstance();
   try {
-    if (Hibernate.isInitialized(method.invoke(owner,null))) {
+    if (Hibernate.isInitialized(method.invoke(owner))) {
       return super.getPropertyValue(name);
     }
   }

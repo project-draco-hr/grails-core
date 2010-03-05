@@ -1,5 +1,4 @@
 {
   if (prop == null)   return false;
-  Class propType=prop.getType();
-  return isBasicType(propType);
+  return isBasicType(prop.getType());
 }

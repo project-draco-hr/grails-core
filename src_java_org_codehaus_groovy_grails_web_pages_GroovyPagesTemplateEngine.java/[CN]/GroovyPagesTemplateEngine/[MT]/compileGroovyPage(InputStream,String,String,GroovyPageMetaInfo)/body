@@ -1,6 +1,6 @@
 {
   GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
-  Class scriptClass;
+  Class<?> scriptClass;
   try {
     scriptClass=groovyClassLoader.parseClass(in,name);
   }

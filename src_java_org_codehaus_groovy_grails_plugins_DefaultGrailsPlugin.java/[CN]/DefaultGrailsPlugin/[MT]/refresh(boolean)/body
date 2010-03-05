@@ -5,6 +5,8 @@
     }
  catch (    IOException e) {
     }
-    if (fireEvent)     fireModifiedEvent(r,this);
+    if (fireEvent) {
+      fireModifiedEvent(r,this);
+    }
   }
 }

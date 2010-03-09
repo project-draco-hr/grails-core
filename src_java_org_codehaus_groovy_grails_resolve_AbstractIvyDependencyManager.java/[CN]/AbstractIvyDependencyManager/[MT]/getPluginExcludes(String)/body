@@ -1,0 +1,10 @@
+{
+  Set<String> excludes=new HashSet<String>();
+  DependencyDescriptor dd=pluginNameToDescriptorMap.get(plugin);
+  if (dd != null) {
+    for (    ExcludeRule er : dd.getAllExcludeRules()) {
+      excludes.add(er.getId().getName());
+    }
+  }
+  return excludes;
+}

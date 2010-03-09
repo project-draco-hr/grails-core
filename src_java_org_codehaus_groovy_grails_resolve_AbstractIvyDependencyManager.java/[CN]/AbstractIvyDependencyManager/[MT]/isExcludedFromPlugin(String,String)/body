@@ -1,0 +1,9 @@
+{
+  DependencyDescriptor dd=pluginNameToDescriptorMap.get(plugin);
+  if (dd == null)   return false;
+  if (!dd.isTransitive())   return true;
+ else {
+    ArtifactId aid=createExcludeArtifactId(dependencyName);
+    return isExcludedFromPlugin(dd,aid);
+  }
+}

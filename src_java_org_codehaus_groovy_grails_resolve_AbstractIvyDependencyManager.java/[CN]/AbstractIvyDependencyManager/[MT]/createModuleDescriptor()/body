@@ -1,0 +1,9 @@
+{
+  DefaultModuleDescriptor moduleDescriptor=DefaultModuleDescriptor.newDefaultInstance(ModuleRevisionId.newInstance(applicationName,applicationName,applicationVersion));
+  moduleDescriptor.addConfiguration(BUILD_CONFIGURATION);
+  moduleDescriptor.addConfiguration(COMPILE_CONFIGURATION);
+  moduleDescriptor.addConfiguration(RUNTIME_CONFIGURATION);
+  moduleDescriptor.addConfiguration(TEST_CONFIGURATION);
+  moduleDescriptor.addConfiguration(PROVIDED_CONFIGURATION);
+  return moduleDescriptor;
+}

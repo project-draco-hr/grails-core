@@ -1,0 +1,3 @@
+{
+  return currentPlugin != null && currentPlugin.doesExclude(configurationNames,dependency);
+}

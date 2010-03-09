@@ -1,3 +1,0 @@
-{
-  return new JUnit3GrailsTestTypeRunner(JUnitReportsFactory.createFromBuildBinding(getBuildBinding()),eventPublisher,createSystemOutAndErrSwapper());
-}

@@ -1,8 +1,0 @@
-{
-  if (mode == null) {
-    return new TestSuite();
-  }
- else {
-    return new JUnit3GrailsEnvironmentTestSuite(getApplicationContext(),mode);
-  }
-}

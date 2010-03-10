@@ -1,5 +1,7 @@
 {
-  if (!(constraintParameter instanceof Integer))   throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.MAX_SIZE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [java.lang.Integer]");
-  this.maxSize=((Integer)constraintParameter).intValue();
+  if (!(constraintParameter instanceof Integer)) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.MAX_SIZE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [java.lang.Integer]");
+  }
+  maxSize=((Integer)constraintParameter).intValue();
   super.setParameter(constraintParameter);
 }

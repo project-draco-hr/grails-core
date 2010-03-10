@@ -2,9 +2,9 @@
   BindingResult result=(BindingResult)errors;
   Set<String> newCodes=new LinkedHashSet<String>();
   if (args.length > 1 && messageSource != null) {
-    if ((args[0] instanceof String) && (args[1] instanceof Class)) {
+    if ((args[0] instanceof String) && (args[1] instanceof Class<?>)) {
       final Locale locale=LocaleContextHolder.getLocale();
-      final Class constrainedClass=(Class)args[1];
+      final Class<?> constrainedClass=(Class<?>)args[1];
       final String fullClassName=constrainedClass.getName();
       String classNameCode=fullClassName + ".label";
       String resolvedClassName=messageSource.getMessage(classNameCode,null,fullClassName,locale);

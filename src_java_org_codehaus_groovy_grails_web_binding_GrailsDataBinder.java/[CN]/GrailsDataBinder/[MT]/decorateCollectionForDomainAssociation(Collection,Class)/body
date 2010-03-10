@@ -1,11 +1,5 @@
 {
   if (canDecorateWithLazyList(c,referencedType)) {
-    c=LazyList.decorate((List)c,new Factory(){
-      public Object create(){
-        return autoInstantiateDomainInstance(referencedType);
-      }
-    }
-);
   }
  else   if (canDecorateWithListOrderedSet(c,referencedType)) {
     c=ListOrderedSet.decorate((Set)c);

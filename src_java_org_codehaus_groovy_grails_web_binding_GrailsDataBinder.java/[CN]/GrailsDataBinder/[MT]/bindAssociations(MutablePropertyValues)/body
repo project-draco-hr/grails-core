@@ -17,7 +17,7 @@
           mpvs.removePropertyValue(pv);
         }
  else {
-          Class type=bean.getPropertyType(propertyName);
+          Class type=determinePropertyType(propertyName);
           Object persisted=getPersistentInstance(type,pv.getValue());
           if (persisted != null) {
             bean.setPropertyValue(propertyName,persisted);

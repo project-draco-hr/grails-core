@@ -1,5 +1,7 @@
 {
-  if (!(constraintParameter instanceof List))   throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.IN_LIST_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must implement the interface [java.util.List]");
-  this.list=(List)constraintParameter;
+  if (!(constraintParameter instanceof List<?>)) {
+    throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.IN_LIST_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must implement the interface [java.util.List]");
+  }
+  list=(List<?>)constraintParameter;
   super.setParameter(constraintParameter);
 }

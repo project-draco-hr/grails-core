@@ -7,9 +7,9 @@
     this.url=true;
     domainValidator=new RegexValidator((String)constraintParameter);
   }
- else   if (constraintParameter instanceof List) {
+ else   if (constraintParameter instanceof List<?>) {
     this.url=true;
-    List regexpList=(List)constraintParameter;
+    List<?> regexpList=(List<?>)constraintParameter;
     domainValidator=new RegexValidator((String[])regexpList.toArray(new String[regexpList.size()]));
   }
  else {

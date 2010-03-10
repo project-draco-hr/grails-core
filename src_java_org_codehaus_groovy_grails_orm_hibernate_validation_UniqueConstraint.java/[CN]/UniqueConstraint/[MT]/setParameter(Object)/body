@@ -1,25 +1,23 @@
 {
-  if (!(constraintParameter instanceof Boolean || constraintParameter instanceof String || constraintParameter instanceof CharSequence|| constraintParameter instanceof List)) {
+  if (!(constraintParameter instanceof Boolean || constraintParameter instanceof String || constraintParameter instanceof CharSequence|| constraintParameter instanceof List<?>)) {
     throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
   }
-  if (constraintParameter instanceof List) {
-    for (    Object parameter : ((List)constraintParameter)) {
+  if (constraintParameter instanceof List<?>) {
+    for (    Object parameter : ((List<?>)constraintParameter)) {
       if (!(parameter instanceof String || parameter instanceof CharSequence)) {
         throw new IllegalArgumentException("Parameter for constraint [" + UNIQUE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean or string value");
       }
- else {
-        this.uniquenessGroup.add(parameter.toString());
-      }
+      uniquenessGroup.add(parameter.toString());
     }
   }
  else   if (constraintParameter instanceof String || constraintParameter instanceof CharSequence) {
-    this.uniquenessGroup.add(constraintParameter.toString());
-    this.unique=true;
+    uniquenessGroup.add(constraintParameter.toString());
+    unique=true;
   }
  else {
-    this.unique=((Boolean)constraintParameter).booleanValue();
+    unique=((Boolean)constraintParameter).booleanValue();
   }
-  if (uniquenessGroup.size() > 0) {
+  if (!uniquenessGroup.isEmpty()) {
     unique=true;
     for (    Object anUniquenessGroup : uniquenessGroup) {
       String propertyName=(String)anUniquenessGroup;

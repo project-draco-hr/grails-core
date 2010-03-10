@@ -1,95 +1,93 @@
 {
-  if (unique) {
-    final Object id;
-    try {
-      id=InvokerHelper.invokeMethod(target,"ident",null);
-    }
- catch (    Exception e) {
-      throw new GrailsRuntimeException("Target of [unique] constraints [" + target + "] is not a domain instance. Unique constraint can only be applied to to domain classes and not custom user types or embedded instances");
-    }
-    HibernateTemplate hibernateTemplate=getHibernateTemplate();
-    if (hibernateTemplate == null)     throw new IllegalStateException("Unable use [unique] constraint, no Hibernate SessionFactory found!");
-    List results=hibernateTemplate.executeFind(new HibernateCallback(){
-      public Object doInHibernate(      Session session) throws HibernateException {
-        session.setFlushMode(FlushMode.MANUAL);
-        try {
-          boolean shouldValidate=true;
-          Class constraintClass=constraintOwningClass;
-          if (propertyValue != null && DomainClassArtefactHandler.isDomainClass(propertyValue.getClass())) {
-            shouldValidate=session.contains(propertyValue);
+  if (!unique) {
+    return;
+  }
+  final Object id;
+  try {
+    id=InvokerHelper.invokeMethod(target,"ident",null);
+  }
+ catch (  Exception e) {
+    throw new GrailsRuntimeException("Target of [unique] constraints [" + target + "] is not a domain instance. Unique constraint can only be applied to to domain classes and not custom user types or embedded instances");
+  }
+  HibernateTemplate hibernateTemplate=getHibernateTemplate();
+  if (hibernateTemplate == null)   throw new IllegalStateException("Unable use [unique] constraint, no Hibernate SessionFactory found!");
+  List<?> results=hibernateTemplate.executeFind(new HibernateCallback<List<?>>(){
+    public List<?> doInHibernate(    Session session) throws HibernateException {
+      session.setFlushMode(FlushMode.MANUAL);
+      try {
+        boolean shouldValidate=true;
+        Class<?> constraintClass=constraintOwningClass;
+        if (propertyValue != null && DomainClassArtefactHandler.isDomainClass(propertyValue.getClass())) {
+          shouldValidate=session.contains(propertyValue);
+        }
+        if (shouldValidate) {
+          GrailsApplication application=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
+          GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,constraintClass.getName());
+          if (domainClass != null && !domainClass.isRoot()) {
+            GrailsDomainClassProperty property=domainClass.getPropertyByName(constraintPropertyName);
+            while (property.isInherited() && domainClass != null) {
+              domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,domainClass.getClazz().getSuperclass().getName());
+              if (domainClass != null) {
+                property=domainClass.getPropertyByName(constraintPropertyName);
+              }
+            }
+            constraintClass=domainClass != null ? domainClass.getClazz() : constraintClass;
+          }
+          Criteria criteria=session.createCriteria(constraintClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
+          if (uniquenessGroup != null) {
+            for (            Object anUniquenessGroup : uniquenessGroup) {
+              String uniquenessGroupPropertyName=(String)anUniquenessGroup;
+              Object uniquenessGroupPropertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,uniquenessGroupPropertyName);
+              if (uniquenessGroupPropertyValue != null && DomainClassArtefactHandler.isDomainClass(uniquenessGroupPropertyValue.getClass())) {
+                try {
+                  session.lock(uniquenessGroupPropertyValue,LockMode.NONE);
+                }
+ catch (                TransientObjectException e) {
+                  shouldValidate=false;
+                }
+              }
+              if (shouldValidate) {
+                criteria.add(Restrictions.eq(uniquenessGroupPropertyName,uniquenessGroupPropertyValue));
+              }
+ else {
+                break;
+              }
+            }
           }
           if (shouldValidate) {
-            GrailsApplication application=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
-            GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,constraintClass.getName());
-            if (domainClass != null && !domainClass.isRoot()) {
-              GrailsDomainClassProperty property=domainClass.getPropertyByName(constraintPropertyName);
-              while (property.isInherited() && domainClass != null) {
-                domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,domainClass.getClazz().getSuperclass().getName());
-                if (domainClass != null) {
-                  property=domainClass.getPropertyByName(constraintPropertyName);
-                }
-              }
-              constraintClass=domainClass != null ? domainClass.getClazz() : constraintClass;
-            }
-            Criteria criteria=session.createCriteria(constraintClass).add(Restrictions.eq(constraintPropertyName,propertyValue));
-            if (uniquenessGroup != null) {
-              for (              Object anUniquenessGroup : uniquenessGroup) {
-                String uniquenessGroupPropertyName=(String)anUniquenessGroup;
-                Object uniquenessGroupPropertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(target,uniquenessGroupPropertyName);
-                if (uniquenessGroupPropertyValue != null && DomainClassArtefactHandler.isDomainClass(uniquenessGroupPropertyValue.getClass())) {
-                  try {
-                    session.lock(uniquenessGroupPropertyValue,LockMode.NONE);
-                  }
- catch (                  TransientObjectException e) {
-                    shouldValidate=false;
-                  }
-                }
-                if (shouldValidate) {
-                  criteria.add(Restrictions.eq(uniquenessGroupPropertyName,uniquenessGroupPropertyValue));
-                }
- else {
-                  break;
-                }
-              }
-            }
-            if (shouldValidate) {
-              return criteria.list();
-            }
- else {
-              return Collections.EMPTY_LIST;
-            }
+            return criteria.list();
           }
- else {
-            return Collections.EMPTY_LIST;
-          }
+          return Collections.EMPTY_LIST;
         }
+        return Collections.EMPTY_LIST;
+      }
   finally {
-          session.setFlushMode(FlushMode.AUTO);
-        }
+        session.setFlushMode(FlushMode.AUTO);
       }
     }
+  }
 );
-    if (results.size() > 0) {
-      boolean reject=false;
-      if (id != null) {
-        Object existing=results.get(0);
-        Object existingId=null;
-        try {
-          existingId=InvokerHelper.invokeMethod(existing,"ident",null);
-        }
- catch (        Exception e) {
-        }
-        if (!id.equals(existingId)) {
-          reject=true;
-        }
-      }
- else {
-        reject=true;
-      }
-      if (reject) {
-        Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
-        super.rejectValue(target,errors,UNIQUE_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_UNIQUE_MESSAGE_CODE));
-      }
+  if (results.isEmpty()) {
+    return;
+  }
+  boolean reject=false;
+  if (id != null) {
+    Object existing=results.get(0);
+    Object existingId=null;
+    try {
+      existingId=InvokerHelper.invokeMethod(existing,"ident",null);
     }
+ catch (    Exception e) {
+    }
+    if (!id.equals(existingId)) {
+      reject=true;
+    }
+  }
+ else {
+    reject=true;
+  }
+  if (reject) {
+    Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
+    rejectValue(target,errors,UNIQUE_CONSTRAINT,args,getDefaultMessage(DEFAULT_NOT_UNIQUE_MESSAGE_CODE));
   }
 }

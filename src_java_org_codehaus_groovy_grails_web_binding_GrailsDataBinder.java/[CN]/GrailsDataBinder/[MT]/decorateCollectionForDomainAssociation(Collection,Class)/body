@@ -1,7 +1,5 @@
 {
-  if (canDecorateWithLazyList(c,referencedType)) {
-  }
- else   if (canDecorateWithListOrderedSet(c,referencedType)) {
+  if (canDecorateWithListOrderedSet(c,referencedType)) {
     c=ListOrderedSet.decorate((Set)c);
   }
   return c;

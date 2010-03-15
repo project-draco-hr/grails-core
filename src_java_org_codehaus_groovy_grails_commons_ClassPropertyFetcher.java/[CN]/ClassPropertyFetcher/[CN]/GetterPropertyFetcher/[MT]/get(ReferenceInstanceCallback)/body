@@ -3,6 +3,11 @@
     return readMethod.invoke(null,(Object[])null);
   }
  else {
-    return readMethod.invoke(callback.getReferenceInstance(),(Object[])null);
+    if (callback != null) {
+      return readMethod.invoke(callback.getReferenceInstance(),(Object[])null);
+    }
+ else {
+      return null;
+    }
   }
 }

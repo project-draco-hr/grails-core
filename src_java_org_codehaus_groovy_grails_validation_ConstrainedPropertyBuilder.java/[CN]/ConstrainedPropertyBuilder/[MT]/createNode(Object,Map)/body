@@ -6,8 +6,7 @@
       cp=constrainedProperties.get(property);
     }
  else {
-      PropertyDescriptor pd=this.bean.getPropertyDescriptor(property);
-      cp=new ConstrainedProperty(this.target.getClass(),property,pd.getPropertyType());
+      cp=new ConstrainedProperty(this.targetClass,property,classPropertyFetcher.getPropertyType(property));
       cp.setOrder(order++);
       constrainedProperties.put(property,cp);
     }
@@ -23,7 +22,7 @@
       }
  else {
         if (ConstrainedProperty.hasRegisteredConstraint(constraintName)) {
-          GrailsUtil.warn("Property [" + cp.getPropertyName() + "] of domain class "+ this.target.getClass().getName()+ " has type ["+ cp.getPropertyType().getName()+ "] and doesn't support constraint ["+ constraintName+ "]. This constraint will not be checked during validation.");
+          GrailsUtil.warn("Property [" + cp.getPropertyName() + "] of domain class "+ targetClass.getName()+ " has type ["+ cp.getPropertyType().getName()+ "] and doesn't support constraint ["+ constraintName+ "]. This constraint will not be checked during validation.");
         }
  else {
           cp.addMetaConstraint(constraintName,value);
@@ -33,6 +32,6 @@
     return cp;
   }
  catch (  InvalidPropertyException ipe) {
-    throw new MissingMethodException((String)name,target.getClass(),new Object[]{attributes});
+    throw new MissingMethodException((String)name,targetClass,new Object[]{attributes});
   }
 }

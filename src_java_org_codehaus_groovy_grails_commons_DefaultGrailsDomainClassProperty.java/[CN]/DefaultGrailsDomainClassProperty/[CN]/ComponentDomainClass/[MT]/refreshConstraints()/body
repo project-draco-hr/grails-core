@@ -1,4 +1,4 @@
 {
   GrailsDomainClassProperty[] props=getPersistentProperties();
-  this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getReferenceInstance(),props);
+  this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),props);
 }

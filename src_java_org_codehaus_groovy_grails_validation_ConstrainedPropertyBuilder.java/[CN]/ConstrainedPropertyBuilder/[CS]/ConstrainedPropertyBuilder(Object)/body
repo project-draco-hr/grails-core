@@ -1,5 +1,3 @@
 {
-  super();
-  this.target=target;
-  this.bean=new BeanWrapperImpl(target);
+  this(target.getClass());
 }

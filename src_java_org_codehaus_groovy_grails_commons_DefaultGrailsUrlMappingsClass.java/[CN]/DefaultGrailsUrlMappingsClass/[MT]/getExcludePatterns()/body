@@ -1,3 +1,3 @@
 {
-  return (List)getPropertyOrStaticPropertyOrFieldValue(EXCLUDE_PATTERNS,ArrayList.class);
+  return (List)getStaticPropertyValue(EXCLUDE_PATTERNS,ArrayList.class);
 }

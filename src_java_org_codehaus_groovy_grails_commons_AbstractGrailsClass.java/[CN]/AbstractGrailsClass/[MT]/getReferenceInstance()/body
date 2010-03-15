@@ -1,5 +1,5 @@
 {
-  Object obj=getReference().getWrappedInstance();
+  Object obj=newInstance();
   if (obj instanceof GroovyObject) {
     ((GroovyObject)obj).setMetaClass(getMetaClass());
   }

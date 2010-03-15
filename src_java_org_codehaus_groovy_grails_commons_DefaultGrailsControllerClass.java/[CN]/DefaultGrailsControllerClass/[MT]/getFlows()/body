@@ -1,3 +1,10 @@
 {
-  return this.flows;
+  Map closureFlows=new HashMap();
+  for (  String name : flows.keySet()) {
+    Closure c=getPropertyValue(name,Closure.class);
+    if (c != null) {
+      closureFlows.put(name,c);
+    }
+  }
+  return closureFlows;
 }

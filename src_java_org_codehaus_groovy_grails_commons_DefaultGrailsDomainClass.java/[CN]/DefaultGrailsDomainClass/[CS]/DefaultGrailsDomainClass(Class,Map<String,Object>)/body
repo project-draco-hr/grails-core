@@ -8,9 +8,9 @@
   this.relationshipMap=getAssociationMap();
   this.embedded=getEmbeddedList();
   this.defaultConstraints=defaultConstraints;
-  if (getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class) != null)   this.mappingStrategy=(String)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
-  this.mappedBy=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
-  this.hasOneMap=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.HAS_ONE,Map.class);
+  this.mappingStrategy=getStaticPropertyValue(GrailsDomainClassProperty.MAPPING_STRATEGY,String.class);
+  this.mappedBy=getStaticPropertyValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
+  this.hasOneMap=getStaticPropertyValue(GrailsDomainClassProperty.HAS_ONE,Map.class);
   if (hasOneMap == null)   hasOneMap=EMPTY_MAP;
   if (this.mappedBy == null)   this.mappedBy=EMPTY_MAP;
   establishRelationshipOwners();

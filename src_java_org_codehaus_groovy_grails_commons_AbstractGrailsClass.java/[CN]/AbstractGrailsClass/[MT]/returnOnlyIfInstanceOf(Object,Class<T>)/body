@@ -1,6 +1,6 @@
 {
   if ((value != null) && (type == Object.class || GrailsClassUtils.isGroovyAssignableFrom(type,value.getClass()))) {
-    return value;
+    return (T)value;
   }
  else {
     return null;

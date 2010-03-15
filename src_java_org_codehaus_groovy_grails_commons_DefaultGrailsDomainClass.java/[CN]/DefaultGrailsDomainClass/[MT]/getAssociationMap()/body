@@ -1,11 +1,12 @@
 {
   if (this.relationshipMap == null) {
-    relationshipMap=(Map)getPropertyOrStaticPropertyOrFieldValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
+    relationshipMap=getStaticPropertyValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
     if (relationshipMap == null)     this.relationshipMap=new HashMap();
     Class theClass=getClazz();
     while (theClass != Object.class) {
       theClass=theClass.getSuperclass();
-      Map superRelationshipMap=(Map)GrailsClassUtils.getStaticPropertyValue(theClass,GrailsDomainClassProperty.HAS_MANY);
+      ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(theClass);
+      Map superRelationshipMap=propertyFetcher.getStaticPropertyValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
       if (superRelationshipMap != null && !superRelationshipMap.equals(relationshipMap)) {
         relationshipMap.putAll(superRelationshipMap);
       }

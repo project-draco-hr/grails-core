@@ -3,6 +3,11 @@
     return field.get(null);
   }
  else {
-    return field.get(callback.getReferenceInstance());
+    if (callback != null) {
+      return field.get(callback.getReferenceInstance());
+    }
+ else {
+      return null;
+    }
   }
 }

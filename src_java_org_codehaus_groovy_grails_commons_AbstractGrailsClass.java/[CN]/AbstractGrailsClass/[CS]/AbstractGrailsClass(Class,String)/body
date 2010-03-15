@@ -3,7 +3,6 @@
     throw new IllegalArgumentException("Clazz parameter should not be null");
   }
   this.clazz=clazz;
-  this.reference=new BeanWrapperImpl(newInstance());
   this.fullName=clazz.getName();
   this.packageName=ClassUtils.getPackageName(clazz);
   this.naturalName=GrailsNameUtils.getNaturalName(clazz.getName());
@@ -16,10 +15,5 @@
  else {
     this.logicalPropertyName=GrailsNameUtils.getPropertyNameRepresentation(this.name);
   }
-  this.classPropertyFetcher=new ClassPropertyFetcher(clazz,new ClassPropertyFetcher.ReferenceInstanceCallback(){
-    public Object getReferenceInstance(){
-      return AbstractGrailsClass.this.getReferenceInstance();
-    }
-  }
-);
+  this.classPropertyFetcher=ClassPropertyFetcher.forClass(clazz);
 }

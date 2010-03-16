@@ -14,13 +14,14 @@
     }
     if (tagLibProp instanceof Closure) {
       Closure body=new Closure(this){
-        public Object doCall(){
+        private static final long serialVersionUID=1861498565854341886L;
+        @SuppressWarnings("unused") public Object doCall(){
           return call();
         }
-        public Object doCall(        Object o){
+        @SuppressWarnings("unused") public Object doCall(        Object o){
           return call(new Object[]{o});
         }
-        public Object doCall(        Object[] args){
+        @SuppressWarnings("unused") public Object doCall(        Object[] args){
           return call(args);
         }
         public Object call(        Object[] args){

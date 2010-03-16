@@ -1,6 +1,5 @@
 {
   if (this.application == null)   initPageState();
-  HttpServletRequest request=(HttpServletRequest)this.pageContext.getRequest();
   Map tagLibs=(Map)pageContext.getAttribute(TAG_LIBS_ATTRIBUTE);
   if (tagLibs == null) {
     tagLibs=new HashMap();

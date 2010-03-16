@@ -6,7 +6,7 @@
     clearCache();
     try {
       inputStream=resourceURL.getInputStream();
-      Class reloadedClass=innerLoader.parseClass(inputStream,name);
+      Class reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),name);
       compilationErrors.remove(name);
       innerClassLoaderMap.put(name,innerLoader);
       return reloadedClass;

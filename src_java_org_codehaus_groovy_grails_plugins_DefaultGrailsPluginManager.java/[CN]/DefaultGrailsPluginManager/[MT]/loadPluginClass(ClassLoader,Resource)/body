@@ -5,7 +5,7 @@
       if (LOG.isInfoEnabled()) {
         LOG.info("Parsing & compiling " + r.getFilename());
       }
-      pluginClass=((GroovyClassLoader)cl).parseClass(r.getInputStream());
+      pluginClass=((GroovyClassLoader)cl).parseClass(DefaultGroovyMethods.getText(r.getInputStream()));
     }
  catch (    CompilationFailedException e) {
       throw new PluginException("Error compiling plugin [" + r.getFilename() + "] "+ e.getMessage(),e);

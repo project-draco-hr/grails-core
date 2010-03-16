@@ -2,7 +2,7 @@
   GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
   Class<?> scriptClass;
   try {
-    scriptClass=groovyClassLoader.parseClass(in,name);
+    scriptClass=groovyClassLoader.parseClass(DefaultGroovyMethods.getText(in),name);
   }
  catch (  CompilationFailedException e) {
     LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);
@@ -12,6 +12,9 @@
       lineNumber=lineMappings[lineNumber - 1];
     }
     throw new GroovyPagesException("Could not parse script [" + name + "]: "+ e.getMessage(),e,lineNumber,pageName);
+  }
+catch (  IOException e) {
+    throw new GroovyPagesException("IO exception parsing script [" + name + "]: "+ e.getMessage(),e);
   }
   return scriptClass;
 }

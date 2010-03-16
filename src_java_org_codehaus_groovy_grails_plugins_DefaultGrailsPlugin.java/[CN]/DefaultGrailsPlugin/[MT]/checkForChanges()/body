@@ -10,7 +10,7 @@
           LOG.info("Grails plug-in " + this + " changed, reloading changes..");
         }
         GroovyClassLoader gcl=new GroovyClassLoader(application.getClassLoader());
-        initialisePlugin(gcl.parseClass(conn.getInputStream()));
+        initialisePlugin(gcl.parseClass(DefaultGroovyMethods.getText(conn.getInputStream())));
         pluginLastModified=currentModified;
         return true;
       }

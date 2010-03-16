@@ -2,7 +2,7 @@
   InputStream inputStream=null;
   try {
     inputStream=resource.getInputStream();
-    return evaluateMappings(classLoader.parseClass(inputStream));
+    return evaluateMappings(classLoader.parseClass(DefaultGroovyMethods.getText(inputStream)));
   }
  catch (  IOException e) {
     throw new UrlMappingException("Unable to read mapping file [" + resource.getFilename() + "]: "+ e.getMessage(),e);

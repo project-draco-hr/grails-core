@@ -11,7 +11,6 @@
   }
   if (null == mappingKeysSet)   return null;
   UrlMappingKey[] mappingKeys=(UrlMappingKey[])mappingKeysSet.toArray(new UrlMappingKey[mappingKeysSet.size()]);
-  Set mappingConstraintNames=new HashSet();
   for (int i=mappingKeys.length; i > 0; i--) {
     UrlMappingKey mappingKey=mappingKeys[i - 1];
     if (params.keySet().containsAll(mappingKey.paramNames)) {

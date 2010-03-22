@@ -9,7 +9,7 @@
   Class type=bean.getPropertyType(propertyName);
   Object val=bean.isReadableProperty(propertyName) ? bean.getPropertyValue(propertyName) : null;
   LOG.debug("Checking if auto-create is possible for property [" + propertyName + "] and type ["+ type+ "]");
-  if (type != null && val == null && DomainClassArtefactHandler.isDomainClass(type)) {
+  if (type != null && val == null && isDomainClass(type)) {
     if (!shouldPropertyValueSkipAutoCreate(propertyValue) && isNullAndWritableProperty(bean,propertyName)) {
       Object created=autoInstantiateDomainInstance(type);
       if (created != null) {
@@ -34,7 +34,7 @@
       if (c != null && currentKeyStart > -1 && currentKeyEnd > -1) {
         String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
         int index=Integer.parseInt(indexString);
-        if (DomainClassArtefactHandler.isDomainClass(referencedType)) {
+        if (isDomainClass(referencedType)) {
           Object instance=findIndexedValue(c,index);
           if (instance != null) {
             val=instance;
@@ -71,7 +71,7 @@
       if (currentKeyStart > -1 && currentKeyEnd > -1) {
         String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
         Class referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
-        if (DomainClassArtefactHandler.isDomainClass(referencedType)) {
+        if (isDomainClass(referencedType)) {
           final Object domainInstance=autoInstantiateDomainInstance(referencedType);
           val=domainInstance;
           map.put(indexString,domainInstance);

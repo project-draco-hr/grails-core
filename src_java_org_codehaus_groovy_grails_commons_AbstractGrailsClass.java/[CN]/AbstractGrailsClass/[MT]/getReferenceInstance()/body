@@ -1,5 +1,5 @@
 {
-  Object obj=newInstance();
+  Object obj=classPropertyFetcher.getReference();
   if (obj instanceof GroovyObject) {
     ((GroovyObject)obj).setMetaClass(getMetaClass());
   }

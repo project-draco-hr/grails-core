@@ -15,7 +15,8 @@
     PropertyDescriptor propertyDescriptor=propertyDescriptors[i];
     Method readMethod=propertyDescriptor.getReadMethod();
     if (readMethod != null && !Modifier.isStatic(readMethod.getModifiers())) {
-      if (propertyDescriptor.getPropertyType() == Object.class) {
+      final Class<?> propertyType=propertyDescriptor.getPropertyType();
+      if (propertyType == Object.class || propertyType == Closure.class) {
         String closureName=propertyDescriptor.getName();
         if (closureName.endsWith(FLOW_SUFFIX)) {
           String flowId=closureName.substring(0,closureName.length() - FLOW_SUFFIX.length());

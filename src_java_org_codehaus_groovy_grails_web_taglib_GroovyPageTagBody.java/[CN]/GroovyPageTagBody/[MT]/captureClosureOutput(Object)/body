@@ -7,18 +7,23 @@
       if (args instanceof Map) {
         Map currentBinding=null;
         Map originalBinding=null;
+        final Map argsMap=(Map)args;
         if (binding != null) {
           currentBinding=binding.getVariables();
           originalBinding=new HashMap(currentBinding);
-          currentBinding.putAll((Map)args);
+          currentBinding.putAll(argsMap);
         }
         try {
           bodyResult=executeClosure(bodyClosure,args);
         }
   finally {
           if (binding != null) {
-            currentBinding.clear();
-            currentBinding.putAll(originalBinding);
+            for (            Object key : argsMap.keySet()) {
+              Object originalVal=originalBinding.get(key);
+              if (originalVal != null) {
+                currentBinding.put(key,originalVal);
+              }
+            }
           }
         }
       }

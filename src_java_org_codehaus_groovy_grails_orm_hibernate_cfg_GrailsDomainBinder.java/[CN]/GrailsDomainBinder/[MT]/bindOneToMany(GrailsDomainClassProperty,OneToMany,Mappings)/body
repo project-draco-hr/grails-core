@@ -1,5 +1,4 @@
 {
   one.setReferencedEntityName(currentGrailsProp.getReferencedPropertyType().getName());
-  PropertyConfig config=getPropertyConfig(currentGrailsProp);
   one.setIgnoreNotFound(true);
 }

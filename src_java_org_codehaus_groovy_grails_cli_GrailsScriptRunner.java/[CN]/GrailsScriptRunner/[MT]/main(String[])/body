@@ -5,7 +5,14 @@
   }
   ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
   String grailsHome=System.getProperty("grails.home");
-  BuildSettings build=new BuildSettings(new File(grailsHome));
+  BuildSettings build=null;
+  try {
+    build=new BuildSettings(new File(grailsHome));
+  }
+ catch (  Exception e) {
+    System.err.println("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
+    System.exit(1);
+  }
   final File grailsHomeInSettings=build.getGrailsHome();
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
     exitWithError("Grails' installation directory not found: " + build.getGrailsHome());

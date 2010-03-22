@@ -1,0 +1,4 @@
+{
+  if (callback != null)   return this.callback.getReferenceInstance();
+  return null;
+}

@@ -5,7 +5,7 @@
       registerTagLib((GrailsTagLibClass)grailsClass);
     }
     namespaceDispatchers.put(GroovyPage.TEMPLATE_NAMESPACE,new NamespacedTagDispatcher(GroovyPage.DEFAULT_NAMESPACE,GroovyPage.class,grailsApplication,this){
-      @Override public Object invokeMethod(      final String name,      Object args){
+      @SuppressWarnings("serial") @Override public Object invokeMethod(      final String name,      Object args){
         Map attrs=new HashMap(){
 {
             put("template",name);

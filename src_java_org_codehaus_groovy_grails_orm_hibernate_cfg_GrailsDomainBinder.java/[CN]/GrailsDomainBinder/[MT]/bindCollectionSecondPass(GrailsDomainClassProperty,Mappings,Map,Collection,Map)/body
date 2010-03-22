@@ -22,7 +22,6 @@
     Mapping m=getRootMapping(referenced);
     boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
     if (referenced != null && !referenced.isRoot() && !tablePerSubclass) {
-      Mapping referencedMapping=getMapping(referenced);
       Mapping rootMapping=getRootMapping(referenced);
       String discriminatorColumnName=RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME;
       if (rootMapping != null) {

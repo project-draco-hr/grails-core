@@ -1,6 +1,7 @@
 {
   GroovyObject controller=(GroovyObject)new GroovyClassLoader().parseClass("class FooController { }").newInstance();
-  assertEquals("/foo/bar",GroovyPageUtils.getNoSuffixViewURI(controller,"bar"));
-  assertEquals("/bar/foo",GroovyPageUtils.getNoSuffixViewURI(controller,"/bar/foo"));
-  assertEquals("/foo/bar/foo",GroovyPageUtils.getNoSuffixViewURI(controller,"bar/foo"));
+  GroovyPagesUriSupport uriSupport=new GroovyPagesUriSupport();
+  assertEquals("/foo/bar",uriSupport.getNoSuffixViewURI(controller,"bar"));
+  assertEquals("/bar/foo",uriSupport.getNoSuffixViewURI(controller,"/bar/foo"));
+  assertEquals("/foo/bar/foo",uriSupport.getNoSuffixViewURI(controller,"bar/foo"));
 }

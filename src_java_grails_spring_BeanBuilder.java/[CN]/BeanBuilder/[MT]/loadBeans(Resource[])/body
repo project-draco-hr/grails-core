@@ -1,5 +1,6 @@
 {
   Closure beans=new Closure(this){
+    private static final long serialVersionUID=-2778328821635253740L;
     public Object call(    Object[] args){
       invokeBeanDefiningClosure((Closure)args[0]);
       return null;
@@ -21,7 +22,7 @@
   for (  Resource resource : resources) {
     try {
       GroovyShell shell=classLoader != null ? new GroovyShell(classLoader,b) : new GroovyShell(b);
-      shell.evaluate(resource.getInputStream());
+      shell.evaluate(new InputStreamReader(resource.getInputStream()));
     }
  catch (    Throwable e) {
       throw new BeanDefinitionParsingException(new Problem("Error evaluating bean definition script: " + e.getMessage(),new Location(resource),null,e));

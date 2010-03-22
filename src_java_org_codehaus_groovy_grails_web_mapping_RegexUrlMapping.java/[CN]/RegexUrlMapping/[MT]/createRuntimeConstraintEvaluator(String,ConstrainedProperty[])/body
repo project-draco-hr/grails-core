@@ -3,6 +3,7 @@
   for (  ConstrainedProperty constraint : constraints) {
     if (constraint.getPropertyName().equals(name)) {
       return new Closure(this){
+        private static final long serialVersionUID=-2404119898659287216L;
         public Object call(        Object[] objects){
           GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
           return webRequest.getParams().get(name);

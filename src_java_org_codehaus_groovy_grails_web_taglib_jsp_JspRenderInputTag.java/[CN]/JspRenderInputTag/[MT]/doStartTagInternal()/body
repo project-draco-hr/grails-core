@@ -8,7 +8,7 @@
   if (!ExpressionEvaluationUtils.isExpressionLanguage(bean)) {
     throw new JspTagException("Attribute [bean] of tag [scaffold] must be a JSTL expression");
   }
-  Writer out=pageContext.getOut();
+  @SuppressWarnings("unused") Writer out=pageContext.getOut();
   try {
     Object beanInstance=ExpressionEvaluationUtils.evaluate("bean",this.bean,Object.class,this.pageContext);
     if (beanInstance == null)     throw new JspTagException("Bean [" + this.bean + "] referenced by tag [scaffold] cannot be null");

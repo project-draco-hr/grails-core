@@ -1,5 +1,5 @@
 {
-  AbstractBeanDefinition bd=getBeanDefinition();
+  @SuppressWarnings("unused") AbstractBeanDefinition bd=getBeanDefinition();
   if (wrapper.isReadableProperty(property)) {
     return wrapper.getPropertyValue(property);
   }

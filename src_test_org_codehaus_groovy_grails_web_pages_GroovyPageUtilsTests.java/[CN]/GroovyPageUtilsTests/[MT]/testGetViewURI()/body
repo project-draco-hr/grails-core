@@ -1,5 +1,6 @@
 {
-  assertEquals("/foo/bar.gsp",GroovyPageUtils.getViewURI("foo","bar"));
-  assertEquals("/bar/foo.gsp",GroovyPageUtils.getViewURI("foo","/bar/foo"));
-  assertEquals("/foo/bar/foo.gsp",GroovyPageUtils.getViewURI("foo","bar/foo"));
+  GroovyPagesUriSupport uriSupport=new GroovyPagesUriSupport();
+  assertEquals("/foo/bar.gsp",uriSupport.getViewURI("foo","bar"));
+  assertEquals("/bar/foo.gsp",uriSupport.getViewURI("foo","/bar/foo"));
+  assertEquals("/foo/bar/foo.gsp",uriSupport.getViewURI("foo","bar/foo"));
 }

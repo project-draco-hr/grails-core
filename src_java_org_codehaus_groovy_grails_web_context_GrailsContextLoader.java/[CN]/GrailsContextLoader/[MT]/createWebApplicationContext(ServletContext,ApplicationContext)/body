@@ -18,9 +18,17 @@
   }
  catch (  Throwable e) {
     GrailsUtil.deepSanitize(e);
-    if (e instanceof BeansException)     throw (BeansException)e;
+    final Environment env=Environment.getCurrent();
+    if (env.isDevelopmentMode()) {
+      LOG.error("Error executing bootstraps: " + e.getMessage(),e);
+      System.exit(1);
+      return null;
+    }
  else {
-      throw new BootstrapException("Error executing bootstraps",e);
+      if (e instanceof BeansException)       throw (BeansException)e;
+ else {
+        throw new BootstrapException("Error executing bootstraps",e);
+      }
     }
   }
   return ctx;

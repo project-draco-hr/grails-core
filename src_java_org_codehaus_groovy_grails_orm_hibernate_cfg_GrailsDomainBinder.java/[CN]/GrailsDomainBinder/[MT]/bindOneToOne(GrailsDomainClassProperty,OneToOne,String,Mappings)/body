@@ -11,6 +11,7 @@
     oneToOne.setFetchMode(FetchMode.DEFAULT);
   }
   oneToOne.setReferencedEntityName(otherSide.getDomainClass().getFullName());
+  oneToOne.setPropertyName(property.getName());
   if (otherSide.isHasOne()) {
     PropertyConfig pc=getPropertyConfig(property);
     bindSimpleValue(property,oneToOne,path,pc);

@@ -29,8 +29,9 @@
     settings.loadConfig();
   }
  catch (  Exception e) {
-    System.err.println("WARNING: There was an error loading the BuildConfig: " + e.getMessage());
     e.printStackTrace(System.err);
+    System.err.println("WARNING: There was an error loading the BuildConfig: " + e.getMessage());
+    System.exit(1);
   }
  finally {
     System.setProperty("disable.grails.plugin.transform","false");

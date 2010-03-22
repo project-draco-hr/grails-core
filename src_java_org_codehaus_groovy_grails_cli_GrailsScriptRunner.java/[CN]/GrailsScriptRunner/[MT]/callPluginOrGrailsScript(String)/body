@@ -80,7 +80,6 @@
       gant.setUseCache(true);
       gant.setCacheDirectory(scriptCacheDir);
       gant.loadScript(scriptFile);
-      gant.setVerbosity(GantState.WARNINGS_AND_ERRORS);
       return gant.processTargets().intValue();
     }
     if (!isInteractive) {
@@ -99,7 +98,6 @@
     out.println("Running script " + ((File)potentialScripts.get(number - 1)).getAbsolutePath());
     Gant gant=new Gant(binding,classLoader);
     gant.loadScript((File)potentialScripts.get(number - 1));
-    gant.setVerbosity(GantState.WARNINGS_AND_ERRORS);
     return gant.processTargets().intValue();
   }
   out.println("Running pre-compiled script");
@@ -117,6 +115,5 @@
       }
     }
   }
-  gant.setVerbosity(GantState.WARNINGS_AND_ERRORS);
   return gant.processTargets().intValue();
 }

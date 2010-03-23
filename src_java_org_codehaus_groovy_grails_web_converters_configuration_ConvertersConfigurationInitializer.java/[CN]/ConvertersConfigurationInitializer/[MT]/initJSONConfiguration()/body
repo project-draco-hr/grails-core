@@ -17,16 +17,17 @@
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.ToStringBeanMarshaller());
   boolean includeDomainVersion=includeDomainVersionProperty("json");
+  ProxyHandler proxyHandler=getProxyHandler();
   if (GrailsConfig.get("grails.converters.json.default.deep",false)) {
     LOG.debug("Using DeepDomainClassMarshaller as default.");
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler));
   }
  else {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion,proxyHandler));
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GroovyBeanMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GenericJavaBeanMarshaller());
-  DefaultConverterConfiguration<JSON> cfg=new DefaultConverterConfiguration<JSON>(marshallers);
+  DefaultConverterConfiguration<JSON> cfg=new DefaultConverterConfiguration<JSON>(marshallers,proxyHandler);
   cfg.setEncoding(GrailsConfig.get("grails.converters.encoding","UTF-8"));
   String defaultCirRefBehaviour=GrailsConfig.get("grails.converters.default.circular.reference.behaviour","DEFAULT");
   cfg.setCircularReferenceBehaviour(Converter.CircularReferenceBehaviour.valueOf(GrailsConfig.get("grails.converters.json.circular.reference.behaviour",defaultCirRefBehaviour,Converter.CircularReferenceBehaviour.allowedValues())));
@@ -34,5 +35,5 @@
   Boolean prettyPrint=GrailsConfig.get("grails.converters.json.pretty.print",defaultPrettyPrint);
   cfg.setPrettyPrint(prettyPrint);
   registerObjectMarshallersFromApplicationContext(cfg,JSON.class);
-  ConvertersConfigurationHolder.setDefaultConfiguration(JSON.class,new ChainedConverterConfiguration<JSON>(cfg));
+  ConvertersConfigurationHolder.setDefaultConfiguration(JSON.class,new ChainedConverterConfiguration<JSON>(cfg,proxyHandler));
 }

@@ -1,5 +1,6 @@
 {
   JSONWriter writer=json.getWriter();
+  value=proxyHandler.unwrapIfProxy(value);
   Class clazz=value.getClass();
   GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
@@ -27,27 +28,21 @@
           writer.value(null);
         }
  else {
-          if (referenceObject instanceof AbstractPersistentCollection) {
-            AbstractPersistentCollection acol=(AbstractPersistentCollection)referenceObject;
-            acol.forceInitialization();
-            if (referenceObject instanceof SortedMap) {
-              referenceObject=new TreeMap((SortedMap)referenceObject);
-            }
- else             if (referenceObject instanceof SortedSet) {
-              referenceObject=new TreeSet((SortedSet)referenceObject);
-            }
- else             if (referenceObject instanceof Set) {
-              referenceObject=new HashSet((Set)referenceObject);
-            }
- else             if (referenceObject instanceof Map) {
-              referenceObject=new HashMap((Map)referenceObject);
-            }
- else {
-              referenceObject=new ArrayList((Collection)referenceObject);
-            }
+          referenceObject=proxyHandler.unwrapIfProxy(referenceObject);
+          if (referenceObject instanceof SortedMap) {
+            referenceObject=new TreeMap((SortedMap)referenceObject);
           }
- else           if (!Hibernate.isInitialized(referenceObject)) {
-            Hibernate.initialize(referenceObject);
+ else           if (referenceObject instanceof SortedSet) {
+            referenceObject=new TreeSet((SortedSet)referenceObject);
+          }
+ else           if (referenceObject instanceof Set) {
+            referenceObject=new HashSet((Set)referenceObject);
+          }
+ else           if (referenceObject instanceof Map) {
+            referenceObject=new HashMap((Map)referenceObject);
+          }
+ else           if (referenceObject instanceof Collection) {
+            referenceObject=new ArrayList((Collection)referenceObject);
           }
           json.convertAnother(referenceObject);
         }

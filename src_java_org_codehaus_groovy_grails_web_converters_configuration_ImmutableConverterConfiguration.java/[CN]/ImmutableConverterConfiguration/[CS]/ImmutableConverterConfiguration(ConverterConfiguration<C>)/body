@@ -1,6 +1,3 @@
 {
-  marshallers=Collections.unmodifiableList(cfg.getOrderedObjectMarshallers());
-  encoding=cfg.getEncoding();
-  prettyPrint=cfg.isPrettyPrint();
-  circularReferenceBehaviour=cfg.getCircularReferenceBehaviour();
+  this(cfg,new DefaultProxyHandler());
 }

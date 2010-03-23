@@ -1,5 +1,5 @@
 {
-  this();
+  this(proxyHandler);
   this.delegate=delegate;
   this.prettyPrint=delegate.isPrettyPrint();
   this.circularReferenceBehaviour=delegate.getCircularReferenceBehaviour();

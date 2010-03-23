@@ -1,4 +1,5 @@
 {
+  o=this.config.getProxyHandler().unwrapIfProxy(o);
   try {
     if (o == null || o.equals(JSONObject.NULL)) {
       writer.value(null);

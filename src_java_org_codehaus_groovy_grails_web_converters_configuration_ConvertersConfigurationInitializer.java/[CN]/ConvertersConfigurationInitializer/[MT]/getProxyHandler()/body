@@ -1,0 +1,10 @@
+{
+  ProxyHandler proxyHandler;
+  if (applicationContext != null) {
+    proxyHandler=applicationContext.getBean(ProxyHandler.class);
+  }
+ else {
+    proxyHandler=new DefaultProxyHandler();
+  }
+  return proxyHandler;
+}

@@ -1,7 +1,3 @@
 {
-  LazyInitializer lazyInitializer=proxy.getHibernateLazyInitializer();
-  if (lazyInitializer.isUninitialized()) {
-    lazyInitializer.initialize();
-  }
-  return lazyInitializer.getImplementation();
+  return proxyHandler.unwrapProxy(proxy);
 }

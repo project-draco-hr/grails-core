@@ -1,0 +1,15 @@
+{
+  try {
+    Object proxy=PropertyUtils.getProperty(obj,associationName);
+    return Hibernate.isInitialized(proxy);
+  }
+ catch (  IllegalAccessException e) {
+    return false;
+  }
+catch (  InvocationTargetException e) {
+    return false;
+  }
+catch (  NoSuchMethodException e) {
+    return false;
+  }
+}

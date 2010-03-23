@@ -1,0 +1,9 @@
+{
+  if (o instanceof HibernateProxy) {
+    return !((HibernateProxy)o).getHibernateLazyInitializer().isUninitialized();
+  }
+ else   if (o instanceof PersistentCollection) {
+    return ((PersistentCollection)o).wasInitialized();
+  }
+  return true;
+}

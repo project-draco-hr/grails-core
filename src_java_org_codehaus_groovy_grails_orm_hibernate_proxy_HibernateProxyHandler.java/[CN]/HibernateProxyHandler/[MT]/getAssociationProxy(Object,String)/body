@@ -1,0 +1,16 @@
+{
+  try {
+    Object proxy=PropertyUtils.getProperty(obj,associationName);
+    if (proxy instanceof HibernateProxy)     return (HibernateProxy)proxy;
+ else     return null;
+  }
+ catch (  IllegalAccessException e) {
+    return null;
+  }
+catch (  InvocationTargetException e) {
+    return null;
+  }
+catch (  NoSuchMethodException e) {
+    return null;
+  }
+}

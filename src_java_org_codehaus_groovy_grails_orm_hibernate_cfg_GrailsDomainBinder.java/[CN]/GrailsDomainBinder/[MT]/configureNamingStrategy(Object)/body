@@ -1,0 +1,10 @@
+{
+  Class<?> namingStrategyClass;
+  if (strategy instanceof Class<?>) {
+    namingStrategyClass=(Class<?>)strategy;
+  }
+ else {
+    namingStrategyClass=ApplicationHolder.getApplication().getClassLoader().loadClass(strategy.toString());
+  }
+  namingStrategy=(NamingStrategy)namingStrategyClass.newInstance();
+}

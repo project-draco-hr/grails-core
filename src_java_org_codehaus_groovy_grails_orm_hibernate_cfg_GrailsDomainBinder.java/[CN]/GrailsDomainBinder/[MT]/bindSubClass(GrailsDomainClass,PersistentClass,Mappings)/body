@@ -14,8 +14,12 @@
   subClass.setEntityName(sub.getFullName());
   parent.addSubclass(subClass);
   mappings.addClass(subClass);
-  if (tablePerSubclass)   bindJoinedSubClass(sub,(JoinedSubclass)subClass,mappings,m);
- else   bindSubClass(sub,subClass,mappings);
+  if (tablePerSubclass) {
+    bindJoinedSubClass(sub,(JoinedSubclass)subClass,mappings,m);
+  }
+ else {
+    bindSubClass(sub,subClass,mappings);
+  }
   if (!sub.getSubClasses().isEmpty()) {
     bindSubClasses(sub,subClass,mappings);
   }

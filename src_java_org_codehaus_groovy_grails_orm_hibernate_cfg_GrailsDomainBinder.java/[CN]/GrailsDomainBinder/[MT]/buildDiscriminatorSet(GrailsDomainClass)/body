@@ -1,23 +1,19 @@
 {
-  Set theSet=new HashSet();
+  Set<String> theSet=new HashSet<String>();
   Mapping mapping=getMapping(domainClass);
   String discriminator=domainClass.getFullName();
   if (mapping != null && mapping.getDiscriminator() != null) {
     discriminator=mapping.getDiscriminator();
   }
   Mapping rootMapping=getRootMapping(domainClass);
-  String qoute="'";
+  String quote="'";
   if (rootMapping != null && rootMapping.getDiscriminatorMap() != null && rootMapping.getDiscriminatorMap().get("type") != null && rootMapping.getDiscriminatorMap().get("type") != "string") {
-    qoute="";
+    quote="";
   }
-  theSet.add(qoute + discriminator + qoute);
-  Set subclasses=domainClass.getSubClasses();
-  if (!subclasses.isEmpty()) {
-    for (Iterator i=subclasses.iterator(); i.hasNext(); ) {
-      GrailsDomainClass subClass=(GrailsDomainClass)i.next();
-      Set subSet=buildDiscriminatorSet(subClass);
-      theSet.addAll(subSet);
-    }
+  theSet.add(quote + discriminator + quote);
+  for (  GrailsDomainClass subClass : domainClass.getSubClasses()) {
+    Set<String> subSet=buildDiscriminatorSet(subClass);
+    theSet.addAll(subSet);
   }
   return theSet;
 }

@@ -5,13 +5,13 @@
   for (  GrailsDomainClassProperty currentGrailsProp : persistentProperties) {
     boolean isBidirectionalManyToOne=isBidirectionalManyToOne(currentGrailsProp);
     if (currentGrailsProp.isInherited())     continue;
- else     if (currentGrailsProp.isInherited() && isBidirectionalManyToOne && currentGrailsProp.isCircular())     continue;
+    if (currentGrailsProp.isInherited() && isBidirectionalManyToOne && currentGrailsProp.isCircular())     continue;
     if (isCompositeIdProperty(gormMapping,currentGrailsProp))     continue;
     if (isIdentityProperty(gormMapping,currentGrailsProp))     continue;
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding persistent property [" + currentGrailsProp.getName() + "]");
     Value value=null;
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
-    Class userType=getUserType(currentGrailsProp);
+    Class<?> userType=getUserType(currentGrailsProp);
     if (collectionType != null) {
       Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings);
       mappings.addCollection(collection);
@@ -19,7 +19,7 @@
     }
  else     if (currentGrailsProp.isEnum()) {
       value=new SimpleValue(table);
-      bindEnumType(currentGrailsProp,(SimpleValue)value,EMPTY_PATH,mappings);
+      bindEnumType(currentGrailsProp,(SimpleValue)value,EMPTY_PATH);
     }
  else     if (currentGrailsProp.isManyToOne()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
@@ -33,12 +33,12 @@
       }
  else       if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
         value=new OneToOne(table,persistentClass);
-        bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH,mappings);
+        bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH);
       }
  else {
         if (currentGrailsProp.isHasOne() && currentGrailsProp.isBidirectional()) {
           value=new OneToOne(table,persistentClass);
-          bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH,mappings);
+          bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH);
         }
  else {
           value=new ManyToOne(table);

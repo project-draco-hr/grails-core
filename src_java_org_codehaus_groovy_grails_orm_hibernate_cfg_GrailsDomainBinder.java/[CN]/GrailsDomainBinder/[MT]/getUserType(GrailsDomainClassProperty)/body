@@ -1,9 +1,9 @@
 {
-  Class userType=null;
+  Class<?> userType=null;
   PropertyConfig config=getPropertyConfig(currentGrailsProp);
   Object typeObj=config != null ? config.getType() : null;
-  if (typeObj instanceof Class) {
-    userType=(Class)typeObj;
+  if (typeObj instanceof Class<?>) {
+    userType=(Class<?>)typeObj;
   }
  else   if (typeObj != null) {
     String typeName=typeObj.toString();

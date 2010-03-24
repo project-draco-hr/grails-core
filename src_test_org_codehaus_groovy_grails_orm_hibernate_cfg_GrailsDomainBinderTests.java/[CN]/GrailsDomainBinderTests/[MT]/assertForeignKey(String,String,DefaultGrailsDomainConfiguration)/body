@@ -1,7 +1,7 @@
 {
   boolean fkFound=false;
   Table childTable=getTableMapping(childTablename,config);
-  for (Iterator fks=childTable.getForeignKeyIterator(); fks.hasNext(); ) {
+  for (Iterator<?> fks=childTable.getForeignKeyIterator(); fks.hasNext(); ) {
     ForeignKey fk=(ForeignKey)fks.next();
     if (parentTablename.equals(fk.getReferencedTable().getName())) {
       fkFound=true;

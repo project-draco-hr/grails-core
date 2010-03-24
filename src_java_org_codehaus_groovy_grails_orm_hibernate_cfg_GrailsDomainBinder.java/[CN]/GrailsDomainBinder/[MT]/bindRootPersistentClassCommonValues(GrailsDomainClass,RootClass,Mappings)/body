@@ -35,7 +35,9 @@
       bindVersion(domainClass.getVersion(),root,mappings);
     }
   }
- else   bindVersion(domainClass.getVersion(),root,mappings);
+ else {
+    bindVersion(domainClass.getVersion(),root,mappings);
+  }
   root.createPrimaryKey();
   createClassProperties(domainClass,root,mappings);
 }

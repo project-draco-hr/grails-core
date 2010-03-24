@@ -1,6 +1,8 @@
 {
   value.setTypeUsingReflection(persistentClass.getClassName(),grailsProperty.getName());
-  if (value.getTable() != null)   value.createForeignKey();
+  if (value.getTable() != null) {
+    value.createForeignKey();
+  }
   Property prop=new Property();
   prop.setValue(value);
   bindProperty(grailsProperty,prop,mappings);

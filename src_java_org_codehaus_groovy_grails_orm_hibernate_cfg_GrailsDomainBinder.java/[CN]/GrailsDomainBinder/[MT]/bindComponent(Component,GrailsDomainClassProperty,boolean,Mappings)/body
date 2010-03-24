@@ -1,6 +1,6 @@
 {
   component.setEmbedded(true);
-  Class type=property.getType();
+  Class<?> type=property.getType();
   String role=StringHelper.qualify(type.getName(),property.getName());
   component.setRoleName(role);
   component.setComponentClassName(type.getName());
@@ -10,7 +10,7 @@
   Table table=component.getOwner().getTable();
   PersistentClass persistentClass=component.getOwner();
   String path=property.getName();
-  Class propertyType=property.getDomainClass().getClazz();
+  Class<?> propertyType=property.getDomainClass().getClazz();
   for (  GrailsDomainClassProperty currentGrailsProp : properties) {
     if (currentGrailsProp.isIdentity())     continue;
     if (currentGrailsProp.getName().equals(GrailsDomainClassProperty.VERSION))     continue;

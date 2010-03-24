@@ -1,6 +1,6 @@
 {
   ConstrainedProperty constrainedProperty=getConstrainedStringProperty();
-  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(30));
+  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,30);
   assertColumnLength(constrainedProperty,30);
   constrainedProperty=getConstrainedStringProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.SIZE_CONSTRAINT,new IntRange(6,32768));
@@ -13,6 +13,6 @@
   assertColumnLength(constrainedProperty,6);
   constrainedProperty=getConstrainedStringProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.IN_LIST_CONSTRAINT,validValuesList);
-  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(30));
+  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,30);
   assertColumnLength(constrainedProperty,30);
 }

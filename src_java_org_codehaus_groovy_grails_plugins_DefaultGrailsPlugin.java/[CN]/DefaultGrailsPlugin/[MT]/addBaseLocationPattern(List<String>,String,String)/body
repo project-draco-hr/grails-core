@@ -1,0 +1,9 @@
+{
+  if (baseLocation != null) {
+    final String reloadLocationResourcePattern=getResourcePatternForBaseLocation(baseLocation,pattern);
+    resourceList.add(reloadLocationResourcePattern);
+  }
+ else {
+    resourceList.add(pattern);
+  }
+}

@@ -6,7 +6,7 @@
   Table mapping=(Table)config.getTableMappings().next();
   int cnt=0;
   boolean found1=false, found2=false;
-  for (Iterator i=mapping.getUniqueKeyIterator(); i.hasNext(); ) {
+  for (Iterator<?> i=mapping.getUniqueKeyIterator(); i.hasNext(); ) {
     UniqueKey key=(UniqueKey)i.next();
     List keyColumns=key.getColumns();
     if (keyColumns.equals(expectedKeyColumns1)) {

@@ -3,7 +3,7 @@
   if (gormMapping != null) {
     Object id=gormMapping.getIdentity();
     if (id instanceof CompositeIdentity) {
-      bindCompositeId(domainClass,root,(CompositeIdentity)id,gormMapping,mappings);
+      bindCompositeId(domainClass,root,(CompositeIdentity)id,mappings);
     }
  else {
       final Identity identity=(Identity)id;

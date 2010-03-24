@@ -1,6 +1,6 @@
 {
   int count=0;
-  for (Iterator tables=config.getTableMappings(); tables.hasNext(); tables.next()) {
+  for (Iterator<?> tables=config.getTableMappings(); tables.hasNext(); tables.next()) {
     count++;
   }
   return count;

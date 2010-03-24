@@ -7,8 +7,10 @@
   }
  else {
     Table table=simpleValue.getTable();
-    List columnDefinitions=propertyConfig != null ? propertyConfig.getColumns() : Arrays.asList(new Object[]{null});
-    if (columnDefinitions.isEmpty())     columnDefinitions=Arrays.asList(new Object[]{null});
+    List<?> columnDefinitions=propertyConfig != null ? propertyConfig.getColumns() : Arrays.asList(new Object[]{null});
+    if (columnDefinitions.isEmpty()) {
+      columnDefinitions=Arrays.asList(new Object[]{null});
+    }
     for (int i=0, n=columnDefinitions.size(); i < n; i++) {
       ColumnConfig cc=(ColumnConfig)columnDefinitions.get(i);
       Column column=new Column();

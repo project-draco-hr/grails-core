@@ -5,8 +5,8 @@
     scale=constrainedProperty.getScale().intValue();
     column.setScale(scale);
   }
-  Comparable minConstraintValue=constrainedProperty.getMin();
-  Comparable maxConstraintValue=constrainedProperty.getMax();
+  Comparable<?> minConstraintValue=constrainedProperty.getMin();
+  Comparable<?> maxConstraintValue=constrainedProperty.getMax();
   int minConstraintValueLength=0;
   if ((minConstraintValue != null) && (minConstraintValue instanceof Number)) {
     minConstraintValueLength=Math.max(countDigits((Number)minConstraintValue),countDigits(new Long(((Number)minConstraintValue).longValue())) + scale);

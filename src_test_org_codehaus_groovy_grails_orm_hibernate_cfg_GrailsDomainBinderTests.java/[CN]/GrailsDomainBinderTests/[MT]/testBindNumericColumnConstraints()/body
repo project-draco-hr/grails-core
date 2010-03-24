@@ -1,7 +1,7 @@
 {
   ConstrainedProperty constrainedProperty=getConstrainedBigDecimalProperty();
-  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,new Integer(123));
-  constrainedProperty.applyConstraint(ConstrainedProperty.MIN_SIZE_CONSTRAINT,new Integer(0));
+  constrainedProperty.applyConstraint(ConstrainedProperty.MAX_SIZE_CONSTRAINT,123);
+  constrainedProperty.applyConstraint(ConstrainedProperty.MIN_SIZE_CONSTRAINT,0);
   assertColumnPrecisionAndScale(constrainedProperty,Column.DEFAULT_PRECISION,Column.DEFAULT_SCALE);
   constrainedProperty=getConstrainedBigDecimalProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new BigDecimal("123.45"));
@@ -18,17 +18,17 @@
   constrainedProperty.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(new BigDecimal("-123.45"),new BigDecimal("123")));
   assertColumnPrecisionAndScale(constrainedProperty,5,Column.DEFAULT_SCALE);
   constrainedProperty=getConstrainedBigDecimalProperty();
-  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,new Integer(4));
+  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,4);
   assertColumnPrecisionAndScale(constrainedProperty,Column.DEFAULT_PRECISION,4);
   constrainedProperty=getConstrainedBigDecimalProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new BigDecimal("123.45"));
   constrainedProperty.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,new BigDecimal("0"));
-  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,new Integer(3));
+  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,3);
   assertColumnPrecisionAndScale(constrainedProperty,6,3);
   constrainedProperty=getConstrainedBigDecimalProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new BigDecimal("123.4567"));
   constrainedProperty.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,new BigDecimal("0"));
-  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,new Integer(3));
+  constrainedProperty.applyConstraint(ConstrainedProperty.SCALE_CONSTRAINT,3);
   assertColumnPrecisionAndScale(constrainedProperty,7,3);
   constrainedProperty=getConstrainedBigDecimalProperty();
   constrainedProperty.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new BigDecimal("123.4567"));

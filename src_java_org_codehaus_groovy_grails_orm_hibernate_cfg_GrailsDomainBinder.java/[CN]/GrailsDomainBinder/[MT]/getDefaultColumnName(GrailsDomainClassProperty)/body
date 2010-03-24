@@ -4,23 +4,17 @@
     if (property.isManyToMany()) {
       return getForeignKeyForPropertyDomainClass(property);
     }
- else     if (!property.isBidirectional() && property.isOneToMany()) {
+    if (!property.isBidirectional() && property.isOneToMany()) {
       String prefix=namingStrategy.classToTableName(property.getDomainClass().getName());
       return prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX;
     }
- else {
-      if (property.isInherited() && isBidirectionalManyToOne(property)) {
-        return namingStrategy.propertyToColumnName(property.getDomainClass().getName()) + '_' + columnName+ FOREIGN_KEY_SUFFIX;
-      }
- else {
-        return columnName + FOREIGN_KEY_SUFFIX;
-      }
+    if (property.isInherited() && isBidirectionalManyToOne(property)) {
+      return namingStrategy.propertyToColumnName(property.getDomainClass().getName()) + '_' + columnName+ FOREIGN_KEY_SUFFIX;
     }
+    return columnName + FOREIGN_KEY_SUFFIX;
   }
- else   if (property.isBasicCollectionType()) {
+  if (property.isBasicCollectionType()) {
     return getForeignKeyForPropertyDomainClass(property);
   }
- else {
-    return columnName;
-  }
+  return columnName;
 }

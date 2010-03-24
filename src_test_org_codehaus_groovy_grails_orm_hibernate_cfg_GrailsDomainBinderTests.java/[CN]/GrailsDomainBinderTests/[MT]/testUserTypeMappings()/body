@@ -21,7 +21,7 @@
   Property priceProperty=persistentClass.getProperty("price");
   assertEquals(2,priceProperty.getColumnSpan());
   assertEquals("price",priceProperty.getName());
-  Iterator colIter=priceProperty.getColumnIterator();
+  Iterator<?> colIter=priceProperty.getColumnIterator();
   column=(Column)colIter.next();
   assertEquals("value",column.getName());
   assertNull("SQL type should have been 'null' for 'value' column.",column.getSqlType());

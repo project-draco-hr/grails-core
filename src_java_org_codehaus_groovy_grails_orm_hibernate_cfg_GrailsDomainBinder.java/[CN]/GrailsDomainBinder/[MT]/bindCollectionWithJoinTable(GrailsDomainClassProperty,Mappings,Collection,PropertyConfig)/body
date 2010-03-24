@@ -11,7 +11,7 @@
   String columnName;
   final boolean hasJoinColumnMapping=hasJoinColumnMapping(config);
   if (property.isBasicCollectionType()) {
-    final Class referencedType=property.getReferencedPropertyType();
+    final Class<?> referencedType=property.getReferencedPropertyType();
     String className=referencedType.getName();
     final boolean isEnum=GrailsClassUtils.isJdk5Enum(referencedType);
     if (hasJoinColumnMapping) {
@@ -21,7 +21,7 @@
       columnName=isEnum ? namingStrategy.propertyToColumnName(className) : namingStrategy.propertyToColumnName(property.getName()) + UNDERSCORE + namingStrategy.propertyToColumnName(className);
     }
     if (isEnum) {
-      bindEnumType(property,referencedType,element,columnName,"");
+      bindEnumType(property,referencedType,element,columnName);
     }
  else {
       String typeName=getTypeName(property,config,getMapping(property.getDomainClass()));
@@ -43,7 +43,7 @@
     Mapping m=getMapping(domainClass.getClazz());
     if (hasCompositeIdentifier(m)) {
       CompositeIdentity ci=(CompositeIdentity)m.getIdentity();
-      bindCompositeIdentifierToManyToOne(property,(ManyToOne)element,ci,domainClass,EMPTY_PATH);
+      bindCompositeIdentifierToManyToOne(property,element,ci,domainClass,EMPTY_PATH);
     }
  else {
       if (hasJoinColumnMapping) {

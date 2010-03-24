@@ -8,48 +8,34 @@
     if (hasJoinTableMapping) {
       return jt.getName();
     }
- else {
+    return left + UNDERSCORE + propertyColumnName;
+  }
+  if (property.isBasicCollectionType()) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    return left + UNDERSCORE + propertyColumnName;
+  }
+  String right=getTableName(property.getReferencedDomainClass());
+  if (property.isManyToMany()) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    if (property.isOwningSide()) {
       return left + UNDERSCORE + propertyColumnName;
     }
+    return right + UNDERSCORE + namingStrategy.propertyToColumnName(property.getOtherSide().getName());
   }
- else {
-    if (property.isBasicCollectionType()) {
-      if (hasJoinTableMapping) {
-        return jt.getName();
-      }
- else {
-        return left + UNDERSCORE + propertyColumnName;
-      }
+  if (shouldCollectionBindWithJoinColumn(property)) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
     }
- else {
-      String right=getTableName(property.getReferencedDomainClass());
-      if (property.isManyToMany()) {
-        if (hasJoinTableMapping) {
-          return jt.getName();
-        }
-        if (property.isOwningSide()) {
-          return left + UNDERSCORE + propertyColumnName;
-        }
- else {
-          return right + UNDERSCORE + namingStrategy.propertyToColumnName(property.getOtherSide().getName());
-        }
-      }
- else {
-        if (shouldCollectionBindWithJoinColumn(property)) {
-          if (hasJoinTableMapping) {
-            return jt.getName();
-          }
-          left=trimBackTigs(left);
-          right=trimBackTigs(right);
-          return left + UNDERSCORE + right;
-        }
-        if (property.isOwningSide()) {
-          return left + UNDERSCORE + right;
-        }
- else {
-          return right + UNDERSCORE + left;
-        }
-      }
-    }
+    left=trimBackTigs(left);
+    right=trimBackTigs(right);
+    return left + UNDERSCORE + right;
   }
+  if (property.isOwningSide()) {
+    return left + UNDERSCORE + right;
+  }
+  return right + UNDERSCORE + left;
 }

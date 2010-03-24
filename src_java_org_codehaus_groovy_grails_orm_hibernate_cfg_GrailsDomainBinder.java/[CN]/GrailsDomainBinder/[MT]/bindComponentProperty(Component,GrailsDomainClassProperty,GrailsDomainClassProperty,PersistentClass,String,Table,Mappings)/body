@@ -15,7 +15,7 @@
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
     if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
       value=new OneToOne(table,persistentClass);
-      bindOneToOne(currentGrailsProp,(OneToOne)value,path,mappings);
+      bindOneToOne(currentGrailsProp,(OneToOne)value,path);
     }
  else {
       value=new ManyToOne(table);
@@ -26,7 +26,7 @@
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
     value=new SimpleValue(table);
     if (currentGrailsProp.isEnum()) {
-      bindEnumType(currentGrailsProp,(SimpleValue)value,path,mappings);
+      bindEnumType(currentGrailsProp,(SimpleValue)value,path);
     }
  else {
       bindSimpleValue(currentGrailsProp,componentProperty,(SimpleValue)value,path,mappings);
@@ -36,7 +36,7 @@
     Property persistentProperty=createProperty(value,persistentClass,currentGrailsProp,mappings);
     component.addProperty(persistentProperty);
     if (isComponentPropertyNullable(componentProperty)) {
-      final Iterator columnIterator=value.getColumnIterator();
+      final Iterator<?> columnIterator=value.getColumnIterator();
       while (columnIterator.hasNext()) {
         Column c=(Column)columnIterator.next();
         c.setNullable(true);

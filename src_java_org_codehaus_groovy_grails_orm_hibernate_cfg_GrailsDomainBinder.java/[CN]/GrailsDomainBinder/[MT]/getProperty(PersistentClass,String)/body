@@ -6,8 +6,6 @@
     if (associatedClass.getKey() instanceof Component) {
       return ((Component)associatedClass.getKey()).getProperty(propertyName);
     }
- else {
-      throw e;
-    }
+    throw e;
   }
 }

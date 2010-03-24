@@ -1,5 +1,5 @@
 {
-  Class userType=getUserType(property);
+  Class<?> userType=getUserType(property);
   String columnName=getColumnNameForPropertyAndPath(property,path,cc);
   if ((property.isAssociation() || property.isBasicCollectionType()) && userType == null) {
     if (column.getName() == null) {
@@ -52,8 +52,8 @@
  else     if (val instanceof String) {
       createKeyForProps(property,path,table,columnName,Arrays.asList(new String[]{(String)val}));
     }
- else     if (val instanceof List && ((List)val).size() > 0) {
-      createKeyForProps(property,path,table,columnName,(List)val);
+ else     if (val instanceof List<?> && ((List<?>)val).size() > 0) {
+      createKeyForProps(property,path,table,columnName,(List<?>)val);
     }
   }
   bindIndex(column,cc,table);

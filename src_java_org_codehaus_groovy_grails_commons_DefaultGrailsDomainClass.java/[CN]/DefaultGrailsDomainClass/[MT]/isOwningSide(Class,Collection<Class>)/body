@@ -1,0 +1,10 @@
+{
+  boolean relatedOwner=false;
+  for (  Class relatedClass : owners) {
+    if (relatedClass.isAssignableFrom(relatedClassType)) {
+      relatedOwner=true;
+      break;
+    }
+  }
+  return relatedOwner;
+}

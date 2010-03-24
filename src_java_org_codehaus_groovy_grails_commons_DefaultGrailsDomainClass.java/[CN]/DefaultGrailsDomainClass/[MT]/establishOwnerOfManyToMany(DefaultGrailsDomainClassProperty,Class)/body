@@ -2,13 +2,16 @@
   ClassPropertyFetcher cpf=ClassPropertyFetcher.forClass(relatedClassType);
   Object relatedBelongsTo=cpf.getPropertyValue(GrailsDomainClassProperty.BELONGS_TO);
   boolean owningSide=false;
-  boolean relatedOwner=this.owners.contains(relatedClassType);
+  boolean relatedOwner=isOwningSide(relatedClassType,this.owners);
   final Class propertyClass=property.getDomainClass().getClazz();
   if (relatedBelongsTo instanceof Collection) {
-    owningSide=((Collection)relatedBelongsTo).contains(propertyClass);
+    final Collection associatedOwners=(Collection)relatedBelongsTo;
+    owningSide=isOwningSide(propertyClass,associatedOwners);
   }
- else   if (relatedBelongsTo != null) {
-    owningSide=relatedBelongsTo.equals(propertyClass);
+ else   if (relatedBelongsTo instanceof Class) {
+    final Collection associatedOwners=new ArrayList();
+    associatedOwners.add(relatedBelongsTo);
+    owningSide=isOwningSide(propertyClass,associatedOwners);
   }
   property.setOwningSide(owningSide);
   if (relatedOwner && property.isOwningSide()) {

@@ -17,7 +17,7 @@
     bindOneToMany(property,oneToMany,mappings);
   }
  else {
-    bindCollectionTable(property,mappings,collection);
+    bindCollectionTable(property,mappings,collection,owner.getTable());
     if (!property.isOwningSide()) {
       collection.setInverse(true);
     }

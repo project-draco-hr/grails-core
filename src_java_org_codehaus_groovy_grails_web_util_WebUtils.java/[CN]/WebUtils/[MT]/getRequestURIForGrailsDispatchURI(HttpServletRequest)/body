@@ -7,5 +7,7 @@
     }
     return path.substring(0,path.length() - DISPATCH_URI_SUFFIX.length());
   }
-  return pathHelper.getPathWithinApplication(request);
+ else {
+    return pathHelper.getPathWithinApplication(request);
+  }
 }

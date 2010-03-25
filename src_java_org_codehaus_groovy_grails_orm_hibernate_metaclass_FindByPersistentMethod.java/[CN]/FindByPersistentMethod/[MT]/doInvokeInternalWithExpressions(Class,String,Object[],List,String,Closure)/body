@@ -1,11 +1,11 @@
 {
   final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
-  return getHibernateTemplate().execute(new HibernateCallback<Object>(){
+  return super.getHibernateTemplate().execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria crit=getCriteria(session,additionalCriteria,clazz);
       if (arguments.length > 0) {
-        if (arguments[0] instanceof Map<?,?>) {
-          Map<?,?> argMap=(Map<?,?>)arguments[0];
+        if (arguments[0] instanceof Map) {
+          Map argMap=(Map)arguments[0];
           GrailsHibernateUtil.populateArgumentsForCriteria(clazz,crit,argMap);
           if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
             crit.setMaxResults(1);
@@ -30,7 +30,7 @@
           crit.add(current.getCriterion());
         }
       }
-      final List<?> list=crit.list();
+      final List list=crit.list();
       if (!list.isEmpty()) {
         return GrailsHibernateUtil.unwrapIfProxy(list.get(0));
       }

@@ -1,4 +1,5 @@
 {
+  super();
   setPattern(pattern);
   this.classLoader=classLoader;
   Assert.notNull(sessionFactory,"Session factory is required!");

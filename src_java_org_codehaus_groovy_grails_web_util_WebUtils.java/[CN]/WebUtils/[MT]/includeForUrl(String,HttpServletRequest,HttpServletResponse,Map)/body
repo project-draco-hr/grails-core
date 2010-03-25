@@ -12,7 +12,9 @@
       if (responseWrapper.getRedirectURL() != null) {
         return new IncludedContent(responseWrapper.getRedirectURL());
       }
-      return new IncludedContent(responseWrapper.getContentType(),responseWrapper.getContent());
+ else {
+        return new IncludedContent(responseWrapper.getContentType(),responseWrapper.getContent());
+      }
     }
   finally {
       WrappedResponseHolder.setWrappedResponse(wrapped);

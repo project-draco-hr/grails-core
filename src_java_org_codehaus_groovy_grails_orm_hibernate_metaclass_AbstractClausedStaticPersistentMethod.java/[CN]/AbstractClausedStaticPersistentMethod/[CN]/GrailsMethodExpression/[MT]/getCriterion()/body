@@ -3,5 +3,7 @@
   if (negation) {
     return Restrictions.not(createCriterion());
   }
-  return createCriterion();
+ else {
+    return createCriterion();
+  }
 }

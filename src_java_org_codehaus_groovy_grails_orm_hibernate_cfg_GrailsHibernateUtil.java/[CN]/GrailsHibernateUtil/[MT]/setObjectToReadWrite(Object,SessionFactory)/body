@@ -1,8 +1,8 @@
 {
   HibernateTemplate template=new HibernateTemplate(sessionFactory);
   template.setExposeNativeSession(true);
-  template.execute(new HibernateCallback<Void>(){
-    public Void doInHibernate(    Session session) throws HibernateException, SQLException {
+  template.execute(new HibernateCallback(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       if (canModifyReadWriteState(session,target)) {
         SessionImplementor sessionImpl=(SessionImplementor)session;
         EntityEntry ee=sessionImpl.getPersistenceContext().getEntry(target);

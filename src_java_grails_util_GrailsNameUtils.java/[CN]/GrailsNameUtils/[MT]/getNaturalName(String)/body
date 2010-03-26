@@ -1,4 +1,5 @@
 {
+  name=getShortName(name);
   List<String> words=new ArrayList<String>();
   int i=0;
   char[] chars=name.toCharArray();

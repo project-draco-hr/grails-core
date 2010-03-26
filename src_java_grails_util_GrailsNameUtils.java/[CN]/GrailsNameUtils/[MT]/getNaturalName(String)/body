@@ -1,5 +1,5 @@
 {
-  List words=new ArrayList();
+  List<String> words=new ArrayList<String>();
   int i=0;
   char[] chars=name.toCharArray();
   for (int j=0; j < chars.length; j++) {
@@ -10,10 +10,12 @@
       words.add(i,w);
     }
  else {
-      w=(String)words.get(i);
+      w=words.get(i);
     }
     if (Character.isLowerCase(c) || Character.isDigit(c)) {
-      if (Character.isLowerCase(c) && w.length() == 0)       c=Character.toUpperCase(c);
+      if (Character.isLowerCase(c) && w.length() == 0) {
+        c=Character.toUpperCase(c);
+      }
  else       if (w.length() > 1 && Character.isUpperCase(w.charAt(w.length() - 1))) {
         w="";
         words.add(++i,w);
@@ -30,10 +32,12 @@
     }
   }
   StringBuilder buf=new StringBuilder();
-  for (Iterator j=words.iterator(); j.hasNext(); ) {
-    String word=(String)j.next();
+  for (Iterator<String> j=words.iterator(); j.hasNext(); ) {
+    String word=j.next();
     buf.append(word);
-    if (j.hasNext())     buf.append(' ');
+    if (j.hasNext()) {
+      buf.append(' ');
+    }
   }
   return buf.toString();
 }

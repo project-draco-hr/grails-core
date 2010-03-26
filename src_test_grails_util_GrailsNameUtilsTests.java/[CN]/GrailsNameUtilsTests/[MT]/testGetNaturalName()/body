@@ -3,4 +3,6 @@
   assertEquals("URL",GrailsNameUtils.getNaturalName("URL"));
   assertEquals("Local URL",GrailsNameUtils.getNaturalName("localURL"));
   assertEquals("URL local",GrailsNameUtils.getNaturalName("URLlocal"));
+  assertEquals("My Domain Class",GrailsNameUtils.getNaturalName("MyDomainClass"));
+  assertEquals("My Domain Class",GrailsNameUtils.getNaturalName("com.myco.myapp.MyDomainClass"));
 }

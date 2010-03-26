@@ -1,0 +1,13 @@
+{
+  CompilationUnit compilationUnit=new CompilationUnit(classLoader);
+  BasicGrailsPluginInfo pluginInfo=new BasicGrailsPluginInfo();
+  try {
+    compilationUnit.addSource("dummy",pluginLocation.getInputStream());
+    compilationUnit.addPhaseOperation(new PluginReadingPhaseOperation(pluginInfo),Phases.SEMANTIC_ANALYSIS);
+    compilationUnit.compile(Phases.SEMANTIC_ANALYSIS);
+    return pluginInfo;
+  }
+ catch (  IOException e) {
+    throw new PluginException("Cannot read plugin info: " + e.getMessage());
+  }
+}

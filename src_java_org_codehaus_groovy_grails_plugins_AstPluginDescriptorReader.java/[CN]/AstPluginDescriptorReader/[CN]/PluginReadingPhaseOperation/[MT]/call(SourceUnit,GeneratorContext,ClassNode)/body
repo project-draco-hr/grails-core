@@ -1,0 +1,23 @@
+{
+  ClassCodeVisitorSupport visitor=new ClassCodeVisitorSupport(){
+    @Override public void visitProperty(    PropertyNode node){
+      String name=node.getName();
+      final String value=node.getField().getInitialExpression().getText();
+      if (wrapper.isWritableProperty(name)) {
+        wrapper.setPropertyValue(name,value);
+      }
+ else {
+        pluginInfo.setProperty(name,value);
+      }
+      super.visitProperty(node);
+    }
+    @Override protected SourceUnit getSourceUnit(){
+      return source;
+    }
+  }
+;
+  classNode.visitContents(visitor);
+  String className=classNode.getNameWithoutPackage();
+  String logicalName=GrailsNameUtils.getLogicalName(className,GrailsPluginInfo.TRAILING_NAME);
+  wrapper.setPropertyValue("name",GrailsNameUtils.getPropertyNameRepresentation(logicalName));
+}

@@ -1,6 +1,6 @@
 {
   try {
-    converter.getWriter().value(JSON_DATE_FORMAT.format((Date)object));
+    converter.getWriter().value(JSON_DATE_FORMAT.format(object));
   }
  catch (  JSONException e) {
     throw new ConverterException(e);

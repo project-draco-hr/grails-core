@@ -1,7 +1,7 @@
 {
   StringBuilder allArgs=new StringBuilder("");
   for (  String arg : args) {
-    allArgs.append(" " + arg);
+    allArgs.append(" ").append(arg);
   }
   ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
   String grailsHome=System.getProperty("grails.home");

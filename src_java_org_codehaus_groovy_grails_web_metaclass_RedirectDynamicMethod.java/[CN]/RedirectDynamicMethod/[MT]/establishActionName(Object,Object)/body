@@ -7,8 +7,7 @@
     actionName=actionRef.toString();
   }
  else   if (actionRef instanceof Closure) {
-    Closure c=(Closure)actionRef;
-    actionName=GrailsClassUtils.findPropertyNameForValue(target,c);
+    actionName=GrailsClassUtils.findPropertyNameForValue(target,actionRef);
   }
   return actionName;
 }

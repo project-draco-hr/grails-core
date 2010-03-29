@@ -1,6 +1,6 @@
 {
   CompilationUnit compilationUnit=new CompilationUnit(classLoader);
-  BasicGrailsPluginInfo pluginInfo=new BasicGrailsPluginInfo();
+  BasicGrailsPluginInfo pluginInfo=new BasicGrailsPluginInfo(pluginLocation);
   try {
     compilationUnit.addSource("dummy",pluginLocation.getInputStream());
     compilationUnit.addPhaseOperation(new PluginReadingPhaseOperation(pluginInfo),Phases.CONVERSION);

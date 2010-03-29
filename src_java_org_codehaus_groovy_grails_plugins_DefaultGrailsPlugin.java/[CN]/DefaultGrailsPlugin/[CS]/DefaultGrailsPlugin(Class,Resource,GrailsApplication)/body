@@ -1,6 +1,7 @@
 {
   super(pluginClass,application);
   this.dependencies=Collections.EMPTY_MAP;
+  this.pluginDescriptor=resource;
   this.resolver=new PathMatchingResourcePatternResolver();
   if (resource != null) {
     try {

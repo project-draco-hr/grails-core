@@ -12,7 +12,7 @@
         }
       }
  else       if (expr instanceof MapExpression) {
-        final LinkedHashMap map=new LinkedHashMap();
+        final Map map=new LinkedHashMap<String,String>();
         value=map;
         for (        MapEntryExpression mee : ((MapExpression)expr).getMapEntryExpressions()) {
           map.put(mee.getKeyExpression().getText(),mee.getValueExpression().getText());

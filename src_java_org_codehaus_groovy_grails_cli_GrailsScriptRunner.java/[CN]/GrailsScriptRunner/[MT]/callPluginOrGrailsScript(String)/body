@@ -61,6 +61,19 @@
     }
   }
   initBinding(binding);
+  final Closure doNothingClosure=new Closure(this){
+    private static final long serialVersionUID=1L;
+    @Override public Object call(    Object arguments){
+      return null;
+    }
+    @Override public Object call(){
+      return null;
+    }
+    @Override public Object call(    Object[] args){
+      return null;
+    }
+  }
+;
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
     if (potentialScripts.size() == 1) {
@@ -80,7 +93,7 @@
       gant.setUseCache(true);
       gant.setCacheDirectory(scriptCacheDir);
       gant.loadScript(scriptFile);
-      return gant.processTargets().intValue();
+      return executeWithGantInstance(gant,doNothingClosure);
     }
     if (!isInteractive) {
       out.println("More than one script with the given name is available - " + "cannot continue in non-interactive mode.");
@@ -98,7 +111,7 @@
     out.println("Running script " + ((File)potentialScripts.get(number - 1)).getAbsolutePath());
     Gant gant=new Gant(binding,classLoader);
     gant.loadScript((File)potentialScripts.get(number - 1));
-    return gant.processTargets().intValue();
+    return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");
   Gant gant=new Gant(binding,classLoader);
@@ -115,5 +128,5 @@
       }
     }
   }
-  return gant.processTargets().intValue();
+  return executeWithGantInstance(gant,doNothingClosure);
 }

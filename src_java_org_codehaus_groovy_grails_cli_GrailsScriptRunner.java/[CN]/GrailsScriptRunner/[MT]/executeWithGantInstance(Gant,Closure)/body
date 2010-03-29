@@ -1,0 +1,6 @@
+{
+  gant.prepareTargets();
+  gant.setAllPerTargetPostHooks(doNothingClosure);
+  gant.setAllPerTargetPreHooks(doNothingClosure);
+  return gant.executeTargets().intValue();
+}

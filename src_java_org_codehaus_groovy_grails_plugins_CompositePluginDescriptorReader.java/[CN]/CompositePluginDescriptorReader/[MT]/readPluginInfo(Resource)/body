@@ -1,0 +1,7 @@
+{
+  for (  PluginDescriptorReader reader : pluginDescriptorReaders) {
+    GrailsPluginInfo info=reader.readPluginInfo(r);
+    if (info != null)     return info;
+  }
+  return null;
+}

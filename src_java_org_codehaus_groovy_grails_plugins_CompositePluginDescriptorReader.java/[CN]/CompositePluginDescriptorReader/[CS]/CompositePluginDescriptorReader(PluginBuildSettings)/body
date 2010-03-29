@@ -1,0 +1,4 @@
+{
+  pluginDescriptorReaders.add(new XmlPluginDescriptorReader(pluginSettings));
+  pluginDescriptorReaders.add(new AstPluginDescriptorReader());
+}

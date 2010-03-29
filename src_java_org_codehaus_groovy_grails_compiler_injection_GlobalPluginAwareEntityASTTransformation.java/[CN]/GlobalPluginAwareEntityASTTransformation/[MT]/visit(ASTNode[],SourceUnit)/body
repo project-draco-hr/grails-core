@@ -12,7 +12,7 @@
         String absolutePath=sourcePath.getCanonicalPath();
         PluginBuildSettings pluginBuildSettings=GrailsPluginUtils.getPluginBuildSettings();
         if (pluginBuildSettings != null) {
-          PluginInfo info=pluginBuildSettings.getPluginInfoForSource(absolutePath);
+          GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(absolutePath);
           if (info != null) {
             final ClassNode annotation=new ClassNode(GrailsPlugin.class);
             final List list=classNode.getAnnotations(annotation);

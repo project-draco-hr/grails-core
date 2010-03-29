@@ -8,7 +8,7 @@
       if (!absolutePathToResource.endsWith("/"))       resource=new FileSystemResource(absolutePathToResource + '/');
       final Resource layoutPath=resource.createRelative(pathToLayoutInPlugin);
       if (layoutPath.exists()) {
-        PluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfo(absolutePathToResource);
+        GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfo(absolutePathToResource);
         pluginViewLocation=GrailsResourceUtils.WEB_INF + "/plugins/" + info.getFullName()+ '/'+ pathToLayoutInPlugin;
       }
     }

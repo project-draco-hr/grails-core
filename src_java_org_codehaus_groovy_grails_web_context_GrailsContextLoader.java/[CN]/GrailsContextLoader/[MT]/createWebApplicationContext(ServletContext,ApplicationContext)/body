@@ -18,8 +18,7 @@
   }
  catch (  Throwable e) {
     GrailsUtil.deepSanitize(e);
-    final Environment env=Environment.getCurrent();
-    if (env.isDevelopmentMode()) {
+    if (Environment.isDevelopmentMode()) {
       LOG.error("Error executing bootstraps: " + e.getMessage(),e);
       System.exit(1);
       return null;

@@ -2,7 +2,25 @@
   ClassCodeVisitorSupport visitor=new ClassCodeVisitorSupport(){
     @Override public void visitProperty(    PropertyNode node){
       String name=node.getName();
-      final String value=node.getField().getInitialExpression().getText();
+      final Expression expr=node.getField().getInitialExpression();
+      Object value;
+      if (expr instanceof ListExpression) {
+        final ArrayList list=new ArrayList();
+        value=list;
+        for (        Expression i : ((ListExpression)expr).getExpressions()) {
+          list.add(i.getText());
+        }
+      }
+ else       if (expr instanceof MapExpression) {
+        final LinkedHashMap map=new LinkedHashMap();
+        value=map;
+        for (        MapEntryExpression mee : ((MapExpression)expr).getMapEntryExpressions()) {
+          map.put(mee.getKeyExpression().getText(),mee.getValueExpression().getText());
+        }
+      }
+ else {
+        value=expr.getText();
+      }
       if (wrapper.isWritableProperty(name)) {
         wrapper.setPropertyValue(name,value);
       }

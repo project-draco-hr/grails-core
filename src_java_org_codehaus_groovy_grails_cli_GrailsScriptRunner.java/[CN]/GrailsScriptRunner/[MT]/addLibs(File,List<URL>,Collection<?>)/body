@@ -2,8 +2,7 @@
   if (!dir.exists()) {
     return;
   }
-  File[] files=dir.listFiles();
-  for (  File file : files) {
+  for (  File file : dir.listFiles()) {
     boolean include=true;
     for (    Object me : excludes) {
       String exclude=me.toString();

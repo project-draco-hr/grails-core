@@ -74,6 +74,7 @@
     }
   }
 ;
+  binding.setVariable("scriptName",scriptName);
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
     if (potentialScripts.size() == 1) {
@@ -108,9 +109,9 @@
     String enteredValue=helper.userInput("Enter #",validArgs);
     if (enteredValue == null)     return 1;
     int number=Integer.parseInt(enteredValue);
-    out.println("Running script " + ((File)potentialScripts.get(number - 1)).getAbsolutePath());
+    out.println("Running script " + potentialScripts.get(number - 1).getAbsolutePath());
     Gant gant=new Gant(binding,classLoader);
-    gant.loadScript((File)potentialScripts.get(number - 1));
+    gant.loadScript(potentialScripts.get(number - 1));
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");

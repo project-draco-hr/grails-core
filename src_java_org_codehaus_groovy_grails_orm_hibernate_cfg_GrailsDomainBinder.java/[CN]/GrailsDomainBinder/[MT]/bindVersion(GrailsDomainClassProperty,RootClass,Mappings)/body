@@ -1,7 +1,13 @@
 {
   SimpleValue val=new SimpleValue(entity.getTable());
   bindSimpleValue(version,null,val,EMPTY_PATH,mappings);
-  if (!val.isTypeSpecified()) {
+  if (val.isTypeSpecified()) {
+    if (!(val.getType() instanceof IntegerType || val.getType() instanceof LongType || val.getType() instanceof TimestampType)) {
+      LOG.warn("Invalid version class specified in " + version.getDomainClass().getClazz().getName() + "; must be one of [int, Integer, long, Long, Timestamp, Date]. Not mapping the version.");
+      return;
+    }
+  }
+ else {
     val.setTypeName("version".equals(version.getName()) ? "integer" : "timestamp");
   }
   Property prop=new Property();

@@ -12,7 +12,7 @@
       enumProperties.put(ENUM_TYPE_PROP,String.valueOf(Types.VARCHAR));
     }
  else     if (!"ordinal".equalsIgnoreCase(enumType)) {
-      LOG.warn("Invalid enumType specified when mapping property [" + property.getName() + "] of class ["+ property.getDomainClass().getClazz()+ "]. Using defaults instead.");
+      LOG.warn("Invalid enumType specified when mapping property [" + property.getName() + "] of class ["+ property.getDomainClass().getClazz().getName()+ "]. Using defaults instead.");
     }
   }
   simpleValue.setTypeParameters(enumProperties);

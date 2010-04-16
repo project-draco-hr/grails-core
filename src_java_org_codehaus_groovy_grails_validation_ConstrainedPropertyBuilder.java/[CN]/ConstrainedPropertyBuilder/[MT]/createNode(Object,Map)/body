@@ -14,7 +14,7 @@
       String constraintName=(String)o;
       final Object value=attributes.get(constraintName);
       if (SHARED_CONSTRAINT.equals(constraintName)) {
-        if (value != null)         sharedConstraints.add(value.toString());
+        if (value != null)         sharedConstraints.put(property,value.toString());
         continue;
       }
       if (cp.supportsContraint(constraintName)) {

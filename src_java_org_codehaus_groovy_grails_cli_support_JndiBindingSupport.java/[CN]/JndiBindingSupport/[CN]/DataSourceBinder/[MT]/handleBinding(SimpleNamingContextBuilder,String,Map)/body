@@ -1,0 +1,9 @@
+{
+  try {
+    Object ds=BeanUtils.instantiate(Class.forName("org.apache.commons.dbcp.BasicDataSource",true,Thread.currentThread().getContextClassLoader()));
+    bindProperties(ds,entryProperties);
+    builder.bind(entryName,ds);
+  }
+ catch (  Exception e) {
+  }
+}

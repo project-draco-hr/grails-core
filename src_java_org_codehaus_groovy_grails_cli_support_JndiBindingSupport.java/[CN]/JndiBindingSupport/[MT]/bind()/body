@@ -1,0 +1,44 @@
+{
+  SimpleNamingContextBuilder builder=new SimpleNamingContextBuilder();
+  if (jndiConfig != null) {
+    for (    Object o : jndiConfig.entrySet()) {
+      Map.Entry entry=(Map.Entry)o;
+      Object propsObj=entry.getValue();
+      final String entryName=entry.getKey().toString();
+      if (propsObj instanceof Map) {
+        Map<String,Object> props=(Map)propsObj;
+        Object typeObj=props.get(TYPE);
+        if (typeObj != null) {
+          props.remove(TYPE);
+          String type=typeObj.toString();
+          JndiBindingHandler handler=jndiBinders.get(type);
+          if (handler != null) {
+            handler.handleBinding(builder,entryName,props);
+          }
+ else {
+            try {
+              Class c=Class.forName(type,true,Thread.currentThread().getContextClassLoader());
+              Object beanObj=BeanUtils.instantiate(c);
+              bindProperties(beanObj,props);
+              builder.bind(entryName,beanObj);
+            }
+ catch (            BeanInstantiationException e) {
+            }
+catch (            ClassNotFoundException e) {
+            }
+          }
+        }
+      }
+ else {
+        builder.bind(entryName,propsObj);
+      }
+    }
+  }
+  try {
+    builder.activate();
+    return builder.createInitialContextFactory(null).getInitialContext(null);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

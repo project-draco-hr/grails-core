@@ -5,5 +5,6 @@
   moduleDescriptor.addConfiguration(RUNTIME_CONFIGURATION);
   moduleDescriptor.addConfiguration(TEST_CONFIGURATION);
   moduleDescriptor.addConfiguration(PROVIDED_CONFIGURATION);
+  moduleDescriptor.addConfiguration(DOCS_CONFIGURATION);
   return moduleDescriptor;
 }

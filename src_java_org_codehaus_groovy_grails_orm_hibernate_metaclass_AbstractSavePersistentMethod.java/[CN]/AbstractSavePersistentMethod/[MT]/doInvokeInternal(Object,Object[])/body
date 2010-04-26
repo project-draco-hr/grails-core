@@ -42,14 +42,18 @@
   if (domainClass != null) {
     autoRetrieveAssocations(domainClass,target);
   }
-  if (!shouldValidate)   disableAutoValidationFor.set(target);
-  Object retval;
-  if (shouldInsert(arguments)) {
-    retval=performInsert(target,shouldFlush);
-  }
+  try {
+    if (!shouldValidate)     disableAutoValidationFor.set(target);
+    Object retval;
+    if (shouldInsert(arguments)) {
+      retval=performInsert(target,shouldFlush);
+    }
  else {
-    retval=performSave(target,shouldFlush);
+      retval=performSave(target,shouldFlush);
+    }
+    return retval;
   }
-  if (!shouldValidate)   disableAutoValidationFor.remove();
-  return retval;
+  finally {
+    if (!shouldValidate)     disableAutoValidationFor.remove();
+  }
 }

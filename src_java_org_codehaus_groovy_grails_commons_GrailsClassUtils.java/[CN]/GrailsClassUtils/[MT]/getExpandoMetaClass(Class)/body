@@ -1,8 +1,5 @@
 {
   MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
-  if (!(registry.getMetaClassCreationHandler() instanceof ExpandoMetaClassCreationHandle)) {
-    ExpandoMetaClass.enableGlobally();
-  }
   MetaClass mc=registry.getMetaClass(clazz);
   AdaptingMetaClass adapter=null;
   if (mc instanceof AdaptingMetaClass) {
@@ -12,6 +9,11 @@
   if (!(mc instanceof ExpandoMetaClass)) {
     registry.removeMetaClass(clazz);
     mc=registry.getMetaClass(clazz);
+    if (!(mc instanceof ExpandoMetaClass)) {
+      registry.removeMetaClass(clazz);
+      mc=new ExpandoMetaClass(clazz,true,true);
+      registry.setMetaClass(clazz,mc);
+    }
     if (adapter != null) {
       adapter.setAdaptee(mc);
     }

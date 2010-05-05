@@ -3,7 +3,6 @@
     throw new IllegalArgumentException("Clazz parameter should not be null");
   }
   this.clazz=clazz;
-  this.grailsClassMetaClass=GrailsClassUtils.getExpandoMetaClass(clazz);
   this.fullName=clazz.getName();
   this.packageName=ClassUtils.getPackageName(clazz);
   this.naturalName=GrailsNameUtils.getNaturalName(clazz.getName());

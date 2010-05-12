@@ -1,6 +1,8 @@
 {
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
-  if (shouldValidate(arguments,domainClass)) {
+  boolean shouldFlush=shouldFlush(arguments);
+  boolean shouldValidate=shouldValidate(arguments,domainClass);
+  if (shouldValidate) {
     Validator validator=domainClass.getValidator();
     Errors errors=setupErrorsProperty(target);
     if (validator != null) {
@@ -34,13 +36,20 @@
       }
     }
   }
+ else {
+    shouldFlush=true;
+  }
   if (domainClass != null) {
     autoRetrieveAssocations(domainClass,target);
   }
+  if (!shouldValidate)   disableAutoValidationFor.set(target);
+  Object retval;
   if (shouldInsert(arguments)) {
-    return performInsert(target,shouldFlush(arguments));
+    retval=performInsert(target,shouldFlush);
   }
  else {
-    return performSave(target,shouldFlush(arguments));
+    retval=performSave(target,shouldFlush);
   }
+  if (!shouldValidate)   disableAutoValidationFor.remove();
+  return retval;
 }

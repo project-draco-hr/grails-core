@@ -1,5 +1,5 @@
 {
-  File scriptCacheDir=new File(settings.getGrailsWorkDir(),"scriptCache");
+  File scriptCacheDir=new File(settings.getProjectWorkDir(),"scriptCache");
   URLClassLoader classLoader;
   try {
     Set<String> existingJars=new HashSet<String>();

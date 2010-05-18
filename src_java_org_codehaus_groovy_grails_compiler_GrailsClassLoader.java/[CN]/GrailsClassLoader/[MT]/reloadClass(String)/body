@@ -6,7 +6,7 @@
     clearCache();
     try {
       inputStream=resourceURL.getInputStream();
-      Class reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),name);
+      Class<?> reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),name);
       compilationErrors.remove(name);
       innerClassLoaderMap.put(name,innerLoader);
       return reloadedClass;
@@ -19,13 +19,7 @@ catch (    IOException e) {
       throw new CompilationFailedException("Error opening stream to class " + name + " with URL "+ resourceURL,e);
     }
  finally {
-      try {
-        if (inputStream != null) {
-          inputStream.close();
-        }
-      }
- catch (      IOException e) {
-      }
+      IOUtils.closeQuietly(inputStream);
     }
   }
  catch (  MalformedURLException e) {

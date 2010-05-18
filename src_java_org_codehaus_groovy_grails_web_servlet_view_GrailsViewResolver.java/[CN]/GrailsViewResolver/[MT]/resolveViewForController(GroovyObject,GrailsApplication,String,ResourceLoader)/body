@@ -13,7 +13,7 @@
     gspView=localPrefix + viewName + GSP_SUFFIX;
   }
   if (LOG.isDebugEnabled()) {
-    LOG.debug("Attempting to resolve view for URI [" + gspView + "] using ResourceLoader ["+ resourceLoader.getClass()+ "]");
+    LOG.debug("Attempting to resolve view for URI [" + gspView + "] using ResourceLoader ["+ loader.getClass().getName()+ "]");
   }
   return gspView;
 }

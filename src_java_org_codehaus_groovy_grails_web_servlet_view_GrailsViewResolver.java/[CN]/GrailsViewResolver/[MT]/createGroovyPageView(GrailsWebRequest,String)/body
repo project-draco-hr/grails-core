@@ -5,7 +5,7 @@
   GroovyPageView gspSpringView=new GroovyPageView();
   gspSpringView.setServletContext(webRequest.getServletContext());
   gspSpringView.setUrl(gspView);
-  gspSpringView.setApplicationContext(this.getApplicationContext());
+  gspSpringView.setApplicationContext(getApplicationContext());
   gspSpringView.setTemplateEngine(templateEngine);
   return gspSpringView;
 }

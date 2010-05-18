@@ -2,7 +2,7 @@
   if (queryParameter.endsWith(LESS_THAN_OR_EQUAL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,LESS_THAN_OR_EQUAL),LESS_THAN_OR_EQUAL,1,isNegation(queryParameter,LESS_THAN_OR_EQUAL)){
       @Override Criterion createCriterion(){
-        return Restrictions.le(this.propertyName,arguments[0]);
+        return Restrictions.le(propertyName,arguments[0]);
       }
     }
 ;
@@ -10,8 +10,8 @@
   if (queryParameter.endsWith(LESS_THAN)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,LESS_THAN),LESS_THAN,1,isNegation(queryParameter,LESS_THAN)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return Restrictions.lt(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return Restrictions.lt(propertyName,arguments[0]);
       }
     }
 ;
@@ -19,8 +19,8 @@
   if (queryParameter.endsWith(GREATER_THAN_OR_EQUAL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,GREATER_THAN_OR_EQUAL),GREATER_THAN_OR_EQUAL,1,isNegation(queryParameter,GREATER_THAN_OR_EQUAL)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return Restrictions.ge(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return Restrictions.ge(propertyName,arguments[0]);
       }
     }
 ;
@@ -28,8 +28,8 @@
   if (queryParameter.endsWith(GREATER_THAN)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,GREATER_THAN),GREATER_THAN,1,isNegation(queryParameter,GREATER_THAN)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return Restrictions.gt(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return Restrictions.gt(propertyName,arguments[0]);
       }
     }
 ;
@@ -37,8 +37,8 @@
   if (queryParameter.endsWith(LIKE)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,LIKE),LIKE,1,isNegation(queryParameter,LIKE)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return Restrictions.like(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return Restrictions.like(propertyName,arguments[0]);
       }
     }
 ;
@@ -46,8 +46,8 @@
   if (queryParameter.endsWith(ILIKE)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,ILIKE),ILIKE,1,isNegation(queryParameter,ILIKE)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return Restrictions.ilike(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return Restrictions.ilike(propertyName,arguments[0]);
       }
     }
 ;
@@ -55,8 +55,8 @@
   if (queryParameter.endsWith(RLIKE)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,RLIKE),RLIKE,1,isNegation(queryParameter,RLIKE)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNull(this.propertyName);
-        return new RlikeExpression(this.propertyName,arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNull(propertyName);
+        return new RlikeExpression(propertyName,arguments[0]);
       }
     }
 ;
@@ -64,7 +64,7 @@
   if (queryParameter.endsWith(IS_NOT_NULL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IS_NOT_NULL),IS_NOT_NULL,0,isNegation(queryParameter,IS_NOT_NULL)){
       @Override Criterion createCriterion(){
-        return Restrictions.isNotNull(this.propertyName);
+        return Restrictions.isNotNull(propertyName);
       }
     }
 ;
@@ -72,7 +72,7 @@
   if (queryParameter.endsWith(IS_NULL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IS_NULL),IS_NULL,0,isNegation(queryParameter,IS_NULL)){
       @Override Criterion createCriterion(){
-        return Restrictions.isNull(this.propertyName);
+        return Restrictions.isNull(propertyName);
       }
     }
 ;
@@ -80,15 +80,15 @@
   if (queryParameter.endsWith(BETWEEN)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,BETWEEN),BETWEEN,2,isNegation(queryParameter,BETWEEN)){
       @Override Criterion createCriterion(){
-        return Restrictions.between(this.propertyName,this.arguments[0],this.arguments[1]);
+        return Restrictions.between(propertyName,arguments[0],arguments[1]);
       }
     }
 ;
   }
   if (queryParameter.endsWith(IN_LIST)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IN_LIST),IN_LIST,1,isNegation(queryParameter,IN_LIST)){
-      @Override Criterion createCriterion(){
-        return Restrictions.in(this.propertyName,(Collection)this.arguments[0]);
+      @SuppressWarnings("unchecked") @Override Criterion createCriterion(){
+        return Restrictions.in(propertyName,(Collection)arguments[0]);
       }
     }
 ;
@@ -96,16 +96,16 @@
   if (queryParameter.endsWith(NOT_EQUAL)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,NOT_EQUAL),NOT_EQUAL,1,isNegation(queryParameter,NOT_EQUAL)){
       @Override Criterion createCriterion(){
-        if (arguments[0] == null)         return Restrictions.isNotNull(this.propertyName);
-        return Restrictions.ne(this.propertyName,this.arguments[0]);
+        if (arguments[0] == null)         return Restrictions.isNotNull(propertyName);
+        return Restrictions.ne(propertyName,arguments[0]);
       }
     }
 ;
   }
   return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,null),EQUAL,1,isNegation(queryParameter,EQUAL)){
     @Override Criterion createCriterion(){
-      if (arguments[0] == null)       return Restrictions.isNull(this.propertyName);
-      return Restrictions.eq(this.propertyName,this.arguments[0]);
+      if (arguments[0] == null)       return Restrictions.isNull(propertyName);
+      return Restrictions.eq(propertyName,arguments[0]);
     }
   }
 ;

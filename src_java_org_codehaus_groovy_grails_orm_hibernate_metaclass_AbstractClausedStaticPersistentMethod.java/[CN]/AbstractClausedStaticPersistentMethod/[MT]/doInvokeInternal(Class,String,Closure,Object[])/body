@@ -21,7 +21,7 @@
       booleanProperty=booleanProperty.substring(3);
       arg=Boolean.FALSE;
     }
-    GrailsMethodExpression booleanExpression=GrailsMethodExpression.create(this.application,clazz,booleanProperty);
+    GrailsMethodExpression booleanExpression=GrailsMethodExpression.create(application,clazz,booleanProperty);
     booleanExpression.setArguments(new Object[]{arg});
     expressions.add(booleanExpression);
   }
@@ -35,16 +35,18 @@
       Matcher currentMatcher=operatorPatterns[i].matcher(querySequence);
       if (currentMatcher.find()) {
         containsOperator=true;
-        operatorInUse=this.operators[i];
+        operatorInUse=operators[i];
         queryParameters=new String[2];
         queryParameters[0]=currentMatcher.group(1);
         queryParameters[1]=currentMatcher.group(3) + currentMatcher.group(4);
         int argumentCursor=0;
         for (        String queryParameter : queryParameters) {
-          GrailsMethodExpression currentExpression=GrailsMethodExpression.create(this.application,clazz,queryParameter);
+          GrailsMethodExpression currentExpression=GrailsMethodExpression.create(application,clazz,queryParameter);
           totalRequiredArguments+=currentExpression.argumentsRequired;
           Object[] currentArguments=new Object[currentExpression.argumentsRequired];
-          if ((argumentCursor + currentExpression.argumentsRequired) > arguments.length)           throw new MissingMethodException(methodName,clazz,arguments);
+          if ((argumentCursor + currentExpression.argumentsRequired) > arguments.length) {
+            throw new MissingMethodException(methodName,clazz,arguments);
+          }
           for (int k=0; k < currentExpression.argumentsRequired; k++, argumentCursor++) {
             currentArguments[k]=arguments[argumentCursor];
           }
@@ -62,8 +64,10 @@
     }
   }
   if (!containsOperator && querySequence != null) {
-    GrailsMethodExpression solo=GrailsMethodExpression.create(this.application,clazz,querySequence);
-    if (solo.argumentsRequired > arguments.length)     throw new MissingMethodException(methodName,clazz,arguments);
+    GrailsMethodExpression solo=GrailsMethodExpression.create(application,clazz,querySequence);
+    if (solo.argumentsRequired > arguments.length) {
+      throw new MissingMethodException(methodName,clazz,arguments);
+    }
     totalRequiredArguments+=solo.argumentsRequired;
     Object[] soloArgs=new Object[solo.argumentsRequired];
     System.arraycopy(arguments,0,soloArgs,0,solo.argumentsRequired);
@@ -76,13 +80,17 @@
     }
     expressions.add(solo);
   }
-  if (totalRequiredArguments > arguments.length)   throw new MissingMethodException(methodName,clazz,arguments);
+  if (totalRequiredArguments > arguments.length) {
+    throw new MissingMethodException(methodName,clazz,arguments);
+  }
   Object[] remainingArguments=new Object[arguments.length - totalRequiredArguments];
   if (remainingArguments.length > 0) {
     for (int i=0, j=totalRequiredArguments; i < remainingArguments.length; i++, j++) {
       remainingArguments[i]=arguments[j];
     }
   }
-  if (LOG.isTraceEnabled())   LOG.trace("Calculated expressions: " + expressions);
+  if (LOG.isTraceEnabled()) {
+    LOG.trace("Calculated expressions: " + expressions);
+  }
   return doInvokeInternalWithExpressions(clazz,methodName,remainingArguments,expressions,operatorInUse,additionalCriteria);
 }

@@ -1,6 +1,6 @@
 {
   final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
-  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+  return super.getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       final Criteria c=getCriteria(session,additionalCriteria,clazz);
       Map argsMap=(arguments.length > 0 && (arguments[0] instanceof Map)) ? (Map)arguments[0] : Collections.EMPTY_MAP;

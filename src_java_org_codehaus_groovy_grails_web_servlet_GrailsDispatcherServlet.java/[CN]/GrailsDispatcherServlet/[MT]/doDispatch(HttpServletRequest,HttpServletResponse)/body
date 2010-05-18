@@ -20,7 +20,9 @@
     ModelAndView mv;
     try {
       Object exceptionAttribute=request.getAttribute(EXCEPTION_ATTRIBUTE);
-      if (exceptionAttribute == null)       processedRequest=checkMultipart(request);
+      if (exceptionAttribute == null) {
+        processedRequest=checkMultipart(request);
+      }
       previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
       copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
@@ -59,7 +61,9 @@
  catch (    ModelAndViewDefiningException ex) {
       GrailsUtil.deepSanitize(ex);
       handlerException=ex;
-      if (logger.isDebugEnabled())       logger.debug("ModelAndViewDefiningException encountered",ex);
+      if (logger.isDebugEnabled()) {
+        logger.debug("ModelAndViewDefiningException encountered",ex);
+      }
       mv=ex.getModelAndView();
     }
 catch (    Exception ex) {
@@ -96,7 +100,9 @@ catch (  Error err) {
   }
  finally {
     if (processedRequest instanceof MultipartHttpServletRequest && processedRequest != request) {
-      if (multipartResolver != null)       this.multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
+      if (multipartResolver != null) {
+        multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
+      }
     }
     request.removeAttribute(MultipartHttpServletRequest.class.getName());
     if (requestAttributes != null) {

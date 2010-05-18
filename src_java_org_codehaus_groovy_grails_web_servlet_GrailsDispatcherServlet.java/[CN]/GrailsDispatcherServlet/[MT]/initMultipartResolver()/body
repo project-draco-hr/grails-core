@@ -1,12 +1,12 @@
 {
   try {
-    this.multipartResolver=getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
+    multipartResolver=getWebApplicationContext().getBean(MULTIPART_RESOLVER_BEAN_NAME,MultipartResolver.class);
     if (logger.isInfoEnabled()) {
-      logger.info("Using MultipartResolver [" + this.multipartResolver + "]");
+      logger.info("Using MultipartResolver [" + multipartResolver + "]");
     }
   }
  catch (  NoSuchBeanDefinitionException ex) {
-    this.multipartResolver=null;
+    multipartResolver=null;
     if (logger.isInfoEnabled()) {
       logger.info("Unable to locate MultipartResolver with name '" + MULTIPART_RESOLVER_BEAN_NAME + "': no multipart request handling provided");
     }

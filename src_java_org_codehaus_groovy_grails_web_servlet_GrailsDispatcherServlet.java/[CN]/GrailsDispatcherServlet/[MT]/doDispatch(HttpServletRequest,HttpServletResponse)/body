@@ -1,8 +1,8 @@
 {
+  request.setAttribute(LOCALE_RESOLVER_ATTRIBUTE,localeResolver);
   HttpServletRequest processedRequest=request;
   HandlerExecutionChain mappedHandler=null;
   int interceptorIndex=-1;
-  final LocaleResolver localeResolver=(LocaleResolver)request.getAttribute(LOCALE_RESOLVER_ATTRIBUTE);
   LocaleContext previousLocaleContext=LocaleContextHolder.getLocaleContext();
   LocaleContextHolder.setLocaleContext(new LocaleContext(){
     public Locale getLocale(){

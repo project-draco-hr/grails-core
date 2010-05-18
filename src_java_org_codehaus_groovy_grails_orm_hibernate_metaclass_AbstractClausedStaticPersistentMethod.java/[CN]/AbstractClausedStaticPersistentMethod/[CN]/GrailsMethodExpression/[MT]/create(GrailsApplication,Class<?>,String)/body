@@ -88,7 +88,11 @@
   if (queryParameter.endsWith(IN_LIST)) {
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IN_LIST),IN_LIST,1,isNegation(queryParameter,IN_LIST)){
       @SuppressWarnings("unchecked") @Override Criterion createCriterion(){
-        return Restrictions.in(propertyName,(Collection)arguments[0]);
+        Collection collection=(Collection)arguments[0];
+        if (collection.isEmpty()) {
+          return FORCE_NO_RESULTS;
+        }
+        return Restrictions.in(propertyName,collection);
       }
     }
 ;

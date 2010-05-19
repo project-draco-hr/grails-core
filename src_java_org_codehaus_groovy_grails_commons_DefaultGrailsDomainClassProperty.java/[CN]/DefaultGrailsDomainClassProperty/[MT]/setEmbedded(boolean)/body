@@ -1,6 +1,6 @@
 {
-  this.embedded=isEmbedded;
+  embedded=isEmbedded;
   if (isEmbedded) {
-    this.component=new ComponentDomainClass(getType());
+    component=new ComponentDomainClass(getType());
   }
 }

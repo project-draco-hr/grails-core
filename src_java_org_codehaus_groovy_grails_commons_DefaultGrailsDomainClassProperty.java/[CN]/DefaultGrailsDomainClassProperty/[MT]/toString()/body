@@ -15,5 +15,5 @@
  else   if (isEmbedded()) {
     assType="embedded";
   }
-  return new ToStringBuilder(this).append("name",this.name).append("type",this.type).append("persistent",isPersistent()).append("optional",isOptional()).append("association",isAssociation()).append("bidirectional",isBidirectional()).append("association-type",assType).toString();
+  return new ToStringBuilder(this).append("name",name).append("type",type).append("persistent",isPersistent()).append("optional",isOptional()).append("association",isAssociation()).append("bidirectional",isBidirectional()).append("association-type",assType).toString();
 }

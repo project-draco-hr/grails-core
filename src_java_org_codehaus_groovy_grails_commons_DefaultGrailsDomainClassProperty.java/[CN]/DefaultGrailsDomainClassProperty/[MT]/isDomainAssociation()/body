@@ -1,3 +1,3 @@
 {
-  return (Collection.class.isAssignableFrom(this.type) || Map.class.isAssignableFrom(this.type)) && this.referencedPropertyType != null;
+  return (Collection.class.isAssignableFrom(type) || Map.class.isAssignableFrom(type)) && referencedPropertyType != null;
 }

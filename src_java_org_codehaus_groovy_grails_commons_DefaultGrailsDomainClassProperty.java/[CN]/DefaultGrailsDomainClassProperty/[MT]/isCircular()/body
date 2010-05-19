@@ -1,8 +1,10 @@
 {
-  if (this.otherSide != null) {
-    if (this.otherSide.getDomainClass().getClazz().isAssignableFrom(this.domainClass.getClazz()))     return true;
+  if (otherSide != null) {
+    if (otherSide.getDomainClass().getClazz().isAssignableFrom(domainClass.getClazz())) {
+      return true;
+    }
   }
- else   if (this.getReferencedPropertyType().isAssignableFrom(this.domainClass.getClazz())) {
+ else   if (getReferencedPropertyType().isAssignableFrom(domainClass.getClazz())) {
     return true;
   }
   return false;

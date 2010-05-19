@@ -1,15 +1,17 @@
 {
-  Class relatedClassType=getRelatedClassType(property.getName());
+  Class<?> relatedClassType=getRelatedClassType(property.getName());
   if (relatedClassType != null) {
     property.setReferencedPropertyType(relatedClassType);
     if (DomainClassArtefactHandler.isDomainClass(relatedClassType)) {
       Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(relatedClassType);
-      Class relatedClassPropertyType=null;
-      String mappingProperty=(String)this.mappedBy.get(property.getName());
+      Class<?> relatedClassPropertyType=null;
+      String mappingProperty=(String)mappedBy.get(property.getName());
       if (!StringUtils.isBlank(mappingProperty)) {
         PropertyDescriptor pd=findProperty(GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz()),mappingProperty);
         if (pd == null)         pd=findProperty(GrailsClassUtils.getPropertiesAssignableToType(relatedClassType,Collection.class),mappingProperty);
-        if (pd == null)         throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
+        if (pd == null) {
+          throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
+        }
         relatedClassPropertyType=pd.getPropertyType();
         property.setReferencePropertyName(pd.getName());
       }
@@ -21,7 +23,7 @@
             String currentKey=(String)o;
             String mappedByProperty=(String)relatedClassMappedBy.get(currentKey);
             if (mappedByProperty != null && !mappedByProperty.equals(property.getName()))             continue;
-            Class currentClass=(Class)relatedClassRelationships.get(currentKey);
+            Class<?> currentClass=(Class<?>)relatedClassRelationships.get(currentKey);
             if (currentClass.isAssignableFrom(getClazz())) {
               relatedClassPropertyName=currentKey;
               break;

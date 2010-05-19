@@ -1,11 +1,11 @@
 {
   if (defaultConstraints != null) {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),this.persistentProperties,defaultConstraints);
+    constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),persistentProperties,defaultConstraints);
   }
  else {
-    this.constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),this.persistentProperties);
+    constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),persistentProperties);
   }
-  for (  GrailsDomainClassProperty property : this.persistentProperties) {
+  for (  GrailsDomainClassProperty property : persistentProperties) {
     if (property.isEmbedded()) {
       property.getComponent().refreshConstraints();
     }

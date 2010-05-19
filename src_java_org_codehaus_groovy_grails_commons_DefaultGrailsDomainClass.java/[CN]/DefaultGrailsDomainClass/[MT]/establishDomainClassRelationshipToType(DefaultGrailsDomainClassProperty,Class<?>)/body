@@ -15,6 +15,8 @@
       property.setHasOne(true);
     }
     property.setOneToOne(true);
-    if (!getClazz().equals(relatedClassPropertyType))     property.setBidirectional(true);
+    if (!getClazz().equals(relatedClassPropertyType)) {
+      property.setBidirectional(true);
+    }
   }
 }

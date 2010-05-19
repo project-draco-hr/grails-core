@@ -1,12 +1,12 @@
 {
-  Class propType=property.getType();
+  Class<?> propType=property.getType();
   if (embedded.contains(property.getName())) {
     property.setEmbedded(true);
     return;
   }
   Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(propType);
   Map mappedBy=GrailsDomainConfigurationUtil.getMappedByMap(propType);
-  Class relatedClassPropertyType=null;
+  Class<?> relatedClassPropertyType=null;
   if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
     String relatedClassPropertyName=findOneToManyThatMatchesType(property,relatedClassRelationships);
     PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(getClazz(),property.getType());
@@ -21,7 +21,7 @@
         for (        Object o : mappedBy.keySet()) {
           String mappedByPropertyName=(String)o;
           if (property.getName().equals(mappedBy.get(mappedByPropertyName))) {
-            Class mappedByRelatedType=(Class)relatedClassRelationships.get(mappedByPropertyName);
+            Class<?> mappedByRelatedType=(Class<?>)relatedClassRelationships.get(mappedByPropertyName);
             if (mappedByRelatedType != null && propType.isAssignableFrom(mappedByRelatedType))             relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,mappedByPropertyName);
           }
         }

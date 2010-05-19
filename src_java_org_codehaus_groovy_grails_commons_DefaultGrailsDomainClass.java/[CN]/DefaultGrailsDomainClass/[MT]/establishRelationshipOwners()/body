@@ -1,19 +1,19 @@
 {
-  Class belongsTo=getStaticPropertyValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
+  Class<?> belongsTo=getStaticPropertyValue(GrailsDomainClassProperty.BELONGS_TO,Class.class);
   if (belongsTo == null) {
     List ownersProp=getStaticPropertyValue(GrailsDomainClassProperty.BELONGS_TO,List.class);
     if (ownersProp != null) {
-      this.owners=ownersProp;
+      owners=ownersProp;
     }
  else {
       Map ownersMap=getStaticPropertyValue(GrailsDomainClassProperty.BELONGS_TO,Map.class);
       if (ownersMap != null) {
-        this.owners=new ArrayList(ownersMap.values());
+        owners=new ArrayList(ownersMap.values());
       }
     }
   }
  else {
-    this.owners=new ArrayList();
-    this.owners.add(belongsTo);
+    owners=new ArrayList();
+    owners.add(belongsTo);
   }
 }

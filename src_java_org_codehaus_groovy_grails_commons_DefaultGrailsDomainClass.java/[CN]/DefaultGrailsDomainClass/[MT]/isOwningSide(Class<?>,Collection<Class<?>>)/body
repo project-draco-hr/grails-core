@@ -1,6 +1,6 @@
 {
   boolean relatedOwner=false;
-  for (  Class relatedClass : owners) {
+  for (  Class<?> relatedClass : potentialOwners) {
     if (relatedClass.isAssignableFrom(relatedClassType)) {
       relatedOwner=true;
       break;

@@ -1,8 +1,8 @@
 {
-  for (  Object o : this.propertyMap.values()) {
+  for (  Object o : propertyMap.values()) {
     DefaultGrailsDomainClassProperty currentProp=(DefaultGrailsDomainClassProperty)o;
     if (!currentProp.isPersistent())     continue;
-    Class currentPropType=currentProp.getType();
+    Class<?> currentPropType=currentProp.getType();
     if (Collection.class.isAssignableFrom(currentPropType) || Map.class.isAssignableFrom(currentPropType)) {
       establishRelationshipForCollection(currentProp);
     }

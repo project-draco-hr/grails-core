@@ -1,5 +1,8 @@
 {
   for (  PropertyDescriptor descriptor : propertyDescriptors) {
+    if (descriptor.getPropertyType() == null) {
+      continue;
+    }
     if (GrailsDomainConfigurationUtil.isNotConfigurational(descriptor)) {
       GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
       propertyMap.put(property.getName(),property);

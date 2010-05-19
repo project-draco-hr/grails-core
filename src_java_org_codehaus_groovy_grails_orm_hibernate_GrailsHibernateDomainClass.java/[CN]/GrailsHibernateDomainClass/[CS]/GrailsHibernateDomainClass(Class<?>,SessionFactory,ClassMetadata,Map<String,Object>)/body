@@ -2,19 +2,19 @@
   super(clazz,"");
   new StandardAnnotationMetadata(clazz);
   String ident=metaData.getIdentifierPropertyName();
-  this.defaultConstraints=defaultContraints;
+  this.defaultConstraints=defaultConstraints;
   if (ident != null) {
-    Class identType=getPropertyType(ident);
-    this.identifier=new GrailsHibernateDomainClassProperty(this,ident);
-    this.identifier.setIdentity(true);
-    this.identifier.setType(identType);
+    Class<?> identType=getPropertyType(ident);
+    identifier=new GrailsHibernateDomainClassProperty(this,ident);
+    identifier.setIdentity(true);
+    identifier.setType(identType);
     propertyMap.put(ident,identifier);
   }
   final int versionIndex=metaData.getVersionProperty();
   String versionPropertyName=null;
   if (versionIndex > -1) {
     versionPropertyName=metaData.getPropertyNames()[versionIndex];
-    this.version=new GrailsHibernateDomainClassProperty(this,versionPropertyName);
+    version=new GrailsHibernateDomainClassProperty(this,versionPropertyName);
   }
   String[] propertyNames=metaData.getPropertyNames();
   for (  String propertyName : propertyNames) {
@@ -25,7 +25,9 @@
       if (hibernateType.isAssociationType()) {
         prop.setAssociation(true);
         AssociationType assType=(AssociationType)hibernateType;
-        if (assType instanceof AnyType)         continue;
+        if (assType instanceof AnyType) {
+          continue;
+        }
         try {
           String associatedEntity=assType.getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
           ClassMetadata associatedMetaData=sessionFactory.getClassMetadata(associatedEntity);
@@ -47,6 +49,6 @@
       propertyMap.put(propertyName,prop);
     }
   }
-  this.properties=propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
-  evaluateConstraints(defaultContraints);
+  properties=propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
+  evaluateConstraints();
 }

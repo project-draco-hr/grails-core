@@ -1,10 +1,10 @@
 {
   if (!configLocked) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("[GrailsAnnotationConfiguration] [" + this.domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
+      LOG.debug("[GrailsAnnotationConfiguration] [" + domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
     }
     DefaultGrailsDomainConfiguration.configureDomainBinder(grailsApplication,domainClasses);
-    for (    GrailsDomainClass domainClass : this.domainClasses) {
+    for (    GrailsDomainClass domainClass : domainClasses) {
       final String fullClassName=domainClass.getFullName();
       String hibernateConfig=fullClassName.replace('.','/') + ".hbm.xml";
       final ClassLoader loader=Thread.currentThread().getContextClassLoader();
@@ -19,5 +19,5 @@
     }
   }
   super.secondPassCompile();
-  this.configLocked=true;
+  configLocked=true;
 }

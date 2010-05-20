@@ -1,6 +1,6 @@
 SessionFactory sessionFactory
 GrailsApplication application
 ClassMetadata cmd
-Class persistentClass
-Map hibernateDomainClassMap
+Class<?> persistentClass
+Map<String,GrailsDomainClass> hibernateDomainClassMap
 Map defaultContraints

@@ -1,5 +1,5 @@
 {
-  Class configClass=GrailsAnnotationConfiguration.class;
+  Class<?> configClass=GrailsAnnotationConfiguration.class;
   final ClassLoader classLoader=parserContext.getReaderContext().getBeanClassLoader();
   final String configClassName=element.getAttribute(CONFIG_CLASS_ATTRIBUTE);
   if (StringUtils.hasText(configClassName)) {

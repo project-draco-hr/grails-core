@@ -2,7 +2,7 @@
   for (  Object o : hibernateDomainClassMap.values()) {
     GrailsDomainClass baseClass=(GrailsDomainClass)o;
     if (!baseClass.isRoot()) {
-      Class superClass=baseClass.getClazz().getSuperclass();
+      Class<?> superClass=baseClass.getClazz().getSuperclass();
       while (!superClass.equals(Object.class) && !superClass.equals(GroovyObject.class)) {
         GrailsDomainClass gdc=(GrailsDomainClass)hibernateDomainClassMap.get(superClass.getName());
         if (gdc == null || gdc.getSubClasses() == null) {

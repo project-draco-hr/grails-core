@@ -1,10 +1,12 @@
 {
-  Map hibernateDomainClassMap=new HashMap();
+  Map<String,GrailsDomainClass> hibernateDomainClassMap=new HashMap<String,GrailsDomainClass>();
   ArtefactHandler artefactHandler=application.getArtefactHandler(DomainClassArtefactHandler.TYPE);
   Map defaultContraints=Collections.emptyMap();
   if (artefactHandler instanceof DomainClassArtefactHandler) {
     final Map map=((DomainClassArtefactHandler)artefactHandler).getDefaultConstraints();
-    if (map != null)     defaultContraints=map;
+    if (map != null) {
+      defaultContraints=map;
+    }
   }
   for (  Object o : sessionFactory.getAllClassMetadata().values()) {
     ClassMetadata classMetadata=(ClassMetadata)o;

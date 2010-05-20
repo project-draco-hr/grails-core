@@ -1,9 +1,10 @@
 {
-  this.grailsApplication=application;
-  if (this.grailsApplication != null) {
-    GrailsClass[] existingDomainClasses=this.grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
-    for (    GrailsClass existingDomainClass : existingDomainClasses) {
-      addDomainClass((GrailsDomainClass)existingDomainClass);
-    }
+  grailsApplication=application;
+  if (grailsApplication == null) {
+    return;
+  }
+  GrailsClass[] existingDomainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
+  for (  GrailsClass existingDomainClass : existingDomainClasses) {
+    addDomainClass((GrailsDomainClass)existingDomainClass);
   }
 }

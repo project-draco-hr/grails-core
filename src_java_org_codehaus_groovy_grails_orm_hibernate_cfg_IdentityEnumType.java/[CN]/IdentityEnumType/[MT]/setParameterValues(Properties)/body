@@ -1,6 +1,6 @@
 {
   try {
-    enumClass=(Class<? extends Enum>)ApplicationHolder.getApplication().getClassLoader().loadClass((String)properties.get(PARAM_ENUM_CLASS));
+    enumClass=(Class<? extends Enum<?>>)ApplicationHolder.getApplication().getClassLoader().loadClass((String)properties.get(PARAM_ENUM_CLASS));
     if (LOG.isDebugEnabled()) {
       LOG.debug(String.format("Building ID-mapping for Enum Class %s",enumClass.getName()));
     }

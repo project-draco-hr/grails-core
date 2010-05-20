@@ -1,0 +1,6 @@
+{
+  Mapping m=GrailsDomainBinder.getMapping(targetClass);
+  if (m != null && m.getCache() != null && m.getCache().getEnabled()) {
+    criteria.setCacheable(true);
+  }
+}

@@ -20,8 +20,12 @@
   final String order=ORDER_DESC.equalsIgnoreCase(orderParam) ? ORDER_DESC : ORDER_ASC;
   final int max=maxParam == null ? -1 : maxParam;
   final int offset=offsetParam == null ? -1 : offsetParam;
-  if (max > -1)   c.setMaxResults(max);
-  if (offset > -1)   c.setFirstResult(offset);
+  if (max > -1) {
+    c.setMaxResults(max);
+  }
+  if (offset > -1) {
+    c.setFirstResult(offset);
+  }
   if (GrailsClassUtils.getBooleanFromMap(ARGUMENT_CACHE,argMap)) {
     c.setCacheable(true);
   }

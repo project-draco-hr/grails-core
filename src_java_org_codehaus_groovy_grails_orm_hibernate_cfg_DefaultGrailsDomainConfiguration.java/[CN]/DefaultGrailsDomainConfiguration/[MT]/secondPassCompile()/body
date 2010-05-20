@@ -2,14 +2,16 @@
   if (configLocked) {
     return;
   }
-  if (this.grailsApplication != null)   Thread.currentThread().setContextClassLoader(this.grailsApplication.getClassLoader());
-  configureDomainBinder(this.grailsApplication,this.domainClasses);
-  for (  GrailsDomainClass domainClass : this.domainClasses) {
+  if (grailsApplication != null) {
+    Thread.currentThread().setContextClassLoader(grailsApplication.getClassLoader());
+  }
+  configureDomainBinder(grailsApplication,domainClasses);
+  for (  GrailsDomainClass domainClass : domainClasses) {
     final Mappings mappings=super.createMappings();
     Mapping m=GrailsDomainBinder.getMapping(domainClass);
     mappings.setAutoImport(m == null || m.getAutoImport());
     GrailsDomainBinder.bindClass(domainClass,mappings);
   }
   super.secondPassCompile();
-  this.configLocked=true;
+  configLocked=true;
 }

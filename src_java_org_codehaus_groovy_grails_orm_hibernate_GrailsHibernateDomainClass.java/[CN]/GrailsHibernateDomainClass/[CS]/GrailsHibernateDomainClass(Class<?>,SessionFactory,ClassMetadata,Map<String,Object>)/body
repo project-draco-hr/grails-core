@@ -15,6 +15,7 @@
   if (versionIndex > -1) {
     versionPropertyName=metaData.getPropertyNames()[versionIndex];
     version=new GrailsHibernateDomainClassProperty(this,versionPropertyName);
+    version.setType(getPropertyType(versionPropertyName));
   }
   String[] propertyNames=metaData.getPropertyNames();
   for (  String propertyName : propertyNames) {

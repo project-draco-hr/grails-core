@@ -17,7 +17,8 @@
     Method readMethod=prop.getReadMethod();
     if (readMethod != null) {
       if (!Modifier.isStatic(readMethod.getModifiers())) {
-        if (getPropertyValue(prop.getName(),Closure.class) != null) {
+        Class type=prop.getPropertyType();
+        if (type == Object.class) {
           tags.add(prop.getName());
         }
       }

@@ -12,6 +12,7 @@
         Query q=session.createQuery(query);
         Object[] queryArgs=null;
         Map queryNamedArgs=null;
+        boolean useCache=useCache(arguments);
         if (arguments.length > 1) {
           if (arguments[1] instanceof Collection) {
             queryArgs=GrailsClassUtils.collectionToObjectArray((Collection)arguments[1]);
@@ -39,7 +40,10 @@
             if (!(entry.getKey() instanceof String))             throw new GrailsQueryException("Named parameter's name must be String: " + queryNamedArgs.toString());
             String stringKey=(String)entry.getKey();
             Object value=entry.getValue();
-            if (value instanceof CharSequence) {
+            if (GrailsHibernateUtil.ARGUMENT_CACHE.equals(stringKey)) {
+              continue;
+            }
+ else             if (value instanceof CharSequence) {
               q.setParameter(stringKey,value.toString());
             }
  else             if (List.class.isAssignableFrom(value.getClass())) {
@@ -54,9 +58,23 @@
           }
         }
         q.setMaxResults(1);
+        q.setCacheable(useCache);
         List results=q.list();
         if (results.size() > 0)         return GrailsHibernateUtil.unwrapIfProxy(results.get(0));
         return null;
+      }
+      private boolean useCache(      Object[] arguments){
+        boolean useCache=false;
+        if (arguments.length > 1 && arguments[arguments.length - 1] instanceof Map) {
+          Object param=arguments[arguments.length - 1];
+          String key=GrailsHibernateUtil.ARGUMENT_CACHE;
+          boolean value=false;
+          if ((param instanceof Map) && ((Map)param).containsKey(key)) {
+            value=converter.convertIfNecessary(((Map)param).get(key),Boolean.class);
+          }
+          useCache=value;
+        }
+        return useCache;
       }
     }
 );

@@ -39,7 +39,12 @@
     if (desc != null)     descriptors.add(desc);
     for (    File dir : listKnownPluginDirs(settings)) {
       File pluginDescriptor=getPluginDescriptor(dir);
-      if (pluginDescriptor != null)       descriptors.add(pluginDescriptor);
+      if (pluginDescriptor != null) {
+        descriptors.add(pluginDescriptor);
+      }
+ else {
+        out.println("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
+      }
     }
     for (    File file : descriptors) {
       Matcher matcher=pluginDescriptorPattern.matcher(file.getName());

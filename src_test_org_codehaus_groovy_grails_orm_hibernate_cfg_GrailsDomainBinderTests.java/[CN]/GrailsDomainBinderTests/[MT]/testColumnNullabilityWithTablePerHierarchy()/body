@@ -7,7 +7,7 @@
   assertColumnNullable("table_per_hierarchy_superclass","optional_product_name",config);
   assertColumnNullable("table_per_hierarchy_superclass","optional_product_count",config);
   assertColumnNotNullable("table_per_hierarchy_superclass","string_property",config);
-  assertColumnNullable("table_per_hierarchy_superclass","optional_string_property",config);
   assertColumnNotNullable("table_per_hierarchy_superclass","some_product_status",config);
+  assertColumnNullable("table_per_hierarchy_superclass","optional_string_property",config);
   assertColumnNullable("table_per_hierarchy_superclass","some_optional_product_status",config);
 }

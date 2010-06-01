@@ -17,6 +17,7 @@
     throw new RuntimeException("Invalid classpath URL",ex);
   }
   List<File> potentialScripts;
+  List<File> allScripts=getAvailableScripts(settings);
   GantBinding binding;
   if (scriptCache.get(scriptName) != null) {
     CachedScript cachedScript=scriptCache.get(scriptName);
@@ -43,9 +44,8 @@
         }
       }
     }
-    List<File> list=getAvailableScripts(settings);
     potentialScripts=new ArrayList<File>();
-    for (    File scriptPath : list) {
+    for (    File scriptPath : allScripts) {
       String scriptFileName=scriptPath.getName().substring(0,scriptPath.getName().length() - 7);
       if (scriptFileName.endsWith("_")) {
         scriptsAllowedOutsideOfProject.add(scriptPath);
@@ -117,17 +117,14 @@
   out.println("Running pre-compiled script");
   Gant gant=new Gant(binding,classLoader);
   try {
-    gant.loadScriptClass(scriptName + "_");
+    loadScriptClass(gant,scriptName);
   }
- catch (  Exception e) {
-    try {
-      gant.loadScriptClass(scriptName);
+ catch (  ScriptNotFoundException e) {
+    String fixedName=fixScriptName(scriptName,allScripts);
+    if (fixedName == null) {
+      throw e;
     }
- catch (    Exception ex) {
-      if (ex instanceof ClassNotFoundException && ex.getMessage() != null && ex.getMessage().contains(scriptName)) {
-        throw new ScriptNotFoundException(scriptName);
-      }
-    }
+    loadScriptClass(gant,fixedName);
   }
   return executeWithGantInstance(gant,doNothingClosure);
 }

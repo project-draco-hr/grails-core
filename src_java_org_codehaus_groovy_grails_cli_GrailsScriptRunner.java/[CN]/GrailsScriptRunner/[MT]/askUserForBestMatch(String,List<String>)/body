@@ -1,0 +1,28 @@
+{
+  System.out.println("Script '" + scriptName + "' not found, did you mean:");
+  int i=0;
+  for (  String s : topMatches) {
+    System.out.println("   " + ++i + ") "+ s);
+  }
+  int attempts=0;
+  while (true) {
+    System.out.print("Please make a selection or enter Q to quit: ");
+    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    String selection=br.readLine().trim();
+    if ("Q".equalsIgnoreCase(selection)) {
+      System.exit(0);
+    }
+    try {
+      int number=Integer.parseInt(selection);
+      if (number > 0 && number <= topMatches.size()) {
+        return topMatches.get(number - 1);
+      }
+    }
+ catch (    NumberFormatException ignored) {
+    }
+    attempts++;
+    if (attempts > 4) {
+      exitWithError("TODO");
+    }
+  }
+}

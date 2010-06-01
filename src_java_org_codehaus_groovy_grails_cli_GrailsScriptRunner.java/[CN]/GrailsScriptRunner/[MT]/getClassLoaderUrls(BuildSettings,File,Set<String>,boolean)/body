@@ -7,7 +7,9 @@
     urls.add(settings.getResourcesDir().toURI().toURL());
   }
   final boolean dependenciesExternallyConfigured=settings.isDependenciesExternallyConfigured();
-  if (!dependenciesExternallyConfigured)   System.out.println("Resolving dependencies...");
+  if (!dependenciesExternallyConfigured) {
+    System.out.println("Resolving dependencies...");
+  }
   long now=System.currentTimeMillis();
   final List<File> buildDependencies=settings.getBuildDependencies();
   if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
@@ -16,7 +18,9 @@
   addDependenciesToURLs(excludes,urls,buildDependencies);
   addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
   addDependenciesToURLs(excludes,urls,settings.getTestDependencies());
-  if (!dependenciesExternallyConfigured)   System.out.println("Dependencies resolved in " + (System.currentTimeMillis() - now) + "ms.");
+  if (!dependenciesExternallyConfigured) {
+    System.out.println("Dependencies resolved in " + (System.currentTimeMillis() - now) + "ms.");
+  }
   if (!skipPlugins) {
     for (    File dir : listKnownPluginDirs(settings)) {
       addPluginLibs(dir,urls,settings);

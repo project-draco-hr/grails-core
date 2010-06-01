@@ -8,10 +8,8 @@
     start=false;
     return super.createNode(AJAX_RESPONSE);
   }
- else   if (ajaxOnly) {
+  if (ajaxOnly) {
     throw new IllegalArgumentException(OPENRICO + "only call to [ajax { }] is allowed, not [" + name+ " { }]!");
   }
- else {
-    return super.createNode(name);
-  }
+  return super.createNode(name);
 }

@@ -1,7 +1,7 @@
 {
   Metadata transientMetadata=getCurrent();
   Metadata allStringValuesMetadata=new Metadata();
-  Map<Object,Object> transientMap=(Map<Object,Object>)transientMetadata;
+  Map<Object,Object> transientMap=transientMetadata;
   for (  Map.Entry<Object,Object> entry : transientMap.entrySet()) {
     if (entry.getValue() != null) {
       allStringValuesMetadata.put(entry.getKey().toString(),entry.getValue().toString());

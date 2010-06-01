@@ -6,7 +6,9 @@
       writeObject();
     }
  else {
-      if (getCurrent() == null && stack.peek() == Mode.OBJECT)       throw new IllegalArgumentException(JSON_BUILDER + "only call to [element { }] is allowed when creating array");
+      if (getCurrent() == null && stack.peek() == Mode.OBJECT) {
+        throw new IllegalArgumentException(JSON_BUILDER + "only call to [element { }] is allowed when creating array");
+      }
       if (stack.peek() == Mode.ARRAY) {
         writeObject();
         retVal=2;

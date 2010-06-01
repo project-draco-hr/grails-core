@@ -1,7 +1,7 @@
 {
   doBeforeCall(objects);
   try {
-    return this.target.call(objects);
+    return target.call(objects);
   }
   finally {
     doAfterCall(objects);

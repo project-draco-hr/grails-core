@@ -1,9 +1,9 @@
 {
   try {
-    java.lang.reflect.Field field=parent.getClass().getDeclaredField(propertyName);
+    Field field=parent.getClass().getDeclaredField(propertyName);
     return Collection.class.isAssignableFrom(field.getType());
   }
- catch (  NoSuchFieldException e) {
+ catch (  NoSuchFieldException ignored) {
   }
   return false;
 }

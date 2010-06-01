@@ -7,8 +7,7 @@
   }
   if (LOG.isDebugEnabled()) {
     LOG.debug("[UrlMappingFactoryBean] Creating URL mappings as...");
-    for (Iterator i=mappings.keySet().iterator(); i.hasNext(); ) {
-      Object key=i.next();
+    for (    Object key : mappings.keySet()) {
       LOG.debug("[UrlMappingFactoryBean] " + key + "="+ mappings.get(key));
     }
   }

@@ -4,7 +4,7 @@
     suite.loadTestSuite();
   }
  catch (  Exception e) {
-    throw new RuntimeException((new StringBuilder()).append("Could not create the test suite: ").append(e).toString(),e);
+    throw new RuntimeException("Could not create the test suite: " + e.getMessage(),e);
   }
   return suite;
 }

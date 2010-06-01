@@ -1,13 +1,15 @@
 {
-  if (args.length < 2)   return;
+  if (args.length < 2) {
+    return;
+  }
   String type=args[0];
   String domainClassName=args[1];
   ApplicationContext parent=new ClassPathXmlApplicationContext("applicationContext.xml");
-  GrailsApplication application=(DefaultGrailsApplication)parent.getBean("grailsApplication",DefaultGrailsApplication.class);
+  GrailsApplication application=parent.getBean("grailsApplication",DefaultGrailsApplication.class);
   GrailsDomainClass domainClass=findInApplication(application,domainClassName);
   if (domainClass == null) {
     GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
-    @SuppressWarnings("unused") ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(new MockServletContext());
+    config.configure(new MockServletContext());
   }
   domainClass=findInApplication(application,domainClassName);
   if (domainClass == null) {

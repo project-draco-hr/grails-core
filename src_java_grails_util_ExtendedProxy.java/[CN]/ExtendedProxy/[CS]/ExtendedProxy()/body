@@ -1,4 +1,3 @@
 {
-  super();
-  this.propertyMap=DefaultGroovyMethods.getProperties(this);
+  propertyMap=DefaultGroovyMethods.getProperties(this);
 }

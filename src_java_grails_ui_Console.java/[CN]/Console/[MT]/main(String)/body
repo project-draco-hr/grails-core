@@ -8,9 +8,8 @@
   c.setBeforeExecution(new Closure(c){
     private static final long serialVersionUID=4773257809080703257L;
     @SuppressWarnings("unused") public Object doCall(){
-      Map beans=ctx.getBeansOfType(PersistenceContextInterceptor.class);
-      for (Iterator i=beans.values().iterator(); i.hasNext(); ) {
-        PersistenceContextInterceptor interceptor=(PersistenceContextInterceptor)i.next();
+      Map<String,PersistenceContextInterceptor> beans=ctx.getBeansOfType(PersistenceContextInterceptor.class);
+      for (      PersistenceContextInterceptor interceptor : beans.values()) {
         interceptor.init();
       }
       return null;
@@ -20,21 +19,20 @@
   c.setAfterExecution(new Closure(c){
     private static final long serialVersionUID=7292229320100706377L;
     public Object doCall(){
-      Map beans=ctx.getBeansOfType(PersistenceContextInterceptor.class);
-      for (Iterator i=beans.values().iterator(); i.hasNext(); ) {
-        PersistenceContextInterceptor interceptor=(PersistenceContextInterceptor)i.next();
+      Map<String,PersistenceContextInterceptor> beans=ctx.getBeansOfType(PersistenceContextInterceptor.class);
+      for (      PersistenceContextInterceptor interceptor : beans.values()) {
         interceptor.flush();
         interceptor.destroy();
       }
       return null;
     }
-    public Object call(){
+    @Override public Object call(){
       return doCall();
     }
-    public Object call(    Object[] args){
+    @Override public Object call(    Object[] arguments){
       return doCall();
     }
-    public Object call(    Object arguments){
+    @Override public Object call(    Object arguments){
       return doCall();
     }
   }

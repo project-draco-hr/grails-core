@@ -1,5 +1,7 @@
 {
-  if (propertiesHaveNotChanged())   return;
+  if (propertiesHaveNotChanged()) {
+    return;
+  }
   if (metadataFile != null) {
     FileOutputStream out=null;
     try {
@@ -10,11 +12,7 @@
       throw new RuntimeException("Error persisting metadata to file [" + metadataFile + "]: "+ e.getMessage(),e);
     }
  finally {
-      try {
-        if (out != null)         out.close();
-      }
- catch (      IOException e) {
-      }
+      closeQuietly(out);
     }
   }
 }

@@ -12,11 +12,7 @@
       throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
     }
  finally {
-      try {
-        if (input != null)         input.close();
-      }
- catch (      IOException e) {
-      }
+      closeQuietly(input);
     }
   }
   return m;

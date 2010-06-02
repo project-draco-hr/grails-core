@@ -1,0 +1,5 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig(CACHED_MAP);
+  Table table=getTableMapping("area_names",config);
+  assertEquals(255,table.getColumn(new Column("names_elt")).getLength());
+}

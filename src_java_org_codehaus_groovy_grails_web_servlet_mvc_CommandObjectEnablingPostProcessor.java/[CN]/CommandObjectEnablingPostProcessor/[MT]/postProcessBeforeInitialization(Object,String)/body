@@ -1,0 +1,18 @@
+{
+  if (shouldPostProcessController(bean,beanName)) {
+    if (grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,bean.getClass().getName()) != null) {
+      GroovyObject controller=(GroovyObject)bean;
+      Map<String,Object> props=(Map<String,Object>)controller.getProperty("properties");
+      for (      String propName : props.keySet()) {
+        Object value=props.get(propName);
+        if (value instanceof Closure) {
+          final Closure callable=(Closure)value;
+          if (WebMetaUtils.isCommandObjectAction(callable)) {
+            WebMetaUtils.prepareCommandObjectBindingAction(commandObjectBindingAction,callable,propName,controller);
+          }
+        }
+      }
+    }
+  }
+  return super.postProcessBeforeInitialization(bean,beanName);
+}

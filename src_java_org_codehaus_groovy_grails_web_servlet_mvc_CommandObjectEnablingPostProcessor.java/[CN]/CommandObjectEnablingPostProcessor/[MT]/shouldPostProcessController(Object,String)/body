@@ -1,0 +1,3 @@
+{
+  return grailsApplication != null && bean != null && (bean instanceof GroovyObject) && beanName.endsWith(ControllerArtefactHandler.TYPE);
+}

@@ -1,0 +1,8 @@
+{
+  ClassNode parent=classNode.getSuperClass();
+  while (parent != null && !getFullName(parent).equals("java.lang.Object")) {
+    parent=parent.getSuperClass();
+    classNode=parent;
+  }
+  return classNode;
+}

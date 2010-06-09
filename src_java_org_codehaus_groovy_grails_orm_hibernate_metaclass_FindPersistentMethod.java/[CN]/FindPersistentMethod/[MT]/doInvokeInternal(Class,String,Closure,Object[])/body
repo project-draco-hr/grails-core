@@ -1,5 +1,7 @@
 {
-  if (arguments.length == 0)   throw new MissingMethodException(methodName,clazz,arguments);
+  if (arguments.length == 0) {
+    throw new MissingMethodException(methodName,clazz,arguments);
+  }
   final Object arg=arguments[0] instanceof CharSequence ? arguments[0].toString() : arguments[0];
   if (arg instanceof String) {
     final String query=(String)arg;
@@ -7,7 +9,7 @@
     if (!query.matches("from [" + clazz.getName() + "|"+ shortName+ "].*")) {
       throw new GrailsQueryException("Invalid query [" + query + "] for domain class ["+ clazz+ "]");
     }
-    return super.getHibernateTemplate().execute(new HibernateCallback(){
+    return getHibernateTemplate().execute(new HibernateCallback<Object>(){
       public Object doInHibernate(      Session session) throws HibernateException, SQLException {
         Query q=session.createQuery(query);
         Object[] queryArgs=null;
@@ -37,7 +39,9 @@
         if (queryNamedArgs != null) {
           for (Iterator it=queryNamedArgs.entrySet().iterator(); it.hasNext(); ) {
             Map.Entry entry=(Map.Entry)it.next();
-            if (!(entry.getKey() instanceof String))             throw new GrailsQueryException("Named parameter's name must be String: " + queryNamedArgs.toString());
+            if (!(entry.getKey() instanceof String)) {
+              throw new GrailsQueryException("Named parameter's name must be String: " + queryNamedArgs.toString());
+            }
             String stringKey=(String)entry.getKey();
             Object value=entry.getValue();
             if (GrailsHibernateUtil.ARGUMENT_CACHE.equals(stringKey)) {
@@ -60,13 +64,15 @@
         q.setMaxResults(1);
         q.setCacheable(useCache);
         List results=q.list();
-        if (results.size() > 0)         return GrailsHibernateUtil.unwrapIfProxy(results.get(0));
+        if (results.size() > 0) {
+          return GrailsHibernateUtil.unwrapIfProxy(results.get(0));
+        }
         return null;
       }
-      private boolean useCache(      Object[] arguments){
+      private boolean useCache(      Object[] args){
         boolean useCache=false;
-        if (arguments.length > 1 && arguments[arguments.length - 1] instanceof Map) {
-          Object param=arguments[arguments.length - 1];
+        if (args.length > 1 && args[args.length - 1] instanceof Map) {
+          Object param=args[args.length - 1];
           String key=GrailsHibernateUtil.ARGUMENT_CACHE;
           boolean value=false;
           if ((param instanceof Map) && ((Map)param).containsKey(key)) {
@@ -80,14 +86,16 @@
 );
   }
  else   if (clazz.isAssignableFrom(arg.getClass())) {
-    return super.getHibernateTemplate().execute(new HibernateCallback(){
+    return getHibernateTemplate().execute(new HibernateCallback<Object>(){
       public Object doInHibernate(      Session session) throws HibernateException, SQLException {
         Example example=Example.create(arg).ignoreCase();
         Criteria crit=session.createCriteria(clazz);
         crit.add(example);
         crit.setMaxResults(1);
         List results=crit.list();
-        if (results.size() > 0)         return results.get(0);
+        if (results.size() > 0) {
+          return results.get(0);
+        }
         return null;
       }
     }

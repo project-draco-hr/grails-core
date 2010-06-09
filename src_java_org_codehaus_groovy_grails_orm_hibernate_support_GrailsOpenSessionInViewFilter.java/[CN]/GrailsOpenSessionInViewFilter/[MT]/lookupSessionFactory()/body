@@ -1,7 +1,7 @@
 {
   ApplicationContext context=(ApplicationContext)getServletContext().getAttribute(ApplicationAttributes.APPLICATION_CONTEXT);
   if (context != null) {
-    return (SessionFactory)context.getBean(getSessionFactoryBeanName(),SessionFactory.class);
+    return context.getBean(getSessionFactoryBeanName(),SessionFactory.class);
   }
   return null;
 }

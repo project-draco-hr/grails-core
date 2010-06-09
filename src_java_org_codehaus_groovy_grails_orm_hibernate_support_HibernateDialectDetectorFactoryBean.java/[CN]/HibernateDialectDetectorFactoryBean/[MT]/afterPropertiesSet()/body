@@ -1,20 +1,16 @@
 {
-  if (this.dataSource == null) {
-    throw new IllegalStateException("Data source is not set!");
-  }
-  if (this.vendorNameDialectMappings == null) {
-    throw new IllegalStateException("Vendor name/dialect mappings are not set!");
-  }
-  String dbName=(String)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseProductName");
-  Integer majorVersion=(Integer)JdbcUtils.extractDatabaseMetaData(this.dataSource,"getDatabaseMajorVersion");
+  Assert.notNull(dataSource,"Data source is not set!");
+  Assert.notNull(vendorNameDialectMappings,"Vendor name/dialect mappings are not set!");
+  String dbName=(String)JdbcUtils.extractDatabaseMetaData(dataSource,"getDatabaseProductName");
+  Integer majorVersion=(Integer)JdbcUtils.extractDatabaseMetaData(dataSource,"getDatabaseMajorVersion");
   try {
-    this.hibernateDialect=DialectFactory.determineDialect(dbName,majorVersion.intValue());
-    this.hibernateDialectClassName=this.hibernateDialect.getClass().getName();
+    hibernateDialect=DialectFactory.determineDialect(dbName,majorVersion.intValue());
+    hibernateDialectClassName=hibernateDialect.getClass().getName();
   }
  catch (  HibernateException e) {
-    this.hibernateDialectClassName=this.vendorNameDialectMappings.getProperty(dbName);
+    hibernateDialectClassName=vendorNameDialectMappings.getProperty(dbName);
   }
-  if (StringUtils.isBlank(this.hibernateDialectClassName)) {
+  if (StringUtils.isBlank(hibernateDialectClassName)) {
     throw new CouldNotDetermineHibernateDialectException("Could not determine Hibernate dialect for database name [" + dbName + "]!");
   }
 }

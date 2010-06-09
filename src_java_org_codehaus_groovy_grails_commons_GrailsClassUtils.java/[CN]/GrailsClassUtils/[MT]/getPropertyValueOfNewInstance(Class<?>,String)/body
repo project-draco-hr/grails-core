@@ -2,12 +2,10 @@
   if (clazz == null || StringUtils.isBlank(propertyName)) {
     return null;
   }
-  Object instance=null;
   try {
-    instance=BeanUtils.instantiateClass(clazz);
+    return getPropertyOrStaticPropertyOrFieldValue(BeanUtils.instantiateClass(clazz),propertyName);
   }
  catch (  BeanInstantiationException e) {
     return null;
   }
-  return getPropertyOrStaticPropertyOrFieldValue(instance,propertyName);
 }

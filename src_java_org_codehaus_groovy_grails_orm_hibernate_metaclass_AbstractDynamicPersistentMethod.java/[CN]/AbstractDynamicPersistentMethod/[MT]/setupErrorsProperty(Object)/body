@@ -2,8 +2,7 @@
   MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
   Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
   Errors originalErrors=(Errors)mc.getProperty(target,ERRORS_PROPERTY);
-  List originalFieldErrors=originalErrors.getFieldErrors();
-  for (  Object o : originalFieldErrors) {
+  for (  Object o : originalErrors.getFieldErrors()) {
     FieldError fe=(FieldError)o;
     if (fe.isBindingFailure()) {
       errors.rejectValue(fe.getField(),fe.getCode(),fe.getArguments(),fe.getDefaultMessage());

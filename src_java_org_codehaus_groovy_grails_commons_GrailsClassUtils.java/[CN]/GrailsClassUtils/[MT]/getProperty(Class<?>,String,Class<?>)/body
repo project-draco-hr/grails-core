@@ -1,5 +1,7 @@
 {
-  if (clazz == null || propertyName == null || propertyType == null)   return null;
+  if (clazz == null || propertyName == null || propertyType == null) {
+    return null;
+  }
   try {
     PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(clazz,propertyName);
     if (pd.getPropertyType().equals(propertyType)) {

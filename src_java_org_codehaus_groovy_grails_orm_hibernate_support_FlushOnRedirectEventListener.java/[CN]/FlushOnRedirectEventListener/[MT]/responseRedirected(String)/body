@@ -1,7 +1,6 @@
 {
-  HibernateTemplate ht=new HibernateTemplate(sessionFactory);
-  ht.execute(new HibernateCallback(){
-    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+  new HibernateTemplate(sessionFactory).execute(new HibernateCallback<Void>(){
+    public Void doInHibernate(    Session session){
       if (session.getFlushMode() != FlushMode.MANUAL) {
         session.flush();
       }

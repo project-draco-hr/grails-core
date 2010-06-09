@@ -1,10 +1,11 @@
 {
-  HibernateTemplate ht=getHibernateTemplate();
-  return ht.execute(new HibernateCallback(){
+  return getHibernateTemplate().execute(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Object merged=session.merge(target);
       session.lock(merged,LockMode.NONE);
-      if (flush)       getHibernateTemplate().flush();
+      if (flush) {
+        getHibernateTemplate().flush();
+      }
       return merged;
     }
   }

@@ -1,0 +1,3 @@
+{
+  return SessionFactoryUtils.getSession(sessionFactory,allowCreate);
+}

@@ -4,7 +4,9 @@
   for (  MetaProperty metaProperty : metaProperties) {
     if (isAssignableOrConvertibleFrom(metaProperty.getType(),obj.getClass())) {
       Object val=metaProperty.getProperty(target);
-      if (val != null && val.equals(obj))       return metaProperty.getName();
+      if (val != null && val.equals(obj)) {
+        return metaProperty.getName();
+      }
     }
   }
   return null;

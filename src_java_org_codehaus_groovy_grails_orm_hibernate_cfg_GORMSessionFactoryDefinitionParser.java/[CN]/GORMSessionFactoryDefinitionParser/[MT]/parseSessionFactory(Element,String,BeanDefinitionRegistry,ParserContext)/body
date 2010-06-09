@@ -30,7 +30,7 @@
   }
  else {
     GenericBeanDefinition transactionManagerBean=new GenericBeanDefinition();
-    transactionManagerBean.setBeanClass(HibernateTransactionManager.class);
+    transactionManagerBean.setBeanClass(GrailsHibernateTransactionManager.class);
     transactionManagerBean.getPropertyValues().addPropertyValue("sessionFactory",new RuntimeBeanReference(sessionFactoryId));
     targetRegistry.registerBeanDefinition("transactionManager",transactionManagerBean);
   }

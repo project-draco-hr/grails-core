@@ -1,10 +1,10 @@
 {
-  checkMethodSignature(clazz,methodName,arguments);
+  checkMethodSignature(clazz,arguments);
   final String query=arguments[0].toString();
   final Map paginateParams=extractPaginateParams(arguments);
   final List positionalParams=extractPositionalParams(arguments);
   final Map namedParams=extractNamedParams(arguments);
-  return getHibernateTemplate().executeFind(new HibernateCallback(){
+  return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(query);
       if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
@@ -19,13 +19,14 @@
         q.setCacheable(((Boolean)paginateParams.remove(GrailsHibernateUtil.ARGUMENT_CACHE)).booleanValue());
       }
       int index=0;
-      for (Iterator iterator=positionalParams.iterator(); iterator.hasNext(); index++) {
-        Object parameter=iterator.next();
+      for (      Object parameter : positionalParams) {
         q.setParameter(index,parameter instanceof CharSequence ? parameter.toString() : parameter);
       }
       for (      Object o : namedParams.entrySet()) {
         Map.Entry entry=(Map.Entry)o;
-        if (!(entry.getKey() instanceof String))         throw new GrailsQueryException("Named parameter's name must be of type String");
+        if (!(entry.getKey() instanceof String)) {
+          throw new GrailsQueryException("Named parameter's name must be of type String");
+        }
         String parameterName=(String)entry.getKey();
         Object parameterValue=entry.getValue();
         if (Collection.class.isAssignableFrom(parameterValue.getClass())) {

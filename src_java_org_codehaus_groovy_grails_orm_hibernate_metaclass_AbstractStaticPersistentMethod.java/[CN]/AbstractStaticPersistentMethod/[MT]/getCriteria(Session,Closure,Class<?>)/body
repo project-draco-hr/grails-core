@@ -1,11 +1,7 @@
 {
-  final Criteria crit;
   if (additionalCriteria != null) {
     HibernateCriteriaBuilder builder=new HibernateCriteriaBuilder(clazz,session.getSessionFactory());
-    crit=builder.buildCriteria(additionalCriteria);
+    return builder.buildCriteria(additionalCriteria);
   }
- else {
-    crit=session.createCriteria(clazz);
-  }
-  return crit;
+  return session.createCriteria(clazz);
 }

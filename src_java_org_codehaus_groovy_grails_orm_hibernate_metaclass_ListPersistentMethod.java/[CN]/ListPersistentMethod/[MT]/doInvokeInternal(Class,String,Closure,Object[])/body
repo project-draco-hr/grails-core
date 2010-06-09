@@ -1,5 +1,5 @@
 {
-  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+  return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria c=session.createCriteria(clazz);
       if (arguments.length > 0 && arguments[0] instanceof Map) {

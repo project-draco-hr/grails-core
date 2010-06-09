@@ -1,4 +1,3 @@
 {
-  SessionFactory sessionFactory=getHibernateTemplate().getSessionFactory();
-  GrailsHibernateUtil.setObjectToReadyOnly(target,sessionFactory);
+  GrailsHibernateUtil.setObjectToReadyOnly(target,getHibernateTemplate().getSessionFactory());
 }

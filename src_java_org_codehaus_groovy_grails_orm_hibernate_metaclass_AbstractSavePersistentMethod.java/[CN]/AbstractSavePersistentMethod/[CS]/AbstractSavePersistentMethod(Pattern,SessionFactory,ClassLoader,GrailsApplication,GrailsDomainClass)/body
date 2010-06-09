@@ -1,6 +1,6 @@
 {
   super(pattern,sessionFactory,classLoader);
-  if (application == null)   throw new IllegalArgumentException("Constructor argument 'application' cannot be null");
+  Assert.notNull(application,"Constructor argument 'application' cannot be null");
   this.application=application;
   this.shouldFail=false;
   final Map config=application.getConfig().flatten();

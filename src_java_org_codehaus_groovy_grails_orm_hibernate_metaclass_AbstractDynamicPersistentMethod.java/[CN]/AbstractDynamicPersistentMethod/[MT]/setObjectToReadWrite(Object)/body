@@ -1,4 +1,3 @@
 {
-  SessionFactory sessionFactory=getHibernateTemplate().getSessionFactory();
-  GrailsHibernateUtil.setObjectToReadWrite(target,sessionFactory);
+  GrailsHibernateUtil.setObjectToReadWrite(target,getHibernateTemplate().getSessionFactory());
 }

@@ -1,15 +1,13 @@
 {
   if (operator.equals(OPERATOR_OR)) {
     Disjunction dis=Restrictions.disjunction();
-    for (Iterator i=expressions.iterator(); i.hasNext(); ) {
-      GrailsMethodExpression current=(GrailsMethodExpression)i.next();
+    for (    GrailsMethodExpression current : (List<GrailsMethodExpression>)expressions) {
       dis.add(current.getCriterion());
     }
     crit.add(dis);
   }
  else {
-    for (Iterator i=expressions.iterator(); i.hasNext(); ) {
-      GrailsMethodExpression current=(GrailsMethodExpression)i.next();
+    for (    GrailsMethodExpression current : (List<GrailsMethodExpression>)expressions) {
       crit.add(current.getCriterion());
     }
   }

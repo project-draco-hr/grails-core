@@ -3,7 +3,7 @@
   match.find();
   String nameInSignature=match.group(2);
   final String propertyName=nameInSignature.substring(0,1).toLowerCase(Locale.ENGLISH) + nameInSignature.substring(1);
-  return super.getHibernateTemplate().executeFind(new HibernateCallback(){
+  return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria crit=getCriteria(session,additionalCriteria,clazz);
       if (arguments != null && arguments.length > 0) {

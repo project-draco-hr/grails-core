@@ -1,0 +1,8 @@
+{
+  if (target instanceof GroovyObject) {
+    GroovyObject go=((GroovyObject)target);
+    if (!go.getMetaClass().getTheClass().equals(persistentClass)) {
+      go.setMetaClass(GroovySystem.getMetaClassRegistry().getMetaClass(persistentClass));
+    }
+  }
+}

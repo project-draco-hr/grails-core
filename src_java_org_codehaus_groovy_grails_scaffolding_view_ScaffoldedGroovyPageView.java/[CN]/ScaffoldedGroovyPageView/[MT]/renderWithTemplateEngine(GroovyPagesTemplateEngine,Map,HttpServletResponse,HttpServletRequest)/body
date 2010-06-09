@@ -14,6 +14,8 @@
     handleException(e,out,templateEngine,request,response);
   }
  finally {
-    if (out != null)     out.close();
+    if (out != null) {
+      out.close();
+    }
   }
 }

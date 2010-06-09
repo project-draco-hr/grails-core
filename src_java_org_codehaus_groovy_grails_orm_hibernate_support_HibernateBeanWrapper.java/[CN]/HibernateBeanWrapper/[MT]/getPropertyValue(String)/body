@@ -8,7 +8,7 @@
     }
   }
  catch (  Exception e) {
-    log.error("Error checking Hibernate initialization on method " + method.getName() + " for class "+ owner.getClass(),e);
+    log.error("Error checking Hibernate initialization on method " + method.getName() + " for class "+ owner.getClass().getName(),e);
   }
   return null;
 }

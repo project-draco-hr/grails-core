@@ -4,7 +4,7 @@
   }
  else {
     LOG.debug("Opening single Hibernate session in HibernatePersistenceContextInterceptor");
-    Session session=SessionFactoryUtils.getSession(sessionFactory,true);
+    Session session=getSession();
     session.setFlushMode(FlushMode.AUTO);
     TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
   }

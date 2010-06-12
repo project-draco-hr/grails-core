@@ -5,7 +5,7 @@
     return;
   }
   Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(propType);
-  Map mappedBy=GrailsDomainConfigurationUtil.getMappedByMap(propType);
+  @SuppressWarnings("hiding") Map mappedBy=GrailsDomainConfigurationUtil.getMappedByMap(propType);
   Class<?> relatedClassPropertyType=null;
   if (relatedClassRelationships != null && !relatedClassRelationships.isEmpty()) {
     String relatedClassPropertyName=findOneToManyThatMatchesType(property,relatedClassRelationships);

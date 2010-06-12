@@ -1,4 +1,6 @@
 {
-  if (definition == null)   definition=createBeanDefinition();
+  if (definition == null) {
+    definition=createBeanDefinition();
+  }
   return definition;
 }

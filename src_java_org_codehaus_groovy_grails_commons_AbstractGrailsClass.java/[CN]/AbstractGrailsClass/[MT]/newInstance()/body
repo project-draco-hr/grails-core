@@ -1,7 +1,9 @@
 {
   try {
-    Constructor defaultConstructor=getClazz().getDeclaredConstructor(new Class[]{});
-    if (!defaultConstructor.isAccessible())     defaultConstructor.setAccessible(true);
+    Constructor<?> defaultConstructor=getClazz().getDeclaredConstructor(new Class[]{});
+    if (!defaultConstructor.isAccessible()) {
+      defaultConstructor.setAccessible(true);
+    }
     return defaultConstructor.newInstance(new Object[]{});
   }
  catch (  Exception e) {

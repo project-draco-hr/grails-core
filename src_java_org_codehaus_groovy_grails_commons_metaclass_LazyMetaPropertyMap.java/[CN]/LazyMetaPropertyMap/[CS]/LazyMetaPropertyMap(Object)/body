@@ -1,6 +1,5 @@
 {
-  super();
-  if (o == null)   throw new IllegalArgumentException("Object cannot be null");
-  this.instance=o;
-  this.metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(o.getClass());
+  Assert.notNull(o,"Object cannot be null");
+  instance=o;
+  metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(o.getClass());
 }

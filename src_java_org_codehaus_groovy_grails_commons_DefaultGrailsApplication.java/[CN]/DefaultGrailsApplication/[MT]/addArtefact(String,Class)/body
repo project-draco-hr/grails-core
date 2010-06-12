@@ -9,10 +9,10 @@
     info.addGrailsClass(artefactGrailsClass);
     info.updateComplete();
     addToLoaded(artefactClass);
-    if (isInitialised())     initializeArtefacts(artefactType);
+    if (isInitialised()) {
+      initializeArtefacts(artefactType);
+    }
     return artefactGrailsClass;
   }
- else {
-    throw new GrailsConfigurationException("Cannot add " + artefactType + " class ["+ artefactClass+ "]. It is not a "+ artefactType+ "!");
-  }
+  throw new GrailsConfigurationException("Cannot add " + artefactType + " class ["+ artefactClass+ "]. It is not a "+ artefactType+ "!");
 }

@@ -1,3 +1,3 @@
 {
-  return this.beanDefinitions.get(beanName);
+  return beanDefinitions.get(beanName);
 }

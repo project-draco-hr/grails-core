@@ -1,9 +1,9 @@
 {
   GrailsResourceHolder resourceHolder=new GrailsResourceHolder();
-  this.cl=configureClassLoader(resourceLoader);
+  cl=configureClassLoader();
   GroovyClassLoader gcl=(GroovyClassLoader)cl;
   Collection loadedResources=new ArrayList();
-  this.loadedClasses=new ArrayList<Class>();
+  loadedClasses=new ArrayList<Class<?>>();
   try {
     for (int i=0; resources != null && i < resources.length; i++) {
       if (!loadedResources.contains(resources[i])) {
@@ -11,9 +11,11 @@
           String className=resourceHolder.getClassName(resources[i]);
           log.debug("Loading groovy file from resource loader :[" + resources[i].getFile().getAbsolutePath() + "] with name ["+ className+ "]");
           if (!StringUtils.isBlank(className)) {
-            Class c=gcl.loadClass(className,true,false);
+            Class<?> c=gcl.loadClass(className,true,false);
             Assert.notNull(c,"Groovy Bug! GCL loadClass method returned a null class!");
-            if (!loadedClasses.contains(c))             loadedClasses.add(c);
+            if (!loadedClasses.contains(c)) {
+              loadedClasses.add(c);
+            }
             log.debug("Added Groovy class [" + c + "] to loaded classes");
             loadedResources=resourceLoader.getLoadedResources();
           }
@@ -23,7 +25,7 @@
         }
       }
  else {
-        Class c=null;
+        Class<?> c=null;
         try {
           log.debug("Loading groovy file from class loader :[" + resources[i].getFile().getAbsolutePath() + "]");
           c=cl.loadClass(resourceHolder.getClassName(resources[i]));
@@ -32,7 +34,9 @@
           GrailsUtil.deepSanitize(e);
           log.error("Class not found attempting to load class " + e.getMessage(),e);
         }
-        if (c != null)         loadedClasses.add(c);
+        if (c != null) {
+          loadedClasses.add(c);
+        }
         log.debug("Added Groovy class [" + c + "] to loaded classes");
       }
     }

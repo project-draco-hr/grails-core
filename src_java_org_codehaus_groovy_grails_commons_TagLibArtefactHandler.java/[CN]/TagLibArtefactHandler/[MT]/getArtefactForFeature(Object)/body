@@ -1,7 +1,7 @@
 {
   final Object tagLib=tag2libMap.get(feature);
-  if (tagLib != null)   return (GrailsClass)tagLib;
- else {
-    return namespace2tagLibMap.get(feature);
+  if (tagLib != null) {
+    return (GrailsClass)tagLib;
   }
+  return namespace2tagLibMap.get(feature);
 }

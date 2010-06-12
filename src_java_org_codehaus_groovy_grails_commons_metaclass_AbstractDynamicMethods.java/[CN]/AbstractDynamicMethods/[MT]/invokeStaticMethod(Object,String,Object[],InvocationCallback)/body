@@ -2,14 +2,13 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("[DynamicMethods] Attempting invocation of dynamic static method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
   }
-  for (Iterator iter=this.staticMethodInvocations.iterator(); iter.hasNext(); ) {
-    StaticMethodInvocation methodInvocation=(StaticMethodInvocation)iter.next();
+  for (  StaticMethodInvocation methodInvocation : staticMethodInvocations) {
     if (methodInvocation.isMethodMatch(methodName)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("[DynamicMethods] Static method matched, attempting to invoke");
       }
       try {
-        Object result=methodInvocation.invoke(this.clazz,methodName,arguments);
+        Object result=methodInvocation.invoke(clazz,methodName,arguments);
         if (LOG.isDebugEnabled()) {
           LOG.debug("[DynamicMethods] Static method [" + methodName + "] invoked successfully with result ["+ result+ "]. Marking as invoked");
         }

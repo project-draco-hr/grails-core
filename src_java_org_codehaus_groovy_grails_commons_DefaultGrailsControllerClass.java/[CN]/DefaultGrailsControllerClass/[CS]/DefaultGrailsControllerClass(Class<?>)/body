@@ -1,0 +1,31 @@
+{
+  super(clazz,CONTROLLER);
+  uri=SLASH + GrailsNameUtils.getPropertyNameRepresentation(getName());
+  defaultActionName=getStaticPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  if (defaultActionName == null) {
+    defaultActionName=INDEX_ACTION;
+  }
+  Collection<String> closureNames=new ArrayList<String>();
+  controllerPath=uri + SLASH;
+  for (  PropertyDescriptor propertyDescriptor : getPropertyDescriptors()) {
+    Method readMethod=propertyDescriptor.getReadMethod();
+    if (readMethod != null && !Modifier.isStatic(readMethod.getModifiers())) {
+      final Class<?> propertyType=propertyDescriptor.getPropertyType();
+      if (propertyType == Object.class || propertyType == Closure.class) {
+        String closureName=propertyDescriptor.getName();
+        if (closureName.endsWith(FLOW_SUFFIX)) {
+          String flowId=closureName.substring(0,closureName.length() - FLOW_SUFFIX.length());
+          flows.put(flowId,propertyDescriptor);
+          closureName=flowId;
+        }
+        closureNames.add(closureName);
+        configureMappingForClosureProperty(closureName);
+      }
+    }
+  }
+  if (!isReadableProperty(defaultActionName) && closureNames.size() == 1) {
+    defaultActionName=closureNames.iterator().next();
+  }
+  configureDefaultActionIfSet();
+  configureURIsForCurrentState();
+}

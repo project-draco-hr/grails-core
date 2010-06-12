@@ -1,10 +1,10 @@
 {
-  this.initialised=false;
-  this.loadedClasses.clear();
+  initialised=false;
+  loadedClasses.clear();
   initArtefactHandlers();
   if (GrailsUtil.isDevelopmentEnv()) {
     try {
-      loadGrailsApplicationFromResources(this.resources);
+      loadGrailsApplicationFromResources(resources);
       initialise();
     }
  catch (    IOException e) {

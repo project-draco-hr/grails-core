@@ -1,7 +1,7 @@
 {
   GrailsUtil.deprecated(AbstractGrailsClass.class,"getReference");
   if (reference == null) {
-    this.reference=new BeanWrapperImpl(newInstance());
+    reference=new BeanWrapperImpl(newInstance());
   }
-  return this.reference;
+  return reference;
 }

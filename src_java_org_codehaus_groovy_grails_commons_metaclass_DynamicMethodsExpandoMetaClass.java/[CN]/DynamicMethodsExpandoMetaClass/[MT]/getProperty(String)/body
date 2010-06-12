@@ -3,7 +3,5 @@
   if (propertyValue instanceof ExpandoMetaProperty) {
     return new DynamicExpandoMetaProperty((ExpandoMetaProperty)propertyValue);
   }
- else {
-    return propertyValue;
-  }
+  return propertyValue;
 }

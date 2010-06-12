@@ -40,8 +40,8 @@
     }
   }
 ;
-  List<Class> allClasses=resolveAllClasses(clazz);
-  for (  Class c : allClasses) {
+  List<Class<?>> allClasses=resolveAllClasses(clazz);
+  for (  Class<?> c : allClasses) {
     Field[] fields=c.getDeclaredFields();
     for (    Field field : fields) {
       try {
@@ -61,7 +61,7 @@
       }
     }
   }
-  this.propertyDescriptors=BeanUtils.getPropertyDescriptors(clazz);
+  propertyDescriptors=BeanUtils.getPropertyDescriptors(clazz);
   for (  PropertyDescriptor desc : propertyDescriptors) {
     Method readMethod=desc.getReadMethod();
     if (readMethod != null) {

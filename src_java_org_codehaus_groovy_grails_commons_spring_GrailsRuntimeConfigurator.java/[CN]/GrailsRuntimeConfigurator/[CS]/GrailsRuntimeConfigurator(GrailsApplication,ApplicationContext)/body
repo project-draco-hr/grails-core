@@ -1,17 +1,18 @@
 {
-  super();
   this.application=application;
   this.parent=parent;
-  if (parent != null)   parent.containsBean(DATA_SOURCE_BEAN);
+  if (parent != null) {
+    parent.containsBean(DATA_SOURCE_BEAN);
+  }
   try {
-    this.pluginManager=PluginManagerHolder.getPluginManager();
-    if (this.pluginManager == null) {
-      this.pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
-      PluginManagerHolder.setPluginManager(this.pluginManager);
+    pluginManager=PluginManagerHolder.getPluginManager();
+    if (pluginManager == null) {
+      pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
+      PluginManagerHolder.setPluginManager(pluginManager);
     }
  else {
       LOG.debug("Retrieved thread-bound PluginManager instance");
-      this.pluginManager.setApplication(application);
+      pluginManager.setApplication(application);
     }
   }
  catch (  IOException e) {

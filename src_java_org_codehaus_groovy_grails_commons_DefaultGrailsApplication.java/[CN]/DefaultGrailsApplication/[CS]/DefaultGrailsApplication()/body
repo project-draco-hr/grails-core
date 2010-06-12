@@ -1,4 +1,4 @@
 {
-  this.cl=new GroovyClassLoader();
-  this.applicationMeta=Metadata.getCurrent();
+  cl=new GroovyClassLoader();
+  applicationMeta=Metadata.getCurrent();
 }

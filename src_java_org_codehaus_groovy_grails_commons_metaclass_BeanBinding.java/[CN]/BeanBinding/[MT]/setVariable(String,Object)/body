@@ -1,4 +1,3 @@
 {
-  MetaClass mc=getBeanMetaClass();
-  mc.setProperty(bean,name,value);
+  getBeanMetaClass().setProperty(bean,name,value);
 }

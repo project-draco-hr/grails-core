@@ -3,7 +3,5 @@
     registerDynamicMethodInvocation(propertyName,arg);
     return this;
   }
- else {
-    return super.leftShift(arg);
-  }
+  return super.leftShift(arg);
 }

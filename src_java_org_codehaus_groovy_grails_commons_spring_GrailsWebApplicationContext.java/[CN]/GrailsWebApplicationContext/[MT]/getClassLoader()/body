@@ -4,5 +4,5 @@
     final GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID);
     return application.getClassLoader();
   }
- else   return super.getClassLoader();
+  return super.getClassLoader();
 }

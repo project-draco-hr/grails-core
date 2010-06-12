@@ -1,6 +1,6 @@
 {
   grailsClassesByName=Collections.unmodifiableMap(grailsClassesByName);
   classesByName=Collections.unmodifiableMap(classesByName);
-  this.grailsClassesArray=this.grailsClasses.toArray(new GrailsClass[grailsClasses.size()]);
+  grailsClassesArray=grailsClasses.toArray(new GrailsClass[grailsClasses.size()]);
   classes=classesByName.values().toArray(new Class[classesByName.size()]);
 }

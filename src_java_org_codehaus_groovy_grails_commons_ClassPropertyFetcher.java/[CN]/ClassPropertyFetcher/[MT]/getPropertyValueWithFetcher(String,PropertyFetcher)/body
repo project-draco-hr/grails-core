@@ -4,7 +4,7 @@
       return fetcher.get(callback);
     }
  catch (    Exception e) {
-      AbstractGrailsClass.LOG.warn("Error fetching property's " + name + " value from class "+ clazz.getName(),e);
+      log.warn("Error fetching property's " + name + " value from class "+ clazz.getName(),e);
     }
   }
   return null;

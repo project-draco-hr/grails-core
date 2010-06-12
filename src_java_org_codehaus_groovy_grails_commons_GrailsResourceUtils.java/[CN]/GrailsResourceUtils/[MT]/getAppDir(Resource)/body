@@ -7,9 +7,7 @@
       url=url.substring(0,i + 10);
       return new UrlResource(url);
     }
- else {
-      return null;
-    }
+    return null;
   }
  catch (  MalformedURLException e) {
     return null;

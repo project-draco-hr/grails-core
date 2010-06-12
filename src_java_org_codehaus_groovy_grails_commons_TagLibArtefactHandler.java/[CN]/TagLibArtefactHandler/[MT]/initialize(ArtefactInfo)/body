@@ -1,5 +1,5 @@
 {
-  this.tag2libMap=new HashMap<String,GrailsTagLibClass>();
+  tag2libMap=new HashMap<String,GrailsTagLibClass>();
   GrailsClass[] classes=artefacts.getGrailsClasses();
   for (  GrailsClass aClass : classes) {
     GrailsTagLibClass taglibClass=(GrailsTagLibClass)aClass;
@@ -8,13 +8,13 @@
     for (    Object o : taglibClass.getTagNames()) {
       String tagName=namespace + ":" + o;
       if (!tag2libMap.containsKey(tagName)) {
-        this.tag2libMap.put(tagName,taglibClass);
+        tag2libMap.put(tagName,taglibClass);
       }
  else {
         GrailsTagLibClass current=tag2libMap.get(tagName);
         if (!taglibClass.equals(current)) {
           LOG.info("There are conflicting tags: " + taglibClass.getFullName() + "."+ tagName+ " vs. "+ current.getFullName()+ "."+ tagName+ ". The former will take precedence.");
-          this.tag2libMap.put(tagName,taglibClass);
+          tag2libMap.put(tagName,taglibClass);
         }
  else {
           throw new GrailsConfigurationException("Cannot configure tag library [" + taglibClass.getName() + "]. Library ["+ current.getName()+ "] already contains a tag called ["+ tagName+ "]");

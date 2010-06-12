@@ -13,7 +13,7 @@
       LOG.info("No reloading, using standard classloader.");
       classLoader=Thread.currentThread().getContextClassLoader();
     }
-    List classes=new ArrayList();
+    List<Class<?>> classes=new ArrayList<Class<?>>();
     InputStream inputStream=null;
     try {
       inputStream=descriptor.getInputStream();
@@ -24,7 +24,7 @@
         GPathResult node=(GPathResult)grailsClasses.getAt(i);
         String className=node.text();
         try {
-          Class clazz;
+          Class<?> clazz;
           if (classLoader instanceof GrailsClassLoader) {
             clazz=classLoader.loadClass(className);
           }
@@ -39,14 +39,16 @@
       }
     }
   finally {
-      if (inputStream != null)       inputStream.close();
+      if (inputStream != null) {
+        inputStream.close();
+      }
     }
-    Class[] loadedClasses=(Class[])classes.toArray(new Class[classes.size()]);
-    this.grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
+    Class<?>[] loadedClasses=classes.toArray(new Class[classes.size()]);
+    grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
   }
  else {
     Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
-    this.grailsApplication=new DefaultGrailsApplication(this.resourceLoader);
+    grailsApplication=new DefaultGrailsApplication(resourceLoader);
   }
-  ApplicationHolder.setApplication(this.grailsApplication);
+  ApplicationHolder.setApplication(grailsApplication);
 }

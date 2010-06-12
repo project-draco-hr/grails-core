@@ -1,26 +1,27 @@
 {
-  if (value != null) {
-    if (value instanceof Collection) {
-      Collection values=(Collection)value;
-      for (      Object current : values) {
-        storeErrorsIfPossible(scope,current);
-      }
+  if (value == null) {
+    return;
+  }
+  if (value instanceof Collection) {
+    Collection values=(Collection)value;
+    for (    Object val : values) {
+      storeErrorsIfPossible(scope,val);
     }
- else     if (value instanceof Map) {
-      Map map=(Map)value;
-      Collection keys=new LinkedList(map.keySet());
-      for (      Object key : keys) {
-        Object val=map.get(key);
-        storeErrorsIfPossible(map,val);
-      }
+  }
+ else   if (value instanceof Map) {
+    Map map=(Map)value;
+    Collection keys=new LinkedList(map.keySet());
+    for (    Object key : keys) {
+      Object val=map.get(key);
+      storeErrorsIfPossible(map,val);
     }
+  }
  else {
-      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
-      if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
-        Object errors=mc.getProperty(value,ERRORS_PROPERTY);
-        if (errors != null) {
-          scope.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
-        }
+    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(value.getClass());
+    if (mc.hasProperty(value,ERRORS_PROPERTY) != null) {
+      Object errors=mc.getProperty(value,ERRORS_PROPERTY);
+      if (errors != null) {
+        scope.put(ERRORS_PREFIX + System.identityHashCode(value),errors);
       }
     }
   }

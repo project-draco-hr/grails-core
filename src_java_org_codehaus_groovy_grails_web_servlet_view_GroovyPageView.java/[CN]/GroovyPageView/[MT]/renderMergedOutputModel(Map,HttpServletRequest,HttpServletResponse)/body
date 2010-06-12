@@ -1,5 +1,5 @@
 {
-  if (templateEngine == null)   throw new IllegalStateException("No GroovyPagesTemplateEngine found in ApplicationContext!");
+  Assert.state(templateEngine != null,"No GroovyPagesTemplateEngine found in ApplicationContext!");
   super.exposeModelAsRequestAttributes(model,request);
   renderWithTemplateEngine(templateEngine,model,response,request);
 }

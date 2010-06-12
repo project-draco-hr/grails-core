@@ -29,7 +29,7 @@
     GrailsWebRequestFilter grailsWebRequestFilter=new GrailsWebRequestFilter();
     grailsWebRequestFilter.setServletContext(getServletContext());
     grailsWebRequestFilter.doFilter(request,response,new FilterChain(){
-      public void doFilter(      ServletRequest servletRequest,      ServletResponse servletResponse) throws IOException, ServletException {
+      @SuppressWarnings("unchecked") public void doFilter(      ServletRequest servletRequest,      ServletResponse servletResponse) throws IOException, ServletException {
         final GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
         urlMappingInfo.configure(webRequest);
         String viewName=urlMappingInfo.getViewName();

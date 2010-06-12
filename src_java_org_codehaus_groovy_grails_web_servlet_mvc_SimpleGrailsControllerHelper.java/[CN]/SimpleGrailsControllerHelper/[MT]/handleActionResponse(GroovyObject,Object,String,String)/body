@@ -4,59 +4,53 @@
   if (!webRequest.isRenderView()) {
     return null;
   }
- else   if (explicityModelAndView != null) {
+  if (explicityModelAndView != null) {
     return explicityModelAndView;
   }
- else   if (returnValue == null) {
+  if (returnValue == null) {
     if (viewNameBlank) {
       return null;
     }
- else {
-      Map model;
-      if (!this.chainModel.isEmpty()) {
-        model=new CompositeMap(this.chainModel,new BeanMap(controller));
-      }
- else {
-        model=new BeanMap(controller);
-      }
-      return new ModelAndView(viewName,model);
-    }
-  }
- else   if (returnValue instanceof Map) {
-    Map finalModel=new LinkedHashMap();
-    if (!this.chainModel.isEmpty()) {
-      finalModel.putAll(this.chainModel);
-    }
-    Map returnModel=(Map)returnValue;
-    finalModel.putAll(returnModel);
-    removeProxiesFromModelObjects(finalModel);
-    return new ModelAndView(viewName,finalModel);
-  }
- else   if (returnValue instanceof ModelAndView) {
-    ModelAndView modelAndView=(ModelAndView)returnValue;
-    Map modelMap=modelAndView.getModel();
-    removeProxiesFromModelObjects(modelMap);
-    if (!this.chainModel.isEmpty()) {
-      modelAndView.addAllObjects(this.chainModel);
-    }
-    if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
-      if (viewNameBlank) {
-        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controller.getClass()+ "]!");
-      }
- else {
-        modelAndView.setViewName(viewName);
-      }
-    }
-    return modelAndView;
-  }
- else {
     Map model;
-    if (!this.chainModel.isEmpty()) {
-      model=new CompositeMap(this.chainModel,new BeanMap(controller));
+    if (!chainModel.isEmpty()) {
+      model=new CompositeMap(chainModel,new BeanMap(controller));
     }
  else {
       model=new BeanMap(controller);
     }
     return new ModelAndView(viewName,model);
   }
+  if (returnValue instanceof Map) {
+    Map finalModel=new LinkedHashMap();
+    if (!chainModel.isEmpty()) {
+      finalModel.putAll(chainModel);
+    }
+    Map returnModel=(Map)returnValue;
+    finalModel.putAll(returnModel);
+    removeProxiesFromModelObjects(finalModel);
+    return new ModelAndView(viewName,finalModel);
+  }
+  if (returnValue instanceof ModelAndView) {
+    ModelAndView modelAndView=(ModelAndView)returnValue;
+    Map modelMap=modelAndView.getModel();
+    removeProxiesFromModelObjects(modelMap);
+    if (!chainModel.isEmpty()) {
+      modelAndView.addAllObjects(chainModel);
+    }
+    if (modelAndView.getView() == null && modelAndView.getViewName() == null) {
+      if (viewNameBlank) {
+        throw new NoViewNameDefinedException("ModelAndView instance returned by and no view name defined by nor for closure on property [" + closurePropertyName + "] in controller ["+ controller.getClass()+ "]!");
+      }
+      modelAndView.setViewName(viewName);
+    }
+    return modelAndView;
+  }
+  Map model;
+  if (!chainModel.isEmpty()) {
+    model=new CompositeMap(chainModel,new BeanMap(controller));
+  }
+ else {
+    model=new BeanMap(controller);
+  }
+  return new ModelAndView(viewName,model);
 }

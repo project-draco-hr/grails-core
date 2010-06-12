@@ -1,4 +1,7 @@
 {
   BuildSettings buildSettings=new BuildSettings(new File("."));
   BuildSettingsHolder.setSettings(buildSettings);
+  MockGrailsPluginManager pluginManager=new MockGrailsPluginManager();
+  PluginManagerHolder.setPluginManager(pluginManager);
+  pluginManager.registerMockPlugin(DefaultGrailsTemplateGeneratorTests.fakeHibernatePlugin);
 }

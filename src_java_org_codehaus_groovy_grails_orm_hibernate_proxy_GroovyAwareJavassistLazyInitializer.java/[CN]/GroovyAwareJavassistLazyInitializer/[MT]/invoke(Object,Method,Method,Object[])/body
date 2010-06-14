@@ -9,7 +9,6 @@
     }
     if (result == INVOKE_IMPLEMENTATION) {
       Object target=getImplementation();
-      GrailsHibernateUtil.ensureCorrectGroovyMetaClass(target,persistentClass);
       final Object returnValue;
       try {
         if (ReflectHelper.isPublic(persistentClass,thisMethod)) {

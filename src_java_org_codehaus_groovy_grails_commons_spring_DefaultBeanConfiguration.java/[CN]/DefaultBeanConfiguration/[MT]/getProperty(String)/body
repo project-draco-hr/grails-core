@@ -3,7 +3,7 @@
   if (wrapper.isReadableProperty(property)) {
     return wrapper.getPropertyValue(property);
   }
- else   if (DYNAMIC_PROPS.contains(property)) {
+  if (DYNAMIC_PROPS.contains(property)) {
     return null;
   }
   return super.getProperty(property);

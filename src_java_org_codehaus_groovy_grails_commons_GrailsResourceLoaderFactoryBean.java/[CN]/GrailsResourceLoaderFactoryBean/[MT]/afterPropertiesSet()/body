@@ -1,12 +1,12 @@
 {
   Assert.notNull(grailsResourceHolder,"Property [grailsResourceHolder] must be set!");
-  this.resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
+  resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
   if (resourceLoader == null) {
     if (Environment.getCurrent().isReloadEnabled()) {
       ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
       try {
         Resource[] resources=resolver.getResources("file:" + Environment.getCurrent().getReloadLocation() + "/grails-app/**/*.groovy");
-        this.resourceLoader=new GrailsResourceLoader(resources);
+        resourceLoader=new GrailsResourceLoader(resources);
       }
  catch (      IOException e) {
         createDefaultInternal();
@@ -15,6 +15,6 @@
  else {
       createDefaultInternal();
     }
-    GrailsResourceLoaderHolder.setResourceLoader(this.resourceLoader);
+    GrailsResourceLoaderHolder.setResourceLoader(resourceLoader);
   }
 }

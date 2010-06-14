@@ -5,14 +5,14 @@
   if (val != null) {
     return val;
   }
- else   if (this.initialValueGenerator != null) {
-    final Object value=this.initialValueGenerator.execute(object);
+  if (initialValueGenerator != null) {
+    final Object value=initialValueGenerator.execute(object);
     propertyToInstanceMap.put(propertyKey,new SoftReference<Object>(value));
     return value;
   }
- else   if (this.initialValue != null) {
-    propertyToInstanceMap.put(propertyKey,new SoftReference<Object>(this.initialValue));
-    return this.initialValue;
+  if (initialValue != null) {
+    propertyToInstanceMap.put(propertyKey,new SoftReference<Object>(initialValue));
+    return initialValue;
   }
   return null;
 }

@@ -6,17 +6,13 @@
     if (i > -1) {
       return url.substring(i);
     }
- else {
-      Matcher m=PLUGIN_PATTERN.matcher(url);
-      if (m.find()) {
-        return WEB_INF + m.group(1);
-      }
- else {
-        i=url.lastIndexOf(GRAILS_APP_DIR);
-        if (i > -1) {
-          return WEB_INF + "/" + url.substring(i);
-        }
-      }
+    Matcher m=PLUGIN_PATTERN.matcher(url);
+    if (m.find()) {
+      return WEB_INF + m.group(1);
+    }
+    i=url.lastIndexOf(GRAILS_APP_DIR);
+    if (i > -1) {
+      return WEB_INF + "/" + url.substring(i);
     }
   }
  catch (  IOException e) {

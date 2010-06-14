@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader(Thread.currentThread().getContextClassLoader());
-  Class dc=gcl.parseClass("class Test { \n" + "    Long id\n" + "    Long version\n"+ "    String zip\n"+ "    String dob\n"+ "    Date age\n"+ "    String name\n"+ "    static constraints = {\n"+ "        name(size:5..15)\n"+ "        age()\n"+ "    }\n"+ "}\n");
+  Class<?> dc=gcl.parseClass("class Test { \n" + "    Long id\n" + "    Long version\n"+ "    String zip\n"+ "    String dob\n"+ "    Date age\n"+ "    String name\n"+ "    static constraints = {\n"+ "        name(size:5..15)\n"+ "        age()\n"+ "    }\n"+ "}\n");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(dc);
   DomainClassPropertyComparator comp=new DomainClassPropertyComparator(domainClass);
   GrailsDomainClassProperty[] props=domainClass.getProperties();
@@ -8,7 +8,7 @@
   for (int i=0; i < props.length; i++) {
     System.out.println(props[i].getName());
   }
-  List nonConstrainedProps=new ArrayList();
+  List<String> nonConstrainedProps=new ArrayList<String>();
   nonConstrainedProps.add("zip");
   nonConstrainedProps.add("dob");
   nonConstrainedProps.add("version");

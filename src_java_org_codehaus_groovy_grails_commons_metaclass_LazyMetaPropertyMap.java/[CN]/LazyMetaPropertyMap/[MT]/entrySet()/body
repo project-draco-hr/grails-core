@@ -1,8 +1,6 @@
 {
-  Collection properties=metaClass.getProperties();
-  Set entries=new HashSet();
-  for (Iterator i=properties.iterator(); i.hasNext(); ) {
-    MetaProperty mp=(MetaProperty)i.next();
+  Set<MapEntry> entries=new HashSet<MapEntry>();
+  for (  MetaProperty mp : metaClass.getProperties()) {
     if (EXCLUDES.contains(mp.getName()))     continue;
     entries.add(new MapEntry(mp.getName(),mp.getProperty(instance)));
   }

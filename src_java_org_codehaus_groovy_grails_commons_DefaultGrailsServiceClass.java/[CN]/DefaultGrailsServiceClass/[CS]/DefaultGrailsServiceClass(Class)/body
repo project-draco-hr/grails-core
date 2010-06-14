@@ -1,5 +1,0 @@
-{
-  super(clazz,SERVICE);
-  Object tmpTransactional=getPropertyOrStaticPropertyOrFieldValue(TRANSACTIONAL,Boolean.class);
-  this.transactional=tmpTransactional == null || tmpTransactional.equals(Boolean.TRUE);
-}

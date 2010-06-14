@@ -1,4 +1,6 @@
 {
   config=newConfig;
-  if (newConfig != null)   flatConfig=newConfig.flatten();
+  if (newConfig != null) {
+    flatConfig=newConfig.flatten();
+  }
 }

@@ -1,0 +1,17 @@
+{
+  Assert.notNull(clazz,"Clazz parameter should not be null");
+  this.clazz=clazz;
+  fullName=clazz.getName();
+  packageName=ClassUtils.getPackageName(clazz);
+  naturalName=GrailsNameUtils.getNaturalName(clazz.getName());
+  shortName=ClassUtils.getShortClassName(clazz);
+  name=GrailsNameUtils.getLogicalName(clazz,trailingName);
+  propertyName=GrailsNameUtils.getPropertyNameRepresentation(shortName);
+  if (StringUtils.isBlank(name)) {
+    logicalPropertyName=propertyName;
+  }
+ else {
+    logicalPropertyName=GrailsNameUtils.getPropertyNameRepresentation(name);
+  }
+  classPropertyFetcher=ClassPropertyFetcher.forClass(clazz);
+}

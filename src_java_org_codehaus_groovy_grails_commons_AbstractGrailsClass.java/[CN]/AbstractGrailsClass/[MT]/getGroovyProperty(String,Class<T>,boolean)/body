@@ -1,7 +1,7 @@
 {
   Object value=null;
   if (GroovyObject.class.isAssignableFrom(getClazz())) {
-    MetaProperty metaProperty=getMetaClass().getMetaProperty(name);
+    MetaProperty metaProperty=getMetaClass().getMetaProperty(propName);
     if (metaProperty != null) {
       int modifiers=metaProperty.getModifiers();
       if (Modifier.isStatic(modifiers)) {

@@ -1,8 +1,6 @@
 {
-  Collection properties=metaClass.getProperties();
-  Collection values=new ArrayList();
-  for (Iterator i=properties.iterator(); i.hasNext(); ) {
-    MetaProperty mp=(MetaProperty)i.next();
+  Collection<Object> values=new ArrayList<Object>();
+  for (  MetaProperty mp : metaClass.getProperties()) {
     if (EXCLUDES.contains(mp.getName()))     continue;
     values.add(mp.getProperty(instance));
   }

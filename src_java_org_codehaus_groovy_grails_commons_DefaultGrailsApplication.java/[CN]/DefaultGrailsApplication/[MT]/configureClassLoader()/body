@@ -1,0 +1,24 @@
+{
+  final ClassLoader contextLoader=Thread.currentThread().getContextClassLoader();
+  CompilerConfiguration config=CompilerConfiguration.DEFAULT;
+  config.setSourceEncoding("UTF-8");
+  ClassLoader rootLoader=DefaultGroovyMethods.getRootLoader(contextLoader);
+  @SuppressWarnings("hiding") GroovyClassLoader cl;
+  if (rootLoader != null) {
+    cl=new GrailsClassLoader(contextLoader,config,resourceLoader);
+  }
+ else {
+    GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader,config);
+    if (resourceLoader != null) {
+      gcl.setResourceLoader(resourceLoader);
+    }
+    gcl.setClassInjectors(new ClassInjector[]{new DefaultGrailsDomainClassInjector()});
+    cl=gcl;
+  }
+  try {
+    Thread.currentThread().setContextClassLoader(cl);
+  }
+ catch (  AccessControlException e) {
+  }
+  return cl;
+}

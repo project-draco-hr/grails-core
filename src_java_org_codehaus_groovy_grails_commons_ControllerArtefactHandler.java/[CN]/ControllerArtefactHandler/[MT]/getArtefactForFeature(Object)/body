@@ -1,21 +1,23 @@
 {
+  if (artefactInfo == null) {
+    return null;
+  }
   String uri=feature.toString();
-  if (artefactInfo != null) {
-    GrailsClass controllerClass=uriToControllerClassCache.get(uri);
-    if (controllerClass == null) {
-      final GrailsClass[] controllerClasses=artefactInfo.getGrailsClasses();
-      for (int i=(controllerClasses.length - 1); i >= 0; i--) {
-        GrailsClass c=controllerClasses[i];
-        if (((GrailsControllerClass)c).mapsToURI(uri)) {
-          controllerClass=c;
-          break;
-        }
-      }
-      if (controllerClass != null) {
-        if (Environment.getCurrent() != Environment.DEVELOPMENT)         uriToControllerClassCache.putIfAbsent(uri,controllerClass);
+  GrailsClass controllerClass=uriToControllerClassCache.get(uri);
+  if (controllerClass == null) {
+    final GrailsClass[] controllerClasses=artefactInfo.getGrailsClasses();
+    for (int i=(controllerClasses.length - 1); i >= 0; i--) {
+      GrailsClass c=controllerClasses[i];
+      if (((GrailsControllerClass)c).mapsToURI(uri)) {
+        controllerClass=c;
+        break;
       }
     }
-    return controllerClass;
+    if (controllerClass != null) {
+      if (Environment.getCurrent() != Environment.DEVELOPMENT) {
+        uriToControllerClassCache.putIfAbsent(uri,controllerClass);
+      }
+    }
   }
-  return null;
+  return controllerClass;
 }

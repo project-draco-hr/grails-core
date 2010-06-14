@@ -1,6 +1,5 @@
 {
-  for (  Object o : beanConfigs.values()) {
-    BeanConfiguration bc=(BeanConfiguration)o;
+  for (  BeanConfiguration bc : beanConfigs.values()) {
     String beanName=bc.getName();
     if (LOG.isDebugEnabled()) {
       LOG.debug("[RuntimeConfiguration] Registering bean [" + beanName + "]");

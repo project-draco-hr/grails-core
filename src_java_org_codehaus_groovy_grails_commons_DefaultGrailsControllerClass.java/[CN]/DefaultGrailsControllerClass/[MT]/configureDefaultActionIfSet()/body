@@ -1,9 +1,10 @@
 {
-  if (defaultActionName != null) {
-    this.uri2closureMap.put(uri,defaultActionName);
-    this.uri2closureMap.put(controllerPath,defaultActionName);
-    this.uri2viewMap.put(controllerPath,controllerPath + defaultActionName);
-    this.uri2viewMap.put(uri,controllerPath + defaultActionName);
-    this.viewNames.put(defaultActionName,controllerPath + defaultActionName);
+  if (defaultActionName == null) {
+    return;
   }
+  uri2closureMap.put(uri,defaultActionName);
+  uri2closureMap.put(controllerPath,defaultActionName);
+  uri2viewMap.put(controllerPath,controllerPath + defaultActionName);
+  uri2viewMap.put(uri,controllerPath + defaultActionName);
+  viewNames.put(defaultActionName,controllerPath + defaultActionName);
 }

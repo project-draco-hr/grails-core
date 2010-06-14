@@ -1,6 +1,6 @@
 {
   try {
-    Constructor c=grailsClassImpl.getDeclaredConstructor(new Class[]{Class.class});
+    Constructor<?> c=grailsClassImpl.getDeclaredConstructor(new Class[]{Class.class});
     return (GrailsClass)c.newInstance(new Object[]{artefactClass});
   }
  catch (  NoSuchMethodException e) {

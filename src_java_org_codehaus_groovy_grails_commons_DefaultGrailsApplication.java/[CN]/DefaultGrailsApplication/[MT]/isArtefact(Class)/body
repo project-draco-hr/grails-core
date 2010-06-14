@@ -1,7 +1,6 @@
 {
   String className=theClazz.getName();
-  for (  Object allArtefactClass : allArtefactClasses) {
-    Class artefactClass=(Class)allArtefactClass;
+  for (  Class<?> artefactClass : allArtefactClasses) {
     if (className.equals(artefactClass.getName())) {
       return true;
     }

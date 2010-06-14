@@ -1,6 +1,6 @@
 {
   AbstractBeanDefinition bd=new GenericBeanDefinition();
-  if (constructorArgs.size() > 0) {
+  if (!constructorArgs.isEmpty()) {
     ConstructorArgumentValues cav=new ConstructorArgumentValues();
     for (    Object constructorArg : constructorArgs) {
       cav.addGenericArgumentValue(constructorArg);

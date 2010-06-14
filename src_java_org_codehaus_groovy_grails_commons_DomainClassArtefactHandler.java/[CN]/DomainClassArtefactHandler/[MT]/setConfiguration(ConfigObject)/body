@@ -7,7 +7,7 @@
     }
  else {
       ClosureToMapPopulator populator=new ClosureToMapPopulator();
-      this.defaultConstraints=populator.populate((Closure)constraints);
+      defaultConstraints=populator.populate((Closure)constraints);
     }
   }
 }

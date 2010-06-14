@@ -10,7 +10,5 @@
     initializeArtefacts(artefactType);
     return artefactGrailsClass;
   }
- else {
-    throw new GrailsConfigurationException("Cannot add " + artefactType + " class ["+ artefactGrailsClass+ "]. It is not a "+ artefactType+ "!");
-  }
+  throw new GrailsConfigurationException("Cannot add " + artefactType + " class ["+ artefactGrailsClass+ "]. It is not a "+ artefactType+ "!");
 }

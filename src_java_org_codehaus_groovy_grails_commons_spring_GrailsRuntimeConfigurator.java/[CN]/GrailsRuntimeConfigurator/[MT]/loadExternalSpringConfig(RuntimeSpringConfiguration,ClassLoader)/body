@@ -1,7 +1,7 @@
 {
   if (springGroovyResourcesBeanBuilder == null) {
     try {
-      Class groovySpringResourcesClass=null;
+      Class<?> groovySpringResourcesClass=null;
       try {
         groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,classLoader);
       }

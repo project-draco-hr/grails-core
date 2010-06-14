@@ -1,6 +1,6 @@
 {
-  if (this.resourceLoader == null) {
+  if (resourceLoader == null) {
     return null;
   }
-  return this.resourceLoader.getResourceForClass(theClazz);
+  return resourceLoader.getResourceForClass(theClazz);
 }

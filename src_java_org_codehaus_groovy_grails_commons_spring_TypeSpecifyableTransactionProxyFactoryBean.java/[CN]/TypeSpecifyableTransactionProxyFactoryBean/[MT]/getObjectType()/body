@@ -2,7 +2,5 @@
   if (type != null) {
     return type;
   }
- else {
-    return super.getObjectType();
-  }
+  return super.getObjectType();
 }

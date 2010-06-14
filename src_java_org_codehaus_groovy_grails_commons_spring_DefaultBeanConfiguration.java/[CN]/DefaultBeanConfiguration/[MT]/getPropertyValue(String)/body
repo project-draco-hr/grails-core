@@ -1,9 +1,7 @@
 {
-  PropertyValue propertyValue=getBeanDefinition().getPropertyValues().getPropertyValue(name);
+  PropertyValue propertyValue=getBeanDefinition().getPropertyValues().getPropertyValue(propName);
   if (propertyValue == null) {
     return null;
   }
- else {
-    return propertyValue.getValue();
-  }
+  return propertyValue.getValue();
 }

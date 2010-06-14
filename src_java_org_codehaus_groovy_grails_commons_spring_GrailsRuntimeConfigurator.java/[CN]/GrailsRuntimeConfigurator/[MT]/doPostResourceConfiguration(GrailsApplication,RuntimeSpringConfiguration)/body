@@ -2,7 +2,7 @@
   ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
   try {
     Resource springResources;
-    if (application.isWarDeployed()) {
+    if (app.isWarDeployed()) {
       springResources=parent.getResource(GrailsRuntimeConfigurator.SPRING_RESOURCES_XML);
     }
  else {
@@ -18,9 +18,9 @@
       for (      String beanName : beanNames) {
         BeanDefinition bd=xmlBf.getBeanDefinition(beanName);
         final String beanClassName=bd.getBeanClassName();
-        Class beanClass=beanClassName == null ? null : ClassUtils.forName(beanClassName,classLoader);
+        Class<?> beanClass=beanClassName == null ? null : ClassUtils.forName(beanClassName,classLoader);
         if (SESSION_FACTORY_BEAN.equals(beanName)) {
-          Class configurableLocalSessionFactoryBeanClass=ConfigurableLocalSessionFactoryBean.class;
+          Class<?> configurableLocalSessionFactoryBeanClass=ConfigurableLocalSessionFactoryBean.class;
           if (beanClass == null || !configurableLocalSessionFactoryBeanClass.isAssignableFrom(beanClass)) {
             LOG.warn("[RuntimeConfiguration] Found custom Hibernate SessionFactory bean defined in " + springResources.getURL() + ". The bean will not be configured as Grails needs to use its own specialized Hibernate SessionFactoryBean"+ " in order to inject dynamic bahavior into domain classes."+ " Use specialized Hibernate SessionFactoryBean '"+ configurableLocalSessionFactoryBeanClass+ "' for custom Hibernate SessionFactory bean defined in '"+ springResources.getURL()+ "' instead of '"+ beanClassName+ "' in order to configure custom Hibernate SessionFactory bean.");
             continue;

@@ -3,7 +3,7 @@
   PropertyDescriptor[] descriptors=getPropertyDescriptors();
   List tmp=getPropertyValue(GrailsDomainClassProperty.TRANSIENT,List.class);
   if (tmp != null)   transients=tmp;
-  properties=createDomainClassProperties(this,descriptors);
+  properties=createDomainClassProperties(descriptors);
   constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),properties);
   DomainClassGrailsPlugin.registerConstraintsProperty(getMetaClass(),this);
 }

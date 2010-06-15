@@ -1,10 +1,6 @@
 {
-  HandlerInterceptor[] interceptors;
   if (Environment.getCurrent() == Environment.DEVELOPMENT) {
-    interceptors=establishInterceptors(applicationContext);
+    return establishInterceptors(applicationContext);
   }
- else {
-    interceptors=this.getAdaptedInterceptors();
-  }
-  return interceptors;
+  return getAdaptedInterceptors();
 }

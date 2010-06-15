@@ -1,6 +1,8 @@
 {
   HttpServletRequest request=getRequest();
   String uri=(String)request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
-  if (uri == null)   uri=request.getRequestURI();
+  if (uri == null) {
+    uri=request.getRequestURI();
+  }
   return uri;
 }

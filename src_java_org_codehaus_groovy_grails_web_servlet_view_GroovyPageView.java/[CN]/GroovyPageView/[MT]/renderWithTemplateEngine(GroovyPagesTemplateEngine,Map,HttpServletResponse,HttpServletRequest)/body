@@ -2,15 +2,17 @@
   Writer out=null;
   try {
     out=createResponseWriter(response);
-    Template t=templateEngine.createTemplate(getUrl());
+    Template t=engine.createTemplate(getUrl());
     Writable w=t.make(model);
     w.writeTo(out);
   }
  catch (  Exception e) {
     out=createResponseWriter(response);
-    handleException(e,out,templateEngine,request,response);
+    handleException(e,out,engine,request,response);
   }
  finally {
-    if (out != null)     out.close();
+    if (out != null) {
+      out.close();
+    }
   }
 }

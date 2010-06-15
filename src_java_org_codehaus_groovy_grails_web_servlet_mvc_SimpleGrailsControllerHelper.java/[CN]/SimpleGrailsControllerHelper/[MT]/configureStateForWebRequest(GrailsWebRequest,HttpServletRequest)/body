@@ -1,8 +1,8 @@
 {
-  this.webRequest=webRequest;
-  this.actionName=webRequest.getActionName();
-  this.controllerName=webRequest.getControllerName();
-  this.id=webRequest.getId();
+  this.webRequest=grailsWebRequest;
+  actionName=grailsWebRequest.getActionName();
+  controllerName=grailsWebRequest.getControllerName();
+  id=grailsWebRequest.getId();
   if (StringUtils.isBlank(id) && request.getParameter(GrailsWebRequest.ID_PARAMETER) != null) {
     id=request.getParameter(GrailsWebRequest.ID_PARAMETER);
   }

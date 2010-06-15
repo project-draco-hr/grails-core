@@ -22,6 +22,10 @@
       bindManyToOne(currentGrailsProp,(ManyToOne)value,path,mappings);
     }
   }
+ else   if (currentGrailsProp.isEmbedded()) {
+    value=new Component(persistentClass);
+    bindComponent((Component)value,currentGrailsProp,true,mappings);
+  }
  else {
     if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
     value=new SimpleValue(table);

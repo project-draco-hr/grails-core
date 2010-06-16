@@ -1,8 +1,6 @@
 {
-  List properties=classNode.getProperties();
-  List propertiesToAdd=new ArrayList();
-  for (  Object property : properties) {
-    PropertyNode pn=(PropertyNode)property;
+  List<PropertyNode> propertiesToAdd=new ArrayList<PropertyNode>();
+  for (  PropertyNode pn : classNode.getProperties()) {
     final String name=pn.getName();
     final boolean isHasManyProperty=name.equals(GrailsDomainClassProperty.RELATES_TO_MANY) || name.equals(GrailsDomainClassProperty.HAS_MANY);
     if (isHasManyProperty) {

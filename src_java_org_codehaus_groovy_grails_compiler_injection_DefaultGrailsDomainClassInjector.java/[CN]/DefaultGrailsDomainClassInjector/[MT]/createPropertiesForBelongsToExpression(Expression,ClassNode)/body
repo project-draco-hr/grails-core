@@ -1,10 +1,8 @@
 {
-  List properties=new ArrayList();
+  List<PropertyNode> properties=new ArrayList<PropertyNode>();
   if (e instanceof MapExpression) {
     MapExpression me=(MapExpression)e;
-    List mapEntries=me.getMapEntryExpressions();
-    for (    Object mapEntry : mapEntries) {
-      MapEntryExpression mme=(MapEntryExpression)mapEntry;
+    for (    MapEntryExpression mme : me.getMapEntryExpressions()) {
       String key=mme.getKeyExpression().getText();
       final Expression expression=mme.getValueExpression();
       ClassNode type;

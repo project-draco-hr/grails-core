@@ -1,8 +1,8 @@
 {
   for (int i=0; i < classInjectors.length; i++) {
     ClassInjector classInjector=classInjectors[i];
-    URL url;
     try {
+      URL url;
       if (GrailsResourceUtils.isGrailsPath(source.getName())) {
         url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(source.getName()));
       }

@@ -9,9 +9,8 @@
         url=resourceLoader.loadGroovySource(source.getName());
       }
       if (GrailsResourceUtils.isDomainClass(url)) {
-        Map injectors=applicationContext.getBeansOfType(GrailsDomainClassInjector.class);
-        for (Iterator i=injectors.values().iterator(); i.hasNext(); ) {
-          GrailsDomainClassInjector injector=(GrailsDomainClassInjector)i.next();
+        Map<String,GrailsDomainClassInjector> injectors=applicationContext.getBeansOfType(GrailsDomainClassInjector.class);
+        for (        GrailsDomainClassInjector injector : injectors.values()) {
           injector.performInjection(source,context,classNode);
         }
       }

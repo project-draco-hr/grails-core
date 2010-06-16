@@ -1,6 +1,5 @@
 {
-  for (  Object aPropertiesToAdd : propertiesToAdd) {
-    PropertyNode pn=(PropertyNode)aPropertiesToAdd;
+  for (  PropertyNode pn : propertiesToAdd) {
     if (!GrailsASTUtils.hasProperty(classNode,pn.getName())) {
       classNode.addProperty(pn);
     }

@@ -4,7 +4,5 @@
     String path=pluginManager.getPluginPathForInstance(controller);
     return path == null ? "" : path;
   }
- else {
-    return "";
-  }
+  return "";
 }

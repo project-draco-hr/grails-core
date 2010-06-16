@@ -4,7 +4,5 @@
     chain.addInterceptors(lookupInterceptors(getWebApplicationContext()));
     return chain;
   }
- else {
-    return new HandlerExecutionChain(handler,lookupInterceptors(getWebApplicationContext()));
-  }
+  return new HandlerExecutionChain(handler,lookupInterceptors(getWebApplicationContext()));
 }

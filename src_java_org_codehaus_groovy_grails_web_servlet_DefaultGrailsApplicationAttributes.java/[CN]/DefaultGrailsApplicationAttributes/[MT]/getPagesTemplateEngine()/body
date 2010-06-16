@@ -2,7 +2,5 @@
   if (pagesTemplateEngine != null) {
     return pagesTemplateEngine;
   }
- else {
-    throw new GroovyPagesException("No bean named [" + GroovyPagesTemplateEngine.BEAN_ID + "] defined in Spring application context!");
-  }
+  throw new GroovyPagesException("No bean named [" + GroovyPagesTemplateEngine.BEAN_ID + "] defined in Spring application context!");
 }

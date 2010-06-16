@@ -1,4 +1,4 @@
 {
-  this.grailsApplication=applicationContext.getBean(GrailsApplication.class);
-  this.commandObjectBindingAction=WebMetaUtils.createCommandObjectBindingAction(applicationContext);
+  grailsApplication=applicationContext.getBean(GrailsApplication.class);
+  commandObjectBindingAction=WebMetaUtils.createCommandObjectBindingAction(applicationContext);
 }

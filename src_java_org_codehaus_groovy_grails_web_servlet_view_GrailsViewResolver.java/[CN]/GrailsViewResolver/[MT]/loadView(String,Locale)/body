@@ -6,7 +6,7 @@
   GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
   HttpServletRequest request=webRequest.getCurrentRequest();
   GroovyObject controller=webRequest.getAttributes().getController(request);
-  GrailsApplication application=(GrailsApplication)getApplicationContext().getBean(GrailsApplication.APPLICATION_ID);
+  GrailsApplication application=getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   ResourceLoader loader=establishResourceLoader(application);
   String format=request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT) != null ? request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT).toString() : null;
   String gspView=localPrefix + viewName + DOT+ format+ GSP_SUFFIX;

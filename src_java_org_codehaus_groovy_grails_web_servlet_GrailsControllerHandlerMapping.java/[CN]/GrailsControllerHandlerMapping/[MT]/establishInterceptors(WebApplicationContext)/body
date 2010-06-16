@@ -1,8 +1,7 @@
 {
-  HandlerInterceptor[] interceptors;
   String[] interceptorNames=webContext.getBeanNamesForType(HandlerInterceptor.class);
   String[] webRequestInterceptors=webContext.getBeanNamesForType(WebRequestInterceptor.class);
-  interceptors=new HandlerInterceptor[interceptorNames.length + webRequestInterceptors.length];
+  HandlerInterceptor[] interceptors=new HandlerInterceptor[interceptorNames.length + webRequestInterceptors.length];
   int j=0;
   for (  String webRequestInterceptor : webRequestInterceptors) {
     interceptors[j++]=new WebRequestHandlerInterceptorAdapter((WebRequestInterceptor)webContext.getBean(webRequestInterceptor));

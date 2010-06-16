@@ -1,8 +1,8 @@
 {
   if (value instanceof Collection) {
     Collection values=(Collection)value;
-    for (    Object current : values) {
-      reassociateObjectWithErrors(scope,current);
+    for (    Object val : values) {
+      reassociateObjectWithErrors(scope,val);
     }
   }
  else {

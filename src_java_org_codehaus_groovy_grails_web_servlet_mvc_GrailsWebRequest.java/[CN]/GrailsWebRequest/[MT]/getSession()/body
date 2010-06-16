@@ -1,4 +1,6 @@
 {
-  if (session == null)   session=new GrailsHttpSession(getCurrentRequest());
+  if (session == null) {
+    session=new GrailsHttpSession(getCurrentRequest());
+  }
   return session;
 }

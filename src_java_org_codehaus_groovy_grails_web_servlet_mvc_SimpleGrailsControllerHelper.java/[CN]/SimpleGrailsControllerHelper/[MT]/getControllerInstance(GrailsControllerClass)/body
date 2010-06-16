@@ -1,3 +1,3 @@
 {
-  return (GroovyObject)this.applicationContext.getBean(controllerClass.getFullName());
+  return (GroovyObject)applicationContext.getBean(controllerClass.getFullName());
 }

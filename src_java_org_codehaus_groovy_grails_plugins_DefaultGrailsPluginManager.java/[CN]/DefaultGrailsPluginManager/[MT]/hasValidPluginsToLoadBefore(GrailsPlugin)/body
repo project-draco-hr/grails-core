@@ -1,6 +1,6 @@
 {
   String[] loadAfterNames=plugin.getLoadAfterNames();
-  for (  Object delayedLoadPlugin : this.delayedLoadPlugins) {
+  for (  Object delayedLoadPlugin : delayedLoadPlugins) {
     GrailsPlugin other=(GrailsPlugin)delayedLoadPlugin;
     for (    String name : loadAfterNames) {
       if (other.getName().equals(name)) {

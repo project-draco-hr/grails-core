@@ -1,15 +1,12 @@
 {
   Object collection=bean.getPropertyValue(propertyName);
   if (collection instanceof Collection) {
-    for (Iterator i=((Collection)collection).iterator(); i.hasNext(); ) {
-      Object associatedObject=i.next();
+    for (    Object associatedObject : ((Collection)collection)) {
       cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
     }
   }
  else   if (collection instanceof Map) {
-    Map map=(Map)collection;
-    for (Iterator i=map.values().iterator(); i.hasNext(); ) {
-      Object associatedObject=i.next();
+    for (    Object associatedObject : ((Map)collection).values()) {
       cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
     }
   }

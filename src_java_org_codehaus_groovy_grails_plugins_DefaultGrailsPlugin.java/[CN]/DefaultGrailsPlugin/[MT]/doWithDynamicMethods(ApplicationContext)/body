@@ -1,7 +1,7 @@
 {
   try {
-    if (this.pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
-      Closure c=(Closure)this.plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
+    if (pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
+      Closure c=(Closure)plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
       if (enableDocumentationGeneration()) {
         DocumentationContext.getInstance().setActive(true);
       }

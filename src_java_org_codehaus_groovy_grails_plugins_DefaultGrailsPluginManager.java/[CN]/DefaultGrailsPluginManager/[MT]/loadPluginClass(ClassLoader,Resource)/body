@@ -1,5 +1,5 @@
 {
-  Class pluginClass;
+  Class<?> pluginClass;
   if (cl instanceof GroovyClassLoader) {
     try {
       if (LOG.isInfoEnabled()) {

@@ -1,7 +1,7 @@
 {
   Comparable maxValue=null;
-  MaxConstraint maxConstraint=(MaxConstraint)this.appliedConstraints.get(MAX_CONSTRAINT);
-  RangeConstraint rangeConstraint=(RangeConstraint)this.appliedConstraints.get(RANGE_CONSTRAINT);
+  MaxConstraint maxConstraint=(MaxConstraint)appliedConstraints.get(MAX_CONSTRAINT);
+  RangeConstraint rangeConstraint=(RangeConstraint)appliedConstraints.get(RANGE_CONSTRAINT);
   if ((maxConstraint != null) || (rangeConstraint != null)) {
     Comparable maxConstraintValue=maxConstraint != null ? maxConstraint.getMaxValue() : null;
     Comparable rangeConstraintHighValue=rangeConstraint != null ? rangeConstraint.getRange().getTo() : null;

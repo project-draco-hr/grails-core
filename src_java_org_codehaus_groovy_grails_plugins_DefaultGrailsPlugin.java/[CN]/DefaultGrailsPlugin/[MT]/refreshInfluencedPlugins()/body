@@ -4,12 +4,12 @@
   }
   if (manager != null) {
     for (    String name : influencedPluginNames) {
-      GrailsPlugin plugin=manager.getGrailsPlugin(name);
-      if (plugin != null) {
+      GrailsPlugin grailsPlugin=manager.getGrailsPlugin(name);
+      if (grailsPlugin != null) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug(this + " plugin is refreshing influenced plugin " + plugin+ " following change to resource");
+          LOG.debug(this + " plugin is refreshing influenced plugin " + grailsPlugin+ " following change to resource");
         }
-        plugin.refresh();
+        grailsPlugin.refresh();
       }
     }
   }

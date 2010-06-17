@@ -1,6 +1,6 @@
 {
   Map resultMap=new HashMap();
-  Object propertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(this.plugin,name);
+  Object propertyValue=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,name);
   if (propertyValue instanceof Map) {
     Map containedMap=(Map)propertyValue;
     Object includes=containedMap.get(INCLUDES);

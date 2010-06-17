@@ -1,10 +1,9 @@
 {
-  List beanNames=new ArrayList();
-  for (Iterator i=beans.keySet().iterator(); i.hasNext(); ) {
-    String beanName=(String)i.next();
+  List<String> beanNames=new ArrayList<String>();
+  for (  String beanName : beans.keySet()) {
     if (type.isAssignableFrom(beans.get(beanName).getClass())) {
       beanNames.add(beanName);
     }
   }
-  return (String[])beanNames.toArray(new String[beanNames.size()]);
+  return beanNames.toArray(new String[beanNames.size()]);
 }

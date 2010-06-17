@@ -1,7 +1,7 @@
 {
   final MetaClassRegistry metaClassRegistry=GroovySystem.getMetaClassRegistry();
-  if (metaClassRegistry.getMetaClassCreationHandler() != instance) {
+  if (metaClassRegistry.getMetaClassCreationHandler() != INSTANCE) {
     ClassInfo.clearModifiedExpandos();
-    metaClassRegistry.setMetaClassCreationHandle(instance);
+    metaClassRegistry.setMetaClassCreationHandle(INSTANCE);
   }
 }

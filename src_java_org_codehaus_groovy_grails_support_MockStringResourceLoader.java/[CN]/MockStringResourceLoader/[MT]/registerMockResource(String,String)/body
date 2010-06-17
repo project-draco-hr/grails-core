@@ -1,6 +1,6 @@
 {
   try {
-    this.mockResources.put(location,new GrailsByteArrayResource(contents.getBytes("UTF-8"),location));
+    mockResources.put(location,new GrailsByteArrayResource(contents.getBytes("UTF-8"),location));
   }
  catch (  UnsupportedEncodingException e) {
     throw new RuntimeException(e);

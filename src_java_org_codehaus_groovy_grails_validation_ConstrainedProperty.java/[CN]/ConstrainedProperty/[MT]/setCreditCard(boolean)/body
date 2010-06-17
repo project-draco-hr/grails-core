@@ -2,22 +2,22 @@
   if (isNotValidStringType()) {
     throw new MissingPropertyException("CreditCard constraint only applies to a String property",CREDIT_CARD_CONSTRAINT,owningClass);
   }
-  Constraint c=(Constraint)this.appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
+  Constraint c=appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
   if (creditCard) {
     if (c != null) {
       c.setParameter(Boolean.valueOf(creditCard));
     }
  else {
       c=new CreditCardConstraint();
-      c.setOwningClass(this.owningClass);
-      c.setPropertyName(this.propertyName);
+      c.setOwningClass(owningClass);
+      c.setPropertyName(propertyName);
       c.setParameter(Boolean.valueOf(creditCard));
-      this.appliedConstraints.put(CREDIT_CARD_CONSTRAINT,c);
+      appliedConstraints.put(CREDIT_CARD_CONSTRAINT,c);
     }
   }
  else {
     if (c != null) {
-      this.appliedConstraints.remove(CREDIT_CARD_CONSTRAINT);
+      appliedConstraints.remove(CREDIT_CARD_CONSTRAINT);
     }
   }
 }

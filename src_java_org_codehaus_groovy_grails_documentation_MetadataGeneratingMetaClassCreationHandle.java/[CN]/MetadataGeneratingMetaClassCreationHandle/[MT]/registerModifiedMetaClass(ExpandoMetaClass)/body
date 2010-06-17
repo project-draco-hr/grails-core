@@ -1,4 +1,3 @@
 {
-  final Class klazz=emc.getJavaClass();
-  GroovySystem.getMetaClassRegistry().setMetaClass(klazz,emc);
+  GroovySystem.getMetaClassRegistry().setMetaClass(emc.getJavaClass(),emc);
 }

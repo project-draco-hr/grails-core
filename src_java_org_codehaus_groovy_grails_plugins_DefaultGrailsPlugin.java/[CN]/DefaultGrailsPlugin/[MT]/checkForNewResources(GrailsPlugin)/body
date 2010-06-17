@@ -3,7 +3,7 @@
     return;
   }
   if (LOG.isDebugEnabled()) {
-    LOG.debug("Plugin " + plugin + " checking ["+ ArrayUtils.toString(resourcesReferences)+ "] resource references new resources that have been added..");
+    LOG.debug("Plugin " + grailsPlugin + " checking ["+ ArrayUtils.toString(resourcesReferences)+ "] resource references new resources that have been added..");
   }
   for (int i=0; i < resourcesReferences.length; i++) {
     String resourcesReference=resourcesReferences[i];
@@ -20,10 +20,14 @@
         }
         if (newResource != null) {
           watchedResources=(Resource[])ArrayUtils.add(watchedResources,newResource);
-          if (LOG.isInfoEnabled())           LOG.info("Found new Grails plug-in resource [" + newResource + "], adding to application..");
+          if (LOG.isInfoEnabled()) {
+            LOG.info("Found new Grails plug-in resource [" + newResource + "], adding to application..");
+          }
           if (newResource.getFilename().endsWith(".groovy")) {
-            if (LOG.isDebugEnabled())             LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, registering resource with class loader...");
-            ClassLoader classLoader=this.application.getClassLoader();
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, registering resource with class loader...");
+            }
+            ClassLoader classLoader=application.getClassLoader();
             GrailsResourceLoader resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
             Resource[] classLoaderResources=resourceLoader.getResources();
             classLoaderResources=(Resource[])ArrayUtils.add(classLoaderResources,newResource);
@@ -33,8 +37,10 @@
             }
           }
           initializeModifiedTimes();
-          if (LOG.isDebugEnabled())           LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, firing event if possible..");
-          fireModifiedEvent(newResource,plugin);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("[GrailsPlugin] plugin resource [" + newResource + "] added, firing event if possible..");
+          }
+          fireModifiedEvent(newResource,grailsPlugin);
         }
       }
     }

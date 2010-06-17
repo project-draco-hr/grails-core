@@ -1,8 +1,12 @@
 {
   checkInitialised();
   GrailsPlugin plugin=getGrailsPlugin(pluginName);
-  if (plugin == null)   throw new PluginException("Plugin [" + pluginName + "] not found");
-  if (!plugin.supportsCurrentScopeAndEnvironment())   return;
+  if (plugin == null) {
+    throw new PluginException("Plugin [" + pluginName + "] not found");
+  }
+  if (!plugin.supportsCurrentScopeAndEnvironment()) {
+    return;
+  }
   String[] dependencyNames=plugin.getDependencyNames();
   doRuntimeConfigurationForDependencies(dependencyNames,springConfig);
   String[] loadAfters=plugin.getLoadAfterNames();

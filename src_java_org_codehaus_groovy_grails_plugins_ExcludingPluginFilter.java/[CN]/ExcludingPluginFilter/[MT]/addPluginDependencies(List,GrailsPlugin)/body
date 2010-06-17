@@ -1,11 +1,8 @@
 {
   String pluginName=plugin.getName();
-  Collection values=getAllPlugins();
-  Iterator others=values.iterator();
-  while (others.hasNext()) {
-    GrailsPlugin p=(GrailsPlugin)others.next();
-    String pName=p.getName();
-    if (pluginName.equals(pName)) {
+  Collection<GrailsPlugin> values=getAllPlugins();
+  for (  GrailsPlugin p : values) {
+    if (pluginName.equals(p.getName())) {
       continue;
     }
     boolean depends=isDependentOn(p,pluginName);

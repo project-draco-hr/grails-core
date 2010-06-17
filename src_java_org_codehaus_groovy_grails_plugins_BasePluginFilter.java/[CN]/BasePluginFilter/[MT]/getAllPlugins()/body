@@ -1,4 +1,3 @@
 {
-  Collection values=Collections.unmodifiableCollection(nameMap.values());
-  return values;
+  return Collections.unmodifiableCollection(nameMap.values());
 }

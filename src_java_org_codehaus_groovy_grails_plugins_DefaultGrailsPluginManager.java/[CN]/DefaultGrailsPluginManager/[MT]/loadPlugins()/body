@@ -1,15 +1,16 @@
 {
-  if (!this.initialised) {
-    ClassLoader gcl=application.getClassLoader();
-    attemptLoadPlugins(gcl);
-    if (!delayedLoadPlugins.isEmpty()) {
-      loadDelayedPlugins();
-    }
-    if (!delayedEvictions.isEmpty()) {
-      processDelayedEvictions();
-    }
-    pluginList=sortPlugins(pluginList);
-    initializePlugins();
-    initialised=true;
+  if (initialised) {
+    return;
   }
+  ClassLoader gcl=application.getClassLoader();
+  attemptLoadPlugins(gcl);
+  if (!delayedLoadPlugins.isEmpty()) {
+    loadDelayedPlugins();
+  }
+  if (!delayedEvictions.isEmpty()) {
+    processDelayedEvictions();
+  }
+  pluginList=sortPlugins(pluginList);
+  initializePlugins();
+  initialised=true;
 }

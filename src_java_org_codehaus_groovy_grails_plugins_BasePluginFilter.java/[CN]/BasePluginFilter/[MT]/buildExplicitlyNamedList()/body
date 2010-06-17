@@ -1,7 +1,5 @@
 {
-  Iterator pluginsInterator=originalPlugins.iterator();
-  while (pluginsInterator.hasNext()) {
-    GrailsPlugin plugin=(GrailsPlugin)pluginsInterator.next();
+  for (  GrailsPlugin plugin : originalPlugins) {
     String name=plugin.getName();
     if (suppliedNames.contains(name)) {
       explicitlyNamedPlugins.add(plugin);

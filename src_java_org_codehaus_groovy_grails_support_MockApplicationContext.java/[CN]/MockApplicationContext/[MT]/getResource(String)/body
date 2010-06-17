@@ -1,12 +1,10 @@
 {
-  for (Iterator i=resources.iterator(); i.hasNext(); ) {
-    Resource mockResource=(Resource)i.next();
+  for (  Resource mockResource : resources) {
     if (pathMatcher.match(mockResource.getDescription(),StringUtils.removeStart(location,"/"))) {
       return mockResource;
     }
   }
-  for (Iterator i=ignoredClassLocations.iterator(); i.hasNext(); ) {
-    String resourceLocation=(String)i.next();
+  for (  String resourceLocation : ignoredClassLocations) {
     if (pathMatcher.match(StringUtils.removeStart(location,"/"),StringUtils.removeStart(resourceLocation,"/"))) {
       return null;
     }

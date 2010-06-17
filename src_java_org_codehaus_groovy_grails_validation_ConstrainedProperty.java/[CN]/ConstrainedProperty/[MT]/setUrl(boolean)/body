@@ -2,7 +2,7 @@
   if (isNotValidStringType()) {
     throw new MissingPropertyException("URL constraint can only be applied to a String property",URL_CONSTRAINT,owningClass);
   }
-  Constraint c=(Constraint)this.appliedConstraints.get(URL_CONSTRAINT);
+  Constraint c=appliedConstraints.get(URL_CONSTRAINT);
   if (url) {
     if (c != null) {
       c.setParameter(Boolean.valueOf(url));
@@ -12,12 +12,12 @@
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
       c.setParameter(Boolean.valueOf(url));
-      this.appliedConstraints.put(URL_CONSTRAINT,c);
+      appliedConstraints.put(URL_CONSTRAINT,c);
     }
   }
  else {
     if (c != null) {
-      this.appliedConstraints.remove(URL_CONSTRAINT);
+      appliedConstraints.remove(URL_CONSTRAINT);
     }
   }
 }

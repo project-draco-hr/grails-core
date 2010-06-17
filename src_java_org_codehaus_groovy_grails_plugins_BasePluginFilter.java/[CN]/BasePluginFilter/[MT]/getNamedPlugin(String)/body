@@ -1,4 +1,3 @@
 {
-  GrailsPlugin p=(GrailsPlugin)nameMap.get(name);
-  return p;
+  return nameMap.get(name);
 }

@@ -3,7 +3,7 @@
   LOG.info("Attempting to load [" + pluginResources.length + "] user defined plugins");
   for (int i=0; i < pluginResources.length; i++) {
     Resource r=pluginResources[i];
-    Class pluginClass=loadPluginClass(gcl,r);
+    Class<?> pluginClass=loadPluginClass(gcl,r);
     if (isGrailsPlugin(pluginClass)) {
       GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,r,application);
       grailsUserPlugins.add(plugin);
@@ -13,7 +13,7 @@
     }
   }
   for (int i=0; i < pluginClasses.length; i++) {
-    Class pluginClass=pluginClasses[i];
+    Class<?> pluginClass=pluginClasses[i];
     if (isGrailsPlugin(pluginClass)) {
       GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
       grailsUserPlugins.add(plugin);

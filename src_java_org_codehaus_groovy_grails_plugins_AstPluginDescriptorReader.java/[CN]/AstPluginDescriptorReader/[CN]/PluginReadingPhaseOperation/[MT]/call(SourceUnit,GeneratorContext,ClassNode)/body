@@ -5,14 +5,14 @@
       final Expression expr=node.getField().getInitialExpression();
       Object value;
       if (expr instanceof ListExpression) {
-        final ArrayList list=new ArrayList();
+        final List<String> list=new ArrayList<String>();
         value=list;
         for (        Expression i : ((ListExpression)expr).getExpressions()) {
           list.add(i.getText());
         }
       }
  else       if (expr instanceof MapExpression) {
-        final Map map=new LinkedHashMap<String,String>();
+        final Map<String,String> map=new LinkedHashMap<String,String>();
         value=map;
         for (        MapEntryExpression mee : ((MapExpression)expr).getMapEntryExpressions()) {
           map.put(mee.getKeyExpression().getText(),mee.getValueExpression().getText());

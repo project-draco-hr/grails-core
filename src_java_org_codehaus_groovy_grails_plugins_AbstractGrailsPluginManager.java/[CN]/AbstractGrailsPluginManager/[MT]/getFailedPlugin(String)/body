@@ -1,4 +1,6 @@
 {
-  if (name.indexOf('-') > -1)   name=GrailsNameUtils.getPropertyNameForLowerCaseHyphenSeparatedName(name);
-  return this.failedPlugins.get(name);
+  if (name.indexOf('-') > -1) {
+    name=GrailsNameUtils.getPropertyNameForLowerCaseHyphenSeparatedName(name);
+  }
+  return failedPlugins.get(name);
 }

@@ -1,4 +1,6 @@
 {
-  if (instance != null)   return getPluginViewsPathForClass(instance.getClass());
+  if (instance != null) {
+    return getPluginViewsPathForClass(instance.getClass());
+  }
   return null;
 }

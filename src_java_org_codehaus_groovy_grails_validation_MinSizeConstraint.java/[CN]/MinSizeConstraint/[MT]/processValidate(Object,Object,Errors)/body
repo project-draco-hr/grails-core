@@ -1,5 +1,5 @@
 {
-  Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,new Integer(minSize)};
+  Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,minSize};
   if (propertyValue.getClass().isArray()) {
     int length=Array.getLength(propertyValue);
     if (length < minSize) {

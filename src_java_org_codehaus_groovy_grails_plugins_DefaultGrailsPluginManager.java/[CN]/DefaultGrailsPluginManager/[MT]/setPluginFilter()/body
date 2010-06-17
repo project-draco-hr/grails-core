@@ -1,3 +1,3 @@
 {
-  this.pluginFilter=new PluginFilterRetriever().getPluginFilter(this.application.getConfig());
+  pluginFilter=new PluginFilterRetriever().getPluginFilter(application.getConfig());
 }

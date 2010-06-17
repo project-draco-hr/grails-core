@@ -3,7 +3,5 @@
   if (groups != null && groups.length > 0) {
     return isValidTld(groups[0]);
   }
- else {
-    return false;
-  }
+  return false;
 }

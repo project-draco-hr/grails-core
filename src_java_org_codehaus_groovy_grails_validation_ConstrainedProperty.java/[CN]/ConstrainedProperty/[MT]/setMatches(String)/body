@@ -2,9 +2,9 @@
   if (isNotValidStringType()) {
     throw new MissingPropertyException("Matches constraint can only be applied to a String property",MATCHES_CONSTRAINT,owningClass);
   }
-  Constraint c=(Constraint)this.appliedConstraints.get(MATCHES_CONSTRAINT);
+  Constraint c=appliedConstraints.get(MATCHES_CONSTRAINT);
   if (regex == null) {
-    this.appliedConstraints.remove(MATCHES_CONSTRAINT);
+    appliedConstraints.remove(MATCHES_CONSTRAINT);
   }
  else {
     if (c != null) {
@@ -12,10 +12,10 @@
     }
  else {
       c=new MatchesConstraint();
-      c.setOwningClass(this.owningClass);
-      c.setPropertyName(this.propertyName);
+      c.setOwningClass(owningClass);
+      c.setPropertyName(propertyName);
       c.setParameter(regex);
-      this.appliedConstraints.put(MATCHES_CONSTRAINT,c);
+      appliedConstraints.put(MATCHES_CONSTRAINT,c);
     }
   }
 }

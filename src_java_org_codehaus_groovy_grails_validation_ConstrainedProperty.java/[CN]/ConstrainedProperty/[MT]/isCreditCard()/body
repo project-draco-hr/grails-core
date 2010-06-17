@@ -2,5 +2,5 @@
   if (isNotValidStringType()) {
     throw new MissingPropertyException("CreditCard constraint only applies to a String property",CREDIT_CARD_CONSTRAINT,owningClass);
   }
-  return this.appliedConstraints.containsKey(CREDIT_CARD_CONSTRAINT);
+  return appliedConstraints.containsKey(CREDIT_CARD_CONSTRAINT);
 }

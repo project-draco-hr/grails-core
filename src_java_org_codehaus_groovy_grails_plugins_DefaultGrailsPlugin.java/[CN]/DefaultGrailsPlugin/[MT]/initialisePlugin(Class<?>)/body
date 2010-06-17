@@ -1,7 +1,7 @@
 {
-  this.pluginGrailsClass=new GrailsPluginClass(clazz);
-  this.plugin=(GroovyObject)this.pluginGrailsClass.newInstance();
-  this.pluginBean=new BeanWrapperImpl(this.plugin);
+  pluginGrailsClass=new GrailsPluginClass(clazz);
+  plugin=(GroovyObject)pluginGrailsClass.newInstance();
+  pluginBean=new BeanWrapperImpl(plugin);
   evaluatePluginVersion();
   evaluatePluginDependencies();
   evaluatePluginLoadAfters();

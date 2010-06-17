@@ -3,19 +3,19 @@
     throw new MissingPropertyException("Blank constraint can only be applied to a String property",BLANK_CONSTRAINT,owningClass);
   }
   if (!blank) {
-    this.appliedConstraints.remove(BLANK_CONSTRAINT);
+    appliedConstraints.remove(BLANK_CONSTRAINT);
   }
  else {
-    Constraint c=(Constraint)this.appliedConstraints.get(BLANK_CONSTRAINT);
+    Constraint c=appliedConstraints.get(BLANK_CONSTRAINT);
     if (c != null) {
       c.setParameter(Boolean.valueOf(blank));
     }
  else {
       c=new BlankConstraint();
-      c.setOwningClass(this.owningClass);
-      c.setPropertyName(this.propertyName);
+      c.setOwningClass(owningClass);
+      c.setPropertyName(propertyName);
       c.setParameter(Boolean.valueOf(blank));
-      this.appliedConstraints.put(BLANK_CONSTRAINT,c);
+      appliedConstraints.put(BLANK_CONSTRAINT,c);
     }
   }
 }

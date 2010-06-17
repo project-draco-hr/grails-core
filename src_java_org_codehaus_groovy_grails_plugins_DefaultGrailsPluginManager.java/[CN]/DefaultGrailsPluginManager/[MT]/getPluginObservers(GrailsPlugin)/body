@@ -1,7 +1,7 @@
 {
-  if (plugin == null)   throw new IllegalArgumentException("Argument [plugin] cannot be null");
-  Collection c=(Collection)this.pluginToObserverMap.get(plugin.getName());
-  Collection wildcardObservers=(Collection)this.pluginToObserverMap.get("*");
+  Assert.notNull(plugin,"Argument [plugin] cannot be null");
+  Collection<GrailsPlugin> c=pluginToObserverMap.get(plugin.getName());
+  Collection<GrailsPlugin> wildcardObservers=pluginToObserverMap.get("*");
   if (wildcardObservers != null) {
     if (c != null) {
       c.addAll(wildcardObservers);
@@ -14,5 +14,5 @@
     c.remove(plugin);
     return c;
   }
-  return Collections.EMPTY_SET;
+  return Collections.emptySet();
 }

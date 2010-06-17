@@ -1,5 +1,5 @@
 {
-  if (baseResource == null)   throw new IllegalStateException("Property [baseResource] not set!");
+  Assert.state(baseResource != null,"Property [baseResource] not set!");
   try {
     return baseResource.createRelative(location);
   }

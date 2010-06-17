@@ -1,6 +1,6 @@
 {
   while (!delayedLoadPlugins.isEmpty()) {
-    GrailsPlugin plugin=(GrailsPlugin)delayedLoadPlugins.remove(0);
+    GrailsPlugin plugin=delayedLoadPlugins.remove(0);
     if (areDependenciesResolved(plugin)) {
       if (!hasValidPluginsToLoadBefore(plugin)) {
         registerPlugin(plugin);
@@ -11,14 +11,15 @@
     }
  else {
       boolean foundInDelayed=false;
-      for (Iterator i=delayedLoadPlugins.iterator(); i.hasNext(); ) {
-        GrailsPlugin remainingPlugin=(GrailsPlugin)i.next();
+      for (      GrailsPlugin remainingPlugin : delayedLoadPlugins) {
         if (isDependentOn(plugin,remainingPlugin)) {
           foundInDelayed=true;
           break;
         }
       }
-      if (foundInDelayed)       delayedLoadPlugins.add(plugin);
+      if (foundInDelayed) {
+        delayedLoadPlugins.add(plugin);
+      }
  else {
         failedPlugins.put(plugin.getName(),plugin);
         LOG.warn("WARNING: Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ ArrayUtils.toString(plugin.getDependencyNames())+ "] cannot be resolved");

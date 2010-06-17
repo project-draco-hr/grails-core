@@ -1,8 +1,6 @@
 {
   String[] dependencyNames=plugin.getDependencyNames();
-  for (int j=0; j < dependencyNames.length; j++) {
-    String name=dependencyNames[j];
-    GrailsPlugin p=getNamedPlugin(name);
-    registerDependency(additionalList,p);
+  for (  String name : dependencyNames) {
+    registerDependency(additionalList,getNamedPlugin(name));
   }
 }

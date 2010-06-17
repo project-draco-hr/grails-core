@@ -1,13 +1,10 @@
 {
   super(application);
   resolver=new PathMatchingResourcePatternResolver();
-  List resourceList=new ArrayList();
-  for (int i=0; i < pluginResources.length; i++) {
-    String resourcePath=pluginResources[i];
+  List<Resource> resourceList=new ArrayList<Resource>();
+  for (  String resourcePath : pluginResources) {
     try {
-      Resource[] resources=resolver.getResources(resourcePath);
-      for (int j=0; j < resources.length; j++) {
-        Resource resource=resources[j];
+      for (      Resource resource : resolver.getResources(resourcePath)) {
         resourceList.add(resource);
       }
     }
@@ -15,7 +12,7 @@
       LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);
     }
   }
-  this.pluginResources=(Resource[])resourceList.toArray(new Resource[resourceList.size()]);
+  this.pluginResources=resourceList.toArray(new Resource[resourceList.size()]);
   this.application=application;
   setPluginFilter();
 }

@@ -1,11 +1,5 @@
 {
-  if (StringUtils.isBlank(constraintPropertyName)) {
-    throw new IllegalStateException("Property 'propertyName' must be set on the constraint");
-  }
-  if (constraintOwningClass == null) {
-    throw new IllegalStateException("Property 'owningClass' must be set on the constraint");
-  }
-  if (constraintParameter == null) {
-    throw new IllegalStateException("Property 'constraintParameter' must be set on the constraint");
-  }
+  Assert.hasLength(constraintPropertyName,"Property 'propertyName' must be set on the constraint");
+  Assert.notNull(constraintOwningClass,"Property 'owningClass' must be set on the constraint");
+  Assert.notNull(constraintParameter,"Property 'constraintParameter' must be set on the constraint");
 }

@@ -1,6 +1,6 @@
 {
   if (!constraints.containsKey(constraintName)) {
-    return this.bean.isWritableProperty(constraintName);
+    return bean.isWritableProperty(constraintName);
   }
   try {
     Constraint c=instantiateConstraint(constraintName);

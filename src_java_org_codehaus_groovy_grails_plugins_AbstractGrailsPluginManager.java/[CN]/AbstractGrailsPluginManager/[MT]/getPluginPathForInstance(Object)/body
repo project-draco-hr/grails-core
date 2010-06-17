@@ -1,7 +1,6 @@
 {
   if (instance != null) {
-    final Class<? extends Object> theClass=instance.getClass();
-    return getPluginPathForClass(theClass);
+    return getPluginPathForClass(instance.getClass());
   }
   return null;
 }

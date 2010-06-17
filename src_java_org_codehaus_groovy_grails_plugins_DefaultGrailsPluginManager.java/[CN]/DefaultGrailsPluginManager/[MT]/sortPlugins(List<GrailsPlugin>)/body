@@ -1,6 +1,6 @@
 {
-  List<GrailsPlugin> newList=new ArrayList<GrailsPlugin>(pluginList);
-  for (  GrailsPlugin plugin : pluginList) {
+  List<GrailsPlugin> newList=new ArrayList<GrailsPlugin>(toSort);
+  for (  GrailsPlugin plugin : toSort) {
     int i=newList.indexOf(plugin);
     for (    String loadBefore : plugin.getLoadBeforeNames()) {
       final GrailsPlugin loadBeforePlugin=getGrailsPlugin(loadBefore);

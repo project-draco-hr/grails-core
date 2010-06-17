@@ -1,16 +1,16 @@
 {
   RegexValidator domainValidator=null;
   if (constraintParameter instanceof Boolean) {
-    this.url=((Boolean)constraintParameter).booleanValue();
+    url=((Boolean)constraintParameter).booleanValue();
   }
  else   if (constraintParameter instanceof String) {
-    this.url=true;
+    url=true;
     domainValidator=new RegexValidator((String)constraintParameter);
   }
  else   if (constraintParameter instanceof List<?>) {
-    this.url=true;
+    url=true;
     List<?> regexpList=(List<?>)constraintParameter;
-    domainValidator=new RegexValidator((String[])regexpList.toArray(new String[regexpList.size()]));
+    domainValidator=new RegexValidator(regexpList.toArray(new String[regexpList.size()]));
   }
  else {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.URL_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean, string, or list value");

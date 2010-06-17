@@ -14,9 +14,9 @@
     String[] observedPlugins=plugin.getObservedPluginNames();
     for (int i=0; i < observedPlugins.length; i++) {
       String observedPlugin=observedPlugins[i];
-      Set observers=(Set)pluginToObserverMap.get(observedPlugin);
+      Set<GrailsPlugin> observers=pluginToObserverMap.get(observedPlugin);
       if (observers == null) {
-        observers=new HashSet();
+        observers=new HashSet<GrailsPlugin>();
         pluginToObserverMap.put(observedPlugin,observers);
       }
       observers.add(plugin);

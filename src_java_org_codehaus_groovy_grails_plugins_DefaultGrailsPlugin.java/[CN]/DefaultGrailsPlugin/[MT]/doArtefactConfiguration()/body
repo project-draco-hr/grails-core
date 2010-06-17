@@ -2,13 +2,13 @@
   if (!pluginBean.isReadableProperty(ARTEFACTS)) {
     return;
   }
-  List l=(List)this.plugin.getProperty(ARTEFACTS);
+  List l=(List)plugin.getProperty(ARTEFACTS);
   for (  Object artefact : l) {
     if (artefact instanceof Class) {
       Class artefactClass=(Class)artefact;
       if (ArtefactHandler.class.isAssignableFrom(artefactClass)) {
         try {
-          this.application.registerArtefactHandler((ArtefactHandler)artefactClass.newInstance());
+          application.registerArtefactHandler((ArtefactHandler)artefactClass.newInstance());
         }
  catch (        InstantiationException e) {
           LOG.error("Cannot instantiate an Artefact Handler:" + e.getMessage(),e);
@@ -23,7 +23,7 @@ catch (        IllegalAccessException e) {
     }
  else {
       if (artefact instanceof ArtefactHandler) {
-        this.application.registerArtefactHandler((ArtefactHandler)artefact);
+        application.registerArtefactHandler((ArtefactHandler)artefact);
       }
  else {
         LOG.error("This object is not an ArtefactHandler:" + artefact + "["+ artefact.getClass().getName()+ "]");

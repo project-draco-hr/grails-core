@@ -6,7 +6,7 @@
       cp=constrainedProperties.get(property);
     }
  else {
-      cp=new ConstrainedProperty(this.targetClass,property,classPropertyFetcher.getPropertyType(property));
+      cp=new ConstrainedProperty(targetClass,property,classPropertyFetcher.getPropertyType(property));
       cp.setOrder(order++);
       constrainedProperties.put(property,cp);
     }
@@ -14,7 +14,9 @@
       String constraintName=(String)o;
       final Object value=attributes.get(constraintName);
       if (SHARED_CONSTRAINT.equals(constraintName)) {
-        if (value != null)         sharedConstraints.put(property,value.toString());
+        if (value != null) {
+          sharedConstraints.put(property,value.toString());
+        }
         continue;
       }
       if (cp.supportsContraint(constraintName)) {

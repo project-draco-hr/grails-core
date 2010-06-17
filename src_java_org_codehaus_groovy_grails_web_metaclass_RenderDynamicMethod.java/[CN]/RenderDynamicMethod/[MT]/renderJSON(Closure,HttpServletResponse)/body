@@ -7,9 +7,9 @@
     renderView=false;
   }
  else {
-    JSonBuilder jsonBuilder;
+    grails.util.JSonBuilder jsonBuilder;
     try {
-      jsonBuilder=new JSonBuilder(response);
+      jsonBuilder=new grails.util.JSonBuilder(response);
       renderView=false;
     }
  catch (    IOException e) {

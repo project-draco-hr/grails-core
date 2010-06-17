@@ -1,5 +1,5 @@
 {
-  this.pluginScopes=evaluateIncludeExcludeProperty(SCOPES,new Closure(this){
+  pluginScopes=evaluateIncludeExcludeProperty(SCOPES,new Closure(this){
     private static final long serialVersionUID=1;
     @Override public Object call(    Object arguments){
       final String scopeName=((String)arguments).toUpperCase();
@@ -12,7 +12,7 @@
     }
   }
 );
-  this.pluginEnvs=evaluateIncludeExcludeProperty(ENVIRONMENTS,new Closure(this){
+  pluginEnvs=evaluateIncludeExcludeProperty(ENVIRONMENTS,new Closure(this){
     private static final long serialVersionUID=1;
     @Override public Object call(    Object arguments){
       String envName=(String)arguments;

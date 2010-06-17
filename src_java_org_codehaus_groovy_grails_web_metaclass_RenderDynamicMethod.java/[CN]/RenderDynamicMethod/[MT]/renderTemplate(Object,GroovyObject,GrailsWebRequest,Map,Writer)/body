@@ -18,7 +18,9 @@
       Object bean=argMap.get(ARGUMENT_BEAN);
       if (argMap.containsKey(ARGUMENT_MODEL)) {
         Object modelObject=argMap.get(ARGUMENT_MODEL);
-        if (modelObject instanceof Map)         binding.putAll((Map)modelObject);
+        if (modelObject instanceof Map) {
+          binding.putAll((Map)modelObject);
+        }
       }
       renderTemplateForBean(t,binding,bean,var,out);
     }
@@ -26,7 +28,9 @@
       Object colObject=argMap.get(ARGUMENT_COLLECTION);
       if (argMap.containsKey(ARGUMENT_MODEL)) {
         Object modelObject=argMap.get(ARGUMENT_MODEL);
-        if (modelObject instanceof Map)         binding.putAll((Map)modelObject);
+        if (modelObject instanceof Map) {
+          binding.putAll((Map)modelObject);
+        }
       }
       renderTemplateForCollection(t,binding,colObject,var,out);
     }

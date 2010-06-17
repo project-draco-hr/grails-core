@@ -1,7 +1,7 @@
 {
   Comparable minValue=null;
-  MinConstraint minConstraint=(MinConstraint)this.appliedConstraints.get(MIN_CONSTRAINT);
-  RangeConstraint rangeConstraint=(RangeConstraint)this.appliedConstraints.get(RANGE_CONSTRAINT);
+  MinConstraint minConstraint=(MinConstraint)appliedConstraints.get(MIN_CONSTRAINT);
+  RangeConstraint rangeConstraint=(RangeConstraint)appliedConstraints.get(RANGE_CONSTRAINT);
   if ((minConstraint != null) || (rangeConstraint != null)) {
     Comparable minConstraintValue=minConstraint != null ? minConstraint.getMinValue() : null;
     Comparable rangeConstraintLowValue=rangeConstraint != null ? rangeConstraint.getRange().getFrom() : null;

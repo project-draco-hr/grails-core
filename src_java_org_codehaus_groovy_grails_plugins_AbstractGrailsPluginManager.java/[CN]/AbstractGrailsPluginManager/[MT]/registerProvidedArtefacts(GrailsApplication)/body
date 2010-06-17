@@ -1,13 +1,11 @@
 {
   checkInitialised();
-  for (  Object aPluginList : pluginList) {
-    GrailsPlugin plugin=(GrailsPlugin)aPluginList;
+  for (  GrailsPlugin plugin : pluginList) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {
-      final Class[] artefacts=plugin.getProvidedArtefacts();
-      for (      Class artefact : artefacts) {
+      for (      Class<?> artefact : plugin.getProvidedArtefacts()) {
         String shortName=GrailsNameUtils.getShortName(artefact);
-        if (!isAlreadyRegistered(application,artefact,shortName)) {
-          application.addOverridableArtefact(artefact);
+        if (!isAlreadyRegistered(app,artefact,shortName)) {
+          app.addOverridableArtefact(artefact);
         }
       }
     }

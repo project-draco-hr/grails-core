@@ -1,6 +1,6 @@
 {
   if (max == null) {
-    this.appliedConstraints.remove(MAX_CONSTRAINT);
+    appliedConstraints.remove(MAX_CONSTRAINT);
     return;
   }
   if (!propertyType.equals(max.getClass())) {
@@ -11,15 +11,15 @@
     LOG.warn("Range constraint already set ignoring constraint [" + MAX_CONSTRAINT + "] for value ["+ max+ "]");
     return;
   }
-  Constraint c=(MaxConstraint)this.appliedConstraints.get(MAX_CONSTRAINT);
+  Constraint c=appliedConstraints.get(MAX_CONSTRAINT);
   if (c != null) {
     c.setParameter(max);
   }
  else {
     c=new MaxConstraint();
-    c.setOwningClass(this.owningClass);
-    c.setPropertyName(this.propertyName);
+    c.setOwningClass(owningClass);
+    c.setPropertyName(propertyName);
     c.setParameter(max);
-    this.appliedConstraints.put(MAX_CONSTRAINT,c);
+    appliedConstraints.put(MAX_CONSTRAINT,c);
   }
 }

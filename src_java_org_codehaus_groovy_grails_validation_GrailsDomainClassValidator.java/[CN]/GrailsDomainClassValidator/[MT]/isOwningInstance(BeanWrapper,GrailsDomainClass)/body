@@ -1,7 +1,9 @@
 {
-  Class currentClass=bean.getWrappedClass();
+  Class<?> currentClass=bean.getWrappedClass();
   while (currentClass != Object.class) {
-    if (associatedDomainClass.isOwningClass(currentClass))     return true;
+    if (associatedDomainClass.isOwningClass(currentClass)) {
+      return true;
+    }
     currentClass=currentClass.getSuperclass();
   }
   return false;

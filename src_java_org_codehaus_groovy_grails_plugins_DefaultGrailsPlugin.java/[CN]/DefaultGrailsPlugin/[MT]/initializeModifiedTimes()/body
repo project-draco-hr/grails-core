@@ -11,14 +11,7 @@
     }
   finally {
       if (c != null) {
-        try {
-          InputStream is=c.getInputStream();
-          if (is != null) {
-            is.close();
-          }
-        }
- catch (        IOException e) {
-        }
+        IOUtils.closeQuietly(c.getInputStream());
       }
     }
   }

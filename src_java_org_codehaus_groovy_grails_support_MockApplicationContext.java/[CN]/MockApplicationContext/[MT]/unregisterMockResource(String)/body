@@ -1,5 +1,5 @@
 {
-  for (Iterator it=resources.iterator(); it.hasNext(); ) {
+  for (Iterator<Resource> it=resources.iterator(); it.hasNext(); ) {
     MockResource mockResource=(MockResource)it.next();
     if (mockResource.location.equals(location)) {
       it.remove();

@@ -10,7 +10,7 @@
   FieldError fieldError=errors.getFieldError(constrainedPropertyName);
   if (fieldError == null) {
     ConstrainedProperty c=(ConstrainedProperty)constrainedProperties.get(constrainedPropertyName);
-    c.setMessageSource(this.messageSource);
+    c.setMessageSource(messageSource);
     c.validate(obj,bean.getPropertyValue(constrainedPropertyName),errors);
   }
 }

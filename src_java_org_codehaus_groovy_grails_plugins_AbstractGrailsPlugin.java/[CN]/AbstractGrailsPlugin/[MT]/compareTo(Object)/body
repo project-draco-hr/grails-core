@@ -1,6 +1,6 @@
 {
   AbstractGrailsPlugin that=(AbstractGrailsPlugin)o;
-  if (this.equals(that))   return 0;
+  if (equals(that))   return 0;
   String thatName=that.getName();
   for (  String pluginName : getLoadAfterNames()) {
     if (pluginName.equals(thatName))     return -1;

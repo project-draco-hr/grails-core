@@ -1,7 +1,7 @@
 {
-  Constraint c=(Constraint)this.appliedConstraints.get(SIZE_CONSTRAINT);
+  Constraint c=appliedConstraints.get(SIZE_CONSTRAINT);
   if (size == null) {
-    this.appliedConstraints.remove(SIZE_CONSTRAINT);
+    appliedConstraints.remove(SIZE_CONSTRAINT);
   }
  else {
     if (c != null) {
@@ -9,10 +9,10 @@
     }
  else {
       c=new SizeConstraint();
-      c.setOwningClass(this.owningClass);
-      c.setPropertyName(this.propertyName);
+      c.setOwningClass(owningClass);
+      c.setPropertyName(propertyName);
       c.setParameter(size);
-      this.appliedConstraints.put(SIZE_CONSTRAINT,c);
+      appliedConstraints.put(SIZE_CONSTRAINT,c);
     }
   }
 }

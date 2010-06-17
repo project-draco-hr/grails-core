@@ -1,9 +1,9 @@
 {
-  Class loadedClass=null;
+  Class<?> loadedClass=null;
   String className=GrailsResourceUtils.getClassName(resource);
   Object source;
   if (className != null) {
-    Class oldClass=application.getClassForName(className);
+    Class<?> oldClass=application.getClassForName(className);
     loadedClass=attemptClassReload(className);
     source=loadedClass != null ? loadedClass : oldClass;
   }

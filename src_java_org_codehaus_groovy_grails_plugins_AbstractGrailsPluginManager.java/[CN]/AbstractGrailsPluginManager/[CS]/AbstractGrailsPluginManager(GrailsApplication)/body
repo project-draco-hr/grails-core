@@ -1,5 +1,4 @@
 {
-  super();
-  if (application == null)   throw new IllegalArgumentException("Argument [application] cannot be null!");
+  Assert.notNull(application,"Argument [application] cannot be null!");
   this.application=application;
 }

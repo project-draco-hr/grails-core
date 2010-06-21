@@ -1,0 +1,13 @@
+{
+  Object created=null;
+  try {
+    created=type.newInstance();
+  }
+ catch (  InstantiationException e) {
+    LOG.error(String.format("Unable to auto-create type %s, %s thrown in constructor",type,e.getClass()));
+  }
+catch (  IllegalAccessException e) {
+    LOG.error(String.format("Unable to auto-create type %s, cannot access constructor",type));
+  }
+  return created;
+}

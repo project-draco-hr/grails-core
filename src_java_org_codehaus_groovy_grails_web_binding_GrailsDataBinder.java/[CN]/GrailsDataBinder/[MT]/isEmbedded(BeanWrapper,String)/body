@@ -1,0 +1,4 @@
+{
+  Object embedded=GrailsClassUtils.getStaticPropertyValue(bean.getWrappedClass(),GrailsDomainClassProperty.EMBEDDED);
+  return embedded instanceof List && ((List)embedded).contains(propertyName);
+}

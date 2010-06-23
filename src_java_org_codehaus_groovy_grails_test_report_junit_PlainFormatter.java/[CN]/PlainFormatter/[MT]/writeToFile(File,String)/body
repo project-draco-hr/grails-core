@@ -9,6 +9,12 @@
     throw new RuntimeException(ex);
   }
  finally {
-    IOUtils.closeQuietly(writer);
+    if (writer != null) {
+      try {
+        writer.close();
+      }
+ catch (      IOException ex) {
+      }
+    }
   }
 }

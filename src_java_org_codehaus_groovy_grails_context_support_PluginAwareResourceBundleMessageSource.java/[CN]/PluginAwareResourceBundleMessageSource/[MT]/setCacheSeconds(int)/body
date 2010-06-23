@@ -1,4 +1,4 @@
 {
-  this.pluginCacheMillis=(cacheSeconds * 1000);
+  pluginCacheMillis=(cacheSeconds * 1000);
   super.setCacheSeconds(cacheSeconds);
 }

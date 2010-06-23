@@ -1,5 +1,5 @@
 {
-  this.proxyWriter=new GroovyPageProxyWriter();
+  proxyWriter=new GroovyPageProxyWriter();
   this.autoSync=autoSync;
   push(topWriter);
   if (!autoSync) {

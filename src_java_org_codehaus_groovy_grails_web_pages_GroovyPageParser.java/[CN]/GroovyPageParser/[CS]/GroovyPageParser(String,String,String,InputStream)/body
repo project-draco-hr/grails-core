@@ -24,7 +24,7 @@
     sitemeshPreprocessMode=true;
   }
   scan=new GroovyPageScanner(gspSource);
-  this.pageName=uri;
-  this.environment=Environment.getCurrent();
+  pageName=uri;
+  environment=Environment.getCurrent();
   makeName(name);
 }

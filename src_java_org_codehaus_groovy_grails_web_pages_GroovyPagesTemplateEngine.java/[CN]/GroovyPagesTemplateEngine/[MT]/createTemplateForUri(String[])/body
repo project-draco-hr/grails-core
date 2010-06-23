@@ -1,6 +1,6 @@
 {
-  Template t;
   if (!isReloadEnabled()) {
+    Template t;
     for (    String anUri : uri) {
       t=createTemplateFromPrecompiled(anUri);
       if (t != null) {

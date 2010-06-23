@@ -2,8 +2,12 @@
   xml.attribute("encoding","BASE-64");
   xml.chars("");
   Writable w;
-  if (object instanceof byte[])   w=DefaultGroovyMethods.encodeBase64((byte[])object);
- else   w=DefaultGroovyMethods.encodeBase64((Byte[])object);
+  if (object instanceof byte[]) {
+    w=EncodingGroovyMethods.encodeBase64((byte[])object);
+  }
+ else {
+    w=EncodingGroovyMethods.encodeBase64((Byte[])object);
+  }
   try {
     w.writeTo(xml.getStream());
   }

@@ -29,61 +29,57 @@ case HTML:
           if (c2 == '=') {
             return found(JEXPR,3);
           }
- else           if (c2 == '@') {
+          if (c2 == '@') {
             return found(JDIRECT,3);
           }
- else           if (c2 == '!') {
+          if (c2 == '!') {
             return found(JDECLAR,3);
           }
- else           if (c2 == '-' && left > 3 && text.charAt(end1 + 2) == '-') {
+          if (c2 == '-' && left > 3 && text.charAt(end1 + 2) == '-') {
             if (skipJComment())             continue;
           }
           return found(JSCRIPT,2);
         }
- else {
-          boolean bStartTag=true;
-          int fromIndex=end1;
-          if (c1 == '/') {
-            bStartTag=false;
-            fromIndex=end1 + 1;
-          }
-          int foundColonIdx=text.indexOf(":",fromIndex);
-          if (foundColonIdx > -1) {
-            String tagNameSpace=text.substring(fromIndex,foundColonIdx);
-            if (tagNameSpace.matches("^\\p{Alpha}\\w*$")) {
-              if (bStartTag) {
-                return foundStartOrEndTag(GSTART_TAG,tagNameSpace.length() + 2,tagNameSpace);
-              }
- else {
-                return foundStartOrEndTag(GEND_TAG,tagNameSpace.length() + 3,tagNameSpace);
-              }
+        boolean bStartTag=true;
+        int fromIndex=end1;
+        if (c1 == '/') {
+          bStartTag=false;
+          fromIndex=end1 + 1;
+        }
+        int foundColonIdx=text.indexOf(":",fromIndex);
+        if (foundColonIdx > -1) {
+          String tagNameSpace=text.substring(fromIndex,foundColonIdx);
+          if (tagNameSpace.matches("^\\p{Alpha}\\w*$")) {
+            if (bStartTag) {
+              return foundStartOrEndTag(GSTART_TAG,tagNameSpace.length() + 2,tagNameSpace);
             }
+            return foundStartOrEndTag(GEND_TAG,tagNameSpace.length() + 3,tagNameSpace);
           }
         }
       }
  else       if (c == '$' && c1 == '{') {
         return found(GEXPR,2);
       }
- else       if (c == '%' && c1 == '{') {
-        if (c2 == '-' && left > 3 && text.charAt(end1 + 2) == '-') {
-          if (skipGComment())           continue;
-        }
-        return found(GSCRIPT,2);
+    if (c == '%' && c1 == '{') {
+      if (c2 == '-' && left > 3 && text.charAt(end1 + 2) == '-') {
+        if (skipGComment())         continue;
       }
- else       if (c == '!' && c1 == '{') {
-        return found(GDECLAR,2);
-      }
- else       if (c == '@' && c1 == '{') {
-        return found(GDIRECT,2);
-      }
-    break;
+      return found(GSCRIPT,2);
+    }
+  if (c == '!' && c1 == '{') {
+    return found(GDECLAR,2);
+  }
+if (c == '@' && c1 == '{') {
+  return found(GDIRECT,2);
+}
+break;
 case JEXPR:
 case JSCRIPT:
 case JDIRECT:
 case JDECLAR:
-  if (c == '%' && c1 == '>') {
-    return found(HTML,2);
-  }
+if (c == '%' && c1 == '>') {
+return found(HTML,2);
+}
 break;
 case GSTART_TAG:
 if (c == '$' && c1 == '{') {

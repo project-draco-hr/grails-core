@@ -1,4 +1,4 @@
 {
-  formulateBindingFromWebRequest(binding,request,response,out,(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER));
-  populateViewModel(request,binding);
+  formulateBindingFromWebRequest(binding,req,res,out,(GroovyObject)req.getAttribute(GrailsApplicationAttributes.CONTROLLER));
+  populateViewModel(req,binding);
 }

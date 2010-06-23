@@ -1,4 +1,4 @@
 {
-  if (controller == null)   throw new IllegalArgumentException("Argument [controller] cannot be null");
+  Assert.notNull(controller,"Argument [controller] cannot be null");
   return getTemplateURI(getLogicalControllerName(controller),templateName);
 }

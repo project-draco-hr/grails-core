@@ -1,5 +1,5 @@
 {
-  if (this.resourceLoader == null) {
-    this.resourceLoader=applicationContext;
+  if (resourceLoader == null) {
+    resourceLoader=applicationContext;
   }
 }

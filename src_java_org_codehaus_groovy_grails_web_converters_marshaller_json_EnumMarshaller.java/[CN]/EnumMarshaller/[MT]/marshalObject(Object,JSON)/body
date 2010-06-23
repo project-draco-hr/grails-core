@@ -2,7 +2,7 @@
   JSONWriter writer=json.getWriter();
   try {
     writer.object();
-    Class enumClass=en.getClass();
+    Class<?> enumClass=en.getClass();
     json.property("enumType",enumClass.getName());
     Method nameMethod=BeanUtils.findDeclaredMethod(enumClass,"name",null);
     try {

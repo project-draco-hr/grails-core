@@ -1,23 +1,22 @@
 {
-  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
-  binding.setVariable(GroovyPage.WEB_REQUEST,webRequest);
-  binding.setVariable(GroovyPage.REQUEST,request);
-  binding.setVariable(GroovyPage.RESPONSE,response);
-  binding.setVariable(GroovyPage.FLASH,webRequest.getFlashScope());
+  GrailsWebRequest grailsWebRequest=GrailsWebRequest.lookup(req);
+  binding.setVariable(GroovyPage.WEB_REQUEST,grailsWebRequest);
+  binding.setVariable(GroovyPage.REQUEST,req);
+  binding.setVariable(GroovyPage.RESPONSE,res);
+  binding.setVariable(GroovyPage.FLASH,grailsWebRequest.getFlashScope());
   binding.setVariable(GroovyPage.SERVLET_CONTEXT,context);
-  ApplicationContext appCtx=webRequest.getAttributes().getApplicationContext();
+  ApplicationContext appCtx=grailsWebRequest.getAttributes().getApplicationContext();
   binding.setVariable(GroovyPage.APPLICATION_CONTEXT,appCtx);
   if (appCtx != null) {
     GrailsApplication app=appCtx.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
     binding.setVariable(GrailsApplication.APPLICATION_ID,app);
-    Map<String,Class> domainClassesWithoutPackage=getDomainClassMap(app);
-    final Map variables=binding.getVariables();
-    variables.putAll(domainClassesWithoutPackage);
+    Map<String,Class<?>> domainClassesWithoutPackage=getDomainClassMap(app);
+    binding.getVariables().putAll(domainClassesWithoutPackage);
   }
-  binding.setVariable(GroovyPage.SESSION,webRequest.getSession());
-  binding.setVariable(GroovyPage.PARAMS,webRequest.getParams());
-  binding.setVariable(GroovyPage.ACTION_NAME,webRequest.getActionName());
-  binding.setVariable(GroovyPage.CONTROLLER_NAME,webRequest.getControllerName());
+  binding.setVariable(GroovyPage.SESSION,grailsWebRequest.getSession());
+  binding.setVariable(GroovyPage.PARAMS,grailsWebRequest.getParams());
+  binding.setVariable(GroovyPage.ACTION_NAME,grailsWebRequest.getActionName());
+  binding.setVariable(GroovyPage.CONTROLLER_NAME,grailsWebRequest.getControllerName());
   if (controller != null) {
     binding.setVariable(GrailsApplicationAttributes.CONTROLLER,controller);
   }

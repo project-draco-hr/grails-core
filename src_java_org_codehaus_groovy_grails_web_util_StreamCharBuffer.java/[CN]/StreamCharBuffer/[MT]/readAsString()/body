@@ -3,7 +3,5 @@
   if (buf.length > 0) {
     return StringCharArrayAccessor.createString(buf);
   }
- else {
-    return "";
-  }
+  return "";
 }

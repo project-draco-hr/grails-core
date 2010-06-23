@@ -1,6 +1,8 @@
 {
-  if (usingWriter)   return charBuffer;
- else   if (usingStream) {
+  if (usingWriter) {
+    return charBuffer;
+  }
+  if (usingStream) {
     return byteBuffer.readAsString(encoding);
   }
   return "";

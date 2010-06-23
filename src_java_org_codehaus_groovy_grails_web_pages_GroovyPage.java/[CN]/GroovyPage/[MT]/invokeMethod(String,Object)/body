@@ -6,7 +6,9 @@
   if (tagLib != null) {
     if (args instanceof Object[]) {
       Object[] argArray=(Object[])args;
-      if (argArray.length > 0 && argArray[0] instanceof Map)       attrs=(Map)argArray[0];
+      if (argArray.length > 0 && argArray[0] instanceof Map) {
+        attrs=(Map)argArray[0];
+      }
       if (argArray.length > 1) {
         body=argArray[1];
       }
@@ -19,7 +21,5 @@
     }
     return captureTagOutput(gspTagLibraryLookup,DEFAULT_NAMESPACE,methodName,attrs,body,webRequest);
   }
- else {
-    return super.invokeMethod(methodName,args);
-  }
+  return super.invokeMethod(methodName,args);
 }

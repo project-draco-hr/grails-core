@@ -3,7 +3,5 @@
     buffer[used++]=b;
     return true;
   }
- else {
-    return false;
-  }
+  return false;
 }

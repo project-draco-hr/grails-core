@@ -1,5 +1,5 @@
 {
-  this.marshallerList=cfg.getOrderedObjectMarshallers();
+  marshallerList=cfg.getOrderedObjectMarshallers();
   this.proxyHandler=proxyHandler;
   encoding=cfg.getEncoding();
   prettyPrint=cfg.isPrettyPrint();

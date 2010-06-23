@@ -1,6 +1,6 @@
 {
-  String name=(String)ENTITIES.get(publicId);
-  if (name == null)   name=(String)ENTITIES.get(systemId);
+  String name=ENTITIES.get(publicId);
+  if (name == null)   name=ENTITIES.get(systemId);
   InputStream stream=name != null ? getClass().getResourceAsStream(name) : new ByteArrayInputStream(new byte[0]);
   InputSource is=new InputSource();
   is.setByteStream(stream);

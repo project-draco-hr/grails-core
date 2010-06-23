@@ -1,5 +1,5 @@
 {
-  if (this.pluginCacheMillis < 0) {
+  if (pluginCacheMillis < 0) {
     PropertiesHolder propHolder=getMergedPluginProperties(locale);
     MessageFormat result=propHolder.getMessageFormat(code,locale);
     if (result != null) {
@@ -8,9 +8,8 @@
   }
  else {
     for (    String pluginBaseName : pluginBaseNames) {
-      List filenames=calculateAllFilenames(pluginBaseName,locale);
-      for (      Object o : filenames) {
-        String filename=(String)o;
+      List<String> filenames=calculateAllFilenames(pluginBaseName,locale);
+      for (      String filename : filenames) {
         PropertiesHolder holder=getProperties(filename);
         MessageFormat result=holder.getMessageFormat(code,locale);
         if (result != null)         return result;

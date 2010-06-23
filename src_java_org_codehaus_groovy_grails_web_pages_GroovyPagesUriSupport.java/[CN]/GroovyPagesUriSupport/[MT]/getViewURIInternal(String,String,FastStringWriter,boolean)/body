@@ -18,7 +18,5 @@
   if (includeSuffix) {
     return buf.append(GroovyPage.SUFFIX).toString();
   }
- else {
-    return buf.toString();
-  }
+  return buf.toString();
 }

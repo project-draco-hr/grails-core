@@ -1,5 +1,5 @@
 {
-  if (LOG.isDebugEnabled())   LOG.debug("parse: page");
+  LOG.debug("parse: page");
   if (finalPass) {
     out.println();
     if (pluginAnnotation != null) {
@@ -20,8 +20,12 @@
     }
   }
   loop:   for (; ; ) {
-    if (doNextScan)     state=scan.nextToken();
- else     doNextScan=true;
+    if (doNextScan) {
+      state=scan.nextToken();
+    }
+ else {
+      doNextScan=true;
+    }
     if ((state != GSTART_TAG) && (state != HTML)) {
       flushBufferedWhiteSpace();
       previousContentWasNonWhitespace=false;
@@ -73,12 +77,11 @@ out.println("}");
 out.println("public static final Map " + CONSTANT_NAME_JSP_TAGS + " = new HashMap()");
 if (jspTags != null && jspTags.size() > 0) {
 out.println("static {");
-for (Iterator iterator=jspTags.entrySet().iterator(); iterator.hasNext(); ) {
-Map.Entry entry=(Map.Entry)iterator.next();
+for (Map.Entry<String,String> entry : jspTags.entrySet()) {
 out.print("\t" + CONSTANT_NAME_JSP_TAGS + ".put('");
-out.print(escapeGroovy(String.valueOf(entry.getKey())));
+out.print(escapeGroovy(entry.getKey()));
 out.print("','");
-out.print(escapeGroovy(String.valueOf(entry.getValue())));
+out.print(escapeGroovy(entry.getValue()));
 out.println("')");
 }
 out.println("}");

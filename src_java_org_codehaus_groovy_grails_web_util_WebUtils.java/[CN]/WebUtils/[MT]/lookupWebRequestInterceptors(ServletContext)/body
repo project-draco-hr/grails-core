@@ -1,5 +1,5 @@
 {
   WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  final Collection webRequestInterceptors=wac.getBeansOfType(WebRequestInterceptor.class).values();
-  return (WebRequestInterceptor[])webRequestInterceptors.toArray(new WebRequestInterceptor[webRequestInterceptors.size()]);
+  final Collection<WebRequestInterceptor> webRequestInterceptors=wac.getBeansOfType(WebRequestInterceptor.class).values();
+  return webRequestInterceptors.toArray(new WebRequestInterceptor[webRequestInterceptors.size()]);
 }

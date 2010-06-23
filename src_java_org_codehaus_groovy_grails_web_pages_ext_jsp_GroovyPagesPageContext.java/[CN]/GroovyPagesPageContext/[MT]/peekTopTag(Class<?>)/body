@@ -1,5 +1,5 @@
 {
-  for (ListIterator iter=tags.listIterator(tags.size()); iter.hasPrevious(); ) {
+  for (ListIterator<?> iter=tags.listIterator(tags.size()); iter.hasPrevious(); ) {
     Object tag=iter.previous();
     if (tagClass.isInstance(tag)) {
       return tag;

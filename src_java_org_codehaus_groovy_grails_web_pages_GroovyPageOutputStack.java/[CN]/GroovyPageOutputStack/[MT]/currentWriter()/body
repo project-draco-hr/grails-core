@@ -3,7 +3,5 @@
   if (outputStack != null) {
     return outputStack.getProxyWriter();
   }
- else {
-    return defaultRequest();
-  }
+  return defaultRequest();
 }

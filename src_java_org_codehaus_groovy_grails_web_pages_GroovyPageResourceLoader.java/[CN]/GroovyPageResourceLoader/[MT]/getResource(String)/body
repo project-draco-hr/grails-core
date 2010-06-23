@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(location))   throw new IllegalArgumentException("Argument [location] cannot be null or blank");
+  Assert.hasLength(location,"Argument [location] cannot be null or blank");
   if (location.startsWith(PLUGINS_PATH)) {
     Resource r=super.getResource(location.substring(1));
     if (r.exists())     return r;
@@ -11,9 +11,9 @@
       if (pluginSettings == null)       throw new RuntimeException("'pluginsettings' has not been initialised.");
       return new FileSystemResource(pluginSettings.getPluginBaseDirectories().get(0));
     }
- else {
-      final Resource pluginResource=lookupResourceForPluginPath(location);
-      if (pluginResource != null)       resource=pluginResource;
+    final Resource pluginResource=lookupResourceForPluginPath(location);
+    if (pluginResource != null) {
+      resource=pluginResource;
     }
   }
   if (LOG.isDebugEnabled()) {

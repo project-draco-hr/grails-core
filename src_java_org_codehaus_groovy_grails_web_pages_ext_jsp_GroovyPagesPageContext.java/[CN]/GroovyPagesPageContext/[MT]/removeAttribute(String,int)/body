@@ -1,5 +1,5 @@
 {
-  if (name == null)   throw new NullPointerException("Attribute name cannot be null");
+  Assert.notNull(name,"Attribute name cannot be null");
 switch (scope) {
 case PAGE_SCOPE:
     removeAttribute(name);
@@ -8,8 +8,10 @@ case REQUEST_SCOPE:
 request.removeAttribute(name);
 break;
 case SESSION_SCOPE:
-HttpSession session=request.getSession(false);
-if (session != null) session.removeAttribute(name);
+HttpSession httpSession=request.getSession(false);
+if (httpSession != null) {
+httpSession.removeAttribute(name);
+}
 break;
 case APPLICATION_SCOPE:
 servletContext.removeAttribute(name);

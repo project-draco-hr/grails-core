@@ -1,4 +1,6 @@
 {
-  if (contentType != null)   this.contentType=contentType;
+  if (contentType != null) {
+    this.contentType=contentType;
+  }
   this.content=content;
 }

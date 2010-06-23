@@ -1,7 +1,7 @@
 {
   FileWriter writer=null;
   try {
-    writer=new FileWriter(file);
+    writer=new FileWriter(f);
     writer.write(text);
     writer.close();
   }
@@ -9,12 +9,6 @@
     throw new RuntimeException(ex);
   }
  finally {
-    if (writer != null) {
-      try {
-        writer.close();
-      }
- catch (      IOException ex) {
-      }
-    }
+    IOUtils.closeQuietly(writer);
   }
 }

@@ -2,17 +2,15 @@
   if (res == null) {
     return generateTemplateName();
   }
-  String name;
   try {
-    name=pageName != null ? pageName : res.getURL().getPath();
+    String name=pageName != null ? pageName : res.getURL().getPath();
     if (name.startsWith("/"))     name=name.substring(1);
-    name=name.replaceAll("[^\\w\\d]","_");
+    return name.replaceAll("[^\\w\\d]","_");
   }
  catch (  IllegalStateException e) {
-    name=generateTemplateName();
+    return generateTemplateName();
   }
 catch (  IOException ioex) {
-    name=generateTemplateName();
+    return generateTemplateName();
   }
-  return name;
 }

@@ -1,0 +1,15 @@
+{
+  precompiledMode=true;
+  this.pageClass=pageClass;
+  contentType=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_CONTENT_TYPE),null);
+  jspTags=(Map)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_JSP_TAGS),null);
+  lastModified=(Long)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_LAST_MODIFIED),null);
+  codecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_DEFAULT_CODEC),null);
+  initCodec();
+  try {
+    readHtmlData();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Problem reading html data for page class " + pageClass,e);
+  }
+}

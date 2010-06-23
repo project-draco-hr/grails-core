@@ -3,8 +3,8 @@
   try {
     dataOut=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));
     dataOut.writeInt(htmlParts.size());
-    for (Iterator<String> i=htmlParts.iterator(); i.hasNext(); ) {
-      dataOut.writeUTF(i.next());
+    for (    String part : htmlParts) {
+      dataOut.writeUTF(part);
     }
   }
   finally {

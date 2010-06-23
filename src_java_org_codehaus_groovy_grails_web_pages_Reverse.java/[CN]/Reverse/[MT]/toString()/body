@@ -1,6 +1,6 @@
 {
   int len=length();
-  StringBuffer buf=new StringBuffer(len);
+  StringBuilder buf=new StringBuilder(len);
   for (int ix=anchor; ix >= start; ix--) {
     buf.append(text.charAt(ix));
   }

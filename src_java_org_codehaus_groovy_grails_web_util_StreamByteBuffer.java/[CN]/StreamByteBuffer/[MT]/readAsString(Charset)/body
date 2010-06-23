@@ -18,7 +18,9 @@
     if (buf.hasRemaining()) {
       throw new IllegalStateException("There's a bug here, buffer wasn't read fully.");
     }
-    if (!result.isUnderflow())     result.throwException();
+    if (!result.isUnderflow()) {
+      result.throwException();
+    }
     charbuffer.flip();
     String str;
     if (charbuffer.hasArray()) {

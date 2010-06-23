@@ -1,6 +1,6 @@
 {
   try {
-    Class enumClass=en.getClass();
+    Class<?> enumClass=en.getClass();
     xml.attribute("enumType",enumClass.getName());
     Method nameMethod=BeanUtils.findDeclaredMethod(enumClass,"name",null);
     try {

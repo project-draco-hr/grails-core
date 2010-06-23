@@ -1,8 +1,8 @@
 {
-  this.context=getServletContext();
+  context=getServletContext();
   context.log("GSP servlet initialized");
   context.setAttribute(SERVLET_INSTANCE,this);
-  this.exceptionResolvers=getWebApplicationContext().getBeansOfType(HandlerExceptionResolver.class).values();
-  this.grailsAttributes=new DefaultGrailsApplicationAttributes(context);
-  this.templateEngine=getWebApplicationContext().getBean(GroovyPagesTemplateEngine.BEAN_ID,GroovyPagesTemplateEngine.class);
+  exceptionResolvers=getWebApplicationContext().getBeansOfType(HandlerExceptionResolver.class).values();
+  grailsAttributes=new DefaultGrailsApplicationAttributes(context);
+  templateEngine=getWebApplicationContext().getBean(GroovyPagesTemplateEngine.BEAN_ID,GroovyPagesTemplateEngine.class);
 }

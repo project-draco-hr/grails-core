@@ -1,3 +1,3 @@
 {
-  return this.classLoader.loadClass("org.codehaus.groovy.grails.cli.GrailsScriptRunner").getDeclaredConstructor(new Class[]{this.settings.getClass()}).newInstance(new Object[]{this.settings});
+  return classLoader.loadClass("org.codehaus.groovy.grails.cli.GrailsScriptRunner").getDeclaredConstructor(new Class[]{settings.getClass()}).newInstance(new Object[]{settings});
 }

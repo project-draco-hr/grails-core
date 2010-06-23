@@ -1,5 +1,5 @@
 {
-  if (this.usageFlag) {
+  if (usageFlag) {
     return true;
   }
   Writer target=findStreamCharBufferTarget(false);
@@ -9,5 +9,5 @@
       return true;
     }
   }
-  return this.usageFlag;
+  return usageFlag;
 }

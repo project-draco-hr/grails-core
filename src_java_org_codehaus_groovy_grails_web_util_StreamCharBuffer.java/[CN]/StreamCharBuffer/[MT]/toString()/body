@@ -2,15 +2,13 @@
   if (firstChunk == lastChunk && firstChunk instanceof StringChunk && allocBuffer.charsUsed() == 0 && ((StringChunk)firstChunk).isSingleBuffer()) {
     return ((StringChunk)firstChunk).str;
   }
- else {
-    int initialReaderCount=readerCount;
-    String str=readAsString();
-    if (initialReaderCount == 0) {
-      reset();
-      if (str.length() > 0) {
-        addChunk(new StringChunk(str,0,str.length()));
-      }
+  int initialReaderCount=readerCount;
+  String str=readAsString();
+  if (initialReaderCount == 0) {
+    reset();
+    if (str.length() > 0) {
+      addChunk(new StringChunk(str,0,str.length()));
     }
-    return str;
   }
+  return str;
 }

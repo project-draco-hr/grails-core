@@ -1,8 +1,10 @@
 {
   if (!finalPass)   return;
-  if (LOG.isDebugEnabled())   LOG.debug("parse: html");
+  LOG.debug("parse: html");
   String text=scan.getToken();
-  if (text.length() == 0)   return;
+  if (text.length() == 0) {
+    return;
+  }
   boolean contentIsWhitespace=!Pattern.compile("\\S").matcher(text).find();
   if (!contentIsWhitespace && currentlyBufferingWhitespace) {
     flushBufferedWhiteSpace();

@@ -17,7 +17,7 @@
           }
  else {
             try {
-              Class c=Class.forName(type,true,Thread.currentThread().getContextClassLoader());
+              Class<?> c=Class.forName(type,true,Thread.currentThread().getContextClassLoader());
               Object beanObj=BeanUtils.instantiate(c);
               bindProperties(beanObj,props);
               builder.bind(entryName,beanObj);

@@ -1,5 +1,5 @@
 {
-  Class listenerClass;
+  Class<?> listenerClass;
   try {
     listenerClass=classLoader.loadClass(listenerClassName);
   }

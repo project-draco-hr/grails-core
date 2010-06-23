@@ -2,8 +2,8 @@
   DataOutputStream dataOut=null;
   try {
     dataOut=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));
-    int lineNumbersCount=this.out.getCurrentLineNumber() - 1;
-    int[] lineNumbers=this.out.getLineNumbers();
+    int lineNumbersCount=out.getCurrentLineNumber() - 1;
+    int[] lineNumbers=out.getLineNumbers();
     dataOut.writeInt(lineNumbersCount);
     for (int i=0; i < lineNumbersCount; i++) {
       dataOut.writeInt(lineNumbers[i]);

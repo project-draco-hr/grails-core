@@ -6,13 +6,11 @@
     }
     return outputStack;
   }
- else   if (allowCreate) {
+  if (allowCreate) {
     if (topWriter == null) {
       topWriter=defaultRequest();
     }
     return createNew(topWriter,autoSync);
   }
- else {
-    return null;
-  }
+  return null;
 }

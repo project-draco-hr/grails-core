@@ -19,9 +19,7 @@
  else {
       Object referenceObject=beanWrapper.getPropertyValue(property.getName());
       if (isRenderDomainClassRelations()) {
-        if (referenceObject == null) {
-        }
- else {
+        if (referenceObject != null) {
           referenceObject=proxyHandler.unwrapIfProxy(referenceObject);
           if (referenceObject instanceof SortedMap) {
             referenceObject=new TreeMap((SortedMap)referenceObject);

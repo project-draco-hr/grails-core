@@ -1,5 +1,5 @@
 {
-  Class[] argTypes=new Class[args.length];
+  Class<?>[] argTypes=new Class[args.length];
   for (int i=0; i < args.length; i++) {
     argTypes[i]=args[i].getClass();
   }

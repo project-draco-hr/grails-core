@@ -4,7 +4,9 @@
   if (m.find()) {
     m.appendReplacement(sb,"");
     sb.append("<sitemesh:captureHead");
-    if (m.group(1) != null)     sb.append(m.group(1));
+    if (m.group(1) != null) {
+      sb.append(m.group(1));
+    }
     sb.append(">");
     sb.append(addMetaCapturing(addTitleCapturing(m.group(2))));
     sb.append("</sitemesh:captureHead>");

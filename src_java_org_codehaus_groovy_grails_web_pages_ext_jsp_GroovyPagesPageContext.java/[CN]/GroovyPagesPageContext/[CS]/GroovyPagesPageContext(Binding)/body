@@ -1,9 +1,9 @@
 {
   this(new GenericServlet(){
-    public ServletConfig getServletConfig(){
+    @Override public ServletConfig getServletConfig(){
       return this;
     }
-    public void service(    ServletRequest servletRequest,    ServletResponse servletResponse) throws ServletException, IOException {
+    @Override public void service(    ServletRequest servletRequest,    ServletResponse servletResponse) throws ServletException, IOException {
     }
   }
 ,pageScope != null ? pageScope : new Binding());

@@ -16,7 +16,9 @@
     if (value == null && jspTags.containsKey(property)) {
       TagLibraryResolver tagResolver=getTagLibraryResolver();
       String uri=(String)jspTags.get(property);
-      if (uri != null)       value=tagResolver.resolveTagLibrary(uri);
+      if (uri != null) {
+        value=tagResolver.resolveTagLibrary(uri);
+      }
     }
     if (value != null) {
       getBinding().setVariable(property,value);

@@ -1,10 +1,8 @@
 {
-  Resource[] pluginBundles;
   try {
-    pluginBundles=resourceResolver.getResources(WEB_INF_PLUGINS_PATH + pluginName + "/grails-app/i18n/*.properties");
+    return resourceResolver.getResources(WEB_INF_PLUGINS_PATH + pluginName + "/grails-app/i18n/*.properties");
   }
  catch (  Exception e) {
-    pluginBundles=new Resource[0];
+    return new Resource[0];
   }
-  return pluginBundles;
 }

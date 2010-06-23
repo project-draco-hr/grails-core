@@ -1,10 +1,10 @@
 {
-  Map<String,Class> domainsWithoutPackage=(cachedDomainsWithoutPackage != null) ? cachedDomainsWithoutPackage : new HashMap<String,Class>();
+  Map<String,Class<?>> domainsWithoutPackage=(cachedDomainsWithoutPackage != null) ? cachedDomainsWithoutPackage : new HashMap<String,Class<?>>();
   GrailsClass[] domainClasses=application.getArtefacts(DomainClassArtefactHandler.TYPE);
   if (domainClasses.length != domainsWithoutPackage.size()) {
     domainsWithoutPackage.clear();
     for (    GrailsClass domainClass : domainClasses) {
-      final Class theClass=domainClass.getClazz();
+      final Class<?> theClass=domainClass.getClazz();
       domainsWithoutPackage.put(theClass.getName(),theClass);
     }
     if (!Environment.isDevelopmentMode()) {

@@ -1,8 +1,14 @@
 {
-  if (finalPass)   return;
-  if (LOG.isDebugEnabled())   LOG.debug("parse: direct");
+  if (finalPass) {
+    return;
+  }
+  LOG.debug("parse: direct");
   String text=scan.getToken();
   text=text.trim();
-  if (text.startsWith(PAGE_DIRECTIVE))   directPage(text);
- else   if (text.startsWith(TAGLIB_DIRECTIVE))   directJspTagLib(text);
+  if (text.startsWith(PAGE_DIRECTIVE)) {
+    directPage(text);
+  }
+ else   if (text.startsWith(TAGLIB_DIRECTIVE)) {
+    directJspTagLib(text);
+  }
 }

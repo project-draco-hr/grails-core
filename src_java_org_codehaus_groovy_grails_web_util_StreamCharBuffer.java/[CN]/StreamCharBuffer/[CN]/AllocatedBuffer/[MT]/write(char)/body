@@ -3,7 +3,5 @@
     buffer[used++]=ch;
     return true;
   }
- else {
-    return false;
-  }
+  return false;
 }

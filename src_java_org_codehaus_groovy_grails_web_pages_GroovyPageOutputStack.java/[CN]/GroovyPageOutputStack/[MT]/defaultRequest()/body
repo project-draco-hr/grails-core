@@ -3,7 +3,5 @@
   if (webRequest != null) {
     return webRequest.getOut();
   }
- else {
-    return null;
-  }
+  return null;
 }

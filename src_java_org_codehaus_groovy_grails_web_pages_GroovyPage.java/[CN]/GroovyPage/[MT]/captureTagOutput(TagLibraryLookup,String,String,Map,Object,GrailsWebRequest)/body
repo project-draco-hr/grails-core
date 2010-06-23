@@ -33,9 +33,7 @@
       }
       return out.getBuffer();
     }
- else {
-      throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
-    }
+    throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
   }
   finally {
     GroovyPageOutputStack.currentStack().pop();

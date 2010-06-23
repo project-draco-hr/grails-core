@@ -1,7 +1,6 @@
 {
-  super();
   this.streamCharBuffer=streamCharBuffer;
-  this.cachedSize=streamCharBuffer.size();
+  cachedSize=streamCharBuffer.size();
   if (totalCharsInDynamicChunks != -1) {
     totalCharsInDynamicChunks+=cachedSize;
   }

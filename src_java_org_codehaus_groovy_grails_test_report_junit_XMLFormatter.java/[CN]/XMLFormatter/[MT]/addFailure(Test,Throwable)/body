@@ -1,4 +1,4 @@
 {
   TestStacktraceSanitizer.sanitize(throwable);
-  super.addFailure(test,(Throwable)throwable);
+  super.addFailure(test,throwable);
 }

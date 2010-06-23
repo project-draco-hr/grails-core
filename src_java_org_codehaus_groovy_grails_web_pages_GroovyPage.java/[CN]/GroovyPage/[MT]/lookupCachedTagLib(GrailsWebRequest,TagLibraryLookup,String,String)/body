@@ -18,7 +18,5 @@
     }
     return tagLib;
   }
- else {
-    return gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupTagLibrary(namespace,tagName) : null;
-  }
+  return gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupTagLibrary(namespace,tagName) : null;
 }

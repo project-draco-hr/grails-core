@@ -1,10 +1,10 @@
 {
   final Map variables=binding.getVariables();
-  for (Enumeration attributeEnum=request.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
+  for (Enumeration attributeEnum=req.getAttributeNames(); attributeEnum.hasMoreElements(); ) {
     String key=(String)attributeEnum.nextElement();
     if (!GroovyPage.isReservedName(key)) {
       if (!variables.containsKey(key)) {
-        binding.setVariable(key,request.getAttribute(key));
+        binding.setVariable(key,req.getAttribute(key));
       }
     }
  else {

@@ -8,7 +8,9 @@
     String rep=null;
     if (Character.isWhitespace(c)) {
       for (ix++; ix < ixz; ix++) {
-        if (Character.isWhitespace(text.charAt(ix)))         continue;
+        if (Character.isWhitespace(text.charAt(ix))) {
+          continue;
+        }
         ix--;
         rep=" ";
         break;
@@ -46,7 +48,11 @@
         }
       }
     }
-    if (rep != null)     out.print(rep);
- else     out.print(c);
+    if (rep != null) {
+      out.print(rep);
+    }
+ else {
+      out.print(c);
+    }
   }
 }

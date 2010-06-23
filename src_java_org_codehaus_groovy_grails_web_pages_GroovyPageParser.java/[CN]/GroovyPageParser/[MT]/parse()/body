@@ -32,8 +32,7 @@
         LOG.debug("Configure " + CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR + " property to view generated source.");
       }
     }
-    InputStream in=byteOutputBuffer.getInputStream();
-    return in;
+    return byteOutputBuffer.getInputStream();
   }
   finally {
     IOUtils.closeQuietly(keepGeneratedWriter);

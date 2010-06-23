@@ -5,9 +5,11 @@ case PAGE_SCOPE:
 case REQUEST_SCOPE:
   return request.getAttributeNames();
 case SESSION_SCOPE:
-HttpSession session=request.getSession(false);
-if (session != null) return session.getAttributeNames();
- else return EMPTY_ENUMERATION;
+HttpSession httpSession=request.getSession(false);
+if (httpSession != null) {
+return httpSession.getAttributeNames();
+}
+return EMPTY_ENUMERATION;
 case APPLICATION_SCOPE:
 return servletContext.getAttributeNames();
 }

@@ -2,7 +2,5 @@
   if (calculationActive) {
     return bb.position();
   }
- else {
-    return -1;
-  }
+  return -1;
 }

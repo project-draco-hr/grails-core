@@ -1,6 +1,6 @@
 {
   if (!finalPass)   return;
-  if (LOG.isDebugEnabled())   LOG.debug("parse: expr");
+  LOG.debug("parse: expr");
   String text=scan.getToken().trim();
   text=getExpressionText(text);
   if (text.startsWith("(") && text.endsWith(")")) {

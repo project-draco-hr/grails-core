@@ -2,10 +2,10 @@
   this.parent=parent;
   this.position=parent.chunkStart;
   if (hasReaders) {
-    this.writerUsedCounter=writer.writerUsedCounter;
+    writerUsedCounter=writer.writerUsedCounter;
   }
  else {
-    this.writerUsedCounter=1;
+    writerUsedCounter=1;
   }
   this.removeAfterReading=removeAfterReading;
 }

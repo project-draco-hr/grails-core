@@ -3,10 +3,8 @@
   if (url != null) {
     return url;
   }
- else   if (parent != rootLoader) {
+  if (parent != rootLoader) {
     return findResourceRecursive(parent.getParent(),name);
   }
- else {
-    return null;
-  }
+  return null;
 }

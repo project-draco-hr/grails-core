@@ -2,7 +2,5 @@
   if (supports(o)) {
     return this.om;
   }
- else {
-    return next != null ? next.findMarhallerFor(o) : null;
-  }
+  return next != null ? next.findMarhallerFor(o) : null;
 }

@@ -1,7 +1,7 @@
 {
   JSONWriter writer=json.getWriter();
   value=proxyHandler.unwrapIfProxy(value);
-  Class clazz=value.getClass();
+  Class<?> clazz=value.getClass();
   GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   writer.object();

@@ -2,7 +2,7 @@
   if (growProcent == 0) {
     return;
   }
- else   if (growProcent == 100) {
+  if (growProcent == 100) {
     chunkSize=Math.min(totalChunkSize,maxChunkSize);
   }
  else   if (growProcent == 200) {

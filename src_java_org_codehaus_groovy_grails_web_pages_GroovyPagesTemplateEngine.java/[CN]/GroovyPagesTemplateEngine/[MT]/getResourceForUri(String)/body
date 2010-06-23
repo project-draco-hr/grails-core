@@ -1,6 +1,5 @@
 {
-  Resource r;
-  r=getResourceWithinContext(uri);
+  Resource r=getResourceWithinContext(uri);
   if (r == null || !r.exists()) {
     String pluginUri=GrailsResourceUtils.WEB_INF + uri;
     r=getResourceWithinContext(pluginUri);

@@ -3,7 +3,9 @@
   String path=null;
   try {
     File file=res.getFile();
-    if (file != null)     path=file.getAbsolutePath();
+    if (file != null) {
+      path=file.getAbsolutePath();
+    }
   }
  catch (  IOException e) {
   }

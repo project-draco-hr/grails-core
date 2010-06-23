@@ -4,7 +4,5 @@
     findResourcesRecursive(getParent(),name,urls);
     return Collections.enumeration(urls);
   }
- else {
-    return invokeFindResources(getParent(),name);
-  }
+  return invokeFindResources(getParent(),name);
 }

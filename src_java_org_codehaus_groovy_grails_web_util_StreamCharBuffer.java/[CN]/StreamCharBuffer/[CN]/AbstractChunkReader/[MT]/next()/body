@@ -1,9 +1,9 @@
 {
   if (removeAfterReading) {
-    if (firstChunk == this.parentChunk) {
+    if (firstChunk == parentChunk) {
       firstChunk=null;
     }
-    if (lastChunk == this.parentChunk) {
+    if (lastChunk == parentChunk) {
       lastChunk=null;
     }
   }
@@ -21,7 +21,5 @@
     }
     return nextChunk.getChunkReader(removeAfterReading);
   }
- else {
-    return new AllocatedBufferReader(allocBuffer,removeAfterReading);
-  }
+  return new AllocatedBufferReader(allocBuffer,removeAfterReading);
 }

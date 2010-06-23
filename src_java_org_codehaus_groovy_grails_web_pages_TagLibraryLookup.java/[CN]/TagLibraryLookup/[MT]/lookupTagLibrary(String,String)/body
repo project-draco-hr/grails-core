@@ -3,7 +3,5 @@
   if (fullName != null) {
     return (GroovyObject)applicationContext.getBean(fullName);
   }
- else {
-    return null;
-  }
+  return null;
 }

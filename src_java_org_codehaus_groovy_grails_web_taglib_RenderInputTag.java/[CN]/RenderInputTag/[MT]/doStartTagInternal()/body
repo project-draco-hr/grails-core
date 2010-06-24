@@ -1,12 +1,12 @@
 {
-  GrailsDomainClass domainClass=(GrailsDomainClass)this.grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,bean.getClass().getName());
+  GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,bean.getClass().getName());
   if (domainClass != null) {
-    this.constrainedProperties=domainClass.getConstrainedProperties();
+    constrainedProperties=domainClass.getConstrainedProperties();
   }
-  this.beanWrapper=new BeanWrapperImpl(bean);
+  beanWrapper=new BeanWrapperImpl(bean);
   PropertyDescriptor pd=null;
   try {
-    pd=this.beanWrapper.getPropertyDescriptor(property);
+    pd=beanWrapper.getPropertyDescriptor(property);
   }
  catch (  BeansException e) {
     throw new GrailsTagException("Property [" + property + "] is not a valid bean property in tag [renderInput]:"+ e.getMessage(),e);
@@ -16,18 +16,19 @@
   try {
     String uri=findUriForType(pd.getPropertyType());
     t=engine.createTemplate(uri);
-    if (t == null)     throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag [scaffold]. No template found.");
-    Map binding=new HashMap();
+    if (t == null) {
+      throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag [scaffold]. No template found.");
+    }
+    Map<String,Object> binding=new HashMap<String,Object>();
     binding.put("name",pd.getName());
-    binding.put("value",this.beanWrapper.getPropertyValue(property));
-    if (this.constrainedProperties.containsKey(property)) {
-      binding.put("constraints",this.constrainedProperties.get(property));
+    binding.put("value",beanWrapper.getPropertyValue(property));
+    if (constrainedProperties.containsKey(property)) {
+      binding.put("constraints",constrainedProperties.get(property));
     }
  else {
       binding.put("constraints",null);
     }
-    Writable w=t.make(binding);
-    w.writeTo(out);
+    t.make(binding).writeTo(out);
   }
  catch (  IOException e) {
     throw new GrailsTagException("I/O error writing tag [" + getName() + "] to writer: "+ e.getMessage(),e);

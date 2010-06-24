@@ -5,7 +5,7 @@
   if (encoding == null) {
     encoding=DEFAULT_ENCODING;
   }
-  for (  Object o1 : parameterValues.keySet()) {
+  for (  Object o1 : paramValues.keySet()) {
     String name=o1.toString();
     if (!usedParams.contains(name)) {
       if (!addedParams) {
@@ -15,7 +15,7 @@
  else {
         uri.append(AMPERSAND);
       }
-      Object value=parameterValues.get(name);
+      Object value=paramValues.get(name);
       if (value != null && value instanceof Collection) {
         Collection multiValues=(Collection)value;
         for (Iterator j=multiValues.iterator(); j.hasNext(); ) {

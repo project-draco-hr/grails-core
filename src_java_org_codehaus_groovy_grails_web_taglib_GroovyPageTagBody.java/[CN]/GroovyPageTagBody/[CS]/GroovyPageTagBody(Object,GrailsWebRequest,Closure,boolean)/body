@@ -1,8 +1,8 @@
 {
   super(owner);
-  if (bodyClosure == null)   throw new IllegalStateException("Argument [bodyClosure] cannot be null!");
-  if (webRequest == null)   throw new IllegalStateException("Argument [webRequest] cannot be null!");
+  Assert.notNull(bodyClosure,"Argument [bodyClosure] cannot be null!");
+  Assert.notNull(webRequest,"Argument [webRequest] cannot be null!");
   this.bodyClosure=bodyClosure;
-  this.binding=findPageScopeBinding(owner,webRequest);
+  binding=findPageScopeBinding(owner,webRequest);
   this.preferSubChunkWhenWritingToOtherBuffer=preferSubChunkWhenWritingToOtherBuffer;
 }

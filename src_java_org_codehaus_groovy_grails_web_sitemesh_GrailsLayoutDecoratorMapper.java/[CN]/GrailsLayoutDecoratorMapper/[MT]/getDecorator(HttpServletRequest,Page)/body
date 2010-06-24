@@ -8,7 +8,9 @@
     if (controller != null) {
       String controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
       String actionUri=(String)controller.getProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY);
-      if (LOG.isDebugEnabled())       LOG.debug("Found controller in request, location layout for controller [" + controllerName + "] and action ["+ actionUri+ "]");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Found controller in request, location layout for controller [" + controllerName + "] and action ["+ actionUri+ "]");
+      }
       Decorator d=null;
       Object layoutProperty=GrailsClassUtils.getStaticPropertyValue(controller.getClass(),"layout");
       if (layoutProperty instanceof String) {
@@ -21,19 +23,19 @@
       if (d != null) {
         return d;
       }
- else       if (!StringUtils.isBlank(controllerName)) {
-        if (LOG.isDebugEnabled())         LOG.debug("Action layout not found, trying controller");
+      if (!StringUtils.isBlank(controllerName)) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Action layout not found, trying controller");
+        }
         d=getNamedDecorator(request,controllerName);
         if (d != null) {
           return d;
         }
- else {
-          d=getApplicationDefaultDecorator(request);
-          if (d != null) {
-            return d;
-          }
-          return parent != null ? super.getDecorator(request,page) : null;
+        d=getApplicationDefaultDecorator(request);
+        if (d != null) {
+          return d;
         }
+        return parent != null ? super.getDecorator(request,page) : null;
       }
     }
  else {
@@ -51,7 +53,5 @@
   if (d != null) {
     return d;
   }
- else {
-    return parent != null ? super.getDecorator(request,page) : null;
-  }
+  return parent != null ? super.getDecorator(request,page) : null;
 }

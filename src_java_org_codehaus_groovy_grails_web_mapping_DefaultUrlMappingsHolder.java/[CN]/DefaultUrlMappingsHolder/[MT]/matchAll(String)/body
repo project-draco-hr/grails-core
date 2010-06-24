@@ -5,10 +5,14 @@
   }
  else {
     for (    UrlMapping mapping : mappings) {
-      if (LOG.isDebugEnabled())       LOG.debug("Attempting to match URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "]");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Attempting to match URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "]");
+      }
       UrlMappingInfo current=mapping.match(uri);
       if (current != null) {
-        if (LOG.isDebugEnabled())         LOG.debug("Matched URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "], adding to posibilities");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Matched URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "], adding to posibilities");
+        }
         matchingUrls.add(current);
       }
     }

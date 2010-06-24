@@ -1,5 +1,5 @@
 {
-  this.config=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
-  this.encoding=config.getEncoding();
-  this.circularReferenceBehaviour=config.getCircularReferenceBehaviour();
+  config=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
+  encoding=config.getEncoding();
+  circularReferenceBehaviour=config.getCircularReferenceBehaviour();
 }

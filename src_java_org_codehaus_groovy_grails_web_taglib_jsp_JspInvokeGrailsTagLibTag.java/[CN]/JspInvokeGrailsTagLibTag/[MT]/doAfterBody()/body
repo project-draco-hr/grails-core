@@ -11,11 +11,10 @@
   invocationCount--;
   setCurrentArgument();
   if (invocationCount <= 0) {
-    this.tagContent=sw.toString();
+    tagContent=sw.toString();
     int i=1;
-    StringBuffer buf=new StringBuffer();
-    for (Iterator iter=invocationBodyContent.iterator(); iter.hasNext(); i++) {
-      String body=(String)iter.next();
+    StringBuilder buf=new StringBuilder();
+    for (    String body : invocationBodyContent) {
       String replaceFlag="<jsp-body-gen" + i + ">";
       int j=tagContent.indexOf(replaceFlag);
       if (j > -1) {
@@ -35,5 +34,5 @@
     }
     return SKIP_BODY;
   }
- else   return EVAL_BODY_BUFFERED;
+  return EVAL_BODY_BUFFERED;
 }

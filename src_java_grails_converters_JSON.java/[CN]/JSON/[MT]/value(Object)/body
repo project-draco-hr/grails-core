@@ -1,5 +1,5 @@
 {
-  o=this.config.getProxyHandler().unwrapIfProxy(o);
+  o=config.getProxyHandler().unwrapIfProxy(o);
   try {
     if (o == null || o.equals(JSONObject.NULL)) {
       writer.value(null);
@@ -7,8 +7,8 @@
  else     if (o instanceof CharSequence) {
       writer.value(o);
     }
- else     if (o instanceof Class) {
-      writer.value(((Class)o).getName());
+ else     if (o instanceof Class<?>) {
+      writer.value(((Class<?>)o).getName());
     }
  else     if ((o.getClass().isPrimitive() && !o.getClass().equals(byte[].class)) || o instanceof Number || o instanceof Boolean) {
       writer.value(o);

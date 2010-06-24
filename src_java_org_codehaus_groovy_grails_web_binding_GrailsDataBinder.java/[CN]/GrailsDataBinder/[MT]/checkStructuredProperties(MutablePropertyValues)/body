@@ -5,7 +5,7 @@
       continue;
     }
     String propertyName=getNameOf(propertyValue);
-    Class type=bean.getPropertyType(propertyName);
+    Class<?> type=bean.getPropertyType(propertyName);
     if (type != null) {
       PropertyEditor editor=findCustomEditor(type,propertyName);
       if (null != editor && StructuredPropertyEditor.class.isAssignableFrom(editor.getClass())) {
@@ -21,7 +21,9 @@
             if (partialStructValue == null && structuredEditor.getRequiredFields().contains(field)) {
               throw new MissingPropertyException("Required structured property is missing [" + field + "]");
             }
- else             if (partialStructValue == null)             continue;
+ else             if (partialStructValue == null) {
+              continue;
+            }
             fieldValues.put(field,getStringValue(partialStructValue));
           }
           try {

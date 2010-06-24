@@ -1,35 +1,24 @@
 {
-  char ch;
 switch (c) {
 case 'n':
-    ch='\n';
-  break;
+    return '\n';
 case 'b':
-ch='\b';
-break;
+  return '\b';
 case 'f':
-ch='\f';
-break;
+return '\f';
 case 't':
-ch='\t';
-break;
+return '\t';
 case 'r':
-ch='\r';
-break;
+return '\r';
 case '\"':
-ch='\"';
-break;
+return '\"';
 case '\'':
-ch='\'';
-break;
+return '\'';
 case '\\':
-ch='\\';
-break;
+return '\\';
 case '/':
-ch='/';
-break;
+return '/';
 default :
 throw new IllegalStateException("Unexpected character: " + c + " in "+ str);
 }
-return ch;
 }

@@ -1,15 +1,15 @@
 {
-  super.init(filterConfig);
-  this.filterConfig=filterConfig;
-  this.containerTweaks=new ContainerTweaks();
-  Config config=new Config(filterConfig);
+  super.init(fc);
+  this.filterConfig=fc;
+  containerTweaks=new ContainerTweaks();
+  Config config=new Config(fc);
   DefaultFactory defaultFactory=new DefaultFactory(config);
   config.getServletContext().setAttribute("sitemesh.factory",defaultFactory);
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);
-  this.applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(filterConfig.getServletContext());
-  Map interceptors=applicationContext.getBeansOfType(PersistenceContextInterceptor.class);
+  applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(fc.getServletContext());
+  Map<String,PersistenceContextInterceptor> interceptors=applicationContext.getBeansOfType(PersistenceContextInterceptor.class);
   if (!interceptors.isEmpty()) {
-    persistenceInterceptor=(PersistenceContextInterceptor)interceptors.values().iterator().next();
+    persistenceInterceptor=interceptors.values().iterator().next();
   }
 }

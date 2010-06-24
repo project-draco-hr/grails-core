@@ -4,6 +4,8 @@
     lazyInitializer.initialize();
   }
   final Object obj=lazyInitializer.getImplementation();
-  if (obj != null)   GrailsHibernateUtil.ensureCorrectGroovyMetaClass(obj,obj.getClass());
+  if (obj != null) {
+    GrailsHibernateUtil.ensureCorrectGroovyMetaClass(obj,obj.getClass());
+  }
   return obj;
 }

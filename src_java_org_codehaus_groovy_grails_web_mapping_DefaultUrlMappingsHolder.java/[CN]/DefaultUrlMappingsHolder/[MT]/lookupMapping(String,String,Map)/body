@@ -15,8 +15,12 @@
     UrlMappingKey mappingKey=mappingKeys[i - 1];
     if (params.keySet().containsAll(mappingKey.paramNames)) {
       final UrlMapping mapping=mappingsLookup.get(mappingKey);
-      if (canInferAction(actionName,secondAttempt,isIndexAction,mapping))       return mapping;
- else       if (!secondAttempt)       return mapping;
+      if (canInferAction(actionName,secondAttempt,isIndexAction,mapping)) {
+        return mapping;
+      }
+      if (!secondAttempt) {
+        return mapping;
+      }
     }
   }
   return null;

@@ -3,7 +3,5 @@
   if (tz == null) {
     return "";
   }
- else {
-    return tz.getID();
-  }
+  return tz.getID();
 }

@@ -3,7 +3,5 @@
   if (uri == null) {
     return "";
   }
- else {
-    return uri.toString();
-  }
+  return uri.toString();
 }

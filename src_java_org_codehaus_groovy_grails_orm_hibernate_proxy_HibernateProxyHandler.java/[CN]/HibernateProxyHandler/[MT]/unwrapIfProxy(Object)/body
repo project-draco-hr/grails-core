@@ -3,11 +3,9 @@
     final HibernateProxy proxy=(HibernateProxy)instance;
     return unwrapProxy(proxy);
   }
- else   if (instance instanceof AbstractPersistentCollection) {
+  if (instance instanceof AbstractPersistentCollection) {
     initialize(instance);
     return instance;
   }
- else {
-    return instance;
-  }
+  return instance;
 }

@@ -1,7 +1,7 @@
 {
-  Collections.sort(this.urlMappings);
-  Collections.reverse(this.urlMappings);
-  this.mappings=this.urlMappings.toArray(new UrlMapping[this.urlMappings.size()]);
+  Collections.sort(urlMappings);
+  Collections.reverse(urlMappings);
+  mappings=urlMappings.toArray(new UrlMapping[urlMappings.size()]);
   for (  UrlMapping mapping : mappings) {
     String mappingName=mapping.getMappingName();
     if (mappingName != null) {
@@ -10,7 +10,7 @@
     String controllerName=mapping.getControllerName() instanceof String ? mapping.getControllerName().toString() : null;
     String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
     ConstrainedProperty[] params=mapping.getConstraints();
-    Set requiredParams=new HashSet();
+    Set<String> requiredParams=new HashSet<String>();
     int optionalIndex=-1;
     for (int j=0; j < params.length; j++) {
       ConstrainedProperty param=params[j];
@@ -23,21 +23,21 @@
       }
     }
     UrlMappingKey key=new UrlMappingKey(controllerName,actionName,requiredParams);
-    this.mappingsLookup.put(key,mapping);
+    mappingsLookup.put(key,mapping);
     UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName);
-    this.mappingsListLookup.put(listKey,key);
+    mappingsListLookup.put(listKey,key);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
     }
-    Set requiredParamsAndOptionals=new HashSet(requiredParams);
+    Set<String> requiredParamsAndOptionals=new HashSet<String>(requiredParams);
     if (optionalIndex > -1) {
       for (int j=optionalIndex; j < params.length; j++) {
         ConstrainedProperty param=params[j];
         requiredParamsAndOptionals.add(param.getPropertyName());
-        key=new UrlMappingKey(controllerName,actionName,new HashSet(requiredParamsAndOptionals));
+        key=new UrlMappingKey(controllerName,actionName,new HashSet<String>(requiredParamsAndOptionals));
         mappingsLookup.put(key,mapping);
         listKey=new UrlMappingsListKey(controllerName,actionName);
-        this.mappingsListLookup.put(listKey,key);
+        mappingsListLookup.put(listKey,key);
         if (LOG.isDebugEnabled()) {
           LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
         }

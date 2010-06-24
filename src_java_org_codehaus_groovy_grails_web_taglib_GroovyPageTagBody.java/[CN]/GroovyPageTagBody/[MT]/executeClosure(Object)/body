@@ -1,0 +1,6 @@
+{
+  if (args != null) {
+    return bodyClosure.call(args);
+  }
+  return bodyClosure.call();
+}

@@ -1,10 +1,11 @@
 {
   this.applicationContext=applicationContext;
-  if (applicationContext != null) {
-    try {
-      this.sessionFactory=applicationContext.getBean("sessionFactory",SessionFactory.class);
-    }
- catch (    BeansException e) {
-    }
+  if (applicationContext == null) {
+    return;
+  }
+  try {
+    sessionFactory=applicationContext.getBean("sessionFactory",SessionFactory.class);
+  }
+ catch (  BeansException e) {
   }
 }

@@ -1,10 +1,14 @@
 {
   if (o instanceof HibernateProxy) {
     final LazyInitializer hibernateLazyInitializer=((HibernateProxy)o).getHibernateLazyInitializer();
-    if (hibernateLazyInitializer.isUninitialized())     hibernateLazyInitializer.initialize();
+    if (hibernateLazyInitializer.isUninitialized()) {
+      hibernateLazyInitializer.initialize();
+    }
   }
  else   if (o instanceof AbstractPersistentCollection) {
     final AbstractPersistentCollection col=(AbstractPersistentCollection)o;
-    if (!col.wasInitialized())     col.forceInitialization();
+    if (!col.wasInitialized()) {
+      col.forceInitialization();
+    }
   }
 }

@@ -2,7 +2,5 @@
   if (isSitemeshNotActive()) {
     return null;
   }
- else {
-    return buffer.getContents();
-  }
+  return buffer.getContents();
 }

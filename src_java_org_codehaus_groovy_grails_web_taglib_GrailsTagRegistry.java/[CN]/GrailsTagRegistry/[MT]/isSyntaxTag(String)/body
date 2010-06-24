@@ -1,7 +1,6 @@
 {
   if (tagRegistry.containsKey(tagName)) {
-    Class tagClass=(Class)tagRegistry.get(tagName);
-    return GroovySyntaxTag.class.isAssignableFrom(tagClass);
+    return GroovySyntaxTag.class.isAssignableFrom(tagRegistry.get(tagName));
   }
   return false;
 }

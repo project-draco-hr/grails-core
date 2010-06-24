@@ -1,8 +1,3 @@
 {
-  List optionalFields=new ArrayList();
-  optionalFields.add("month");
-  optionalFields.add("day");
-  optionalFields.add("hour");
-  optionalFields.add("minute");
-  return optionalFields;
+  return Arrays.asList("month","day","hour","minute");
 }

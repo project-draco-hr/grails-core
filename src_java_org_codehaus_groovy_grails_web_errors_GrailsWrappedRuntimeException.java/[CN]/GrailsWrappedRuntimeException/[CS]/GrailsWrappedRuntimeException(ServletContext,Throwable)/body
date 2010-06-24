@@ -1,23 +1,23 @@
 {
   super(t.getMessage(),t);
-  this.cause=t;
+  cause=t;
   FastStringWriter pw=new FastStringWriter();
   cause.printStackTrace(pw);
-  this.stackTrace=pw.toString();
+  stackTrace=pw.toString();
   while (cause.getCause() != cause) {
     if (cause.getCause() == null) {
       break;
     }
     cause=cause.getCause();
   }
-  this.stackTraceLines=this.stackTrace.split("\\n");
+  stackTraceLines=stackTrace.split("\\n");
   if (cause instanceof MultipleCompilationErrorsException) {
     MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)cause;
     Object message=mcee.getErrorCollector().getErrors().iterator().next();
     if (message instanceof SyntaxErrorMessage) {
       SyntaxErrorMessage sem=(SyntaxErrorMessage)message;
-      this.lineNumber=sem.getCause().getLine();
-      this.className=sem.getCause().getSourceLocator();
+      lineNumber=sem.getCause().getLine();
+      className=sem.getCause().getSourceLocator();
       sem.write(pw);
     }
   }
@@ -27,22 +27,22 @@
     Matcher gsp=PARSE_GSP_DETAILS_STEP1.matcher(stackTrace);
     try {
       if (gsp.find()) {
-        this.className=gsp.group(2);
-        this.lineNumber=Integer.parseInt(gsp.group(3));
-        this.gspFile=URL_PREFIX + "views/" + gsp.group(1)+ '/'+ this.className;
+        className=gsp.group(2);
+        lineNumber=Integer.parseInt(gsp.group(3));
+        gspFile=URL_PREFIX + "views/" + gsp.group(1)+ '/'+ className;
       }
  else {
         if (m1.find()) {
           do {
-            this.className=m1.group(1);
-            this.lineNumber=Integer.parseInt(m1.group(2));
+            className=m1.group(1);
+            lineNumber=Integer.parseInt(m1.group(2));
           }
  while (m1.find());
         }
  else {
           while (m2.find()) {
-            this.className=m2.group(1);
-            this.lineNumber=Integer.parseInt(m2.group(2));
+            className=m2.group(1);
+            lineNumber=Integer.parseInt(m2.group(2));
           }
         }
       }
@@ -63,7 +63,7 @@
  else {
         String urlPrefix="";
         if (gspFile == null) {
-          this.fileName=this.className.replace('.','/') + ".groovy";
+          fileName=className.replace('.','/') + ".groovy";
           GrailsApplication application=ApplicationHolder.getApplication();
           if (application.isArtefactOfType(ControllerArtefactHandler.TYPE,className)) {
             urlPrefix+="/controllers/";
@@ -81,8 +81,8 @@
           GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(servletContext);
           GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
           int[] lineNumbers=engine.calculateLineNumbersForPage(servletContext,url);
-          if (this.lineNumber < lineNumbers.length) {
-            this.lineNumber=lineNumbers[this.lineNumber - 1];
+          if (lineNumber < lineNumbers.length) {
+            lineNumber=lineNumbers[lineNumber - 1];
           }
         }
         fileLocation="grails-app" + urlPrefix + fileName;
@@ -115,16 +115,16 @@
         StringBuilder buf=new StringBuilder();
         while (currentLine != null) {
           int currentLineNumber=reader.getLineNumber();
-          if ((this.lineNumber > 0 && currentLineNumber == lineNumber - 1) || (currentLineNumber == this.lineNumber)) {
+          if ((lineNumber > 0 && currentLineNumber == lineNumber - 1) || (currentLineNumber == lineNumber)) {
             buf.append(currentLineNumber).append(": ").append(currentLine).append("\n");
           }
- else           if (currentLineNumber == this.lineNumber + 1) {
+ else           if (currentLineNumber == lineNumber + 1) {
             buf.append(currentLineNumber).append(": ").append(currentLine);
             break;
           }
           currentLine=reader.readLine();
         }
-        this.codeSnippet=buf.toString().split("\n");
+        codeSnippet=buf.toString().split("\n");
       }
     }
   }
@@ -132,10 +132,12 @@
     LOG.warn("[GrailsWrappedRuntimeException] I/O error reading line diagnostics: " + e.getMessage(),e);
   }
  finally {
-    if (reader != null)     try {
-      reader.close();
-    }
- catch (    IOException e) {
+    if (reader != null) {
+      try {
+        reader.close();
+      }
+ catch (      IOException e) {
+      }
     }
   }
 }

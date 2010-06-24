@@ -1,10 +1,10 @@
 {
   try {
     final Object value=new JSONTokener(source).nextValue();
-    if (value instanceof JSONElement)     return (JSONElement)value;
- else {
-      return new JSONObject();
+    if (value instanceof JSONElement) {
+      return (JSONElement)value;
     }
+    return new JSONObject();
   }
  catch (  JSONException e) {
     throw new ConverterException("Error parsing JSON",e);

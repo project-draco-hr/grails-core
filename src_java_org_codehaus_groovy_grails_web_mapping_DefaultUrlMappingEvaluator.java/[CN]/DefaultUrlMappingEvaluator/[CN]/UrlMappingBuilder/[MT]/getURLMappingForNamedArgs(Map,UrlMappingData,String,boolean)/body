@@ -1,6 +1,6 @@
 {
-  Object controllerName;
-  Object actionName;
+  @SuppressWarnings("hiding") Object controllerName;
+  @SuppressWarnings("hiding") Object actionName;
   final Map bindingVariables=binding != null ? binding.getVariables() : null;
   boolean restRequest=false;
   if (namedArguments.containsKey(RESOURCE)) {
@@ -12,17 +12,17 @@
     controllerName=getControllerName(namedArguments,bindingVariables);
     actionName=getActionName(namedArguments,bindingVariables);
   }
-  Object viewName=getViewName(namedArguments,bindingVariables);
+  @SuppressWarnings("hiding") Object viewName=getViewName(namedArguments,bindingVariables);
   if (actionName != null && viewName != null) {
     viewName=null;
     LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
   }
-  Object uri=getURI(namedArguments,bindingVariables);
+  @SuppressWarnings("hiding") Object uri=getURI(namedArguments,bindingVariables);
   ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
   UrlMapping urlMapping;
   if (uri != null) {
     try {
-      urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,servletContext);
+      urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,sc);
     }
  catch (    URISyntaxException e) {
       throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
@@ -51,7 +51,7 @@
     urlMapping.setRestfulMapping(true);
   }
  else {
-    Object parseRequest=getParseRequest(namedArguments,bindingVariables);
+    @SuppressWarnings("hiding") Object parseRequest=getParseRequest(namedArguments,bindingVariables);
     if (parseRequest instanceof Boolean) {
       urlMapping.setParseRequest((Boolean)parseRequest);
     }

@@ -1,14 +1,22 @@
 {
-  if (parameterValues == null)   parameterValues=new HashMap();
+  if (paramValues == null)   paramValues=new HashMap();
   boolean hasController=!StringUtils.isBlank(controller);
   boolean hasAction=!StringUtils.isBlank(action);
   try {
-    if (hasController)     parameterValues.put(CONTROLLER,controller);
-    if (hasAction)     parameterValues.put(ACTION,action);
-    return createURLInternal(parameterValues,encoding,includeContextPath);
+    if (hasController) {
+      paramValues.put(CONTROLLER,controller);
+    }
+    if (hasAction) {
+      paramValues.put(ACTION,action);
+    }
+    return createURLInternal(paramValues,encoding,includeContextPath);
   }
   finally {
-    if (hasController)     parameterValues.remove(CONTROLLER);
-    if (hasAction)     parameterValues.remove(ACTION);
+    if (hasController) {
+      paramValues.remove(CONTROLLER);
+    }
+    if (hasAction) {
+      paramValues.remove(ACTION);
+    }
   }
 }

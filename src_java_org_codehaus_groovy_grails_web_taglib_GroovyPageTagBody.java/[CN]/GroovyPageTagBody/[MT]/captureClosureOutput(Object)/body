@@ -14,7 +14,7 @@
           currentBinding.putAll(argsMap);
         }
         try {
-          bodyResult=executeClosure(bodyClosure,args);
+          bodyResult=executeClosure(args);
         }
   finally {
           if (binding != null) {
@@ -28,11 +28,11 @@
         }
       }
  else {
-        bodyResult=executeClosure(bodyClosure,args);
+        bodyResult=executeClosure(args);
       }
     }
  else {
-      bodyResult=executeClosure(bodyClosure,null);
+      bodyResult=executeClosure(null);
     }
     if (!capturedOut.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
       return bodyResult;

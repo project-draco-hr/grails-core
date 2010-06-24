@@ -1,5 +1,5 @@
 {
-  Class type=bean.getPropertyType(propertyName);
+  Class<?> type=bean.getPropertyType(propertyName);
   if (type == null) {
     Object target=bean.getWrappedInstance();
     String path=propertyName.replaceAll("\\[.+?\\]","");

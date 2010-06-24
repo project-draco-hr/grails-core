@@ -1,4 +1,4 @@
 {
-  if (!init)   throw new IllegalStateException("Tag not initialised called 'init' first");
+  Assert.state(init,"Tag not initialised called 'init' first");
   doEndTagInternal();
 }

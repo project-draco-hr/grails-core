@@ -1,7 +1,6 @@
 {
   config=initConfig();
-  this.encoding=config != null ? this.config.getEncoding() : "UTF-8";
-  this.circularReferenceBehaviour=config != null ? this.config.getCircularReferenceBehaviour() : CircularReferenceBehaviour.DEFAULT;
-  this.prettyPrint=config != null && this.config.isPrettyPrint();
-  this.target=null;
+  encoding=config != null ? config.getEncoding() : "UTF-8";
+  circularReferenceBehaviour=config != null ? config.getCircularReferenceBehaviour() : CircularReferenceBehaviour.DEFAULT;
+  prettyPrint=config != null && config.isPrettyPrint();
 }

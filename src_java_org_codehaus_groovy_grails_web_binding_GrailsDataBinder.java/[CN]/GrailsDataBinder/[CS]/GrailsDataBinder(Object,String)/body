@@ -4,7 +4,7 @@
   bean=(BeanWrapper)((BeanPropertyBindingResult)super.getBindingResult()).getPropertyAccessor();
   Object tmpTransients=GrailsClassUtils.getStaticPropertyValue(bean.getWrappedClass(),GrailsDomainClassProperty.TRANSIENT);
   if (tmpTransients instanceof List) {
-    this.transients=(List)tmpTransients;
+    transients=(List)tmpTransients;
   }
   String[] disallowed=new String[0];
   GrailsApplication grailsApplication=ApplicationHolder.getApplication();

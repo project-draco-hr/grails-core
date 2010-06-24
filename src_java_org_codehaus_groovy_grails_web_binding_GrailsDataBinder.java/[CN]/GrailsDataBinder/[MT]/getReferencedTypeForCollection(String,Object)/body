@@ -1,9 +1,9 @@
 {
   final GrailsApplication grailsApplication=ApplicationHolder.getApplication();
   if (grailsApplication != null) {
-    GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
-    if (domainClass != null) {
-      GrailsDomainClassProperty domainProperty=domainClass.getPropertyByName(name);
+    GrailsDomainClass dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
+    if (dc != null) {
+      GrailsDomainClassProperty domainProperty=dc.getPropertyByName(name);
       if (domainProperty != null) {
         return domainProperty.getReferencedPropertyType();
       }

@@ -11,10 +11,10 @@
     if (constraints.length > i) {
       ConstrainedProperty cp=constraints[i];
       cp.validate(this,lastGroup,errors);
-      if (errors.hasErrors())       return null;
- else {
-        params.put(cp.getPropertyName(),lastGroup);
+      if (errors.hasErrors()) {
+        return null;
       }
+      params.put(cp.getPropertyName(),lastGroup);
     }
   }
   Map<String,Object> config=ConfigurationHolder.getFlatConfig();
@@ -31,27 +31,27 @@
       }
     }
   }
-  for (  Object key : this.parameterValues.keySet()) {
-    params.put(key,this.parameterValues.get(key));
+  for (  Object key : parameterValues.keySet()) {
+    params.put(key,parameterValues.get(key));
   }
   if (controllerName == null) {
-    this.controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,this.constraints);
+    controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,constraints);
   }
   if (actionName == null) {
-    this.actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,this.constraints);
+    actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,constraints);
   }
   if (viewName == null) {
-    this.viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,this.constraints);
+    viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);
   }
   DefaultUrlMappingInfo info;
-  if (forwardURI != null && this.controllerName == null) {
-    info=new DefaultUrlMappingInfo(forwardURI,this.urlData,servletContext);
+  if (forwardURI != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(forwardURI,urlData,servletContext);
   }
- else   if (viewName != null && this.controllerName == null) {
-    info=new DefaultUrlMappingInfo(viewName,params,this.urlData,servletContext);
+ else   if (viewName != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
   }
  else {
-    info=new DefaultUrlMappingInfo(this.controllerName,this.actionName,getViewName(),params,this.urlData,servletContext);
+    info=new DefaultUrlMappingInfo(controllerName,actionName,getViewName(),params,urlData,servletContext);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

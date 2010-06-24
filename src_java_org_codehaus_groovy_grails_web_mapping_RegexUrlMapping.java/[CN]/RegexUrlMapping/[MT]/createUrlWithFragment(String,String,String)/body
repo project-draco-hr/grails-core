@@ -10,7 +10,5 @@
       throw new ControllerExecutionException("Error creating URL  [" + url + "], problem encoding URL fragment ["+ fragment+ "]: "+ ex.getMessage(),ex);
     }
   }
- else {
-    return url;
-  }
+  return url;
 }

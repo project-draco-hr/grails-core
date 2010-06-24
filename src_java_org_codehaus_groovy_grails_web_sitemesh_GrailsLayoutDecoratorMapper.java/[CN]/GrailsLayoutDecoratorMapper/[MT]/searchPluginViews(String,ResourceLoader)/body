@@ -1,10 +1,6 @@
 {
-  String pluginViewLocation=null;
   if (Metadata.getCurrent().isWarDeployed()) {
-    pluginViewLocation=searchPluginViewsForWarDeployed(name,resourceLoader);
+    return searchPluginViewsForWarDeployed(name,resourceLoader);
   }
- else {
-    pluginViewLocation=searchPluginViewsInDevelopmentMode(name);
-  }
-  return pluginViewLocation;
+  return searchPluginViewsInDevelopmentMode(name);
 }

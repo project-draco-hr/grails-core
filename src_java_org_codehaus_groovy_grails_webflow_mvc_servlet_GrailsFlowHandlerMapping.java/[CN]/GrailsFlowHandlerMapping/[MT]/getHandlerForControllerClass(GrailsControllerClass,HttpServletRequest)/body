@@ -4,7 +4,7 @@
     if (controllerClass.isFlowAction(actionName)) {
       final String flowid=controllerClass.getLogicalPropertyName() + "/" + actionName;
       return new AbstractFlowHandler(){
-        public String getFlowId(){
+        @Override public String getFlowId(){
           return flowid;
         }
       }

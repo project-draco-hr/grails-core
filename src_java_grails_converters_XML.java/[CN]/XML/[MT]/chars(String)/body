@@ -1,7 +1,7 @@
 {
   checkState();
   try {
-    this.writer.characters(chars);
+    writer.characters(chars);
   }
  catch (  Exception e) {
     throw ConverterUtil.resolveConverterException(e);

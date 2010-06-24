@@ -18,7 +18,7 @@
       inputStream.close();
       throw new java.io.IOException();
     }
- else     maxNextCharInd+=i;
+    maxNextCharInd+=i;
     return;
   }
  catch (  java.io.IOException e) {

@@ -1,6 +1,6 @@
 {
   ConverterConfiguration<XML> cfg=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
-  if (!(cfg instanceof DefaultConverterConfiguration)) {
+  if (!(cfg instanceof DefaultConverterConfiguration<?>)) {
     cfg=new DefaultConverterConfiguration<XML>(cfg);
   }
   try {

@@ -2,10 +2,8 @@
   if (charBuffer != null) {
     return charBuffer.toCharArray();
   }
- else   if (byteBuffer != null) {
+  if (byteBuffer != null) {
     return TEXT_ENCODER.encode(byteBuffer.readAsByteArray(),encoding);
   }
- else {
-    return new char[0];
-  }
+  return new char[0];
 }

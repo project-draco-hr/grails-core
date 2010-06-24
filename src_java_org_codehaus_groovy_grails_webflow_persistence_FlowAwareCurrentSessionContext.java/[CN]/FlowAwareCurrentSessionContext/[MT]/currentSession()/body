@@ -7,8 +7,7 @@
       MutableAttributeMap flowScope=context.getActiveSession().getScope();
       s=(Session)flowScope.get(HibernateFlowExecutionListener.PERSISTENCE_CONTEXT_ATTRIBUTE,org.hibernate.Session.class);
     }
-    if (s == null)     return super.currentSession();
- else     return s;
+    return s == null ? super.currentSession() : s;
   }
  catch (  IllegalStateException e) {
     return super.currentSession();

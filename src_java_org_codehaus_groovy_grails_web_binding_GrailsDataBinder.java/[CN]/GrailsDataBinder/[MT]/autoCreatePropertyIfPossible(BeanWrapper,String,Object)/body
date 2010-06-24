@@ -6,39 +6,43 @@
   if (currentKeyStart > -1) {
     propertyName=propertyName.substring(0,currentKeyStart);
   }
-  Class type=bean.getPropertyType(propertyName);
-  Object val=bean.isReadableProperty(propertyName) ? bean.getPropertyValue(propertyName) : null;
+  Class<?> type=wrapper.getPropertyType(propertyName);
+  Object val=wrapper.isReadableProperty(propertyName) ? wrapper.getPropertyValue(propertyName) : null;
   LOG.debug("Checking if auto-create is possible for property [" + propertyName + "] and type ["+ type+ "]");
-  if (type != null && val == null && (isDomainClass(type) || isEmbedded(bean,propertyName))) {
-    if (!shouldPropertyValueSkipAutoCreate(propertyValue) && isNullAndWritableProperty(bean,propertyName)) {
+  if (type != null && val == null && (isDomainClass(type) || isEmbedded(wrapper,propertyName))) {
+    if (!shouldPropertyValueSkipAutoCreate(propertyValue) && isNullAndWritableProperty(wrapper,propertyName)) {
       if (isDomainClass(type)) {
         Object created=autoInstantiateDomainInstance(type);
         if (created != null) {
           val=created;
-          bean.setPropertyValue(propertyName,created);
+          wrapper.setPropertyValue(propertyName,created);
         }
       }
- else       if (isEmbedded(bean,propertyName)) {
+ else       if (isEmbedded(wrapper,propertyName)) {
         Object created=autoInstantiateEmbeddedInstance(type);
         if (created != null) {
           val=created;
-          bean.setPropertyValue(propertyName,created);
+          wrapper.setPropertyValue(propertyName,created);
         }
       }
     }
   }
  else {
-    final Object beanInstance=bean.getWrappedInstance();
+    final Object beanInstance=wrapper.getWrappedInstance();
     if (type != null && Collection.class.isAssignableFrom(type)) {
-      Collection c=null;
-      final Class referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
-      if (isNullAndWritableProperty(bean,propertyName)) {
+      Collection<?> c=null;
+      final Class<?> referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
+      if (isNullAndWritableProperty(wrapper,propertyName)) {
         c=decorateCollectionForDomainAssociation(GrailsClassUtils.createConcreteCollection(type),referencedType);
       }
  else {
-        if (bean.isReadableProperty(propertyName))         c=decorateCollectionForDomainAssociation((Collection)bean.getPropertyValue(propertyName),referencedType);
+        if (wrapper.isReadableProperty(propertyName)) {
+          c=decorateCollectionForDomainAssociation((Collection<?>)wrapper.getPropertyValue(propertyName),referencedType);
+        }
       }
-      if (bean.isWritableProperty(propertyName) && c != null)       bean.setPropertyValue(propertyName,c);
+      if (wrapper.isWritableProperty(propertyName) && c != null) {
+        wrapper.setPropertyValue(propertyName,c);
+      }
       val=c;
       if (c != null && currentKeyStart > -1 && currentKeyEnd > -1) {
         String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
@@ -67,19 +71,19 @@
       }
     }
  else     if (type != null && Map.class.isAssignableFrom(type)) {
-      Map map;
-      if (isNullAndWritableProperty(bean,propertyName)) {
-        map=new HashMap();
-        bean.setPropertyValue(propertyName,map);
+      Map<String,Object> map;
+      if (isNullAndWritableProperty(wrapper,propertyName)) {
+        map=new HashMap<String,Object>();
+        wrapper.setPropertyValue(propertyName,map);
       }
  else {
-        map=(Map)bean.getPropertyValue(propertyName);
+        map=(Map)wrapper.getPropertyValue(propertyName);
       }
       val=map;
-      bean.setPropertyValue(propertyName,val);
+      wrapper.setPropertyValue(propertyName,val);
       if (currentKeyStart > -1 && currentKeyEnd > -1) {
         String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
-        Class referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
+        Class<?> referencedType=getReferencedTypeForCollection(propertyName,beanInstance);
         if (isDomainClass(referencedType)) {
           final Object domainInstance=autoInstantiateDomainInstance(referencedType);
           val=domainInstance;

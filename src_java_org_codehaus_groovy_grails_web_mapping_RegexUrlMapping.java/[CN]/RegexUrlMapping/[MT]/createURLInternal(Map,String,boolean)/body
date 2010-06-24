@@ -7,7 +7,7 @@
       contextPath=webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest());
     }
   }
-  if (parameterValues == null)   parameterValues=Collections.EMPTY_MAP;
+  if (paramValues == null)   paramValues=Collections.EMPTY_MAP;
   StringBuilder uri=new StringBuilder(contextPath);
   Set usedParams=new HashSet();
   Pattern p=DOUBLE_WILDCARD_PATTERN;
@@ -18,12 +18,12 @@
     if (m.find()) {
       StringBuffer buf=new StringBuffer();
       do {
-        ConstrainedProperty prop=this.constraints[paramIndex++];
+        ConstrainedProperty prop=constraints[paramIndex++];
         String propName=prop.getPropertyName();
-        Object value=parameterValues.get(propName);
+        Object value=paramValues.get(propName);
         usedParams.add(propName);
         if (value == null && !prop.isNullable()) {
-          throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ parameterValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
+          throw new UrlMappingException("Unable to create URL for mapping [" + this + "] and parameters ["+ paramValues+ "]. Parameter ["+ prop.getPropertyName()+ "] is required, but was not specified!");
         }
  else         if (value == null) {
           m.appendReplacement(buf,"");
@@ -53,16 +53,16 @@
         }
       }
  catch (      UnsupportedEncodingException e) {
-        throw new ControllerExecutionException("Error creating URL for parameters [" + parameterValues + "], problem encoding URL part ["+ buf+ "]: "+ e.getMessage(),e);
+        throw new ControllerExecutionException("Error creating URL for parameters [" + paramValues + "], problem encoding URL part ["+ buf+ "]: "+ e.getMessage(),e);
       }
     }
  else {
       uri.append(SLASH).append(token);
     }
   }
-  populateParameterList(parameterValues,encoding,uri,usedParams);
+  populateParameterList(paramValues,encoding,uri,usedParams);
   if (LOG.isDebugEnabled()) {
-    LOG.debug("Created reverse URL mapping [" + uri.toString() + "] for parameters ["+ parameterValues+ "]");
+    LOG.debug("Created reverse URL mapping [" + uri.toString() + "] for parameters ["+ paramValues+ "]");
   }
   return uri.toString();
 }

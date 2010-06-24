@@ -1,9 +1,9 @@
 {
-  if (StringUtils.isBlank(urlPattern))   throw new IllegalArgumentException("Argument [urlPattern] cannot be null or blank");
-  if (!urlPattern.startsWith(SLASH))   throw new IllegalArgumentException("Argument [urlPattern] is not a valid URL. It must start with '/' !");
+  Assert.hasLength(urlPattern,"Argument [urlPattern] cannot be null or blank");
+  Assert.isTrue(urlPattern.startsWith(SLASH),"Argument [urlPattern] is not a valid URL. It must start with '/' !");
   this.urlPattern=StringUtils.replace(urlPattern,"(*)**",CAPTURED_DOUBLE_WILDCARD);
-  this.tokens=this.urlPattern.substring(1).split(SLASH);
-  List urls=new ArrayList();
+  tokens=this.urlPattern.substring(1).split(SLASH);
+  List<String> urls=new ArrayList<String>();
   parseUrls(urls);
-  this.logicalUrls=(String[])urls.toArray(new String[urls.size()]);
+  logicalUrls=urls.toArray(new String[urls.size()]);
 }

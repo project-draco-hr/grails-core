@@ -1,7 +1,7 @@
 {
   prepareRender(out);
   try {
-    value(this.target);
+    value(target);
   }
   finally {
     finalizeRender(out);

@@ -1,5 +1,5 @@
 {
-  response.setContentType(GrailsWebUtil.getContentType("application/json",this.encoding));
+  response.setContentType(GrailsWebUtil.getContentType("application/json",encoding));
   try {
     render(response.getWriter());
   }

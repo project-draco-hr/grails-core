@@ -1,7 +1,7 @@
 {
   checkState();
   try {
-    this.writer.startNode(tagName);
+    writer.startNode(tagName);
   }
  catch (  Exception e) {
     throw ConverterUtil.resolveConverterException(e);

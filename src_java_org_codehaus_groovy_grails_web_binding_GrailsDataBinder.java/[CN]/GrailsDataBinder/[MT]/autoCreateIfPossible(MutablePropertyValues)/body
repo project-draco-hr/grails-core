@@ -7,8 +7,12 @@
       BeanWrapper currentBean=bean;
       for (      String name : propertyNames) {
         Object created=autoCreatePropertyIfPossible(currentBean,name,pv.getValue());
-        if (created != null)         currentBean=new BeanWrapperImpl(created);
- else         break;
+        if (created != null) {
+          currentBean=new BeanWrapperImpl(created);
+        }
+ else {
+          break;
+        }
       }
     }
  else {

@@ -3,33 +3,31 @@
   factory.refresh();
   return new DecoratorMapper2DecoratorSelector(factory.getDecoratorMapper()){
     @Override public Decorator selectDecorator(    Content content,    SiteMeshContext context){
-      SiteMeshWebAppContext webAppContext=(SiteMeshWebAppContext)context;
-      final com.opensymphony.module.sitemesh.Decorator decorator=factory.getDecoratorMapper().getDecorator(webAppContext.getRequest(),content2htmlPage(content));
+      SiteMeshWebAppContext siteMeshWebAppContext=(SiteMeshWebAppContext)context;
+      final com.opensymphony.module.sitemesh.Decorator decorator=factory.getDecoratorMapper().getDecorator(siteMeshWebAppContext.getRequest(),content2htmlPage(content));
       if (decorator == null || decorator.getPage() == null) {
         return new GrailsNoDecorator();
       }
- else {
-        return new OldDecorator2NewDecorator(decorator){
-          @Override protected void render(          Content content,          HttpServletRequest request,          HttpServletResponse response,          ServletContext servletContext,          SiteMeshWebAppContext webAppContext) throws IOException, ServletException {
-            HTMLPage htmlPage=content2htmlPage(content);
-            request.setAttribute(PAGE,htmlPage);
-            if (decorator.getURIPath() != null) {
-              if (servletContext.getContext(decorator.getURIPath()) != null) {
-                servletContext=servletContext.getContext(decorator.getURIPath());
-              }
+      return new OldDecorator2NewDecorator(decorator){
+        @Override protected void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext,        @SuppressWarnings("hiding") SiteMeshWebAppContext webAppContext) throws IOException, ServletException {
+          HTMLPage htmlPage=content2htmlPage(content);
+          request.setAttribute(PAGE,htmlPage);
+          if (decorator.getURIPath() != null) {
+            if (servletContext.getContext(decorator.getURIPath()) != null) {
+              servletContext=servletContext.getContext(decorator.getURIPath());
             }
-            RequestDispatcher dispatcher=servletContext.getRequestDispatcher(decorator.getPage());
-            if (response.isCommitted()) {
-              dispatcher.include(request,response);
-            }
- else {
-              dispatcher.forward(request,response);
-            }
-            request.removeAttribute(PAGE);
           }
+          RequestDispatcher dispatcher=servletContext.getRequestDispatcher(decorator.getPage());
+          if (response.isCommitted()) {
+            dispatcher.include(request,response);
+          }
+ else {
+            dispatcher.forward(request,response);
+          }
+          request.removeAttribute(PAGE);
         }
-;
       }
+;
     }
   }
 ;

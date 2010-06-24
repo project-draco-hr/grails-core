@@ -2,7 +2,9 @@
   boolean querySeparator=false;
   for (  Map.Entry<Object,Object> entry : params.entrySet()) {
     Object name=entry.getKey();
-    if (name.equals(GrailsControllerClass.CONTROLLER) || name.equals(GrailsControllerClass.ACTION) || name.equals(ARGUMENT_ID))     continue;
+    if (name.equals(GrailsControllerClass.CONTROLLER) || name.equals(GrailsControllerClass.ACTION) || name.equals(ARGUMENT_ID)) {
+      continue;
+    }
     if (!querySeparator) {
       actualUriBuf.append('?');
       querySeparator=true;

@@ -1,20 +1,19 @@
 {
-  if (this.binding != null) {
-    Map vars=this.binding.getVariables();
-    for (Iterator i=vars.keySet().iterator(); i.hasNext(); ) {
-      Object key=i.next();
+  if (binding != null) {
+    Map<String,Object> vars=binding.getVariables();
+    for (    String key : vars.keySet()) {
       if (isNotCoreMappingKey(key)) {
-        this.parameterValues.put(key,vars.get(key));
+        parameterValues.put(key,vars.get(key));
       }
     }
-    this.binding.getVariables().clear();
+    binding.getVariables().clear();
   }
   if (urlMapping.getControllerName() != null) {
-    this.parameterValues.put("controller",urlMapping.getControllerName());
+    parameterValues.put("controller",urlMapping.getControllerName());
   }
   if (urlMapping.getActionName() != null) {
-    this.parameterValues.put("action",urlMapping.getActionName());
+    parameterValues.put("action",urlMapping.getActionName());
   }
-  urlMapping.setParameterValues(this.parameterValues);
+  urlMapping.setParameterValues(parameterValues);
   urlMappings.add(urlMapping);
 }

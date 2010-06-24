@@ -10,7 +10,9 @@
           url=current.toString();
           if (url.contains("plugins-list.xml")) {
             Resource remoteFile=repo.getResource(url);
-            if (localFile.lastModified() < remoteFile.getLastModified())             repo.get(url,localFile);
+            if (localFile.lastModified() < remoteFile.getLastModified()) {
+              repo.get(url,localFile);
+            }
             return new XmlSlurper().parse(localFile);
           }
         }

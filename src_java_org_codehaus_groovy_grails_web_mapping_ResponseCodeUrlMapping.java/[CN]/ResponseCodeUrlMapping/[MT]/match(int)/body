@@ -1,4 +1,6 @@
 {
-  if (responseCode == urlData.getResponseCode())   return new DefaultUrlMappingInfo(controllerName,actionName,viewName,parameterValues,urlData,servletContext);
+  if (responseCode == urlData.getResponseCode()) {
+    return new DefaultUrlMappingInfo(controllerName,actionName,viewName,parameterValues,urlData,servletContext);
+  }
   return null;
 }

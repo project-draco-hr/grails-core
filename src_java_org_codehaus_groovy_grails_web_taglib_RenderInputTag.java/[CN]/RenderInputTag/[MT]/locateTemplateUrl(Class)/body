@@ -1,9 +1,0 @@
-{
-  if (type == Object.class)   return null;
-  String uri=PATH_PREFIX + type.getName() + PATH_SUFFIX;
-  URL returnUrl=servletContext.getResource(uri);
-  if (returnUrl == null) {
-    return locateTemplateUrl(type.getSuperclass());
-  }
-  return uri;
-}

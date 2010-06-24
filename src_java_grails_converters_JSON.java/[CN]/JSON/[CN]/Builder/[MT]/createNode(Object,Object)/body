@@ -1,5 +1,7 @@
 {
-  if (getCurrent() == null && stack.peek() == BuilderMode.OBJECT)   throw new IllegalArgumentException("only call to [element { }] is allowed when creating array");
+  if (getCurrent() == null && stack.peek() == BuilderMode.OBJECT) {
+    throw new IllegalArgumentException("only call to [element { }] is allowed when creating array");
+  }
   try {
     int retVal=0;
     if (stack.peek().equals(BuilderMode.ARRAY)) {

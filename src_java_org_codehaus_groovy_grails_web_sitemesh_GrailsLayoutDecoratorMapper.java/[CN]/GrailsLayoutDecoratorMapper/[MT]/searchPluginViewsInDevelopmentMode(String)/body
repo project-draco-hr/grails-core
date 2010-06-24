@@ -1,11 +1,12 @@
 {
   String pluginViewLocation=null;
-  Resource[] pluginDirs=GrailsPluginUtils.getPluginDirectories();
-  for (  Resource resource : pluginDirs) {
+  for (  Resource resource : GrailsPluginUtils.getPluginDirectories()) {
     try {
       final String pathToLayoutInPlugin="grails-app/views/layouts/" + name;
       final String absolutePathToResource=resource.getFile().getAbsolutePath();
-      if (!absolutePathToResource.endsWith("/"))       resource=new FileSystemResource(absolutePathToResource + '/');
+      if (!absolutePathToResource.endsWith("/")) {
+        resource=new FileSystemResource(absolutePathToResource + '/');
+      }
       final Resource layoutPath=resource.createRelative(pathToLayoutInPlugin);
       if (layoutPath.exists()) {
         GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfo(absolutePathToResource);

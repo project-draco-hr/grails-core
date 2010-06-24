@@ -2,7 +2,7 @@
   Object[] args=(Object[])arg;
   final boolean isResponseCode=isResponseCode(methodName);
   if (methodName.startsWith(SLASH) || isResponseCode) {
-    this.parameterValues=new HashMap();
+    parameterValues=new HashMap<String,Object>();
     try {
       urlDefiningMode=false;
       args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
@@ -11,10 +11,10 @@
         Closure callable=(Closure)args[0];
         if (delegate != null)         callable.setDelegate(delegate);
         callable.call();
-        Object controllerName;
-        Object actionName;
-        Object viewName;
-        Object uri;
+        @SuppressWarnings("hiding") Object controllerName;
+        @SuppressWarnings("hiding") Object actionName;
+        @SuppressWarnings("hiding") Object viewName;
+        @SuppressWarnings("hiding") Object uri;
         if (binding != null) {
           controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
           actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
@@ -27,11 +27,11 @@
           viewName=this.viewName;
           uri=this.uri;
         }
-        ConstrainedProperty[] constraints=(ConstrainedProperty[])previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+        ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
         UrlMapping urlMapping;
         if (uri != null) {
           try {
-            urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,servletContext);
+            urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,sc);
           }
  catch (          URISyntaxException e) {
             throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
@@ -74,8 +74,7 @@
     if (args.length > 0 && (args[0] instanceof Closure)) {
       Closure callable=(Closure)args[0];
       callable.setDelegate(builder);
-      for (Iterator i=previousConstraints.iterator(); i.hasNext(); ) {
-        ConstrainedProperty constrainedProperty=(ConstrainedProperty)i.next();
+      for (      ConstrainedProperty constrainedProperty : previousConstraints) {
         builder.getConstrainedProperties().put(constrainedProperty.getPropertyName(),constrainedProperty);
       }
       callable.call();

@@ -1,6 +1,8 @@
 {
   if (!bodyInvokation) {
-    if (this.tagContent == null)     this.tagContent=sw.toString();
+    if (tagContent == null) {
+      tagContent=sw.toString();
+    }
     if (tagContent != null) {
       try {
         jspWriter=pageContext.getOut();

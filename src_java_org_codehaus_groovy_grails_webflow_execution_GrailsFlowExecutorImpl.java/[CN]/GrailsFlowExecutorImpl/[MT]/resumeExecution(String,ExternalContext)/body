@@ -20,8 +20,6 @@
       GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
       return super.launchExecution(webRequest.getControllerName() + "/" + webRequest.getActionName(),context.getRequestMap(),context);
     }
- else {
-      throw e;
-    }
+    throw e;
   }
 }

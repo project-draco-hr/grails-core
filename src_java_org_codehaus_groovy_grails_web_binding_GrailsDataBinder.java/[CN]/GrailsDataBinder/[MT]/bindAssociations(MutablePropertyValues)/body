@@ -1,6 +1,5 @@
 {
-  PropertyValue[] pvs=mpvs.getPropertyValues();
-  for (  PropertyValue pv : pvs) {
+  for (  PropertyValue pv : mpvs.getPropertyValues()) {
     String propertyName=pv.getName();
     String propertyNameToCheck=propertyName;
     final int i=propertyName.indexOf('.');
@@ -17,7 +16,7 @@
           mpvs.removePropertyValue(pv);
         }
  else {
-          Class type=getPropertyTypeForPath(propertyName);
+          Class<?> type=getPropertyTypeForPath(propertyName);
           Object persisted=getPersistentInstance(type,pv.getValue());
           if (persisted != null) {
             bean.setPropertyValue(propertyName,persisted);
@@ -27,7 +26,7 @@
     }
  else {
       if (isReadableAndPersistent(propertyName)) {
-        Class type=getPropertyTypeForPath(propertyName);
+        Class<?> type=getPropertyTypeForPath(propertyName);
         if (Collection.class.isAssignableFrom(type)) {
           bindCollectionAssociation(mpvs,pv);
         }

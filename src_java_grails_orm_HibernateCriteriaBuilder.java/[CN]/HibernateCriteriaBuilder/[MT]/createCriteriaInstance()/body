@@ -1,12 +1,12 @@
 {
   if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
-    this.participate=true;
-    this.hibernateSession=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();
+    participate=true;
+    hibernateSession=((SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory)).getSession();
   }
  else {
-    this.hibernateSession=sessionFactory.openSession();
+    hibernateSession=sessionFactory.openSession();
   }
-  this.criteria=this.hibernateSession.createCriteria(targetClass);
+  criteria=hibernateSession.createCriteria(targetClass);
   GrailsHibernateUtil.cacheCriteriaByMapping(targetClass,criteria);
-  this.criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
+  criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
 }

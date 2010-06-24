@@ -1,4 +1,4 @@
 {
-  String attributeValue=(String)attributes.get(attributeName);
+  String attributeValue=attributes.get(attributeName);
   return StringUtils.isBlank(attributeValue) ? null : attributeValue;
 }

@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("package test.casey; class TestService { }");
+  Class<?> clazz=cl.parseClass("package test.casey; class TestService { }");
   GrailsClass grailsClass=new AbstractGrailsClass(clazz,"Service"){
   }
 ;

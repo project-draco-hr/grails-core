@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class TestController { \n" + "def beforeInterceptor = [action:this.&before,only:'list']\n" + "def before() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "} ");
+  Class<?> clazz=cl.parseClass("class TestController { \n" + "def beforeInterceptor = [action:this.&before,only:'list']\n" + "def before() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "} ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   GroovyObject controller=(GroovyObject)grailsClass.newInstance();
   assertTrue(grailsClass.isInterceptedBefore(controller,"list"));

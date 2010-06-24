@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
-  final Class testClass=gcl.parseClass("class Test {}");
+  final Class<?> testClass=gcl.parseClass("class Test {}");
   GroovyObject go=(GroovyObject)testClass.newInstance();
   ProxyMetaClass pmc=ProxyMetaClass.getInstance(testClass);
   go.setMetaClass(pmc);

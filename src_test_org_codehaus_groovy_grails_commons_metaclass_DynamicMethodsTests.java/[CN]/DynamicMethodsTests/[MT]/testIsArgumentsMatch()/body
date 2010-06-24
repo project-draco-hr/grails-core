@@ -1,6 +1,6 @@
 {
   DynamicConstructor dc=new AbstractDynamicConstructor(new Class[]{String.class,Integer.class}){
-    public Object invoke(    Class clazz,    Object[] args){
+    @SuppressWarnings("unchecked") public Object invoke(    Class clazz,    Object[] args){
       return null;
     }
   }

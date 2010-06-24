@@ -1,6 +1,6 @@
 {
   GroovyClassLoader cl=new GroovyClassLoader();
-  Class clazz=cl.parseClass("class ProtectedConstructor { protected ProtectedConstructor(){}}");
+  Class<?> clazz=cl.parseClass("class ProtectedConstructor { protected ProtectedConstructor(){}}");
   GrailsClass grailsClass=new AbstractGrailsClass(clazz,"ProtectedConstructor"){
   }
 ;

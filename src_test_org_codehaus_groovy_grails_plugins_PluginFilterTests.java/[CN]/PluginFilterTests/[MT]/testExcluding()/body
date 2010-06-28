@@ -4,7 +4,6 @@
   set.add("three");
   ExcludingPluginFilter filter=new ExcludingPluginFilter(set);
   List filtered=filter.filterPluginList(pluginList);
-  System.out.println(filtered);
   assertEquals(2,filtered.size());
   assertEquals("one",nameFor(filtered,0));
   assertEquals("two",nameFor(filtered,1));
@@ -13,7 +12,6 @@
   set.add("two");
   filter=new ExcludingPluginFilter(set);
   filtered=filter.filterPluginList(pluginList);
-  System.out.println(filtered);
   assertEquals(2,filtered.size());
   assertEquals("three",nameFor(filtered,0));
   assertEquals("five",nameFor(filtered,1));

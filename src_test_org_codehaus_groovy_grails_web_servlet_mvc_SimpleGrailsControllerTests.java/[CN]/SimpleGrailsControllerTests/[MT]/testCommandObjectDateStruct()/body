@@ -9,7 +9,6 @@
   Map model=modelAndView.getModelMap();
   Errors validationErrors=(Errors)model.get("validationErrors");
   assertEquals("wrong number of errors",0,validationErrors.getErrorCount());
-  System.out.println("model = " + model);
   Date birthDate=(Date)model.get("theDate");
   assertNotNull("null birthday",birthDate);
   Calendar expectedCalendar=Calendar.getInstance();

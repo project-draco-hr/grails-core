@@ -1,8 +1,5 @@
 {
   onTearDown();
-  ga=null;
-  ctx=null;
-  gcl=null;
   ExpandoMetaClass.disableGlobally();
   super.tearDown();
 }

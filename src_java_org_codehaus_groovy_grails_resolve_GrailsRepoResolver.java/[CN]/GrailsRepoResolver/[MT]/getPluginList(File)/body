@@ -1,4 +1,5 @@
 {
+  installIvyAuth();
   try {
     final Repository repo=getRepository();
     List list=repo.list(repositoryRoot.toString());

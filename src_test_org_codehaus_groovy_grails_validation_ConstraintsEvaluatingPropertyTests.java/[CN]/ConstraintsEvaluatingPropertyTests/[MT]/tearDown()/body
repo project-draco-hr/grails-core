@@ -1,5 +1,4 @@
 {
   super.tearDown();
-  GrailsDomainBinder.namingStrategy=ImprovedNamingStrategy.INSTANCE;
   PluginManagerHolder.setPluginManager(null);
 }

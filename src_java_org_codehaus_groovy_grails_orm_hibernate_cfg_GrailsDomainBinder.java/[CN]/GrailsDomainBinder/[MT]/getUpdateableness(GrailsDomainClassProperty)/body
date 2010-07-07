@@ -1,0 +1,5 @@
+{
+  PropertyConfig config=getPropertyConfig(grailsProperty);
+  final boolean isUpdateable=config != null ? config.getUpdateable() : true;
+  return isUpdateable;
+}

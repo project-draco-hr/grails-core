@@ -5,8 +5,8 @@
     prop.setUpdateable(false);
   }
  else {
-    prop.setInsertable(true);
-    prop.setUpdateable(true);
+    prop.setInsertable(getInsertableness(grailsProperty));
+    prop.setUpdateable(getUpdateableness(grailsProperty));
   }
   prop.setPropertyAccessorName(mappings.getDefaultAccess());
   prop.setOptional(grailsProperty.isOptional());

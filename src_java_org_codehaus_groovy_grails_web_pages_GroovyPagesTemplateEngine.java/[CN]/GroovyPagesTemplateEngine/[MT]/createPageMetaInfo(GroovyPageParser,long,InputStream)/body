@@ -11,5 +11,17 @@
   if (isReloadEnabled() || GrailsUtil.isDevelopmentEnv()) {
     pageMeta.setGroovySource(in);
   }
+  if (dumpLineNumbersTo != null) {
+    String fileName=parse.getClassName() + GroovyPageMetaInfo.LINENUMBERS_DATA_POSTFIX;
+    File file=new File(dumpLineNumbersTo,fileName);
+    try {
+      parse.writeLineNumbers(file);
+    }
+ catch (    IOException ignored) {
+      if (file.exists()) {
+        file.delete();
+      }
+    }
+  }
   return pageMeta;
 }

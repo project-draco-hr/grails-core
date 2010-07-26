@@ -1,7 +1,7 @@
 {
   final GroovyPageTagWriter capturedOut=new GroovyPageTagWriter(preferSubChunkWhenWritingToOtherBuffer);
   try {
-    GroovyPageOutputStack.currentStack().push(capturedOut);
+    pushCapturedOut(capturedOut);
     Object bodyResult;
     if (args != null) {
       if (args instanceof Map) {
@@ -40,6 +40,6 @@
     return capturedOut.getBuffer();
   }
   finally {
-    GroovyPageOutputStack.currentStack().pop();
+    popCapturedOut();
   }
 }

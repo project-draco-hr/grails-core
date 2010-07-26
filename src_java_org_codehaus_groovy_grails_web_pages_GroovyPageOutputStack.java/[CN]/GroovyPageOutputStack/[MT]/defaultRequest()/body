@@ -1,7 +1,4 @@
 {
   GrailsWebRequest webRequest=getGrailsWebRequest();
-  if (webRequest != null) {
-    return webRequest.getOut();
-  }
-  return null;
+  return defaultRequest(webRequest);
 }

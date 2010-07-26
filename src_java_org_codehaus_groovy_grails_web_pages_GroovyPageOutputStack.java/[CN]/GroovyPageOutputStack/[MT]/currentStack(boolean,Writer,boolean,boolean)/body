@@ -1,16 +1,4 @@
 {
-  GroovyPageOutputStack outputStack=(GroovyPageOutputStack)RequestContextHolder.currentRequestAttributes().getAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
-  if (outputStack != null) {
-    if (pushTop && topWriter != null) {
-      outputStack.push(topWriter);
-    }
-    return outputStack;
-  }
-  if (allowCreate) {
-    if (topWriter == null) {
-      topWriter=defaultRequest();
-    }
-    return createNew(topWriter,autoSync);
-  }
-  return null;
+  RequestAttributes request=RequestContextHolder.currentRequestAttributes();
+  return currentStack(request,allowCreate,topWriter,autoSync,pushTop);
 }

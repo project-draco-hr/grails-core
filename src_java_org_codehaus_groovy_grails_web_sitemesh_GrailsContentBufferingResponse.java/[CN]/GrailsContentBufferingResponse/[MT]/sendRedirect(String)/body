@@ -1,0 +1,4 @@
+{
+  this.redirectCalled=true;
+  super.sendRedirect(location);
+}

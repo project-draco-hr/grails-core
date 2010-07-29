@@ -1,0 +1,9 @@
+{
+  getPluginDirectories();
+  Collection<File> locations=(ConcurrentLinkedQueue<File>)cache.get(KEY_INLINE_PLUGIN_LOCATIONS);
+  if (locations == null) {
+    locations=new ConcurrentLinkedQueue<File>();
+    cache.put(KEY_INLINE_PLUGIN_LOCATIONS,locations);
+  }
+  return locations;
+}

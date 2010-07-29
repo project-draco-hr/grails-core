@@ -1,0 +1,11 @@
+{
+  Collection<File> pluginDirectoryResources=(Collection<File>)cache.get(KEY_PLUGIN_DIRECTORY_RESOURCES);
+  if (pluginDirectoryResources == null) {
+    pluginDirectoryResources=getImplicitPluginDirectories();
+    Collection<File> inlinePlugins=getInlinePluginsFromConfiguration(config);
+    cache.put(KEY_INLINE_PLUGIN_LOCATIONS,inlinePlugins);
+    pluginDirectoryResources.addAll(inlinePlugins);
+    cache.put(KEY_PLUGIN_DIRECTORY_RESOURCES,pluginDirectoryResources);
+  }
+  return pluginDirectoryResources;
+}

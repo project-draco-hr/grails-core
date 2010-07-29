@@ -1,0 +1,9 @@
+{
+  if (location != null) {
+    Collection<File> directories=getPluginDirectories();
+    directories.add(location);
+    if (isInline) {
+      getInlinePluginDirectories().add(location);
+    }
+  }
+}

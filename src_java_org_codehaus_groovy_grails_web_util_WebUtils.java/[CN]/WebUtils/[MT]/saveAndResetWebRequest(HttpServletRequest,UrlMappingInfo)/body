@@ -1,0 +1,12 @@
+{
+  final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+  InternalSavedRequest savedRequest=null;
+  if (webRequest != null) {
+    savedRequest=new InternalSavedRequest(webRequest.getControllerName(),webRequest.getActionName(),webRequest.getId(),webRequest.getParameterMap(),(ModelAndView)webRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0));
+    webRequest.getParameterMap().clear();
+    info.configure(webRequest);
+    webRequest.getParameterMap().putAll(info.getParameters());
+    webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
+  }
+  return savedRequest;
+}

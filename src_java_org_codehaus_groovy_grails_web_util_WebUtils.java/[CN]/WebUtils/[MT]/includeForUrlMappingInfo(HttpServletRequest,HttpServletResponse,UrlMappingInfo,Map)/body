@@ -1,37 +1,20 @@
 {
   String includeUrl=buildDispatchUrlForMapping(info,true);
   final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
-  String currentController=null;
-  String currentAction=null;
-  String currentId=null;
-  ModelAndView currentMv=null;
-  Map currentParams=null;
-  if (webRequest != null) {
-    currentController=webRequest.getControllerName();
-    currentAction=webRequest.getActionName();
-    currentId=webRequest.getId();
-    currentParams=new HashMap();
-    currentParams.putAll(webRequest.getParameterMap());
-    currentMv=(ModelAndView)webRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
-  }
+  InternalSavedRequest savedRequest=null;
   try {
-    if (webRequest != null) {
-      webRequest.getParameterMap().clear();
-      info.configure(webRequest);
-      webRequest.getParameterMap().putAll(info.getParameters());
-      webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
-    }
+    savedRequest=saveAndResetWebRequest(request,info);
     return includeForUrl(includeUrl,request,response,model);
   }
   finally {
-    if (webRequest != null) {
+    if (savedRequest != null) {
       webRequest.getParameterMap().clear();
-      webRequest.getParameterMap().putAll(currentParams);
-      webRequest.setId(currentId);
-      webRequest.setControllerName(currentController);
-      webRequest.setActionName(currentAction);
-      if (currentMv != null) {
-        webRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,currentMv,0);
+      webRequest.getParameterMap().putAll(savedRequest.getParameterMap());
+      webRequest.setId(savedRequest.getId());
+      webRequest.setControllerName(savedRequest.getController());
+      webRequest.setActionName(savedRequest.getAction());
+      if (savedRequest.getModelAndView() != null) {
+        webRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,savedRequest.getModelAndView(),0);
       }
     }
   }

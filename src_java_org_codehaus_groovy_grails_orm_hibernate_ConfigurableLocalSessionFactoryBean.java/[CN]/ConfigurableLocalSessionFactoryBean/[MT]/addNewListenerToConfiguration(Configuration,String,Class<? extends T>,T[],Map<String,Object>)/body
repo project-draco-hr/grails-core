@@ -1,0 +1,13 @@
+{
+  Object newListener=newlistenerMap.get(listenerType);
+  if (newListener == null)   return;
+  if (currentListeners != null && currentListeners.length > 0) {
+    T[] newListeners=(T[])Array.newInstance(klass,currentListeners.length + 1);
+    System.arraycopy(currentListeners,0,newListeners,0,currentListeners.length);
+    newListeners[currentListeners.length]=(T)newListener;
+    config.setListeners(listenerType,newListeners);
+  }
+ else {
+    config.setListener(listenerType,newListener);
+  }
+}

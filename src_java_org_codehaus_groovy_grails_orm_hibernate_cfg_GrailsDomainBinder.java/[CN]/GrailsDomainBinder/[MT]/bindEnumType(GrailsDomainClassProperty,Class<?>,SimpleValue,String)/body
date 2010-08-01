@@ -35,4 +35,8 @@
   column.setName(columnName);
   if (t != null)   t.addColumn(column);
   simpleValue.addColumn(column);
+  PropertyConfig propertyConfig=getPropertyConfig(property);
+  if (propertyConfig != null && !propertyConfig.getColumns().isEmpty()) {
+    bindIndex(column,propertyConfig.getColumns().get(0),t);
+  }
 }

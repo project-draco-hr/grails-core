@@ -1,4 +1,3 @@
 {
-  PropertyConfig propertyConfig=getPropertyConfig(property);
-  bindSimpleValue(property,parentProperty,simpleValue,path,propertyConfig);
+  bindSimpleValue(property,parentProperty,simpleValue,path,getPropertyConfig(property));
 }

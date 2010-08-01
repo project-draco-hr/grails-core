@@ -1,6 +1,5 @@
 {
-  Collections.sort(urlMappings);
-  Collections.reverse(urlMappings);
+  sortMappings();
   mappings=urlMappings.toArray(new UrlMapping[urlMappings.size()]);
   for (  UrlMapping mapping : mappings) {
     String mappingName=mapping.getMappingName();

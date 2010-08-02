@@ -1,4 +1,3 @@
 {
-  final Class<?> propertyType=property.getType();
-  bindEnumType(property,propertyType,simpleValue,getColumnNameForPropertyAndPath(property,path,null));
+  bindEnumType(property,property.getType(),simpleValue,getColumnNameForPropertyAndPath(property,path,null));
 }

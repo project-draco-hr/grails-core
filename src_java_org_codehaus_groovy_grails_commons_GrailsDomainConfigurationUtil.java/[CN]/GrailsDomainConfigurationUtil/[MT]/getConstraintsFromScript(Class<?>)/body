@@ -16,19 +16,19 @@
       return null;
     }
  catch (    CompilationFailedException e) {
-      LOG.error("Compilation error evaluating constraints for class [" + theClass + "]: "+ e.getMessage(),e);
+      LOG.error("Compilation error evaluating constraints for class [" + className + "]: "+ e.getMessage(),e);
       return null;
     }
 catch (    InstantiationException e) {
-      LOG.error("Instantiation error evaluating constraints for class [" + theClass + "]: "+ e.getMessage(),e);
+      LOG.error("Instantiation error evaluating constraints for class [" + className + "]: "+ e.getMessage(),e);
       return null;
     }
 catch (    IllegalAccessException e) {
-      LOG.error("Illegal access error evaluating constraints for class [" + theClass + "]: "+ e.getMessage(),e);
+      LOG.error("Illegal access error evaluating constraints for class [" + className + "]: "+ e.getMessage(),e);
       return null;
     }
 catch (    IOException e) {
-      LOG.error("IO error evaluating constraints for class [" + theClass + "]: "+ e.getMessage(),e);
+      LOG.error("IO error evaluating constraints for class [" + className + "]: "+ e.getMessage(),e);
     }
   }
   return null;

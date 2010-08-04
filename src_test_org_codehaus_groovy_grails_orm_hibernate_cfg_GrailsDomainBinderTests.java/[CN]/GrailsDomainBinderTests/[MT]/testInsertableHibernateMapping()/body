@@ -4,8 +4,6 @@
   DefaultGrailsDomainConfiguration config=getDomainConfig(cl,new Class[]{domainClass.getClazz()});
   Field privateDomainClasses=DefaultGrailsDomainConfiguration.class.getDeclaredField("domainClasses");
   privateDomainClasses.setAccessible(true);
-  Set domainClasses=(Set)privateDomainClasses.get(config);
-  GrailsDomainClass domainClassObj=(GrailsDomainClass)domainClasses.iterator().next();
   PersistentClass persistentClass=config.getClassMapping("TestInsertableDomain");
   Property property1=persistentClass.getProperty("testString1");
   assertEquals(false,property1.isInsertable());

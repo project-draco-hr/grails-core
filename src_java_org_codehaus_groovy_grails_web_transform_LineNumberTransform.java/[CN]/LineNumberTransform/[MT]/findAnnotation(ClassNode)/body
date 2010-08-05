@@ -1,0 +1,10 @@
+{
+  if (clazz != null) {
+    for (    AnnotationNode node : clazz.getAnnotations()) {
+      if (node.getClassNode().getName().equals(LineNumber.class.getName())) {
+        return node;
+      }
+    }
+  }
+  return null;
+}

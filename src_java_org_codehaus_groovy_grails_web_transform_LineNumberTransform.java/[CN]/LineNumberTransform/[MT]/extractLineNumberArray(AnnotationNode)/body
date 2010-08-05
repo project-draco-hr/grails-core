@@ -1,0 +1,20 @@
+{
+  ListExpression lineNumberArray=(ListExpression)node.getMember("lines");
+  List<Integer> numbers=new ArrayList<Integer>();
+  for (  Expression e : lineNumberArray.getExpressions()) {
+    if (e instanceof ConstantExpression) {
+      numbers.add((Integer)((ConstantExpression)e).getValue());
+    }
+ else {
+      numbers.add(-1);
+    }
+  }
+  if (numbers.isEmpty()) {
+    return null;
+  }
+  int[] array=new int[numbers.size()];
+  for (int i=0, count=numbers.size(); i < count; i++) {
+    array[i]=numbers.get(i);
+  }
+  return array;
+}

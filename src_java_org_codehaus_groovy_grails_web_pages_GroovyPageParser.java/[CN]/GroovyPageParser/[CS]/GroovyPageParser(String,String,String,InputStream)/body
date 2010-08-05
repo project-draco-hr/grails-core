@@ -27,4 +27,5 @@
   pageName=uri;
   environment=Environment.getCurrent();
   makeName(name);
+  makeSourceName(filename);
 }

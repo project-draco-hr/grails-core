@@ -1,0 +1,27 @@
+{
+  List<ClassNode> classes=source.getAST().getClasses();
+  AnnotationNode annotation=null;
+  for (  ClassNode clazz : classes) {
+    annotation=findAnnotation(clazz);
+    if (annotation != null) {
+      break;
+    }
+  }
+  if (annotation == null) {
+    return;
+  }
+  int[] array=extractLineNumberArray(annotation);
+  if (array != null) {
+    LineNumberVisitor visitor=new LineNumberVisitor(array);
+    for (    ClassNode clazz : classes) {
+      visitor.visitClass(clazz);
+    }
+  }
+  String sourceName=extractSourceName(annotation);
+  if (sourceName != null) {
+    source.getAST().setDescription(sourceName);
+    Field field=ReflectionUtils.findField(SourceUnit.class,"name");
+    field.setAccessible(true);
+    ReflectionUtils.setField(field,source,sourceName);
+  }
+}

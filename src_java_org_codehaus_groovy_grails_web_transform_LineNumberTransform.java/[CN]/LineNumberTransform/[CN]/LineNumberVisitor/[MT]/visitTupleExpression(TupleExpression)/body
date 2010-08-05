@@ -1,0 +1,9 @@
+{
+  if (expression.getLineNumber() >= 0 && expression.getLineNumber() < lineNumbers.length) {
+    expression.setLineNumber(lineNumbers[expression.getLineNumber() - 1]);
+  }
+  if (expression.getLastLineNumber() > 0 && expression.getLastLineNumber() < lineNumbers.length) {
+    expression.setLastLineNumber(lineNumbers[expression.getLastLineNumber() - 1]);
+  }
+  super.visitTupleExpression(expression);
+}

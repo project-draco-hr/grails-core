@@ -1,0 +1,16 @@
+{
+  super(config);
+  configFileName=config.getServletContext().getInitParameter("sitemesh.configfile");
+  if (configFileName == null) {
+    configFileName=DEFAULT_CONFIG_FILENAME;
+  }
+  String initParamConfigFile=config.getConfigFile();
+  if (initParamConfigFile != null) {
+    configFileName=initParamConfigFile;
+  }
+  String configFilePath=config.getServletContext().getRealPath(configFileName);
+  if (configFilePath != null) {
+    configFile=new File(configFilePath);
+  }
+  loadConfig();
+}

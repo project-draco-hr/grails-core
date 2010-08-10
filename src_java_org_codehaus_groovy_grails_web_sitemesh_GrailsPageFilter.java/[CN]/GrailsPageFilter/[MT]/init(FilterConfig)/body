@@ -3,7 +3,7 @@
   this.filterConfig=fc;
   containerTweaks=new ContainerTweaks();
   Config config=new Config(fc);
-  DefaultFactory defaultFactory=new DefaultFactory(config);
+  Grails5535Factory defaultFactory=new Grails5535Factory(config);
   config.getServletContext().setAttribute("sitemesh.factory",defaultFactory);
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);

@@ -1,0 +1,16 @@
+{
+  Set props=configProps.entrySet();
+  for (Iterator it=props.iterator(); it.hasNext(); ) {
+    Map.Entry entry=(Map.Entry)it.next();
+    String key=(String)entry.getKey();
+    int idx;
+    while ((idx=str.indexOf(key)) >= 0) {
+      StringBuffer buf=new StringBuffer(100);
+      buf.append(str.substring(0,idx));
+      buf.append(entry.getValue());
+      buf.append(str.substring(idx + key.length()));
+      str=buf.toString();
+    }
+  }
+  return str;
+}

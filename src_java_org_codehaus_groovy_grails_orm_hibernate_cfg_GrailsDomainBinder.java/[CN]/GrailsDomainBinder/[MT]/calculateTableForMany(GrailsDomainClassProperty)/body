@@ -8,13 +8,13 @@
     if (hasJoinTableMapping) {
       return jt.getName();
     }
-    return left + UNDERSCORE + propertyColumnName;
+    return addUnderscore(left,propertyColumnName);
   }
   if (property.isBasicCollectionType()) {
     if (hasJoinTableMapping) {
       return jt.getName();
     }
-    return left + UNDERSCORE + propertyColumnName;
+    return addUnderscore(left,propertyColumnName);
   }
   String right=getTableName(property.getReferencedDomainClass());
   if (property.isManyToMany()) {
@@ -22,9 +22,9 @@
       return jt.getName();
     }
     if (property.isOwningSide()) {
-      return left + UNDERSCORE + propertyColumnName;
+      return addUnderscore(left,propertyColumnName);
     }
-    return right + UNDERSCORE + namingStrategy.propertyToColumnName(property.getOtherSide().getName());
+    return addUnderscore(right,namingStrategy.propertyToColumnName(property.getOtherSide().getName()));
   }
   if (shouldCollectionBindWithJoinColumn(property)) {
     if (hasJoinTableMapping) {
@@ -32,10 +32,10 @@
     }
     left=trimBackTigs(left);
     right=trimBackTigs(right);
-    return left + UNDERSCORE + right;
+    return addUnderscore(left,right);
   }
   if (property.isOwningSide()) {
-    return left + UNDERSCORE + right;
+    return addUnderscore(left,right);
   }
-  return right + UNDERSCORE + left;
+  return addUnderscore(right,left);
 }

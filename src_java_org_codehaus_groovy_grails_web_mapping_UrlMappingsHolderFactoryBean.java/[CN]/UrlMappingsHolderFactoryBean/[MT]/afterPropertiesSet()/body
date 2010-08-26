@@ -18,5 +18,13 @@
       excludePatterns.addAll(mappingClass.getExcludePatterns());
     }
   }
-  urlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns);
+  Properties props=grailsApplication.getConfig().toProperties();
+  String maxUrlCacheSize=props.getProperty(URL_MAPPING_CACHE_MAX_SIZE);
+  if (maxUrlCacheSize == null) {
+    urlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns);
+  }
+ else {
+    int cacheSize=Integer.valueOf(maxUrlCacheSize);
+    urlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns,cacheSize);
+  }
 }

@@ -1,6 +1,6 @@
 {
   urlMappings=mappings;
   this.excludePatterns=excludePatterns;
-  this.maxWeightedCacheCapacity=DEFAULT_MAX_WEIGHTED_CAPACITY;
+  this.maxWeightedCacheCapacity=maxWeightedUrlCacheSize;
   initialize();
 }

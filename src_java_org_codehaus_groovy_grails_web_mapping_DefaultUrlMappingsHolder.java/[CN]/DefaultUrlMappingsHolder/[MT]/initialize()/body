@@ -1,5 +1,7 @@
 {
   sortMappings();
+  cachedMatches=new ConcurrentLinkedHashMap.Builder<String,UrlMappingInfo>().maximumWeightedCapacity(maxWeightedCacheCapacity).build();
+  cachedListMatches=new ConcurrentLinkedHashMap.Builder<String,List<UrlMappingInfo>>().maximumWeightedCapacity(maxWeightedCacheCapacity).build();
   mappings=urlMappings.toArray(new UrlMapping[urlMappings.size()]);
   for (  UrlMapping mapping : mappings) {
     String mappingName=mapping.getMappingName();

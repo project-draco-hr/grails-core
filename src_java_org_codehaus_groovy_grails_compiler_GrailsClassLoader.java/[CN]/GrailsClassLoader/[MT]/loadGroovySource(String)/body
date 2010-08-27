@@ -1,4 +1,7 @@
 {
   URL resourceURL=grailsResourceLoader.loadGroovySource(name);
-  return new UrlResource(resourceURL);
+  if (resourceURL != null) {
+    return new UrlResource(resourceURL);
+  }
+  return null;
 }

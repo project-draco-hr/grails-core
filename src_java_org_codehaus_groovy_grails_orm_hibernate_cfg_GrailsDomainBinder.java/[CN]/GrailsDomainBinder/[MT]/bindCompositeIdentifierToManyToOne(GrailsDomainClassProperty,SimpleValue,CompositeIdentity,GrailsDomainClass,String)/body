@@ -4,7 +4,7 @@
   if (config == null)   config=new PropertyConfig();
   for (  String propertyName : propertyNames) {
     final ColumnConfig cc=new ColumnConfig();
-    cc.setName(namingStrategy.classToTableName(refDomainClass.getShortName()) + UNDERSCORE + getDefaultColumnName(refDomainClass.getPropertyByName(propertyName)));
+    cc.setName(addUnderscore(namingStrategy.classToTableName(refDomainClass.getShortName()),getDefaultColumnName(refDomainClass.getPropertyByName(propertyName))));
     config.getColumns().add(cc);
   }
   bindSimpleValue(property,value,path,config);

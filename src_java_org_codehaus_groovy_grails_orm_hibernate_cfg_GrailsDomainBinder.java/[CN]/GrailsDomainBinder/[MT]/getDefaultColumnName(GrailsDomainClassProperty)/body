@@ -6,7 +6,7 @@
     }
     if (!property.isBidirectional() && property.isOneToMany()) {
       String prefix=namingStrategy.classToTableName(property.getDomainClass().getName());
-      return prefix + UNDERSCORE + columnName+ FOREIGN_KEY_SUFFIX;
+      return addUnderscore(prefix,columnName) + FOREIGN_KEY_SUFFIX;
     }
     if (property.isInherited() && isBidirectionalManyToOne(property)) {
       return namingStrategy.propertyToColumnName(property.getDomainClass().getName()) + '_' + columnName+ FOREIGN_KEY_SUFFIX;

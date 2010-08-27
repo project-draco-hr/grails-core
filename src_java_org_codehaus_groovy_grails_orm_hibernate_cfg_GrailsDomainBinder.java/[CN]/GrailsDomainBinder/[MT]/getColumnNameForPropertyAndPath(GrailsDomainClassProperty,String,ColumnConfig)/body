@@ -29,7 +29,7 @@
   }
   if (columnName == null) {
     if (StringHelper.isNotEmpty(path)) {
-      columnName=namingStrategy.propertyToColumnName(path) + UNDERSCORE + getDefaultColumnName(grailsProp);
+      columnName=addUnderscore(namingStrategy.propertyToColumnName(path),getDefaultColumnName(grailsProp));
     }
  else {
       columnName=getDefaultColumnName(grailsProp);

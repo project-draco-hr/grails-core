@@ -3,7 +3,7 @@
   }
 ;
   dm.addDynamicConstructor(new AbstractDynamicConstructor(new Class[]{String.class,Integer.class}){
-    @SuppressWarnings("unchecked") public Object invoke(    Class clazz,    Object[] args){
+    @SuppressWarnings("rawtypes") public Object invoke(    Class clazz,    Object[] args){
       return args[0] + "" + args[1];
     }
   }

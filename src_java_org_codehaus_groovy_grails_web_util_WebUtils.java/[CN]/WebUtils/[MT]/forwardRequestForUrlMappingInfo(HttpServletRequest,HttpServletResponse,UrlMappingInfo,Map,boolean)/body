@@ -1,7 +1,6 @@
 {
   String forwardUrl=buildDispatchUrlForMapping(info,includeParams);
   RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
-  saveAndResetWebRequest(request,info);
   exposeForwardRequestAttributes(request);
   exposeRequestAttributes(request,model);
   dispatcher.forward(request,response);

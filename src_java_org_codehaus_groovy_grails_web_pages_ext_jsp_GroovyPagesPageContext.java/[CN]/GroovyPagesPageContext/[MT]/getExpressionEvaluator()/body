@@ -1,11 +1,11 @@
 {
   try {
-    Class<?> type=((ClassLoader)AccessController.doPrivileged(new PrivilegedAction(){
-      public Object run(){
+    Class<?> type=AccessController.doPrivileged(new PrivilegedAction<ClassLoader>(){
+      public ClassLoader run(){
         return Thread.currentThread().getContextClassLoader();
       }
     }
-)).loadClass("org.apache.commons.el.ExpressionEvaluatorImpl");
+).loadClass("org.apache.commons.el.ExpressionEvaluatorImpl");
     return (ExpressionEvaluator)type.newInstance();
   }
  catch (  Exception e) {

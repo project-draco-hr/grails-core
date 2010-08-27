@@ -18,7 +18,7 @@
       columnName=config.getJoinTable().getColumn().getName();
     }
  else {
-      columnName=isEnum ? namingStrategy.propertyToColumnName(className) : namingStrategy.propertyToColumnName(property.getName()) + UNDERSCORE + namingStrategy.propertyToColumnName(className);
+      columnName=isEnum ? namingStrategy.propertyToColumnName(className) : addUnderscore(namingStrategy.propertyToColumnName(property.getName()),namingStrategy.propertyToColumnName(className));
     }
     if (isEnum) {
       bindEnumType(property,referencedType,element,columnName);

@@ -26,7 +26,7 @@
     if (!isCompositeIdProperty(m,property.getOtherSide())) {
       Backref prop=new Backref();
       prop.setEntityName(property.getDomainClass().getFullName());
-      prop.setName(UNDERSCORE + property.getDomainClass().getShortName() + UNDERSCORE+ property.getName()+ "Backref");
+      prop.setName(UNDERSCORE + addUnderscore(property.getDomainClass().getShortName(),property.getName()) + "Backref");
       prop.setSelectable(false);
       prop.setUpdateable(false);
       if (isManyToMany) {

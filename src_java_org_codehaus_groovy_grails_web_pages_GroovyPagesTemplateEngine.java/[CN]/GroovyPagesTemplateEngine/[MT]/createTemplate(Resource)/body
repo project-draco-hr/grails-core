@@ -16,7 +16,7 @@
     GroovyPageMetaInfo meta=pageCache.get(name);
     if (isGroovyPageReloadable(resource,meta)) {
       try {
-        return createTemplateWithResource(resource);
+        return createTemplateWithResource(resource,name);
       }
  catch (      IOException e) {
         throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);
@@ -25,7 +25,7 @@
     return new GroovyPageTemplate(meta);
   }
   try {
-    return createTemplateWithResource(resource);
+    return createTemplateWithResource(resource,name);
   }
  catch (  IOException e) {
     throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);

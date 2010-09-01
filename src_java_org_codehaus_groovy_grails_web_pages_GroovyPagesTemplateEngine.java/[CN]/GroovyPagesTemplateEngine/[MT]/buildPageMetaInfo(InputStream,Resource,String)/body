@@ -1,6 +1,5 @@
 {
   String name=establishPageName(res,pageName);
-  long lastModified=establishLastModified(res);
   GroovyPageParser parser;
   String path=getPathForResource(res);
   try {
@@ -10,7 +9,8 @@
     throw new GroovyPagesException("I/O parsing Groovy page [" + (res != null ? res.getDescription() : name) + "]: "+ e.getMessage(),e);
   }
   InputStream in=parser.parse();
-  GroovyPageMetaInfo metaInfo=createPageMetaInfo(parser,lastModified,in);
+  GroovyPageMetaInfo metaInfo=createPageMetaInfo(parser,in);
+  metaInfo.applyLastModifiedFromResource(res);
   try {
     metaInfo.setPageClass(compileGroovyPage(in,name,path,metaInfo));
     metaInfo.setHtmlParts(parser.getHtmlPartsArray());

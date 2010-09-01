@@ -1,3 +1,8 @@
 {
-  return isReloadEnabled() && (establishLastModified(resource) > meta.getLastModified());
+  return isReloadEnabled() && meta.shouldReload(new PrivilegedAction<Resource>(){
+    public Resource run(){
+      return resource;
+    }
+  }
+);
 }

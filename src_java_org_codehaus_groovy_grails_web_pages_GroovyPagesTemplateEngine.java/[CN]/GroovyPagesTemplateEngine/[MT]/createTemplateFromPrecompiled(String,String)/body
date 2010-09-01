@@ -1,35 +1,35 @@
 {
-  if (precompiledGspMap != null) {
-    GroovyPageMetaInfo meta=precompiledCache.get(uri);
+  GroovyPageMetaInfo meta=precompiledCache.get(uri);
+  if (meta == null) {
+    meta=loadPrecompiledGsp(uri);
     if (meta != null) {
-      return new GroovyPageTemplate(meta);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Adding GSP class GroovyPageMetaInfo in cache for uri " + uri + " classname is "+ meta.getPageClass().getName());
+      }
+      precompiledCache.put(uri,meta);
+      precompiledCache.put(originalUri,meta);
     }
-    String gspClassName=precompiledGspMap.get(uri);
-    if (gspClassName != null) {
-      Class<GroovyPage> gspClass=null;
-      try {
-        gspClass=(Class<GroovyPage>)Class.forName(gspClassName,true,Thread.currentThread().getContextClassLoader());
+  }
+  if (meta != null) {
+    if (isReloadEnabled() && meta.shouldReload(new PrivilegedAction<Resource>(){
+      public Resource run(){
+        return getResourceForUri(originalUri);
       }
- catch (      ClassNotFoundException e) {
-        LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
+    }
+)) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Precompiled GSP for uri " + originalUri + " is newer in reload location. Ignoring the precompiled GSP.");
       }
-      if (gspClass != null) {
-        meta=new GroovyPageMetaInfo(gspClass);
-        meta.setJspTagLibraryResolver(jspTagLibraryResolver);
-        meta.setTagLibraryLookup(tagLibraryLookup);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Adding GSP class GroovyPageMetaInfo in cache for uri " + uri + " classname is "+ gspClassName);
+      for (Iterator<Map.Entry<String,GroovyPageMetaInfo>> it=precompiledCache.entrySet().iterator(); it.hasNext(); ) {
+        Map.Entry<String,GroovyPageMetaInfo> entry=it.next();
+        if (entry.getValue() == meta) {
+          precompiledGspMap.remove(entry.getKey());
+          it.remove();
         }
-        precompiledCache.put(uri,meta);
-        precompiledCache.put(originalUri,meta);
-        return new GroovyPageTemplate(meta);
       }
+      return null;
     }
-    if (precompiledGspMap.size() > 0) {
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("No precompiled template found for uri '" + uri + "'");
-    }
+    return new GroovyPageTemplate(meta);
   }
   return null;
 }

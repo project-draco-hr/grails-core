@@ -1,0 +1,19 @@
+{
+  GroovyPageMetaInfo meta=null;
+  String gspClassName=precompiledGspMap.get(uri);
+  if (gspClassName != null) {
+    Class<GroovyPage> gspClass=null;
+    try {
+      gspClass=(Class<GroovyPage>)Class.forName(gspClassName,true,Thread.currentThread().getContextClassLoader());
+    }
+ catch (    ClassNotFoundException e) {
+      LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
+    }
+    if (gspClass != null) {
+      meta=new GroovyPageMetaInfo(gspClass);
+      meta.setJspTagLibraryResolver(jspTagLibraryResolver);
+      meta.setTagLibraryLookup(tagLibraryLookup);
+    }
+  }
+  return meta;
+}

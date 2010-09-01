@@ -18,7 +18,7 @@
     }
   }
   if (canApplyNullableConstraint(propertyName,p,cp)) {
-    if (isNotInsertable) {
+    if (propertyConfig != null && !propertyConfig.getInsertable()) {
       cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,true);
     }
  else {

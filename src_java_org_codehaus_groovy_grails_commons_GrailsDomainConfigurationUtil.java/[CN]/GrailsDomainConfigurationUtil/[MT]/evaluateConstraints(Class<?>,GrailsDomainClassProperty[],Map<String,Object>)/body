@@ -20,19 +20,23 @@
   Map<String,ConstrainedProperty> constrainedProperties=delegate.getConstrainedProperties();
   if (properties != null && !(constrainedProperties.isEmpty() && javaEntity)) {
     boolean hasHibernate=isHibernatePresent();
-    boolean isNotInsertable=false;
     for (    GrailsDomainClassProperty p : properties) {
-      if (hasHibernate) {
-        isNotInsertable=HibernateHelper.checkInsertabilityAndDrivedHibernateProperties(theClass,constrainedProperties,isNotInsertable,p);
+      PropertyConfig propertyConfig=hasHibernate ? GrailsDomainBinder.getPropertyConfig(p) : null;
+      if (propertyConfig != null && propertyConfig.getFormula() != null) {
+        if (constrainedProperties.remove(p.getName()) != null) {
+          LOG.warn("Derived properties may not be constrained. Property [" + p.getName() + "] of domain class "+ theClass.getName()+ " will not be checked during validation.");
+        }
       }
-      final String propertyName=p.getName();
-      ConstrainedProperty cp=constrainedProperties.get(propertyName);
-      if (cp == null) {
-        cp=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
-        cp.setOrder(constrainedProperties.size() + 1);
-        constrainedProperties.put(propertyName,cp);
+ else {
+        final String propertyName=p.getName();
+        ConstrainedProperty cp=constrainedProperties.get(propertyName);
+        if (cp == null) {
+          cp=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
+          cp.setOrder(constrainedProperties.size() + 1);
+          constrainedProperties.put(propertyName,cp);
+        }
+        applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraint(propertyName),propertyConfig);
       }
-      applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraint(propertyName),isNotInsertable);
     }
   }
   return constrainedProperties;

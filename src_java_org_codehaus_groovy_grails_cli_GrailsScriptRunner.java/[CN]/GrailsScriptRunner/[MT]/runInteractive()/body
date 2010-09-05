@@ -3,6 +3,7 @@
   System.setProperty("grails.disable.exit","true");
   System.setProperty("grails.interactive.mode","true");
   ScriptAndArgs script=new ScriptAndArgs();
+  String env=null;
   while (true) {
     System.clearProperty("grails.env.set");
     System.clearProperty(Environment.KEY);
@@ -16,16 +17,7 @@
  else {
         System.setProperty("grails.cli.args","");
       }
-      if (script.env != null) {
-        settings.setGrailsEnv(script.env);
-        settings.setDefaultEnv(false);
-      }
- else {
-        String defaultEnv=DEFAULT_ENVS.get(script.name);
-        if (defaultEnv == null)         defaultEnv=Environment.DEVELOPMENT.getName();
-        settings.setGrailsEnv(defaultEnv);
-        settings.setDefaultEnv(true);
-      }
+      env=script.env != null ? script.env : Environment.DEVELOPMENT.getName();
     }
     if (script.name == null) {
       out.println("You must enter a command.\n");
@@ -36,7 +28,7 @@
     }
     long now=System.currentTimeMillis();
     try {
-      callPluginOrGrailsScript(script.name);
+      callPluginOrGrailsScript(script.name,env);
     }
  catch (    ScriptNotFoundException ex) {
       out.println("No script found for " + script.name);

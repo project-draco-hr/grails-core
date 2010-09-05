@@ -44,6 +44,7 @@
         }
       }
     }
+    boolean exactMatchFound=false;
     potentialScripts=new ArrayList<File>();
     for (    File scriptPath : allScripts) {
       String scriptFileName=scriptPath.getName().substring(0,scriptPath.getName().length() - 7);
@@ -51,7 +52,12 @@
         scriptsAllowedOutsideOfProject.add(scriptPath);
         scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
       }
-      if (scriptFileName.equals(scriptName))       potentialScripts.add(scriptPath);
+      if (scriptFileName.equals(scriptName)) {
+        potentialScripts.add(scriptPath);
+        exactMatchFound=true;
+        continue;
+      }
+      if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName))       potentialScripts.add(scriptPath);
     }
     if (!potentialScripts.isEmpty()) {
       CachedScript cachedScript=new CachedScript();
@@ -60,7 +66,6 @@
       scriptCache.put("scriptName",cachedScript);
     }
   }
-  initBinding(binding);
   final Closure doNothingClosure=new Closure(this){
     private static final long serialVersionUID=1L;
     @Override public Object call(    Object arguments){
@@ -74,7 +79,6 @@
     }
   }
 ;
-  binding.setVariable("scriptName",scriptName);
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
     if (potentialScripts.size() == 1) {
@@ -90,7 +94,10 @@
         return -1;
       }
       out.println("Running script " + scriptFile.getAbsolutePath());
-      Gant gant=new Gant(binding,classLoader);
+      String scriptFileName=getScriptNameFromFile(scriptFile);
+      setRunningEnvironment(scriptFileName,env);
+      binding.setVariable("scriptName",scriptFileName);
+      Gant gant=new Gant(initBinding(binding),classLoader);
       gant.setUseCache(true);
       gant.setCacheDirectory(scriptCacheDir);
       gant.loadScript(scriptFile);
@@ -109,27 +116,32 @@
     String enteredValue=helper.userInput("Enter #",validArgs);
     if (enteredValue == null)     return 1;
     int number=Integer.parseInt(enteredValue);
-    out.println("Running script " + potentialScripts.get(number - 1).getAbsolutePath());
-    Gant gant=new Gant(binding,classLoader);
-    gant.loadScript(potentialScripts.get(number - 1));
+    File scriptFile=(File)potentialScripts.get(number - 1);
+    out.println("Running script " + scriptFile.getAbsolutePath());
+    String scriptFileName=getScriptNameFromFile(scriptFile);
+    setRunningEnvironment(scriptFileName,env);
+    binding.setVariable("scriptName",scriptFileName);
+    Gant gant=new Gant(initBinding(binding),classLoader);
+    gant.loadScript(scriptFile);
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");
-  Gant gant=new Gant(binding,classLoader);
+  Gant gant=new Gant(initBinding(binding),classLoader);
   try {
     loadScriptClass(gant,scriptName);
   }
  catch (  ScriptNotFoundException e) {
     if (isInteractive) {
-      String fixedName=fixScriptName(scriptName,allScripts);
-      if (fixedName == null) {
+      scriptName=fixScriptName(scriptName,allScripts);
+      if (scriptName == null) {
         throw e;
       }
-      loadScriptClass(gant,fixedName);
+      loadScriptClass(gant,scriptName);
     }
  else {
       throw e;
     }
   }
+  setRunningEnvironment(scriptName,env);
   return executeWithGantInstance(gant,doNothingClosure);
 }

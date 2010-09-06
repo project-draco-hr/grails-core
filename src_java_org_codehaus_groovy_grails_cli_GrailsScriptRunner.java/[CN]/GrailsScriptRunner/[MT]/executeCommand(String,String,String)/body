@@ -2,14 +2,6 @@
   if (settings.getRootLoader() == null) {
     settings.setRootLoader((URLClassLoader)GrailsScriptRunner.class.getClassLoader());
   }
-  boolean useDefaultEnv=env == null;
-  if (useDefaultEnv) {
-    env=DEFAULT_ENVS.get(scriptName);
-    env=env != null ? env : Environment.DEVELOPMENT.getName();
-  }
-  System.setProperty("base.dir",settings.getBaseDir().getPath());
-  System.setProperty(Environment.KEY,env);
-  System.setProperty(Environment.DEFAULT,"true");
   if (args != null) {
     String[] argArray=args.split("\\s+");
     Pattern pattern=Pattern.compile("^(?:-)?-non-interactive$");
@@ -36,16 +28,15 @@
  finally {
     System.setProperty("disable.grails.plugin.transform","false");
   }
-  settings.setGrailsEnv(env);
-  settings.setDefaultEnv(useDefaultEnv);
   BuildSettingsHolder.setSettings(settings);
   if (scriptName.equalsIgnoreCase("interactive")) {
     if (!isInteractive) {
       out.println("You cannot use '--non-interactive' with interactive mode.");
       return 1;
     }
+    setRunningEnvironment(scriptName,env);
     runInteractive();
     return 0;
   }
-  return callPluginOrGrailsScript(scriptName);
+  return callPluginOrGrailsScript(scriptName,env);
 }

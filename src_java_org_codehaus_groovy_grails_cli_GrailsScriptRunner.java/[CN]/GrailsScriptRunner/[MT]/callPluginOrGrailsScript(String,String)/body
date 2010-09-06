@@ -1,0 +1,147 @@
+{
+  File scriptCacheDir=new File(settings.getProjectWorkDir(),"scriptCache");
+  URLClassLoader classLoader;
+  try {
+    Set<String> existingJars=new HashSet<String>();
+    for (    URL url : settings.getRootLoader().getURLs()) {
+      existingJars.add(url.getFile());
+    }
+    boolean skipPlugins="UninstallPlugin".equals(scriptName) || "InstallPlugin".equals(scriptName);
+    URL[] urls=getClassLoaderUrls(settings,scriptCacheDir,existingJars,skipPlugins);
+    addUrlsToRootLoader(settings.getRootLoader(),urls);
+    urls=new URL[]{settings.getClassesDir().toURI().toURL()};
+    classLoader=new URLClassLoader(urls,settings.getRootLoader());
+    Thread.currentThread().setContextClassLoader(classLoader);
+  }
+ catch (  MalformedURLException ex) {
+    throw new RuntimeException("Invalid classpath URL",ex);
+  }
+  List<File> potentialScripts;
+  List<File> allScripts=getAvailableScripts(settings);
+  GantBinding binding;
+  if (scriptCache.get(scriptName) != null) {
+    CachedScript cachedScript=scriptCache.get(scriptName);
+    potentialScripts=cachedScript.potentialScripts;
+    binding=cachedScript.binding;
+  }
+ else {
+    binding=new GantBinding();
+    AntBuilder antBuilder=(AntBuilder)binding.getVariable("ant");
+    Project p=antBuilder.getAntProject();
+    try {
+      p.setDefaultInputStream(System.in);
+    }
+ catch (    NoSuchMethodError nsme) {
+      for (      Method m : p.getClass().getMethods()) {
+        if ("setDefaultInputStream".equals(m.getName()) && m.getParameterTypes().length == 1 && InputStream.class.equals(m.getParameterTypes()[0])) {
+          try {
+            m.invoke(p,System.in);
+            break;
+          }
+ catch (          Exception e) {
+            throw new RuntimeException(e);
+          }
+        }
+      }
+    }
+    boolean exactMatchFound=false;
+    potentialScripts=new ArrayList<File>();
+    for (    File scriptPath : allScripts) {
+      String scriptFileName=scriptPath.getName().substring(0,scriptPath.getName().length() - 7);
+      if (scriptFileName.endsWith("_")) {
+        scriptsAllowedOutsideOfProject.add(scriptPath);
+        scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
+      }
+      if (scriptFileName.equals(scriptName)) {
+        potentialScripts.add(scriptPath);
+        exactMatchFound=true;
+        continue;
+      }
+      if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName))       potentialScripts.add(scriptPath);
+    }
+    if (!potentialScripts.isEmpty()) {
+      CachedScript cachedScript=new CachedScript();
+      cachedScript.binding=binding;
+      cachedScript.potentialScripts=potentialScripts;
+      scriptCache.put("scriptName",cachedScript);
+    }
+  }
+  final Closure doNothingClosure=new Closure(this){
+    private static final long serialVersionUID=1L;
+    @Override public Object call(    Object arguments){
+      return null;
+    }
+    @Override public Object call(){
+      return null;
+    }
+    @Override public Object call(    Object[] args){
+      return null;
+    }
+  }
+;
+  if (potentialScripts.size() > 0) {
+    potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
+    if (potentialScripts.size() == 1) {
+      final File scriptFile=potentialScripts.get(0);
+      if (!isGrailsProject() && !isExternalScript(scriptFile)) {
+        out.println(settings.getBaseDir().getPath() + " does not appear to be part of a Grails application.");
+        out.println("The following commands are supported outside of a project:");
+        Collections.sort(scriptsAllowedOutsideOfProject);
+        for (        File file : scriptsAllowedOutsideOfProject) {
+          out.println("\t" + GrailsNameUtils.getScriptName(file.getName()));
+        }
+        out.println("Run 'grails help' for a complete list of available scripts.");
+        return -1;
+      }
+      out.println("Running script " + scriptFile.getAbsolutePath());
+      String scriptFileName=getScriptNameFromFile(scriptFile);
+      setRunningEnvironment(scriptFileName,env);
+      binding.setVariable("scriptName",scriptFileName);
+      Gant gant=new Gant(initBinding(binding),classLoader);
+      gant.setUseCache(true);
+      gant.setCacheDirectory(scriptCacheDir);
+      gant.loadScript(scriptFile);
+      return executeWithGantInstance(gant,doNothingClosure);
+    }
+    if (!isInteractive) {
+      out.println("More than one script with the given name is available - " + "cannot continue in non-interactive mode.");
+      return 1;
+    }
+    out.println("Multiple options please select:");
+    String[] validArgs=new String[potentialScripts.size()];
+    for (int i=0; i < validArgs.length; i++) {
+      out.println("[" + (i + 1) + "] "+ potentialScripts.get(i));
+      validArgs[i]=String.valueOf(i + 1);
+    }
+    String enteredValue=helper.userInput("Enter #",validArgs);
+    if (enteredValue == null)     return 1;
+    int number=Integer.parseInt(enteredValue);
+    File scriptFile=(File)potentialScripts.get(number - 1);
+    out.println("Running script " + scriptFile.getAbsolutePath());
+    String scriptFileName=getScriptNameFromFile(scriptFile);
+    setRunningEnvironment(scriptFileName,env);
+    binding.setVariable("scriptName",scriptFileName);
+    Gant gant=new Gant(initBinding(binding),classLoader);
+    gant.loadScript(scriptFile);
+    return executeWithGantInstance(gant,doNothingClosure);
+  }
+  out.println("Running pre-compiled script");
+  Gant gant=new Gant(initBinding(binding),classLoader);
+  try {
+    loadScriptClass(gant,scriptName);
+  }
+ catch (  ScriptNotFoundException e) {
+    if (isInteractive) {
+      scriptName=fixScriptName(scriptName,allScripts);
+      if (scriptName == null) {
+        throw e;
+      }
+      loadScriptClass(gant,scriptName);
+    }
+ else {
+      throw e;
+    }
+  }
+  setRunningEnvironment(scriptName,env);
+  return executeWithGantInstance(gant,doNothingClosure);
+}

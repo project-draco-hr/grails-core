@@ -10,4 +10,12 @@
   context=webRequest.getServletContext();
   this.metaInfo=metaInfo;
   showSource=shouldShowGroovySource();
+  debugTemplates=shouldDebugTemplates();
+  if (debugTemplates) {
+    debugTemplatesIdCounter=(AtomicInteger)request.getAttribute(ATTRIBUTE_NAME_DEBUG_TEMPLATES_ID_COUNTER);
+    if (debugTemplatesIdCounter == null) {
+      debugTemplatesIdCounter=new AtomicInteger(0);
+      request.setAttribute(ATTRIBUTE_NAME_DEBUG_TEMPLATES_ID_COUNTER,debugTemplatesIdCounter);
+    }
+  }
 }

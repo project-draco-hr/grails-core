@@ -1,0 +1,6 @@
+{
+  super(controller,action,params);
+  this.encoding=(encoding != null) ? encoding.toLowerCase() : null;
+  this.fragment=fragment;
+  this.urlType=urlType;
+}

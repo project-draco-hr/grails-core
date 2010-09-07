@@ -1,0 +1,12 @@
+{
+  Object value=map.get(key);
+  if (value == null) {
+    return null;
+  }
+  if (value instanceof Integer) {
+    return (Integer)value;
+  }
+ else {
+    return (value instanceof Number) ? Integer.valueOf(((Number)value).intValue()) : Integer.valueOf(String.valueOf(value));
+  }
+}

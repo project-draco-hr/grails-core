@@ -1,0 +1,31 @@
+{
+  StreamCharBuffer coded=new StreamCharBuffer(Math.min(Math.max(totalChunkSize,chunkSize) * 12 / 10,maxChunkSize));
+  Writer writer=coded.getWriter();
+  if (StreamingHTMLEncoderHelper.disabled) {
+    try {
+      writer.write(HtmlUtils.htmlEscape(this.toString()));
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+ else {
+    Reader reader=this.getReader();
+    char[] buf=new char[1];
+    try {
+      while (reader.read(buf) != -1) {
+        String reference=StreamingHTMLEncoderHelper.convertToReference(buf[0]);
+        if (reference != null) {
+          writer.write(reference);
+        }
+ else {
+          writer.write(buf);
+        }
+      }
+    }
+ catch (    IOException e) {
+      e.printStackTrace();
+    }
+  }
+  return coded;
+}

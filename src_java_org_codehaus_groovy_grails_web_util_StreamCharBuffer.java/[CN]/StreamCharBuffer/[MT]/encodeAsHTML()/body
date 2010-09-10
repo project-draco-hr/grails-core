@@ -6,7 +6,7 @@
       writer.write(HtmlUtils.htmlEscape(this.toString()));
     }
  catch (    IOException e) {
-      e.printStackTrace();
+      log.error("IOException in StreamCharBuffer.encodeAsHTML",e);
     }
   }
  else {
@@ -24,7 +24,7 @@
       }
     }
  catch (    IOException e) {
-      e.printStackTrace();
+      log.error("IOException in StreamCharBuffer.encodeAsHTML",e);
     }
   }
   return coded;

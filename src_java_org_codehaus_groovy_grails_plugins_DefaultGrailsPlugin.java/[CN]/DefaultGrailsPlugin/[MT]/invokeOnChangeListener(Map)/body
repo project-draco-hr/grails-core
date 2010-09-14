@@ -1,4 +1,11 @@
 {
   onChangeListener.setDelegate(this);
   onChangeListener.call(new Object[]{event});
+  if (applicationContext instanceof GenericApplicationContext) {
+    GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
+    ConfigurableListableBeanFactory beanFactory=ctx.getBeanFactory();
+    for (    BeanFactoryPostProcessor postProcessor : ctx.getBeanFactoryPostProcessors()) {
+      postProcessor.postProcessBeanFactory(beanFactory);
+    }
+  }
 }

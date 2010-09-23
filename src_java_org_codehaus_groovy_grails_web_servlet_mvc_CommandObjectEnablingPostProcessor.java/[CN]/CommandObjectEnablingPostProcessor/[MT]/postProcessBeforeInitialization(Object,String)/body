@@ -12,6 +12,7 @@
           }
         }
       }
+      processedControllerNames.add(beanName);
     }
   }
   return super.postProcessBeforeInitialization(bean,beanName);

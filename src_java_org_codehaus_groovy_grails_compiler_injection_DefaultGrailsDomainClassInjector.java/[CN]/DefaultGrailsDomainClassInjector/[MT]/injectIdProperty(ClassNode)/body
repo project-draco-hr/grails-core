@@ -1,7 +1,7 @@
 {
   final boolean hasId=GrailsASTUtils.hasOrInheritsProperty(classNode,GrailsDomainClassProperty.IDENTITY);
   if (!hasId) {
-    ClassNode parent=GrailsASTUtils.getFurthestParent(classNode);
+    ClassNode parent=GrailsASTUtils.getFurthestUnresolvedParent(classNode);
     parent.addProperty(GrailsDomainClassProperty.IDENTITY,Modifier.PUBLIC,new ClassNode(Long.class),null,null,null);
   }
 }

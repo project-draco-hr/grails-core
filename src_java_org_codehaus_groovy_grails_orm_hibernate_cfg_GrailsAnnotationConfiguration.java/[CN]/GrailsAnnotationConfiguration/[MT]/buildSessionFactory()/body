@@ -5,6 +5,7 @@
     }
     Thread.currentThread().setContextClassLoader(grailsApplication.getClassLoader());
   }
+  addFilterDefinition(new FilterDefinition("dynamicFilterEnabler","1=1",Collections.emptyMap()));
   SessionFactory sessionFactory=super.buildSessionFactory();
   if (grailsApplication != null) {
     GrailsHibernateUtil.configureHibernateDomainClasses(sessionFactory,grailsApplication);

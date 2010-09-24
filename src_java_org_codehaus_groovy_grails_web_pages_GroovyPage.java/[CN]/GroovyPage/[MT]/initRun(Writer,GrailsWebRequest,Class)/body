@@ -14,4 +14,12 @@
     grailsWebRequest.setOut(out);
   }
   getBinding().setVariable(OUT,out);
+  Writer codecWriter;
+  if (codecClass != null) {
+    codecWriter=new CodecPrintWriter(out,codecClass);
+  }
+ else {
+    codecWriter=out;
+  }
+  getBinding().setVariable(CODEC_OUT,codecWriter);
 }

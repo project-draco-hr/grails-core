@@ -1,0 +1,25 @@
+{
+  if (trouble || obj == null) {
+    usageFlag=true;
+    return;
+  }
+  Object encoded=encodeObject(obj);
+  if (encoded instanceof StreamCharBuffer) {
+    super.write((StreamCharBuffer)encoded);
+  }
+ else   if (encoded instanceof Writable) {
+    super.write((Writable)encoded);
+  }
+ else   if (obj instanceof CharSequence) {
+    try {
+      usageFlag=true;
+      out.append((CharSequence)encoded);
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+    }
+  }
+ else {
+    super.write(String.valueOf(encoded));
+  }
+}

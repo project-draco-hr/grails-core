@@ -34,5 +34,7 @@
       return 1;
     }
   }
+  int constraintDiff=getAppliedConstraintsCount(this) - getAppliedConstraintsCount(other);
+  if (constraintDiff != 0)   return constraintDiff;
   return 0;
 }

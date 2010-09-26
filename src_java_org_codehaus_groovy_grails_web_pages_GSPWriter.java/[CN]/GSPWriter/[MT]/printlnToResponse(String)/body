@@ -1,10 +1,3 @@
 {
-  if (StringUtils.isEmpty(s)) {
-    return;
-  }
-  parse.flushTagBuffering();
-  super.print("out.print(");
-  super.print(s);
-  super.print(")");
-  println();
+  printlnToResponse(GroovyPage.OUT,s);
 }

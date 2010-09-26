@@ -1,0 +1,31 @@
+{
+  this.controller=controller;
+  this.action=action;
+  if (params != null) {
+    paramKeys=new String[params.size()];
+    paramValues=new String[params.size()];
+    int i=0;
+    for (    Map.Entry entry : params.entrySet()) {
+      paramKeys[i]=String.valueOf(entry.getKey());
+      String value=null;
+      if (entry.getValue() instanceof CharSequence) {
+        value=String.valueOf(entry.getValue());
+      }
+ else       if (entry.getValue() instanceof Collection) {
+        StringUtils.join((Collection)entry.getValue(),',');
+      }
+ else       if (entry.getValue() instanceof Object[]) {
+        StringUtils.join((Object[])entry.getValue(),',');
+      }
+ else {
+        value=String.valueOf(entry.getValue());
+      }
+      paramValues[i]=value;
+      i++;
+    }
+  }
+ else {
+    paramKeys=new String[0];
+    paramValues=new String[0];
+  }
+}

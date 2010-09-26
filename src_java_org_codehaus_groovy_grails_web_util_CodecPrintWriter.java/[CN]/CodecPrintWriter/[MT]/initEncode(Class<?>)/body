@@ -1,0 +1,5 @@
+{
+  encodeMethod=ReflectionUtils.findMethod(codecClass,"encode",(Class<?>[])null);
+  ReflectionUtils.makeAccessible(encodeMethod);
+  encodeParamType=encodeMethod.getParameterTypes()[0];
+}

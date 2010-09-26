@@ -1,6 +1,3 @@
 {
-  urlMappings=mappings;
-  this.excludePatterns=excludePatterns;
-  this.maxWeightedCacheCapacity=DEFAULT_MAX_WEIGHTED_CAPACITY;
-  initialize();
+  this(mappings,excludePatterns,false);
 }

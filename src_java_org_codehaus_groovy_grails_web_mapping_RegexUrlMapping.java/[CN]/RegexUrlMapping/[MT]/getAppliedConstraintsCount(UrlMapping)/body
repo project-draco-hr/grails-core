@@ -1,0 +1,7 @@
+{
+  int count=0;
+  for (  ConstrainedProperty prop : mapping.getConstraints()) {
+    count+=prop.getAppliedConstraints().size();
+  }
+  return count;
+}

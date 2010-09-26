@@ -1,0 +1,40 @@
+{
+  if (resource == null)   return -1;
+  if (resource instanceof FileSystemResource) {
+    return ((FileSystemResource)resource).getFile().lastModified();
+  }
+  long lastModified;
+  URLConnection urlc=null;
+  try {
+    URL url=resource.getURL();
+    if ("file".equals(url.getProtocol())) {
+      File file=new File(url.getFile());
+      if (file.exists()) {
+        return file.lastModified();
+      }
+    }
+    urlc=url.openConnection();
+    urlc.setDoInput(false);
+    urlc.setDoOutput(false);
+    lastModified=urlc.getLastModified();
+  }
+ catch (  FileNotFoundException fnfe) {
+    lastModified=-1;
+  }
+catch (  IOException e) {
+    lastModified=-1;
+  }
+ finally {
+    if (urlc != null) {
+      try {
+        InputStream is=urlc.getInputStream();
+        if (is != null) {
+          is.close();
+        }
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+  return lastModified;
+}

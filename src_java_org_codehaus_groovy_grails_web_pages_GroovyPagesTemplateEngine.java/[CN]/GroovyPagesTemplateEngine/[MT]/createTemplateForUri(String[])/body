@@ -1,5 +1,5 @@
 {
-  if (!isReloadEnabled()) {
+  if (isPrecompiledAvailable()) {
     Template t;
     for (    String anUri : uri) {
       t=createTemplateFromPrecompiled(anUri);
@@ -17,7 +17,7 @@
     }
   }
   if (resource != null) {
-    if (precompiledGspMap != null && precompiledGspMap.size() > 0) {
+    if (isPrecompiledAvailable() && !isReloadEnabled()) {
       if (LOG.isWarnEnabled()) {
         LOG.warn("Precompiled GSP not found for uri: " + Arrays.asList(uri) + ". Using resource "+ resource);
       }

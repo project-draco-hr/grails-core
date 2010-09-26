@@ -1,37 +1,16 @@
 {
   if (params == null)   params=Collections.EMPTY_MAP;
-  UrlMapping mapping=null;
-  mapping=namedMappings.get(params.remove("mappingName"));
-  if (mapping == null) {
-    mapping=lookupMapping(controller,action,params);
-  }
-  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    mapping=mappingsLookup.get(new UrlMappingKey(controller,action,Collections.EMPTY_SET));
-  }
-  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    Set<String> lookupParams=new HashSet<String>(DEFAULT_ACTION_PARAMS);
-    Set<String> paramKeys=new HashSet<String>(params.keySet());
-    paramKeys.removeAll(lookupParams);
-    lookupParams.addAll(paramKeys);
-    mapping=mappingsLookup.get(new UrlMappingKey(controller,null,lookupParams));
-    if (mapping == null) {
-      lookupParams.removeAll(paramKeys);
-      mapping=mappingsLookup.get(new UrlMappingKey(controller,null,lookupParams));
+  if (urlCreatorCache != null) {
+    UrlCreatorCache.ReverseMappingKey key=urlCreatorCache.createKey(controller,action,params);
+    UrlCreator creator=urlCreatorCache.lookup(key);
+    if (creator == null) {
+      creator=resolveUrlCreator(controller,action,params);
+      creator=urlCreatorCache.putAndDecorate(key,creator);
     }
+    params.remove("mappingName");
+    return creator;
   }
-  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    Set<String> lookupParams=new HashSet<String>(DEFAULT_CONTROLLER_PARAMS);
-    Set<String> paramKeys=new HashSet<String>(params.keySet());
-    paramKeys.removeAll(lookupParams);
-    lookupParams.addAll(paramKeys);
-    mapping=mappingsLookup.get(new UrlMappingKey(null,null,lookupParams));
-    if (mapping == null) {
-      lookupParams.removeAll(paramKeys);
-      mapping=mappingsLookup.get(new UrlMappingKey(null,null,lookupParams));
-    }
+ else {
+    return resolveUrlCreator(controller,action,params);
   }
-  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    return new DefaultUrlCreator(controller,action);
-  }
-  return mapping;
 }

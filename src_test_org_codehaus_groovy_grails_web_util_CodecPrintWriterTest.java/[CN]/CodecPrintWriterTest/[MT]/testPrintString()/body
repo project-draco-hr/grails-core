@@ -1,0 +1,6 @@
+{
+  FastStringWriter stringwriter=new FastStringWriter();
+  CodecPrintWriter writer=new CodecPrintWriter(stringwriter,HTMLCodec.class);
+  writer.print("&&");
+  assertEquals("&amp;&amp;",stringwriter.getValue());
+}

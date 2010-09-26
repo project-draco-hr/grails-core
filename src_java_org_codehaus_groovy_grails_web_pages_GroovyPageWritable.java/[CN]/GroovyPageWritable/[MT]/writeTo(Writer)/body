@@ -38,12 +38,36 @@
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
     page.setHtmlParts(metaInfo.getHtmlParts());
-    page.initRun(out,webRequest);
+    page.initRun(out,webRequest,metaInfo.getCodecClass());
+    int debugId=0;
+    long debugStartTimeMs=0;
+    if (debugTemplates) {
+      debugId=debugTemplatesIdCounter.incrementAndGet();
+      out.write("<!-- GSP #");
+      out.write(String.valueOf(debugId));
+      out.write(" START template: ");
+      out.write(page.getGroovyPageFileName());
+      out.write(" precompiled: ");
+      out.write(String.valueOf(metaInfo.isPrecompiledMode()));
+      out.write(" lastmodified: ");
+      out.write(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT).format(new Date(metaInfo.getLastModified())));
+      out.write(" -->");
+      debugStartTimeMs=System.currentTimeMillis();
+    }
     try {
       page.run();
     }
   finally {
       page.cleanup();
+    }
+    if (debugTemplates) {
+      out.write("<!-- GSP #");
+      out.write(String.valueOf(debugId));
+      out.write(" END template: ");
+      out.write(page.getGroovyPageFileName());
+      out.write(" rendering time: ");
+      out.write(String.valueOf(System.currentTimeMillis() - debugStartTimeMs));
+      out.write(" ms -->");
     }
     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
   }

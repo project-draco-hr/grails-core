@@ -8,10 +8,11 @@
         if (value instanceof Closure) {
           final Closure callable=(Closure)value;
           if (WebMetaUtils.isCommandObjectAction(callable)) {
-            WebMetaUtils.prepareCommandObjectBindingAction(commandObjectBindingAction,callable,propName,controller);
+            WebMetaUtils.prepareCommandObjectBindingAction(commandObjectBindingAction,callable,propName,controller,applicationContext);
           }
         }
       }
+      processedControllerNames.add(beanName);
     }
   }
   return super.postProcessBeforeInitialization(bean,beanName);

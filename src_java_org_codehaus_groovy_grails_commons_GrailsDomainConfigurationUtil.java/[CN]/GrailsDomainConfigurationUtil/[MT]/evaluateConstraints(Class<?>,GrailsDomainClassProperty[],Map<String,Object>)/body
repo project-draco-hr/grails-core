@@ -19,7 +19,7 @@
   }
   Map<String,ConstrainedProperty> constrainedProperties=delegate.getConstrainedProperties();
   if (properties != null && !(constrainedProperties.isEmpty() && javaEntity)) {
-    boolean hasHibernate=PluginManagerHolder.getPluginManager().hasGrailsPlugin("hibernate");
+    boolean hasHibernate=isHibernatePresent();
     for (    GrailsDomainClassProperty p : properties) {
       PropertyConfig propertyConfig=hasHibernate ? GrailsDomainBinder.getPropertyConfig(p) : null;
       if (propertyConfig != null && propertyConfig.getFormula() != null) {

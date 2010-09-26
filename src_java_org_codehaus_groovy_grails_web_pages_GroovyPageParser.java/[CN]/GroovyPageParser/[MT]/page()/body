@@ -15,6 +15,7 @@
     out.println("def flash = binding.flash");
     out.println("def response = binding.response");
     out.println("def out = binding.out");
+    out.println("def codecOut = binding.codecOut");
     if (sitemeshPreprocessMode) {
       out.println("registerSitemeshPreprocessMode(request)");
     }

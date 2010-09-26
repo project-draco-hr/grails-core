@@ -18,13 +18,16 @@
       excludePatterns.addAll(mappingClass.getExcludePatterns());
     }
   }
-  Properties props=grailsApplication.getConfig().toProperties();
-  String maxUrlCacheSize=props.getProperty(URL_MAPPING_CACHE_MAX_SIZE);
-  if (maxUrlCacheSize == null) {
-    urlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns);
+  DefaultUrlMappingsHolder defaultUrlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns,true);
+  Map flatConfig=grailsApplication.getFlatConfig();
+  Integer cacheSize=mapGetInteger(flatConfig,URL_MAPPING_CACHE_MAX_SIZE);
+  if (cacheSize != null) {
+    defaultUrlMappingsHolder.setMaxWeightedCacheCapacity(cacheSize);
   }
- else {
-    int cacheSize=Integer.valueOf(maxUrlCacheSize);
-    urlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns,cacheSize);
+  Integer urlCreatorCacheSize=mapGetInteger(flatConfig,URL_CREATOR_CACHE_MAX_SIZE);
+  if (urlCreatorCacheSize != null) {
+    defaultUrlMappingsHolder.setUrlCreatorMaxWeightedCacheCapacity(urlCreatorCacheSize);
   }
+  defaultUrlMappingsHolder.initialize();
+  urlMappingsHolder=defaultUrlMappingsHolder;
 }

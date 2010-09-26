@@ -2,6 +2,9 @@
   sortMappings();
   cachedMatches=new ConcurrentLinkedHashMap.Builder<String,UrlMappingInfo>().maximumWeightedCapacity(maxWeightedCacheCapacity).build();
   cachedListMatches=new ConcurrentLinkedHashMap.Builder<String,List<UrlMappingInfo>>().maximumWeightedCapacity(maxWeightedCacheCapacity).weigher(CustomListWeigher.INSTANCE).build();
+  if (urlCreatorMaxWeightedCacheCapacity > 0) {
+    urlCreatorCache=new UrlCreatorCache(urlCreatorMaxWeightedCacheCapacity);
+  }
   mappings=urlMappings.toArray(new UrlMapping[urlMappings.size()]);
   for (  UrlMapping mapping : mappings) {
     String mappingName=mapping.getMappingName();

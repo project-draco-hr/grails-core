@@ -1,5 +1,6 @@
 {
   super(clazz,"");
+  this.application=application;
   new StandardAnnotationMetadata(clazz);
   String ident=metaData.getIdentifierPropertyName();
   this.defaultConstraints=defaultConstraints;

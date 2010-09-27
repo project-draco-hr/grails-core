@@ -2,6 +2,8 @@
   if (validator == null) {
     GrailsDomainClassValidator gdcv=new GrailsDomainClassValidator();
     gdcv.setDomainClass(this);
+    MessageSource messageSource=(MessageSource)application.getMainContext().getBean("messageSource");
+    gdcv.setMessageSource(messageSource);
     validator=gdcv;
   }
   return validator;

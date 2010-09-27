@@ -4,6 +4,7 @@
     FlowExecutionKey key=executionRepository.parseFlowExecutionKey(flowExecutionKey);
     FlowExecution flowExecution=executionRepository.getFlowExecution(key);
     GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+    webRequest.getCurrentRequest().setAttribute(ACTIVE_FLOW_ID_ATTRIBUTE,flowExecution.getActiveSession().getDefinition().getId());
     if (isNotValidFlowDefinitionId(flowExecution,webRequest)) {
       return super.launchExecution(webRequest.getControllerName() + "/" + webRequest.getActionName(),context.getRequestMap(),context);
     }

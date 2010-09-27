@@ -1,0 +1,5 @@
+{
+  if (postLoadEventListener != null) {
+    postLoadEventListener.call(event.getEntity());
+  }
+}

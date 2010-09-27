@@ -1,0 +1,10 @@
+{
+  Object failOnErrorConfig=co.flatten().get("grails.gorm.failOnError");
+  if (failOnErrorConfig instanceof List) {
+    failOnError=true;
+    failOnErrorPackages=(List)failOnErrorConfig;
+  }
+ else {
+    failOnError=DefaultTypeTransformation.castToBoolean(failOnErrorConfig);
+  }
+}

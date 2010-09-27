@@ -1,0 +1,6 @@
+{
+  Object entity=event.getEntity();
+  GrailsHibernateUtil.ensureCorrectGroovyMetaClass(entity,entity.getClass());
+  ClosureEventListener eventListener=findEventListener(entity);
+  if (eventListener != null)   eventListener.onPreLoad(event);
+}

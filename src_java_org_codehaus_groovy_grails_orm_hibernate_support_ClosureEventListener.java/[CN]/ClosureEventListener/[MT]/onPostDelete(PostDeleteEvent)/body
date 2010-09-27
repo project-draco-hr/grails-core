@@ -1,0 +1,5 @@
+{
+  if (postDeleteEventListener != null) {
+    postDeleteEventListener.call(event.getEntity());
+  }
+}

@@ -1,0 +1,6 @@
+{
+  Object entity=event.getObject();
+  ClosureEventListener eventListener=findEventListener(entity);
+  if (eventListener != null)   eventListener.onSaveOrUpdate(event);
+  super.onSaveOrUpdate(event);
+}

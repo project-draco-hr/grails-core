@@ -1,0 +1,3 @@
+{
+  return !AnnotationDomainClassArtefactHandler.isJPADomainClass(domainClass.getClazz()) && domainClass.getMappingStrategy().equalsIgnoreCase(GrailsDomainClass.GORM);
+}

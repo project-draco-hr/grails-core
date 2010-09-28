@@ -1,0 +1,5 @@
+{
+  super.initFilterBean();
+  ApplicationContext appCtx=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  paramListenerBeans=appCtx.getBeansOfType(ParameterCreationListener.class).values();
+}

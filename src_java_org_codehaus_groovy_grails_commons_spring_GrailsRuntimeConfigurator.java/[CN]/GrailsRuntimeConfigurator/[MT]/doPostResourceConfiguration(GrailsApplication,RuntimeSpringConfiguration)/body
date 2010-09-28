@@ -41,7 +41,7 @@
  else     if (LOG.isDebugEnabled()) {
       LOG.debug("[RuntimeConfiguration] " + GrailsRuntimeConfigurator.SPRING_RESOURCES_XML + " not found. Skipping configuration.");
     }
-    GrailsRuntimeConfigurator.loadSpringGroovyResources(springConfig,classLoader);
+    GrailsRuntimeConfigurator.loadSpringGroovyResources(springConfig,app);
   }
  catch (  Exception ex) {
     LOG.warn("[RuntimeConfiguration] Unable to perform post initialization config: " + SPRING_RESOURCES_XML,ex);

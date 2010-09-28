@@ -1,0 +1,12 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  gcl.parseClass("class Holder { def value }");
+  Class<?> resourcesClass=gcl.parseClass("beans = { b(Holder, value: application) }","resources.groovy");
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{},gcl);
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration();
+  GrailsRuntimeConfigurator.loadExternalSpringConfig(springConfig,app);
+  assertTrue(springConfig.containsBean("b"));
+  BeanConfiguration beanConfig=springConfig.getBeanConfig("b");
+  assertTrue(beanConfig.hasProperty("value"));
+  assertEquals(app,beanConfig.getPropertyValue("value"));
+}

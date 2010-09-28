@@ -1,0 +1,14 @@
+{
+  InputStream in=resource.getInputStream();
+  try {
+    if (cacheable) {
+      return createTemplate(in,resource,getPathForResource(resource));
+    }
+ else {
+      return createTemplate(in,resource,null);
+    }
+  }
+  finally {
+    in.close();
+  }
+}

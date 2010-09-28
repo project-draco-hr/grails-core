@@ -1,33 +1,3 @@
 {
-  if (resource == null) {
-    GrailsWebRequest webRequest=getWebRequest();
-    throw new GroovyPagesException("No Groovy page found for URI: " + getCurrentRequestUri(webRequest.getCurrentRequest()));
-  }
-  String name=establishPageName(resource,null);
-  if (!isReloadEnabled()) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Creating template using resource " + resource,new Exception("Creating template using resource " + resource));
-    }
- else     if (LOG.isInfoEnabled()) {
-      LOG.info("Creating template using resource " + resource);
-    }
-  }
-  if (pageCache.containsKey(name)) {
-    GroovyPageMetaInfo meta=pageCache.get(name);
-    if (isGroovyPageReloadable(resource,meta)) {
-      try {
-        return createTemplateWithResource(resource,name);
-      }
- catch (      IOException e) {
-        throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);
-      }
-    }
-    return new GroovyPageTemplate(meta);
-  }
-  try {
-    return createTemplateWithResource(resource,name);
-  }
- catch (  IOException e) {
-    throw new GroovyPagesException("I/O error reading stream for resource [" + resource + "]: "+ e.getMessage(),e);
-  }
+  return createTemplate(resource,false);
 }

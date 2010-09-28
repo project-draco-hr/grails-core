@@ -3,6 +3,7 @@
   if (grailsApplication == null) {
     return;
   }
+  configureNamingStrategy();
   GrailsClass[] existingDomainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
   for (  GrailsClass existingDomainClass : existingDomainClasses) {
     addDomainClass((GrailsDomainClass)existingDomainClass);

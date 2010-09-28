@@ -1,4 +1,7 @@
 {
+  if (cloneFirst) {
+    callable=(Closure)callable.clone();
+  }
   callable.setResolveStrategy(Closure.DELEGATE_FIRST);
   callable.setDelegate(entity);
   Object retval=callable.call();

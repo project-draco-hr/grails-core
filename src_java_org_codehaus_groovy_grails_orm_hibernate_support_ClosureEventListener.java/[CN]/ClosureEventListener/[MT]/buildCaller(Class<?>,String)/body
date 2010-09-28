@@ -10,9 +10,6 @@
     return new FieldClosureCaller(field);
   }
   MetaMethod metaMethod=domainMetaClass.getMetaMethod(event,EMPTY_OBJECT_ARRAY);
-  if (metaMethod == null) {
-    metaMethod=domainMetaClass.getStaticMetaMethod(event,EMPTY_OBJECT_ARRAY);
-  }
   if (metaMethod != null) {
     return new MetaMethodCaller(metaMethod);
   }

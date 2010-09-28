@@ -1,3 +1,6 @@
 {
   this.field=field;
+  if (Modifier.isStatic(field.getModifiers())) {
+    cloneFirst=true;
+  }
 }

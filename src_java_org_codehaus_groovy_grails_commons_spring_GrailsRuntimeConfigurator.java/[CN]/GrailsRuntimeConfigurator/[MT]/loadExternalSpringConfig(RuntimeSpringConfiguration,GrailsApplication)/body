@@ -3,12 +3,18 @@
     try {
       Class<?> groovySpringResourcesClass=null;
       try {
-        groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,classLoader);
+        groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,application.getClassLoader());
       }
  catch (      ClassNotFoundException e) {
       }
       if (groovySpringResourcesClass != null) {
         springGroovyResourcesBeanBuilder=new BeanBuilder(null,config,Thread.currentThread().getContextClassLoader());
+        springGroovyResourcesBeanBuilder.setBinding(new Binding(new HashMap(){
+{
+            put("application",application);
+          }
+        }
+));
         Script script=(Script)groovySpringResourcesClass.newInstance();
         script.run();
         Object beans=script.getProperty("beans");

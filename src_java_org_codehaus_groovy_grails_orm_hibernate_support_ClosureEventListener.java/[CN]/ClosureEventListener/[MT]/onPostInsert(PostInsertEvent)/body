@@ -1,0 +1,5 @@
+{
+  if (postInsertEventListener != null) {
+    postInsertEventListener.call(event.getEntity());
+  }
+}

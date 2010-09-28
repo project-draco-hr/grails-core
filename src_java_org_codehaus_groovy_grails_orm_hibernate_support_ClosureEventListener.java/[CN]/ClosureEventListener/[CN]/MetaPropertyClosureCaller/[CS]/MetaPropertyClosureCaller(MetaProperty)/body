@@ -1,0 +1,6 @@
+{
+  this.metaProperty=metaProperty;
+  if (Modifier.isStatic(metaProperty.getModifiers())) {
+    cloneFirst=true;
+  }
+}

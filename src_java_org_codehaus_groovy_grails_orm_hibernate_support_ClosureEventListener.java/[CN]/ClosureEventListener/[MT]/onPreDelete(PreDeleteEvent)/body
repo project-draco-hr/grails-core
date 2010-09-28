@@ -1,0 +1,6 @@
+{
+  if (preDeleteEventListener != null) {
+    return preDeleteEventListener.call(event.getEntity());
+  }
+  return false;
+}

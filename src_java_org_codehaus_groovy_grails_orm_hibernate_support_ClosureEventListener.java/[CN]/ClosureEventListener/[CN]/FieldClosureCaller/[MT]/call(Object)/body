@@ -1,0 +1,10 @@
+{
+  Object fieldval=ReflectionUtils.getField(field,entity);
+  if (fieldval instanceof Closure) {
+    return resolveReturnValue(callClosure(entity,(Closure)fieldval));
+  }
+ else {
+    log.error("Field " + field + " is not Closure or method.");
+    return false;
+  }
+}

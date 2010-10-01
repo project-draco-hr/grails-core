@@ -1,0 +1,3 @@
+{
+  return ((application != null && application.getFlatConfig() != null && DefaultTypeTransformation.castToBoolean(application.getFlatConfig().get(propertyName))) || Boolean.getBoolean(propertyName));
+}

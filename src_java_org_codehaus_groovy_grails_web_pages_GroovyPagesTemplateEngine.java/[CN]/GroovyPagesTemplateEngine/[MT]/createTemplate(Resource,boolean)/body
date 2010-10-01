@@ -18,7 +18,7 @@
       LOG.info("Creating template using resource " + resource);
     }
   }
-  if (pageCache.containsKey(name) && cacheable) {
+  if (cacheable && pageCache.containsKey(name)) {
     GroovyPageMetaInfo meta=pageCache.get(name);
     if (isGroovyPageReloadable(resource,meta)) {
       try {

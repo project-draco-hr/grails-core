@@ -1,21 +1,3 @@
 {
-  Collection<File> inlinePlugins=new ConcurrentLinkedQueue<File>();
-  if (config != null) {
-    Map pluginLocations=lookupPluginLocationConfig(config);
-    if (pluginLocations != null) {
-      for (      Object value : pluginLocations.values()) {
-        if (value != null) {
-          File resource;
-          try {
-            resource=new File(value.toString()).getCanonicalFile();
-            inlinePlugins.add(resource);
-          }
- catch (          IOException e) {
-            System.err.println("Cannot add location [" + value + "] as an inline plugin dependencies due to I/O error: "+ e.getMessage());
-          }
-        }
-      }
-    }
-  }
-  return inlinePlugins;
+  return getInlinePluginsFromConfiguration(config,getBaseDir());
 }

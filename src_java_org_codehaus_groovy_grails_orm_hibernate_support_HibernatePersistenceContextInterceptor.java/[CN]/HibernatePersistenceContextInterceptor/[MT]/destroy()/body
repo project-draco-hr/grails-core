@@ -1,5 +1,5 @@
 {
-  if (participate) {
+  if (--nestingCount > 0 || participate) {
     return;
   }
   SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);

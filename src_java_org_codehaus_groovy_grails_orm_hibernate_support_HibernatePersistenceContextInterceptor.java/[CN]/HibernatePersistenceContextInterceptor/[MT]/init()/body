@@ -1,4 +1,7 @@
 {
+  if (++nestingCount > 1) {
+    return;
+  }
   if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
     participate=true;
   }

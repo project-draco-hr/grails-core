@@ -1,11 +1,12 @@
 {
-  if (++nestingCount > 1) {
+  if (incNestingCount() > 1) {
     return;
   }
   if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
-    participate=true;
+    setParticipate(true);
   }
  else {
+    setParticipate(false);
     LOG.debug("Opening single Hibernate session in HibernatePersistenceContextInterceptor");
     Session session=getSession();
     session.enableFilter("dynamicFilterEnabler");

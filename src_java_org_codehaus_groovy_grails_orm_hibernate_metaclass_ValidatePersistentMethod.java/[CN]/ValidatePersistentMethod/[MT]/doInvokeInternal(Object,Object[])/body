@@ -7,15 +7,11 @@
   if (validator == null) {
     return true;
   }
-  Method method=ReflectionUtils.findMethod(domainClass.getClazz(),BEFORE_VALIDATE);
-  if (method != null) {
-    ReflectionUtils.makeAccessible(method);
-    ReflectionUtils.invokeMethod(method,target);
-  }
   Boolean valid=Boolean.TRUE;
   boolean evict=false;
   boolean deepValidate=true;
   Set validatedFields=null;
+  List validatedFieldsList=null;
   if (arguments.length > 0) {
     if (arguments[0] instanceof Boolean) {
       evict=((Boolean)arguments[0]).booleanValue();
@@ -28,9 +24,11 @@
       evict=GrailsClassUtils.getBooleanFromMap(ARGUMENT_EVICT,argsMap);
     }
     if (arguments[0] instanceof List) {
-      validatedFields=new HashSet((List)arguments[0]);
+      validatedFieldsList=(List)arguments[0];
+      validatedFields=new HashSet(validatedFieldsList);
     }
   }
+  beforeValidateHelper.invokeBeforeValidate(target,validatedFieldsList);
   if (deepValidate && (validator instanceof CascadingValidator)) {
     ((CascadingValidator)validator).validate(target,errors,deepValidate);
   }

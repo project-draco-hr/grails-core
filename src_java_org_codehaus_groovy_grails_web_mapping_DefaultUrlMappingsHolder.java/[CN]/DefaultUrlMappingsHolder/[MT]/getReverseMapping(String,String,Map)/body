@@ -10,7 +10,5 @@
     params.remove("mappingName");
     return creator;
   }
- else {
-    return resolveUrlCreator(controller,action,params);
-  }
+  return resolveUrlCreator(controller,action,params);
 }

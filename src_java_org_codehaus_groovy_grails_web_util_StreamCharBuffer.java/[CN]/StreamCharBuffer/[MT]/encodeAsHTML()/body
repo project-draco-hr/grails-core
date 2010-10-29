@@ -1,25 +1,25 @@
 {
   StreamCharBuffer coded=new StreamCharBuffer(Math.min(Math.max(totalChunkSize,chunkSize) * 12 / 10,maxChunkSize));
-  Writer writer=coded.getWriter();
+  Writer codedWriter=coded.getWriter();
   if (StreamingHTMLEncoderHelper.disabled) {
     try {
-      writer.write(HtmlUtils.htmlEscape(this.toString()));
+      codedWriter.write(HtmlUtils.htmlEscape(toString()));
     }
  catch (    IOException e) {
       log.error("IOException in StreamCharBuffer.encodeAsHTML",e);
     }
   }
  else {
-    Reader reader=this.getReader();
+    Reader reader=getReader();
     char[] buf=new char[1];
     try {
       while (reader.read(buf) != -1) {
         String reference=StreamingHTMLEncoderHelper.convertToReference(buf[0]);
         if (reference != null) {
-          writer.write(reference);
+          codedWriter.write(reference);
         }
  else {
-          writer.write(buf);
+          codedWriter.write(buf);
         }
       }
     }

@@ -3,7 +3,5 @@
   if (eventListener != null) {
     return eventListener.onPreDelete(event);
   }
- else {
-    return false;
-  }
+  return false;
 }

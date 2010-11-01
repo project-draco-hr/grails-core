@@ -1,0 +1,16 @@
+{
+  int firstDotPos=sort.indexOf(".");
+  if (firstDotPos == -1) {
+    if (ORDER_DESC.equals(order)) {
+      c.addOrder(ignoreCase ? Order.desc(sort).ignoreCase() : Order.desc(sort));
+    }
+ else {
+      c.addOrder(ignoreCase ? Order.asc(sort).ignoreCase() : Order.asc(sort));
+    }
+  }
+ else {
+    Criteria subCriteria=c.createCriteria(sort.substring(0,firstDotPos));
+    String remainingSort=sort.substring(firstDotPos + 1);
+    addOrder(subCriteria,remainingSort,order,ignoreCase);
+  }
+}

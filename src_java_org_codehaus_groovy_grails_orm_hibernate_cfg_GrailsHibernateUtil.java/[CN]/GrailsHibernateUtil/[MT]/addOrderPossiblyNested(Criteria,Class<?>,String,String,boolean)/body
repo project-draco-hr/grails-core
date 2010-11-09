@@ -1,0 +1,19 @@
+{
+  int firstDotPos=sort.indexOf(".");
+  if (firstDotPos == -1) {
+    addOrder(c,sort,order,ignoreCase);
+  }
+ else {
+    String sortHead=sort.substring(0,firstDotPos);
+    String sortTail=sort.substring(firstDotPos + 1);
+    GrailsDomainClassProperty property=getGrailsDomainClassProperty(targetClass,sortHead);
+    if (property.isEmbedded()) {
+      addOrder(c,sort,order,ignoreCase);
+    }
+ else {
+      Criteria subCriteria=c.createCriteria(sortHead);
+      Class<?> propertyTargetClass=property.getReferencedDomainClass().getClazz();
+      addOrderPossiblyNested(subCriteria,propertyTargetClass,sortTail,order,ignoreCase);
+    }
+  }
+}

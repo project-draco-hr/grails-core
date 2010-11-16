@@ -126,6 +126,7 @@
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");
+  setRunningEnvironment(scriptName,env);
   Gant gant=new Gant(initBinding(binding),classLoader);
   try {
     loadScriptClass(gant,scriptName);
@@ -142,6 +143,5 @@
       throw e;
     }
   }
-  setRunningEnvironment(scriptName,env);
   return executeWithGantInstance(gant,doNothingClosure);
 }

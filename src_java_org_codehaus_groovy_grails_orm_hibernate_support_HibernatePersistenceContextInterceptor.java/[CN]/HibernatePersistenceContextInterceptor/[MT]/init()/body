@@ -9,7 +9,7 @@
     setParticipate(false);
     LOG.debug("Opening single Hibernate session in HibernatePersistenceContextInterceptor");
     Session session=getSession();
-    session.enableFilter("dynamicFilterEnabler");
+    GrailsHibernateUtil.enableDynamicFilterEnablerIfPresent(sessionFactory,session);
     session.setFlushMode(FlushMode.AUTO);
     TransactionSynchronizationManager.bindResource(sessionFactory,new SessionHolder(session));
   }

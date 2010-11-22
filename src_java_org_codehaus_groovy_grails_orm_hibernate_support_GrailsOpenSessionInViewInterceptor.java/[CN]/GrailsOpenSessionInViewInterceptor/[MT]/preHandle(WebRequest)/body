@@ -6,8 +6,9 @@
   }
  else {
     super.preHandle(request);
-    SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(getSessionFactory());
+    SessionFactory sessionFactory=getSessionFactory();
+    SessionHolder sessionHolder=(SessionHolder)TransactionSynchronizationManager.getResource(sessionFactory);
     Session session=sessionHolder.getSession();
-    session.enableFilter("dynamicFilterEnabler");
+    GrailsHibernateUtil.enableDynamicFilterEnablerIfPresent(sessionFactory,session);
   }
 }

@@ -7,9 +7,6 @@
     urls.add(settings.getResourcesDir().toURI().toURL());
   }
   final boolean dependenciesExternallyConfigured=settings.isDependenciesExternallyConfigured();
-  if (!dependenciesExternallyConfigured) {
-    System.out.println("Resolving dependencies...");
-  }
   long now=System.currentTimeMillis();
   final List<File> buildDependencies=settings.getBuildDependencies();
   if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {

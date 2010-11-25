@@ -3,7 +3,7 @@
   List<GrailsPlugin> grailsCorePlugins=new ArrayList<GrailsPlugin>();
   for (  Class<?> pluginClass : finder.getPluginClasses()) {
     if (pluginClass != null && !Modifier.isAbstract(pluginClass.getModifiers()) && pluginClass != DefaultGrailsPlugin.class) {
-      GrailsPlugin plugin=new DefaultGrailsPlugin(pluginClass,application);
+      GrailsPlugin plugin=createGrailsPlugin(pluginClass);
       plugin.setApplicationContext(applicationContext);
       grailsCorePlugins.add(plugin);
     }

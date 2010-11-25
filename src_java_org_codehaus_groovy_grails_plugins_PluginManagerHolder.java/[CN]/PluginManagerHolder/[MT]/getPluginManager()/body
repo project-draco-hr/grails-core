@@ -1,3 +1,11 @@
 {
+  while (inCreation) {
+    try {
+      Thread.currentThread().sleep(100);
+    }
+ catch (    InterruptedException e) {
+      break;
+    }
+  }
   return gpm;
 }

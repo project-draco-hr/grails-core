@@ -1,7 +1,5 @@
 {
-  long now=System.currentTimeMillis();
   gant.prepareTargets();
-  System.out.println("Prepare targets took " + (System.currentTimeMillis() - now) + "ms");
   gant.setAllPerTargetPostHooks(doNothingClosure);
   gant.setAllPerTargetPreHooks(doNothingClosure);
   return gant.executeTargets().intValue();

@@ -1,0 +1,15 @@
+{
+  configureResourceLoader();
+  if (compileList.length > 0) {
+    long now=System.currentTimeMillis();
+    try {
+      super.compile();
+      getDestdir().setLastModified(now);
+    }
+  finally {
+      for (      File f : destList) {
+        f.setLastModified(now);
+      }
+    }
+  }
+}

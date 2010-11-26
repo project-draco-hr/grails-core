@@ -1,0 +1,12 @@
+{
+  if (enableProfile) {
+    long now=System.currentTimeMillis();
+    System.out.println("Profiling [" + name + "] start");
+    callable.call();
+    long then=System.currentTimeMillis() - now;
+    System.out.println("Profiling [" + name + "] finish. Took "+ then+ " ms");
+  }
+ else {
+    callable.call();
+  }
+}

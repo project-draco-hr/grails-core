@@ -1,0 +1,8 @@
+{
+  try {
+    return cla.getClass().getDeclaredMethod(readMethod.getName(),readMethod.getParameterTypes()) != null;
+  }
+ catch (  Exception e) {
+    return false;
+  }
+}

@@ -1,0 +1,4 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  return new StringBuilder(SLASH).append(webRequest.getControllerName()).append(SLASH).append(webRequest.getActionName()).toString();
+}

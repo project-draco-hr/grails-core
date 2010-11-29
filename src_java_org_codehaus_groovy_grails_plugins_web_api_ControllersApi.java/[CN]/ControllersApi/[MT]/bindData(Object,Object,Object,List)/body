@@ -1,0 +1,8 @@
+{
+  return bind.invoke(instance,BIND_DATA_METHOD,new Object[]{target,args,new HashMap(){
+{
+      put("exclude",disallowed);
+    }
+  }
+});
+}

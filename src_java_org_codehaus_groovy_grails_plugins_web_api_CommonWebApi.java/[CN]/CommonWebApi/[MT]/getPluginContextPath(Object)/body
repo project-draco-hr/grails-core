@@ -1,0 +1,4 @@
+{
+  final String pluginPath=pluginManager.getPluginPathForInstance(delegate);
+  return pluginPath != null ? pluginPath : "";
+}

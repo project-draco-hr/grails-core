@@ -1,0 +1,9 @@
+{
+  RequestAttributes request=RequestContextHolder.currentRequestAttributes();
+  GroovyPageBinding binding=(GroovyPageBinding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
+  if (binding == null) {
+    binding=new GroovyPageBinding();
+    request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding,RequestAttributes.SCOPE_REQUEST);
+  }
+  return binding;
+}

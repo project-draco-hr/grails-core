@@ -1,0 +1,4 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  return forwardMethod.forward(webRequest.getRequest(),webRequest.getResponse(),params);
+}

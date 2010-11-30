@@ -12,7 +12,15 @@
  else {
             instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(method)){
               @Override public Object invoke(              Object object,              Object[] arguments){
-                return super.invoke(apiInstance,ArrayUtils.add(arguments,0,object));
+                return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
+              }
+              private Object[] checkForGStrings(              Object[] arguments){
+                for (int i=0; i < arguments.length; i++) {
+                  if (arguments[i] instanceof GString) {
+                    arguments[i]=arguments[i].toString();
+                  }
+                }
+                return arguments;
               }
               @Override public CachedClass[] getParameterTypes(){
                 final CachedClass[] paramTypes=method.getParameterTypes();

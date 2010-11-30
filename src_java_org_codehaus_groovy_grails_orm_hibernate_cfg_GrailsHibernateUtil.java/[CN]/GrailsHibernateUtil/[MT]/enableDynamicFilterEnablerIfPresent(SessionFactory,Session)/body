@@ -1,0 +1,6 @@
+{
+  if (sessionFactory != null && session != null) {
+    final Set definedFilterNames=sessionFactory.getDefinedFilterNames();
+    if (definedFilterNames != null && definedFilterNames.contains(DYNAMIC_FILTER_ENABLER))     session.enableFilter(DYNAMIC_FILTER_ENABLER);
+  }
+}

@@ -22,7 +22,7 @@
         LOG.warn("Precompiled GSP not found for uri: " + Arrays.asList(uri) + ". Using resource "+ resource);
       }
     }
-    return createTemplate(resource);
+    return createTemplate(resource,true);
   }
   return null;
 }

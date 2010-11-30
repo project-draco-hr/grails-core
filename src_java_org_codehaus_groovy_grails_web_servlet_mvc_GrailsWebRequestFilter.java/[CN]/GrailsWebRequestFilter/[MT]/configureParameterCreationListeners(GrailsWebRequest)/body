@@ -1,8 +1,10 @@
 {
-  ApplicationContext appCtx=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-  String[] paramListenerBeans=appCtx.getBeanNamesForType(ParameterCreationListener.class);
-  for (int i=0; i < paramListenerBeans.length; i++) {
-    ParameterCreationListener creationListenerBean=(ParameterCreationListener)appCtx.getBean(paramListenerBeans[i]);
-    webRequest.addParameterListener(creationListenerBean);
+  if (paramListenerBeans != null) {
+    for (    ParameterCreationListener creationListenerBean : paramListenerBeans) {
+      webRequest.addParameterListener(creationListenerBean);
+    }
+  }
+ else {
+    logger.warn("paramListenerBeans isn't initialized.");
   }
 }

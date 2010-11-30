@@ -15,7 +15,5 @@
   if (target instanceof StreamCharBufferWriter) {
     return target;
   }
- else {
-    return getOut();
-  }
+  return getOut();
 }

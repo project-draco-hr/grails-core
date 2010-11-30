@@ -2,7 +2,7 @@
   GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
   Class<?> scriptClass;
   try {
-    scriptClass=groovyClassLoader.parseClass(DefaultGroovyMethods.getText(in),name);
+    scriptClass=groovyClassLoader.parseClass(DefaultGroovyMethods.getText(in,GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING),name);
   }
  catch (  CompilationFailedException e) {
     LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);

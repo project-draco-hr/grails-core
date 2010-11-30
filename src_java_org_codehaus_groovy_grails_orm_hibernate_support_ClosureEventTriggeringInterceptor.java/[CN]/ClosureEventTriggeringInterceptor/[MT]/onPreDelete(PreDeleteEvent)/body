@@ -1,0 +1,7 @@
+{
+  ClosureEventListener eventListener=findEventListener(event.getEntity());
+  if (eventListener != null) {
+    return eventListener.onPreDelete(event);
+  }
+  return false;
+}

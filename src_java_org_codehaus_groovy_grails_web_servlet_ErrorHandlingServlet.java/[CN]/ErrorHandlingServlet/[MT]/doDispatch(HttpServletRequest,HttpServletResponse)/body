@@ -28,6 +28,7 @@
   if (urlMappingInfo != null) {
     GrailsWebRequestFilter grailsWebRequestFilter=new GrailsWebRequestFilter();
     grailsWebRequestFilter.setServletContext(getServletContext());
+    grailsWebRequestFilter.initialize();
     grailsWebRequestFilter.doFilter(request,response,new FilterChain(){
       @SuppressWarnings("unchecked") public void doFilter(      ServletRequest servletRequest,      ServletResponse servletResponse) throws IOException, ServletException {
         final GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();

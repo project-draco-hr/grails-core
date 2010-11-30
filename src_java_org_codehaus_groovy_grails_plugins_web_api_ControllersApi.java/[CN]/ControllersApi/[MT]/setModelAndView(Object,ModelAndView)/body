@@ -1,0 +1,4 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  webRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mav,0);
+}

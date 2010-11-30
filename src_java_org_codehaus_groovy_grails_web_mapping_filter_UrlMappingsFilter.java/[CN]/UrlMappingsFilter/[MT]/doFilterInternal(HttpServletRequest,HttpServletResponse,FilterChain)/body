@@ -1,14 +1,12 @@
 {
   UrlMappingsHolder holder=WebUtils.lookupUrlMappings(getServletContext());
-  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
-  List<String> excludePatterns=holder.getExcludePatterns();
   String uri=urlHelper.getPathWithinApplication(request);
-  checkForCompilationErrors();
-  GrailsClass[] controllers=application.getArtefacts(ControllerArtefactHandler.TYPE);
-  if ((controllers == null || controllers.length == 0 || holder == null) && !"/".equals(uri)) {
+  if (!"/".equals(uri) && noControllers() && noRegexMappings(holder)) {
     processFilterChain(request,response,filterChain);
     return;
   }
+  checkForCompilationErrors();
+  List<String> excludePatterns=holder.getExcludePatterns();
   if (excludePatterns != null && excludePatterns.size() > 0) {
     for (    String excludePattern : excludePatterns) {
       if (uri.equals(excludePattern) || (excludePattern.endsWith("*") && excludePattern.substring(0,excludePattern.length() - 1).regionMatches(0,uri,0,excludePattern.length() - 1))) {
@@ -34,6 +32,7 @@
       }
     }
   }
+  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   UrlMappingInfo[] urlInfos=holder.matchAll(uri);
   WrappedResponseHolder.setWrappedResponse(response);
   boolean dispatched=false;

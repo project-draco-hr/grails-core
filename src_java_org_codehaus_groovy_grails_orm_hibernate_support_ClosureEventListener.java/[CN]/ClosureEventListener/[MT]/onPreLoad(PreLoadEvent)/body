@@ -1,0 +1,5 @@
+{
+  if (preLoadEventCaller != null) {
+    preLoadEventCaller.call(event.getEntity());
+  }
+}

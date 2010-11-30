@@ -1,9 +1,11 @@
 {
   Assert.state(resourceLoader != null,"TemplateEngine not initialised correctly, no [resourceLoader] specified!");
-  if (Environment.getCurrent().isReloadEnabled() && Metadata.getCurrent().isWarDeployed()) {
+  if (resourceLoaderDefined) {
     return resourceLoader.getResource(uri);
   }
   Resource r=servletContextLoader.getResource(uri);
-  if (r.exists())   return r;
+  if (r.exists()) {
+    return r;
+  }
   return resourceLoader.getResource(uri);
 }

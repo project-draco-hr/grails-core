@@ -1,16 +1,32 @@
 {
-  if (this == obj)   return true;
-  if (!super.equals(obj))   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (!super.equals(obj)) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   UrlCreatorKey other=(UrlCreatorKey)obj;
   if (encoding == null) {
-    if (other.encoding != null)     return false;
+    if (other.encoding != null) {
+      return false;
+    }
   }
- else   if (!encoding.equals(other.encoding))   return false;
+ else   if (!encoding.equals(other.encoding)) {
+    return false;
+  }
   if (fragment == null) {
-    if (other.fragment != null)     return false;
+    if (other.fragment != null) {
+      return false;
+    }
   }
- else   if (!fragment.equals(other.fragment))   return false;
-  if (urlType != other.urlType)   return false;
+ else   if (!fragment.equals(other.fragment)) {
+    return false;
+  }
+  if (urlType != other.urlType) {
+    return false;
+  }
   return true;
 }

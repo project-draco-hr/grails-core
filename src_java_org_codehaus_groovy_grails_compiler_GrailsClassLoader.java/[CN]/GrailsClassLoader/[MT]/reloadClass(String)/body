@@ -5,9 +5,16 @@
       GroovyClassLoader innerLoader=new GrailsAwareClassLoader(this);
       InputStream inputStream=null;
       clearCache();
+      String path;
+      try {
+        path=new File(resourceURL.getURI()).getPath();
+      }
+ catch (      IOException e) {
+        path=name;
+      }
       try {
         inputStream=resourceURL.getInputStream();
-        Class<?> reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),name);
+        Class<?> reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),path);
         compilationErrors.remove(name);
         innerClassLoaderMap.put(name,innerLoader);
         return reloadedClass;

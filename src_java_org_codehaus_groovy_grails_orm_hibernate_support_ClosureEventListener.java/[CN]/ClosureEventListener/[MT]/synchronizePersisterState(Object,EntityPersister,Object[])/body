@@ -1,0 +1,13 @@
+{
+  String[] propertyNames=persister.getPropertyNames();
+  for (int i=0; i < propertyNames.length; i++) {
+    String p=propertyNames[i];
+    MetaProperty metaProperty=domainMetaClass.getMetaProperty(p);
+    if (ClosureEventTriggeringInterceptor.IGNORED.contains(p) || metaProperty == null) {
+      continue;
+    }
+    Object value=metaProperty.getProperty(entity);
+    state[i]=value;
+    persister.setPropertyValue(entity,i,value,EntityMode.POJO);
+  }
+}

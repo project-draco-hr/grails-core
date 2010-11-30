@@ -1,0 +1,8 @@
+{
+  DefaultGrailsDomainConfiguration config=getDomainConfig("class Widget {\n" + "    Long id \n" + "    Long version \n"+ "    String name \n"+ "    String description \n"+ "    static mapping = {\n"+ "        name column: 's_name', sqlType: 'text', length: 42\n"+ "        description column: 's_description', sqlType: 'text'\n"+ "    }\n"+ "}");
+  Table tableMapping=getTableMapping("widget",config);
+  Column nameColumn=tableMapping.getColumn(new Column("s_name"));
+  Column descriptionColumn=tableMapping.getColumn(new Column("s_description"));
+  assertEquals(42,nameColumn.getLength());
+  assertEquals(Column.DEFAULT_LENGTH,descriptionColumn.getLength());
+}

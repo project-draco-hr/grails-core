@@ -1,14 +1,26 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  SoftKey<T> other=(SoftKey<T>)obj;
-  if (hash != other.hash)   return false;
-  T referent=this.get();
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
+  @SuppressWarnings("unchecked") SoftKey<T> other=(SoftKey<T>)obj;
+  if (hash != other.hash) {
+    return false;
+  }
+  T referent=get();
   T otherReferent=other.get();
   if (referent == null) {
-    if (otherReferent != null)     return false;
+    if (otherReferent != null) {
+      return false;
+    }
   }
- else   if (!referent.equals(otherReferent))   return false;
+ else   if (!referent.equals(otherReferent)) {
+    return false;
+  }
   return true;
 }

@@ -13,4 +13,12 @@
   assertResponseStatusCode("restricted","action3","/restricted/action3","PUT",HttpServletResponse.SC_OK);
   assertResponseStatusCode("restricted","action3","/restricted/action3","POST",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
   assertResponseStatusCode("restricted","action3","/restricted/action3","DELETE",HttpServletResponse.SC_OK);
+  assertResponseStatusCode("restricted","action4","/restricted/action4","GET",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+  assertResponseStatusCode("restricted","action4","/restricted/action4","PUT",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+  assertResponseStatusCode("restricted","action4","/restricted/action4","POST",HttpServletResponse.SC_OK);
+  assertResponseStatusCode("restricted","action4","/restricted/action4","DELETE",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+  assertResponseStatusCode("restricted","action5","/restricted/action5","GET",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+  assertResponseStatusCode("restricted","action5","/restricted/action5","PUT",HttpServletResponse.SC_OK);
+  assertResponseStatusCode("restricted","action5","/restricted/action5","POST",HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+  assertResponseStatusCode("restricted","action5","/restricted/action5","DELETE",HttpServletResponse.SC_OK);
 }

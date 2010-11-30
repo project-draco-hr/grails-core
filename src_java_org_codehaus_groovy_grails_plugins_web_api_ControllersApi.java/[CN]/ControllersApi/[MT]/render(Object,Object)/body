@@ -1,0 +1,3 @@
+{
+  return render.invoke(instance,RENDER_METHOD_NAME,new Object[]{DefaultGroovyMethods.inspect(o)});
+}

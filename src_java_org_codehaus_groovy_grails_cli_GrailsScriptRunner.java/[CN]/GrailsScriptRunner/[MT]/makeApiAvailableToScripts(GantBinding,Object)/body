@@ -1,0 +1,22 @@
+{
+  final Method[] declaredMethods=cla.getClass().getDeclaredMethods();
+  for (  Method method : declaredMethods) {
+    final String name=method.getName();
+    final int modifiers=method.getModifiers();
+    if (Modifier.isPublic(modifiers) && !Modifier.isStatic(modifiers)) {
+      binding.setVariable(name,new MethodClosure(cla,name));
+    }
+  }
+  PropertyDescriptor[] propertyDescriptors;
+  try {
+    propertyDescriptors=Introspector.getBeanInfo(cla.getClass()).getPropertyDescriptors();
+    for (    PropertyDescriptor pd : propertyDescriptors) {
+      final Method readMethod=pd.getReadMethod();
+      if (readMethod != null) {
+        if (isDeclared(cla,readMethod))         binding.setVariable(pd.getName(),ReflectionUtils.invokeMethod(readMethod,cla));
+      }
+    }
+  }
+ catch (  IntrospectionException e1) {
+  }
+}

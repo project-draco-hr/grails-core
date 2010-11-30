@@ -1,0 +1,5 @@
+{
+  super(pluginManager);
+  this.redirect=new RedirectDynamicMethod(applicationContext);
+  this.forwardMethod=new ForwardMethod((UrlMappingsHolder)applicationContext.getBean("grailsUrlMappingsHolder"));
+}

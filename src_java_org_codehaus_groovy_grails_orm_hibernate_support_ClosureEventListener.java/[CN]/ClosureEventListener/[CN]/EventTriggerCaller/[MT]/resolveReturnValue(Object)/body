@@ -1,0 +1,6 @@
+{
+  if (retval instanceof Boolean) {
+    return !((Boolean)retval).booleanValue();
+  }
+  return false;
+}

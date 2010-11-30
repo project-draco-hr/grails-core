@@ -1,0 +1,8 @@
+{
+  Object fieldval=metaProperty.getProperty(entity);
+  if (fieldval instanceof Closure) {
+    return resolveReturnValue(callClosure(entity,(Closure)fieldval));
+  }
+  log.error("Field " + metaProperty + " is not Closure.");
+  return false;
+}

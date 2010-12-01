@@ -4,7 +4,5 @@
   if (prevCachingUrlCreator != null) {
     return prevCachingUrlCreator;
   }
- else {
-    return cachingUrlCreator;
-  }
+  return cachingUrlCreator;
 }

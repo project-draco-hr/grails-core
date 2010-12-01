@@ -1,0 +1,24 @@
+{
+  super();
+  this.buildSettings=buildSettings;
+  this.buildProps=buildSettings.getConfig().toProperties();
+  this.grailsHome=buildSettings.getGrailsHome();
+  metadataFile=new File(buildSettings.getBaseDir() + "/application.properties");
+  metadata=metadataFile.exists() ? Metadata.getInstance(metadataFile) : Metadata.getCurrent();
+  this.metadataFile=metadata.getMetadataFile();
+  this.enableProfile=Boolean.valueOf(getPropertyValue("grails.script.profile",false).toString());
+  this.pluginsHome=buildSettings.getProjectPluginsDir().getPath();
+  this.pluginSettings=new PluginBuildSettings(buildSettings);
+  this.grailsAppName=metadata.getApplicationName();
+  if (grailsAppName == null) {
+    grailsAppName=buildSettings.getBaseDir().getName();
+  }
+  if (grailsAppName.indexOf('/') > -1) {
+    appClassName=grailsAppName.substring(grailsAppName.lastIndexOf('/'),grailsAppName.length());
+  }
+ else {
+    appClassName=GrailsNameUtils.getClassNameRepresentation(grailsAppName);
+  }
+  this.configSlurper=buildSettings.createConfigSlurper();
+  this.configSlurper.setEnvironment(buildSettings.getGrailsEnv());
+}

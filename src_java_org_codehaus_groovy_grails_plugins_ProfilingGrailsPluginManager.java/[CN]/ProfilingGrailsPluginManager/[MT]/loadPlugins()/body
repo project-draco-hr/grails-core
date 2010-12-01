@@ -1,0 +1,6 @@
+{
+  long time=System.currentTimeMillis();
+  System.out.println("Loading plugins started");
+  super.loadPlugins();
+  System.out.println("Loading plugins took " + (System.currentTimeMillis() - time));
+}

@@ -5,7 +5,7 @@
   LOG.trace("Configuring domain class [" + persistentClass + "]");
   GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,persistentClass.getName());
   if (dc == null) {
-    GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,cmd,defaultContraints);
+    GrailsHibernateDomainClass ghdc=new GrailsHibernateDomainClass(persistentClass,sessionFactory,application,cmd,defaultContraints);
     hibernateDomainClassMap.put(persistentClass.getName(),ghdc);
     dc=(GrailsDomainClass)application.addArtefact(DomainClassArtefactHandler.TYPE,ghdc);
   }

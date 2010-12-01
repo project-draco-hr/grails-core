@@ -7,7 +7,5 @@
   if (r.exists()) {
     return r;
   }
- else {
-    return resourceLoader.getResource(uri);
-  }
+  return resourceLoader.getResource(uri);
 }

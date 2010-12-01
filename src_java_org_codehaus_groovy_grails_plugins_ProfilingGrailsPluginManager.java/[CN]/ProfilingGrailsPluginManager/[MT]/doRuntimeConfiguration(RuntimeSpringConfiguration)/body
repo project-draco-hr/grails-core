@@ -1,0 +1,14 @@
+{
+  long time=System.currentTimeMillis();
+  System.out.println("doWithSpring started");
+  checkInitialised();
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      long pluginTime=System.currentTimeMillis();
+      System.out.println("doWithSpring for plugin [" + plugin.getName() + "] started");
+      plugin.doWithRuntimeConfiguration(springConfig);
+      System.out.println("doWithSpring for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
+    }
+  }
+  System.out.println("doWithSpring took " + (System.currentTimeMillis() - time));
+}

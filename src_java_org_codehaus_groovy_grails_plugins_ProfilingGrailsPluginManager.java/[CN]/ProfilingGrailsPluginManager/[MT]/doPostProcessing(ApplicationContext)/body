@@ -1,0 +1,14 @@
+{
+  long time=System.currentTimeMillis();
+  System.out.println("doWithApplicationContext started");
+  checkInitialised();
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      long pluginTime=System.currentTimeMillis();
+      System.out.println("doWithApplicationContext for plugin [" + plugin.getName() + "] started");
+      plugin.doWithApplicationContext(ctx);
+      System.out.println("doWithApplicationContext for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
+    }
+  }
+  System.out.println("doWithApplicationContext took " + (System.currentTimeMillis() - time));
+}

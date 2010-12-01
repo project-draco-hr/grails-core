@@ -4,9 +4,7 @@
     if (cacheable) {
       return createTemplate(in,resource,getPathForResource(resource));
     }
- else {
-      return createTemplate(in,resource,null);
-    }
+    return createTemplate(in,resource,null);
   }
   finally {
     in.close();

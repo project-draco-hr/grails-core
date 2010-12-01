@@ -1,0 +1,45 @@
+{
+  GrailsWebRequest grailsWebRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  if (grailsWebRequest == null) {
+    String message="Web request can't be found. Importing constraints is only allowed FROM domain classes TO " + "command classes in running Grails application.";
+    throw new IllegalArgumentException(message);
+  }
+  GrailsApplication grailsApplication=grailsWebRequest.getAttributes().getGrailsApplication();
+  GrailsDomainClass importFromGrailsDomainClazz=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,importFromClazz.getName());
+  if (importFromGrailsDomainClazz == null) {
+    String message="Class '" + importFromClazz.getName() + "' is not a domain class. Importing constraints is only "+ "allowed FROM domain classes TO command classes.";
+    throw new IllegalArgumentException(message);
+  }
+  Map importFromConstrainedProperties=importFromGrailsDomainClazz.getConstrainedProperties();
+  PropertyDescriptor[] targetPropertyDescriptorArray=classPropertyFetcher.getPropertyDescriptors();
+  List toBeIncludedPropertyNamesParam=(List)attributes.get("include");
+  List toBeExcludedPropertyNamesParam=(List)attributes.get("exclude");
+  List<String> resultingPropertyNames=new ArrayList<String>();
+  for (  PropertyDescriptor targetPropertyDescriptor : targetPropertyDescriptorArray) {
+    String targetPropertyName=targetPropertyDescriptor.getName();
+    if (toBeIncludedPropertyNamesParam == null) {
+      resultingPropertyNames.add(targetPropertyName);
+    }
+ else     if (isListOfRegexpsContainsString(toBeIncludedPropertyNamesParam,targetPropertyName)) {
+      resultingPropertyNames.add(targetPropertyName);
+    }
+    if (toBeExcludedPropertyNamesParam != null && isListOfRegexpsContainsString(toBeExcludedPropertyNamesParam,targetPropertyName)) {
+      resultingPropertyNames.remove(targetPropertyName);
+    }
+  }
+  resultingPropertyNames.remove("class");
+  resultingPropertyNames.remove("metaClass");
+  for (  String targetPropertyName : resultingPropertyNames) {
+    ConstrainedProperty importFromConstrainedProperty=(ConstrainedProperty)importFromConstrainedProperties.get(targetPropertyName);
+    if (importFromConstrainedProperty != null) {
+      Map importFromConstrainedPropertyAttributes=new HashMap();
+      for (      Constraint importFromAppliedConstraint : importFromConstrainedProperty.getAppliedConstraints()) {
+        String importFromAppliedConstraintName=importFromAppliedConstraint.getName();
+        Object importFromAppliedConstraintParameter=importFromAppliedConstraint.getParameter();
+        importFromConstrainedPropertyAttributes.put(importFromAppliedConstraintName,importFromAppliedConstraintParameter);
+      }
+      createNode(targetPropertyName,importFromConstrainedPropertyAttributes);
+    }
+  }
+  return null;
+}

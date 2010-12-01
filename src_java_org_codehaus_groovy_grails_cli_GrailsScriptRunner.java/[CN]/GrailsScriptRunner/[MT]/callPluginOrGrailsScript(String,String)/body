@@ -116,7 +116,7 @@
     String enteredValue=helper.userInput("Enter #",validArgs);
     if (enteredValue == null)     return 1;
     int number=Integer.parseInt(enteredValue);
-    File scriptFile=(File)potentialScripts.get(number - 1);
+    File scriptFile=potentialScripts.get(number - 1);
     out.println("Running script " + scriptFile.getAbsolutePath());
     String scriptFileName=getScriptNameFromFile(scriptFile);
     setRunningEnvironment(scriptFileName,env);
@@ -126,6 +126,7 @@
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");
+  setRunningEnvironment(scriptName,env);
   Gant gant=new Gant(initBinding(binding),classLoader);
   try {
     loadScriptClass(gant,scriptName);
@@ -142,6 +143,5 @@
       throw e;
     }
   }
-  setRunningEnvironment(scriptName,env);
   return executeWithGantInstance(gant,doNothingClosure);
 }

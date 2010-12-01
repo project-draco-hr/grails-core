@@ -1,5 +1,5 @@
 {
-  boolean useDefaultEnv=env == null || Environment.DEVELOPMENT.getName().equals(env);
+  boolean useDefaultEnv=env == null;
   if (useDefaultEnv) {
     env=DEFAULT_ENVS.get(scriptName);
     env=env != null ? env : Environment.DEVELOPMENT.getName();

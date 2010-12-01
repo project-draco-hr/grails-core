@@ -1,5 +1,4 @@
 {
-  Assert.notNull(grailsResourceHolder,"Property [grailsResourceHolder] must be set!");
   resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
   if (resourceLoader == null) {
     if (Environment.getCurrent().isReloadEnabled()) {

@@ -3,7 +3,7 @@
   if (resource instanceof FileSystemResource) {
     return ((FileSystemResource)resource).getFile().lastModified();
   }
-  long lastModified;
+  long last;
   URLConnection urlc=null;
   try {
     URL url=resource.getURL();
@@ -16,13 +16,13 @@
     urlc=url.openConnection();
     urlc.setDoInput(false);
     urlc.setDoOutput(false);
-    lastModified=urlc.getLastModified();
+    last=urlc.getLastModified();
   }
  catch (  FileNotFoundException fnfe) {
-    lastModified=-1;
+    last=-1;
   }
 catch (  IOException e) {
-    lastModified=-1;
+    last=-1;
   }
  finally {
     if (urlc != null) {
@@ -36,5 +36,5 @@ catch (  IOException e) {
       }
     }
   }
-  return lastModified;
+  return last;
 }

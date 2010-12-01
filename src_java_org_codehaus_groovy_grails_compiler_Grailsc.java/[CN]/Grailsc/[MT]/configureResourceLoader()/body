@@ -1,0 +1,7 @@
+{
+  String sysProp=System.getProperty("base.dir");
+  String basedir=sysProp != null ? sysProp : ".";
+  Resource[] resources=GrailsPluginUtils.getArtefactResources(basedir);
+  GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
+  GrailsResourceLoaderHolder.setResourceLoader(resourceLoader);
+}

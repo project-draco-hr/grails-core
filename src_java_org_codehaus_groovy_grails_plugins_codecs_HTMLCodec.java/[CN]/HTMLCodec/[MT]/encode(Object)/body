@@ -3,9 +3,7 @@
     if (target instanceof StreamCharBuffer) {
       return ((StreamCharBuffer)target).encodeAsHTML();
     }
- else {
-      return HtmlUtils.htmlEscape(target.toString());
-    }
+    return HtmlUtils.htmlEscape(target.toString());
   }
   return null;
 }

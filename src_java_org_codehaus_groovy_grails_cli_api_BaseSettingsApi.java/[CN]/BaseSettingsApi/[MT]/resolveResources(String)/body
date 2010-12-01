@@ -1,0 +1,8 @@
+{
+  try {
+    return resolver.getResources(pattern);
+  }
+ catch (  Throwable e) {
+    return NO_RESOURCES;
+  }
+}

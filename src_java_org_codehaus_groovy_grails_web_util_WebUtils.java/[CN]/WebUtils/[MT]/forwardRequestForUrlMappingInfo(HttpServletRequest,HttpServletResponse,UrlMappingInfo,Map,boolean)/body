@@ -3,6 +3,7 @@
   RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
   final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
   webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
+  webRequest.setActionName(info.getActionName());
   exposeForwardRequestAttributes(request);
   exposeRequestAttributes(request,model);
   dispatcher.forward(request,response);

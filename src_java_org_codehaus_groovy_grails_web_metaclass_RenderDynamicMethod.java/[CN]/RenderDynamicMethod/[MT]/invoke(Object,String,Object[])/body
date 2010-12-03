@@ -33,11 +33,13 @@
       setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
       out=GSPResponseWriter.getInstance(response);
     }
+    boolean statusSet=false;
     if (argMap.containsKey(ARGUMENT_STATUS)) {
       Object statusObj=argMap.get(ARGUMENT_STATUS);
       if (statusObj != null) {
         try {
           response.setStatus(Integer.parseInt(statusObj.toString()));
+          statusSet=true;
         }
  catch (        NumberFormatException e) {
           throw new ControllerExecutionException("Argument [status] of method [render] must be a valid integer.");
@@ -71,6 +73,9 @@
     }
  else     if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
       renderView=renderTemplate(target,controller,webRequest,argMap,out);
+    }
+ else     if (statusSet) {
+      renderView=false;
     }
  else {
       Object object=arguments[0];

@@ -1,0 +1,6 @@
+{
+  Object current=get(index);
+  remove(current);
+  add(element);
+  return setOrder.set(index,element);
+}

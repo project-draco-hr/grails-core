@@ -1,6 +1,6 @@
 {
   DefaultArtefactInfo cache=(DefaultArtefactInfo)artefactInfo.get(artefactType);
-  if ((cache == null) && create) {
+  if (cache == null && create) {
     cache=new DefaultArtefactInfo();
     artefactInfo.put(artefactType,cache);
     cache.updateComplete();

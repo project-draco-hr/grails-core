@@ -1,7 +1,6 @@
 {
   this.resourceLoader=resourceLoader;
   try {
-    applicationMeta=Metadata.getCurrent();
     loadGrailsApplicationFromResources(resourceLoader.getResources());
   }
  catch (  IOException e) {

@@ -1,5 +1,4 @@
 {
-  super();
   this.buildSettings=buildSettings;
   this.buildProps=buildSettings.getConfig().toProperties();
   this.grailsHome=buildSettings.getGrailsHome();

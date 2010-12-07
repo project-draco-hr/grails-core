@@ -3,7 +3,7 @@
   if (result == false) {
     return false;
   }
- else   if (collection.size() == 0) {
+  if (collection.size() == 0) {
     setOrder.clear();
   }
  else {

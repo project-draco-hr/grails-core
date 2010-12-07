@@ -3,22 +3,23 @@
   Class<?> clazz=entity.getClass();
   SoftKey<Class<?>> key=new SoftKey<Class<?>>(clazz);
   ClosureEventListener eventListener=eventListeners.get(key);
-  if (eventListener == null) {
-    Boolean shouldTrigger=cachedShouldTrigger.get(key);
-    if (shouldTrigger == null || shouldTrigger) {
+  if (eventListener != null) {
+    return eventListener;
+  }
+  Boolean shouldTrigger=cachedShouldTrigger.get(key);
+  if (shouldTrigger == null || shouldTrigger) {
 synchronized (clazz) {
-        eventListener=eventListeners.get(key);
-        if (eventListener == null) {
-          shouldTrigger=(entity != null && (GroovySystem.getMetaClassRegistry().getMetaClass(entity.getClass()) != null) && (DomainClassArtefactHandler.isDomainClass(clazz) || AnnotationDomainClassArtefactHandler.isJPADomainClass(clazz)));
-          if (shouldTrigger) {
-            eventListener=new ClosureEventListener(clazz,failOnError,failOnErrorPackages);
-            ClosureEventListener previous=eventListeners.putIfAbsent(key,eventListener);
-            if (previous != null) {
-              eventListener=previous;
-            }
+      eventListener=eventListeners.get(key);
+      if (eventListener == null) {
+        shouldTrigger=(entity != null && (GroovySystem.getMetaClassRegistry().getMetaClass(entity.getClass()) != null) && (DomainClassArtefactHandler.isDomainClass(clazz) || AnnotationDomainClassArtefactHandler.isJPADomainClass(clazz)));
+        if (shouldTrigger) {
+          eventListener=new ClosureEventListener(clazz,failOnError,failOnErrorPackages);
+          ClosureEventListener previous=eventListeners.putIfAbsent(key,eventListener);
+          if (previous != null) {
+            eventListener=previous;
           }
-          cachedShouldTrigger.put(key,shouldTrigger);
         }
+        cachedShouldTrigger.put(key,shouldTrigger);
       }
     }
   }

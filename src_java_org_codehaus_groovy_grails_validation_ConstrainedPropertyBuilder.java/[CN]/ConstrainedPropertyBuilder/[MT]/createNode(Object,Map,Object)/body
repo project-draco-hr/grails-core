@@ -2,7 +2,5 @@
   if (IMPORT_FROM_CONSTRAINT.equals(name) && (value instanceof Class)) {
     return handleImportFrom(attributes,(Class)value);
   }
- else {
-    throw new MissingMethodException((String)name,targetClass,new Object[]{attributes,value});
-  }
+  throw new MissingMethodException((String)name,targetClass,new Object[]{attributes,value});
 }

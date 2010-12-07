@@ -2,9 +2,7 @@
   if (collection.contains(object)) {
     return collection.add(object);
   }
- else {
-    boolean result=collection.add(object);
-    setOrder.add(object);
-    return result;
-  }
+  boolean result=collection.add(object);
+  setOrder.add(object);
+  return result;
 }

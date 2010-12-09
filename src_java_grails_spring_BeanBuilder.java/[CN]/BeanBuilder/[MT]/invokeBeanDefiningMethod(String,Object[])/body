@@ -33,6 +33,14 @@
  else {
       currentBeanConfig=springConfig.addSingletonBean(name);
       Map.Entry factoryBeanEntry=(Map.Entry)((Map)args[0]).entrySet().iterator().next();
+      int constructorArgsTest=hasClosureArgument ? 2 : 1;
+      if (args.length > constructorArgsTest) {
+        int endOfConstructArgs=hasClosureArgument ? args.length - 1 : args.length;
+        currentBeanConfig=springConfig.addSingletonBean(name,null,resolveConstructorArguments(args,1,endOfConstructArgs));
+      }
+ else {
+        currentBeanConfig=springConfig.addSingletonBean(name);
+      }
       currentBeanConfig.setFactoryBean(factoryBeanEntry.getKey().toString());
       currentBeanConfig.setFactoryMethod(factoryBeanEntry.getValue().toString());
     }

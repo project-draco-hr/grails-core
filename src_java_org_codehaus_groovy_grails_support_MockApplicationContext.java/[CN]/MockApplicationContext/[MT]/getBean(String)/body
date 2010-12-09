@@ -1,6 +1,13 @@
 {
   if (!beans.containsKey(name)) {
-    throw new NoSuchBeanDefinitionException(name);
+    if (!beanFactory.containsBean(name)) {
+      throw new NoSuchBeanDefinitionException(name);
+    }
+ else {
+      return beanFactory.getBean(name);
+    }
   }
-  return beans.get(name);
+ else {
+    return beans.get(name);
+  }
 }

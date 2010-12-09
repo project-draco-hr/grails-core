@@ -1,5 +1,6 @@
 {
   final Map<String,T> map=getBeansOfType(tClass);
+  map.putAll(beanFactory.getBeansOfType(tClass));
   if (map.isEmpty()) {
     throw new NoSuchBeanDefinitionException(tClass,"No bean found for type: " + tClass.getName());
   }

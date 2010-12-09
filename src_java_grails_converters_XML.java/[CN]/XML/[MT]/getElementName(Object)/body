@@ -3,5 +3,6 @@
   if (om instanceof NameAwareMarshaller) {
     return ((NameAwareMarshaller)om).getElementName(o);
   }
-  return GrailsNameUtils.getPropertyName(o.getClass());
+  final Class<?> clz=GrailsHibernateUtil.unwrapIfProxy(o).getClass();
+  return GrailsNameUtils.getPropertyName(clz);
 }

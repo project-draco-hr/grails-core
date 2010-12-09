@@ -1,38 +1,42 @@
 {
-  if (apiInstance != null) {
-    Class<?> currentClass=apiInstance.getClass();
-    while (currentClass != Object.class) {
-      final Method[] declaredMethods=currentClass.getDeclaredMethods();
-      for (      final Method method : declaredMethods) {
-        final int modifiers=method.getModifiers();
-        if (isNotExcluded(method,modifiers)) {
-          if (Modifier.isStatic(modifiers)) {
-            staticMethods.add(method);
-          }
+  if (apiInstance == null) {
+    return;
+  }
+  Class<?> currentClass=apiInstance.getClass();
+  while (currentClass != Object.class) {
+    final Method[] declaredMethods=currentClass.getDeclaredMethods();
+    for (    final Method method : declaredMethods) {
+      final int modifiers=method.getModifiers();
+      if (!isNotExcluded(method,modifiers)) {
+        continue;
+      }
+      if (Modifier.isStatic(modifiers)) {
+        staticMethods.add(method);
+      }
  else {
-            instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(method)){
-              @Override public Object invoke(              Object object,              Object[] arguments){
-                return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
-              }
-              private Object[] checkForGStrings(              Object[] arguments){
-                for (int i=0; i < arguments.length; i++) {
-                  if (arguments[i] instanceof GString) {
-                    arguments[i]=arguments[i].toString();
-                  }
-                }
-                return arguments;
-              }
-              @Override public CachedClass[] getParameterTypes(){
-                final CachedClass[] paramTypes=method.getParameterTypes();
-                if (paramTypes.length > 0)                 return (CachedClass[])ArrayUtils.subarray(paramTypes,1,paramTypes.length);
- else                 return paramTypes;
+        instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(method)){
+          @Override public Object invoke(          Object object,          Object[] arguments){
+            return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
+          }
+          private Object[] checkForGStrings(          Object[] arguments){
+            for (int i=0; i < arguments.length; i++) {
+              if (arguments[i] instanceof GString) {
+                arguments[i]=arguments[i].toString();
               }
             }
-);
+            return arguments;
+          }
+          @Override public CachedClass[] getParameterTypes(){
+            final CachedClass[] paramTypes=method.getParameterTypes();
+            if (paramTypes.length > 0) {
+              return (CachedClass[])ArrayUtils.subarray(paramTypes,1,paramTypes.length);
+            }
+            return paramTypes;
           }
         }
+);
       }
-      currentClass=currentClass.getSuperclass();
     }
+    currentClass=currentClass.getSuperclass();
   }
 }

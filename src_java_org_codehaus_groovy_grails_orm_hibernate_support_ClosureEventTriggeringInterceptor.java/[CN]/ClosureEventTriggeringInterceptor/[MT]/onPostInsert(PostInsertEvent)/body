@@ -1,4 +1,6 @@
 {
   ClosureEventListener eventListener=findEventListener(event.getEntity());
-  if (eventListener != null)   eventListener.onPostInsert(event);
+  if (eventListener != null) {
+    eventListener.onPostInsert(event);
+  }
 }

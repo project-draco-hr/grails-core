@@ -1,7 +1,9 @@
 {
-  Object bean=getBean(name);
-  if (requiredType != null && !requiredType.isAssignableFrom(bean.getClass())) {
+  if (!beans.containsKey(name)) {
     throw new NoSuchBeanDefinitionException(name);
   }
-  return (T)bean;
+  if (requiredType != null && !requiredType.isAssignableFrom(beans.get(name).getClass())) {
+    throw new NoSuchBeanDefinitionException(name);
+  }
+  return (T)beans.get(name);
 }

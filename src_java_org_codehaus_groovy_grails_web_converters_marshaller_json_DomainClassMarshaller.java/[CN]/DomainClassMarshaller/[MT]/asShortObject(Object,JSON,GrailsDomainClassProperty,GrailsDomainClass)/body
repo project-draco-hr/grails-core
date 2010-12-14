@@ -1,7 +1,17 @@
 {
+  Object idValue;
+  if (proxyHandler instanceof EntityProxyHandler) {
+    idValue=((EntityProxyHandler)proxyHandler).getProxyIdentifier(refObj);
+    if (idValue == null) {
+      idValue=extractValue(refObj,idProperty);
+    }
+  }
+ else {
+    idValue=extractValue(refObj,idProperty);
+  }
   JSONWriter writer=json.getWriter();
   writer.object();
   writer.key("class").value(referencedDomainClass.getName());
-  writer.key("id").value(extractValue(refObj,idProperty));
+  writer.key("id").value(idValue);
   writer.endObject();
 }

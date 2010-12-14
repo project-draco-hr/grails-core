@@ -3,6 +3,13 @@
   if (om instanceof NameAwareMarshaller) {
     return ((NameAwareMarshaller)om).getElementName(o);
   }
-  final Class<?> clz=GrailsHibernateUtil.unwrapIfProxy(o).getClass();
-  return GrailsNameUtils.getPropertyName(clz);
+  final ProxyHandler proxyHandler=config.getProxyHandler();
+  if (proxyHandler.isProxy(o) && (proxyHandler instanceof EntityProxyHandler)) {
+    EntityProxyHandler entityProxyHandler=(EntityProxyHandler)proxyHandler;
+    final Class<?> cls=entityProxyHandler.getProxiedClass(o);
+    return GrailsNameUtils.getPropertyName(cls);
+  }
+ else {
+    return GrailsNameUtils.getPropertyName(o.getClass());
+  }
 }

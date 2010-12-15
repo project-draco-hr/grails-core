@@ -1,4 +1,13 @@
 {
-  Object idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+  Object idValue;
+  if (proxyHandler instanceof EntityProxyHandler) {
+    idValue=((EntityProxyHandler)proxyHandler).getProxyIdentifier(refObj);
+    if (idValue == null) {
+      idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+    }
+  }
+ else {
+    idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+  }
   xml.attribute("id",String.valueOf(idValue));
 }

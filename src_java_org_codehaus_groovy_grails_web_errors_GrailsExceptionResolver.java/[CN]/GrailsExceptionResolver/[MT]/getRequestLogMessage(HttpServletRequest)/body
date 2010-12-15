@@ -1,0 +1,27 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append("Exception occurred when processing request: ");
+  sb.append("[").append(request.getMethod().toUpperCase()).append("] ");
+  if (request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE) != null) {
+    sb.append(request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE));
+  }
+ else {
+    sb.append(request.getRequestURI());
+  }
+  Enumeration<String> params=request.getParameterNames();
+  if (params.hasMoreElements()) {
+    String param;
+    String values[];
+    int i;
+    sb.append(" - parameters:");
+    while (params.hasMoreElements()) {
+      param=params.nextElement();
+      values=request.getParameterValues(param);
+      for (i=0; i < values.length; i++) {
+        sb.append(LINE_SEPARATOR).append(param).append(": ").append(values[i]);
+      }
+    }
+  }
+  sb.append(LINE_SEPARATOR).append("Stacktrace follows:");
+  return sb.toString();
+}

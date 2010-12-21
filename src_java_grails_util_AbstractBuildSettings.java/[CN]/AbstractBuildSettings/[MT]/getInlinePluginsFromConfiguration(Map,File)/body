@@ -7,7 +7,11 @@
         if (value != null) {
           File resource;
           try {
-            resource=new File(baseDir,value.toString()).getCanonicalFile();
+            resource=new File(value.toString());
+            if (!resource.isAbsolute()) {
+              resource=new File(baseDir,resource.getPath());
+            }
+            resource=resource.getCanonicalFile();
             inlinePlugins.add(resource);
           }
  catch (          IOException e) {

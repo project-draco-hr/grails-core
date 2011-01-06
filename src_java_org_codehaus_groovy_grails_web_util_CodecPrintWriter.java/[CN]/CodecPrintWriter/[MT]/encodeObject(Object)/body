@@ -1,8 +1,16 @@
 {
   try {
-    return encodeClosure.call(o);
+    if (encodeClosure != null) {
+      return encodeClosure.call(o);
+    }
+ else {
+      if (!encodeParamType.isInstance(o)) {
+        o=String.valueOf(o);
+      }
+      return ReflectionUtils.invokeMethod(encodeMethod,null,o);
+    }
   }
  catch (  Exception e) {
-    throw new RuntimeException("Problem calling encode method " + encodeClosure,e);
+    throw new RuntimeException("Problem calling encode method " + encodeMethod,e);
   }
 }

@@ -1,0 +1,4 @@
+{
+  initialGrailsApplication=ApplicationHolder.getApplication();
+  ApplicationHolder.setApplication(new MockGrailsApplication());
+}

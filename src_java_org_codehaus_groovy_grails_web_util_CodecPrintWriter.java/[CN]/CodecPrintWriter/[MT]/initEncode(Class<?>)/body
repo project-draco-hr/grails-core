@@ -1,5 +1,12 @@
 {
-  encodeMethod=ReflectionUtils.findMethod(codecClass,"encode",(Class<?>[])null);
-  ReflectionUtils.makeAccessible(encodeMethod);
-  encodeParamType=encodeMethod.getParameterTypes()[0];
+  ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(codecClass);
+  Object encodeProperty=propertyFetcher.getPropertyValue("encode");
+  if (encodeProperty instanceof Closure) {
+    encodeClosure=(Closure)encodeProperty;
+  }
+ else {
+    encodeMethod=ReflectionUtils.findMethod(codecClass,"encode",(Class<?>[])null);
+    ReflectionUtils.makeAccessible(encodeMethod);
+    encodeParamType=encodeMethod.getParameterTypes()[0];
+  }
 }

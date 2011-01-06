@@ -1,0 +1,6 @@
+{
+  FastStringWriter stringwriter=new FastStringWriter();
+  CodecPrintWriter writer=new CodecPrintWriter(stringwriter,CodecWithClosureProperties.class);
+  writer.print("hello");
+  assertEquals("-> hello <-",stringwriter.getValue());
+}

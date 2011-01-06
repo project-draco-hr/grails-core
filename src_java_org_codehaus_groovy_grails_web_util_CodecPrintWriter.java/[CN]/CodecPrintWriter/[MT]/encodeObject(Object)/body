@@ -1,9 +1,14 @@
 {
   try {
-    if (!encodeParamType.isInstance(o)) {
-      o=String.valueOf(o);
+    if (encodeClosure != null) {
+      return encodeClosure.call(o);
     }
-    return ReflectionUtils.invokeMethod(encodeMethod,null,o);
+ else {
+      if (!encodeParamType.isInstance(o)) {
+        o=String.valueOf(o);
+      }
+      return ReflectionUtils.invokeMethod(encodeMethod,null,o);
+    }
   }
  catch (  Exception e) {
     throw new RuntimeException("Problem calling encode method " + encodeMethod,e);

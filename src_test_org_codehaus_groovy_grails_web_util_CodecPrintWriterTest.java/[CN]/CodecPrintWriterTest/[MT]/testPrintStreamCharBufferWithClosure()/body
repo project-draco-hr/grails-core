@@ -1,0 +1,8 @@
+{
+  FastStringWriter stringwriter=new FastStringWriter();
+  CodecPrintWriter writer=new CodecPrintWriter(stringwriter,CodecWithClosureProperties.class);
+  StreamCharBuffer buf=new StreamCharBuffer();
+  buf.getWriter().write("hola");
+  writer.write(buf);
+  assertEquals("-> hola <-",stringwriter.getValue());
+}

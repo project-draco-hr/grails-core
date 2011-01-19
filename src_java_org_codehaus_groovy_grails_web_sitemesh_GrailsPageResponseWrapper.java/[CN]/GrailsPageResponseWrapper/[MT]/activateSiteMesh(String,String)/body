@@ -9,6 +9,7 @@
     }
   }
 );
+  routablePrintWriter.blockFlushAndClose();
   routableServletOutputStream.updateDestination(new RoutableServletOutputStream.DestinationFactory(){
     public ServletOutputStream create(){
       return buffer.getOutputStream();

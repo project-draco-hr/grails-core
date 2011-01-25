@@ -1,8 +1,4 @@
 {
-  List<String> blackList=(List<String>)ConfigurationHolder.getFlatConfig().get("grails.exceptionresolver.params.exclude");
-  if (blackList == null) {
-    blackList=new ArrayList<String>();
-  }
   StringBuilder sb=new StringBuilder();
   sb.append("Exception occurred when processing request: ");
   sb.append("[").append(request.getMethod().toUpperCase()).append("] ");
@@ -12,22 +8,29 @@
  else {
     sb.append(request.getRequestURI());
   }
-  Enumeration<String> params=request.getParameterNames();
-  if (params.hasMoreElements()) {
-    String param;
-    String values[];
-    int i;
-    sb.append(" - parameters:");
-    while (params.hasMoreElements()) {
-      param=params.nextElement();
-      values=request.getParameterValues(param);
-      for (i=0; i < values.length; i++) {
-        sb.append(LINE_SEPARATOR).append(param).append(": ");
-        if (blackList.contains(param)) {
-          sb.append("***");
-        }
+  Map flatConfig=ConfigurationHolder.getFlatConfig();
+  if (!Boolean.FALSE.equals(flatConfig.get("grails.exceptionresolver.logRequestParameters"))) {
+    Enumeration<String> params=request.getParameterNames();
+    if (params.hasMoreElements()) {
+      String param;
+      String values[];
+      int i;
+      sb.append(" - parameters:");
+      List<String> blackList=(List<String>)ConfigurationHolder.getFlatConfig().get("grails.exceptionresolver.params.exclude");
+      if (blackList == null) {
+        blackList=Collections.emptyList();
+      }
+      while (params.hasMoreElements()) {
+        param=params.nextElement();
+        values=request.getParameterValues(param);
+        for (i=0; i < values.length; i++) {
+          sb.append(LINE_SEPARATOR).append(param).append(": ");
+          if (blackList.contains(param)) {
+            sb.append("***");
+          }
  else {
-          sb.append(values[i]);
+            sb.append(values[i]);
+          }
         }
       }
     }

@@ -16,7 +16,7 @@
       String values[];
       int i;
       sb.append(" - parameters:");
-      List<String> blackList=(List<String>)ConfigurationHolder.getFlatConfig().get("grails.exceptionresolver.params.exclude");
+      List<String> blackList=(List<String>)flatConfig.get("grails.exceptionresolver.params.exclude");
       if (blackList == null) {
         blackList=Collections.emptyList();
       }

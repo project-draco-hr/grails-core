@@ -1,28 +1,8 @@
 {
-  if (!usedConfigurations.contains(scope)) {
-    usedConfigurations.add(scope);
-  }
-  if (dependencyDescriptor.getModuleConfigurations().length == 0) {
-    List<String> mappings=configurationMappings.get(scope);
-    if (mappings != null) {
-      for (      String m : mappings) {
-        dependencyDescriptor.addDependencyConfiguration(scope,m);
-      }
-    }
-  }
-  if (!dependencyDescriptor.isInherited()) {
-    hasApplicationDependencies=true;
-  }
   if (pluginMode) {
-    String name=dependencyDescriptor.getDependencyId().getName();
-    pluginDependencyNames.add(name);
-    pluginDependencyDescriptors.add(dependencyDescriptor);
-    pluginNameToDescriptorMap.put(name,dependencyDescriptor);
+    registerPluginDependency(scope,dependencyDescriptor);
   }
  else {
-    dependencyDescriptors.add(dependencyDescriptor);
-    if (dependencyDescriptor.isExportedToApplication()) {
-      moduleDescriptor.addDependency(dependencyDescriptor);
-    }
+    registerDependency(scope,dependencyDescriptor);
   }
 }

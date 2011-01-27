@@ -1,0 +1,17 @@
+{
+  String name=descriptor.getDependencyId().getName();
+  String classifierAttribute=(String)descriptor.getExtraAttribute("m:classifier");
+  String packaging=null;
+  if (classifierAttribute != null && classifierAttribute.equals("plugin")) {
+    packaging="xml";
+  }
+ else {
+    packaging="zip";
+  }
+  DependencyArtifactDescriptor artifact=new DefaultDependencyArtifactDescriptor(descriptor,name,packaging,packaging,null,null);
+  descriptor.addDependencyArtifact(scope,artifact);
+  registerDependencyCommon(scope,descriptor);
+  pluginDependencyNames.add(name);
+  pluginDependencyDescriptors.add(descriptor);
+  pluginNameToDescriptorMap.put(name,descriptor);
+}

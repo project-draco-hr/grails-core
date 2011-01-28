@@ -1,0 +1,11 @@
+{
+  for (  ModuleRevisionId mrid : dependencies) {
+    EnhancedDefaultDependencyDescriptor descriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,false,"build");
+    if (excludes != null) {
+      for (      String exclude : excludes) {
+        descriptor.exclude(exclude);
+      }
+    }
+    dependencyManager.registerDependency(scope,descriptor);
+  }
+}

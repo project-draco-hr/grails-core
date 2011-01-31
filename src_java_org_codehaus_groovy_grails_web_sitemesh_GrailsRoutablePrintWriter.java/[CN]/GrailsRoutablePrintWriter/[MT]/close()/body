@@ -1,3 +1,5 @@
 {
-  getDestination().close();
+  if (!isBlockClose()) {
+    getDestination().close();
+  }
 }

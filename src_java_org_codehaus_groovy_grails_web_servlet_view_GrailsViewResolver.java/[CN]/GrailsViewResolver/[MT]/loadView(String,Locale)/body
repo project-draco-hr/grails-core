@@ -1,39 +1,14 @@
 {
   Assert.notNull(templateEngine,"Property [templateEngine] cannot be null");
-  if (VIEW_CACHE.containsKey(viewName) && !templateEngine.isReloadEnabled()) {
-    return VIEW_CACHE.get(viewName);
+  if (GrailsUtil.isDevelopmentEnv()) {
+    return createGrailsView(viewName);
   }
-  GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
-  HttpServletRequest request=webRequest.getCurrentRequest();
-  GroovyObject controller=webRequest.getAttributes().getController(request);
-  GrailsApplication application=getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-  ResourceLoader loader=establishResourceLoader(application);
-  String format=request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT) != null ? request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT).toString() : null;
-  String gspView=localPrefix + viewName + DOT+ format+ GSP_SUFFIX;
-  Resource res=null;
-  if (format != null) {
-    res=loader.getResource(gspView);
-    if (!res.exists()) {
-      gspView=resolveViewForController(controller,application,viewName,loader);
-      res=loader.getResource(gspView);
+ else {
+    View view=VIEW_CACHE.get(viewName);
+    if (view == null || (templateEngine.isReloadEnabled() && view instanceof GroovyPageView && ((GroovyPageView)view).isExpired())) {
+      view=createGrailsView(viewName);
     }
-  }
-  if (res == null || !res.exists()) {
-    gspView=localPrefix + viewName + GSP_SUFFIX;
-    res=loader.getResource(gspView);
-    if (!res.exists()) {
-      gspView=resolveViewForController(controller,application,viewName,loader);
-      res=loader.getResource(gspView);
-    }
-  }
-  if (res.exists()) {
-    final View view=createGroovyPageView(webRequest,gspView);
     VIEW_CACHE.put(viewName,view);
     return view;
   }
-  AbstractUrlBasedView view=buildView(viewName);
-  view.setApplicationContext(getApplicationContext());
-  view.afterPropertiesSet();
-  VIEW_CACHE.put(viewName,view);
-  return view;
 }

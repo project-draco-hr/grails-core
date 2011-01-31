@@ -7,6 +7,7 @@
     }
   }
 );
+  routablePrintWriter.unBlockFlushAndClose();
   routableServletOutputStream.updateDestination(new RoutableServletOutputStream.DestinationFactory(){
     public ServletOutputStream create() throws IOException {
       return getResponse().getOutputStream();

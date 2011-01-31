@@ -1,0 +1,30 @@
+{
+  if (args == null) {
+    System.out.println("WARNING: Configurational method [" + name + "] in grails-app/conf/BuildConfig.groovy doesn't exist. Ignoring..");
+    return null;
+  }
+  List<Object> argsList=Arrays.asList((Object[])args);
+  if (argsList.size() == 0) {
+    System.out.println("WARNING: Configurational method [" + name + "] in grails-app/conf/BuildConfig.groovy doesn't exist. Ignoring..");
+    return null;
+  }
+  if (isOnlyStrings(argsList)) {
+    addDependencyStrings(name,argsList,null,null);
+  }
+ else   if (isProperties(argsList)) {
+    addDependencyMaps(name,argsList,null);
+  }
+ else   if (isStringsAndConfigurer(argsList)) {
+    addDependencyStrings(name,argsList.subList(0,argsList.size() - 1),null,(Closure)argsList.get(argsList.size() - 1));
+  }
+ else   if (isPropertiesAndConfigurer(argsList)) {
+    addDependencyMaps(name,argsList.subList(0,argsList.size() - 1),(Closure)argsList.get(argsList.size() - 1));
+  }
+ else   if (isStringsAndProperties(argsList)) {
+    addDependencyStrings(name,argsList.subList(0,argsList.size() - 1),(Map<Object,Object>)argsList.get(argsList.size() - 1),null);
+  }
+ else {
+    System.out.println("WARNING: Configurational method [" + name + "] in grails-app/conf/BuildConfig.groovy doesn't exist. Ignoring..");
+  }
+  return null;
+}

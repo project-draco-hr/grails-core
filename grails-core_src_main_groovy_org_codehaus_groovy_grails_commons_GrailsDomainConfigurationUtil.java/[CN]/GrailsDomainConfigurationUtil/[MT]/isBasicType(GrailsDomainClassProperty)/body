@@ -1,0 +1,4 @@
+{
+  if (prop == null)   return false;
+  return isBasicType(prop.getType());
+}

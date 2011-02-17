@@ -1,6 +1,0 @@
-{
-  if (checkElementName((String)name,attributes)) {
-    return super.createNode(name,attributes,value);
-  }
-  return RESPONSE;
-}

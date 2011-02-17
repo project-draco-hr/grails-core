@@ -1,0 +1,95 @@
+{
+  if (arguments.length == 0) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  boolean renderView=true;
+  GroovyObject controller=(GroovyObject)target;
+  if (arguments[0] instanceof CharSequence) {
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
+    CharSequence text=(CharSequence)arguments[0];
+    renderView=renderText(text,response);
+  }
+ else   if (arguments[0] instanceof Closure) {
+    setContentType(response,TEXT_HTML,gspEncoding,true);
+    Closure closure=(Closure)arguments[arguments.length - 1];
+    renderView=renderMarkup(closure,response);
+  }
+ else   if (arguments[0] instanceof Map) {
+    Map argMap=(Map)arguments[0];
+    Writer out;
+    if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
+      String contentType=argMap.get(ARGUMENT_CONTENT_TYPE).toString();
+      String encoding=argMap.get(ARGUMENT_ENCODING).toString();
+      setContentType(response,contentType,encoding);
+      out=GSPResponseWriter.getInstance(response);
+    }
+ else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
+      setContentType(response,argMap.get(ARGUMENT_CONTENT_TYPE).toString(),DEFAULT_ENCODING);
+      out=GSPResponseWriter.getInstance(response);
+    }
+ else {
+      setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
+      out=GSPResponseWriter.getInstance(response);
+    }
+    boolean statusSet=false;
+    if (argMap.containsKey(ARGUMENT_STATUS)) {
+      Object statusObj=argMap.get(ARGUMENT_STATUS);
+      if (statusObj != null) {
+        try {
+          response.setStatus(Integer.parseInt(statusObj.toString()));
+          statusSet=true;
+        }
+ catch (        NumberFormatException e) {
+          throw new ControllerExecutionException("Argument [status] of method [render] must be a valid integer.");
+        }
+      }
+    }
+    webRequest.setOut(out);
+    if (arguments[arguments.length - 1] instanceof Closure) {
+      Closure callable=(Closure)arguments[arguments.length - 1];
+      if (BUILDER_TYPE_JSON.equals(argMap.get(ARGUMENT_BUILDER)) || isJSONResponse(response)) {
+        renderView=renderJSON(callable,response);
+      }
+ else {
+        renderView=renderMarkup(callable,response);
+      }
+    }
+ else     if (arguments[arguments.length - 1] instanceof CharSequence) {
+      CharSequence text=(CharSequence)arguments[arguments.length - 1];
+      renderView=renderText(text,out);
+    }
+ else     if (argMap.containsKey(ARGUMENT_TEXT)) {
+      Object textArg=argMap.get(ARGUMENT_TEXT);
+      CharSequence text=(textArg instanceof CharSequence) ? ((CharSequence)textArg) : textArg.toString();
+      renderView=renderText(text,out);
+    }
+ else     if (argMap.containsKey(ARGUMENT_VIEW)) {
+      renderView(webRequest,argMap,target,controller);
+    }
+ else     if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
+      renderView=renderTemplate(target,controller,webRequest,argMap,out);
+    }
+ else     if (statusSet) {
+      renderView=false;
+    }
+ else {
+      Object object=arguments[0];
+      renderView=renderObject(object,out);
+    }
+    try {
+      if (!renderView) {
+        out.flush();
+      }
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error executing render method for arguments [" + argMap + "]: "+ e.getMessage(),e);
+    }
+  }
+ else {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  webRequest.setRenderView(renderView);
+  return null;
+}

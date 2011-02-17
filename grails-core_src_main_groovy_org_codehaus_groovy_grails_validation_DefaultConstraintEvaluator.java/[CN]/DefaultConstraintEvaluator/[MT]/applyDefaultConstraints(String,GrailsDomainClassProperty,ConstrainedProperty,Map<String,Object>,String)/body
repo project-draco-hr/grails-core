@@ -18,11 +18,6 @@
     }
   }
   if (canApplyNullableConstraint(propertyName,p,cp)) {
-    if (propertyConfig != null && !propertyConfig.getInsertable()) {
-      cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,true);
-    }
- else {
-      cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Collection.class.isAssignableFrom(p.getType()) || Map.class.isAssignableFrom(p.getType()));
-    }
+    cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Collection.class.isAssignableFrom(p.getType()) || Map.class.isAssignableFrom(p.getType()));
   }
 }

@@ -1,16 +1,5 @@
 {
-  GrailsWebRequest grailsWebRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  if (grailsWebRequest == null) {
-    String message="Web request can't be found. Importing constraints is only allowed FROM domain classes TO " + "command classes in running Grails application.";
-    throw new IllegalArgumentException(message);
-  }
-  GrailsApplication grailsApplication=grailsWebRequest.getAttributes().getGrailsApplication();
-  GrailsDomainClass importFromGrailsDomainClazz=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,importFromClazz.getName());
-  if (importFromGrailsDomainClazz == null) {
-    String message="Class '" + importFromClazz.getName() + "' is not a domain class. Importing constraints is only "+ "allowed FROM domain classes TO command classes.";
-    throw new IllegalArgumentException(message);
-  }
-  Map importFromConstrainedProperties=importFromGrailsDomainClazz.getConstrainedProperties();
+  Map importFromConstrainedProperties=new DefaultConstraintEvaluator().evaluate(importFromClazz);
   PropertyDescriptor[] targetPropertyDescriptorArray=classPropertyFetcher.getPropertyDescriptors();
   List toBeIncludedPropertyNamesParam=(List)attributes.get("include");
   List toBeExcludedPropertyNamesParam=(List)attributes.get("exclude");

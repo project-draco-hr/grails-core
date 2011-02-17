@@ -18,7 +18,6 @@
   File sourcePath=new File(sourceUnit.getName());
   try {
     String absolutePath=sourcePath.getCanonicalPath();
-    PluginBuildSettings pluginBuildSettings=GrailsPluginUtils.getPluginBuildSettings();
     if (pluginBuildSettings == null) {
       return;
     }

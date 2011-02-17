@@ -1,5 +1,0 @@
-{
-  final GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
-  boolean hasHibernate=pluginManager != null && pluginManager.hasGrailsPlugin("hibernate") && ClassUtils.isPresent("org.hibernate.mapping.Value",GrailsDomainConfigurationUtil.class.getClassLoader());
-  return hasHibernate;
-}

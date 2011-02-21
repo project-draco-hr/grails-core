@@ -28,7 +28,8 @@
     }
     if (resourceList != null) {
       List<String> resourceListTmp=new ArrayList<String>();
-      PluginBuildSettings pluginBuildSettings=getManager().getPluginBuildSettings();
+      GrailsPluginManager pluginManager=getManager();
+      PluginBuildSettings pluginBuildSettings=pluginManager != null ? pluginManager.getPluginBuildSettings() : null;
       if (pluginBuildSettings != null) {
         final Resource[] pluginDirs=pluginBuildSettings.getPluginDirectories();
         final Environment env=Environment.getCurrent();

@@ -5,7 +5,7 @@
   }
   sw=new FastStringWriter();
   out=sw;
-  tagLib.setProperty(TagLibDynamicMethods.OUT_PROPERTY,out);
+  tagLib.setProperty(OUT_PROPERTY,out);
   Object tagLibProp;
   final Map tagLibProperties=DefaultGroovyMethods.getProperties(tagLib);
   if (tagLibProperties.containsKey(getTagName())) {

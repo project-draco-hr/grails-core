@@ -47,7 +47,7 @@
         throw new ControllerExecutionException("I/O error sending redirect to URI: " + uri,e);
       }
     }
- else     if (request.getAttribute(ForwardMethod.CALLED) == null) {
+ else     if (request.getAttribute(FORWARD_CALLED) == null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
       }

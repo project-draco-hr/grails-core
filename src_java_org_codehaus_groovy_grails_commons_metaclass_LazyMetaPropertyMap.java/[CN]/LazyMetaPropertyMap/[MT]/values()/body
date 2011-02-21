@@ -1,8 +1,0 @@
-{
-  Collection<Object> values=new ArrayList<Object>();
-  for (  MetaProperty mp : metaClass.getProperties()) {
-    if (EXCLUDES.contains(mp.getName()))     continue;
-    values.add(mp.getProperty(instance));
-  }
-  return values;
-}

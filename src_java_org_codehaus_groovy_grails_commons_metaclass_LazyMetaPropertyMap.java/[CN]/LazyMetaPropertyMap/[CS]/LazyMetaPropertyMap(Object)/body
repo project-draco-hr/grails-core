@@ -1,5 +1,0 @@
-{
-  Assert.notNull(o,"Object cannot be null");
-  instance=o;
-  metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(o.getClass());
-}

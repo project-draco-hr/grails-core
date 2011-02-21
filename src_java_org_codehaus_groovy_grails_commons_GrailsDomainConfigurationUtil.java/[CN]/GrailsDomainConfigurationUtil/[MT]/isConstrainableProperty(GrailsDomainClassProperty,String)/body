@@ -1,3 +1,0 @@
-{
-  return !propertyName.equals(GrailsDomainClassProperty.DATE_CREATED) && !propertyName.equals(GrailsDomainClassProperty.LAST_UPDATED) && !((p.isOneToOne() || p.isManyToOne()) && p.isCircular());
-}

@@ -1,8 +1,0 @@
-{
-  if (property == null || property.getType() == null)   return false;
-  final GrailsDomainClass domainClass=property.getDomainClass();
-  if (!GroovyObject.class.isAssignableFrom(domainClass.getClazz()))   return false;
-  final GrailsDomainClassProperty versionProperty=domainClass.getVersion();
-  final boolean isVersion=versionProperty != null && versionProperty.equals(property);
-  return !constrainedProperty.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT) && isConstrainableProperty(property,propertyName) && !property.isIdentity()&& !isVersion;
-}

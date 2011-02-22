@@ -3,5 +3,5 @@
   ExpandoMetaClass.enableGlobally();
   MockGrailsPluginManager pluginManager=new MockGrailsPluginManager();
   PluginManagerHolder.setPluginManager(pluginManager);
-  pluginManager.registerMockPlugin(DefaultGrailsTemplateGeneratorTests.fakeHibernatePlugin);
+  pluginManager.registerMockPlugin(MockHibernatePluginHelper.FAKE_HIBERNATE_PLUGIN);
 }

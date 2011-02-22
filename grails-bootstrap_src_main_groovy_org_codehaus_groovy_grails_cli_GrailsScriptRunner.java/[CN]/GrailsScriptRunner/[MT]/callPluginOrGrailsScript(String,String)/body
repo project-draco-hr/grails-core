@@ -16,6 +16,13 @@
  catch (  MalformedURLException ex) {
     throw new RuntimeException("Invalid classpath URL",ex);
   }
+  if (settings.getGrailsHome() != null) {
+    try {
+      Log4jConfigurer.initLogging("file:" + settings.getGrailsHome() + "/scripts/log4j.properties");
+    }
+ catch (    FileNotFoundException e) {
+    }
+  }
   List<File> potentialScripts;
   List<File> allScripts=getAvailableScripts(settings);
   GantBinding binding;

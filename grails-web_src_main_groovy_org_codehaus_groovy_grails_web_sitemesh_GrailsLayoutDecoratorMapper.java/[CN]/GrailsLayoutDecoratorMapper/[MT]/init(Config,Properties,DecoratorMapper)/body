@@ -1,0 +1,9 @@
+{
+  super.init(c,properties,parentMapper);
+  servletContext=c.getServletContext();
+  applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  if (applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
+    pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+    pluginBuildSettings=pluginManager.getPluginBuildSettings();
+  }
+}

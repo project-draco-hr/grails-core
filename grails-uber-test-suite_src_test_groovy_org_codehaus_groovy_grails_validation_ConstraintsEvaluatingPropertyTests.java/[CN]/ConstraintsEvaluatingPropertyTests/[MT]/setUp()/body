@@ -1,0 +1,6 @@
+{
+  super.setUp();
+  MockGrailsPluginManager pluginManager=new MockGrailsPluginManager();
+  PluginManagerHolder.setPluginManager(pluginManager);
+  pluginManager.registerMockPlugin(MockHibernatePluginHelper.FAKE_HIBERNATE_PLUGIN);
+}

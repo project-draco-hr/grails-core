@@ -1,0 +1,8 @@
+{
+  if (parentCtx.containsBean("classLoader")) {
+    Object cl=parentCtx.getBean("classLoader");
+    if (cl instanceof ClassLoader) {
+      setClassLoaderOnContext((ClassLoader)cl);
+    }
+  }
+}

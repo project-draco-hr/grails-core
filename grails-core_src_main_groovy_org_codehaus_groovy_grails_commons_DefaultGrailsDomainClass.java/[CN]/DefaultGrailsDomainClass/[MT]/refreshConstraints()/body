@@ -1,0 +1,13 @@
+{
+  if (defaultConstraints != null) {
+    constraints=new DefaultConstraintEvaluator(defaultConstraints).evaluate(getClazz(),persistentProperties);
+  }
+ else {
+    constraints=new DefaultConstraintEvaluator(defaultConstraints).evaluate(getClazz(),persistentProperties);
+  }
+  for (  GrailsDomainClassProperty property : persistentProperties) {
+    if (property.isEmbedded()) {
+      property.getComponent().refreshConstraints();
+    }
+  }
+}

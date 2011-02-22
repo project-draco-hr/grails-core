@@ -1,6 +1,0 @@
-{
-  if (grailsHome != null) {
-    return new FileSystemResource(grailsHome + "/" + path);
-  }
-  return new ClassPathResource(path);
-}

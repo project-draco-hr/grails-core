@@ -1,9 +1,6 @@
 {
   Map config=ConfigurationHolder.getFlatConfig();
-  GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
-  if (info != null) {
-    pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
-  }
+  this.filename=filename;
   Object gspEnc=config.get(CONFIG_PROPERTY_GSP_ENCODING);
   if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
     gspEncoding=gspEnc.toString();

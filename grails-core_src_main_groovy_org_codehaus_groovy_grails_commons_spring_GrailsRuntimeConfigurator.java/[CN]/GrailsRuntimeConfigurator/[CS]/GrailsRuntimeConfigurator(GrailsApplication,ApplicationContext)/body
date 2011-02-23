@@ -4,13 +4,11 @@
   if (parent != null) {
     parent.containsBean(DATA_SOURCE_BEAN);
   }
-  pluginManager=PluginManagerHolder.getPluginManager();
-  if (pluginManager == null) {
+  try {
+    pluginManager=parent.getBean(GrailsPluginManager.class);
+  }
+ catch (  BeansException e) {
     pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
     PluginManagerHolder.setPluginManager(pluginManager);
-  }
- else {
-    LOG.debug("Retrieved thread-bound PluginManager instance");
-    pluginManager.setApplication(application);
   }
 }

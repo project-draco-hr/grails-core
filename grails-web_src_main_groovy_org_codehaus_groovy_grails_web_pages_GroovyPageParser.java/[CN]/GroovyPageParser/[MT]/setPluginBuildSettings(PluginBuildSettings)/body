@@ -1,5 +1,4 @@
 {
-  this.pluginBuildSettings=pluginBuildSettings;
   if (filename != null) {
     GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
     if (info != null) {

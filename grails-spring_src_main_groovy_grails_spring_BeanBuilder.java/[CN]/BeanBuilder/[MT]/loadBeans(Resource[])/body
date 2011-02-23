@@ -1,7 +1,7 @@
 {
-  Closure beans=new Closure(this){
+  @SuppressWarnings("rawtypes") Closure beans=new Closure(this){
     private static final long serialVersionUID=-2778328821635253740L;
-    public Object call(    Object[] args){
+    @Override public Object call(    Object... args){
       invokeBeanDefiningClosure((Closure)args[0]);
       return null;
     }

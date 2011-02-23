@@ -10,7 +10,7 @@
     }
     Script script=(Script)scriptClass.newInstance();
     script.setBinding(new Binding(binding.getVariables()){
-      @Override public void setVariable(      String var,      Object o){
+      @SuppressWarnings("rawtypes") @Override public void setVariable(      String var,      Object o){
         final Matcher matcher=EVENT_NAME_PATTERN.matcher(var);
         if (matcher.matches() && (o instanceof Closure)) {
           String eventName=matcher.group(1);
@@ -19,7 +19,7 @@
             hooks=new ArrayList<Closure>();
             globalEventHooks.put(eventName,hooks);
           }
-          hooks.add((Closure)o);
+          hooks.add((Closure<?>)o);
         }
         super.setVariable(var,o);
       }
@@ -28,7 +28,7 @@
     script.run();
   }
  catch (  Throwable e) {
-    org.codehaus.groovy.runtime.StackTraceUtils.deepSanitize(e);
+    StackTraceUtils.deepSanitize(e);
     e.printStackTrace();
     System.out.println("Error loading event script from file [" + eventScript + "] "+ e.getMessage());
   }

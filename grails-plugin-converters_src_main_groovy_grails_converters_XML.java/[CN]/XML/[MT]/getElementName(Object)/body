@@ -9,7 +9,5 @@
     final Class<?> cls=entityProxyHandler.getProxiedClass(o);
     return GrailsNameUtils.getPropertyName(cls);
   }
- else {
-    return GrailsNameUtils.getPropertyName(o.getClass());
-  }
+  return GrailsNameUtils.getPropertyName(o.getClass());
 }

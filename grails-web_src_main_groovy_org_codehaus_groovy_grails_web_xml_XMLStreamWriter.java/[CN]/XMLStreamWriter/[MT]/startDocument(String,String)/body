@@ -1,5 +1,7 @@
 {
-  if (mode != INIT)   throw new IllegalStateException();
+  if (mode != INIT) {
+    throw new IllegalStateException();
+  }
   writer.unescaped().write(String.format("<?xml version=\"%s\" encoding=\"%s\"?>",version,encoding));
   return this;
 }

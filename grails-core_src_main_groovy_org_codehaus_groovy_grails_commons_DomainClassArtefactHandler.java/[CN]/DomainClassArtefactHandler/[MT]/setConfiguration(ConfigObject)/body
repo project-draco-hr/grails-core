@@ -3,11 +3,11 @@
   if (constraints instanceof Closure) {
     if (defaultConstraints != null) {
       defaultConstraints.clear();
-      new ClosureToMapPopulator(defaultConstraints).populate((Closure)constraints);
+      new ClosureToMapPopulator(defaultConstraints).populate((Closure<?>)constraints);
     }
  else {
       ClosureToMapPopulator populator=new ClosureToMapPopulator();
-      defaultConstraints=populator.populate((Closure)constraints);
+      defaultConstraints=populator.populate((Closure<?>)constraints);
     }
   }
 }

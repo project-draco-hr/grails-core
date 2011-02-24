@@ -21,14 +21,21 @@
   if (properties != null && !(constrainedProperties.isEmpty() && javaEntity)) {
     for (    GrailsDomainClassProperty p : properties) {
       if (canPropertyBeConstrained(p)) {
-        final String propertyName=p.getName();
-        ConstrainedProperty cp=constrainedProperties.get(propertyName);
-        if (cp == null) {
-          cp=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
-          cp.setOrder(constrainedProperties.size() + 1);
-          constrainedProperties.put(propertyName,cp);
+        if (p.isDerived()) {
+          if (constrainedProperties.remove(p.getName()) != null) {
+            LOG.warn("Derived properties may not be constrained. Property [" + p.getName() + "] of domain class "+ theClass.getName()+ " will not be checked during validation.");
+          }
         }
-        applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraint(propertyName));
+ else {
+          final String propertyName=p.getName();
+          ConstrainedProperty cp=constrainedProperties.get(propertyName);
+          if (cp == null) {
+            cp=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
+            cp.setOrder(constrainedProperties.size() + 1);
+            constrainedProperties.put(propertyName,cp);
+          }
+          applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraint(propertyName));
+        }
       }
     }
   }

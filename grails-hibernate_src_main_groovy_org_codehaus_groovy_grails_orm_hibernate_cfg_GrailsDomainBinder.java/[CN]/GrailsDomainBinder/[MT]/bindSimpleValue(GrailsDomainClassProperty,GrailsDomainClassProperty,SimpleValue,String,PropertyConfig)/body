@@ -1,6 +1,6 @@
 {
   setTypeForPropertyConfig(grailsProp,simpleValue,propertyConfig);
-  if (propertyConfig != null && propertyConfig.getFormula() != null) {
+  if (grailsProp.isDerived()) {
     Formula formula=new Formula();
     formula.setFormula(propertyConfig.getFormula());
     simpleValue.addFormula(formula);

@@ -18,7 +18,6 @@
   localContext.registerBeanDefinition("grailsApplication",grailsApplicationBean);
   localContext.refresh();
   grailsApplication=(GrailsApplication)localContext.getBean("grailsApplication");
-  ApplicationHolder.setApplication(grailsApplication);
   GrailsRuntimeConfigurator rConfig=new GrailsRuntimeConfigurator(grailsApplication,localContext);
   MockServletContext servletContext=new MockServletContext();
   appCtx=(ConfigurableApplicationContext)rConfig.configure(servletContext);

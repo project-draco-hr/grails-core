@@ -6,14 +6,14 @@
  else {
     String sortHead=sort.substring(0,firstDotPos);
     String sortTail=sort.substring(firstDotPos + 1);
-    GrailsDomainClassProperty property=getGrailsDomainClassProperty(targetClass,sortHead);
+    GrailsDomainClassProperty property=getGrailsDomainClassProperty(grailsApplication,targetClass,sortHead);
     if (property.isEmbedded()) {
       addOrder(c,sort,order,ignoreCase);
     }
  else {
       Criteria subCriteria=c.createCriteria(sortHead);
       Class<?> propertyTargetClass=property.getReferencedDomainClass().getClazz();
-      addOrderPossiblyNested(subCriteria,propertyTargetClass,sortTail,order,ignoreCase);
+      addOrderPossiblyNested(grailsApplication,subCriteria,propertyTargetClass,sortTail,order,ignoreCase);
     }
   }
 }

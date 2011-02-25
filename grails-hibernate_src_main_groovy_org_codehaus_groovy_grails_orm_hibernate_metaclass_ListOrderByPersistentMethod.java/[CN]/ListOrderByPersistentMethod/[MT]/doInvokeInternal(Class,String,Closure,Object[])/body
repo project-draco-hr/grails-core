@@ -5,12 +5,12 @@
   final String propertyName=nameInSignature.substring(0,1).toLowerCase(Locale.ENGLISH) + nameInSignature.substring(1);
   return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
-      Criteria crit=getCriteria(session,additionalCriteria,clazz);
+      Criteria crit=getCriteria(application,session,additionalCriteria,clazz);
       if (arguments != null && arguments.length > 0) {
         if (arguments[0] instanceof Map) {
           Map argMap=(Map)arguments[0];
           argMap.put(GrailsHibernateUtil.ARGUMENT_SORT,propertyName);
-          GrailsHibernateUtil.populateArgumentsForCriteria(clazz,crit,argMap);
+          GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,crit,argMap);
         }
  else {
           crit.addOrder(Order.asc(propertyName));

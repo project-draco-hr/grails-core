@@ -56,7 +56,7 @@
  else         if (paginationEnabledList) {
           criteria.setResultTransformer(resultTransformer);
         }
-        GrailsHibernateUtil.populateArgumentsForCriteria(targetClass,criteria,(Map)args[0]);
+        GrailsHibernateUtil.populateArgumentsForCriteria(grailsApplication,targetClass,criteria,(Map)args[0]);
         PagedResultList pagedRes=new PagedResultList(criteria.list());
         pagedRes.setTotalCount(totalCount);
         result=pagedRes;

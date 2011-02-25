@@ -11,8 +11,8 @@
   if (application != null) {
     GrailsPluginManager pluginManager=getPluginManager(application.getMainContext());
     if (pluginManager != null) {
-      BuildSettings settings=pluginManager.getBuildSettings();
-      PluginBuildSettings pluginBuildSettings=pluginManager.getPluginBuildSettings();
+      BuildSettings settings=BuildSettingsHolder.getSettings();
+      PluginBuildSettings pluginBuildSettings=org.codehaus.groovy.grails.plugins.GrailsPluginUtils.getPluginBuildSettings();
       String pluginPath=StringUtils.substringAfter(noWebInf,SLASH);
       String pluginName=StringUtils.substringBefore(pluginPath,SLASH);
       String remainingPath=StringUtils.substringAfter(pluginPath,SLASH);

@@ -17,7 +17,7 @@
       params.put(cp.getPropertyName(),lastGroup);
     }
   }
-  Map<String,Object> config=ConfigurationHolder.getFlatConfig();
+  Map<String,Object> config=grailsApplication != null ? grailsApplication.getFlatConfig() : null;
   if (lastGroup != null && config != null && Boolean.TRUE.equals(config.get("grails.mapping.legacyMapping"))) {
     String remainingUri=uri.substring(uri.lastIndexOf(lastGroup) + lastGroup.length());
     if (remainingUri.length() > 0) {

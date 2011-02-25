@@ -1,6 +1,5 @@
 {
-  GrailsPluginManager manager=PluginManagerHolder.getPluginManager();
-  if (manager != null) {
+  if (pluginManager != null) {
     WebMetaUtils.registerCommonWebProperties(GrailsMetaClassUtils.getExpandoMetaClass(script.getClass()),null);
   }
 }

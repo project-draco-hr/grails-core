@@ -1,11 +1,3 @@
 {
-  String defaultDecoratorName=null;
-  Map conf=ConfigurationHolder.getFlatConfig();
-  if (conf != null && conf.containsKey("grails.sitemesh.default.layout")) {
-    defaultDecoratorName=conf.get("grails.sitemesh.default.layout").toString();
-  }
- else {
-    defaultDecoratorName="application";
-  }
   return getNamedDecorator(request,defaultDecoratorName);
 }

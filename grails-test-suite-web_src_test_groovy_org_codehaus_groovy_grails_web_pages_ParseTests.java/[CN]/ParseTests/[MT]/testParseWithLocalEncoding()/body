@@ -2,14 +2,8 @@
   String src="This is just plain ASCII to make sure test works on all platforms";
   assertEquals(src.indexOf('?'),-1);
   ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"\"");
-  ConfigurationHolder.setConfig(config);
   ParsedResult output=null;
-  try {
-    output=parseCode("myTest5",src);
-  }
-  finally {
-    ConfigurationHolder.setConfig(null);
-  }
+  output=parseCode("myTest5",src);
   String expected=makeImports() + "\n" + "class myTest5 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest5\" }\n"+ "public Object run() {\n"+ "def params = binding.params\n"+ "def request = binding.request\n"+ "def flash = binding.flash\n"+ "def response = binding.response\n"+ "def out = binding.out\n"+ "def codecOut = binding.codecOut\n"+ "registerSitemeshPreprocessMode(request)\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output.generatedGsp));
   assertEquals(src,output.htmlParts[0]);

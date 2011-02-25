@@ -1,0 +1,7 @@
+{
+  GrailsApplication application=currentApplication();
+  if (application != null) {
+    return application.getFlatConfig();
+  }
+  return Collections.emptyMap();
+}

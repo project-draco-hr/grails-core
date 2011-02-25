@@ -11,6 +11,7 @@
     }
     if (gspClass != null) {
       meta=new GroovyPageMetaInfo(gspClass);
+      meta.setGrailsApplication(grailsApplication);
       meta.setJspTagLibraryResolver(jspTagLibraryResolver);
       meta.setTagLibraryLookup(tagLibraryLookup);
     }

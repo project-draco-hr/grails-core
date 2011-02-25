@@ -1,4 +1,0 @@
-{
-  GrailsCodecClass codecArtefact=(GrailsCodecClass)ApplicationHolder.getApplication().getArtefact("Codec",codecClass.getName());
-  encodeClosure=codecArtefact.getEncodeMethod();
-}

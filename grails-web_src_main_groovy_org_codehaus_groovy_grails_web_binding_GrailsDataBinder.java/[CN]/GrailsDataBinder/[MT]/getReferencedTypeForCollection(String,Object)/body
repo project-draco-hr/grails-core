@@ -1,5 +1,4 @@
 {
-  final GrailsApplication grailsApplication=ApplicationHolder.getApplication();
   if (grailsApplication != null) {
     GrailsDomainClass dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
     if (dc != null) {

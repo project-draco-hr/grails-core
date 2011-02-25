@@ -1,4 +1,5 @@
 {
+  if (encodeClosure == null)   return o;
   try {
     return encodeClosure.call(o);
   }

@@ -3,7 +3,7 @@
   PropertyEditorRegistry registry=(PropertyEditorRegistry)servletRequest.getAttribute(GrailsApplicationAttributes.PROPERTY_REGISTRY);
   if (registry == null) {
     registry=new PropertyEditorRegistrySupport();
-    GrailsDataBinder.registerCustomEditors(registry,RequestContextUtils.getLocale(servletRequest));
+    GrailsDataBinder.registerCustomEditors(this,registry,RequestContextUtils.getLocale(servletRequest));
     servletRequest.setAttribute(GrailsApplicationAttributes.PROPERTY_REGISTRY,registry);
   }
   return registry;

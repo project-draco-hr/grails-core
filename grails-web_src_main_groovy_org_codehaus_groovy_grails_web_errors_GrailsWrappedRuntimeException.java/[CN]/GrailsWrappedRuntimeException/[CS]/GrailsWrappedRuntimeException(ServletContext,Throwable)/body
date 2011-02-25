@@ -64,7 +64,7 @@
         String urlPrefix="";
         if (gspFile == null) {
           fileName=className.replace('.','/') + ".groovy";
-          GrailsApplication application=ApplicationHolder.getApplication();
+          GrailsApplication application=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext).getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
           if (application.isArtefactOfType(ControllerArtefactHandler.TYPE,className)) {
             urlPrefix+="/controllers/";
           }

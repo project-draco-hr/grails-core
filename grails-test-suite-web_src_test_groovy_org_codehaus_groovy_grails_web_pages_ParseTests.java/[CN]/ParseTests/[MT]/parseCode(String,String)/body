@@ -1,10 +1,11 @@
 {
-  Object enc=ConfigurationHolder.getFlatConfig().get("grails.views.gsp.encoding");
+  final Map config=GrailsWebUtil.currentFlatConfiguration();
+  Object enc=config.get("grails.views.gsp.encoding");
   if ((enc == null) || (enc.toString().trim().length() == 0)) {
     enc=System.getProperty("file.encoding","us-ascii");
   }
   InputStream gspIn=new ByteArrayInputStream(gsp.getBytes(enc.toString()));
-  GroovyPageParser parse=new GroovyPageParser(uri,uri,uri,gspIn);
+  GroovyPageParser parse=new GroovyPageParser(uri,uri,uri,gspIn,enc.toString());
   InputStream in=parse.parse();
   ParsedResult result=new ParsedResult();
   result.parser=parse;

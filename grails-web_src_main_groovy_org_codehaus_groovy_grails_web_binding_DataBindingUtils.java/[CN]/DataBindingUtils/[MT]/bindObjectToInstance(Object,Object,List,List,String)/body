@@ -1,5 +1,5 @@
 {
-  GrailsApplication application=ApplicationHolder.getApplication();
+  GrailsApplication application=GrailsWebRequest.lookupApplication();
   GrailsDomainClass domain=null;
   if (application != null) {
     domain=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName());

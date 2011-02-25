@@ -1,11 +1,3 @@
 {
   super(METHOD_PATTERN);
-  Map config=ConfigurationHolder.getFlatConfig();
-  Object gspEnc=config.get("grails.views.gsp.encoding");
-  if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
-    gspEncoding=gspEnc.toString();
-  }
- else {
-    gspEncoding=DEFAULT_ENCODING;
-  }
 }

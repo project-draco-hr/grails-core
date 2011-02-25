@@ -1,4 +1,4 @@
 {
   setChildPropertySetter(new DefaultGrailsChildPropertySetter());
-  setClassLoader(ApplicationHolder.getApplication().getClassLoader());
+  setClassLoader(Thread.currentThread().getContextClassLoader());
 }

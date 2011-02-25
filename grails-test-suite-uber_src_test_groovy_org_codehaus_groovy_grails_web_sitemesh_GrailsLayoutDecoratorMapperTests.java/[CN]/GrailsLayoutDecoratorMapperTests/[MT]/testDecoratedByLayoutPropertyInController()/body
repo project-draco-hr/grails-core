@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=buildMockRequest();
+  GrailsWebRequest webRequest=buildMockRequest(null);
   MockApplicationContext appCtx=(MockApplicationContext)webRequest.getApplicationContext();
   appCtx.registerMockResource("WEB-INF/grails-app/views/layouts/test.gsp","<html><body><g:layoutBody /></body></html>");
   appCtx.registerMockResource("WEB-INF/grails-app/views/layouts/mylayout.gsp","<html><body><g:layoutBody /></body></html>");

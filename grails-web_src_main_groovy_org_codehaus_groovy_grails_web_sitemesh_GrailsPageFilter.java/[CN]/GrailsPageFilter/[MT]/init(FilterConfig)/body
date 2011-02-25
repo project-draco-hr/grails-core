@@ -8,6 +8,11 @@
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);
   applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(fc.getServletContext());
+  final GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(fc.getServletContext());
+  String encoding=(String)grailsApplication.getFlatConfig().get(CONFIG_OPTION_GSP_ENCODING);
+  if (encoding != null) {
+    defaultEncoding=encoding;
+  }
   Map<String,PersistenceContextInterceptor> interceptors=applicationContext.getBeansOfType(PersistenceContextInterceptor.class);
   if (!interceptors.isEmpty()) {
     persistenceInterceptor=interceptors.values().iterator().next();

@@ -10,7 +10,7 @@
   Object[] values=(Object[])valuesAccessor.invoke(enumClass);
   for (  Object value : values) {
     Object id=idAccessor.invoke(value);
-    enumToKey.put(value,id);
+    enumToKey.put((Enum)value,id);
     if (keytoEnum.containsKey(id)) {
       LOG.warn(String.format("Duplicate Enum ID '%s' detected for Enum %s!",id,enumClass.getName()));
     }

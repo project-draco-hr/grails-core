@@ -1,6 +1,7 @@
 {
   try {
-    ConfigObject co=ConfigurationHolder.getConfig();
+    GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(event.getServletContext());
+    ConfigObject co=grailsApplication != null ? grailsApplication.getConfig() : null;
     if (co == null) {
       GrailsApplication application=new DefaultGrailsApplication();
       try {

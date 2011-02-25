@@ -3,6 +3,7 @@
   String schema=mappings.getSchemaName();
   String catalog=mappings.getCatalogName();
   if (m != null) {
+    configureDerivedProperties(domainClass,m);
     CacheConfig cc=m.getCache();
     if (cc != null && cc.getEnabled()) {
       root.setCacheConcurrencyStrategy(cc.getUsage());

@@ -1,0 +1,9 @@
+{
+  if (grailsApplication != null && grailsApplication.getMainContext() != null) {
+    final ApplicationContext context=grailsApplication.getMainContext();
+    if (context.containsBean("constraintsEvaluator")) {
+      return context.getBean("constraintsEvalutor",ConstraintsEvaluator.class);
+    }
+  }
+  return new DefaultConstraintEvaluator(defaultConstraints);
+}

@@ -1,0 +1,9 @@
+{
+  if (application != null && application.getMainContext() != null) {
+    final ApplicationContext context=application.getMainContext();
+    if (context.containsBean("constraintsEvaluator")) {
+      return context.getBean("constraintsEvalutor",ConstraintsEvaluator.class);
+    }
+  }
+  return new DefaultConstraintEvaluator();
+}

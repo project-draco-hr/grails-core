@@ -3,7 +3,6 @@
   this.application=application;
   new StandardAnnotationMetadata(clazz);
   String ident=metaData.getIdentifierPropertyName();
-  this.defaultConstraints=defaultConstraints;
   if (ident != null) {
     Class<?> identType=getPropertyType(ident);
     identifier=new GrailsHibernateDomainClassProperty(this,ident);

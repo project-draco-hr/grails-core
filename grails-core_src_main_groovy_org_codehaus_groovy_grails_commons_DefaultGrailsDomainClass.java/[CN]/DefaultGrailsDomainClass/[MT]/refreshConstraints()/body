@@ -1,9 +1,10 @@
 {
+  final ConstraintsEvaluator constraintEvaluator=getConstraintsEvaluator();
   if (defaultConstraints != null) {
-    constraints=new DefaultConstraintEvaluator(defaultConstraints).evaluate(getClazz(),persistentProperties);
+    constraints=constraintEvaluator.evaluate(getClazz(),persistentProperties);
   }
  else {
-    constraints=new DefaultConstraintEvaluator(defaultConstraints).evaluate(getClazz(),persistentProperties);
+    constraints=constraintEvaluator.evaluate(getClazz(),persistentProperties);
   }
   for (  GrailsDomainClassProperty property : persistentProperties) {
     if (property.isEmbedded()) {

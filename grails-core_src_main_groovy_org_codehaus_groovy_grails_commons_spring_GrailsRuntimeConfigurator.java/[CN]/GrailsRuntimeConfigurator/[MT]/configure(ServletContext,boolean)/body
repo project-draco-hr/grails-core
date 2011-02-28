@@ -23,8 +23,8 @@
       doPostResourceConfiguration(application,springConfig);
     }
     reset();
+    application.setMainContext(springConfig.getUnrefreshedApplicationContext());
     ctx=(WebApplicationContext)springConfig.getApplicationContext();
-    application.setMainContext(ctx);
     pluginManager.setApplicationContext(ctx);
     pluginManager.doDynamicMethods();
     ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));

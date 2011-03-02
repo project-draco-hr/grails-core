@@ -7,14 +7,10 @@
     }
   }
  else {
-    for (    String pluginBaseName : pluginBaseNames) {
-      List<String> filenames=calculateAllFilenames(pluginBaseName,locale);
-      for (      String filename : filenames) {
-        PropertiesHolder holder=getProperties(filename);
-        MessageFormat result=holder.getMessageFormat(code,locale);
-        if (result != null)         return result;
-      }
-    }
+    MessageFormat result=findMessageFormatInSourcePlugins(code,locale);
+    if (result != null)     return result;
+    result=findMessageFormatInBinaryPlugins(code,locale);
+    if (result != null)     return result;
   }
   return null;
 }

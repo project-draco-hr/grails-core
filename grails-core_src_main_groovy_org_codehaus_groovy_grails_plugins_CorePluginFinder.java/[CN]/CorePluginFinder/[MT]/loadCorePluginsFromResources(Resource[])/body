@@ -1,11 +1,39 @@
 {
   LOG.debug("Attempting to load [" + resources.length + "] core plugins");
-  for (  Resource resource : resources) {
-    String url=resource.getURL().toString();
-    int packageIndex=url.indexOf("org/codehaus/groovy/grails");
-    url=url.substring(packageIndex,url.length());
-    url=url.substring(0,url.length() - 6);
-    String className=url.replace('/','.');
-    loadCorePlugin(className);
+  try {
+    XmlSlurper slurper=new XmlSlurper();
+    for (    Resource resource : resources) {
+      InputStream input=null;
+      try {
+        input=resource.getInputStream();
+        final GPathResult result=slurper.parse(input);
+        GPathResult pluginClass=(GPathResult)result.getProperty("class");
+        if (pluginClass.size() == 1) {
+          final String pluginClassName=pluginClass.text();
+          if (StringUtils.hasText(pluginClassName)) {
+            loadCorePlugin(pluginClassName,resource,result);
+          }
+        }
+ else {
+          final Iterator iterator=pluginClass.nodeIterator();
+          while (iterator.hasNext()) {
+            Node node=(Node)iterator.next();
+            final String pluginClassName=node.text();
+            if (StringUtils.hasText(pluginClassName)) {
+              loadCorePlugin(pluginClassName,resource,result);
+            }
+          }
+        }
+      }
+  finally {
+        if (input != null)         input.close();
+      }
+    }
+  }
+ catch (  ParserConfigurationException e) {
+    throw new GrailsConfigurationException("XML parsing error loading core plugins: " + e.getMessage(),e);
+  }
+catch (  SAXException e) {
+    throw new GrailsConfigurationException("XML parsing error loading core plugins: " + e.getMessage(),e);
   }
 }

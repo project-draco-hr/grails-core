@@ -1,7 +1,7 @@
 {
   foundPluginClasses.clear();
   try {
-    Resource[] resources=resolver.getResources("classpath*:org/codehaus/groovy/grails/**/plugins/**/*GrailsPlugin.class");
+    Resource[] resources=resolvePluginResources();
     if (resources.length > 0) {
       loadCorePluginsFromResources(resources);
     }
@@ -14,5 +14,5 @@
     LOG.warn("WARNING: I/O exception loading core plugin dynamically, attempting static load. This is usually due to deployment onto containers with unusual classloading setups. Message: " + e.getMessage());
     loadCorePluginsStatically();
   }
-  return foundPluginClasses;
+  return foundPluginClasses.toArray(new Class[foundPluginClasses.size()]);
 }

@@ -9,7 +9,7 @@
     boolean skipPlugins="UninstallPlugin".equals(scriptName) || "InstallPlugin".equals(scriptName);
     URL[] urls=getClassLoaderUrls(settings,scriptCacheDir,existingJars,skipPlugins);
     addUrlsToRootLoader(settings.getRootLoader(),urls);
-    urls=new URL[]{settings.getClassesDir().toURI().toURL()};
+    urls=new URL[]{settings.getClassesDir().toURI().toURL(),settings.getPluginClassesDir().toURI().toURL()};
     classLoader=new URLClassLoader(urls,settings.getRootLoader());
     Thread.currentThread().setContextClassLoader(classLoader);
   }

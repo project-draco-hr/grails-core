@@ -1,0 +1,7 @@
+{
+  super(pluginClass,application);
+  this.descriptor=descriptor;
+  if (descriptor != null) {
+    initializeProvidedArtefacts(descriptor.getParsedXml());
+  }
+}

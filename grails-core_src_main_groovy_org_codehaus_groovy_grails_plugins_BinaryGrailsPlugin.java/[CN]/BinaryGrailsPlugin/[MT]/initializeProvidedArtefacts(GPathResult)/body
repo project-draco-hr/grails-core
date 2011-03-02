@@ -1,0 +1,25 @@
+{
+  java.util.List<Class> providedArtefacts=new ArrayList<Class>();
+  providedArtefacts.addAll(Arrays.asList(super.getProvidedArtefacts()));
+  if (descriptor != null) {
+    GPathResult resources=(GPathResult)descriptor.getProperty("resources");
+    if (!resources.isEmpty()) {
+      GPathResult allResources=(GPathResult)resources.getProperty("resource");
+      if (!allResources.isEmpty()) {
+        final ClassLoader classLoader=application.getClassLoader();
+        final Iterator i=allResources.nodeIterator();
+        while (i.hasNext()) {
+          Node child=(Node)i.next();
+          final String className=child.text();
+          try {
+            providedArtefacts.add(classLoader.loadClass(className));
+          }
+ catch (          ClassNotFoundException e) {
+            LOG.error("Class not found loading plugin resource [" + className + "]. Resource skipped.",e);
+          }
+        }
+      }
+    }
+  }
+  this.providedArtefacts=providedArtefacts.toArray(new Class[providedArtefacts.size()]);
+}

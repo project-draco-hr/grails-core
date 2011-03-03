@@ -1,0 +1,22 @@
+{
+  if (pageName != null) {
+    Class pageClass=binaryPluginViewsMap.get(pageName);
+    if (pageClass == null && pluginManager != null) {
+      final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+      for (      GrailsPlugin plugin : allPlugins) {
+        if (plugin instanceof BinaryGrailsPlugin) {
+          BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+          pageClass=binaryPlugin.resolveView(pageName);
+          if (pageClass != null) {
+            binaryPluginViewsMap.put(pageName,pageClass);
+            break;
+          }
+        }
+      }
+    }
+    if (pageClass != null) {
+      return groovyPagesTemplateEngine.createTemplate(pageClass);
+    }
+  }
+  return null;
+}

@@ -19,7 +19,10 @@
       d=useExistingDecorator(request,decoratorName,decoratorPage);
     }
  else {
-      final String pluginViewLocation=searchPluginViews(name,resourceLoader);
+      String pluginViewLocation=searchPluginViews(name,resourceLoader);
+      if (pluginViewLocation == null) {
+        pluginViewLocation=searchPluginViewsInBinaryPlugins(name);
+      }
       if (pluginViewLocation != null) {
         decoratorPage=pluginViewLocation;
         d=useExistingDecorator(request,decoratorName,decoratorPage);

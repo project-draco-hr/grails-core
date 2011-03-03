@@ -1,6 +1,13 @@
 {
   this.filename=filename;
   this.gspEncoding=encoding;
+  if (filename != null && BuildSettingsHolder.getSettings() != null) {
+    PluginBuildSettings pluginBuildSettings=new PluginBuildSettings(BuildSettingsHolder.getSettings());
+    GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
+    if (info != null) {
+      pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
+    }
+  }
   String gspSource=readStream(in);
   Map<String,String> directives=parseDirectives(gspSource);
   if (isSitemeshPreprocessingEnabled(directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {

@@ -1,8 +1,0 @@
-{
-  if (filename != null) {
-    GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
-    if (info != null) {
-      pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
-    }
-  }
-}

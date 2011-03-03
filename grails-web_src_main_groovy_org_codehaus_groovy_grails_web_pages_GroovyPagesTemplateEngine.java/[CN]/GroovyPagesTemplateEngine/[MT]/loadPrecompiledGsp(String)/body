@@ -10,10 +10,7 @@
       LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
     }
     if (gspClass != null) {
-      meta=new GroovyPageMetaInfo(gspClass);
-      meta.setGrailsApplication(grailsApplication);
-      meta.setJspTagLibraryResolver(jspTagLibraryResolver);
-      meta.setTagLibraryLookup(tagLibraryLookup);
+      meta=createPreCompiledGroovyPageMetaInfo(gspClass);
     }
   }
   return meta;

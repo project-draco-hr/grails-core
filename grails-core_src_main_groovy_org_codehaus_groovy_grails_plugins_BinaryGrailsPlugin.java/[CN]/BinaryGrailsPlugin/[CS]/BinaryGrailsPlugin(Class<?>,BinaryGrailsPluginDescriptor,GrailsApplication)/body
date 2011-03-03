@@ -3,5 +3,6 @@
   this.descriptor=descriptor;
   if (descriptor != null) {
     initializeProvidedArtefacts(descriptor.getParsedXml());
+    initializeViewMap(descriptor);
   }
 }

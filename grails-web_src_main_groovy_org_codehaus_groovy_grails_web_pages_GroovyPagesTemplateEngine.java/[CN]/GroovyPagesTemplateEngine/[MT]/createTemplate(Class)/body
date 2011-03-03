@@ -1,0 +1,4 @@
+{
+  final GroovyPageMetaInfo metaInfo=createPreCompiledGroovyPageMetaInfo(viewClass);
+  return new GroovyPageTemplate(metaInfo);
+}

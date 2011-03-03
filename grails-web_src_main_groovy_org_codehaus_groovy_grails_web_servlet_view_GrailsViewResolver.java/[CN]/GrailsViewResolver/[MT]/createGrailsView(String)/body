@@ -12,16 +12,28 @@
   if (format != null) {
     res=loader.getResource(gspView);
     if (!res.exists()) {
-      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-      res=loader.getResource(gspView);
+      View v=lookupBinaryPluginView(webRequest,controller,gspView);
+      if (v != null) {
+        return v;
+      }
+ else {
+        gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
+        res=loader.getResource(gspView);
+      }
     }
   }
   if (res == null || !res.exists()) {
     gspView=localPrefix + viewName + GSP_SUFFIX;
     res=loader.getResource(gspView);
     if (!res.exists()) {
-      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-      res=loader.getResource(gspView);
+      View v=lookupBinaryPluginView(webRequest,controller,gspView);
+      if (v != null) {
+        return v;
+      }
+ else {
+        gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
+        res=loader.getResource(gspView);
+      }
     }
   }
   if (res.exists()) {

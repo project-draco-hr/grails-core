@@ -2,7 +2,13 @@
   Writer out=null;
   try {
     out=createResponseWriter(response);
-    Template t=engine.createTemplate(getUrl());
+    Template t;
+    if (viewClass != null) {
+      t=engine.createTemplate(viewClass);
+    }
+ else {
+      t=engine.createTemplate(getUrl());
+    }
     Writable w=t.make(model);
     w.writeTo(out);
   }

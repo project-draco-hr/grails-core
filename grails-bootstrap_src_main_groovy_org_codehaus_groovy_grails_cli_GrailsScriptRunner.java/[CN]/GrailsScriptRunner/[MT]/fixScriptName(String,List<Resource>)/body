@@ -1,8 +1,8 @@
 {
   try {
     Set<String> names=new HashSet<String>();
-    for (    File script : allScripts) {
-      names.add(script.getName().substring(0,script.getName().length() - 7));
+    for (    Resource script : allScripts) {
+      names.add(script.getFilename().substring(0,script.getFilename().length() - 7));
     }
     List<String> mostSimilar=CosineSimilarity.mostSimilar(scriptName,names);
     if (mostSimilar.isEmpty()) {

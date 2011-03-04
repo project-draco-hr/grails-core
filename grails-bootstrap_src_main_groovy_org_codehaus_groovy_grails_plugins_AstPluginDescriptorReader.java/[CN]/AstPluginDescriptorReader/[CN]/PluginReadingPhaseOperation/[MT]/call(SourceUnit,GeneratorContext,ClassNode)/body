@@ -3,31 +3,33 @@
     @Override public void visitProperty(    PropertyNode node){
       String name=node.getName();
       final Expression expr=node.getField().getInitialExpression();
-      Object value;
-      if (expr instanceof ListExpression) {
-        final List<String> list=new ArrayList<String>();
-        value=list;
-        for (        Expression i : ((ListExpression)expr).getExpressions()) {
-          list.add(i.getText());
+      if (expr != null) {
+        Object value;
+        if (expr instanceof ListExpression) {
+          final List<String> list=new ArrayList<String>();
+          value=list;
+          for (          Expression i : ((ListExpression)expr).getExpressions()) {
+            list.add(i.getText());
+          }
         }
-      }
- else       if (expr instanceof MapExpression) {
-        final Map<String,String> map=new LinkedHashMap<String,String>();
-        value=map;
-        for (        MapEntryExpression mee : ((MapExpression)expr).getMapEntryExpressions()) {
-          map.put(mee.getKeyExpression().getText(),mee.getValueExpression().getText());
+ else         if (expr instanceof MapExpression) {
+          final Map<String,String> map=new LinkedHashMap<String,String>();
+          value=map;
+          for (          MapEntryExpression mee : ((MapExpression)expr).getMapEntryExpressions()) {
+            map.put(mee.getKeyExpression().getText(),mee.getValueExpression().getText());
+          }
         }
-      }
  else {
-        value=expr.getText();
-      }
-      if (wrapper.isWritableProperty(name)) {
-        wrapper.setPropertyValue(name,value);
-      }
+          value=expr.getText();
+        }
+        if (wrapper.isWritableProperty(name)) {
+          wrapper.setPropertyValue(name,value);
+        }
  else {
-        pluginInfo.setProperty(name,value);
+          pluginInfo.setProperty(name,value);
+        }
+        super.visitProperty(node);
       }
-      super.visitProperty(node);
     }
     @Override protected SourceUnit getSourceUnit(){
       return source;

@@ -1,0 +1,27 @@
+{
+  initializeLastModifiedCache(directories,extensions);
+  while (active) {
+    int count=0;
+    Set<File> files=lastModifiedMap.keySet();
+    for (    File file : files) {
+      long currentLastModified=file.lastModified();
+      Long cachedTime=lastModifiedMap.get(file);
+      if (currentLastModified > cachedTime) {
+        lastModifiedMap.put(file,currentLastModified);
+        for (        FileChangeListener listener : listeners) {
+          listener.onChange(file);
+        }
+      }
+    }
+    try {
+      count++;
+      if (count > 3) {
+        count=0;
+        initializeLastModifiedCache(directories,extensions);
+      }
+      sleep(sleepTime);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+}

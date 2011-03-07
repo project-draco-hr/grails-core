@@ -1,0 +1,9 @@
+{
+  File[] files=directory.listFiles();
+  for (  File file : files) {
+    if (isValidFileToMonitor(file.getName(),extensions))     lastModifiedMap.put(file,file.lastModified());
+ else     if (file.isDirectory()) {
+      cacheFilesForDirectory(file,extensions);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  for (  String extension : extensions) {
+    if (name.endsWith(extension))     return true;
+  }
+  return false;
+}

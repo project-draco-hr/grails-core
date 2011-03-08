@@ -1,0 +1,5 @@
+{
+  Assert.notNull(resourceLoader,"The argument [resourceLoader] is required!");
+  this.grailsResourceLoader=resourceLoader;
+  this.localClassInjectors=classInjectors;
+}

@@ -1,0 +1,6 @@
+{
+  if (localClassInjectors == null) {
+    return getClassInjectors();
+  }
+  return localClassInjectors;
+}

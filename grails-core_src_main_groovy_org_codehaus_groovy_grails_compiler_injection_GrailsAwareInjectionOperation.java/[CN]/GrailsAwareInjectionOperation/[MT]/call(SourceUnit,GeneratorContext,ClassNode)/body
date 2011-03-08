@@ -1,5 +1,5 @@
 {
-  for (  ClassInjector classInjector : classInjectors) {
+  for (  ClassInjector classInjector : getLocalClassInjectors()) {
     try {
       URL url;
       if (GrailsResourceUtils.isGrailsPath(source.getName())) {

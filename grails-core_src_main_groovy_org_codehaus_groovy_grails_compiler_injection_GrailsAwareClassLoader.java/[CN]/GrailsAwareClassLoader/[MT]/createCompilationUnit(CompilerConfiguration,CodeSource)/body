@@ -1,5 +1,5 @@
 {
   CompilationUnit cu=super.createCompilationUnit(config,source);
-  cu.addPhaseOperation(new GrailsAwareInjectionOperation(getResourceLoader(),classInjectors),Phases.CANONICALIZATION);
+  cu.addPhaseOperation(new GrailsAwareInjectionOperation(getResourceLoader()),Phases.CANONICALIZATION);
   return cu;
 }

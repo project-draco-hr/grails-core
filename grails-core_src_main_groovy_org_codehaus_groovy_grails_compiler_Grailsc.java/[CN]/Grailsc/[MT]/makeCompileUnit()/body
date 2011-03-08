@@ -1,24 +1,6 @@
 {
-  BeanDefinitionRegistry registry=new SimpleBeanDefinitionRegistry();
-  ClassPathBeanDefinitionScanner scanner=new ClassPathBeanDefinitionScanner(registry);
-  scanner.setResourceLoader(new DefaultResourceLoader(Thread.currentThread().getContextClassLoader()));
-  scanner.addIncludeFilter(new AnnotationTypeFilter(AstTransformer.class));
-  scanner.scan("org.codehaus.groovy.grails.compiler");
   CompilationUnit unit=super.makeCompileUnit();
-  List<ClassInjector> classInjectors=new ArrayList<ClassInjector>();
-  ClassLoader classLoader=getClass().getClassLoader();
-  for (  String beanName : registry.getBeanDefinitionNames()) {
-    try {
-      Class<?> injectorClass=classLoader.loadClass(registry.getBeanDefinition(beanName).getBeanClassName());
-      if (ClassInjector.class.isAssignableFrom(injectorClass))       classInjectors.add((ClassInjector)injectorClass.newInstance());
-    }
- catch (    ClassNotFoundException e) {
-    }
-catch (    InstantiationException e) {
-    }
-catch (    IllegalAccessException e) {
-    }
-  }
-  unit.addPhaseOperation(new GrailsAwareInjectionOperation(configureResourceLoader(),classInjectors.toArray(new ClassInjector[classInjectors.size()])),Phases.CANONICALIZATION);
+  GrailsAwareInjectionOperation operation=new GrailsAwareInjectionOperation(configureResourceLoader());
+  unit.addPhaseOperation(operation,Phases.CANONICALIZATION);
   return unit;
 }

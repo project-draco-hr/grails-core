@@ -1,0 +1,26 @@
+{
+  File sourcePath=new File(source.getName());
+  try {
+    String absolutePath=sourcePath.getCanonicalPath();
+    if (pluginBuildSettings == null) {
+      return;
+    }
+    GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(absolutePath);
+    if (info == null) {
+      return;
+    }
+    final ClassNode annotation=new ClassNode(GrailsPlugin.class);
+    final List<?> list=classNode.getAnnotations(annotation);
+    if (!list.isEmpty()) {
+      return;
+    }
+    final AnnotationNode annotationNode=new AnnotationNode(annotation);
+    annotationNode.addMember(org.codehaus.groovy.grails.plugins.GrailsPlugin.NAME,new ConstantExpression(info.getName()));
+    annotationNode.addMember(org.codehaus.groovy.grails.plugins.GrailsPlugin.VERSION,new ConstantExpression(info.getVersion()));
+    annotationNode.setRuntimeRetention(true);
+    annotationNode.setClassRetention(true);
+    classNode.addAnnotation(annotationNode);
+  }
+ catch (  IOException e) {
+  }
+}

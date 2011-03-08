@@ -1,0 +1,6 @@
+{
+  ApplicationContext applicationContext=getStaticApplicationContext();
+  if (applicationContext != null) {
+    applicationContext.getAutowireCapableBeanFactory().autowireBean(instance);
+  }
+}

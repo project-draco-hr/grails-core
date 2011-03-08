@@ -1,0 +1,28 @@
+{
+  Class implementation=getInstanceImplementation();
+  Assert.notNull(implementation,"No implementation found for AST transform: " + getClass());
+  ClassNode implementationNode=new ClassNode(implementation);
+  String apiInstanceProperty=GrailsNameUtils.getPropertyNameRepresentation(implementation);
+  VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
+  classNode.addProperty(new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null));
+  while (!implementationNode.equals(OBJECT_CLASS)) {
+    List<MethodNode> declaredMethods=implementationNode.getMethods();
+    for (    MethodNode declaredMethod : declaredMethods) {
+      if (isCandidateInstanceMethod(declaredMethod)) {
+        Parameter[] parameterTypes=getParameterTypes(declaredMethod.getParameters());
+        if (!classNode.hasMethod(declaredMethod.getName(),parameterTypes)) {
+          BlockStatement methodBody=new BlockStatement();
+          ArgumentListExpression arguments=new ArgumentListExpression();
+          arguments.addExpression(THIS_EXPRESSION);
+          for (          Parameter parameterType : parameterTypes) {
+            arguments.addExpression(new VariableExpression(parameterType.getName()));
+          }
+          methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(apiInstance,declaredMethod.getName(),arguments)));
+          MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,declaredMethod.getReturnType(),parameterTypes,EMPTY_CLASS_ARRAY,methodBody);
+          classNode.addMethod(methodNode);
+        }
+      }
+    }
+    implementationNode=implementationNode.getSuperClass();
+  }
+}

@@ -7,6 +7,7 @@
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  UrlMappingsHolder urlMappingsHolder=webRequest.getApplicationContext().getBean(UrlMappingsHolder.BEAN_ID,UrlMappingsHolder.class);
   HttpServletRequest request=webRequest.getCurrentRequest();
   if (request.getAttribute(GRAILS_REDIRECT_ISSUED) != null) {
     throw new CannotRedirectException("Cannot issue a redirect(..) here. A previous call to redirect(..) has already redirected the response.");

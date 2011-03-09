@@ -4,7 +4,9 @@
     ClassNode implementationNode=new ClassNode(instanceImplementation);
     String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
     VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
-    classNode.addProperty(new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null));
+    PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
+    propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
+    classNode.addProperty(propertyNode);
     while (!implementationNode.equals(OBJECT_CLASS)) {
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {
@@ -32,6 +34,7 @@
       }
       implementationNode=implementationNode.getSuperClass();
     }
+    performInjectionInternal(apiInstanceProperty,source,classNode);
   }
   classNode.addAnnotation(new AnnotationNode(new ClassNode(Enhanced.class)));
 }

@@ -1,0 +1,17 @@
+{
+  List<PropertyNode> tags=new ArrayList<PropertyNode>();
+  List<PropertyNode> properties=classNode.getProperties();
+  for (  PropertyNode property : properties) {
+    if (property.isPublic()) {
+      Expression initialExpression=property.getInitialExpression();
+      if (initialExpression instanceof ClosureExpression) {
+        ClosureExpression ce=(ClosureExpression)initialExpression;
+        Parameter[] parameters=ce.getParameters();
+        if (parameters.length > 0) {
+          tags.add(property);
+        }
+      }
+    }
+  }
+  return tags;
+}

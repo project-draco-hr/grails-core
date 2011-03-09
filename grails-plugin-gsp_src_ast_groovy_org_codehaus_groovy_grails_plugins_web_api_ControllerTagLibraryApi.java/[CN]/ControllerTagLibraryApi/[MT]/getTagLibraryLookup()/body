@@ -1,0 +1,9 @@
+{
+  if (this.tagLibraryLookup == null) {
+    ApplicationContext applicationContext=getApplicationContext(null);
+    if (applicationContext != null) {
+      tagLibraryLookup=applicationContext.getBean(TagLibraryLookup.class);
+    }
+  }
+  return tagLibraryLookup;
+}

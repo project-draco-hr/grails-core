@@ -1,0 +1,10 @@
+{
+  GrailsApplication grailsApplication=getGrailsApplication(null);
+  if (grailsApplication != null) {
+    GrailsTagLibClass taglibrary=(GrailsTagLibClass)grailsApplication.getArtefact(TagLibArtefactHandler.TYPE,instance.getClass().getName());
+    if (taglibrary != null) {
+      return taglibrary.getNamespace();
+    }
+  }
+  return GroovyPage.DEFAULT_NAMESPACE;
+}

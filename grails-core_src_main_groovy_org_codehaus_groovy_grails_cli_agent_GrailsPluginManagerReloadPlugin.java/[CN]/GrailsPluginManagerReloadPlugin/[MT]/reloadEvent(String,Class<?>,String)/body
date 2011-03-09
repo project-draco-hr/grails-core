@@ -1,0 +1,6 @@
+{
+  GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
+  if (pluginManager != null) {
+    pluginManager.informOfClassChange(aClass);
+  }
+}

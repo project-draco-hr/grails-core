@@ -36,5 +36,5 @@
     }
     performInjectionInternal(apiInstanceProperty,source,classNode);
   }
-  classNode.addAnnotation(new AnnotationNode(new ClassNode(Enhanced.class)));
+  if (classNode.getAnnotations(ENHANCED_CLASS_NODE) == null)   classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
 }

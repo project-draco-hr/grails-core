@@ -33,6 +33,7 @@
   }
   finally {
     ClassPropertyFetcher.clearClassPropertyFetcherCache();
+    MethodUtils.clearCache();
   }
   return ctx;
 }

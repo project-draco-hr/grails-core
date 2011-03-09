@@ -1,19 +1,9 @@
 {
-  Method mAction;
-  try {
-    mAction=controller.getClass().getMethod(actionName);
-    if (!Modifier.isPublic(mAction.getModifiers())) {
-      throw new NoSuchMethodException();
-    }
-  }
- catch (  NoSuchMethodException mpe) {
-    mAction=null;
-  }
+  Method mAction=MethodUtils.getAccessibleMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
   if (mAction != null) {
     return mAction;
   }
  else {
-    Closure action;
     try {
       return controller.getProperty(actionName);
     }

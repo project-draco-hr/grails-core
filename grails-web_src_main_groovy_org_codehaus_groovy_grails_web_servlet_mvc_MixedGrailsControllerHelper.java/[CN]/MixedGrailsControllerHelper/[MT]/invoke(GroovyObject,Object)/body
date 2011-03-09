@@ -1,10 +1,10 @@
 {
   try {
-    if (action instanceof Closure) {
-      return ((Closure)action).call();
+    if (action.getClass() == Method.class) {
+      return ((Method)action).invoke(controller);
     }
  else {
-      return ((Method)action).invoke(controller);
+      return ((Closure)action).call();
     }
   }
  catch (  Exception e) {

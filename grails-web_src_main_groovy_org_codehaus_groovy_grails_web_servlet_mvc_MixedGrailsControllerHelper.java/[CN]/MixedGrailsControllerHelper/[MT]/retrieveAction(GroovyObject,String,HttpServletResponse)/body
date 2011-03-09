@@ -1,16 +1,30 @@
 {
-  Closure action;
+  Method mAction;
   try {
-    action=(Closure)controller.getProperty(actionName);
+    mAction=controller.getClass().getMethod(actionName);
+    if (!Modifier.isPublic(mAction.getModifiers())) {
+      throw new NoSuchMethodException();
+    }
   }
- catch (  MissingPropertyException mpe) {
+ catch (  NoSuchMethodException mpe) {
+    mAction=null;
+  }
+  if (mAction != null) {
+    return mAction;
+  }
+ else {
+    Closure action;
     try {
-      response.sendError(HttpServletResponse.SC_NOT_FOUND);
-      return null;
+      return controller.getProperty(actionName);
     }
- catch (    IOException e) {
-      throw new ControllerExecutionException("I/O error sending 404 error",e);
+ catch (    MissingPropertyException mpe) {
+      try {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        return null;
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error sending 404 error",e);
+      }
     }
   }
-  return action;
 }

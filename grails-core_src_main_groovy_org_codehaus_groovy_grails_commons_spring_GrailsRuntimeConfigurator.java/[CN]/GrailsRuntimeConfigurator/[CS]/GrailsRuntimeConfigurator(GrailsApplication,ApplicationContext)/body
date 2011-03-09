@@ -10,6 +10,9 @@
  catch (  BeansException e) {
   }
   if (pluginManager == null) {
+    pluginManager=PluginManagerHolder.getPluginManager();
+  }
+  if (pluginManager == null) {
     pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
   }
   PluginManagerHolder.setPluginManager(pluginManager);

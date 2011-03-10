@@ -1,0 +1,5 @@
+{
+  final org.hibernate.criterion.Disjunction disjunction=Restrictions.disjunction();
+  criteria.add(Restrictions.not(disjunction));
+  return new HibernateJunction(disjunction);
+}

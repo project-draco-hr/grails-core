@@ -1,0 +1,4 @@
+{
+  criteria.setProjection(Projections.sum(name));
+  return this;
+}

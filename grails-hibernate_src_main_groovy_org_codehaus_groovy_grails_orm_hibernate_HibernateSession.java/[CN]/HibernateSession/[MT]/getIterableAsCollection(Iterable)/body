@@ -1,0 +1,13 @@
+{
+  Collection list;
+  if (objects instanceof Collection) {
+    list=(Collection)objects;
+  }
+ else {
+    list=new ArrayList();
+    for (    Object object : objects) {
+      list.add(object);
+    }
+  }
+  return list;
+}

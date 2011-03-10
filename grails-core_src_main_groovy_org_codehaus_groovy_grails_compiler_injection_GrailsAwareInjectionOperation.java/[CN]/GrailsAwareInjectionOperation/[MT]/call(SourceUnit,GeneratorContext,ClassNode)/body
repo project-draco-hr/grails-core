@@ -1,27 +1,17 @@
 {
-  for (  ClassInjector classInjector : getLocalClassInjectors()) {
+  URL url=null;
+  final String filename=source.getName();
+  Resource resource=new FileSystemResource(filename);
+  if (resource.exists()) {
     try {
-      URL url;
-      if (GrailsResourceUtils.isGrailsPath(source.getName())) {
-        url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(source.getName()));
-      }
- else {
-        url=grailsResourceLoader.loadGroovySource(source.getName());
-      }
-      if (classInjector.shouldInject(url) && !(classInjector instanceof GroovyPageInjector)) {
-        try {
-          classInjector.performInjection(source,context,classNode);
-        }
- catch (        RuntimeException e) {
-          e.printStackTrace();
-          System.out.println("Error occurred calling AST injector [" + classInjector.getClass() + "]: "+ e.getMessage());
-          throw e;
-        }
-      }
+      url=resource.getURL();
     }
- catch (    MalformedURLException e) {
-      LOG.error("Error loading URL during addition of compile time properties: " + e.getMessage(),e);
-      throw new CompilationFailedException(Phases.CONVERSION,source,e);
+ catch (    IOException e) {
+    }
+  }
+  for (  ClassInjector classInjector : getLocalClassInjectors() && !(classInjector instanceof GroovyPageInjector)) {
+    if (classInjector.shouldInject(url)) {
+      classInjector.performInjection(source,context,classNode);
     }
   }
 }

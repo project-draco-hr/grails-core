@@ -1,0 +1,17 @@
+{
+  directoryWatch.put(directory,directory.lastModified());
+  File[] files=directory.listFiles();
+  for (  File file : files) {
+    if (isValidFileToMonitor(file.getName(),extensions)) {
+      if (!lastModifiedMap.containsKey(file) && fireEvent) {
+        for (        FileChangeListener listener : listeners) {
+          listener.onNew(file);
+        }
+      }
+      lastModifiedMap.put(file,file.lastModified());
+    }
+ else     if (file.isDirectory()) {
+      cacheFilesForDirectory(file,extensions,fireEvent);
+    }
+  }
+}

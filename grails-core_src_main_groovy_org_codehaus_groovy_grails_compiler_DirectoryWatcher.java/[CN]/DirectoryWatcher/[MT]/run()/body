@@ -8,9 +8,7 @@
       Long cachedTime=lastModifiedMap.get(file);
       if (currentLastModified > cachedTime) {
         lastModifiedMap.put(file,currentLastModified);
-        for (        FileChangeListener listener : listeners) {
-          listener.onChange(file);
-        }
+        fireOnChange(file);
       }
     }
     try {

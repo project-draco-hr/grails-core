@@ -1,0 +1,8 @@
+{
+  super();
+  this.grailsApplication=grailsApplication;
+  final GrailsClass[] artefacts=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
+  for (  GrailsClass grailsClass : artefacts) {
+    addPersistentEntity(grailsClass.getClazz());
+  }
+}

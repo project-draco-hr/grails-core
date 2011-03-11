@@ -1,0 +1,18 @@
+{
+  boolean shouldFail=false;
+  final Map config=application.getFlatConfig();
+  if (config.containsKey(FAIL_ON_ERROR_CONFIG_PROPERTY)) {
+    Object configProperty=config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
+    if (configProperty instanceof Boolean) {
+      shouldFail=Boolean.TRUE == configProperty;
+    }
+ else     if (configProperty instanceof List) {
+      if (domainClass != null) {
+        final Class theClass=domainClass.getClazz();
+        List packageList=(List)configProperty;
+        shouldFail=GrailsClassUtils.isClassBelowPackage(theClass,packageList);
+      }
+    }
+  }
+  return shouldFail;
+}

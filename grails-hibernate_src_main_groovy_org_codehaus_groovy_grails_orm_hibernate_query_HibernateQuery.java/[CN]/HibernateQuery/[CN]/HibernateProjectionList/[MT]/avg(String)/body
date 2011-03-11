@@ -1,0 +1,4 @@
+{
+  criteria.setProjection(Projections.avg(name));
+  return this;
+}

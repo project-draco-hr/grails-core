@@ -1,0 +1,4 @@
+{
+  this.hibernateTemplate=new HibernateTemplate(sessionFactory);
+  this.datastore=hibernateDatastore;
+}

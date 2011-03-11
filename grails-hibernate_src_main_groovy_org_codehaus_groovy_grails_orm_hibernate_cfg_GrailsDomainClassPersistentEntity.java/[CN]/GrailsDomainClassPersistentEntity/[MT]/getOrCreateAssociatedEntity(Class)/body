@@ -1,0 +1,7 @@
+{
+  PersistentEntity associatedEntity=getMappingContext().getPersistentEntity(propType.getName());
+  if (associatedEntity == null) {
+    associatedEntity=getMappingContext().addPersistentEntity(propType);
+  }
+  return associatedEntity;
+}

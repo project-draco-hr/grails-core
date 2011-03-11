@@ -1,0 +1,11 @@
+{
+  final PersistentProperty property=entity.getPropertyByName(associationName);
+  if (property != null && (property instanceof Association)) {
+    final Criteria subCriteria=criteria.createCriteria(associationName);
+    Association association=(Association)property;
+    return new HibernateQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity());
+  }
+ else {
+    throw new InvalidDataAccessApiUsageException("Cannot query association [" + associationName + "] of entity ["+ entity+ "]. Property is not an association!");
+  }
+}

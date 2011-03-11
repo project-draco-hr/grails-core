@@ -1,0 +1,37 @@
+{
+  final GrailsDomainClassProperty identifier=domainClass.getIdentifier();
+  this.identifier=new GrailsDomainClassPersistentProperty(this,identifier);
+  mappingContext.addEntityValidator(this,domainClass.getValidator());
+  final GrailsDomainClassProperty[] persistentProperties=domainClass.getPersistentProperties();
+  for (  GrailsDomainClassProperty grailsDomainClassProperty : persistentProperties) {
+    PersistentProperty persistentProperty;
+    if (grailsDomainClassProperty.isAssociation()) {
+      if (grailsDomainClassProperty.isEmbedded()) {
+        persistentProperty=createEmbedded(mappingContext,grailsDomainClassProperty);
+      }
+ else       if (grailsDomainClassProperty.isOneToMany()) {
+        persistentProperty=createOneToMany(mappingContext,grailsDomainClassProperty);
+      }
+ else       if (grailsDomainClassProperty.isHasOne()) {
+        persistentProperty=createOneToOne(mappingContext,grailsDomainClassProperty);
+      }
+ else       if (grailsDomainClassProperty.isOneToOne()) {
+        persistentProperty=createOneToOne(mappingContext,grailsDomainClassProperty);
+      }
+ else       if (grailsDomainClassProperty.isManyToOne()) {
+        persistentProperty=createManyToOne(mappingContext,grailsDomainClassProperty);
+      }
+ else       if (grailsDomainClassProperty.isManyToMany()) {
+        persistentProperty=createManyToMany(mappingContext,grailsDomainClassProperty);
+      }
+ else {
+        persistentProperty=new GrailsDomainClassPersistentProperty(this,grailsDomainClassProperty);
+      }
+    }
+ else {
+      persistentProperty=new GrailsDomainClassPersistentProperty(this,grailsDomainClassProperty);
+    }
+    propertiesByName.put(grailsDomainClassProperty.getName(),persistentProperty);
+    properties.add(persistentProperty);
+  }
+}

@@ -15,7 +15,14 @@
           ArgumentListExpression arguments=new ArgumentListExpression();
           arguments.addExpression(THIS_EXPRESSION);
           constructorBody.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments)));
-          classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+          ConstructorNode constructorNode=getDefaultConstructor(classNode);
+          if (constructorNode != null) {
+            constructorBody.addStatement(constructorNode.getCode());
+            constructorNode.setCode(constructorBody);
+          }
+ else {
+            classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+          }
         }
  else         if (isCandidateInstanceMethod(declaredMethod)) {
           Parameter[] parameterTypes=getParameterTypes(declaredMethod.getParameters());

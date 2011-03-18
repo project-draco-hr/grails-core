@@ -1,0 +1,17 @@
+{
+  Statement newCommandCode;
+  ConstructorCallExpression constructorCallExpression;
+  ArgumentListExpression arguments;
+  BlockStatement wrapper=new BlockStatement();
+  for (  Parameter param : closureAction.getParameters()) {
+    constructorCallExpression=new ConstructorCallExpression(param.getType(),EMPTY_TUPLE);
+    newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(param.getName(),param.getType()),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
+    wrapper.addStatement(newCommandCode);
+    arguments=new ArgumentListExpression();
+    arguments.addExpression(new VariableExpression(param.getName()));
+    arguments.addExpression(new VariableExpression(PARAMS_EXPRESSION));
+    wrapper.addStatement(new ExpressionStatement(new MethodCallExpression(THIS_EXPRESSION,"bindData",arguments)));
+  }
+  wrapper.addStatement(closureAction.getCode());
+  return wrapper;
+}

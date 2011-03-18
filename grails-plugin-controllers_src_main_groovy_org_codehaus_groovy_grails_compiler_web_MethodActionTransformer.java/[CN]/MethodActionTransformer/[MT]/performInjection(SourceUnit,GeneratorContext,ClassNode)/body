@@ -1,4 +1,6 @@
 {
   annotateCandidateActionMethods(classNode);
-  transformClosuresToMethods(classNode);
+  if (converterEnabled) {
+    transformClosuresToMethods(classNode);
+  }
 }

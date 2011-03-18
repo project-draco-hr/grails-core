@@ -1,11 +1,11 @@
 {
   Method mAction=MethodUtils.getAccessibleMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
-  if (mAction != null && !mAction.isSynthetic()) {
+  if (mAction != null && mAction.getAnnotation(Action.class) != null) {
     return mAction;
   }
  else {
     try {
-      return controller.getProperty(actionName);
+      return (Closure)controller.getProperty(actionName);
     }
  catch (    MissingPropertyException mpe) {
       try {

@@ -10,7 +10,7 @@
         if (foundCode != null) {
           result=new MessageFormat(foundCode,locale);
         }
-        if (result != null)         break;
+        if (result != null)         return result;
       }
     }
   }

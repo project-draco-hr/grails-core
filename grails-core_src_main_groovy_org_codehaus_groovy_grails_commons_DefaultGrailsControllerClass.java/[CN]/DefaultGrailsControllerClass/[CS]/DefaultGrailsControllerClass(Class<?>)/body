@@ -5,26 +5,17 @@
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;
   }
-  Collection<String> closureNames=new ArrayList<String>();
+  Collection<String> actionNames=new ArrayList<String>();
   controllerPath=uri + SLASH;
-  for (  PropertyDescriptor propertyDescriptor : getPropertyDescriptors()) {
-    Method readMethod=propertyDescriptor.getReadMethod();
-    if (readMethod != null && !Modifier.isStatic(readMethod.getModifiers())) {
-      final Class<?> propertyType=propertyDescriptor.getPropertyType();
-      if (propertyType == Object.class || propertyType == Closure.class) {
-        String closureName=propertyDescriptor.getName();
-        if (closureName.endsWith(FLOW_SUFFIX)) {
-          String flowId=closureName.substring(0,closureName.length() - FLOW_SUFFIX.length());
-          flows.put(flowId,propertyDescriptor);
-          closureName=flowId;
-        }
-        closureNames.add(closureName);
-        configureMappingForClosureProperty(closureName);
-      }
-    }
+  String resolveStrategy=(String)ConfigurationHolder.getConfig().get(RESOLVE_ACTION_KEY);
+  if (resolveStrategy != null && resolveStrategy.equalsIgnoreCase(RESOLVE_METHOD)) {
+    methodStrategy(actionNames);
   }
-  if (!isReadableProperty(defaultActionName) && closureNames.size() == 1) {
-    defaultActionName=closureNames.iterator().next();
+ else   if (resolveStrategy != null && resolveStrategy.equalsIgnoreCase(RESOLVE_CLOSURE)) {
+    closureStrategy(actionNames);
+  }
+ else {
+    mixedStrategy(actionNames);
   }
   configureDefaultActionIfSet();
   configureURIsForCurrentState();

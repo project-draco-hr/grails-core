@@ -1,0 +1,16 @@
+{
+  List<PropertyNode> fields=new ArrayList<PropertyNode>(classNode.getProperties());
+  Expression initialExpression;
+  ClosureExpression closureAction;
+  MethodNode actionMethod;
+  for (  PropertyNode field : fields) {
+    initialExpression=field.getInitialExpression();
+    if (!field.isStatic() && initialExpression != null && initialExpression.getClass().equals(ClosureExpression.class)) {
+      closureAction=(ClosureExpression)initialExpression;
+      actionMethod=new MethodNode(field.getName(),Modifier.PUBLIC,field.getType(),EMPTY_PARAMS,EMPTY_EXCEPTIONS,closureCode(closureAction));
+      actionMethod.addAnnotation(ACTION_ANNOTATION_NODE);
+      classNode.getProperties().remove(field);
+      classNode.addMethod(actionMethod);
+    }
+  }
+}

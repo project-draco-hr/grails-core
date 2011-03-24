@@ -5,11 +5,11 @@
       LOG.debug(String.format("Building ID-mapping for Enum Class %s",enumClass.getName()));
     }
     bidiMap=getBidiEnumMap(enumClass);
-    type=(NullableType)TypeFactory.basic(bidiMap.keyType.getName());
+    type=(AbstractStandardBasicType)typeResolver.basic(bidiMap.keyType.getName());
     if (LOG.isDebugEnabled()) {
       LOG.debug(String.format("Mapped Basic Type is %s",type));
     }
-    sqlTypes=new int[]{type.sqlType()};
+    sqlTypes=type.sqlTypes(null);
   }
  catch (  Exception e) {
     throw new MappingException("Error mapping Enum Class using IdentifierEnumType",e);

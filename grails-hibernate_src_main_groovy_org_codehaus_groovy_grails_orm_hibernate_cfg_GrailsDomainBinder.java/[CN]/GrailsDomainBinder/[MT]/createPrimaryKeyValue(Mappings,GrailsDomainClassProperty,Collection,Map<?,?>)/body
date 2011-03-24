@@ -9,7 +9,7 @@
     keyValue=(KeyValue)collection.getOwner().getProperty(propertyRef).getValue();
   }
   if (LOG.isDebugEnabled())   LOG.debug("[GrailsDomainBinder] creating dependant key value  to table [" + keyValue.getTable().getName() + "]");
-  key=new DependantValue(collection.getCollectionTable(),keyValue);
+  key=new DependantValue(mappings,collection.getCollectionTable(),keyValue);
   key.setTypeName(null);
   key.setNullable(true);
   key.setUpdateable(false);

@@ -12,7 +12,7 @@
     collection.setFetchMode(FetchMode.DEFAULT);
   }
   if (shouldBindCollectionWithForeignKey(property)) {
-    OneToMany oneToMany=new OneToMany(collection.getOwner());
+    OneToMany oneToMany=new OneToMany(mappings,collection.getOwner());
     collection.setElement(oneToMany);
     bindOneToMany(property,oneToMany,mappings);
   }

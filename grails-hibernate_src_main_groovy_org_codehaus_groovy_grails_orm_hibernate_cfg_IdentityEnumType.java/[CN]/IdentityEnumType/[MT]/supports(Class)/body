@@ -6,7 +6,7 @@
       int mods=idAccessor.getModifiers();
       if (Modifier.isPublic(mods) && !Modifier.isStatic(mods)) {
         Class<?> returnType=idAccessor.getReturnType();
-        return returnType != null && TypeFactory.basic(returnType.getName()) instanceof NullableType;
+        return returnType != null && typeResolver.basic(returnType.getName()) instanceof AbstractStandardBasicType;
       }
     }
  catch (    NoSuchMethodException e) {

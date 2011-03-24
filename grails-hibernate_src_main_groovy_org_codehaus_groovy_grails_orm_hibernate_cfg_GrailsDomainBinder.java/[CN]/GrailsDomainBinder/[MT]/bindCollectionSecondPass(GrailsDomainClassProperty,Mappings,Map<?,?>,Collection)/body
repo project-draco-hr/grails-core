@@ -52,7 +52,7 @@
   if (isSorted(property)) {
     collection.setSorted(true);
   }
-  DependantValue key=createPrimaryKeyValue(property,collection,persistentClasses);
+  DependantValue key=createPrimaryKeyValue(mappings,property,collection,persistentClasses);
   if (property.isBidirectional()) {
     GrailsDomainClassProperty otherSide=property.getOtherSide();
     if (otherSide.isManyToOne() && shouldBindCollectionWithForeignKey(property)) {
@@ -81,7 +81,7 @@
     GrailsDomainClassProperty otherSide=property.getOtherSide();
     if (property.isBidirectional()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Mapping other side " + otherSide.getDomainClass().getName() + "."+ otherSide.getName()+ " -> "+ collection.getCollectionTable().getName()+ " as ManyToOne");
-      ManyToOne element=new ManyToOne(collection.getCollectionTable());
+      ManyToOne element=new ManyToOne(mappings,collection.getCollectionTable());
       bindManyToMany(otherSide,element,mappings);
       collection.setElement(element);
       bindCollectionForPropertyConfig(collection,propConfig);

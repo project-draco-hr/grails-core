@@ -1,4 +1,5 @@
 {
+  Object[] args=argsObject instanceof Object[] ? (Object[])argsObject : new Object[]{argsObject};
   TagLibraryLookup lookup=getTagLibraryLookup();
   GroovyObject tagLibrary=lookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
   if (tagLibrary != null) {

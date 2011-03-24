@@ -1,0 +1,12 @@
+{
+  for (  Method method : getClazz().getMethods()) {
+    if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
+      String methodName=method.getName();
+      methodNames.add(methodName);
+      configureMappingForClosureProperty(methodName);
+    }
+  }
+  if (!isActionMethod(defaultActionName) && methodNames.size() == 1) {
+    defaultActionName=methodNames.iterator().next();
+  }
+}

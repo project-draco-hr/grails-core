@@ -6,7 +6,7 @@
   Table mytable=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),getJoinedSubClassTableName(sub,joinedSubclass,null,mappings),null,false);
   joinedSubclass.setTable(mytable);
   LOG.info("Mapping joined-subclass: " + joinedSubclass.getEntityName() + " -> "+ joinedSubclass.getTable().getName());
-  SimpleValue key=new DependantValue(mytable,joinedSubclass.getIdentifier());
+  SimpleValue key=new DependantValue(mappings,mytable,joinedSubclass.getIdentifier());
   joinedSubclass.setKey(key);
   GrailsDomainClassProperty identifier=sub.getIdentifier();
   String columnName=getColumnNameForPropertyAndPath(identifier,EMPTY_PATH,null);

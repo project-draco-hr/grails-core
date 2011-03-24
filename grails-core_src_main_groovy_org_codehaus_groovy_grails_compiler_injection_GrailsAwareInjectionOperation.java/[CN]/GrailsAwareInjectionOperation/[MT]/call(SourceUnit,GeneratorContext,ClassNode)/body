@@ -9,7 +9,14 @@
         url=grailsResourceLoader.loadGroovySource(source.getName());
       }
       if (classInjector.shouldInject(url)) {
-        classInjector.performInjection(source,context,classNode);
+        try {
+          classInjector.performInjection(source,context,classNode);
+        }
+ catch (        RuntimeException e) {
+          e.printStackTrace();
+          System.out.println("Error occurred calling AST injector [" + classInjector.getClass() + "]: "+ e.getMessage());
+          throw e;
+        }
       }
     }
  catch (    MalformedURLException e) {

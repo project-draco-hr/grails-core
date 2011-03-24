@@ -1,7 +1,7 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,list);
   String columnName=getIndexColumnName(property);
-  SimpleValue iv=new SimpleValue(list.getCollectionTable());
+  SimpleValue iv=new SimpleValue(mappings,list.getCollectionTable());
   bindSimpleValue("integer",iv,true,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);

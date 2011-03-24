@@ -1,5 +1,5 @@
 {
-  SimpleValue val=new SimpleValue(entity.getTable());
+  SimpleValue val=new SimpleValue(mappings,entity.getTable());
   bindSimpleValue(version,null,val,EMPTY_PATH,mappings);
   if (val.isTypeSpecified()) {
     if (!(val.getType() instanceof IntegerType || val.getType() instanceof LongType || val.getType() instanceof TimestampType)) {

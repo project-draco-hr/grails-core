@@ -1,4 +1,6 @@
 {
+  final Thread currentThread=Thread.currentThread();
+  final ClassLoader originalContextLoader=currentThread.getContextClassLoader();
   if (!configLocked) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsAnnotationConfiguration] [" + domainClasses.size() + "] Grails domain classes to bind to persistence runtime");
@@ -7,7 +9,7 @@
     for (    GrailsDomainClass domainClass : domainClasses) {
       final String fullClassName=domainClass.getFullName();
       String hibernateConfig=fullClassName.replace('.','/') + ".hbm.xml";
-      final ClassLoader loader=Thread.currentThread().getContextClassLoader();
+      final ClassLoader loader=originalContextLoader;
       if (loader.getResource(hibernateConfig) != null)       continue;
       if (LOG.isDebugEnabled()) {
         LOG.debug("[GrailsAnnotationConfiguration] Binding persistent class [" + fullClassName + "]");
@@ -18,6 +20,12 @@
       GrailsDomainBinder.bindClass(domainClass,mappings);
     }
   }
-  super.secondPassCompile();
+  try {
+    currentThread.setContextClassLoader(grailsApplication.getClassLoader());
+    super.secondPassCompile();
+  }
+  finally {
+    currentThread.setContextClassLoader(originalContextLoader);
+  }
   configLocked=true;
 }

@@ -1,0 +1,4 @@
+{
+  final BuildSettings settings=BuildSettingsHolder.getSettings();
+  converterEnabled=settings != null && settings.getConvertClosuresArtefacts();
+}

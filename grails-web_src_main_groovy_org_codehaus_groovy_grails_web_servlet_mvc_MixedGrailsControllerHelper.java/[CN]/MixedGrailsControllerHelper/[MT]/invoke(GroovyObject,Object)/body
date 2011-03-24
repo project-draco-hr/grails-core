@@ -1,0 +1,13 @@
+{
+  try {
+    if (action.getClass() == Method.class) {
+      return ((Method)action).invoke(controller);
+    }
+ else {
+      return ((Closure)action).call();
+    }
+  }
+ catch (  Exception e) {
+    throw new ControllerExecutionException("Runtime error executing action",e);
+  }
+}

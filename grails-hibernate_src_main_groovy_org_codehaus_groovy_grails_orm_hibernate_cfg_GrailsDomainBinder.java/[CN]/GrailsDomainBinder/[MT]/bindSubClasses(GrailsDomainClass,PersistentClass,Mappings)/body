@@ -1,7 +1,6 @@
 {
   Set<GrailsDomainClass> subClasses=domainClass.getSubClasses();
-  for (Iterator<GrailsDomainClass> i=subClasses.iterator(); i.hasNext(); ) {
-    GrailsDomainClass sub=i.next();
+  for (  GrailsDomainClass sub : subClasses) {
     if (sub.getClazz().getSuperclass().equals(domainClass.getClazz())) {
       bindSubClass(sub,parent,mappings);
     }

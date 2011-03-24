@@ -1,5 +1,5 @@
 {
-  Component id=new Component(root);
+  Component id=new Component(mappings,root);
   id.setNullValue("undefined");
   root.setIdentifier(id);
   root.setEmbeddedIdentifier(true);

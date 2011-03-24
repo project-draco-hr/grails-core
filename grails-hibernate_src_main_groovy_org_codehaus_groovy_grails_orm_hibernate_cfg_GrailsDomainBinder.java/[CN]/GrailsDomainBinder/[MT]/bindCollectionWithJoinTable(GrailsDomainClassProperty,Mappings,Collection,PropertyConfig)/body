@@ -1,10 +1,10 @@
 {
   SimpleValue element;
   if (property.isBasicCollectionType()) {
-    element=new SimpleValue(collection.getCollectionTable());
+    element=new SimpleValue(mappings,collection.getCollectionTable());
   }
  else {
-    element=new ManyToOne(collection.getCollectionTable());
+    element=new ManyToOne(mappings,collection.getCollectionTable());
     bindUnidirectionalOneToManyInverseValues(property,(ManyToOne)element);
   }
   collection.setInverse(false);
@@ -26,7 +26,7 @@
  else {
       String typeName=getTypeName(property,config,getMapping(property.getDomainClass()));
       if (typeName == null) {
-        Type type=TypeFactory.basic(className);
+        Type type=mappings.getTypeResolver().basic(className);
         if (type != null) {
           typeName=type.getName();
         }

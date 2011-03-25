@@ -1,6 +1,6 @@
 {
-  final PropertyNode existingProperty=classNode.getProperty(LOG_PROPERTY);
-  if (existingProperty == null) {
+  final FieldNode existingField=classNode.getField(LOG_PROPERTY);
+  if (existingField == null) {
     final String path=source.getName();
     if (path != null) {
       String artefactType=GrailsResourceUtils.getArtefactDirectory(path);

@@ -1,0 +1,12 @@
+{
+  final PropertyNode existingProperty=classNode.getProperty(LOG_PROPERTY);
+  if (existingProperty == null) {
+    final String path=source.getName();
+    if (path != null) {
+      String artefactType=GrailsResourceUtils.getArtefactDirectory(path);
+      String logName=artefactType == null ? classNode.getName() : "grails.app." + artefactType + "."+ classNode.getName();
+      FieldNode logVariable=new FieldNode(LOG_PROPERTY,Modifier.STATIC & Modifier.PRIVATE,new ClassNode(Log.class),classNode,new MethodCallExpression(new ClassExpression(new ClassNode(LogFactory.class)),"getLog",new ArgumentListExpression(new ConstantExpression(logName))));
+      classNode.addField(logVariable);
+    }
+  }
+}

@@ -50,5 +50,42 @@
     }
     performInjectionInternal(apiInstanceProperty,source,classNode);
   }
+  Class staticImplementation=getStaticImplementation();
+  if (staticImplementation != null) {
+    ClassNode staticImplementationNode=new ClassNode(staticImplementation);
+    final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
+    final String staticImplementationSimpleName=staticImplementation.getSimpleName();
+    String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
+    final String lookupMethodName="current" + staticImplementationSimpleName;
+    if (requiresAutowiring()) {
+      BlockStatement methodBody=new BlockStatement();
+      MethodNode lookupMethod=populateAutowiredApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+      classNode.addMethod(lookupMethod);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
+      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,staticImplementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
+      BlockStatement methodBody=new BlockStatement();
+      MethodNode lookupMethod=populateDefaultApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+      classNode.addMethod(lookupMethod);
+    }
+    MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    for (    MethodNode declaredMethod : declaredMethods) {
+      if (isCandidateMethod(declaredMethod)) {
+        Parameter[] parameterTypes=declaredMethod.getParameters();
+        if (!classNode.hasMethod(declaredMethod.getName(),parameterTypes)) {
+          BlockStatement methodBody=new BlockStatement();
+          ArgumentListExpression arguments=new ArgumentListExpression();
+          for (          Parameter parameterType : parameterTypes) {
+            arguments.addExpression(new VariableExpression(parameterType.getName()));
+          }
+          methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(apiLookupMethod,declaredMethod.getName(),arguments)));
+          MethodNode methodNode=new MethodNode(declaredMethod.getName(),PUBLIC_STATIC_MODIFIER,declaredMethod.getReturnType(),parameterTypes,EMPTY_CLASS_ARRAY,methodBody);
+          classNode.addMethod(methodNode);
+        }
+      }
+    }
+  }
   if (classNode.getAnnotations(ENHANCED_CLASS_NODE).isEmpty())   classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
 }

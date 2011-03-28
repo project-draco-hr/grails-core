@@ -18,9 +18,11 @@
     String artefactType=ce.getText();
     try {
       ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
-      GrailsArtefactClassInjector injector=findInjector(artefactType,classInjectors);
-      if (injector != null) {
-        injector.performInjection(sourceUnit,cNode);
+      java.util.List<ClassInjector> injectors=findInjectors(artefactType,classInjectors);
+      if (!injectors.isEmpty()) {
+        for (        ClassInjector injector : injectors) {
+          injector.performInjection(sourceUnit,cNode);
+        }
         return;
       }
     }

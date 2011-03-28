@@ -1,11 +1,15 @@
 {
+  List<ClassInjector> injectors=new ArrayList<ClassInjector>();
   for (  ClassInjector classInjector : classInjectors) {
     if (classInjector instanceof GrailsArtefactClassInjector) {
       GrailsArtefactClassInjector gace=(GrailsArtefactClassInjector)classInjector;
       if (artefactType.equals(gace.getArtefactType())) {
-        return gace;
+        injectors.add(gace);
       }
     }
+ else     if (classInjector instanceof AllArtefactClassInjector) {
+      injectors.add(classInjector);
+    }
   }
-  return null;
+  return injectors;
 }

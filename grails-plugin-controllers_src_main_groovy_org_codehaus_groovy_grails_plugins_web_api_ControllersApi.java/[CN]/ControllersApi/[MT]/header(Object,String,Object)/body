@@ -1,0 +1,8 @@
+{
+  if (headerValue != null) {
+    final HttpServletResponse response=getResponse(instance);
+    if (response != null) {
+      response.setHeader(headerName,headerValue.toString());
+    }
+  }
+}

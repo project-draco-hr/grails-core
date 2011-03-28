@@ -4,9 +4,16 @@
     ClassNode implementationNode=new ClassNode(instanceImplementation);
     String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
     VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
-    PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
-    propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
-    classNode.addProperty(propertyNode);
+    if (requiresAutowiring()) {
+      PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
+      propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
+      classNode.addProperty(propertyNode);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
+      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
+    }
     while (!implementationNode.equals(OBJECT_CLASS)) {
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {

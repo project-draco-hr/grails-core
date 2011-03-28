@@ -1,0 +1,6 @@
+{
+  if (ConverterUtil.isConverterClass(clazz)) {
+    return ConverterUtil.createConverter(clazz,instance,getApplicationContext());
+  }
+  return ConverterUtil.invokeOriginalAsTypeMethod(instance,clazz);
+}

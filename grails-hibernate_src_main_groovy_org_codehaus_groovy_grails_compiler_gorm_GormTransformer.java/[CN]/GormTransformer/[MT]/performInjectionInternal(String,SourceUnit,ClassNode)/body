@@ -1,0 +1,7 @@
+{
+  final PropertyNode errorsProperty=classNode.getProperty(GrailsDomainClassProperty.ERRORS);
+  if (errorsProperty == null) {
+    addErrorsProperty(classNode);
+    addHasErrorsMethod(classNode);
+  }
+}

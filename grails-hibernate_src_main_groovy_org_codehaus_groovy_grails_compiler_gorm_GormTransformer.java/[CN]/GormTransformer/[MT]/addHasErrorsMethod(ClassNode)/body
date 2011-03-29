@@ -1,0 +1,7 @@
+{
+  final BlockStatement hasErrorsMethodBody=new BlockStatement();
+  final MethodCallExpression hasErrorsMethodCall=new MethodCallExpression(new VariableExpression(GrailsDomainClassProperty.ERRORS),HAS_ERRORS_METHOD,ZERO_ARGS);
+  hasErrorsMethodCall.setSafe(true);
+  hasErrorsMethodBody.addStatement(new ExpressionStatement(hasErrorsMethodCall));
+  classNode.addMethod(HAS_ERRORS_METHOD,Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,null,hasErrorsMethodBody);
+}

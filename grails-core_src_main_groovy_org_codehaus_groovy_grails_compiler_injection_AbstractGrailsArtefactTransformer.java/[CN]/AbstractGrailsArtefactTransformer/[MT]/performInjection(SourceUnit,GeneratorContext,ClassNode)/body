@@ -75,7 +75,7 @@
     }
     MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
     for (    MethodNode declaredMethod : declaredMethods) {
-      if (isCandidateMethod(declaredMethod)) {
+      if (isStaticCandidateMethod(declaredMethod)) {
         Parameter[] parameterTypes=declaredMethod.getParameters();
         String declaredMethodName=declaredMethod.getName();
         if (!classNode.hasMethod(declaredMethodName,parameterTypes)) {

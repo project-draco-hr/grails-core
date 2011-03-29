@@ -3,8 +3,13 @@
   if (instanceImplementation != null) {
     ClassNode implementationNode=new ClassNode(instanceImplementation);
     String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
-    VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
-    if (requiresAutowiring()) {
+    Expression apiInstance=new VariableExpression(apiInstanceProperty);
+    if (requiresStaticLookupMethod()) {
+      final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
+      createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
+      apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    }
+ else     if (requiresAutowiring()) {
       PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
       propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
       classNode.addProperty(propertyNode);
@@ -56,11 +61,9 @@
     final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
     final String staticImplementationSimpleName=staticImplementation.getSimpleName();
     String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
-    final String lookupMethodName="current" + staticImplementationSimpleName;
-    if (requiresAutowiring()) {
-      BlockStatement methodBody=new BlockStatement();
-      MethodNode lookupMethod=populateAutowiredApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
-      classNode.addMethod(lookupMethod);
+    final String lookupMethodName=CURRENT_PREFIX + staticImplementationSimpleName;
+    if (requiresStaticLookupMethod()) {
+      createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
     }
  else {
       final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);

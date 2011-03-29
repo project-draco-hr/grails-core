@@ -1,0 +1,5 @@
+{
+  BlockStatement methodBody=new BlockStatement();
+  MethodNode lookupMethod=populateAutowiredApiLookupMethod(implementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+  classNode.addMethod(lookupMethod);
+}

@@ -1,7 +1,8 @@
 {
   for (  MethodNode method : classNode.getMethods()) {
-    if (!method.isStatic() && method.getParameters().length == 0 && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty() && method.getLineNumber() >= 0) {
-      method.addAnnotation(ACTION_ANNOTATION_NODE);
+    if (!method.isStatic() && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty() && method.getLineNumber() >= 0) {
+      method.setCode(bodyCode(method.getParameters(),method.getCode()));
+      convertToMethodAction(method);
     }
   }
 }

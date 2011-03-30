@@ -1,4 +1,3 @@
 {
-  final BuildSettings settings=BuildSettingsHolder.getSettings();
-  converterEnabled=settings != null && settings.getConvertClosuresArtefacts();
+  converterEnabled=Boolean.parseBoolean(System.getProperties().getProperty(BuildSettings.CONVERT_CLOSURES_KEY));
 }

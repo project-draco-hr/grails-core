@@ -1,0 +1,11 @@
+{
+  Method[] methods=ReflectionUtils.getAllDeclaredMethods(controller.getClass());
+  Action actionAnn=null;
+  for (  Method method : methods) {
+    actionAnn=method.getAnnotation(Action.class);
+    Class[] commandObjectClasses=actionAnn != null ? actionAnn.commandObjects() : null;
+    if (commandObjectClasses != null && commandObjectClasses.length > 0) {
+      WebMetaUtils.prepareCommandObjectBindingAction(method,commandObjectClasses,applicationContext);
+    }
+  }
+}

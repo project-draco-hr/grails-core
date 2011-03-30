@@ -1,7 +1,8 @@
 {
   super(clazz,"");
   PropertyDescriptor[] propertyDescriptors=getPropertyDescriptors();
-  if (!clazz.getSuperclass().equals(GroovyObject.class) && !clazz.getSuperclass().equals(Object.class) && !Modifier.isAbstract(clazz.getSuperclass().getModifiers())) {
+  final Class<?> superClass=clazz.getSuperclass();
+  if (DomainClassArtefactHandler.isDomainClass(superClass)) {
     root=false;
   }
   propertyMap=new LinkedHashMap<String,GrailsDomainClassProperty>();

@@ -1,7 +1,4 @@
 {
-  if (Modifier.isAbstract(artefactClass.getModifiers())) {
-    return null;
-  }
   ArtefactHandler handler=artefactHandlersByName.get(artefactType);
   if (handler.isArtefact(artefactClass)) {
     GrailsClass artefactGrailsClass=handler.newArtefactClass(artefactClass);

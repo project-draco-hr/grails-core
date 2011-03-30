@@ -108,15 +108,14 @@
       }
       return name;
     }
-    if (targetBean.isReadableProperty(name)) {
-      ClassMetadata meta=sessionFactory.getClassMetadata(targetBean.getWrappedClass());
+    final PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(targetClass,name);
+    if (pd != null && pd.getReadMethod() != null) {
+      ClassMetadata meta=sessionFactory.getClassMetadata(targetClass);
       Type type=meta.getPropertyType(name);
       if (type.isAssociationType()) {
         String otherSideEntityName=((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
         Class oldTargetClass=targetClass;
         targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
-        BeanWrapper oldTargetBean=targetBean;
-        targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
         associationStack.add(name);
         final String associationPath=getAssociationPath();
         createAliasIfNeccessary(name,associationPath);
@@ -132,7 +131,6 @@
         }
         associationStack.remove(associationStack.size() - 1);
         targetClass=oldTargetClass;
-        targetBean=oldTargetBean;
         return name;
       }
     }

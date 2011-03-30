@@ -14,4 +14,5 @@
     logicalPropertyName=GrailsNameUtils.getPropertyNameRepresentation(name);
   }
   classPropertyFetcher=ClassPropertyFetcher.forClass(clazz);
+  isAbstract=Modifier.isAbstract(clazz.getModifiers());
 }

@@ -1,8 +1,0 @@
-{
-  if (parentCtx.containsBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN)) {
-    Object cl=parentCtx.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN);
-    if (cl instanceof ClassLoader) {
-      setClassLoaderOnContext((ClassLoader)cl);
-    }
-  }
-}

@@ -28,7 +28,7 @@
     script.run();
   }
  catch (  Throwable e) {
-    GrailsUtil.deepSanitize(e);
+    org.codehaus.groovy.runtime.StackTraceUtils.deepSanitize(e);
     e.printStackTrace();
     System.out.println("Error loading event script from file [" + eventScript + "] "+ e.getMessage());
   }

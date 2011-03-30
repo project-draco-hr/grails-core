@@ -3,10 +3,22 @@
   if (instanceImplementation != null) {
     ClassNode implementationNode=new ClassNode(instanceImplementation);
     String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
-    VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
-    PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
-    propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
-    classNode.addProperty(propertyNode);
+    Expression apiInstance=new VariableExpression(apiInstanceProperty);
+    if (requiresStaticLookupMethod()) {
+      final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
+      createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
+      apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    }
+ else     if (requiresAutowiring()) {
+      PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
+      propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
+      classNode.addProperty(propertyNode);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
+      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
+    }
     while (!implementationNode.equals(OBJECT_CLASS)) {
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {
@@ -26,7 +38,7 @@
         }
  else         if (isCandidateInstanceMethod(declaredMethod)) {
           Parameter[] parameterTypes=getParameterTypes(declaredMethod.getParameters());
-          if (!classNode.hasMethod(declaredMethod.getName(),parameterTypes)) {
+          if (!classNode.hasDeclaredMethod(declaredMethod.getName(),parameterTypes)) {
             BlockStatement methodBody=new BlockStatement();
             ArgumentListExpression arguments=new ArgumentListExpression();
             arguments.addExpression(THIS_EXPRESSION);
@@ -42,6 +54,45 @@
       implementationNode=implementationNode.getSuperClass();
     }
     performInjectionInternal(apiInstanceProperty,source,classNode);
+  }
+  Class staticImplementation=getStaticImplementation();
+  if (staticImplementation != null) {
+    ClassNode staticImplementationNode=new ClassNode(staticImplementation);
+    final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
+    final String staticImplementationSimpleName=staticImplementation.getSimpleName();
+    String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
+    final String lookupMethodName=CURRENT_PREFIX + staticImplementationSimpleName;
+    if (requiresStaticLookupMethod()) {
+      createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
+      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,staticImplementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
+      BlockStatement methodBody=new BlockStatement();
+      MethodNode lookupMethod=populateDefaultApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+      classNode.addMethod(lookupMethod);
+    }
+    MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    for (    MethodNode declaredMethod : declaredMethods) {
+      if (isStaticCandidateMethod(declaredMethod)) {
+        Parameter[] parameterTypes=declaredMethod.getParameters();
+        String declaredMethodName=declaredMethod.getName();
+        if (!classNode.hasDeclaredMethod(declaredMethodName,parameterTypes)) {
+          BlockStatement methodBody=new BlockStatement();
+          ArgumentListExpression arguments=new ArgumentListExpression();
+          for (          Parameter parameterType : parameterTypes) {
+            arguments.addExpression(new VariableExpression(parameterType.getName()));
+          }
+          methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(apiLookupMethod,declaredMethodName,arguments)));
+          if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
+            declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;
+          }
+          MethodNode methodNode=new MethodNode(declaredMethodName,PUBLIC_STATIC_MODIFIER,declaredMethod.getReturnType(),parameterTypes,EMPTY_CLASS_ARRAY,methodBody);
+          classNode.addMethod(methodNode);
+        }
+      }
+    }
   }
   if (classNode.getAnnotations(ENHANCED_CLASS_NODE).isEmpty())   classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
 }

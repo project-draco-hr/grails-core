@@ -1,6 +1,7 @@
 {
   final String name=method.getName();
   if (EXCLUDED_METHODS.contains(name))   return false;
-  Integer parameterCount=METHOD_CLOSURES.get(name);
-  return Modifier.isPublic(modifiers) && !Modifier.isAbstract(modifiers) && !name.contains("$")&& !(parameterCount != null && (parameterCount == method.getParameterTypes().length));
+  boolean isStatic=Modifier.isStatic(modifiers);
+  int minParameters=isStatic ? 0 : 1;
+  return Modifier.isPublic(modifiers) && !(method.isSynthetic() || method.isBridge()) && !Modifier.isAbstract(modifiers)&& !name.contains("$")&& (method.getParameterTypes().length >= minParameters);
 }

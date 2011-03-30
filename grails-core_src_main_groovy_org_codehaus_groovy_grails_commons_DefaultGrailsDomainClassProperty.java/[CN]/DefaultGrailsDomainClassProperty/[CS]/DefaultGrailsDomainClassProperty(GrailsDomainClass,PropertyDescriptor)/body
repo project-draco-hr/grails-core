@@ -12,4 +12,10 @@
     checkIfTransient(transientProps);
     establishFetchMode();
   }
+  if (descriptor.getReadMethod() == null || descriptor.getWriteMethod() == null) {
+    persistent=false;
+  }
+  if (Errors.class.isAssignableFrom(type)) {
+    persistent=false;
+  }
 }

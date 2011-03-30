@@ -1,0 +1,9 @@
+{
+  if (applicationContext == null) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null) {
+      applicationContext=webRequest.getApplicationContext();
+    }
+  }
+  return applicationContext;
+}

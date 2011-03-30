@@ -1,0 +1,6 @@
+{
+  final ArgumentListExpression errorsConstructorArgs=new ArgumentListExpression();
+  errorsConstructorArgs.addExpression(THIS_EXPRESSION).addExpression(new ConstantExpression(classNode.getName()));
+  final ConstructorCallExpression emptyErrorsConstructorCall=new ConstructorCallExpression(new ClassNode(BeanPropertyBindingResult.class),errorsConstructorArgs);
+  classNode.addProperty(GrailsDomainClassProperty.ERRORS,Modifier.PUBLIC,new ClassNode(Errors.class),emptyErrorsConstructorCall,null,null);
+}

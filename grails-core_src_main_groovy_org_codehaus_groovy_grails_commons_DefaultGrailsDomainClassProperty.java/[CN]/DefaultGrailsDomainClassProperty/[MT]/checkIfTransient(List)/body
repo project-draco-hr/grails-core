@@ -6,7 +6,7 @@
     if (currentObj instanceof String) {
       String propertyName=(String)currentObj;
       if (propertyName.equals(name)) {
-        persistant=false;
+        persistent=false;
         break;
       }
     }

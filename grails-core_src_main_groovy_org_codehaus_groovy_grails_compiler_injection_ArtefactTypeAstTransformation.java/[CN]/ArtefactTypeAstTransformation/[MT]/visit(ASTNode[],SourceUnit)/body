@@ -17,7 +17,14 @@
     ConstantExpression ce=(ConstantExpression)value;
     String artefactType=ce.getText();
     try {
-      if (injectIfArtefact(artefactType,cNode,sourceUnit))       return;
+      ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
+      java.util.List<ClassInjector> injectors=findInjectors(artefactType,classInjectors);
+      if (!injectors.isEmpty()) {
+        for (        ClassInjector injector : injectors) {
+          injector.performInjection(sourceUnit,cNode);
+        }
+        return;
+      }
     }
  catch (    RuntimeException e) {
       e.printStackTrace();

@@ -3,4 +3,7 @@
   if (newConfig != null) {
     flatConfig=newConfig.flatten();
   }
+ else {
+    flatConfig=null;
+  }
 }

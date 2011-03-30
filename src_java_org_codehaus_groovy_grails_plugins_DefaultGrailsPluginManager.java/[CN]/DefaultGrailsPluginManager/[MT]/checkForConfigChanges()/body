@@ -21,6 +21,7 @@
           ConfigSlurper slurper=new ConfigSlurper(Environment.getCurrent().getName());
           try {
             config=slurper.parse(configURL);
+            ConfigurationHelper.initConfig(config,null,application.getClassLoader());
             ConfigurationHolder.setConfig(config);
             configLastModified=lastModified;
             application.configChanged();

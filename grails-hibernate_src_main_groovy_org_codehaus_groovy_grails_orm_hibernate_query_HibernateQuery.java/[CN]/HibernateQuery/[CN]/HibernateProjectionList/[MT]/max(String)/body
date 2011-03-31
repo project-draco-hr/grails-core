@@ -1,0 +1,4 @@
+{
+  criteria.setProjection(Projections.max(name));
+  return this;
+}

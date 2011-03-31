@@ -1,0 +1,3 @@
+{
+  return !declaredMethod.isSynthetic() && Modifier.isPublic(declaredMethod.getModifiers()) && !Modifier.isAbstract(declaredMethod.getModifiers());
+}

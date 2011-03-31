@@ -1,7 +1,6 @@
 {
-  if (pluginBuildSettings != null) {
-    Resource[] resources=pluginBuildSettings.getArtefactResources();
-    GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
-    GrailsResourceLoaderHolder.setResourceLoader(resourceLoader);
-  }
+  Resource[] resources=GrailsPluginUtils.getPluginBuildSettings().getArtefactResources();
+  GrailsResourceLoader resourceLoader=new GrailsResourceLoader(resources);
+  GrailsResourceLoaderHolder.setResourceLoader(resourceLoader);
+  return resourceLoader;
 }

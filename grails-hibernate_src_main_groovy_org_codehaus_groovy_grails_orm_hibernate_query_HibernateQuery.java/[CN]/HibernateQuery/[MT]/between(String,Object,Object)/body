@@ -1,0 +1,4 @@
+{
+  criteria.add(Restrictions.between(property,start,end));
+  return this;
+}

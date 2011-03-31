@@ -1,0 +1,11 @@
+{
+  Embedded persistentProperty=new Embedded(this,mappingContext,grailsDomainClassProperty.getName(),grailsDomainClassProperty.getClass()){
+    public PropertyMapping getMapping(){
+      return null;
+    }
+  }
+;
+  persistentProperty.setOwningSide(grailsDomainClassProperty.isOwningSide());
+  persistentProperty.setReferencedPropertyName(grailsDomainClassProperty.getReferencedPropertyName());
+  return persistentProperty;
+}

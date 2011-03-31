@@ -1,0 +1,5 @@
+{
+  super.order(order);
+  criteria.addOrder(order.getDirection() == Order.Direction.ASC ? org.hibernate.criterion.Order.asc(order.getProperty()) : org.hibernate.criterion.Order.desc(order.getProperty()));
+  return this;
+}

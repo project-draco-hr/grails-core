@@ -1,0 +1,6 @@
+{
+  if (classInjectors == null) {
+    initializeState();
+  }
+  return classInjectors;
+}

@@ -1,0 +1,40 @@
+{
+  Class instanceImplementation=getInstanceImplementation();
+  if (instanceImplementation != null) {
+    ClassNode implementationNode=new ClassNode(instanceImplementation);
+    String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
+    VariableExpression apiInstance=new VariableExpression(apiInstanceProperty);
+    PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,new ConstructorCallExpression(implementationNode,ZERO_ARGS),null,null);
+    propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
+    classNode.addProperty(propertyNode);
+    while (!implementationNode.equals(OBJECT_CLASS)) {
+      List<MethodNode> declaredMethods=implementationNode.getMethods();
+      for (      MethodNode declaredMethod : declaredMethods) {
+        if (isConstructor(declaredMethod)) {
+          BlockStatement constructorBody=new BlockStatement();
+          ArgumentListExpression arguments=new ArgumentListExpression();
+          arguments.addExpression(THIS_EXPRESSION);
+          constructorBody.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments)));
+          classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+        }
+ else         if (isCandidateInstanceMethod(declaredMethod)) {
+          Parameter[] parameterTypes=getParameterTypes(declaredMethod.getParameters());
+          if (!classNode.hasMethod(declaredMethod.getName(),parameterTypes)) {
+            BlockStatement methodBody=new BlockStatement();
+            ArgumentListExpression arguments=new ArgumentListExpression();
+            arguments.addExpression(THIS_EXPRESSION);
+            for (            Parameter parameterType : parameterTypes) {
+              arguments.addExpression(new VariableExpression(parameterType.getName()));
+            }
+            methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(apiInstance,declaredMethod.getName(),arguments)));
+            MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,declaredMethod.getReturnType(),parameterTypes,EMPTY_CLASS_ARRAY,methodBody);
+            classNode.addMethod(methodNode);
+          }
+        }
+      }
+      implementationNode=implementationNode.getSuperClass();
+    }
+    performInjectionInternal(apiInstanceProperty,source,classNode);
+  }
+  if (classNode.getAnnotations(ENHANCED_CLASS_NODE) == null)   classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
+}

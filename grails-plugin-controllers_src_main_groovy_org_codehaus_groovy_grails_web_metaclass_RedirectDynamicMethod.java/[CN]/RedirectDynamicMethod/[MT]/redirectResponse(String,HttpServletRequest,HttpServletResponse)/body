@@ -8,9 +8,10 @@
     }
     String redirectUrl=useJessionId ? response.encodeRedirectURL(actualUri) : actualUri;
     response.sendRedirect(redirectUrl);
-    Map<String,RedirectEventListener> redirectListeners=applicationContext.getBeansOfType(RedirectEventListener.class);
-    for (    RedirectEventListener redirectEventListener : redirectListeners.values()) {
-      redirectEventListener.responseRedirected(redirectUrl);
+    if (redirectListeners != null) {
+      for (      RedirectEventListener redirectEventListener : redirectListeners) {
+        redirectEventListener.responseRedirected(redirectUrl);
+      }
     }
     request.setAttribute(GRAILS_REDIRECT_ISSUED,true);
   }

@@ -1,0 +1,24 @@
+{
+  if (classInjectors == null) {
+    BeanDefinitionRegistry registry=new SimpleBeanDefinitionRegistry();
+    ClassPathBeanDefinitionScanner scanner=new ClassPathBeanDefinitionScanner(registry);
+    scanner.setResourceLoader(new DefaultResourceLoader(Thread.currentThread().getContextClassLoader()));
+    scanner.addIncludeFilter(new AnnotationTypeFilter(AstTransformer.class));
+    scanner.scan(INJECTOR_SCAN_PACKAGE);
+    List<ClassInjector> classInjectorList=new ArrayList<ClassInjector>();
+    ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+    for (    String beanName : registry.getBeanDefinitionNames()) {
+      try {
+        Class<?> injectorClass=classLoader.loadClass(registry.getBeanDefinition(beanName).getBeanClassName());
+        if (ClassInjector.class.isAssignableFrom(injectorClass))         classInjectorList.add((ClassInjector)injectorClass.newInstance());
+      }
+ catch (      ClassNotFoundException e) {
+      }
+catch (      InstantiationException e) {
+      }
+catch (      IllegalAccessException e) {
+      }
+    }
+    classInjectors=classInjectorList.toArray(new ClassInjector[classInjectorList.size()]);
+  }
+}

@@ -1,0 +1,12 @@
+{
+  for (  Method method : getClazz().getMethods()) {
+    if (!Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()) && !method.isSynthetic()) {
+      String methodName=method.getName();
+      methodNames.add(methodName);
+      configureMappingForClosureProperty(methodName);
+    }
+  }
+  if (!isPublicAndNonStaticMethod(defaultActionName) && methodNames.size() == 1) {
+    defaultActionName=methodNames.iterator().next();
+  }
+}

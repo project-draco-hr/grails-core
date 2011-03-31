@@ -1,0 +1,10 @@
+{
+  ConstructorNode constructorNode=null;
+  for (  ConstructorNode cons : classNode.getDeclaredConstructors()) {
+    if (cons.getParameters().length == 0) {
+      constructorNode=cons;
+      break;
+    }
+  }
+  return constructorNode;
+}

@@ -1,5 +1,5 @@
 {
-  Closure init=getInitClosure();
+  Closure<?> init=getInitClosure();
   if (init != null) {
     init=init.curry(new Object[]{servletContext});
     Environment.executeForCurrentEnvironment(init);

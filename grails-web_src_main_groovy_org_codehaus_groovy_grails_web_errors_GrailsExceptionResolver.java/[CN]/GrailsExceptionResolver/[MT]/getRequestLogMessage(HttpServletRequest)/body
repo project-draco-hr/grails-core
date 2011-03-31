@@ -8,7 +8,7 @@
  else {
     sb.append(request.getRequestURI());
   }
-  Map flatConfig=ConfigurationHolder.getFlatConfig();
+  @SuppressWarnings("rawtypes") Map flatConfig=ConfigurationHolder.getFlatConfig();
   final boolean shouldLogRequestParameters;
   if (flatConfig.containsKey("grails.exceptionresolver.logRequestParameters")) {
     shouldLogRequestParameters=Boolean.TRUE.equals(flatConfig.get("grails.exceptionresolver.logRequestParameters"));
@@ -17,13 +17,13 @@
     shouldLogRequestParameters=Environment.getCurrent() == Environment.DEVELOPMENT;
   }
   if (shouldLogRequestParameters) {
-    Enumeration<String> params=request.getParameterNames();
+    @SuppressWarnings("unchecked") Enumeration<String> params=request.getParameterNames();
     if (params.hasMoreElements()) {
       String param;
       String values[];
       int i;
       sb.append(" - parameters:");
-      List<String> blackList=(List<String>)flatConfig.get("grails.exceptionresolver.params.exclude");
+      @SuppressWarnings("unchecked") List<String> blackList=(List<String>)flatConfig.get("grails.exceptionresolver.params.exclude");
       if (blackList == null) {
         blackList=Collections.emptyList();
       }

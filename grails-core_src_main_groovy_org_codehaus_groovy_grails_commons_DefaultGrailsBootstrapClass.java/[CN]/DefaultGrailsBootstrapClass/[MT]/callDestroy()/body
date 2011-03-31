@@ -1,5 +1,5 @@
 {
-  Closure destroy=getDestroyClosure();
+  Closure<?> destroy=getDestroyClosure();
   if (destroy != null) {
     Environment.executeForCurrentEnvironment(destroy);
   }

@@ -1,7 +1,7 @@
 {
   boolean executeAction=true;
   if (controllerClass.isInterceptedBefore(controller,actionName)) {
-    Closure beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
+    Closure<?> beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
     if (beforeInterceptor != null) {
       if (beforeInterceptor.getDelegate() != controller) {
         beforeInterceptor.setDelegate(controller);

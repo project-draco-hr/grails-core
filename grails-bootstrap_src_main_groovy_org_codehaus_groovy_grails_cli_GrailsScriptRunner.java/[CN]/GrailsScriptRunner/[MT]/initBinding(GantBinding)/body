@@ -1,5 +1,5 @@
 {
-  Closure c=settings.getGrailsScriptClosure();
+  Closure<?> c=settings.getGrailsScriptClosure();
   c.setDelegate(binding);
   binding.setVariable("grailsScript",c);
   binding.setVariable("grailsSettings",settings);

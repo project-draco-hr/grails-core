@@ -28,7 +28,7 @@
     @SuppressWarnings("unused") public Object doCall(    Object[] args){
       return call(args);
     }
-    @Override public Object call(    Object[] args){
+    @Override public Object call(    Object... args){
       invocationCount++;
       if (args.length > 0) {
         invocationArgs.add(args[0]);

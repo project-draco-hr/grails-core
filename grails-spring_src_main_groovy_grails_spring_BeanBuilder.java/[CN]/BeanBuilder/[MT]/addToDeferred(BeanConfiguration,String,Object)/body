@@ -3,7 +3,7 @@
     deferredProperties.put(currentBeanConfig.getName() + property,new DeferredProperty(currentBeanConfig,property,newValue));
     return true;
   }
- else   if (newValue instanceof Map) {
+  if (newValue instanceof Map) {
     deferredProperties.put(currentBeanConfig.getName() + property,new DeferredProperty(currentBeanConfig,property,newValue));
     return true;
   }

@@ -1,6 +1,6 @@
 {
   if (isRegexMethod(name,value)) {
-    dynamicMethods.addDynamicMethodInvocation(new ClosureInvokingDynamicMethod(name,(Closure)value));
+    dynamicMethods.addDynamicMethodInvocation(new ClosureInvokingDynamicMethod(name,(Closure<?>)value));
   }
  else {
     super.setProperty(name,value);

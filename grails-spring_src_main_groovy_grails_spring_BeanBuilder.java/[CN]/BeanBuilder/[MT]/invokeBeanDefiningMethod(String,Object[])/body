@@ -1,7 +1,7 @@
 {
   boolean hasClosureArgument=args[args.length - 1] instanceof Closure;
   if (args[0] instanceof Class) {
-    Class beanClass=args[0] instanceof Class ? (Class)args[0] : args[0].getClass();
+    Class<?> beanClass=args[0] instanceof Class ? (Class<?>)args[0] : args[0].getClass();
     if (args.length >= 1) {
       if (hasClosureArgument) {
         if (args.length - 1 != 1) {
@@ -22,9 +22,9 @@
   }
  else   if (args[0] instanceof Map) {
     if (args.length > 1 && args[1] instanceof Class) {
-      List constructorArgs=resolveConstructorArguments(args,2,hasClosureArgument ? args.length - 1 : args.length);
-      currentBeanConfig=springConfig.addSingletonBean(name,(Class)args[1],constructorArgs);
-      Map namedArgs=(Map)args[0];
+      List<?> constructorArgs=resolveConstructorArguments(args,2,hasClosureArgument ? args.length - 1 : args.length);
+      currentBeanConfig=springConfig.addSingletonBean(name,(Class<?>)args[1],constructorArgs);
+      @SuppressWarnings("rawtypes") Map namedArgs=(Map)args[0];
       for (      Object o : namedArgs.keySet()) {
         String propName=(String)o;
         setProperty(propName,namedArgs.get(propName));
@@ -32,7 +32,7 @@
     }
  else {
       currentBeanConfig=springConfig.addSingletonBean(name);
-      Map.Entry factoryBeanEntry=(Map.Entry)((Map)args[0]).entrySet().iterator().next();
+      @SuppressWarnings("rawtypes") Map.Entry factoryBeanEntry=(Map.Entry)((Map)args[0]).entrySet().iterator().next();
       int constructorArgsTest=hasClosureArgument ? 2 : 1;
       if (args.length > constructorArgsTest) {
         int endOfConstructArgs=hasClosureArgument ? args.length - 1 : args.length;
@@ -49,12 +49,12 @@
     currentBeanConfig=springConfig.addAbstractBean(name);
   }
  else {
-    List constructorArgs=resolveConstructorArguments(args,0,hasClosureArgument ? args.length - 1 : args.length);
+    List<?> constructorArgs=resolveConstructorArguments(args,0,hasClosureArgument ? args.length - 1 : args.length);
     currentBeanConfig=new DefaultBeanConfiguration(name,null,constructorArgs);
     springConfig.addBeanConfiguration(name,currentBeanConfig);
   }
   if (hasClosureArgument) {
-    Closure callable=(Closure)args[args.length - 1];
+    Closure<?> callable=(Closure<?>)args[args.length - 1];
     callable.setDelegate(this);
     callable.setResolveStrategy(Closure.DELEGATE_FIRST);
     callable.call(new Object[]{currentBeanConfig});

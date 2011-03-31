@@ -8,8 +8,4 @@
  else {
     gspEncoding=DEFAULT_ENCODING;
   }
-  Object o=config.get("grails.json.legacy.builder");
-  if (o instanceof Boolean) {
-    useLegacyJSONBuilder=(Boolean)o;
-  }
 }

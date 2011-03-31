@@ -2,7 +2,7 @@
   if (!(constraintParameter instanceof Closure)) {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure");
   }
-  validator=(Closure)constraintParameter;
+  validator=(Closure<?>)constraintParameter;
   Class<?>[] params=validator.getParameterTypes();
   if (params.length == 0) {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.VALIDATOR_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a Closure taking at least 1 parameter (value, [object])");

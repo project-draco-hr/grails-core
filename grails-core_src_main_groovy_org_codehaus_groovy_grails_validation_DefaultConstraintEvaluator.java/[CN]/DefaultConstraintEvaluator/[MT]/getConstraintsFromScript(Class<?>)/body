@@ -10,7 +10,7 @@
       script.run();
       Binding binding=script.getBinding();
       if (binding.getVariables().containsKey(PROPERTY_NAME)) {
-        return (Closure)binding.getVariable(PROPERTY_NAME);
+        return (Closure<?>)binding.getVariable(PROPERTY_NAME);
       }
       LOG.warn("Unable to evaluate constraints from [" + constraintsScript + "], constraints closure not found!");
       return null;

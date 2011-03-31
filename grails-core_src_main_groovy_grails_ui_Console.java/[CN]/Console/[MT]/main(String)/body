@@ -29,7 +29,7 @@
     @Override public Object call(){
       return doCall();
     }
-    @Override public Object call(    Object[] arguments){
+    @Override public Object call(    Object... arguments){
       return doCall();
     }
     @Override public Object call(    Object arguments){

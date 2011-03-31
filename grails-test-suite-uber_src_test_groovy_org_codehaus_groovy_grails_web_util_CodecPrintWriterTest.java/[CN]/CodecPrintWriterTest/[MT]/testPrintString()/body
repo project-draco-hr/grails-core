@@ -1,6 +1,6 @@
 {
   FastStringWriter stringwriter=new FastStringWriter();
-  CodecPrintWriter writer=new CodecPrintWriter(stringwriter,HTMLCodec.class);
+  CodecPrintWriter writer=new CodecPrintWriter(new MockGrailsApplication(),stringwriter,HTMLCodec.class);
   writer.print("&&");
   assertEquals("&amp;&amp;",stringwriter.getValue());
 }

@@ -1,0 +1,10 @@
+{
+  final PropertyConfig propertyConfig=GrailsDomainBinder.getPropertyConfig(p);
+  boolean insertable=propertyConfig != null ? propertyConfig.isInsertable() : true;
+  if (!insertable) {
+    cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,true);
+  }
+ else {
+    super.applyDefaultNullableConstraint(p,cp);
+  }
+}

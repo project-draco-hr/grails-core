@@ -15,6 +15,16 @@
       }
     }
   }
+  final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+  for (  GrailsPlugin plugin : allPlugins) {
+    if (plugin instanceof BinaryGrailsPlugin) {
+      BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+      final Properties binaryPluginProperties=binaryPlugin.getProperties(locale);
+      if (binaryPluginProperties != null) {
+        mergedProps.putAll(binaryPluginProperties);
+      }
+    }
+  }
   cachedMergedPluginProperties.put(locale,mergedHolder);
   return mergedHolder;
 }

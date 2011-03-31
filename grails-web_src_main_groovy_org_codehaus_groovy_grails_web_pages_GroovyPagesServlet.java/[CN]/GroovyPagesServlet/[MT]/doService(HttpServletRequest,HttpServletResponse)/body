@@ -3,13 +3,16 @@
   request.setAttribute(GroovyPagesServlet.SERVLET_INSTANCE,this);
   String pageName=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
   if (StringUtils.isBlank(pageName)) {
-    pageName=templateEngine.getCurrentRequestUri(request);
+    pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
   }
-  Template template=templateEngine.createTemplateForUri(pageName);
+  Template template=groovyPagesTemplateEngine.createTemplateForUri(pageName);
+  if (template == null) {
+    template=findPageInBinaryPlugins(pageName);
+  }
   if (template == null) {
     context.log("GroovyPagesServlet:  \"" + pageName + "\" not found");
     response.sendError(404,"\"" + pageName + "\" not found.");
     return;
   }
-  renderPageWithEngine(templateEngine,request,response,template);
+  renderPageWithEngine(groovyPagesTemplateEngine,request,response,template);
 }

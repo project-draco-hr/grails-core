@@ -18,6 +18,6 @@
     }
   }
   if (canApplyNullableConstraint(propertyName,p,cp)) {
-    cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,Collection.class.isAssignableFrom(p.getType()) || Map.class.isAssignableFrom(p.getType()));
+    applyDefaultNullableConstraint(p,cp);
   }
 }

@@ -1,8 +1,4 @@
 {
-  if (defaultConstraints != null) {
-    constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),persistentProperties,defaultConstraints);
-  }
- else {
-    constraints=GrailsDomainConfigurationUtil.evaluateConstraints(getClazz(),persistentProperties);
-  }
+  final ConstraintsEvaluator constraintsEvaluator=getConstraintsEvaluator();
+  constraints=constraintsEvaluator.evaluate(getClazz(),persistentProperties);
 }

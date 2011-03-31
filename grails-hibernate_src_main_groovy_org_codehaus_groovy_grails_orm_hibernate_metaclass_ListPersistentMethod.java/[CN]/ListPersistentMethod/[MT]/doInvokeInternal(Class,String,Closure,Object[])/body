@@ -4,10 +4,10 @@
       Criteria c=session.createCriteria(clazz);
       if (arguments.length > 0 && arguments[0] instanceof Map) {
         Map argMap=(Map)arguments[0];
-        GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,argMap);
+        GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,c,argMap);
       }
  else {
-        GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,Collections.EMPTY_MAP);
+        GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,c,Collections.EMPTY_MAP);
       }
       c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
       return c.list();

@@ -1,5 +1,5 @@
 {
-  Map config=ConfigurationHolder.getFlatConfig();
+  Map config=GrailsWebUtil.currentFlatConfiguration();
   Object o=config.get(ENABLE_FILE_EXTENSIONS);
   return !(o != null && o instanceof Boolean) || ((Boolean)o).booleanValue();
 }

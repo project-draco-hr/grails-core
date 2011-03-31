@@ -1,10 +1,7 @@
 {
   GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   if (webRequest == null) {
-    RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
-    if (requestAttributes instanceof GrailsWebRequest) {
-      webRequest=(GrailsWebRequest)requestAttributes;
-    }
+    return lookup();
   }
   return webRequest;
 }

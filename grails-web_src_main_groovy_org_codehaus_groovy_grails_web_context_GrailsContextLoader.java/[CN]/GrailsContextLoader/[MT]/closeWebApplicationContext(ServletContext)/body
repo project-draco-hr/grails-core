@@ -12,7 +12,11 @@
       }
     }
   }
-  GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
+  WebApplicationContext ctx=WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  GrailsPluginManager pluginManager=null;
+  if (ctx.containsBean(GrailsPluginManager.BEAN_NAME)) {
+    pluginManager=ctx.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+  }
   if (pluginManager != null) {
     try {
       pluginManager.shutdown();
@@ -22,7 +26,6 @@
       LOG.error("Error occurred shutting down plug-in manager: " + e.getMessage(),e);
     }
   }
-  WebApplicationContext ctx=WebApplicationContextUtils.getWebApplicationContext(servletContext);
   ConfigurableApplicationContext parent=ctx != null ? (ConfigurableApplicationContext)ctx.getParent() : null;
   super.closeWebApplicationContext(servletContext);
   if (parent != null) {
@@ -34,10 +37,9 @@
   }
  catch (  AccessControlException e) {
   }
-  ApplicationHolder.setApplication(null);
-  ServletContextHolder.setServletContext(null);
   PluginManagerHolder.setPluginManager(null);
   ConfigurationHolder.setConfig(null);
   ExpandoMetaClass.disableGlobally();
+  MimeType.reset();
   application=null;
 }

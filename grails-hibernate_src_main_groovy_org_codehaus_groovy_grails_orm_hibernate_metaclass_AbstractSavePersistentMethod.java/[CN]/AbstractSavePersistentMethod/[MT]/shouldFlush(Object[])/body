@@ -7,7 +7,7 @@
     shouldFlush=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FLUSH,((Map)arguments[0]));
   }
  else {
-    final Map config=ConfigurationHolder.getFlatConfig();
+    final Map config=application.getFlatConfig();
     shouldFlush=Boolean.TRUE == config.get(AUTO_FLUSH_CONFIG_PROPERTY);
   }
   return shouldFlush;

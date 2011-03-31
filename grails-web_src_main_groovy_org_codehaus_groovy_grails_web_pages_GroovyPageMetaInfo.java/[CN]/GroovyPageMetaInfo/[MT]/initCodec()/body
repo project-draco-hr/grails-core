@@ -1,6 +1,6 @@
 {
   if (codecName == null) {
-    Map config=ConfigurationHolder.getFlatConfig();
+    Map config=grailsApplication != null ? grailsApplication.getFlatConfig() : null;
     if (config != null) {
       Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
       if (o != null) {
@@ -9,11 +9,10 @@
     }
   }
   GrailsClass codecGrailsClass=null;
-  GrailsApplication app=ApplicationHolder.getApplication();
   if (codecName != null) {
-    if (app != null) {
-      codecGrailsClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
-      if (codecGrailsClass == null)       codecGrailsClass=app.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
+    if (grailsApplication != null) {
+      codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
+      if (codecGrailsClass == null)       codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
     }
   }
   if (codecGrailsClass == null && StringUtils.isNotBlank(codecName) && !"none".equalsIgnoreCase(codecName)) {

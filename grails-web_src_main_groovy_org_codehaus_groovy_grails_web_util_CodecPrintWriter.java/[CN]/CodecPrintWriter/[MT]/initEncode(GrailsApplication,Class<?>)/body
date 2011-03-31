@@ -1,0 +1,6 @@
+{
+  if (grailsApplication != null && codecClass != null) {
+    GrailsCodecClass codecArtefact=(GrailsCodecClass)grailsApplication.getArtefact("Codec",codecClass.getName());
+    encodeClosure=codecArtefact.getEncodeMethod();
+  }
+}

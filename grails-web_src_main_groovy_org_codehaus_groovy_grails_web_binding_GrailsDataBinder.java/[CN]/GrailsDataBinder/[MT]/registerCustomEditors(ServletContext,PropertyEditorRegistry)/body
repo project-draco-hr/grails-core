@@ -1,0 +1,13 @@
+{
+  if (servletContext == null) {
+    return;
+  }
+  WebApplicationContext context=WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  if (context == null) {
+    return;
+  }
+  Map<String,PropertyEditorRegistrar> editors=context.getBeansOfType(PropertyEditorRegistrar.class);
+  for (  PropertyEditorRegistrar editorRegistrar : editors.values()) {
+    editorRegistrar.registerCustomEditors(registry);
+  }
+}

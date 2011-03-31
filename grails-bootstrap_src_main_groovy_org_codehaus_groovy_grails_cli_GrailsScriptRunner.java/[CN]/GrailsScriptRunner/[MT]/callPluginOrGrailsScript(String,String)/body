@@ -9,7 +9,7 @@
     boolean skipPlugins="UninstallPlugin".equals(scriptName) || "InstallPlugin".equals(scriptName);
     URL[] urls=getClassLoaderUrls(settings,scriptCacheDir,existingJars,skipPlugins);
     addUrlsToRootLoader(settings.getRootLoader(),urls);
-    urls=new URL[]{settings.getClassesDir().toURI().toURL()};
+    urls=new URL[]{settings.getClassesDir().toURI().toURL(),settings.getPluginClassesDir().toURI().toURL()};
     classLoader=new URLClassLoader(urls,settings.getRootLoader());
     Thread.currentThread().setContextClassLoader(classLoader);
   }
@@ -23,8 +23,8 @@
  catch (    FileNotFoundException e) {
     }
   }
-  List<File> potentialScripts;
-  List<File> allScripts=getAvailableScripts(settings);
+  List<Resource> potentialScripts;
+  List<Resource> allScripts=getAvailableScripts(settings,settings.getRootLoader());
   GantBinding binding;
   if (scriptCache.get(scriptName) != null) {
     CachedScript cachedScript=scriptCache.get(scriptName);
@@ -52,9 +52,9 @@
       }
     }
     boolean exactMatchFound=false;
-    potentialScripts=new ArrayList<File>();
-    for (    File scriptPath : allScripts) {
-      String scriptFileName=scriptPath.getName().substring(0,scriptPath.getName().length() - 7);
+    potentialScripts=new ArrayList<Resource>();
+    for (    Resource scriptPath : allScripts) {
+      String scriptFileName=scriptPath.getFilename().substring(0,scriptPath.getFilename().length() - 7);
       if (scriptFileName.endsWith("_")) {
         scriptsAllowedOutsideOfProject.add(scriptPath);
         scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
@@ -89,25 +89,36 @@
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
     if (potentialScripts.size() == 1) {
-      final File scriptFile=potentialScripts.get(0);
+      final Resource scriptFile=potentialScripts.get(0);
       if (!isGrailsProject() && !isExternalScript(scriptFile)) {
         out.println(settings.getBaseDir().getPath() + " does not appear to be part of a Grails application.");
         out.println("The following commands are supported outside of a project:");
-        Collections.sort(scriptsAllowedOutsideOfProject);
-        for (        File file : scriptsAllowedOutsideOfProject) {
-          out.println("\t" + GrailsNameUtils.getScriptName(file.getName()));
+        Collections.sort(scriptsAllowedOutsideOfProject,new Comparator<Resource>(){
+          public int compare(          Resource resource,          Resource resource1){
+            return resource.getFilename().compareTo(resource1.getFilename());
+          }
+        }
+);
+        for (        Resource file : scriptsAllowedOutsideOfProject) {
+          out.println("\t" + GrailsNameUtils.getScriptName(file.getFilename()));
         }
         out.println("Run 'grails help' for a complete list of available scripts.");
         return -1;
       }
-      out.println("Running script " + scriptFile.getAbsolutePath());
+      out.println("Running script " + scriptFile.getFilename());
       String scriptFileName=getScriptNameFromFile(scriptFile);
       setRunningEnvironment(scriptFileName,env);
       binding.setVariable("scriptName",scriptFileName);
       Gant gant=new Gant(initBinding(binding),classLoader);
       gant.setUseCache(true);
       gant.setCacheDirectory(scriptCacheDir);
-      gant.loadScript(scriptFile);
+      try {
+        gant.loadScript(scriptFile.getURL());
+      }
+ catch (      IOException e) {
+        out.println("I/O exception loading script [" + e.getMessage() + "]: "+ e.getMessage());
+        return 1;
+      }
       return executeWithGantInstance(gant,doNothingClosure);
     }
     if (!isInteractive) {
@@ -123,13 +134,13 @@
     String enteredValue=helper.userInput("Enter #",validArgs);
     if (enteredValue == null)     return 1;
     int number=Integer.parseInt(enteredValue);
-    File scriptFile=potentialScripts.get(number - 1);
-    out.println("Running script " + scriptFile.getAbsolutePath());
+    Resource scriptFile=potentialScripts.get(number - 1);
+    out.println("Running script " + scriptFile.getFile().getAbsolutePath());
     String scriptFileName=getScriptNameFromFile(scriptFile);
     setRunningEnvironment(scriptFileName,env);
     binding.setVariable("scriptName",scriptFileName);
     Gant gant=new Gant(initBinding(binding),classLoader);
-    gant.loadScript(scriptFile);
+    gant.loadScript(scriptFile.getURL());
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");

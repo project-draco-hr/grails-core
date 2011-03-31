@@ -1,5 +1,12 @@
 {
-  List<GrailsPlugin> grailsCorePlugins=loadCorePlugins ? findCorePlugins() : new ArrayList<GrailsPlugin>();
+  List<GrailsPlugin> grailsCorePlugins=null;
+  try {
+    grailsCorePlugins=loadCorePlugins ? findCorePlugins() : new ArrayList<GrailsPlugin>();
+  }
+ catch (  Throwable e) {
+    System.out.println(e.getMessage());
+    e.printStackTrace();
+  }
   List<GrailsPlugin> grailsUserPlugins=findUserPlugins(gcl);
   userPlugins=grailsUserPlugins;
   List<GrailsPlugin> allPlugins=new ArrayList<GrailsPlugin>(grailsCorePlugins);

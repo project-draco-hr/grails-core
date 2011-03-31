@@ -6,6 +6,14 @@
   binder.registerCustomEditor(Locale.class,new LocaleEditor());
   binder.registerCustomEditor(TimeZone.class,new TimeZoneEditor());
   binder.registerCustomEditor(URI.class,new UriEditor());
-  registerCustomEditors(binder);
+  final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    initializeFromWebRequest(binder,webRequest);
+    Locale locale=RequestContextUtils.getLocale(webRequest.getCurrentRequest());
+    registerCustomEditors(webRequest,binder,locale);
+  }
+ else {
+    registerCustomEditors(null,binder);
+  }
   return binder;
 }

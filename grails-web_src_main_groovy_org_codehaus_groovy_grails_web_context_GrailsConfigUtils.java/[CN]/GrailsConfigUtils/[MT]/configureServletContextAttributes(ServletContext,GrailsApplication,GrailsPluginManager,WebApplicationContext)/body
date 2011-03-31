@@ -1,5 +1,4 @@
 {
-  ServletContextHolder.setServletContext(servletContext);
   servletContext.setAttribute(ApplicationAttributes.PLUGIN_MANAGER,pluginManager);
   servletContext.setAttribute(ApplicationAttributes.PARENT_APPLICATION_CONTEXT,webContext.getParent());
   servletContext.setAttribute(GrailsApplication.APPLICATION_ID,application);

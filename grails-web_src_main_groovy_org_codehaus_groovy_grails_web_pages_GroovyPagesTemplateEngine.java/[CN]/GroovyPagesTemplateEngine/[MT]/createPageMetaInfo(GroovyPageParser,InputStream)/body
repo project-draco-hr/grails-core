@@ -1,5 +1,6 @@
 {
   GroovyPageMetaInfo pageMeta=new GroovyPageMetaInfo();
+  pageMeta.setGrailsApplication(grailsApplication);
   pageMeta.setJspTagLibraryResolver(jspTagLibraryResolver);
   pageMeta.setTagLibraryLookup(tagLibraryLookup);
   pageMeta.setContentType(parse.getContentType());

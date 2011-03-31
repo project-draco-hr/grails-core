@@ -9,25 +9,22 @@
     return defaultPath;
   }
   if (application != null) {
-    GrailsPluginManager pluginManager=getPluginManager(application.getMainContext());
-    if (pluginManager != null) {
-      BuildSettings settings=pluginManager.getBuildSettings();
-      PluginBuildSettings pluginBuildSettings=pluginManager.getPluginBuildSettings();
-      String pluginPath=StringUtils.substringAfter(noWebInf,SLASH);
-      String pluginName=StringUtils.substringBefore(pluginPath,SLASH);
-      String remainingPath=StringUtils.substringAfter(pluginPath,SLASH);
-      Resource r=pluginBuildSettings.getPluginDirForName(pluginName);
-      if (r != null) {
-        try {
-          return "file:" + r.getFile().getAbsolutePath() + SLASH+ remainingPath;
-        }
- catch (        IOException e) {
-          return defaultPath;
-        }
+    BuildSettings settings=BuildSettingsHolder.getSettings();
+    PluginBuildSettings pluginBuildSettings=org.codehaus.groovy.grails.plugins.GrailsPluginUtils.getPluginBuildSettings();
+    String pluginPath=StringUtils.substringAfter(noWebInf,SLASH);
+    String pluginName=StringUtils.substringBefore(pluginPath,SLASH);
+    String remainingPath=StringUtils.substringAfter(pluginPath,SLASH);
+    Resource r=pluginBuildSettings.getPluginDirForName(pluginName);
+    if (r != null) {
+      try {
+        return "file:" + r.getFile().getAbsolutePath() + SLASH+ remainingPath;
       }
-      if (settings != null) {
-        return "file:" + settings.getProjectPluginsDir().getAbsolutePath() + SLASH+ pluginName+ SLASH+ remainingPath;
+ catch (      IOException e) {
+        return defaultPath;
       }
+    }
+    if (settings != null) {
+      return "file:" + settings.getProjectPluginsDir().getAbsolutePath() + SLASH+ pluginName+ SLASH+ remainingPath;
     }
   }
   return defaultPath;

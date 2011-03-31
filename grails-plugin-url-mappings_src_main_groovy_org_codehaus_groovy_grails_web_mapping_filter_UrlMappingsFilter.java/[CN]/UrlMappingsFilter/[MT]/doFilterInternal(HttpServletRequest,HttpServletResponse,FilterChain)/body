@@ -19,10 +19,10 @@
     LOG.debug("Executing URL mapping filter...");
     LOG.debug(holder);
   }
-  if (WebUtils.areFileExtensionsEnabled()) {
-    String format=WebUtils.getFormatFromURI(uri);
+  if (areFileExtensionsEnabled()) {
+    String format=WebUtils.getFormatFromURI(uri,mimeTypes);
     if (format != null) {
-      MimeType[] configuredMimes=MimeType.getConfiguredMimeTypes();
+      MimeType[] configuredMimes=mimeTypes != null ? mimeTypes : MimeType.getConfiguredMimeTypes();
       for (      MimeType configuredMime : configuredMimes) {
         if (configuredMime.getExtension().equals(format)) {
           request.setAttribute(GrailsApplicationAttributes.CONTENT_FORMAT,format);

@@ -1,0 +1,3 @@
+{
+  constraintsEvaluator=(ConstraintsEvaluator)BeanUtils.instantiateClass(constraintsEvaluatorClass.getConstructor(new Class[]{Map.class}),defaultConstraints);
+}

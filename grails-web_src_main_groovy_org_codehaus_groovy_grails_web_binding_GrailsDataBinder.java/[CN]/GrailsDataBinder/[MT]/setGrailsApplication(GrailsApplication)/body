@@ -1,0 +1,18 @@
+{
+  this.grailsApplication=grailsApplication;
+  String[] disallowed=new String[0];
+  final Object target=getTarget();
+  if (grailsApplication != null && grailsApplication.isArtefactOfType(DomainClassArtefactHandler.TYPE,target.getClass())) {
+    if (target instanceof GroovyObject) {
+      disallowed=GROOVY_DOMAINCLASS_DISALLOWED;
+    }
+ else {
+      disallowed=DOMAINCLASS_DISALLOWED;
+    }
+    domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
+  }
+ else   if (target instanceof GroovyObject) {
+    disallowed=GROOVY_DISALLOWED;
+  }
+  setDisallowedFields(disallowed);
+}

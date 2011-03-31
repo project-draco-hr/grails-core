@@ -1,6 +1,6 @@
 {
   FastStringWriter stringwriter=new FastStringWriter();
-  CodecPrintWriter writer=new CodecPrintWriter(stringwriter,CodecWithClosureProperties.class);
+  CodecPrintWriter writer=new CodecPrintWriter(new MockGrailsApplication(),stringwriter,CodecWithClosureProperties.class);
   StreamCharBuffer buf=new StreamCharBuffer();
   buf.getWriter().write("hola");
   writer.write(buf);

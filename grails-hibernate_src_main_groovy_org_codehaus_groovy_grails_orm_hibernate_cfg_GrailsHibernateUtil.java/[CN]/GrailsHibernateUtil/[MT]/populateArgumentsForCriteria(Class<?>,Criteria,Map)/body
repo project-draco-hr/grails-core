@@ -43,12 +43,12 @@
     if (caseArg instanceof Boolean) {
       ignoreCase=(Boolean)caseArg;
     }
-    addOrderPossiblyNested(c,targetClass,sort,order,ignoreCase);
+    addOrderPossiblyNested(null,c,targetClass,sort,order,ignoreCase);
   }
  else {
     Mapping m=GrailsDomainBinder.getMapping(targetClass);
     if (m != null && !StringUtils.isBlank(m.getSort())) {
-      addOrderPossiblyNested(c,targetClass,m.getSort(),m.getOrder(),true);
+      addOrderPossiblyNested(null,c,targetClass,m.getSort(),m.getOrder(),true);
     }
   }
 }

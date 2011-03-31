@@ -4,7 +4,7 @@
     namingStrategyClass=(Class<?>)strategy;
   }
  else {
-    namingStrategyClass=ApplicationHolder.getApplication().getClassLoader().loadClass(strategy.toString());
+    namingStrategyClass=Thread.currentThread().getContextClassLoader().loadClass(strategy.toString());
   }
   namingStrategy=(NamingStrategy)namingStrategyClass.newInstance();
 }

@@ -8,7 +8,7 @@
  else {
     sb.append(request.getRequestURI());
   }
-  @SuppressWarnings("rawtypes") Map flatConfig=ConfigurationHolder.getFlatConfig();
+  @SuppressWarnings("rawtypes") Map flatConfig=grailsApplication != null ? grailsApplication.getFlatConfig() : Collections.emptyMap();
   final boolean shouldLogRequestParameters;
   if (flatConfig.containsKey("grails.exceptionresolver.logRequestParameters")) {
     shouldLogRequestParameters=Boolean.TRUE.equals(flatConfig.get("grails.exceptionresolver.logRequestParameters"));

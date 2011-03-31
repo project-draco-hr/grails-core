@@ -1,8 +1,0 @@
-{
-  GrailsClass grailsClass=ApplicationHolder.getApplication().getArtefact(DomainClassArtefactHandler.TYPE,targetClass.getName());
-  if (!(grailsClass instanceof GrailsDomainClass)) {
-    throw new IllegalArgumentException("Unexpected: class is not a domain class:" + targetClass.getName());
-  }
-  GrailsDomainClass domainClass=(GrailsDomainClass)grailsClass;
-  return domainClass.getPropertyByName(propertyName);
-}

@@ -1,0 +1,7 @@
+{
+  String scriptFileName=scriptPath.getFilename().substring(0,scriptPath.getFilename().length() - 7);
+  if (scriptFileName.endsWith("_")) {
+    scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
+  }
+  return scriptFileName;
+}

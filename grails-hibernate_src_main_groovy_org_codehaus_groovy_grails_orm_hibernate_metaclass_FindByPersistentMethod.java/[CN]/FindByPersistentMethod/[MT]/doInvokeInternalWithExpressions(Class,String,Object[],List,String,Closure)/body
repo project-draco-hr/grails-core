@@ -2,11 +2,11 @@
   final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
   return getHibernateTemplate().execute(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
-      Criteria crit=getCriteria(session,additionalCriteria,clazz);
+      Criteria crit=getCriteria(application,session,additionalCriteria,clazz);
       if (arguments.length > 0) {
         if (arguments[0] instanceof Map<?,?>) {
           Map<?,?> argMap=(Map<?,?>)arguments[0];
-          GrailsHibernateUtil.populateArgumentsForCriteria(clazz,crit,argMap);
+          GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,crit,argMap);
           if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
             crit.setMaxResults(1);
           }

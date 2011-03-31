@@ -1,7 +1,0 @@
-{
-  if (additionalCriteria != null) {
-    HibernateCriteriaBuilder builder=new HibernateCriteriaBuilder(clazz,session.getSessionFactory());
-    return builder.buildCriteria(additionalCriteria);
-  }
-  return session.createCriteria(clazz);
-}

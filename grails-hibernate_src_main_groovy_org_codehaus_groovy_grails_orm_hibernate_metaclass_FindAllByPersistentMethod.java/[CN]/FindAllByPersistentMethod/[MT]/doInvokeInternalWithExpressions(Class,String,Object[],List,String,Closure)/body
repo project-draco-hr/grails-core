@@ -2,9 +2,9 @@
   final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
   return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
-      final Criteria c=getCriteria(session,additionalCriteria,clazz);
+      final Criteria c=getCriteria(application,session,additionalCriteria,clazz);
       Map argsMap=(arguments.length > 0 && (arguments[0] instanceof Map)) ? (Map)arguments[0] : Collections.EMPTY_MAP;
-      GrailsHibernateUtil.populateArgumentsForCriteria(clazz,c,argsMap);
+      GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,c,argsMap);
       if (operator.equals(OPERATOR_OR)) {
         Disjunction dis=Restrictions.disjunction();
         if (firstExpressionIsRequiredBoolean()) {

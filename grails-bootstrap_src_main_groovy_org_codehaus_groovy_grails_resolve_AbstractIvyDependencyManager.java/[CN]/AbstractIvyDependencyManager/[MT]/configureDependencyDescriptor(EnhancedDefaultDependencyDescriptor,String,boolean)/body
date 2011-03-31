@@ -1,0 +1,8 @@
+{
+  if (pluginMode) {
+    registerPluginDependency(scope,dependencyDescriptor);
+  }
+ else {
+    registerDependency(scope,dependencyDescriptor);
+  }
+}

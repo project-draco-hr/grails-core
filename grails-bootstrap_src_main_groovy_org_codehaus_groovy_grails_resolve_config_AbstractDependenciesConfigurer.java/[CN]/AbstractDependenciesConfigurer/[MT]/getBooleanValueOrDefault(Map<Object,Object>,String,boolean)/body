@@ -1,0 +1,3 @@
+{
+  return properties.containsKey(propertyName) ? Boolean.valueOf(properties.get(propertyName).toString()) : defaultValue;
+}

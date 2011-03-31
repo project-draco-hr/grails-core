@@ -1,0 +1,5 @@
+{
+  for (  Object dependency : dependencies) {
+    addDependency(scope,(Map<Object,Object>)dependency,configurer);
+  }
+}

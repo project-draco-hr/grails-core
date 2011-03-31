@@ -1,0 +1,19 @@
+{
+  registerDependencyCommon(scope,descriptor);
+  ModuleRevisionId revisionId=descriptor.getDependencyRevisionId();
+  modules.add(revisionId.getModuleId());
+  dependencies.add(revisionId);
+  String org=revisionId.getOrganisation();
+  if (orgToDepMap.containsKey(org)) {
+    orgToDepMap.get(org).add(revisionId);
+  }
+ else {
+    Collection<ModuleRevisionId> deps=new HashSet<ModuleRevisionId>();
+    deps.add(revisionId);
+    orgToDepMap.put(org,deps);
+  }
+  dependencyDescriptors.add(descriptor);
+  if (descriptor.isExportedToApplication()) {
+    moduleDescriptor.addDependency(descriptor);
+  }
+}

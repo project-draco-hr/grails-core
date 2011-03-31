@@ -1,0 +1,18 @@
+{
+  DependencyDescriptor[] fixedDependencies=null;
+  File pom=new File(buildSettings.getBaseDir().getPath(),"pom.xml");
+  if (pom.exists()) {
+    PomModuleDescriptorParser parser=PomModuleDescriptorParser.getInstance();
+    try {
+      ModuleDescriptor md=parser.parseDescriptor(ivySettings,pom.toURL(),false);
+      fixedDependencies=md.getDependencies();
+    }
+ catch (    MalformedURLException e) {
+    }
+catch (    ParseException e) {
+    }
+catch (    IOException e) {
+    }
+  }
+  return fixedDependencies;
+}

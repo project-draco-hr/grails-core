@@ -1,0 +1,8 @@
+{
+  if (args.size() == 1) {
+    return false;
+  }
+ else {
+    return isOnlyStrings(args.subList(0,args.size() - 1)) && args.get(args.size() - 1) instanceof Map;
+  }
+}

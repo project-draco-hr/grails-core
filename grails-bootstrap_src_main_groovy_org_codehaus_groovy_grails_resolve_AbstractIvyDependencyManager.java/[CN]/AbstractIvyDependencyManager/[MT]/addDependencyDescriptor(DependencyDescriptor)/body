@@ -1,6 +1,0 @@
-{
-  if (dd != null) {
-    dependencyDescriptors.add(dd);
-    addDependency(dd.getDependencyRevisionId());
-  }
-}

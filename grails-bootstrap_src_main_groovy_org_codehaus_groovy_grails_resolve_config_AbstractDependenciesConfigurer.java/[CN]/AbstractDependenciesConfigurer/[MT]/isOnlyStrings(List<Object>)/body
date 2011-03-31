@@ -1,0 +1,8 @@
+{
+  for (  Object arg : args) {
+    if (!(arg instanceof CharSequence)) {
+      return false;
+    }
+  }
+  return true;
+}

@@ -1,0 +1,37 @@
+{
+  preprocessDependencyProperties(dependency);
+  String name=nullSafeToString(dependency.get("name"));
+  String group=nullSafeToString(dependency.get("group"));
+  String version=nullSafeToString(dependency.get("version"));
+  String classifier=nullSafeToString(dependency.get("classifier"));
+  String branch=nullSafeToString(dependency.get("branch"));
+  boolean transitive=getBooleanValueOrDefault(dependency,"transitive",true);
+  boolean export=getBooleanValueOrDefault(dependency,"export",true);
+  boolean isExcluded=context.pluginName != null ? context.dependencyManager.isExcludedFromPlugin(context.pluginName,name) : context.dependencyManager.isExcluded(name);
+  if (isExcluded) {
+    return;
+  }
+  Map<String,String> attrs=null;
+  if (classifier != null) {
+    attrs=new HashMap<String,String>(1);
+    attrs.put("m:classifier",classifier);
+  }
+  ModuleRevisionId mrid;
+  if (branch != null) {
+    mrid=ModuleRevisionId.newInstance(group,name,branch,version,attrs);
+  }
+ else {
+    mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
+  }
+  EnhancedDefaultDependencyDescriptor dependencyDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,transitive,scope);
+  dependencyDescriptor.setExported(export);
+  boolean inherited=context.inherited || context.dependencyManager.getInheritsAll() || context.pluginName != null;
+  dependencyDescriptor.setInherited(inherited);
+  if (context.pluginName != null) {
+    dependencyDescriptor.setPlugin(context.pluginName);
+  }
+  if (configurer != null) {
+    dependencyDescriptor.configure(configurer);
+  }
+  addDependency(scope,dependencyDescriptor);
+}

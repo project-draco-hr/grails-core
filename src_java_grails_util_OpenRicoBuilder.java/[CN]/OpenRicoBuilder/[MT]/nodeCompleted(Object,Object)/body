@@ -1,4 +1,0 @@
-{
-  responseOnly=AJAX_RESPONSE.equals(parent) && RESPONSE.equals(node);
-  super.nodeCompleted(parent,node);
-}

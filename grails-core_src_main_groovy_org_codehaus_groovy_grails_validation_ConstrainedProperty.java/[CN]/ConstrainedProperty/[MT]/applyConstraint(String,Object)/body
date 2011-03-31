@@ -1,0 +1,26 @@
+{
+  if (constraints.containsKey(constraintName)) {
+    if (constrainingValue == null) {
+      appliedConstraints.remove(constraintName);
+    }
+ else {
+      try {
+        Constraint c=instantiateConstraint(constraintName);
+        c.setOwningClass(owningClass);
+        c.setPropertyName(propertyName);
+        c.setParameter(constrainingValue);
+        appliedConstraints.put(constraintName,c);
+      }
+ catch (      Exception e) {
+        LOG.error("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage(),e);
+        throw new ConstraintException("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage(),e);
+      }
+    }
+  }
+ else   if (bean.isWritableProperty(constraintName)) {
+    bean.setPropertyValue(constraintName,constrainingValue);
+  }
+ else {
+    throw new ConstraintException("Constraint [" + constraintName + "] is not supported for property ["+ propertyName+ "] of class ["+ owningClass+ "] with type ["+ propertyType+ "]");
+  }
+}

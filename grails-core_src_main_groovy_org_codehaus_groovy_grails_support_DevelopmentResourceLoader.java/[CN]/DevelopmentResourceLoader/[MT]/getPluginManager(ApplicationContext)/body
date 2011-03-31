@@ -1,0 +1,6 @@
+{
+  if (mainContext != null) {
+    return mainContext.getBean(GrailsPluginManager.class);
+  }
+  return null;
+}

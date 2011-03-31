@@ -1,0 +1,28 @@
+{
+  Map config=ConfigurationHolder.getFlatConfig();
+  this.filename=filename;
+  Object gspEnc=config.get(CONFIG_PROPERTY_GSP_ENCODING);
+  if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
+    gspEncoding=gspEnc.toString();
+  }
+ else {
+    gspEncoding=System.getProperty("file.encoding","us-ascii");
+  }
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("GSP file encoding set to: " + gspEncoding);
+  }
+  String gspSource=readStream(in);
+  Map<String,String> directives=parseDirectives(gspSource);
+  if (isSitemeshPreprocessingEnabled(config,directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with sitemesh:capture*.");
+    }
+    gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
+    sitemeshPreprocessMode=true;
+  }
+  scan=new GroovyPageScanner(gspSource);
+  pageName=uri;
+  environment=Environment.getCurrent();
+  makeName(name);
+  makeSourceName(filename);
+}

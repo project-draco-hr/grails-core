@@ -1,6 +1,0 @@
-{
-  if (checkElementName((String)name,null)) {
-    return super.createNode(name,value);
-  }
-  throw new UnsupportedOperationException(OPENRICO + "invalid method call [" + name+ "{ }]!");
-}

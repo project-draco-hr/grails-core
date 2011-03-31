@@ -1,3 +1,0 @@
-{
-  this(new JSONWriter((!(writer instanceof GrailsPrintWriter)) ? new GrailsPrintWriter(writer) : writer));
-}

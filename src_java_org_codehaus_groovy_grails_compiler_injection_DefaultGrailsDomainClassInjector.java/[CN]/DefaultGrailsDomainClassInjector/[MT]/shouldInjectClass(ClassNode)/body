@@ -1,8 +1,0 @@
-{
-  String fullName=GrailsASTUtils.getFullName(classNode);
-  String mappingFile=GrailsDomainConfigurationUtil.getMappingFileName(fullName);
-  if (getClass().getResource(mappingFile) != null) {
-    return false;
-  }
-  return !isEnum(classNode);
-}

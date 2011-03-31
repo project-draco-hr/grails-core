@@ -1,0 +1,6 @@
+{
+  super.setUp();
+  ExpandoMetaClass.enableGlobally();
+  MockGrailsPluginManager pluginManager=new MockGrailsPluginManager();
+  PluginManagerHolder.setPluginManager(pluginManager);
+}

@@ -1,5 +1,4 @@
 {
   this.targetClass=targetClass;
-  targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
   this.sessionFactory=sessionFactory;
 }

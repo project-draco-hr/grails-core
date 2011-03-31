@@ -1,6 +1,7 @@
 {
   if (mappings.getClass(domainClass.getFullName()) == null) {
     RootClass root=new RootClass();
+    root.setAbstract(Modifier.isAbstract(domainClass.getClazz().getModifiers()));
     if (!domainClass.hasSubClasses()) {
       root.setPolymorphic(false);
     }

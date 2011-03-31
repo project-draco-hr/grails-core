@@ -1,6 +1,6 @@
 {
   Mapping m=getMapping(entity.getMappedClass());
-  SimpleValue d=new SimpleValue(table);
+  SimpleValue d=new SimpleValue(mappings,table);
   entity.setDiscriminator(d);
   entity.setDiscriminatorValue(m != null && m.getDiscriminator() != null ? m.getDiscriminator() : entity.getClassName());
   if (m != null && m.getDiscriminatorMap().get("insert") != null) {

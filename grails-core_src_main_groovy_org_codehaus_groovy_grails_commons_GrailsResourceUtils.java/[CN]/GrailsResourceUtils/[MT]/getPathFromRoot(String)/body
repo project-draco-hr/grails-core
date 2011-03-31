@@ -1,6 +1,6 @@
 {
-  for (int i=0; i < COMPILER_ROOT_PATTERNS.length; i++) {
-    Matcher m=COMPILER_ROOT_PATTERNS[i].matcher(path);
+  for (  Pattern COMPILER_ROOT_PATTERN : COMPILER_ROOT_PATTERNS) {
+    Matcher m=COMPILER_ROOT_PATTERN.matcher(path);
     if (m.find()) {
       return m.group(m.groupCount());
     }

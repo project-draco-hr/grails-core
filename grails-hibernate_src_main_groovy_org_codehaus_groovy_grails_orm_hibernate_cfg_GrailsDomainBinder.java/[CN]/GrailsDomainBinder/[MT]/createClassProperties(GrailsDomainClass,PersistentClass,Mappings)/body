@@ -18,12 +18,12 @@
       value=collection;
     }
  else     if (currentGrailsProp.isEnum()) {
-      value=new SimpleValue(table);
+      value=new SimpleValue(mappings,table);
       bindEnumType(currentGrailsProp,(SimpleValue)value,EMPTY_PATH);
     }
  else     if (currentGrailsProp.isManyToOne()) {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
-      value=new ManyToOne(table);
+      value=new ManyToOne(mappings,table);
       bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
     }
  else     if (currentGrailsProp.isOneToOne() && userType == null) {
@@ -32,27 +32,27 @@
         throw new MappingException("hasOne property [" + currentGrailsProp.getDomainClass().getName() + "."+ currentGrailsProp.getName()+ "] is not bidirectional. Specify the other side of the relationship!");
       }
  else       if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
-        value=new OneToOne(table,persistentClass);
+        value=new OneToOne(mappings,table,persistentClass);
         bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH);
       }
  else {
         if (currentGrailsProp.isHasOne() && currentGrailsProp.isBidirectional()) {
-          value=new OneToOne(table,persistentClass);
+          value=new OneToOne(mappings,table,persistentClass);
           bindOneToOne(currentGrailsProp,(OneToOne)value,EMPTY_PATH);
         }
  else {
-          value=new ManyToOne(table);
+          value=new ManyToOne(mappings,table);
           bindManyToOne(currentGrailsProp,(ManyToOne)value,EMPTY_PATH,mappings);
         }
       }
     }
  else     if (currentGrailsProp.isEmbedded()) {
-      value=new Component(persistentClass);
+      value=new Component(mappings,persistentClass);
       bindComponent((Component)value,currentGrailsProp,true,mappings);
     }
  else {
       if (LOG.isDebugEnabled())       LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
-      value=new SimpleValue(table);
+      value=new SimpleValue(mappings,table);
       bindSimpleValue(currentGrailsProp,null,(SimpleValue)value,EMPTY_PATH,mappings);
     }
     if (value != null) {

@@ -23,7 +23,6 @@
   appCtx=(ConfigurableApplicationContext)rConfig.configure(servletContext);
   controller=(SimpleGrailsController)appCtx.getBean("mainSimpleController");
   servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
-  controller.setServletContext(servletContext);
   assertNotNull(appCtx);
   super.setUp();
 }

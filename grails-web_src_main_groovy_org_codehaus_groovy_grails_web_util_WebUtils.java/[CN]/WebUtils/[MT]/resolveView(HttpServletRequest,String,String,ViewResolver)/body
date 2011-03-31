@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
   View v;
   if (viewName.startsWith(String.valueOf(SLASH))) {
     v=viewResolver.resolveViewName(viewName,webRequest.getLocale());

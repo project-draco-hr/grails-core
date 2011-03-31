@@ -1,6 +1,6 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,map);
-  SimpleValue value=new SimpleValue(map.getCollectionTable());
+  SimpleValue value=new SimpleValue(mappings,map.getCollectionTable());
   bindSimpleValue(getIndexColumnType(property,STRING_TYPE),value,true,getIndexColumnName(property),mappings);
   PropertyConfig pc=getPropertyConfig(property);
   if (pc != null && pc.getIndexColumn() != null) {
@@ -11,7 +11,7 @@
   }
   map.setIndex(value);
   if (!property.isOneToMany() && !property.isManyToMany()) {
-    SimpleValue elt=new SimpleValue(map.getCollectionTable());
+    SimpleValue elt=new SimpleValue(mappings,map.getCollectionTable());
     map.setElement(elt);
     String typeName=getTypeName(property,getPropertyConfig(property),getMapping(property.getDomainClass()));
     if (typeName == null) {
@@ -19,7 +19,7 @@
         typeName=property.getReferencedPropertyType().getName();
       }
  else {
-        typeName=Hibernate.STRING.getName();
+        typeName=StandardBasicTypes.STRING.getName();
       }
     }
     bindSimpleValue(typeName,elt,false,getMapElementName(property),mappings);

@@ -13,7 +13,7 @@
   setCascadeBehaviour(grailsProperty,prop);
   boolean isLazyable=grailsProperty.isOneToOne() || grailsProperty.isManyToOne() || grailsProperty.isEmbedded()|| grailsProperty.isPersistent() && !grailsProperty.isAssociation() && !grailsProperty.isIdentity();
   if (isLazyable) {
-    final boolean isLazy=getLazyiness(grailsProperty);
+    final boolean isLazy=getLaziness(grailsProperty);
     prop.setLazy(isLazy);
     if (isLazy && (grailsProperty.isManyToOne() || grailsProperty.isOneToOne())) {
       HibernatePluginSupport.handleLazyProxy(grailsProperty.getDomainClass(),grailsProperty);

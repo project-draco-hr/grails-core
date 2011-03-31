@@ -45,10 +45,10 @@
         criteria.setFirstResult(0);
         criteria.setMaxResults(Integer.MAX_VALUE);
         criteria.setProjection(Projections.rowCount());
-        int totalCount=((Integer)criteria.uniqueResult()).intValue();
+        int totalCount=((Number)criteria.uniqueResult()).intValue();
         criteria.setProjection(null);
-        for (Iterator<Order> it=orderEntries.iterator(); it.hasNext(); ) {
-          criteria.addOrder(it.next());
+        for (        Order orderEntry : orderEntries) {
+          criteria.addOrder(orderEntry);
         }
         if (resultTransformer == null) {
           criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
@@ -108,16 +108,16 @@
       }
       return name;
     }
-    if (targetBean.isReadableProperty(name.toString())) {
+    if (targetBean.isReadableProperty(name)) {
       ClassMetadata meta=sessionFactory.getClassMetadata(targetBean.getWrappedClass());
-      Type type=meta.getPropertyType(name.toString());
+      Type type=meta.getPropertyType(name);
       if (type.isAssociationType()) {
         String otherSideEntityName=((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
         Class oldTargetClass=targetClass;
         targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
         BeanWrapper oldTargetBean=targetBean;
         targetBean=new BeanWrapperImpl(BeanUtils.instantiateClass(targetClass));
-        associationStack.add(name.toString());
+        associationStack.add(name);
         final String associationPath=getAssociationPath();
         createAliasIfNeccessary(name,associationPath);
         logicalExpressionStack.add(new LogicalExpression(AND));

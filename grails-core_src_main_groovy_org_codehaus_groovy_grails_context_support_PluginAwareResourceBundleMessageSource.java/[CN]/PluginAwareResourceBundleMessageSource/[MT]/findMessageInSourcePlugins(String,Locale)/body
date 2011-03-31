@@ -5,7 +5,7 @@
     for (    String filename : filenames) {
       PropertiesHolder holder=getProperties(filename);
       result=holder.getProperty(code);
-      if (result != null)       break;
+      if (result != null)       return result;
     }
   }
   return result;

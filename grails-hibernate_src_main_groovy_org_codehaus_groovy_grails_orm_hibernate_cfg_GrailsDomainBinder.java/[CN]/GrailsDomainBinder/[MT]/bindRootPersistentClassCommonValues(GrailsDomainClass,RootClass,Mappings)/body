@@ -7,11 +7,14 @@
     CacheConfig cc=m.getCache();
     if (cc != null && cc.getEnabled()) {
       root.setCacheConcurrencyStrategy(cc.getUsage());
+      if ("read-only".equals(cc.getUsage())) {
+        root.setMutable(false);
+      }
       root.setLazyPropertiesCacheable(!"non-lazy".equals(cc.getInclude()));
     }
     Integer bs=m.getBatchSize();
     if (bs != null) {
-      root.setBatchSize(bs.intValue());
+      root.setBatchSize(bs);
     }
     if (m.getDynamicUpdate()) {
       root.setDynamicUpdate(true);

@@ -1,4 +1,0 @@
-{
-  Method m=MethodUtils.getAccessibleMethod(getClazz(),methodName,new Class[0]);
-  return m != null && !m.isSynthetic();
-}

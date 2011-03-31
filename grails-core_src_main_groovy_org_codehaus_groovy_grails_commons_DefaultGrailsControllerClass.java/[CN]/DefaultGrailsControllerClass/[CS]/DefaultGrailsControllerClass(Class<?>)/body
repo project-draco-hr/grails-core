@@ -7,16 +7,7 @@
   }
   Collection<String> actionNames=new ArrayList<String>();
   controllerPath=uri + SLASH;
-  String resolveStrategy=(String)ConfigurationHolder.getConfig().get(RESOLVE_ACTION_KEY);
-  if (resolveStrategy != null && resolveStrategy.equalsIgnoreCase(RESOLVE_METHOD)) {
-    methodStrategy(actionNames);
-  }
- else   if (resolveStrategy != null && resolveStrategy.equalsIgnoreCase(RESOLVE_CLOSURE)) {
-    closureStrategy(actionNames);
-  }
- else {
-    mixedStrategy(actionNames);
-  }
+  mixedStrategy(actionNames);
   configureDefaultActionIfSet();
   configureURIsForCurrentState();
 }

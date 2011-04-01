@@ -86,13 +86,16 @@
   if (metaMethod != null) {
     return metaMethod.invoke(criteria,args);
   }
-  if (args.length == 1 && args[0] instanceof Closure) {
+  if (isAssociationQueryMethod(args) || isAssociationQueryWithJoinSpecificationMethod(args)) {
+    final boolean hasMoreThanOneArg=args.length > 1;
+    Object callable=hasMoreThanOneArg ? args[1] : args[0];
+    int joinType=hasMoreThanOneArg ? (Integer)args[0] : CriteriaSpecification.INNER_JOIN;
     if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
       if (criteria == null) {
         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
       }
       logicalExpressionStack.add(new LogicalExpression(name));
-      invokeClosureNode(args[0]);
+      invokeClosureNode(callable);
       LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
       addToCriteria(logicalExpression.toCriterion());
       return name;
@@ -102,7 +105,7 @@
         throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
       }
       projectionList=Projections.projectionList();
-      invokeClosureNode(args[0]);
+      invokeClosureNode(callable);
       if (projectionList != null && projectionList.getLength() > 0) {
         criteria.setProjection(projectionList);
       }
@@ -118,9 +121,9 @@
         targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
         associationStack.add(name);
         final String associationPath=getAssociationPath();
-        createAliasIfNeccessary(name,associationPath);
+        createAliasIfNeccessary(name,associationPath,joinType);
         logicalExpressionStack.add(new LogicalExpression(AND));
-        invokeClosureNode(args[0]);
+        invokeClosureNode(callable);
         aliasStack.remove(aliasStack.size() - 1);
         if (!aliasInstanceStack.isEmpty()) {
           aliasInstanceStack.remove(aliasInstanceStack.size() - 1);

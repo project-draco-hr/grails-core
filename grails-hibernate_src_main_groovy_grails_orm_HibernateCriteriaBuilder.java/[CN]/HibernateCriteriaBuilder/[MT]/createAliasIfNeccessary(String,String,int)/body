@@ -7,7 +7,7 @@
     aliasCount++;
     newAlias=associationName + ALIAS + aliasCount;
     aliasMap.put(associationPath,newAlias);
-    aliasInstanceStack.add(criteria.createAlias(associationPath,newAlias,CriteriaSpecification.LEFT_JOIN));
+    aliasInstanceStack.add(criteria.createAlias(associationPath,newAlias,joinType));
   }
   aliasStack.add(newAlias);
 }

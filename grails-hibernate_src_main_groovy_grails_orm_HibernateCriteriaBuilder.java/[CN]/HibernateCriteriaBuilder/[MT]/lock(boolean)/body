@@ -2,10 +2,10 @@
   String lastAlias=getLastAlias();
   if (shouldLock) {
     if (lastAlias != null) {
-      criteria.setLockMode(lastAlias,LockMode.UPGRADE);
+      criteria.setLockMode(lastAlias,LockMode.PESSIMISTIC_WRITE);
     }
  else {
-      criteria.setLockMode(LockMode.UPGRADE);
+      criteria.setLockMode(LockMode.PESSIMISTIC_WRITE);
     }
   }
  else {

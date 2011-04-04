@@ -1,6 +1,5 @@
 {
   try {
-    String charset=request.getCharacterEncoding();
     return URLEncoder.encode(obj.toString(),(charset != null) ? charset : GrailsWebUtil.DEFAULT_ENCODING);
   }
  catch (  UnsupportedEncodingException ex) {

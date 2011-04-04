@@ -18,7 +18,7 @@
       Iterator valueIterator=values.iterator();
       while (valueIterator.hasNext()) {
         Object currentValue=valueIterator.next();
-        appendRequestParam(actualUriBuf,name,currentValue,request);
+        appendRequestParam(actualUriBuf,name,currentValue,encoding);
         if (valueIterator.hasNext()) {
           actualUriBuf.append(ENTITY_AMPERSAND);
         }
@@ -28,14 +28,14 @@
       Object[] array=(Object[])value;
       for (int j=0; j < array.length; j++) {
         Object currentValue=array[j];
-        appendRequestParam(actualUriBuf,name,currentValue,request);
+        appendRequestParam(actualUriBuf,name,currentValue,encoding);
         if (j < (array.length - 1)) {
           actualUriBuf.append(ENTITY_AMPERSAND);
         }
       }
     }
  else {
-      appendRequestParam(actualUriBuf,name,value,request);
+      appendRequestParam(actualUriBuf,name,value,encoding);
     }
   }
 }

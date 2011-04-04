@@ -1,0 +1,21 @@
+{
+  final GrailsWebRequest webRequest=getWebRequest();
+  if (webRequest != null) {
+    String actionName=webRequest.getActionName();
+    if (actionName == null) {
+      if (grailsApplication == null) {
+        grailsApplication=webRequest.getAttributes().getGrailsApplication();
+      }
+      if (grailsApplication != null) {
+        final String controllerName=getControllerNameInternal(webRequest);
+        if (controllerName != null) {
+          final GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,controllerName);
+          if (controllerClass != null) {
+            return controllerClass.getDefaultAction();
+          }
+        }
+      }
+    }
+  }
+  return null;
+}

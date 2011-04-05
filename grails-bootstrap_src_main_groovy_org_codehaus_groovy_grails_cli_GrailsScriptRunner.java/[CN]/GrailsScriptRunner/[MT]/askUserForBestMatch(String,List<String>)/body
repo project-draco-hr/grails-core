@@ -22,7 +22,7 @@
     }
     attempts++;
     if (attempts > 4) {
-      exitWithError("TODO");
+      exitWithError("Selection not found.");
     }
   }
 }

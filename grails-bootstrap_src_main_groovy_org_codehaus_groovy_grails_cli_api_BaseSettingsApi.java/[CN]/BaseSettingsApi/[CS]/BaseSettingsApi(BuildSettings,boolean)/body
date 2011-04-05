@@ -1,0 +1,63 @@
+{
+  this.buildSettings=buildSettings;
+  this.buildProps=buildSettings.getConfig().toProperties();
+  this.grailsHome=buildSettings.getGrailsHome();
+  metadataFile=new File(buildSettings.getBaseDir() + "/application.properties");
+  metadata=metadataFile.exists() ? Metadata.getInstance(metadataFile) : Metadata.getCurrent();
+  this.metadataFile=metadata.getMetadataFile();
+  this.enableProfile=Boolean.valueOf(getPropertyValue("grails.script.profile",false).toString());
+  this.pluginsHome=buildSettings.getProjectPluginsDir().getPath();
+  this.pluginSettings=new PluginBuildSettings(buildSettings);
+  this.grailsAppName=metadata.getApplicationName();
+  this.isInteractive=interactive;
+  if (grailsAppName == null) {
+    grailsAppName=buildSettings.getBaseDir().getName();
+  }
+  if (grailsAppName.indexOf('/') > -1) {
+    appClassName=grailsAppName.substring(grailsAppName.lastIndexOf('/'),grailsAppName.length());
+  }
+ else {
+    appClassName=GrailsNameUtils.getClassNameRepresentation(grailsAppName);
+  }
+  this.configSlurper=buildSettings.createConfigSlurper();
+  this.configSlurper.setEnvironment(buildSettings.getGrailsEnv());
+  this.uaaService=UaaServiceFactory.getUaaService();
+  final UaaClient.Privacy.PrivacyLevel privacyLevel=uaaService.getPrivacyLevel();
+  if (!uaaService.isUaaTermsOfUseAccepted() && isInteractive()) {
+    if (privacyLevel.equals(UaaClient.Privacy.PrivacyLevel.UNDECIDED_TOU)) {
+      while (true) {
+        System.out.print(MESSAGE);
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        try {
+          String selection=br.readLine().trim();
+          if ("y".equalsIgnoreCase(selection)) {
+            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
+            break;
+          }
+ else           if ("n".equalsIgnoreCase(selection)) {
+            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
+            break;
+          }
+        }
+ catch (        IOException e) {
+          break;
+        }
+      }
+    }
+  }
+ else   if (isUaaAccepted(privacyLevel)) {
+    Thread uaaThread=new Thread(new Runnable(){
+      public void run(){
+        final UaaClient.Product product=VersionHelper.getProduct("Grails",buildSettings.getGrailsVersion());
+        uaaService.registerProductUsage(product);
+        final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos();
+        for (        GrailsPluginInfo pluginInfo : pluginInfos) {
+          uaaService.registerFeatureUsage(product,VersionHelper.getFeatureUse(pluginInfo.getName(),pluginInfo.getVersion()));
+        }
+      }
+    }
+);
+    uaaThread.setDaemon(true);
+    uaaThread.start();
+  }
+}

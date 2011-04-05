@@ -1,0 +1,9 @@
+{
+  final String key=RESOURCE_PREFIX + attrs;
+  String resourceLink=linkCache.get(key);
+  if (resourceLink == null) {
+    resourceLink=super.resource(attrs);
+    linkCache.put(key,resourceLink);
+  }
+  return resourceLink;
+}

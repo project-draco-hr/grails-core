@@ -1,0 +1,4 @@
+{
+  super(serverBaseURL,contextPath);
+  this.linkCache=new ConcurrentLinkedHashMap.Builder<String,String>().maximumWeightedCapacity(DEFAULT_MAX_WEIGHTED_CAPACITY).build();
+}

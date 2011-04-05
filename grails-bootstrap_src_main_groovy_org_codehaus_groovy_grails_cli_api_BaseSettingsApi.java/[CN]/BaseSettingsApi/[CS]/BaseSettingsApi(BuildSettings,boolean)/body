@@ -32,9 +32,11 @@
           String selection=br.readLine().trim();
           if ("y".equalsIgnoreCase(selection)) {
             uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
+            break;
           }
  else           if ("n".equalsIgnoreCase(selection)) {
             uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
+            break;
           }
         }
  catch (        IOException e) {

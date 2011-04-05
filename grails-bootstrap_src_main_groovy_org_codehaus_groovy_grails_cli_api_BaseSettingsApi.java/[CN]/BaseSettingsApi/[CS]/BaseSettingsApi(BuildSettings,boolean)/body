@@ -21,43 +21,7 @@
   }
   this.configSlurper=buildSettings.createConfigSlurper();
   this.configSlurper.setEnvironment(buildSettings.getGrailsEnv());
-  this.uaaService=UaaServiceFactory.getUaaService();
-  final UaaClient.Privacy.PrivacyLevel privacyLevel=uaaService.getPrivacyLevel();
-  if (!uaaService.isUaaTermsOfUseAccepted() && isInteractive()) {
-    if (privacyLevel.equals(UaaClient.Privacy.PrivacyLevel.UNDECIDED_TOU)) {
-      while (true) {
-        System.out.print(MESSAGE);
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        try {
-          String selection=br.readLine().trim();
-          if ("y".equalsIgnoreCase(selection)) {
-            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
-            break;
-          }
- else           if ("n".equalsIgnoreCase(selection)) {
-            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
-            break;
-          }
-        }
- catch (        IOException e) {
-          break;
-        }
-      }
-    }
-  }
- else   if (isUaaAccepted(privacyLevel)) {
-    Thread uaaThread=new Thread(new Runnable(){
-      public void run(){
-        final UaaClient.Product product=VersionHelper.getProduct("Grails",buildSettings.getGrailsVersion());
-        uaaService.registerProductUsage(product);
-        final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos();
-        for (        GrailsPluginInfo pluginInfo : pluginInfos) {
-          uaaService.registerFeatureUsage(product,VersionHelper.getFeatureUse(pluginInfo.getName(),pluginInfo.getVersion()));
-        }
-      }
-    }
-);
-    uaaThread.setDaemon(true);
-    uaaThread.start();
+  if (UaaIntegration.isAvailable()) {
+    UaaIntegration.enable(buildSettings,pluginSettings,interactive);
   }
 }

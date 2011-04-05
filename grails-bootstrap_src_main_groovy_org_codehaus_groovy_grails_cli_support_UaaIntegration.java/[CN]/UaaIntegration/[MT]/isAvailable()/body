@@ -1,0 +1,3 @@
+{
+  return ClassUtils.isPresent("org.springframework.uaa.client.UaaServiceFactory",UaaIntegration.class.getClassLoader());
+}

@@ -24,18 +24,35 @@
     }
   }
  else   if (isUaaAccepted(privacyLevel)) {
-    Thread uaaThread=new Thread(new Runnable(){
+    Runnable r=new Runnable(){
       public void run(){
         final UaaClient.Product product=VersionHelper.getProduct("Grails",settings.getGrailsVersion());
         uaaService.registerProductUsage(product);
-        final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos();
-        for (        GrailsPluginInfo pluginInfo : pluginInfos) {
-          uaaService.registerFeatureUsage(product,VersionHelper.getFeatureUse(pluginInfo.getName(),pluginInfo.getVersion()));
+        final ChainResolver chainResolver=settings.getDependencyManager().getChainResolver();
+        GrailsRepoResolver centralRepo=findCentralRepoResolver(chainResolver);
+        if (centralRepo != null) {
+          final GPathResult pluginList=centralRepo.getPluginList(new File(settings.getGrailsWorkDir() + "/plugin-list-" + centralRepo.getName()+ ".xml"));
+          final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos();
+          for (          GrailsPluginInfo pluginInfo : pluginInfos) {
+            boolean registerUsage=false;
+            if (settings.getDefaultPluginSet().contains(pluginInfo.getName())) {
+              registerUsage=true;
+            }
+ else {
+              final Object plugin=UaaIntegrationSupport.findPlugin(pluginList,pluginInfo.getName());
+              if (plugin != null) {
+                registerUsage=true;
+              }
+            }
+            if (registerUsage) {
+              uaaService.registerFeatureUsage(product,VersionHelper.getFeatureUse(pluginInfo.getName(),pluginInfo.getVersion()));
+            }
+          }
         }
       }
     }
-);
-    uaaThread.setDaemon(true);
-    uaaThread.start();
+;
+    ConcurrentTaskScheduler scheduler=new ConcurrentTaskScheduler();
+    scheduler.schedule(r,new Date(System.currentTimeMillis() + ONE_MINUTE));
   }
 }

@@ -109,7 +109,7 @@
       String scriptFileName=getScriptNameFromFile(scriptFile);
       setRunningEnvironment(scriptFileName,env);
       binding.setVariable("scriptName",scriptFileName);
-      Gant gant=new Gant(initBinding(binding),classLoader);
+      Gant gant=new Gant(initBinding(binding,scriptName),classLoader);
       gant.setUseCache(true);
       gant.setCacheDirectory(scriptCacheDir);
       try {
@@ -139,13 +139,13 @@
     String scriptFileName=getScriptNameFromFile(scriptFile);
     setRunningEnvironment(scriptFileName,env);
     binding.setVariable("scriptName",scriptFileName);
-    Gant gant=new Gant(initBinding(binding),classLoader);
+    Gant gant=new Gant(initBinding(binding,scriptName),classLoader);
     gant.loadScript(scriptFile.getURL());
     return executeWithGantInstance(gant,doNothingClosure);
   }
   out.println("Running pre-compiled script");
   setRunningEnvironment(scriptName,env);
-  Gant gant=new Gant(initBinding(binding),classLoader);
+  Gant gant=new Gant(initBinding(binding,scriptName),classLoader);
   try {
     loadScriptClass(gant,scriptName);
   }

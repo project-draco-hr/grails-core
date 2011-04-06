@@ -1,0 +1,13 @@
+{
+  final List resolvers=chainResolver.getResolvers();
+  for (  Object resolver : resolvers) {
+    if (resolver instanceof GrailsRepoResolver) {
+      final GrailsRepoResolver grailsRepoResolver=(GrailsRepoResolver)resolver;
+      final String resolverName=grailsRepoResolver.getName();
+      if (resolverName != null && resolverName.equals("grailsCentral")) {
+        return grailsRepoResolver;
+      }
+    }
+  }
+  return null;
+}

@@ -33,6 +33,9 @@
   binding.setVariable("pluginsDirPath",settings.getProjectPluginsDir().getPath());
   binding.setVariable("globalPluginsDirPath",settings.getGlobalPluginsDir().getPath());
   final BaseSettingsApi cla=new BaseSettingsApi(settings,isInteractive);
+  if (scriptName.equals("RunApp")) {
+    cla.enableUaa();
+  }
   makeApiAvailableToScripts(binding,cla);
   makeApiAvailableToScripts(binding,cla.getPluginSettings());
   binding.setVariable("Ant",binding.getVariable("ant"));

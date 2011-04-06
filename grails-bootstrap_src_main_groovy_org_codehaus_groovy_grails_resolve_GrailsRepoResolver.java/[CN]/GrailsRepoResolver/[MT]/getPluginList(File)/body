@@ -1,33 +1,37 @@
 {
-  installIvyAuth();
-  try {
-    final Repository repo=getRepository();
-    List list=repo.list(repositoryRoot.toString());
-    for (    Object entry : list) {
-      String url=entry.toString();
-      if (url.contains(".plugin-meta")) {
-        List metaList=repo.list(url);
-        for (        Object current : metaList) {
-          url=current.toString();
-          if (url.contains("plugins-list.xml")) {
-            Resource remoteFile=repo.getResource(url);
-            if (localFile.lastModified() < remoteFile.getLastModified()) {
-              repo.get(url,localFile);
+  GPathResult parsedXml=parsedXmlCache.get(localFile);
+  if (parsedXml == null) {
+    installIvyAuth();
+    try {
+      final Repository repo=getRepository();
+      List list=repo.list(repositoryRoot.toString());
+      for (      Object entry : list) {
+        String url=entry.toString();
+        if (url.contains(".plugin-meta")) {
+          List metaList=repo.list(url);
+          for (          Object current : metaList) {
+            url=current.toString();
+            if (url.contains("plugins-list.xml")) {
+              Resource remoteFile=repo.getResource(url);
+              if (localFile.lastModified() < remoteFile.getLastModified()) {
+                repo.get(url,localFile);
+              }
+              parsedXml=new XmlSlurper().parse(localFile);
+              parsedXmlCache.put(localFile,parsedXml);
             }
-            return new XmlSlurper().parse(localFile);
           }
         }
       }
     }
+ catch (    IOException e) {
+      return null;
+    }
+catch (    SAXException e) {
+      return null;
+    }
+catch (    ParserConfigurationException e) {
+      return null;
+    }
   }
- catch (  IOException e) {
-    return null;
-  }
-catch (  SAXException e) {
-    return null;
-  }
-catch (  ParserConfigurationException e) {
-    return null;
-  }
-  return null;
+  return parsedXml;
 }

@@ -21,7 +21,4 @@
   }
   this.configSlurper=buildSettings.createConfigSlurper();
   this.configSlurper.setEnvironment(buildSettings.getGrailsEnv());
-  if (UaaIntegration.isAvailable()) {
-    UaaIntegration.enable(buildSettings,pluginSettings,interactive);
-  }
 }

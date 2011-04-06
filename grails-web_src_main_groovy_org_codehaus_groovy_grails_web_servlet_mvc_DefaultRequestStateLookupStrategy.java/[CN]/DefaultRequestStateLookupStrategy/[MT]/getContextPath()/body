@@ -3,5 +3,5 @@
   if (webRequest != null) {
     return webRequest.getContextPath();
   }
-  return "";
+  return null;
 }

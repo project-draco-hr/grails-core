@@ -1,3 +1,3 @@
 {
-  return new ConcurrentLinkedHashMap.Builder<String,String>().maximumWeightedCapacity(DEFAULT_MAX_WEIGHTED_CAPACITY).build();
+  return new ConcurrentLinkedHashMap.Builder<String,Object>().maximumWeightedCapacity(DEFAULT_MAX_WEIGHTED_CAPACITY).build();
 }

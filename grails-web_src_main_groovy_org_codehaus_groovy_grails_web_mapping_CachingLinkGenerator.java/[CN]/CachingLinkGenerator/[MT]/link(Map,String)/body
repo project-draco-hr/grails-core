@@ -1,9 +1,22 @@
 {
   final String key=LINK_PREFIX + attrs;
-  String resourceLink=linkCache.get(key);
+  final String usedAttributesKey=key + USED_ATTRIBUTES_SUFFIX;
+  Object resourceLink=linkCache.get(key);
   if (resourceLink == null) {
     resourceLink=super.link(attrs,encoding);
     linkCache.put(key,resourceLink);
+    if (attrs instanceof GroovyPageAttributes) {
+      linkCache.put(usedAttributesKey,((GroovyPageAttributes)attrs).getUsedKeys());
+    }
   }
-  return resourceLink;
+ else {
+    if (attrs instanceof GroovyPageAttributes) {
+      GroovyPageAttributes gspAttrs=(GroovyPageAttributes)attrs;
+      final Object o=linkCache.get(usedAttributesKey);
+      if (o != null) {
+        gspAttrs.getUsedKeys().addAll((Collection)o);
+      }
+    }
+  }
+  return resourceLink.toString();
 }

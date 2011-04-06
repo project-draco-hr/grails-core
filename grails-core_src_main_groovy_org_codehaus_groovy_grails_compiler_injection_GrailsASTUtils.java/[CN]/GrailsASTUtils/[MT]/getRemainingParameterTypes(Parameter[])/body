@@ -4,5 +4,5 @@
     System.arraycopy(parameters,1,newParameters,0,parameters.length - 1);
     return newParameters;
   }
-  return ZERO_PARAMETERS;
+  return GrailsArtefactClassInjector.ZERO_PARAMETERS;
 }

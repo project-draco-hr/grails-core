@@ -1,0 +1,7 @@
+{
+  this.mimeTypes=mimeTypes;
+  for (  MimeType mimeType : mimeTypes) {
+    final String ext=mimeType.getExtension();
+    if (!extensionToMimeMap.containsKey(ext))     extensionToMimeMap.put(ext,mimeType);
+  }
+}

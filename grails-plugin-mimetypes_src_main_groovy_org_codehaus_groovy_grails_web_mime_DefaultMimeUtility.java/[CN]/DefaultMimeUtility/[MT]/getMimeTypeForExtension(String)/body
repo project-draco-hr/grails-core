@@ -1,0 +1,6 @@
+{
+  if (extension != null) {
+    return extensionToMimeMap.get(extension);
+  }
+  return null;
+}

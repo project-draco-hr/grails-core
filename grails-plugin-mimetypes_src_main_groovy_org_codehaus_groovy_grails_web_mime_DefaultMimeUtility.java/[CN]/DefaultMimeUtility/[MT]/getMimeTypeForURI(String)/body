@@ -1,0 +1,11 @@
+{
+  if (uri != null) {
+    final int i=uri.lastIndexOf('.');
+    final int length=uri.length();
+    if (i > -1 && i < length) {
+      final String extension=uri.substring(i + 1,length);
+      return getMimeTypeForExtension(extension);
+    }
+  }
+  return null;
+}

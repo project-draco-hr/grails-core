@@ -1,0 +1,9 @@
+{
+  if (grailsApplication != null) {
+    final GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,controllerName);
+    if (controllerClass != null) {
+      return controllerClass.getDefaultAction();
+    }
+  }
+  return null;
+}

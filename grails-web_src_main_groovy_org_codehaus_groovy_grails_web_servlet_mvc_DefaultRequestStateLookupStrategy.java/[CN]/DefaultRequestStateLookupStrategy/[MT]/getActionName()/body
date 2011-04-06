@@ -8,12 +8,7 @@
       }
       if (grailsApplication != null) {
         final String controllerName=getControllerNameInternal(webRequest);
-        if (controllerName != null) {
-          final GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,controllerName);
-          if (controllerClass != null) {
-            return controllerClass.getDefaultAction();
-          }
-        }
+        return getActionName(grailsApplication,controllerName);
       }
     }
   }

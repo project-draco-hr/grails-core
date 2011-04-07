@@ -1,5 +1,5 @@
 {
-  ClassNode groovyMethods=new ClassNode(GroovyObjectSupport.class);
+  ClassNode groovyMethods=GROOVY_OBJECT_CLASS_NODE;
   String methodName=declaredMethod.getName();
   return !declaredMethod.isSynthetic() && !methodName.contains("$") && Modifier.isPublic(declaredMethod.getModifiers())&& !Modifier.isAbstract(declaredMethod.getModifiers())&& !groovyMethods.hasMethod(declaredMethod.getName(),declaredMethod.getParameters());
 }

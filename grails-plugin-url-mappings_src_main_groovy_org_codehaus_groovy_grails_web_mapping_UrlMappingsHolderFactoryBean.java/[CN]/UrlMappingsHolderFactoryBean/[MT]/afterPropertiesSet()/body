@@ -6,18 +6,23 @@
   final DefaultUrlMappingEvaluator defaultUrlMappingEvaluator=new DefaultUrlMappingEvaluator(servletContext);
   defaultUrlMappingEvaluator.setPluginManager(pluginManager);
   mappingEvaluator=defaultUrlMappingEvaluator;
-  for (  GrailsClass mapping : mappings) {
-    GrailsUrlMappingsClass mappingClass=(GrailsUrlMappingsClass)mapping;
-    List grailsClassMappings;
-    if (Script.class.isAssignableFrom(mappingClass.getClass())) {
-      grailsClassMappings=mappingEvaluator.evaluateMappings(mappingClass.getClazz());
-    }
+  if (mappings.length == 0) {
+    urlMappings.addAll(mappingEvaluator.evaluateMappings(DefaultUrlMappings.getMappings()));
+  }
  else {
-      grailsClassMappings=mappingEvaluator.evaluateMappings(mappingClass.getMappingsClosure());
-    }
-    urlMappings.addAll(grailsClassMappings);
-    if (mappingClass.getExcludePatterns() != null) {
-      excludePatterns.addAll(mappingClass.getExcludePatterns());
+    for (    GrailsClass mapping : mappings) {
+      GrailsUrlMappingsClass mappingClass=(GrailsUrlMappingsClass)mapping;
+      List grailsClassMappings;
+      if (Script.class.isAssignableFrom(mappingClass.getClass())) {
+        grailsClassMappings=mappingEvaluator.evaluateMappings(mappingClass.getClazz());
+      }
+ else {
+        grailsClassMappings=mappingEvaluator.evaluateMappings(mappingClass.getMappingsClosure());
+      }
+      urlMappings.addAll(grailsClassMappings);
+      if (mappingClass.getExcludePatterns() != null) {
+        excludePatterns.addAll(mappingClass.getExcludePatterns());
+      }
     }
   }
   DefaultUrlMappingsHolder defaultUrlMappingsHolder=new DefaultUrlMappingsHolder(urlMappings,excludePatterns,true);

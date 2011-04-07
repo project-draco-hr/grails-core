@@ -1,0 +1,3 @@
+{
+  return !mixinMethod.getAnnotations(new ClassNode(beforeClass)).isEmpty();
+}

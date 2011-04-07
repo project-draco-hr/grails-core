@@ -15,11 +15,10 @@
   Expression value=node.getMember("value");
   if (value instanceof ClassExpression) {
     ClassExpression ce=(ClassExpression)value;
-    final ClassNode mixinClassNode=ce.getType();
+    ClassNode mixinClassNode=ce.getType();
     final String fieldName='$' + GrailsNameUtils.getPropertyName(mixinClassNode.getName());
     classNode.addField(fieldName,Modifier.PRIVATE,mixinClassNode,new ConstructorCallExpression(mixinClassNode,new ArgumentListExpression()));
     VariableExpression fieldReference=new VariableExpression(fieldName);
-    final List<MethodNode> mixinMethods=mixinClassNode.getMethods();
     boolean isJunit3=isJunit3Test(classNode);
     List<MethodNode> beforeMethods=null;
     List<MethodNode> afterMethods=null;
@@ -27,18 +26,35 @@
       beforeMethods=new ArrayList<MethodNode>();
       afterMethods=new ArrayList<MethodNode>();
     }
-    for (    MethodNode mixinMethod : mixinMethods) {
-      if (isCandidateMethod(mixinMethod) && !classNode.hasDeclaredMethod(mixinMethod.getName(),mixinMethod.getParameters())) {
-        GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
-        if (isJunit3) {
-          if (!mixinMethod.getAnnotations(new ClassNode(Before.class)).isEmpty()) {
-            beforeMethods.add(mixinMethod);
+    while (!mixinClassNode.getName().equals(OBJECT_CLASS)) {
+      final List<MethodNode> mixinMethods=mixinClassNode.getMethods();
+      int beforeClassMethodCount=0;
+      int afterClassMethodCount=0;
+      for (      MethodNode mixinMethod : mixinMethods) {
+        if (isCandidateMethod(mixinMethod) && !hasDeclaredMethod(classNode,mixinMethod)) {
+          if (mixinMethod.isStatic()) {
+            GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
           }
-          if (!mixinMethod.getAnnotations(new ClassNode(After.class)).isEmpty()) {
-            afterMethods.add(mixinMethod);
+ else {
+            GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+          }
+          if (isJunit3) {
+            if (hasAnnotation(mixinMethod,Before.class)) {
+              beforeMethods.add(mixinMethod);
+            }
+            if (hasAnnotation(mixinMethod,BeforeClass.class)) {
+              beforeMethods.add(beforeClassMethodCount++,mixinMethod);
+            }
+            if (hasAnnotation(mixinMethod,After.class)) {
+              afterMethods.add(mixinMethod);
+            }
+            if (hasAnnotation(mixinMethod,AfterClass.class)) {
+              afterMethods.add(afterClassMethodCount++,mixinMethod);
+            }
           }
         }
       }
+      mixinClassNode=mixinClassNode.getSuperClass();
     }
     if (isJunit3) {
       addMethodCallsToMethod(classNode,SET_UP_METHOD,beforeMethods);

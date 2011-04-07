@@ -9,7 +9,8 @@
   if (mc instanceof ExpandoMetaClass) {
     return (ExpandoMetaClass)mc;
   }
-  ExpandoMetaClass emc=new ExpandoMetaClass(aClass,true);
+  ExpandoMetaClass emc=new ExpandoMetaClass(aClass,true,true);
+  emc.initialize();
   registry.setMetaClass(aClass,emc);
   return emc;
 }

@@ -1,14 +1,16 @@
 {
   Object[] args=argsObject instanceof Object[] ? (Object[])argsObject : new Object[]{argsObject};
   TagLibraryLookup lookup=getTagLibraryLookup();
-  GroovyObject tagLibrary=lookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
-  if (tagLibrary != null) {
-    MetaClass controllerMc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
-    WebMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
-    if (controllerMc.respondsTo(instance,methodName,args).size() > 0) {
-      return controllerMc.invokeMethod(instance,methodName,args);
+  if (lookup != null) {
+    GroovyObject tagLibrary=lookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
+    if (tagLibrary != null) {
+      MetaClass controllerMc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
+      WebMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
+      if (controllerMc.respondsTo(instance,methodName,args).size() > 0) {
+        return controllerMc.invokeMethod(instance,methodName,args);
+      }
+      throw new MissingMethodException(methodName,instance.getClass(),args);
     }
-    throw new MissingMethodException(methodName,instance.getClass(),args);
   }
   throw new MissingMethodException(methodName,instance.getClass(),args);
 }

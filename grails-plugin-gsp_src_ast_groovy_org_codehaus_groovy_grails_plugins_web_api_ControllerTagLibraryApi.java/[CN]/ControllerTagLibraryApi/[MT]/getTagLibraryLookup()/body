@@ -2,7 +2,12 @@
   if (this.tagLibraryLookup == null) {
     ApplicationContext applicationContext=getApplicationContext(null);
     if (applicationContext != null) {
-      tagLibraryLookup=applicationContext.getBean(TagLibraryLookup.class);
+      try {
+        tagLibraryLookup=applicationContext.getBean(TagLibraryLookup.class);
+      }
+ catch (      BeansException e) {
+        return null;
+      }
     }
   }
   return tagLibraryLookup;

@@ -1,0 +1,3 @@
+{
+  return !classNode.getAnnotations(new ClassNode(Test.class)).isEmpty();
+}

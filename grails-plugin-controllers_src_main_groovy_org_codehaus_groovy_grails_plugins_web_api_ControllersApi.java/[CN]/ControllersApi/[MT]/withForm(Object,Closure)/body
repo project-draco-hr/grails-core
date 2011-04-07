@@ -1,3 +1,3 @@
 {
-  return withFormMethod.withForm(getRequest(instance),callable);
+  return withFormMethod.withForm(getWebRequest(instance),callable);
 }

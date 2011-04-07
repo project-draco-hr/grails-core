@@ -2,6 +2,7 @@
   ClassNode currentSuper=classNode.getSuperClass();
   while (currentSuper != null && !currentSuper.getName().equals(OBJECT_CLASS)) {
     if (currentSuper.getName().equals(testType))     return true;
+    currentSuper=currentSuper.getSuperClass();
   }
   return false;
 }

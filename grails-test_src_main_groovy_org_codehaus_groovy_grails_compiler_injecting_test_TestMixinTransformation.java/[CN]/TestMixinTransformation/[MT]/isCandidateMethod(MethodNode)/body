@@ -1,3 +1,5 @@
 {
-  return !declaredMethod.isSynthetic() && !declaredMethod.getName().contains("$") && Modifier.isPublic(declaredMethod.getModifiers())&& !Modifier.isAbstract(declaredMethod.getModifiers());
+  ClassNode groovyMethods=new ClassNode(GroovyObjectSupport.class);
+  String methodName=declaredMethod.getName();
+  return !declaredMethod.isSynthetic() && !methodName.contains("$") && Modifier.isPublic(declaredMethod.getModifiers())&& !Modifier.isAbstract(declaredMethod.getModifiers())&& !groovyMethods.hasMethod(declaredMethod.getName(),declaredMethod.getParameters());
 }

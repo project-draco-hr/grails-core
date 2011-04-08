@@ -1,3 +1,20 @@
 {
-  GrailsClass[] artefacts=grailsApplication.getArtefacts(TagLibArtefactHandler.TYPE);
+  List<Class> providedArtefacts=(List<Class>)new GroovyPagesGrailsPlugin().getProvidedArtefacts();
+  tagClassesByNamespace.put(GrailsTagLibClass.DEFAULT_NAMESPACE,new ArrayList<Class>());
+  for (  Class providedArtefact : providedArtefacts) {
+    if (!grailsApplication.isArtefactOfType(TagLibArtefactHandler.TYPE,providedArtefact))     continue;
+    Object value=GrailsClassUtils.getStaticPropertyValue(providedArtefact,GrailsTagLibClass.NAMESPACE_FIELD_NAME);
+    if (value != null) {
+      String namespace=value.toString();
+      List<Class> classes=tagClassesByNamespace.get(namespace);
+      if (classes == null) {
+        classes=new ArrayList<Class>();
+        tagClassesByNamespace.put(namespace,classes);
+      }
+      classes.add(providedArtefact);
+    }
+ else {
+      tagClassesByNamespace.get(GrailsTagLibClass.DEFAULT_NAMESPACE).add(providedArtefact);
+    }
+  }
 }

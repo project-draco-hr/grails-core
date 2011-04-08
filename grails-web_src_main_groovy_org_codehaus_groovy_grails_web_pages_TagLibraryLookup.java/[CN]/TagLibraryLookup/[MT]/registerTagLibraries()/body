@@ -1,0 +1,6 @@
+{
+  GrailsClass[] taglibs=grailsApplication.getArtefacts(TagLibArtefactHandler.TYPE);
+  for (  GrailsClass grailsClass : taglibs) {
+    registerTagLib((GrailsTagLibClass)grailsClass);
+  }
+}

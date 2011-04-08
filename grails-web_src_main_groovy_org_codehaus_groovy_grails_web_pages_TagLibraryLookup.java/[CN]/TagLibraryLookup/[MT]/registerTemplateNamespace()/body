@@ -1,0 +1,20 @@
+{
+  namespaceDispatchers.put(GroovyPage.TEMPLATE_NAMESPACE,new NamespacedTagDispatcher(GroovyPage.DEFAULT_NAMESPACE,GroovyPage.class,grailsApplication,this){
+    @SuppressWarnings("serial") @Override public Object invokeMethod(    final String name,    Object args){
+      Map<String,Object> attrs=new HashMap<String,Object>(){
+{
+          put("template",name);
+        }
+      }
+;
+      if (args != null && args instanceof Object[]) {
+        Object[] tagArgs=((Object[])args);
+        if (tagArgs.length > 0 && tagArgs[0] instanceof Map) {
+          attrs.put("model",tagArgs[0]);
+        }
+      }
+      return super.invokeMethod("render",new Object[]{attrs});
+    }
+  }
+);
+}

@@ -1,0 +1,22 @@
+{
+  if (groovyPages.containsKey(location)) {
+    try {
+      return new ByteArrayResource(groovyPages.get(location).getBytes("UTF-8"));
+    }
+ catch (    UnsupportedEncodingException e) {
+    }
+  }
+  BuildSettings buildSettings=BuildSettingsHolder.getSettings();
+  String systemBaseDirectory=System.getProperty("base.dir");
+  String basedir=systemBaseDirectory != null ? systemBaseDirectory : ".";
+  if (buildSettings != null) {
+    try {
+      basedir=buildSettings.getBaseDir().getCanonicalPath();
+    }
+ catch (    IOException e) {
+    }
+  }
+  String path=basedir + File.separatorChar + GrailsResourceUtils.VIEWS_DIR_PATH+ location;
+  path=makeCanonical(path);
+  return new FileSystemResource(path);
+}

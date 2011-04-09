@@ -22,6 +22,7 @@
             GenericBeanDefinition bd=new GenericBeanDefinition();
             bd.setBeanClass(tagLibraryClass);
             bd.setAutowireCandidate(true);
+            bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_NAME);
             ((GenericApplicationContext)applicationContext).getDefaultListableBeanFactory().registerBeanDefinition(tagLibraryClassName,bd);
             resolveTagLibraries.put(tagKey,tagLib.getFullName());
             return (GroovyObject)applicationContext.getBean(tagLibraryClassName);

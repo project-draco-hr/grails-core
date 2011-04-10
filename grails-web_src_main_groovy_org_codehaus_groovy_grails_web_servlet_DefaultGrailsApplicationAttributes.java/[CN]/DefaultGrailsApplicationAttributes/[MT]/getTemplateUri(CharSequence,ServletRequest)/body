@@ -1,3 +1,4 @@
 {
+  if (templateName == null)   throw new IllegalArgumentException("Argument [template] cannot be null");
   return groovyPagesUriService.getTemplateURI(getControllerName(request),templateName.toString());
 }

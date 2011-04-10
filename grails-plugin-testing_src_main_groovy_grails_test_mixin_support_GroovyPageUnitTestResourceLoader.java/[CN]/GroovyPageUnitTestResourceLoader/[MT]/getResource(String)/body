@@ -1,4 +1,7 @@
 {
+  if (location.startsWith(WEB_INF_PREFIX)) {
+    location=location.substring(WEB_INF_PREFIX.length());
+  }
   if (groovyPages.containsKey(location)) {
     try {
       return new ByteArrayResource(groovyPages.get(location).getBytes("UTF-8"));

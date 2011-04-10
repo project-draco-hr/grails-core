@@ -1,3 +1,4 @@
 {
+  if (viewName == null)   throw new IllegalArgumentException("Argument [view] cannot be null");
   return groovyPagesUriService.getDeployedViewURI(getControllerName(request),viewName);
 }

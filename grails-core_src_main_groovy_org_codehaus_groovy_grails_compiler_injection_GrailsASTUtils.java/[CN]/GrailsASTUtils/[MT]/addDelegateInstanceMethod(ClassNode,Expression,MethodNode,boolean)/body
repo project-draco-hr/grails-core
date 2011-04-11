@@ -9,7 +9,7 @@
     for (    Parameter parameterType : parameterTypes) {
       arguments.addExpression(new VariableExpression(parameterType.getName()));
     }
-    ClassNode returnType=declaredMethod.getReturnType().isGenericsPlaceHolder() ? classNode : declaredMethod.getReturnType();
+    ClassNode returnType=nonGeneric(declaredMethod.getReturnType());
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(delegate,declaredMethod.getName(),arguments)));
     MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(declaredMethod.getAnnotations());

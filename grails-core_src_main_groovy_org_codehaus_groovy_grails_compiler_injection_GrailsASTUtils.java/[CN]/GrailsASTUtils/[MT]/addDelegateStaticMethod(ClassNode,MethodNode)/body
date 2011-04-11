@@ -8,11 +8,11 @@
       arguments.addExpression(new VariableExpression(parameterType.getName()));
     }
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(classExpression,declaredMethod.getName(),arguments)));
-    ClassNode returnType=declaredMethod.getReturnType().isGenericsPlaceHolder() ? classNode : declaredMethod.getReturnType();
+    ClassNode returnType=nonGeneric(declaredMethod.getReturnType());
     returnType.setRedirect(declaredMethod.getReturnType());
     MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
-    methodNode.setGenericsTypes(declaredMethod.getGenericsTypes());
     methodNode.addAnnotations(declaredMethod.getAnnotations());
+    methodNode.setGenericsTypes(declaredMethod.getGenericsTypes());
     classNode.addMethod(methodNode);
   }
 }

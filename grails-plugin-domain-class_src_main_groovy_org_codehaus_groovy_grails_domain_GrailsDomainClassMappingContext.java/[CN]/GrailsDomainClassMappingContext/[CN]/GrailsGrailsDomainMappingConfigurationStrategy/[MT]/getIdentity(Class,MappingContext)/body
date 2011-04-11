@@ -1,0 +1,11 @@
+{
+  GrailsDomainClass domain=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,javaClass.getName());
+  PersistentEntity persistentEntity=context.getPersistentEntity(javaClass.getName());
+  GrailsDomainClassProperty identifier=domain.getIdentifier();
+  return new Identity<GrailsDomainClassProperty>(persistentEntity,context,identifier.getName(),identifier.getType()){
+    public PropertyMapping getMapping(){
+      return null;
+    }
+  }
+;
+}

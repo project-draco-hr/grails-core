@@ -2,4 +2,13 @@
   super();
   this.owner=owner;
   this.property=property;
+  propertyMapping=new PropertyMapping(){
+    public ClassMapping getClassMapping(){
+      return owner.getMapping();
+    }
+    public Object getMappedForm(){
+      return null;
+    }
+  }
+;
 }

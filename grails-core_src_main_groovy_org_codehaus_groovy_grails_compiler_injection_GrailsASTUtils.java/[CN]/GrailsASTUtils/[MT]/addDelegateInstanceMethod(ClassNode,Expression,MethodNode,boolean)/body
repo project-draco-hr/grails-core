@@ -9,9 +9,11 @@
     for (    Parameter parameterType : parameterTypes) {
       arguments.addExpression(new VariableExpression(parameterType.getName()));
     }
+    ClassNode returnType=declaredMethod.getReturnType().isGenericsPlaceHolder() ? classNode : declaredMethod.getReturnType();
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(delegate,declaredMethod.getName(),arguments)));
-    MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,declaredMethod.getReturnType(),parameterTypes,GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+    MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(declaredMethod.getAnnotations());
+    methodNode.setGenericsTypes(declaredMethod.getGenericsTypes());
     classNode.addMethod(methodNode);
   }
 }

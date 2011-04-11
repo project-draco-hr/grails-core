@@ -2,7 +2,16 @@
   if (compileList.length > 0) {
     long now=System.currentTimeMillis();
     try {
-      super.compile();
+      try {
+        super.compile();
+      }
+ catch (      RuntimeException e) {
+        if (!(e instanceof MultipleCompilationErrorsException) && !(e instanceof CompilationFailedException)) {
+          e.printStackTrace();
+          System.out.println("Groovy Compiler error: " + e.getMessage());
+          throw e;
+        }
+      }
       getDestdir().setLastModified(now);
     }
   finally {

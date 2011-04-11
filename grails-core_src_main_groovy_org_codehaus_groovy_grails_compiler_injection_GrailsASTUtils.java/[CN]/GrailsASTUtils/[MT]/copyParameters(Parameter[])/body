@@ -1,0 +1,10 @@
+{
+  Parameter[] newParameterTypes=new Parameter[parameterTypes.length];
+  for (int i=0; i < parameterTypes.length; i++) {
+    Parameter parameterType=parameterTypes[i];
+    Parameter newParameter=new Parameter(parameterType.getType(),parameterType.getName(),parameterType.getInitialExpression());
+    newParameter.addAnnotations(parameterType.getAnnotations());
+    newParameterTypes[i]=newParameter;
+  }
+  return newParameterTypes;
+}

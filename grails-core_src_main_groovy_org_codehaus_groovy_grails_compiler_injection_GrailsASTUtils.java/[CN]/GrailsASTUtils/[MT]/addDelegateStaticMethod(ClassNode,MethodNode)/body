@@ -8,7 +8,10 @@
       arguments.addExpression(new VariableExpression(parameterType.getName()));
     }
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(classExpression,declaredMethod.getName(),arguments)));
-    MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC | Modifier.STATIC,declaredMethod.getReturnType(),parameterTypes,GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+    ClassNode returnType=declaredMethod.getReturnType().isGenericsPlaceHolder() ? classNode : declaredMethod.getReturnType();
+    returnType.setRedirect(declaredMethod.getReturnType());
+    MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+    methodNode.setGenericsTypes(declaredMethod.getGenericsTypes());
     methodNode.addAnnotations(declaredMethod.getAnnotations());
     classNode.addMethod(methodNode);
   }

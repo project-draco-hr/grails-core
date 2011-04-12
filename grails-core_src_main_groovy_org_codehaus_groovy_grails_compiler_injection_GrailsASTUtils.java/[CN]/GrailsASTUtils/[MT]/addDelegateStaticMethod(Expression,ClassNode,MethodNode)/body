@@ -9,13 +9,11 @@
     }
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(expression,declaredMethodName,arguments)));
     ClassNode returnType=nonGeneric(declaredMethod.getReturnType());
-    returnType.setRedirect(declaredMethod.getReturnType());
     if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
       declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;
     }
     MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(declaredMethod.getAnnotations());
-    methodNode.setGenericsTypes(declaredMethod.getGenericsTypes());
     classNode.addMethod(methodNode);
   }
 }

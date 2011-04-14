@@ -1,4 +1,5 @@
 {
   GrailsApplicationAwareBeanPostProcessor.processAwareInterfaces(this,handler);
   artefactHandlersByName.put(handler.getType(),handler);
+  updateArtefactHandlers();
 }

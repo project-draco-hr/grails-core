@@ -27,5 +27,5 @@
   if (!hasArtefactHandler(urlMappingsArtefactHandler.getType())) {
     registerArtefactHandler(urlMappingsArtefactHandler);
   }
-  artefactHandlers=artefactHandlersByName.values().toArray(new ArtefactHandler[artefactHandlersByName.size()]);
+  updateArtefactHandlers();
 }

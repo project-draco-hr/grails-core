@@ -1,0 +1,13 @@
+{
+  boolean isExcluded=false;
+  List<String> excludePatterns=holder.getExcludePatterns();
+  if (excludePatterns != null && excludePatterns.size() > 0) {
+    for (    String excludePattern : excludePatterns) {
+      if (uri.equals(excludePattern) || (excludePattern.endsWith("*") && excludePattern.substring(0,excludePattern.length() - 1).regionMatches(0,uri,0,excludePattern.length() - 1))) {
+        isExcluded=true;
+        break;
+      }
+    }
+  }
+  return isExcluded;
+}

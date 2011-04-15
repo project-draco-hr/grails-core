@@ -14,6 +14,18 @@
   }
   Expression value=node.getMember("value");
   boolean junit3Test=isJunit3Test(classNode);
+  boolean isSpockTest=isSpockTest(classNode);
+  if (!isSpockTest && !junit3Test) {
+    Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();
+    for (    String methodName : declaredMethodsMap.keySet()) {
+      MethodNode methodNode=declaredMethodsMap.get(methodName);
+      if (isCandidateMethod(methodNode) && methodNode.getName().startsWith("test")) {
+        if (methodNode.getAnnotations().size() == 0) {
+          methodNode.addAnnotation(TEST_ANNOTATION);
+        }
+      }
+    }
+  }
   if (value instanceof ClassExpression) {
     final MethodNode methodToAdd=weaveMock(classNode,(ClassExpression)value,true);
     if (methodToAdd != null) {

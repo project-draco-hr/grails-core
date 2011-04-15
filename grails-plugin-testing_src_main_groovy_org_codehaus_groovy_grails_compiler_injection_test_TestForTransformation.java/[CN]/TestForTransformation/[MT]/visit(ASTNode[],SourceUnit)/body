@@ -14,6 +14,10 @@
   }
   Expression value=node.getMember("value");
   boolean junit3Test=isJunit3Test(classNode);
+  FieldNode log=classNode.getField("log");
+  if (log == null || log.getDeclaringClass().equals(GROOVY_TEST_CASE_CLASS)) {
+    LoggingTransformer.addLogField(classNode,classNode.getName());
+  }
   boolean isSpockTest=isSpockTest(classNode);
   if (!isSpockTest && !junit3Test) {
     Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();

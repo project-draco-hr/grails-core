@@ -1,0 +1,10 @@
+{
+  BlockStatement methodBody;
+  if (isJunit3Test(classNode)) {
+    methodBody=getJunit3Setup(classNode);
+  }
+ else {
+    methodBody=getJunit4Setup(classNode);
+  }
+  addMockCollaborator(artefactType,targetClassExpression,methodBody);
+}

@@ -32,7 +32,7 @@
         GrailsRepoResolver centralRepo=findCentralRepoResolver(chainResolver);
         if (centralRepo != null) {
           final GPathResult pluginList=centralRepo.getPluginList(new File(settings.getGrailsWorkDir() + "/plugin-list-" + centralRepo.getName()+ ".xml"));
-          final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos();
+          final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos(pluginSettings.getPluginDirPath());
           for (          GrailsPluginInfo pluginInfo : pluginInfos) {
             boolean registerUsage=false;
             if (settings.getDefaultPluginSet().contains(pluginInfo.getName())) {

@@ -1,0 +1,16 @@
+{
+  String methodName="setup" + type + "UnderTest";
+  String fieldName=GrailsNameUtils.getPropertyName(type);
+  if (classNode.getField(fieldName) == null) {
+    classNode.addField(fieldName,Modifier.PRIVATE,targetClass.getType(),null);
+  }
+  BlockStatement methodBody=new BlockStatement();
+  VariableExpression fieldExpression=new VariableExpression(fieldName);
+  addMockCollaborator(type,targetClass,methodBody);
+  BinaryExpression testTargetAssignment=new BinaryExpression(fieldExpression,ASSIGN,new ConstructorCallExpression(targetClass.getType(),GrailsArtefactClassInjector.ZERO_ARGS));
+  methodBody.addStatement(new ExpressionStatement(testTargetAssignment));
+  MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,methodBody);
+  methodNode.addAnnotation(BEFORE_ANNOTATION);
+  classNode.addMethod(methodNode);
+  return methodNode;
+}

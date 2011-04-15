@@ -1,0 +1,28 @@
+{
+  ClassNode testTarget=value.getType();
+  String className=testTarget.getName();
+  MethodNode testForMethod=null;
+  for (  String artefactType : artefactTypeToTestMap.keySet()) {
+    if (className.endsWith(artefactType)) {
+      Class mixinClass=artefactTypeToTestMap.get(artefactType);
+      if (!isAlreadyWoven(classNode,mixinClass)) {
+        weaveMixinClass(classNode,mixinClass);
+        if (isClassUnderTest) {
+          testForMethod=addClassUnderTestMethod(classNode,value,artefactType);
+        }
+ else {
+          addMockCollaboratorToSetup(classNode,value,artefactType);
+        }
+        return testForMethod;
+      }
+    }
+  }
+  weaveMixinClass(classNode,DomainClassUnitTestMixin.class);
+  if (isClassUnderTest) {
+    testForMethod=addClassUnderTestMethod(classNode,value,DOMAIN_TYPE);
+  }
+ else {
+    addMockCollaboratorToSetup(classNode,value,DOMAIN_TYPE);
+  }
+  return testForMethod;
+}

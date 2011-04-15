@@ -1,0 +1,17 @@
+{
+  List<Class> mixinClasses=wovenMixins.get(classNode);
+  if (mixinClasses == null) {
+    mixinClasses=new ArrayList<Class>();
+    mixinClasses.add(mixinClass);
+    wovenMixins.put(classNode,mixinClasses);
+  }
+ else {
+    if (mixinClasses.contains(mixinClass)) {
+      return true;
+    }
+ else {
+      mixinClasses.add(mixinClass);
+    }
+  }
+  return false;
+}

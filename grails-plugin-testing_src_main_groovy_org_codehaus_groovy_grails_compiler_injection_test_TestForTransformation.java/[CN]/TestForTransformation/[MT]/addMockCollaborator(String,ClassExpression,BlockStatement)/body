@@ -1,0 +1,5 @@
+{
+  ArgumentListExpression args=new ArgumentListExpression();
+  args.addExpression(targetClass);
+  methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(THIS_EXPRESSION,"mock" + mockType,args)));
+}

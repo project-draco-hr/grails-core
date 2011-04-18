@@ -4,7 +4,9 @@
   for (  File file : files) {
     if (isValidFileToMonitor(file.getName(),extensions)) {
       if (!lastModifiedMap.containsKey(file) && fireEvent) {
-        fireOnNew(file);
+        for (        FileChangeListener listener : listeners) {
+          listener.onNew(file);
+        }
       }
       lastModifiedMap.put(file,file.lastModified());
     }

@@ -4,9 +4,7 @@
   List<Resource> resourceList=new ArrayList<Resource>();
   for (  String resourcePath : pluginResources) {
     try {
-      for (      Resource resource : resolver.getResources(resourcePath)) {
-        resourceList.add(resource);
-      }
+      resourceList.addAll(Arrays.asList(resolver.getResources(resourcePath)));
     }
  catch (    IOException ioe) {
       LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);

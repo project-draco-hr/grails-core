@@ -1,7 +1,6 @@
 {
   String[] dependencyNames=other.getDependencyNames();
-  for (int i=0; i < dependencyNames.length; i++) {
-    String dependencyName=dependencyNames[i];
+  for (  String dependencyName : dependencyNames) {
     for (    GrailsPlugin grailsPlugin : delayedLoadPlugins) {
       if (grailsPlugin.getName().equals(dependencyName))       return true;
     }

@@ -1,0 +1,10 @@
+{
+  if (watchedResourcePatterns != null) {
+    for (    WatchPattern watchedResourcePattern : watchedResourcePatterns) {
+      if (watchedResourcePattern.matchesPath(path)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

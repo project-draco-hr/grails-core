@@ -1,0 +1,6 @@
+{
+  String ext=StringUtils.getFilenameExtension(pattern);
+  if (ext != null) {
+    watchPattern.setExtension(ext);
+  }
+}

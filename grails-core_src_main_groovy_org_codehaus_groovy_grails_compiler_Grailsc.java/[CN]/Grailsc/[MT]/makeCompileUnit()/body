@@ -1,6 +1,6 @@
 {
   CompilationUnit unit=super.makeCompileUnit();
-  GrailsAwareInjectionOperation operation=new GrailsAwareInjectionOperation(configureResourceLoader());
+  GrailsAwareInjectionOperation operation=new GrailsAwareInjectionOperation();
   unit.addPhaseOperation(operation,Phases.CANONICALIZATION);
   return unit;
 }

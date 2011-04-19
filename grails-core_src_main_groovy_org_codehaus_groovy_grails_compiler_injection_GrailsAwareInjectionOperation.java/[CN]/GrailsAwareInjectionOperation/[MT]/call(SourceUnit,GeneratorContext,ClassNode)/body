@@ -1,34 +1,17 @@
 {
-  for (  ClassInjector classInjector : getLocalClassInjectors()) {
+  URL url=null;
+  final String filename=source.getName();
+  Resource resource=new FileSystemResource(filename);
+  if (resource.exists()) {
     try {
-      URL url;
-      String fileName=source.getName();
-      File file=fileName != null ? new File(fileName) : null;
-      if (file != null && file.exists()) {
-        url=file.toURI().toURL();
-      }
- else {
-        if (GrailsResourceUtils.isGrailsPath(fileName)) {
-          url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(fileName));
-        }
- else {
-          url=grailsResourceLoader.loadGroovySource(fileName);
-        }
-      }
-      if (classInjector.shouldInject(url)) {
-        try {
-          classInjector.performInjection(source,context,classNode);
-        }
- catch (        RuntimeException e) {
-          e.printStackTrace();
-          System.out.println("Error occurred calling AST injector [" + classInjector.getClass() + "]: "+ e.getMessage());
-          throw e;
-        }
-      }
+      url=resource.getURL();
     }
- catch (    MalformedURLException e) {
-      LOG.error("Error loading URL during addition of compile time properties: " + e.getMessage(),e);
-      throw new CompilationFailedException(Phases.CONVERSION,source,e);
+ catch (    IOException e) {
+    }
+  }
+  for (  ClassInjector classInjector : getLocalClassInjectors()) {
+    if (classInjector.shouldInject(url)) {
+      classInjector.performInjection(source,context,classNode);
     }
   }
 }

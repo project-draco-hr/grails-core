@@ -1,0 +1,13 @@
+{
+  try {
+    if (isSourceFile(file)) {
+      compiler.compileAll();
+    }
+  }
+ catch (  MultipleCompilationErrorsException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+  }
+catch (  CompilationFailedException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+  }
+}

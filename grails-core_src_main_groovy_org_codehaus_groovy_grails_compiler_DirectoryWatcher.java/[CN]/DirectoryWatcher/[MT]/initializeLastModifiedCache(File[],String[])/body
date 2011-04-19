@@ -1,5 +1,7 @@
 {
-  for (  File directory : directories) {
-    cacheFilesForDirectory(directory,extensions,false);
+  if (directories != null) {
+    for (    File directory : directories) {
+      cacheFilesForDirectory(directory,extensions,false);
+    }
   }
 }

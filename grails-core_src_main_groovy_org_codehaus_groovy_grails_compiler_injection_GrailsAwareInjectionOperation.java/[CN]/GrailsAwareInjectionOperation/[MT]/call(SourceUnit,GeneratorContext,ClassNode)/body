@@ -2,11 +2,18 @@
   for (  ClassInjector classInjector : getLocalClassInjectors()) {
     try {
       URL url;
-      if (GrailsResourceUtils.isGrailsPath(source.getName())) {
-        url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(source.getName()));
+      String fileName=source.getName();
+      File file=fileName != null ? new File(fileName) : null;
+      if (file != null && file.exists()) {
+        url=file.toURI().toURL();
       }
  else {
-        url=grailsResourceLoader.loadGroovySource(source.getName());
+        if (GrailsResourceUtils.isGrailsPath(fileName)) {
+          url=grailsResourceLoader.loadGroovySource(GrailsResourceUtils.getClassName(fileName));
+        }
+ else {
+          url=grailsResourceLoader.loadGroovySource(fileName);
+        }
       }
       if (classInjector.shouldInject(url)) {
         try {

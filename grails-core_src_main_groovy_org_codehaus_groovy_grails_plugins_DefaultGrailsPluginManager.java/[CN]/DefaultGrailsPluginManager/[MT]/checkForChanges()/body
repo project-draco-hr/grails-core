@@ -1,9 +1,2 @@
 {
-  checkForConfigChanges();
-  for (  GrailsPlugin plugin : pluginList) {
-    if (plugin.checkForChanges()) {
-      LOG.info("Plugin " + plugin + " changed, re-registering beans...");
-      reloadPlugin(plugin);
-    }
-  }
 }

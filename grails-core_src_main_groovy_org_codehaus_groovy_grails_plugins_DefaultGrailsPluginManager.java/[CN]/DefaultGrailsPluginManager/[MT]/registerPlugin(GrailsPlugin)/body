@@ -12,8 +12,7 @@
       delayedEvictions.put(plugin,evictionNames);
     }
     String[] observedPlugins=plugin.getObservedPluginNames();
-    for (int i=0; i < observedPlugins.length; i++) {
-      String observedPlugin=observedPlugins[i];
+    for (    String observedPlugin : observedPlugins) {
       Set<GrailsPlugin> observers=pluginToObserverMap.get(observedPlugin);
       if (observers == null) {
         observers=new HashSet<GrailsPlugin>();

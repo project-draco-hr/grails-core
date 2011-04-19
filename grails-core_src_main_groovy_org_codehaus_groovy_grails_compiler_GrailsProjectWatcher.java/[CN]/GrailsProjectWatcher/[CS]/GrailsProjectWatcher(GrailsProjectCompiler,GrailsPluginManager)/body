@@ -3,4 +3,5 @@
   this.pluginManager=pluginManager;
   this.compilerExtensions=compiler.getCompilerExtensions();
   this.compiler=compiler;
+  this.extensions.addAll(compilerExtensions);
 }

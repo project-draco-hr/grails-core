@@ -1,0 +1,4 @@
+{
+  String ext=StringUtils.getFilenameExtension(name);
+  return extensions.contains(ext);
+}

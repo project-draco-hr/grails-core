@@ -1,3 +1,5 @@
 {
-  return Integer.valueOf(getPropertyValue("grails.server.port.http",8080).toString());
+  int serverPort=Integer.valueOf(getPropertyValue("server.port",8080).toString());
+  serverPort=Integer.valueOf(getPropertyValue("grails.server.port.http",serverPort).toString());
+  return serverPort;
 }

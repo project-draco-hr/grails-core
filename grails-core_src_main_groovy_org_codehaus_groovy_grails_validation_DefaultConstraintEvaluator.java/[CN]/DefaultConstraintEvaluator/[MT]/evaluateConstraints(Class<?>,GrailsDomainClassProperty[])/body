@@ -34,10 +34,11 @@
             cp.setOrder(constrainedProperties.size() + 1);
             constrainedProperties.put(propertyName,cp);
           }
-          applyDefaultConstraints(propertyName,p,cp,defaultConstraints,delegate.getSharedConstraint(propertyName));
+          applyDefaultConstraints(propertyName,p,cp,defaultConstraints);
         }
       }
     }
   }
+  applySharedConstraints(delegate,constrainedProperties);
   return constrainedProperties;
 }

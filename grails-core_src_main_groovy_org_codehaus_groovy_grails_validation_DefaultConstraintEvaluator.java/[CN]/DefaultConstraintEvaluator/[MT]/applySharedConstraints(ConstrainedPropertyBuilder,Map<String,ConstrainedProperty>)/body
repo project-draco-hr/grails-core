@@ -1,0 +1,19 @@
+{
+  for (  Map.Entry<String,ConstrainedProperty> entry : constrainedProperties.entrySet()) {
+    String propertyName=entry.getKey();
+    ConstrainedProperty constrainedProperty=entry.getValue();
+    String sharedConstraintReference=constrainedPropertyBuilder.getSharedConstraint(propertyName);
+    if (sharedConstraintReference != null) {
+      Object o=defaultConstraints.get(sharedConstraintReference);
+      if (o instanceof Map) {
+        Map<String,Object> constraintsWithinSharedConstraint=(Map)o;
+        for (        Map.Entry<String,Object> e : constraintsWithinSharedConstraint.entrySet()) {
+          constrainedProperty.applyConstraint(e.getKey(),e.getValue());
+        }
+      }
+ else {
+        throw new GrailsConfigurationException("Property [" + constrainedProperty.owningClass.getName() + '.'+ propertyName+ "] references shared constraint ["+ sharedConstraintReference+ ":"+ o+ "], which doesn't exist!");
+      }
+    }
+  }
+}

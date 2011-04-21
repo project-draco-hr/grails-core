@@ -9,7 +9,7 @@
   String templateUri=webRequest.getAttributes().getTemplateURI(controller,templateName);
   GroovyPagesTemplateEngine engine=webRequest.getAttributes().getPagesTemplateEngine();
   try {
-    Template t=engine.createTemplateForUri(new String[]{contextPath + templateUri,contextPath + "/grails-app/views/" + templateUri});
+    Template t=engine.createTemplateForUri(new String[]{GrailsResourceUtils.appendPiecesForUri(contextPath,templateUri),GrailsResourceUtils.appendPiecesForUri(contextPath,"/grails-app/views/",templateUri)});
     if (t == null) {
       throw new ControllerExecutionException("Unable to load template for uri [" + templateUri + "]. Template not found.");
     }

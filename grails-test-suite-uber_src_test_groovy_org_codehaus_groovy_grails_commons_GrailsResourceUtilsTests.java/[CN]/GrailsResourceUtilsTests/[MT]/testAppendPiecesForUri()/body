@@ -1,0 +1,7 @@
+{
+  assertEquals("",GrailsResourceUtils.appendPiecesForUri(""));
+  assertEquals("/alpha/beta/gamma",GrailsResourceUtils.appendPiecesForUri("/alpha","/beta","/gamma"));
+  assertEquals("/alpha/beta/gamma",GrailsResourceUtils.appendPiecesForUri("/alpha/","/beta/","/gamma"));
+  assertEquals("/alpha/beta/gamma/",GrailsResourceUtils.appendPiecesForUri("/alpha/","/beta/","/gamma/"));
+  assertEquals("alpha/beta/gamma",GrailsResourceUtils.appendPiecesForUri("alpha","beta","gamma"));
+}

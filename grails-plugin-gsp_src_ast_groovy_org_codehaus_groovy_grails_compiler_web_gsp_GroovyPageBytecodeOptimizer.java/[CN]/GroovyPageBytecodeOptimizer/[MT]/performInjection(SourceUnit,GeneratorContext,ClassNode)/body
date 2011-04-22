@@ -1,0 +1,8 @@
+{
+  MethodNode runMethod=classNode.getMethod(RUN_METHOD,new Parameter[0]);
+  if (runMethod != null && runMethod.getCode() instanceof BlockStatement) {
+    BlockStatement block=(BlockStatement)runMethod.getCode();
+    GroovyPageOptimizerVisitor groovyPageVisitor=new GroovyPageOptimizerVisitor(classNode);
+    groovyPageVisitor.visitBlockStatement(block);
+  }
+}

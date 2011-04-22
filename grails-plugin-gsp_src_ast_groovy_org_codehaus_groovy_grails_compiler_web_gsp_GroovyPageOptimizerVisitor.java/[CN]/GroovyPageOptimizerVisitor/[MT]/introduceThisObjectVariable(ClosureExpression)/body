@@ -1,0 +1,9 @@
+{
+  if (closureExpression.getCode() instanceof BlockStatement) {
+    List<Statement> oldBlock=((BlockStatement)closureExpression.getCode()).getStatements();
+    BlockStatement newBlock=new BlockStatement();
+    newBlock.addStatement(new ExpressionStatement(thisObjectDeclaration));
+    newBlock.addStatements(oldBlock);
+    closureExpression.setCode(newBlock);
+  }
+}

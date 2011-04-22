@@ -1,0 +1,3 @@
+{
+  return expression.getObjectExpression().getText().equals(THIS_RECEIVER) && !groovyPageClassNode.getMethods(expression.getMethodAsString()).isEmpty();
+}

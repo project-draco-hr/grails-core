@@ -1,0 +1,17 @@
+{
+  List<MethodNode> methodNodeList=groovyPageClassNode.getMethods(call.getMethodAsString());
+  if (methodNodeList.size() == 1) {
+    call.setMethodTarget(methodNodeList.get(0));
+    changeThisObjectExpressionIfInnerClosure(call);
+  }
+ else   if (methodNodeList.size() > 1 && call.getArguments() instanceof ArgumentListExpression) {
+    ArgumentListExpression argsExpr=((ArgumentListExpression)call.getArguments());
+    for (    MethodNode methodNode : methodNodeList) {
+      if (methodNode.getParameters().length == argsExpr.getExpressions().size()) {
+        call.setMethodTarget(methodNode);
+        changeThisObjectExpressionIfInnerClosure(call);
+        break;
+      }
+    }
+  }
+}

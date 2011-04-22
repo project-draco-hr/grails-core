@@ -1,0 +1,9 @@
+{
+  if (isCallFromGroovyPageClass(call)) {
+    proceedCallFromGroovyPageClass(call);
+  }
+ else   if (isCallFromOutOrCodecOut(call)) {
+    proceedCallFromOutOrCodecOut(call);
+  }
+  super.visitMethodCallExpression(call);
+}

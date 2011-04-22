@@ -1,0 +1,3 @@
+{
+  return (expression.getObjectExpression().getText().equals(OUT_RECEIVER) || expression.getObjectExpression().getText().equals(CODECOUT_RECEIVER)) && expression.getMethodAsString().equals(PRINT_METHOD);
+}

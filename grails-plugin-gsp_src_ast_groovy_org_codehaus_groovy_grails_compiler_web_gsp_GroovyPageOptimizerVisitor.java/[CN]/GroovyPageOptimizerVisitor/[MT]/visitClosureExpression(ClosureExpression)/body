@@ -1,0 +1,6 @@
+{
+  innerClosures.push(expression);
+  introduceThisObjectVariable(expression);
+  super.visitClosureExpression(expression);
+  innerClosures.pop();
+}

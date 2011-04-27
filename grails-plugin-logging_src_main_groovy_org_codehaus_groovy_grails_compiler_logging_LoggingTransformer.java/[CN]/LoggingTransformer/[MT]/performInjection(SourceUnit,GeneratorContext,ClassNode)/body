@@ -1,6 +1,6 @@
 {
   final FieldNode existingField=classNode.getField(LOG_PROPERTY);
-  if (existingField == null) {
+  if (existingField == null && !classNode.isInterface()) {
     final String path=source.getName();
     String artefactType=path != null ? GrailsResourceUtils.getArtefactDirectory(path) : null;
     String logName=artefactType == null ? classNode.getName() : "grails.app." + artefactType + "."+ classNode.getName();

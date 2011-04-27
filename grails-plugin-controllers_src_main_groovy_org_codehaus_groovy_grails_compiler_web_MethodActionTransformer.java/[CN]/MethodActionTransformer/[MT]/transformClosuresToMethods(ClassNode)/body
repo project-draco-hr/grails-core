@@ -7,7 +7,7 @@
     initialExpression=property.getInitialExpression();
     if (!property.isStatic() && initialExpression != null && initialExpression.getClass().equals(ClosureExpression.class)) {
       closureAction=(ClosureExpression)initialExpression;
-      actionMethod=new MethodNode(property.getName(),Modifier.PUBLIC,property.getType(),closureAction.getParameters(),EMPTY_EXCEPTIONS,bodyCode(closureAction.getParameters(),closureAction.getCode()));
+      actionMethod=new MethodNode(property.getName(),Modifier.PUBLIC,property.getType(),closureAction.getParameters(),EMPTY_CLASS_ARRAY,bodyCode(closureAction.getParameters(),closureAction.getCode()));
       convertToMethodAction(actionMethod);
       classNode.getProperties().remove(property);
       classNode.getFields().remove(property.getField());

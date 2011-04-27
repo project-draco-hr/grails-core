@@ -1,6 +1,6 @@
 {
   for (  MethodNode method : classNode.getMethods()) {
-    if (!method.isStatic() && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty() && method.getLineNumber() >= 0) {
+    if (!method.isStatic() && method.isPublic() && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty()&& method.getLineNumber() >= 0) {
       method.setCode(bodyCode(method.getParameters(),method.getCode()));
       convertToMethodAction(method);
     }

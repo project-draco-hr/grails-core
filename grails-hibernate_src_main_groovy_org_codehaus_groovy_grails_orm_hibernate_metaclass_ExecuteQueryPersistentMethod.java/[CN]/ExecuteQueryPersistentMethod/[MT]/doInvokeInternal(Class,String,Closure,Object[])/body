@@ -1,22 +1,36 @@
 {
   checkMethodSignature(clazz,arguments);
   final String query=arguments[0].toString();
-  final Map paginateParams=extractPaginateParams(arguments);
+  final Map queryMetaParams=extractQueryMetaParams(arguments);
   final List positionalParams=extractPositionalParams(arguments);
   final Map namedParams=extractNamedParams(arguments);
   return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(query);
-      if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
-        Integer maxParam=converter.convertIfNecessary(paginateParams.get(GrailsHibernateUtil.ARGUMENT_MAX),Integer.class);
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
+        Integer maxParam=converter.convertIfNecessary(queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_MAX),Integer.class);
         q.setMaxResults(maxParam.intValue());
       }
-      if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET)) {
-        Integer offsetParam=converter.convertIfNecessary(paginateParams.remove(GrailsHibernateUtil.ARGUMENT_OFFSET),Integer.class);
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET)) {
+        Integer offsetParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_OFFSET),Integer.class);
         q.setFirstResult(offsetParam.intValue());
       }
-      if (paginateParams.containsKey(GrailsHibernateUtil.ARGUMENT_CACHE)) {
-        q.setCacheable(((Boolean)paginateParams.remove(GrailsHibernateUtil.ARGUMENT_CACHE)).booleanValue());
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_CACHE)) {
+        q.setCacheable(((Boolean)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_CACHE)).booleanValue());
+      }
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE)) {
+        Integer fetchSizeParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE),Integer.class);
+        q.setFetchSize(fetchSizeParam.intValue());
+      }
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_TIMEOUT)) {
+        Integer timeoutParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_TIMEOUT),Integer.class);
+        q.setFetchSize(timeoutParam.intValue());
+      }
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_READ_ONLY)) {
+        q.setReadOnly(((Boolean)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_READ_ONLY)).booleanValue());
+      }
+      if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE)) {
+        q.setFlushMode((FlushMode)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE));
       }
       int index=0;
       for (      Object parameter : positionalParams) {

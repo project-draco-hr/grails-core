@@ -1,0 +1,17 @@
+{
+  Map result=new HashMap();
+  int metaParamsIndex=0;
+  if (arguments.length == 2 && arguments[1] instanceof Map)   metaParamsIndex=1;
+ else   if (arguments.length == 3)   metaParamsIndex=2;
+  if (metaParamsIndex > 0) {
+    Map sourceMap=(Map)arguments[metaParamsIndex];
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_MAX))     result.put(GrailsHibernateUtil.ARGUMENT_MAX,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_MAX));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET))     result.put(GrailsHibernateUtil.ARGUMENT_OFFSET,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_OFFSET));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_CACHE))     result.put(GrailsHibernateUtil.ARGUMENT_CACHE,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_CACHE));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE))     result.put(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_TIMEOUT))     result.put(GrailsHibernateUtil.ARGUMENT_TIMEOUT,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_TIMEOUT));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE))     result.put(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE));
+    if (sourceMap.containsKey(GrailsHibernateUtil.ARGUMENT_READ_ONLY))     result.put(GrailsHibernateUtil.ARGUMENT_READ_ONLY,sourceMap.remove(GrailsHibernateUtil.ARGUMENT_READ_ONLY));
+  }
+  return result;
+}

@@ -7,6 +7,18 @@
   if (argMap.containsKey(ARGUMENT_OFFSET)) {
     offsetParam=converter.convertIfNecessary(argMap.get(ARGUMENT_OFFSET),Integer.class);
   }
+  if (argMap.containsKey(ARGUMENT_FETCH_SIZE)) {
+    c.setFetchSize(converter.convertIfNecessary(argMap.get(ARGUMENT_FETCH_SIZE),Integer.class));
+  }
+  if (argMap.containsKey(ARGUMENT_TIMEOUT)) {
+    c.setTimeout(converter.convertIfNecessary(argMap.get(ARGUMENT_TIMEOUT),Integer.class));
+  }
+  if (argMap.containsKey(ARGUMENT_FLUSH_MODE)) {
+    c.setFlushMode(converter.convertIfNecessary(argMap.get(ARGUMENT_FLUSH_MODE),FlushMode.class));
+  }
+  if (argMap.containsKey(ARGUMENT_READ_ONLY)) {
+    c.setReadOnly(GrailsClassUtils.getBooleanFromMap(ARGUMENT_READ_ONLY,argMap));
+  }
   String orderParam=(String)argMap.get(ARGUMENT_ORDER);
   Object fetchObj=argMap.get(ARGUMENT_FETCH);
   if (fetchObj instanceof Map) {

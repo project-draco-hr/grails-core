@@ -1,0 +1,3 @@
+{
+  return applicationContext.getBean(targetBean,SessionFactoryHolder.class).getSessionFactory();
+}

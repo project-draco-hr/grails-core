@@ -1,15 +1,12 @@
 {
   String absolutePath=file.getAbsolutePath();
   for (  GrailsPlugin grailsPlugin : pluginList) {
+    String className=GrailsResourceUtils.getClassName(absolutePath);
     if (grailsPlugin.hasInterestInChange(absolutePath)) {
-      String className=GrailsResourceUtils.getClassName(absolutePath);
       if (className != null) {
-        try {
-          Class<?> aClass=application.getClassLoader().loadClass(className);
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,aClass);
-        }
- catch (        ClassNotFoundException e) {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+        Class cls=loadApplicationClass(className);
+        if (cls != null) {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
         }
       }
  else {

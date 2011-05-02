@@ -1,0 +1,26 @@
+{
+  BeanConfiguration current=currentBeanConfig;
+  try {
+    Closure callable=null;
+    Collection constructorArgs=null;
+    if (args != null && args.length > 0) {
+      int index=args.length;
+      Object lastArg=args[index - 1];
+      if (lastArg instanceof Closure) {
+        callable=(Closure)lastArg;
+        index--;
+      }
+      if (index > -1) {
+        constructorArgs=resolveConstructorArguments(args,0,index);
+      }
+    }
+    currentBeanConfig=constructorArgs != null ? springConfig.createSingletonBean(type,constructorArgs) : springConfig.createSingletonBean(type);
+    if (callable != null) {
+      callable.call(new Object[]{currentBeanConfig});
+    }
+    return currentBeanConfig.getBeanDefinition();
+  }
+  finally {
+    currentBeanConfig=current;
+  }
+}

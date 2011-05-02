@@ -1,8 +1,5 @@
 {
   CachedIntrospectionResults.clearClassLoader(aClass.getClassLoader());
   ClassPropertyFetcher.clearClassPropertyFetcherCache();
-  GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
-  if (pluginManager != null) {
-    pluginManager.informOfClassChange(aClass);
-  }
+  GrailsProjectWatcher.firePendingClassChangeEvents();
 }

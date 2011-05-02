@@ -1,4 +1,5 @@
 {
+  addExtension(extensions);
   directoryWatch.put(directory,directory.lastModified());
   File[] files=directory.listFiles();
   if (files != null) {

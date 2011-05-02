@@ -1,5 +1,4 @@
 {
-  initializeLastModifiedCache(directories,extensions);
   int count=0;
   while (active) {
     Set<File> files=lastModifiedMap.keySet();

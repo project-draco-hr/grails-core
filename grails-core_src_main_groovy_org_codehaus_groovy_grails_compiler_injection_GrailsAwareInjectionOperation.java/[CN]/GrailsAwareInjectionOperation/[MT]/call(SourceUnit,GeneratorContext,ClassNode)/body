@@ -10,7 +10,7 @@
     }
   }
   for (  ClassInjector classInjector : getLocalClassInjectors()) {
-    if (classInjector.shouldInject(url) && !(classInjector instanceof GroovyPageInjector)) {
+    if (classInjector.shouldInject(url)) {
       classInjector.performInjection(source,context,classNode);
     }
   }

@@ -1,0 +1,17 @@
+{
+  try {
+    if (isSourceFile(file)) {
+      compiler.compileAll();
+      ClassPropertyFetcher.clearClassPropertyFetcherCache();
+    }
+  }
+ catch (  MultipleCompilationErrorsException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+  }
+catch (  CompilationFailedException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+  }
+catch (  BuildException e) {
+    LOG.error("Compilation Error: " + e.getCause().getMessage());
+  }
+}

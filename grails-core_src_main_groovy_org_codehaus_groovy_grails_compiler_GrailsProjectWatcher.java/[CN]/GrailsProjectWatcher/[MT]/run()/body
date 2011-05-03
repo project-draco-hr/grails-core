@@ -1,0 +1,44 @@
+{
+  for (  String directory : compiler.getSrcDirectories()) {
+    addWatchDirectory(new File(directory),compilerExtensions);
+  }
+  Resource[] pluginSourceFiles=compiler.getPluginSettings().getPluginSourceFiles();
+  for (  Resource pluginSourceFile : pluginSourceFiles) {
+    try {
+      if (pluginSourceFile.getFile().isDirectory()) {
+        addWatchDirectory(pluginSourceFile.getFile(),compilerExtensions);
+      }
+    }
+ catch (    IOException e) {
+    }
+  }
+  addListener(new FileChangeListener(){
+    public void onChange(    File file){
+      LOG.info("File [" + file + "] changed. Applying changes to application.");
+      compileIfSource(file);
+      informPluginManager(file,false);
+    }
+    public void onNew(    File file){
+      LOG.info("File [" + file + "] added. Applying changes to application.");
+      sleep(5000);
+      compileIfSource(file);
+      informPluginManager(file,true);
+    }
+  }
+);
+  GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+  for (  GrailsPlugin plugin : allPlugins) {
+    List<WatchPattern> watchPatterns=plugin.getWatchedResourcePatterns();
+    if (watchPatterns != null) {
+      for (      WatchPattern watchPattern : watchPatterns) {
+        if (watchPattern.getFile() != null) {
+          addWatchFile(watchPattern.getFile());
+        }
+ else         if (watchPattern.getDirectory() != null) {
+          addWatchDirectory(watchPattern.getDirectory(),watchPattern.getExtension());
+        }
+      }
+    }
+  }
+  super.run();
+}

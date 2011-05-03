@@ -1,0 +1,17 @@
+{
+  String absolutePath=file.getAbsolutePath();
+  for (  GrailsPlugin grailsPlugin : pluginList) {
+    String className=GrailsResourceUtils.getClassName(absolutePath);
+    if (grailsPlugin.hasInterestInChange(absolutePath)) {
+      if (className != null) {
+        Class cls=loadApplicationClass(className);
+        if (cls != null) {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+        }
+      }
+ else {
+        grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+      }
+    }
+  }
+}

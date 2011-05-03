@@ -1,0 +1,9 @@
+{
+  super();
+  this.pluginManager=pluginManager;
+  this.compilerExtensions=compiler.getCompilerExtensions();
+  this.compiler=compiler;
+  if (ClassUtils.isPresent(SPRING_LOADED_PLUGIN_CLASS,getClass().getClassLoader())) {
+    GrailsPluginManagerReloadPlugin.register();
+  }
+}

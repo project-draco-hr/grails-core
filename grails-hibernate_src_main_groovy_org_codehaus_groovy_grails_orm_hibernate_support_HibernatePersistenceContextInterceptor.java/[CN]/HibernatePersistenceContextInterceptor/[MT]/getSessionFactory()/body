@@ -1,3 +1,6 @@
 {
+  if (sessionFactory instanceof SessionFactoryProxy) {
+    return ((SessionFactoryProxy)sessionFactory).getCurrentSessionFactory();
+  }
   return sessionFactory;
 }

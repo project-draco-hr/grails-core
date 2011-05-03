@@ -1,5 +1,5 @@
 {
-  if (!isSourceFile(file)) {
+  if (!isSourceFile(file) || isNew) {
     try {
       pluginManager.informOfFileChange(file);
     }

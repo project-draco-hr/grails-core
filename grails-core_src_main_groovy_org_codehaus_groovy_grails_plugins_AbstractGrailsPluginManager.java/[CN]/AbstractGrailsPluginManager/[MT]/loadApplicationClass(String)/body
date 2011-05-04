@@ -1,0 +1,9 @@
+{
+  Class cls=null;
+  try {
+    cls=application.getClassLoader().loadClass(className);
+  }
+ catch (  ClassNotFoundException e) {
+  }
+  return cls;
+}

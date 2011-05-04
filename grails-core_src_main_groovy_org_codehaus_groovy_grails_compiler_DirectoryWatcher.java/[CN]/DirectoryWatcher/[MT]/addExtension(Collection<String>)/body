@@ -1,0 +1,7 @@
+{
+  for (  String extension : extensions) {
+    if (!this.extensions.contains(extension)) {
+      this.extensions.add(extension);
+    }
+  }
+}

@@ -1,8 +1,7 @@
 {
   List<GrailsPlugin> grailsUserPlugins=new ArrayList<GrailsPlugin>();
   LOG.info("Attempting to load [" + pluginResources.length + "] user defined plugins");
-  for (int i=0; i < pluginResources.length; i++) {
-    Resource r=pluginResources[i];
+  for (  Resource r : pluginResources) {
     Class<?> pluginClass=loadPluginClass(gcl,r);
     if (isGrailsPlugin(pluginClass)) {
       GrailsPlugin plugin=createGrailsPlugin(pluginClass,r);
@@ -12,8 +11,7 @@
       LOG.warn("Class [" + pluginClass + "] not loaded as plug-in. Grails plug-ins must end with the convention 'GrailsPlugin'!");
     }
   }
-  for (int i=0; i < pluginClasses.length; i++) {
-    Class<?> pluginClass=pluginClasses[i];
+  for (  Class<?> pluginClass : pluginClasses) {
     if (isGrailsPlugin(pluginClass)) {
       GrailsPlugin plugin=createGrailsPlugin(pluginClass);
       grailsUserPlugins.add(plugin);

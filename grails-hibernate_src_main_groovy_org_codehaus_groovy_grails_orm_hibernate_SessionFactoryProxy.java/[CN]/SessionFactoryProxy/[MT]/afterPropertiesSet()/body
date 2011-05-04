@@ -1,0 +1,20 @@
+{
+  SessionFactoryImplementor sessionFactory=getCurrentSessionFactoryImplementor();
+  SpringSessionContext ssc=new SpringSessionContext(this);
+  try {
+    Class<? extends SessionFactoryImplementor> sessionFactoryClass=sessionFactory.getClass();
+    Field currentSessionContextField=sessionFactoryClass.getDeclaredField("currentSessionContext");
+    if (currentSessionContextField != null) {
+      ReflectionUtils.makeAccessible(currentSessionContextField);
+      currentSessionContextField.set(sessionFactory,ssc);
+    }
+  }
+ catch (  NoSuchFieldException e) {
+  }
+catch (  SecurityException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+}

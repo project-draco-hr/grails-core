@@ -1,0 +1,6 @@
+{
+  for (  String compilerExtension : compilerExtensions) {
+    if (file.getName().endsWith(compilerExtension))     return true;
+  }
+  return false;
+}

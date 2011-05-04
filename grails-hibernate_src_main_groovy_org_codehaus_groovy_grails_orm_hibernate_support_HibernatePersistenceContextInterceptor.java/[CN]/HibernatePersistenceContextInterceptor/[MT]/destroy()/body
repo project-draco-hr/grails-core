@@ -2,7 +2,7 @@
   if (decNestingCount() > 0 || getParticipate()) {
     return;
   }
-  SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(sessionFactory);
+  SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(getSessionFactory());
   LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
   try {
     Session session=holder.getSession();

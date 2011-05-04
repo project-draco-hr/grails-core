@@ -1,10 +1,2 @@
 {
-  if (pluginChangeScanner == null) {
-    pluginChangeScanner=new GrailsPluginChangeChecker(this);
-  }
-  if (pluginChangeScanner.isAlive()) {
-    throw new IllegalStateException("Plugin change scanner is already running!");
-  }
-  pluginChangeScanner.start();
-  LOG.info("Started to scan for plugin changes in every " + SCAN_INTERVAL + "ms.");
 }

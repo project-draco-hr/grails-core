@@ -1,0 +1,5 @@
+{
+  for (  FileChangeListener listener : listeners) {
+    listener.onChange(file);
+  }
+}

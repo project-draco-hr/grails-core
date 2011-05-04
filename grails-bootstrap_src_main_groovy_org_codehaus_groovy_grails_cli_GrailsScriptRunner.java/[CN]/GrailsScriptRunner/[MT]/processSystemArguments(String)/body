@@ -10,5 +10,8 @@
     int i=allArgs.lastIndexOf(lastMatch) + lastMatch.length();
     allArgs=allArgs.substring(i);
   }
+  if (allArgs.contains(AGENT_FLAG)) {
+    allArgs=allArgs.replace(AGENT_FLAG,"");
+  }
   return allArgs;
 }

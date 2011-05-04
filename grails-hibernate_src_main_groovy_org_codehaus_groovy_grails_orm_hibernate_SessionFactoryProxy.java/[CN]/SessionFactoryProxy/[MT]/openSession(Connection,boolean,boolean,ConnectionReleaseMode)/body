@@ -1,0 +1,3 @@
+{
+  return getCurrentSessionFactoryImplementor().openSession(connection,flushBeforeCompletionEnabled,autoCloseSessionEnabled,connectionReleaseMode);
+}

@@ -1,7 +1,0 @@
-{
-  SessionFactory sf=super.getSessionFactory();
-  if (sf instanceof SessionFactoryProxy) {
-    sf=((SessionFactoryProxy)sf).getCurrentSessionFactory();
-  }
-  return sf;
-}

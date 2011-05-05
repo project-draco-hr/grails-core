@@ -1,0 +1,10 @@
+{
+  ArgumentListExpression arguments=new ArgumentListExpression();
+  if (thisAsFirstArgument) {
+    arguments.addExpression(AbstractGrailsArtefactTransformer.THIS_EXPRESSION);
+  }
+  for (  Parameter parameterType : parameterTypes) {
+    arguments.addExpression(new VariableExpression(parameterType.getName()));
+  }
+  return arguments;
+}

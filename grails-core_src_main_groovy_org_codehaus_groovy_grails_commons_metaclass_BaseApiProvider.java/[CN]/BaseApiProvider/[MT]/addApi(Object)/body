@@ -15,6 +15,13 @@
       }
  else {
         instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(method)){
+          @Override public String getName(){
+            String methodName=super.getName();
+            if (methodName.equals(CONSTRUCTOR_METHOD)) {
+              return CTOR_GROOVY_METHOD;
+            }
+            return methodName;
+          }
           @Override public Object invoke(          Object object,          Object[] arguments){
             if (arguments.length == 0) {
               return super.invoke(apiInstance,new Object[]{object});

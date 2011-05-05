@@ -1,0 +1,10 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    GrailsApplication grailsApplication=webRequest.getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    if (grailsApplication != null) {
+      return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,instance.getClass().getName());
+    }
+  }
+  return null;
+}

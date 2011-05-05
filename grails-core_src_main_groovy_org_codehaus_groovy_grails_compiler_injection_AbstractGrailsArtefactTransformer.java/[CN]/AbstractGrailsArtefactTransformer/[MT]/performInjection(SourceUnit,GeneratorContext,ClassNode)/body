@@ -24,16 +24,30 @@
       for (      MethodNode declaredMethod : declaredMethods) {
         if (isConstructor(declaredMethod)) {
           BlockStatement constructorBody=new BlockStatement();
-          ArgumentListExpression arguments=new ArgumentListExpression();
-          arguments.addExpression(THIS_EXPRESSION);
+          Parameter[] constructorParams=GrailsASTUtils.getRemainingParameterTypes(declaredMethod.getParameters());
+          ArgumentListExpression arguments=GrailsASTUtils.createArgumentListFromParameters(constructorParams,true);
           constructorBody.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments)));
-          ConstructorNode constructorNode=getDefaultConstructor(classNode);
-          if (constructorNode != null) {
-            constructorBody.addStatement(constructorNode.getCode());
-            constructorNode.setCode(constructorBody);
+          if (constructorParams.length == 0) {
+            ConstructorNode constructorNode=getDefaultConstructor(classNode);
+            if (constructorNode != null) {
+              constructorBody.addStatement(constructorNode.getCode());
+              constructorNode.setCode(constructorBody);
+            }
+ else {
+              classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+            }
           }
  else {
-            classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+            ConstructorNode cn=findConstructor(classNode,constructorParams);
+            if (cn != null) {
+              Statement code=cn.getCode();
+              constructorBody.addStatement(code);
+              cn.setCode(constructorBody);
+            }
+ else {
+              cn=new ConstructorNode(Modifier.PUBLIC,constructorParams,null,constructorBody);
+              classNode.addConstructor(cn);
+            }
           }
         }
  else         if (isCandidateInstanceMethod(declaredMethod)) {

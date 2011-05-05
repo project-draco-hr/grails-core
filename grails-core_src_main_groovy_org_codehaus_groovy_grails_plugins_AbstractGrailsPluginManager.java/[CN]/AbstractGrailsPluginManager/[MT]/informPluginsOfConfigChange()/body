@@ -1,5 +1,4 @@
 {
-  LOG.info("Informing plug-ins of configuration change..");
   for (  GrailsPlugin plugin : pluginList) {
     plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CONFIG_CHANGE,application.getConfig());
   }

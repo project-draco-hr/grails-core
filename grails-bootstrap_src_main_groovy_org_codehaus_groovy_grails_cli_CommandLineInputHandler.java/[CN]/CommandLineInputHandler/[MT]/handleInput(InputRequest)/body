@@ -1,0 +1,9 @@
+{
+  String[] validInputs=null;
+  if (inputRequest instanceof MultipleChoiceInputRequest) {
+    Vector choices=((MultipleChoiceInputRequest)inputRequest).getChoices();
+    validInputs=(String[])choices.toArray(new String[choices.size()]);
+  }
+  String result=commandLineHelper.userInput(inputRequest.getPrompt(),validInputs);
+  inputRequest.setInput(result);
+}

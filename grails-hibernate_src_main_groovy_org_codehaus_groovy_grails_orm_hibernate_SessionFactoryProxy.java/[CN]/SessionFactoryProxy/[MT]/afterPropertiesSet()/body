@@ -1,6 +1,6 @@
 {
   SessionFactoryImplementor sessionFactory=getCurrentSessionFactoryImplementor();
-  CurrentSessionContext ssc=createSessionFactoryContext();
+  CurrentSessionContext ssc=createCurrentSessionContext();
   try {
     Class<? extends SessionFactoryImplementor> sessionFactoryClass=sessionFactory.getClass();
     Field currentSessionContextField=sessionFactoryClass.getDeclaredField("currentSessionContext");

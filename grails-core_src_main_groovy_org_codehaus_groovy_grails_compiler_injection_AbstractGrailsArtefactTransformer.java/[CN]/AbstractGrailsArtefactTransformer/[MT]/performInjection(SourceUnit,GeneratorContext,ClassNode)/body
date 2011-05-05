@@ -26,7 +26,9 @@
           BlockStatement constructorBody=new BlockStatement();
           Parameter[] constructorParams=GrailsASTUtils.getRemainingParameterTypes(declaredMethod.getParameters());
           ArgumentListExpression arguments=GrailsASTUtils.createArgumentListFromParameters(constructorParams,true);
-          constructorBody.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments)));
+          MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments);
+          constructCallExpression.setMethodTarget(declaredMethod);
+          constructorBody.addStatement(new ExpressionStatement(constructCallExpression));
           if (constructorParams.length == 0) {
             ConstructorNode constructorNode=getDefaultConstructor(classNode);
             if (constructorNode != null) {
@@ -47,6 +49,10 @@
  else {
               cn=new ConstructorNode(Modifier.PUBLIC,constructorParams,null,constructorBody);
               classNode.addConstructor(cn);
+            }
+            ConstructorNode defaultConstructor=getDefaultConstructor(classNode);
+            if (defaultConstructor == null) {
+              classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,new BlockStatement()));
             }
           }
         }

@@ -1,6 +1,6 @@
 {
   SessionFactoryImplementor sessionFactory=getCurrentSessionFactoryImplementor();
-  SpringSessionContext ssc=new SpringSessionContext(this);
+  CurrentSessionContext ssc=createSessionFactoryContext();
   try {
     Class<? extends SessionFactoryImplementor> sessionFactoryClass=sessionFactory.getClass();
     Field currentSessionContextField=sessionFactoryClass.getDeclaredField("currentSessionContext");

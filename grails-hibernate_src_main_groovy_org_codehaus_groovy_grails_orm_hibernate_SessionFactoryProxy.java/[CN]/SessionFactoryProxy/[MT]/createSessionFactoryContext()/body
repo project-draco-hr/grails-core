@@ -1,0 +1,9 @@
+{
+  try {
+    Constructor<CurrentSessionContext> constructor=currentSessionContextClass.getConstructor(SessionFactoryImplementor.class);
+    return BeanUtils.instantiateClass(constructor,this);
+  }
+ catch (  NoSuchMethodException e) {
+    return new SpringSessionContext(this);
+  }
+}

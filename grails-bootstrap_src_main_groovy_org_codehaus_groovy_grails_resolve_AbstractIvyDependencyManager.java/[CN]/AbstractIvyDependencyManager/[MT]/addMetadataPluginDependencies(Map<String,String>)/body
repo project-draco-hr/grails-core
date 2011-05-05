@@ -4,6 +4,7 @@
     String version=plugin.getValue();
     if (!pluginDependencyNames.contains(name)) {
       String scope="runtime";
+      metadataRegisteredPluginNames.add(name);
       ModuleRevisionId mrid=ModuleRevisionId.newInstance("org.grails.plugins",name,version);
       EnhancedDefaultDependencyDescriptor enhancedDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,true,true,scope);
       enhancedDescriptor.setExport(false);

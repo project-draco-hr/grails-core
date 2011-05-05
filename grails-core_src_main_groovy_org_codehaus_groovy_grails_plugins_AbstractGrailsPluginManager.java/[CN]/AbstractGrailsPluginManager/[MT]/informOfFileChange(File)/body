@@ -1,16 +1,29 @@
 {
   String absolutePath=file.getAbsolutePath();
-  for (  GrailsPlugin grailsPlugin : pluginList) {
-    String className=GrailsResourceUtils.getClassName(absolutePath);
-    if (grailsPlugin.hasInterestInChange(absolutePath)) {
-      if (className != null) {
-        Class cls=loadApplicationClass(className);
-        if (cls != null) {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
-        }
-      }
+  String className=GrailsResourceUtils.getClassName(absolutePath);
+  if (className.equals(CONFIG_FILE)) {
+    ConfigSlurper configSlurper=ConfigurationHelper.getConfigSlurper(Environment.getCurrent().getName(),application);
+    ConfigObject c;
+    try {
+      c=configSlurper.parse(file.toURI().toURL());
+      application.getConfig().merge(c);
+      informPluginsOfConfigChange();
+    }
+ catch (    Exception e) {
+    }
+  }
  else {
-        grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+    for (    GrailsPlugin grailsPlugin : pluginList) {
+      if (grailsPlugin.hasInterestInChange(absolutePath)) {
+        if (className != null) {
+          Class cls=loadApplicationClass(className);
+          if (cls != null) {
+            grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+          }
+        }
+ else {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+        }
       }
     }
   }

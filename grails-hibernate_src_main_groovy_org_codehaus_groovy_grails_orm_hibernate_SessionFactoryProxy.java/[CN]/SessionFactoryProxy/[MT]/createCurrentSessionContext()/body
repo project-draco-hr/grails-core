@@ -1,0 +1,13 @@
+{
+  Class sessionContextClass=currentSessionContextClass;
+  if (sessionContextClass == null) {
+    sessionContextClass=SpringSessionContext.class;
+  }
+  try {
+    Constructor<CurrentSessionContext> constructor=sessionContextClass.getConstructor(SessionFactoryImplementor.class);
+    return BeanUtils.instantiateClass(constructor,this);
+  }
+ catch (  NoSuchMethodException e) {
+    return new SpringSessionContext(this);
+  }
+}

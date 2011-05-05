@@ -4,4 +4,7 @@
     DataBindingUtils.bindObjectToDomainInstance(dc,instance,namedArgs);
     DataBindingUtils.assignBidirectionalAssociations(instance,namedArgs,dc);
   }
+ else {
+    DataBindingUtils.bindObjectToInstance(instance,namedArgs);
+  }
 }

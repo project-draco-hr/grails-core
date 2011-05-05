@@ -4,7 +4,9 @@
     BlockStatement methodBody=new BlockStatement();
     ArgumentListExpression arguments=createArgumentListFromParameters(parameterTypes,thisAsFirstArgument);
     ClassNode returnType=nonGeneric(declaredMethod.getReturnType());
-    methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(delegate,declaredMethod.getName(),arguments)));
+    MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,declaredMethod.getName(),arguments);
+    methodCallExpression.setMethodTarget(declaredMethod);
+    methodBody.addStatement(new ExpressionStatement(methodCallExpression));
     MethodNode methodNode=new MethodNode(declaredMethod.getName(),Modifier.PUBLIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(declaredMethod.getAnnotations());
     classNode.addMethod(methodNode);

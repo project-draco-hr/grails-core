@@ -23,7 +23,7 @@
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {
         if (isConstructor(declaredMethod)) {
-          GrailsASTUtils.addDelegateConstructor(classNode,implementationNode,declaredMethod);
+          GrailsASTUtils.addDelegateConstructor(classNode,declaredMethod);
         }
  else         if (isCandidateInstanceMethod(declaredMethod)) {
           GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod);

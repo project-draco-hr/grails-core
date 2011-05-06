@@ -2,7 +2,7 @@
   BlockStatement constructorBody=new BlockStatement();
   Parameter[] constructorParams=getRemainingParameterTypes(constructorMethod.getParameters());
   ArgumentListExpression arguments=createArgumentListFromParameters(constructorParams,true);
-  MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments);
+  MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(constructorMethod.getDeclaringClass()),"initialize",arguments);
   constructCallExpression.setMethodTarget(constructorMethod);
   constructorBody.addStatement(new ExpressionStatement(constructCallExpression));
   if (constructorParams.length == 0) {

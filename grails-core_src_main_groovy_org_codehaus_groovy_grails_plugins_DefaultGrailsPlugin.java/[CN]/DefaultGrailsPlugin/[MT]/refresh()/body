@@ -1,2 +1,15 @@
 {
+  Resource descriptor=getDescriptor();
+  if (application != null && descriptor != null) {
+    ClassLoader parent=application.getClassLoader();
+    GroovyClassLoader gcl=new GroovyClassLoader(parent);
+    try {
+      Class pluginClass=gcl.parseClass(descriptor.getFile());
+      initialisePlugin(pluginClass);
+    }
+ catch (    Exception e) {
+      GrailsUtil.deepSanitize(e);
+      LOG.error("Error refreshing plugin: " + e.getMessage(),e);
+    }
+  }
 }

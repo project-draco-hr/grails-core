@@ -15,8 +15,13 @@
   addListener(new FileChangeListener(){
     public void onChange(    File file){
       LOG.info("File [" + file + "] changed. Applying changes to application.");
-      compileIfSource(file);
-      informPluginManager(file,false);
+      if (descriptorToPluginMap.containsKey(file)) {
+        reloadPlugin(file);
+      }
+ else {
+        compileIfSource(file);
+        informPluginManager(file,false);
+      }
     }
     public void onNew(    File file){
       LOG.info("File [" + file + "] added. Applying changes to application.");
@@ -28,6 +33,18 @@
 );
   GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
   for (  GrailsPlugin plugin : allPlugins) {
+    GrailsPluginInfo info=compiler.getPluginSettings().getPluginInfoForName(plugin.getFileSystemShortName());
+    if (info != null && info.getDescriptor() != null) {
+      try {
+        Resource descriptor=info.getDescriptor();
+        plugin.setDescriptor(descriptor);
+        File pluginFile=descriptor.getFile();
+        descriptorToPluginMap.put(pluginFile,plugin);
+        addWatchFile(pluginFile);
+      }
+ catch (      IOException e) {
+      }
+    }
     List<WatchPattern> watchPatterns=plugin.getWatchedResourcePatterns();
     if (watchPatterns != null) {
       for (      WatchPattern watchPattern : watchPatterns) {

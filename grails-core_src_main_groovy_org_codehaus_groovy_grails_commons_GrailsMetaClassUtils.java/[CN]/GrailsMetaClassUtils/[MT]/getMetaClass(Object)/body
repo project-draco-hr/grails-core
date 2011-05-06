@@ -2,7 +2,7 @@
   if (instance instanceof GroovyObject) {
     GroovyObject groovyObject=(GroovyObject)instance;
     MetaClass metaClass=groovyObject.getMetaClass();
-    if (metaClass instanceof ExpandoMetaClass) {
+    if (!(metaClass instanceof ExpandoMetaClass)) {
       metaClass=getExpandoMetaClass(instance.getClass());
       groovyObject.setMetaClass(metaClass);
     }

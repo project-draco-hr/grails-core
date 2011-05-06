@@ -1,0 +1,11 @@
+{
+  MetaClass metaClass=getMetaClass(instance);
+  MetaProperty metaProperty=metaClass.getMetaProperty(property);
+  if (metaProperty != null) {
+    Object value=metaProperty.getProperty(instance);
+    if (value != null && requiredType.isInstance(value)) {
+      return (T)value;
+    }
+  }
+  return null;
+}

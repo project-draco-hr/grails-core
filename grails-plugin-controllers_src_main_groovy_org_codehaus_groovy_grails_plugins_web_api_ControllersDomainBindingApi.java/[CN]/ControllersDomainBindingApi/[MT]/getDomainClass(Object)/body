@@ -1,10 +1,13 @@
 {
-  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-  if (webRequest != null) {
-    GrailsApplication grailsApplication=webRequest.getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-    if (grailsApplication != null) {
-      return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,instance.getClass().getName());
+  GrailsDomainClass domainClass=GrailsMetaClassUtils.getPropertyIfExists(instance,GrailsDomainClassProperty.DOMAIN_CLASS,GrailsDomainClass.class);
+  if (domainClass == null) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null) {
+      GrailsApplication grailsApplication=webRequest.getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+      if (grailsApplication != null) {
+        domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,instance.getClass().getName());
+      }
     }
   }
-  return null;
+  return domainClass;
 }

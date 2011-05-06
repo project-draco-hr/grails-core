@@ -1,0 +1,8 @@
+{
+  MetaClass metaClass=getMetaClass(instance);
+  List<MetaMethod> methodList=metaClass.respondsTo(instance,methodName,args);
+  if (methodList != null && !methodList.isEmpty()) {
+    return metaClass.invokeMethod(instance,methodName,args);
+  }
+  return null;
+}

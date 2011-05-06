@@ -1,0 +1,18 @@
+{
+  if (isM2compatible() && isUsepoms()) {
+    ModuleRevisionId mrid=dd.getDependencyRevisionId();
+    mrid=convertM2IdForResourceSearch(mrid);
+    ResolvedResource rres=null;
+    if (dd.getDependencyRevisionId().getRevision().endsWith("SNAPSHOT")) {
+      rres=findSnapshotDescriptor(dd,data,mrid);
+      if (rres != null) {
+        return rres;
+      }
+    }
+    rres=findResourceUsingPatterns(mrid,getIvyPatterns(),DefaultArtifact.newPomArtifact(mrid,data.getDate()),getRMDParser(dd,data),data.getDate());
+    return rres;
+  }
+ else {
+    return null;
+  }
+}

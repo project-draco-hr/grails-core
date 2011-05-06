@@ -1,0 +1,7 @@
+{
+  this.revision=revision + "-SNAPSHOT";
+  this.timestamp=timestamp;
+  this.buildNumber=buildNumber;
+  this.uniqueRevision=revision + "-" + timestamp+ "-"+ buildNumber;
+  this.lastModified=calculateLastModified(timestamp);
+}

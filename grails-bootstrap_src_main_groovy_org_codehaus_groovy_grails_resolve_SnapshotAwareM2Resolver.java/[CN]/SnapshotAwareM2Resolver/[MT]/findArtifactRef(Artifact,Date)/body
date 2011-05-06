@@ -1,0 +1,15 @@
+{
+  ensureConfigured(getSettings());
+  ModuleRevisionId mrid=artifact.getModuleRevisionId();
+  if (isM2compatible()) {
+    mrid=convertM2IdForResourceSearch(mrid);
+  }
+  ResolvedResource rres=null;
+  if (artifact.getId().getRevision().endsWith("SNAPSHOT") && isM2compatible()) {
+    rres=findSnapshotArtifact(artifact,date,mrid);
+    if (rres != null) {
+      return rres;
+    }
+  }
+  return findResourceUsingPatterns(mrid,getArtifactPatterns(),artifact,getDefaultRMDParser(artifact.getModuleRevisionId().getModuleId()),date);
+}

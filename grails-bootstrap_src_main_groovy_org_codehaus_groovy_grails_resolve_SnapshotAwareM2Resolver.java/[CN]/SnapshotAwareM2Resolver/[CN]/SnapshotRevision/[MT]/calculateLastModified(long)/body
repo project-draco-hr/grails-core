@@ -1,0 +1,10 @@
+{
+  SimpleDateFormat format=new SimpleDateFormat("yyyyMMddHHmmss");
+  format.setTimeZone(TimeZone.getTimeZone("UTC"));
+  try {
+    return format.parse(Long.toString(timestamp)).getTime();
+  }
+ catch (  ParseException e) {
+    return -1;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  SnapshotRevision rev=findSnapshotRevision(mrid);
+  Message.verbose("[" + rev + "] "+ mrid);
+  if (rev != null) {
+    Message.verbose("[" + rev + "] "+ mrid);
+    String pattern=getWholePattern().replaceFirst("\\-\\[revision\\]","-" + rev);
+    ResolvedResource uniqueResource=findResourceUsingPattern(mrid,pattern,DefaultArtifact.newPomArtifact(mrid,data.getDate()),getRMDParser(dd,data),data.getDate());
+    if (uniqueResource != null) {
+      return new LastModifiedResolvedResource(uniqueResource.getResource(),rev.uniqueRevision,rev.lastModified);
+    }
+ else {
+      pattern=getWholePattern().replaceFirst("\\-\\[revision\\]","-" + mrid.getRevision());
+      ResolvedResource nonUnique=findResourceUsingPattern(mrid,pattern,DefaultArtifact.newPomArtifact(mrid,data.getDate()),getRMDParser(dd,data),data.getDate());
+      if (nonUnique != null) {
+        return new LastModifiedResolvedResource(nonUnique.getResource(),rev.revision,rev.lastModified);
+      }
+    }
+  }
+  return null;
+}

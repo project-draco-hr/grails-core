@@ -1,0 +1,57 @@
+{
+  if (!isM2compatible()) {
+    return null;
+  }
+  if (shouldUseMavenMetadata(getWholePattern())) {
+    InputStream metadataStream=null;
+    try {
+      String metadataLocation=IvyPatternHelper.substitute(getRoot() + "[organisation]/[module]/[revision]/maven-metadata.xml",mrid);
+      Resource metadata=getRepository().getResource(metadataLocation);
+      if (metadata.exists()) {
+        metadataStream=metadata.openStream();
+        final StringBuffer timestamp=new StringBuffer();
+        final StringBuffer buildNumer=new StringBuffer();
+        XMLHelper.parse(metadataStream,null,new ContextualSAXHandler(){
+          public void endElement(          String uri,          String localName,          String qName) throws SAXException {
+            if ("metadata/versioning/lastUpdated".equals(getContext())) {
+              timestamp.append(getText());
+            }
+            if ("metadata/versioning/snapshot/buildNumber".equals(getContext())) {
+              buildNumer.append(getText());
+            }
+            super.endElement(uri,localName,qName);
+          }
+        }
+,null);
+        if (timestamp.length() > 0) {
+          String rev=mrid.getRevision();
+          rev=rev.substring(0,rev.length() - "-SNAPSHOT".length());
+          SnapshotRevision version=new SnapshotRevision(rev,Long.parseLong(timestamp.toString()),Long.parseLong(buildNumer.toString()));
+          return version;
+        }
+      }
+ else {
+        Message.verbose("\tmaven-metadata not available: " + metadata);
+      }
+    }
+ catch (    IOException e) {
+      Message.verbose("impossible to access maven metadata file, ignored: " + e.getMessage());
+    }
+catch (    SAXException e) {
+      Message.verbose("impossible to parse maven metadata file, ignored: " + e.getMessage());
+    }
+catch (    ParserConfigurationException e) {
+      Message.verbose("impossible to parse maven metadata file, ignored: " + e.getMessage());
+    }
+ finally {
+      if (metadataStream != null) {
+        try {
+          metadataStream.close();
+        }
+ catch (        IOException e) {
+        }
+      }
+    }
+  }
+  return null;
+}

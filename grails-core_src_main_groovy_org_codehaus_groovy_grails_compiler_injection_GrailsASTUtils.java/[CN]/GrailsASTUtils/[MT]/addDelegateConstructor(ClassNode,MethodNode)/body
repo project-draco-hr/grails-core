@@ -1,0 +1,34 @@
+{
+  BlockStatement constructorBody=new BlockStatement();
+  Parameter[] constructorParams=getRemainingParameterTypes(constructorMethod.getParameters());
+  ArgumentListExpression arguments=createArgumentListFromParameters(constructorParams,true);
+  MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(constructorMethod.getDeclaringClass()),"initialize",arguments);
+  constructCallExpression.setMethodTarget(constructorMethod);
+  constructorBody.addStatement(new ExpressionStatement(constructCallExpression));
+  if (constructorParams.length == 0) {
+    ConstructorNode constructorNode=getDefaultConstructor(classNode);
+    if (constructorNode != null) {
+      constructorBody.addStatement(constructorNode.getCode());
+      constructorNode.setCode(constructorBody);
+    }
+ else {
+      classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
+    }
+  }
+ else {
+    ConstructorNode cn=findConstructor(classNode,constructorParams);
+    if (cn != null) {
+      Statement code=cn.getCode();
+      constructorBody.addStatement(code);
+      cn.setCode(constructorBody);
+    }
+ else {
+      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams),null,constructorBody);
+      classNode.addConstructor(cn);
+    }
+    ConstructorNode defaultConstructor=getDefaultConstructor(classNode);
+    if (defaultConstructor == null) {
+      classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,new BlockStatement()));
+    }
+  }
+}

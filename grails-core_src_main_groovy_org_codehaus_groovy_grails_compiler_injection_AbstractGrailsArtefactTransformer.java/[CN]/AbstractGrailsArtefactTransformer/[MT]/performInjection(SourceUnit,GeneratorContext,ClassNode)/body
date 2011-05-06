@@ -23,38 +23,7 @@
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {
         if (isConstructor(declaredMethod)) {
-          BlockStatement constructorBody=new BlockStatement();
-          Parameter[] constructorParams=GrailsASTUtils.getRemainingParameterTypes(declaredMethod.getParameters());
-          ArgumentListExpression arguments=GrailsASTUtils.createArgumentListFromParameters(constructorParams,true);
-          MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(implementationNode),"initialize",arguments);
-          constructCallExpression.setMethodTarget(declaredMethod);
-          constructorBody.addStatement(new ExpressionStatement(constructCallExpression));
-          if (constructorParams.length == 0) {
-            ConstructorNode constructorNode=getDefaultConstructor(classNode);
-            if (constructorNode != null) {
-              constructorBody.addStatement(constructorNode.getCode());
-              constructorNode.setCode(constructorBody);
-            }
- else {
-              classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,constructorBody));
-            }
-          }
- else {
-            ConstructorNode cn=findConstructor(classNode,constructorParams);
-            if (cn != null) {
-              Statement code=cn.getCode();
-              constructorBody.addStatement(code);
-              cn.setCode(constructorBody);
-            }
- else {
-              cn=new ConstructorNode(Modifier.PUBLIC,constructorParams,null,constructorBody);
-              classNode.addConstructor(cn);
-            }
-            ConstructorNode defaultConstructor=getDefaultConstructor(classNode);
-            if (defaultConstructor == null) {
-              classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,new BlockStatement()));
-            }
-          }
+          GrailsASTUtils.addDelegateConstructor(classNode,declaredMethod);
         }
  else         if (isCandidateInstanceMethod(declaredMethod)) {
           GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod);

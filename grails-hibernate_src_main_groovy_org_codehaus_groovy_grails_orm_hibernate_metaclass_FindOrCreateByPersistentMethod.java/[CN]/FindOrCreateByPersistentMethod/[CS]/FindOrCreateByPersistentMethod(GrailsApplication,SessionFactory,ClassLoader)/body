@@ -1,3 +1,3 @@
 {
-  super(application,sessionFactory,classLoader,Pattern.compile(METHOD_PATTERN),OPERATORS);
+  this(application,sessionFactory,classLoader,METHOD_PATTERN);
 }

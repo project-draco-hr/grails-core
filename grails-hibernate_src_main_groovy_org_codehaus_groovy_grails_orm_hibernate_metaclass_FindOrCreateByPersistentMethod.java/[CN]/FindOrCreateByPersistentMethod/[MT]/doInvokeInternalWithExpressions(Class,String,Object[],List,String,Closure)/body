@@ -11,6 +11,9 @@
     }
     MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(clazz);
     result=metaClass.invokeConstructor(new Object[]{m});
+    if (shouldSaveOnCreate()) {
+      metaClass.invokeMethod(result,"save",null);
+    }
   }
   return result;
 }

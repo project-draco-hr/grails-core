@@ -8,7 +8,7 @@
     return properties;
   }
  else {
-    System.out.println("WARNING: Specified dependency definition ${scope}(${dependency}) is invalid! Skipping..");
+    System.out.println("WARNING: Specified dependency definition " + scope + "("+ dependency+ ") is invalid! Skipping..");
     return null;
   }
 }

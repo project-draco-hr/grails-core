@@ -1,0 +1,16 @@
+{
+  if (OPERATOR_OR.equals(operatorInUse)) {
+    throw new UnsupportedOperationException("'Or' expressions are not allowed in findOrCreateBy queries.");
+  }
+  Object result=super.doInvokeInternalWithExpressions(clazz,methodName,arguments,expressions,operatorInUse,additionalCriteria);
+  if (result == null) {
+    Map m=new HashMap();
+    for (    Object o : expressions) {
+      GrailsMethodExpression gme=(GrailsMethodExpression)o;
+      m.put(gme.getPropertyName(),gme.getArguments()[0]);
+    }
+    MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(clazz);
+    result=metaClass.invokeConstructor(new Object[]{m});
+  }
+  return result;
+}

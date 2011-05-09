@@ -20,6 +20,13 @@
     }
     final Tomcat tomcat=new Tomcat();
     tomcat.setPort(port);
+    if (Boolean.getBoolean("tomcat.nio")) {
+      System.out.println("Enabling Tomcat NIO Connector");
+      Connector connector=new Connector(Http11NioProtocol.class.getName());
+      connector.setPort(port);
+      tomcat.getService().addConnector(connector);
+      tomcat.setConnector(connector);
+    }
     tomcat.setBaseDir(tomcatDir);
     try {
       tomcat.addWebapp(contextPath,warPath);

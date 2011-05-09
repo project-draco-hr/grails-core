@@ -1,0 +1,9 @@
+{
+  Object urlAttr=attrs.get(URL_ATTRIBUTE);
+  if (urlAttr instanceof Map) {
+    return isCacheable((Map)urlAttr);
+  }
+ else {
+    return attrs.get(UrlMapping.CONTROLLER) != null || attrs.get(UrlMapping.ACTION) != null || urlAttr != null || attrs.get(URI_ATTRIBUTE) != null;
+  }
+}

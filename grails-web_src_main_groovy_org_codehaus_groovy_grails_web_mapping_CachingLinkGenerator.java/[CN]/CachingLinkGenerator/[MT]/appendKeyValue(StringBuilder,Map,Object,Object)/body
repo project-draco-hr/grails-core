@@ -1,0 +1,9 @@
+{
+  buffer.append(key).append(KEY_VALUE_SEPARATOR);
+  if (value == map) {
+    buffer.append(THIS_MAP);
+  }
+ else {
+    buffer.append(DefaultGroovyMethods.toString(value));
+  }
+}

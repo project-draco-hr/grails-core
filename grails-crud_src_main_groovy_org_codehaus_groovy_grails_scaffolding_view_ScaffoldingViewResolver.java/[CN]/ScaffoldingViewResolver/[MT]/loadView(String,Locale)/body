@@ -21,7 +21,7 @@
       if (v == null) {
         String viewCode=null;
         try {
-          viewCode=generateViewSource(webRequest,domainClass);
+          viewCode=generateViewSource(viewName,domainClass);
         }
  catch (        Exception e) {
           GrailsUtil.deepSanitize(e);

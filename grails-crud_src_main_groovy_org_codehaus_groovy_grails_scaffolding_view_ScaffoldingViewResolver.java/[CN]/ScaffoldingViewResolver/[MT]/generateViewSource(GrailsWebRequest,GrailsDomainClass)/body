@@ -1,5 +1,0 @@
-{
-  StringWriter sw=new StringWriter();
-  templateGenerator.generateView(domainClass,webRequest.getActionName(),sw);
-  return sw.toString();
-}

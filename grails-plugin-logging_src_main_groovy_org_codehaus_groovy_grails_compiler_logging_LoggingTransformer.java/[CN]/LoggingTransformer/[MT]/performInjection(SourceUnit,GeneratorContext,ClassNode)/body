@@ -3,6 +3,9 @@
   if (existingField == null && !classNode.isInterface()) {
     final String path=source.getName();
     String artefactType=path != null ? GrailsResourceUtils.getArtefactDirectory(path) : null;
+    if (artefactType != null && CONF_DIR.equals(artefactType) && classNode.getName().endsWith(FILTERS_ARTEFACT_TYPE_SUFFIX)) {
+      artefactType=FILTERS_ARTEFACT_TYPE;
+    }
     String logName=artefactType == null ? classNode.getName() : "grails.app." + artefactType + "."+ classNode.getName();
     addLogField(classNode,logName);
   }

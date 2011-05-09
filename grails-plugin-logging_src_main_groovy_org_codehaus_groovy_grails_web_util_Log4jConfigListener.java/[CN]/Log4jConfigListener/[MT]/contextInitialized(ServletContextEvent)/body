@@ -4,19 +4,15 @@
     ConfigObject co=grailsApplication != null ? grailsApplication.getConfig() : null;
     if (co == null) {
       GrailsApplication application=new DefaultGrailsApplication();
-      try {
-        ApplicationHolder.setApplication(application);
-        co=ConfigurationHelper.loadConfigFromClasspath(application);
-      }
-  finally {
-        ApplicationHolder.setApplication(null);
-      }
-      Object o=co.get("log4j");
-      if (o instanceof Closure) {
-        new Log4jConfig().configure((Closure)o);
-      }
+      co=application.getConfig();
+      if (co != null) {
+        Object o=co.get("log4j");
+        if (o instanceof Closure) {
+          new Log4jConfig().configure((Closure)o);
+        }
  else {
-        new Log4jConfig().configure();
+          new Log4jConfig().configure();
+        }
       }
     }
   }

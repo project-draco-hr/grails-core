@@ -39,6 +39,7 @@
   }
   PluginManagerHolder.setPluginManager(null);
   ConfigurationHolder.setConfig(null);
+  ConfigurationHelper.clearCachedConfigs();
   ExpandoMetaClass.disableGlobally();
   MimeType.reset();
   application=null;

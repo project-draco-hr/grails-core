@@ -1,3 +1,0 @@
-{
-  return !EXCLUDES.contains(declaredMethod.getName()) && super.isCandidateInstanceMethod(declaredMethod);
-}

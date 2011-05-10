@@ -1,4 +1,0 @@
-{
-  Parameter[] parameterTypes=declaredMethod.getParameters();
-  return isCandidateMethod(declaredMethod) && parameterTypes != null && parameterTypes.length > 0;
-}

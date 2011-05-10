@@ -5,7 +5,7 @@
       if (isConstructorMethod(declaredMethod)) {
         addDelegateConstructor(classNode,declaredMethod);
       }
- else       if (isCandidateInstanceMethod(declaredMethod)) {
+ else       if (isCandidateInstanceMethod(classNode,declaredMethod)) {
         addDelegateInstanceMethod(classNode,delegateInstance,declaredMethod);
       }
     }

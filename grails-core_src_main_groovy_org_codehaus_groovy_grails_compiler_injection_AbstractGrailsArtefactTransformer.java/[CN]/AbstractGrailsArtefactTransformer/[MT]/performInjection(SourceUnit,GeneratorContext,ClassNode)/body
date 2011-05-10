@@ -25,7 +25,7 @@
         if (GrailsASTUtils.isConstructorMethod(declaredMethod)) {
           GrailsASTUtils.addDelegateConstructor(classNode,declaredMethod);
         }
- else         if (isCandidateInstanceMethod(declaredMethod)) {
+ else         if (isCandidateInstanceMethod(classNode,declaredMethod)) {
           GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod);
         }
       }
@@ -53,7 +53,7 @@
     }
     MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
     for (    MethodNode declaredMethod : declaredMethods) {
-      if (isStaticCandidateMethod(declaredMethod)) {
+      if (isStaticCandidateMethod(classNode,declaredMethod)) {
         GrailsASTUtils.addDelegateStaticMethod(apiLookupMethod,classNode,declaredMethod);
       }
     }

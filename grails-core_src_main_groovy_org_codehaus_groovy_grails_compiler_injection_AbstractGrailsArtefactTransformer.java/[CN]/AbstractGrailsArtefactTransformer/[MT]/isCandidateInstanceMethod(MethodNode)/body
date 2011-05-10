@@ -1,4 +1,3 @@
 {
-  Parameter[] parameterTypes=declaredMethod.getParameters();
-  return isCandidateMethod(declaredMethod) && parameterTypes != null && parameterTypes.length > 0 && parameterTypes[0].getType().equals(OBJECT_CLASS);
+  return GrailsASTUtils.isCandidateInstanceMethod(declaredMethod);
 }

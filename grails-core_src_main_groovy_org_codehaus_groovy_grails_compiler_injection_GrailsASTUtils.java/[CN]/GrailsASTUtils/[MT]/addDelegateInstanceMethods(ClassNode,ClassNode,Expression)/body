@@ -1,14 +1,3 @@
 {
-  while (!delegateNode.equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS)) {
-    List<MethodNode> declaredMethods=delegateNode.getMethods();
-    for (    MethodNode declaredMethod : declaredMethods) {
-      if (isConstructorMethod(declaredMethod)) {
-        addDelegateConstructor(classNode,declaredMethod);
-      }
- else       if (isCandidateInstanceMethod(classNode,declaredMethod)) {
-        addDelegateInstanceMethod(classNode,delegateInstance,declaredMethod);
-      }
-    }
-    delegateNode=delegateNode.getSuperClass();
-  }
+  addDelegateInstanceMethods(classNode,classNode,delegateNode,delegateInstance);
 }

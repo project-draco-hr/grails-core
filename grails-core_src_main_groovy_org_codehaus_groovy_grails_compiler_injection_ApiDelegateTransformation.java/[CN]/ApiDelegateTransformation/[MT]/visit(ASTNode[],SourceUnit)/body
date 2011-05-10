@@ -3,11 +3,16 @@
     throw new GroovyBugError("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes));
   }
   AnnotatedNode parent=(AnnotatedNode)nodes[1];
-  AnnotationNode node=(AnnotationNode)nodes[0];
+  AnnotationNode annotationNode=(AnnotationNode)nodes[0];
   if (parent instanceof FieldNode) {
+    Expression value=annotationNode.getMember("value");
     FieldNode fieldNode=(FieldNode)parent;
     final ClassNode type=fieldNode.getType();
     final ClassNode owner=fieldNode.getOwner();
-    GrailsASTUtils.addDelegateInstanceMethods(owner,type,new VariableExpression(fieldNode.getName()));
+    ClassNode supportedType=owner;
+    if (value instanceof ClassExpression) {
+      supportedType=value.getType();
+    }
+    GrailsASTUtils.addDelegateInstanceMethods(supportedType,owner,type,new VariableExpression(fieldNode.getName()));
   }
 }

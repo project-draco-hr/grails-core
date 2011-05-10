@@ -1,9 +1,0 @@
-{
-  if (this.urlMappingsHolder == null) {
-    ApplicationContext applicationContext=webRequest.getApplicationContext();
-    if (applicationContext != null) {
-      urlMappingsHolder=applicationContext.getBean(UrlMappingsHolder.BEAN_ID,UrlMappingsHolder.class);
-    }
-  }
-  return urlMappingsHolder;
-}

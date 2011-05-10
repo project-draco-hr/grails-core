@@ -24,7 +24,7 @@
       out.println();
     }
  catch (    IOException ex) {
-      ex.printStackTrace();
+      System.out.println("ERROR: Could not read System.in due to:" + ex.getMessage());
       return null;
     }
   }

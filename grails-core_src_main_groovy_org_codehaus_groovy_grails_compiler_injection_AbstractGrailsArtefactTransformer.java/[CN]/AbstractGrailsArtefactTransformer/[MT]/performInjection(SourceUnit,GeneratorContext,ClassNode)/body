@@ -19,7 +19,6 @@
       FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
       classNode.addField(fieldNode);
     }
-    GrailsASTUtils.addDelegateInstanceMethods(classNode,implementationNode,apiInstance);
     while (!implementationNode.equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS)) {
       List<MethodNode> declaredMethods=implementationNode.getMethods();
       for (      MethodNode declaredMethod : declaredMethods) {

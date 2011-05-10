@@ -7,7 +7,14 @@
       LOG.debug("Executing redirect with response [" + response + "]");
     }
     String redirectUrl=useJessionId ? response.encodeRedirectURL(actualUri) : actualUri;
-    response.sendRedirect(redirectUrl);
+    if (permanent) {
+      response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+      response.setHeader("Location",redirectUrl);
+      response.flushBuffer();
+    }
+ else {
+      response.sendRedirect(redirectUrl);
+    }
     if (redirectListeners != null) {
       for (      RedirectEventListener redirectEventListener : redirectListeners) {
         redirectEventListener.responseRedirected(redirectUrl);

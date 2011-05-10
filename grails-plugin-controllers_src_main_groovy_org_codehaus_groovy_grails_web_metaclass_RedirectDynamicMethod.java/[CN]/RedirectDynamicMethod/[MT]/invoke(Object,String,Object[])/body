@@ -25,5 +25,6 @@
  else {
     controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
   }
-  return redirectResponse(linkGenerator.link(argMap),request,response);
+  boolean permanent=DefaultGroovyMethods.asBoolean(argMap.get(ARGUMENT_PERMANENT));
+  return redirectResponse(linkGenerator.link(argMap),request,response,permanent);
 }

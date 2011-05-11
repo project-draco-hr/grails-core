@@ -3,7 +3,7 @@
   if (params != null && !params.isEmpty()) {
     paramsMap.putAll(params);
   }
-  Object returnValue=invoke(controller,action);
+  Object returnValue=action != null ? invoke(controller,action) : null;
   request.setAttribute(GrailsApplicationAttributes.ERRORS,controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY));
   return returnValue;
 }

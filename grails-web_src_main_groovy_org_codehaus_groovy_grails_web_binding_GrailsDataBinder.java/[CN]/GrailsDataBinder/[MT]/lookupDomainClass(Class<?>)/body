@@ -1,0 +1,6 @@
+{
+  if (grailsApplication != null) {
+    return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,type.getName());
+  }
+  return null;
+}

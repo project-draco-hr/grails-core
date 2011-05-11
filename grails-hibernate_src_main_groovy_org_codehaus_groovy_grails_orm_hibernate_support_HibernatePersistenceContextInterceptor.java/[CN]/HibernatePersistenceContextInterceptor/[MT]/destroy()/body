@@ -1,4 +1,5 @@
 {
+  DeferredBindingActions.clear();
   if (decNestingCount() > 0 || getParticipate()) {
     return;
   }

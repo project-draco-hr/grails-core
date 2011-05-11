@@ -1,5 +1,6 @@
 {
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
+  DeferredBindingActions.runActions();
   boolean shouldFlush=shouldFlush(arguments);
   boolean shouldValidate=shouldValidate(arguments,domainClass);
   if (shouldValidate) {

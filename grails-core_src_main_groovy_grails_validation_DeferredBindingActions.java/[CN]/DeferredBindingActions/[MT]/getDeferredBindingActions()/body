@@ -1,0 +1,8 @@
+{
+  List<Runnable> runnables=deferredBindingActions.get();
+  if (runnables == null) {
+    runnables=new ArrayList<Runnable>();
+    deferredBindingActions.set(runnables);
+  }
+  return runnables;
+}

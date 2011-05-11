@@ -1,2 +1,38 @@
 {
+  for (  PropertyValue pv : mpvs.getPropertyValues()) {
+    String propertyName=pv.getName();
+    String propertyNameToCheck=propertyName;
+    final int i=propertyName.indexOf('.');
+    if (i > -1) {
+      propertyNameToCheck=propertyName.substring(0,i);
+    }
+    if (!isAllowed(propertyNameToCheck))     continue;
+    if (propertyName.endsWith(IDENTIFIER_SUFFIX)) {
+      propertyName=propertyName.substring(0,propertyName.length() - 3);
+      if (!isAllowed(propertyName))       continue;
+      if (isReadableAndPersistent(propertyName) && bean.isWritableProperty(propertyName)) {
+        if (NULL_ASSOCIATION.equals(pv.getValue())) {
+          bean.setPropertyValue(propertyName,null);
+          mpvs.removePropertyValue(pv);
+        }
+ else {
+          Class<?> type=getPropertyTypeForPath(propertyName);
+          Object persisted=getPersistentInstance(type,pv.getValue());
+          if (persisted != null) {
+            bean.setPropertyValue(propertyName,persisted);
+          }
+        }
+      }
+    }
+ else {
+      if (isReadableAndPersistent(propertyName)) {
+        Class<?> type=getPropertyTypeForPath(propertyName);
+        if (type != null) {
+          if (Collection.class.isAssignableFrom(type)) {
+            bindCollectionAssociation(mpvs,pv);
+          }
+        }
+      }
+    }
+  }
 }

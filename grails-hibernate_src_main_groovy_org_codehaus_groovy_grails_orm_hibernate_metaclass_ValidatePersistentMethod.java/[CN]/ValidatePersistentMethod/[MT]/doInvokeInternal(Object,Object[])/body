@@ -44,12 +44,6 @@
         getHibernateTemplate().evict(target);
       }
     }
- else {
-      setObjectToReadOnly(target);
-    }
-  }
- else {
-    setObjectToReadWrite(target);
   }
   if (errors.getErrorCount() != oldErrorCount) {
     MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());

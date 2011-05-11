@@ -5,7 +5,7 @@
   }
  else {
     try {
-      return (Closure)controller.getProperty(actionName);
+      return controller.getProperty(actionName);
     }
  catch (    MissingPropertyException mpe) {
       try {

@@ -26,5 +26,9 @@
     controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
   }
   boolean permanent=DefaultGroovyMethods.asBoolean(argMap.get(ARGUMENT_PERMANENT));
+  Object action=argMap.get(GrailsControllerClass.ACTION);
+  if (action != null) {
+    argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
+  }
   return redirectResponse(linkGenerator.getServerBaseURL(),linkGenerator.link(argMap),request,response,permanent);
 }

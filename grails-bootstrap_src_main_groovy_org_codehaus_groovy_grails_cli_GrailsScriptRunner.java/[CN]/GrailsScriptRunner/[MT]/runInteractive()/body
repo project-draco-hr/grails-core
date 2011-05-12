@@ -1,5 +1,7 @@
 {
-  String message="Interactive mode ready. Enter a Grails command or type \"exit\" to quit interactive mode (hit ENTER to run the last command):\n";
+  out.println("\n--------------------------------------------------------");
+  out.println("Interactive mode ready. Enter a Grails command or type \"exit\" to quit interactive mode (hit ENTER to run the last command)");
+  String prompt="> ";
   System.setProperty("grails.disable.exit","true");
   System.setProperty("grails.interactive.mode","true");
   ScriptAndArgs script=new ScriptAndArgs();
@@ -7,8 +9,7 @@
   while (true) {
     System.clearProperty("grails.env.set");
     System.clearProperty(Environment.KEY);
-    out.println("--------------------------------------------------------");
-    String enteredName=helper.userInput(message);
+    String enteredName=helper.userInput(prompt);
     if (enteredName != null && enteredName.trim().length() > 0) {
       script=processArgumentsAndReturnScriptName(enteredName);
       if (script.args != null) {
@@ -43,7 +44,6 @@ catch (    Throwable ex) {
       }
     }
     long end=System.currentTimeMillis();
-    out.println("--------------------------------------------------------");
-    out.println("Command " + script.name + " completed in "+ (end - now)+ "ms");
+    out.println("\n---- Command completed in " + (end - now) + "ms");
   }
 }

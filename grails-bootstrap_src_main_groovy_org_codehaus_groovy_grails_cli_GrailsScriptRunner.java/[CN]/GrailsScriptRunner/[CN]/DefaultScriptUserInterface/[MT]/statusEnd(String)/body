@@ -1,0 +1,17 @@
+{
+  if (msg == null) {
+    msg="Done";
+  }
+  if (lastVerbosePrefix != null) {
+    statusBegin(lastVerbosePrefix);
+  }
+  if (!inStatusRun) {
+    statusBegin(msg);
+    inStatusRun=false;
+  }
+ else {
+    println(msg);
+    inStatusRun=false;
+  }
+  lastVerbosePrefix=null;
+}

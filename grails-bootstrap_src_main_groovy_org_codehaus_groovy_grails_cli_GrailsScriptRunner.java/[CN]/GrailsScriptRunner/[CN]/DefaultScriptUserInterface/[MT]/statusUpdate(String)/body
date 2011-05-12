@@ -1,0 +1,12 @@
+{
+  if (!inStatusRun) {
+    statusBegin(msg);
+  }
+ else {
+    if (lastVerbosePrefix != null) {
+      statusBegin(lastVerbosePrefix);
+    }
+    print(msg + "... ");
+    inStatusRun=true;
+  }
+}

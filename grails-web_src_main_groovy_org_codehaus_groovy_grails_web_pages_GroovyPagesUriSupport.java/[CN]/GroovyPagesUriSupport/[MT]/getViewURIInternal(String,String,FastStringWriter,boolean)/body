@@ -1,5 +1,5 @@
 {
-  if (viewName.startsWith(SLASH_STR)) {
+  if (viewName != null && viewName.startsWith(SLASH_STR)) {
     String tmp=viewName.substring(1,viewName.length());
     if (tmp.indexOf(SLASH) > -1) {
       buf.append(SLASH);
@@ -13,7 +13,10 @@
     }
   }
  else {
-    buf.append(SLASH).append(controllerName).append(SLASH).append(viewName);
+    buf.append(SLASH).append(controllerName);
+    if (viewName != null) {
+      buf.append(SLASH).append(viewName);
+    }
   }
   if (includeSuffix) {
     return buf.append(GroovyPage.SUFFIX).toString();

@@ -9,7 +9,7 @@
     super.validate(obj,errors,cascade);
   }
   finally {
-    if (session != null && previousMode != null) {
+    if (session != null && previousMode != null && !errors.hasErrors()) {
       session.setFlushMode(previousMode);
     }
   }

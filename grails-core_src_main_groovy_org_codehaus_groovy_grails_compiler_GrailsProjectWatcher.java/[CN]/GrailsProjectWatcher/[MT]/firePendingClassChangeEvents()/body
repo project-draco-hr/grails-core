@@ -1,6 +1,10 @@
 {
-  for (  Runnable runnable : classChangeEventQueue) {
-    runnable.run();
+  try {
+    for (    Runnable runnable : classChangeEventQueue) {
+      runnable.run();
+    }
   }
-  classChangeEventQueue.clear();
+  finally {
+    classChangeEventQueue.clear();
+  }
 }

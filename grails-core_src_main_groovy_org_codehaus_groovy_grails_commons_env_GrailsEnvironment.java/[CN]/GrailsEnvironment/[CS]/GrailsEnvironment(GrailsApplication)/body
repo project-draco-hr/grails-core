@@ -1,0 +1,4 @@
+{
+  this.grailsApplication=grailsApplication;
+  getPropertySources().addFirst(new GrailsConfigPropertySource(grailsApplication));
+}

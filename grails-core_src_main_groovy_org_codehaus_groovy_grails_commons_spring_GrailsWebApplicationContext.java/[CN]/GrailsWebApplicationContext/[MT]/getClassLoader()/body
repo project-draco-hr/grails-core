@@ -1,7 +1,6 @@
 {
-  ApplicationContext parent=getParent();
-  if (parent != null && parent.containsBean(GrailsApplication.APPLICATION_ID)) {
-    final GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID);
+  GrailsApplication application=getGrailsApplication();
+  if (application != null) {
     return application.getClassLoader();
   }
   return super.getClassLoader();

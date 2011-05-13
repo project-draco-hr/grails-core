@@ -1,0 +1,5 @@
+{
+  Set<String> activeProfiles=super.doGetActiveProfiles();
+  activeProfiles.add(Environment.getCurrent().getName());
+  return activeProfiles;
+}

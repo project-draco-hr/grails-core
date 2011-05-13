@@ -1,0 +1,8 @@
+{
+  ApplicationContext parent=getParent();
+  GrailsApplication application=null;
+  if (parent != null && parent.containsBean(GrailsApplication.APPLICATION_ID)) {
+    application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID);
+  }
+  return application;
+}

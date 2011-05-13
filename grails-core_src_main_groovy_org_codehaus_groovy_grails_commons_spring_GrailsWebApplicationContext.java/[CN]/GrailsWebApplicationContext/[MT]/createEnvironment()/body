@@ -1,0 +1,9 @@
+{
+  GrailsApplication grailsApplication=getGrailsApplication();
+  if (grailsApplication != null) {
+    return new GrailsEnvironment(grailsApplication);
+  }
+ else {
+    return super.createEnvironment();
+  }
+}

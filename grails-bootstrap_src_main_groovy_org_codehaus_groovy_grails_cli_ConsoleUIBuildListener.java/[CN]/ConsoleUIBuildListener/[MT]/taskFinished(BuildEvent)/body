@@ -1,6 +1,0 @@
-{
-  ui.progressTicker("|");
-  if (finish.getTask().getTaskName().equals("input")) {
-    setToCachedOut(finish.getProject());
-  }
-}

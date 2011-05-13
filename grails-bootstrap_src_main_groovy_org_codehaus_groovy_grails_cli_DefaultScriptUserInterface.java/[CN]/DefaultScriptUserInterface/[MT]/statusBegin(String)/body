@@ -1,9 +1,0 @@
-{
-  forceNewLine();
-  print(" # " + msg + "... ");
-  inStatusRun=true;
-  if (verbose) {
-    lastVerbosePrefix=msg;
-  }
-  lastWasContinuous=false;
-}

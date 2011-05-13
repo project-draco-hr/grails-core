@@ -21,7 +21,7 @@
       env=script.env != null ? script.env : Environment.DEVELOPMENT.getName();
     }
     if (script.name == null) {
-      consoleOut.println("You must enter a command.\n");
+      out.println("You must enter a command.\n");
       continue;
     }
  else     if (script.name.equalsIgnoreCase("exit") || script.name.equalsIgnoreCase("quit")) {
@@ -32,14 +32,14 @@
       callPluginOrGrailsScript(script.name,env);
     }
  catch (    ScriptNotFoundException ex) {
-      consoleOut.println("No script found for " + script.name);
+      out.println("No script found for " + script.name);
     }
 catch (    Throwable ex) {
       if (ex.getCause() instanceof ScriptExitException) {
-        consoleOut.println("Script exited with code " + ((ScriptExitException)ex.getCause()).getExitCode());
+        out.println("Script exited with code " + ((ScriptExitException)ex.getCause()).getExitCode());
       }
  else {
-        consoleOut.println("Script threw exception");
+        out.println("Script threw exception");
         ex.printStackTrace(out);
       }
     }

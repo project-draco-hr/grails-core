@@ -4,7 +4,6 @@
     allArgs.append(" ").append(arg);
   }
   ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
-  boolean verbose=script.args != null ? script.args.indexOf("--verbose") >= 0 : false;
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
   try {
@@ -18,52 +17,22 @@
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
     exitWithError("Grails' installation directory not found: " + build.getGrailsHome());
   }
-  if (verbose) {
-    System.out.println("Grails " + build.getGrailsVersion() + '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
-  }
- else {
-    System.out.println("Grails " + build.getGrailsVersion() + " initializing... ");
-  }
+  System.out.println("Welcome to Grails " + build.getGrailsVersion() + " - http://grails.org/"+ '\n'+ "Licensed under Apache Standard License 2.0"+ '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
   if (script.name == null) {
     System.out.println("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
     System.exit(0);
   }
-  if (verbose) {
-    System.out.println("Base Directory: " + build.getBaseDir().getPath());
-  }
-  PrintStream originalOut=System.out;
-  UserInterface ui=new DefaultScriptUserInterface(originalOut,verbose);
+  System.out.println("Base Directory: " + build.getBaseDir().getPath());
   try {
-    ByteArrayOutputStream cachedOutput=new ByteArrayOutputStream();
-    if (!verbose) {
-      PrintStream tempOut=new PrintStream(cachedOutput);
-      System.setOut(tempOut);
-    }
-    try {
-      GrailsScriptRunner runner=new GrailsScriptRunner(build);
-      runner.setOut(originalOut);
-      runner.setConsoleOut(originalOut);
-      runner.setUserInterface(ui);
-      int exitCode=runner.executeCommand(script.name,script.args,script.env);
-      if (!verbose) {
-        if (exitCode != 0) {
-          byte[] bytes=cachedOutput.toByteArray();
-          originalOut.write(bytes,0,bytes.length);
-        }
-      }
-      ui.finished();
-      System.exit(exitCode);
-    }
-  finally {
-      System.setOut(originalOut);
-    }
+    int exitCode=new GrailsScriptRunner(build).executeCommand(script.name,script.args,script.env);
+    System.exit(exitCode);
   }
  catch (  ScriptNotFoundException ex) {
-    originalOut.println("Script not found: " + ex.getScriptName());
+    System.out.println("Script not found: " + ex.getScriptName());
   }
 catch (  Throwable t) {
     String msg="Error executing script " + script.name + ": "+ t.getMessage();
-    originalOut.println(msg);
+    System.out.println(msg);
     sanitizeStacktrace(t);
     t.printStackTrace(System.out);
     exitWithError(msg);

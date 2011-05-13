@@ -1,0 +1,10 @@
+{
+  forceNewLine();
+  println(message);
+  if (responses != null) {
+    print(" [" + responses + "]");
+  }
+ else {
+    print("> ");
+  }
+}

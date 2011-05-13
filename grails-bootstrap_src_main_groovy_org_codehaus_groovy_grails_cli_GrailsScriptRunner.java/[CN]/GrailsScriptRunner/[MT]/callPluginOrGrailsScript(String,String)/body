@@ -31,10 +31,12 @@
     potentialScripts=cachedScript.potentialScripts;
     binding=cachedScript.binding;
     setDefaultInputStream(binding);
+    setUIListener(binding);
   }
  else {
     binding=new GantBinding();
     setDefaultInputStream(binding);
+    setUIListener(binding);
     boolean exactMatchFound=false;
     potentialScripts=new ArrayList<Resource>();
     for (    Resource scriptPath : allScripts) {
@@ -75,8 +77,8 @@
     if (potentialScripts.size() == 1) {
       final Resource scriptFile=potentialScripts.get(0);
       if (!isGrailsProject() && !isExternalScript(scriptFile)) {
-        out.println(settings.getBaseDir().getPath() + " does not appear to be part of a Grails application.");
-        out.println("The following commands are supported outside of a project:");
+        consoleOut.println(settings.getBaseDir().getPath() + " does not appear to be part of a Grails application.");
+        consoleOut.println("The following commands are supported outside of a project:");
         Collections.sort(scriptsAllowedOutsideOfProject,new Comparator<Resource>(){
           public int compare(          Resource resource,          Resource resource1){
             return resource.getFilename().compareTo(resource1.getFilename());
@@ -84,12 +86,12 @@
         }
 );
         for (        Resource file : scriptsAllowedOutsideOfProject) {
-          out.println("\t" + GrailsNameUtils.getScriptName(file.getFilename()));
+          consoleOut.println("\t" + GrailsNameUtils.getScriptName(file.getFilename()));
         }
         out.println("Run 'grails help' for a complete list of available scripts.");
         return -1;
       }
-      out.println("Running script " + scriptFile.getFilename());
+      ui.statusBegin("Running script " + scriptFile.getFilename());
       String scriptFileName=getScriptNameFromFile(scriptFile);
       setRunningEnvironment(scriptFileName,env);
       binding.setVariable("scriptName",scriptFileName);

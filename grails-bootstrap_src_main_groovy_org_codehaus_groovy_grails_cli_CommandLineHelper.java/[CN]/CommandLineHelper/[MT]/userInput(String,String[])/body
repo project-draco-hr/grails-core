@@ -5,12 +5,7 @@
   }
   BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
   for (int it=0; it < 3; it++) {
-    out.print(message);
-    if (responsesString != null) {
-      out.print(" [");
-      out.print(responsesString);
-      out.print("] ");
-    }
+    showInputMessage(message,responsesString);
     try {
       String line=reader.readLine();
       if (validResponses == null)       return line;
@@ -19,15 +14,13 @@
           return line;
         }
       }
-      out.println();
-      out.println("Invalid option '" + line + "' - must be one of: ["+ responsesString+ "]");
-      out.println();
+      printMessage("Invalid option '" + line + "' - must be one of: ["+ responsesString+ "]");
     }
  catch (    IOException ex) {
-      System.out.println("ERROR: Could not read System.in due to:" + ex.getMessage());
+      printMessage("ERROR: Could not read System.in due to:" + ex.getMessage());
       return null;
     }
   }
-  out.println("No valid response entered - giving up asking.");
+  printMessage("No valid response entered - giving up asking.");
   return null;
 }

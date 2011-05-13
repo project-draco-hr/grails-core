@@ -22,6 +22,8 @@
   binding.setVariable("projectWorkDir",settings.getProjectWorkDir().getPath());
   binding.setVariable("projectTargetDir",settings.getProjectTargetDir());
   binding.setVariable("classesDir",settings.getClassesDir());
+  binding.setVariable("consoleOut",consoleOut);
+  binding.setVariable("userInterface",ui);
   binding.setVariable("pluginClassesDir",settings.getPluginClassesDir());
   binding.setVariable("grailsTmp",grailsWork + "/tmp");
   binding.setVariable("classesDirPath",settings.getClassesDir().getPath());

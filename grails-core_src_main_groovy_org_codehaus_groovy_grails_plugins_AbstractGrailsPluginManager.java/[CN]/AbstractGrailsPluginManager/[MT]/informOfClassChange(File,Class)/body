@@ -1,0 +1,25 @@
+{
+  if (cls != null && cls.getName().equals(CONFIG_FILE)) {
+    ConfigSlurper configSlurper=ConfigurationHelper.getConfigSlurper(Environment.getCurrent().getName(),application);
+    ConfigObject c;
+    try {
+      c=configSlurper.parse(file.toURI().toURL());
+      application.getConfig().merge(c);
+      informPluginsOfConfigChange();
+    }
+ catch (    Exception e) {
+    }
+  }
+ else {
+    for (    GrailsPlugin grailsPlugin : pluginList) {
+      if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {
+        if (cls != null) {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+        }
+ else {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+        }
+      }
+    }
+  }
+}

@@ -8,16 +8,19 @@
     }
   }
  else {
-    classChangeEventQueue.add(new Runnable(){
-      public void run(){
-        try {
-          pluginManager.informOfFileChange(file);
-        }
- catch (        Exception e) {
-          LOG.error("Failed to reload file [" + file + "] with error: "+ e.getMessage());
+    String className=GrailsResourceUtils.getClassName(file.getAbsolutePath());
+    if (className != null) {
+      classChangeEventQueue.put(className,new ClassUpdate(){
+        public void run(        Class cls){
+          try {
+            pluginManager.informOfClassChange(file,cls);
+          }
+ catch (          Exception e) {
+            LOG.error("Failed to reload file [" + file + "] with error: "+ e.getMessage());
+          }
         }
       }
-    }
 );
+    }
   }
 }

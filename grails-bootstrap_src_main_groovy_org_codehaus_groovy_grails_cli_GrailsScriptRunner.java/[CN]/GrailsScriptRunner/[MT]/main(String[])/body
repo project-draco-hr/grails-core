@@ -40,6 +40,7 @@
     }
     try {
       GrailsScriptRunner runner=new GrailsScriptRunner(build);
+      runner.out=originalOut;
       runner.consoleOut=originalOut;
       runner.ui=new DefaultScriptUserInterface(originalOut,verbose);
       int exitCode=runner.executeCommand(script.name,script.args,script.env);

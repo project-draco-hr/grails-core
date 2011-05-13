@@ -1,23 +1,14 @@
 {
   final ClassLoader contextLoader=Thread.currentThread().getContextClassLoader();
-  CompilerConfiguration config=CompilerConfiguration.DEFAULT;
-  config.setSourceEncoding("UTF-8");
-  ClassLoader rootLoader=DefaultGroovyMethods.getRootLoader(contextLoader);
-  @SuppressWarnings("hiding") GroovyClassLoader cl;
-  if (rootLoader != null) {
-    cl=new GrailsClassLoader(contextLoader,config,resourceLoader);
+  GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader);
+  if (resourceLoader != null) {
+    gcl.setResourceLoader(resourceLoader);
   }
- else {
-    GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader,config);
-    if (resourceLoader != null) {
-      gcl.setResourceLoader(resourceLoader);
-    }
-    cl=gcl;
-  }
+  cl=gcl;
   try {
     Thread.currentThread().setContextClassLoader(cl);
   }
  catch (  AccessControlException e) {
   }
-  return cl;
+  return gcl;
 }

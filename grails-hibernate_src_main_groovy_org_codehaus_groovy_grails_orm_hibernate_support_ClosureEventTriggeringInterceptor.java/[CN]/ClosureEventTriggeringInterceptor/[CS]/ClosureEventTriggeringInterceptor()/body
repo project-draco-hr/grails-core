@@ -1,0 +1,8 @@
+{
+  try {
+    this.markInterceptorDirtyMethod=ReflectionUtils.findMethod(AbstractSaveEventListener.class,"markInterceptorDirty",new Class[]{Object.class,EntityPersister.class,EventSource.class});
+    ReflectionUtils.makeAccessible(markInterceptorDirtyMethod);
+  }
+ catch (  Exception e) {
+  }
+}

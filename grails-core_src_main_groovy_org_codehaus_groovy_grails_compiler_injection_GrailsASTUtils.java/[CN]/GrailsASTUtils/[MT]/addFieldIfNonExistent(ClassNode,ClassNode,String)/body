@@ -1,0 +1,5 @@
+{
+  if (classNode != null && classNode.getField(fieldName) == null) {
+    classNode.addField(fieldName,Modifier.PRIVATE,fieldType,new ConstructorCallExpression(fieldType,new ArgumentListExpression()));
+  }
+}

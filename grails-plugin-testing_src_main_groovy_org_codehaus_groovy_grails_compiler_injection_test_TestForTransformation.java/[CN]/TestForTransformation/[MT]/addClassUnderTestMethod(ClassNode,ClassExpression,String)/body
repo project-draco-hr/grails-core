@@ -13,6 +13,7 @@
     methodBody.addStatement(new ExpressionStatement(testTargetAssignment));
     methodNode=new MethodNode(methodName,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,methodBody);
     methodNode.addAnnotation(BEFORE_ANNOTATION);
+    methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
     classNode.addMethod(methodNode);
   }
   return methodNode;

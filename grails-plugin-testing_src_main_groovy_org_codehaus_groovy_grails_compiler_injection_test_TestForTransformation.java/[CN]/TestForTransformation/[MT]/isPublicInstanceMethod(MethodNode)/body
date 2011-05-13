@@ -1,0 +1,3 @@
+{
+  return !methodNode.isSynthetic() && !methodNode.isStatic() && methodNode.isPublic();
+}

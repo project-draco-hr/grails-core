@@ -1,0 +1,15 @@
+{
+  Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();
+  boolean weavedIntoBeforeMethods=false;
+  for (  MethodNode methodNode : declaredMethodsMap.values()) {
+    if (isDeclaredBeforeMethod(methodNode)) {
+      Statement code=getMethodBody(methodNode);
+      addMockCollaborator(artefactType,targetClassExpression,(BlockStatement)code);
+      weavedIntoBeforeMethods=true;
+    }
+  }
+  if (!weavedIntoBeforeMethods) {
+    BlockStatement junit4Setup=getJunit4Setup(classNode);
+    addMockCollaborator(artefactType,targetClassExpression,junit4Setup);
+  }
+}

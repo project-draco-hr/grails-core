@@ -2,9 +2,9 @@
   BlockStatement methodBody;
   if (isJunit3Test(classNode)) {
     methodBody=getJunit3Setup(classNode);
+    addMockCollaborator(artefactType,targetClassExpression,methodBody);
   }
  else {
-    methodBody=getJunit4Setup(classNode);
+    addToJunit4BeforeMethods(classNode,artefactType,targetClassExpression);
   }
-  addMockCollaborator(artefactType,targetClassExpression,methodBody);
 }

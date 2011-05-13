@@ -1,0 +1,3 @@
+{
+  return isPublicInstanceMethod(methodNode) && hasAnnotation(methodNode,Before.class) && !hasAnnotation(methodNode,MixinMethod.class);
+}

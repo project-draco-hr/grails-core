@@ -21,10 +21,16 @@
           for (          MethodNode mixinMethod : mixinMethods) {
             if (isCandidateMethod(mixinMethod) && !hasDeclaredMethod(classNode,mixinMethod)) {
               if (mixinMethod.isStatic()) {
-                GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
+                MethodNode methodNode=GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
+                if (methodNode != null) {
+                  methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
+                }
               }
  else {
-                GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+                MethodNode methodNode=GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+                if (methodNode != null) {
+                  methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
+                }
               }
               if (isJunit3) {
                 if (hasAnnotation(mixinMethod,Before.class)) {

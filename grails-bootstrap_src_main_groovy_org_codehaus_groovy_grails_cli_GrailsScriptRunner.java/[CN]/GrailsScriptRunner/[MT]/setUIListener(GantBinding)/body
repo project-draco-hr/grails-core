@@ -1,4 +1,0 @@
-{
-  AntBuilder ant=(AntBuilder)binding.getVariable("ant");
-  ant.getProject().addBuildListener(new ConsoleUIBuildListener(this.ui,this.consoleOut));
-}

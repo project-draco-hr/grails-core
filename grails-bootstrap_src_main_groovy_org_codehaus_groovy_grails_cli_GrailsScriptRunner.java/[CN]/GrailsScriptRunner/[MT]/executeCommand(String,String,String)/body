@@ -32,7 +32,7 @@
   BuildSettingsHolder.setSettings(settings);
   if (scriptName.equalsIgnoreCase("interactive")) {
     if (!isInteractive) {
-      ui.statusFinal("You cannot use '--non-interactive' with interactive mode.");
+      out.println("You cannot use '--non-interactive' with interactive mode.");
       return 1;
     }
     setRunningEnvironment(scriptName,env);

@@ -1,0 +1,8 @@
+{
+  out.print(message);
+  if (responses != null) {
+    out.print(" [");
+    out.print(responses);
+    out.print("] ");
+  }
+}

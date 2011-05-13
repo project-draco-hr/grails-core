@@ -1,0 +1,8 @@
+{
+  for (  Object l : project.getBuildListeners()) {
+    if (l instanceof BuildLogger) {
+      BuildLogger logger=(BuildLogger)l;
+      logger.setOutputPrintStream(consoleOut);
+    }
+  }
+}

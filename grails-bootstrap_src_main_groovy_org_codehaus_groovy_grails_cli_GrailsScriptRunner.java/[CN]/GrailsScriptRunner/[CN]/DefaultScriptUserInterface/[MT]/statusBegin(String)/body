@@ -1,7 +1,0 @@
-{
-  print((lastWasPrintln ? " # " : "\n # ") + msg + "... ");
-  inStatusRun=true;
-  if (verbose) {
-    lastVerbosePrefix=msg;
-  }
-}

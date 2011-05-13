@@ -1,0 +1,5 @@
+{
+  if (start.getTask().getTaskName().equals("input")) {
+    setToConsoleOut(start.getProject());
+  }
+}

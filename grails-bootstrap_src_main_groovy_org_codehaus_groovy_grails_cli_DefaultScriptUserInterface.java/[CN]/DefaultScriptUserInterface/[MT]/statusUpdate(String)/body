@@ -1,0 +1,15 @@
+{
+  if (!inStatusRun) {
+    statusBegin(msg);
+  }
+ else {
+    if (lastVerbosePrefix != null) {
+      statusBegin(lastVerbosePrefix);
+    }
+    if (lastWasContinuous) {
+      consoleOut.print(' ');
+    }
+    print(msg + "... ");
+    inStatusRun=true;
+  }
+}

@@ -31,10 +31,12 @@
     potentialScripts=cachedScript.potentialScripts;
     binding=cachedScript.binding;
     setDefaultInputStream(binding);
+    setUIListener(binding);
   }
  else {
     binding=new GantBinding();
     setDefaultInputStream(binding);
+    setUIListener(binding);
     boolean exactMatchFound=false;
     potentialScripts=new ArrayList<Resource>();
     for (    Resource scriptPath : allScripts) {
@@ -89,7 +91,7 @@
         out.println("Run 'grails help' for a complete list of available scripts.");
         return -1;
       }
-      consoleOut.println("Running script " + scriptFile.getFilename() + "...");
+      ui.statusBegin("Running script " + scriptFile.getFilename());
       String scriptFileName=getScriptNameFromFile(scriptFile);
       setRunningEnvironment(scriptFileName,env);
       binding.setVariable("scriptName",scriptFileName);

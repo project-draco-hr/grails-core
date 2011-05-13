@@ -22,7 +22,7 @@
     System.out.println("Grails " + build.getGrailsVersion() + '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
   }
  else {
-    System.out.print("Grails " + build.getGrailsVersion() + " initializing... ");
+    System.out.println("Grails " + build.getGrailsVersion() + " initializing... ");
   }
   if (script.name == null) {
     System.out.println("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
@@ -32,6 +32,7 @@
     System.out.println("Base Directory: " + build.getBaseDir().getPath());
   }
   PrintStream originalOut=System.out;
+  UserInterface ui=new DefaultScriptUserInterface(originalOut,verbose);
   try {
     ByteArrayOutputStream cachedOutput=new ByteArrayOutputStream();
     if (!verbose) {
@@ -40,9 +41,9 @@
     }
     try {
       GrailsScriptRunner runner=new GrailsScriptRunner(build);
-      runner.out=originalOut;
-      runner.consoleOut=originalOut;
-      runner.ui=new DefaultScriptUserInterface(originalOut,verbose);
+      runner.setOut(originalOut);
+      runner.setConsoleOut(originalOut);
+      runner.setUserInterface(ui);
       int exitCode=runner.executeCommand(script.name,script.args,script.env);
       if (!verbose) {
         if (exitCode != 0) {
@@ -50,6 +51,7 @@
           originalOut.write(bytes,0,bytes.length);
         }
       }
+      ui.finished();
       System.exit(exitCode);
     }
   finally {

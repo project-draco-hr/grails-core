@@ -17,5 +17,7 @@
     MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(delegateMethod.getAnnotations());
     classNode.addMethod(methodNode);
+    return methodNode;
   }
+  return null;
 }

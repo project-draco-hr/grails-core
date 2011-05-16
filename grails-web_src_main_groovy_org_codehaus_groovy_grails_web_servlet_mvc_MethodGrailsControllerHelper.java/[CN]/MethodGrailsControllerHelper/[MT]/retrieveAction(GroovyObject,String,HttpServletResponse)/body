@@ -1,6 +1,6 @@
 {
   Method action=ReflectionUtils.findMethod(controller.getClass(),actionName,NOARGS);
-  ReflectionUtils.makeAccessible(action);
+  if (action != null)   ReflectionUtils.makeAccessible(action);
   if (action == null || action.getAnnotation(Action.class) == null) {
     try {
       response.sendError(HttpServletResponse.SC_NOT_FOUND);

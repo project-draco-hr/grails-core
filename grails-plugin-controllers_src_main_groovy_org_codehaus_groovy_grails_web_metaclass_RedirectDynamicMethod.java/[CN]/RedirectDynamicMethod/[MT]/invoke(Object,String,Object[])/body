@@ -30,5 +30,6 @@
   if (action != null) {
     argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
   }
+  argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
   return redirectResponse(linkGenerator.getServerBaseURL(),linkGenerator.link(argMap),request,response,permanent);
 }

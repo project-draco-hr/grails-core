@@ -2,6 +2,7 @@
   Set<MapEntry> entries=new HashSet<MapEntry>();
   for (  MetaProperty mp : metaClass.getProperties()) {
     if (EXCLUDES.contains(mp.getName()))     continue;
+    if ((mp instanceof MetaBeanProperty) && (((MetaBeanProperty)mp).getGetter()) == null)     continue;
     entries.add(new MapEntry(mp.getName(),mp.getProperty(instance)));
   }
   return entries;

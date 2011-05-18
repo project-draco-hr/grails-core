@@ -3,7 +3,7 @@
   if (validResponses != null) {
     responsesString=DefaultGroovyMethods.join(validResponses,",");
   }
-  BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+  BufferedReader reader=new BufferedReader(new InputStreamReader(input));
   for (int it=0; it < 3; it++) {
     out.print(message);
     if (responsesString != null) {

@@ -1,3 +1,4 @@
 {
-  return !(declaredMethod.getName().equals("create") && declaredMethod.getParameters().length == 0) && super.isStaticCandidateMethod(classNode,declaredMethod);
+  String methodName=declaredMethod.getName();
+  return !(EXCLUDES.contains(methodName)) && super.isStaticCandidateMethod(classNode,declaredMethod);
 }

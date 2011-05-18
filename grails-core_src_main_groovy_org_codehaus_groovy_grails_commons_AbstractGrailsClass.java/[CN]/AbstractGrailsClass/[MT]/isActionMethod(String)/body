@@ -1,4 +1,7 @@
 {
-  Method m=MethodUtils.getAccessibleMethod(getClazz(),methodName,new Class[0]);
+  Method m=ReflectionUtils.findMethod(getClazz(),methodName,new Class[0]);
+  if (m != null) {
+    ReflectionUtils.makeAccessible(m);
+  }
   return m != null && m.getAnnotation(Action.class) != null;
 }

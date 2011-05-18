@@ -1,5 +1,6 @@
 {
-  Method mAction=MethodUtils.getAccessibleMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
+  Method mAction=ReflectionUtils.findMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
+  if (mAction != null)   ReflectionUtils.makeAccessible(mAction);
   if (mAction != null && mAction.getAnnotation(Action.class) != null) {
     return mAction;
   }

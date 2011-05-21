@@ -6,7 +6,9 @@
   try {
     connection=DataSourceUtils.getConnection(dataSource);
     try {
-      hibernateDialect=DialectFactory.buildDialect(grailsApplication.getConfig().toProperties(),connection);
+      ConfigObject config=grailsApplication != null ? grailsApplication.getConfig() : null;
+      Properties properties=config != null ? config.toProperties() : new Properties();
+      hibernateDialect=DialectFactory.buildDialect(properties,connection);
       hibernateDialectClassName=hibernateDialect.getClass().getName();
     }
  catch (    HibernateException e) {

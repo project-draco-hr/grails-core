@@ -1,7 +1,7 @@
 {
   String name=descriptor.getDependencyId().getName();
-  String classifierAttribute=(String)descriptor.getExtraAttribute("m:classifier");
-  String packaging=null;
+  String classifierAttribute=descriptor.getExtraAttribute("m:classifier");
+  String packaging;
   if (classifierAttribute != null && classifierAttribute.equals("plugin")) {
     packaging="xml";
   }

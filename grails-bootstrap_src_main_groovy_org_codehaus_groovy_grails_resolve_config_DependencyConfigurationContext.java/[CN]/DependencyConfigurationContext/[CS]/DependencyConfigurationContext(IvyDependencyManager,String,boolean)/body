@@ -2,4 +2,6 @@
   this.dependencyManager=dependencyManager;
   this.pluginName=pluginName;
   this.inherited=inherited;
+  DependencyDescriptor pluginDependencyDescriptor=pluginName != null ? dependencyManager.getPluginDependencyDescriptor(pluginName) : null;
+  exported=!(pluginDependencyDescriptor instanceof EnhancedDefaultDependencyDescriptor) || ((EnhancedDefaultDependencyDescriptor)pluginDependencyDescriptor).getExported();
 }

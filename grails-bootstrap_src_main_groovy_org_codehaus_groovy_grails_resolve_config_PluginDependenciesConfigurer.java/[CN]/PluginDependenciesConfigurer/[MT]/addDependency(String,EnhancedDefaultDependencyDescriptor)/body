@@ -1,3 +1,6 @@
 {
+  if (context.pluginName != null) {
+    descriptor.setTransitivelyIncluded(true);
+  }
   getDependencyManager().registerPluginDependency(scope,descriptor);
 }

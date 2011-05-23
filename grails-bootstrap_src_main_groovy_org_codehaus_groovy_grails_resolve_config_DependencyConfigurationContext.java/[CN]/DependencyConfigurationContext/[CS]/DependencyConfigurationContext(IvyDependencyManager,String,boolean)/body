@@ -2,6 +2,11 @@
   this.dependencyManager=dependencyManager;
   this.pluginName=pluginName;
   this.inherited=inherited;
-  DependencyDescriptor pluginDependencyDescriptor=pluginName != null ? dependencyManager.getPluginDependencyDescriptor(pluginName) : null;
-  exported=!(pluginDependencyDescriptor instanceof EnhancedDefaultDependencyDescriptor) || ((EnhancedDefaultDependencyDescriptor)pluginDependencyDescriptor).getExported();
+  if (pluginName != null) {
+    DependencyDescriptor pluginDependencyDescriptor=dependencyManager.getPluginDependencyDescriptor(pluginName);
+    exported=Metadata.getCurrent().getInstalledPlugins().containsKey(pluginName) || !(pluginDependencyDescriptor instanceof EnhancedDefaultDependencyDescriptor) || ((EnhancedDefaultDependencyDescriptor)pluginDependencyDescriptor).getExported();
+  }
+ else {
+    exported=true;
+  }
 }

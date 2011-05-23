@@ -1,6 +1,15 @@
 {
+  boolean isValidMethod=true;
   if (OPERATOR_OR.equals(operatorInUse)) {
-    throw new UnsupportedOperationException("'Or' expressions are not allowed in findOrCreateBy queries.");
+    isValidMethod=false;
+  }
+  Iterator iterator=expressions.iterator();
+  while (isValidMethod && iterator.hasNext()) {
+    GrailsMethodExpression gme=(GrailsMethodExpression)iterator.next();
+    isValidMethod=GrailsMethodExpression.EQUAL.equals(gme.type);
+  }
+  if (!isValidMethod) {
+    throw new MissingMethodException(methodName,clazz,arguments);
   }
   Object result=super.doInvokeInternalWithExpressions(clazz,methodName,arguments,expressions,operatorInUse,additionalCriteria);
   if (result == null) {

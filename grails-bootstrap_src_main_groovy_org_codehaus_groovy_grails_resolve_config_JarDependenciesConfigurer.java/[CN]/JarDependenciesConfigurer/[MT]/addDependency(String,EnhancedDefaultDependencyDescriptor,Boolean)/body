@@ -1,0 +1,9 @@
+{
+  if (export != null) {
+    descriptor.setExported(export);
+  }
+ else {
+    descriptor.setExport(true);
+  }
+  getDependencyManager().registerDependency(scope,descriptor);
+}

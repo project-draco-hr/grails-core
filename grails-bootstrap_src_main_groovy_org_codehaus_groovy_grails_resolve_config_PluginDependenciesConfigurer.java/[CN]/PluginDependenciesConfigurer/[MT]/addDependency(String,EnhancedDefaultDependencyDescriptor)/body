@@ -2,11 +2,5 @@
   if (context.pluginName != null) {
     descriptor.setTransitivelyIncluded(true);
   }
-  if (export != null) {
-    descriptor.setExported(export);
-  }
- else {
-    descriptor.setExport(context.exported);
-  }
   getDependencyManager().registerPluginDependency(scope,descriptor);
 }

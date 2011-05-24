@@ -24,6 +24,7 @@
     mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
   }
   EnhancedDefaultDependencyDescriptor dependencyDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,transitive,scope);
+  handleExport(dependencyDescriptor,export);
   boolean inherited=context.inherited || context.dependencyManager.getInheritsAll() || context.pluginName != null;
   dependencyDescriptor.setInherited(inherited);
   if (context.pluginName != null) {
@@ -32,5 +33,5 @@
   if (configurer != null) {
     dependencyDescriptor.configure(configurer);
   }
-  addDependency(scope,dependencyDescriptor,export);
+  addDependency(scope,dependencyDescriptor);
 }

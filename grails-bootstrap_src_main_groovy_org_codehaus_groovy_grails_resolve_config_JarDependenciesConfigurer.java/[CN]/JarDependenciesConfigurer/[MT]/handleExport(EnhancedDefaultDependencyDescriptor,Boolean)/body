@@ -5,5 +5,4 @@
  else {
     descriptor.setExport(true);
   }
-  getDependencyManager().registerDependency(scope,descriptor);
 }

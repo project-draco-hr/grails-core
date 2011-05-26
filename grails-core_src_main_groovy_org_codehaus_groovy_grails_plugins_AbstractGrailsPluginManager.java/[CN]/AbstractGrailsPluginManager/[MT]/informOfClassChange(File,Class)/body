@@ -11,6 +11,11 @@
     }
   }
  else {
+    MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+    registry.removeMetaClass(cls);
+    ExpandoMetaClass newMc=new ExpandoMetaClass(cls,true,true);
+    newMc.initialize();
+    registry.setMetaClass(cls,newMc);
     for (    GrailsPlugin grailsPlugin : pluginList) {
       if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {
         if (cls != null) {

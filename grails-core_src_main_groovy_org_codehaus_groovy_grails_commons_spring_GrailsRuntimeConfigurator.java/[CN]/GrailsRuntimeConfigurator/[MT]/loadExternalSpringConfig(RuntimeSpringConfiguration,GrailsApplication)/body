@@ -12,6 +12,7 @@
         springGroovyResourcesBeanBuilder.setBinding(new Binding(new HashMap(){
 {
             put("application",application);
+            put("grailsApplication",application);
           }
         }
 ));

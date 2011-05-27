@@ -4,7 +4,7 @@
     final GrailsPlugin plugin=pluginManager.getPluginForInstance(controller);
     if (plugin instanceof BinaryGrailsPlugin) {
       BinaryGrailsPlugin binaryGrailsPlugin=(BinaryGrailsPlugin)plugin;
-      Class viewClass=binaryGrailsPlugin.resolveView(gspView);
+      Class<?> viewClass=binaryGrailsPlugin.resolveView(gspView);
       if (viewClass != null) {
         v=createGroovyPageView(webRequest,gspView,viewClass);
       }

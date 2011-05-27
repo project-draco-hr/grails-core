@@ -26,9 +26,7 @@
             if (arguments.length == 0) {
               return super.invoke(apiInstance,new Object[]{object});
             }
- else {
-              return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
-            }
+            return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
           }
           private Object[] checkForGStrings(          Object[] arguments){
             for (int i=0; i < arguments.length; i++) {

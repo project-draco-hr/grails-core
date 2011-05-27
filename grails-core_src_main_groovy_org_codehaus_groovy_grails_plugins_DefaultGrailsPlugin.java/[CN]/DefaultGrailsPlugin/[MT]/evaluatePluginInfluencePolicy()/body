@@ -1,8 +1,0 @@
-{
-  if (pluginBean.isReadableProperty(INFLUENCES)) {
-    List influencedList=(List)pluginBean.getPropertyValue(INFLUENCES);
-    if (influencedList != null) {
-      influencedPluginNames=(String[])influencedList.toArray(new String[influencedList.size()]);
-    }
-  }
-}

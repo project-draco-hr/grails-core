@@ -1,7 +1,7 @@
 {
-  Closure action;
+  Closure<?> action;
   try {
-    action=(Closure)controller.getProperty(actionName);
+    action=(Closure<?>)controller.getProperty(actionName);
   }
  catch (  MissingPropertyException mpe) {
     try {

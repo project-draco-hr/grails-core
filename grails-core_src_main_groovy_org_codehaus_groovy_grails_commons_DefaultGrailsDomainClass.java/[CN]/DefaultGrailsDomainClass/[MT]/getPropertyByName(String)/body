@@ -1,5 +1,7 @@
 {
   GrailsDomainClassProperty persistentProperty=getPersistentProperty(name);
-  if (persistentProperty == null)   throw new InvalidPropertyException("No property found for name [" + name + "] for class ["+ getClazz()+ "]");
+  if (persistentProperty == null) {
+    throw new InvalidPropertyException("No property found for name [" + name + "] for class ["+ getClazz()+ "]");
+  }
   return persistentProperty;
 }

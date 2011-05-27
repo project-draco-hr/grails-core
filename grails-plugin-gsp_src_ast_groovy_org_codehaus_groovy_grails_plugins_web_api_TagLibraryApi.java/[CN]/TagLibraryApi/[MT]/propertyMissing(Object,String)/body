@@ -10,7 +10,7 @@
     if (tagLibrary != null) {
       Object tagProperty=tagLibrary.getProperty(name);
       if (tagProperty instanceof Closure) {
-        result=((Closure)tagProperty).clone();
+        result=((Closure<?>)tagProperty).clone();
       }
     }
   }

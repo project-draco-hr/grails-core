@@ -3,7 +3,5 @@
   if (dc != null) {
     return DataBindingUtils.bindObjectToDomainInstance(dc,instance,bindingSource);
   }
- else {
-    return DataBindingUtils.bindObjectToInstance(instance,bindingSource);
-  }
+  return DataBindingUtils.bindObjectToInstance(instance,bindingSource);
 }

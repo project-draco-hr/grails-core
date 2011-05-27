@@ -3,12 +3,10 @@
   if (GrailsUtil.isDevelopmentEnv()) {
     return createGrailsView(viewName);
   }
- else {
-    View view=VIEW_CACHE.get(viewName);
-    if (view == null || (templateEngine.isReloadEnabled() && view instanceof GroovyPageView && ((GroovyPageView)view).isExpired())) {
-      view=createGrailsView(viewName);
-    }
-    VIEW_CACHE.put(viewName,view);
-    return view;
+  View view=VIEW_CACHE.get(viewName);
+  if (view == null || (templateEngine.isReloadEnabled() && view instanceof GroovyPageView && ((GroovyPageView)view).isExpired())) {
+    view=createGrailsView(viewName);
   }
+  VIEW_CACHE.put(viewName,view);
+  return view;
 }

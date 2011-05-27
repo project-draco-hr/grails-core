@@ -1,8 +1,8 @@
 {
   String[] validInputs=null;
   if (inputRequest instanceof MultipleChoiceInputRequest) {
-    Vector choices=((MultipleChoiceInputRequest)inputRequest).getChoices();
-    validInputs=(String[])choices.toArray(new String[choices.size()]);
+    @SuppressWarnings("unchecked") Vector<String> choices=((MultipleChoiceInputRequest)inputRequest).getChoices();
+    validInputs=choices.toArray(new String[choices.size()]);
   }
   String result=commandLineHelper.userInput(inputRequest.getPrompt(),validInputs);
   inputRequest.setInput(result);

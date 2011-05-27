@@ -1,6 +1,8 @@
 {
   Method action=ReflectionUtils.findMethod(controller.getClass(),actionName,NOARGS);
-  if (action != null)   ReflectionUtils.makeAccessible(action);
+  if (action != null) {
+    ReflectionUtils.makeAccessible(action);
+  }
   if (action == null || action.getAnnotation(Action.class) == null) {
     try {
       response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -10,7 +12,5 @@
       throw new ControllerExecutionException("I/O error sending 404 error",e);
     }
   }
- else {
-    return action;
-  }
+  return action;
 }

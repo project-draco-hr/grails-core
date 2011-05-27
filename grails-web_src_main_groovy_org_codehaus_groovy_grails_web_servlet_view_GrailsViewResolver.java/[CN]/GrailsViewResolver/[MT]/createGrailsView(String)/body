@@ -16,10 +16,8 @@
       if (v != null) {
         return v;
       }
- else {
-        gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-        res=loader.getResource(gspView);
-      }
+      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
+      res=loader.getResource(gspView);
     }
   }
   if (res == null || !res.exists()) {
@@ -30,10 +28,8 @@
       if (v != null) {
         return v;
       }
- else {
-        gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-        res=loader.getResource(gspView);
-      }
+      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
+      res=loader.getResource(gspView);
     }
   }
   if (res.exists()) {

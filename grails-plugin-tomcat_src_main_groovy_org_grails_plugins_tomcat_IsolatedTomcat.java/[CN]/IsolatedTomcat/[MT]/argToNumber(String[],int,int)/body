@@ -7,7 +7,5 @@
       return orDefault;
     }
   }
- else {
-    return orDefault;
-  }
+  return orDefault;
 }

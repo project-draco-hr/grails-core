@@ -7,7 +7,7 @@
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  LinkGenerator linkGenerator=getLinkGenerator(webRequest);
+  LinkGenerator requestLinkGenerator=getLinkGenerator(webRequest);
   HttpServletRequest request=webRequest.getCurrentRequest();
   if (request.getAttribute(GRAILS_REDIRECT_ISSUED) != null) {
     throw new CannotRedirectException("Cannot issue a redirect(..) here. A previous call to redirect(..) has already redirected the response.");
@@ -31,5 +31,5 @@
     argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
   }
   argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
-  return redirectResponse(linkGenerator.getServerBaseURL(),linkGenerator.link(argMap),request,response,permanent);
+  return redirectResponse(requestLinkGenerator.getServerBaseURL(),requestLinkGenerator.link(argMap),request,response,permanent);
 }

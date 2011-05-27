@@ -5,7 +5,5 @@
     Association association=(Association)property;
     return new HibernateQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity());
   }
- else {
-    throw new InvalidDataAccessApiUsageException("Cannot query association [" + associationName + "] of entity ["+ entity+ "]. Property is not an association!");
-  }
+  throw new InvalidDataAccessApiUsageException("Cannot query association [" + associationName + "] of entity ["+ entity+ "]. Property is not an association!");
 }

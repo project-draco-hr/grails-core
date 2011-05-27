@@ -1,6 +1,8 @@
 {
-  if (this.writingAttribute && i == '"') {
-    this.writer.write("&quot;");
+  if (writingAttribute && i == '"') {
+    writer.write("&quot;");
   }
- else   super.write(i);
+ else {
+    super.write(i);
+  }
 }

@@ -1,6 +1,6 @@
 {
   try {
-    return this.descriptor.createRelative(".");
+    return descriptor.createRelative(".");
   }
  catch (  IOException e) {
     return null;

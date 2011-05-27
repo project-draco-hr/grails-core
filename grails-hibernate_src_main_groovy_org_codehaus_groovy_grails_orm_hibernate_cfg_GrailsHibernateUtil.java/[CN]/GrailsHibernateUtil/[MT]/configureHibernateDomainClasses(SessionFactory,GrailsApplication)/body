@@ -1,6 +1,5 @@
 {
   Map<String,GrailsDomainClass> hibernateDomainClassMap=new HashMap<String,GrailsDomainClass>();
-  ArtefactHandler artefactHandler=application.getArtefactHandler(DomainClassArtefactHandler.TYPE);
   for (  Object o : sessionFactory.getAllClassMetadata().values()) {
     ClassMetadata classMetadata=(ClassMetadata)o;
     configureDomainClass(sessionFactory,application,classMetadata,classMetadata.getMappedClass(EntityMode.POJO),hibernateDomainClassMap);

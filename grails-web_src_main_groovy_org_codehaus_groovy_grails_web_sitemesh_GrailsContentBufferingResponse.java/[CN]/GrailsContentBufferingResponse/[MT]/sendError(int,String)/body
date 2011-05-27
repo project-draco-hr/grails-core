@@ -1,7 +1,9 @@
 {
   GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
   try {
-    if (!redirectCalled && !isCommitted())     super.sendError(sc,msg);
+    if (!redirectCalled && !isCommitted()) {
+      super.sendError(sc,msg);
+    }
   }
   finally {
     WebUtils.storeGrailsWebRequest(webRequest);

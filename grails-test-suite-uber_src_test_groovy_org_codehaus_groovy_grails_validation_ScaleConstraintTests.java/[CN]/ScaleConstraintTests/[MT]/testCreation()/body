@@ -1,5 +1,5 @@
 {
-  ScaleConstraint constraint=(ScaleConstraint)getConstraint("testFloat",new Integer(2));
+  ScaleConstraint constraint=(ScaleConstraint)getConstraint("testFloat",2);
   assertEquals(ConstrainedProperty.SCALE_CONSTRAINT,constraint.getName());
   assertTrue(constraint.supports(BigDecimal.class));
   assertTrue(constraint.supports(Float.class));
@@ -15,7 +15,7 @@
  catch (  IllegalArgumentException iae) {
   }
   try {
-    getConstraint("testFloat",new Integer(-1));
+    getConstraint("testFloat",-1);
     fail("EmailConstraint must throw an exception for negative parameters.");
   }
  catch (  IllegalArgumentException iae) {

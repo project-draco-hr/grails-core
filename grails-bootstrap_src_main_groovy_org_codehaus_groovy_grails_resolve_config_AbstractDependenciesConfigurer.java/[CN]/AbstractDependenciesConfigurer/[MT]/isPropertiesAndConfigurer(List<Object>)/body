@@ -2,7 +2,5 @@
   if (args.size() == 1) {
     return false;
   }
- else {
-    return isProperties(args.subList(0,args.size() - 1)) && args.get(args.size() - 1) instanceof Closure;
-  }
+  return isProperties(args.subList(0,args.size() - 1)) && args.get(args.size() - 1) instanceof Closure;
 }

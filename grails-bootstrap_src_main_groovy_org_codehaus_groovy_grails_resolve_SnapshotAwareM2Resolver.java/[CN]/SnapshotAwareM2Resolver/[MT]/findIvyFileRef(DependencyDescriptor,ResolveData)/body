@@ -12,7 +12,5 @@
     rres=findResourceUsingPatterns(mrid,getIvyPatterns(),DefaultArtifact.newPomArtifact(mrid,data.getDate()),getRMDParser(dd,data),data.getDate());
     return rres;
   }
- else {
-    return null;
-  }
+  return null;
 }

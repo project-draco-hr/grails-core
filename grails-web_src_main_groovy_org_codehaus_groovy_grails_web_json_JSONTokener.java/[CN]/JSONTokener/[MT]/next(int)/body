@@ -5,5 +5,5 @@
     throw syntaxError("Substring bounds error");
   }
   this.myIndex+=n;
-  return this.mySource.substring(i,j);
+  return mySource.substring(i,j);
 }

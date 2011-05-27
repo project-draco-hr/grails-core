@@ -1,5 +1,5 @@
 {
-  final List resolvers=chainResolver.getResolvers();
+  @SuppressWarnings("unchecked") final List<Object> resolvers=chainResolver.getResolvers();
   for (  Object resolver : resolvers) {
     if (resolver instanceof GrailsRepoResolver) {
       final GrailsRepoResolver grailsRepoResolver=(GrailsRepoResolver)resolver;

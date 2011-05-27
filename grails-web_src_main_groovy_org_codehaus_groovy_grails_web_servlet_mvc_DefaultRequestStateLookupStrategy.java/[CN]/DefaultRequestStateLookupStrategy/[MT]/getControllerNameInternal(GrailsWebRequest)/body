@@ -1,6 +1,6 @@
 {
-  if (webRequest != null) {
-    return webRequest.getControllerName();
+  if (req != null) {
+    return req.getControllerName();
   }
   return null;
 }

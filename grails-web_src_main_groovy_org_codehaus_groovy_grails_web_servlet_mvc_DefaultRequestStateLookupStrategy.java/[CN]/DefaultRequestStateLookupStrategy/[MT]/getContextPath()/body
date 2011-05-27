@@ -1,7 +1,7 @@
 {
-  final GrailsWebRequest webRequest=getWebRequest();
-  if (webRequest != null) {
-    return webRequest.getContextPath();
+  final GrailsWebRequest req=getWebRequest();
+  if (req != null) {
+    return req.getContextPath();
   }
   return null;
 }

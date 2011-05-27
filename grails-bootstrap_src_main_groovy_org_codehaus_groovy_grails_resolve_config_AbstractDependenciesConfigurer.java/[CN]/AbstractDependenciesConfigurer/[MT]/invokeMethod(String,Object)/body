@@ -15,10 +15,10 @@
     addDependencyMaps(name,argsList,null);
   }
  else   if (isStringsAndConfigurer(argsList)) {
-    addDependencyStrings(name,argsList.subList(0,argsList.size() - 1),null,(Closure)argsList.get(argsList.size() - 1));
+    addDependencyStrings(name,argsList.subList(0,argsList.size() - 1),null,(Closure<?>)argsList.get(argsList.size() - 1));
   }
  else   if (isPropertiesAndConfigurer(argsList)) {
-    addDependencyMaps(name,argsList.subList(0,argsList.size() - 1),(Closure)argsList.get(argsList.size() - 1));
+    addDependencyMaps(name,argsList.subList(0,argsList.size() - 1),(Closure<?>)argsList.get(argsList.size() - 1));
   }
  else   if (isStringsAndProperties(argsList)) {
     addDependencyStrings(name,argsList.subList(0,argsList.size() - 1),(Map<Object,Object>)argsList.get(argsList.size() - 1),null);

@@ -1,11 +1,9 @@
 {
-  TagLibraryLookup tagLibraryLookup=getTagLibraryLookup();
-  NamespacedTagDispatcher namespacedTagDispatcher=tagLibraryLookup.lookupNamespaceDispatcher(propertyName);
+  TagLibraryLookup lookup=getTagLibraryLookup();
+  NamespacedTagDispatcher namespacedTagDispatcher=lookup.lookupNamespaceDispatcher(propertyName);
   if (namespacedTagDispatcher != null) {
     WebMetaUtils.registerPropertyMissingForTag(GrailsMetaClassUtils.getMetaClass(instance),propertyName,namespacedTagDispatcher);
     return namespacedTagDispatcher;
   }
- else {
-    throw new MissingPropertyException(propertyName,instance.getClass());
-  }
+  throw new MissingPropertyException(propertyName,instance.getClass());
 }

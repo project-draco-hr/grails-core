@@ -1,21 +1,21 @@
 {
   Method mAction=ReflectionUtils.findMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
-  if (mAction != null)   ReflectionUtils.makeAccessible(mAction);
+  if (mAction != null) {
+    ReflectionUtils.makeAccessible(mAction);
+  }
   if (mAction != null && mAction.getAnnotation(Action.class) != null) {
     return mAction;
   }
- else {
+  try {
+    return controller.getProperty(actionName);
+  }
+ catch (  MissingPropertyException mpe) {
     try {
-      return controller.getProperty(actionName);
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return null;
     }
- catch (    MissingPropertyException mpe) {
-      try {
-        response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        return null;
-      }
- catch (      IOException e) {
-        throw new ControllerExecutionException("I/O error sending 404 error",e);
-      }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 404 error",e);
     }
   }
 }

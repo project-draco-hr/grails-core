@@ -6,7 +6,7 @@
     if (sharedConstraintReference != null) {
       Object o=defaultConstraints.get(sharedConstraintReference);
       if (o instanceof Map) {
-        Map<String,Object> constraintsWithinSharedConstraint=(Map)o;
+        @SuppressWarnings({"unchecked","rawtypes"}) Map<String,Object> constraintsWithinSharedConstraint=(Map)o;
         for (        Map.Entry<String,Object> e : constraintsWithinSharedConstraint.entrySet()) {
           constrainedProperty.applyConstraint(e.getKey(),e.getValue());
         }

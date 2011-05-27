@@ -8,7 +8,5 @@
     }
     return metaClass;
   }
- else {
-    return getExpandoMetaClass(instance.getClass());
-  }
+  return getExpandoMetaClass(instance.getClass());
 }

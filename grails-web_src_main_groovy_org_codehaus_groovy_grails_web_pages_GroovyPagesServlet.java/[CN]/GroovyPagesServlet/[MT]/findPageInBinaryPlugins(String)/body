@@ -1,6 +1,6 @@
 {
   if (pageName != null) {
-    Class pageClass=binaryPluginViewsMap.get(pageName);
+    Class<?> pageClass=binaryPluginViewsMap.get(pageName);
     if (pageClass == null && pluginManager != null) {
       final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
       for (      GrailsPlugin plugin : allPlugins) {

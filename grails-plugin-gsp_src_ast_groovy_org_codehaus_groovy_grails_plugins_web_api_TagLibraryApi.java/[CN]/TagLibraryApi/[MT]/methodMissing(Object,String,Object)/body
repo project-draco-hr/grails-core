@@ -2,14 +2,14 @@
   Object[] args=argsObject instanceof Object[] ? (Object[])argsObject : new Object[]{argsObject};
   MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
   String usednamespace=getNamespace(instance);
-  TagLibraryLookup tagLibraryLookup=getTagLibraryLookup();
-  Object tagLibrary=tagLibraryLookup.lookupTagLibrary(usednamespace,methodName);
+  TagLibraryLookup lookup=getTagLibraryLookup();
+  Object tagLibrary=lookup.lookupTagLibrary(usednamespace,methodName);
   if (tagLibrary == null) {
-    tagLibrary=tagLibraryLookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
+    tagLibrary=lookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
     usednamespace=GroovyPage.DEFAULT_NAMESPACE;
   }
   if (tagLibrary != null) {
-    WebMetaUtils.registerMethodMissingForTags(mc,tagLibraryLookup,usednamespace,methodName);
+    WebMetaUtils.registerMethodMissingForTags(mc,lookup,usednamespace,methodName);
   }
   if (mc.respondsTo(instance,methodName,args).size() > 0) {
     return mc.invokeMethod(instance,methodName,args);

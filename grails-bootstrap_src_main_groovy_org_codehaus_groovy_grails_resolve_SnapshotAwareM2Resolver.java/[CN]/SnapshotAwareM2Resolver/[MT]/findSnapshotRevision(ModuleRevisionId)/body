@@ -12,7 +12,7 @@
         final StringBuffer timestamp=new StringBuffer();
         final StringBuffer buildNumer=new StringBuffer();
         XMLHelper.parse(metadataStream,null,new ContextualSAXHandler(){
-          public void endElement(          String uri,          String localName,          String qName) throws SAXException {
+          @Override public void endElement(          String uri,          String localName,          String qName) throws SAXException {
             if ("metadata/versioning/lastUpdated".equals(getContext())) {
               timestamp.append(getText());
             }
@@ -26,8 +26,7 @@
         if (timestamp.length() > 0) {
           String rev=mrid.getRevision();
           rev=rev.substring(0,rev.length() - "-SNAPSHOT".length());
-          SnapshotRevision version=new SnapshotRevision(rev,Long.parseLong(timestamp.toString()),Long.parseLong(buildNumer.toString()));
-          return version;
+          return new SnapshotRevision(rev,Long.parseLong(timestamp.toString()),Long.parseLong(buildNumer.toString()));
         }
       }
  else {

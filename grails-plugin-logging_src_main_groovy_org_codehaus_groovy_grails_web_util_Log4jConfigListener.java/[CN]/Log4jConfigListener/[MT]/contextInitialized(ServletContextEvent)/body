@@ -8,7 +8,7 @@
       if (co != null) {
         Object o=co.get("log4j");
         if (o instanceof Closure) {
-          new Log4jConfig().configure((Closure)o);
+          new Log4jConfig().configure((Closure<?>)o);
         }
  else {
           new Log4jConfig().configure();

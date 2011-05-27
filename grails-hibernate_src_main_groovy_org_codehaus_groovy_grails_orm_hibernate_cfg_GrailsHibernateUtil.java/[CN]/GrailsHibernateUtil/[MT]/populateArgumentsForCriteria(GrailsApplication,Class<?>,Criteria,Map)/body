@@ -42,7 +42,7 @@
     c.setCacheable(true);
   }
   if (GrailsClassUtils.getBooleanFromMap(ARGUMENT_LOCK,argMap)) {
-    c.setLockMode(LockMode.UPGRADE);
+    c.setLockMode(LockMode.PESSIMISTIC_WRITE);
   }
  else {
     if (argMap.get(ARGUMENT_CACHE) == null) {

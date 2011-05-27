@@ -11,9 +11,7 @@
       sfp.afterPropertiesSet();
       return sfp;
     }
- else {
-      return sf;
-    }
+    return sf;
   }
  catch (  HibernateException e) {
     Throwable cause=e.getCause();

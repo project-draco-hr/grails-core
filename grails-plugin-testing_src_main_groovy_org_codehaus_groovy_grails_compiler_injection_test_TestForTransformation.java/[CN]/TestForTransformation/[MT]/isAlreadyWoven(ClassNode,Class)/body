@@ -9,9 +9,7 @@
     if (mixinClasses.contains(mixinClass)) {
       return true;
     }
- else {
-      mixinClasses.add(mixinClass);
-    }
+    mixinClasses.add(mixinClass);
   }
   return false;
 }

@@ -11,7 +11,7 @@
     String className=GrailsResourceUtils.getClassName(file.getAbsolutePath());
     if (className != null) {
       classChangeEventQueue.put(className,new ClassUpdate(){
-        public void run(        Class cls){
+        public void run(        Class<?> cls){
           try {
             pluginManager.informOfClassChange(file,cls);
           }

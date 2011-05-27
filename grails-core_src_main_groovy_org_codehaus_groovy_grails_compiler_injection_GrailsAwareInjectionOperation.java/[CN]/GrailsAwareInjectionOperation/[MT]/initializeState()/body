@@ -20,7 +20,7 @@ catch (      IllegalAccessException e) {
       }
     }
     Collections.sort(classInjectorList,new Comparator<ClassInjector>(){
-      public int compare(      ClassInjector classInjectorA,      ClassInjector classInjectorB){
+      @SuppressWarnings({"unchecked","rawtypes"}) public int compare(      ClassInjector classInjectorA,      ClassInjector classInjectorB){
         if (classInjectorA instanceof Comparable) {
           return ((Comparable)classInjectorA).compareTo(classInjectorB);
         }

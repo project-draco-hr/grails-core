@@ -12,7 +12,7 @@
   final Setter idSetter=identifierProperty != null ? identifierProperty.getSetter(javaClass) : null;
   if (idGetter == null || idSetter == null)   return null;
   try {
-    proxyFactory.postInstantiate(persistentClass.getEntityName(),javaClass,proxyInterfaces,idGetter.getMethod(),idSetter.getMethod(),persistentClass.hasEmbeddedIdentifier() ? (AbstractComponentType)persistentClass.getIdentifier().getType() : null);
+    proxyFactory.postInstantiate(persistentClass.getEntityName(),javaClass,proxyInterfaces,idGetter.getMethod(),idSetter.getMethod(),persistentClass.hasEmbeddedIdentifier() ? (CompositeType)persistentClass.getIdentifier().getType() : null);
   }
  catch (  HibernateException e) {
     LOG.warn("Cannot instantiate proxy factory: " + e.getMessage());

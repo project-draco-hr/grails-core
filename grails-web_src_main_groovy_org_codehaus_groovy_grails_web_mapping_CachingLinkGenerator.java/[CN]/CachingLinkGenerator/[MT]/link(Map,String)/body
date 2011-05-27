@@ -2,13 +2,11 @@
   if (!isCacheable(attrs)) {
     return super.link(attrs,encoding);
   }
- else {
-    final String key=LINK_PREFIX + createKey(attrs);
-    Object resourceLink=linkCache.get(key);
-    if (resourceLink == null) {
-      resourceLink=super.link(attrs,encoding);
-      linkCache.put(key,resourceLink);
-    }
-    return resourceLink.toString();
+  final String key=LINK_PREFIX + createKey(attrs);
+  Object resourceLink=linkCache.get(key);
+  if (resourceLink == null) {
+    resourceLink=super.link(attrs,encoding);
+    linkCache.put(key,resourceLink);
   }
+  return resourceLink.toString();
 }

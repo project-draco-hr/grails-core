@@ -58,5 +58,7 @@
       }
     }
   }
-  if (classNode.getAnnotations(ENHANCED_CLASS_NODE).isEmpty())   classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
+  if (classNode.getAnnotations(ENHANCED_CLASS_NODE).isEmpty()) {
+    classNode.addAnnotation(new AnnotationNode(ENHANCED_CLASS_NODE));
+  }
 }

@@ -1,7 +1,7 @@
 {
-  final GrailsWebRequest webRequest=getWebRequest();
-  if (webRequest != null) {
-    return webRequest.getCurrentRequest().getCharacterEncoding();
+  final GrailsWebRequest req=getWebRequest();
+  if (req != null) {
+    return req.getCurrentRequest().getCharacterEncoding();
   }
   return DEFAULT_REQUEST_ENCODING;
 }

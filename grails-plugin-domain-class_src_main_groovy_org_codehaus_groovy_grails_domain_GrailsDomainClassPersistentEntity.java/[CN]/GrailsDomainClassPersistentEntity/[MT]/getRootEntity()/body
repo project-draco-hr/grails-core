@@ -1,10 +1,8 @@
 {
   if (isRoot())   return this;
- else {
-    PersistentEntity parent=getParentEntity();
-    while (!parent.isRoot()) {
-      parent=parent.getParentEntity();
-    }
-    return parent;
+  PersistentEntity parent=getParentEntity();
+  while (!parent.isRoot()) {
+    parent=parent.getParentEntity();
   }
+  return parent;
 }

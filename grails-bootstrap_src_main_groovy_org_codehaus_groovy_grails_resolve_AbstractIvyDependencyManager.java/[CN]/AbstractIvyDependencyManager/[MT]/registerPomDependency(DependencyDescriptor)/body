@@ -1,9 +1,6 @@
 {
   ModuleRevisionId moduleRevisionId=dependencyDescriptor.getDependencyRevisionId();
   ModuleId moduleId=moduleRevisionId.getModuleId();
-  String groupId=moduleRevisionId.getOrganisation();
-  String artifactId=moduleRevisionId.getName();
-  String version=moduleRevisionId.getRevision();
   String scope=Arrays.asList(dependencyDescriptor.getModuleConfigurations()).get(0);
   if (!hasDependency(moduleId)) {
     EnhancedDefaultDependencyDescriptor enhancedDependencyDescriptor=new EnhancedDefaultDependencyDescriptor(moduleRevisionId,false,true,scope);

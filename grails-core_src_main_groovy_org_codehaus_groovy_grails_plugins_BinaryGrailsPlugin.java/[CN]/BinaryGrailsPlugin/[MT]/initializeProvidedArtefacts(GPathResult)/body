@@ -1,5 +1,5 @@
 {
-  java.util.List<Class> providedArtefacts=new ArrayList<Class>();
+  @SuppressWarnings("hiding") List<Class> providedArtefacts=new ArrayList<Class>();
   providedArtefacts.addAll(Arrays.asList(super.getProvidedArtefacts()));
   if (descriptor != null) {
     GPathResult resources=(GPathResult)descriptor.getProperty("resources");

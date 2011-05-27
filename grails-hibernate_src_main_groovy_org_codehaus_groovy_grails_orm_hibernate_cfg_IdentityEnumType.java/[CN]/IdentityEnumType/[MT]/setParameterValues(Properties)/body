@@ -5,7 +5,7 @@
       LOG.debug(String.format("Building ID-mapping for Enum Class %s",enumClass.getName()));
     }
     bidiMap=getBidiEnumMap(enumClass);
-    type=(AbstractStandardBasicType)typeResolver.basic(bidiMap.keyType.getName());
+    type=(AbstractStandardBasicType<?>)typeResolver.basic(bidiMap.keyType.getName());
     if (LOG.isDebugEnabled()) {
       LOG.debug(String.format("Mapped Basic Type is %s",type));
     }

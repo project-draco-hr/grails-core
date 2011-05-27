@@ -4,8 +4,7 @@
     ClassLoader parent=application.getClassLoader();
     GroovyClassLoader gcl=new GroovyClassLoader(parent);
     try {
-      Class pluginClass=gcl.parseClass(descriptor.getFile());
-      initialisePlugin(pluginClass);
+      initialisePlugin(gcl.parseClass(descriptor.getFile()));
     }
  catch (    Exception e) {
       GrailsUtil.deepSanitize(e);

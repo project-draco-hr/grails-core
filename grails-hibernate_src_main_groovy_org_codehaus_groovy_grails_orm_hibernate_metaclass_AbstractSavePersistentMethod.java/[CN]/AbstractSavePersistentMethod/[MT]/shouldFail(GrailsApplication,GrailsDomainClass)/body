@@ -1,6 +1,6 @@
 {
   boolean shouldFail=false;
-  final Map config=application.getFlatConfig();
+  final Map config=grailsApplication.getFlatConfig();
   if (config.containsKey(FAIL_ON_ERROR_CONFIG_PROPERTY)) {
     Object configProperty=config.get(FAIL_ON_ERROR_CONFIG_PROPERTY);
     if (configProperty instanceof Boolean) {

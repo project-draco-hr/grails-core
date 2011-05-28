@@ -1,0 +1,25 @@
+{
+  Decorator d=null;
+  Object layoutProperty=GrailsClassUtils.getStaticPropertyValue(controller.getClass(),"layout");
+  if (layoutProperty instanceof CharSequence) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("layout property found in controller, looking for template named " + layoutProperty);
+    }
+    d=getNamedDecorator(request,layoutProperty.toString());
+  }
+ else {
+    if (d == null && !StringUtils.isBlank(actionUri)) {
+      d=getNamedDecorator(request,actionUri.substring(1));
+    }
+    if (d == null && !StringUtils.isBlank(controllerName)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Action layout not found, trying controller");
+      }
+      d=getNamedDecorator(request,controllerName);
+    }
+    if (d == null) {
+      d=getApplicationDefaultDecorator(request);
+    }
+  }
+  return d;
+}

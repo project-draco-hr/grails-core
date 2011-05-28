@@ -1,0 +1,3 @@
+{
+  return System.currentTimeMillis() - createTimestamp > LAYOUT_CACHE_EXPIRATION_MILLIS;
+}

@@ -1,8 +1,0 @@
-{
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Using decorator " + decoratorPage);
-  }
-  Decorator d=new DefaultDecorator(decoratorName,decoratorPage,request.getRequestURI(),Collections.EMPTY_MAP);
-  decoratorMap.put(decoratorName,d);
-  return d;
-}

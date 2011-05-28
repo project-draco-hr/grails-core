@@ -1,7 +1,10 @@
 {
   if (StringUtils.isBlank(name))   return null;
-  if (Environment.getCurrent() != Environment.DEVELOPMENT && decoratorMap.containsKey(name)) {
-    return decoratorMap.get(name);
+  if (cacheEnabled) {
+    DecoratorCacheValue cacheValue=decoratorCache.get(name);
+    if (cacheValue != null && (!gspReloadEnabled || !cacheValue.isExpired())) {
+      return cacheValue.getDecorator();
+    }
   }
   String decoratorName=name;
   if (!name.matches("(.+)(\\.)(\\w{2}|\\w{3})")) {
@@ -16,7 +19,7 @@
     res=pathToView != null ? resourceLoader.getResource(pathToView) : null;
     if (res != null && res.exists()) {
       decoratorPage=pathToView;
-      d=useExistingDecorator(request,decoratorName,decoratorPage);
+      d=createDecorator(decoratorName,decoratorPage);
     }
  else {
       String pluginViewLocation=searchPluginViews(name,resourceLoader);
@@ -25,12 +28,15 @@
       }
       if (pluginViewLocation != null) {
         decoratorPage=pluginViewLocation;
-        d=useExistingDecorator(request,decoratorName,decoratorPage);
+        d=createDecorator(decoratorName,decoratorPage);
       }
     }
   }
  else {
-    d=useExistingDecorator(request,decoratorName,decoratorPage);
+    d=createDecorator(decoratorName,decoratorPage);
+  }
+  if (cacheEnabled) {
+    decoratorCache.put(name,new DecoratorCacheValue(d));
   }
   return d;
 }

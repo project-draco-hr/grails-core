@@ -1,7 +1,3 @@
 {
-  Assert.state(applicationContext != null,"AbstractPersistentConstraint requires an instance of ApplicationContext, but it was null");
-  if (applicationContext.containsBean("sessionFactory")) {
-    return new HibernateTemplate((SessionFactory)applicationContext.getBean("sessionFactory"),true);
-  }
-  return null;
+  return new HibernateTemplate(applicationContext.getBean(sessionFactoryBeanName,SessionFactory.class),true);
 }

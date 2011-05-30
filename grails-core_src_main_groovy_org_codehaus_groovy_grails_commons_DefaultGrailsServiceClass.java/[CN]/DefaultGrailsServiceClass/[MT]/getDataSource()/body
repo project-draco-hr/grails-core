@@ -1,0 +1,15 @@
+{
+  if (dataSourceName == null) {
+    if (isTransactional()) {
+      CharSequence name=getStaticPropertyValue(DATA_SOURCE,CharSequence.class);
+      dataSourceName=name == null ? null : name.toString();
+      if (dataSourceName == null) {
+        dataSourceName=DEFAULT_DATA_SOURCE;
+      }
+    }
+ else {
+      dataSourceName="";
+    }
+  }
+  return dataSourceName;
+}

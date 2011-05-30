@@ -8,7 +8,7 @@
     }
  else {
       try {
-        namingStrategyClass=this.grailsApplication.getClassLoader().loadClass(customStrategy.toString());
+        namingStrategyClass=grailsApplication.getClassLoader().loadClass(customStrategy.toString());
       }
  catch (      ClassNotFoundException e) {
       }

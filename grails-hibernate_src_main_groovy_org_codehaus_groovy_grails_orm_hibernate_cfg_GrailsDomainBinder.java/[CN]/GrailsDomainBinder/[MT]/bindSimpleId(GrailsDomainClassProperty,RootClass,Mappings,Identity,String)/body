@@ -1,0 +1,29 @@
+{
+  SimpleValue id=new SimpleValue(mappings,entity.getTable());
+  Properties params=new Properties();
+  entity.setIdentifier(id);
+  if (mappedId != null) {
+    id.setIdentifierGeneratorStrategy(mappedId.getGenerator());
+    params.putAll(mappedId.getParams());
+    if ("assigned".equals(mappedId.getGenerator())) {
+      id.setNullValue("undefined");
+    }
+  }
+ else {
+    id.setIdentifierGeneratorStrategy("native");
+  }
+  params.put(PersistentIdentifierGenerator.IDENTIFIER_NORMALIZER,mappings.getObjectNameNormalizer());
+  if (mappings.getSchemaName() != null) {
+    params.setProperty(PersistentIdentifierGenerator.SCHEMA,mappings.getSchemaName());
+  }
+  if (mappings.getCatalogName() != null) {
+    params.setProperty(PersistentIdentifierGenerator.CATALOG,mappings.getCatalogName());
+  }
+  id.setIdentifierGeneratorProperties(params);
+  bindSimpleValue(identifier,null,id,EMPTY_PATH,mappings,sessionFactoryBeanName);
+  Property prop=new Property();
+  prop.setValue(id);
+  bindProperty(identifier,prop,mappings);
+  entity.setIdentifierProperty(prop);
+  id.getTable().setIdentifierValue(id);
+}

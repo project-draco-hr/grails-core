@@ -1,4 +1,4 @@
 {
-  bindCollectionSecondPass(this.property,mappings,persistentClasses,collection);
+  bindCollectionSecondPass(this.property,mappings,persistentClasses,collection,sessionFactoryBeanName);
   createCollectionKeys();
 }

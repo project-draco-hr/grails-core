@@ -1,0 +1,5 @@
+{
+  for (  PersistenceContextInterceptor interceptor : interceptors) {
+    interceptor.clear();
+  }
+}

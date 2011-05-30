@@ -1,0 +1,26 @@
+{
+  if (mappings.getClass(domainClass.getFullName()) == null) {
+    RootClass root=new RootClass();
+    root.setAbstract(Modifier.isAbstract(domainClass.getClazz().getModifiers()));
+    if (!domainClass.hasSubClasses()) {
+      root.setPolymorphic(false);
+    }
+    bindClass(domainClass,root,mappings);
+    Mapping m=getMapping(domainClass);
+    bindRootPersistentClassCommonValues(domainClass,root,mappings,sessionFactoryBeanName);
+    if (!domainClass.getSubClasses().isEmpty()) {
+      boolean tablePerSubclass=m != null && !m.getTablePerHierarchy();
+      if (!tablePerSubclass) {
+        bindDiscriminatorProperty(root.getTable(),root,mappings);
+      }
+      bindSubClasses(domainClass,root,mappings,sessionFactoryBeanName);
+    }
+    if (root.getEntityPersisterClass() == null) {
+      root.setEntityPersisterClass(GroovyAwareSingleTableEntityPersister.class);
+    }
+    mappings.addClass(root);
+  }
+ else {
+    LOG.info("[GrailsDomainBinder] Class [" + domainClass.getFullName() + "] is already mapped, skipping.. ");
+  }
+}

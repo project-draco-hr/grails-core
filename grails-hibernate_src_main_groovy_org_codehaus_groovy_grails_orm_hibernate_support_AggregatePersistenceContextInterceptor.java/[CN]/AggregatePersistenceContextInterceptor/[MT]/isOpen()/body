@@ -1,0 +1,8 @@
+{
+  for (  PersistenceContextInterceptor interceptor : interceptors) {
+    if (interceptor.isOpen()) {
+      return true;
+    }
+  }
+  return false;
+}

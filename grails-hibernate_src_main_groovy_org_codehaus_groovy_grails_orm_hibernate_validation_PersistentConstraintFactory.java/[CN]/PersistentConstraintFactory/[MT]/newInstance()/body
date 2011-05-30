@@ -2,6 +2,7 @@
   try {
     PersistentConstraint instance=(PersistentConstraint)constraintClass.newInstance();
     instance.setApplicationContext(applicationContext);
+    instance.setSessionFactoryBeanName(sessionFactoryBeanName);
     return instance;
   }
  catch (  InstantiationException e) {

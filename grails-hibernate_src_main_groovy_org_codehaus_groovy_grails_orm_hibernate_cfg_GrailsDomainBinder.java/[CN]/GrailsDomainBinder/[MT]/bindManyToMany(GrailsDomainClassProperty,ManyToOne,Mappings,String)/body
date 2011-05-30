@@ -1,0 +1,4 @@
+{
+  bindManyToOne(property,element,EMPTY_PATH,mappings,sessionFactoryBeanName);
+  element.setReferencedEntityName(property.getDomainClass().getFullName());
+}

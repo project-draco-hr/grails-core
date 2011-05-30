@@ -1,8 +1,0 @@
-{
-  Set<GrailsDomainClass> subClasses=domainClass.getSubClasses();
-  for (  GrailsDomainClass sub : subClasses) {
-    if (sub.getClazz().getSuperclass().equals(domainClass.getClazz())) {
-      bindSubClass(sub,parent,mappings);
-    }
-  }
-}

@@ -1,3 +1,3 @@
 {
-  bindMapSecondPass(this.property,mappings,persistentClasses,(org.hibernate.mapping.Map)collection);
+  bindMapSecondPass(property,mappings,persistentClasses,(org.hibernate.mapping.Map)collection,sessionFactoryBeanName);
 }

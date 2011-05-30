@@ -1,0 +1,10 @@
+{
+  Class<?> namingStrategyClass;
+  if (strategy instanceof Class<?>) {
+    namingStrategyClass=(Class<?>)strategy;
+  }
+ else {
+    namingStrategyClass=Thread.currentThread().getContextClassLoader().loadClass(strategy.toString());
+  }
+  NAMING_STRATEGIES.put(datasourceName,(NamingStrategy)namingStrategyClass.newInstance());
+}

@@ -1,0 +1,61 @@
+{
+  NamingStrategy namingStrategy=getNamingStrategy(sessionFactoryBeanName);
+  SimpleValue element;
+  if (property.isBasicCollectionType()) {
+    element=new SimpleValue(mappings,collection.getCollectionTable());
+  }
+ else {
+    element=new ManyToOne(mappings,collection.getCollectionTable());
+    bindUnidirectionalOneToManyInverseValues(property,(ManyToOne)element);
+  }
+  collection.setInverse(false);
+  String columnName;
+  final boolean hasJoinColumnMapping=hasJoinColumnMapping(config);
+  if (property.isBasicCollectionType()) {
+    final Class<?> referencedType=property.getReferencedPropertyType();
+    String className=referencedType.getName();
+    final boolean isEnum=GrailsClassUtils.isJdk5Enum(referencedType);
+    if (hasJoinColumnMapping) {
+      columnName=config.getJoinTable().getColumn().getName();
+    }
+ else {
+      columnName=isEnum ? namingStrategy.propertyToColumnName(className) : addUnderscore(namingStrategy.propertyToColumnName(property.getName()),namingStrategy.propertyToColumnName(className));
+    }
+    if (isEnum) {
+      bindEnumType(property,referencedType,element,columnName);
+    }
+ else {
+      String typeName=getTypeName(property,config,getMapping(property.getDomainClass()));
+      if (typeName == null) {
+        Type type=mappings.getTypeResolver().basic(className);
+        if (type != null) {
+          typeName=type.getName();
+        }
+      }
+      if (typeName == null)       throw new MappingException("Type [" + typeName + "] is not a basic type or a domain class and cannot be mapped. Either specify a type within the [mapping] block or use a basic type (String, Integer etc.)");
+      bindSimpleValue(typeName,element,true,columnName,mappings);
+      if (hasJoinColumnMapping) {
+        bindColumnConfigToColumn(getColumnForSimpleValue(element),config.getJoinTable().getColumn());
+      }
+    }
+  }
+ else {
+    final GrailsDomainClass domainClass=property.getReferencedDomainClass();
+    Mapping m=getMapping(domainClass.getClazz());
+    if (hasCompositeIdentifier(m)) {
+      CompositeIdentity ci=(CompositeIdentity)m.getIdentity();
+      bindCompositeIdentifierToManyToOne(property,element,ci,domainClass,EMPTY_PATH,sessionFactoryBeanName);
+    }
+ else {
+      if (hasJoinColumnMapping) {
+        columnName=config.getJoinTable().getColumn().getName();
+      }
+ else {
+        columnName=namingStrategy.propertyToColumnName(domainClass.getPropertyName()) + FOREIGN_KEY_SUFFIX;
+      }
+      bindSimpleValue("long",element,true,columnName,mappings);
+    }
+  }
+  collection.setElement(element);
+  bindCollectionForPropertyConfig(collection,config);
+}

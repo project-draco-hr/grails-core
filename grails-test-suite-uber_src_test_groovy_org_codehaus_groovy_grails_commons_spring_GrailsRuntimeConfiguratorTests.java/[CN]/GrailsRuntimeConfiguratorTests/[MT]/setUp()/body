@@ -1,5 +1,7 @@
 {
   ExpandoMetaClass.enableGlobally();
   ConfigurationHolder.setConfig(null);
+  ApplicationHolder.setApplication(null);
+  PluginManagerHolder.setPluginManager(null);
   super.setUp();
 }

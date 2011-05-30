@@ -1,0 +1,11 @@
+{
+  for (  String name : dataSourceNames) {
+    String suffix=name == GrailsDomainClassProperty.DEFAULT_DATA_SOURCE ? "" : "_" + name;
+    HibernatePersistenceContextInterceptor interceptor=new HibernatePersistenceContextInterceptor();
+    String beanName="sessionFactory" + suffix;
+    if (applicationContext.containsBean(beanName)) {
+      interceptor.setSessionFactory((SessionFactory)applicationContext.getBean(beanName));
+    }
+    interceptors.add(interceptor);
+  }
+}

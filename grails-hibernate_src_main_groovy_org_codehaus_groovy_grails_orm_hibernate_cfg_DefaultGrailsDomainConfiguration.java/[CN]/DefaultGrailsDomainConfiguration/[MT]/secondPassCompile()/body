@@ -7,10 +7,13 @@
   }
   configureDomainBinder(grailsApplication,domainClasses);
   for (  GrailsDomainClass domainClass : domainClasses) {
+    if (!domainClass.usesDataSource(dataSourceName)) {
+      continue;
+    }
     final Mappings mappings=super.createMappings();
     Mapping m=GrailsDomainBinder.getMapping(domainClass);
     mappings.setAutoImport(m == null || m.getAutoImport());
-    GrailsDomainBinder.bindClass(domainClass,mappings);
+    GrailsDomainBinder.bindClass(domainClass,mappings,sessionFactoryBeanName);
   }
   super.secondPassCompile();
   configLocked=true;

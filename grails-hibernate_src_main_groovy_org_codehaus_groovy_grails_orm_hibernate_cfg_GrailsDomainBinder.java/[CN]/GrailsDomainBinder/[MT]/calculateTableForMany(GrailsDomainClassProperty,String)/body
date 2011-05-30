@@ -1,0 +1,42 @@
+{
+  NamingStrategy namingStrategy=getNamingStrategy(sessionFactoryBeanName);
+  String propertyColumnName=namingStrategy.propertyToColumnName(property.getName());
+  PropertyConfig config=getPropertyConfig(property);
+  JoinTable jt=config != null ? config.getJoinTable() : null;
+  boolean hasJoinTableMapping=jt != null && jt.getName() != null;
+  String left=getTableName(property.getDomainClass(),sessionFactoryBeanName);
+  if (Map.class.isAssignableFrom(property.getType())) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    return addUnderscore(left,propertyColumnName);
+  }
+  if (property.isBasicCollectionType()) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    return addUnderscore(left,propertyColumnName);
+  }
+  String right=getTableName(property.getReferencedDomainClass(),sessionFactoryBeanName);
+  if (property.isManyToMany()) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    if (property.isOwningSide()) {
+      return addUnderscore(left,propertyColumnName);
+    }
+    return addUnderscore(right,namingStrategy.propertyToColumnName(property.getOtherSide().getName()));
+  }
+  if (shouldCollectionBindWithJoinColumn(property)) {
+    if (hasJoinTableMapping) {
+      return jt.getName();
+    }
+    left=trimBackTigs(left);
+    right=trimBackTigs(right);
+    return addUnderscore(left,right);
+  }
+  if (property.isOwningSide()) {
+    return addUnderscore(left,right);
+  }
+  return addUnderscore(right,left);
+}

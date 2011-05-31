@@ -1,6 +1,7 @@
 {
   if (this.config == null) {
     config=ConfigurationHelper.loadConfigFromClasspath(this);
+    if (config != null)     flatConfig=config.flatten();
   }
   return config;
 }

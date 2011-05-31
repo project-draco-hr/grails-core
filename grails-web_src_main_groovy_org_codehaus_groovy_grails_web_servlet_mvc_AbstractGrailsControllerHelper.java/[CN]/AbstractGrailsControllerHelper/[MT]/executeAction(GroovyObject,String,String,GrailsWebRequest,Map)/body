@@ -1,7 +1,7 @@
 {
   ClassLoader cl=Thread.currentThread().getContextClassLoader();
-  HttpServletResponse response=webRequest.getResponse();
-  HttpServletRequest request=webRequest.getRequest();
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  HttpServletRequest request=webRequest.getCurrentRequest();
   try {
     Object action=retrieveAction(controller,actionName,response);
     Object returnValue=null;

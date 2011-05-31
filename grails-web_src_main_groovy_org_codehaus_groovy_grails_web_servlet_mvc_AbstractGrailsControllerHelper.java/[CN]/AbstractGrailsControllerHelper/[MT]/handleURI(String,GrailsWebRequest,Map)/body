@@ -2,7 +2,6 @@
   Assert.notNull(uri,"Controller URI [" + uri + "] cannot be null!");
   HttpServletRequest request=grailsWebRequest.getCurrentRequest();
   HttpServletResponse response=grailsWebRequest.getCurrentResponse();
-  configureStateForWebRequest(grailsWebRequest,request);
   if (uri.endsWith("/")) {
     uri=uri.substring(0,uri.length() - 1);
   }
@@ -10,10 +9,10 @@
   if (controllerClass == null) {
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
-  actionName=controllerClass.getClosurePropertyName(uri);
+  String actionName=controllerClass.getClosurePropertyName(uri);
   grailsWebRequest.setActionName(actionName);
   if (LOG.isDebugEnabled()) {
-    LOG.debug("Processing request for controller [" + controllerName + "], action ["+ actionName+ "], and id ["+ id+ "]");
+    LOG.debug("Processing request for controller action [" + actionName + "]");
   }
   GroovyObject controller=getControllerInstance(controllerClass);
   if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
@@ -28,11 +27,11 @@
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
   String viewName=controllerClass.getViewByURI(uri);
-  boolean executeAction=invokeBeforeInterceptor(controller,controllerClass);
+  boolean executeAction=invokeBeforeInterceptor(controller,actionName,controllerClass);
   if (!executeAction) {
     return null;
   }
-  ModelAndView mv=executeAction(controller,controllerClass,viewName,request,response,params);
-  boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,mv) && !response.isCommitted();
+  ModelAndView mv=executeAction(controller,actionName,viewName,grailsWebRequest,params);
+  boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,actionName,mv) && !response.isCommitted();
   return returnModelAndView ? mv : null;
 }

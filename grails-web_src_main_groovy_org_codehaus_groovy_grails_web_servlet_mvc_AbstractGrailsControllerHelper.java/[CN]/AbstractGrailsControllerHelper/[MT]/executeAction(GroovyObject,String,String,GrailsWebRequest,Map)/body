@@ -1,5 +1,7 @@
 {
   ClassLoader cl=Thread.currentThread().getContextClassLoader();
+  HttpServletResponse response=webRequest.getResponse();
+  HttpServletRequest request=webRequest.getRequest();
   try {
     Object action=retrieveAction(controller,actionName,response);
     Object returnValue=null;
@@ -12,7 +14,7 @@
       pluginName=pluginName != null ? "in plugin [" + pluginName + "]" : "";
       throw new ControllerExecutionException("Executing action [" + actionName + "] of controller ["+ controller.getClass().getName()+ "] "+ pluginName+ " caused exception: "+ t.getMessage(),t);
     }
-    initChainModel(controller);
+    Map chainModel=initChainModel(request);
     if (response.isCommitted() || request.getAttribute(GrailsApplicationAttributes.REDIRECT_ISSUED) != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Response has been redirected, returning null model and view");
@@ -39,7 +41,7 @@
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
       }
-      ModelAndView mv=handleActionResponse(controller,returnValue,actionName,viewName);
+      ModelAndView mv=handleActionResponse(controller,returnValue,webRequest,chainModel,actionName,viewName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action [" + actionName + "] handled, created Spring model and view ["+ mv+ "]");
       }

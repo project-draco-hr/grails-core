@@ -3,36 +3,38 @@
   for (  String arg : args) {
     allArgs.append(" ").append(arg);
   }
+  GrailsConsole console=GrailsConsole.getInstance();
+  console.updateStatus("Initializing");
   ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
+  console.getCategory().push(script.inputName);
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
   try {
     build=new BuildSettings(new File(grailsHome));
   }
  catch (  Exception e) {
-    System.err.println("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
+    console.error("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
     System.exit(1);
   }
   final File grailsHomeInSettings=build.getGrailsHome();
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
     exitWithError("Grails' installation directory not found: " + build.getGrailsHome());
   }
-  System.out.println("Welcome to Grails " + build.getGrailsVersion() + " - http://grails.org/"+ '\n'+ "Licensed under Apache Standard License 2.0"+ '\n'+ "Grails home is "+ (grailsHome == null ? "not set" : "set to: " + grailsHome)+ '\n');
   if (script.name == null) {
-    System.out.println("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
+    console.error("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
     System.exit(0);
   }
-  System.out.println("Base Directory: " + build.getBaseDir().getPath());
+  console.updateStatus("Base Directory: " + build.getBaseDir().getPath());
   try {
     int exitCode=new GrailsScriptRunner(build).executeCommand(script.name,script.args,script.env);
     System.exit(exitCode);
   }
  catch (  ScriptNotFoundException ex) {
-    System.out.println("Script not found: " + ex.getScriptName());
+    console.error("Script not found: " + ex.getScriptName());
   }
 catch (  Throwable t) {
     String msg="Error executing script " + script.name + ": "+ t.getMessage();
-    System.out.println(msg);
+    console.error(msg);
     sanitizeStacktrace(t);
     t.printStackTrace(System.out);
     exitWithError(msg);

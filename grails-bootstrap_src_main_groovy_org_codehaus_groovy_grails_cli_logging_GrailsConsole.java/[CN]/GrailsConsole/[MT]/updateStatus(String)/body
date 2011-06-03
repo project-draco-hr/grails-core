@@ -1,0 +1,12 @@
+{
+  if (hasNewLines(msg)) {
+    printMessageOnNewLine(msg);
+    lastMessage="";
+  }
+ else {
+    final String categoryName=category.toString();
+    lastStatus=ansi().cursorUp(1).cursorLeft(categoryName.length() + lastMessage.length()).eraseLine(FORWARD).fg(YELLOW).a(categoryName).fg(Color.DEFAULT).a(msg).reset();
+    out.println(lastStatus);
+    lastMessage=msg;
+  }
+}

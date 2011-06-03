@@ -1,0 +1,11 @@
+{
+  if (hasNewLines(msg)) {
+    out.println(ansi().fg(RED).a(category.toString()).reset());
+    out.println();
+    out.println(ansi().fg(Color.DEFAULT).a(msg).reset());
+    out.println();
+  }
+ else {
+    out.println(ansi().fg(RED).a(category.toString()).fg(Color.DEFAULT).a(msg).reset());
+  }
+}

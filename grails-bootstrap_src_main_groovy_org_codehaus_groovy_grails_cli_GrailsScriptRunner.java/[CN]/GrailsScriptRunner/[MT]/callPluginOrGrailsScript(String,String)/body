@@ -1,5 +1,7 @@
 {
   File scriptCacheDir=new File(settings.getProjectWorkDir(),"scriptCache");
+  GrailsConsole console=GrailsConsole.getInstance();
+  console.updateStatus("Configuring classpath");
   URLClassLoader classLoader;
   try {
     Set<String> existingJars=new HashSet<String>();
@@ -89,7 +91,6 @@
         out.println("Run 'grails help' for a complete list of available scripts.");
         return -1;
       }
-      out.println("Running script " + scriptFile.getFilename());
       String scriptFileName=getScriptNameFromFile(scriptFile);
       setRunningEnvironment(scriptFileName,env);
       binding.setVariable("scriptName",scriptFileName);
@@ -100,7 +101,7 @@
         gant.loadScript(scriptFile.getURL());
       }
  catch (      IOException e) {
-        out.println("I/O exception loading script [" + e.getMessage() + "]: "+ e.getMessage());
+        console.error("I/O exception loading script [" + e.getMessage() + "]: "+ e.getMessage());
         return 1;
       }
       return executeWithGantInstance(gant,doNothingClosure);

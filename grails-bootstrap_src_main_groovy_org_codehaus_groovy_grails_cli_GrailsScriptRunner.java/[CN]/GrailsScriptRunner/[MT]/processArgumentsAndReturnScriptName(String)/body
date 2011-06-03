@@ -18,6 +18,7 @@
   if (paramName.charAt(0) == '-') {
     paramName=paramName.substring(1);
   }
+  info.inputName=paramName;
   info.name=GrailsNameUtils.getNameFromScript(paramName);
   if (currentParamIndex < splitArgs.length) {
     StringBuilder b=new StringBuilder(splitArgs[currentParamIndex]);

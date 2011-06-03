@@ -1,0 +1,9 @@
+{
+  String currMsg=lastMessage;
+  try {
+    updateStatus(new StringBuilder(currMsg).append(' ').append(number).append(" of ").append(total).toString());
+  }
+  finally {
+    lastMessage=currMsg;
+  }
+}

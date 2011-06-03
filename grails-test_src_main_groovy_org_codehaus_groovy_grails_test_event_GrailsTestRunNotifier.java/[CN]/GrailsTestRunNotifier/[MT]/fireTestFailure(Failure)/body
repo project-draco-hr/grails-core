@@ -1,0 +1,5 @@
+{
+  console.error("FAILURE: " + failure.getDescription().getDisplayName());
+  console.error(LINE_SEPARATOR + failure.getMessage() + LINE_SEPARATOR);
+  super.fireTestFailure(failure);
+}

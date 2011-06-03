@@ -1,5 +1,6 @@
 {
   if (compileList.length > 0) {
+    GrailsConsole.getInstance().updateStatus("Compiling " + compileList.length + " source files");
     super.compile();
   }
 }

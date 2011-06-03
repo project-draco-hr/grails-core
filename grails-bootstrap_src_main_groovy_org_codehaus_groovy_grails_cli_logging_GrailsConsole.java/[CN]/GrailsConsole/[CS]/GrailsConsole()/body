@@ -1,0 +1,9 @@
+{
+  this.out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
+  System.setOut(new GrailsJConsolePrintStream(this.out));
+  terminal=Terminal.setupTerminal();
+  reader=new ConsoleReader();
+  category.add("grails");
+  this.maxIndicatorString=new StringBuilder().append(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
+  out.println();
+}

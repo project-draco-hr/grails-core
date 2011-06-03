@@ -2,6 +2,7 @@
   Closure<?> c=settings.getGrailsScriptClosure();
   c.setDelegate(binding);
   binding.setVariable("grailsScript",c);
+  binding.setVariable("console",GrailsConsole.getInstance());
   binding.setVariable("grailsSettings",settings);
   final File basedir=settings.getBaseDir();
   final String baseDirPath=basedir.getPath();
@@ -38,7 +39,7 @@
   }
   makeApiAvailableToScripts(binding,cla);
   makeApiAvailableToScripts(binding,cla.getPluginSettings());
-  binding.setVariable("Ant",binding.getVariable("ant"));
+  setUIListener(binding);
   try {
     List<File> descriptors=new ArrayList<File>();
     File desc=getPluginDescriptor(basedir);

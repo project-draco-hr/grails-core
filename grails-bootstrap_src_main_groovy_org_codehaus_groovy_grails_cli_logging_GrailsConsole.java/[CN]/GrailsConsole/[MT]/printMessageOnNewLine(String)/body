@@ -1,0 +1,3 @@
+{
+  out.println(ansi().fg(YELLOW).a(category.toString()).newline().fg(DEFAULT).a(msg).reset());
+}

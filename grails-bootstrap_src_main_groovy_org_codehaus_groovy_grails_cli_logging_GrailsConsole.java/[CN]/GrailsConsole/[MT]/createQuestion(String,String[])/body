@@ -1,0 +1,3 @@
+{
+  return new StringBuilder(message).append("[").append(DefaultGroovyMethods.join(validResponses,",")).append("] ").toString();
+}

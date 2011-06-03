@@ -1,0 +1,16 @@
+{
+  if (validResponses == null) {
+    return userInput(message);
+  }
+ else {
+    String question=createQuestion(message,validResponses);
+    String response=userInput(question);
+    for (    String validResponse : validResponses) {
+      if (response != null && response.equalsIgnoreCase(validResponse)) {
+        return response;
+      }
+    }
+    cursorMove+=2;
+    return userInput("Invalid input. Must be one of ",validResponses);
+  }
+}

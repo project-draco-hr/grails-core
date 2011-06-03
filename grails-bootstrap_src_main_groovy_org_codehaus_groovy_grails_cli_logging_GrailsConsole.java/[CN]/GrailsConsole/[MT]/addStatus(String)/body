@@ -1,4 +1,5 @@
 {
+  cursorMove=0;
   if (hasNewLines(msg)) {
     printMessageOnNewLine(msg);
     lastMessage="";
@@ -6,9 +7,8 @@
  else {
     final String categoryName=category.toString();
     if (Ansi.isEnabled()) {
-      lastStatus=outputCategory(ansi().newline(),categoryName).fg(Color.DEFAULT).a(msg).reset();
+      lastStatus=outputCategory(ansi(),categoryName).fg(Color.DEFAULT).a(msg).reset();
       out.println(lastStatus);
-      cursorMove=1;
     }
  else {
       out.print(categoryName + msg);

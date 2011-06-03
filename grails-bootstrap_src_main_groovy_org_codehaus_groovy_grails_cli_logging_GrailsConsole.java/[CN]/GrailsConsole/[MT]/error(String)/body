@@ -1,4 +1,5 @@
 {
+  cursorMove=0;
   if (hasNewLines(msg)) {
     if (Ansi.isEnabled()) {
       out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(category.toString()).reset());

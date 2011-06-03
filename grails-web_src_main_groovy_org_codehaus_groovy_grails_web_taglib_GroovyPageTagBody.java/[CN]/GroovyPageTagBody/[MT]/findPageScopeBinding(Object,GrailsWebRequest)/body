@@ -1,9 +1,0 @@
-{
-  if (owner instanceof GroovyPage) {
-    return ((GroovyPage)owner).getBinding();
-  }
-  if (owner != null && owner.getClass().getName().endsWith(TagLibArtefactHandler.TYPE)) {
-    return (Binding)((GroovyObject)owner).getProperty(GroovyPage.PAGE_SCOPE);
-  }
-  return (Binding)webRequest.getCurrentRequest().getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
-}

@@ -13,7 +13,7 @@
     out.println("def out = getOut()");
     out.println("def codecOut = getCodecOut()");
     if (sitemeshPreprocessMode) {
-      out.println("registerSitemeshPreprocessMode(request)");
+      out.println("registerSitemeshPreprocessMode()");
     }
   }
   loop:   for (; ; ) {

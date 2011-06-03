@@ -43,6 +43,7 @@
       throw new GroovyPagesException("Problem instantiating page class",e);
     }
     page.setBinding(binding);
+    binding.setOwner(page);
     page.setJspTags(metaInfo.getJspTags());
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
@@ -69,6 +70,7 @@
     }
   finally {
       page.cleanup();
+      request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,parentBinding);
     }
     if (debugTemplates) {
       out.write("<!-- GSP #");
@@ -78,9 +80,6 @@
       out.write(" rendering time: ");
       out.write(String.valueOf(System.currentTimeMillis() - debugStartTimeMs));
       out.write(" ms -->");
-    }
-    if (parentBinding instanceof GroovyPageBinding) {
-      request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,parentBinding);
     }
   }
   return out;

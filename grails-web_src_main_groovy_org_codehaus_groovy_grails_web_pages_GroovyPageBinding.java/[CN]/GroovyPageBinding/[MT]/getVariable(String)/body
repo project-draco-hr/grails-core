@@ -5,7 +5,8 @@
     if (parent != null) {
       val=parent.getVariable(name);
       if (val != null) {
-        setVariable(name,val);
+        getVariables().put(name,val);
+        cachedParentVariableNames.add(name);
       }
     }
     if (val == null) {

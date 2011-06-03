@@ -1,34 +1,23 @@
 {
   final GroovyPageTagWriter capturedOut=new GroovyPageTagWriter(preferSubChunkWhenWritingToOtherBuffer);
+  Binding currentBinding=originalBinding;
+  boolean itChanged=false;
+  Object originalIt=null;
   try {
     pushCapturedOut(capturedOut);
     Object bodyResult;
     if (args != null) {
-      if (args instanceof Map) {
-        Map currentBinding=null;
-        Map originalBinding=null;
-        final Map argsMap=(Map)args;
-        if (binding != null) {
-          currentBinding=binding.getVariables();
-          originalBinding=new HashMap(currentBinding);
-          currentBinding.putAll(argsMap);
-        }
-        try {
-          bodyResult=executeClosure(args);
-        }
-  finally {
-          if (binding != null) {
-            for (            Object key : argsMap.keySet()) {
-              if (originalBinding.containsKey(key)) {
-                currentBinding.put(key,originalBinding.get(key));
-              }
-            }
-          }
-        }
+      if (args instanceof Map && ((Map)args).size() > 0) {
+        currentBinding=new GroovyPageBinding(originalBinding);
+        ((GroovyPageBinding)currentBinding).addMap((Map)args);
+        changeBinding(currentBinding);
       }
  else {
-        bodyResult=executeClosure(args);
+        originalIt=currentBinding.getVariables().get("it");
+        currentBinding.getVariables().put("it",args);
+        itChanged=true;
       }
+      bodyResult=executeClosure(args);
     }
  else {
       bodyResult=executeClosure(null);
@@ -39,6 +28,12 @@
     return capturedOut.getBuffer();
   }
   finally {
+    if (currentBinding != originalBinding) {
+      changeBinding(originalBinding);
+    }
+    if (itChanged) {
+      currentBinding.setVariable("it",originalIt);
+    }
     popCapturedOut();
   }
 }

@@ -3,10 +3,7 @@
   binding.setParent(parent);
   binding.setVariable("it",null);
   if (additionalBinding != null) {
-    for (Iterator<Map.Entry> i=additionalBinding.entrySet().iterator(); i.hasNext(); ) {
-      Map.Entry entry=i.next();
-      binding.setVariable(String.valueOf(entry.getKey()),entry.getValue());
-    }
+    binding.addMap(additionalBinding);
   }
   binding.setPluginContextPath(metaInfo.getPluginPath());
   binding.setPagePlugin(metaInfo.getPagePlugin());

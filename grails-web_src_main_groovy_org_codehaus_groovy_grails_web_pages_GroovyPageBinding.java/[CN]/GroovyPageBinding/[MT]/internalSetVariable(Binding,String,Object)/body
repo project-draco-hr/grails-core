@@ -1,0 +1,19 @@
+{
+  if (!GroovyPage.isReservedName(name)) {
+    if (bindingToUse == null) {
+      bindingToUse=findBindingForVariable(name);
+      if (bindingToUse == null || bindingToUse instanceof GroovyPageRequestBinding) {
+        bindingToUse=this;
+      }
+    }
+    bindingToUse.getVariables().put(name,value);
+    if (bindingToUse != this && cachedParentVariableNames.contains(name)) {
+      getVariables().put(name,value);
+    }
+  }
+ else {
+    if (log.isWarnEnabled()) {
+      log.warn("Cannot override reserved variable '" + name + "'");
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  while (index >= bodyClosures.size()) {
+    bodyClosures.add(null);
+  }
+  bodyClosures.set(index,bodyClosure);
+}

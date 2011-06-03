@@ -10,7 +10,7 @@
   finally {
     RequestContextHolder.setRequestAttributes(null);
   }
-  String expected=makeImports() + "\n" + "class myTest4 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest4\" }\n"+ "public Object run() {\n"+ "def out = getOut()\n"+ "def codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode(request)\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
+  String expected=makeImports() + "\n" + "class myTest4 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest4\" }\n"+ "public Object run() {\n"+ "def out = getOut()\n"+ "def codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output.generatedGsp));
   assertEquals(src,output.htmlParts[0]);
 }

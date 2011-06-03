@@ -1,0 +1,6 @@
+{
+  originalBinding=(Binding)webRequest.getCurrentRequest().getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+  if (originalBinding instanceof GroovyPageBinding) {
+    originalBindingPage=((GroovyPageBinding)originalBinding).getOwner();
+  }
+}

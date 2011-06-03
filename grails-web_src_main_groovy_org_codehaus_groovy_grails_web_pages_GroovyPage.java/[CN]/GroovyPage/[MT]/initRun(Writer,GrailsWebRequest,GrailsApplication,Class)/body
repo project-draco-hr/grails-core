@@ -4,6 +4,7 @@
   this.webRequest=grailsWebRequest;
   if (grailsWebRequest != null) {
     grailsWebRequest.setOut(out);
+    request=grailsWebRequest.getCurrentRequest();
   }
   getBinding().setVariable(OUT,out);
   if (codecClass != null) {

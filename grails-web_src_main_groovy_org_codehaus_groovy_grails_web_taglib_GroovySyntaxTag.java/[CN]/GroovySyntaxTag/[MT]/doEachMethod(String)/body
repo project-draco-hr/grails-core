@@ -16,15 +16,11 @@
   out.print('.');
   out.print(methodName);
   out.print(" { ");
-  if (hasVar || hasStatus) {
-    out.print(hasVar ? var : "it");
-  }
+  out.print(hasVar ? var : "it");
   if (hasStatus) {
     out.print(",");
     out.print(status);
   }
-  if (hasVar || hasStatus) {
-    out.print(" ->");
-  }
+  out.print(" ->");
   out.println();
 }

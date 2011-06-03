@@ -1,0 +1,20 @@
+{
+  GroovyPageBinding binding=new GroovyPageBinding();
+  binding.setParent(parent);
+  binding.setVariable("it",null);
+  if (additionalBinding != null) {
+    for (Iterator<Map.Entry> i=additionalBinding.entrySet().iterator(); i.hasNext(); ) {
+      Map.Entry entry=i.next();
+      binding.setVariable(String.valueOf(entry.getKey()),entry.getValue());
+    }
+  }
+  binding.setPluginContextPath(metaInfo.getPluginPath());
+  binding.setPagePlugin(metaInfo.getPagePlugin());
+  if (parent instanceof GroovyPageBinding) {
+    String parentContextPath=((GroovyPageBinding)parent).getPluginContextPath();
+    if (parentContextPath != null) {
+      binding.setPluginContextPath(parentContextPath);
+    }
+  }
+  return binding;
+}

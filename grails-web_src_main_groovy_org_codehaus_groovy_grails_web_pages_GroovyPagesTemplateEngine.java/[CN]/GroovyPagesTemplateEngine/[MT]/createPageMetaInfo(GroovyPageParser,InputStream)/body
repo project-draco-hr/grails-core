@@ -7,7 +7,7 @@
   pageMeta.setLineNumbers(parse.getLineNumberMatrix());
   pageMeta.setJspTags(parse.getJspTags());
   pageMeta.setCodecName(parse.getDefaultCodecDirectiveValue());
-  pageMeta.initCodec();
+  pageMeta.initialize();
   if (GrailsUtil.isDevelopmentEnv()) {
     pageMeta.setGroovySource(in);
   }

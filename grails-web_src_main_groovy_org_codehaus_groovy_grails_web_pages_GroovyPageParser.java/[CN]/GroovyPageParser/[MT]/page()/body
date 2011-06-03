@@ -10,12 +10,8 @@
     out.println(" extends GroovyPage {");
     out.println("public String getGroovyPageFileName() { \"" + pageName.replaceAll("\\\\","/") + "\" }");
     out.println("public Object run() {");
-    out.println("def params = binding.params");
-    out.println("def request = binding.request");
-    out.println("def flash = binding.flash");
-    out.println("def response = binding.response");
-    out.println("def out = binding.out");
-    out.println("def codecOut = binding.codecOut");
+    out.println("def out = getOut()");
+    out.println("def codecOut = getCodecOut()");
     if (sitemeshPreprocessMode) {
       out.println("registerSitemeshPreprocessMode(request)");
     }

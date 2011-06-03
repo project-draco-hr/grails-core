@@ -5,4 +5,7 @@
  else   if (!classLoader.getClass().equals(GroovyPageClassLoader.class)) {
     classLoader=new GroovyPageClassLoader(classLoader);
   }
+  if (!Environment.isDevelopmentMode()) {
+    cachedDomainsWithoutPackage=createDomainClassMap();
+  }
 }

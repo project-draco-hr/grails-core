@@ -1,0 +1,11 @@
+{
+  Map<String,Class<?>> domainsWithoutPackage=new HashMap<String,Class<?>>();
+  if (grailsApplication != null) {
+    GrailsClass[] domainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
+    for (    GrailsClass domainClass : domainClasses) {
+      final Class<?> theClass=domainClass.getClazz();
+      domainsWithoutPackage.put(theClass.getName(),theClass);
+    }
+  }
+  return domainsWithoutPackage;
+}

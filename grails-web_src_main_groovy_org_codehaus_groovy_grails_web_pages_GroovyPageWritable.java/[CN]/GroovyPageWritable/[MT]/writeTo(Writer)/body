@@ -7,25 +7,25 @@
     if (metaInfo.getCompilationException() != null) {
       throw metaInfo.getCompilationException();
     }
-    boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
-    if (LOG.isDebugEnabled() && !contentTypeAlreadySet) {
-      LOG.debug("Writing response to [" + response.getClass() + "] with content type: "+ metaInfo.getContentType());
+    Binding parentBinding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+    if (parentBinding == null) {
+      if (webRequest != null) {
+        GroovyPageRequestBinding pageRequestBinding=new GroovyPageRequestBinding(webRequest,response);
+        parentBinding=pageRequestBinding;
+        if (webRequest.getAttributes().getPagesTemplateEngine() != null) {
+          pageRequestBinding.setCachedDomainsWithoutPackage(webRequest.getAttributes().getPagesTemplateEngine().getDomainClassMap());
+        }
+      }
+      boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
+      if (LOG.isDebugEnabled() && !contentTypeAlreadySet) {
+        LOG.debug("Writing response to [" + response.getClass() + "] with content type: "+ metaInfo.getContentType());
+      }
+      if (!contentTypeAlreadySet) {
+        response.setContentType(metaInfo.getContentType());
+      }
     }
-    if (!contentTypeAlreadySet) {
-      response.setContentType(metaInfo.getContentType());
-    }
-    GroovyPageBinding binding=(GroovyPageBinding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
-    GroovyPageBinding oldBinding=null;
-    if (binding == null) {
-      binding=createBinding(metaInfo.getPageClass());
-      formulateBinding(request,response,binding,out);
-    }
- else {
-      oldBinding=binding;
-      binding=createBinding(metaInfo.getPageClass());
-      binding.setPluginContextPath(oldBinding.getPluginContextPath());
-      formulateBinding(request,response,binding,out);
-    }
+    GroovyPageBinding binding=createBinding(parentBinding);
+    request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
     if (metaInfo.getCodecClass() != null) {
       request.setAttribute("org.codehaus.groovy.grails.GSP_CODEC",metaInfo.getCodecName());
       binding.setVariable(GroovyPage.CODEC_VARNAME,metaInfo.getCodecClass());
@@ -33,12 +33,22 @@
  else {
       binding.setVariable(GroovyPage.CODEC_VARNAME,gspNoneCodeInstance);
     }
-    GroovyPage page=(GroovyPage)InvokerHelper.createScript(metaInfo.getPageClass(),binding);
+    binding.setVariable(GroovyPage.RESPONSE,response);
+    binding.setVariable(GroovyPage.REQUEST,request);
+    GroovyPage page=null;
+    try {
+      page=(GroovyPage)metaInfo.getPageClass().newInstance();
+    }
+ catch (    Exception e) {
+      throw new GroovyPagesException("Problem instantiating page class",e);
+    }
+    page.setBinding(binding);
     page.setJspTags(metaInfo.getJspTags());
     page.setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
     page.setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
     page.setHtmlParts(metaInfo.getHtmlParts());
-    page.initRun(out,webRequest,metaInfo.getCodecClass());
+    page.setPluginContextPath(metaInfo.getPluginPath());
+    page.initRun(out,webRequest,metaInfo.getGrailsApplication(),metaInfo.getCodecClass());
     int debugId=0;
     long debugStartTimeMs=0;
     if (debugTemplates) {
@@ -69,7 +79,9 @@
       out.write(String.valueOf(System.currentTimeMillis() - debugStartTimeMs));
       out.write(" ms -->");
     }
-    request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,oldBinding);
+    if (parentBinding instanceof GroovyPageBinding) {
+      request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,parentBinding);
+    }
   }
   return out;
 }

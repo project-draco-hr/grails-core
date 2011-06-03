@@ -2,7 +2,7 @@
   if (OUT.equals(property))   return out;
   if (CODEC_OUT.equals(property))   return codecOut;
   if (BINDING.equals(property))   return getBinding();
-  Object value=getBinding().getVariables().get(property);
+  Object value=getBinding().getVariable(property);
   if (value != null) {
     return value;
   }

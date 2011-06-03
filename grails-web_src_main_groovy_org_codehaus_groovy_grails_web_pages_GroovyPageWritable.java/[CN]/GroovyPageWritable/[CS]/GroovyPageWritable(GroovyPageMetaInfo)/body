@@ -1,14 +1,9 @@
 {
+  this.metaInfo=metaInfo;
   webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  final ApplicationContext applicationContext=webRequest.getApplicationContext();
-  if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
-    pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
-  }
   request=webRequest.getCurrentRequest();
   HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
   response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
-  context=webRequest.getServletContext();
-  this.metaInfo=metaInfo;
   showSource=shouldShowGroovySource();
   debugTemplates=shouldDebugTemplates();
   if (debugTemplates) {

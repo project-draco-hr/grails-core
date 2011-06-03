@@ -1,0 +1,16 @@
+{
+  outputStack=GroovyPageOutputStack.currentStack(true,target,false,true);
+  out=outputStack.getProxyWriter();
+  this.webRequest=grailsWebRequest;
+  if (grailsWebRequest != null) {
+    grailsWebRequest.setOut(out);
+  }
+  getBinding().setVariable(OUT,out);
+  if (codecClass != null) {
+    codecOut=new CodecPrintWriter(grailsApplication,out,codecClass);
+  }
+ else {
+    codecOut=out;
+  }
+  getBinding().setVariable(CODEC_OUT,codecOut);
+}

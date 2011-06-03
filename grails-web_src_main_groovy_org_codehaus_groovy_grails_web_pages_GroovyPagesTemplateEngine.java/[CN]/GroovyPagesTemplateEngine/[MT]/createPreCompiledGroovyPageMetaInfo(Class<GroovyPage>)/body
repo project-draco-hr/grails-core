@@ -4,5 +4,6 @@
   meta.setGrailsApplication(grailsApplication);
   meta.setJspTagLibraryResolver(jspTagLibraryResolver);
   meta.setTagLibraryLookup(tagLibraryLookup);
+  meta.initialize();
   return meta;
 }

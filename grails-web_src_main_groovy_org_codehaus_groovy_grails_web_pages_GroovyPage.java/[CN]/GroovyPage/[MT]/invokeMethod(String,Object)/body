@@ -1,5 +1,13 @@
 {
   if (methodName.equals("invokeTag"))   return super.invokeMethod(methodName,args);
+  if (methodName.equals("printHtmlPart") && args instanceof Object[]) {
+    printHtmlPart((Integer)((Object[])args)[0]);
+    return null;
+  }
+  if (methodName.equals("createTagBody") && args instanceof Object[]) {
+    Object[] argArray=(Object[])args;
+    createTagBody((String)argArray[0],(Closure)argArray[1]);
+  }
   Map attrs=null;
   Object body=null;
   GroovyObject tagLib=getTagLibForDefaultNamespace(methodName);

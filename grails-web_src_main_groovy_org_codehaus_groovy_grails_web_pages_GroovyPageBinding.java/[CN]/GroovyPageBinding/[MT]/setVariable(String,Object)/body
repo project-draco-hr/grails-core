@@ -1,0 +1,10 @@
+{
+  if (!GroovyPage.isReservedName(name)) {
+    super.setVariable(name,value);
+  }
+ else {
+    if (log.isWarnEnabled()) {
+      log.warn("Cannot override reserved variable '" + name + "'");
+    }
+  }
+}

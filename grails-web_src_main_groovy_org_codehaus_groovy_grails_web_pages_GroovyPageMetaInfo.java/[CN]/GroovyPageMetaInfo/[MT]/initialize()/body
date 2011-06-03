@@ -1,0 +1,32 @@
+{
+  if (codecName == null) {
+    Map config=grailsApplication != null ? grailsApplication.getFlatConfig() : null;
+    if (config != null) {
+      Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
+      if (o != null) {
+        codecName=o.toString();
+      }
+    }
+  }
+  GrailsClass codecGrailsClass=null;
+  if (codecName != null) {
+    if (grailsApplication != null) {
+      codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
+      if (codecGrailsClass == null)       codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
+    }
+  }
+  if (codecGrailsClass == null && StringUtils.isNotBlank(codecName) && !"none".equalsIgnoreCase(codecName)) {
+    LOG.warn("Couldn't initialize Codec by name '" + codecName + "' , pageClass="+ pageClass.getName());
+  }
+  if (codecGrailsClass != null) {
+    codecClass=codecGrailsClass.getClazz();
+  }
+  if (grailsApplication != null) {
+    final ApplicationContext applicationContext=grailsApplication.getMainContext();
+    if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+      pluginPath=pluginManager.getPluginPathForClass(pageClass);
+      pagePlugin=pluginManager.getPluginForClass(pageClass);
+    }
+  }
+}

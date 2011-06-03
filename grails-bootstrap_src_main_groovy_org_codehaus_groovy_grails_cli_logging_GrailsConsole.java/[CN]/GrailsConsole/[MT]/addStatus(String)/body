@@ -1,18 +1,3 @@
 {
-  cursorMove=0;
-  if (hasNewLines(msg)) {
-    printMessageOnNewLine(msg);
-    lastMessage="";
-  }
- else {
-    final String categoryName=category.toString();
-    if (Ansi.isEnabled()) {
-      lastStatus=outputCategory(ansi(),categoryName).fg(Color.DEFAULT).a(msg).reset();
-      out.println(lastStatus);
-    }
- else {
-      out.print(categoryName + msg);
-    }
-    lastMessage=msg;
-  }
+  outputMessage(msg,0);
 }

@@ -1,0 +1,19 @@
+{
+  if (!FULL_STACKTRACE) {
+    StackTraceElement[] stackTrace=exception.getStackTrace();
+    List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
+    for (    StackTraceElement stackTraceElement : stackTrace) {
+      if (stackTraceElement.getClassName().startsWith("org.junit")) {
+        break;
+      }
+ else {
+        newTrace.add(stackTraceElement);
+      }
+    }
+    if (newTrace.size() > 0) {
+      StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
+      newTrace.toArray(clean);
+      exception.setStackTrace(clean);
+    }
+  }
+}

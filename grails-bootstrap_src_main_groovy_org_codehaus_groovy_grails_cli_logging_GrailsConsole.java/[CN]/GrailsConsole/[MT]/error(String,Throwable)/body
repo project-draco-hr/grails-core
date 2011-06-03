@@ -1,6 +1,8 @@
 {
-  error(error.getMessage());
-  StackTraceUtils.deepSanitize(error);
-  error.printStackTrace();
+  if (verbose) {
+    error(error.getMessage());
+    StackTraceUtils.deepSanitize(error);
+    error.printStackTrace();
+  }
   error(msg);
 }

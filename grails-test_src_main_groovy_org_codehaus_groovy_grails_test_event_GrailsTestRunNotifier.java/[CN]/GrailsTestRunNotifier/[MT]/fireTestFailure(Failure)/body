@@ -1,5 +1,16 @@
 {
   console.error("FAILURE: " + failure.getDescription().getDisplayName());
-  console.error(LINE_SEPARATOR + failure.getMessage() + LINE_SEPARATOR);
+  Throwable exception=failure.getException();
+  if (exception != null) {
+    StackTraceUtils.deepSanitize(exception);
+    deepSanitize(exception);
+    StringWriter sw=new StringWriter();
+    PrintWriter ps=new PrintWriter(sw);
+    exception.printStackTrace(ps);
+    console.error(sw.toString());
+  }
+ else {
+    console.error(failure.getMessage());
+  }
   super.fireTestFailure(failure);
 }

@@ -1,0 +1,13 @@
+{
+  if (verbose && error != null) {
+    StackTraceUtils.deepSanitize(error);
+    StringWriter sw=new StringWriter();
+    PrintWriter ps=new PrintWriter(sw);
+    ps.println(msg);
+    error.printStackTrace(ps);
+    error(sw.toString());
+  }
+ else {
+    error(msg);
+  }
+}

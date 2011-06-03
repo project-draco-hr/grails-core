@@ -1,4 +1,5 @@
 {
+  this.cursorMove=1;
   this.out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
   System.setOut(new GrailsJConsolePrintStream(this.out));
   terminal=Terminal.setupTerminal();

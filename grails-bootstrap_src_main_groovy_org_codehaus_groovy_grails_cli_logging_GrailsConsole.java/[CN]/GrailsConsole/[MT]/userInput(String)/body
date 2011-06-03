@@ -1,4 +1,10 @@
 {
   updateStatus(msg);
-  return reader.readLine("> ");
+  try {
+    cursorMove+=1;
+    return reader.readLine("> ");
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Error reading input: " + e.getMessage());
+  }
 }

@@ -1,0 +1,6 @@
+{
+  if (currentParamIndex >= splitArgs.length) {
+    System.out.println("You should specify a script to run. Run 'grails help' for a complete list of available scripts.");
+    System.exit(0);
+  }
+}

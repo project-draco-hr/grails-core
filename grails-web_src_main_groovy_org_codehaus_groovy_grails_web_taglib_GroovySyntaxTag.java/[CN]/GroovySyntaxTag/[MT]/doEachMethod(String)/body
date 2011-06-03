@@ -16,8 +16,8 @@
   out.print('.');
   out.print(methodName);
   out.print(" { ");
-  if (hasVar || hasStatus) {
-    out.print(hasVar ? var : "it");
+  if (hasVar) {
+    out.print(var);
   }
   if (hasStatus) {
     out.print(",");

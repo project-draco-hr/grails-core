@@ -1,0 +1,14 @@
+{
+  if (verbose) {
+    if (hasNewLines(msg)) {
+      out.println(msg);
+      out.println();
+      cursorMove=0;
+    }
+ else {
+      out.println(msg);
+      out.println();
+      cursorMove=0;
+    }
+  }
+}

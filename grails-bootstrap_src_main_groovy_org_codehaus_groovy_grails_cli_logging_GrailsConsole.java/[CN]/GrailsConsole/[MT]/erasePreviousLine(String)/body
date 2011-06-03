@@ -1,0 +1,6 @@
+{
+  if (cursorMove > 0) {
+    return ansi().cursorUp(cursorMove).cursorLeft(categoryName.length() + lastMessage.length()).eraseLine(FORWARD);
+  }
+  return ansi();
+}

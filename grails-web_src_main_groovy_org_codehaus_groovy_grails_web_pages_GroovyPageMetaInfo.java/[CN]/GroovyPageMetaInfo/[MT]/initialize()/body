@@ -21,12 +21,5 @@
   if (codecGrailsClass != null) {
     codecClass=codecGrailsClass.getClazz();
   }
-  if (grailsApplication != null) {
-    final ApplicationContext applicationContext=grailsApplication.getMainContext();
-    if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
-      GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
-      pluginPath=pluginManager.getPluginPathForClass(pageClass);
-      pagePlugin=pluginManager.getPluginForClass(pageClass);
-    }
-  }
+  initializePluginPath();
 }

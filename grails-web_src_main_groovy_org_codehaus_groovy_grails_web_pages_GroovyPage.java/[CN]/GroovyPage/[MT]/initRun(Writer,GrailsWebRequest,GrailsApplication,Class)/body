@@ -6,12 +6,12 @@
     grailsWebRequest.setOut(out);
     request=grailsWebRequest.getCurrentRequest();
   }
-  getBinding().setVariable(OUT,out);
+  getBinding().getVariables().put(OUT,out);
   if (codecClass != null) {
     codecOut=new CodecPrintWriter(grailsApplication,out,codecClass);
   }
  else {
     codecOut=out;
   }
-  getBinding().setVariable(CODEC_OUT,codecOut);
+  getBinding().getVariables().put(CODEC_OUT,codecOut);
 }

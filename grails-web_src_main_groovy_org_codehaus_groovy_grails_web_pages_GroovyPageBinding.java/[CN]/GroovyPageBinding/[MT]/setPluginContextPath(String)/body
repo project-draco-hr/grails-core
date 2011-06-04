@@ -1,4 +1,3 @@
 {
-  this.pluginContextPath=pluginContextPath;
-  setVariable("pluginContextPath",pluginContextPath);
+  getVariables().put(GroovyPage.PLUGIN_CONTEXT_PATH,pluginContextPath);
 }

@@ -12,8 +12,9 @@
       if (webRequest != null) {
         GroovyPageRequestBinding pageRequestBinding=new GroovyPageRequestBinding(webRequest,response);
         parentBinding=pageRequestBinding;
-        if (webRequest.getAttributes().getPagesTemplateEngine() != null) {
-          pageRequestBinding.setCachedDomainsWithoutPackage(webRequest.getAttributes().getPagesTemplateEngine().getDomainClassMap());
+        GroovyPagesTemplateEngine templateEngine=webRequest.getAttributes().getPagesTemplateEngine();
+        if (templateEngine != null) {
+          pageRequestBinding.setCachedDomainsWithoutPackage(templateEngine.getDomainClassMap());
         }
       }
       boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
@@ -28,13 +29,13 @@
     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
     if (metaInfo.getCodecClass() != null) {
       request.setAttribute("org.codehaus.groovy.grails.GSP_CODEC",metaInfo.getCodecName());
-      binding.setVariable(GroovyPage.CODEC_VARNAME,metaInfo.getCodecClass());
+      binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,metaInfo.getCodecClass());
     }
  else {
-      binding.setVariable(GroovyPage.CODEC_VARNAME,gspNoneCodeInstance);
+      binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,gspNoneCodeInstance);
     }
-    binding.setVariable(GroovyPage.RESPONSE,response);
-    binding.setVariable(GroovyPage.REQUEST,request);
+    binding.setVariableDirectly(GroovyPage.RESPONSE,response);
+    binding.setVariableDirectly(GroovyPage.REQUEST,request);
     GroovyPage page=null;
     try {
       page=(GroovyPage)metaInfo.getPageClass().newInstance();

@@ -4,6 +4,7 @@
     if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
       GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
       pluginPath=pluginManager.getPluginPathForClass(pageClass);
+      if (pluginPath == null)       pluginPath="";
       pagePlugin=pluginManager.getPluginForClass(pageClass);
     }
   }

@@ -1,17 +1,13 @@
 {
   GroovyPageBinding binding=new GroovyPageBinding();
   binding.setParent(parent);
-  binding.setVariable("it",null);
+  binding.setVariableDirectly("it",null);
   if (additionalBinding != null) {
     binding.addMap(additionalBinding);
   }
-  binding.setPluginContextPath(metaInfo.getPluginPath());
-  binding.setPagePlugin(metaInfo.getPagePlugin());
-  if (parent instanceof GroovyPageBinding) {
-    String parentContextPath=((GroovyPageBinding)parent).getPluginContextPath();
-    if (parentContextPath != null) {
-      binding.setPluginContextPath(parentContextPath);
-    }
+  if (parent == null || parent instanceof GroovyPageRequestBinding || "".equals(metaInfo.getPluginPath())) {
+    binding.setPluginContextPath(metaInfo.getPluginPath());
   }
+  binding.setPagePlugin(metaInfo.getPagePlugin());
   return binding;
 }

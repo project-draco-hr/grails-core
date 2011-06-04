@@ -22,7 +22,7 @@
       }
     }
     if (value != null) {
-      getBinding().setVariable(property,value);
+      getBinding().getVariables().put(property,value);
     }
   }
   return value;

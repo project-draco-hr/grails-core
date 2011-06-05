@@ -8,21 +8,16 @@
   if (hasStatus && !hasVar) {
     throw new GrailsTagException(ERROR_NO_VAR_WITH_STATUS);
   }
-  String methodName=hasStatus ? METHOD_EACH_WITH_INDEX : METHOD_EACH;
   if (var.equals(status) && (hasStatus)) {
     throw new GrailsTagException("Attribute [" + ATTRIBUTE_VAR + "] cannot have the same value as attribute ["+ ATTRIBUTES_STATUS+ "]");
   }
-  out.print(parser != null ? parser.getExpressionText(in) : in);
-  out.print('.');
-  out.print(methodName);
-  out.print(" { ");
-  if (hasVar) {
-    out.print(var);
-    if (hasStatus) {
-      out.print(",");
-      out.print(status);
-    }
-    out.print(" ->");
+  if (hasStatus) {
+    out.println("int " + status + "= 0");
   }
+  out.print("for(" + (hasVar ? var : "it"));
+  out.print(" in ");
+  out.print(parser != null ? parser.getExpressionText(in) : in);
+  out.print(" )");
+  out.print(" { ");
   out.println();
 }

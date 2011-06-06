@@ -1,0 +1,18 @@
+{
+  URLClassLoader classLoader;
+  try {
+    Set<String> existingJars=new HashSet<String>();
+    for (    URL url : settings.getRootLoader().getURLs()) {
+      existingJars.add(url.getFile());
+    }
+    URL[] urls=getClassLoaderUrls(settings,new File(settings.getProjectWorkDir(),"scriptCache"),existingJars,skipPlugins);
+    addUrlsToRootLoader(settings.getRootLoader(),urls);
+    urls=new URL[]{settings.getClassesDir().toURI().toURL(),settings.getPluginClassesDir().toURI().toURL()};
+    classLoader=new URLClassLoader(urls,settings.getRootLoader());
+    Thread.currentThread().setContextClassLoader(classLoader);
+  }
+ catch (  MalformedURLException ex) {
+    throw new RuntimeException("Invalid classpath URL",ex);
+  }
+  return classLoader;
+}

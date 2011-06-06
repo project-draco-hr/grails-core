@@ -5,10 +5,10 @@
   }
   addCommandScripts(new File(settings.getBaseDir(),"scripts"),scripts);
   addCommandScripts(new File(settings.getUserHome(),".grails/scripts"),scripts);
-  for (  File dir : listKnownPluginDirs(settings)) {
+  for (  File dir : pluginPathSupport.listKnownPluginDirs()) {
     addPluginScripts(dir,scripts);
   }
-  PathMatchingResourcePatternResolver resolver=new PathMatchingResourcePatternResolver(classLoader);
+  PathMatchingResourcePatternResolver resolver=new PathMatchingResourcePatternResolver(settings.getRootLoader());
   try {
     final Resource[] resources=resolver.getResources("classpath*:META-INF/scripts/*.groovy");
     scripts.addAll(Arrays.asList(resources));

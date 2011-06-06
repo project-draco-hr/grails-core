@@ -42,15 +42,15 @@
   setUIListener(binding);
   try {
     List<File> descriptors=new ArrayList<File>();
-    File desc=getPluginDescriptor(basedir);
+    File desc=pluginPathSupport.getPluginDescriptor(basedir);
     if (desc != null)     descriptors.add(desc);
-    for (    File dir : listKnownPluginDirs(settings)) {
-      File pluginDescriptor=getPluginDescriptor(dir);
+    for (    File dir : pluginPathSupport.listKnownPluginDirs()) {
+      File pluginDescriptor=pluginPathSupport.getPluginDescriptor(dir);
       if (pluginDescriptor != null) {
         descriptors.add(pluginDescriptor);
       }
  else {
-        out.println("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
+        GrailsConsole.getInstance().log("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
       }
     }
     for (    File file : descriptors) {

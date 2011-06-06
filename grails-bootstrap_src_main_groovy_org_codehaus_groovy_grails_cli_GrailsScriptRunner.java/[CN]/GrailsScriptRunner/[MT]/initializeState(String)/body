@@ -1,0 +1,9 @@
+{
+  this.scriptCacheDir=new File(settings.getProjectWorkDir(),"scriptCache");
+  this.console=GrailsConsole.getInstance();
+  boolean skipPlugins=scriptName != null && ("UninstallPlugin".equals(scriptName) || "InstallPlugin".equals(scriptName));
+  console.updateStatus("Configuring classpath");
+  ClasspathConfigurer configurer=new ClasspathConfigurer(pluginPathSupport,settings,skipPlugins);
+  this.classLoader=configurer.configuredClassLoader();
+  initializeLogging();
+}

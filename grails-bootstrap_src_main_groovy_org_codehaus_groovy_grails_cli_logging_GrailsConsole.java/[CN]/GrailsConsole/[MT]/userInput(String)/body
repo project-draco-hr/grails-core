@@ -1,7 +1,8 @@
 {
-  updateStatus(msg);
+  addStatus(msg);
+  lastMessage="";
   try {
-    cursorMove+=1;
+    cursorMove=0;
     return reader.readLine("> ");
   }
  catch (  IOException e) {

@@ -9,13 +9,14 @@
   final boolean dependenciesExternallyConfigured=settings.isDependenciesExternallyConfigured();
   final List<File> buildDependencies=settings.getBuildDependencies();
   if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
-    exitWithError("Required Grails build dependencies were not found. Either GRAILS_HOME is not set or your dependencies are misconfigured in grails-app/conf/BuildConfig.groovy");
+    GrailsConsole.getInstance().error("Required Grails build dependencies were not found. Either GRAILS_HOME is not set or your dependencies are misconfigured in grails-app/conf/BuildConfig.groovy");
+    System.exit(1);
   }
   addDependenciesToURLs(excludes,urls,buildDependencies);
   addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
   addDependenciesToURLs(excludes,urls,settings.getTestDependencies());
   if (!skipPlugins) {
-    for (    File dir : listKnownPluginDirs(settings)) {
+    for (    File dir : pluginPathSupport.listKnownPluginDirs()) {
       addPluginLibs(dir,urls,settings);
     }
   }

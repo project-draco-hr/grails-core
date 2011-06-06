@@ -1,7 +1,3 @@
 {
-  String fullName=tagLibraries.get(tagNameKey(namespace,tagName));
-  if (fullName != null) {
-    return (GroovyObject)applicationContext.getBean(fullName);
-  }
-  return null;
+  return tagLibraries.get(tagNameKey(namespace,tagName));
 }

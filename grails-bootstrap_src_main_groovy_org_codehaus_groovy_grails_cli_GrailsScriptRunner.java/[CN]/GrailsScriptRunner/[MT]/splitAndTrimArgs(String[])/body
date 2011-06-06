@@ -1,0 +1,10 @@
+{
+  StringBuilder allArgs=new StringBuilder("");
+  for (  String arg : args) {
+    arg=arg.trim();
+    if (arg.length() > 0) {
+      allArgs.append(" ").append(arg);
+    }
+  }
+  return allArgs.toString().trim().split(" ");
+}

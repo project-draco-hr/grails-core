@@ -2,7 +2,7 @@
   console.error("FAILURE: " + failure.getDescription().getDisplayName());
   Throwable exception=failure.getException();
   if (exception != null) {
-    StackTraceUtils.deepSanitize(exception);
+    GrailsUtil.deepSanitize(exception);
     deepSanitize(exception);
     StringWriter sw=new StringWriter();
     PrintWriter ps=new PrintWriter(sw);

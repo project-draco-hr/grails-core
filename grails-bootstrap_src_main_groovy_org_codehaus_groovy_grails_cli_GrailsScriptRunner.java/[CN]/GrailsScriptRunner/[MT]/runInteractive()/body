@@ -11,7 +11,7 @@
     System.clearProperty(Environment.KEY);
     String enteredName=helper.userInput(prompt);
     if (enteredName != null && enteredName.trim().length() > 0) {
-      script=processArgumentsAndReturnScriptName(enteredName);
+      script=processAndReturnArguments(enteredName.split(" "));
       if (script.args != null) {
         System.setProperty("grails.cli.args",script.args);
       }

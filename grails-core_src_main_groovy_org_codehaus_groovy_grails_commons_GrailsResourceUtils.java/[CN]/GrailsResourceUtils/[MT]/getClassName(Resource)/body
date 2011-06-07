@@ -1,8 +1,3 @@
 {
-  try {
-    return getClassName(resource.getFile().getAbsolutePath());
-  }
- catch (  IOException e) {
-    throw new GrailsConfigurationException("I/O error reading class name from resource [" + resource + "]: "+ e.getMessage(),e);
-  }
+  return org.codehaus.groovy.grails.io.support.GrailsResourceUtils.getClassName(resource);
 }

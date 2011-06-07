@@ -1,0 +1,6 @@
+{
+  if (args != null) {
+    System.setProperty("grails.cli.args",args.replace(' ','\n'));
+  }
+  return executeScriptWithCaching(scriptName,env);
+}

@@ -18,5 +18,5 @@
     this.comma=true;
     return this;
   }
-  throw new JSONException("Value out of sequence.");
+  throw new JSONException("Value out of sequence: expected mode to be OBJECT or ARRAY when writing '" + s + "' but was "+ this.mode);
 }

@@ -17,5 +17,5 @@
       throw new JSONException(e);
     }
   }
-  throw new JSONException("Misplaced key.");
+  throw new JSONException("Misplaced key: expected mode of KEY but was " + this.mode);
 }

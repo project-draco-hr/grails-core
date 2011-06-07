@@ -8,5 +8,5 @@
     this.comma=false;
     return this;
   }
-  throw new JSONException("Misplaced object.");
+  throw new JSONException("Misplaced object: expected mode of INIT, OBJECT or ARRAY but was " + this.mode);
 }

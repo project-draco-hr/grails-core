@@ -1,0 +1,6 @@
+{
+  Map map=org.apache.log4j.MDC.getContext();
+  if (map != null) {
+    map.clear();
+  }
+}

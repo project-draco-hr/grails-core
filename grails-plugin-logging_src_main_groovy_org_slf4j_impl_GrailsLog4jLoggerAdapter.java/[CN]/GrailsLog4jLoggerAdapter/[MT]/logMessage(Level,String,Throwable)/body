@@ -1,0 +1,4 @@
+{
+  Throwable filteredTrace=!msg.startsWith(GrailsUtil.SANITIZING_STACKTRACE) ? cleanIfException(t) : t;
+  log4jLogger.log(FQCN,level,msg,filteredTrace);
+}

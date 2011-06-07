@@ -1,6 +1,7 @@
 {
+  GrailsConsole console=GrailsConsole.getInstance();
   long time=System.currentTimeMillis();
-  System.out.println("doArtefactConfiguration started");
+  console.addStatus("doArtefactConfiguration started");
   super.doArtefactConfiguration();
-  System.out.println("doArtefactConfiguration took " + (System.currentTimeMillis() - time));
+  console.addStatus("doArtefactConfiguration took " + (System.currentTimeMillis() - time));
 }

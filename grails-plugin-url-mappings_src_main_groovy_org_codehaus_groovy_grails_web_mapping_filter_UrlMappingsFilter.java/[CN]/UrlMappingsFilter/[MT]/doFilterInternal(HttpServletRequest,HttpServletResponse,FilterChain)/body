@@ -37,7 +37,6 @@
       backupParameters=new HashMap(webRequest.getParams());
     }
  catch (    Exception e) {
-      GrailsUtil.deepSanitize(e);
       LOG.error("Error creating params object: " + e.getMessage(),e);
       backupParameters=Collections.EMPTY_MAP;
     }
@@ -59,7 +58,6 @@
           }
         }
  catch (        Exception e) {
-          GrailsUtil.deepSanitize(e);
           if (e instanceof MultipartException) {
             throw ((MultipartException)e);
           }

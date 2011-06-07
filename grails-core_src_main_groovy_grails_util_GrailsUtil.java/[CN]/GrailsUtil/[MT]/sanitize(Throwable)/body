@@ -2,14 +2,13 @@
   if (!Boolean.valueOf(System.getProperty("grails.full.stacktrace")).booleanValue()) {
     StackTraceElement[] trace=t.getStackTrace();
     List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
-    for (int i=0; i < trace.length; i++) {
-      StackTraceElement stackTraceElement=trace[i];
+    for (    StackTraceElement stackTraceElement : trace) {
       if (isApplicationClass(stackTraceElement.getClassName())) {
         newTrace.add(stackTraceElement);
       }
     }
     if (newTrace.size() > 0) {
-      STACK_LOG.error("Sanitizing stacktrace:",t);
+      STACK_LOG.error(SANITIZING_STACKTRACE,t);
       StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
       newTrace.toArray(clean);
       t.setStackTrace(clean);

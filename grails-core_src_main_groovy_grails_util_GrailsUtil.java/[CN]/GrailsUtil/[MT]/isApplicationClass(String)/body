@@ -1,6 +1,5 @@
 {
-  for (int i=0; i < GRAILS_PACKAGES.length; i++) {
-    String grailsPackage=GRAILS_PACKAGES[i];
+  for (  String grailsPackage : GRAILS_PACKAGES) {
     if (className.startsWith(grailsPackage)) {
       return false;
     }

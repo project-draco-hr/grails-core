@@ -3,7 +3,7 @@
   namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,this));
   for (  String tagName : taglib.getTagNames()) {
     String nameKey=tagNameKey(namespace,tagName);
-    tagLibraries.put(nameKey,(GroovyObject)applicationContext.getBean(taglib.getFullName()));
+    putTagLib(nameKey,taglib);
     tagsThatReturnObject.remove(nameKey);
   }
   for (  String tagName : taglib.getTagNamesThatReturnObject()) {

@@ -1,0 +1,26 @@
+{
+  ScriptAndArgs info=new ScriptAndArgs();
+  int currentParamIndex=0;
+  if (Environment.isSystemSet()) {
+    info.env=Environment.getCurrent().getName();
+  }
+ else   if (isEnvironmentArgs(arguments[currentParamIndex])) {
+    String env=arguments[currentParamIndex++];
+    info.env=ENV_ARGS.get(env);
+  }
+  abortIfOutOfBounds(arguments,currentParamIndex);
+  String paramName=arguments[currentParamIndex++];
+  if (paramName.charAt(0) == '-') {
+    paramName=paramName.substring(1);
+  }
+  info.inputName=paramName;
+  info.name=GrailsNameUtils.getNameFromScript(paramName);
+  if (currentParamIndex < arguments.length) {
+    StringBuilder b=new StringBuilder(arguments[currentParamIndex]);
+    for (int i=currentParamIndex + 1; i < arguments.length; i++) {
+      b.append(' ').append(arguments[i]);
+    }
+    info.args=b.toString();
+  }
+  return info;
+}

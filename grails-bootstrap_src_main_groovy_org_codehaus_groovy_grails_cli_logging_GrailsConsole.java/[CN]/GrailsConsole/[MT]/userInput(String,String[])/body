@@ -10,7 +10,7 @@
         return response;
       }
     }
-    cursorMove+=2;
+    cursorMove=0;
     return userInput("Invalid input. Must be one of ",validResponses);
   }
 }

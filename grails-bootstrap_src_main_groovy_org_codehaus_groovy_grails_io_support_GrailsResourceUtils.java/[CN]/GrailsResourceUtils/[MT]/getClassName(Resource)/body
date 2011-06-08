@@ -1,0 +1,8 @@
+{
+  try {
+    return getClassName(resource.getFile().getAbsolutePath());
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}

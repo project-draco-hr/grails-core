@@ -1,0 +1,10 @@
+{
+  if (!pluginDir.exists())   return;
+  File libDir=new File(pluginDir,"lib");
+  if (libDir.exists()) {
+    final IvyDependencyManager dependencyManager=settings.getDependencyManager();
+    String pluginName=pluginPathSupport.getPluginName(pluginDir);
+    Collection<?> excludes=dependencyManager.getPluginExcludes(pluginName);
+    addLibs(libDir,urls,excludes != null ? excludes : Collections.emptyList());
+  }
+}

@@ -1,41 +1,72 @@
 {
-  StringBuilder allArgs=new StringBuilder("");
-  for (  String arg : args) {
-    allArgs.append(" ").append(arg);
-  }
+  CommandLineParser parser=new GnuParser();
+  args=splitAndTrimArgs(args);
+  Options options=new Options();
+  options.addOption(new Option(VERBOSE_ARGUMENT,"Enable verbose output"));
+  options.addOption(new Option(AGENT_ARGUMENT,"Enable the reloading agent"));
+  options.addOption(new Option(NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input"));
+  options.addOption(new Option(HELP_ARGUMENT,"Command line help"));
+  options.addOption(new Option(VERSION_ARGUMENT,"Current Grails version"));
+  options.addOption(withArgName("property=value").hasArgs(2).withValueSeparator().withDescription("Used to specify System properties").create("D"));
   GrailsConsole console=GrailsConsole.getInstance();
+  CommandLine commandLine;
+  try {
+    commandLine=parser.parse(options,args);
+  }
+ catch (  ParseException e) {
+    console.error("Error processing command line arguments: " + e.getMessage());
+    System.exit(1);
+    return;
+  }
   console.updateStatus("Initializing");
-  ScriptAndArgs script=processArgumentsAndReturnScriptName(allArgs.toString().trim());
-  console.getCategory().push(script.inputName);
+  ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
   try {
     build=new BuildSettings(new File(grailsHome));
+    if (build.getRootLoader() == null) {
+      build.setRootLoader((URLClassLoader)GrailsScriptRunner.class.getClassLoader());
+    }
   }
  catch (  Exception e) {
-    console.error("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
-    System.exit(1);
+    exitWithError("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
   }
   final File grailsHomeInSettings=build.getGrailsHome();
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
     exitWithError("Grails' installation directory not found: " + build.getGrailsHome());
   }
-  if (script.name == null) {
-    console.error("No script name specified. Use 'grails help' for more info or 'grails interactive' to enter interactive mode");
+  if (commandLine.hasOption(VERSION_ARGUMENT)) {
+    console.log("Grails version: " + build.getGrailsVersion());
     System.exit(0);
   }
-  console.updateStatus("Base Directory: " + build.getBaseDir().getPath());
-  try {
-    int exitCode=new GrailsScriptRunner(build).executeCommand(script.name,script.args,script.env);
-    System.exit(exitCode);
+  if (commandLine.hasOption(HELP_ARGUMENT)) {
+    HelpFormatter formatter=new HelpFormatter();
+    formatter.printHelp("grails [options] [command]",options);
+    System.exit(0);
   }
- catch (  ScriptNotFoundException ex) {
-    console.error("Script not found: " + ex.getScriptName());
+  GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
+  scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT));
+  if (script.name == null) {
+    console.updateStatus("Loading build configuration");
+    build.loadConfig();
+    scriptRunner.initializeState();
+    new InteractiveMode(build,scriptRunner).run();
   }
-catch (  Throwable t) {
-    String msg="Error executing script " + script.name + ": "+ t.getMessage();
-    sanitizeStacktrace(t);
-    t.printStackTrace(System.out);
-    exitWithError(msg);
+ else {
+    console.getCategory().push(script.inputName);
+    console.updateStatus("Base Directory: " + build.getBaseDir().getPath());
+    try {
+      int exitCode=scriptRunner.executeCommand(script.name,script.args,script.env);
+      System.exit(exitCode);
+    }
+ catch (    ScriptNotFoundException ex) {
+      console.error("Script not found: " + ex.getScriptName());
+    }
+catch (    Throwable t) {
+      String msg="Error executing script " + script.name + ": "+ t.getMessage();
+      sanitizeStacktrace(t);
+      t.printStackTrace(System.out);
+      exitWithError(msg);
+    }
   }
 }

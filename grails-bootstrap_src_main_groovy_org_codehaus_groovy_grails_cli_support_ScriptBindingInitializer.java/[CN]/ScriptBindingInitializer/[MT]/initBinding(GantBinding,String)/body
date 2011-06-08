@@ -1,0 +1,66 @@
+{
+  Closure<?> c=settings.getGrailsScriptClosure();
+  c.setDelegate(binding);
+  binding.setVariable("grailsScript",c);
+  binding.setVariable("console",GrailsConsole.getInstance());
+  binding.setVariable("grailsSettings",settings);
+  final File basedir=settings.getBaseDir();
+  final String baseDirPath=basedir.getPath();
+  binding.setVariable("basedir",baseDirPath);
+  binding.setVariable("scaffoldDir",baseDirPath + "/web-app/WEB-INF/templates/scaffolding");
+  binding.setVariable("baseFile",basedir);
+  binding.setVariable("baseName",basedir.getName());
+  binding.setVariable("grailsHome",(settings.getGrailsHome() != null ? settings.getGrailsHome().getPath() : null));
+  binding.setVariable("grailsVersion",settings.getGrailsVersion());
+  binding.setVariable("userHome",settings.getUserHome());
+  binding.setVariable("grailsEnv",settings.getGrailsEnv());
+  binding.setVariable("defaultEnv",Boolean.valueOf(settings.getDefaultEnv()));
+  binding.setVariable("buildConfig",settings.getConfig());
+  binding.setVariable("rootLoader",settings.getRootLoader());
+  binding.setVariable("configFile",new File(baseDirPath + "/grails-app/conf/Config.groovy"));
+  String grailsWork=settings.getGrailsWorkDir().getPath();
+  binding.setVariable("grailsWorkDir",grailsWork);
+  binding.setVariable("projectWorkDir",settings.getProjectWorkDir().getPath());
+  binding.setVariable("projectTargetDir",settings.getProjectTargetDir());
+  binding.setVariable("classesDir",settings.getClassesDir());
+  binding.setVariable("pluginClassesDir",settings.getPluginClassesDir());
+  binding.setVariable("grailsTmp",grailsWork + "/tmp");
+  binding.setVariable("classesDirPath",settings.getClassesDir().getPath());
+  binding.setVariable("pluginClassesDirPath",settings.getPluginClassesDir().getPath());
+  binding.setVariable("testDirPath",settings.getTestClassesDir().getPath());
+  final String resourcesDir=settings.getResourcesDir().getPath();
+  binding.setVariable("resourcesDirPath",resourcesDir);
+  binding.setVariable("webXmlFile",settings.getWebXmlLocation());
+  binding.setVariable("pluginsDirPath",settings.getProjectPluginsDir().getPath());
+  binding.setVariable("globalPluginsDirPath",settings.getGlobalPluginsDir().getPath());
+  final BaseSettingsApi cla=new BaseSettingsApi(settings,isInteractive);
+  if (scriptName.equals("RunApp")) {
+    cla.enableUaa();
+  }
+  makeApiAvailableToScripts(binding,cla);
+  makeApiAvailableToScripts(binding,cla.getPluginSettings());
+  setUIListener(binding);
+  try {
+    List<File> descriptors=new ArrayList<File>();
+    File desc=pluginPathSupport.getPluginDescriptor(basedir);
+    if (desc != null)     descriptors.add(desc);
+    for (    File dir : pluginPathSupport.listKnownPluginDirs()) {
+      File pluginDescriptor=pluginPathSupport.getPluginDescriptor(dir);
+      if (pluginDescriptor != null) {
+        descriptors.add(pluginDescriptor);
+      }
+ else {
+        GrailsConsole.getInstance().log("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
+      }
+    }
+    for (    File file : descriptors) {
+      Matcher matcher=pluginDescriptorPattern.matcher(file.getName());
+      matcher.find();
+      String pluginName=GrailsNameUtils.getPropertyName(matcher.group(1));
+      binding.setVariable(pluginName + "PluginDir",file.getParentFile());
+    }
+  }
+ catch (  Exception e) {
+  }
+  return binding;
+}

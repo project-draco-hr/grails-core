@@ -1,0 +1,6 @@
+{
+  if (t != null) {
+    GrailsUtil.deepSanitize(t);
+  }
+  return t;
+}

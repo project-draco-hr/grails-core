@@ -10,6 +10,12 @@
         if (o instanceof Closure) {
           new Log4jConfig().configure((Closure<?>)o);
         }
+ else         if (o instanceof Collection) {
+          new Log4jConfig().configure((Collection)o);
+        }
+ else         if (o instanceof Map) {
+          new Log4jConfig().configure((Map)o);
+        }
  else {
           new Log4jConfig().configure();
         }

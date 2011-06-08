@@ -5,8 +5,15 @@
   if (scriptCache.get(scriptName) != null) {
     CachedScript cachedScript=scriptCache.get(scriptName);
     potentialScripts=cachedScript.potentialScripts;
-    binding=cachedScript.binding;
-    setDefaultInputStream(binding);
+    GantBinding originalBinding=cachedScript.binding;
+    binding=new GantBinding();
+    Map variables=originalBinding.getVariables();
+    if (variables.get("applicationLoaded") != null) {
+      binding.setVariable("applicationLoaded",Boolean.TRUE);
+      binding.setVariable("grailsApp",variables.get("grailsApp"));
+      binding.setVariable("appCtx",variables.get("appCtx"));
+      setDefaultInputStream(binding);
+    }
   }
  else {
     binding=new GantBinding();
@@ -30,7 +37,7 @@
       CachedScript cachedScript=new CachedScript();
       cachedScript.binding=binding;
       cachedScript.potentialScripts=potentialScripts;
-      scriptCache.put("scriptName",cachedScript);
+      scriptCache.put(scriptName,cachedScript);
     }
   }
   if (potentialScripts.size() > 0) {

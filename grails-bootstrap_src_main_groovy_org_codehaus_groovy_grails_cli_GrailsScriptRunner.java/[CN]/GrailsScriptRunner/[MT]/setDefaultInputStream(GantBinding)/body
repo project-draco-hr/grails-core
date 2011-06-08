@@ -6,7 +6,7 @@
   Project p=antBuilder.getAntProject();
   try {
     System.setIn(orignalIn);
-    p.setInputHandler(new CommandLineInputHandler(orignalIn,System.out));
+    p.setInputHandler(new CommandLineInputHandler());
     p.setDefaultInputStream(orignalIn);
   }
  catch (  NoSuchMethodError nsme) {

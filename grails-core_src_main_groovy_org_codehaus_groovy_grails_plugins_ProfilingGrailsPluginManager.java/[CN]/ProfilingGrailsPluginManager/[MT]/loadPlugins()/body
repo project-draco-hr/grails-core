@@ -1,6 +1,7 @@
 {
+  GrailsConsole console=GrailsConsole.getInstance();
   long time=System.currentTimeMillis();
-  System.out.println("Loading plugins started");
+  console.addStatus("Loading plugins started");
   super.loadPlugins();
-  System.out.println("Loading plugins took " + (System.currentTimeMillis() - time));
+  console.addStatus("Loading plugins took " + (System.currentTimeMillis() - time));
 }

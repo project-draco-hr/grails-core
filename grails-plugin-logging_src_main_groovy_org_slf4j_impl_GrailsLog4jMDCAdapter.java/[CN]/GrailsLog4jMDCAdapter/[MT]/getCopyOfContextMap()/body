@@ -1,0 +1,9 @@
+{
+  Map old=org.apache.log4j.MDC.getContext();
+  if (old != null) {
+    return new HashMap(old);
+  }
+ else {
+    return null;
+  }
+}

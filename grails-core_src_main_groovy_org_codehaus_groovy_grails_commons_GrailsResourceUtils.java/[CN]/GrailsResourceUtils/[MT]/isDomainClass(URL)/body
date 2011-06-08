@@ -1,4 +1,3 @@
 {
-  if (url == null)   return false;
-  return DOMAIN_PATH_PATTERN.matcher(url.getFile()).find();
+  return org.codehaus.groovy.grails.io.support.GrailsResourceUtils.isDomainClass(url);
 }

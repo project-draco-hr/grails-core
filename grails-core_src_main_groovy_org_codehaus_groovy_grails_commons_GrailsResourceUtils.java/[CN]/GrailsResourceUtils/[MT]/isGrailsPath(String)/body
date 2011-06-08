@@ -1,9 +1,3 @@
 {
-  for (  Pattern pattern : patterns) {
-    Matcher m=pattern.matcher(path);
-    if (m.find()) {
-      return true;
-    }
-  }
-  return false;
+  return org.codehaus.groovy.grails.io.support.GrailsResourceUtils.isGrailsPath(path);
 }

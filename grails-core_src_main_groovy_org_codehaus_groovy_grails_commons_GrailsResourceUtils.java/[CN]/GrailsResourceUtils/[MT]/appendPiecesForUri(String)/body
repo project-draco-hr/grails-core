@@ -1,17 +1,3 @@
 {
-  StringBuilder builder=new StringBuilder();
-  List<String> piecesList=Arrays.asList(pieces);
-  Iterator<String> iter=piecesList.iterator();
-  while (iter.hasNext()) {
-    String piece=iter.next();
-    builder.append(piece);
-    if (iter.hasNext() && !piece.endsWith("/")) {
-      builder.append("/");
-    }
-  }
-  String result=builder.toString();
-  while (result.contains("//")) {
-    result=result.replaceAll("//","/");
-  }
-  return result;
+  return org.codehaus.groovy.grails.io.support.GrailsResourceUtils.appendPiecesForUri(pieces);
 }

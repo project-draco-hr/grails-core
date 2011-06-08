@@ -60,7 +60,6 @@
       }
     }
  catch (    ModelAndViewDefiningException ex) {
-      GrailsUtil.deepSanitize(ex);
       handlerException=ex;
       if (logger.isDebugEnabled()) {
         logger.debug("ModelAndViewDefiningException encountered",ex);
@@ -68,7 +67,6 @@
       mv=ex.getModelAndView();
     }
 catch (    Exception ex) {
-      GrailsUtil.deepSanitize(ex);
       handlerException=ex;
       Object handler=(mappedHandler != null ? mappedHandler.getHandler() : null);
       mv=processHandlerException(request,response,handler,ex);

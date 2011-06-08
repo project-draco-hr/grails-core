@@ -1,0 +1,17 @@
+{
+  if ((candidates == null) || (candidates.size() == 0)) {
+    return null;
+  }
+  String[] strings=(String[])candidates.toArray(new String[candidates.size()]);
+  String first=strings[0];
+  StringBuffer candidate=new StringBuffer();
+  for (int i=0; i < first.length(); i++) {
+    if (startsWith(first.substring(0,i + 1),strings)) {
+      candidate.append(first.charAt(i));
+    }
+ else {
+      break;
+    }
+  }
+  return candidate.toString();
+}

@@ -16,7 +16,6 @@
       }
     }
  catch (    Exception e) {
-      GrailsUtil.deepSanitize(e);
       for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
         try {
           handlerInterceptor.afterCompletion(request,response,this,e);

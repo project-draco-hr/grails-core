@@ -1,0 +1,15 @@
+{
+  AntBuilder ant=(AntBuilder)binding.getVariable("ant");
+  binding.setVariable("Ant",ant);
+  Project project=ant.getProject();
+  GrailsConsole instance=GrailsConsole.getInstance();
+  project.addBuildListener(new GrailsConsoleBuildListener(instance));
+  if (!instance.isVerbose()) {
+    Vector buildListeners=project.getBuildListeners();
+    for (    Object buildListener : buildListeners) {
+      if (buildListener instanceof BuildLogger) {
+        ((BuildLogger)buildListener).setMessageOutputLevel(LogLevel.ERR.getLevel());
+      }
+    }
+  }
+}

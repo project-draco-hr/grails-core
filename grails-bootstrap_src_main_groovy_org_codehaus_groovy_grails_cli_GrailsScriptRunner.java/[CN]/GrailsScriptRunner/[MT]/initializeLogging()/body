@@ -1,0 +1,9 @@
+{
+  if (settings.getGrailsHome() != null) {
+    try {
+      Log4jConfigurer.initLogging("file:" + settings.getGrailsHome() + "/scripts/log4j.properties");
+    }
+ catch (    FileNotFoundException e) {
+    }
+  }
+}

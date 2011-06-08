@@ -1,0 +1,54 @@
+{
+  List<Resource> potentialScripts;
+  List<Resource> allScripts=getAvailableScripts();
+  GantBinding binding;
+  if (scriptCache.get(scriptName) != null) {
+    CachedScript cachedScript=scriptCache.get(scriptName);
+    potentialScripts=cachedScript.potentialScripts;
+    GantBinding originalBinding=cachedScript.binding;
+    binding=new GantBinding();
+    Map variables=originalBinding.getVariables();
+    if (variables.get("applicationLoaded") != null) {
+      binding.setVariable("applicationLoaded",Boolean.TRUE);
+      binding.setVariable("grailsApp",variables.get("grailsApp"));
+      binding.setVariable("appCtx",variables.get("appCtx"));
+      setDefaultInputStream(binding);
+    }
+  }
+ else {
+    binding=new GantBinding();
+    setDefaultInputStream(binding);
+    boolean exactMatchFound=false;
+    potentialScripts=new ArrayList<Resource>();
+    for (    Resource scriptPath : allScripts) {
+      String scriptFileName=scriptPath.getFilename().substring(0,scriptPath.getFilename().length() - 7);
+      if (scriptFileName.endsWith("_")) {
+        scriptsAllowedOutsideOfProject.add(scriptPath);
+        scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
+      }
+      if (scriptFileName.equals(scriptName)) {
+        potentialScripts.add(scriptPath);
+        exactMatchFound=true;
+        continue;
+      }
+      if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName))       potentialScripts.add(scriptPath);
+    }
+    if (!potentialScripts.isEmpty()) {
+      CachedScript cachedScript=new CachedScript();
+      cachedScript.binding=binding;
+      cachedScript.potentialScripts=potentialScripts;
+      scriptCache.put(scriptName,cachedScript);
+    }
+  }
+  if (potentialScripts.size() > 0) {
+    potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
+    final Resource scriptFile=potentialScripts.get(0);
+    if (!isGrailsProject() && !isExternalScript(scriptFile)) {
+      return handleScriptExecutedOutsideProjectError(console);
+    }
+    return executeScriptFile(scriptName,env,binding,scriptFile);
+  }
+ else {
+    return attemptPrecompiledScriptExecute(scriptName,env,binding,allScripts);
+  }
+}

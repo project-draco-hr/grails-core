@@ -1,0 +1,8 @@
+{
+  Properties systemProps=allArgs.getOptionProperties("D");
+  if (systemProps != null) {
+    for (    Map.Entry<Object,Object> entry : systemProps.entrySet()) {
+      System.setProperty(entry.getKey().toString(),entry.getValue().toString());
+    }
+  }
+}

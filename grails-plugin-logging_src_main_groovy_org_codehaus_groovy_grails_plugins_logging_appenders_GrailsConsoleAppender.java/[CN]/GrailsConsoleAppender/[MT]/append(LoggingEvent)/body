@@ -1,0 +1,10 @@
+{
+  Level level=event.getLevel();
+  String message=buildMessage(event);
+  if ((level == Level.ERROR) || (level == Level.FATAL)) {
+    console.error(message);
+  }
+ else {
+    console.log(message);
+  }
+}

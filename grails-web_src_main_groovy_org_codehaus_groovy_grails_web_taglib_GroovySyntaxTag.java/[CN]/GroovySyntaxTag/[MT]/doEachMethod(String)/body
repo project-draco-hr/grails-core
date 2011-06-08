@@ -12,12 +12,13 @@
     throw new GrailsTagException("Attribute [" + ATTRIBUTE_VAR + "] cannot have the same value as attribute ["+ ATTRIBUTES_STATUS+ "]");
   }
   if (hasStatus) {
-    out.println("int " + status + "= 0");
+    out.println("FOR:{");
+    out.println("int " + status + " = 0");
   }
-  out.print("for(" + (hasVar ? var : "it"));
+  out.print("for( " + (hasVar ? var : "it"));
   out.print(" in ");
-  out.print(parser != null ? parser.getExpressionText(in) : in);
+  out.print(parser != null ? parser.getExpressionText(in,false) : extractAttributeValue(in));
   out.print(" )");
-  out.print(" { ");
+  out.print(" {");
   out.println();
 }

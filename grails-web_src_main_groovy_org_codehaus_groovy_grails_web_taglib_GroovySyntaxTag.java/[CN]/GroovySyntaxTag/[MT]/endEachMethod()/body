@@ -1,0 +1,10 @@
+{
+  String status=attributes.get(ATTRIBUTES_STATUS);
+  status=extractAttributeValue(status);
+  boolean hasStatus=!StringUtils.isBlank(status);
+  if (hasStatus) {
+    out.println(status + "++");
+    out.println("}");
+  }
+  out.println("}");
+}

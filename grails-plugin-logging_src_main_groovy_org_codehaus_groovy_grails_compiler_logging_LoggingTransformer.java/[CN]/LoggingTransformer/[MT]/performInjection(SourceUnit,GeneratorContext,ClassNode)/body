@@ -1,8 +1,8 @@
 {
-  final FieldNode existingField=classNode.getField(LOG_PROPERTY);
+  final FieldNode existingField=classNode.getDeclaredField(LOG_PROPERTY);
   if (existingField == null && !classNode.isInterface()) {
     final String path=source.getName();
-    String artefactType=path != null ? GrailsResourceUtils.getArtefactDirectory(path) : null;
+    String artefactType=path != null ? org.codehaus.groovy.grails.io.support.GrailsResourceUtils.getArtefactDirectory(path) : null;
     if (artefactType != null && CONF_DIR.equals(artefactType) && classNode.getName().endsWith(FILTERS_ARTEFACT_TYPE_SUFFIX)) {
       artefactType=FILTERS_ARTEFACT_TYPE;
     }

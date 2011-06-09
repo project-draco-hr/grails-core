@@ -19,5 +19,11 @@
       getBinding().getVariables().put(property,value);
     }
   }
+  if (value == null) {
+    MetaProperty mp=getMetaClass().getMetaProperty(property);
+    if (mp != null) {
+      return mp.getProperty(this);
+    }
+  }
   return value;
 }

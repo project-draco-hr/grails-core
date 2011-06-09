@@ -1,5 +1,0 @@
-{
-  if (StringUtils.hasText(lastMessage)) {
-    if (!lastMessage.contains(maxIndicatorString))     updateStatus(lastMessage + indicator);
-  }
-}

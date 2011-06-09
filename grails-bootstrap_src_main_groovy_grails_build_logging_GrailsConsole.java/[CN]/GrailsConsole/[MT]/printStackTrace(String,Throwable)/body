@@ -1,0 +1,12 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter ps=new PrintWriter(sw);
+  if (message != null) {
+    ps.println(message);
+  }
+ else {
+    ps.println(error.getMessage());
+  }
+  error.printStackTrace(ps);
+  error(sw.toString());
+}

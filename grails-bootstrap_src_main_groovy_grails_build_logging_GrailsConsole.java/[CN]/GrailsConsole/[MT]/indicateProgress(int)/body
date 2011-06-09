@@ -1,0 +1,15 @@
+{
+  String currMsg=lastMessage;
+  try {
+    if (isAnsiEnabled()) {
+      updateStatus(new StringBuilder(currMsg).append(' ').append(number).toString());
+    }
+ else {
+      out.print("..");
+      out.print(number);
+    }
+  }
+  finally {
+    lastMessage=currMsg;
+  }
+}

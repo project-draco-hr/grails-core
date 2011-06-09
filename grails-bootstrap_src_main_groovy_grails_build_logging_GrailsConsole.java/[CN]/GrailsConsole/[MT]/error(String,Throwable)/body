@@ -1,0 +1,9 @@
+{
+  if (verbose && error != null) {
+    StackTraceUtils.deepSanitize(error);
+    printStackTrace(msg,error);
+  }
+ else {
+    error(msg);
+  }
+}

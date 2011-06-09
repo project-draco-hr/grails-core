@@ -1,9 +1,0 @@
-{
-  super();
-  Vector buildListeners=getProject().getBuildListeners();
-  for (  Object buildListener : buildListeners) {
-    if (buildListener instanceof BuildLogger) {
-      ((BuildLogger)buildListener).setMessageOutputLevel(LogLevel.ERR.getLevel());
-    }
-  }
-}

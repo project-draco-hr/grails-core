@@ -1,0 +1,10 @@
+{
+  if (event.getPriority() > msgOutputLevel || null == event.getMessage() || "".equals(event.getMessage().trim())) {
+    return;
+  }
+  if (null != targetName) {
+    console.verbose(StringUtils.LINE_SEP + targetName + ":");
+    targetName=null;
+  }
+  super.messageLogged(event);
+}

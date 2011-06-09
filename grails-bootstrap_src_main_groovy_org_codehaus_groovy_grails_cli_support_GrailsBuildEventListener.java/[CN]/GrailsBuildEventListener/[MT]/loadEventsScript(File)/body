@@ -2,10 +2,11 @@
   if (eventScript == null) {
     return;
   }
+  GrailsConsole console=GrailsConsole.getInstance();
   try {
     Class<?> scriptClass=classLoader.parseClass(eventScript);
     if (scriptClass == null) {
-      System.err.println("Could not load event script (script may be empty): " + eventScript);
+      console.error("Could not load event script (script may be empty): " + eventScript);
       return;
     }
     Script script=(Script)scriptClass.newInstance();
@@ -29,7 +30,6 @@
   }
  catch (  Throwable e) {
     StackTraceUtils.deepSanitize(e);
-    e.printStackTrace();
-    System.out.println("Error loading event script from file [" + eventScript + "] "+ e.getMessage());
+    console.error("Error loading event script from file [" + eventScript + "] "+ e.getMessage(),e);
   }
 }

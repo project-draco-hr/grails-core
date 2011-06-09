@@ -4,20 +4,14 @@
   if (!uaaService.isUaaTermsOfUseAccepted() && interactive) {
     if (privacyLevel.equals(UaaClient.Privacy.PrivacyLevel.UNDECIDED_TOU)) {
       while (true) {
-        System.out.print(MESSAGE);
-        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        try {
-          String selection=br.readLine().trim();
-          if ("y".equalsIgnoreCase(selection)) {
-            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
-            break;
-          }
- else           if ("n".equalsIgnoreCase(selection)) {
-            uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
-            break;
-          }
+        GrailsConsole console=GrailsConsole.getInstance();
+        String selection=console.userInput(MESSAGE,new String[]{"y","n"});
+        if ("y".equalsIgnoreCase(selection)) {
+          uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
+          break;
         }
- catch (        IOException e) {
+ else         if ("n".equalsIgnoreCase(selection)) {
+          uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
           break;
         }
       }

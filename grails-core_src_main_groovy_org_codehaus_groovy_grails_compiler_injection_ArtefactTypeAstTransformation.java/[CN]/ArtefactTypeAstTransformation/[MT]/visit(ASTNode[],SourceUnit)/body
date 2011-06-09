@@ -27,8 +27,7 @@
       }
     }
  catch (    RuntimeException e) {
-      e.printStackTrace();
-      System.out.println("Error occurred calling AST injector: " + e.getMessage());
+      GrailsConsole.getInstance().error("Error occurred calling AST injector: " + e.getMessage(),e);
       throw e;
     }
   }

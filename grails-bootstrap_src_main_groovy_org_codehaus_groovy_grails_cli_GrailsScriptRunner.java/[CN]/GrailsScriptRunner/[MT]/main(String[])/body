@@ -7,13 +7,13 @@
   options.addOption(new Option(NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input"));
   options.addOption(new Option(HELP_ARGUMENT,"Command line help"));
   options.addOption(new Option(VERSION_ARGUMENT,"Current Grails version"));
-  options.addOption(new Option(NOANSII_ARGUMENT,"Disables ANSII output"));
+  options.addOption(new Option(NOANSI_ARGUMENT,"Disables ANSI output"));
   options.addOption(withArgName("property=value").hasArgs(2).withValueSeparator().withDescription("Used to specify System properties").create("D"));
   GrailsConsole console=GrailsConsole.getInstance();
   CommandLine commandLine;
   try {
     commandLine=parser.parse(options,args);
-    if (commandLine.hasOption(NOANSII_ARGUMENT)) {
+    if (commandLine.hasOption(NOANSI_ARGUMENT)) {
       console.setAnsiEnabled(false);
     }
   }

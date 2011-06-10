@@ -21,10 +21,10 @@
   ProxyHandler proxyHandler=getProxyHandler();
   if (grailsConfig.get("grails.converters.json.default.deep",false)) {
     LOG.debug("Using DeepDomainClassMarshaller as default.");
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,application));
   }
  else {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion,proxyHandler));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion,proxyHandler,application));
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GroovyBeanMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.GenericJavaBeanMarshaller());

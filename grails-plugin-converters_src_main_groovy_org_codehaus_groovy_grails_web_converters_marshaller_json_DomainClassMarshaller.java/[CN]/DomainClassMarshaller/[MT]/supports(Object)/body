@@ -1,3 +1,4 @@
 {
-  return ConverterUtil.isDomainClass(object.getClass());
+  String name=ConverterUtil.trimProxySuffix(object.getClass().getName());
+  return application.isArtefactOfType(DomainClassArtefactHandler.TYPE,name);
 }

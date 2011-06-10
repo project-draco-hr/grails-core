@@ -1,6 +1,6 @@
 {
   Class clazz=value.getClass();
-  GrailsDomainClass domainClass=ConverterUtil.getDomainClass(clazz.getName());
+  GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,ConverterUtil.trimProxySuffix(clazz.getName()));
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
   Object idValue=beanWrapper.getPropertyValue(id.getName());

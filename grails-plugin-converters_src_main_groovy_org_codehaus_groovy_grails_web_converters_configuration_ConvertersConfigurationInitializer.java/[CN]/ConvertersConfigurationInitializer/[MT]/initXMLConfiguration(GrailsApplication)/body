@@ -12,10 +12,10 @@
   GrailsConfig grailsConfig=new GrailsConfig(application);
   boolean includeDomainVersion=includeDomainVersionProperty(grailsConfig,"xml");
   if (grailsConfig.get("grails.converters.xml.default.deep",false)) {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,application));
   }
  else {
-    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DomainClassMarshaller(includeDomainVersion,proxyHandler));
+    marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DomainClassMarshaller(includeDomainVersion,proxyHandler,application));
   }
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GroovyBeanMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.GenericJavaBeanMarshaller());

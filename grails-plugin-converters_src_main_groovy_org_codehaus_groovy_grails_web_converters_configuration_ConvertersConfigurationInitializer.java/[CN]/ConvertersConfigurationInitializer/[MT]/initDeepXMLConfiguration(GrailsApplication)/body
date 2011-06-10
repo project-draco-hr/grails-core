@@ -1,6 +1,6 @@
 {
   GrailsConfig grailsConfig=new GrailsConfig(application);
   DefaultConverterConfiguration<XML> deepConfig=new DefaultConverterConfiguration<XML>(ConvertersConfigurationHolder.getConverterConfiguration(XML.class),getProxyHandler());
-  deepConfig.registerObjectMarshaller(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersionProperty(grailsConfig,"xml"),getProxyHandler()));
+  deepConfig.registerObjectMarshaller(new org.codehaus.groovy.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersionProperty(grailsConfig,"xml"),getProxyHandler(),application));
   ConvertersConfigurationHolder.setNamedConverterConfiguration(XML.class,"deep",deepConfig);
 }

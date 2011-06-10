@@ -1,9 +1,0 @@
-{
-  if (getDataSources().contains(name)) {
-    return true;
-  }
-  if (getDataSources().contains(GrailsDomainClassProperty.ALL_DATA_SOURCES)) {
-    return true;
-  }
-  return false;
-}

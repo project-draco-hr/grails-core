@@ -1,0 +1,4 @@
+{
+  List<String> names=getDatasourceNames(domainClass);
+  return names.contains(dataSourceName) || names.contains(GrailsDomainClassProperty.ALL_DATA_SOURCES);
+}

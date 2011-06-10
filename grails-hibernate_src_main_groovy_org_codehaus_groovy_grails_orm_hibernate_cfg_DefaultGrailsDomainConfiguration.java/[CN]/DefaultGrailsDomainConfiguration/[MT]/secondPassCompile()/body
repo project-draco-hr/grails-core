@@ -7,7 +7,7 @@
   }
   configureDomainBinder(grailsApplication,domainClasses);
   for (  GrailsDomainClass domainClass : domainClasses) {
-    if (!domainClass.usesDataSource(dataSourceName)) {
+    if (!GrailsHibernateUtil.usesDatasource(domainClass,dataSourceName)) {
       continue;
     }
     final Mappings mappings=super.createMappings();

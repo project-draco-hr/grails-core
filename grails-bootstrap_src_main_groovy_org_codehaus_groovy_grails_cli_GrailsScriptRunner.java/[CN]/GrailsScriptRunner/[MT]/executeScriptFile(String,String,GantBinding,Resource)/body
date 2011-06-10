@@ -6,12 +6,17 @@
   Gant gant=new Gant(bindingInitializer.initBinding(binding,scriptName),classLoader);
   gant.setUseCache(true);
   gant.setCacheDirectory(scriptCacheDir);
+  GantResult result=null;
   try {
     gant.loadScript(scriptFile.getURL());
-    return executeWithGantInstance(gant,DO_NOTHING_CLOSURE);
+    result=executeWithGantInstance(gant,DO_NOTHING_CLOSURE);
+    return result.exitCode;
   }
  catch (  IOException e) {
     console.error("I/O exception loading script [" + e.getMessage() + "]: "+ e.getMessage());
     return 1;
+  }
+ finally {
+    cleanup(gant,result,binding);
   }
 }

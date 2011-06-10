@@ -1,0 +1,7 @@
+{
+  MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+  for (  Class cls : alteredClasses) {
+    registry.removeMetaClass(cls);
+  }
+  alteredClasses.clear();
+}

@@ -1,0 +1,27 @@
+{
+  if (result != null) {
+    Class cls=GantMetaClass.class;
+    try {
+      Field methodsInvoked=cls.getDeclaredField("methodsInvoked");
+      methodsInvoked.setAccessible(true);
+      Set methodsInvokedSet=(Set)methodsInvoked.get(cls);
+      if (methodsInvokedSet != null) {
+        methodsInvokedSet.clear();
+      }
+    }
+ catch (    NoSuchFieldException e) {
+    }
+catch (    IllegalAccessException e) {
+    }
+  }
+  System.setIn(originalIn);
+  System.setOut(originalOut);
+  GrailsPluginUtils.clearCaches();
+  Map variables=binding.getVariables();
+  Object pluginsSettingsObject=variables.get("pluginsSettings");
+  if (pluginsSettingsObject instanceof PluginBuildSettings) {
+    ((PluginBuildSettings)pluginsSettingsObject).clearCache();
+  }
+  GroovySystem.getMetaClassRegistry().removeMetaClass(GantBinding.class);
+  GroovySystem.getMetaClassRegistry().removeMetaClass(Gant.class);
+}

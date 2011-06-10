@@ -1,4 +1,6 @@
 {
+  originalIn=System.in;
+  originalOut=System.out;
   CommandLineParser parser=new GnuParser();
   args=splitAndTrimArgs(args);
   Options options=new Options();

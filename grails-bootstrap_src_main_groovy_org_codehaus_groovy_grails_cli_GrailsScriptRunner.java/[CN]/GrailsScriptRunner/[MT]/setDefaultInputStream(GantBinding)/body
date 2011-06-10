@@ -1,19 +1,16 @@
 {
-  if (this.orignalIn == null) {
-    this.orignalIn=System.in;
-  }
   AntBuilder antBuilder=(AntBuilder)binding.getVariable("ant");
   Project p=antBuilder.getAntProject();
   try {
-    System.setIn(orignalIn);
+    System.setIn(originalIn);
     p.setInputHandler(new CommandLineInputHandler());
-    p.setDefaultInputStream(orignalIn);
+    p.setDefaultInputStream(originalIn);
   }
  catch (  NoSuchMethodError nsme) {
     for (    Method m : p.getClass().getMethods()) {
       if ("setDefaultInputStream".equals(m.getName()) && m.getParameterTypes().length == 1 && InputStream.class.equals(m.getParameterTypes()[0])) {
         try {
-          m.invoke(p,orignalIn);
+          m.invoke(p,originalIn);
           break;
         }
  catch (        Exception e) {

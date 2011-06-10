@@ -4,7 +4,7 @@
   ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"\"");
   ParsedResult output=null;
   output=parseCode("myTest5",src);
-  String expected=makeImports() + "\n" + "class myTest5 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest5\" }\n"+ "public Object run() {\n"+ "def out = getOut()\n"+ "def codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
+  String expected=makeImports() + "\n" + "class myTest5 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest5\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output.generatedGsp));
   assertEquals(src,output.htmlParts[0]);
 }

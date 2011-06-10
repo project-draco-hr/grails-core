@@ -1,9 +1,0 @@
-{
-  if (dataSources == null) {
-    dataSources=getStaticPropertyValue(GrailsDomainClassProperty.DATA_SOURCES,List.class);
-    if (dataSources == null) {
-      dataSources=Collections.singletonList(GrailsDomainClassProperty.DEFAULT_DATA_SOURCE);
-    }
-  }
-  return dataSources;
-}

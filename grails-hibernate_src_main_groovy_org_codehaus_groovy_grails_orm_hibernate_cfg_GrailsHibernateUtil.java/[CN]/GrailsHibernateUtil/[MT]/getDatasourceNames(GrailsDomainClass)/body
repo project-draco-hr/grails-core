@@ -1,0 +1,7 @@
+{
+  Mapping mapping=GrailsDomainBinder.evaluateMapping(domainClass,null,false);
+  if (mapping == null) {
+    mapping=new Mapping();
+  }
+  return mapping.getDatasources();
+}

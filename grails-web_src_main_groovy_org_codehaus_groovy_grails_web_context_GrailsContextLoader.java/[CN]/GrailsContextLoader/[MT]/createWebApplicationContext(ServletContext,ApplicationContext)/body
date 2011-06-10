@@ -16,6 +16,35 @@
       LOG.debug("[GrailsContextLoader] Created parent application context");
     }
     application=ctx.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    final WebApplicationContext finalCtx=ctx;
+    ShutdownOperations.addOperation(new Runnable(){
+      public void run(){
+        if (application != null) {
+          ClassLoader classLoader=application.getClassLoader();
+          if (classLoader instanceof GroovyClassLoader) {
+            MetaClassRegistry metaClassRegistry=GroovySystem.getMetaClassRegistry();
+            Class<?>[] loadedClasses=((GroovyClassLoader)classLoader).getLoadedClasses();
+            for (            Class<?> loadedClass : loadedClasses) {
+              metaClassRegistry.removeMetaClass(loadedClass);
+            }
+          }
+        }
+        GrailsPluginManager pluginManager=null;
+        if (finalCtx.containsBean(GrailsPluginManager.BEAN_NAME)) {
+          pluginManager=finalCtx.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+        }
+        if (pluginManager != null) {
+          try {
+            pluginManager.shutdown();
+          }
+ catch (          Exception e) {
+            GrailsUtil.sanitize(e);
+            LOG.error("Error occurred shutting down plug-in manager: " + e.getMessage(),e);
+          }
+        }
+      }
+    }
+);
     ctx=GrailsConfigUtils.configureWebApplicationContext(servletContext,ctx);
     GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
   }

@@ -1,0 +1,15 @@
+{
+  try {
+    for (    Runnable shutdownOperation : shutdownOperations) {
+      try {
+        shutdownOperation.run();
+      }
+ catch (      Exception e) {
+        LOG.warn("Error occurred running shutdown operation: " + e.getMessage(),e);
+      }
+    }
+  }
+  finally {
+    shutdownOperations.clear();
+  }
+}

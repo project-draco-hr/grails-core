@@ -1,0 +1,7 @@
+{
+  if (jspTagLibraryResolver != null) {
+    JspTagLib tagLib=jspTagLibraryResolver.resolveTagLibrary(uri);
+    return tagLib != null ? tagLib.getTag(name) : null;
+  }
+  return null;
+}

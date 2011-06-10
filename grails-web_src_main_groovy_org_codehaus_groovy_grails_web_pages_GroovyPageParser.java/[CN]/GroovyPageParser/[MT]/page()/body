@@ -10,8 +10,8 @@
     out.println(" extends GroovyPage {");
     out.println("public String getGroovyPageFileName() { \"" + pageName.replaceAll("\\\\","/") + "\" }");
     out.println("public Object run() {");
-    out.println("def out = getOut()");
-    out.println("def codecOut = getCodecOut()");
+    out.println("Writer out = getOut()");
+    out.println("Writer codecOut = getCodecOut()");
     if (sitemeshPreprocessMode) {
       out.println("registerSitemeshPreprocessMode()");
     }

@@ -1,6 +1,6 @@
 {
   ParsedResult result=parseCode("SITEMESH_PREPROCESS_TEST","<%@page sitemeshPreprocess=\"false\"%>\n<body>text</body>");
-  String expected=makeImports() + "\n" + "class SITEMESH_PREPROCESS_TEST extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"SITEMESH_PREPROCESS_TEST\" }\n"+ "public Object run() {\n"+ "def out = getOut()\n"+ "def codecOut = getCodecOut()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
+  String expected=makeImports() + "\n" + "class SITEMESH_PREPROCESS_TEST extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"SITEMESH_PREPROCESS_TEST\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer codecOut = getCodecOut()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(result.generatedGsp));
   assertEquals("\n<body>text</body>",result.htmlParts[0]);
 }

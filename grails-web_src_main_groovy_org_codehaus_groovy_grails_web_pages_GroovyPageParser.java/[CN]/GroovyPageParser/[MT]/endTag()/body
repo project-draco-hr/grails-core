@@ -38,7 +38,7 @@
     }
     if (jspTags.containsKey(ns)) {
       String uri=jspTags.get(ns);
-      out.println("jspTag = tagLibraryResolver?.resolveTagLibrary('" + uri + "')?.getTag('"+ tagName+ "')");
+      out.println("jspTag = getJspTag('" + uri + "', '"+ tagName+ "')");
       out.println("if (!jspTag) throw new GrailsTagException('Unknown JSP tag " + ns + ":"+ tagName+ "')");
       out.print("jspTag.doTag(out," + attrsVarsMapDefinition.get(tagIndex) + ",");
       if (bodyTagIndex > -1) {

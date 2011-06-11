@@ -8,11 +8,13 @@
     jline.CandidateListCompletionHandler.setBuffer(reader,value,pos);
     return true;
   }
- else   if (candidates.size() > 1) {
+  if (candidates.size() > 1) {
     String value=getUnambiguousCompletions(candidates);
     jline.CandidateListCompletionHandler.setBuffer(reader,value,pos);
   }
-  if (eagerNewlines)   reader.printNewline();
+  if (eagerNewlines) {
+    reader.printNewline();
+  }
   jline.CandidateListCompletionHandler.printCandidates(reader,candidates,eagerNewlines);
   reader.drawLine();
   return true;

@@ -16,17 +16,17 @@
       exactMatchFound=true;
       continue;
     }
-    if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName))     potentialScripts.add(scriptPath);
+    if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName)) {
+      potentialScripts.add(scriptPath);
+    }
   }
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
     final Resource scriptFile=potentialScripts.get(0);
     if (!isGrailsProject() && !isExternalScript(scriptFile)) {
-      return handleScriptExecutedOutsideProjectError(console);
+      return handleScriptExecutedOutsideProjectError();
     }
     return executeScriptFile(scriptName,env,binding,scriptFile);
   }
- else {
-    return attemptPrecompiledScriptExecute(scriptName,env,binding,allScripts);
-  }
+  return attemptPrecompiledScriptExecute(scriptName,env,binding,allScripts);
 }

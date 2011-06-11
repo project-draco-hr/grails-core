@@ -8,7 +8,7 @@
     statusPerLine=6;
   }
   do {
-    StringBuffer testBuffer=new StringBuffer();
+    StringBuilder testBuffer=new StringBuilder();
     boolean expected=true;
     for (int testPartsIndexIndex=0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) {
       int index=testPartsIndex[testPartsIndexIndex];

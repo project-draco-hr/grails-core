@@ -1,7 +1,7 @@
 {
   try {
     Iterator keys=keys();
-    StringBuffer sb=new StringBuffer("{");
+    StringBuilder sb=new StringBuilder("{");
     while (keys.hasNext()) {
       if (sb.length() > 1) {
         sb.append(',');

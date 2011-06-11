@@ -1,0 +1,17 @@
+{
+  if (candidates == null || candidates.isEmpty()) {
+    return null;
+  }
+  String[] strings=candidates.toArray(new String[candidates.size()]);
+  String first=strings[0];
+  StringBuilder candidate=new StringBuilder();
+  for (int i=0, count=first.length(); i < count; i++) {
+    if (startsWith(first.substring(0,i + 1),strings)) {
+      candidate.append(first.charAt(i));
+    }
+ else {
+      break;
+    }
+  }
+  return candidate.toString();
+}

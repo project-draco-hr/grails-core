@@ -1,11 +1,10 @@
 {
-  if (servletContext != null) {
-    final WebApplicationContext context=WebApplicationContextUtils.getWebApplicationContext(servletContext);
-    if (context != null) {
-      if (context.containsBean(GrailsApplication.APPLICATION_ID)) {
-        return context.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-      }
-    }
+  if (servletContext == null) {
+    return null;
   }
-  return null;
+  final WebApplicationContext context=WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  if (context == null || !context.containsBean(GrailsApplication.APPLICATION_ID)) {
+    return null;
+  }
+  return context.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
 }

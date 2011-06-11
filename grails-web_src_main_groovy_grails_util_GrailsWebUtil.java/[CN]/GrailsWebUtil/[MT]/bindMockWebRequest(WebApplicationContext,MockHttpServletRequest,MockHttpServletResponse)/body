@@ -1,10 +1,8 @@
 {
   GrailsWebRequest webRequest=new GrailsWebRequest(request,response,ctx.getServletContext(),ctx);
   request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
-  String[] paramListenerBeans=ctx.getBeanNamesForType(ParameterCreationListener.class);
-  for (  String paramListenerBean : paramListenerBeans) {
-    ParameterCreationListener creationListenerBean=(ParameterCreationListener)ctx.getBean(paramListenerBean);
-    webRequest.addParameterListener(creationListenerBean);
+  for (  ParameterCreationListener listener : ctx.getBeansOfType(ParameterCreationListener.class).values()) {
+    webRequest.addParameterListener(listener);
   }
   RequestContextHolder.setRequestAttributes(webRequest);
   return webRequest;

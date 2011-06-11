@@ -1,11 +1,13 @@
 {
-  if (grailsApplication != null && pageClass != null) {
-    final ApplicationContext applicationContext=grailsApplication.getMainContext();
-    if (applicationContext != null && applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
-      GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
-      pluginPath=pluginManager.getPluginPathForClass(pageClass);
-      if (pluginPath == null)       pluginPath="";
-      pagePlugin=pluginManager.getPluginForClass(pageClass);
-    }
+  if (grailsApplication == null || pageClass == null) {
+    return;
   }
+  final ApplicationContext applicationContext=grailsApplication.getMainContext();
+  if (applicationContext == null || !applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
+    return;
+  }
+  GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+  pluginPath=pluginManager.getPluginPathForClass(pageClass);
+  if (pluginPath == null)   pluginPath="";
+  pagePlugin=pluginManager.getPluginForClass(pageClass);
 }

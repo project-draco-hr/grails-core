@@ -1,6 +1,6 @@
 {
   char c;
-  StringBuffer sb=new StringBuffer();
+  StringBuilder sb=new StringBuilder();
   for (; ; ) {
     c=next();
 switch (c) {

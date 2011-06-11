@@ -1,7 +1,6 @@
 {
   String src="This is just plain ASCII to make sure test works on all platforms";
   assertEquals(src.indexOf('?'),-1);
-  ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"\"");
   ParsedResult output=null;
   output=parseCode("myTest5",src);
   String expected=makeImports() + "\n" + "class myTest5 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest5\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;

@@ -5,7 +5,7 @@
  else {
     System.setProperty("grails.cli.args","");
   }
-  GrailsConsole console=GrailsConsole.getInstance();
+  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
   try {
     System.setProperty("disable.grails.plugin.transform","true");
     console.updateStatus("Loading build config");

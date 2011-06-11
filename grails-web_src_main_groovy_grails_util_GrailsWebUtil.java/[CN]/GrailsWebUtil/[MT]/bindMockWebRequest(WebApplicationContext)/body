@@ -1,5 +1,3 @@
 {
-  MockHttpServletRequest request=new MockHttpServletRequest();
-  MockHttpServletResponse response=new MockHttpServletResponse();
-  return bindMockWebRequest(ctx,request,response);
+  return bindMockWebRequest(ctx,new MockHttpServletRequest(),new MockHttpServletResponse());
 }

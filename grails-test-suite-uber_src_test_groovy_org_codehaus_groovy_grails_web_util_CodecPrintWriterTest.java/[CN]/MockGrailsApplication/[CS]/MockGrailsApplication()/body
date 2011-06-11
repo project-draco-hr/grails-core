@@ -1,0 +1,4 @@
+{
+  mockCodecArtefacts.put(HTMLCodec.class.getName(),new DefaultGrailsCodecClass(HTMLCodec.class));
+  mockCodecArtefacts.put(CodecWithClosureProperties.class.getName(),new DefaultGrailsCodecClass(CodecWithClosureProperties.class));
+}

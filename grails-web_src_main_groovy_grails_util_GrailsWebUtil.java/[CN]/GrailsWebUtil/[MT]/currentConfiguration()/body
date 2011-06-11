@@ -1,7 +1,4 @@
 {
   GrailsApplication application=currentApplication();
-  if (application != null) {
-    return application.getConfig();
-  }
-  return new ConfigObject();
+  return application == null ? new ConfigObject() : application.getConfig();
 }

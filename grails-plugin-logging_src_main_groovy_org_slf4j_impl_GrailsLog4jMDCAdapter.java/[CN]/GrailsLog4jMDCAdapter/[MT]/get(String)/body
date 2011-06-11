@@ -1,3 +1,3 @@
 {
-  return (String)org.apache.log4j.MDC.get(key);
+  return (String)MDC.get(key);
 }

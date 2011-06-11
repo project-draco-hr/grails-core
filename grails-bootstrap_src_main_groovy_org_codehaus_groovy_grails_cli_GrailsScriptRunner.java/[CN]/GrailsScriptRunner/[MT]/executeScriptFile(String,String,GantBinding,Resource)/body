@@ -17,6 +17,6 @@
     return 1;
   }
  finally {
-    cleanup(gant,result,binding);
+    cleanup(result,binding);
   }
 }

@@ -4,7 +4,7 @@
     return "[]";
   }
   int i;
-  StringBuffer sb=new StringBuffer("[");
+  StringBuilder sb=new StringBuilder("[");
   if (len == 1) {
     sb.append(JSONObject.valueToString(this.myArrayList.get(0),indentFactor,indent));
   }

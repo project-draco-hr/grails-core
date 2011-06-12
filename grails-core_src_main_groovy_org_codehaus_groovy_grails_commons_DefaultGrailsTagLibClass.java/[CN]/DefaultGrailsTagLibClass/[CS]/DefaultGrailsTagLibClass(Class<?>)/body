@@ -1,25 +1,17 @@
 {
   super(clazz,TAG_LIB);
-  Class<?> supportedControllerClass=getStaticPropertyValue(SUPPORTS_CONTROLLER,Class.class);
-  if (supportedControllerClass != null) {
-    supportedControllers=new ArrayList<Class<?>>();
-    supportedControllers.add(supportedControllerClass);
-  }
- else {
-    List tmp=getStaticPropertyValue(SUPPORTS_CONTROLLER,List.class);
-    if (tmp != null) {
-      supportedControllers=tmp;
-    }
-  }
   for (  PropertyDescriptor prop : getPropertyDescriptors()) {
     Method readMethod=prop.getReadMethod();
-    if (readMethod != null) {
-      if (!Modifier.isStatic(readMethod.getModifiers())) {
-        Class<?> type=prop.getPropertyType();
-        if (type == Object.class) {
-          tags.add(prop.getName());
-        }
-      }
+    if (readMethod == null || Modifier.isStatic(readMethod.getModifiers())) {
+      continue;
+    }
+    Class<?> type=prop.getPropertyType();
+    if (type != Object.class && !Closure.class.isAssignableFrom(type)) {
+      continue;
+    }
+    Object value=getPropertyValue(prop.getName(),Closure.class);
+    if (value != null && Closure.class.isAssignableFrom(value.getClass())) {
+      tags.add(prop.getName());
     }
   }
   String ns=getStaticPropertyValue(NAMESPACE_FIELD_NAME,String.class);

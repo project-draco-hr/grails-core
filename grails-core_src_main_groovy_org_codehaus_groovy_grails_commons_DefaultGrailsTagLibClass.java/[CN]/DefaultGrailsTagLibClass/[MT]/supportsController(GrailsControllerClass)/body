@@ -1,9 +1,0 @@
-{
-  if (controllerClass == null) {
-    return false;
-  }
-  if (supportedControllers != null) {
-    return supportedControllers.contains(controllerClass.getClazz());
-  }
-  return true;
-}

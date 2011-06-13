@@ -9,7 +9,6 @@
         Parameter[] parameters=ce.getParameters();
         if (parameters.length > 0) {
           tags.add(property);
-          property.setType(CLOSURE_CLASS_NODE);
         }
       }
     }

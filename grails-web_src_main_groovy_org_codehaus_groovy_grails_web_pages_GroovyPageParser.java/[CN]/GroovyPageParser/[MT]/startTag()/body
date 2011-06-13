@@ -67,6 +67,7 @@
     }
     tag.doStartTag();
     tm.instance=tag;
+    tm.foreachRenamedIt=tag.getForeachRenamedIt();
   }
  else {
     flushBufferedWhiteSpace();

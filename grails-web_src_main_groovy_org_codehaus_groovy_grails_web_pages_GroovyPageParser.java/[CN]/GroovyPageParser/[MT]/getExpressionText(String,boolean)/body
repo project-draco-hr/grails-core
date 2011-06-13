@@ -4,6 +4,15 @@
     text=text.substring(0,text.length() - 1);
     safeDereference=_safeDereference;
   }
+  if (!tagMetaStack.empty()) {
+    String renamedIt=tagMetaStack.peek().foreachRenamedIt;
+    if (renamedIt != null) {
+      if (text.equals("it"))       text=renamedIt;
+      text=text.replaceAll("([^\\w_$])(it)([^\\w_$])","$1" + renamedIt + "$3");
+      text=text.replaceAll("^(it)([^\\w_$])+",renamedIt + "$2");
+      text=text.replaceAll("([^\\w_$])+(it)$","$1" + renamedIt);
+    }
+  }
   if (!precompileMode && (environment == Environment.DEVELOPMENT || environment == Environment.TEST)) {
     String escaped=escapeGroovy(text);
     text="evaluate('" + escaped + "', "+ getCurrentOutputLineNumber()+ ", it) { return "+ text+ " }"+ (safeDereference ? "?" : "");

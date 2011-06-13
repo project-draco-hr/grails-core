@@ -3,4 +3,5 @@
     LOG.warn("The directory specified with " + CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR + " config parameter doesn't exist or isn't a readable directory. Absolute path: '"+ keepGeneratedDirectory.getAbsolutePath()+ "' Keepgenerated will be disabled.");
     keepGeneratedDirectory=null;
   }
+  return keepGeneratedDirectory;
 }

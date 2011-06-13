@@ -1,0 +1,4 @@
+{
+  if (name == null)   throw new IllegalArgumentException("Package name cannot be null");
+  packagesToFilter.add(name);
+}

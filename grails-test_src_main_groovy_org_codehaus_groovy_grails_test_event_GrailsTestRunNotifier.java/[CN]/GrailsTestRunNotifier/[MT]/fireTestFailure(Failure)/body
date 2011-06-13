@@ -2,8 +2,9 @@
   console.error("FAILURE: " + failure.getDescription().getDisplayName());
   Throwable exception=failure.getException();
   if (exception != null) {
-    GrailsUtil.deepSanitize(exception);
-    deepSanitize(exception);
+    StackTraceFilterer filterer=new StackTraceFilterer();
+    filterer.setCutOffPackage("org.junit");
+    filterer.filter(exception,true);
     StringWriter sw=new StringWriter();
     PrintWriter ps=new PrintWriter(sw);
     exception.printStackTrace(ps);

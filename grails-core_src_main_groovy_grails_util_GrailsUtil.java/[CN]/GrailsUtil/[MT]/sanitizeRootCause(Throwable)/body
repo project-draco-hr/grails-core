@@ -1,3 +1,3 @@
 {
-  return sanitize(extractRootCause(t));
+  return stackFilterer.filter(extractRootCause(t));
 }

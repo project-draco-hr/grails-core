@@ -1,0 +1,12 @@
+{
+  if (recursive) {
+    Throwable current=source;
+    while (current.getCause() != null) {
+      current=filter(current.getCause());
+    }
+    return filter(source);
+  }
+ else {
+    return filter(source);
+  }
+}

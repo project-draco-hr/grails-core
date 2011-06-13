@@ -1,8 +1,0 @@
-{
-  for (  String grailsPackage : GRAILS_PACKAGES) {
-    if (className.startsWith(grailsPackage)) {
-      return false;
-    }
-  }
-  return true;
-}

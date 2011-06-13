@@ -7,10 +7,8 @@
       if (initialExpression instanceof ClosureExpression) {
         ClosureExpression ce=(ClosureExpression)initialExpression;
         Parameter[] parameters=ce.getParameters();
-        if (parameters.length > 0) {
-          tags.add(property);
-          property.setType(CLOSURE_CLASS_NODE);
-        }
+        tags.add(property);
+        property.setType(CLOSURE_CLASS_NODE);
       }
     }
   }

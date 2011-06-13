@@ -10,6 +10,7 @@
       c=getConstraintsFromScript(theClass);
     }
     if (c != null) {
+      c=(Closure<?>)c.clone();
       c.setDelegate(delegate);
       c.call();
     }

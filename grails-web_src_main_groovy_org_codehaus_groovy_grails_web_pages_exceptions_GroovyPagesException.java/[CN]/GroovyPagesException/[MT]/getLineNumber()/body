@@ -1,3 +1,8 @@
 {
+  if (lineNumber == -1) {
+    if (getCause() instanceof SourceCodeAware) {
+      return ((SourceCodeAware)getCause()).getLineNumber();
+    }
+  }
   return lineNumber;
 }

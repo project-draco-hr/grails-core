@@ -5,11 +5,12 @@
     if (size > 0) {
       response.setContentLength(size);
     }
-    try {
-      response.getWriter().flush();
-    }
- catch (    IOException e) {
-      handleIOException(e);
+    flushResponse();
+  }
+ else {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null && webRequest.getCurrentRequest().getAttribute(RequestConstants.PAGE) != null) {
+      flushResponse();
     }
   }
 }

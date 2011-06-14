@@ -1,0 +1,8 @@
+{
+  try {
+    response.getWriter().flush();
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

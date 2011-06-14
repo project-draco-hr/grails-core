@@ -23,6 +23,9 @@
           }
  else {
             dispatcher.forward(request,response);
+            if (!response.isCommitted()) {
+              response.getWriter().flush();
+            }
           }
           request.removeAttribute(PAGE);
         }

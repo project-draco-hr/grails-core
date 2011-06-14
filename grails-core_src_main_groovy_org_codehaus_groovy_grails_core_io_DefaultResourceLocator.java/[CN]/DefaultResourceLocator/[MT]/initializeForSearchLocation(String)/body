@@ -1,0 +1,18 @@
+{
+  String searchLocationPlusSlash=searchLocation + FILE_SEPARATOR;
+  try {
+    File[] directories=new File(searchLocationPlusSlash + GrailsResourceUtils.GRAILS_APP_DIR).listFiles(new FileFilter(){
+      public boolean accept(      File file){
+        return file.isDirectory() && !file.isHidden();
+      }
+    }
+);
+    for (    File directory : directories) {
+      classSearchDirectories.add(directory.getCanonicalPath());
+    }
+  }
+ catch (  IOException e) {
+  }
+  classSearchDirectories.add(searchLocationPlusSlash + "src/java");
+  classSearchDirectories.add(searchLocationPlusSlash + "src/groovy");
+}

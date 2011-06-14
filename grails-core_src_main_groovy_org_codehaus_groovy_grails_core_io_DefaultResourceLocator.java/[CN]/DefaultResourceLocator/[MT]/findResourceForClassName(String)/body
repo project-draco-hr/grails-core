@@ -1,0 +1,17 @@
+{
+  if (className.contains(CLOSURE_MARKER)) {
+    className=className.substring(0,className.indexOf(CLOSURE_MARKER));
+  }
+  Resource resource=classNameToResourceCache.get(className);
+  if (resource == null) {
+    String classNameWithPathSeparator=className.replace(".",FILE_SEPARATOR);
+    for (    String pathPattern : getSearchPatternForExtension(classNameWithPathSeparator,".groovy",".java")) {
+      resource=resolveExceptionSafe(pathPattern);
+      if (resource != null && resource.exists()) {
+        classNameToResourceCache.put(className,resource);
+        break;
+      }
+    }
+  }
+  return resource != null && resource.exists() ? resource : null;
+}

@@ -1,0 +1,12 @@
+{
+  try {
+    Resource[] resources=patchMatchingResolver.getResources("file:" + pathPattern);
+    if (resources != null && resources.length > 0) {
+      return resources[0];
+    }
+  }
+ catch (  IOException e) {
+    return null;
+  }
+  return null;
+}

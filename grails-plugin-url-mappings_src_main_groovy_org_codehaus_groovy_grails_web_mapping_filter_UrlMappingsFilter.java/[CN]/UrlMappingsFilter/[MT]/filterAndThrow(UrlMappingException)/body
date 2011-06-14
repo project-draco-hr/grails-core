@@ -1,0 +1,5 @@
+{
+  StackTraceFilterer filterer=new StackTraceFilterer();
+  filterer.filter(ume,true);
+  throw ume;
+}

@@ -16,15 +16,18 @@
       }
     }
  catch (    Exception e) {
+      reapplySitemesh(request);
       for (      HandlerInterceptor handlerInterceptor : handlerInterceptors) {
         try {
           handlerInterceptor.afterCompletion(request,response,this,e);
         }
  catch (        Exception e1) {
-          throw new UrlMappingException("Error executing filter after view error: " + e1.getMessage() + ". Original error: "+ e.getMessage(),e1);
+          UrlMappingException ume=new UrlMappingException("Error executing filter after view error: " + e1.getMessage() + ". Original error: "+ e.getMessage(),e1);
+          filterAndThrow(ume);
         }
       }
-      throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+      UrlMappingException ume=new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+      filterAndThrow(ume);
     }
   }
   return true;

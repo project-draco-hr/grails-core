@@ -59,6 +59,7 @@
         }
  catch (        Exception e) {
           if (e instanceof MultipartException) {
+            reapplySitemesh(request);
             throw ((MultipartException)e);
           }
           LOG.error("Error when matching URL mapping [" + info + "]:"+ e.getMessage(),e);

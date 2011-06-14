@@ -32,9 +32,6 @@
     }
   }
 catch (  RuntimeException e) {
-    if (containerTweaks.shouldLogUnhandledExceptions()) {
-      servletContext.log("Unhandled exception occurred whilst decorating page",e);
-    }
     throw e;
   }
 catch (  ServletException e) {

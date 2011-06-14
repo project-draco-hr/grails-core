@@ -1,7 +1,7 @@
 {
   Level level=event.getLevel();
   String message=buildMessage(event);
-  if (level == Level.ERROR || level == Level.FATAL) {
+  if (level.equals(Level.ERROR) || level.equals(Level.FATAL)) {
     console.error(message);
   }
  else {

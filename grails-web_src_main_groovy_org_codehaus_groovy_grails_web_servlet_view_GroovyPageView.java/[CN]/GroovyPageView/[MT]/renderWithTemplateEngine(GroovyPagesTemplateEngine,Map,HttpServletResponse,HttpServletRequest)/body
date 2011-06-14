@@ -3,11 +3,18 @@
   try {
     out=createResponseWriter(response);
     Template t;
-    if (viewClass != null) {
-      t=engine.createTemplate(viewClass);
-    }
+    try {
+      if (viewClass != null) {
+        t=engine.createTemplate(viewClass);
+      }
  else {
-      t=engine.createTemplate(getUrl());
+        t=engine.createTemplate(getUrl());
+      }
+    }
+ catch (    Exception e) {
+      out=createResponseWriter(response);
+      handleException(e,out,null,request,response);
+      return;
     }
     Writable w=t.make(model);
     w.writeTo(out);

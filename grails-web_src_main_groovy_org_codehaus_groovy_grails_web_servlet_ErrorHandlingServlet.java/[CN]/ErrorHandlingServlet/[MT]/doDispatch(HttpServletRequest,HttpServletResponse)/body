@@ -53,8 +53,10 @@
             v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
             v.render(Collections.EMPTY_MAP,request,response);
           }
- catch (          Exception e) {
-            throw new UrlMappingException("Error mapping onto view [" + viewName + "]: "+ e.getMessage(),e);
+ catch (          Throwable e) {
+            StackTraceFilterer filterer=new StackTraceFilterer();
+            filterer.filter(e);
+            renderDefaultResponse(response,statusCode,"Internal Server Error",e.getMessage());
           }
         }
       }

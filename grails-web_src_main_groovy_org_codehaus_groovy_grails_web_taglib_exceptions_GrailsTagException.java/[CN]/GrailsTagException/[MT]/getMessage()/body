@@ -1,6 +1,0 @@
-{
-  if (fileName != null) {
-    return super.getMessage() + " at " + fileName+ ":"+ lineNumber;
-  }
-  return super.getMessage();
-}

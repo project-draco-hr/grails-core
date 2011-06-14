@@ -1,7 +1,13 @@
 {
-  LOG.error("Error processing GroovyPageView: " + exception.getMessage(),exception);
+  LOG.debug("Error processing GroovyPageView: " + exception.getMessage(),exception);
   if (exception instanceof GroovyPagesException) {
     throw (GroovyPagesException)exception;
   }
-  throw new GroovyPagesException("Error processing GroovyPageView: " + exception.getMessage(),exception,-1,getUrl());
+  if (engine != null) {
+    GroovyPagesException gspException=createGroovyPageException(exception,engine,getUrl());
+    throw gspException;
+  }
+ else {
+    throw new GroovyPagesException("Error processing GroovyPageView: " + exception.getMessage(),exception,-1,getUrl());
+  }
 }

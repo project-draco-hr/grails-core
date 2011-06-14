@@ -1,10 +1,22 @@
 {
   StringBuilder b=new StringBuilder(layout.format(event));
-  String[] throwableStrRep=event.getThrowableStrRep();
-  if (throwableStrRep != null) {
-    b.append(Layout.LINE_SEP);
-    for (    String line : throwableStrRep) {
-      b.append(line).append(Layout.LINE_SEP);
+  if (console.isVerbose()) {
+    String[] throwableStrRep=event.getThrowableStrRep();
+    if (throwableStrRep != null) {
+      b.append(Layout.LINE_SEP);
+      for (      String line : throwableStrRep) {
+        b.append(line).append(Layout.LINE_SEP);
+      }
+    }
+  }
+ else {
+    ThrowableInformation throwableInformation=event.getThrowableInformation();
+    if (throwableInformation != null) {
+      Throwable throwable=throwableInformation.getThrowable();
+      if (throwable != null) {
+        StackTracePrinter stackTracePrinter=new DefaultStackTracePrinter();
+        b.append(stackTracePrinter.prettyPrint(throwable));
+      }
     }
   }
   return b.toString();

@@ -10,7 +10,7 @@
     tagName=lastInStack;
   }
   if (!lastInStack.equals(tagName) || !lastNamespaceInStack.equals(ns)) {
-    throw new GrailsTagException("Grails tag [" + lastNamespaceInStack + ":"+ lastInStack+ "] was not closed",pageName,out.getCurrentLineNumber());
+    throw new GrailsTagException("Grails tag [" + lastNamespaceInStack + ":"+ lastInStack+ "] was not closed",pageName,getCurrentOutputLineNumber());
   }
   if (GroovyPage.DEFAULT_NAMESPACE.equals(ns) && tagRegistry.isSyntaxTag(tagName)) {
     if (tm.instance instanceof GroovySyntaxTag) {

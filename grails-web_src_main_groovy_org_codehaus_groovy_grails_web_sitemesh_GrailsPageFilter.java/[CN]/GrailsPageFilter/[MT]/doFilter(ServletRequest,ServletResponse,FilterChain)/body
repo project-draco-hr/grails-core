@@ -13,9 +13,11 @@
     chain.doFilter(request,response);
     return;
   }
+  request.removeAttribute(RequestConstants.PAGE);
   if (containerTweaks.shouldAutoCreateSession()) {
     request.getSession(true);
   }
+  boolean dispatched=false;
   try {
     Content content=obtainContent(contentProcessor,webAppContext,request,response,chain);
     if (content == null || response.isCommitted()) {
@@ -25,20 +27,17 @@
     Decorator decorator=decoratorSelector.selectDecorator(content,webAppContext);
     persistenceInterceptor.reconnect();
     decorator.render(content,webAppContext);
+    dispatched=true;
   }
  catch (  IllegalStateException e) {
     if (!containerTweaks.shouldIgnoreIllegalStateExceptionOnErrorPage()) {
       throw e;
     }
   }
-catch (  RuntimeException e) {
-    throw e;
-  }
-catch (  ServletException e) {
-    request.setAttribute(ALREADY_APPLIED_KEY,null);
-    throw e;
-  }
  finally {
+    if (!dispatched) {
+      request.setAttribute(ALREADY_APPLIED_KEY,null);
+    }
     if (persistenceInterceptor.isOpen()) {
       persistenceInterceptor.destroy();
     }

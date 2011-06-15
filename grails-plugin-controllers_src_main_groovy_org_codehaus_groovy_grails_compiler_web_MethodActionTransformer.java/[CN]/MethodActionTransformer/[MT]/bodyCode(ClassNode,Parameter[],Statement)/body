@@ -16,6 +16,8 @@
       bindDataMethodCallExpression.setMethodTarget(bindDataMethodNode);
     }
     wrapper.addStatement(new ExpressionStatement(bindDataMethodCallExpression));
+    MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(param.getName()),"validate",EMPTY_TUPLE);
+    wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
   }
   wrapper.addStatement(actionCode);
   return wrapper;

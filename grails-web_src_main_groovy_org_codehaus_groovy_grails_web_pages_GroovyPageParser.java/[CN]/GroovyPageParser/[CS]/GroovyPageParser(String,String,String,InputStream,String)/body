@@ -16,7 +16,7 @@
     gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
     sitemeshPreprocessMode=true;
   }
-  scan=new GroovyPageScanner(gspSource);
+  scan=new GroovyPageScanner(gspSource,uri);
   pageName=uri;
   environment=Environment.getCurrent();
   makeName(name);

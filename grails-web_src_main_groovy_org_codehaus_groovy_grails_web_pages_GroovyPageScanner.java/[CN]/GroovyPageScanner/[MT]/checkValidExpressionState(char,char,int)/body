@@ -1,0 +1,15 @@
+{
+  if (isPotentialScriptletOrTag(c,left)) {
+    if (isStartScriptletBlock(c1)) {
+      throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
+    }
+    boolean bStartTag=!isClosingTag(c1);
+    String tagNameSpace=getTagNamespace(bStartTag ? end1 : end1 + 1);
+    if (isTagDefinition(tagNameSpace)) {
+      throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
+    }
+  }
+ else   if (isStartOfGExpression(c,c1)) {
+    throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
+  }
+}

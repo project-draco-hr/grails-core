@@ -68,7 +68,7 @@ break;
 }
 if (finalPass) {
 if (!tagMetaStack.isEmpty()) {
-throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "] in GSP "+ pageName+ "",pageName,out.getCurrentLineNumber());
+throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "] in GSP "+ pageName+ "",pageName,getCurrentOutputLineNumber());
 }
 out.println("}");
 out.println("public static final Map " + CONSTANT_NAME_JSP_TAGS + " = new HashMap()");

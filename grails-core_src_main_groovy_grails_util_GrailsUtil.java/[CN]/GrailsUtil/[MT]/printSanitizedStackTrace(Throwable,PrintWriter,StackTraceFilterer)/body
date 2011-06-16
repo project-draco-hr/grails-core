@@ -1,0 +1,7 @@
+{
+  t=stackTraceFilterer.filter(t);
+  StackTraceElement[] trace=t.getStackTrace();
+  for (  StackTraceElement stackTraceElement : trace) {
+    p.println("at " + stackTraceElement.getClassName() + "("+ stackTraceElement.getMethodName()+ ":"+ stackTraceElement.getLineNumber()+ ")");
+  }
+}

@@ -1,5 +1,5 @@
 {
-  GrailsUtil.deepSanitize(t);
+  new DefaultStackTraceFilterer().filter(t,true);
   StackTraceElement[] trace=t.getStackTrace();
   List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
   for (  StackTraceElement stackTraceElement : trace) {

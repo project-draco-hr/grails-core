@@ -14,11 +14,10 @@
       request.setAttribute("exception",new GrailsWrappedRuntimeException(getServletContext(),t));
     }
   }
-  final UrlMappingsHolder urlMappingsHolder=lookupUrlMappings();
+  final UrlMappingsHolder urlMappingsHolder=(UrlMappingsHolder)getBean(UrlMappingsHolder.BEAN_ID);
   UrlMappingInfo matchedInfo=null;
   if (t != null) {
-    StackTraceFilterer filterer=new StackTraceFilterer();
-    filterer.filter(t,true);
+    createStackTraceFilterer().filter(t,true);
     matchedInfo=urlMappingsHolder.matchStatusCode(statusCode,t);
     if (matchedInfo == null) {
       matchedInfo=urlMappingsHolder.matchStatusCode(statusCode,GrailsExceptionResolver.getRootCause(t));
@@ -56,8 +55,7 @@
             v.render(Collections.EMPTY_MAP,request,response);
           }
  catch (          Throwable e) {
-            StackTraceFilterer filterer=new StackTraceFilterer();
-            filterer.filter(e);
+            createStackTraceFilterer().filter(e);
             renderDefaultResponse(response,statusCode,"Internal Server Error",e.getMessage());
           }
         }

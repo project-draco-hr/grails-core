@@ -2,7 +2,7 @@
   this.cursorMove=1;
   this.out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
   System.setOut(new GrailsConsolePrintStream(this.out));
-  terminal=Terminal.setupTerminal();
+  terminal=setupTerminal();
   reader=new ConsoleReader();
   reader.setCompletionHandler(new CandidateListCompletionHandler());
   category.add("grails");

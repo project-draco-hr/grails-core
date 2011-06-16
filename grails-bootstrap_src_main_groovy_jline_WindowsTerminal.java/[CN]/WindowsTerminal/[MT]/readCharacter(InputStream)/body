@@ -1,0 +1,11 @@
+{
+  if (directConsole == Boolean.FALSE) {
+    return super.readCharacter(in);
+  }
+ else   if ((directConsole == Boolean.TRUE) || ((in == System.in) || (in instanceof FileInputStream && (((FileInputStream)in).getFD() == FileDescriptor.in)))) {
+    return readByte();
+  }
+ else {
+    return super.readCharacter(in);
+  }
+}

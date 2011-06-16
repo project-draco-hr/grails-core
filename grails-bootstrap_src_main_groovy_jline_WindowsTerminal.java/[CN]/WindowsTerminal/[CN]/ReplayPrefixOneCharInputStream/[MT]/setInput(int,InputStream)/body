@@ -1,0 +1,9 @@
+{
+  this.byteRead=0;
+  this.firstByte=(byte)recorded;
+  this.wrappedStream=wrapped;
+  byteLength=1;
+  if (encoding.equalsIgnoreCase("UTF-8"))   setInputUTF8(recorded,wrapped);
+ else   if (encoding.equalsIgnoreCase("UTF-16"))   byteLength=2;
+ else   if (encoding.equalsIgnoreCase("UTF-32"))   byteLength=4;
+}

@@ -1,0 +1,36 @@
+{
+  String version=WindowsTerminal.class.getPackage().getImplementationVersion();
+  if (version == null) {
+    version="";
+  }
+  version=version.replace('.','_');
+  File f=new File(System.getProperty("java.io.tmpdir"),name + "_" + version+ ".dll");
+  boolean exists=f.isFile();
+  int bits=32;
+  if (System.getProperty("os.arch").indexOf("64") != -1)   bits=64;
+  InputStream in=new BufferedInputStream(WindowsTerminal.class.getResourceAsStream(name + bits + ".dll"));
+  OutputStream fout=null;
+  try {
+    fout=new BufferedOutputStream(new FileOutputStream(f));
+    byte[] bytes=new byte[1024 * 10];
+    for (int n=0; n != -1; n=in.read(bytes)) {
+      fout.write(bytes,0,n);
+    }
+  }
+ catch (  IOException ioe) {
+    if (!exists) {
+      throw ioe;
+    }
+  }
+ finally {
+    if (fout != null) {
+      try {
+        fout.close();
+      }
+ catch (      IOException ioe) {
+      }
+    }
+  }
+  f.deleteOnExit();
+  System.load(f.getAbsolutePath());
+}

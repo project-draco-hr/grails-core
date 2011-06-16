@@ -1,10 +1,10 @@
 {
   assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(TEST_PACKAGE_URL));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/grails-app/domain/mycompany/Test.java"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/groovy/mycompany/Test.java"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/java/mycompany/Test.java"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/groovy/mycompany/Test.java"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/java/mycompany/Test.java"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/groovy/mycompany/Test.groovy"));
-  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName("file:///test/grails/app/src/java/mycompany/Test.groovy"));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/grails-app/domain/mycompany/Test.java").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/groovy/mycompany/Test.java").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/java/mycompany/Test.java").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/groovy/mycompany/Test.java").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/java/mycompany/Test.java").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/groovy/mycompany/Test.groovy").getPath()));
+  assertEquals("mycompany.Test",GrailsResourceUtils.getClassName(new File("/test/grails/app/src/java/mycompany/Test.groovy").getPath()));
 }

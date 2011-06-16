@@ -1,9 +1,14 @@
 {
-  if (verbose && error != null) {
-    StackTraceUtils.deepSanitize(error);
-    printStackTrace(msg,error);
-  }
+  try {
+    if (verbose && error != null) {
+      StackTraceUtils.deepSanitize(error);
+      printStackTrace(msg,error);
+    }
  else {
-    error(msg);
+      error(msg);
+    }
+  }
+  finally {
+    progressIndicatorActive=false;
   }
 }

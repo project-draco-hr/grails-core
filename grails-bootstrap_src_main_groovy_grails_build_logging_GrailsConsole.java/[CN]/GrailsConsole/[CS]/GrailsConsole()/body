@@ -2,7 +2,23 @@
   this.cursorMove=1;
   this.out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
   System.setOut(new GrailsConsolePrintStream(this.out));
-  terminal=setupTerminal();
+  if (isWindows()) {
+    terminal=new WindowsTerminal(){
+      public boolean isANSISupported(){
+        return true;
+      }
+    }
+;
+    try {
+      terminal.initializeTerminal();
+    }
+ catch (    Exception e) {
+      terminal=new UnsupportedTerminal();
+    }
+  }
+ else {
+    terminal=Terminal.setupTerminal();
+  }
   reader=new ConsoleReader();
   reader.setCompletionHandler(new CandidateListCompletionHandler());
   category.add("grails");

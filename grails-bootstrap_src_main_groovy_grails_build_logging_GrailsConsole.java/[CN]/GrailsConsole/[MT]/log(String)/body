@@ -1,10 +1,9 @@
 {
-  if (hasNewLines(msg)) {
+  try {
     out.println(msg);
     cursorMove=0;
   }
- else {
-    out.println(msg);
-    cursorMove=0;
+  finally {
+    progressIndicatorActive=false;
   }
 }

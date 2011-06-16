@@ -1,4 +1,5 @@
 {
+  progressIndicatorActive=true;
   String currMsg=lastMessage;
   try {
     int percentage=Math.round(NumberMath.multiply(NumberMath.divide(number,total),100).floatValue());

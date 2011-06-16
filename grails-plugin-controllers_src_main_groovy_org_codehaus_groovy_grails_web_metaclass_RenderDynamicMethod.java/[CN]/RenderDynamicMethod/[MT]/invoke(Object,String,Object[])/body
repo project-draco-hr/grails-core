@@ -33,6 +33,9 @@
       setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
       out=GSPResponseWriter.getInstance(response);
     }
+    if (argMap.containsKey(ARGUMENT_LAYOUT)) {
+      webRequest.getCurrentRequest().setAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,argMap.get(ARGUMENT_LAYOUT));
+    }
     boolean statusSet=false;
     if (argMap.containsKey(ARGUMENT_STATUS)) {
       Object statusObj=argMap.get(ARGUMENT_STATUS);

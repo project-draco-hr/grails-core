@@ -1,3 +1,4 @@
 {
   setDaemon(true);
+  windows=System.getProperty("os.name").toLowerCase().indexOf("windows") != -1;
 }

@@ -1,8 +1,9 @@
 {
-  if (updatedClass != null) {
-    ClassUpdate classUpdate=classChangeEventQueue.remove(updatedClass.getName());
-    if (classUpdate != null) {
-      classUpdate.run(updatedClass);
-    }
+  if (updatedClass == null) {
+    return;
+  }
+  ClassUpdate classUpdate=classChangeEventQueue.remove(updatedClass.getName());
+  if (classUpdate != null) {
+    classUpdate.run(updatedClass);
   }
 }

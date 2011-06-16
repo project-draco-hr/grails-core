@@ -8,8 +8,7 @@
       out.print(percentage + '%');
     }
  else {
-      String message=new StringBuilder(currMsg).append(' ').append(percentage).append('%').toString();
-      updateStatus(message);
+      updateStatus(currMsg + ' ' + percentage+ '%');
     }
   }
   finally {

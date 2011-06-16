@@ -7,7 +7,9 @@
   if (!tagMetaStack.empty()) {
     String renamedIt=tagMetaStack.peek().foreachRenamedIt;
     if (renamedIt != null) {
-      if (text.equals("it"))       text=renamedIt;
+      if (text.equals("it")) {
+        text=renamedIt;
+      }
       text=text.replaceAll("([^\\w_$])(it)([^\\w_$])","$1" + renamedIt + "$3");
       text=text.replaceAll("^(it)([^\\w_$])+",renamedIt + "$2");
       text=text.replaceAll("([^\\w_$])+(it)$","$1" + renamedIt);

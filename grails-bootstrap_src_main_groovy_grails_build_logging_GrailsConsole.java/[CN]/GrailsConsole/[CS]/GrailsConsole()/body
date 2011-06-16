@@ -4,7 +4,7 @@
   System.setOut(new GrailsConsolePrintStream(this.out));
   if (isWindows()) {
     terminal=new WindowsTerminal(){
-      public boolean isANSISupported(){
+      @Override public boolean isANSISupported(){
         return true;
       }
     }
@@ -22,6 +22,6 @@
   reader=new ConsoleReader();
   reader.setCompletionHandler(new CandidateListCompletionHandler());
   category.add("grails");
-  this.maxIndicatorString=new StringBuilder().append(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
+  this.maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

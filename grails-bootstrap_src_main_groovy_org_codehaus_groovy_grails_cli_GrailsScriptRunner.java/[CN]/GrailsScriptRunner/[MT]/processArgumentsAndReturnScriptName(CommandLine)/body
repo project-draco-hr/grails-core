@@ -3,9 +3,17 @@
     GrailsConsole.getInstance().setVerbose(true);
   }
   processSystemArguments(commandLine);
-  String[] arguments=commandLine.getArgs();
-  if (arguments.length > 0) {
-    return processAndReturnArguments(arguments);
+  List<String> arguments=new ArrayList<String>(Arrays.asList(commandLine.getArgs()));
+  for (  Option option : commandLine.getOptions()) {
+    if (option instanceof OptionalOption) {
+      String optionDesc=option.toString();
+      if (!OLD_NON_INTERACTIVE_ARGUMENT.equals(optionDesc)) {
+        arguments.add(option.toString());
+      }
+    }
   }
-  return new ScriptAndArgs();
+  if (arguments.isEmpty()) {
+    return new ScriptAndArgs();
+  }
+  return processAndReturnArguments(arguments);
 }

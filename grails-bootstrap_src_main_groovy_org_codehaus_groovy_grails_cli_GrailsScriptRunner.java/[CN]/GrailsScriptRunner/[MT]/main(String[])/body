@@ -1,7 +1,7 @@
 {
   originalIn=System.in;
   originalOut=System.out;
-  CommandLineParser parser=new GnuParser();
+  CommandLineParser parser=new GrailsCliParser();
   args=splitAndTrimArgs(args);
   Options options=new Options();
   options.addOption(new Option(VERBOSE_ARGUMENT,"Enable verbose output"));
@@ -10,6 +10,7 @@
   options.addOption(new Option(HELP_ARGUMENT,"Command line help"));
   options.addOption(new Option(VERSION_ARGUMENT,"Current Grails version"));
   options.addOption(new Option(NOANSI_ARGUMENT,"Disables ANSI output"));
+  options.addOption(new Option(FORCE_ARGUMENT,"Does the requested action even if prompted for a y/n question"));
   options.addOption(withArgName("property=value").hasArgs(2).withValueSeparator().withDescription("Used to specify System properties").create("D"));
   GrailsConsole console=GrailsConsole.getInstance();
   CommandLine commandLine;
@@ -51,7 +52,7 @@
     System.exit(0);
   }
   GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
-  scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT));
+  scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT) && !commandLine.hasOption(OLD_NON_INTERACTIVE_ARGUMENT));
   if (script.name == null) {
     console.updateStatus("Loading build configuration");
     build.loadConfig();

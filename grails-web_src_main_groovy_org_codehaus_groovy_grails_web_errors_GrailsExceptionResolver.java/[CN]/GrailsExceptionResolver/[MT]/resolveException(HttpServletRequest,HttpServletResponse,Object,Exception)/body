@@ -10,7 +10,7 @@
   request.setAttribute(WebUtils.ERROR_STATUS_CODE_ATTRIBUTE,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   GrailsUtil.deepSanitize(ex);
   GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(servletContext,ex);
-  mv.addObject("exception",gwrex);
+  mv.addObject(EXCEPTION_ATTRIBUTE,gwrex);
   UrlMappingsHolder urlMappings=null;
   try {
     urlMappings=WebUtils.lookupUrlMappings(servletContext);

@@ -1,0 +1,10 @@
+{
+  if (application.isWarDeployed()) {
+    return;
+  }
+  if (request.getAttribute(GrailsExceptionResolver.EXCEPTION_ATTRIBUTE) != null)   return;
+  MultipleCompilationErrorsException compilationError=GrailsProjectWatcher.getCurrentCompilationError();
+  if (compilationError != null) {
+    throw compilationError;
+  }
+}

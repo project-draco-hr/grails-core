@@ -2,16 +2,22 @@
   try {
     if (isSourceFile(file)) {
       compiler.compileAll();
+      currentCompilationError=null;
       ClassPropertyFetcher.clearClassPropertyFetcherCache();
     }
   }
  catch (  MultipleCompilationErrorsException e) {
     LOG.error("Compilation Error: " + e.getMessage());
+    currentCompilationError=e;
   }
 catch (  CompilationFailedException e) {
     LOG.error("Compilation Error: " + e.getMessage());
   }
 catch (  BuildException e) {
+    Throwable cause=e.getCause();
+    if (cause instanceof MultipleCompilationErrorsException) {
+      currentCompilationError=(MultipleCompilationErrorsException)cause;
+    }
     LOG.error("Compilation Error: " + e.getCause().getMessage());
   }
 }

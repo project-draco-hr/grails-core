@@ -12,10 +12,12 @@
     if (lineNumber > 0 && lineNumber < lineMappings.length) {
       lineNumber=lineMappings[lineNumber - 1];
     }
-    throw new GroovyPagesException("Could not parse script [" + name + "]: "+ e.getMessage(),e,lineNumber,pageName);
+    String relativePageName=DefaultStackTracePrinter.makeRelativeIfPossible(pageName);
+    throw new GroovyPagesException("Could not parse script [" + relativePageName + "]: "+ e.getMessage(),e,lineNumber,pageName);
   }
 catch (  IOException e) {
-    throw new GroovyPagesException("IO exception parsing script [" + name + "]: "+ e.getMessage(),e);
+    String relativePageName=DefaultStackTracePrinter.makeRelativeIfPossible(pageName);
+    throw new GroovyPagesException("IO exception parsing script [" + relativePageName + "]: "+ e.getMessage(),e);
   }
   return scriptClass;
 }

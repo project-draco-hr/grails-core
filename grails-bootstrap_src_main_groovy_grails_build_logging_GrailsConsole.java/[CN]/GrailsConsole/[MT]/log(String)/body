@@ -1,6 +1,11 @@
 {
   try {
-    out.println(msg);
+    if (msg.endsWith(LINE_SEPARATOR)) {
+      out.print(msg);
+    }
+ else {
+      out.println(msg);
+    }
     cursorMove=0;
   }
   finally {

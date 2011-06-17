@@ -1,22 +1,23 @@
 {
   try {
     cursorMove=0;
-    if (hasNewLines(msg)) {
-      if (isAnsiEnabled()) {
-        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(CATEGORY_SEPARATOR));
-        out.println(ansi().fg(Color.DEFAULT).a(msg).reset());
+    if (isAnsiEnabled()) {
+      Ansi ansi;
+      if (msg.contains("ERROR") || msg.contains("FATAL")) {
+        ansi=outputErrorLabel(ansi(),"Error").a(msg).reset();
       }
  else {
-        logSimpleError(msg);
+        ansi=outputErrorLabel(ansi(),"").a(msg).reset();
+      }
+      if (msg.endsWith(LINE_SEPARATOR)) {
+        out.print(ansi);
+      }
+ else {
+        out.println(ansi);
       }
     }
  else {
-      if (isAnsiEnabled()) {
-        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset());
-      }
- else {
-        logSimpleError(msg);
-      }
+      logSimpleError(msg);
     }
   }
   finally {

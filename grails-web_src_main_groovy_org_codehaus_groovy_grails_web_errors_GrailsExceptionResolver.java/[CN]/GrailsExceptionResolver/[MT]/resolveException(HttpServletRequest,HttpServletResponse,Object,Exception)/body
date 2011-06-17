@@ -8,7 +8,7 @@
   ModelAndView mv=super.resolveException(request,response,handler,ex);
   response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   request.setAttribute(WebUtils.ERROR_STATUS_CODE_ATTRIBUTE,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  GrailsUtil.deepSanitize(ex);
+  stackFilterer.filter(ex,true);
   GrailsWrappedRuntimeException gwrex=new GrailsWrappedRuntimeException(servletContext,ex);
   mv.addObject(EXCEPTION_ATTRIBUTE,gwrex);
   UrlMappingsHolder urlMappings=null;

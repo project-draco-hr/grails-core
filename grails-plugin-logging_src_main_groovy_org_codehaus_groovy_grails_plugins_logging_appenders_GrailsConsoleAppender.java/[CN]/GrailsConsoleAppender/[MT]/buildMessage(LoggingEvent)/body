@@ -14,8 +14,6 @@
     if (throwableInformation != null) {
       Throwable throwable=throwableInformation.getThrowable();
       if (throwable != null) {
-        StackTracePrinter stackTracePrinter=new DefaultStackTracePrinter();
-        StackTraceFilterer stackTraceFilterer=new StackTraceFilterer();
         stackTraceFilterer.filter(throwable,true);
         b.append(stackTracePrinter.prettyPrint(throwable));
       }

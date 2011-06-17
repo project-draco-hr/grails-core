@@ -38,7 +38,7 @@
             pluginManager.shutdown();
           }
  catch (          Exception e) {
-            GrailsUtil.sanitize(e);
+            new DefaultStackTraceFilterer().filter(e);
             LOG.error("Error occurred shutting down plug-in manager: " + e.getMessage(),e);
           }
         }

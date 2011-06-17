@@ -1,6 +1,0 @@
-{
-  if ((firstByte & (byte)0xE0) == (byte)0xC0)   this.byteLength=2;
- else   if ((firstByte & (byte)0xF0) == (byte)0xE0)   this.byteLength=3;
- else   if ((firstByte & (byte)0xF8) == (byte)0xF0)   this.byteLength=4;
- else   throw new IOException("invalid UTF-8 first byte: " + firstByte);
-}

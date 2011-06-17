@@ -12,4 +12,5 @@
   if (applicationContext.containsBean(MimeType.BEAN_NAME)) {
     this.mimeTypes=applicationContext.getBean(MimeType.BEAN_NAME,MimeType[].class);
   }
+  createStackTraceFilterer();
 }

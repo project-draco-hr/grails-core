@@ -8,7 +8,7 @@
       interceptor.afterCompletion(request,response,mappedHandler.getHandler(),ex);
     }
  catch (    Throwable e) {
-      GrailsUtil.deepSanitize(e);
+      stackFilterer.filter(e,true);
       logger.error("HandlerInterceptor.afterCompletion threw exception",e);
     }
   }

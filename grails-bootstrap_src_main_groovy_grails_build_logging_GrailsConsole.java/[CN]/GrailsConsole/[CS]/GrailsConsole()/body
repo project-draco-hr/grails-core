@@ -1,7 +1,7 @@
 {
-  this.cursorMove=1;
-  this.out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
-  System.setOut(new GrailsConsolePrintStream(this.out));
+  cursorMove=1;
+  out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
+  System.setOut(new GrailsConsolePrintStream(out));
   if (isWindows()) {
     terminal=new WindowsTerminal(){
       @Override public boolean isANSISupported(){
@@ -11,6 +11,7 @@
 ;
     try {
       terminal.initializeTerminal();
+      terminal.enableEcho();
     }
  catch (    Exception e) {
       terminal=new UnsupportedTerminal();
@@ -20,8 +21,9 @@
     terminal=Terminal.setupTerminal();
   }
   reader=new ConsoleReader();
+  reader.setBellEnabled(false);
   reader.setCompletionHandler(new CandidateListCompletionHandler());
   category.add("grails");
-  this.maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
+  maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

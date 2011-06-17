@@ -1,0 +1,16 @@
+{
+  String ls=System.getProperty("line.separator");
+  usageMessage="usage: grails [options] [command]";
+  StringBuilder sb=new StringBuilder(usageMessage);
+  sb.append(ls);
+  for (  Option option : declaredOptions.values()) {
+    String name=option.getName();
+    int extraPadding=longestOptionNameLength - name.length();
+    sb.append(" -").append(name);
+    for (int i=0; i < extraPadding; i++) {
+      sb.append(' ');
+    }
+    sb.append(DEFAULT_PADDING).append(option.getDescription()).append(ls);
+  }
+  return sb.toString();
+}

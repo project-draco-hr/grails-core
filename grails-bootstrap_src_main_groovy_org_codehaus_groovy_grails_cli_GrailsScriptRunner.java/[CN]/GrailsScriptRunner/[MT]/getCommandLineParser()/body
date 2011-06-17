@@ -1,0 +1,10 @@
+{
+  CommandLineParser parser=new CommandLineParser();
+  parser.addOption(VERBOSE_ARGUMENT,"Enable verbose output");
+  parser.addOption(AGENT_ARGUMENT,"Enable the reloading agent");
+  parser.addOption(NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input");
+  parser.addOption(HELP_ARGUMENT,"Command line help");
+  parser.addOption(VERSION_ARGUMENT,"Current Grails version");
+  parser.addOption(NOANSI_ARGUMENT,"Disables ANSI output");
+  return parser;
+}

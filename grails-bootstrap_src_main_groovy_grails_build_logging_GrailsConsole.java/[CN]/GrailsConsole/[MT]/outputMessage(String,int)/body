@@ -6,9 +6,8 @@
       lastMessage="";
     }
  else {
-      final String categoryName=category.toString();
       if (isAnsiEnabled()) {
-        lastStatus=outputCategory(erasePreviousLine(categoryName),categoryName).fg(Color.DEFAULT).a(msg).reset();
+        lastStatus=outputCategory(erasePreviousLine(CATEGORY_SEPARATOR),CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset();
         out.println(lastStatus);
         cursorMove=replaceCount;
       }
@@ -17,12 +16,12 @@
         if (progressIndicatorActive) {
           out.println();
         }
-        out.println(categoryName + msg);
+        out.println(CATEGORY_SEPARATOR + msg);
       }
       lastMessage=msg;
     }
   }
   finally {
-    progressIndicatorActive=false;
+    postPrintMessage();
   }
 }

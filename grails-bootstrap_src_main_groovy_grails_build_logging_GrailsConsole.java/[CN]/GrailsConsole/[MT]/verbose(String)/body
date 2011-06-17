@@ -6,6 +6,6 @@
     }
   }
   finally {
-    progressIndicatorActive=false;
+    postPrintMessage();
   }
 }

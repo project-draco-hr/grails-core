@@ -23,7 +23,6 @@
   reader=new ConsoleReader();
   reader.setBellEnabled(false);
   reader.setCompletionHandler(new CandidateListCompletionHandler());
-  category.add("grails");
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

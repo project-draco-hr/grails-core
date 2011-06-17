@@ -1,0 +1,16 @@
+{
+  cursorMove=0;
+  try {
+    if (isAnsiEnabled()) {
+      out.println(outputErrorLabel(ansi(),label).a(message));
+    }
+ else {
+      out.print(label);
+      out.print(" ");
+      logSimpleError(message);
+    }
+  }
+  finally {
+    postPrintMessage();
+  }
+}

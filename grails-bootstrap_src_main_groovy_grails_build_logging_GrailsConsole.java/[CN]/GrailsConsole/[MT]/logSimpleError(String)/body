@@ -1,5 +1,5 @@
 {
   if (progressIndicatorActive)   out.println();
-  out.println(category.toString());
+  out.println(CATEGORY_SEPARATOR);
   out.println(msg);
 }

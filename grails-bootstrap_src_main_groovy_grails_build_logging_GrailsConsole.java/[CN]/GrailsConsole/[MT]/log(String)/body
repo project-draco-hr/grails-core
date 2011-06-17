@@ -4,6 +4,6 @@
     cursorMove=0;
   }
   finally {
-    progressIndicatorActive=false;
+    postPrintMessage();
   }
 }

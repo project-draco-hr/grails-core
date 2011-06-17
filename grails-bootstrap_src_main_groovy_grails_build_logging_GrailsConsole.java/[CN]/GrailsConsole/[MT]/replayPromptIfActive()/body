@@ -1,0 +1,10 @@
+{
+  if (userInputActive) {
+    if (isAnsiEnabled()) {
+      out.println(ansiPrompt(PROMPT));
+    }
+ else {
+      out.println(PROMPT);
+    }
+  }
+}

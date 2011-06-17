@@ -3,7 +3,7 @@
     cursorMove=0;
     if (hasNewLines(msg)) {
       if (isAnsiEnabled()) {
-        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(category.toString()).reset());
+        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(CATEGORY_SEPARATOR));
         out.println(ansi().fg(Color.DEFAULT).a(msg).reset());
       }
  else {
@@ -12,7 +12,7 @@
     }
  else {
       if (isAnsiEnabled()) {
-        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(category.toString()).fg(Color.DEFAULT).a(msg).reset());
+        out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset());
       }
  else {
         logSimpleError(msg);
@@ -20,6 +20,6 @@
     }
   }
   finally {
-    progressIndicatorActive=false;
+    postPrintMessage();
   }
 }

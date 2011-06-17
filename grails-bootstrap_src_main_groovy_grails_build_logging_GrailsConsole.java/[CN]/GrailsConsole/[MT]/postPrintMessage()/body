@@ -1,0 +1,6 @@
+{
+  if (!progressIndicatorActive) {
+    replayPromptIfActive();
+  }
+  progressIndicatorActive=false;
+}

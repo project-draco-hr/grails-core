@@ -1,0 +1,12 @@
+{
+  StringBuilder sb=new StringBuilder();
+  Iterator<String> iterator=remainingArgs.iterator();
+  while (iterator.hasNext()) {
+    Object next=iterator.next();
+    sb.append(next);
+    if (iterator.hasNext()) {
+      sb.append(separator);
+    }
+  }
+  return sb.toString();
+}

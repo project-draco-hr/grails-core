@@ -45,6 +45,9 @@
     console.log(parser.getHelpMessage());
     System.exit(0);
   }
+  System.out.println("Welcome to Grails " + build.getGrailsVersion() + " - http://grails.org/");
+  System.out.println("Licensed under Apache Standard License 2.0");
+  System.out.println("Grails home is " + (grailsHome == null ? "not set" : "set to: " + grailsHome));
   GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
   scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT));
   if ("Interactive".equals(script.name)) {

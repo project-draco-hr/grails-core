@@ -1,5 +1,5 @@
 {
-  addExtensions(extensions);
+  addExtensions(fileExtensions);
   directoryWatch.put(directory,directory.lastModified());
   File[] files=directory.listFiles();
   if (files == null) {
@@ -7,9 +7,9 @@
   }
   for (  File file : files) {
     if (file.isDirectory()) {
-      cacheFilesForDirectory(file,extensions,fireEvent);
+      cacheFilesForDirectory(file,fileExtensions,fireEvent);
     }
- else     if (isValidFileToMonitor(file.getName(),extensions)) {
+ else     if (isValidFileToMonitor(file.getName(),fileExtensions)) {
       if (!lastModifiedMap.containsKey(file) && fireEvent) {
         for (        FileChangeListener listener : listeners) {
           listener.onNew(file);

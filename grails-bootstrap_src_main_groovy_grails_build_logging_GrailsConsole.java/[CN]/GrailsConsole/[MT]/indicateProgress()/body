@@ -2,7 +2,9 @@
   progressIndicatorActive=true;
   if (isAnsiEnabled()) {
     if (StringUtils.hasText(lastMessage)) {
-      if (!lastMessage.contains(maxIndicatorString))       updateStatus(lastMessage + indicator);
+      if (!lastMessage.contains(maxIndicatorString)) {
+        updateStatus(lastMessage + indicator);
+      }
     }
   }
  else {

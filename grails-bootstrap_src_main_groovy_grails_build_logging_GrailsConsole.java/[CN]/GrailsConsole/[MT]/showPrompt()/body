@@ -6,9 +6,7 @@
       if (isAnsiEnabled()) {
         return reader.readLine(ansiPrompt(PROMPT).toString());
       }
- else {
-        return reader.readLine(PROMPT);
-      }
+      return reader.readLine(PROMPT);
     }
   finally {
       userInputActive=false;

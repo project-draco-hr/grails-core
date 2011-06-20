@@ -1,7 +1,7 @@
 {
   for (  File directory : directoryWatch.keySet()) {
     final Long currentTimestamp=directoryWatch.get(directory);
-    if (currentTimestamp < directory.lastModified()) {
+    if (windows || currentTimestamp < directory.lastModified()) {
       cacheFilesForDirectory(directory,extensions,true);
     }
   }

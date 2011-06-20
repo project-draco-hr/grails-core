@@ -1,17 +1,17 @@
 {
-  console.error("FAILURE: " + failure.getDescription().getDisplayName());
+  console.error("Failure: ",failure.getDescription().getDisplayName());
   Throwable exception=failure.getException();
-  if (exception != null) {
-    StackTraceFilterer filterer=new StackTraceFilterer();
+  if (exception == null) {
+    console.error(failure.getMessage());
+  }
+ else {
+    StackTraceFilterer filterer=new DefaultStackTraceFilterer();
     filterer.setCutOffPackage("org.junit");
     filterer.filter(exception,true);
     StringWriter sw=new StringWriter();
     PrintWriter ps=new PrintWriter(sw);
     exception.printStackTrace(ps);
     console.error(sw.toString());
-  }
- else {
-    console.error(failure.getMessage());
   }
   super.fireTestFailure(failure);
 }

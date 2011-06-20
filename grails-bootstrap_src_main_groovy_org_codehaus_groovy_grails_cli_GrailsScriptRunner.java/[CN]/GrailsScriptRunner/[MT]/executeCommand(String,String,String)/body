@@ -8,7 +8,7 @@
   @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
   try {
     System.setProperty("disable.grails.plugin.transform","true");
-    console.updateStatus("Loading build config");
+    console.updateStatus("Loading Grails " + settings.getGrailsVersion());
     settings.loadConfig();
     System.setProperty("springloaded.directoriesContainingReloadableCode",settings.getClassesDir().getAbsolutePath() + ',' + settings.getPluginClassesDir().getAbsolutePath());
   }

@@ -5,7 +5,6 @@
     processFilterChain(request,response,filterChain);
     return;
   }
-  checkForCompilationErrors();
   if (isUriExcluded(holder,uri)) {
     processFilterChain(request,response,filterChain);
     return;
@@ -66,6 +65,7 @@
           continue;
         }
         dispatched=true;
+        checkForCompilationErrors(request);
         request=checkMultipart(request);
         if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
           if (info.isParsingRequest()) {

@@ -1,10 +1,14 @@
 {
-  if (hasNewLines(msg)) {
-    out.println(msg);
+  try {
+    if (msg.endsWith(LINE_SEPARATOR)) {
+      out.print(msg);
+    }
+ else {
+      out.println(msg);
+    }
     cursorMove=0;
   }
- else {
-    out.println(msg);
-    cursorMove=0;
+  finally {
+    postPrintMessage();
   }
 }

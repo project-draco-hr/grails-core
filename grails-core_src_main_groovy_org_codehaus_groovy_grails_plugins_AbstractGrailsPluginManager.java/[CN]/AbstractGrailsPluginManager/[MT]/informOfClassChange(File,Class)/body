@@ -11,18 +11,20 @@
     }
   }
  else {
-    MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
-    registry.removeMetaClass(cls);
-    ExpandoMetaClass newMc=new ExpandoMetaClass(cls,true,true);
-    newMc.initialize();
-    registry.setMetaClass(cls,newMc);
+    if (cls != null) {
+      MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+      registry.removeMetaClass(cls);
+      ExpandoMetaClass newMc=new ExpandoMetaClass(cls,true,true);
+      newMc.initialize();
+      registry.setMetaClass(cls,newMc);
+    }
     for (    GrailsPlugin grailsPlugin : pluginList) {
       if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {
-        if (cls != null) {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+        if (cls == null) {
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
         }
  else {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
         }
       }
     }

@@ -1,7 +1,7 @@
 {
   String expected=makeImports() + "\n" + "class myTest7 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest7\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ GroovyPage.CODEC_OUT_STATEMENT+ ".print(evaluate('uri', 3, it) { return uri })\n"+ "printHtmlPart(1)\n"+ "}\n"+ GSP_FOOTER;
   ParsedResult output=parseCode("myTest7","Please click the link below to confirm your email address:\n" + "\n" + "${uri}\n"+ "\n"+ "\n"+ "Thanks");
-  assertEquals(expected,output.generatedGsp);
+  assertEquals(expected.replaceAll("[\r\n]",""),output.generatedGsp.replaceAll("[\r\n]",""));
   assertEquals("Please click the link below to confirm your email address:\n\n",output.htmlParts[0]);
   assertEquals("\n\n\nThanks",output.htmlParts[1]);
 }

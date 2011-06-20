@@ -2,16 +2,16 @@
   final Factory factory=Factory.getInstance(new Config(filterConfig));
   factory.refresh();
   return new DecoratorMapper2DecoratorSelector(factory.getDecoratorMapper()){
-    @Override public Decorator selectDecorator(    Content content,    SiteMeshContext context){
+    @Override public Decorator selectDecorator(    Content content,    final SiteMeshContext context){
       SiteMeshWebAppContext siteMeshWebAppContext=(SiteMeshWebAppContext)context;
       final com.opensymphony.module.sitemesh.Decorator decorator=factory.getDecoratorMapper().getDecorator(siteMeshWebAppContext.getRequest(),content2htmlPage(content));
       if (decorator == null || decorator.getPage() == null) {
         return new GrailsNoDecorator();
       }
-      return new OldDecorator2NewDecorator(decorator){
-        @Override protected void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext,        @SuppressWarnings("hiding") SiteMeshWebAppContext webAppContext) throws IOException, ServletException {
+      return new Decorator(){
+        private void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext,        @SuppressWarnings("hiding") SiteMeshWebAppContext webAppContext) throws IOException, ServletException {
           HTMLPage htmlPage=content2htmlPage(content);
-          request.setAttribute(PAGE,htmlPage);
+          request.setAttribute(RequestConstants.PAGE,htmlPage);
           if (decorator.getURIPath() != null) {
             if (servletContext.getContext(decorator.getURIPath()) != null) {
               servletContext=servletContext.getContext(decorator.getURIPath());
@@ -22,12 +22,34 @@
             dispatcher.include(request,response);
           }
  else {
-            dispatcher.forward(request,response);
-            if (!response.isCommitted()) {
-              response.getWriter().flush();
+            boolean dispatched=false;
+            try {
+              request.setAttribute(ALREADY_APPLIED_KEY,Boolean.TRUE);
+              dispatcher.forward(request,response);
+              dispatched=true;
+              if (!response.isCommitted()) {
+                response.getWriter().flush();
+              }
+            }
+  finally {
+              if (!dispatched) {
+                request.setAttribute(ALREADY_APPLIED_KEY,null);
+              }
             }
           }
-          request.removeAttribute(PAGE);
+          request.removeAttribute(RequestConstants.PAGE);
+        }
+        public void render(        Content content,        SiteMeshContext siteMeshContext){
+          SiteMeshWebAppContext webAppContext=(SiteMeshWebAppContext)siteMeshContext;
+          try {
+            render(content,webAppContext.getRequest(),webAppContext.getResponse(),webAppContext.getServletContext(),webAppContext);
+          }
+ catch (          IOException e) {
+            throw new GroovyPagesException("Error applying layout : " + decorator.getURIPath(),e);
+          }
+catch (          ServletException e) {
+            throw new GroovyPagesException("Error applying layout : " + decorator.getURIPath(),e);
+          }
         }
       }
 ;

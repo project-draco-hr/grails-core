@@ -1,18 +1,28 @@
 {
-  if (hasNewLines(msg)) {
-    printMessageOnNewLine(msg);
-    lastMessage="";
+  if (msg == null || msg.trim().length() == 0)   return;
+  try {
+    if (hasNewLines(msg)) {
+      printMessageOnNewLine(msg);
+      lastMessage="";
+    }
+ else {
+      if (isAnsiEnabled()) {
+        lastStatus=outputCategory(erasePreviousLine(CATEGORY_SEPARATOR),CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset();
+        out.println(lastStatus);
+        cursorMove=replaceCount;
+      }
+ else {
+        if (lastMessage != null && lastMessage.equals(msg))         return;
+        if (progressIndicatorActive) {
+          out.println();
+        }
+        out.print(CATEGORY_SEPARATOR);
+        out.println(msg);
+      }
+      lastMessage=msg;
+    }
   }
- else {
-    final String categoryName=category.toString();
-    if (isAnsiEnabled()) {
-      lastStatus=outputCategory(erasePreviousLine(categoryName),categoryName).fg(Color.DEFAULT).a(msg).reset();
-      out.println(lastStatus);
-      cursorMove=replaceCount;
-    }
- else {
-      out.println(categoryName + msg);
-    }
-    lastMessage=msg;
+  finally {
+    postPrintMessage();
   }
 }

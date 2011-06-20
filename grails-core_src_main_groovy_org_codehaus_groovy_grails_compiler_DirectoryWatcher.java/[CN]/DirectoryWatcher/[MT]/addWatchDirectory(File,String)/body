@@ -1,5 +1,10 @@
 {
-  List<String> extensions=new ArrayList<String>();
-  extensions.add(extension);
-  cacheFilesForDirectory(dir,extensions,false);
+  List<String> fileExtensions=new ArrayList<String>();
+  if (extension == null) {
+    fileExtensions.add("*");
+  }
+ else {
+    fileExtensions.add(extension);
+  }
+  cacheFilesForDirectory(dir,fileExtensions,false);
 }

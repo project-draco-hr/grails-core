@@ -1,6 +1,6 @@
 {
   if (t != null) {
-    GrailsUtil.deepSanitize(t);
+    new DefaultStackTraceFilterer().filter(t,true);
   }
   return t;
 }

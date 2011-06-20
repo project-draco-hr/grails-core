@@ -1,0 +1,9 @@
+{
+  if (name != null && name.length() > 0) {
+    this.name=name;
+  }
+ else {
+    throw new IllegalArgumentException("illegal option specified");
+  }
+  this.description=description != null ? description : "";
+}

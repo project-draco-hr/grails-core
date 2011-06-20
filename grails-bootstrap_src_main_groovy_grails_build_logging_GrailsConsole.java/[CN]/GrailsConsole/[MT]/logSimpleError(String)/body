@@ -1,0 +1,7 @@
+{
+  if (progressIndicatorActive) {
+    out.println();
+  }
+  out.println(CATEGORY_SEPARATOR);
+  out.println(msg);
+}

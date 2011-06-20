@@ -1,0 +1,13 @@
+{
+  ScriptAndArgs info=new ScriptAndArgs();
+  if (Environment.isSystemSet()) {
+    info.env=Environment.getCurrent().getName();
+  }
+ else   if (commandLine.getEnvironment() != null) {
+    info.env=commandLine.getEnvironment();
+  }
+  info.inputName=commandLine.getCommandName();
+  info.name=GrailsNameUtils.getNameFromScript(commandLine.getCommandName());
+  info.args=commandLine.getRemainingArgsString();
+  return info;
+}

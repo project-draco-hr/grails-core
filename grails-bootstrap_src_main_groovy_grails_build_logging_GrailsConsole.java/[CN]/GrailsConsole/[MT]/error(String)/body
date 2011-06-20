@@ -1,22 +1,26 @@
 {
-  cursorMove=0;
-  if (hasNewLines(msg)) {
+  try {
+    cursorMove=0;
     if (isAnsiEnabled()) {
-      out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(category.toString()).reset());
-      out.println(ansi().fg(Color.DEFAULT).a(msg).reset());
+      Ansi ansi;
+      if (msg.contains("ERROR") || msg.contains("FATAL")) {
+        ansi=outputErrorLabel(ansi(),"Error").a(msg).reset();
+      }
+ else {
+        ansi=outputErrorLabel(ansi(),"").a(msg).reset();
+      }
+      if (msg.endsWith(LINE_SEPARATOR)) {
+        out.print(ansi);
+      }
+ else {
+        out.println(ansi);
+      }
     }
  else {
-      out.println(category);
-      out.println(msg);
+      logSimpleError(msg);
     }
   }
- else {
-    if (isAnsiEnabled()) {
-      out.println(ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(RED).a(category.toString()).fg(Color.DEFAULT).a(msg).reset());
-    }
- else {
-      out.print(category.toString());
-      out.println(msg);
-    }
+  finally {
+    postPrintMessage();
   }
 }

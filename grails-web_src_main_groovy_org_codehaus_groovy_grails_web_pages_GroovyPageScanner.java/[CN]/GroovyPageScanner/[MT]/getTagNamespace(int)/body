@@ -1,0 +1,8 @@
+{
+  int foundColonIdx=text.indexOf(":",fromIndex);
+  String tagNameSpace=null;
+  if (foundColonIdx > -1) {
+    tagNameSpace=text.substring(fromIndex,foundColonIdx);
+  }
+  return tagNameSpace;
+}

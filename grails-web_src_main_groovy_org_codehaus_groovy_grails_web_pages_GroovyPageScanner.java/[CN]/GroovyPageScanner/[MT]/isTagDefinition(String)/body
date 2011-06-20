@@ -1,0 +1,3 @@
+{
+  return tagNameSpace != null && tagNameSpace.matches("^\\p{Alpha}\\w*$");
+}

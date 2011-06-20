@@ -3,9 +3,5 @@
     GrailsConsole.getInstance().setVerbose(true);
   }
   processSystemArguments(commandLine);
-  String[] arguments=commandLine.getArgs();
-  if (arguments.length > 0) {
-    return processAndReturnArguments(arguments);
-  }
-  return new ScriptAndArgs();
+  return processAndReturnArguments(commandLine);
 }

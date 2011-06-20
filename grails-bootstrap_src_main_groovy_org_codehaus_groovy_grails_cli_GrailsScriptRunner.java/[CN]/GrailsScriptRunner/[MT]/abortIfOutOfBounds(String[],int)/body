@@ -1,6 +1,0 @@
-{
-  if (currentParamIndex >= splitArgs.length) {
-    GrailsConsole.getInstance().error("You should specify a script to run. Run 'grails help' for a complete list of available scripts.");
-    System.exit(0);
-  }
-}

@@ -1,5 +1,5 @@
 {
-  File keepGeneratedDirectory=resolveKeepGeneratedDirectory();
+  resolveKeepGeneratedDirectory();
   StreamCharBuffer streamBuffer=new StreamCharBuffer(1024);
   StreamByteBuffer byteOutputBuffer=new StreamByteBuffer(1024,StreamByteBuffer.ReadMode.RETAIN_AFTER_READING);
   try {

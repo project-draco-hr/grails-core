@@ -1,0 +1,5 @@
+{
+  processSystemArguments(commandLine);
+  System.setProperty("grails.cli.args",commandLine.getRemainingArgsLineSeparated());
+  return executeScriptWithCaching(GrailsNameUtils.getNameFromScript(commandLine.getCommandName()),commandLine.getEnvironment());
+}

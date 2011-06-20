@@ -1,3 +1,6 @@
 {
+  if (verbose) {
+    System.setProperty("grails.full.stacktrace","true");
+  }
   this.verbose=verbose;
 }

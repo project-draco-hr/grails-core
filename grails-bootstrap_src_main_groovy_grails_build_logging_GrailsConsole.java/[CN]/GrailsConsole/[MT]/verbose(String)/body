@@ -1,12 +1,11 @@
 {
-  if (verbose) {
-    if (hasNewLines(msg)) {
+  try {
+    if (verbose) {
       out.println(msg);
       cursorMove=0;
     }
- else {
-      out.println(msg);
-      cursorMove=0;
-    }
+  }
+  finally {
+    postPrintMessage();
   }
 }

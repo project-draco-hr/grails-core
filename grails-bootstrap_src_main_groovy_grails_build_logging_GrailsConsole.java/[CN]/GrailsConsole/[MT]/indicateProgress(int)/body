@@ -1,8 +1,9 @@
 {
+  progressIndicatorActive=true;
   String currMsg=lastMessage;
   try {
     if (isAnsiEnabled()) {
-      updateStatus(new StringBuilder(currMsg).append(' ').append(number).toString());
+      updateStatus(currMsg + ' ' + number);
     }
  else {
       out.print("..");

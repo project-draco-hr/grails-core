@@ -5,7 +5,7 @@
       if (plugin instanceof BinaryGrailsPlugin) {
         BinaryGrailsPlugin binaryGrailsPlugin=(BinaryGrailsPlugin)plugin;
         String uri="/WEB-INF/grails-app/views/layouts/" + name;
-        Class viewClass=binaryGrailsPlugin.resolveView(uri);
+        Class<?> viewClass=binaryGrailsPlugin.resolveView(uri);
         if (viewClass != null) {
           return new GroovyPageCompiledScriptSource(uri,viewClass);
         }

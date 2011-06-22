@@ -3,7 +3,5 @@
   if (format != null) {
     return viewName + DOT + format;
   }
- else {
-    return viewName;
-  }
+  return viewName;
 }

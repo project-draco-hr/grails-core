@@ -1,7 +1,5 @@
 {
-  if (StringUtils.isBlank(expr)) {
-    throw new IllegalArgumentException("Argument [expr] cannot be null or blank");
-  }
+  Assert.isTrue(!StringUtils.isBlank(expr),"Argument [expr] cannot be null or blank");
   expr=expr.trim();
   if (expr.startsWith("\"") && expr.endsWith("\"")) {
     expr=expr.substring(1,expr.length() - 1);

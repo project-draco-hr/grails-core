@@ -3,7 +3,5 @@
   if (webRequest != null) {
     return findView(webRequest.getControllerName(),viewName);
   }
- else {
-    return findViewByPath(viewName);
-  }
+  return findViewByPath(viewName);
 }

@@ -3,7 +3,5 @@
   if (webRequest != null) {
     return findPageInBinding(uriService.getTemplateURI(webRequest.getControllerName(),templateName),binding);
   }
- else {
-    return findPageInBinding(uriService.getAbsoluteTemplateURI(templateName),binding);
-  }
+  return findPageInBinding(uriService.getAbsoluteTemplateURI(templateName),binding);
 }

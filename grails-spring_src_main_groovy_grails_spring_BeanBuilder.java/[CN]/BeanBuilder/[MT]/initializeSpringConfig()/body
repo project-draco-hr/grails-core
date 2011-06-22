@@ -1,4 +1,4 @@
 {
-  this.xmlBeanDefinitionReader=new XmlBeanDefinitionReader((GenericApplicationContext)springConfig.getUnrefreshedApplicationContext());
-  initializeBeanBuilderForClassLoader(this.classLoader);
+  xmlBeanDefinitionReader=new XmlBeanDefinitionReader((GenericApplicationContext)springConfig.getUnrefreshedApplicationContext());
+  initializeBeanBuilderForClassLoader(classLoader);
 }

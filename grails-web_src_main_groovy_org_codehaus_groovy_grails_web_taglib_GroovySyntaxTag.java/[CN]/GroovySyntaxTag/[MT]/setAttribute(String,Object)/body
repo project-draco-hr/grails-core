@@ -1,7 +1,5 @@
 {
-  if (!(value instanceof String)) {
-    throw new IllegalArgumentException("A GroovySynax tag requires only string valued attributes");
-  }
+  Assert.isInstanceOf(String.class,value,"A GroovySynax tag requires only string valued attributes");
   String stringValue=(String)value;
   if (stringValue.startsWith("${") && stringValue.endsWith("}")) {
     stringValue=stringValue.substring(2,stringValue.length() - 1);

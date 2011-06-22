@@ -1,0 +1,6 @@
+{
+  if (values == null) {
+    return Collections.emptySet();
+  }
+  return new HashSet<T>(Arrays.asList(values));
+}

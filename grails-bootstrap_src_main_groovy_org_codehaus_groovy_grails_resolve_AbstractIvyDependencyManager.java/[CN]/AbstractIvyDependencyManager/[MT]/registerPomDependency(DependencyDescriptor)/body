@@ -1,7 +1,7 @@
 {
   ModuleRevisionId moduleRevisionId=dependencyDescriptor.getDependencyRevisionId();
   ModuleId moduleId=moduleRevisionId.getModuleId();
-  String scope=Arrays.asList(dependencyDescriptor.getModuleConfigurations()).get(0);
+  String scope=dependencyDescriptor.getModuleConfigurations()[0];
   if (!hasDependency(moduleId)) {
     EnhancedDefaultDependencyDescriptor enhancedDependencyDescriptor=new EnhancedDefaultDependencyDescriptor(moduleRevisionId,false,true,scope);
     for (    ExcludeRule excludeRule : dependencyDescriptor.getAllExcludeRules()) {

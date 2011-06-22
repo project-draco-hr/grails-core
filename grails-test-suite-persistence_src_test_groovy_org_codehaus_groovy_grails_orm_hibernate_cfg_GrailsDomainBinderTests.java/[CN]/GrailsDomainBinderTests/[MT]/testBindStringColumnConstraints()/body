@@ -8,7 +8,7 @@
   constrainedProperty=getConstrainedStringProperty();
   assertColumnLength(constrainedProperty,Column.DEFAULT_LENGTH);
   constrainedProperty=getConstrainedStringProperty();
-  List validValuesList=Arrays.asList(new String[]{"Groovy","Java","C++"});
+  List validValuesList=Arrays.asList("Groovy","Java","C++");
   constrainedProperty.applyConstraint(ConstrainedProperty.IN_LIST_CONSTRAINT,validValuesList);
   assertColumnLength(constrainedProperty,6);
   constrainedProperty=getConstrainedStringProperty();

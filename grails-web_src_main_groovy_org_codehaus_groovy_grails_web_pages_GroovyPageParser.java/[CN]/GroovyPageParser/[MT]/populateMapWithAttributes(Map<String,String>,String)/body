@@ -1,6 +1,18 @@
 {
-  Matcher m=PARSE_TAG_FIRST_PASS.matcher(attrTokens);
-  populateAttributesFromMatcher(m,attrs);
-  m=PARSE_TAG_SECOND_PASS.matcher(attrTokens);
-  populateAttributesFromMatcher(m,attrs);
+  Matcher m=TAG_ATTRIBUTE_PATTERN.matcher(attrTokens);
+  while (m.find()) {
+    String name=m.group(2);
+    String val=m.group(4);
+    if (val == null) {
+      val=m.group(5);
+    }
+    name='\"' + name + '\"';
+    if (val.startsWith("${") && val.endsWith("}") && val.indexOf("${",2) == -1) {
+      val=val.substring(2,val.length() - 1);
+    }
+ else     if (!(val.startsWith("[") && val.endsWith("]"))) {
+      val='\"' + val + '\"';
+    }
+    attrs.put(name,val);
+  }
 }

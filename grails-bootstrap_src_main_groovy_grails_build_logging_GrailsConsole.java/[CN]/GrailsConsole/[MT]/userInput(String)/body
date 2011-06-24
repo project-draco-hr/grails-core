@@ -1,5 +1,5 @@
 {
-  addStatus(msg);
   lastMessage="";
-  return showPrompt();
+  msg=isAnsiEnabled() ? outputCategory(ansi(),">").fg(DEFAULT).a(msg).toString() : msg;
+  return showPrompt(msg);
 }

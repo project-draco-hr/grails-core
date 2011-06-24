@@ -1,0 +1,25 @@
+{
+  boolean junit3Test=isJunit3Test(classNode);
+  FieldNode log=classNode.getField("log");
+  if (log == null || log.getDeclaringClass().equals(GROOVY_TEST_CASE_CLASS)) {
+    LoggingTransformer.addLogField(classNode,classNode.getName());
+  }
+  boolean isSpockTest=isSpockTest(classNode);
+  if (!isSpockTest && !junit3Test) {
+    Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();
+    for (    String methodName : declaredMethodsMap.keySet()) {
+      MethodNode methodNode=declaredMethodsMap.get(methodName);
+      if (isCandidateMethod(methodNode) && methodNode.getName().startsWith("test")) {
+        if (methodNode.getAnnotations().size() == 0) {
+          methodNode.addAnnotation(TEST_ANNOTATION);
+        }
+      }
+    }
+  }
+  final MethodNode methodToAdd=weaveMock(classNode,ce,true);
+  if (methodToAdd != null) {
+    if (junit3Test) {
+      addMethodCallsToMethod(classNode,SET_UP_METHOD,Arrays.asList(methodToAdd));
+    }
+  }
+}

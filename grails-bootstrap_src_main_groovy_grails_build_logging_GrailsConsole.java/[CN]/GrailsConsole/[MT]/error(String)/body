@@ -1,26 +1,3 @@
 {
-  try {
-    cursorMove=0;
-    if (isAnsiEnabled()) {
-      Ansi ansi;
-      if (msg.contains("ERROR") || msg.contains("FATAL")) {
-        ansi=outputErrorLabel(ansi(),"Error").a(msg).reset();
-      }
- else {
-        ansi=outputErrorLabel(ansi(),"").a(msg).reset();
-      }
-      if (msg.endsWith(LINE_SEPARATOR)) {
-        out.print(ansi);
-      }
- else {
-        out.println(ansi);
-      }
-    }
- else {
-      logSimpleError(msg);
-    }
-  }
-  finally {
-    postPrintMessage();
-  }
+  error(ERROR,msg);
 }

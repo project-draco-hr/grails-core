@@ -2,7 +2,13 @@
   cursorMove=0;
   try {
     if (isAnsiEnabled()) {
-      out.println(outputErrorLabel(ansi(),label).a(message));
+      Ansi ansi=outputErrorLabel(ansi(),label).a(message);
+      if (message.endsWith(LINE_SEPARATOR)) {
+        out.print(ansi);
+      }
+ else {
+        out.println(ansi);
+      }
     }
  else {
       out.print(label);

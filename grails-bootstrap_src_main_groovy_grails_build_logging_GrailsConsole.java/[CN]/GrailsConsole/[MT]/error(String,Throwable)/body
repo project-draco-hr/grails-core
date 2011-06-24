@@ -2,10 +2,11 @@
   try {
     if (verbose && error != null) {
       StackTraceUtils.deepSanitize(error);
+      error(ERROR,"");
       printStackTrace(msg,error);
     }
  else {
-      error(msg);
+      error(ERROR,msg);
     }
   }
   finally {

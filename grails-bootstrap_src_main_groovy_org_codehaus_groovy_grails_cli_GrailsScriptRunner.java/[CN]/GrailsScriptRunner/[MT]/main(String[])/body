@@ -20,7 +20,7 @@
     System.exit(1);
     return;
   }
-  console.updateStatus("Initializing");
+  String version=System.getProperty("grails.version");
   ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
@@ -47,8 +47,12 @@
   }
   GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
   scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT));
+  if ("Interactive".equals(script.name)) {
+    console.error("The 'interactive' script is deprecated; to run in interactive mode just omit the script name");
+    script.name=null;
+  }
   if (script.name == null) {
-    console.updateStatus("Loading build configuration");
+    console.updateStatus("Loading Grails " + (version != null ? version : build.getGrailsVersion()));
     build.loadConfig();
     scriptRunner.initializeState();
     try {

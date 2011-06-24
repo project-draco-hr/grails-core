@@ -26,7 +26,7 @@
           registerDependencies(dependencyManager,"build",buildDependencies);
           ModuleRevisionId[] docDependencies={ModuleRevisionId.newInstance("org.xhtmlrenderer","core-renderer","R8"),ModuleRevisionId.newInstance("com.lowagie","itext","2.1.7"),ModuleRevisionId.newInstance("org.grails","grails-gdoc-engine","1.0.1")};
           registerDependencies(dependencyManager,"docs",docDependencies);
-          String tomcatVersion="7.0.8";
+          String tomcatVersion="7.0.16";
           ModuleRevisionId[] providedDependencies={ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-core",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-jasper",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-logging-log4j",tomcatVersion)};
           registerDependencies(dependencyManager,"provided",providedDependencies);
           ModuleRevisionId[] groovyDependencies={ModuleRevisionId.newInstance("org.codehaus.groovy","groovy-all","1.8.0")};

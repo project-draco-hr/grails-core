@@ -16,7 +16,8 @@
         if (progressIndicatorActive) {
           out.println();
         }
-        out.println(CATEGORY_SEPARATOR + msg);
+        out.print(CATEGORY_SEPARATOR);
+        out.println(msg);
       }
       lastMessage=msg;
     }

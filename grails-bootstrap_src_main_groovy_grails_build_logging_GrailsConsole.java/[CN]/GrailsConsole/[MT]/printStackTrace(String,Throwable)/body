@@ -1,4 +1,5 @@
 {
+  StackTraceUtils.deepSanitize(error);
   StringWriter sw=new StringWriter();
   PrintWriter ps=new PrintWriter(sw);
   if (message != null) {

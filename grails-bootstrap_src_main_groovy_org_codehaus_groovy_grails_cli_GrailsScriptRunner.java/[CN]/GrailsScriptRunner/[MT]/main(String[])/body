@@ -31,11 +31,11 @@
     }
   }
  catch (  Exception e) {
-    exitWithError("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage());
+    exitWithError("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage(),null);
   }
   final File grailsHomeInSettings=build.getGrailsHome();
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
-    exitWithError("Grails' installation directory not found: " + build.getGrailsHome());
+    exitWithError("Grails' installation directory not found: " + build.getGrailsHome(),null);
   }
   if (commandLine.hasOption(VERSION_ARGUMENT)) {
     console.log("Grails version: " + build.getGrailsVersion());
@@ -74,9 +74,7 @@
     }
 catch (    Throwable t) {
       String msg="Error executing script " + script.name + ": "+ t.getMessage();
-      sanitizeStacktrace(t);
-      t.printStackTrace(System.out);
-      exitWithError(msg);
+      exitWithError(msg,t);
     }
   }
 }

@@ -2,6 +2,9 @@
   if (commandLine.hasOption(VERBOSE_ARGUMENT)) {
     GrailsConsole.getInstance().setVerbose(true);
   }
+  if (commandLine.hasOption(STACKTRACE_ARGUMENT)) {
+    GrailsConsole.getInstance().setStacktrace(true);
+  }
   processSystemArguments(commandLine);
   return processAndReturnArguments(commandLine);
 }

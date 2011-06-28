@@ -53,6 +53,9 @@
         if (viewResolver != null) {
           View v;
           try {
+            if (!response.isCommitted()) {
+              response.setContentType(TEXT_HTML);
+            }
             v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
             v.render(Collections.EMPTY_MAP,request,response);
           }

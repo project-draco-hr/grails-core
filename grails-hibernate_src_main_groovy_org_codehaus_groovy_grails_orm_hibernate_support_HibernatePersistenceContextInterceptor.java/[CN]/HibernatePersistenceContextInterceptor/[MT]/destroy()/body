@@ -3,13 +3,18 @@
   if (decNestingCount() > 0 || getParticipate()) {
     return;
   }
-  SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(getSessionFactory());
-  LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
   try {
-    Session session=holder.getSession();
-    SessionFactoryUtils.closeSession(session);
+    SessionHolder holder=(SessionHolder)TransactionSynchronizationManager.unbindResource(getSessionFactory());
+    LOG.debug("Closing single Hibernate session in GrailsDispatcherServlet");
+    try {
+      Session session=holder.getSession();
+      SessionFactoryUtils.closeSession(session);
+    }
+ catch (    RuntimeException ex) {
+      LOG.error("Unexpected exception on closing Hibernate Session",ex);
+    }
   }
- catch (  RuntimeException ex) {
-    LOG.error("Unexpected exception on closing Hibernate Session",ex);
+  finally {
+    AbstractSavePersistentMethod.clearDisabledValidations();
   }
 }

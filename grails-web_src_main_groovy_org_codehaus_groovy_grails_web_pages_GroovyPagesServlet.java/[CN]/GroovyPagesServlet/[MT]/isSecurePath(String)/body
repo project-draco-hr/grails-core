@@ -1,0 +1,3 @@
+{
+  return pageName.startsWith(WEB_INF) || pageName.startsWith(GRAILS_APP);
+}

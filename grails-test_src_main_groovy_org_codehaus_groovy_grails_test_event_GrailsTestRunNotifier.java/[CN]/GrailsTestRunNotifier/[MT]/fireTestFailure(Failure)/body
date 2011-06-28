@@ -11,7 +11,7 @@
     StringWriter sw=new StringWriter();
     PrintWriter ps=new PrintWriter(sw);
     exception.printStackTrace(ps);
-    console.error(sw.toString());
+    console.error("",sw.toString());
   }
   super.fireTestFailure(failure);
 }

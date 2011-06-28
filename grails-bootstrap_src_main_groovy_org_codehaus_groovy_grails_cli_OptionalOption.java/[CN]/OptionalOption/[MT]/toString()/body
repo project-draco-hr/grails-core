@@ -1,6 +1,0 @@
-{
-  if (getArgs() == 1) {
-    return getOpt() + '=' + getValue();
-  }
-  return getOpt();
-}

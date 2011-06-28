@@ -5,7 +5,7 @@
   if (StringUtils.isBlank(pageName)) {
     pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
   }
-  if (isNotSecurePath(pageName)) {
+  if (isSecurePath(pageName)) {
     sendNotFound(response,pageName);
   }
  else {

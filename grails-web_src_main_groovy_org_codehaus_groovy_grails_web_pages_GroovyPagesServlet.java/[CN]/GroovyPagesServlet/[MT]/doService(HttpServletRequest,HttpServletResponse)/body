@@ -5,14 +5,18 @@
   if (StringUtils.isBlank(pageName)) {
     pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
   }
-  Template template=groovyPagesTemplateEngine.createTemplateForUri(pageName);
-  if (template == null) {
-    template=findPageInBinaryPlugins(pageName);
+  if (isNotSecurePath(pageName)) {
+    sendNotFound(response,pageName);
   }
-  if (template == null) {
-    context.log("GroovyPagesServlet:  \"" + pageName + "\" not found");
-    response.sendError(404,"\"" + pageName + "\" not found.");
-    return;
+ else {
+    Template template=groovyPagesTemplateEngine.createTemplateForUri(pageName);
+    if (template == null) {
+      template=findPageInBinaryPlugins(pageName);
+    }
+    if (template == null) {
+      sendNotFound(response,pageName);
+      return;
+    }
+    renderPageWithEngine(groovyPagesTemplateEngine,request,response,template);
   }
-  renderPageWithEngine(groovyPagesTemplateEngine,request,response,template);
 }

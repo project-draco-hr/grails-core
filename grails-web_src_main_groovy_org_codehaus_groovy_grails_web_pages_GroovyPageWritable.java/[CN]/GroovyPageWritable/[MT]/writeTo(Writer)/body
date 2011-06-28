@@ -17,7 +17,7 @@
           pageRequestBinding.setCachedDomainsWithoutPackage(templateEngine.getDomainClassMap());
         }
       }
-      boolean contentTypeAlreadySet=response.isCommitted() || response.getContentType() != null;
+      boolean contentTypeAlreadySet=response.isCommitted();
       if (LOG.isDebugEnabled() && !contentTypeAlreadySet) {
         LOG.debug("Writing response to [" + response.getClass() + "] with content type: "+ metaInfo.getContentType());
       }

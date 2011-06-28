@@ -1,5 +1,5 @@
 {
-  Writer out=null;
+  GSPResponseWriter out=null;
   try {
     out=createResponseWriter(response);
     Template t;
@@ -12,16 +12,16 @@
       }
     }
  catch (    Exception e) {
-      out=createResponseWriter(response);
-      handleException(e,out,null,request,response);
+      out.setError();
+      handleException(e,engine);
       return;
     }
     Writable w=t.make(model);
     w.writeTo(out);
   }
  catch (  Exception e) {
-    out=createResponseWriter(response);
-    handleException(e,out,engine,request,response);
+    out.setError();
+    handleException(e,engine);
   }
  finally {
     if (out != null) {

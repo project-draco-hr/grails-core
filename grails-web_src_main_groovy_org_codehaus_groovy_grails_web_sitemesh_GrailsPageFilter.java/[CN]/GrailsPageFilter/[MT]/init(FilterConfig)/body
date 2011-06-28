@@ -8,6 +8,7 @@
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);
   applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(fc.getServletContext());
+  templateEngine=applicationContext.getBean(GroovyPagesTemplateEngine.BEAN_ID,GroovyPagesTemplateEngine.class);
   final GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(fc.getServletContext());
   String encoding=(String)grailsApplication.getFlatConfig().get(CONFIG_OPTION_GSP_ENCODING);
   if (encoding != null) {

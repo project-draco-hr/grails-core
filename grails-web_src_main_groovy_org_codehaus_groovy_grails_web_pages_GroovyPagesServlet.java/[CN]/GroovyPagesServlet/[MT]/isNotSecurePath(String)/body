@@ -1,0 +1,3 @@
+{
+  return pageName.startsWith("/WEB-INF") || pageName.startsWith("/grails-app");
+}

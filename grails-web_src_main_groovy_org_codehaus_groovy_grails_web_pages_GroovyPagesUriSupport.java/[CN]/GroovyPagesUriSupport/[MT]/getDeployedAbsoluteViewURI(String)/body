@@ -1,0 +1,4 @@
+{
+  FastStringWriter buf=new FastStringWriter(PATH_TO_VIEWS);
+  return getAbsoluteViewURIInternal(viewName,buf,true);
+}

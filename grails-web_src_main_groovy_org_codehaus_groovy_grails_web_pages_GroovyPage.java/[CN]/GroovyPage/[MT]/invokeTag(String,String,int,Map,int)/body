@@ -30,7 +30,7 @@
   }
   try {
     GroovyObject tagLib=getTagLib(tagNamespace,tagName);
-    if (tagLib != null || gspTagLibraryLookup.hasNamespace(tagNamespace)) {
+    if (tagLib != null || (gspTagLibraryLookup != null && gspTagLibraryLookup.hasNamespace(tagNamespace))) {
       if (tagLib != null) {
         boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(tagNamespace,tagName);
         Object tagLibProp=tagLib.getProperty(tagName);

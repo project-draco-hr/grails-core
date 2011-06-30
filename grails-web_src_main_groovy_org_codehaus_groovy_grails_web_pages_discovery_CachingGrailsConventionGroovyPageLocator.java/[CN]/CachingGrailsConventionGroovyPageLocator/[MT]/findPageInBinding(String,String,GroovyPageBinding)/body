@@ -1,0 +1,14 @@
+{
+  String cacheKey=GrailsResourceUtils.appendPiecesForUri(pluginName,uri);
+  GroovyPageScriptSource scriptSource=uriResolveCache.get(cacheKey);
+  if (scriptSource == null) {
+    scriptSource=super.findPageInBinding(pluginName,uri,binding);
+    if (scriptSource == null && Environment.isWarDeployed()) {
+      uriResolveCache.put(cacheKey,NULL_SCRIPT);
+    }
+ else     if (scriptSource != null) {
+      uriResolveCache.put(cacheKey,scriptSource);
+    }
+  }
+  return scriptSource == NULL_SCRIPT ? null : scriptSource;
+}

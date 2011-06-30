@@ -18,12 +18,20 @@
  else       if (c == '"')       str2=false;
       continue;
     }
- else     if (level > 0 && (c == ')' || c == '}' || c == ']')) {
-      level--;
+ else     if (!levelTokens.empty() && (c == ')' || c == '}' || c == ']') && levelTokens.peek().equals(c)) {
+      levelTokens.pop();
       continue;
     }
  else     if (begin1 > 0 && (c == '{' || c == '(' || c == '[')) {
-      level++;
+      if (c == '{') {
+        levelTokens.push('}');
+      }
+ else       if (c == '(') {
+        levelTokens.push(')');
+      }
+ else       if (c == '[') {
+        levelTokens.push(']');
+      }
       continue;
     }
 switch (state) {
@@ -109,17 +117,17 @@ break;
 case GEXPR:
 checkValidExpressionState(c,c1,left);
 case GDIRECT:
-if (c == '}' && !str1 && !str2 && level == 0) {
+if (c == '}' && !str1 && !str2 && levelTokens.empty()) {
 return found(HTML,1);
 }
 break;
 case GSCRIPT:
-if (c == '}' && isStartScriptletBlock(c1) && !str1 && !str2 && level == 0) {
+if (c == '}' && isStartScriptletBlock(c1) && !str1 && !str2 && levelTokens.empty()) {
 return found(HTML,2);
 }
 break;
 case GDECLAR:
-if (c == '}' && (c1 == '!' || isStartScriptletBlock(c1)) && !str1 && !str2 && level == 0) {
+if (c == '}' && (c1 == '!' || isStartScriptletBlock(c1)) && !str1 && !str2 && levelTokens.empty()) {
 return found(HTML,2);
 }
 break;

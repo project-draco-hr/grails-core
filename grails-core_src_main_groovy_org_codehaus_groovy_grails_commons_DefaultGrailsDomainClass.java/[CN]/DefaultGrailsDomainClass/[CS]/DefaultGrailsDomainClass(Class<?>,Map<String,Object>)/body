@@ -13,8 +13,8 @@
   if (mappingStrategy == null) {
     mappingStrategy=GORM;
   }
-  mappedBy=getStaticPropertyValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
-  hasOneMap=getStaticPropertyValue(GrailsDomainClassProperty.HAS_ONE,Map.class);
+  mappedBy=getMergedConfigurationMap(GrailsDomainClassProperty.MAPPED_BY);
+  hasOneMap=getMergedConfigurationMap(GrailsDomainClassProperty.HAS_ONE);
   if (hasOneMap == null) {
     hasOneMap=Collections.emptyMap();
   }

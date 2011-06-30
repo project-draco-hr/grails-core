@@ -36,20 +36,15 @@
       setObjectToReadWrite(target);
     }
   }
- else {
-    shouldFlush=true;
-  }
   if (domainClass != null) {
     autoRetrieveAssocations(domainClass,target);
   }
-  try {
-    if (!shouldValidate)     disableAutoValidationFor.set(target);
-    if (shouldInsert(arguments)) {
-      return performInsert(target,shouldFlush);
-    }
-    return performSave(target,shouldFlush);
+  if (!shouldValidate) {
+    Set<Integer> identifiers=disableAutoValidationFor.get();
+    identifiers.add(System.identityHashCode(target));
   }
-  finally {
-    if (!shouldValidate)     disableAutoValidationFor.remove();
+  if (shouldInsert(arguments)) {
+    return performInsert(target,shouldFlush);
   }
+  return performSave(target,shouldFlush);
 }

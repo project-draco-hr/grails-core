@@ -1,9 +1,11 @@
 {
   this.metaInfo=metaInfo;
-  webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  request=webRequest.getCurrentRequest();
-  HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
-  response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
+  webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+  if (webRequest != null) {
+    request=webRequest.getCurrentRequest();
+    HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
+    response=wrapped != null ? wrapped : webRequest.getCurrentResponse();
+  }
   showSource=shouldShowGroovySource();
   debugTemplates=shouldDebugTemplates();
   if (debugTemplates) {

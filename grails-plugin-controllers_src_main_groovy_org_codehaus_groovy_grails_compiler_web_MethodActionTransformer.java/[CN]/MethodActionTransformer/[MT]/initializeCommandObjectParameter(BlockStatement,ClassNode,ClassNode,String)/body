@@ -1,0 +1,16 @@
+{
+  final Expression constructorCallExpression=new ConstructorCallExpression(paramTypeClassNode,EMPTY_TUPLE);
+  final Statement newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,paramTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
+  wrapper.addStatement(newCommandCode);
+  final ArgumentListExpression arguments=new ArgumentListExpression();
+  arguments.addExpression(new VariableExpression(paramName));
+  arguments.addExpression(new VariableExpression(PARAMS_EXPRESSION));
+  final MethodCallExpression bindDataMethodCallExpression=new MethodCallExpression(THIS_EXPRESSION,"bindData",arguments);
+  final MethodNode bindDataMethodNode=classNode.getMethod("bindData",new Parameter[]{new Parameter(new ClassNode(Object.class),"target"),new Parameter(new ClassNode(Object.class),"params")});
+  if (bindDataMethodNode != null) {
+    bindDataMethodCallExpression.setMethodTarget(bindDataMethodNode);
+  }
+  wrapper.addStatement(new ExpressionStatement(bindDataMethodCallExpression));
+  final Expression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
+  wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
+}

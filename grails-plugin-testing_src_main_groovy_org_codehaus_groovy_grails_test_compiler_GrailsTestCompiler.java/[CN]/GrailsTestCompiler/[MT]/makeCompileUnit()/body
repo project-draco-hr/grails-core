@@ -1,0 +1,9 @@
+{
+  ImportCustomizer importCustomizer=new ImportCustomizer();
+  importCustomizer.addStarImports("grails.test.mixin");
+  importCustomizer.addStarImports("org.junit");
+  importCustomizer.addStaticStars("org.junit.Assert");
+  ASTTransformationCustomizer astTransformationCustomizer=new ASTTransformationCustomizer(TestFor.class);
+  configuration.addCompilationCustomizers(importCustomizer,astTransformationCustomizer);
+  return super.makeCompileUnit();
+}

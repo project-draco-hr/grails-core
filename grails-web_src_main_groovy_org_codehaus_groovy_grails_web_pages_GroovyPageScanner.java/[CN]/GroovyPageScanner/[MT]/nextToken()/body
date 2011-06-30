@@ -22,6 +22,10 @@
       level--;
       continue;
     }
+ else     if (begin1 > 0 && (c == '{' || c == '(' || c == '[')) {
+      level++;
+      continue;
+    }
 switch (state) {
 case HTML:
       if (isPotentialScriptletOrTag(c,left)) {

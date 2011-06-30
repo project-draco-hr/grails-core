@@ -1,15 +1,9 @@
 {
   if (shouldFilter) {
     StackTraceElement[] trace=source.getStackTrace();
-    List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
-    for (    StackTraceElement stackTraceElement : trace) {
-      String className=stackTraceElement.getClassName();
-      if (cutOffPackage != null && className.startsWith(cutOffPackage))       break;
-      if (isApplicationClass(className)) {
-        if (stackTraceElement.getLineNumber() > -1) {
-          newTrace.add(stackTraceElement);
-        }
-      }
+    List<StackTraceElement> newTrace=filterTraceWithCutOff(trace,cutOffPackage);
+    if (newTrace.size() == 0) {
+      newTrace=filterTraceWithCutOff(trace,null);
     }
     if (newTrace.size() > 0) {
       STACK_LOG.error(FULL_STACK_TRACE_MESSAGE,source);

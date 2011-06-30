@@ -1,31 +1,36 @@
 {
-  final boolean isWebRequest=request.getAttribute(IS_FLOW_REQUEST_ATTRIBUTE,WebRequest.SCOPE_REQUEST) != null;
-  if (isWebRequest) {
-    return;
-  }
-  request=(WebRequest)RequestContextHolder.currentRequestAttributes();
-  if (!(request instanceof GrailsWebRequest)) {
-    super.afterCompletion(request,ex);
-    return;
-  }
-  GrailsWebRequest webRequest=(GrailsWebRequest)request;
-  HttpServletResponse response=webRequest.getCurrentResponse();
-  if (!(response instanceof GrailsContentBufferingResponse)) {
-    super.afterCompletion(request,ex);
-    return;
-  }
-  GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
-  if (!bufferingResponse.isActive()) {
-    super.afterCompletion(request,ex);
-    return;
-  }
   try {
-    Session session=SessionFactoryUtils.getSession(getSessionFactory(),false);
-    if (session != null) {
-      session.disconnect();
+    final boolean isWebRequest=request.getAttribute(IS_FLOW_REQUEST_ATTRIBUTE,WebRequest.SCOPE_REQUEST) != null;
+    if (isWebRequest) {
+      return;
+    }
+    request=(WebRequest)RequestContextHolder.currentRequestAttributes();
+    if (!(request instanceof GrailsWebRequest)) {
+      super.afterCompletion(request,ex);
+      return;
+    }
+    GrailsWebRequest webRequest=(GrailsWebRequest)request;
+    HttpServletResponse response=webRequest.getCurrentResponse();
+    if (!(response instanceof GrailsContentBufferingResponse)) {
+      super.afterCompletion(request,ex);
+      return;
+    }
+    GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
+    if (!bufferingResponse.isActive()) {
+      super.afterCompletion(request,ex);
+      return;
+    }
+    try {
+      Session session=SessionFactoryUtils.getSession(getSessionFactory(),false);
+      if (session != null) {
+        session.disconnect();
+      }
+    }
+ catch (    IllegalStateException e) {
+      super.afterCompletion(request,ex);
     }
   }
- catch (  IllegalStateException e) {
-    super.afterCompletion(request,ex);
+  finally {
+    AbstractSavePersistentMethod.clearDisabledValidations();
   }
 }

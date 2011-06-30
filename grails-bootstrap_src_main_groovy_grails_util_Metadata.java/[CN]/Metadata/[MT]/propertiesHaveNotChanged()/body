@@ -1,5 +1,5 @@
 {
-  Metadata transientMetadata=getCurrent();
+  Metadata transientMetadata=this;
   Metadata allStringValuesMetadata=new Metadata();
   Map<Object,Object> transientMap=transientMetadata;
   for (  Map.Entry<Object,Object> entry : transientMap.entrySet()) {

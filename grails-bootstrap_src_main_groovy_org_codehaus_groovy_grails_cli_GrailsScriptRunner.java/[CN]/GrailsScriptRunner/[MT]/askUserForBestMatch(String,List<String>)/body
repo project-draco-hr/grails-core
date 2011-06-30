@@ -21,7 +21,7 @@
     }
     attempts++;
     if (attempts > 4) {
-      exitWithError("Selection not found.");
+      exitWithError("Selection not found.",null);
     }
   }
 }

@@ -1,0 +1,7 @@
+{
+  BlockStatement wrapper=new BlockStatement();
+  for (  Parameter param : actionParameters) {
+    initializeMethodParameter(classNode,wrapper,param);
+  }
+  return wrapper;
+}

@@ -41,7 +41,9 @@
       urlMappingInfo.configure(webRequest);
     }
     request.setAttribute("com.opensymphony.sitemesh.APPLIED_ONCE",null);
+    HttpServletResponse originalResponse=WrappedResponseHolder.getWrappedResponse();
     try {
+      WrappedResponseHolder.setWrappedResponse(response);
       String viewName=urlMappingInfo.getViewName();
       if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
         WebUtils.forwardRequestForUrlMappingInfo(request,response,urlMappingInfo,Collections.EMPTY_MAP);
@@ -51,6 +53,9 @@
         if (viewResolver != null) {
           View v;
           try {
+            if (!response.isCommitted()) {
+              response.setContentType(TEXT_HTML);
+            }
             v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
             v.render(Collections.EMPTY_MAP,request,response);
           }
@@ -62,6 +67,7 @@
       }
     }
   finally {
+      WrappedResponseHolder.setWrappedResponse(originalResponse);
       if (restoreOriginalRequestAttributes) {
         RequestContextHolder.setRequestAttributes(requestAttributes);
       }

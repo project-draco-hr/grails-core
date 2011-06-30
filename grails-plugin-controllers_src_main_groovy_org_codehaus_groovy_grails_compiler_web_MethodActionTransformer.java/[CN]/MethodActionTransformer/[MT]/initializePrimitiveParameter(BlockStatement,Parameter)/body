@@ -1,0 +1,18 @@
+{
+  final ClassNode paramTypeClassNode=param.getType();
+  final String paramName=param.getName();
+  final Expression paramsTypeConversionMethodArguments=new ArgumentListExpression(new ConstantExpression(paramName));
+  final Expression retrieveConvertedValueExpression=new MethodCallExpression(PARAMS_EXPRESSION,paramTypeClassNode.getTypeClass().getName(),paramsTypeConversionMethodArguments);
+  final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(new ConstantExpression(paramName));
+  final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
+  final Statement declareVariableStatement=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,paramTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression()));
+  wrapper.addStatement(declareVariableStatement);
+  final Expression defaultValueExpression=param.hasInitialExpression() ? param.getInitialExpression() : new ConstantExpression(0);
+  final Expression assignmentExpression=new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
+  final TryCatchStatement tryCatchStatement=new TryCatchStatement(new ExpressionStatement(assignmentExpression),new EmptyStatement());
+  final Parameter exceptionParameter=new Parameter(new ClassNode(GroovyCastException.class),"e");
+  final ExpressionStatement assignDefaultValueToParameterExpression=new ExpressionStatement(new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),defaultValueExpression));
+  final CatchStatement catchGroovyCastExceptionStatement=new CatchStatement(exceptionParameter,assignDefaultValueToParameterExpression);
+  tryCatchStatement.addCatch(catchGroovyCastExceptionStatement);
+  wrapper.addStatement(tryCatchStatement);
+}

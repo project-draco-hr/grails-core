@@ -1,10 +1,4 @@
 {
   @SuppressWarnings("hiding") Metadata metadata=Metadata.getCurrent();
-  for (  Object key : entries.keySet()) {
-    final Object value=entries.get(key);
-    if (value != null) {
-      metadata.put(key,value.toString());
-    }
-  }
-  metadata.persist();
+  updateMetadata(metadata,entries);
 }

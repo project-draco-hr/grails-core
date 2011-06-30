@@ -1,7 +1,7 @@
 {
   final ClassNode paramTypeClassNode=param.getType();
   final String paramName=param.getName();
-  if (paramTypeClassNode.isResolved() && (Boolean.class == paramTypeClassNode.getTypeClass() || Number.class.isAssignableFrom(paramTypeClassNode.getTypeClass()) || paramTypeClassNode.getTypeClass().isPrimitive())) {
+  if (paramTypeClassNode.isResolved() && (Character.class == paramTypeClassNode.getTypeClass() || Boolean.class == paramTypeClassNode.getTypeClass() || Number.class.isAssignableFrom(paramTypeClassNode.getTypeClass()) || paramTypeClassNode.getTypeClass().isPrimitive())) {
     initializePrimitiveOrTypeWrapperParameter(wrapper,param);
   }
  else   if (paramTypeClassNode.equals(new ClassNode(String.class))) {

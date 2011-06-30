@@ -1,0 +1,12 @@
+{
+  GroovyPageScriptSource scriptSource=findLayout(layoutName);
+  if (scriptSource == null && controller != null) {
+    if (pluginManager != null) {
+      String pathToView=pluginManager.getPluginViewsPathForInstance(controller);
+      if (pathToView != null) {
+        scriptSource=findPage(uriService.getAbsoluteViewURI(GrailsResourceUtils.appendPiecesForUri(pathToView,LAYOUTS_PATH,layoutName)));
+      }
+    }
+  }
+  return scriptSource;
+}

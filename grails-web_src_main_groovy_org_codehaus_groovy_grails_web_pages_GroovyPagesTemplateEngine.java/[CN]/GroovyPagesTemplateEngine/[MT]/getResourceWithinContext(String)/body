@@ -1,11 +1,8 @@
 {
-  Assert.state(resourceLoader != null,"TemplateEngine not initialised correctly, no [resourceLoader] specified!");
-  if (resourceLoaderDefined) {
-    return resourceLoader.getResource(uri);
+  Assert.state(groovyPageLocator != null,"TemplateEngine not initialised correctly, no [groovyPageLocator] specified!");
+  GroovyPageScriptSource scriptSource=groovyPageLocator.findPage(uri);
+  if (scriptSource != null) {
+    return scriptSource;
   }
-  Resource r=servletContextLoader.getResource(uri);
-  if (r.exists()) {
-    return r;
-  }
-  return resourceLoader.getResource(uri);
+  return null;
 }

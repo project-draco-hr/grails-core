@@ -1,0 +1,8 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    HttpServletRequest request=webRequest.getCurrentRequest();
+    return request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT) != null ? request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT).toString() : null;
+  }
+  return null;
+}

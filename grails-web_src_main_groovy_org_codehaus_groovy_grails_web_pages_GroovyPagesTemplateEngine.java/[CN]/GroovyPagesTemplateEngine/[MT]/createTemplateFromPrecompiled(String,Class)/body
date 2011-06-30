@@ -1,0 +1,34 @@
+{
+  GroovyPageMetaInfo meta=precompiledCache.get(uri);
+  if (meta == null) {
+    meta=loadPrecompiledGsp(gspClass);
+    if (meta != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Adding GSP class GroovyPageMetaInfo in cache for uri " + uri + " classname is "+ meta.getPageClass().getName());
+      }
+      precompiledCache.put(uri,meta);
+    }
+  }
+  if (meta != null) {
+    if (isReloadEnabled() && meta.shouldReload(new PrivilegedAction<Resource>(){
+      public Resource run(){
+        return getResourceForUri(uri);
+      }
+    }
+)) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Precompiled GSP for uri " + uri + " is newer in reload location. Ignoring the precompiled GSP.");
+      }
+      for (Iterator<Map.Entry<String,GroovyPageMetaInfo>> it=precompiledCache.entrySet().iterator(); it.hasNext(); ) {
+        Map.Entry<String,GroovyPageMetaInfo> entry=it.next();
+        if (entry.getValue() == meta) {
+          groovyPageLocator.removePrecompiledPage(entry.getKey());
+          it.remove();
+        }
+      }
+      return null;
+    }
+    return new GroovyPageTemplate(meta);
+  }
+  return null;
+}

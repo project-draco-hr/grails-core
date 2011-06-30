@@ -1,0 +1,7 @@
+{
+  GroovyPageMetaInfo meta=null;
+  if (gspClass != null) {
+    meta=createPreCompiledGroovyPageMetaInfo(gspClass);
+  }
+  return meta;
+}

@@ -1,4 +1,3 @@
 {
-  this.resourceLoaderDefined=(resourceLoader != null);
-  this.resourceLoader=resourceLoader;
+  groovyPageLocator.addResourceLoader(resourceLoader);
 }

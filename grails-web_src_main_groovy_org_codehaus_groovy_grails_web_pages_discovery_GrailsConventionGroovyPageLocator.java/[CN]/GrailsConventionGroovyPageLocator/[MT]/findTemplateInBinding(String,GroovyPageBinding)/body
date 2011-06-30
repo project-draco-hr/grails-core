@@ -1,0 +1,9 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    return findPageInBinding(uriService.getTemplateURI(webRequest.getControllerName(),templateName),binding);
+  }
+ else {
+    return findPageInBinding(uriService.getAbsoluteTemplateURI(templateName),binding);
+  }
+}

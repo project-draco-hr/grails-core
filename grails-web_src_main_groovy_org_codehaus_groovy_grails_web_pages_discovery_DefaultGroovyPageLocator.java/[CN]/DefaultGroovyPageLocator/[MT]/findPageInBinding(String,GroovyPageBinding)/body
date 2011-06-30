@@ -1,0 +1,25 @@
+{
+  GroovyPageScriptSource scriptSource=findResourceScriptSource(uri);
+  if (scriptSource == null) {
+    GrailsPlugin pagePlugin=binding.getPagePlugin();
+    if (pagePlugin instanceof BinaryGrailsPlugin) {
+      BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)pagePlugin;
+      String binaryView=GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri);
+      Class viewClass=binaryPlugin.resolveView(binaryView);
+      if (viewClass != null) {
+        scriptSource=new GroovyPageCompiledScriptSource(uri,viewClass);
+      }
+    }
+ else     if (pagePlugin != null) {
+      String pluginPath=pluginManager != null ? pluginManager.getPluginPath(pagePlugin.getName()) : null;
+      if (pluginPath != null) {
+        uri=GrailsResourceUtils.appendPiecesForUri(pluginPath,"/grails-app/views",uri);
+        scriptSource=findResourceScriptSource(uri);
+      }
+    }
+  }
+  if (scriptSource == null) {
+    scriptSource=findBinaryScriptSource(uri);
+  }
+  return scriptSource;
+}

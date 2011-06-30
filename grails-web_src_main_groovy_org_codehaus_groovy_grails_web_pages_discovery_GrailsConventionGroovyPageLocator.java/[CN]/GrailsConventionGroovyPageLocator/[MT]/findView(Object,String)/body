@@ -1,0 +1,12 @@
+{
+  if (controller != null && viewName != null) {
+    String controllerName=getNameForController(controller);
+    GroovyPageScriptSource scriptSource=findView(controllerName,viewName);
+    if (scriptSource == null && pluginManager != null) {
+      String pathToView=pluginManager.getPluginViewsPathForInstance(controller);
+      scriptSource=findViewByPath(pathToView + viewName);
+    }
+    return scriptSource;
+  }
+  return null;
+}

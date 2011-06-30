@@ -1,0 +1,3 @@
+{
+  return GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE);
+}

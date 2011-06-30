@@ -1,0 +1,11 @@
+{
+  String format=lookupRequestFormat();
+  GroovyPageScriptSource scriptSource=null;
+  if (format != null) {
+    scriptSource=findPage(uriService.getViewURI(controllerName,viewName + DOT + format));
+  }
+  if (scriptSource == null) {
+    scriptSource=findPage(uriService.getViewURI(controllerName,viewName));
+  }
+  return scriptSource;
+}

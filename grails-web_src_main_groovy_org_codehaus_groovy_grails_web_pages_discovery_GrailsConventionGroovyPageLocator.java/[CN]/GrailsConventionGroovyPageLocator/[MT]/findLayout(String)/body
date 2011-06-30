@@ -1,0 +1,7 @@
+{
+  GroovyPageScriptSource scriptSource=findPage(uriService.getAbsoluteViewURI(GrailsResourceUtils.appendPiecesForUri(LAYOUTS_PATH,layoutName)));
+  if (scriptSource == null) {
+    scriptSource=findLayoutInBinaryPlugins(layoutName);
+  }
+  return scriptSource;
+}

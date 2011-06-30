@@ -5,35 +5,21 @@
   if (grailsApplication == null) {
     grailsApplication=getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   }
-  ResourceLoader loader=establishResourceLoader(grailsApplication);
-  String format=request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT) != null ? request.getAttribute(GrailsApplicationAttributes.CONTENT_FORMAT).toString() : null;
-  String gspView=localPrefix + viewName + DOT+ format+ GSP_SUFFIX;
-  Resource res=null;
-  if (format != null) {
-    res=loader.getResource(gspView);
-    if (!res.exists()) {
-      View v=lookupBinaryPluginView(webRequest,controller,gspView);
-      if (v != null) {
-        return v;
-      }
-      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-      res=loader.getResource(gspView);
-    }
+  GroovyPageScriptSource scriptSource=null;
+  if (controller == null) {
+    scriptSource=groovyPageLocator.findViewByPath(viewName);
   }
-  if (res == null || !res.exists()) {
-    gspView=localPrefix + viewName + GSP_SUFFIX;
-    res=loader.getResource(gspView);
-    if (!res.exists()) {
-      View v=lookupBinaryPluginView(webRequest,controller,gspView);
-      if (v != null) {
-        return v;
-      }
-      gspView=resolveViewForController(controller,grailsApplication,viewName,loader);
-      res=loader.getResource(gspView);
-    }
+ else {
+    scriptSource=groovyPageLocator.findView(controller,viewName);
   }
-  if (res.exists()) {
-    return createGroovyPageView(webRequest,gspView);
+  if (scriptSource != null) {
+    if (scriptSource instanceof GroovyPageCompiledScriptSource) {
+      GroovyPageCompiledScriptSource compiled=(GroovyPageCompiledScriptSource)scriptSource;
+      return createGroovyPageView(webRequest,compiled.getURI(),compiled.getCompiledClass());
+    }
+ else {
+      return createGroovyPageView(webRequest,scriptSource.getURI());
+    }
   }
   AbstractUrlBasedView view=buildView(viewName);
   view.setApplicationContext(getApplicationContext());

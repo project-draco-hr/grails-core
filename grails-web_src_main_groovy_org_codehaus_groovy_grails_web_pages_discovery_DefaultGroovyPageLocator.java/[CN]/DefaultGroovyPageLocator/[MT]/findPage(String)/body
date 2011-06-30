@@ -1,0 +1,10 @@
+{
+  GroovyPageScriptSource scriptSource=findResourceScriptSource(uri);
+  if (scriptSource == null) {
+    scriptSource=findBinaryScriptSource(uri);
+  }
+  if (scriptSource == null) {
+    scriptSource=findResourceScriptSourceInPlugins(uri);
+  }
+  return scriptSource;
+}

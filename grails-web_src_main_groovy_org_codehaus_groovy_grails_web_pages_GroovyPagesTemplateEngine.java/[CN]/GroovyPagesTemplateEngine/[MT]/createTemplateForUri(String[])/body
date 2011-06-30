@@ -1,28 +1,19 @@
 {
-  if (isPrecompiledAvailable()) {
-    Template t;
-    for (    String anUri : uri) {
-      t=createTemplateFromPrecompiled(anUri);
-      if (t != null) {
-        return t;
-      }
+  GroovyPageScriptSource scriptSource=null;
+  for (  String uri : uris) {
+    scriptSource=groovyPageLocator.findPage(uri);
+    if (scriptSource != null)     break;
+  }
+  if (scriptSource instanceof GroovyPageResourceScriptSource) {
+    GroovyPageResourceScriptSource resourceSource=(GroovyPageResourceScriptSource)scriptSource;
+    Resource resource=resourceSource.getResource();
+    if (resource.exists()) {
+      return createTemplate(resource,true);
     }
   }
-  Resource resource=null;
-  for (  String anUri : uri) {
-    Resource r=getResourceForUri(anUri);
-    if (r.exists()) {
-      resource=r;
-      break;
-    }
-  }
-  if (resource != null) {
-    if (isPrecompiledAvailable() && !isReloadEnabled()) {
-      if (LOG.isWarnEnabled()) {
-        LOG.warn("Precompiled GSP not found for uri: " + Arrays.asList(uri) + ". Using resource "+ resource);
-      }
-    }
-    return createTemplate(resource,true);
+ else   if (scriptSource instanceof GroovyPageCompiledScriptSource) {
+    GroovyPageCompiledScriptSource compiledSource=(GroovyPageCompiledScriptSource)scriptSource;
+    return createTemplateFromPrecompiled(compiledSource.getURI(),compiledSource.getCompiledClass());
   }
   return null;
 }

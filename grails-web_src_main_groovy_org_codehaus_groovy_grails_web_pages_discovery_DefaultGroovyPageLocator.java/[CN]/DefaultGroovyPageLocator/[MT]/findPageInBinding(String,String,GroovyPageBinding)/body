@@ -1,0 +1,19 @@
+{
+  String contextPath=null;
+  if (pluginName != null && pluginManager != null) {
+    contextPath=pluginManager.getPluginPath(pluginName);
+  }
+ else   if (contextPath == null) {
+    if (uri.startsWith("/plugins/")) {
+      contextPath=BLANK;
+    }
+ else {
+      contextPath=binding.getPluginContextPath() != null ? binding.getPluginContextPath() : "";
+    }
+  }
+  GroovyPageScriptSource scriptSource=findPageInBinding(GrailsResourceUtils.appendPiecesForUri(contextPath,uri),binding);
+  if (scriptSource == null) {
+    scriptSource=findResourceScriptSource(uri);
+  }
+  return scriptSource;
+}

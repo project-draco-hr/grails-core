@@ -2,9 +2,7 @@
   super.init(c,properties,parentMapper);
   servletContext=c.getServletContext();
   applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  if (applicationContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
-    pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
-  }
+  groovyPageLocator=applicationContext.getBean(GrailsConventionGroovyPageLocator.class);
   if (applicationContext.containsBean(GrailsApplication.APPLICATION_ID)) {
     GrailsApplication grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
     @SuppressWarnings("rawtypes") Map conf=grailsApplication.getFlatConfig();

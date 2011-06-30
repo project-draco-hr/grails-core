@@ -1,0 +1,10 @@
+{
+  final ClassNode paramTypeClassNode=param.getType();
+  final String methodParamName=param.getName();
+  final Expression paramsGetMethodArguments=new ArgumentListExpression(new ConstantExpression(requestParameterName));
+  final Expression getValueExpression=new MethodCallExpression(PARAMS_EXPRESSION,"get",paramsGetMethodArguments);
+  final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(new ConstantExpression(requestParameterName));
+  final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
+  final Statement initializeParameterStatement=new ExpressionStatement(new DeclarationExpression(new VariableExpression(methodParamName,paramTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),new TernaryExpression(containsKeyExpression,getValueExpression,param.hasInitialExpression() ? param.getInitialExpression() : new ConstantExpression(null))));
+  wrapper.addStatement(initializeParameterStatement);
+}

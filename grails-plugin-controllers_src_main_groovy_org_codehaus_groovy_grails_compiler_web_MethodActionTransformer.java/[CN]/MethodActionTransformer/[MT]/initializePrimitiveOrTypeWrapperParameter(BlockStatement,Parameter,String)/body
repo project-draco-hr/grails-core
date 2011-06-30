@@ -1,6 +1,6 @@
 {
   final ClassNode paramTypeClassNode=param.getType();
-  final String paramName=param.getName();
+  final String methodParamName=param.getName();
   final Expression defaultValueExpression;
   final Class paramTypeClass=paramTypeClassNode.getTypeClass();
   if (param.hasInitialExpression()) {
@@ -15,7 +15,7 @@
  else {
     defaultValueExpression=new ConstantExpression(null);
   }
-  final ConstantExpression paramConstantExpression=new ConstantExpression(paramName);
+  final ConstantExpression paramConstantExpression=new ConstantExpression(requestParameterName);
   final Expression paramsTypeConversionMethodArguments=new ArgumentListExpression(paramConstantExpression,defaultValueExpression);
   final String conversionMethodName;
   if (TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(paramTypeClass)) {
@@ -28,8 +28,8 @@
   final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(paramConstantExpression);
   final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
   final Token equalsToken=Token.newSymbol(Types.EQUALS,0,0);
-  final Statement declareVariableStatement=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,paramTypeClassNode),equalsToken,new EmptyExpression()));
+  final Statement declareVariableStatement=new ExpressionStatement(new DeclarationExpression(new VariableExpression(methodParamName,paramTypeClassNode),equalsToken,new EmptyExpression()));
   wrapper.addStatement(declareVariableStatement);
-  final Expression assignmentExpression=new BinaryExpression(new VariableExpression(paramName),equalsToken,new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
+  final Expression assignmentExpression=new BinaryExpression(new VariableExpression(methodParamName),equalsToken,new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
   wrapper.addStatement(new ExpressionStatement(assignmentExpression));
 }

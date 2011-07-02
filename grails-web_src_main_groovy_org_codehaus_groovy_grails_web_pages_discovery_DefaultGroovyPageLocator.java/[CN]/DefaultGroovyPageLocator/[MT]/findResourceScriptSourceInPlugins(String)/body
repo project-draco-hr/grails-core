@@ -3,7 +3,6 @@
     GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
     for (    GrailsPlugin plugin : allPlugins) {
       if (!(plugin instanceof BinaryGrailsPlugin)) {
-        String pluginPath="/plugins/" + plugin.getFileSystemName();
         GroovyPageScriptSource scriptSource=findResourceScriptSource(GrailsResourceUtils.appendPiecesForUri("/plugins/",plugin.getFileSystemName(),GrailsResourceUtils.VIEWS_DIR_PATH,uri));
         if (scriptSource != null) {
           return scriptSource;

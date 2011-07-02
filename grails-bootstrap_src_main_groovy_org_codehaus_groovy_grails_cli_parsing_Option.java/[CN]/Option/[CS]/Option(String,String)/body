@@ -1,5 +1,7 @@
 {
-  Assert.isTrue(StringUtils.hasLength(name),"Illegal option specified");
+  if (name == null || name.length() == 0) {
+    throw new IllegalArgumentException("illegal option specified");
+  }
   this.name=name;
-  this.description=description == null ? "" : description;
+  this.description=description != null ? description : "";
 }

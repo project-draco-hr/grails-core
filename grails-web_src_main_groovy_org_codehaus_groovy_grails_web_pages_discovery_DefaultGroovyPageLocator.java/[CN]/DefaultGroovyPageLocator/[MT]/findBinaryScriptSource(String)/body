@@ -5,7 +5,7 @@
     for (    GrailsPlugin plugin : allPlugins) {
       if (plugin instanceof BinaryGrailsPlugin) {
         BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
-        Class viewClass=binaryPlugin.resolveView(uri);
+        Class<?> viewClass=binaryPlugin.resolveView(uri);
         if (viewClass != null) {
           return new GroovyPageCompiledScriptSource(uri,viewClass);
         }

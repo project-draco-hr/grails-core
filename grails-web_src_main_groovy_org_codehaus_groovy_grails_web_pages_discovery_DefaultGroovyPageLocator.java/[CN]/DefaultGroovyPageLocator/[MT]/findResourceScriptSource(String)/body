@@ -2,32 +2,14 @@
   List<String> searchPaths=null;
   if (Environment.isWarDeployed()) {
     if (uri.startsWith("/plugins")) {
-      searchPaths=new ArrayList<String>(){
-{
-          add(GrailsResourceUtils.appendPiecesForUri(GrailsResourceUtils.WEB_INF,uri));
-          add(uri);
-        }
-      }
-;
+      searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri(GrailsResourceUtils.WEB_INF,uri),uri);
     }
  else {
-      searchPaths=new ArrayList<String>(){
-{
-          add(GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri));
-          add(uri);
-        }
-      }
-;
+      searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri),uri);
     }
   }
  else {
-    searchPaths=new ArrayList<String>(){
-{
-        add(GrailsResourceUtils.appendPiecesForUri('/' + GrailsResourceUtils.VIEWS_DIR_PATH,uri));
-        add(uri);
-      }
-    }
-;
+    searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri('/' + GrailsResourceUtils.VIEWS_DIR_PATH,uri),uri);
   }
   return findResourceScriptPathForSearchPaths(uri,searchPaths);
 }

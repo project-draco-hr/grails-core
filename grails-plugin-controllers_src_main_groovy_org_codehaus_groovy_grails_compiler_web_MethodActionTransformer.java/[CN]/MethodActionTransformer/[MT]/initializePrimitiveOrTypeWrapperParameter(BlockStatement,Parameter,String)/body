@@ -2,7 +2,7 @@
   final ClassNode paramTypeClassNode=param.getType();
   final String methodParamName=param.getName();
   final Expression defaultValueExpression;
-  final Class paramTypeClass=paramTypeClassNode.getTypeClass();
+  final Class<?> paramTypeClass=paramTypeClassNode.getTypeClass();
   if (param.hasInitialExpression()) {
     defaultValueExpression=param.getInitialExpression();
   }

@@ -9,7 +9,7 @@
         return new GrailsNoDecorator();
       }
       return new Decorator(){
-        private void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext) throws IOException, ServletException {
+        private void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext){
           HTMLPage htmlPage=content2htmlPage(content);
           request.setAttribute(RequestConstants.PAGE,htmlPage);
           if (decorator.getURIPath() != null) {
@@ -46,17 +46,9 @@
           }
           request.removeAttribute(RequestConstants.PAGE);
         }
-        public void render(        Content content,        SiteMeshContext siteMeshContext){
-          SiteMeshWebAppContext webAppContext=(SiteMeshWebAppContext)siteMeshContext;
-          try {
-            render(content,webAppContext.getRequest(),webAppContext.getResponse(),webAppContext.getServletContext());
-          }
- catch (          IOException e) {
-            throw new GroovyPagesException("Error applying layout : " + decorator.getURIPath(),e);
-          }
-catch (          ServletException e) {
-            throw new GroovyPagesException("Error applying layout : " + decorator.getURIPath(),e);
-          }
+        public void render(        @SuppressWarnings("hiding") Content content,        SiteMeshContext siteMeshContext){
+          SiteMeshWebAppContext ctx=(SiteMeshWebAppContext)siteMeshContext;
+          render(content,ctx.getRequest(),ctx.getResponse(),ctx.getServletContext());
         }
       }
 ;

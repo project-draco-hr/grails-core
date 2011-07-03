@@ -2,13 +2,14 @@
   for (  Map.Entry<String,String> plugin : plugins.entrySet()) {
     String name=plugin.getKey();
     String version=plugin.getValue();
-    if (!pluginDependencyNames.contains(name)) {
-      String scope="runtime";
-      metadataRegisteredPluginNames.add(name);
-      ModuleRevisionId mrid=ModuleRevisionId.newInstance("org.grails.plugins",name,version);
-      EnhancedDefaultDependencyDescriptor enhancedDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,true,true,scope);
-      enhancedDescriptor.setExport(false);
-      registerPluginDependency(scope,enhancedDescriptor);
+    if (pluginDependencyNames.contains(name)) {
+      continue;
     }
+    String scope="runtime";
+    metadataRegisteredPluginNames.add(name);
+    ModuleRevisionId mrid=ModuleRevisionId.newInstance("org.grails.plugins",name,version);
+    EnhancedDefaultDependencyDescriptor enhancedDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,true,true,scope);
+    enhancedDescriptor.setExport(false);
+    registerPluginDependency(scope,enhancedDescriptor);
   }
 }

@@ -5,6 +5,5 @@
   if (!descriptorName.endsWith("GrailsPlugin.groovy")) {
     throw new IllegalArgumentException("Plugin descriptor name is not valid: " + descriptorName);
   }
-  int pos=descriptorName.indexOf("GrailsPlugin.groovy");
-  return getScriptName(descriptorName.substring(0,pos));
+  return getScriptName(descriptorName.substring(0,descriptorName.indexOf("GrailsPlugin.groovy")));
 }

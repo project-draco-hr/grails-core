@@ -1,23 +1,23 @@
 {
   Parameter[] parameterTypes=delegateMethod.getParameters();
   String declaredMethodName=delegateMethod.getName();
-  if (!classNode.hasDeclaredMethod(declaredMethodName,parameterTypes)) {
-    BlockStatement methodBody=new BlockStatement();
-    ArgumentListExpression arguments=new ArgumentListExpression();
-    for (    Parameter parameterType : parameterTypes) {
-      arguments.addExpression(new VariableExpression(parameterType.getName()));
-    }
-    MethodCallExpression methodCallExpression=new MethodCallExpression(expression,declaredMethodName,arguments);
-    methodCallExpression.setMethodTarget(delegateMethod);
-    methodBody.addStatement(new ExpressionStatement(methodCallExpression));
-    ClassNode returnType=nonGeneric(delegateMethod.getReturnType());
-    if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
-      declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;
-    }
-    MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
-    methodNode.addAnnotations(delegateMethod.getAnnotations());
-    classNode.addMethod(methodNode);
-    return methodNode;
+  if (classNode.hasDeclaredMethod(declaredMethodName,parameterTypes)) {
+    return null;
   }
-  return null;
+  BlockStatement methodBody=new BlockStatement();
+  ArgumentListExpression arguments=new ArgumentListExpression();
+  for (  Parameter parameterType : parameterTypes) {
+    arguments.addExpression(new VariableExpression(parameterType.getName()));
+  }
+  MethodCallExpression methodCallExpression=new MethodCallExpression(expression,declaredMethodName,arguments);
+  methodCallExpression.setMethodTarget(delegateMethod);
+  methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  ClassNode returnType=nonGeneric(delegateMethod.getReturnType());
+  if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
+    declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;
+  }
+  MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+  methodNode.addAnnotations(delegateMethod.getAnnotations());
+  classNode.addMethod(methodNode);
+  return methodNode;
 }

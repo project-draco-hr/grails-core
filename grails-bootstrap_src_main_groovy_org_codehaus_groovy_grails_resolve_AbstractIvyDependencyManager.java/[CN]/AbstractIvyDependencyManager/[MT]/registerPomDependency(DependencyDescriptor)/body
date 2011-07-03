@@ -1,13 +1,14 @@
 {
   ModuleRevisionId moduleRevisionId=dependencyDescriptor.getDependencyRevisionId();
   ModuleId moduleId=moduleRevisionId.getModuleId();
-  String scope=dependencyDescriptor.getModuleConfigurations()[0];
-  if (!hasDependency(moduleId)) {
-    EnhancedDefaultDependencyDescriptor enhancedDependencyDescriptor=new EnhancedDefaultDependencyDescriptor(moduleRevisionId,false,true,scope);
-    for (    ExcludeRule excludeRule : dependencyDescriptor.getAllExcludeRules()) {
-      ModuleId excludedModule=excludeRule.getId().getModuleId();
-      enhancedDependencyDescriptor.addRuleForModuleId(excludedModule,scope);
-    }
-    registerDependency(scope,enhancedDependencyDescriptor);
+  if (hasDependency(moduleId)) {
+    return;
   }
+  String scope=dependencyDescriptor.getModuleConfigurations()[0];
+  EnhancedDefaultDependencyDescriptor enhancedDependencyDescriptor=new EnhancedDefaultDependencyDescriptor(moduleRevisionId,false,true,scope);
+  for (  ExcludeRule excludeRule : dependencyDescriptor.getAllExcludeRules()) {
+    ModuleId excludedModule=excludeRule.getId().getModuleId();
+    enhancedDependencyDescriptor.addRuleForModuleId(excludedModule,scope);
+  }
+  registerDependency(scope,enhancedDependencyDescriptor);
 }

@@ -1,9 +1,10 @@
 {
-  if (!isBlank(trailingName)) {
-    String shortName=getShortName(name);
-    if (shortName.indexOf(trailingName) > -1) {
-      return shortName.substring(0,shortName.length() - trailingName.length());
-    }
+  if (isBlank(trailingName)) {
+    return name;
   }
-  return name;
+  String shortName=getShortName(name);
+  if (shortName.indexOf(trailingName) == -1) {
+    return name;
+  }
+  return shortName.substring(0,shortName.length() - trailingName.length());
 }

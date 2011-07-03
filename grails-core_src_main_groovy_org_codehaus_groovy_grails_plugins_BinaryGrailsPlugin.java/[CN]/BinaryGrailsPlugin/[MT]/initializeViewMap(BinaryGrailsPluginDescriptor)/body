@@ -7,33 +7,34 @@
  catch (  IOException e) {
     return;
   }
-  if (viewsPropertiesResource != null && viewsPropertiesResource.exists()) {
-    Properties viewsProperties=new Properties();
-    InputStream input=null;
-    try {
-      input=viewsPropertiesResource.getInputStream();
-      viewsProperties.load(input);
-      for (      Object view : viewsProperties.keySet()) {
-        String viewName=view.toString();
-        final String viewClassName=viewsProperties.getProperty(viewName);
-        try {
-          final Class<?> viewClass=application.getClassLoader().loadClass(viewClassName);
-          precompiledViewMap.put(viewName,viewClass);
-        }
- catch (        ClassNotFoundException e) {
-          LOG.error("View not found loading precompiled view from binary plugin [" + this + "]: "+ e.getMessage(),e);
-        }
+  if (viewsPropertiesResource == null || !viewsPropertiesResource.exists()) {
+    return;
+  }
+  Properties viewsProperties=new Properties();
+  InputStream input=null;
+  try {
+    input=viewsPropertiesResource.getInputStream();
+    viewsProperties.load(input);
+    for (    Object view : viewsProperties.keySet()) {
+      String viewName=view.toString();
+      final String viewClassName=viewsProperties.getProperty(viewName);
+      try {
+        final Class<?> viewClass=application.getClassLoader().loadClass(viewClassName);
+        precompiledViewMap.put(viewName,viewClass);
       }
+ catch (      ClassNotFoundException e) {
+        LOG.error("View not found loading precompiled view from binary plugin [" + this + "]: "+ e.getMessage(),e);
+      }
+    }
+  }
+ catch (  IOException e) {
+    LOG.error("Error loading views for binary plugin [" + this + "]: "+ e.getMessage(),e);
+  }
+ finally {
+    try {
+      if (input != null)       input.close();
     }
  catch (    IOException e) {
-      LOG.error("Error loading views for binary plugin [" + this + "]: "+ e.getMessage(),e);
-    }
- finally {
-      try {
-        if (input != null)         input.close();
-      }
- catch (      IOException e) {
-      }
     }
   }
 }

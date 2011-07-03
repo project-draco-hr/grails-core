@@ -2,7 +2,7 @@
   LogManager.resetConfiguration();
   Object log4j=config.get("log4j");
   if (log4j instanceof Closure) {
-    new Log4jConfig(config).configure((Closure)log4j);
+    new Log4jConfig(config).configure((Closure<?>)log4j);
   }
  else {
     new Log4jConfig(config).configure();

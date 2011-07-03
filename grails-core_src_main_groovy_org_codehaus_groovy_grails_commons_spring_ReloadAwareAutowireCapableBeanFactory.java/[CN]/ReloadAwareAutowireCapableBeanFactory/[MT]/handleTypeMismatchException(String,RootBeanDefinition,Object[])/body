@@ -1,0 +1,27 @@
+{
+  final Class<?> beanClass=mbd.getBeanClass();
+  if (!GroovyObject.class.isAssignableFrom(beanClass)) {
+    return null;
+  }
+  GrailsApplication application=(GrailsApplication)getBean(GrailsApplication.APPLICATION_ID);
+  ClassLoader classLoader=application.getClassLoader();
+  if (!(classLoader instanceof GrailsClassLoader)) {
+    return null;
+  }
+  GrailsClassLoader gcl=(GrailsClassLoader)classLoader;
+  gcl.reloadClass(beanClass.getName());
+  Class<?> newBeanClass;
+  try {
+    newBeanClass=gcl.loadClass(beanClass.getName());
+  }
+ catch (  ClassNotFoundException e) {
+    return null;
+  }
+  mbd.setBeanClass(newBeanClass);
+  if (newBeanClass.equals(beanClass)) {
+    return null;
+  }
+  GrailsPluginManager pluginManager=(GrailsPluginManager)getBean(GrailsPluginManager.BEAN_NAME);
+  pluginManager.informOfClassChange(newBeanClass);
+  return super.doCreateBean(beanName,mbd,args);
+}

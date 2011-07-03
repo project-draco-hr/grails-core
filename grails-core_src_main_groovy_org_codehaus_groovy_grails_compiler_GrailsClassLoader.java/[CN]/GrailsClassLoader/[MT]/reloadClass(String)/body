@@ -1,36 +1,36 @@
 {
   try {
     Resource resourceURL=loadGroovySource(name);
-    if (resourceURL != null) {
-      GroovyClassLoader innerLoader=new GrailsAwareClassLoader(this);
-      InputStream inputStream=null;
-      clearCache();
-      String path;
-      try {
-        path=new File(resourceURL.getURI()).getPath();
-      }
- catch (      IOException e) {
-        path=name;
-      }
-      try {
-        inputStream=resourceURL.getInputStream();
-        Class<?> reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),path);
-        compilationErrors.remove(name);
-        innerClassLoaderMap.put(name,innerLoader);
-        return reloadedClass;
-      }
- catch (      MultipleCompilationErrorsException e) {
-        compilationErrors.put(name,e);
-        throw e;
-      }
-catch (      IOException e) {
-        throw new CompilationFailedException("Error opening stream to class " + name + " with URL "+ resourceURL,e);
-      }
- finally {
-        IOUtils.closeQuietly(inputStream);
-      }
+    if (resourceURL == null) {
+      return null;
     }
-    return null;
+    GroovyClassLoader innerLoader=new GrailsAwareClassLoader(this);
+    clearCache();
+    String path;
+    try {
+      path=new File(resourceURL.getURI()).getPath();
+    }
+ catch (    IOException e) {
+      path=name;
+    }
+    InputStream inputStream=null;
+    try {
+      inputStream=resourceURL.getInputStream();
+      Class<?> reloadedClass=innerLoader.parseClass(DefaultGroovyMethods.getText(inputStream),path);
+      compilationErrors.remove(name);
+      innerClassLoaderMap.put(name,innerLoader);
+      return reloadedClass;
+    }
+ catch (    MultipleCompilationErrorsException e) {
+      compilationErrors.put(name,e);
+      throw e;
+    }
+catch (    IOException e) {
+      throw new CompilationFailedException("Error opening stream to class " + name + " with URL "+ resourceURL,e);
+    }
+ finally {
+      IOUtils.closeQuietly(inputStream);
+    }
   }
  catch (  MalformedURLException e) {
     throw new CompilationFailedException("Error opening stream to class " + name + ":"+ e.getMessage(),e);

@@ -1,8 +1,9 @@
 {
-  if (definition != null) {
-    if (moduleDescriptor == null) {
-      throw new IllegalStateException("Call parseDependencies(Closure) first to parse the application dependencies");
-    }
-    doParseDependencies(definition,pluginName);
+  if (definition == null) {
+    return;
   }
+  if (moduleDescriptor == null) {
+    throw new IllegalStateException("Call parseDependencies(Closure) first to parse the application dependencies");
+  }
+  doParseDependencies(definition,pluginName);
 }

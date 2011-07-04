@@ -1,0 +1,17 @@
+{
+  IllegalArgumentException first=null;
+  boolean converted=false;
+  for (  PropertyEditor propertyEditor : propertyEditors) {
+    try {
+      propertyEditor.setAsText(s);
+      converted=true;
+      break;
+    }
+ catch (    IllegalArgumentException e) {
+      if (first == null)       first=e;
+    }
+  }
+  if (!converted && first != null) {
+    throw first;
+  }
+}

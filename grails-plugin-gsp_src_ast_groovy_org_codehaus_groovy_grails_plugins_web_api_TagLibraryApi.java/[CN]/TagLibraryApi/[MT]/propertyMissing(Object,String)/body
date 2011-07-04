@@ -1,23 +1,25 @@
 {
   TagLibraryLookup gspTagLibraryLookup=getTagLibraryLookup();
-  Object result=gspTagLibraryLookup.lookupNamespaceDispatcher(name);
-  String namespace=getNamespace(instance);
-  if (result == null) {
-    GroovyObject tagLibrary=gspTagLibraryLookup.lookupTagLibrary(namespace,name);
-    if (tagLibrary == null) {
-      tagLibrary=gspTagLibraryLookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,name);
-    }
-    if (tagLibrary != null) {
-      Object tagProperty=tagLibrary.getProperty(name);
-      if (tagProperty instanceof Closure) {
-        result=((Closure<?>)tagProperty).clone();
+  if (gspTagLibraryLookup != null) {
+    Object result=gspTagLibraryLookup.lookupNamespaceDispatcher(name);
+    String namespace=getNamespace(instance);
+    if (result == null) {
+      GroovyObject tagLibrary=gspTagLibraryLookup.lookupTagLibrary(namespace,name);
+      if (tagLibrary == null) {
+        tagLibrary=gspTagLibraryLookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,name);
+      }
+      if (tagLibrary != null) {
+        Object tagProperty=tagLibrary.getProperty(name);
+        if (tagProperty instanceof Closure) {
+          result=((Closure<?>)tagProperty).clone();
+        }
       }
     }
-  }
-  if (result != null) {
-    MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
-    WebMetaUtils.registerPropertyMissingForTag(mc,name,result);
-    return result;
+    if (result != null) {
+      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
+      WebMetaUtils.registerPropertyMissingForTag(mc,name,result);
+      return result;
+    }
   }
   throw new MissingPropertyException(name,instance.getClass());
 }

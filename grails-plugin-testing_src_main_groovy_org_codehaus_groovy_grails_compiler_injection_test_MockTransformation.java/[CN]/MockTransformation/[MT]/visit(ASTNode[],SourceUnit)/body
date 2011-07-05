@@ -10,13 +10,18 @@
   ClassNode classNode=(ClassNode)parent;
   String cName=classNode.getName();
   if (classNode.isInterface()) {
-    throw new RuntimeException("Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
+    error(source,"Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
   }
   ListExpression values=getListOfClasses(node);
-  for (  Expression expression : values.getExpressions()) {
-    if (expression instanceof ClassExpression) {
-      ClassExpression ce=(ClassExpression)expression;
-      weaveMock(classNode,ce,false);
+  if (values != null) {
+    for (    Expression expression : values.getExpressions()) {
+      if (expression instanceof ClassExpression) {
+        ClassExpression ce=(ClassExpression)expression;
+        weaveMock(classNode,ce,false);
+      }
     }
+  }
+ else {
+    error(source,"Error processing class '" + cName + "'. "+ MY_TYPE_NAME+ " annotation expects a class or a list of classes to mock");
   }
 }

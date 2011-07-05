@@ -2,7 +2,17 @@
   if (cc == null) {
     return;
   }
-  String indexDefinition=cc.getIndex();
+  Object indexObj=cc.getIndex();
+  String indexDefinition=null;
+  if (indexObj instanceof Boolean) {
+    Boolean b=(Boolean)indexObj;
+    if (b) {
+      indexDefinition=columnName + "_idx";
+    }
+  }
+ else {
+    indexDefinition=indexObj.toString();
+  }
   if (indexDefinition == null) {
     return;
   }

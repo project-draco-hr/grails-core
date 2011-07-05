@@ -60,7 +60,7 @@
       createKeyForProps(property,path,table,columnName,(List<?>)val,sessionFactoryBeanName);
     }
   }
-  bindIndex(column,cc,table);
+  bindIndex(columnName,column,cc,table);
   if (!property.getDomainClass().isRoot()) {
     Mapping mapping=getMapping(property.getDomainClass());
     if (mapping == null || mapping.getTablePerHierarchy()) {

@@ -3,7 +3,8 @@
   bindManyToOneValues(property,manyToOne);
   GrailsDomainClass refDomainClass=property.isManyToMany() ? property.getDomainClass() : property.getReferencedDomainClass();
   Mapping mapping=getMapping(refDomainClass);
-  if (hasCompositeIdentifier(mapping)) {
+  boolean isComposite=hasCompositeIdentifier(mapping);
+  if (isComposite) {
     CompositeIdentity ci=(CompositeIdentity)mapping.getIdentity();
     bindCompositeIdentifierToManyToOne(property,manyToOne,ci,refDomainClass,path,sessionFactoryBeanName);
   }
@@ -32,7 +33,7 @@
     }
   }
   PropertyConfig config=getPropertyConfig(property);
-  if (property.isOneToOne()) {
+  if (property.isOneToOne() && !isComposite) {
     manyToOne.setAlternateUniqueKey(true);
     Column c=getColumnForSimpleValue(manyToOne);
     if (config != null) {

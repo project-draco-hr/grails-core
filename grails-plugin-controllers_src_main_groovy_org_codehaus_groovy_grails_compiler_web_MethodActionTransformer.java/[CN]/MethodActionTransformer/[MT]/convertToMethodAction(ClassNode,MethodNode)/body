@@ -1,0 +1,16 @@
+{
+  MethodNode method=new MethodNode(GrailsControllerClass.METHOD_DISPATCHER_PREFIX + _method.getName(),Modifier.PUBLIC,_method.getReturnType(),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,_method.getParameters())));
+  if (isCommandObjectAction(_method.getParameters())) {
+    ListExpression initArray=new ListExpression();
+    for (    Parameter parameter : _method.getParameters()) {
+      initArray.addExpression(new ClassExpression(parameter.getType()));
+    }
+    AnnotationNode paramActionAnn=new AnnotationNode(new ClassNode(Action.class));
+    paramActionAnn.setMember(ACTION_MEMBER_TARGET,initArray);
+    method.addAnnotation(paramActionAnn);
+  }
+ else {
+    method.addAnnotation(ACTION_ANNOTATION_NODE);
+  }
+  return method;
+}

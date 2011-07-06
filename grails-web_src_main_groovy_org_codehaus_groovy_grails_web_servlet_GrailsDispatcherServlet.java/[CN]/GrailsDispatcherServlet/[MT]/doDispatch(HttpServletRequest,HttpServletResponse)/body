@@ -14,7 +14,7 @@
     response=useWrappedOrOriginalResponse(response);
   }
   GrailsWebRequest requestAttributes=null;
-  GrailsWebRequest previousRequestAttributes=null;
+  RequestAttributes previousRequestAttributes=null;
   Exception handlerException=null;
   try {
     ModelAndView mv;
@@ -24,7 +24,7 @@
       if (exceptionAttribute == null) {
         processedRequest=checkMultipart(request);
       }
-      previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+      previousRequestAttributes=RequestContextHolder.currentRequestAttributes();
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
       copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
       WebUtils.storeGrailsWebRequest(requestAttributes);
@@ -127,7 +127,12 @@ catch (  Error err) {
     request.removeAttribute(MultipartHttpServletRequest.class.getName());
     if (requestAttributes != null) {
       requestAttributes.requestCompleted();
-      WebUtils.storeGrailsWebRequest(previousRequestAttributes);
+      if (previousRequestAttributes instanceof GrailsWebRequest) {
+        WebUtils.storeGrailsWebRequest((GrailsWebRequest)previousRequestAttributes);
+      }
+ else {
+        RequestContextHolder.setRequestAttributes(previousRequestAttributes);
+      }
     }
     LocaleContextHolder.setLocaleContext(previousLocaleContext);
     if (logger.isDebugEnabled()) {

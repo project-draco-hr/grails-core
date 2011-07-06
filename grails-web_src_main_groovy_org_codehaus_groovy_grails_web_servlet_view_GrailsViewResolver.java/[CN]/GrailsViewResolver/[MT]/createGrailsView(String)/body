@@ -17,7 +17,9 @@
       GroovyPageCompiledScriptSource compiled=(GroovyPageCompiledScriptSource)scriptSource;
       return createGroovyPageView(webRequest,compiled.getURI(),compiled.getCompiledClass());
     }
-    return createGroovyPageView(webRequest,scriptSource.getURI());
+ else {
+      return createGroovyPageView(webRequest,scriptSource.getURI());
+    }
   }
   AbstractUrlBasedView view=buildView(viewName);
   view.setApplicationContext(getApplicationContext());

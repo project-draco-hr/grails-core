@@ -1,4 +1,5 @@
 {
+  if (uri == null)   return null;
   GroovyPageScriptSource scriptSource=uriResolveCache.get(uri);
   if (scriptSource == null) {
     scriptSource=super.findPageInBinding(uri,binding);

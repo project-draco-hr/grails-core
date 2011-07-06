@@ -1,4 +1,5 @@
 {
+  if (uri == null || pluginName == null)   return null;
   String cacheKey=GrailsResourceUtils.appendPiecesForUri(pluginName,uri);
   GroovyPageScriptSource scriptSource=uriResolveCache.get(cacheKey);
   if (scriptSource == null) {

@@ -1,0 +1,13 @@
+{
+  if (uri.startsWith("/plugins/")) {
+    String withoutPluginsPath=uri.substring("/plugins/".length(),uri.length());
+    int i=withoutPluginsPath.indexOf('/');
+    if (i > -1) {
+      PluginResourceInfo info=new PluginResourceInfo();
+      info.pluginName=withoutPluginsPath.substring(0,i);
+      info.uri=withoutPluginsPath.substring(i,withoutPluginsPath.length());
+      return info;
+    }
+  }
+  return null;
+}

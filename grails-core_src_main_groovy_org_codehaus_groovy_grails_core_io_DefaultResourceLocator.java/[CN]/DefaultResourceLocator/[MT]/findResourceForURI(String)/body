@@ -1,3 +1,32 @@
 {
-  return null;
+  Resource resource=uriToResourceCache.get(uri);
+  if (resource == null) {
+    String uriWebAppRelative=WEB_APP_DIR + uri;
+    for (    String resourceSearchDirectory : resourceSearchDirectories) {
+      Resource res=resolveExceptionSafe(resourceSearchDirectory + uriWebAppRelative);
+      if (res.exists()) {
+        resource=res;
+        uriToResourceCache.put(uri,resource);
+      }
+ else       if (!Environment.isWarDeployed()) {
+        PluginResourceInfo info=inferPluginNameFromURI(uri);
+        Resource dir=resolveExceptionSafe(resourceSearchDirectory);
+        if (dir.exists() && info != null) {
+          try {
+            String filename=dir.getFilename();
+            if (filename != null && filename.equals(info.pluginName)) {
+              Resource pluginFile=dir.createRelative(WEB_APP_DIR + info.uri);
+              if (pluginFile.exists()) {
+                resource=pluginFile;
+                uriToResourceCache.put(uri,resource);
+              }
+            }
+          }
+ catch (          IOException e) {
+          }
+        }
+      }
+    }
+  }
+  return resource;
 }

@@ -16,6 +16,7 @@
   GrailsWebRequest requestAttributes=null;
   RequestAttributes previousRequestAttributes=null;
   Exception handlerException=null;
+  boolean isAsyncRequest=processedRequest.getAttribute("javax.servlet.async.request_uri") != null;
   try {
     ModelAndView mv;
     boolean errorView=false;
@@ -47,13 +48,25 @@
           interceptorIndex=i;
         }
       }
-      HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
-      mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
-      if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
-        return;
+      if (isAsyncRequest) {
+        Object modelAndViewO=processedRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW);
+        if (modelAndViewO != null) {
+          mv=(ModelAndView)modelAndViewO;
+        }
+ else {
+          mv=null;
+        }
       }
-      if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
-        mv.setViewName(getDefaultViewName(request));
+ else {
+        HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
+        mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
+        if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
+          processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
+          return;
+        }
+        if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
+          mv.setViewName(getDefaultViewName(request));
+        }
       }
       if (mappedHandler.getInterceptors() != null) {
         for (int i=mappedHandler.getInterceptors().length - 1; i >= 0; i--) {
@@ -78,6 +91,14 @@ catch (    Exception ex) {
     if (mv != null && !mv.wasCleared()) {
       try {
         render(mv,processedRequest,response);
+        if (isAsyncRequest && (response instanceof GrailsContentBufferingResponse)) {
+          GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
+          HttpServletResponse targetResponse=bufferingResponse.getTargetResponse();
+          Content content=bufferingResponse.getContent();
+          if (content != null) {
+            content.writeOriginal(targetResponse.getWriter());
+          }
+        }
         if (errorView) {
           WebUtils.clearErrorRequestAttributes(request);
         }

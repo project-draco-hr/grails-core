@@ -92,11 +92,19 @@ catch (    Exception ex) {
       try {
         render(mv,processedRequest,response);
         if (isAsyncRequest && (response instanceof GrailsContentBufferingResponse)) {
+          GroovyPageLayoutFinder groovyPageLayoutFinder=getWebApplicationContext().getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
           GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
           HttpServletResponse targetResponse=bufferingResponse.getTargetResponse();
           Content content=bufferingResponse.getContent();
           if (content != null) {
-            content.writeOriginal(targetResponse.getWriter());
+            Decorator decorator=groovyPageLayoutFinder.findLayout(request,content);
+            if (decorator != null) {
+              GroovyPageLayoutRenderer renderer=new GroovyPageLayoutRenderer(decorator,requestAttributes.getAttributes().getPagesTemplateEngine(),getWebApplicationContext());
+              renderer.render(content,request,targetResponse,getServletContext());
+            }
+ else {
+              content.writeOriginal(targetResponse.getWriter());
+            }
           }
         }
         if (errorView) {

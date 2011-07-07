@@ -10,41 +10,8 @@
       }
       return new Decorator(){
         private void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext){
-          HTMLPage htmlPage=content2htmlPage(content);
-          request.setAttribute(RequestConstants.PAGE,htmlPage);
-          if (decorator.getURIPath() != null) {
-            if (servletContext.getContext(decorator.getURIPath()) != null) {
-              servletContext=servletContext.getContext(decorator.getURIPath());
-            }
-          }
-          if (!response.isCommitted()) {
-            boolean dispatched=false;
-            try {
-              request.setAttribute(ALREADY_APPLIED_KEY,Boolean.TRUE);
-              GroovyPageView gspSpringView=new GroovyPageView();
-              gspSpringView.setServletContext(servletContext);
-              gspSpringView.setUrl(decorator.getPage());
-              gspSpringView.setApplicationContext(applicationContext);
-              gspSpringView.setTemplateEngine(templateEngine);
-              try {
-                gspSpringView.render(Collections.<String,Object>emptyMap(),request,response);
-                dispatched=true;
-                if (!response.isCommitted()) {
-                  response.getWriter().flush();
-                }
-              }
- catch (              Exception e) {
-                cleanRequestAttributes(request);
-                throw new GroovyPagesException("Error applying layout : " + decorator.getPage(),e);
-              }
-            }
-  finally {
-              if (!dispatched) {
-                cleanRequestAttributes(request);
-              }
-            }
-          }
-          request.removeAttribute(RequestConstants.PAGE);
+          GroovyPageLayoutRenderer layoutRenderer=new GroovyPageLayoutRenderer(decorator,templateEngine,applicationContext);
+          layoutRenderer.render(content,request,response,servletContext);
         }
         public void render(        @SuppressWarnings("hiding") Content content,        SiteMeshContext siteMeshContext){
           SiteMeshWebAppContext ctx=(SiteMeshWebAppContext)siteMeshContext;

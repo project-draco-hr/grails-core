@@ -1,20 +1,6 @@
 {
   super.init(c,properties,parentMapper);
-  servletContext=c.getServletContext();
-  applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  groovyPageLocator=applicationContext.getBean(GrailsConventionGroovyPageLocator.class);
-  if (applicationContext.containsBean(GrailsApplication.APPLICATION_ID)) {
-    GrailsApplication grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-    @SuppressWarnings("rawtypes") Map conf=grailsApplication.getFlatConfig();
-    if (conf != null && conf.containsKey("grails.sitemesh.default.layout")) {
-      defaultDecoratorName=conf.get("grails.sitemesh.default.layout").toString();
-    }
- else {
-      defaultDecoratorName="application";
-    }
-  }
-  if (applicationContext.containsBean("groovyPagesTemplateEngine")) {
-    gspReloadEnabled=((GroovyPagesTemplateEngine)applicationContext.getBean("groovyPagesTemplateEngine")).isReloadEnabled();
-  }
-  cacheEnabled=(Environment.getCurrent() != Environment.DEVELOPMENT);
+  ServletContext servletContext=c.getServletContext();
+  WebApplicationContext applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  groovyPageLayoutFinder=applicationContext.getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
 }

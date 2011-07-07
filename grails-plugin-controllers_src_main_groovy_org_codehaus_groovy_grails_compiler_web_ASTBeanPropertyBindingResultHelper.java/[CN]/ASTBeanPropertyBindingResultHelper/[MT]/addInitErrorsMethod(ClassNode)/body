@@ -1,0 +1,14 @@
+{
+  final MethodNode initErrorsMethod=paramTypeClassNode.getMethod("initErrors",ZERO_PARAMETERS);
+  if (initErrorsMethod == null) {
+    final BlockStatement initErrorsMethodCode=new BlockStatement();
+    final BinaryExpression errorsIsNullExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.COMPARE_EQUAL,0,0),new ConstantExpression(null));
+    ArgumentListExpression beanPropertyBindingResultConstructorArgs=new ArgumentListExpression();
+    beanPropertyBindingResultConstructorArgs.addExpression(THIS_EXPRESSION);
+    beanPropertyBindingResultConstructorArgs.addExpression(new ConstantExpression(paramTypeClassNode.getName()));
+    final Statement newEvaluatorExpression=new ExpressionStatement(new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),new ConstructorCallExpression(new ClassNode(BeanPropertyBindingResult.class),beanPropertyBindingResultConstructorArgs)));
+    final Statement initErrorsIfNullStatement=new IfStatement(new BooleanExpression(errorsIsNullExpression),newEvaluatorExpression,new ExpressionStatement(new EmptyExpression()));
+    initErrorsMethodCode.addStatement(initErrorsIfNullStatement);
+    paramTypeClassNode.addMethod(new MethodNode("initErrors",Modifier.PRIVATE,ClassHelper.VOID_TYPE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,initErrorsMethodCode));
+  }
+}

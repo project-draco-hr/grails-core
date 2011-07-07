@@ -1,0 +1,10 @@
+{
+  final MethodNode getErrorsMethod=paramTypeClassNode.getMethod("hasErrors",ZERO_PARAMETERS);
+  if (getErrorsMethod == null) {
+    final BlockStatement hasErrorsMethodCode=new BlockStatement();
+    hasErrorsMethodCode.addStatement(new ExpressionStatement(new MethodCallExpression(THIS_EXPRESSION,"initErrors",EMPTY_TUPLE)));
+    final ReturnStatement returnStatement=new ReturnStatement(new BooleanExpression(new MethodCallExpression(new VariableExpression("errors"),"hasErrors",EMPTY_TUPLE)));
+    hasErrorsMethodCode.addStatement(returnStatement);
+    paramTypeClassNode.addMethod(new MethodNode("hasErrors",Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,hasErrorsMethodCode));
+  }
+}

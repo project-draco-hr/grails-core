@@ -1,0 +1,8 @@
+{
+  MethodNode setErrorsMethod=paramTypeClassNode.getMethod("setErrors",new Parameter[]{new Parameter(new ClassNode(Errors.class),"errorsArg")});
+  if (setErrorsMethod == null) {
+    final BinaryExpression assignErrorsExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),new VariableExpression("errorsArg"));
+    setErrorsMethod=new MethodNode("setErrors",Modifier.PUBLIC,ClassHelper.VOID_TYPE,new Parameter[]{new Parameter(new ClassNode(Errors.class),"errorsArg")},EMPTY_CLASS_ARRAY,new ExpressionStatement(assignErrorsExpression));
+    paramTypeClassNode.addMethod(setErrorsMethod);
+  }
+}

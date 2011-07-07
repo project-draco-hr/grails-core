@@ -1,0 +1,14 @@
+{
+  final MethodNode getConstraintsMethod=paramTypeClassNode.getMethod("getConstrainedProperties",ZERO_PARAMETERS);
+  if (getConstraintsMethod == null) {
+    final BlockStatement constrainedPropertyMethodCode=new BlockStatement();
+    final BinaryExpression constraintsEvaluatorIsNullExpression=new BinaryExpression(new VariableExpression(ConstraintsEvaluator.BEAN_NAME),Token.newSymbol(Types.COMPARE_EQUAL,0,0),new ConstantExpression(null));
+    final Statement newEvaluatorExpression=new ExpressionStatement(new BinaryExpression(new VariableExpression(ConstraintsEvaluator.BEAN_NAME),Token.newSymbol(Types.EQUALS,0,0),new ConstructorCallExpression(new ClassNode(DefaultConstraintEvaluator.class),EMPTY_TUPLE)));
+    final Statement initEvaluatorIfNullStatement=new IfStatement(new BooleanExpression(constraintsEvaluatorIsNullExpression),newEvaluatorExpression,new ExpressionStatement(new EmptyExpression()));
+    constrainedPropertyMethodCode.addStatement(initEvaluatorIfNullStatement);
+    final MethodCallExpression evaluateConstraintsMethodCall=new MethodCallExpression(new VariableExpression(ConstraintsEvaluator.BEAN_NAME),"evaluate",new ArgumentListExpression(new VariableExpression(THIS_EXPRESSION)));
+    final ReturnStatement returnStatement=new ReturnStatement(evaluateConstraintsMethodCall);
+    constrainedPropertyMethodCode.addStatement(returnStatement);
+    paramTypeClassNode.addMethod(new MethodNode("getConstrainedProperties",Modifier.PUBLIC,new ClassNode(Object.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,constrainedPropertyMethodCode));
+  }
+}

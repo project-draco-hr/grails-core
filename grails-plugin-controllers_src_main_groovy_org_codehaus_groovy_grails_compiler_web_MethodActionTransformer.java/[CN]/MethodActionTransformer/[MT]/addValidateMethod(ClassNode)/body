@@ -1,0 +1,13 @@
+{
+  final MethodNode validateMethod=paramTypeClassNode.getMethod("validate",new Parameter[0]);
+  if (validateMethod == null) {
+    final BlockStatement validateMethodCode=new BlockStatement();
+    final VariableExpression messageSourceExpression=new VariableExpression("messageSource");
+    final ArgumentListExpression validateInstanceArguments=new ArgumentListExpression(THIS_EXPRESSION,messageSourceExpression);
+    final ClassNode validationSupportClassNode=new ClassNode(ValidationSupport.class);
+    final StaticMethodCallExpression invokeValidateInstanceExpression=new StaticMethodCallExpression(validationSupportClassNode,"validateInstance",validateInstanceArguments);
+    validateMethodCode.addStatement(new ExpressionStatement(invokeValidateInstanceExpression));
+    final MethodNode method=new MethodNode("validate",Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode);
+    paramTypeClassNode.addMethod(method);
+  }
+}

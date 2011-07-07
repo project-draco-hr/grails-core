@@ -6,7 +6,7 @@
     }
     MethodCallExpression callExpression=new MethodCallExpression(THIS_EXPRESSION,GrailsControllerClass.METHOD_DISPATCHER_PREFIX + _method.getName(),arguments);
     callExpression.setMethodTarget(_method);
-    blockStatement.addStatement(new ExpressionStatement(callExpression));
+    blockStatement.addStatement(new ReturnStatement(callExpression));
   }
   return blockStatement;
 }

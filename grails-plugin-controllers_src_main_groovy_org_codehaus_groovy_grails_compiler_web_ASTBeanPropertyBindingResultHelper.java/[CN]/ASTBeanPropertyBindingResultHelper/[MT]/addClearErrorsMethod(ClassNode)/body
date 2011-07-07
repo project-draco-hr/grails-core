@@ -1,0 +1,9 @@
+{
+  final MethodNode clearErrorsMethod=paramTypeClassNode.getMethod("clearErrors",ZERO_PARAMETERS);
+  if (clearErrorsMethod == null) {
+    final BlockStatement clearErrorsMethodCode=new BlockStatement();
+    Expression nullOutErrorsFieldExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),new ConstantExpression(null));
+    clearErrorsMethodCode.addStatement(new ExpressionStatement(nullOutErrorsFieldExpression));
+    paramTypeClassNode.addMethod(new MethodNode("clearErrors",Modifier.PUBLIC,ClassHelper.VOID_TYPE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,clearErrorsMethodCode));
+  }
+}

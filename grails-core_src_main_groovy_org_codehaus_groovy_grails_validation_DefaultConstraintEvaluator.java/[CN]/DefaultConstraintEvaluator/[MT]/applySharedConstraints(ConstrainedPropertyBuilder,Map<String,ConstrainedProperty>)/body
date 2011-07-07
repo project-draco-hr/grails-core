@@ -3,7 +3,7 @@
     String propertyName=entry.getKey();
     ConstrainedProperty constrainedProperty=entry.getValue();
     String sharedConstraintReference=constrainedPropertyBuilder.getSharedConstraint(propertyName);
-    if (sharedConstraintReference != null) {
+    if (sharedConstraintReference != null && defaultConstraints != null) {
       Object o=defaultConstraints.get(sharedConstraintReference);
       if (o instanceof Map) {
         @SuppressWarnings({"unchecked","rawtypes"}) Map<String,Object> constraintsWithinSharedConstraint=(Map)o;

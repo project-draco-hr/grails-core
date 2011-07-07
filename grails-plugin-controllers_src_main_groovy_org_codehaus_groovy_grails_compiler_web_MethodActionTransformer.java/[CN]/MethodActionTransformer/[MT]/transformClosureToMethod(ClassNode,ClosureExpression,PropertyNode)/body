@@ -1,0 +1,7 @@
+{
+  final MethodNode actionMethod=new MethodNode(property.getName(),Modifier.PUBLIC,property.getType(),closureAction.getParameters(),EMPTY_CLASS_ARRAY,closureAction.getCode());
+  classNode.addMethod(convertToMethodAction(classNode,actionMethod));
+  classNode.getProperties().remove(property);
+  classNode.getFields().remove(property.getField());
+  classNode.addMethod(actionMethod);
+}

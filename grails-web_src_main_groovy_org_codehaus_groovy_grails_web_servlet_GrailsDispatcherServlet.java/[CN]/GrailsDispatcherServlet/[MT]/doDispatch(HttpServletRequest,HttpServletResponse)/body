@@ -49,6 +49,9 @@
       }
       HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
       mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
+      if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
+        return;
+      }
       if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
         mv.setViewName(getDefaultViewName(request));
       }

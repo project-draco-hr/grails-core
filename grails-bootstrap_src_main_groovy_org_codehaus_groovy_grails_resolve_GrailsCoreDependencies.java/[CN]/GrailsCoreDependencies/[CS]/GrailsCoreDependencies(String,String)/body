@@ -1,4 +1,4 @@
 {
   this.grailsVersion=grailsVersion;
-  this.servletVersion=servletVersion;
+  this.servletVersion=servletVersion != null ? servletVersion : "2.5";
 }

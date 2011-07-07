@@ -14,7 +14,7 @@
       throw new ControllerExecutionException("Executing action [" + actionName + "] of controller ["+ controller.getClass().getName()+ "] "+ pluginName+ " caused exception: "+ t.getMessage(),t);
     }
     Map chainModel=initChainModel(request);
-    if (response.isCommitted() || request.getAttribute(GrailsApplicationAttributes.REDIRECT_ISSUED) != null) {
+    if (response.isCommitted() || request.getAttribute(GrailsApplicationAttributes.REDIRECT_ISSUED) != null || request.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Response has been redirected, returning null model and view");
       }

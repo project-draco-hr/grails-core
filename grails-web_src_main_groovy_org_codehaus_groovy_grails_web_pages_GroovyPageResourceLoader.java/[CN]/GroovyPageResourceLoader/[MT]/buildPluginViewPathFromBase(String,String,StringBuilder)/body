@@ -1,0 +1,3 @@
+{
+  return builder.append(pluginBase).append(File.separatorChar).append("grails-app").append(File.separatorChar).append("views").append(pathRelativeToPlugin).toString();
+}

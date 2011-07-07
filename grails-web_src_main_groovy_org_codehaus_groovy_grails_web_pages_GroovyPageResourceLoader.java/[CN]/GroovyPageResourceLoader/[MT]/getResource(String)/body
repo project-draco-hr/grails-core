@@ -3,20 +3,36 @@
   if (location.startsWith(PLUGINS_PATH)) {
     if (pluginSettings == null)     throw new RuntimeException("'pluginsettings' has not been initialised.");
     List<String> pluginBaseDirectories=pluginSettings.getPluginBaseDirectories();
-    String path=location.substring(PLUGINS_PATH.length(),location.length());
+    DefaultGroovyPageLocator.PluginViewPathInfo pluginViewPathInfo=DefaultGroovyPageLocator.getPluginViewPathInfo(location);
+    String path=pluginViewPathInfo.basePath;
+    String pluginName=pluginViewPathInfo.pluginName;
+    String pathRelativeToPlugin=pluginViewPathInfo.path;
     for (    String pluginBaseDirectory : pluginBaseDirectories) {
       String pathToResource=pluginBaseDirectory + File.separatorChar + path;
       Resource r=super.getResource("file:" + pathToResource);
-      if (r.exists())       return r;
+      if (r.exists()) {
+        return r;
+      }
+ else {
+        pathToResource=buildPluginViewPath(pluginBaseDirectory,pluginName,pathRelativeToPlugin);
+        r=super.getResource(pathToResource);
+        if (r.exists())         return r;
+      }
     }
     Resource[] inlinePluginDirectories=pluginSettings.getInlinePluginDirectories();
-    String pathRelativeToPlugin=path.substring(path.indexOf("/"),path.length());
     for (    Resource inlinePluginDirectory : inlinePluginDirectories) {
       try {
         File dirFile=inlinePluginDirectory.getFile();
         File pageFile=new File(dirFile,pathRelativeToPlugin);
         if (pageFile.exists()) {
           return new FileSystemResource(pageFile);
+        }
+ else {
+          String pathToInlinePluginView=buildPluginViewPathFromBase(dirFile.getAbsolutePath(),pathRelativeToPlugin,new StringBuilder("file:"));
+          Resource resource=super.getResource(pathToInlinePluginView);
+          if (resource.exists()) {
+            return resource;
+          }
         }
       }
  catch (      IOException e) {

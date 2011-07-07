@@ -1,4 +1,7 @@
 {
   GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,javaClass.getName());
-  return new GrailsDomainClassPersistentEntity(domainClass,this);
+  if (domainClass != null) {
+    return new GrailsDomainClassPersistentEntity(domainClass,this);
+  }
+  return null;
 }

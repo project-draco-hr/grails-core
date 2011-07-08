@@ -1,0 +1,7 @@
+{
+  Decorator layout=groovyPageLayoutFinder.getNamedDecorator(request,name);
+  if (layout != null) {
+    return layout;
+  }
+  return parent != null ? super.getNamedDecorator(request,name) : null;
+}

@@ -2,9 +2,6 @@
   for (  Method method : getClazz().getMethods()) {
     if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
       String methodName=method.getName();
-      if (methodName.startsWith(METHOD_DISPATCHER_PREFIX)) {
-        methodName=methodName.substring(1,methodName.length());
-      }
       methodNames.add(methodName);
       configureMappingForClosureProperty(methodName);
     }

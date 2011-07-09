@@ -4,7 +4,7 @@
     for (    Parameter p : _method.getParameters()) {
       arguments.addExpression(new VariableExpression(p.getName(),p.getType()));
     }
-    MethodCallExpression callExpression=new MethodCallExpression(THIS_EXPRESSION,GrailsControllerClass.METHOD_DISPATCHER_PREFIX + _method.getName(),arguments);
+    MethodCallExpression callExpression=new MethodCallExpression(THIS_EXPRESSION,_method.getName(),arguments);
     callExpression.setMethodTarget(_method);
     blockStatement.addStatement(new ReturnStatement(callExpression));
   }

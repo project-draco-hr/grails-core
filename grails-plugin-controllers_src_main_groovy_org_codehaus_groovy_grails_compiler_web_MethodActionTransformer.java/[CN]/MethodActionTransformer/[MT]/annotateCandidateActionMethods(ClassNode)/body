@@ -2,7 +2,10 @@
   List<MethodNode> defferedNewMethods=new ArrayList<MethodNode>();
   for (  MethodNode method : classNode.getMethods()) {
     if (!method.isStatic() && method.isPublic() && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty()&& method.getLineNumber() >= 0) {
-      defferedNewMethods.add(convertToMethodAction(classNode,method));
+      MethodNode wrapperMethod=convertToMethodAction(classNode,method);
+      if (wrapperMethod != null) {
+        defferedNewMethods.add(wrapperMethod);
+      }
     }
   }
   for (  MethodNode newMethod : defferedNewMethods) {

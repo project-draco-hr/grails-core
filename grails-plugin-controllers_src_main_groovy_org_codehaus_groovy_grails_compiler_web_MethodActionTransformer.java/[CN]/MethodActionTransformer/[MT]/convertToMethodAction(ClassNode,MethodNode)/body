@@ -12,7 +12,13 @@
       throw new GrailsControllerCompilationException(formattedMessage);
     }
   }
-  MethodNode method=new MethodNode(GrailsControllerClass.METHOD_DISPATCHER_PREFIX + _method.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,parameters)));
-  annotateActionMethod(parameters,method);
+  MethodNode method=null;
+  if (_method.getParameters().length > 0) {
+    method=new MethodNode(_method.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,parameters)));
+    annotateActionMethod(parameters,method);
+  }
+ else {
+    annotateActionMethod(parameters,_method);
+  }
   return method;
 }

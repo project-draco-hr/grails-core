@@ -3,10 +3,7 @@
   final String methodParamName=param.getName();
   final Expression defaultValueExpression;
   final Class<?> paramTypeClass=paramTypeClassNode.getTypeClass();
-  if (param.hasInitialExpression()) {
-    defaultValueExpression=param.getInitialExpression();
-  }
- else   if (Boolean.TYPE == paramTypeClass) {
+  if (Boolean.TYPE == paramTypeClass) {
     defaultValueExpression=new ConstantExpression(false);
   }
  else   if (paramTypeClass.isPrimitive()) {

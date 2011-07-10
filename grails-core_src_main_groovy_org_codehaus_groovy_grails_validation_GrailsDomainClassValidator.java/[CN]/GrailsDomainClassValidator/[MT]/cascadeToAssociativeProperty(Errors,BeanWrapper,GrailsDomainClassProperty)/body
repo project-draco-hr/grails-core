@@ -3,7 +3,7 @@
   if (errors.hasFieldErrors(propertyName))   return;
   if (persistentProperty.isManyToOne() || persistentProperty.isOneToOne() || persistentProperty.isEmbedded()) {
     Object associatedObject=bean.getPropertyValue(propertyName);
-    cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+    cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName,null);
   }
  else   if (persistentProperty.isOneToMany()) {
     cascadeValidationToMany(errors,bean,persistentProperty,propertyName);

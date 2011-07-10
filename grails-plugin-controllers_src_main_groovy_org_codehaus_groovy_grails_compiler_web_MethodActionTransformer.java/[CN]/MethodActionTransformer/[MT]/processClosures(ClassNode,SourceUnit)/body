@@ -7,7 +7,7 @@
     if (!property.isStatic() && initialExpression != null && initialExpression.getClass().equals(ClosureExpression.class)) {
       closureAction=(ClosureExpression)initialExpression;
       if (converterEnabled) {
-        transformClosureToMethod(classNode,closureAction,property);
+        transformClosureToMethod(classNode,closureAction,property,source);
       }
  else {
         addMethodToInvokeClosure(classNode,property);

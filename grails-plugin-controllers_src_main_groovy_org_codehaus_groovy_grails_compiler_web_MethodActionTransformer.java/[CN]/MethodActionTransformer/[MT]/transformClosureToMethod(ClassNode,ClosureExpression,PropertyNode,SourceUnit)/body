@@ -1,6 +1,6 @@
 {
   final MethodNode actionMethod=new MethodNode(property.getName(),Modifier.PUBLIC,property.getType(),closureAction.getParameters(),EMPTY_CLASS_ARRAY,closureAction.getCode());
-  MethodNode convertedMethod=convertToMethodAction(classNode,actionMethod);
+  MethodNode convertedMethod=convertToMethodAction(classNode,actionMethod,source);
   if (convertedMethod != null) {
     classNode.addMethod(convertedMethod);
   }

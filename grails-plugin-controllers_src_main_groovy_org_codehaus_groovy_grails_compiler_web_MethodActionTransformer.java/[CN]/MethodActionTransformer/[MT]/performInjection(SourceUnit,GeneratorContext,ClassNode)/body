@@ -1,4 +1,4 @@
 {
-  annotateCandidateActionMethods(classNode);
-  processClosures(classNode);
+  annotateCandidateActionMethods(classNode,source);
+  processClosures(classNode,source);
 }

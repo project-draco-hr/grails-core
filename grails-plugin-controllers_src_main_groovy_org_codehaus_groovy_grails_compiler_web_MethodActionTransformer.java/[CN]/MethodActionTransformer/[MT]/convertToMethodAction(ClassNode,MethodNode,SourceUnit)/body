@@ -9,7 +9,7 @@
       String methodDeclaration=_method.getText();
       String message="Parameter [%s] to method [%s] has default value [%s].  Default parameter values are not allowed in controller action methods. ([%s])";
       String formattedMessage=String.format(message,paramName,methodName,initialValue,methodDeclaration);
-      throw new GrailsControllerCompilationException(formattedMessage);
+      error(source,formattedMessage);
     }
   }
   MethodNode method=null;

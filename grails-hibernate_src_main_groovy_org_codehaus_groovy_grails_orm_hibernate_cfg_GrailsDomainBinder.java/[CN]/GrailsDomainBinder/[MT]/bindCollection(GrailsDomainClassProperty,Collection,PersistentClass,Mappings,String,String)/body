@@ -11,6 +11,9 @@
  else {
     collection.setFetchMode(FetchMode.DEFAULT);
   }
+  if (pc != null && pc.getCascade() != null) {
+    collection.setOrphanDelete(pc.getCascade().equals(CASCADE_ALL_DELETE_ORPHAN));
+  }
   if (shouldBindCollectionWithForeignKey(property)) {
     OneToMany oneToMany=new OneToMany(mappings,collection.getOwner());
     collection.setElement(oneToMany);

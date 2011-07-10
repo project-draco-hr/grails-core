@@ -1,5 +1,11 @@
 {
   Object collection=bean.getPropertyValue(propertyName);
+  if (collection instanceof List || collection instanceof SortedSet) {
+    int idx=0;
+    for (    Object associatedObject : ((Collection)collection)) {
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName + "[" + (idx++)+ "]");
+    }
+  }
   if (collection instanceof Collection) {
     for (    Object associatedObject : ((Collection)collection)) {
       cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);

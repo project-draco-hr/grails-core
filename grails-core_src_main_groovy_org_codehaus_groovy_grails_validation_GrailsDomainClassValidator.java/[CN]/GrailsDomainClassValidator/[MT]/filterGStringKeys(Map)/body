@@ -1,0 +1,13 @@
+{
+  Set set=collection.keySet();
+  Set<GString> gstrings=new HashSet<GString>();
+  for (  Object o : set) {
+    if (o instanceof GString) {
+      gstrings.add((GString)o);
+    }
+  }
+  for (  GString gstring : gstrings) {
+    Object value=collection.remove(gstring);
+    collection.put(gstring.toString(),value);
+  }
+}

@@ -7,13 +7,15 @@
     }
   }
   if (collection instanceof Collection) {
+    Integer index=0;
     for (    Object associatedObject : ((Collection)collection)) {
-      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName,index++);
     }
   }
  else   if (collection instanceof Map) {
-    for (    Object associatedObject : ((Map)collection).values()) {
-      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName);
+    for (    Object entryObject : ((Map)collection).entrySet()) {
+      @SuppressWarnings("unchecked") Map.Entry<String,Object> entry=(Map.Entry<String,Object>)entryObject;
+      cascadeValidationToOne(errors,bean,entry.getValue(),persistentProperty,propertyName,entry.getKey());
     }
   }
 }

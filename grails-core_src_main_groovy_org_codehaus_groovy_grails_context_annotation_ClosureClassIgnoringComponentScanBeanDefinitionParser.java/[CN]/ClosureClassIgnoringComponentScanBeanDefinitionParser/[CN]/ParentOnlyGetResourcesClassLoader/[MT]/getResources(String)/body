@@ -1,0 +1,8 @@
+{
+  if (rootLoader != null) {
+    Collection<URL> urls=new LinkedHashSet<URL>();
+    findResourcesRecursive(getParent(),name,urls);
+    return Collections.enumeration(urls);
+  }
+  return invokeFindResources(getParent(),name);
+}

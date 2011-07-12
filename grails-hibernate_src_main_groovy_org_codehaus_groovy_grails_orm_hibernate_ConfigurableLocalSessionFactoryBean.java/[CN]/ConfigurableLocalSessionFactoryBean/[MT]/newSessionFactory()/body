@@ -1,11 +1,11 @@
 {
   try {
-    SessionFactory sf=super.newSessionFactory(config);
+    SessionFactory sf=super.newSessionFactory();
     if (!grails.util.Environment.getCurrent().isReloadEnabled() || !proxyIfReloadEnabled) {
       return sf;
     }
     SessionFactoryProxy sfp=new SessionFactoryProxy();
-    String suffix=dataSourceName == GrailsDomainClassProperty.DEFAULT_DATA_SOURCE ? "" : '_' + dataSourceName;
+    String suffix=dataSourceName.equals(GrailsDomainClassProperty.DEFAULT_DATA_SOURCE) ? "" : '_' + dataSourceName;
     SessionFactoryHolder sessionFactoryHolder=applicationContext.getBean(SessionFactoryHolder.BEAN_ID + suffix,SessionFactoryHolder.class);
     sessionFactoryHolder.setSessionFactory(sf);
     sfp.setApplicationContext(applicationContext);

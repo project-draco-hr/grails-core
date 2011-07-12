@@ -11,7 +11,7 @@
   }
   WebApplicationContext ctx;
   try {
-    ctx=super.createWebApplicationContext(servletContext,parent);
+    ctx=super.initWebApplicationContext(servletContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("[GrailsContextLoader] Created parent application context");
     }

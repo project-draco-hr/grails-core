@@ -1,0 +1,11 @@
+{
+  final ClassPathBeanDefinitionScanner scanner=super.createScanner(readerContext,useDefaultFilters);
+  GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
+  if (pluginManager != null) {
+    List<TypeFilter> typeFilters=pluginManager.getTypeFilters();
+    for (    TypeFilter typeFilter : typeFilters) {
+      scanner.addIncludeFilter(typeFilter);
+    }
+  }
+  return scanner;
+}

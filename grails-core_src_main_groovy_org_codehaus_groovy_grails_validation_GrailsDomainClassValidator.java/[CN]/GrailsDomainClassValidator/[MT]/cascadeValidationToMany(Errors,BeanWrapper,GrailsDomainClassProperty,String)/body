@@ -3,7 +3,7 @@
   if (collection instanceof List || collection instanceof SortedSet) {
     int idx=0;
     for (    Object associatedObject : ((Collection)collection)) {
-      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName + "[" + (idx++)+ "]");
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName + "[" + (idx++)+ "]",idx);
     }
   }
   if (collection instanceof Collection) {

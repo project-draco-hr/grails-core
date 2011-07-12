@@ -2,6 +2,7 @@
   PropertyValue[] pvs=mpvs.getPropertyValues();
   for (  PropertyValue pv : pvs) {
     String propertyName=pv.getName();
+    if (!isAllowed(propertyName))     continue;
     if (propertyName.indexOf(PATH_SEPARATOR) > -1) {
       String[] propertyNames=propertyName.split("\\.");
       BeanWrapper currentBean=bean;

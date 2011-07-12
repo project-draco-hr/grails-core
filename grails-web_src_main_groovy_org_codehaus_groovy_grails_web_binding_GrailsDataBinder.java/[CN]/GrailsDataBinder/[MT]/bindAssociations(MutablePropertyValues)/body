@@ -1,6 +1,7 @@
 {
   for (  PropertyValue pv : mpvs.getPropertyValues()) {
     String propertyName=pv.getName();
+    if (!isAllowed(propertyName))     continue;
     String propertyNameToCheck=propertyName;
     final int i=propertyName.indexOf('.');
     if (i > -1) {

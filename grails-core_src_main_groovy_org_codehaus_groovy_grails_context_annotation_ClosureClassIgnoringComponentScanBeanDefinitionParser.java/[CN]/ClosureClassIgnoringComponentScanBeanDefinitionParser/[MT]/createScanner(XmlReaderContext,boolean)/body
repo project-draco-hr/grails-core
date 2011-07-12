@@ -1,6 +1,14 @@
 {
   final ClassPathBeanDefinitionScanner scanner=super.createScanner(readerContext,useDefaultFilters);
-  GrailsPluginManager pluginManager=PluginManagerHolder.getPluginManager();
+  BeanDefinitionRegistry beanDefinitionRegistry=readerContext.getRegistry();
+  GrailsPluginManager pluginManager=null;
+  if (beanDefinitionRegistry instanceof HierarchicalBeanFactory) {
+    HierarchicalBeanFactory beanFactory=(HierarchicalBeanFactory)beanDefinitionRegistry;
+    BeanFactory parent=beanFactory.getParentBeanFactory();
+    if (parent != null && parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      pluginManager=parent.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+    }
+  }
   if (pluginManager != null) {
     List<TypeFilter> typeFilters=pluginManager.getTypeFilters();
     for (    TypeFilter typeFilter : typeFilters) {

@@ -2,7 +2,7 @@
   for (  Map.Entry<String,String> plugin : plugins.entrySet()) {
     String name=plugin.getKey();
     String version=plugin.getValue();
-    if (pluginDependencyNames.contains(name)) {
+    if (pluginNameToDescriptorMap.containsKey(name)) {
       continue;
     }
     String scope="runtime";

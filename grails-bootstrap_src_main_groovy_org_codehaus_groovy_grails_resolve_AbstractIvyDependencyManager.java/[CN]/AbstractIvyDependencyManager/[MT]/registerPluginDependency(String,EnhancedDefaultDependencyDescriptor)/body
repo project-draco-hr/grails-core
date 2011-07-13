@@ -1,5 +1,11 @@
 {
-  String name=descriptor.getDependencyId().getName();
+  ModuleId dependencyId=descriptor.getDependencyId();
+  String name=dependencyId.getName();
+  DependencyDescriptor existing=pluginNameToDescriptorMap.get(name);
+  if (existing != null && descriptor.isTransitivelyIncluded()) {
+    ModuleRevisionId dependencyRevisionId=existing.getDependencyRevisionId();
+    if (dependencyRevisionId.equals(descriptor.getDependencyRevisionId()))     return;
+  }
   String classifierAttribute=descriptor.getExtraAttribute("m:classifier");
   String packaging;
   if (classifierAttribute != null && classifierAttribute.equals("plugin")) {
@@ -11,7 +17,10 @@
   DependencyArtifactDescriptor artifact=new DefaultDependencyArtifactDescriptor(descriptor,name,packaging,packaging,null,null);
   descriptor.addDependencyArtifact(scope,artifact);
   registerDependencyCommon(scope,descriptor);
-  pluginDependencyNames.add(name);
+  pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
   pluginNameToDescriptorMap.put(name,descriptor);
+  if (descriptor.isExported()) {
+    moduleDescriptor.addDependency(descriptor);
+  }
 }

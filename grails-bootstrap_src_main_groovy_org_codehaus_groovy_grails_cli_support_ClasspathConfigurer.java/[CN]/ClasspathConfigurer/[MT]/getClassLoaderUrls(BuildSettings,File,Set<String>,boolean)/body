@@ -11,6 +11,7 @@
     final List<File> buildDependencies=settings.getBuildDependencies();
     if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
       GrailsConsole.getInstance().error("Required Grails build dependencies were not found. Either GRAILS_HOME is not set or your dependencies are misconfigured in grails-app/conf/BuildConfig.groovy");
+      cleanResolveCache(settings);
       System.exit(1);
     }
     addDependenciesToURLs(excludes,urls,buildDependencies);

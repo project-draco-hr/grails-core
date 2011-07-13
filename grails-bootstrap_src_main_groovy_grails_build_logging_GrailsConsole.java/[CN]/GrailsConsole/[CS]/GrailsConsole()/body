@@ -2,6 +2,7 @@
   cursorMove=1;
   out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
   System.setOut(new GrailsConsolePrintStream(out));
+  System.setErr(new GrailsConsoleErrorPrintStream(new PrintStream(AnsiConsole.wrapOutputStream(System.err))));
   if (isWindows()) {
     terminal=new WindowsTerminal(){
       @Override public boolean isANSISupported(){

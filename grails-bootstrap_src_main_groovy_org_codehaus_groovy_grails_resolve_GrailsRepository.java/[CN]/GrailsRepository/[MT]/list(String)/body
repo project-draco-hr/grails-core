@@ -1,0 +1,13 @@
+{
+  List lst=super.list(convertSource(parent,'.','_'));
+  if (lst != null) {
+    List<String> newLst=new ArrayList<String>(lst.size());
+    for (    Object i : lst) {
+      newLst.add(convertSource((String)i,'_','.'));
+    }
+    return newLst;
+  }
+ else {
+    return lst;
+  }
+}

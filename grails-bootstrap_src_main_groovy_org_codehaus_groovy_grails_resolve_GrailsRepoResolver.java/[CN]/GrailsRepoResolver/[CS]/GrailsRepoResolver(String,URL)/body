@@ -1,4 +1,5 @@
 {
   this.repositoryRoot=repositoryRoot;
   setName(name);
+  setRepository(new GrailsRepository());
 }

@@ -25,7 +25,7 @@
     orgToDepMap.put(org,deps);
   }
   dependencyDescriptors.add(descriptor);
-  if (descriptor.isExportedToApplication()) {
+  if (descriptor.isExportedToApplication() || buildSettings.isPluginProject()) {
     moduleDescriptor.addDependency(descriptor);
   }
 }

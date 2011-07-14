@@ -1,0 +1,7 @@
+{
+  Resource resource;
+  String pluginPath=pluginManager.getPluginPath(plugin.getName());
+  String pluginUri=GrailsResourceUtils.appendPiecesForUri(pluginPath,uri);
+  resource=super.findResourceForURI(pluginUri);
+  return resource;
+}

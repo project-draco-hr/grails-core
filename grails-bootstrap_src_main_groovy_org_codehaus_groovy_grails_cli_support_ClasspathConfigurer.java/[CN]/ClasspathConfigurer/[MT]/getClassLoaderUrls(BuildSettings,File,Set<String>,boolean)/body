@@ -17,13 +17,17 @@
     addDependenciesToURLs(excludes,urls,buildDependencies);
     addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
     addDependenciesToURLs(excludes,urls,settings.getTestDependencies());
+    settings.getRuntimeDependencies();
+    settings.getCompileDependencies();
     if (!skipPlugins) {
       for (      File dir : pluginPathSupport.listKnownPluginDirs()) {
         addPluginLibs(dir,urls,settings);
       }
     }
+    settings.storeDependencyCache();
   }
  catch (  ResolveException e) {
+    cleanResolveCache(settings);
     GrailsConsole.getInstance().error(e.getMessage());
     System.exit(1);
   }

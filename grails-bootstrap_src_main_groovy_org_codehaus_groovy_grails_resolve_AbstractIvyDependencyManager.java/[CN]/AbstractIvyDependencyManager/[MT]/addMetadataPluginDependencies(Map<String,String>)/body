@@ -9,7 +9,9 @@
     metadataRegisteredPluginNames.add(name);
     ModuleRevisionId mrid=ModuleRevisionId.newInstance("org.grails.plugins",name,version);
     EnhancedDefaultDependencyDescriptor enhancedDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,true,true,scope);
-    enhancedDescriptor.setExport(false);
+    if (buildSettings.isPluginProject()) {
+      enhancedDescriptor.setExport(false);
+    }
     registerPluginDependency(scope,enhancedDescriptor);
   }
 }

@@ -1,6 +1,6 @@
 {
   String scriptFileName=getScriptNameFromFile(scriptFile);
-  setRunningEnvironment(env);
+  setRunningEnvironment(commandLine,env);
   binding.setVariable("scriptName",scriptFileName);
   ScriptBindingInitializer bindingInitializer=new ScriptBindingInitializer(commandLine,settings,pluginPathSupport,isInteractive);
   Gant gant=new Gant(bindingInitializer.initBinding(binding,scriptName),classLoader);

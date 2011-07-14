@@ -1,0 +1,3 @@
+{
+  return descriptor.isExported() || (buildSettings.isPluginProject() && isExposedByThisPlugin(descriptor));
+}

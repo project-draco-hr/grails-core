@@ -20,7 +20,7 @@
   pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
   pluginNameToDescriptorMap.put(name,descriptor);
-  if (descriptor.isExported() || buildSettings.isPluginProject()) {
+  if (shouldIncludeDependency(descriptor)) {
     moduleDescriptor.addDependency(descriptor);
   }
 }

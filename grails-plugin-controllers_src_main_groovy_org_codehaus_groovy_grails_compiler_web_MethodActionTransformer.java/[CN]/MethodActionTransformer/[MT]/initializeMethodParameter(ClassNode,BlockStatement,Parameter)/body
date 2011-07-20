@@ -12,7 +12,7 @@
  else   if (paramTypeClassNode.equals(new ClassNode(String.class))) {
     initializeStringParameter(wrapper,param,requestParameterName);
   }
- else {
+ else   if (!paramTypeClassNode.equals(OBJECT_CLASS)) {
     initializeCommandObjectParameter(wrapper,classNode,paramTypeClassNode,paramName);
   }
 }

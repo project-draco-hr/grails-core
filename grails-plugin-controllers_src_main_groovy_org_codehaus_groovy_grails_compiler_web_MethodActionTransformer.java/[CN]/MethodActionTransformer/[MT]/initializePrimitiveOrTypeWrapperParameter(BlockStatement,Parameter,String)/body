@@ -13,7 +13,7 @@
     defaultValueExpression=new ConstantExpression(null);
   }
   final ConstantExpression paramConstantExpression=new ConstantExpression(requestParameterName);
-  final Expression paramsTypeConversionMethodArguments=new ArgumentListExpression(paramConstantExpression,defaultValueExpression);
+  final Expression paramsTypeConversionMethodArguments=new ArgumentListExpression(paramConstantExpression,new ConstantExpression(null));
   final String conversionMethodName;
   if (TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(paramTypeClass)) {
     conversionMethodName=TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.get(paramTypeClass);
@@ -25,8 +25,22 @@
   final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(paramConstantExpression);
   final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
   final Token equalsToken=Token.newSymbol(Types.EQUALS,0,0);
-  final Statement declareVariableStatement=new ExpressionStatement(new DeclarationExpression(new VariableExpression(methodParamName,paramTypeClassNode),equalsToken,new EmptyExpression()));
+  final VariableExpression convertedValueExpression=new VariableExpression("___converted_" + methodParamName,new ClassNode(Object.class));
+  final DeclarationExpression declareConvertedValueExpression=new DeclarationExpression(convertedValueExpression,equalsToken,new EmptyExpression());
+  Statement declareVariableStatement=new ExpressionStatement(declareConvertedValueExpression);
   wrapper.addStatement(declareVariableStatement);
-  final Expression assignmentExpression=new BinaryExpression(new VariableExpression(methodParamName),equalsToken,new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
+  final VariableExpression methodParamExpression=new VariableExpression(methodParamName,paramTypeClassNode);
+  final DeclarationExpression declareParameterVariableStatement=new DeclarationExpression(methodParamExpression,equalsToken,new EmptyExpression());
+  declareVariableStatement=new ExpressionStatement(declareParameterVariableStatement);
+  wrapper.addStatement(declareVariableStatement);
+  final Expression assignmentExpression=new BinaryExpression(convertedValueExpression,equalsToken,new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
   wrapper.addStatement(new ExpressionStatement(assignmentExpression));
+  Expression rejectValueMethodCallExpression=getRejectValueExpression(methodParamName);
+  BlockStatement ifConvertedValueIsNullBlockStatement=new BlockStatement();
+  ifConvertedValueIsNullBlockStatement.addStatement(new ExpressionStatement(rejectValueMethodCallExpression));
+  ifConvertedValueIsNullBlockStatement.addStatement(new ExpressionStatement(new BinaryExpression(methodParamExpression,equalsToken,defaultValueExpression)));
+  final BooleanExpression isConvertedValueNullExpression=new BooleanExpression(new BinaryExpression(convertedValueExpression,Token.newSymbol(Types.COMPARE_EQUAL,0,0),new ConstantExpression(null)));
+  final ExpressionStatement assignConvertedValueToParamStatement=new ExpressionStatement(new BinaryExpression(methodParamExpression,equalsToken,convertedValueExpression));
+  final Statement ifStatement=new IfStatement(isConvertedValueNullExpression,ifConvertedValueIsNullBlockStatement,assignConvertedValueToParamStatement);
+  wrapper.addStatement(new IfStatement(new BooleanExpression(containsKeyExpression),ifStatement,new ExpressionStatement(new EmptyExpression())));
 }

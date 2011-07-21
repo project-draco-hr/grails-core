@@ -19,7 +19,6 @@
   registerDependencyCommon(scope,descriptor);
   pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
-  pluginNameToDescriptorMap.put(name,descriptor);
   if (shouldIncludeDependency(descriptor)) {
     moduleDescriptor.addDependency(descriptor);
   }

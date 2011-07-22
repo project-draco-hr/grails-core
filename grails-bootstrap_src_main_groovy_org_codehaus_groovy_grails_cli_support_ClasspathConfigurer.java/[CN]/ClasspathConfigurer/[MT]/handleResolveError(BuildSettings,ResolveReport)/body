@@ -1,0 +1,6 @@
+{
+  settings.storeDependencyCache();
+  cleanResolveCache(settings);
+  GrailsConsole.getInstance().error(new ResolveException(buildResolveReport).getMessage());
+  if (exitOnResolveError)   System.exit(1);
+}

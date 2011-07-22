@@ -5,7 +5,9 @@
   if ((error instanceof BuildException) && error.getCause() != null) {
     error=error.getCause();
   }
-  if (!isVerbose())   StackTraceUtils.deepSanitize(error);
+  if (!isVerbose()) {
+    StackTraceUtils.deepSanitize(error);
+  }
   StringWriter sw=new StringWriter();
   PrintWriter ps=new PrintWriter(sw);
   if (message != null) {

@@ -11,18 +11,30 @@
       cascadeStrategy=CASCADE_ALL;
     }
  else     if (grailsProperty.isOneToOne()) {
-      if (referenced != null && referenced.isOwningClass(domainClass.getClazz()))       cascadeStrategy=CASCADE_ALL;
+      if (referenced != null && referenced.isOwningClass(domainClass.getClazz())) {
+        cascadeStrategy=CASCADE_ALL;
+      }
     }
  else     if (grailsProperty.isOneToMany()) {
-      if (referenced != null && referenced.isOwningClass(domainClass.getClazz()))       cascadeStrategy=CASCADE_ALL;
- else       cascadeStrategy=CASCADE_SAVE_UPDATE;
+      if (referenced != null && referenced.isOwningClass(domainClass.getClazz())) {
+        cascadeStrategy=CASCADE_ALL;
+      }
+ else {
+        cascadeStrategy=CASCADE_SAVE_UPDATE;
+      }
     }
  else     if (grailsProperty.isManyToMany()) {
-      if ((referenced != null && referenced.isOwningClass(domainClass.getClazz())) || grailsProperty.isCircular())       cascadeStrategy=CASCADE_SAVE_UPDATE;
+      if ((referenced != null && referenced.isOwningClass(domainClass.getClazz())) || grailsProperty.isCircular()) {
+        cascadeStrategy=CASCADE_SAVE_UPDATE;
+      }
     }
  else     if (grailsProperty.isManyToOne()) {
-      if (referenced != null && referenced.isOwningClass(domainClass.getClazz()) && !isCircularAssociation(grailsProperty))       cascadeStrategy=CASCADE_ALL;
- else       cascadeStrategy=CASCADE_NONE;
+      if (referenced != null && referenced.isOwningClass(domainClass.getClazz()) && !isCircularAssociation(grailsProperty)) {
+        cascadeStrategy=CASCADE_ALL;
+      }
+ else {
+        cascadeStrategy=CASCADE_NONE;
+      }
     }
   }
  else   if (grailsProperty.isBasicCollectionType()) {

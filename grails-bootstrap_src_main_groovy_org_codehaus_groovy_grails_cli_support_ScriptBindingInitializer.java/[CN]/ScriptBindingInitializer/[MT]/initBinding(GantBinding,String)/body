@@ -1,7 +1,7 @@
 {
   Closure<?> c=settings.getGrailsScriptClosure();
   c.setDelegate(binding);
-  Map argsMap=new LinkedHashMap(commandLine.getUndeclaredOptions());
+  @SuppressWarnings("rawtypes") Map argsMap=new LinkedHashMap(commandLine.getUndeclaredOptions());
   argsMap.put("params",commandLine.getRemainingArgs());
   binding.setVariable("argsMap",argsMap);
   binding.setVariable("args",commandLine.getRemainingArgsLineSeparated());

@@ -1,15 +1,15 @@
 {
+  if (pluginManager == null) {
+    return null;
+  }
   uri=GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri);
-  if (pluginManager != null) {
-    GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
-    for (    GrailsPlugin plugin : allPlugins) {
-      if (plugin instanceof BinaryGrailsPlugin) {
-        BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
-        Class<?> viewClass=binaryPlugin.resolveView(uri);
-        if (viewClass != null) {
-          return new GroovyPageCompiledScriptSource(uri,viewClass);
-        }
-      }
+  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+    if (!(plugin instanceof BinaryGrailsPlugin)) {
+      continue;
+    }
+    Class<?> viewClass=((BinaryGrailsPlugin)plugin).resolveView(uri);
+    if (viewClass != null) {
+      return new GroovyPageCompiledScriptSource(uri,viewClass);
     }
   }
   return null;

@@ -7,7 +7,6 @@
     final ClassNode validationSupportClassNode=new ClassNode(ValidationSupport.class);
     final StaticMethodCallExpression invokeValidateInstanceExpression=new StaticMethodCallExpression(validationSupportClassNode,"validateInstance",validateInstanceArguments);
     validateMethodCode.addStatement(new ExpressionStatement(invokeValidateInstanceExpression));
-    final MethodNode method=new MethodNode("validate",Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode);
-    paramTypeClassNode.addMethod(method);
+    paramTypeClassNode.addMethod(new MethodNode("validate",Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode));
   }
 }

@@ -1,4 +1,4 @@
 {
   final Errors errors=getErrors(instance);
-  return errors != null && errors.hasErrors() ? true : false;
+  return errors != null && errors.hasErrors();
 }

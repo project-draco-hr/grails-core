@@ -16,7 +16,7 @@
   }
  else {
     bindSimpleValue(STRING_TYPE,d,false,RootClass.DEFAULT_DISCRIMINATOR_COLUMN_NAME,mappings);
-    ColumnConfig cc=m != null ? m.getDiscriminatorColumn() : null;
+    ColumnConfig cc=m == null ? null : m.getDiscriminatorColumn();
     if (cc != null) {
       Column c=(Column)d.getColumnIterator().next();
       if (cc.getName() != null) {

@@ -10,7 +10,10 @@
     Binding parentBinding=null;
     boolean hasRequest=request != null;
     if (hasRequest) {
-      parentBinding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+      boolean isIncludeRequest=WebUtils.isIncludeRequest(request);
+      if (!isIncludeRequest) {
+        parentBinding=(Binding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
+      }
       if (parentBinding == null) {
         if (webRequest != null) {
           GroovyPageRequestBinding pageRequestBinding=new GroovyPageRequestBinding(webRequest,response);

@@ -1,5 +1,5 @@
 {
-  final MethodNode clearErrorsMethod=paramTypeClassNode.getMethod("clearErrors",ZERO_PARAMETERS);
+  final ASTNode clearErrorsMethod=paramTypeClassNode.getMethod("clearErrors",ZERO_PARAMETERS);
   if (clearErrorsMethod == null) {
     final BlockStatement clearErrorsMethodCode=new BlockStatement();
     Expression nullOutErrorsFieldExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),new ConstantExpression(null));

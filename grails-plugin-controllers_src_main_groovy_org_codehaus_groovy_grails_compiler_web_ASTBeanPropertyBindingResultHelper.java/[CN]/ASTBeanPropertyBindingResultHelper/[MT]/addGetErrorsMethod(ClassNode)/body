@@ -1,9 +1,9 @@
 {
-  final MethodNode getErrorsMethod=paramTypeClassNode.getMethod("getErrors",ZERO_PARAMETERS);
+  final ASTNode getErrorsMethod=paramTypeClassNode.getMethod("getErrors",ZERO_PARAMETERS);
   if (getErrorsMethod == null) {
     final BlockStatement getErrorsMethodCode=new BlockStatement();
     getErrorsMethodCode.addStatement(new ExpressionStatement(new MethodCallExpression(THIS_EXPRESSION,"initErrors",EMPTY_TUPLE)));
-    final ReturnStatement returnStatement=new ReturnStatement(new VariableExpression("errors"));
+    final Statement returnStatement=new ReturnStatement(new VariableExpression("errors"));
     getErrorsMethodCode.addStatement(returnStatement);
     paramTypeClassNode.addMethod(new MethodNode("getErrors",Modifier.PUBLIC,new ClassNode(Errors.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,getErrorsMethodCode));
   }

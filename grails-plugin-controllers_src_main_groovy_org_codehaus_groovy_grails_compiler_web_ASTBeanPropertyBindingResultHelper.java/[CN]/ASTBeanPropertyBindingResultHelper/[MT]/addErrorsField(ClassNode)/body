@@ -1,5 +1,5 @@
 {
-  final FieldNode errorsField=paramTypeClassNode.getField("errors");
+  final ASTNode errorsField=paramTypeClassNode.getField("errors");
   if (errorsField == null) {
     paramTypeClassNode.addField(new FieldNode("errors",Modifier.PUBLIC,new ClassNode(Errors.class),paramTypeClassNode,new ConstantExpression(null)));
   }

@@ -1,10 +1,10 @@
 {
-  final ASTNode getErrorsMethod=paramTypeClassNode.getMethod("getErrors",ZERO_PARAMETERS);
+  final ASTNode getErrorsMethod=paramTypeClassNode.getMethod(GET_ERRORS_METHOD_NAME,ZERO_PARAMETERS);
   if (getErrorsMethod == null) {
     final BlockStatement getErrorsMethodCode=new BlockStatement();
-    getErrorsMethodCode.addStatement(new ExpressionStatement(new MethodCallExpression(THIS_EXPRESSION,"initErrors",EMPTY_TUPLE)));
-    final Statement returnStatement=new ReturnStatement(new VariableExpression("errors"));
+    getErrorsMethodCode.addStatement(new ExpressionStatement(INIT_ERRORS_METHOD_CALL_EXPRESSION));
+    final Statement returnStatement=new ReturnStatement(ERRORS_EXPRESSION);
     getErrorsMethodCode.addStatement(returnStatement);
-    paramTypeClassNode.addMethod(new MethodNode("getErrors",Modifier.PUBLIC,new ClassNode(Errors.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,getErrorsMethodCode));
+    paramTypeClassNode.addMethod(new MethodNode(GET_ERRORS_METHOD_NAME,Modifier.PUBLIC,ERRORS_CLASS_NODE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,getErrorsMethodCode));
   }
 }

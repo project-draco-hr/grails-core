@@ -37,4 +37,7 @@
  else   if (collection instanceof org.hibernate.mapping.Map) {
     mappings.addSecondPass(new MapSecondPass(property,mappings,collection,sessionFactoryBeanName));
   }
+ else {
+    mappings.addSecondPass(new GrailsCollectionSecondPass(property,mappings,collection,sessionFactoryBeanName));
+  }
 }

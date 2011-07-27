@@ -1,6 +1,9 @@
 {
   for (  PropertyValue pv : mpvs.getPropertyValues()) {
     final Object value=pv.getValue();
+    if (JSONObject.NULL.getClass().isInstance(value)) {
+      mpvs.removePropertyValue(pv);
+    }
     if (isNotCandidateForBinding(value)) {
       mpvs.removePropertyValue(pv);
     }

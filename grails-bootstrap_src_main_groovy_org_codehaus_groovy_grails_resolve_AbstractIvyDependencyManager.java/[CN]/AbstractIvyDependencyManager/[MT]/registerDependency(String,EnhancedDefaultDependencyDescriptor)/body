@@ -1,4 +1,22 @@
 {
+  String plugin=descriptor.getPlugin();
+  if (plugin != null) {
+    EnhancedDefaultDependencyDescriptor pluginDependencyDescriptor=(EnhancedDefaultDependencyDescriptor)getPluginDependencyDescriptor(plugin);
+    if (pluginDependencyDescriptor != null) {
+      ExcludeRule[] excludeRules=pluginDependencyDescriptor.getExcludeRules(scope);
+      if (excludeRules != null) {
+        for (        ExcludeRule excludeRule : excludeRules) {
+          descriptor.addExcludeRule(scope,excludeRule);
+        }
+      }
+      String pluginScope=pluginDependencyDescriptor.getScope();
+      if (pluginScope != null) {
+        if (isCompileOrRuntimeScope(scope)) {
+          scope=pluginScope;
+        }
+      }
+    }
+  }
   registerDependencyCommon(scope,descriptor);
   ModuleRevisionId revisionId=descriptor.getDependencyRevisionId();
   modules.add(revisionId.getModuleId());
@@ -13,7 +31,7 @@
     orgToDepMap.put(org,deps);
   }
   dependencyDescriptors.add(descriptor);
-  if (descriptor.isExportedToApplication()) {
+  if (shouldIncludeDependency(descriptor)) {
     moduleDescriptor.addDependency(descriptor);
   }
 }

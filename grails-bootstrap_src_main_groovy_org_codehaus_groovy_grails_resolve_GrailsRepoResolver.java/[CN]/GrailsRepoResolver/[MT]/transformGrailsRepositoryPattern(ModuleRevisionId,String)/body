@@ -5,7 +5,7 @@
     versionTag="LATEST_RELEASE";
   }
  else {
-    versionTag="RELEASE_" + revision.replace('.','_');
+    versionTag="RELEASE_[revision]";
   }
   return pattern.replace("RELEASE_*",versionTag);
 }

@@ -20,11 +20,16 @@
     }
     for (    GrailsPlugin grailsPlugin : pluginList) {
       if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {
-        if (cls == null) {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
-        }
+        try {
+          if (cls == null) {
+            grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+          }
  else {
-          grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+            grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+          }
+        }
+ catch (        Exception e) {
+          LOG.error("Plugin " + grailsPlugin + " could not reload changes to file ["+ file+ "]: "+ e.getMessage(),e);
         }
       }
     }

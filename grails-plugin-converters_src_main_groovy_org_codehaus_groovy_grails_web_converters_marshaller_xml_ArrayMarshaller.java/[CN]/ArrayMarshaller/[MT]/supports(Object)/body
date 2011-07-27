@@ -1,3 +1,3 @@
 {
-  return object.getClass().isArray();
+  return object != null && object.getClass().isArray();
 }

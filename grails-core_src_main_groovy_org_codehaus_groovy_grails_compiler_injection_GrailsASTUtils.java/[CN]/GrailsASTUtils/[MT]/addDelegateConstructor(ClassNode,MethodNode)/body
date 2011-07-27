@@ -17,14 +17,14 @@
   }
  else {
     ConstructorNode cn=findConstructor(classNode,constructorParams);
-    if (cn != null) {
+    if (cn == null) {
+      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams),null,constructorBody);
+      classNode.addConstructor(cn);
+    }
+ else {
       Statement code=cn.getCode();
       constructorBody.addStatement(code);
       cn.setCode(constructorBody);
-    }
- else {
-      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams),null,constructorBody);
-      classNode.addConstructor(cn);
     }
     ConstructorNode defaultConstructor=getDefaultConstructor(classNode);
     if (defaultConstructor == null) {

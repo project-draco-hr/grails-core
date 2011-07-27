@@ -9,7 +9,7 @@
     GrailsControllerHandlerMapping handlerMapping=new GrailsControllerHandlerMapping();
     appCtx.registerMockBean("controllerHandlerMappings",handlerMapping);
     GrailsDispatcherServlet dispatcherServlet=new GrailsDispatcherServlet(){
-      @Override protected WebApplicationContext initWebApplicationContext() throws BeansException {
+      @Override protected WebApplicationContext initWebApplicationContext(){
         initStrategies(appCtx);
         return appCtx;
       }

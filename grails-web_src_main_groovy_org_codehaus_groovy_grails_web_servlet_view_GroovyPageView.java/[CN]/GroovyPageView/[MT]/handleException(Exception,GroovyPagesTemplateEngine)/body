@@ -3,11 +3,8 @@
   if (exception instanceof GroovyPagesException) {
     throw (GroovyPagesException)exception;
   }
-  if (engine != null) {
-    GroovyPagesException gspException=createGroovyPageException(exception,engine,getUrl());
-    throw gspException;
-  }
- else {
+  if (engine == null) {
     throw new GroovyPagesException("Error processing GroovyPageView: " + exception.getMessage(),exception,-1,getUrl());
   }
+  throw createGroovyPageException(exception,engine,getUrl());
 }

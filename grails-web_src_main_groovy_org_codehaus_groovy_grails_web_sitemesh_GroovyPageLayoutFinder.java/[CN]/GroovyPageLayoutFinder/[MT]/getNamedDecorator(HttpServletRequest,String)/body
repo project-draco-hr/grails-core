@@ -1,0 +1,25 @@
+{
+  if (StringUtils.isBlank(name))   return null;
+  if (cacheEnabled) {
+    DecoratorCacheValue cacheValue=decoratorCache.get(name);
+    if (cacheValue != null && (!gspReloadEnabled || !cacheValue.isExpired())) {
+      return cacheValue.getDecorator();
+    }
+  }
+  Decorator d=null;
+  GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
+  GroovyPageScriptSource scriptSource=null;
+  if (controller != null) {
+    scriptSource=groovyPageLocator.findLayout(controller,name);
+  }
+ else {
+    scriptSource=groovyPageLocator.findLayout(name);
+  }
+  if (scriptSource != null) {
+    d=createDecorator(name,scriptSource.getURI());
+  }
+  if (cacheEnabled) {
+    decoratorCache.put(name,new DecoratorCacheValue(d));
+  }
+  return d;
+}

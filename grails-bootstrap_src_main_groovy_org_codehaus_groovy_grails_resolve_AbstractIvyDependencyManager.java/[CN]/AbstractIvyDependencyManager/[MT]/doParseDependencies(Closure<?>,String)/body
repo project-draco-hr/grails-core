@@ -1,11 +1,11 @@
 {
   DependencyConfigurationContext context;
   IvyDependencyManager dependencyManager=(IvyDependencyManager)this;
-  if (pluginName != null) {
-    context=DependencyConfigurationContext.forPlugin(dependencyManager,pluginName);
+  if (pluginName == null) {
+    context=DependencyConfigurationContext.forApplication(dependencyManager);
   }
  else {
-    context=DependencyConfigurationContext.forApplication(dependencyManager);
+    context=DependencyConfigurationContext.forPlugin(dependencyManager,pluginName);
   }
   definition.setDelegate(new DependencyConfigurationConfigurer(context));
   definition.setResolveStrategy(Closure.DELEGATE_FIRST);

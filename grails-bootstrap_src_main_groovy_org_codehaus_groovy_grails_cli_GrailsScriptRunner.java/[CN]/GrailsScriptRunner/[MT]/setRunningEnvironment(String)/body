@@ -1,7 +1,0 @@
-{
-  System.setProperty("base.dir",settings.getBaseDir().getPath());
-  System.setProperty(Environment.KEY,env);
-  System.setProperty(Environment.DEFAULT,"true");
-  settings.setGrailsEnv(env);
-  settings.setDefaultEnv(useDefaultEnv);
-}

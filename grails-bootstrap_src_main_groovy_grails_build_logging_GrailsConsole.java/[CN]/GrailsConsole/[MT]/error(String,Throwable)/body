@@ -5,7 +5,7 @@
       error(ERROR,msg);
     }
  else {
-      error(ERROR,msg);
+      error(ERROR,msg + STACKTRACE_MESSAGE);
     }
   }
   finally {

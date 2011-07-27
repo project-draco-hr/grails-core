@@ -1,3 +1,47 @@
 {
-  return null;
+  Resource resource=uriToResourceCache.get(uri);
+  if (resource == null) {
+    PluginResourceInfo info=inferPluginNameFromURI(uri);
+    if (Environment.isWarDeployed()) {
+      Resource defaultResource=defaultResourceLoader.getResource(uri);
+      if (defaultResource != null && defaultResource.exists()) {
+        resource=defaultResource;
+      }
+    }
+ else {
+      String uriWebAppRelative=WEB_APP_DIR + uri;
+      for (      String resourceSearchDirectory : resourceSearchDirectories) {
+        Resource res=resolveExceptionSafe(resourceSearchDirectory + uriWebAppRelative);
+        if (res.exists()) {
+          resource=res;
+        }
+ else         if (!Environment.isWarDeployed()) {
+          Resource dir=resolveExceptionSafe(resourceSearchDirectory);
+          if (dir.exists() && info != null) {
+            try {
+              String filename=dir.getFilename();
+              if (filename != null && filename.equals(info.pluginName)) {
+                Resource pluginFile=dir.createRelative(WEB_APP_DIR + info.uri);
+                if (pluginFile.exists()) {
+                  resource=pluginFile;
+                }
+              }
+            }
+ catch (            IOException e) {
+            }
+          }
+        }
+      }
+    }
+    if (resource == null && info != null) {
+      resource=findResourceInBinaryPlugins(info);
+    }
+    if (resource != null) {
+      uriToResourceCache.put(uri,resource);
+    }
+ else     if (Environment.isWarDeployed()) {
+      uriToResourceCache.put(uri,NULL_RESOURCE);
+    }
+  }
+  return resource == NULL_RESOURCE ? null : resource;
 }

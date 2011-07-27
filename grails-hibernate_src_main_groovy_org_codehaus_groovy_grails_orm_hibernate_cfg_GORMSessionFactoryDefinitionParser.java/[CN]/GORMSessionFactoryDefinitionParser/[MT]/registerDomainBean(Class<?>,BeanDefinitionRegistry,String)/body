@@ -5,13 +5,7 @@
   RootBeanDefinition domainDef=new RootBeanDefinition(MethodInvokingFactoryBean.class);
   domainDef.getPropertyValues().addPropertyValue("targetObject",new RuntimeBeanReference(GrailsApplication.APPLICATION_ID));
   domainDef.getPropertyValues().addPropertyValue("targetMethod","getArtefact");
-  domainDef.getPropertyValues().addPropertyValue("arguments",new ArrayList<String>(){
-{
-      add(DomainClassArtefactHandler.TYPE);
-      add(entityClass.getName());
-    }
-  }
-);
+  domainDef.getPropertyValues().addPropertyValue("arguments",Arrays.asList(DomainClassArtefactHandler.TYPE,entityClass.getName()));
   final String domainRef=entityClass.getName() + "Domain";
   if (StringUtils.hasText(messageSourceRef)) {
     GenericBeanDefinition validatorDef=new GenericBeanDefinition();

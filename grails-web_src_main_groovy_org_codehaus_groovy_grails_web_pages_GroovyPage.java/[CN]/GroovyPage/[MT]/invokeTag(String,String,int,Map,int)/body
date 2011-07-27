@@ -5,28 +5,17 @@
     final Map tmpAttrs=attrs;
     tagName="render";
     tagNamespace=DEFAULT_NAMESPACE;
-    attrs=new HashMap(){
-{
-        put("model",tmpAttrs);
-        put("template",tmpTagName);
-      }
-    }
-;
+    attrs=CollectionUtils.newMap("model",tmpAttrs,"template",tmpTagName);
   }
  else   if (tagNamespace.equals(LINK_NAMESPACE)) {
     final String tmpTagName=tagName;
     final Map tmpAttrs=attrs;
     tagName="link";
     tagNamespace=DEFAULT_NAMESPACE;
-    attrs=new HashMap(){
-{
-        if (tmpAttrs.size() > 0) {
-          put("params",tmpAttrs);
-        }
-        put("mapping",tmpTagName);
-      }
+    attrs=CollectionUtils.newMap("mapping",tmpTagName);
+    if (!tmpAttrs.isEmpty()) {
+      attrs.put("params",tmpAttrs);
     }
-;
   }
   try {
     GroovyObject tagLib=getTagLib(tagNamespace,tagName);

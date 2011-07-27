@@ -1,17 +1,19 @@
 {
-  if (definition != null && applicationName != null && applicationVersion != null) {
-    if (moduleDescriptor == null) {
-      setModuleDescriptor((DefaultModuleDescriptor)createModuleDescriptor());
-    }
-    doParseDependencies(definition,null);
-    if (readPom == true && buildSettings != null) {
-      registerPomDependencies();
-    }
-    if (metadata != null) {
-      Map<String,String> metadataDeclaredPlugins=metadata.getInstalledPlugins();
-      if (metadataDeclaredPlugins != null) {
-        addMetadataPluginDependencies(metadataDeclaredPlugins);
-      }
-    }
+  if (definition == null || applicationName == null || applicationVersion == null) {
+    return;
+  }
+  if (moduleDescriptor == null) {
+    setModuleDescriptor((DefaultModuleDescriptor)createModuleDescriptor());
+  }
+  doParseDependencies(definition,null);
+  if (readPom == true && buildSettings != null) {
+    registerPomDependencies();
+  }
+  if (metadata == null) {
+    return;
+  }
+  Map<String,String> metadataDeclaredPlugins=metadata.getInstalledPlugins();
+  if (metadataDeclaredPlugins != null) {
+    addMetadataPluginDependencies(metadataDeclaredPlugins);
   }
 }

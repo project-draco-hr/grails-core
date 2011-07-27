@@ -1,6 +1,3 @@
 {
-  if (clazz == null) {
-    return null;
-  }
-  return getScriptName(clazz.getName());
+  return clazz == null ? null : getScriptName(clazz.getName());
 }

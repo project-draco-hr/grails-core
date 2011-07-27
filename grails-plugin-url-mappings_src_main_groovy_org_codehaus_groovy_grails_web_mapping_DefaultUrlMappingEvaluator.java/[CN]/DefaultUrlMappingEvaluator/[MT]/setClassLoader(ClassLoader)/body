@@ -1,8 +1,4 @@
 {
-  if (classLoader instanceof GroovyClassLoader) {
-    this.classLoader=(GroovyClassLoader)classLoader;
-  }
- else {
-    throw new IllegalArgumentException("Property [classLoader] must be an instance of GroovyClassLoader");
-  }
+  Assert.isInstanceOf(GroovyClassLoader.class,classLoader,"Property [classLoader] must be an instance of GroovyClassLoader");
+  this.classLoader=(GroovyClassLoader)classLoader;
 }

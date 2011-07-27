@@ -3,10 +3,12 @@
   String[] propertyNames=compositeId.getPropertyNames();
   PropertyConfig config=getPropertyConfig(property);
   if (config == null)   config=new PropertyConfig();
-  for (  String propertyName : propertyNames) {
-    final ColumnConfig cc=new ColumnConfig();
-    cc.setName(addUnderscore(namingStrategy.classToTableName(refDomainClass.getShortName()),getDefaultColumnName(refDomainClass.getPropertyByName(propertyName),sessionFactoryBeanName)));
-    config.getColumns().add(cc);
+  if (config.getColumns().size() != propertyNames.length) {
+    for (    String propertyName : propertyNames) {
+      final ColumnConfig cc=new ColumnConfig();
+      cc.setName(addUnderscore(namingStrategy.classToTableName(refDomainClass.getShortName()),getDefaultColumnName(refDomainClass.getPropertyByName(propertyName),sessionFactoryBeanName)));
+      config.getColumns().add(cc);
+    }
   }
   bindSimpleValue(property,value,path,config,sessionFactoryBeanName);
 }

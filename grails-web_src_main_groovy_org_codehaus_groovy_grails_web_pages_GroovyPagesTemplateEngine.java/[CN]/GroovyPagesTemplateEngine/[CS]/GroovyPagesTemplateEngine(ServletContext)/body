@@ -1,5 +1,3 @@
 {
-  Assert.notNull(servletContext,"Argument [servletContext] cannot be null");
-  this.resourceLoader=new ServletContextResourceLoader(servletContext);
-  this.servletContextLoader=new ServletContextResourceLoader(servletContext);
+  this.servletContext=servletContext;
 }

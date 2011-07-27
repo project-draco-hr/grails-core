@@ -9,11 +9,11 @@
 ;
   Binding b=new Binding(){
     @Override public void setVariable(    String name,    Object value){
-      if (currentBeanConfig != null) {
-        setPropertyOnBeanConfig(name,value);
+      if (currentBeanConfig == null) {
+        super.setVariable(name,value);
       }
  else {
-        super.setVariable(name,value);
+        setPropertyOnBeanConfig(name,value);
       }
     }
   }

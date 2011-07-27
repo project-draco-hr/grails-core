@@ -1,7 +1,7 @@
 {
   GrailsWebRequest webRequest=buildMockRequest(null);
   MockApplicationContext appCtx=(MockApplicationContext)webRequest.getApplicationContext();
-  appCtx.registerMockResource("WEB-INF/grails-app/views/layouts/test2/testAction.gsp","<html><body><g:layoutBody /></body></html>");
+  appCtx.registerMockResource("/grails-app/views/layouts/test2/testAction.gsp","<html><body><g:layoutBody /></body></html>");
   MockHttpServletRequest request=new MockHttpServletRequest("GET","orders/list");
   ServletContext context=webRequest.getServletContext();
   GroovyClassLoader gcl=new GroovyClassLoader();
@@ -15,6 +15,6 @@
   Page page=parser.parse(html.toCharArray());
   Decorator d=m.getDecorator(request,page);
   assertNotNull(d);
-  assertEquals("/WEB-INF/grails-app/views/layouts/test2/testAction.gsp",d.getPage());
+  assertEquals("/layouts/test2/testAction.gsp",d.getPage());
   assertEquals("test2/testAction",d.getName());
 }

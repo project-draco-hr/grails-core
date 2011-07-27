@@ -1,4 +1,4 @@
 {
   EnhancedDefaultDependencyDescriptor dd=(EnhancedDefaultDependencyDescriptor)pluginNameToDescriptorMap.get(pluginName);
-  return dd != null && dd.isTransitivelyIncluded();
+  return dd != null && dd.isTransitivelyIncluded() && dd.isExported();
 }

@@ -1,3 +1,0 @@
-{
-  return beanName.endsWith(ControllerArtefactHandler.TYPE) && !processedControllerNames.contains(beanName) && grailsApplication != null && bean != null && (bean instanceof GroovyObject);
-}

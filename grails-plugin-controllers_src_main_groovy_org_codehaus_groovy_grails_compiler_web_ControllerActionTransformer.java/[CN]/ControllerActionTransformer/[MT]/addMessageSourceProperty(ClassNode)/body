@@ -1,0 +1,6 @@
+{
+  final PropertyNode messageSourceProperty=paramTypeClassNode.getProperty("messageSource");
+  if (messageSourceProperty == null) {
+    paramTypeClassNode.addProperty("messageSource",Modifier.PUBLIC,new ClassNode(MessageSource.class),null,null,null);
+  }
+}

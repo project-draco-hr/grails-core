@@ -1,0 +1,13 @@
+{
+  final Resource descriptorResource=descriptor.getResource();
+  try {
+    Resource resource=descriptorResource.createRelative("static" + path);
+    if (resource.exists()) {
+      return resource;
+    }
+  }
+ catch (  IOException e) {
+    return null;
+  }
+  return null;
+}

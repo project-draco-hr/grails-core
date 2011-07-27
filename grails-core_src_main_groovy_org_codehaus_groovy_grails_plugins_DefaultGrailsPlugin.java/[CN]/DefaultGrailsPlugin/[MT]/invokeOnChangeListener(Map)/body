@@ -5,7 +5,11 @@
     GenericApplicationContext ctx=(GenericApplicationContext)applicationContext;
     ConfigurableListableBeanFactory beanFactory=ctx.getBeanFactory();
     for (    BeanFactoryPostProcessor postProcessor : ctx.getBeanFactoryPostProcessors()) {
-      postProcessor.postProcessBeanFactory(beanFactory);
+      try {
+        postProcessor.postProcessBeanFactory(beanFactory);
+      }
+ catch (      IllegalStateException e) {
+      }
     }
   }
 }

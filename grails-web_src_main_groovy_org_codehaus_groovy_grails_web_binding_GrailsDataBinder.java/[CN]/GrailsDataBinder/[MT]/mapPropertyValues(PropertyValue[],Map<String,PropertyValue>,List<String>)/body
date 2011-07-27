@@ -1,6 +1,8 @@
 {
   for (  PropertyValue pv : pvs) {
-    valuesByName.put(pv.getName(),pv);
-    valueNames.add(pv.getName());
+    String propertyName=pv.getName();
+    if (!isAllowed(propertyName))     continue;
+    valuesByName.put(propertyName,pv);
+    valueNames.add(propertyName);
   }
 }

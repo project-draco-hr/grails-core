@@ -1,8 +1,7 @@
 {
   GrailsPrintWriter out=(GrailsPrintWriter)createResponseWriter(response);
   try {
-    Writable w=template.make();
-    w.writeTo(out);
+    template.make().writeTo(out);
   }
  catch (  Exception e) {
     out.setError();

@@ -1,6 +1,6 @@
 {
   try {
-    cursorMove=0;
+    cursorMove=1;
     userInputActive=true;
     try {
       return reader.readLine(prompt);

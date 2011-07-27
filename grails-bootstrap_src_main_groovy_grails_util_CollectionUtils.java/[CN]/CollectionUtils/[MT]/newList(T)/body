@@ -1,0 +1,6 @@
+{
+  if (values == null) {
+    return Collections.emptyList();
+  }
+  return new ArrayList<T>(Arrays.asList(values));
+}

@@ -1,0 +1,4 @@
+{
+  String controllerName=getNameForController(controller);
+  return findPage(uriService.getTemplateURI(controllerName,templateName));
+}

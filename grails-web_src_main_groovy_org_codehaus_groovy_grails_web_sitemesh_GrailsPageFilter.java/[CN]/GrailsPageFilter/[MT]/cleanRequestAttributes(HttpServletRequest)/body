@@ -1,5 +1,0 @@
-{
-  request.removeAttribute(GrailsApplicationAttributes.PAGE_SCOPE);
-  request.removeAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE);
-  request.setAttribute(ALREADY_APPLIED_KEY,null);
-}

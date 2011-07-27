@@ -7,18 +7,42 @@
     urls.add(settings.getResourcesDir().toURI().toURL());
   }
   final boolean dependenciesExternallyConfigured=settings.isDependenciesExternallyConfigured();
-  final List<File> buildDependencies=settings.getBuildDependencies();
+  final List<File> buildDependencies;
+  buildDependencies=settings.getBuildDependencies();
   if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
     GrailsConsole.getInstance().error("Required Grails build dependencies were not found. Either GRAILS_HOME is not set or your dependencies are misconfigured in grails-app/conf/BuildConfig.groovy");
+    cleanResolveCache(settings);
     System.exit(1);
   }
   addDependenciesToURLs(excludes,urls,buildDependencies);
   addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());
   addDependenciesToURLs(excludes,urls,settings.getTestDependencies());
+  settings.getRuntimeDependencies();
+  settings.getCompileDependencies();
   if (!skipPlugins) {
     for (    File dir : pluginPathSupport.listKnownPluginDirs()) {
       addPluginLibs(dir,urls,settings);
     }
+  }
+  ResolveReport buildResolveReport=settings.getBuildResolveReport();
+  if (buildResolveReport != null && buildResolveReport.hasError()) {
+    handleResolveError(settings,buildResolveReport);
+  }
+  ResolveReport compileResolveReport=settings.getCompileResolveReport();
+  if (compileResolveReport != null && compileResolveReport.hasError()) {
+    handleResolveError(settings,compileResolveReport);
+  }
+  ResolveReport runtimeResolveReport=settings.getRuntimeResolveReport();
+  if (runtimeResolveReport != null && runtimeResolveReport.hasError()) {
+    handleResolveError(settings,runtimeResolveReport);
+  }
+  ResolveReport testResolveReport=settings.getTestResolveReport();
+  if (testResolveReport != null && testResolveReport.hasError()) {
+    handleResolveError(settings,testResolveReport);
+  }
+  ResolveReport providedResolveReport=settings.getProvidedResolveReport();
+  if (providedResolveReport != null && providedResolveReport.hasError()) {
+    handleResolveError(settings,providedResolveReport);
   }
   return urls.toArray(new URL[urls.size()]);
 }

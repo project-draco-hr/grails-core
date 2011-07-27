@@ -1,0 +1,15 @@
+{
+  try {
+    ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
+    List<ClassInjector> injectors=ArtefactTypeAstTransformation.findInjectors(artefactType,classInjectors);
+    if (!injectors.isEmpty()) {
+      for (      ClassInjector injector : injectors) {
+        injector.performInjection(sourceUnit,cNode);
+      }
+    }
+  }
+ catch (  RuntimeException e) {
+    GrailsConsole.getInstance().error("Error occurred calling AST injector: " + e.getMessage(),e);
+    throw e;
+  }
+}

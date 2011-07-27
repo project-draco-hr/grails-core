@@ -6,7 +6,9 @@
     env=env != null ? env : Environment.DEVELOPMENT.getName();
   }
  else {
-    env=environment;
+    env=environment != null ? environment : Environment.DEVELOPMENT.getName();
   }
+  System.setProperty(Environment.KEY,env);
+  System.setProperty(Environment.DEFAULT,String.valueOf(useDefaultEnv));
   return env;
 }

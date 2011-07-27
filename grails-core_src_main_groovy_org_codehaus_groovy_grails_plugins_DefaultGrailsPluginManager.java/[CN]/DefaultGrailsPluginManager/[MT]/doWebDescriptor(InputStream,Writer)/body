@@ -1,23 +1,17 @@
 {
   checkInitialised();
   try {
-    XmlSlurper slurper=new XmlSlurper();
-    slurper.setEntityResolver(new EntityResolver(){
-      public InputSource resolveEntity(      String publicId,      String systemId) throws SAXException, IOException {
-        if (systemId != null && systemId.equals("http://java.sun.com/dtd/web-app_2_3.dtd")) {
-          return new InputSource(new StringReader(getWeb23DTD()));
-        }
-        return null;
-      }
-    }
-);
-    GPathResult result=slurper.parse(inputStream);
+    Document document=DOMBuilder.parse(new InputStreamReader(inputStream));
+    Element documentElement=document.getDocumentElement();
     for (    GrailsPlugin plugin : pluginList) {
       if (plugin.supportsCurrentScopeAndEnvironment()) {
-        plugin.doWithWebDescriptor(result);
+        plugin.doWithWebDescriptor(documentElement);
       }
     }
-    writeWebDescriptorResult(result,target);
+    if (ClassUtils.isPresent("javax.servlet.AsyncContext",Thread.currentThread().getContextClassLoader())) {
+      new Servlet3AsyncWebXmlProcessor().process(documentElement);
+    }
+    writeWebDescriptorResult(documentElement,target);
   }
  catch (  ParserConfigurationException e) {
     throw new PluginException("Unable to configure web.xml due to parser configuration problem: " + e.getMessage(),e);

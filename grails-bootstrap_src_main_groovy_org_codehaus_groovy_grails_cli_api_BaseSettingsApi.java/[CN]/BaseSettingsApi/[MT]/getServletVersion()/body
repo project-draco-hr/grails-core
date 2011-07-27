@@ -1,3 +1,3 @@
 {
-  return metadata.getServletVersion() != null ? metadata.getServletVersion() : "2.5";
+  return buildSettings.getServletVersion();
 }

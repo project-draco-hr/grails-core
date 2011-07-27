@@ -24,33 +24,37 @@
     GrailsDomainClass domainClass=(GrailsDomainClass)domainClass1;
     GrailsDomainClassProperty[] props=domainClass.getPersistentProperties();
     for (    GrailsDomainClassProperty prop : props) {
-      if (prop != null && prop.isAssociation()) {
-        GrailsDomainClass referenced=prop.getReferencedDomainClass();
-        if (referenced != null) {
-          boolean isOwnedBy=referenced.isOwningClass(domainClass.getClazz());
-          prop.setOwningSide(isOwnedBy);
-          String refPropertyName=null;
-          try {
-            refPropertyName=prop.getReferencedPropertyName();
+      if (prop == null || !prop.isAssociation()) {
+        continue;
+      }
+      GrailsDomainClass referenced=prop.getReferencedDomainClass();
+      if (referenced == null) {
+        continue;
+      }
+      boolean isOwnedBy=referenced.isOwningClass(domainClass.getClazz());
+      prop.setOwningSide(isOwnedBy);
+      String refPropertyName=null;
+      try {
+        refPropertyName=prop.getReferencedPropertyName();
+      }
+ catch (      UnsupportedOperationException e) {
+      }
+      if (StringUtils.isBlank(refPropertyName)) {
+        GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
+        for (        GrailsDomainClassProperty referencedProp : referencedProperties) {
+          if (prop.equals(referencedProp) && prop.isBidirectional()) {
+            continue;
           }
- catch (          UnsupportedOperationException e) {
-          }
-          if (!StringUtils.isBlank(refPropertyName)) {
-            GrailsDomainClassProperty otherSide=referenced.getPropertyByName(refPropertyName);
-            prop.setOtherSide(otherSide);
-            otherSide.setOtherSide(prop);
-          }
- else {
-            GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
-            for (            GrailsDomainClassProperty referencedProp : referencedProperties) {
-              if (prop.equals(referencedProp) && prop.isBidirectional())               continue;
-              if (isCandidateForOtherSide(domainClass,prop,referencedProp)) {
-                prop.setOtherSide(referencedProp);
-                break;
-              }
-            }
+          if (isCandidateForOtherSide(domainClass,prop,referencedProp)) {
+            prop.setOtherSide(referencedProp);
+            break;
           }
         }
+      }
+ else {
+        GrailsDomainClassProperty otherSide=referenced.getPropertyByName(refPropertyName);
+        prop.setOtherSide(otherSide);
+        otherSide.setOtherSide(prop);
       }
     }
   }

@@ -1,0 +1,9 @@
+{
+  File basePluginDescriptor=buildSettings.getBasePluginDescriptor();
+  if (basePluginDescriptor != null) {
+    String basePluginName=GrailsNameUtils.getPluginName(basePluginDescriptor.getName());
+    String plugin=descriptor.getPlugin();
+    return plugin == null || plugin.equals(basePluginName);
+  }
+  return false;
+}

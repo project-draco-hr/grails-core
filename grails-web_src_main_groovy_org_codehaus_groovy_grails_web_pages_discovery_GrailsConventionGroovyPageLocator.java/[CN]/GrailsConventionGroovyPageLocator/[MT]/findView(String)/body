@@ -1,0 +1,7 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    return findView(webRequest.getControllerName(),viewName);
+  }
+  return findViewByPath(viewName);
+}

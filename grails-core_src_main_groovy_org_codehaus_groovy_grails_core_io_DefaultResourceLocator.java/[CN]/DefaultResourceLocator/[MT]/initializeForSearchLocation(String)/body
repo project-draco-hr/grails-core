@@ -1,5 +1,5 @@
 {
-  String searchLocationPlusSlash=searchLocation + FILE_SEPARATOR;
+  String searchLocationPlusSlash=searchLocation.endsWith("/") ? searchLocation : searchLocation + FILE_SEPARATOR;
   try {
     File[] directories=new File(searchLocationPlusSlash + GrailsResourceUtils.GRAILS_APP_DIR).listFiles(new FileFilter(){
       public boolean accept(      File file){
@@ -17,4 +17,5 @@
   }
   classSearchDirectories.add(searchLocationPlusSlash + "src/java");
   classSearchDirectories.add(searchLocationPlusSlash + "src/groovy");
+  resourceSearchDirectories.add(searchLocationPlusSlash);
 }

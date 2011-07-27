@@ -1,7 +1,5 @@
 {
-  if (!fieldValues.containsKey("year")) {
-    throw new IllegalArgumentException("Can't populate a date without a year");
-  }
+  Assert.isTrue(fieldValues.containsKey("year"),"Can't populate a date without a year");
   String yearString=(String)fieldValues.get("year");
   String monthString=(String)fieldValues.get("month");
   String dayString=(String)fieldValues.get("day");
@@ -12,9 +10,7 @@
   }
   int year;
   try {
-    if (StringUtils.isBlank(yearString)) {
-      throw new IllegalArgumentException("Can't populate a date without a year");
-    }
+    Assert.isTrue(!StringUtils.isBlank(yearString),"Can't populate a date without a year");
     year=Integer.parseInt(yearString);
     int month=getIntegerValue(fieldValues,"month",1);
     int day=getIntegerValue(fieldValues,"day",1);

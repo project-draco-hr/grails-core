@@ -1,0 +1,18 @@
+{
+  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
+  try {
+    System.setProperty("disable.grails.plugin.transform","true");
+    console.updateStatus("Loading Grails " + settings.getGrailsVersion());
+    settings.loadConfig();
+    System.setProperty("springloaded.directoriesContainingReloadableCode",settings.getClassesDir().getAbsolutePath() + ',' + settings.getPluginClassesDir().getAbsolutePath());
+  }
+ catch (  Exception e) {
+    console.error("There was an error loading the BuildConfig: " + e.getMessage(),e);
+    System.exit(1);
+  }
+ finally {
+    System.setProperty("disable.grails.plugin.transform","false");
+  }
+  BuildSettingsHolder.setSettings(settings);
+  return callPluginOrGrailsScript(commandLine,scriptName,env);
+}

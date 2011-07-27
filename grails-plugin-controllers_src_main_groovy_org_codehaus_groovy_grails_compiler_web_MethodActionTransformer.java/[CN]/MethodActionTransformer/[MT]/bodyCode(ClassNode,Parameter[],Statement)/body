@@ -1,5 +1,0 @@
-{
-  BlockStatement wrapper=initializeActionParameters(classNode,actionParameters);
-  wrapper.addStatement(actionCode);
-  return wrapper;
-}

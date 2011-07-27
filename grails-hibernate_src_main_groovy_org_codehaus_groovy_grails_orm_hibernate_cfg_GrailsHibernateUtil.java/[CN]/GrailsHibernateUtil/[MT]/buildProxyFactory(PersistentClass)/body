@@ -1,6 +1,6 @@
 {
   GroovyAwareJavassistProxyFactory proxyFactory=new GroovyAwareJavassistProxyFactory();
-  @SuppressWarnings("unchecked") Set<Class<?>> proxyInterfaces=new HashSet<Class<?>>(Arrays.asList(HibernateProxy.class));
+  @SuppressWarnings("unchecked") Set<Class<HibernateProxy>> proxyInterfaces=CollectionUtils.newSet(HibernateProxy.class);
   final Class<?> javaClass=persistentClass.getMappedClass();
   final Property identifierProperty=persistentClass.getIdentifierProperty();
   final Getter idGetter=identifierProperty != null ? identifierProperty.getGetter(javaClass) : null;

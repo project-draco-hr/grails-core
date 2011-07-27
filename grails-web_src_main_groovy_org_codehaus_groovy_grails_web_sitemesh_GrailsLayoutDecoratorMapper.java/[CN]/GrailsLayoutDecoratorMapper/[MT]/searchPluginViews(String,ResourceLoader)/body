@@ -1,6 +1,0 @@
-{
-  if (Metadata.getCurrent().isWarDeployed()) {
-    return searchPluginViewsForWarDeployed(name,resourceLoader);
-  }
-  return searchPluginViewsInDevelopmentMode(name);
-}

@@ -1,0 +1,15 @@
+{
+  ClosureExpression closureExpression=(ClosureExpression)closureProperty.getInitialExpression();
+  final Parameter[] parameters=closureExpression.getParameters();
+  final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,parameters);
+  final ArgumentListExpression closureInvocationArguments=new ArgumentListExpression();
+  for (  Parameter p : parameters) {
+    final String name=p.getName();
+    closureInvocationArguments.addExpression(new VariableExpression(name));
+  }
+  final MethodCallExpression methodCallExpression=new MethodCallExpression(closureExpression,"call",closureInvocationArguments);
+  newMethodCode.addStatement(new ExpressionStatement(methodCallExpression));
+  final MethodNode methodNode=new MethodNode(closureProperty.getName(),Modifier.PUBLIC,new ClassNode(Object.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,newMethodCode);
+  annotateActionMethod(parameters,methodNode);
+  controllerClassNode.addMethod(methodNode);
+}

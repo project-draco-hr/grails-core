@@ -1,0 +1,7 @@
+{
+  String format=lookupRequestFormat();
+  if (format != null) {
+    return viewName + DOT + format;
+  }
+  return viewName;
+}

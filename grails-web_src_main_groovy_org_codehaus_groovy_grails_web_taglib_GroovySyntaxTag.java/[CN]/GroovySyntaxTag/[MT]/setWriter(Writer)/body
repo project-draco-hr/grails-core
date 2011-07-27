@@ -1,6 +1,4 @@
 {
-  if (!(w instanceof PrintWriter)) {
-    throw new IllegalArgumentException("A GroovySynax tag requires a java.io.PrintWriter instance");
-  }
+  Assert.isInstanceOf(PrintWriter.class,w,"A GroovySynax tag requires a java.io.PrintWriter instance");
   out=(PrintWriter)w;
 }

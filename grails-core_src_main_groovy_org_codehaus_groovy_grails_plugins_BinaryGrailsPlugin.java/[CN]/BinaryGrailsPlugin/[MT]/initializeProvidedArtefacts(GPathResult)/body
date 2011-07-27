@@ -1,18 +1,15 @@
 {
-  @SuppressWarnings("hiding") List<Class> providedArtefacts=new ArrayList<Class>();
-  providedArtefacts.addAll(Arrays.asList(super.getProvidedArtefacts()));
+  List<Class> artefacts=new ArrayList<Class>();
   if (descriptor != null) {
     GPathResult resources=(GPathResult)descriptor.getProperty("resources");
     if (!resources.isEmpty()) {
       GPathResult allResources=(GPathResult)resources.getProperty("resource");
       if (!allResources.isEmpty()) {
         final ClassLoader classLoader=application.getClassLoader();
-        final Iterator i=allResources.nodeIterator();
-        while (i.hasNext()) {
-          Node child=(Node)i.next();
-          final String className=child.text();
+        for (Iterator i=allResources.nodeIterator(); i.hasNext(); ) {
+          final String className=((Node)i.next()).text();
           try {
-            providedArtefacts.add(classLoader.loadClass(className));
+            artefacts.add(classLoader.loadClass(className));
           }
  catch (          ClassNotFoundException e) {
             LOG.error("Class not found loading plugin resource [" + className + "]. Resource skipped.",e);
@@ -21,5 +18,6 @@
       }
     }
   }
-  this.providedArtefacts=providedArtefacts.toArray(new Class[providedArtefacts.size()]);
+  artefacts.addAll(Arrays.asList(super.getProvidedArtefacts()));
+  providedArtefacts=artefacts.toArray(new Class[artefacts.size()]);
 }

@@ -1,0 +1,16 @@
+{
+  enhanceCommandObjectClass(commandObjectTypeClassNode);
+  final Expression constructorCallExpression=new ConstructorCallExpression(commandObjectTypeClassNode,EMPTY_TUPLE);
+  final Statement newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,commandObjectTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
+  wrapper.addStatement(newCommandCode);
+  final Statement autoWireCommandObjectStatement=getAutoWireCommandObjectStatement(paramName);
+  wrapper.addStatement(autoWireCommandObjectStatement);
+  final Statement statement=getCommandObjectDataBindingStatement(classNode,paramName,commandObjectTypeClassNode);
+  wrapper.addStatement(statement);
+  final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
+  MethodNode validateMethod=commandObjectTypeClassNode.getMethod("validate",new Parameter[0]);
+  if (validateMethod != null) {
+    validateMethodCallExpression.setMethodTarget(validateMethod);
+  }
+  wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
+}

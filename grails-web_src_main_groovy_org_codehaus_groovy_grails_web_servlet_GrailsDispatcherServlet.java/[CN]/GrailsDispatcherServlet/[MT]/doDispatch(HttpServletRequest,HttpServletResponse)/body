@@ -14,8 +14,9 @@
     response=useWrappedOrOriginalResponse(response);
   }
   GrailsWebRequest requestAttributes=null;
-  GrailsWebRequest previousRequestAttributes=null;
+  RequestAttributes previousRequestAttributes=null;
   Exception handlerException=null;
+  boolean isAsyncRequest=processedRequest.getAttribute("javax.servlet.async.request_uri") != null;
   try {
     ModelAndView mv;
     boolean errorView=false;
@@ -24,7 +25,7 @@
       if (exceptionAttribute == null) {
         processedRequest=checkMultipart(request);
       }
-      previousRequestAttributes=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+      previousRequestAttributes=RequestContextHolder.currentRequestAttributes();
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
       copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
       WebUtils.storeGrailsWebRequest(requestAttributes);
@@ -47,10 +48,25 @@
           interceptorIndex=i;
         }
       }
-      HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
-      mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
-      if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
-        mv.setViewName(getDefaultViewName(request));
+      if (isAsyncRequest) {
+        Object modelAndViewO=processedRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW);
+        if (modelAndViewO != null) {
+          mv=(ModelAndView)modelAndViewO;
+        }
+ else {
+          mv=null;
+        }
+      }
+ else {
+        HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
+        mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
+        if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
+          processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
+          return;
+        }
+        if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
+          mv.setViewName(getDefaultViewName(request));
+        }
       }
       if (mappedHandler.getInterceptors() != null) {
         for (int i=mappedHandler.getInterceptors().length - 1; i >= 0; i--) {
@@ -75,6 +91,22 @@ catch (    Exception ex) {
     if (mv != null && !mv.wasCleared()) {
       try {
         render(mv,processedRequest,response);
+        if (isAsyncRequest && (response instanceof GrailsContentBufferingResponse)) {
+          GroovyPageLayoutFinder groovyPageLayoutFinder=getWebApplicationContext().getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
+          GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
+          HttpServletResponse targetResponse=bufferingResponse.getTargetResponse();
+          Content content=bufferingResponse.getContent();
+          if (content != null) {
+            Decorator decorator=groovyPageLayoutFinder.findLayout(request,content);
+            if (decorator != null) {
+              GroovyPageLayoutRenderer renderer=new GroovyPageLayoutRenderer(decorator,requestAttributes.getAttributes().getPagesTemplateEngine(),getWebApplicationContext());
+              renderer.render(content,request,targetResponse,getServletContext());
+            }
+ else {
+              content.writeOriginal(targetResponse.getWriter());
+            }
+          }
+        }
         if (errorView) {
           WebUtils.clearErrorRequestAttributes(request);
         }
@@ -127,7 +159,12 @@ catch (  Error err) {
     request.removeAttribute(MultipartHttpServletRequest.class.getName());
     if (requestAttributes != null) {
       requestAttributes.requestCompleted();
-      WebUtils.storeGrailsWebRequest(previousRequestAttributes);
+      if (previousRequestAttributes instanceof GrailsWebRequest) {
+        WebUtils.storeGrailsWebRequest((GrailsWebRequest)previousRequestAttributes);
+      }
+ else {
+        RequestContextHolder.setRequestAttributes(previousRequestAttributes);
+      }
     }
     LocaleContextHolder.setLocaleContext(previousLocaleContext);
     if (logger.isDebugEnabled()) {

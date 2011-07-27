@@ -2,14 +2,9 @@
   if (viewName != null && viewName.startsWith(SLASH_STR)) {
     return getAbsoluteViewURIInternal(viewName,buf,includeSuffix);
   }
- else {
-    buf.append(SLASH).append(controllerName);
-    if (viewName != null) {
-      buf.append(SLASH).append(viewName);
-    }
-    if (includeSuffix) {
-      return buf.append(GroovyPage.SUFFIX).toString();
-    }
+  buf.append(SLASH).append(controllerName);
+  if (viewName != null) {
+    buf.append(SLASH).append(viewName);
   }
-  return buf.toString();
+  return includeSuffix ? buf.append(GroovyPage.SUFFIX).toString() : buf.toString();
 }

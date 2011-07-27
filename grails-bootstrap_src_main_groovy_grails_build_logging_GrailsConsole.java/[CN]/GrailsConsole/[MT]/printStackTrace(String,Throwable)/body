@@ -1,5 +1,11 @@
 {
-  StackTraceUtils.deepSanitize(error);
+  if (error instanceof ScriptExitException) {
+    return;
+  }
+  if ((error instanceof BuildException) && error.getCause() != null) {
+    error=error.getCause();
+  }
+  if (!isVerbose())   StackTraceUtils.deepSanitize(error);
   StringWriter sw=new StringWriter();
   PrintWriter ps=new PrintWriter(sw);
   if (message != null) {

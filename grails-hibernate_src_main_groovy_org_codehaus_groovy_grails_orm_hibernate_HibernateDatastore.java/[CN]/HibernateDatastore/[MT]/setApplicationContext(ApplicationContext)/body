@@ -1,6 +1,4 @@
 {
-  if (!(applicationContext instanceof ConfigurableApplicationContext)) {
-    throw new IllegalArgumentException("ApplicationContext must be an instanceof ConfigurableApplicationContext");
-  }
+  Assert.isInstanceOf(ConfigurableApplicationContext.class,applicationContext,"ApplicationContext must be an instanceof ConfigurableApplicationContext");
   super.setApplicationContext((ConfigurableApplicationContext)applicationContext);
 }

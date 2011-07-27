@@ -1,0 +1,14 @@
+{
+  StringBuffer path=new StringBuffer(source);
+  int startIndex=path.indexOf(RELEASE_TOKEN);
+  if (startIndex > -1) {
+    startIndex+=RELEASE_TOKEN.length();
+    int endIndex=path.indexOf(END_TOKEN,startIndex);
+    String versionString=path.substring(startIndex,endIndex).replace(from,to);
+    path.replace(startIndex,endIndex,versionString);
+    return path.toString();
+  }
+ else {
+    return source;
+  }
+}

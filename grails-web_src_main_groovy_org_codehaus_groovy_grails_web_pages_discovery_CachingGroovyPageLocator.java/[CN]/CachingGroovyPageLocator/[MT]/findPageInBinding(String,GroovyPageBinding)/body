@@ -1,0 +1,13 @@
+{
+  GroovyPageScriptSource scriptSource=resourceResolveCache.get(uri);
+  if (scriptSource == null) {
+    scriptSource=super.findPageInBinding(uri,binding);
+    if (scriptSource == null && Environment.isWarDeployed()) {
+      resourceResolveCache.put(uri,NULL_SCRIPT);
+    }
+ else     if (scriptSource != null) {
+      resourceResolveCache.put(uri,scriptSource);
+    }
+  }
+  return scriptSource == NULL_SCRIPT ? null : scriptSource;
+}

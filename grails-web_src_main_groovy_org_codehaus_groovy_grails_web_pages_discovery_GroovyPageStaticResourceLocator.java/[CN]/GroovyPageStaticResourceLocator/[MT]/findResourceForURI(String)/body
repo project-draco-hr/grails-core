@@ -1,0 +1,20 @@
+{
+  Resource resource=super.findResourceForURI(uri);
+  if (resource == null || !resource.exists()) {
+    GroovyPageBinding binding=findBindingInWebRequest();
+    if (binding != null) {
+      GrailsPlugin pagePlugin=binding.getPagePlugin();
+      if (pagePlugin != null && pluginManager != null) {
+        resource=findResourceForPlugin(pagePlugin,uri);
+      }
+    }
+ else     if (pluginManager != null) {
+      GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+      for (      GrailsPlugin plugin : allPlugins) {
+        resource=findResourceForPlugin(plugin,uri);
+        if (resource != null)         break;
+      }
+    }
+  }
+  return resource;
+}

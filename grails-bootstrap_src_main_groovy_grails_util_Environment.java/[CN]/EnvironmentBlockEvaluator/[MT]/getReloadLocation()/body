@@ -1,0 +1,7 @@
+{
+  String location=getReloadLocationInternal();
+  if (StringUtils.hasLength(location)) {
+    return location;
+  }
+  return ".";
+}

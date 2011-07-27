@@ -1,0 +1,11 @@
+{
+  if (previousRequestAttributes instanceof GrailsWebRequest) {
+    GrailsWebRequest previousWebRequest=(GrailsWebRequest)previousRequestAttributes;
+    Map previousParams=previousWebRequest.getParams();
+    Map params=requestAttributes.getParams();
+    for (    Object o : previousParams.keySet()) {
+      String name=(String)o;
+      params.put(name,previousParams.get(name));
+    }
+  }
+}

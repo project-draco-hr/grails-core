@@ -40,6 +40,15 @@
       }
     }
   }
+  if (properties == null || properties.length == 0) {
+    final Set<Entry<String,ConstrainedProperty>> entrySet=constrainedProperties.entrySet();
+    for (    Entry<String,ConstrainedProperty> entry : entrySet) {
+      final ConstrainedProperty constrainedProperty=entry.getValue();
+      if (!constrainedProperty.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
+        applyDefaultNullableConstraint(constrainedProperty);
+      }
+    }
+  }
   applySharedConstraints(delegate,constrainedProperties);
   return constrainedProperties;
 }

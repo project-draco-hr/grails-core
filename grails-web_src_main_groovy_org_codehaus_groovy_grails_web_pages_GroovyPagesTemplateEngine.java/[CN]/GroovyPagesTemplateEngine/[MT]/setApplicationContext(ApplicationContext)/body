@@ -1,7 +1,4 @@
 {
-  if (resourceLoader == null) {
-    resourceLoader=applicationContext;
-  }
   if (applicationContext.containsBean(GrailsApplication.APPLICATION_ID)) {
     this.grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   }

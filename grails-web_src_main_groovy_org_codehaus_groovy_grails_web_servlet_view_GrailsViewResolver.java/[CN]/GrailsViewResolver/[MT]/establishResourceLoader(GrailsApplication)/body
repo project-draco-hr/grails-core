@@ -1,7 +1,0 @@
-{
-  ApplicationContext ctx=getApplicationContext();
-  if (application != null && !application.isWarDeployed() && ctx.containsBean(GROOVY_PAGE_RESOURCE_LOADER)) {
-    return (ResourceLoader)ctx.getBean(GROOVY_PAGE_RESOURCE_LOADER);
-  }
-  return resourceLoader;
-}

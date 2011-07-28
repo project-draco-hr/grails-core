@@ -4,8 +4,7 @@
   final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,parameters);
   final ArgumentListExpression closureInvocationArguments=new ArgumentListExpression();
   for (  Parameter p : parameters) {
-    final String name=p.getName();
-    closureInvocationArguments.addExpression(new VariableExpression(name));
+    closureInvocationArguments.addExpression(new VariableExpression(p.getName()));
   }
   final MethodCallExpression methodCallExpression=new MethodCallExpression(closureExpression,"call",closureInvocationArguments);
   newMethodCode.addStatement(new ExpressionStatement(methodCallExpression));

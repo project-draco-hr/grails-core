@@ -2,10 +2,10 @@
   Resource resource=uriResolveCache.get(uri);
   if (resource == null) {
     resource=super.findResourceForURI(uri);
-    if (resource == null) {
+    if (resource == null && Environment.isWarDeployed()) {
       resource=NULL_RESOURCE;
     }
-    uriResolveCache.put(uri,resource);
+    if (resource != null)     uriResolveCache.put(uri,resource);
   }
   return resource == NULL_RESOURCE ? null : resource;
 }

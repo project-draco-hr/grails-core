@@ -1,7 +1,7 @@
 {
   GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-  if (webRequest != null) {
-    return findTemplate(webRequest.getControllerName(),templateName);
+  if (webRequest == null) {
+    return findTemplateByPath(templateName);
   }
-  return findTemplateByPath(templateName);
+  return findTemplate(webRequest.getControllerName(),templateName);
 }

@@ -1,5 +1,0 @@
-{
-  GroovyClassLoader cl=new GroovyClassLoader();
-  cl.parseClass(classesDefinition);
-  return getDomainConfig(cl,cl.getLoadedClasses());
-}

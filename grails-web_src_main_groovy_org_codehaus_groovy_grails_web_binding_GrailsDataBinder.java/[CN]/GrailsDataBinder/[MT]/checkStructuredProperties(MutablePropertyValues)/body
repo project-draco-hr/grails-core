@@ -21,10 +21,8 @@
         if (null == propertyEditor || !StructuredPropertyEditor.class.isAssignableFrom(propertyEditor.getClass())) {
           continue;
         }
- else {
-          StructuredPropertyEditor structuredEditor=(StructuredPropertyEditor)propertyEditor;
-          processStructuredProperty(structuredEditor,propertyName,type,valueNames,propertyValues);
-        }
+        StructuredPropertyEditor structuredEditor=(StructuredPropertyEditor)propertyEditor;
+        processStructuredProperty(structuredEditor,propertyName,type,valueNames,propertyValues);
       }
     }
  else {

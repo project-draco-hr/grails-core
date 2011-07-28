@@ -3,7 +3,7 @@
     SpecifiedOption specifiedOption=declaredOptions.get(name);
     return specifiedOption.value;
   }
- else   if (undeclaredOptions.containsKey(name)) {
+  if (undeclaredOptions.containsKey(name)) {
     return undeclaredOptions.get(name);
   }
   return null;

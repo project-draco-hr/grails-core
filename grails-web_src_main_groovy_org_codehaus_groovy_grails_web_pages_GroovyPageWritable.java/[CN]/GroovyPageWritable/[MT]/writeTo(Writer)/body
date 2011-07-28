@@ -33,9 +33,13 @@
       }
     }
     GroovyPageBinding binding=createBinding(parentBinding);
-    if (hasRequest)     request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
+    if (hasRequest) {
+      request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
+    }
     if (metaInfo.getCodecClass() != null) {
-      if (hasRequest)       request.setAttribute("org.codehaus.groovy.grails.GSP_CODEC",metaInfo.getCodecName());
+      if (hasRequest) {
+        request.setAttribute("org.codehaus.groovy.grails.GSP_CODEC",metaInfo.getCodecName());
+      }
       binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,metaInfo.getCodecClass());
     }
  else {

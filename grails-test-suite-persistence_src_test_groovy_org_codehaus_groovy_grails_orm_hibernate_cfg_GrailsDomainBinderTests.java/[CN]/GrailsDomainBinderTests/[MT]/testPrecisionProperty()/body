@@ -1,8 +1,0 @@
-{
-  DefaultGrailsDomainConfiguration config=getDomainConfig("class Widget {\n" + "    Long id \n" + "    Long version \n"+ "    Float width \n"+ "    Float height \n"+ "    static mapping = {\n"+ "        width precision: 3\n"+ "    }\n"+ "}");
-  Table tableMapping=getTableMapping("widget",config);
-  Column heightColumn=tableMapping.getColumn(new Column("height"));
-  Column widthColumn=tableMapping.getColumn(new Column("width"));
-  assertEquals(3,widthColumn.getPrecision());
-  assertEquals(Column.DEFAULT_PRECISION,heightColumn.getPrecision());
-}

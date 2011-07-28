@@ -29,9 +29,9 @@
       mapping=mappingsLookup.get(new UrlMappingKey(null,null,lookupParams));
     }
   }
-  UrlCreator creator;
+  UrlCreator creator=null;
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    creator=new DefaultUrlCreator(controller,action);
+    if (useDefault)     creator=new DefaultUrlCreator(controller,action);
   }
  else {
     creator=mapping;

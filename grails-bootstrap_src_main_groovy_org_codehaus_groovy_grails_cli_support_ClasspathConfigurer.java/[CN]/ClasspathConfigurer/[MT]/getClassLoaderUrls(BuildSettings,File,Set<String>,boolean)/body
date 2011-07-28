@@ -44,5 +44,6 @@
   if (providedResolveReport != null && providedResolveReport.hasError()) {
     handleResolveError(settings,providedResolveReport);
   }
+  settings.storeDependencyCache();
   return urls.toArray(new URL[urls.size()]);
 }

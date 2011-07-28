@@ -1,5 +1,9 @@
 {
-  if (t != null)   GrailsConsole.getInstance().error(error,t);
- else   GrailsConsole.getInstance().error(error);
+  if (t != null) {
+    GrailsConsole.getInstance().error(error,t);
+  }
+ else {
+    GrailsConsole.getInstance().error(error);
+  }
   System.exit(1);
 }

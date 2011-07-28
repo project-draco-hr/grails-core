@@ -1,8 +1,0 @@
-{
-  DefaultGrailsDomainConfiguration config=getDomainConfig("class Widget {\n" + "    Long id \n" + "    Long version \n"+ "    String name \n"+ "    String description \n"+ "    static mapping = {\n"+ "        name unique: true\n"+ "    }\n"+ "}");
-  Table tableMapping=getTableMapping("widget",config);
-  Column nameColumn=tableMapping.getColumn(new Column("name"));
-  Column descriptionColumn=tableMapping.getColumn(new Column("description"));
-  assertEquals(true,nameColumn.isUnique());
-  assertEquals(false,descriptionColumn.isUnique());
-}

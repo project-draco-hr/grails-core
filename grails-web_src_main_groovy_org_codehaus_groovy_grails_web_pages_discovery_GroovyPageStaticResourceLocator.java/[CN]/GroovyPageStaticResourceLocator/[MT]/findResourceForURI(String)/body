@@ -9,8 +9,7 @@
       }
     }
  else     if (pluginManager != null) {
-      GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
-      for (      GrailsPlugin plugin : allPlugins) {
+      for (      GrailsPlugin plugin : pluginManager.getAllPlugins()) {
         resource=findResourceForPlugin(plugin,uri);
         if (resource != null)         break;
       }

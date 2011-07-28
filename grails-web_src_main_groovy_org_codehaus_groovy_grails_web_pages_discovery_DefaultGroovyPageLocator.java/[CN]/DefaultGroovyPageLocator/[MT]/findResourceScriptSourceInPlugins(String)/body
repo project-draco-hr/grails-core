@@ -1,13 +1,14 @@
 {
-  if (pluginManager != null) {
-    GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
-    for (    GrailsPlugin plugin : allPlugins) {
-      if (!(plugin instanceof BinaryGrailsPlugin)) {
-        GroovyPageScriptSource scriptSource=findResourceScriptSource(GrailsResourceUtils.appendPiecesForUri("/plugins/",plugin.getFileSystemName(),GrailsResourceUtils.VIEWS_DIR_PATH,uri));
-        if (scriptSource != null) {
-          return scriptSource;
-        }
-      }
+  if (pluginManager == null) {
+    return null;
+  }
+  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+    if (plugin instanceof BinaryGrailsPlugin) {
+      continue;
+    }
+    GroovyPageScriptSource scriptSource=findResourceScriptSource(GrailsResourceUtils.appendPiecesForUri("/plugins/",plugin.getFileSystemName(),GrailsResourceUtils.VIEWS_DIR_PATH,uri));
+    if (scriptSource != null) {
+      return scriptSource;
     }
   }
   return null;

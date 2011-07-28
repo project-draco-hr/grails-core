@@ -1,5 +1,4 @@
 {
   PropertyConfig config=getPropertyConfig(grailsProperty);
-  final boolean isInsertable=config != null ? config.getInsertable() : true;
-  return isInsertable;
+  return config == null ? true : config.getInsertable();
 }

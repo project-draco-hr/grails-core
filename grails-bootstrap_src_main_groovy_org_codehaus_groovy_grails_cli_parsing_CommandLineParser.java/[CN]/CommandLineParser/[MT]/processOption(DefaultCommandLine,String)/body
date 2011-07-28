@@ -1,31 +1,30 @@
 {
-  if (arg.length() > 1) {
-    if (arg.charAt(1) == 'D' && arg.contains("=")) {
-      processSystemArg(cl,arg);
+  if (arg.length() < 2) {
+    return;
+  }
+  if (arg.charAt(1) == 'D' && arg.contains("=")) {
+    processSystemArg(cl,arg);
+    return;
+  }
+  arg=(arg.charAt(1) == '-' ? arg.substring(2,arg.length()) : arg.substring(1,arg.length())).trim();
+  if (arg.contains("=")) {
+    String[] split=arg.split("=");
+    String name=split[0].trim();
+    validateOptionName(name);
+    String value=split[1].trim();
+    if (declaredOptions.containsKey(name)) {
+      cl.addDeclaredOption(name,declaredOptions.get(name),value);
     }
  else {
-      arg=(arg.charAt(1) == '-' ? arg.substring(2,arg.length()) : arg.substring(1,arg.length())).trim();
-      if (arg.contains("=")) {
-        String[] split=arg.split("=");
-        String name=split[0].trim();
-        valideOptionName(name);
-        String value=split[1].trim();
-        if (declaredOptions.containsKey(name)) {
-          cl.addDeclaredOption(name,declaredOptions.get(name),value);
-        }
- else {
-          cl.addUndeclaredOption(name,value);
-        }
-      }
- else {
-        valideOptionName(arg);
-        if (declaredOptions.containsKey(arg)) {
-          cl.addDeclaredOption(arg,declaredOptions.get(arg));
-        }
- else {
-          cl.addUndeclaredOption(arg);
-        }
-      }
+      cl.addUndeclaredOption(name,value);
     }
+    return;
+  }
+  validateOptionName(arg);
+  if (declaredOptions.containsKey(arg)) {
+    cl.addDeclaredOption(arg,declaredOptions.get(arg));
+  }
+ else {
+    cl.addUndeclaredOption(arg);
   }
 }

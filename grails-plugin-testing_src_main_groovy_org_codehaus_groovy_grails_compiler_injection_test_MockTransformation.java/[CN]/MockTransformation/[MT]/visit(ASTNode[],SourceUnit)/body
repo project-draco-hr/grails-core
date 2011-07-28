@@ -1,6 +1,6 @@
 {
   if (!(astNodes[0] instanceof AnnotationNode) || !(astNodes[1] instanceof AnnotatedNode)) {
-    throw new RuntimeException("Internal error: wrong types: $node.class / $parent.class");
+    throw new RuntimeException("Internal error: wrong types: " + astNodes[0].getClass() + " / "+ astNodes[1].getClass());
   }
   AnnotatedNode parent=(AnnotatedNode)astNodes[1];
   AnnotationNode node=(AnnotationNode)astNodes[0];
@@ -13,15 +13,13 @@
     error(source,"Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
   }
   ListExpression values=getListOfClasses(node);
-  if (values != null) {
-    for (    Expression expression : values.getExpressions()) {
-      if (expression instanceof ClassExpression) {
-        ClassExpression ce=(ClassExpression)expression;
-        weaveMock(classNode,ce,false);
-      }
-    }
-  }
- else {
+  if (values == null) {
     error(source,"Error processing class '" + cName + "'. "+ MY_TYPE_NAME+ " annotation expects a class or a list of classes to mock");
+    return;
+  }
+  for (  Expression expression : values.getExpressions()) {
+    if (expression instanceof ClassExpression) {
+      weaveMock(classNode,(ClassExpression)expression,false);
+    }
   }
 }

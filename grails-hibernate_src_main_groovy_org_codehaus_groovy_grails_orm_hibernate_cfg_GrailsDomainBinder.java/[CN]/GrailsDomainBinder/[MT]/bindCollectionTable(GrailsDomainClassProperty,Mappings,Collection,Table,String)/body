@@ -1,6 +1,5 @@
 {
   String prefix=ownerTable.getSchema();
   String tableName=(prefix == null ? "" : prefix + '.') + calculateTableForMany(property,sessionFactoryBeanName);
-  Table t=mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false);
-  collection.setCollectionTable(t);
+  collection.setCollectionTable(mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false));
 }

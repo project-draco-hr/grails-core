@@ -1,4 +1,0 @@
-{
-  Table table=getTableMapping(tablename,config);
-  assertFalse(table.getName() + "." + columnName+ " is nullable",table.getColumn(new Column(columnName)).isNullable());
-}

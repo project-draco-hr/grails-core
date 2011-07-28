@@ -48,7 +48,9 @@
       ib.setName(UNDERSCORE + property.getName() + "IndexBackref");
       ib.setUpdateable(false);
       ib.setSelectable(false);
-      if (isManyToMany)       ib.setInsertable(false);
+      if (isManyToMany) {
+        ib.setInsertable(false);
+      }
       ib.setCollectionRole(list.getRole());
       ib.setEntityName(list.getOwner().getEntityName());
       ib.setValue(list.getIndex());

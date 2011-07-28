@@ -1,6 +1,6 @@
 {
   List<String> fileExtensions=new ArrayList<String>();
-  if (extension == null) {
+  if (!StringUtils.hasText(extension)) {
     fileExtensions.add("*");
   }
  else {

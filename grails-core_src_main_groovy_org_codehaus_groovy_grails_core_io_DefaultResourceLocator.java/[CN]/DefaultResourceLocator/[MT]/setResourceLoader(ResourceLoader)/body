@@ -1,5 +1,3 @@
 {
-  if (Environment.isWarDeployed()) {
-    this.defaultResourceLoader=resourceLoader;
-  }
+  this.defaultResourceLoader=resourceLoader;
 }

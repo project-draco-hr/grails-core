@@ -3,7 +3,7 @@
     if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
       String methodName=method.getName();
       methodNames.add(methodName);
-      configureMappingForClosureProperty(methodName);
+      configureMappingForMethodAction(methodName);
     }
   }
   if (!isActionMethod(defaultActionName) && methodNames.size() == 1) {

@@ -15,7 +15,7 @@
       }
     }
 ;
-    GroovyClassLoader cl=new GrailsClassLoader();
+    GroovyClassLoader cl=new GrailsAwareClassLoader();
     cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController {" + "def action = {} " + "}");
     final DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication(cl.getLoadedClasses(),cl);
     grailsApplication.initialise();

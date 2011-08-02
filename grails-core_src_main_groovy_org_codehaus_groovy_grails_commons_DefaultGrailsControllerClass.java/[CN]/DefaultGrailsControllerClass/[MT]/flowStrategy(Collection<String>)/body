@@ -12,4 +12,7 @@
       }
     }
   }
+  if (!isReadableProperty(defaultActionName) && closureNames.size() == 1) {
+    defaultActionName=closureNames.iterator().next();
+  }
 }

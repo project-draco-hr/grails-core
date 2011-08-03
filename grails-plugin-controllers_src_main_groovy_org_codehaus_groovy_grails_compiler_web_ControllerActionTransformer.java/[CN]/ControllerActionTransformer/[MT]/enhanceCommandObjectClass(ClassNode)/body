@@ -1,8 +1,8 @@
 {
   ASTErrorsHelper errorsHelper=new ASTBeanPropertyBindingResultHelper();
   errorsHelper.injectErrorsCode(commandObjectTypeClassNode);
-  addConstraintsEvaluatorProperty(commandObjectTypeClassNode);
+  addConstraintsEvaluatorField(commandObjectTypeClassNode);
   addGetConstrainedPropertiesMethod(commandObjectTypeClassNode);
-  addMessageSourceProperty(commandObjectTypeClassNode);
+  addMessageSourceField(commandObjectTypeClassNode);
   addValidateMethod(commandObjectTypeClassNode);
 }

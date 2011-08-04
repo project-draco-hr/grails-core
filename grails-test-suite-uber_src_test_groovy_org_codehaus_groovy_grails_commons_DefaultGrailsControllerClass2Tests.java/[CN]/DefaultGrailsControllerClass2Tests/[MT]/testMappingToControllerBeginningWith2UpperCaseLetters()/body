@@ -1,6 +1,6 @@
 {
-  GroovyClassLoader cl=new GroovyClassLoader();
-  Class<?> clazz=cl.parseClass("class MYdemoController { def action = { return null }; } ");
+  GroovyClassLoader cl=new GrailsAwareClassLoader();
+  Class<?> clazz=cl.parseClass("@grails.artefact.Artefact(\"Controller\") class MYdemoController { def action = { return null }; } ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   assertEquals("MYdemo",grailsClass.getName());
   assertEquals("MYdemoController",grailsClass.getFullName());

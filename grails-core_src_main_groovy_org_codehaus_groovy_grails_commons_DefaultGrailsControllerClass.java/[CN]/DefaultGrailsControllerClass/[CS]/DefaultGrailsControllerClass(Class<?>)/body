@@ -7,7 +7,8 @@
   }
   Collection<String> actionNames=new ArrayList<String>();
   controllerPath=uri + SLASH;
-  mixedStrategy(actionNames);
+  flowStrategy(actionNames);
+  methodStrategy(actionNames);
   configureDefaultActionIfSet();
   configureURIsForCurrentState();
 }

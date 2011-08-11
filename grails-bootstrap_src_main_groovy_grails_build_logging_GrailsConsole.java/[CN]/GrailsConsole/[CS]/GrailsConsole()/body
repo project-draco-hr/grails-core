@@ -3,6 +3,9 @@
   out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
   System.setOut(new GrailsConsolePrintStream(out));
   System.setErr(new GrailsConsoleErrorPrintStream(new PrintStream(AnsiConsole.wrapOutputStream(System.err))));
+  reader=new ConsoleReader();
+  reader.setBellEnabled(false);
+  reader.setCompletionHandler(new CandidateListCompletionHandler());
   if (isWindows()) {
     terminal=new WindowsTerminal(){
       @Override public boolean isANSISupported(){
@@ -13,6 +16,7 @@
     try {
       terminal.initializeTerminal();
       terminal.enableEcho();
+      fixCtrlC();
     }
  catch (    Exception e) {
       terminal=new UnsupportedTerminal();
@@ -21,9 +25,6 @@
  else {
     terminal=Terminal.setupTerminal();
   }
-  reader=new ConsoleReader();
-  reader.setBellEnabled(false);
-  reader.setCompletionHandler(new CandidateListCompletionHandler());
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

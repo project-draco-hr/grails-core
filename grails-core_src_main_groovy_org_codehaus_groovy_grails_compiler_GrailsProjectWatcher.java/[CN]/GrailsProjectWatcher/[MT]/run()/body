@@ -26,7 +26,9 @@
     }
     public void onNew(    File file){
       LOG.info("File [" + file + "] added. Applying changes to application.");
-      sleep(5000);
+      if (!file.getName().toLowerCase().endsWith(".properties")) {
+        sleep(5000);
+      }
       compileIfSource(file);
       informPluginManager(file,true);
     }

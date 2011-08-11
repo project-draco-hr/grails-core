@@ -12,25 +12,25 @@
         q.setMaxResults(maxParam.intValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_OFFSET)) {
-        Integer offsetParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_OFFSET),Integer.class);
+        Integer offsetParam=converter.convertIfNecessary(queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_OFFSET),Integer.class);
         q.setFirstResult(offsetParam.intValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_CACHE)) {
-        q.setCacheable(((Boolean)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_CACHE)).booleanValue());
+        q.setCacheable(((Boolean)queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_CACHE)).booleanValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE)) {
-        Integer fetchSizeParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE),Integer.class);
+        Integer fetchSizeParam=converter.convertIfNecessary(queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_FETCH_SIZE),Integer.class);
         q.setFetchSize(fetchSizeParam.intValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_TIMEOUT)) {
-        Integer timeoutParam=converter.convertIfNecessary(queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_TIMEOUT),Integer.class);
+        Integer timeoutParam=converter.convertIfNecessary(queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_TIMEOUT),Integer.class);
         q.setFetchSize(timeoutParam.intValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_READ_ONLY)) {
-        q.setReadOnly(((Boolean)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_READ_ONLY)).booleanValue());
+        q.setReadOnly(((Boolean)queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_READ_ONLY)).booleanValue());
       }
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE)) {
-        q.setFlushMode((FlushMode)queryMetaParams.remove(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE));
+        q.setFlushMode((FlushMode)queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_FLUSH_MODE));
       }
       int index=0;
       for (      Object parameter : positionalParams) {
@@ -42,21 +42,23 @@
           throw new GrailsQueryException("Named parameter's name must be of type String");
         }
         String parameterName=(String)entry.getKey();
-        Object parameterValue=entry.getValue();
-        if (parameterValue == null) {
-          throw new IllegalArgumentException("Named parameter [" + entry.getKey() + "] value may not be null");
-        }
-        if (Collection.class.isAssignableFrom(parameterValue.getClass())) {
-          q.setParameterList(parameterName,(Collection)parameterValue);
-        }
- else         if (parameterValue.getClass().isArray()) {
-          q.setParameterList(parameterName,(Object[])parameterValue);
-        }
- else         if (parameterValue instanceof CharSequence) {
-          q.setParameter(parameterName,parameterValue.toString());
-        }
+        if (!QUERY_META_PARAMS.contains(parameterName)) {
+          Object parameterValue=entry.getValue();
+          if (parameterValue == null) {
+            throw new IllegalArgumentException("Named parameter [" + entry.getKey() + "] value may not be null");
+          }
+          if (Collection.class.isAssignableFrom(parameterValue.getClass())) {
+            q.setParameterList(parameterName,(Collection)parameterValue);
+          }
+ else           if (parameterValue.getClass().isArray()) {
+            q.setParameterList(parameterName,(Object[])parameterValue);
+          }
+ else           if (parameterValue instanceof CharSequence) {
+            q.setParameter(parameterName,parameterValue.toString());
+          }
  else {
-          q.setParameter(parameterName,parameterValue);
+            q.setParameter(parameterName,parameterValue);
+          }
         }
       }
       return q.list();

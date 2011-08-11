@@ -2,8 +2,8 @@
   if (defaultActionName == null) {
     return;
   }
-  uri2closureMap.put(uri,defaultActionName);
-  uri2closureMap.put(controllerPath,defaultActionName);
+  uri2methodMap.put(uri,defaultActionName);
+  uri2methodMap.put(controllerPath,defaultActionName);
   uri2viewMap.put(controllerPath,controllerPath + defaultActionName);
   uri2viewMap.put(uri,controllerPath + defaultActionName);
   viewNames.put(defaultActionName,controllerPath + defaultActionName);

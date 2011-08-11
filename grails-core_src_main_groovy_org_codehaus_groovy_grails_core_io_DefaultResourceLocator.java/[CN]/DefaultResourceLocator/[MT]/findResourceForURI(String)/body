@@ -36,6 +36,10 @@
     if (resource == null && info != null) {
       resource=findResourceInBinaryPlugins(info);
     }
+    if (resource == null || !resource.exists()) {
+      Resource tmp=defaultResourceLoader != null ? defaultResourceLoader.getResource(uri) : null;
+      if (tmp != null && tmp.exists())       resource=tmp;
+    }
     if (resource != null) {
       uriToResourceCache.put(uri,resource);
     }

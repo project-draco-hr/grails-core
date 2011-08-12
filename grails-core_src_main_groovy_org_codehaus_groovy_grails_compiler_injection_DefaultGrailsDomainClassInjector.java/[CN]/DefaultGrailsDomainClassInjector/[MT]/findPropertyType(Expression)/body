@@ -1,0 +1,12 @@
+{
+  ClassNode set=new ClassNode(Set.class);
+  if (expression instanceof ClassExpression) {
+    ClassNode newSet=ClassHelper.makeWithoutCaching(set.getName());
+    newSet.setRedirect(set);
+    GenericsType[] genericsTypes=new GenericsType[1];
+    genericsTypes[0]=new GenericsType(expression.getType());
+    newSet.setGenericsTypes(genericsTypes);
+    set=newSet;
+  }
+  return set;
+}

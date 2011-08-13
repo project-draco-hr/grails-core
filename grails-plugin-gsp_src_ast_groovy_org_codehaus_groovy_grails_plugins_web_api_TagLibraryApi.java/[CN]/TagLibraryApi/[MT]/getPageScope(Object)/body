@@ -1,9 +1,10 @@
 {
-  RequestAttributes request=RequestContextHolder.currentRequestAttributes();
-  GroovyPageBinding binding=(GroovyPageBinding)request.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
+  GrailsWebRequest webRequest=getWebRequest(instance);
+  GroovyPageBinding binding=(GroovyPageBinding)webRequest.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
   if (binding == null) {
-    binding=new GroovyPageBinding();
-    request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding,RequestAttributes.SCOPE_REQUEST);
+    binding=new GroovyPageBinding(new GroovyPageRequestBinding(webRequest));
+    binding.setRoot(true);
+    webRequest.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding,RequestAttributes.SCOPE_REQUEST);
   }
   return binding;
 }

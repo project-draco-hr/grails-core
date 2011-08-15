@@ -1,0 +1,6 @@
+{
+  if (o instanceof StreamCharBuffer) {
+    o=o.toString();
+  }
+  return o;
+}

@@ -64,7 +64,7 @@
           processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
           return;
         }
-        if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
+        if ((ha instanceof AnnotationMethodHandlerAdapter || ha instanceof RequestMappingHandlerAdapter) && mv != null && !mv.hasView()) {
           mv.setViewName(getDefaultViewName(request));
         }
       }

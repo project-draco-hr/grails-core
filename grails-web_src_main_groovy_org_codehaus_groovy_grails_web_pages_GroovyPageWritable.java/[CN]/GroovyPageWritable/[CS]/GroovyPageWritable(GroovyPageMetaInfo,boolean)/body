@@ -1,5 +1,6 @@
 {
   this.metaInfo=metaInfo;
+  this.allowSettingContentType=allowSettingContentType;
   webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
   if (webRequest != null) {
     request=webRequest.getCurrentRequest();

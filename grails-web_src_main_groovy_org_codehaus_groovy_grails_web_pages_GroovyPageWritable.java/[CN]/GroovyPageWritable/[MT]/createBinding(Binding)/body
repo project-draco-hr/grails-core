@@ -5,7 +5,7 @@
   if (additionalBinding != null) {
     binding.addMap(additionalBinding);
   }
-  if (parent == null || parent instanceof GroovyPageRequestBinding || "".equals(metaInfo.getPluginPath())) {
+  if (parent == null || (parent instanceof GroovyPageBinding && ((GroovyPageBinding)parent).isRoot()) || "".equals(metaInfo.getPluginPath())) {
     binding.setPluginContextPath(metaInfo.getPluginPath());
   }
   binding.setPagePlugin(metaInfo.getPagePlugin());

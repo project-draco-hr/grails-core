@@ -1,6 +1,11 @@
 {
   if (cachedParentVariableNames.contains(name)) {
-    return parent;
+    if (parent instanceof GroovyPageBinding) {
+      return ((GroovyPageBinding)parent).findBindingForVariable(name);
+    }
+ else {
+      return parent;
+    }
   }
   if (getVariables().containsKey(name)) {
     return this;

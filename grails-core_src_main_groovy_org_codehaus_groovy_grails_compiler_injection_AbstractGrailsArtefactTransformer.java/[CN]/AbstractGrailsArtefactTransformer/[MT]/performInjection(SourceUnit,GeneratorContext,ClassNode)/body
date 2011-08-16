@@ -16,8 +16,11 @@
     }
  else {
       final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
-      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
-      classNode.addField(fieldNode);
+      FieldNode fieldNode=classNode.getField(apiInstanceProperty);
+      if (fieldNode == null) {
+        fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
+        classNode.addField(fieldNode);
+      }
     }
     while (!implementationNode.equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS)) {
       List<MethodNode> declaredMethods=implementationNode.getMethods();

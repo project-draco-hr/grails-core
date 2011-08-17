@@ -3,7 +3,7 @@
   for (  ClassInjector classInjector : classInjectors) {
     if (classInjector instanceof GrailsArtefactClassInjector) {
       GrailsArtefactClassInjector gace=(GrailsArtefactClassInjector)classInjector;
-      if (artefactType.equals(gace.getArtefactType())) {
+      if (hasArtefactType(artefactType,gace)) {
         injectors.add(gace);
       }
     }

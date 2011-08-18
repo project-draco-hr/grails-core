@@ -1,0 +1,11 @@
+{
+  List<AnnotationNode> annotations=classNode.getAnnotations(NEW_VALIDATEABLE_CLASS_NODE);
+  if (annotations.size() == 0) {
+    annotations=classNode.getAnnotations(ORIGINAL_VALIDATEABLE_CLASS_NODE);
+    if (annotations.size() == 0) {
+      return;
+    }
+  }
+  ASTValidateableHelper helper=new DefaultASTValidateableHelper();
+  helper.injectValidateableCode(classNode);
+}

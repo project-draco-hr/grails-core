@@ -36,7 +36,7 @@
     tagName=text;
   }
   if (state == EOF) {
-    throw new GrailsTagException("Unexpected end of file encountered parsing Tag [" + tagName + "] for "+ className+ ". Are you missing a closing brace '}'?",pageName,out.getCurrentLineNumber());
+    throw new GrailsTagException("Unexpected end of file encountered parsing Tag [" + tagName + "] for "+ className+ ". Are you missing a closing brace '}'?",pageName,getCurrentOutputLineNumber());
   }
   flushTagBuffering();
   TagMeta tm=new TagMeta();
@@ -60,7 +60,7 @@
       flushBufferedWhiteSpace();
     }
  else     if (!tag.isAllowPrecedingContent() && previousContentWasNonWhitespace) {
-      throw new GrailsTagException("Tag [" + tag.getName() + "] cannot have non-whitespace characters directly preceding it.",pageName,out.getCurrentLineNumber());
+      throw new GrailsTagException("Tag [" + tag.getName() + "] cannot have non-whitespace characters directly preceding it.",pageName,getCurrentOutputLineNumber());
     }
  else {
       clearBufferedWhiteSpace();

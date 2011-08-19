@@ -18,5 +18,5 @@
       throw e;
     }
   }
-  return executeWithGantInstance(gant,CommandLine.DO_NOTHING_CLOSURE).exitCode;
+  return executeWithGantInstance(gant,DO_NOTHING_CLOSURE).exitCode;
 }

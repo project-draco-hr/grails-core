@@ -1,6 +1,6 @@
 {
   if (isPotentialScriptletOrTag(c,left)) {
-    if (isStartScriptletBlock(c1)) {
+    if (c1 == '%') {
       throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
     }
     boolean bStartTag=!isClosingTag(c1);

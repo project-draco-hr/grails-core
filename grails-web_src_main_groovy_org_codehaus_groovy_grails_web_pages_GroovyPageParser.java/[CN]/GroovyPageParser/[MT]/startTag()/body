@@ -24,13 +24,13 @@
   text=buf.toString();
   String tagName;
   Map attrs=new LinkedHashMap();
-  text=text.replaceAll("[\r\n\t]"," ");
-  if (text.indexOf(' ') > -1) {
-    int i=text.indexOf(' ');
-    tagName=text.substring(0,i);
-    String attrTokens=text.substring(i,text.length());
-    attrTokens+='>';
-    populateMapWithAttributes(attrs,attrTokens);
+  Matcher m=Pattern.compile("\\s").matcher(text);
+  if (m.find()) {
+    tagName=text.substring(0,m.start());
+    if (state != EOF) {
+      String attrTokens=text.substring(m.start(),text.length());
+      populateMapWithAttributes(attrs,attrTokens);
+    }
   }
  else {
     tagName=text;

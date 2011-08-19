@@ -1,18 +1,36 @@
 {
-  Matcher m=TAG_ATTRIBUTE_PATTERN.matcher(attrTokens);
-  while (m.find()) {
-    String name=m.group(2);
-    String val=m.group(4);
-    if (val == null) {
-      val=m.group(5);
+  attrTokens=attrTokens.trim();
+  int startPos=0;
+  while (startPos < attrTokens.length()) {
+    int equalsignPos=attrTokens.indexOf('=',startPos);
+    if (equalsignPos == -1) {
+      throw new GrailsTagException("Expecting '=' after attribute name",pageName,getCurrentOutputLineNumber());
     }
-    name='\"' + name + '\"';
+    String name=attrTokens.substring(startPos,equalsignPos).trim();
+    startPos=equalsignPos + 1;
+    char ch=attrTokens.charAt(startPos++);
+    while (Character.isWhitespace(ch) && startPos < attrTokens.length()) {
+      ch=attrTokens.charAt(startPos++);
+    }
+    if (!(ch == '\'' || ch == '"')) {
+      throw new GrailsTagException("Attribute value must be quoted.",pageName,getCurrentOutputLineNumber());
+    }
+    char quoteChar=ch;
+    int endQuotepos=attrTokens.indexOf(quoteChar,startPos);
+    if (endQuotepos == -1) {
+      throw new GrailsTagException("Attribute value quote wasn't closed.",pageName,getCurrentOutputLineNumber());
+    }
+    String val=attrTokens.substring(startPos,endQuotepos);
     if (val.startsWith("${") && val.endsWith("}") && val.indexOf("${",2) == -1) {
       val=val.substring(2,val.length() - 1);
     }
  else     if (!(val.startsWith("[") && val.endsWith("]"))) {
-      val='\"' + val + '\"';
+      if (val.indexOf('"') == -1) {
+        quoteChar='"';
+      }
+      val=quoteChar + val + quoteChar;
     }
-    attrs.put(name,val);
+    attrs.put("\"" + name + "\"",val);
+    startPos=endQuotepos + 1;
   }
 }

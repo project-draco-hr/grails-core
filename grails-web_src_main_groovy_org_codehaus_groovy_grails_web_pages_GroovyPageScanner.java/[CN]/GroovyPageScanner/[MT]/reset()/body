@@ -1,6 +1,5 @@
 {
-  end1=begin1=end2=begin2=0;
-  levelTokens.clear();
+  end1=begin1=end2=begin2=exprBracketCount=0;
   state=HTML;
   lastNamespace=null;
   lastLineNumberIndex=-1;

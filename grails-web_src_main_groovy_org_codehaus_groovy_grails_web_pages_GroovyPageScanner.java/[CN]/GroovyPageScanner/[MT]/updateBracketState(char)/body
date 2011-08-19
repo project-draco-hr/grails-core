@@ -1,0 +1,24 @@
+{
+  boolean previousBracketsClosed=(exprBracketCount == 0);
+switch (state) {
+case GTAG_EXPR:
+case GEXPR:
+case GSCRIPT:
+case GDECLAR:
+case GDIRECT:
+    if (c == '{') {
+      exprBracketCount++;
+    }
+ else     if (c == '}') {
+      exprBracketCount--;
+    }
+  break;
+default :
+exprBracketCount=0;
+return false;
+}
+if (exprBracketCount < -1) {
+throw new GrailsTagException("Unmatched brackets in GSP expression",pageName,getLineNumberForToken());
+}
+return (exprBracketCount == 0 || exprBracketCount == -1) && previousBracketsClosed;
+}

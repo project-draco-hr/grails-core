@@ -5,7 +5,7 @@
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;
   }
-  Collection<String> actionNames=new ArrayList<String>();
+  Collection<String> actionNames=new HashSet<String>();
   controllerPath=uri + SLASH;
   flowStrategy(actionNames);
   methodStrategy(actionNames);

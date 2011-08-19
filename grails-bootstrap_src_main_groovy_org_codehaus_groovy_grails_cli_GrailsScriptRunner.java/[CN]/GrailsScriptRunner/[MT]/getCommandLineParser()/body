@@ -1,12 +1,12 @@
 {
   CommandLineParser parser=new CommandLineParser();
-  parser.addOption(RESOLVE_DEPENDENCIES_ARGUMENT,"Whether to force a resolve of dependencies (skipping any caching)");
-  parser.addOption(VERBOSE_ARGUMENT,"Enable verbose output");
-  parser.addOption(STACKTRACE_ARGUMENT,"Enable stack traces in output");
-  parser.addOption(AGENT_ARGUMENT,"Enable the reloading agent");
-  parser.addOption(NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input");
-  parser.addOption(HELP_ARGUMENT,"Command line help");
-  parser.addOption(VERSION_ARGUMENT,"Current Grails version");
-  parser.addOption(NOANSI_ARGUMENT,"Disables ANSI output");
+  parser.addOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT,"Whether to force a resolve of dependencies (skipping any caching)");
+  parser.addOption(CommandLine.VERBOSE_ARGUMENT,"Enable verbose output");
+  parser.addOption(CommandLine.STACKTRACE_ARGUMENT,"Enable stack traces in output");
+  parser.addOption(CommandLine.AGENT_ARGUMENT,"Enable the reloading agent");
+  parser.addOption(CommandLine.NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input");
+  parser.addOption(CommandLine.HELP_ARGUMENT,"Command line help");
+  parser.addOption(CommandLine.VERSION_ARGUMENT,"Current Grails version");
+  parser.addOption(CommandLine.NOANSI_ARGUMENT,"Disables ANSI output");
   return parser;
 }

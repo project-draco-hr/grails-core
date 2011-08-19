@@ -9,7 +9,7 @@
   GantResult result=null;
   try {
     gant.loadScript(scriptFile.getURL());
-    result=executeWithGantInstance(gant,DO_NOTHING_CLOSURE);
+    result=executeWithGantInstance(gant,CommandLine.DO_NOTHING_CLOSURE);
     return result.exitCode;
   }
  catch (  IOException e) {

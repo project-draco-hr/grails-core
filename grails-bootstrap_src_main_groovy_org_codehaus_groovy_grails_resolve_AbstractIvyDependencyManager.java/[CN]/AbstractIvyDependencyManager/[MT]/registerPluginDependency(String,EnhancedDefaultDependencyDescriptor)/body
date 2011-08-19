@@ -16,7 +16,7 @@
   }
   DependencyArtifactDescriptor artifact=new DefaultDependencyArtifactDescriptor(descriptor,name,packaging,packaging,null,null);
   descriptor.addDependencyArtifact(scope,artifact);
-  registerDependencyCommon(scope,descriptor);
+  registerDependencyCommon(scope,descriptor,true);
   pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
   if (shouldIncludeDependency(descriptor)) {

@@ -1,9 +1,0 @@
-{
-  List<String> mappings=configurationMappings.get(configurationName);
-  if (mappings == null) {
-    return;
-  }
-  for (  String m : mappings) {
-    descriptor.addDependencyConfiguration(configurationName,m);
-  }
-}

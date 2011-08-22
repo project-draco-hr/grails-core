@@ -46,7 +46,12 @@
         criteria.setMaxResults(Integer.MAX_VALUE);
         criteria.setProjection(Projections.rowCount());
         int totalCount=((Number)criteria.uniqueResult()).intValue();
-        criteria.setProjection(null);
+        if (projectionList != null && projectionList.getLength() > 0) {
+          criteria.setProjection(projectionList);
+        }
+ else {
+          criteria.setProjection(null);
+        }
         for (        Order orderEntry : orderEntries) {
           criteria.addOrder(orderEntry);
         }

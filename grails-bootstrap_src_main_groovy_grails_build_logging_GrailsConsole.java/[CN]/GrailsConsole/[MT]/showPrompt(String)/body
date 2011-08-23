@@ -1,12 +1,18 @@
 {
   try {
     cursorMove=0;
-    userInputActive=true;
-    try {
-      return reader.readLine(prompt);
-    }
+    if (!userInputActive) {
+      userInputActive=true;
+      try {
+        return reader.readLine(prompt);
+      }
   finally {
-      userInputActive=false;
+        userInputActive=false;
+      }
+    }
+ else {
+      out.print(prompt);
+      return null;
     }
   }
  catch (  IOException e) {

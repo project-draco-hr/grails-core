@@ -1,7 +1,8 @@
 {
-  final String servletVersion=(String)get(SERVLET_VERSION);
+  String servletVersion=(String)get(SERVLET_VERSION);
   if (servletVersion == null) {
-    return DEFAULT_SERVLET_VERSION;
+    servletVersion=System.getProperty(SERVLET_VERSION) != null ? System.getProperty(SERVLET_VERSION) : DEFAULT_SERVLET_VERSION;
+    return servletVersion;
   }
   return servletVersion;
 }

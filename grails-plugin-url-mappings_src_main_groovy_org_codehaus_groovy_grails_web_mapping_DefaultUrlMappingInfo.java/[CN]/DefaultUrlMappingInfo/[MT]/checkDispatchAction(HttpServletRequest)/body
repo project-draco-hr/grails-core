@@ -1,4 +1,5 @@
 {
+  if (request.getAttribute(GrailsExceptionResolver.EXCEPTION_ATTRIBUTE) != null)   return null;
   String dispatchActionName=null;
   Enumeration<String> paramNames=tryMultipartParams(request,request.getParameterNames());
   for (; paramNames.hasMoreElements(); ) {

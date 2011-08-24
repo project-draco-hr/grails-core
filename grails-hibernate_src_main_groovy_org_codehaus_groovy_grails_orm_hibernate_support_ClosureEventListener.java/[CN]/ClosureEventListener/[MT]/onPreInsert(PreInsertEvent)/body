@@ -1,33 +1,38 @@
 {
-  Object entity=event.getEntity();
-  boolean synchronizeState=false;
-  if (beforeInsertCaller != null) {
-    beforeInsertCaller.call(entity);
-    synchronizeState=true;
-  }
-  if (shouldTimestamp) {
-    long time=System.currentTimeMillis();
-    if (dateCreatedProperty != null) {
-      Object now=DefaultGroovyMethods.newInstance(dateCreatedProperty.getType(),new Object[]{time});
-      dateCreatedProperty.setProperty(entity,now);
-      synchronizeState=true;
+  return doWithManualSession(event,new Closure<Boolean>(this){
+    @Override public Boolean call(){
+      Object entity=event.getEntity();
+      boolean synchronizeState=false;
+      if (beforeInsertCaller != null) {
+        beforeInsertCaller.call(entity);
+        synchronizeState=true;
+      }
+      if (shouldTimestamp) {
+        long time=System.currentTimeMillis();
+        if (dateCreatedProperty != null) {
+          Object now=DefaultGroovyMethods.newInstance(dateCreatedProperty.getType(),new Object[]{time});
+          dateCreatedProperty.setProperty(entity,now);
+          synchronizeState=true;
+        }
+        if (lastUpdatedProperty != null) {
+          Object now=DefaultGroovyMethods.newInstance(lastUpdatedProperty.getType(),new Object[]{time});
+          lastUpdatedProperty.setProperty(entity,now);
+          synchronizeState=true;
+        }
+      }
+      if (synchronizeState) {
+        synchronizePersisterState(entity,event.getPersister(),event.getState());
+      }
+      boolean evict=false;
+      if (!AbstractSavePersistentMethod.isAutoValidationDisabled(entity) && !DefaultTypeTransformation.castToBoolean(validateMethod.invoke(entity,new Object[]{validateParams}))) {
+        evict=true;
+        if (failOnErrorEnabled) {
+          Errors errors=(Errors)errorsProperty.getProperty(entity);
+          throw new ValidationException("Validation error whilst flushing entity [" + entity.getClass().getName() + "]",errors);
+        }
+      }
+      return evict;
     }
-    if (lastUpdatedProperty != null) {
-      Object now=DefaultGroovyMethods.newInstance(lastUpdatedProperty.getType(),new Object[]{time});
-      lastUpdatedProperty.setProperty(entity,now);
-      synchronizeState=true;
-    }
   }
-  if (synchronizeState) {
-    synchronizePersisterState(entity,event.getPersister(),event.getState());
-  }
-  boolean evict=false;
-  if (!AbstractSavePersistentMethod.isAutoValidationDisabled(entity) && !DefaultTypeTransformation.castToBoolean(validateMethod.invoke(entity,new Object[]{validateParams}))) {
-    evict=true;
-    if (failOnErrorEnabled) {
-      Errors errors=(Errors)errorsProperty.getProperty(entity);
-      throw new ValidationException("Validation error whilst flushing entity [" + entity.getClass().getName() + "]",errors);
-    }
-  }
-  return evict;
+);
 }

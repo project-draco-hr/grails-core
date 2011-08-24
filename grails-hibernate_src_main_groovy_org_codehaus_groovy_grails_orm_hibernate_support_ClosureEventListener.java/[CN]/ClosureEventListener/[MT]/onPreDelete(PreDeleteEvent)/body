@@ -1,6 +1,11 @@
 {
   if (preDeleteEventListener != null) {
-    return preDeleteEventListener.call(event.getEntity());
+    return doWithManualSession(event,new Closure<Boolean>(this){
+      @Override public Boolean call(){
+        return preDeleteEventListener.call(event.getEntity());
+      }
+    }
+);
   }
   return false;
 }

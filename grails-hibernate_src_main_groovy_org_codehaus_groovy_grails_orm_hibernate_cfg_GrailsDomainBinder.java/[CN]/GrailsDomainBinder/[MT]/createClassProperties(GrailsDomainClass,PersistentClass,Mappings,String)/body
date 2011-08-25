@@ -19,9 +19,16 @@
     CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
     Class<?> userType=getUserType(currentGrailsProp);
     if (collectionType != null) {
-      Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings,sessionFactoryBeanName);
-      mappings.addCollection(collection);
-      value=collection;
+      String typeName=getTypeName(currentGrailsProp,getPropertyConfig(currentGrailsProp),gormMapping);
+      if (typeName != null && "serializable".equals(typeName)) {
+        value=new SimpleValue(mappings,table);
+        bindSimpleValue(typeName,(SimpleValue)value,currentGrailsProp.isOptional(),getColumnNameForPropertyAndPath(currentGrailsProp,EMPTY_PATH,null,sessionFactoryBeanName),mappings);
+      }
+ else {
+        Collection collection=collectionType.create(currentGrailsProp,persistentClass,EMPTY_PATH,mappings,sessionFactoryBeanName);
+        mappings.addCollection(collection);
+        value=collection;
+      }
     }
  else     if (currentGrailsProp.isEnum()) {
       value=new SimpleValue(mappings,table);

@@ -4,7 +4,7 @@
       continue;
     }
     if (GrailsDomainConfigurationUtil.isNotConfigurational(descriptor)) {
-      GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor);
+      GrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor,defaultConstraints);
       propertyMap.put(property.getName(),property);
       if (property.isIdentity()) {
         identifier=property;

@@ -4,6 +4,6 @@
   List tmp=getPropertyValue(GrailsDomainClassProperty.TRANSIENT,List.class);
   if (tmp != null)   transients=tmp;
   properties=createDomainClassProperties(descriptors);
-  ConstraintsEvaluator constraintsEvaluator=new DefaultConstraintEvaluator();
+  ConstraintsEvaluator constraintsEvaluator=getConstraintsEvaluator();
   constraints=constraintsEvaluator.evaluate(type,properties);
 }

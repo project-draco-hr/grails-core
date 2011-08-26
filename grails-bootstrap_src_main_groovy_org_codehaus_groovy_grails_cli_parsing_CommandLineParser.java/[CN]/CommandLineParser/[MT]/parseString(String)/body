@@ -1,3 +1,8 @@
 {
-  return parse(string.split(" "));
+  try {
+    return parse(Commandline.translateCommandline(string));
+  }
+ catch (  BuildException e) {
+    throw new ParseException(e);
+  }
 }

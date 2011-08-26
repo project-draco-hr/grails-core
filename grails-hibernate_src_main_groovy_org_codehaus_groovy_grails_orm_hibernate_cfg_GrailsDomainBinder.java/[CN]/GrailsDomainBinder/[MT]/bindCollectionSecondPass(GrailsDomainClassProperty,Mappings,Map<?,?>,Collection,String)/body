@@ -12,7 +12,7 @@
       String associatedClassName=property.getReferencedDomainClass().getFullName();
       associatedClass=(PersistentClass)persistentClasses.get(associatedClassName);
       if (associatedClass != null) {
-        collection.setOrderBy(buildOrderByClause(propertyToSortBy.getName(),associatedClass,collection.getRole(),propConfig.getOrder()));
+        collection.setOrderBy(buildOrderByClause(propertyToSortBy.getName(),associatedClass,collection.getRole(),propConfig.getOrder() != null ? propConfig.getOrder() : "asc"));
       }
     }
   }

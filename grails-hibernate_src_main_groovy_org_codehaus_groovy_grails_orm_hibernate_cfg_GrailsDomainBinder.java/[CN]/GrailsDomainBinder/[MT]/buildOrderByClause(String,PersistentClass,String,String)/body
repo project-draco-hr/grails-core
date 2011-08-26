@@ -35,7 +35,7 @@
       }
       ordering.remove(0);
       if (currentOrdering == null) {
-        ordering.add("asc");
+        ordering.add(defaultOrder);
       }
  else {
         ordering.add(currentOrdering);

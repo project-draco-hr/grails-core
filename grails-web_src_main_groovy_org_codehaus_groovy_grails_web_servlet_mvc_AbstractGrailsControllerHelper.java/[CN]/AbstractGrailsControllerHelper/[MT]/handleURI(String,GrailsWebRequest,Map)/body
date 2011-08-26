@@ -10,6 +10,9 @@
     throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
   }
   String actionName=controllerClass.getMethodActionName(uri);
+  if (controllerClass.isFlowAction(actionName)) {
+    return null;
+  }
   grailsWebRequest.setActionName(actionName);
   if (LOG.isDebugEnabled()) {
     LOG.debug("Processing request for controller action [" + actionName + "]");

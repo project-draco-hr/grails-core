@@ -4,8 +4,10 @@
     for (    Method method : superClass.getMethods()) {
       if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
         String methodName=method.getName();
-        methodNames.add(methodName);
-        configureMappingForMethodAction(methodName);
+        if (!methodName.endsWith(FLOW_SUFFIX)) {
+          methodNames.add(methodName);
+          configureMappingForMethodAction(methodName);
+        }
       }
     }
     superClass=superClass.getSuperclass();

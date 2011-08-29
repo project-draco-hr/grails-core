@@ -6,6 +6,19 @@
   binder.registerCustomEditor(Locale.class,new LocaleEditor());
   binder.registerCustomEditor(TimeZone.class,new TimeZoneEditor());
   binder.registerCustomEditor(URI.class,new UriEditor());
+  DefaultConversionService conversionService=new DefaultConversionService();
+  conversionService.addConverter(new GenericConverter(){
+    @Override public Set<ConvertiblePair> getConvertibleTypes(){
+      return Collections.singleton(new ConvertiblePair(Map.class,Object.class));
+    }
+    @Override public Object convert(    Object source,    TypeDescriptor sourceType,    TypeDescriptor targetType){
+      Object obj=BeanUtils.instantiate(targetType.getObjectType());
+      createBinder(obj,obj.getClass().getName()).bind(new MutablePropertyValues((Map<?,?>)source));
+      return obj;
+    }
+  }
+);
+  binder.setConversionService(conversionService);
   final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
   if (webRequest != null) {
     initializeFromWebRequest(binder,webRequest);

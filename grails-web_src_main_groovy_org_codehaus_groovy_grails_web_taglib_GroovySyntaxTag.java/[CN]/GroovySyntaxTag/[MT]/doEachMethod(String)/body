@@ -16,7 +16,7 @@
     out.println("int " + status + " = 0");
   }
   if (!hasVar) {
-    var="_it" + System.currentTimeMillis();
+    var="_it" + Math.abs(System.identityHashCode(this));
     foreachRenamedIt=var;
   }
   out.print("for( " + var);
@@ -25,4 +25,7 @@
   out.print(" )");
   out.print(" {");
   out.println();
+  if (!hasVar) {
+    out.println("changeItVariable(" + foreachRenamedIt + ")");
+  }
 }

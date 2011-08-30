@@ -2,6 +2,7 @@
   List<Resource> potentialScripts;
   List<Resource> allScripts=getAvailableScripts();
   GantBinding binding=new GantBinding();
+  binding.setVariable("scriptName",scriptName);
   setDefaultInputStream(binding);
   boolean exactMatchFound=false;
   potentialScripts=new ArrayList<Resource>();

@@ -7,10 +7,6 @@
       GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,c,argsMap);
       if (operator.equals(OPERATOR_OR)) {
         Disjunction dis=Restrictions.disjunction();
-        if (firstExpressionIsRequiredBoolean()) {
-          GrailsMethodExpression expression=(GrailsMethodExpression)expressions.remove(0);
-          c.add(expression.getCriterion());
-        }
         for (        Object expression : expressions) {
           GrailsMethodExpression current=(GrailsMethodExpression)expression;
           if (GrailsMethodExpression.FORCE_NO_RESULTS != current.getCriterion()) {

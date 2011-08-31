@@ -13,6 +13,7 @@
       args[i]=args[i].toString();
     }
  else     if (!prop.getType().isAssignableFrom(args[i].getClass()) && !(GrailsClassUtils.isMatchBetweenPrimativeAndWrapperTypes(prop.getType(),args[i].getClass()))) {
+      TypeConverter converter=new SimpleTypeConverter();
       try {
         if (type.equals(IN_LIST)) {
           args[i]=converter.convertIfNecessary(args[i],Collection.class);

@@ -2,10 +2,6 @@
   Object interceptorResult=null;
   if (controllerClass.isInterceptedAfter(controller,actionName)) {
     Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
-    if (afterInterceptor.getDelegate() != controller) {
-      afterInterceptor.setDelegate(controller);
-      afterInterceptor.setResolveStrategy(Closure.DELEGATE_FIRST);
-    }
     Map model=new HashMap();
     if (mv != null) {
       model=mv.getModel() != null ? mv.getModel() : new HashMap();

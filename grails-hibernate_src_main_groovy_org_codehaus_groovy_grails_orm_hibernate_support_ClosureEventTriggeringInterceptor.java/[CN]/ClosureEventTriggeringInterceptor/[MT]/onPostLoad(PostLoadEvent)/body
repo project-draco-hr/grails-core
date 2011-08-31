@@ -1,6 +1,5 @@
 {
-  Object entity=event.getEntity();
-  ClosureEventListener eventListener=findEventListener(entity);
+  ClosureEventListener eventListener=findEventListener(event.getEntity());
   if (eventListener != null) {
     eventListener.onPostLoad(event);
   }

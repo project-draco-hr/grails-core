@@ -5,7 +5,7 @@
     List<String> ordering=new ArrayList<String>();
     StringBuilder orderByBuffer=new StringBuilder();
     if (hqlOrderBy.length() == 0) {
-      Iterator it=associatedClass.getIdentifier().getColumnIterator();
+      Iterator<?> it=associatedClass.getIdentifier().getColumnIterator();
       while (it.hasNext()) {
         Selectable col=(Selectable)it.next();
         orderByBuffer.append(col.getText()).append(" asc").append(", ");
@@ -58,7 +58,7 @@
  else {
           table=pc.getTable().getQuotedName() + ".";
         }
-        Iterator propertyColumns=p.getColumnIterator();
+        Iterator<?> propertyColumns=p.getColumnIterator();
         while (propertyColumns.hasNext()) {
           Selectable column=(Selectable)propertyColumns.next();
           orderByBuffer.append(table).append(column.getText()).append(" ").append(ordering.get(index)).append(", ");

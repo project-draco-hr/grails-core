@@ -1,6 +1,5 @@
 {
-  this.grailsApplication=grailsApplication;
   if (grailsApplication != null) {
-    this.defaultConstraints=ConstraintEvalUtils.getDefaultConstraints(grailsApplication.getConfig());
+    defaultConstraints=ConstraintEvalUtils.getDefaultConstraints(grailsApplication.getConfig());
   }
 }

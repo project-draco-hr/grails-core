@@ -21,7 +21,7 @@
         }
         nestedMap.put(remainderOfKey,getParameterValue(requestMap,key));
         if (remainderOfKey.indexOf('.') > -1) {
-          processNestedKeys(request,requestMap,key,remainderOfKey,nestedMap);
+          processNestedKeys(requestMap,key,remainderOfKey,nestedMap);
         }
       }
     }

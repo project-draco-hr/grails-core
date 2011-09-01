@@ -5,7 +5,7 @@
   lastMessage="";
   msg=isAnsiEnabled() ? outputCategory(ansi(),">").fg(DEFAULT).a(msg).toString() : msg;
   try {
-    return showPrompt(msg);
+    return readLine(msg);
   }
   finally {
     cursorMove=0;

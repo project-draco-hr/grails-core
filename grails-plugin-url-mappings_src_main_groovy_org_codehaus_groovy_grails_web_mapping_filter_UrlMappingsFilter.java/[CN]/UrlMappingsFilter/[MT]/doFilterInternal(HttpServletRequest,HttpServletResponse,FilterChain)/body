@@ -50,7 +50,7 @@
           viewName=info.getViewName();
           if (viewName == null && info.getURI() == null) {
             final String controllerName=info.getControllerName();
-            GrailsClass controller=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,WebUtils.SLASH + controllerName + WebUtils.SLASH+ action);
+            GrailsClass controller=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,WebUtils.SLASH + urlConverter.toUrlElement(controllerName) + WebUtils.SLASH+ urlConverter.toUrlElement(action));
             if (controller == null) {
               continue;
             }

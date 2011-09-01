@@ -1,0 +1,6 @@
+{
+  if (StringUtils.isBlank(propertyOrClassName)) {
+    return propertyOrClassName;
+  }
+  return GrailsNameUtils.getPropertyNameRepresentation(propertyOrClassName);
+}

@@ -1,5 +1,5 @@
 {
-  String tmpUri=controllerPath + closureName;
+  String tmpUri=controllerPath + urlConverter.toUrlElement(closureName);
   uri2methodMap.put(tmpUri,closureName);
   uri2methodMap.put(tmpUri + SLASH + "**",closureName);
   uri2viewMap.put(tmpUri,tmpUri);

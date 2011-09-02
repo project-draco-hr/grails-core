@@ -1,0 +1,15 @@
+{
+  if (DEBUG) {
+    try {
+      out.write(("<<<" + ECLIPSE_SUPPORTS_ANSI_PROP + ":"+ eclipseSupportsAnsi()+ ">>>\n").getBytes());
+    }
+ catch (    IOException e) {
+    }
+  }
+  if (eclipseSupportsAnsi()) {
+    return out;
+  }
+ else {
+    return super.ansiWrap(out);
+  }
+}

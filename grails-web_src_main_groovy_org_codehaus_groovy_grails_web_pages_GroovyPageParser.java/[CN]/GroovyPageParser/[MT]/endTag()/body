@@ -2,7 +2,7 @@
   if (!finalPass)   return;
   String tagName=scan.getToken().trim();
   String ns=scan.getNamespace();
-  if (tagMetaStack.isEmpty())   throw new GrailsTagException("Found closing Grails tag with no opening [" + tagName + "]",pageName,out.getCurrentLineNumber());
+  if (tagMetaStack.isEmpty())   throw new GrailsTagException("Found closing Grails tag with no opening [" + tagName + "]",pageName,getCurrentOutputLineNumber());
   TagMeta tm=tagMetaStack.pop();
   String lastInStack=tm.name;
   String lastNamespaceInStack=tm.namespace;
@@ -18,7 +18,7 @@
       tag.doEndTag();
     }
  else {
-      throw new GrailsTagException("Grails tag [" + tagName + "] was not closed",pageName,out.getCurrentLineNumber());
+      throw new GrailsTagException("Grails tag [" + tagName + "] was not closed",pageName,getCurrentOutputLineNumber());
     }
   }
  else {

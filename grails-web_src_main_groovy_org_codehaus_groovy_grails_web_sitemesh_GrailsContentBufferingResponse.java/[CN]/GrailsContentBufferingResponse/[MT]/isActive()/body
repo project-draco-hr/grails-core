@@ -1,4 +1,3 @@
 {
-  GrailsPageResponseWrapper superResponse=(GrailsPageResponseWrapper)getResponse();
-  return superResponse.isSitemeshActive() || superResponse.isGspSitemeshActive();
+  return pageResponseWrapper.isSitemeshActive() || pageResponseWrapper.isGspSitemeshActive();
 }

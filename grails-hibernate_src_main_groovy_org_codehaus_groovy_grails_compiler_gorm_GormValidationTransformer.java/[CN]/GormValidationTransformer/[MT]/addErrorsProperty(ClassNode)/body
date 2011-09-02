@@ -1,9 +1,4 @@
 {
-  final ArgumentListExpression errorsConstructorArgs=new ArgumentListExpression();
-  errorsConstructorArgs.addExpression(THIS_EXPRESSION).addExpression(new ConstantExpression(classNode.getName()));
-  final ConstructorCallExpression emptyErrorsConstructorCall=new ConstructorCallExpression(new ClassNode(BeanPropertyBindingResult.class),errorsConstructorArgs);
-  classNode.addProperty(GrailsDomainClassProperty.ERRORS,Modifier.PUBLIC,new ClassNode(Errors.class),emptyErrorsConstructorCall,null,null);
-  final BlockStatement methodBody=new BlockStatement();
-  methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(new VariableExpression(GrailsDomainClassProperty.ERRORS),HAS_ERRORS_METHOD,ZERO_ARGS)));
-  classNode.addMethod(new MethodNode(HAS_ERRORS_METHOD,Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,null,methodBody));
+  ASTErrorsHelper errorsHelper=new ASTValidationErrorsHelper();
+  errorsHelper.injectErrorsCode(classNode);
 }

@@ -2,12 +2,12 @@
   if (msg == null || msg.trim().length() == 0)   return;
   try {
     if (isAnsiEnabled()) {
-      lastStatus=outputCategory(erasePreviousLine(CATEGORY_SEPARATOR),CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset();
+      out.print(erasePreviousLine(CATEGORY_SEPARATOR));
+      lastStatus=outputCategory(ansi(),CATEGORY_SEPARATOR).fg(Color.DEFAULT).a(msg).reset();
       out.println(lastStatus);
-      if (userInputActive) {
-        out.print(ansi().cursorRight(PROMPT.length()).reset());
+      if (!userInputActive) {
+        cursorMove=replaceCount;
       }
-      cursorMove=replaceCount;
     }
  else {
       if (lastMessage != null && lastMessage.equals(msg))       return;

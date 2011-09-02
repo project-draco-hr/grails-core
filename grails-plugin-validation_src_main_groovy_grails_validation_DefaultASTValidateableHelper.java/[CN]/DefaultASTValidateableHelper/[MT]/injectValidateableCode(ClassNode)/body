@@ -1,0 +1,6 @@
+{
+  ASTErrorsHelper errorsHelper=new ASTValidationErrorsHelper();
+  errorsHelper.injectErrorsCode(commandObjectTypeClassNode);
+  addConstraintedPropertiesProperty(commandObjectTypeClassNode);
+  addValidateMethod(commandObjectTypeClassNode);
+}

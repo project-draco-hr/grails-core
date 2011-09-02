@@ -10,7 +10,7 @@
     }
  else {
       commandLine=parser.parseString(args[0]);
-      if (commandLine.hasOption(NOANSI_ARGUMENT)) {
+      if (commandLine.hasOption(CommandLine.NOANSI_ARGUMENT)) {
         console.setAnsiEnabled(false);
       }
     }
@@ -26,7 +26,7 @@
   BuildSettings build=null;
   try {
     build=new BuildSettings(new File(grailsHome));
-    if (commandLine.hasOption(RESOLVE_DEPENDENCIES_ARGUMENT)) {
+    if (commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT)) {
       build.setModified(true);
     }
     if (build.getRootLoader() == null) {
@@ -40,16 +40,25 @@
   if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
     exitWithError("Grails' installation directory not found: " + build.getGrailsHome(),null);
   }
-  if (commandLine.hasOption(VERSION_ARGUMENT)) {
+  if (commandLine.hasOption(CommandLine.VERSION_ARGUMENT)) {
     console.log("Grails version: " + build.getGrailsVersion());
     System.exit(0);
   }
-  if (commandLine.hasOption(HELP_ARGUMENT)) {
+  if (commandLine.hasOption(CommandLine.HELP_ARGUMENT)) {
     console.log(parser.getHelpMessage());
     System.exit(0);
   }
+  boolean resolveDeps=commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT);
+  if (resolveDeps) {
+    if (commandLine.hasOption("include-source")) {
+      build.setIncludeSource(true);
+    }
+    if (commandLine.hasOption("include-javadoc")) {
+      build.setIncludeJavadoc(true);
+    }
+  }
   GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
-  scriptRunner.setInteractive(!commandLine.hasOption(NON_INTERACTIVE_ARGUMENT));
+  scriptRunner.setInteractive(!commandLine.hasOption(CommandLine.NON_INTERACTIVE_ARGUMENT));
   if ("Interactive".equals(script.name)) {
     console.error("The 'interactive' script is deprecated; to run in interactive mode just omit the script name");
     script.name=null;
@@ -57,7 +66,7 @@
   if (script.name == null) {
     console.updateStatus("Loading Grails " + (version != null ? version : build.getGrailsVersion()));
     build.loadConfig();
-    if (commandLine.hasOption(RESOLVE_DEPENDENCIES_ARGUMENT)) {
+    if (resolveDeps) {
       ClasspathConfigurer.cleanResolveCache(build);
     }
     scriptRunner.initializeState();

@@ -1,6 +1,9 @@
 {
   GrailsPrintWriter out=(GrailsPrintWriter)createResponseWriter(response);
   try {
+    if (template instanceof GroovyPageTemplate) {
+      ((GroovyPageTemplate)template).setAllowSettingContentType(true);
+    }
     template.make().writeTo(out);
   }
  catch (  Exception e) {

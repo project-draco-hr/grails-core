@@ -1,5 +1,6 @@
 {
   for (  String extension : toAdd) {
+    extension=removeStartingDotIfPresent(extension);
     if (!extensions.contains(extension)) {
       extensions.add(extension);
     }

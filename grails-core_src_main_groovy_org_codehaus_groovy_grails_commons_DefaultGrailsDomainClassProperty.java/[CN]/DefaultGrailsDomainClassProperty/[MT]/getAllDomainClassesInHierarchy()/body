@@ -1,0 +1,10 @@
+{
+  List<Class<?>> classesInHierarchy=new ArrayList<Class<?>>();
+  Class<?> currentClass=domainClass.getClazz();
+  while (currentClass != null) {
+    classesInHierarchy.add(currentClass);
+    Class<?> superClass=currentClass.getSuperclass();
+    currentClass=DomainClassArtefactHandler.isDomainClass(superClass) ? superClass : null;
+  }
+  return classesInHierarchy;
+}

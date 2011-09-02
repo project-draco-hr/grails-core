@@ -1,0 +1,18 @@
+{
+  List<String> mappings=configurationMappings.get(configurationName);
+  if (mappings == null) {
+    return;
+  }
+  if (!pluginDep && !"org.grails".equals(descriptor.getDependencyId().getOrganisation())) {
+    mappings=new ArrayList<String>(mappings);
+    if (includeJavadoc) {
+      mappings.add("javadoc");
+    }
+    if (includeSource) {
+      mappings.add("sources");
+    }
+  }
+  for (  String m : mappings) {
+    descriptor.addDependencyConfiguration(configurationName,m);
+  }
+}

@@ -1,7 +1,13 @@
 {
-  Object entity=event.getEntity();
+  final Object entity=event.getEntity();
   AbstractSavePersistentMethod.clearDisabledValidations(entity);
   if (postUpdateEventListener != null) {
-    postUpdateEventListener.call(entity);
+    doWithManualSession(event,new Closure(this){
+      @Override public Object call(){
+        postUpdateEventListener.call(entity);
+        return null;
+      }
+    }
+);
   }
 }

@@ -64,7 +64,7 @@
           processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
           return;
         }
-        if ((ha instanceof AnnotationMethodHandlerAdapter) && mv != null && !mv.hasView()) {
+        if ((ha instanceof AnnotationMethodHandlerAdapter || ha instanceof RequestMappingHandlerAdapter) && mv != null && !mv.hasView()) {
           mv.setViewName(getDefaultViewName(request));
         }
       }
@@ -151,7 +151,7 @@ catch (  Error err) {
     throw ex;
   }
  finally {
-    if (processedRequest instanceof MultipartHttpServletRequest && processedRequest != request) {
+    if (processedRequest instanceof MultipartHttpServletRequest) {
       if (multipartResolver != null) {
         multipartResolver.cleanupMultipart((MultipartHttpServletRequest)processedRequest);
       }

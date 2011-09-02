@@ -1,0 +1,9 @@
+{
+  registerUsedConfigurationIfNecessary(scope);
+  if (descriptor.getModuleConfigurations().length == 0) {
+    addDefaultModuleConfigurations(descriptor,scope,isPluginDep);
+  }
+  if (!descriptor.isInherited()) {
+    hasApplicationDependencies=true;
+  }
+}

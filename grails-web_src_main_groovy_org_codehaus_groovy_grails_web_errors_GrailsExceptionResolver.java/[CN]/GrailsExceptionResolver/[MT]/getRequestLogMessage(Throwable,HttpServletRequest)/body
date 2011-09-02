@@ -1,0 +1,5 @@
+{
+  Throwable cause=getRootCause(e);
+  String exceptionName=cause.getClass().getSimpleName();
+  return getRequestLogMessage(exceptionName,request,cause.getMessage());
+}

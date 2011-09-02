@@ -49,10 +49,11 @@
     GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
   }
  catch (  Throwable e) {
-    if (Environment.isDevelopmentMode()) {
+    if (Environment.isDevelopmentMode() && !Environment.isWarDeployed()) {
       LOG.error("Error executing bootstraps: " + e.getMessage(),e);
-      System.exit(1);
-      return null;
+      if (System.getProperty("grails.disable.exit") == null) {
+        System.exit(1);
+      }
     }
     if (e instanceof BeansException)     throw (BeansException)e;
     throw new BootstrapException("Error executing bootstraps",e);

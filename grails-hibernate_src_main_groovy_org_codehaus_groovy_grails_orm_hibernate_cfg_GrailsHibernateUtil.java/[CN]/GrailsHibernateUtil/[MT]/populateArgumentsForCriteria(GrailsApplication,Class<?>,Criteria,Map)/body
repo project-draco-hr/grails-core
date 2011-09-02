@@ -1,6 +1,7 @@
 {
   Integer maxParam=null;
   Integer offsetParam=null;
+  SimpleTypeConverter converter=new SimpleTypeConverter();
   if (argMap.containsKey(ARGUMENT_MAX)) {
     maxParam=converter.convertIfNecessary(argMap.get(ARGUMENT_MAX),Integer.class);
   }

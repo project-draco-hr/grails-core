@@ -1,6 +1,6 @@
 {
   MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
-  Errors errors=new BeanPropertyBindingResult(target,target.getClass().getName());
+  Errors errors=new ValidationErrors(target);
   Errors originalErrors=(Errors)mc.getProperty(target,ERRORS_PROPERTY);
   for (  Object o : originalErrors.getFieldErrors()) {
     FieldError fe=(FieldError)o;

@@ -1,8 +1,4 @@
 {
-  Assert.isInstanceOf(String.class,value,"A GroovySynax tag requires only string valued attributes");
-  String stringValue=(String)value;
-  if (stringValue.startsWith("${") && stringValue.endsWith("}")) {
-    stringValue=stringValue.substring(2,stringValue.length() - 1);
-  }
-  attributes.put(name.substring(1,name.length() - 1),stringValue);
+  Assert.isInstanceOf(String.class,value,"A GroovySyntax tag requires only string valued attributes");
+  attributes.put(name.substring(1,name.length() - 1),(String)value);
 }

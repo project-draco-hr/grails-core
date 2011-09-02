@@ -1,4 +1,5 @@
 {
+  ensureInitialized();
   Map<String,Closure> closureFlows=new HashMap<String,Closure>();
   for (  String name : flows.keySet()) {
     Closure c=getPropertyValue(name + "Flow",Closure.class);

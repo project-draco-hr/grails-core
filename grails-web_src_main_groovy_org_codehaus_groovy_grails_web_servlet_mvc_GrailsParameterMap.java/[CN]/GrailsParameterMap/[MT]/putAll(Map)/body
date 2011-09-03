@@ -1,0 +1,6 @@
+{
+  for (  Object entryObj : map.entrySet()) {
+    Map.Entry entry=(Map.Entry)entryObj;
+    put(entry.getKey(),entry.getValue());
+  }
+}

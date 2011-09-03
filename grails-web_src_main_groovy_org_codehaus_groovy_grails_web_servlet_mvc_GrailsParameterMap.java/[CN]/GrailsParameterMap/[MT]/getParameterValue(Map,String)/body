@@ -1,0 +1,9 @@
+{
+  Object paramValue=requestMap.get(key);
+  if (paramValue instanceof String[]) {
+    if (((String[])paramValue).length == 1) {
+      paramValue=((String[])paramValue)[0];
+    }
+  }
+  return paramValue;
+}

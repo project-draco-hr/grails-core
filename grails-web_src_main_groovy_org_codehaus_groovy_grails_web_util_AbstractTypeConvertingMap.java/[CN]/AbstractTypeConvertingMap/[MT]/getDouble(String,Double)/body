@@ -1,0 +1,7 @@
+{
+  Double value=getDouble(name);
+  if (value == null) {
+    value=defaultValue;
+  }
+  return value;
+}

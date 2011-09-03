@@ -1,14 +1,7 @@
 {
   super(clazz,CONTROLLER);
-  uri=SLASH + GrailsNameUtils.getPropertyNameRepresentation(getName());
   defaultActionName=getStaticPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;
   }
-  Collection<String> actionNames=new HashSet<String>();
-  controllerPath=uri + SLASH;
-  flowStrategy(actionNames);
-  methodStrategy(actionNames);
-  configureDefaultActionIfSet();
-  configureURIsForCurrentState();
 }

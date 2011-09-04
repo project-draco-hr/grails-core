@@ -1,0 +1,7 @@
+{
+  HashCodeBuilder builder=new HashCodeBuilder(23,31);
+  for (  Object entry : this.wrappedMap.entrySet()) {
+    builder.append(entry);
+  }
+  return builder.toHashCode();
+}

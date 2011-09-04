@@ -1,0 +1,22 @@
+{
+  Map dateParams=new LinkedHashMap();
+  for (  Object entryObj : entrySet()) {
+    Map.Entry entry=(Map.Entry)entryObj;
+    Object entryKey=entry.getKey();
+    if (entryKey instanceof String) {
+      String paramName=(String)entryKey;
+      final String prefix=key + "_";
+      if (paramName.startsWith(prefix)) {
+        dateParams.put(paramName.substring(prefix.length(),paramName.length()),entry.getValue());
+      }
+    }
+  }
+  DateFormat dateFormat=new SimpleDateFormat(GrailsDataBinder.DEFAULT_DATE_FORMAT,LocaleContextHolder.getLocale());
+  StructuredDateEditor editor=new StructuredDateEditor(dateFormat,true);
+  try {
+    return (Date)editor.assemble(Date.class,dateParams);
+  }
+ catch (  IllegalArgumentException e) {
+    return null;
+  }
+}

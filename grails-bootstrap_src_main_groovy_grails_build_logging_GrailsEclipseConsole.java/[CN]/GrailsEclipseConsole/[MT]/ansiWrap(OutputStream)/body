@@ -9,7 +9,5 @@
   if (eclipseSupportsAnsi()) {
     return out;
   }
- else {
-    return super.ansiWrap(out);
-  }
+  return super.ansiWrap(out);
 }

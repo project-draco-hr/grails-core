@@ -1,4 +1,5 @@
 {
   final PropertyProjection propertyProjection=Projections.property(calculatePropertyName(propertyName));
   addProjectionToList(propertyProjection,alias);
+  return this;
 }

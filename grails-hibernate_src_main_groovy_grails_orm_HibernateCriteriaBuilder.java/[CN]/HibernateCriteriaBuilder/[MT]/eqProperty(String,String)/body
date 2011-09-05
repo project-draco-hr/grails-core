@@ -4,5 +4,6 @@
   }
   propertyName=calculatePropertyName(propertyName);
   otherPropertyName=calculatePropertyName(otherPropertyName);
-  return addToCriteria(Restrictions.eqProperty(propertyName,otherPropertyName));
+  addToCriteria(Restrictions.eqProperty(propertyName,otherPropertyName));
+  return this;
 }

@@ -16,5 +16,5 @@
  else {
     criteria.addOrder(o);
   }
-  return o;
+  return this;
 }

@@ -3,5 +3,6 @@
     throwRuntimeException(new IllegalArgumentException("Call to [sizeNe] with propertyName [" + propertyName + "] and size ["+ size+ "] not allowed here."));
   }
   propertyName=calculatePropertyName(propertyName);
-  return addToCriteria(Restrictions.sizeNe(propertyName,size));
+  addToCriteria(Restrictions.sizeNe(propertyName,size));
+  return this;
 }

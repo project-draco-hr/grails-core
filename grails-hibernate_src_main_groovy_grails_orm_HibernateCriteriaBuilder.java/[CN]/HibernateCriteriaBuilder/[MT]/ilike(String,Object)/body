@@ -4,5 +4,6 @@
   }
   propertyName=calculatePropertyName(propertyName);
   propertyValue=calculatePropertyValue(propertyValue);
-  return addToCriteria(Restrictions.ilike(propertyName,propertyValue));
+  addToCriteria(Restrictions.ilike(propertyName,propertyValue));
+  return this;
 }

@@ -11,5 +11,6 @@
       eq=eq.ignoreCase();
     }
   }
-  return addToCriteria(eq);
+  addToCriteria(eq);
+  return this;
 }

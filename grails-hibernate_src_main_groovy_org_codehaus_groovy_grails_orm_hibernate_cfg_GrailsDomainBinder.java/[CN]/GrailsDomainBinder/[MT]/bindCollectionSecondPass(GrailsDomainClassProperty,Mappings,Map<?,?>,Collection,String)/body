@@ -4,17 +4,16 @@
   PropertyConfig propConfig=getPropertyConfig(property);
   if (propConfig != null && !StringUtils.isBlank(propConfig.getSort())) {
     if (!property.isBidirectional() && property.isOneToMany()) {
-      String message="WARNING: Sorting by a child property does " + "not work with unidirectional one to many relationships " + "due to http://opensource.atlassian.com/projects/hibernate/browse/HHH-4394";
-      LOG.warn(message);
+      throw new GrailsDomainException("Default sort for associations [" + property.getDomainClass().getName() + "->"+ property.getName()+ "] are not supported with unidirectional one to many relationships.");
     }
     GrailsDomainClass referenced=property.getReferencedDomainClass();
     if (referenced != null) {
       GrailsDomainClassProperty propertyToSortBy=referenced.getPropertyByName(propConfig.getSort());
-      String columnName=getColumnNameForPropertyAndPath(propertyToSortBy,"",null,sessionFactoryBeanName);
-      if (propConfig.getOrder() != null) {
-        columnName+=" " + propConfig.getOrder();
+      String associatedClassName=property.getReferencedDomainClass().getFullName();
+      associatedClass=(PersistentClass)persistentClasses.get(associatedClassName);
+      if (associatedClass != null) {
+        collection.setOrderBy(buildOrderByClause(propertyToSortBy.getName(),associatedClass,collection.getRole(),propConfig.getOrder() != null ? propConfig.getOrder() : "asc"));
       }
-      collection.setOrderBy(columnName);
     }
   }
   if (collection.isOneToMany()) {

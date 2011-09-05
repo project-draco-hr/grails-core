@@ -8,7 +8,7 @@
     firstChunk=null;
     lastChunk=null;
     totalCharsInList=0;
-    totalCharsInDynamicChunks=0;
+    totalCharsInDynamicChunks=-1;
     dynamicChunkMap.clear();
   }
   allocBuffer.writeTo(target);

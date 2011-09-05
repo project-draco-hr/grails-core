@@ -1,21 +1,3 @@
 {
-  this.domainClass=domainClass;
-  name=descriptor.getName();
-  naturalName=GrailsNameUtils.getNaturalName(descriptor.getName());
-  type=descriptor.getPropertyType();
-  identity=descriptor.getName().equals(IDENTITY);
-  if (domainClass != null) {
-    if (!domainClass.isRoot()) {
-      inherited=GrailsClassUtils.isPropertyInherited(domainClass.getClazz(),name);
-    }
-    List transientProps=getTransients();
-    checkIfTransient(transientProps);
-    establishFetchMode();
-  }
-  if (descriptor.getReadMethod() == null || descriptor.getWriteMethod() == null) {
-    persistent=false;
-  }
-  if (Errors.class.isAssignableFrom(type)) {
-    persistent=false;
-  }
+  this(domainClass,descriptor,null);
 }

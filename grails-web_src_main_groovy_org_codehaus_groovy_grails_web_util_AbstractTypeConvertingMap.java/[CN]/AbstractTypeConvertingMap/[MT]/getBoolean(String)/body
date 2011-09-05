@@ -1,0 +1,17 @@
+{
+  Object o=get(name);
+  if (o instanceof Boolean) {
+    return (Boolean)o;
+  }
+  if (o != null) {
+    try {
+      String string=o.toString();
+      if (string != null) {
+        return Boolean.parseBoolean(string);
+      }
+    }
+ catch (    Exception e) {
+    }
+  }
+  return null;
+}

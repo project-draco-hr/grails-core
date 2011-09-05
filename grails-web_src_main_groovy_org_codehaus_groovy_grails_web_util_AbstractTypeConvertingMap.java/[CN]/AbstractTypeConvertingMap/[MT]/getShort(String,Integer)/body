@@ -1,0 +1,7 @@
+{
+  Short value=getShort(name);
+  if (value == null && defaultValue != null) {
+    value=defaultValue.shortValue();
+  }
+  return value;
+}

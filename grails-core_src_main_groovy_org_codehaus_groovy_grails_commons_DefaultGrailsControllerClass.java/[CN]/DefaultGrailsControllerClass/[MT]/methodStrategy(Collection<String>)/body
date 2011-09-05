@@ -1,10 +1,16 @@
 {
-  for (  Method method : getClazz().getMethods()) {
-    if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
-      String methodName=method.getName();
-      methodNames.add(methodName);
-      configureMappingForMethodAction(methodName);
+  Class superClass=getClazz();
+  while (superClass != null && superClass != Object.class && superClass != GroovyObject.class) {
+    for (    Method method : superClass.getMethods()) {
+      if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
+        String methodName=method.getName();
+        if (!methodName.endsWith(FLOW_SUFFIX)) {
+          methodNames.add(methodName);
+          configureMappingForMethodAction(methodName);
+        }
+      }
     }
+    superClass=superClass.getSuperclass();
   }
   if (!isActionMethod(defaultActionName) && methodNames.size() == 1) {
     defaultActionName=methodNames.iterator().next();

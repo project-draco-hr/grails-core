@@ -17,7 +17,7 @@
       }
     }
   }
-  registerDependencyCommon(scope,descriptor);
+  registerDependencyCommon(scope,descriptor,false);
   ModuleRevisionId revisionId=descriptor.getDependencyRevisionId();
   modules.add(revisionId.getModuleId());
   dependencies.add(revisionId);

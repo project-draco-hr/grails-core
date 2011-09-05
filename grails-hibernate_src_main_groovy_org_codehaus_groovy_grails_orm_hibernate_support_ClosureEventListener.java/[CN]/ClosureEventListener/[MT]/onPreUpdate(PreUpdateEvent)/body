@@ -1,21 +1,26 @@
 {
-  Object entity=event.getEntity();
-  boolean evict=false;
-  if (preUpdateEventListener != null) {
-    evict=preUpdateEventListener.call(entity);
-    synchronizePersisterState(entity,event.getPersister(),event.getState());
-  }
-  if (lastUpdatedProperty != null && shouldTimestamp) {
-    Object now=DefaultGroovyMethods.newInstance(lastUpdatedProperty.getType(),new Object[]{System.currentTimeMillis()});
-    event.getState()[ArrayUtils.indexOf(event.getPersister().getPropertyNames(),GrailsDomainClassProperty.LAST_UPDATED)]=now;
-    lastUpdatedProperty.setProperty(entity,now);
-  }
-  if (!AbstractSavePersistentMethod.isAutoValidationDisabled(entity) && !DefaultTypeTransformation.castToBoolean(validateMethod.invoke(entity,new Object[]{validateParams}))) {
-    evict=true;
-    if (failOnErrorEnabled) {
-      Errors errors=(Errors)errorsProperty.getProperty(entity);
-      throw new ValidationException("Validation error whilst flushing entity [" + entity.getClass().getName() + "]",errors);
+  return doWithManualSession(event,new Closure<Boolean>(this){
+    @Override public Boolean call(){
+      Object entity=event.getEntity();
+      boolean evict=false;
+      if (preUpdateEventListener != null) {
+        evict=preUpdateEventListener.call(entity);
+        synchronizePersisterState(entity,event.getPersister(),event.getState());
+      }
+      if (lastUpdatedProperty != null && shouldTimestamp) {
+        Object now=DefaultGroovyMethods.newInstance(lastUpdatedProperty.getType(),new Object[]{System.currentTimeMillis()});
+        event.getState()[ArrayUtils.indexOf(event.getPersister().getPropertyNames(),GrailsDomainClassProperty.LAST_UPDATED)]=now;
+        lastUpdatedProperty.setProperty(entity,now);
+      }
+      if (!AbstractSavePersistentMethod.isAutoValidationDisabled(entity) && !DefaultTypeTransformation.castToBoolean(validateMethod.invoke(entity,new Object[]{validateParams}))) {
+        evict=true;
+        if (failOnErrorEnabled) {
+          Errors errors=(Errors)errorsProperty.getProperty(entity);
+          throw new ValidationException("Validation error whilst flushing entity [" + entity.getClass().getName() + "]",errors);
+        }
+      }
+      return evict;
     }
   }
-  return evict;
+);
 }

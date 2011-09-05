@@ -1,0 +1,10 @@
+{
+  PropertyDescriptor propertyDescriptor=BeanUtils.getPropertyDescriptor(domainClass.getClazz(),name);
+  this.type=propertyDescriptor != null ? propertyDescriptor.getPropertyType() : null;
+  if (this.type == null) {
+    Field field=ReflectionUtils.findField(domainClass.getClazz(),name);
+    if (field != null) {
+      this.type=field.getType();
+    }
+  }
+}

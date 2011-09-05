@@ -1,3 +1,4 @@
 {
+  ensureInitialized();
   return uri2methodMap.get(uri);
 }

@@ -1,0 +1,7 @@
+{
+  Integer value=getInt(name);
+  if (value == null) {
+    value=defaultValue;
+  }
+  return value;
+}

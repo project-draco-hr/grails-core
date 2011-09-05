@@ -1,15 +1,10 @@
 {
-  try {
-    cursorMove=0;
-    userInputActive=true;
-    try {
-      return reader.readLine(prompt);
-    }
-  finally {
-      userInputActive=false;
-    }
+  cursorMove=0;
+  if (!userInputActive) {
+    return readLine(prompt);
   }
- catch (  IOException e) {
-    throw new RuntimeException("Error reading input: " + e.getMessage());
+ else {
+    out.print(prompt);
+    return null;
   }
 }

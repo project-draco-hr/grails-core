@@ -1,4 +1,4 @@
 {
-  ASTErrorsHelper errorsHelper=new ASTBeanPropertyBindingResultHelper();
+  ASTErrorsHelper errorsHelper=new ASTValidationErrorsHelper();
   errorsHelper.injectErrorsCode(classNode);
 }

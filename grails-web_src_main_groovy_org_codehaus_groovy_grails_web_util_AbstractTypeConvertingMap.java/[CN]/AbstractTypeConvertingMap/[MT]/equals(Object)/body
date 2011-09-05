@@ -1,0 +1,34 @@
+{
+  if (this == that) {
+    return true;
+  }
+  if (that == null) {
+    return false;
+  }
+  if (getClass() != that.getClass()) {
+    return false;
+  }
+  AbstractTypeConvertingMap thatMap=(AbstractTypeConvertingMap)that;
+  if (this.wrappedMap == thatMap.wrappedMap) {
+    return true;
+  }
+  if (wrappedMap.size() != thatMap.wrappedMap.size()) {
+    return false;
+  }
+  if (!wrappedMap.keySet().equals(thatMap.wrappedMap.keySet())) {
+    return false;
+  }
+  final Iterator it=wrappedMap.keySet().iterator();
+  while (it.hasNext()) {
+    final Object key=it.next();
+    Object thisValue=wrappedMap.get(key);
+    Object thatValue=thatMap.wrappedMap.get(key);
+    if (thisValue == null && thatValue != null) {
+      return false;
+    }
+    if (!thisValue.equals(thatValue)) {
+      return false;
+    }
+  }
+  return true;
+}

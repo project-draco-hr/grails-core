@@ -2,6 +2,7 @@
   GroovyClassLoader cl=new GrailsAwareClassLoader();
   Class<?> clazz=cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController { def action = { return null }; } ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
+  assignGrailsApplication(cl,grailsClass);
   assertEquals("Test",grailsClass.getName());
   assertEquals("TestController",grailsClass.getFullName());
   assertEquals("/test/action",grailsClass.getViewByURI("/test/action"));

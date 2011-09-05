@@ -1,0 +1,14 @@
+{
+  Object o=get(name);
+  if (o instanceof Number) {
+    return ((Number)o).longValue();
+  }
+  if (o != null) {
+    try {
+      return Long.parseLong(o.toString());
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return null;
+}

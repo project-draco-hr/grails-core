@@ -8,7 +8,9 @@
         plugin.doWithWebDescriptor(documentElement);
       }
     }
-    if (ClassUtils.isPresent("javax.servlet.AsyncContext",Thread.currentThread().getContextClassLoader())) {
+    boolean areServlet3JarsPresent=ClassUtils.isPresent("javax.servlet.AsyncContext",Thread.currentThread().getContextClassLoader());
+    String servletVersion=application.getMetadata().getServletVersion();
+    if (areServlet3JarsPresent && GrailsVersionUtils.supportsAtLeastVersion(servletVersion,"3.0")) {
       new Servlet3AsyncWebXmlProcessor().process(documentElement);
     }
     writeWebDescriptorResult(documentElement,target);

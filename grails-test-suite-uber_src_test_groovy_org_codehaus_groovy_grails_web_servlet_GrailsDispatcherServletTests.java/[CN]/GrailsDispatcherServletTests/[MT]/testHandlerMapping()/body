@@ -18,6 +18,9 @@
     GroovyClassLoader cl=new GrailsAwareClassLoader();
     cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController {" + "def action = {} " + "}");
     final DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication(cl.getLoadedClasses(),cl);
+    MockApplicationContext mainContext=new MockApplicationContext();
+    mainContext.registerMockBean(UrlConverter.BEAN_NAME,new CamelCaseUrlConverter());
+    grailsApplication.setMainContext(mainContext);
     grailsApplication.initialise();
     handlerMapping.setGrailsApplication(grailsApplication);
     handlerMapping.setApplicationContext(appCtx);

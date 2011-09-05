@@ -3,7 +3,7 @@
     cursorMove=0;
     try {
       if (isAnsiEnabled()) {
-        Ansi ansi=outputErrorLabel(ansi(),label).a(message);
+        Ansi ansi=outputErrorLabel(userInputActive ? moveDownToSkipPrompt() : ansi(),label).a(message);
         if (message.endsWith(LINE_SEPARATOR)) {
           out.print(ansi);
         }

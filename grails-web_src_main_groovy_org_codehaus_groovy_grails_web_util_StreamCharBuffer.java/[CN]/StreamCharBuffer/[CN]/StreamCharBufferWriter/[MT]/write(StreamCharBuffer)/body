@@ -1,11 +1,11 @@
 {
   markUsed();
-  int len=subBuffer.size();
-  if (shouldWriteDirectly(len)) {
+  int directChunkMinSize=getDirectChunkMinSize();
+  if (directChunkMinSize != -1 && subBuffer.isSizeLarger(directChunkMinSize)) {
     appendCharBufferChunk(true);
     subBuffer.writeToImpl(connectedWritersWriter,false,false);
   }
- else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || (len >= subBufferChunkMinSize && isNextChunkBigEnough(len))) {
+ else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || subBuffer.isSizeLarger(Math.max(subBufferChunkMinSize,getNewChunkMinSize()))) {
     appendStreamCharBufferChunk(subBuffer);
     subBuffer.addParentBuffer(StreamCharBuffer.this);
   }

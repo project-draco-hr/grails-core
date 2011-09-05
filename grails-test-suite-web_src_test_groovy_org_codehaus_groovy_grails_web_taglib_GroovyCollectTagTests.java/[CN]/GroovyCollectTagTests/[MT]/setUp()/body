@@ -1,4 +1,8 @@
 {
   super.setUp();
-  tag.setWriter(new PrintWriter(sw));
+  Map context=new HashMap();
+  context.put(GroovyPage.OUT,new PrintWriter(sw));
+  GroovyPageParser parser=new GroovyPageParser("test","test","test",new ByteArrayInputStream(new byte[]{}));
+  context.put(GroovyPageParser.class,parser);
+  tag.init(context);
 }

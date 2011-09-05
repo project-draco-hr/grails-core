@@ -7,6 +7,7 @@
   return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(query);
+      SimpleTypeConverter converter=new SimpleTypeConverter();
       if (queryMetaParams.containsKey(GrailsHibernateUtil.ARGUMENT_MAX)) {
         Integer maxParam=converter.convertIfNecessary(queryMetaParams.get(GrailsHibernateUtil.ARGUMENT_MAX),Integer.class);
         q.setMaxResults(maxParam.intValue());

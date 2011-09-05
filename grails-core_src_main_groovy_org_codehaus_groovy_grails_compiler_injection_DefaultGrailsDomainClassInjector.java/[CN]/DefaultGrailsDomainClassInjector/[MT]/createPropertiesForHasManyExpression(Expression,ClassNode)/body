@@ -4,7 +4,7 @@
     MapExpression me=(MapExpression)e;
     for (    MapEntryExpression mee : me.getMapEntryExpressions()) {
       String key=mee.getKeyExpression().getText();
-      addAssociationForKey(key,properties,classNode);
+      addAssociationForKey(key,properties,classNode,findPropertyType(mee.getValueExpression()));
     }
   }
   return properties;

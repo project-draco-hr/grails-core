@@ -1,7 +1,7 @@
 {
   if (instance == null) {
     try {
-      instance=new GrailsConsole();
+      instance=createInstance();
     }
  catch (    IOException e) {
       throw new RuntimeException("Cannot create grails console: " + e.getMessage(),e);

@@ -1,0 +1,6 @@
+{
+  if (eclipseSupportsAnsi == null) {
+    eclipseSupportsAnsi=boolProp(ECLIPSE_SUPPORTS_ANSI_PROP);
+  }
+  return eclipseSupportsAnsi;
+}

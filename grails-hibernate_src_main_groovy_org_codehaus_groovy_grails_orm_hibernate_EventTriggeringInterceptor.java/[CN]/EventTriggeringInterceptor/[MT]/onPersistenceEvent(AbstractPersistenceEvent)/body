@@ -1,0 +1,38 @@
+{
+  if (event instanceof org.grails.datastore.mapping.engine.event.PreInsertEvent) {
+    if (onPreInsert((PreInsertEvent)event.getNativeEvent())) {
+      event.cancel();
+    }
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PostInsertEvent) {
+    onPostInsert((PostInsertEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PreUpdateEvent) {
+    if (onPreUpdate((PreUpdateEvent)event.getNativeEvent())) {
+      event.cancel();
+    }
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PostUpdateEvent) {
+    onPostUpdate((PostUpdateEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PreDeleteEvent) {
+    if (onPreDelete((PreDeleteEvent)event.getNativeEvent())) {
+      event.cancel();
+    }
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PostDeleteEvent) {
+    onPostDelete((PostDeleteEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PreLoadEvent) {
+    onPreLoad((PreLoadEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.PostLoadEvent) {
+    onPostLoad((PostLoadEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof org.grails.datastore.mapping.engine.event.SaveOrUpdateEvent) {
+    onSaveOrUpdate((SaveOrUpdateEvent)event.getNativeEvent());
+  }
+ else   if (event instanceof ValidationEvent) {
+    onValidate((ValidationEvent)event);
+  }
+}

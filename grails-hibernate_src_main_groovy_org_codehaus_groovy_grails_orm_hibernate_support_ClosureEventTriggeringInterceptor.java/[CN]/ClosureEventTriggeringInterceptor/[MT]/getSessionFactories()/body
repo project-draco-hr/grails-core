@@ -1,0 +1,6 @@
+{
+  if (sessionFactories == null) {
+    sessionFactories=ctx.getBeansOfType(SessionFactory.class).values();
+  }
+  return sessionFactories;
+}

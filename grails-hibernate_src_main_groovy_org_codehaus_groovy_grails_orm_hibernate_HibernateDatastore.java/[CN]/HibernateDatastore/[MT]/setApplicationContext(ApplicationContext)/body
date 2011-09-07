@@ -1,4 +1,7 @@
 {
   Assert.isInstanceOf(ConfigurableApplicationContext.class,applicationContext,"ApplicationContext must be an instanceof ConfigurableApplicationContext");
-  super.setApplicationContext((ConfigurableApplicationContext)applicationContext);
+  ConfigurableApplicationContext configurableContext=(ConfigurableApplicationContext)applicationContext;
+  super.setApplicationContext(configurableContext);
+  eventTriggeringInterceptor=new EventTriggeringInterceptor(this,config);
+  configurableContext.addApplicationListener(eventTriggeringInterceptor);
 }

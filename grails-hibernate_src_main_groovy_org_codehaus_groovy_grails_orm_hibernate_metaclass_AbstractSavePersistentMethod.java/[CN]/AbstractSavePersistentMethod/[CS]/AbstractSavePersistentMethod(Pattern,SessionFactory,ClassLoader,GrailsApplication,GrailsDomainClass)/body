@@ -1,5 +1,0 @@
-{
-  super(pattern,sessionFactory,classLoader);
-  Assert.notNull(application,"Constructor argument 'application' cannot be null");
-  this.application=application;
-}

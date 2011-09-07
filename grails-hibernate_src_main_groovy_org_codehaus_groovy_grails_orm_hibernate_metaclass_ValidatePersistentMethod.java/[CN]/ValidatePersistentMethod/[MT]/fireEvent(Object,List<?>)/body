@@ -1,0 +1,5 @@
+{
+  ValidationEvent event=new ValidationEvent(datastore,target);
+  event.setValidatedFields(validatedFieldsList);
+  application.getMainContext().publishEvent(event);
+}

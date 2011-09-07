@@ -2,7 +2,7 @@
   for (  Object keyObject : keys.keySet()) {
     String key=(String)keyObject;
     Object paramValue=getParameterValue(keys,key);
-    this.wrappedMap.put(key,paramValue);
-    processNestedKeys(this.request,keys,key,key,this.wrappedMap);
+    wrappedMap.put(key,paramValue);
+    processNestedKeys(keys,key,key,wrappedMap);
   }
 }

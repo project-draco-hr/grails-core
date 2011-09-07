@@ -1,0 +1,14 @@
+{
+  SessionFactory sessionFactory=hibernateEvent.getSession().getSessionFactory();
+  if (!(sessionFactory instanceof SessionFactoryProxy)) {
+    for (    SessionFactory sf : getSessionFactories()) {
+      if (sf instanceof SessionFactoryProxy) {
+        if (((SessionFactoryProxy)sf).getCurrentSessionFactory() == sessionFactory) {
+          sessionFactory=sf;
+          break;
+        }
+      }
+    }
+  }
+  return datastores.get(sessionFactory);
+}

@@ -3,8 +3,6 @@
   if (!userInputActive) {
     return readLine(prompt);
   }
- else {
-    out.print(prompt);
-    return null;
-  }
+  out.print(prompt);
+  return null;
 }

@@ -8,5 +8,6 @@
   }
   total+=totalCharsInDynamicChunks;
   total+=allocBuffer.charsUsed();
+  sizeAtLeast=total;
   return total;
 }

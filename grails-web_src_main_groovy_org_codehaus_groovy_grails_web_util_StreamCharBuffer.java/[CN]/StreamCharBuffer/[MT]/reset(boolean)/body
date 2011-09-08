@@ -3,6 +3,7 @@
   lastChunk=null;
   totalCharsInList=0;
   totalCharsInDynamicChunks=-1;
+  sizeAtLeast=-1;
   if (resetChunkSize) {
     chunkSize=firstChunkSize;
     totalChunkSize=0;

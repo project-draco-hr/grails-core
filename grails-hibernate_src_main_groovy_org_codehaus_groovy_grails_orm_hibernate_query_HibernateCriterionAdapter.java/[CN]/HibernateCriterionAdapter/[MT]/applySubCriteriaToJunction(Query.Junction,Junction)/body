@@ -1,0 +1,9 @@
+{
+  for (  Query.Criterion subCriterion : existing.getCriteria()) {
+    CriterionAdaptor criterionAdaptor=criterionAdaptors.get(subCriterion.getClass());
+    if (criterionAdaptor != null) {
+      Criterion c=criterionAdaptor.toHibernateCriterion(subCriterion);
+      if (c != null)       conjunction.add(c);
+    }
+  }
+}

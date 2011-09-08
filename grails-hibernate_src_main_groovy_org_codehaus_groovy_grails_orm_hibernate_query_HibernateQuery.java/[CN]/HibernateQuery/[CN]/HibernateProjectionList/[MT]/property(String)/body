@@ -1,4 +1,4 @@
 {
-  criteria.setProjection(Projections.property(name));
+  projectionList.add(Projections.property(name));
   return this;
 }

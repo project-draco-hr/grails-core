@@ -1,4 +1,4 @@
 {
-  criteria.setProjection(Projections.min(name));
+  projectionList.add(Projections.min(name));
   return this;
 }

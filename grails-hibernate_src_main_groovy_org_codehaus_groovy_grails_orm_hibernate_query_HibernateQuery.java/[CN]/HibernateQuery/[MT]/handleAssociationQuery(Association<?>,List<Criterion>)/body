@@ -1,0 +1,7 @@
+{
+  Criteria subCriteria=this.criteria.createCriteria(association.getName());
+  HibernateQuery subQuery=new HibernateQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity());
+  for (  Criterion c : criteriaList) {
+    subQuery.add(c);
+  }
+}

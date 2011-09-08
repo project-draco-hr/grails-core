@@ -1,9 +1,7 @@
 {
   if (c != null) {
-    final CriterionAdaptor criterionAdaptor=criterionAdaptors.get(c.getClass());
-    if (criterionAdaptor != null) {
-      hibernateJunction.add(criterionAdaptor.toHibernateCriterion(c));
-    }
+    HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c);
+    hibernateJunction.add(adapter.toHibernateCriterion());
   }
   return this;
 }

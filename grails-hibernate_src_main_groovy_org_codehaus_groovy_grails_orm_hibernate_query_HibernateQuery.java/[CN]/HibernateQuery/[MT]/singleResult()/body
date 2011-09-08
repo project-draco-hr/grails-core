@@ -1,3 +1,6 @@
 {
+  if (hibernateProjectionList != null) {
+    this.criteria.setProjection(hibernateProjectionList.getHibernateProjectionList());
+  }
   return criteria.uniqueResult();
 }

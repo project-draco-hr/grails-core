@@ -1,0 +1,17 @@
+{
+  List<AnnotationNode> annotations=classNode.getAnnotations();
+  ClassNode annotationClassNode=new ClassNode(Entity.class);
+  AnnotationNode annotationToAdd=new AnnotationNode(annotationClassNode);
+  if (annotations.isEmpty()) {
+    classNode.addAnnotation(annotationToAdd);
+  }
+ else {
+    boolean foundAnn=false;
+    for (    AnnotationNode annotation : annotations) {
+      if (annotation.getClassNode().equals(annotationClassNode)) {
+        foundAnn=true;
+      }
+    }
+    if (!foundAnn)     classNode.addAnnotation(annotationToAdd);
+  }
+}

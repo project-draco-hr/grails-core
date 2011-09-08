@@ -1,4 +1,5 @@
 {
+  if (o == this)   return true;
   if (!(o instanceof CharSequence))   return false;
   CharSequence other=(CharSequence)o;
   return toString().equals(other.toString());

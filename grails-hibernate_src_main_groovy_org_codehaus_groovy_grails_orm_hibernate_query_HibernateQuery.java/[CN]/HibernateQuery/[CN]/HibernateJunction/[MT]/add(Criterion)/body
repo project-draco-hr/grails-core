@@ -1,7 +1,10 @@
 {
   if (c != null) {
-    HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c);
-    hibernateJunction.add(adapter.toHibernateCriterion());
+    HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c,this.alias);
+    org.hibernate.criterion.Criterion criterion=adapter.toHibernateCriterion();
+    if (criterion != null) {
+      hibernateJunction.add(criterion);
+    }
   }
   return this;
 }

@@ -1,0 +1,8 @@
+{
+  if (hibernateJunction != null) {
+    hibernateJunction.add(criterion);
+  }
+ else {
+    assocationCriteria.add(criterion);
+  }
+}

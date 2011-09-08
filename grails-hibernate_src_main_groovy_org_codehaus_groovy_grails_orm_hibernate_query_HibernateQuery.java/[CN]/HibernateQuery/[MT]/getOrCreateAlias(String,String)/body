@@ -1,0 +1,11 @@
+{
+  Criteria subCriteria;
+  if (createdAssociationPaths.containsKey(associationName)) {
+    subCriteria=createdAssociationPaths.get(associationName);
+  }
+ else {
+    subCriteria=criteria.createAlias(associationName,alias);
+    createdAssociationPaths.put(associationName,subCriteria);
+  }
+  return subCriteria;
+}

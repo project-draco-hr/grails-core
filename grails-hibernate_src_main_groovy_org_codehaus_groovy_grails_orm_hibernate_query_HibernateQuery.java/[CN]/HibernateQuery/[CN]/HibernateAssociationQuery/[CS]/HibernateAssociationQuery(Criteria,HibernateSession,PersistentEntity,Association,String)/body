@@ -1,0 +1,5 @@
+{
+  super(session,associatedEntity,association);
+  this.alias=alias;
+  this.assocationCriteria=criteria;
+}

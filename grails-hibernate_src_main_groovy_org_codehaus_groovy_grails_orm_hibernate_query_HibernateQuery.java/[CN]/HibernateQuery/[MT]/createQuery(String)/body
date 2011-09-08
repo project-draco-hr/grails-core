@@ -1,9 +1,10 @@
 {
-  final PersistentProperty property=entity.getPropertyByName(associationName);
+  final PersistentProperty property=entity.getPropertyByName(calculatePropertyName(associationName,this.alias));
   if (property != null && (property instanceof Association)) {
-    final Criteria subCriteria=criteria.createCriteria(associationName);
+    String alias=generateAlias(associationName);
+    Criteria subCriteria=getOrCreateAlias(associationName,alias);
     Association association=(Association)property;
-    return new HibernateQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity());
+    return new HibernateAssociationQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity(),association,alias);
   }
-  throw new InvalidDataAccessApiUsageException("Cannot query association [" + associationName + "] of entity ["+ entity+ "]. Property is not an association!");
+  throw new InvalidDataAccessApiUsageException("Cannot query association [" + calculatePropertyName(associationName,this.alias) + "] of entity ["+ entity+ "]. Property is not an association!");
 }

@@ -1,4 +1,4 @@
 {
-  projectionList.add(Projections.max(name));
+  projectionList.add(Projections.max(calculatePropertyName(name,HibernateQuery.this.alias)));
   return this;
 }

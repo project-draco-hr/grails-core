@@ -1,5 +1,6 @@
 {
   classNode.setUsingGenerics(true);
+  classNode.addAnnotation(new AnnotationNode(new ClassNode(Entity.class)));
   final BlockStatement methodBody=new BlockStatement();
   methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(classNode),NEW_INSTANCE_METHOD,ZERO_ARGS)));
   MethodNode methodNode=classNode.getDeclaredMethod(CreateDynamicMethod.METHOD_NAME,ZERO_PARAMETERS);

@@ -36,9 +36,7 @@
       if (currentMatcher.find()) {
         containsOperator=true;
         operatorInUse=operators[i];
-        queryParameters=new String[2];
-        queryParameters[0]=currentMatcher.group(1);
-        queryParameters[1]=currentMatcher.group(3) + currentMatcher.group(4);
+        queryParameters=querySequence.split(operatorInUse);
         int argumentCursor=0;
         for (        String queryParameter : queryParameters) {
           GrailsMethodExpression currentExpression=GrailsMethodExpression.create(application,clazz,queryParameter);

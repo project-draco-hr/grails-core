@@ -1,17 +1,6 @@
 {
-  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion();
+  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion(HibernateQuery.this);
   if (hibernateCriterion != null) {
     addToCriteria(hibernateCriterion);
-  }
- else   if (criterion instanceof AssociationQuery) {
-    AssociationQuery associationQuery=(AssociationQuery)criterion;
-    Association<?> association=associationQuery.getAssociation();
-    Junction criteriaList=associationQuery.getCriteria();
-    handleAssociationQuery(association,criteriaList.getCriteria());
-  }
- else   if (criterion instanceof DetachedAssociationCriteria) {
-    DetachedAssociationCriteria associationCriteria=(DetachedAssociationCriteria)criterion;
-    Association<?> association=associationCriteria.getAssociation();
-    handleAssociationQuery(association,associationCriteria.getCriteria());
   }
 }

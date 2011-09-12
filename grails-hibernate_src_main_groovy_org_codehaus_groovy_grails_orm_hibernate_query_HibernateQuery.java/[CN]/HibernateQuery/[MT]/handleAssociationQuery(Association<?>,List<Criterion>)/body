@@ -1,9 +1,6 @@
 {
   String associationName=calculatePropertyName(association.getName(),this.alias);
   String newAlias=generateAlias(associationName);
-  Criteria subCriteria=getOrCreateAlias(associationName,alias);
-  HibernateQuery subQuery=new HibernateQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity(),calculatePropertyName(newAlias,this.alias));
-  for (  Criterion c : criteriaList) {
-    subQuery.add(c);
-  }
+  getOrCreateAlias(associationName,newAlias);
+  return newAlias;
 }

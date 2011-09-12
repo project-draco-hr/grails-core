@@ -1,8 +1,8 @@
 {
-  for (  Query.Criterion subCriterion : existing.getCriteria()) {
+  for (  Query.Criterion subCriterion : existing) {
     CriterionAdaptor criterionAdaptor=criterionAdaptors.get(subCriterion.getClass());
     if (criterionAdaptor != null) {
-      Criterion c=criterionAdaptor.toHibernateCriterion(subCriterion,alias);
+      Criterion c=criterionAdaptor.toHibernateCriterion(hibernateCriteria,subCriterion,alias);
       if (c != null)       conjunction.add(c);
     }
   }

@@ -4,9 +4,11 @@
   }
   if (propertyValue instanceof QueryableCriteria) {
     QueryableCriteria queryableCriteria=(QueryableCriteria)propertyValue;
-    org.hibernate.criterion.DetachedCriteria detachedCriteria=org.hibernate.criterion.DetachedCriteria.forClass(queryableCriteria.getPersistentEntity().getJavaClass());
-    populateHibernateDetachedCriteria(detachedCriteria,queryableCriteria);
-    propertyValue=detachedCriteria;
+    propertyValue=getHibernateDetachedCriteria(queryableCriteria);
+  }
+ else   if (propertyValue instanceof Closure) {
+    QueryableCriteria queryableCriteria=(QueryableCriteria)new DetachedCriteria(targetClass).build((Closure)propertyValue);
+    propertyValue=getHibernateDetachedCriteria(queryableCriteria);
   }
   return propertyValue;
 }

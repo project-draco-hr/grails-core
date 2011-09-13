@@ -1,0 +1,4 @@
+{
+  addToCriteria(Property.forName(propertyName).leAll(getHibernateDetachedCriteria(propertyValue)));
+  return this;
+}

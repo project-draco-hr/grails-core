@@ -16,7 +16,7 @@
       }
     }
     if (value != null) {
-      getBinding().getVariables().put(property,value);
+      setVariableDirectly(property,value);
     }
   }
   return value;

@@ -5,7 +5,7 @@
     }
     return parent;
   }
-  if (getVariables().containsKey(name)) {
+  if (getVariablesMap().containsKey(name)) {
     return this;
   }
   if (parent instanceof GroovyPageBinding) {

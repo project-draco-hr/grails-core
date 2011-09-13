@@ -6,9 +6,14 @@
         bindingToUse=this;
       }
     }
-    bindingToUse.getVariables().put(name,value);
+    if (bindingToUse instanceof AbstractGroovyPageBinding) {
+      ((AbstractGroovyPageBinding)bindingToUse).getVariablesMap().put(name,value);
+    }
+ else {
+      bindingToUse.getVariables().put(name,value);
+    }
     if (bindingToUse != this && cachedParentVariableNames.contains(name)) {
-      getVariables().put(name,value);
+      getVariablesMap().put(name,value);
     }
   }
  else {

@@ -1,5 +1,10 @@
 {
-  Writer target=getOut();
+  boolean allowCaching=markUsed;
+  Writer currentOut=getOut();
+  if (allowCaching && streamCharBufferTarget != null && previousOut == currentOut) {
+    return streamCharBufferTarget;
+  }
+  Writer target=currentOut;
   while (target instanceof GrailsPrintWriter) {
     GrailsPrintWriter gpr=((GrailsPrintWriter)target);
     if (gpr.isAllowUnwrappingOut()) {
@@ -12,8 +17,16 @@
       break;
     }
   }
+  Writer result;
   if (target instanceof StreamCharBufferWriter) {
-    return target;
+    result=target;
   }
-  return getOut();
+ else {
+    result=currentOut;
+  }
+  if (allowCaching) {
+    streamCharBufferTarget=result;
+    previousOut=currentOut;
+  }
+  return result;
 }

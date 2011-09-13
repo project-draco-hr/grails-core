@@ -1,0 +1,6 @@
+{
+  for (  Object entryObj : m.entrySet()) {
+    Map.Entry entry=(Map.Entry)entryObj;
+    binding.setVariable(String.valueOf(entry.getKey()),entry.getValue());
+  }
+}

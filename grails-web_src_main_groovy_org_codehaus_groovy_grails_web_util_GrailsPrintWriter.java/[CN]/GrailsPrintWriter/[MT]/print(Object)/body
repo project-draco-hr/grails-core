@@ -3,7 +3,11 @@
     usageFlag=true;
     return;
   }
-  if (obj instanceof StreamCharBuffer) {
+  Class clazz=obj.getClass();
+  if (clazz == String.class) {
+    write((String)obj);
+  }
+ else   if (clazz == StreamCharBuffer.class) {
     write((StreamCharBuffer)obj);
   }
  else   if (obj instanceof Writable) {

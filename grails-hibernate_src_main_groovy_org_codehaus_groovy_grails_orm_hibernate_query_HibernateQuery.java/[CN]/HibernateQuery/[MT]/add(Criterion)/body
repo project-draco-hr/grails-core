@@ -1,4 +1,11 @@
 {
+  if (criterion instanceof PropertyCriterion) {
+    PropertyCriterion pc=(PropertyCriterion)criterion;
+    if (pc.getValue() instanceof QueryableCriteria) {
+      DetachedCriteria hibernateDetachedCriteria=HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue());
+      pc.setValue(hibernateDetachedCriteria);
+    }
+  }
   final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion(this);
   if (hibernateCriterion != null) {
     addToCriteria(hibernateCriterion);

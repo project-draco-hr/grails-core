@@ -2,5 +2,11 @@
   if (propertyValue instanceof CharSequence) {
     return propertyValue.toString();
   }
+  if (propertyValue instanceof QueryableCriteria) {
+    QueryableCriteria queryableCriteria=(QueryableCriteria)propertyValue;
+    org.hibernate.criterion.DetachedCriteria detachedCriteria=org.hibernate.criterion.DetachedCriteria.forClass(queryableCriteria.getPersistentEntity().getJavaClass());
+    populateHibernateDetachedCriteria(detachedCriteria,queryableCriteria);
+    propertyValue=detachedCriteria;
+  }
   return propertyValue;
 }

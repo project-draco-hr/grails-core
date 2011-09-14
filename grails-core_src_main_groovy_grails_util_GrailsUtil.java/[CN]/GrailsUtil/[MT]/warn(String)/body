@@ -1,3 +1,5 @@
 {
-  LOG.warn("[WARNING] " + message);
+  if (LOG.isWarnEnabled()) {
+    LOG.warn("[WARNING] " + message);
+  }
 }

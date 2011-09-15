@@ -2,9 +2,9 @@
   final PersistentProperty property=entity.getPropertyByName(calculatePropertyName(associationName,this.alias));
   if (property != null && (property instanceof Association)) {
     String alias=generateAlias(associationName);
-    Criteria subCriteria=getOrCreateAlias(associationName,alias);
+    CriteriaAndAlias subCriteria=getOrCreateAlias(associationName,alias);
     Association association=(Association)property;
-    return new HibernateAssociationQuery(subCriteria,(HibernateSession)getSession(),association.getAssociatedEntity(),association,alias);
+    return new HibernateAssociationQuery(subCriteria.criteria,(HibernateSession)getSession(),association.getAssociatedEntity(),association,alias);
   }
   throw new InvalidDataAccessApiUsageException("Cannot query association [" + calculatePropertyName(associationName,this.alias) + "] of entity ["+ entity+ "]. Property is not an association!");
 }

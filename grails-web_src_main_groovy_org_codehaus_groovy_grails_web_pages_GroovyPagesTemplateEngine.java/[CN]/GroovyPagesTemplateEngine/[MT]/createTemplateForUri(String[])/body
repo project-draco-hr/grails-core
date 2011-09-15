@@ -4,16 +4,6 @@
     scriptSource=groovyPageLocator.findPage(uri);
     if (scriptSource != null)     break;
   }
-  if (scriptSource instanceof GroovyPageResourceScriptSource) {
-    GroovyPageResourceScriptSource resourceSource=(GroovyPageResourceScriptSource)scriptSource;
-    Resource resource=resourceSource.getResource();
-    if (resource.exists()) {
-      return createTemplate(resource,true);
-    }
-  }
- else   if (scriptSource instanceof GroovyPageCompiledScriptSource) {
-    GroovyPageCompiledScriptSource compiledSource=(GroovyPageCompiledScriptSource)scriptSource;
-    return createTemplateFromPrecompiled(compiledSource.getURI(),compiledSource.getCompiledClass());
-  }
-  return null;
+  Template t=createTemplate(scriptSource);
+  return t;
 }

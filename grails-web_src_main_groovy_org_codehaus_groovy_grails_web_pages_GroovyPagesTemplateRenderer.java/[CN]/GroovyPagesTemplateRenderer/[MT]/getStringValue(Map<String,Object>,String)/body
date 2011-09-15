@@ -1,0 +1,10 @@
+{
+  Object val=attrs.get(key);
+  if (val == null)   return "";
+  if (val instanceof String) {
+    return (String)val;
+  }
+ else {
+    return String.valueOf(val);
+  }
+}

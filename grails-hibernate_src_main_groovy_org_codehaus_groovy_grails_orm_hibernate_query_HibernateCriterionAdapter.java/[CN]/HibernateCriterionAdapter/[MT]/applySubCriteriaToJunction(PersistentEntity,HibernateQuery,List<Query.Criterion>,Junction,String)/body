@@ -11,5 +11,11 @@
       Criterion c=criterionAdaptor.toHibernateCriterion(hibernateCriteria,subCriterion,alias);
       if (c != null)       conjunction.add(c);
     }
+ else     if (subCriterion instanceof FunctionCallingCriterion) {
+      Criterion sqlRestriction=hibernateCriteria.getRestrictionForFunctionCall((FunctionCallingCriterion)subCriterion,entity);
+      if (sqlRestriction != null) {
+        conjunction.add(sqlRestriction);
+      }
+    }
   }
 }

@@ -4,7 +4,7 @@
     if (!bodyVarsDefined.contains(tm.tagIndex)) {
       bodyVarsDefined.add(tm.tagIndex);
     }
-    out.println("createTagBody(" + tm.tagIndex + ", {");
+    out.println("createTagBody(" + tm.tagIndex + ", {->");
     closureLevel++;
   }
 }

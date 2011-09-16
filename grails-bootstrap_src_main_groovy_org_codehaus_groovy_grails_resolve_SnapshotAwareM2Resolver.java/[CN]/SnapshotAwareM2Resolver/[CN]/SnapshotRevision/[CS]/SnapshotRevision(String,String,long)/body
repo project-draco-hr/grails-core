@@ -1,5 +1,5 @@
 {
   this.revision=revision + "-SNAPSHOT";
   this.uniqueRevision=revision + "-" + timestamp+ "-"+ buildNumber;
-  this.lastModified=calculateLastModified(timestamp);
+  this.lastModified=calculateLastModified(Long.parseLong(timestamp.replaceAll("\\.","")));
 }

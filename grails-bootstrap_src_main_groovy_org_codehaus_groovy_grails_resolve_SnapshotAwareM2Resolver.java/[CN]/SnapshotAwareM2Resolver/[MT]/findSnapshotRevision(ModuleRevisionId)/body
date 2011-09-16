@@ -11,22 +11,27 @@
         metadataStream=metadata.openStream();
         final StringBuilder timestamp=new StringBuilder();
         final StringBuilder buildNumber=new StringBuilder();
+        final StringBuilder lastUpdated=new StringBuilder();
         XMLHelper.parse(metadataStream,null,new ContextualSAXHandler(){
           @Override public void endElement(          String uri,          String localName,          String qName) throws SAXException {
             if ("metadata/versioning/snapshot/timestamp".equals(getContext())) {
               timestamp.append(getText());
             }
-            if ("metadata/versioning/snapshot/buildNumber".equals(getContext())) {
+ else             if ("metadata/versioning/snapshot/buildNumber".equals(getContext())) {
               buildNumber.append(getText());
+            }
+ else             if ("metadata/versioning/lastUpdated".equals(getContext())) {
+              lastUpdated.append(getText());
             }
             super.endElement(uri,localName,qName);
           }
         }
 ,null);
         if (timestamp.length() > 0) {
-          String rev=mrid.getRevision();
-          rev=rev.substring(0,rev.length() - "-SNAPSHOT".length());
-          return new SnapshotRevision(rev,timestamp.toString(),Long.parseLong(buildNumber.toString()));
+          String snapshotRevision=mrid.getRevision();
+          String baseRevision=snapshotRevision.substring(0,snapshotRevision.length() - "-SNAPSHOT".length());
+          String uniqueRevisionSuffix=new StringBuffer().append(timestamp).append("-").append(buildNumber).toString();
+          return new SnapshotRevision(baseRevision,uniqueRevisionSuffix,Long.parseLong(lastUpdated.toString()));
         }
       }
  else {

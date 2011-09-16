@@ -1,5 +1,46 @@
 {
-  if (criterion instanceof PropertyCriterion) {
+  if (criterion instanceof FunctionCallingCriterion) {
+    HibernateTemplate hibernateSession=(HibernateTemplate)this.session.getNativeInterface();
+    SessionFactory sessionFactory=hibernateSession.getSessionFactory();
+    FunctionCallingCriterion fcc=(FunctionCallingCriterion)criterion;
+    String property=fcc.getProperty();
+    PropertyCriterion propertyCriterion=fcc.getPropertyCriterion();
+    PersistentProperty pp=entity.getPropertyByName(property);
+    if (pp == null)     throw new InvalidDataAccessResourceUsageException("Cannot execute function defined in query [" + fcc.getFunctionName() + "] on non-existent property ["+ property+ "] of ["+ entity.getJavaClass()+ "]");
+    String functionName=fcc.getFunctionName();
+    SessionFactoryImplementor impl=(SessionFactoryImplementor)sessionFactory;
+    Dialect dialect=impl.getDialect();
+    SQLFunction sqlFunction=dialect.getFunctions().get(functionName);
+    if (sqlFunction != null) {
+      TypeResolver typeResolver=impl.getTypeResolver();
+      BasicType basic=typeResolver.basic(pp.getType().getName());
+      if (basic != null) {
+        final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(propertyCriterion,alias).toHibernateCriterion(this);
+        if (hibernateCriterion instanceof SimpleExpression) {
+          SimpleExpression expr=(SimpleExpression)hibernateCriterion;
+          Object op=ReflectionUtils.getField(opField,expr);
+          PropertyMapping mapping=(PropertyMapping)impl.getEntityPersister(entity.getJavaClass().getName());
+          String[] columns;
+          if (this.alias != null)           columns=mapping.toColumns(alias,property);
+ else           columns=mapping.toColumns(property);
+          String root=sqlFunction.render(basic,Arrays.asList(columns),impl);
+          Object value=propertyCriterion.getValue();
+          if (value != null)           addToCriteria(Restrictions.sqlRestriction(root + op + "?",value,typeResolver.basic(value.getClass().getName())));
+ else           addToCriteria(Restrictions.sqlRestriction(root + op + "?",value,basic));
+        }
+ else {
+          throw new InvalidDataAccessResourceUsageException("Unsupported function [" + functionName + "] defined in query for property ["+ property+ "] with type ["+ pp.getType()+ "]");
+        }
+      }
+ else {
+        throw new InvalidDataAccessResourceUsageException("Unsupported function [" + functionName + "] defined in query for property ["+ property+ "] with type ["+ pp.getType()+ "]");
+      }
+    }
+ else {
+      throw new InvalidDataAccessResourceUsageException("Unsupported function defined in query [" + functionName + "]");
+    }
+  }
+ else   if (criterion instanceof PropertyCriterion) {
     PropertyCriterion pc=(PropertyCriterion)criterion;
     if (pc.getValue() instanceof QueryableCriteria) {
       DetachedCriteria hibernateDetachedCriteria=HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue());

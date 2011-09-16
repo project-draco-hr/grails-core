@@ -18,11 +18,8 @@
         variablesMap.put("it",args);
         itChanged=true;
       }
-      bodyResult=executeClosure(args);
     }
- else {
-      bodyResult=executeClosure(null);
-    }
+    bodyResult=executeClosure();
     if (!capturedOut.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
       return bodyResult;
     }

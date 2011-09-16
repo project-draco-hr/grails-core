@@ -1,0 +1,6 @@
+{
+  if (args != null && bodyClosure.getMaximumNumberOfParameters() > 0) {
+    return bodyClosure.call(args);
+  }
+  return bodyClosure.call();
+}

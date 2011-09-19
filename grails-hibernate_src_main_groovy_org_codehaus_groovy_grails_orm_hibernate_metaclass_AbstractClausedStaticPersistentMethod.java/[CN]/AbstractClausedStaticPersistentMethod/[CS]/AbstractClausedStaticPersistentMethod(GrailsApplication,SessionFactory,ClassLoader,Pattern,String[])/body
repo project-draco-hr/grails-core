@@ -1,6 +1,5 @@
 {
-  super(sessionFactory,classLoader,pattern);
-  this.application=application;
+  super(sessionFactory,classLoader,pattern,application);
   this.operators=operators;
   operatorPatterns=new Pattern[operators.length];
   for (int i=0; i < operators.length; i++) {

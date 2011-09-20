@@ -2,24 +2,7 @@
   GSPResponseWriter out=null;
   try {
     out=createResponseWriter(response);
-    Template t;
-    try {
-      if (viewClass == null) {
-        t=engine.createTemplate(getUrl());
-      }
- else {
-        t=engine.createTemplate(viewClass);
-      }
-    }
- catch (    Exception e) {
-      out.setError();
-      handleException(e,engine);
-      return;
-    }
-    if (t instanceof GroovyPageTemplate) {
-      ((GroovyPageTemplate)t).setAllowSettingContentType(true);
-    }
-    t.make(model).writeTo(out);
+    template.make(model).writeTo(out);
   }
  catch (  Exception e) {
     out.setError();

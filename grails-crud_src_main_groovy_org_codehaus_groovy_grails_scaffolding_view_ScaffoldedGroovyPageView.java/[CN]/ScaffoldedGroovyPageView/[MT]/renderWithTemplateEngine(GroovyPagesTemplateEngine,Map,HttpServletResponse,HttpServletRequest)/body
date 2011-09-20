@@ -2,11 +2,7 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("Rendering scaffolded view [" + getUrl() + "] with model ["+ model+ "]");
   }
-  Template t=templateEngine.createTemplate(contents,getUrl());
-  if (t instanceof GroovyPageTemplate) {
-    ((GroovyPageTemplate)t).setAllowSettingContentType(true);
-  }
-  Writable w=t.make(model);
+  Writable w=template.make(model);
   Writer out=null;
   try {
     out=createResponseWriter(response);

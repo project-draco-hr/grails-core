@@ -1,3 +1,7 @@
 {
-  classNode.addProperty("constrainedProperties",Modifier.STATIC | Modifier.PUBLIC,new ClassNode(Object.class),null,null,null);
+  classNode.addProperty(CONSTRAINED_PROPERTIES_PROPERTY_NAME,Modifier.STATIC | Modifier.PUBLIC,new ClassNode(Object.class),null,null,null);
+  final Expression nullOutConstrainedPropertiesExpression=new BinaryExpression(new VariableExpression(CONSTRAINED_PROPERTIES_PROPERTY_NAME),Token.newSymbol(Types.EQUALS,0,0),new ConstantExpression(null));
+  List<Statement> statements=new ArrayList<Statement>();
+  statements.add(new ExpressionStatement(nullOutConstrainedPropertiesExpression));
+  classNode.addStaticInitializerStatements(statements,true);
 }

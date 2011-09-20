@@ -4,7 +4,7 @@
     meta=loadPrecompiledGsp(gspClass);
     if (meta != null) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Adding GSP class GroovyPageMetaInfo in cache for uri " + uri + " classname is "+ meta.getPageClass().getName());
+        LOG.debug("Adding GSP class GroovyPageMetaInfo in cache. GSP classname is " + meta.getPageClass().getName());
       }
       precompiledCache.put(uri,meta);
     }
@@ -19,14 +19,9 @@
       if (LOG.isInfoEnabled()) {
         LOG.info("Precompiled GSP for uri " + uri + " is newer in reload location. Ignoring the precompiled GSP.");
       }
-      for (Iterator<Map.Entry<String,GroovyPageMetaInfo>> it=precompiledCache.entrySet().iterator(); it.hasNext(); ) {
-        Map.Entry<String,GroovyPageMetaInfo> entry=it.next();
-        if (entry.getValue() == meta) {
-          groovyPageLocator.removePrecompiledPage(entry.getKey());
-          it.remove();
-        }
-      }
-      return null;
+      precompiledCache.remove(uri);
+      groovyPageLocator.removePrecompiledPage(uri);
+      return createTemplateForUri(uri);
     }
     return new GroovyPageTemplate(meta);
   }

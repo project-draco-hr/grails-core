@@ -15,7 +15,7 @@
       }
     }
     if (pageClass != null) {
-      return groovyPagesTemplateEngine.createTemplate(pageClass);
+      return groovyPagesTemplateEngine.createTemplate(new GroovyPageCompiledScriptSource(pageName,pageClass));
     }
   }
   return null;

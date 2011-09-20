@@ -7,5 +7,12 @@
   gspSpringView.setUrl(gspView);
   gspSpringView.setApplicationContext(getApplicationContext());
   gspSpringView.setTemplateEngine(templateEngine);
+  gspSpringView.setScriptSource(scriptSource);
+  try {
+    gspSpringView.afterPropertiesSet();
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Error initializing GroovyPageView",e);
+  }
   return gspSpringView;
 }

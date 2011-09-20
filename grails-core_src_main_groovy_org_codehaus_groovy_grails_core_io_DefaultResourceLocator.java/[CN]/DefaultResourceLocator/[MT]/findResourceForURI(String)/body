@@ -2,7 +2,7 @@
   Resource resource=uriToResourceCache.get(uri);
   if (resource == null) {
     PluginResourceInfo info=inferPluginNameFromURI(uri);
-    if (Environment.isWarDeployed()) {
+    if (warDeployed) {
       Resource defaultResource=defaultResourceLoader.getResource(uri);
       if (defaultResource != null && defaultResource.exists()) {
         resource=defaultResource;
@@ -15,7 +15,7 @@
         if (res.exists()) {
           resource=res;
         }
- else         if (!Environment.isWarDeployed()) {
+ else         if (!warDeployed) {
           Resource dir=resolveExceptionSafe(resourceSearchDirectory);
           if (dir.exists() && info != null) {
             try {
@@ -43,7 +43,7 @@
     if (resource != null) {
       uriToResourceCache.put(uri,resource);
     }
- else     if (Environment.isWarDeployed()) {
+ else     if (warDeployed) {
       uriToResourceCache.put(uri,NULL_RESOURCE);
     }
   }

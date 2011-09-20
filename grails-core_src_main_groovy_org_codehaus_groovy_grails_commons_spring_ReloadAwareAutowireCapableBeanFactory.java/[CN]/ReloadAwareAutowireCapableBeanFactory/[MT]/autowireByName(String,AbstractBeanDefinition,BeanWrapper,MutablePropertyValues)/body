@@ -1,9 +1,10 @@
 {
-  if (!autowiringBeanPropertiesFlag.get() || Environment.getCurrent().isReloadEnabled()) {
+  if (reloadEnabled) {
     super.autowireByName(beanName,mbd,bw,pvs);
     return;
   }
-  Set<String> beanProps=autowiringByNameCacheForClass.get(ClassUtils.getUserClass(bw.getWrappedInstance().getClass()));
+  Class<?> beanClass=ClassUtils.getUserClass(bw.getWrappedInstance().getClass());
+  Set<String> beanProps=autowiringByNameCacheForClass.get(beanClass);
   if (beanProps == null) {
     beanProps=new LinkedHashSet<String>();
     String[] propertyNames=unsatisfiedNonSimpleProperties(mbd,bw);
@@ -12,12 +13,15 @@
         beanProps.add(propertyName);
       }
     }
-    autowiringByNameCacheForClass.put(ClassUtils.getUserClass(bw.getWrappedInstance().getClass()),beanProps);
+    autowiringByNameCacheForClass.put(beanClass,beanProps);
   }
   for (  String propertyName : beanProps) {
     Object bean=getBean(propertyName);
     pvs.addPropertyValue(propertyName,bean);
-    registerDependentBean(propertyName,beanName);
+    if (!dependenciesRegisteredOnce.contains(beanName)) {
+      registerDependentBean(propertyName,beanName);
+      dependenciesRegisteredOnce.add(beanName);
+    }
     if (logger.isDebugEnabled()) {
       logger.debug("Added autowiring by name from bean name '" + beanName + "' via property '"+ propertyName+ "' to bean named '"+ propertyName+ "'");
     }

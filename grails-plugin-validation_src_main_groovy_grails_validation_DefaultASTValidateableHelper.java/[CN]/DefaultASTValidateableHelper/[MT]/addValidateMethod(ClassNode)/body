@@ -1,6 +1,6 @@
 {
   String fieldsToValidateParameterName="$fieldsToValidate";
-  final MethodNode listArgValidateMethod=classNode.getMethod(VALIDATE_METHOD_NAME,new Parameter[]{new Parameter(GrailsASTUtils.LIST_CLASS,fieldsToValidateParameterName)});
+  final MethodNode listArgValidateMethod=classNode.getMethod(VALIDATE_METHOD_NAME,new Parameter[]{new Parameter(new ClassNode(List.class),fieldsToValidateParameterName)});
   if (listArgValidateMethod == null) {
     final BlockStatement validateMethodCode=new BlockStatement();
     final ArgumentListExpression validateInstanceArguments=new ArgumentListExpression();
@@ -9,14 +9,14 @@
     final ClassNode validationSupportClassNode=new ClassNode(ValidationSupport.class);
     final StaticMethodCallExpression invokeValidateInstanceExpression=new StaticMethodCallExpression(validationSupportClassNode,"validateInstance",validateInstanceArguments);
     validateMethodCode.addStatement(new ExpressionStatement(invokeValidateInstanceExpression));
-    final Parameter fieldsToValidateParameter=new Parameter(GrailsASTUtils.LIST_CLASS,fieldsToValidateParameterName);
+    final Parameter fieldsToValidateParameter=new Parameter(new ClassNode(List.class),fieldsToValidateParameterName);
     classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,new ClassNode(Boolean.class),new Parameter[]{fieldsToValidateParameter},EMPTY_CLASS_ARRAY,validateMethodCode));
   }
   final MethodNode noArgValidateMethod=classNode.getMethod(VALIDATE_METHOD_NAME,ZERO_PARAMETERS);
   if (noArgValidateMethod == null) {
     final BlockStatement validateMethodCode=new BlockStatement();
     final ArgumentListExpression validateInstanceArguments=new ArgumentListExpression();
-    validateInstanceArguments.addExpression(new CastExpression(GrailsASTUtils.LIST_CLASS,new ConstantExpression(null)));
+    validateInstanceArguments.addExpression(new CastExpression(new ClassNode(List.class),new ConstantExpression(null)));
     final Expression callListArgValidateMethod=new MethodCallExpression(THIS_EXPRESSION,VALIDATE_METHOD_NAME,validateInstanceArguments);
     validateMethodCode.addStatement(new ReturnStatement(callListArgValidateMethod));
     classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode));

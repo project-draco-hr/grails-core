@@ -24,7 +24,7 @@
   final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(paramConstantExpression);
   final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
   final Token equalsToken=Token.newSymbol(Types.EQUALS,0,0);
-  final VariableExpression convertedValueExpression=new VariableExpression("___converted_" + methodParamName,GrailsASTUtils.OBJECT_CLASS);
+  final VariableExpression convertedValueExpression=new VariableExpression("___converted_" + methodParamName,new ClassNode(Object.class));
   final DeclarationExpression declareConvertedValueExpression=new DeclarationExpression(convertedValueExpression,equalsToken,new EmptyExpression());
   Statement declareVariableStatement=new ExpressionStatement(declareConvertedValueExpression);
   wrapper.addStatement(declareVariableStatement);

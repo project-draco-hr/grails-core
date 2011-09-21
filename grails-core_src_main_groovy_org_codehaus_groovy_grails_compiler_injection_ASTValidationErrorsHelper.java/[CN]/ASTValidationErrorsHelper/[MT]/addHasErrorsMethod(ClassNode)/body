@@ -5,6 +5,6 @@
     hasErrorsMethodCode.addStatement(new ExpressionStatement(INIT_ERRORS_METHOD_CALL_EXPRESSION));
     final Statement returnStatement=new ReturnStatement(new BooleanExpression(new MethodCallExpression(ERRORS_EXPRESSION,HAS_ERRORS_METHOD_NAME,EMPTY_TUPLE)));
     hasErrorsMethodCode.addStatement(returnStatement);
-    paramTypeClassNode.addMethod(new MethodNode(HAS_ERRORS_METHOD_NAME,Modifier.PUBLIC,PLAIN_BOOLEAN,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,hasErrorsMethodCode));
+    paramTypeClassNode.addMethod(new MethodNode(HAS_ERRORS_METHOD_NAME,Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,hasErrorsMethodCode));
   }
 }

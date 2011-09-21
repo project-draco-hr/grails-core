@@ -1,7 +1,7 @@
 {
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {
-    ClassNode implementationNode=ClassHelper.make(instanceImplementation).getPlainNodeReference();
+    ClassNode implementationNode=new ClassNode(instanceImplementation);
     String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
     Expression apiInstance=new VariableExpression(apiInstanceProperty);
     if (requiresStaticLookupMethod()) {
@@ -38,7 +38,7 @@
   }
   Class staticImplementation=getStaticImplementation();
   if (staticImplementation != null) {
-    ClassNode staticImplementationNode=ClassHelper.make(staticImplementation).getPlainNodeReference();
+    ClassNode staticImplementationNode=new ClassNode(staticImplementation);
     final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
     final String staticImplementationSimpleName=staticImplementation.getSimpleName();
     String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;

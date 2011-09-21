@@ -1,9 +1,9 @@
 {
   BlockStatement wrapper=new BlockStatement();
   ArgumentListExpression mapBindingResultConstructorArgs=new ArgumentListExpression();
-  mapBindingResultConstructorArgs.addExpression(MAP_CONSTRUCTOR_CALL);
+  mapBindingResultConstructorArgs.addExpression(new ConstructorCallExpression(new ClassNode(HashMap.class),EMPTY_TUPLE));
   mapBindingResultConstructorArgs.addExpression(new ConstantExpression("controller"));
-  final Expression mapBindingResultConstructorCallExpression=new ConstructorCallExpression(MAP_BINDING_RESULT_CLASS,mapBindingResultConstructorArgs);
+  final Expression mapBindingResultConstructorCallExpression=new ConstructorCallExpression(new ClassNode(MapBindingResult.class),mapBindingResultConstructorArgs);
   final Expression errorsAssignmentExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),mapBindingResultConstructorCallExpression);
   wrapper.addStatement(new ExpressionStatement(errorsAssignmentExpression));
   for (  Parameter param : actionParameters) {

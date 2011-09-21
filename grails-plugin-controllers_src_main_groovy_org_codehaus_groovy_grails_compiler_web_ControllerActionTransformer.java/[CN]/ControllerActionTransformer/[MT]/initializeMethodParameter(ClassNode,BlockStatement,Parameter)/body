@@ -6,7 +6,7 @@
   if (requestParameters.size() == 1) {
     requestParameterName=requestParameters.get(0).getMember("value").getText();
   }
-  if (paramTypeClassNode.isResolved() && (Character.class == paramTypeClassNode.getTypeClass() || Boolean.class == paramTypeClassNode.getTypeClass() || Number.class.isAssignableFrom(paramTypeClassNode.getTypeClass()) || paramTypeClassNode.getTypeClass().isPrimitive())) {
+  if ((PRIMITIVE_CLASS_NODES.contains(paramTypeClassNode) || TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(paramTypeClassNode))) {
     initializePrimitiveOrTypeWrapperParameter(wrapper,param,requestParameterName);
   }
  else   if (paramTypeClassNode.equals(new ClassNode(String.class))) {

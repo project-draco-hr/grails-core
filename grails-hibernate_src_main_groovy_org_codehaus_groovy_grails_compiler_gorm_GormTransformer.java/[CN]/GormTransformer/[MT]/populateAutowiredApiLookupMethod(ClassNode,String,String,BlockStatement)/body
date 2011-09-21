@@ -1,6 +1,6 @@
 {
   ArgumentListExpression arguments=new ArgumentListExpression();
   arguments.addExpression(new ConstantExpression(MISSING_GORM_ERROR_MESSAGE));
-  methodBody.addStatement(new ThrowStatement(new ConstructorCallExpression(new ClassNode(IllegalStateException.class),arguments)));
+  methodBody.addStatement(new ThrowStatement(new ConstructorCallExpression(ILLEGAL_STATE_EXCEPTION_CLASS,arguments)));
   return new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
 }

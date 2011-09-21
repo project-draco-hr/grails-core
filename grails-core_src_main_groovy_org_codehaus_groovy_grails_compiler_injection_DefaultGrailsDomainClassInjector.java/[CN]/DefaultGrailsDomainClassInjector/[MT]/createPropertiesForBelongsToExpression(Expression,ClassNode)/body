@@ -12,6 +12,7 @@
  else {
         type=ClassHelper.make(expression.getText());
       }
+      type=GrailsASTUtils.nonGeneric(type);
       properties.add(new PropertyNode(key,Modifier.PUBLIC,type,classNode,null,null,null));
     }
   }

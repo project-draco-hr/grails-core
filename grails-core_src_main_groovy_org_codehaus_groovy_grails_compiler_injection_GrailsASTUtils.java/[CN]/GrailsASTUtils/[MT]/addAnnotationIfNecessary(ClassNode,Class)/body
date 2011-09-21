@@ -1,6 +1,6 @@
 {
   List<AnnotationNode> annotations=classNode.getAnnotations();
-  ClassNode annotationClassNode=new ClassNode(Entity.class);
+  ClassNode annotationClassNode=ClassHelper.make(entityClass).getPlainNodeReference();
   AnnotationNode annotationToAdd=new AnnotationNode(annotationClassNode);
   if (annotations.isEmpty()) {
     classNode.addAnnotation(annotationToAdd);

@@ -4,7 +4,7 @@
     for (    Parameter parameter : parameters) {
       initArray.addExpression(new ClassExpression(parameter.getType()));
     }
-    AnnotationNode paramActionAnn=new AnnotationNode(new ClassNode(Action.class));
+    AnnotationNode paramActionAnn=ACTION_ANNOTATION;
     paramActionAnn.setMember(ACTION_MEMBER_TARGET,initArray);
     methodNode.addAnnotation(paramActionAnn);
   }

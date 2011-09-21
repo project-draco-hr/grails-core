@@ -3,13 +3,13 @@
   final ArgumentListExpression getCommandObjectBindingParamsArgs=new ArgumentListExpression();
   getCommandObjectBindingParamsArgs.addExpression(new MethodCallExpression(new VariableExpression(paramName),"getClass",ZERO_ARGS));
   getCommandObjectBindingParamsArgs.addExpression(PARAMS_EXPRESSION);
-  Expression invokeGetCommandObjectBindingParamsExpression=new StaticMethodCallExpression(new ClassNode(WebMetaUtils.class),"getCommandObjectBindingParams",getCommandObjectBindingParamsArgs);
-  final Statement intializeCommandObjectParams=new ExpressionStatement(new DeclarationExpression(new VariableExpression("commandObjectParams",new ClassNode(Map.class)),Token.newSymbol(Types.EQUALS,0,0),invokeGetCommandObjectBindingParamsExpression));
+  Expression invokeGetCommandObjectBindingParamsExpression=new StaticMethodCallExpression(WEB_META_UTILS_CLASS,"getCommandObjectBindingParams",getCommandObjectBindingParamsArgs);
+  final Statement intializeCommandObjectParams=new ExpressionStatement(new DeclarationExpression(new VariableExpression("commandObjectParams",GrailsASTUtils.MAP_CLASS),Token.newSymbol(Types.EQUALS,0,0),invokeGetCommandObjectBindingParamsExpression));
   bindingStatement.addStatement(intializeCommandObjectParams);
   final ArgumentListExpression arguments=new ArgumentListExpression();
   arguments.addExpression(new VariableExpression(paramName));
   arguments.addExpression(new VariableExpression(new VariableExpression("commandObjectParams")));
-  final MethodCallExpression bindDataMethodCallExpression=new MethodCallExpression(THIS_EXPRESSION,"bindData",arguments);
+  final MethodCallExpression bindDataMethodCallExpression=new MethodCallExpression(GrailsASTUtils.THIS_EXPRESSION,"bindData",arguments);
   bindingStatement.addStatement(new ExpressionStatement(bindDataMethodCallExpression));
   return bindingStatement;
 }

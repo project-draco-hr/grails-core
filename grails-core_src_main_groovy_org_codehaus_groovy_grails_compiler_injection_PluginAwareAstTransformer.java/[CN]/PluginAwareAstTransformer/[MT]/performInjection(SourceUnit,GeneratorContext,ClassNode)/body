@@ -9,7 +9,7 @@
     if (info == null) {
       return;
     }
-    final ClassNode annotation=new ClassNode(GrailsPlugin.class);
+    final ClassNode annotation=PLUGIN_ANNOTATION;
     final List<?> list=classNode.getAnnotations(annotation);
     if (!list.isEmpty()) {
       return;

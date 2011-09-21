@@ -2,6 +2,6 @@
   final boolean hasVersion=GrailsASTUtils.hasOrInheritsProperty(classNode,GrailsDomainClassProperty.VERSION);
   if (!hasVersion) {
     ClassNode parent=GrailsASTUtils.getFurthestUnresolvedParent(classNode);
-    parent.addProperty(GrailsDomainClassProperty.VERSION,Modifier.PUBLIC,new ClassNode(Long.class),null,null,null);
+    parent.addProperty(GrailsDomainClassProperty.VERSION,Modifier.PUBLIC,LONG_CLASS,null,null,null);
   }
 }

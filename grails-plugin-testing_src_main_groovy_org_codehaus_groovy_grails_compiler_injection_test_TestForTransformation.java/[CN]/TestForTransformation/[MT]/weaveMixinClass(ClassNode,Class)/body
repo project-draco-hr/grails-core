@@ -1,5 +1,5 @@
 {
   ListExpression listExpression=new ListExpression();
-  listExpression.addExpression(new ClassExpression(ClassHelper.make(mixinClass).getPlainNodeReference()));
+  listExpression.addExpression(new ClassExpression(new ClassNode(mixinClass)));
   weaveMixinsIntoClass(classNode,listExpression);
 }

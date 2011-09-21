@@ -1,5 +1,5 @@
 {
-  ClassNode testTarget=GrailsASTUtils.nonGeneric(value.getType());
+  ClassNode testTarget=value.getType();
   String className=testTarget.getName();
   MethodNode testForMethod=null;
   for (  String artefactType : artefactTypeToTestMap.keySet()) {

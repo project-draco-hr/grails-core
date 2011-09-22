@@ -10,7 +10,7 @@
     final StaticMethodCallExpression invokeValidateInstanceExpression=new StaticMethodCallExpression(validationSupportClassNode,"validateInstance",validateInstanceArguments);
     validateMethodCode.addStatement(new ExpressionStatement(invokeValidateInstanceExpression));
     final Parameter fieldsToValidateParameter=new Parameter(new ClassNode(List.class),fieldsToValidateParameterName);
-    classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,new ClassNode(Boolean.class),new Parameter[]{fieldsToValidateParameter},EMPTY_CLASS_ARRAY,validateMethodCode));
+    classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,ClassHelper.boolean_TYPE,new Parameter[]{fieldsToValidateParameter},EMPTY_CLASS_ARRAY,validateMethodCode));
   }
   final MethodNode noArgValidateMethod=classNode.getMethod(VALIDATE_METHOD_NAME,ZERO_PARAMETERS);
   if (noArgValidateMethod == null) {
@@ -19,6 +19,6 @@
     validateInstanceArguments.addExpression(new CastExpression(new ClassNode(List.class),new ConstantExpression(null)));
     final Expression callListArgValidateMethod=new MethodCallExpression(THIS_EXPRESSION,VALIDATE_METHOD_NAME,validateInstanceArguments);
     validateMethodCode.addStatement(new ReturnStatement(callListArgValidateMethod));
-    classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,new ClassNode(Boolean.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode));
+    classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,ClassHelper.boolean_TYPE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode));
   }
 }

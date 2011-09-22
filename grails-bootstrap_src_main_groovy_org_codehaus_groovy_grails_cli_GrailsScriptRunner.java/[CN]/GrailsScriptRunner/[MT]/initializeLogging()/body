@@ -3,8 +3,9 @@
     return;
   }
   try {
-    Log4jConfigurer.initLogging("file:" + settings.getGrailsHome() + "/scripts/log4j.properties");
+    org.springframework.util.Log4jConfigurer.initLogging("file:" + settings.getGrailsHome() + "/scripts/log4j.properties");
   }
- catch (  FileNotFoundException e) {
+ catch (  Throwable e) {
+    console.verbose("Log4j was not found on the classpath and will not be used for command line logging. Cause " + e.getClass().getName() + ": "+ e.getMessage());
   }
 }

@@ -1,0 +1,13 @@
+{
+  HashSet<String> variableNames=new HashSet<String>();
+  if (parent != null) {
+    if (parent instanceof AbstractGroovyPageBinding) {
+      variableNames.addAll(((AbstractGroovyPageBinding)parent).getVariableNames());
+    }
+ else {
+      variableNames.addAll(parent.getVariables().keySet());
+    }
+  }
+  variableNames.addAll(getVariablesMap().keySet());
+  return variableNames;
+}

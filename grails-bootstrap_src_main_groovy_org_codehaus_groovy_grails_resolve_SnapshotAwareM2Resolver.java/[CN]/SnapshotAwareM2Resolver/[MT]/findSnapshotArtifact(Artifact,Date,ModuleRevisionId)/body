@@ -4,7 +4,7 @@
     String pattern=getWholePattern().replaceFirst("\\-\\[revision\\]","-" + rev.uniqueRevision);
     ResolvedResource uniqueResource=findResourceUsingPattern(mrid,pattern,artifact,getDefaultRMDParser(artifact.getModuleRevisionId().getModuleId()),date);
     if (uniqueResource != null) {
-      return new LastModifiedResolvedResource(uniqueResource.getResource(),rev.uniqueRevision,rev.lastModified);
+      return new LastModifiedResolvedResource(uniqueResource.getResource(),rev.revision,rev.lastModified);
     }
     pattern=getWholePattern().replaceFirst("\\-\\[revision\\]","-" + mrid.getRevision());
     ResolvedResource nonUnique=findResourceUsingPattern(mrid,pattern,artifact,getDefaultRMDParser(artifact.getModuleRevisionId().getModuleId()),date);

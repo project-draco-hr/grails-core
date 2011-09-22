@@ -1,8 +1,4 @@
 {
-  Object entity=event.getObject();
-  ClosureEventListener eventListener=findEventListener(entity);
-  if (eventListener != null) {
-    eventListener.onSaveOrUpdate(event);
-  }
-  super.onSaveOrUpdate(event);
+  publishEvent(hibernateEvent,new org.grails.datastore.mapping.engine.event.SaveOrUpdateEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity()));
+  super.onSaveOrUpdate(hibernateEvent);
 }

@@ -9,7 +9,7 @@
     return false;
   }
   AbstractTypeConvertingMap thatMap=(AbstractTypeConvertingMap)that;
-  if (this.wrappedMap == thatMap.wrappedMap) {
+  if (wrappedMap == thatMap.wrappedMap) {
     return true;
   }
   if (wrappedMap.size() != thatMap.wrappedMap.size()) {

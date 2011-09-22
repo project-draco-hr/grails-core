@@ -10,13 +10,9 @@
     boolean dispatched=false;
     try {
       request.setAttribute(GrailsPageFilter.ALREADY_APPLIED_KEY,Boolean.TRUE);
-      GroovyPageView gspSpringView=new GroovyPageView();
-      gspSpringView.setServletContext(servletContext);
-      gspSpringView.setUrl(decorator.getPage());
-      gspSpringView.setApplicationContext(applicationContext);
-      gspSpringView.setTemplateEngine(templateEngine);
       try {
-        gspSpringView.render(Collections.<String,Object>emptyMap(),request,response);
+        View view=viewResolver.resolveViewName(decorator.getPage(),request.getLocale());
+        view.render(Collections.<String,Object>emptyMap(),request,response);
         dispatched=true;
         if (!response.isCommitted()) {
           response.getWriter().flush();

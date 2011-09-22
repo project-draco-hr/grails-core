@@ -1,6 +1,3 @@
 {
-  ClosureEventListener eventListener=findEventListener(event.getEntity());
-  if (eventListener != null) {
-    eventListener.onPostUpdate(event);
-  }
+  publishEvent(hibernateEvent,new org.grails.datastore.mapping.engine.event.PostUpdateEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity()));
 }

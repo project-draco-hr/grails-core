@@ -1,0 +1,3 @@
+{
+  return eqAll(propertyName,(QueryableCriteria)new DetachedCriteria(targetClass).build(propertyValue));
+}

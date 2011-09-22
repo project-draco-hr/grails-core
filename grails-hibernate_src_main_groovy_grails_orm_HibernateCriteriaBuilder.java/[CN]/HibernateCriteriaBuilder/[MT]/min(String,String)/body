@@ -1,4 +1,5 @@
 {
   final AggregateProjection aggregateProjection=Projections.min(calculatePropertyName(propertyName));
   addProjectionToList(aggregateProjection,alias);
+  return this;
 }

@@ -1,4 +1,5 @@
 {
   final CountProjection proj=Projections.countDistinct(calculatePropertyName(propertyName));
   addProjectionToList(proj,alias);
+  return this;
 }

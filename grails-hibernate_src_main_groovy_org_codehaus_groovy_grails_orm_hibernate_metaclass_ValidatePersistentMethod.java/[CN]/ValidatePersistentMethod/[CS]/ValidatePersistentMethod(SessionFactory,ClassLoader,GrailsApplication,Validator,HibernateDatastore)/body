@@ -1,0 +1,6 @@
+{
+  super(METHOD_PATTERN,sessionFactory,classLoader,application);
+  Assert.notNull(application,"Constructor argument 'application' cannot be null");
+  this.validator=validator;
+  this.datastore=datastore;
+}

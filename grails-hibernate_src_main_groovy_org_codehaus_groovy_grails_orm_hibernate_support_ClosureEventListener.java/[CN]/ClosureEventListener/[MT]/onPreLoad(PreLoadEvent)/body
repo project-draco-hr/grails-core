@@ -1,11 +1,12 @@
 {
-  if (preLoadEventCaller != null) {
-    doWithManualSession(event,new Closure(this){
-      @Override public Object call(){
-        preLoadEventCaller.call(event.getEntity());
-        return null;
-      }
-    }
-);
+  if (preLoadEventCaller == null) {
+    return;
   }
+  doWithManualSession(event,new Closure(this){
+    @Override public Object call(){
+      preLoadEventCaller.call(event.getEntity());
+      return null;
+    }
+  }
+);
 }

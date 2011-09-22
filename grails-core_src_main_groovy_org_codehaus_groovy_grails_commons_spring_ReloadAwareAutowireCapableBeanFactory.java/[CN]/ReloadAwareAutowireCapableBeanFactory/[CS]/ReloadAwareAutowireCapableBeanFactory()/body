@@ -1,5 +1,6 @@
 {
-  if (Environment.getCurrent().isReloadEnabled()) {
+  reloadEnabled=GrailsUtil.isDevelopmentEnv() || Environment.getCurrent().isReloadEnabled();
+  if (reloadEnabled) {
     setInstantiationStrategy(new CglibSubclassingInstantiationStrategy(){
       @Override public Object instantiate(      RootBeanDefinition beanDefinition,      String beanName,      BeanFactory owner){
         if (beanDefinition.getMethodOverrides().isEmpty()) {
@@ -23,4 +24,5 @@
   }
   setParameterNameDiscoverer(new LocalVariableTableParameterNameDiscoverer());
   setAutowireCandidateResolver(new QualifierAnnotationAutowireCandidateResolver());
+  ignoreDependencyType(Closure.class);
 }

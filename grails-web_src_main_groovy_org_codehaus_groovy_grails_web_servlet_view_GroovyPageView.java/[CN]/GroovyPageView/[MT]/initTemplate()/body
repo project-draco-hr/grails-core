@@ -1,0 +1,11 @@
+{
+  if (scriptSource == null) {
+    template=templateEngine.createTemplate(getUrl());
+  }
+ else {
+    template=templateEngine.createTemplate(scriptSource);
+  }
+  if (template instanceof GroovyPageTemplate) {
+    ((GroovyPageTemplate)template).setAllowSettingContentType(true);
+  }
+}

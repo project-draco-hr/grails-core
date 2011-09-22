@@ -1,7 +1,0 @@
-{
-  Assert.notNull(sessionFactory,"Session factory is required!");
-  setPattern(pattern);
-  this.classLoader=classLoader;
-  hibernateTemplate=new HibernateTemplate(sessionFactory);
-  hibernateTemplate.setCacheQueries(GrailsHibernateUtil.isCacheQueriesByDefault());
-}

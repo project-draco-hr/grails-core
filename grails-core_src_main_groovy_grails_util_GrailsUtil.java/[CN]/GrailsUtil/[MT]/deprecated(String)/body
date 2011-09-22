@@ -1,3 +1,5 @@
 {
-  LOG.warn("[DEPRECATED] " + message);
+  if (LOG_DEPRECATED && LOG.isWarnEnabled()) {
+    LOG.warn("[DEPRECATED] " + message);
+  }
 }

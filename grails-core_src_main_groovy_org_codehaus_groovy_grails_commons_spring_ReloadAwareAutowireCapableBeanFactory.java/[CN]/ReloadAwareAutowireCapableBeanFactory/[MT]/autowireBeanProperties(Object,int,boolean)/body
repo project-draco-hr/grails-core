@@ -1,22 +1,12 @@
 {
-  if (autowireMode != AUTOWIRE_BY_NAME) {
-    super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
-    return;
-  }
-  try {
-    autowiringBeanPropertiesFlag.set(Boolean.TRUE);
-    if (!Environment.getCurrent().isReloadEnabled()) {
-      Set<String> beanProps=autowiringByNameCacheForClass.get(ClassUtils.getUserClass(existingBean.getClass()));
-      if (beanProps != null && beanProps.isEmpty()) {
-        if (logger.isDebugEnabled()) {
-          logger.debug("Nothing to autowire for bean of class " + existingBean.getClass().getName());
-        }
-        return;
+  if (!reloadEnabled && autowireMode == AUTOWIRE_BY_NAME) {
+    Set<String> beanProps=autowiringByNameCacheForClass.get(ClassUtils.getUserClass(existingBean.getClass()));
+    if (beanProps != null && beanProps.isEmpty()) {
+      if (logger.isDebugEnabled()) {
+        logger.debug("Nothing to autowire for bean of class " + existingBean.getClass().getName());
       }
+      return;
     }
-    super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
   }
-  finally {
-    autowiringBeanPropertiesFlag.remove();
-  }
+  super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
 }

@@ -1,4 +1,4 @@
 {
-  criteria.setProjection(Projections.sum(name));
+  projectionList.add(Projections.sum(calculatePropertyName(name,HibernateQuery.this.alias)));
   return this;
 }

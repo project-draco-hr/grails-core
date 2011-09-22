@@ -13,11 +13,7 @@
     scriptSource=groovyPageLocator.findView(controller,viewName);
   }
   if (scriptSource != null) {
-    if (scriptSource instanceof GroovyPageCompiledScriptSource) {
-      GroovyPageCompiledScriptSource compiled=(GroovyPageCompiledScriptSource)scriptSource;
-      return createGroovyPageView(webRequest,compiled.getURI(),compiled.getCompiledClass());
-    }
-    return createGroovyPageView(webRequest,scriptSource.getURI());
+    return createGroovyPageView(webRequest,scriptSource.getURI(),scriptSource);
   }
   AbstractUrlBasedView view=buildView(viewName);
   view.setApplicationContext(getApplicationContext());

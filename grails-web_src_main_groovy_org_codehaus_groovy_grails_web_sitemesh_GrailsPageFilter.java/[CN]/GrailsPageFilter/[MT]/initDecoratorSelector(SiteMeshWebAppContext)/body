@@ -10,7 +10,7 @@
       }
       return new Decorator(){
         private void render(        @SuppressWarnings("hiding") Content content,        HttpServletRequest request,        HttpServletResponse response,        ServletContext servletContext){
-          GroovyPageLayoutRenderer layoutRenderer=new GroovyPageLayoutRenderer(decorator,templateEngine,applicationContext);
+          GroovyPageLayoutRenderer layoutRenderer=new GroovyPageLayoutRenderer(decorator,layoutViewResolver);
           layoutRenderer.render(content,request,response,servletContext);
         }
         public void render(        @SuppressWarnings("hiding") Content content,        SiteMeshContext siteMeshContext){

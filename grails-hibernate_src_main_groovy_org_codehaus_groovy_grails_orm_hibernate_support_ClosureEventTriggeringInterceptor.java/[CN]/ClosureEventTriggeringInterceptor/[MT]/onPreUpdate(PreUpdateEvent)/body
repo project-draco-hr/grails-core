@@ -1,8 +1,5 @@
 {
-  boolean evict=false;
-  ClosureEventListener eventListener=findEventListener(event.getEntity());
-  if (eventListener != null) {
-    evict=eventListener.onPreUpdate(event);
-  }
-  return evict;
+  AbstractPersistenceEvent event=new org.grails.datastore.mapping.engine.event.PreUpdateEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity());
+  publishEvent(hibernateEvent,event);
+  return event.isCancelled();
 }

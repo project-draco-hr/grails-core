@@ -1,0 +1,11 @@
+{
+  if (wac.containsBean("jspViewResolver")) {
+    return wac.getBean("jspViewResolver",ViewResolver.class);
+  }
+  String[] beanNames=wac.getBeanNamesForType(ViewResolver.class);
+  if (beanNames.length > 0) {
+    String beanName=beanNames[0];
+    return wac.getBean(beanName,ViewResolver.class);
+  }
+  return null;
+}

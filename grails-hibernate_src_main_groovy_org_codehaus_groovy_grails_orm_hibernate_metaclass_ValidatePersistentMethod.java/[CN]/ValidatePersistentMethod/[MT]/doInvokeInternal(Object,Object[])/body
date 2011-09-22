@@ -28,7 +28,7 @@
       validatedFields=new HashSet(validatedFieldsList);
     }
   }
-  beforeValidateHelper.invokeBeforeValidate(target,validatedFieldsList);
+  fireEvent(target,validatedFieldsList);
   if (deepValidate && (validator instanceof CascadingValidator)) {
     ((CascadingValidator)validator).validate(target,errors,deepValidate);
   }

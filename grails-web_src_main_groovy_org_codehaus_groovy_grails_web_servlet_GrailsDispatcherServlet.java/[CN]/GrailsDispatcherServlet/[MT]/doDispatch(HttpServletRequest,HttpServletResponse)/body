@@ -99,7 +99,7 @@ catch (    Exception ex) {
           if (content != null) {
             Decorator decorator=groovyPageLayoutFinder.findLayout(request,content);
             if (decorator != null) {
-              GroovyPageLayoutRenderer renderer=new GroovyPageLayoutRenderer(decorator,requestAttributes.getAttributes().getPagesTemplateEngine(),getWebApplicationContext());
+              GroovyPageLayoutRenderer renderer=new GroovyPageLayoutRenderer(decorator,layoutViewResolver);
               renderer.render(content,request,targetResponse,getServletContext());
             }
  else {

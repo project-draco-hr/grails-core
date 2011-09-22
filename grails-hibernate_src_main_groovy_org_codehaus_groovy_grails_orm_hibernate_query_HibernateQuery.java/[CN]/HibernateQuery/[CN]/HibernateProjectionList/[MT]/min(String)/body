@@ -1,4 +1,4 @@
 {
-  criteria.setProjection(Projections.min(name));
+  projectionList.add(Projections.min(calculatePropertyName(name,HibernateQuery.this.alias)));
   return this;
 }

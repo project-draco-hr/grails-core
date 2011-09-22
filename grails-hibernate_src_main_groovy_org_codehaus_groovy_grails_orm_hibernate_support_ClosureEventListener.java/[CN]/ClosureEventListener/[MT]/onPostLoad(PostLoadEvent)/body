@@ -1,11 +1,12 @@
 {
-  if (postLoadEventListener != null) {
-    doWithManualSession(event,new Closure(this){
-      @Override public Object call(){
-        postLoadEventListener.call(event.getEntity());
-        return null;
-      }
-    }
-);
+  if (postLoadEventListener == null) {
+    return;
   }
+  doWithManualSession(event,new Closure(this){
+    @Override public Object call(){
+      postLoadEventListener.call(event.getEntity());
+      return null;
+    }
+  }
+);
 }

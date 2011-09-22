@@ -5,7 +5,7 @@
   try {
     String encoding=GroovyPageParser.DEFAULT_ENCODING;
     if (grailsApplication != null) {
-      ConfigObject config=grailsApplication.getConfig();
+      Map<String,Object> config=grailsApplication.getFlatConfig();
       Object gspEnc=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_ENCODING);
       if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
         encoding=gspEnc.toString();
@@ -13,7 +13,7 @@
     }
     parser=new GroovyPageParser(name,path,path,inputStream,encoding);
     if (grailsApplication != null) {
-      ConfigObject config=grailsApplication.getConfig();
+      Map<String,Object> config=grailsApplication.getFlatConfig();
       Object sitemeshPreprocessEnabled=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
       if (sitemeshPreprocessEnabled != null) {
         final boolean enableSitemeshPreprocessing=BooleanUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim());

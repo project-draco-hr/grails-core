@@ -4,5 +4,6 @@
   }
   propertyName=calculatePropertyName(propertyName);
   otherPropertyName=calculatePropertyName(otherPropertyName);
-  return addToCriteria(Restrictions.geProperty(propertyName,otherPropertyName));
+  addToCriteria(Restrictions.geProperty(propertyName,otherPropertyName));
+  return this;
 }

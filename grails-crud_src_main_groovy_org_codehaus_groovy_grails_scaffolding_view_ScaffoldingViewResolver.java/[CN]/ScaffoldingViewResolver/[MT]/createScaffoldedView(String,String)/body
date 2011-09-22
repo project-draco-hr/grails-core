@@ -3,5 +3,6 @@
   view.setApplicationContext(getApplicationContext());
   view.setServletContext(getServletContext());
   view.setTemplateEngine(templateEngine);
+  view.afterPropertiesSet();
   return view;
 }

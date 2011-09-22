@@ -5,6 +5,7 @@
   }
   if (subChunk.resetSize()) {
     totalCharsInDynamicChunks=-1;
+    sizeAtLeast=-1;
     notifyBufferChange();
   }
   return true;

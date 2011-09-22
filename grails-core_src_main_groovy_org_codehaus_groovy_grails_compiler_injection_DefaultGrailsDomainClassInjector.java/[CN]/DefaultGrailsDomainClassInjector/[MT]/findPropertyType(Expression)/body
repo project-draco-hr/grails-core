@@ -1,8 +1,8 @@
 {
-  ClassNode setNode=new ClassNode(Set.class);
+  ClassNode setNode=ClassHelper.make(Set.class).getPlainNodeReference();
   if (expression instanceof ClassExpression) {
     GenericsType[] genericsTypes=new GenericsType[1];
-    genericsTypes[0]=new GenericsType(expression.getType());
+    genericsTypes[0]=new GenericsType(GrailsASTUtils.nonGeneric(expression.getType()));
     setNode.setGenericsTypes(genericsTypes);
   }
   return setNode;

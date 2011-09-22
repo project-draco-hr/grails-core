@@ -11,5 +11,5 @@
     nonGen.setUsingGenerics(false);
     return nonGen.makeArray();
   }
-  return type;
+  return type.getPlainNodeReference();
 }

@@ -3,7 +3,7 @@
   this.buildSettings=buildSettings;
   this.metadata=metadata;
   chainResolver=new ChainResolver();
-  chainResolver.setName("default");
+  chainResolver.setName("cache");
   chainResolver.setReturnFirst(true);
   updateChangingPattern(chainResolver);
 }

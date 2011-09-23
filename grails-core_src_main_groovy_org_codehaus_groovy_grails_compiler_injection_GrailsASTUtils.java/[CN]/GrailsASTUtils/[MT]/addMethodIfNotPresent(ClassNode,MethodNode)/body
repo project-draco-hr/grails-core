@@ -1,0 +1,6 @@
+{
+  MethodNode existing=controllerClassNode.getMethod(methodNode.getName(),methodNode.getParameters());
+  if (existing == null) {
+    controllerClassNode.addMethod(methodNode);
+  }
+}

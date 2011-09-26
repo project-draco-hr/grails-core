@@ -1,4 +1,7 @@
 {
+  if (offline && descriptor.isChanging()) {
+    descriptor.setChanging(false);
+  }
   registerUsedConfigurationIfNecessary(scope);
   if (descriptor.getModuleConfigurations().length == 0) {
     addDefaultModuleConfigurations(descriptor,scope,isPluginDep);

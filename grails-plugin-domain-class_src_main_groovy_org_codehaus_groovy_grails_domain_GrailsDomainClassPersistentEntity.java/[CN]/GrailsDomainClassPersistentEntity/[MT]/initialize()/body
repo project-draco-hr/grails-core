@@ -1,6 +1,6 @@
 {
   @SuppressWarnings("hiding") final GrailsDomainClassProperty identifier=domainClass.getIdentifier();
-  this.identifier=new GrailsDomainClassPersistentProperty(this,identifier);
+  if (identifier != null)   this.identifier=new GrailsDomainClassPersistentProperty(this,identifier);
   mappingContext.addEntityValidator(this,domainClass.getValidator());
   final GrailsDomainClassProperty[] persistentProperties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty grailsDomainClassProperty : persistentProperties) {

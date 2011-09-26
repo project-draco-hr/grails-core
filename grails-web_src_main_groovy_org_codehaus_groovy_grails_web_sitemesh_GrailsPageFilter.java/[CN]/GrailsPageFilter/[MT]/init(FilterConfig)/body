@@ -4,11 +4,12 @@
   containerTweaks=new ContainerTweaks();
   Config config=new Config(fc);
   Grails5535Factory defaultFactory=new Grails5535Factory(config);
-  config.getServletContext().setAttribute("sitemesh.factory",defaultFactory);
+  fc.getServletContext().setAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE,defaultFactory);
   defaultFactory.refresh();
   FactoryHolder.setFactory(defaultFactory);
+  contentProcessor=new PageParser2ContentProcessor(defaultFactory);
+  decoratorMapper=defaultFactory.getDecoratorMapper();
   applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(fc.getServletContext());
-  templateEngine=applicationContext.getBean(GroovyPagesTemplateEngine.BEAN_ID,GroovyPagesTemplateEngine.class);
   layoutViewResolver=WebUtils.lookupViewResolver(applicationContext);
   final GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(fc.getServletContext());
   String encoding=(String)grailsApplication.getFlatConfig().get(CONFIG_OPTION_GSP_ENCODING);

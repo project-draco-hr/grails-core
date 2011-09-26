@@ -1,0 +1,27 @@
+{
+  HTMLPage htmlPage=GSPSitemeshPage.content2htmlPage(content);
+  request.setAttribute(RequestConstants.PAGE,htmlPage);
+  if (!response.isCommitted()) {
+    boolean dispatched=false;
+    try {
+      request.setAttribute(GrailsPageFilter.ALREADY_APPLIED_KEY,Boolean.TRUE);
+      try {
+        view.render(Collections.<String,Object>emptyMap(),request,response);
+        dispatched=true;
+        if (!response.isCommitted()) {
+          response.getWriter().flush();
+        }
+      }
+ catch (      Exception e) {
+        cleanRequestAttributes(request);
+        throw new GroovyPagesException("Error applying layout : " + getName(),e);
+      }
+    }
+  finally {
+      if (!dispatched) {
+        cleanRequestAttributes(request);
+      }
+    }
+  }
+  request.removeAttribute(RequestConstants.PAGE);
+}

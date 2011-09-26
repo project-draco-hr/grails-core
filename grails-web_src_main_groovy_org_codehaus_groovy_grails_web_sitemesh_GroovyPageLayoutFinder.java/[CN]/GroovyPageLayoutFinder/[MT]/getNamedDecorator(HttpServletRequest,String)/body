@@ -6,17 +6,16 @@
       return cacheValue.getDecorator();
     }
   }
+  View view;
+  try {
+    view=viewResolver.resolveViewName(GrailsResourceUtils.appendPiecesForUri(LAYOUTS_PATH,name),request.getLocale());
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Unable to resolve view",e);
+  }
   Decorator d=null;
-  GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
-  GroovyPageScriptSource scriptSource=null;
-  if (controller != null) {
-    scriptSource=groovyPageLocator.findLayout(controller,name);
-  }
- else {
-    scriptSource=groovyPageLocator.findLayout(name);
-  }
-  if (scriptSource != null) {
-    d=createDecorator(name,scriptSource.getURI());
+  if (view != null) {
+    d=createDecorator(name,view);
   }
   if (cacheEnabled) {
     decoratorCache.put(name,new DecoratorCacheValue(d));

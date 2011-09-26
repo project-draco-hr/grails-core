@@ -1,0 +1,11 @@
+{
+  AbstractUrlBasedView view=buildView(viewName);
+  view.setApplicationContext(getApplicationContext());
+  view.afterPropertiesSet();
+  if (checkExistence && request != null && request.getRequestDispatcher(view.getUrl()) == null) {
+    return null;
+  }
+ else {
+    return view;
+  }
+}

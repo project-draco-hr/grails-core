@@ -15,8 +15,5 @@
   if (scriptSource != null) {
     return createGroovyPageView(webRequest,scriptSource.getURI(),scriptSource);
   }
-  AbstractUrlBasedView view=buildView(viewName);
-  view.setApplicationContext(getApplicationContext());
-  view.afterPropertiesSet();
-  return view;
+  return createJstlView(viewName,request);
 }

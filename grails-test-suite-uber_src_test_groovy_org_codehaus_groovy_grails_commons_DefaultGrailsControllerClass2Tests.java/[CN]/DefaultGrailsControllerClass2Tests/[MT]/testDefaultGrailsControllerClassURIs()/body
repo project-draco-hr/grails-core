@@ -3,5 +3,6 @@
   Class<?> clazz=cl.parseClass("class OverviewController { }");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   assignGrailsApplication(cl,grailsClass);
+  grailsClass.initialize();
   assertEquals(2,grailsClass.getURIs().length);
 }

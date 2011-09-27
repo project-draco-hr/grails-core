@@ -1,5 +1,4 @@
 {
-  ensureInitialized();
   if (viewNames.containsKey(viewName)) {
     return viewNames.get(viewName);
   }

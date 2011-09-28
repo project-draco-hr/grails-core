@@ -1,0 +1,8 @@
+{
+  Set<String> variableNames=binding.getVariableNames();
+  Collection values=new ArrayList(variableNames.size());
+  for (  String variable : variableNames) {
+    values.add(binding.getVariable(variable));
+  }
+  return values;
+}

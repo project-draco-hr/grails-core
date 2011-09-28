@@ -4,5 +4,13 @@
   }
   propertyName=calculatePropertyName(propertyName);
   propertyValue=calculatePropertyValue(propertyValue);
-  return addToCriteria(Restrictions.lt(propertyName,propertyValue));
+  Criterion lt;
+  if (propertyValue instanceof org.hibernate.criterion.DetachedCriteria) {
+    lt=Property.forName(propertyName).lt((org.hibernate.criterion.DetachedCriteria)propertyValue);
+  }
+ else {
+    lt=Restrictions.lt(propertyName,propertyValue);
+  }
+  addToCriteria(lt);
+  return this;
 }

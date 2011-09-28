@@ -1,6 +1,19 @@
 {
-  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdaptor(criterion).toHibernateCriterion();
+  if (criterion instanceof FunctionCallingCriterion) {
+    org.hibernate.criterion.Criterion sqlRestriction=getRestrictionForFunctionCall((FunctionCallingCriterion)criterion,entity);
+    if (sqlRestriction != null) {
+      addToCriteria(sqlRestriction);
+    }
+  }
+ else   if (criterion instanceof PropertyCriterion) {
+    PropertyCriterion pc=(PropertyCriterion)criterion;
+    if (pc.getValue() instanceof QueryableCriteria) {
+      DetachedCriteria hibernateDetachedCriteria=HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue());
+      pc.setValue(hibernateDetachedCriteria);
+    }
+  }
+  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion(this);
   if (hibernateCriterion != null) {
-    criteria.add(hibernateCriterion);
+    addToCriteria(hibernateCriterion);
   }
 }

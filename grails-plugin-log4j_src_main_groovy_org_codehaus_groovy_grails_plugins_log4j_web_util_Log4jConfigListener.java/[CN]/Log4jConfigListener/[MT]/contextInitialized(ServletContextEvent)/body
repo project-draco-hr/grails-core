@@ -1,0 +1,14 @@
+{
+  try {
+    GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(event.getServletContext());
+    ConfigObject co=grailsApplication != null ? grailsApplication.getConfig() : null;
+    if (co == null) {
+      GrailsApplication application=new DefaultGrailsApplication();
+      co=application.getConfig();
+      Log4jConfig.initialize(co);
+    }
+  }
+ catch (  Throwable e) {
+    LogLog.error("Error initializing log4j: " + e.getMessage(),e);
+  }
+}

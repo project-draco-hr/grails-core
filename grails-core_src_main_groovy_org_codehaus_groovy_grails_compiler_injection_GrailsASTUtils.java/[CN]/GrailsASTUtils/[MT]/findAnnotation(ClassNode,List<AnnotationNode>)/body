@@ -1,0 +1,8 @@
+{
+  for (  AnnotationNode annotation : annotations) {
+    if (annotation.getClassNode().equals(annotationClassNode)) {
+      return annotation;
+    }
+  }
+  return null;
+}

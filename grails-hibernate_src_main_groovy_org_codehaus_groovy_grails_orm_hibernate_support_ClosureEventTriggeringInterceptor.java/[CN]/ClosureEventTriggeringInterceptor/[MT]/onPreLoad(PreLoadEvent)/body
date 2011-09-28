@@ -1,8 +1,3 @@
 {
-  Object entity=event.getEntity();
-  GrailsHibernateUtil.ensureCorrectGroovyMetaClass(entity,entity.getClass());
-  ClosureEventListener eventListener=findEventListener(entity);
-  if (eventListener != null) {
-    eventListener.onPreLoad(event);
-  }
+  publishEvent(hibernateEvent,new org.grails.datastore.mapping.engine.event.PreLoadEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity()));
 }

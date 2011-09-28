@@ -4,12 +4,19 @@
   }
   propertyName=calculatePropertyName(propertyName);
   propertyValue=calculatePropertyValue(propertyValue);
-  SimpleExpression eq=Restrictions.eq(propertyName,propertyValue);
-  if (params != null) {
+  Criterion eq;
+  if (propertyValue instanceof org.hibernate.criterion.DetachedCriteria) {
+    eq=Property.forName(propertyName).eq((org.hibernate.criterion.DetachedCriteria)propertyValue);
+  }
+ else {
+    eq=Restrictions.eq(propertyName,propertyValue);
+  }
+  if (params != null && (eq instanceof SimpleExpression)) {
     Object ignoreCase=params.get("ignoreCase");
     if (ignoreCase instanceof Boolean && (Boolean)ignoreCase) {
-      eq=eq.ignoreCase();
+      eq=((SimpleExpression)eq).ignoreCase();
     }
   }
-  return addToCriteria(eq);
+  addToCriteria(eq);
+  return this;
 }

@@ -1,6 +1,6 @@
 {
   List<String> searchPaths=null;
-  if (Environment.isWarDeployed()) {
+  if (warDeployed) {
     if (uri.startsWith(PLUGINS_PATH)) {
       PluginViewPathInfo pathInfo=getPluginViewPathInfo(uri);
       searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri(GrailsResourceUtils.WEB_INF,PLUGINS_PATH,pathInfo.pluginName,GrailsResourceUtils.VIEWS_DIR_PATH,pathInfo.path),GrailsResourceUtils.appendPiecesForUri(GrailsResourceUtils.WEB_INF,uri),uri);

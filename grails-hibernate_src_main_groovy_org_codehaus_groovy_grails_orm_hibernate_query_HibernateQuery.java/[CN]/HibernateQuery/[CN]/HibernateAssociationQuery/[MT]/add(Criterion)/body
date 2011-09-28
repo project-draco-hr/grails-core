@@ -1,0 +1,6 @@
+{
+  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion(HibernateQuery.this);
+  if (hibernateCriterion != null) {
+    addToCriteria(hibernateCriterion);
+  }
+}

@@ -1,4 +1,5 @@
 {
   final AggregateProjection proj=Projections.max(calculatePropertyName(propertyName));
   addProjectionToList(proj,alias);
+  return this;
 }

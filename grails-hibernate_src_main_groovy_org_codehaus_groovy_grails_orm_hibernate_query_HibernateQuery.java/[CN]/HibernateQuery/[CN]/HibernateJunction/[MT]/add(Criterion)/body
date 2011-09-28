@@ -1,8 +1,17 @@
 {
   if (c != null) {
-    final CriterionAdaptor criterionAdaptor=criterionAdaptors.get(c.getClass());
-    if (criterionAdaptor != null) {
-      hibernateJunction.add(criterionAdaptor.toHibernateCriterion(c));
+    if (c instanceof FunctionCallingCriterion) {
+      org.hibernate.criterion.Criterion sqlRestriction=getRestrictionForFunctionCall((FunctionCallingCriterion)c,entity);
+      if (sqlRestriction != null) {
+        hibernateJunction.add(sqlRestriction);
+      }
+    }
+ else {
+      HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c,this.alias);
+      org.hibernate.criterion.Criterion criterion=adapter.toHibernateCriterion(HibernateQuery.this);
+      if (criterion != null) {
+        hibernateJunction.add(criterion);
+      }
     }
   }
   return this;

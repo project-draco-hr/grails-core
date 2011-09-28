@@ -1,4 +1,4 @@
 {
-  criteria.setProjection(Projections.id());
+  projectionList.add(Projections.id());
   return this;
 }

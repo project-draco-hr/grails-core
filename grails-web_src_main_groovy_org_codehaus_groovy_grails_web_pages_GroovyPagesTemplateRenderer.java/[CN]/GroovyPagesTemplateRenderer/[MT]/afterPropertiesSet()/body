@@ -1,0 +1,6 @@
+{
+  if (scaffoldingTemplateGenerator != null) {
+    generateViewMethod=ReflectionUtils.findMethod(scaffoldingTemplateGenerator.getClass(),"generateView",new Class<?>[]{GrailsDomainClass.class,String.class,Writer.class});
+  }
+  this.reloadEnabled=groovyPagesTemplateEngine.isReloadEnabled();
+}

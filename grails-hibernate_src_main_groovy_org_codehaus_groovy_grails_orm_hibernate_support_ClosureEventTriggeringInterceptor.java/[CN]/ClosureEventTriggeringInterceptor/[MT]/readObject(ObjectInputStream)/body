@@ -1,6 +1,0 @@
-{
-  failOnError=in.readBoolean();
-  failOnErrorPackages=(List)in.readObject();
-  eventListeners=new ConcurrentHashMap<SoftKey<Class<?>>,ClosureEventListener>();
-  cachedShouldTrigger=new ConcurrentHashMap<SoftKey<Class<?>>,Boolean>();
-}

@@ -1,0 +1,21 @@
+{
+  for (  Query.Criterion subCriterion : existing) {
+    if (subCriterion instanceof Query.PropertyCriterion) {
+      Query.PropertyCriterion pc=(Query.PropertyCriterion)subCriterion;
+      if (pc.getValue() instanceof QueryableCriteria) {
+        pc.setValue(HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue()));
+      }
+    }
+    CriterionAdaptor criterionAdaptor=criterionAdaptors.get(subCriterion.getClass());
+    if (criterionAdaptor != null) {
+      Criterion c=criterionAdaptor.toHibernateCriterion(hibernateCriteria,subCriterion,alias);
+      if (c != null)       conjunction.add(c);
+    }
+ else     if (subCriterion instanceof FunctionCallingCriterion) {
+      Criterion sqlRestriction=hibernateCriteria.getRestrictionForFunctionCall((FunctionCallingCriterion)subCriterion,entity);
+      if (sqlRestriction != null) {
+        conjunction.add(sqlRestriction);
+      }
+    }
+  }
+}

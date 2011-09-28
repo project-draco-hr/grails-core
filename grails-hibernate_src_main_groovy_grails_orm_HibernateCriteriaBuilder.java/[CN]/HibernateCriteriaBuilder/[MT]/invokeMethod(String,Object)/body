@@ -75,7 +75,7 @@
           String associationForOrdering=lastPropertyPos >= 0 ? sort.substring(0,lastPropertyPos) : null;
           if (associationForOrdering != null && aliasMap.containsKey(associationForOrdering)) {
             addOrder(criteria,aliasMap.get(associationForOrdering) + "." + sort.substring(lastPropertyPos + 1),order,ignoreCase);
-            Map argMap2=new HashMap(argMap);
+            @SuppressWarnings("unchecked") Map argMap2=new HashMap(argMap);
             argMap2.remove(GrailsHibernateUtil.ARGUMENT_SORT);
             argMap=argMap2;
           }

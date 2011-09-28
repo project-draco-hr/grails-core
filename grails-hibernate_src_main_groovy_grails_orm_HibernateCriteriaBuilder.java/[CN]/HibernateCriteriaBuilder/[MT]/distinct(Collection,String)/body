@@ -5,4 +5,5 @@
   }
   final Projection proj=Projections.distinct(list);
   addProjectionToList(proj,alias);
+  return this;
 }

@@ -1,0 +1,4 @@
+{
+  super(name,(view instanceof AbstractUrlBasedView) ? ((AbstractUrlBasedView)view).getUrl() : view.toString(),Collections.EMPTY_MAP);
+  this.view=view;
+}

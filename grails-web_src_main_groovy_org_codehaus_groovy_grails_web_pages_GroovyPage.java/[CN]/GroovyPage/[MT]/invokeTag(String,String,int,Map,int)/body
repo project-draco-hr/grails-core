@@ -30,6 +30,9 @@
           if (body instanceof GroovyPageTagBody && preferSubChunkWhenWritingToOtherBuffer) {
             ((GroovyPageTagBody)body).setPreferSubChunkWhenWritingToOtherBuffer(true);
           }
+          if (!(attrs instanceof GroovyPageAttributes)) {
+            attrs=new GroovyPageAttributes(attrs);
+          }
 switch (tag.getParameterTypes().length) {
 case 1:
             tagresult=tag.call(new Object[]{attrs});

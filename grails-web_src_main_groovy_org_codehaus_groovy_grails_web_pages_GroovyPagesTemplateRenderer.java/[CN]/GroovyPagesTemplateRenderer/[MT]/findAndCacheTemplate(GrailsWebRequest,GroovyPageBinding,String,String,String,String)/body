@@ -1,0 +1,51 @@
+{
+  String templatePath=StringUtils.isNotEmpty(contextPath) ? GrailsResourceUtils.appendPiecesForUri(contextPath,templateName) : templateName;
+  GroovyPageScriptSource scriptSource=null;
+  if (pluginName != null) {
+    scriptSource=groovyPageLocator.findTemplateInBinding(pluginName,templatePath,pageScope);
+  }
+ else {
+    scriptSource=groovyPageLocator.findTemplateInBinding(templatePath,pageScope);
+  }
+  Template t=null;
+  String cacheKey;
+  if (scriptSource != null) {
+    cacheKey=scriptSource.getURI();
+  }
+ else {
+    cacheKey=contextPath + pluginName + uri;
+  }
+  CacheEntry cacheEntry=templateCache.get(cacheKey);
+  if (cacheEntry != null && cacheEntry.isValid()) {
+    t=cacheEntry.template;
+  }
+ else {
+    try {
+      if (cacheEntry != null) {
+        cacheEntry.getLock().lock();
+      }
+      if (scriptSource != null) {
+        t=groovyPagesTemplateEngine.createTemplate(scriptSource);
+      }
+      boolean allowCaching=!disableCache;
+      if (t == null && scaffoldingTemplateGenerator != null) {
+        t=generateScaffoldedTemplate(webRequest,templateName,uri);
+        allowCaching=true;
+      }
+      if (t != null && allowCaching) {
+        if (cacheEntry != null) {
+          cacheEntry.setTemplate(t);
+        }
+ else {
+          templateCache.put(cacheKey,new CacheEntry(t,reloadEnabled));
+        }
+      }
+    }
+  finally {
+      if (cacheEntry != null) {
+        cacheEntry.getLock().unlock();
+      }
+    }
+  }
+  return t;
+}

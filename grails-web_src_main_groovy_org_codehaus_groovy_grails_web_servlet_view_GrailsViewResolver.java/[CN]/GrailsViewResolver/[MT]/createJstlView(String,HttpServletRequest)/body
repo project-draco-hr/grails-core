@@ -1,0 +1,6 @@
+{
+  AbstractUrlBasedView view=buildView(viewName);
+  view.setApplicationContext(getApplicationContext());
+  view.afterPropertiesSet();
+  return view;
+}

@@ -1,6 +1,9 @@
 {
   Assert.notNull(templateEngine,"Property [templateEngine] cannot be null");
-  if (GrailsUtil.isDevelopmentEnv()) {
+  if (viewName.endsWith(GSP_SUFFIX)) {
+    viewName=viewName.substring(0,viewName.length() - GSP_SUFFIX.length());
+  }
+  if (developmentMode) {
     return createGrailsView(viewName);
   }
   View view=VIEW_CACHE.get(viewName);

@@ -2,4 +2,8 @@
   this.ivySettings=ivySettings;
   this.buildSettings=buildSettings;
   this.metadata=metadata;
+  chainResolver=new ChainResolver();
+  chainResolver.setName("cache");
+  chainResolver.setReturnFirst(true);
+  updateChangingPattern(chainResolver);
 }

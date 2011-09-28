@@ -4,5 +4,6 @@
   }
   propertyName=calculatePropertyName(propertyName);
   propertyValue=calculatePropertyValue(propertyValue);
-  return addToCriteria(new RlikeExpression(propertyName,propertyValue));
+  addToCriteria(new RlikeExpression(propertyName,propertyValue));
+  return this;
 }

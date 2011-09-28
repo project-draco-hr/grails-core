@@ -1,0 +1,4 @@
+{
+  projectionList.add(Projections.countDistinct(calculatePropertyName(property,HibernateQuery.this.alias)));
+  return this;
+}

@@ -1,30 +1,12 @@
 {
   cursorMove=1;
-  out=new PrintStream(AnsiConsole.wrapOutputStream(System.out));
+  out=new PrintStream(ansiWrap(System.out));
   System.setOut(new GrailsConsolePrintStream(out));
-  System.setErr(new GrailsConsoleErrorPrintStream(new PrintStream(AnsiConsole.wrapOutputStream(System.err))));
-  reader=new ConsoleReader();
+  System.setErr(new GrailsConsoleErrorPrintStream(ansiWrap(System.err)));
+  reader=createConsoleReader();
   reader.setBellEnabled(false);
   reader.setCompletionHandler(new CandidateListCompletionHandler());
-  if (isWindows()) {
-    terminal=new WindowsTerminal(){
-      @Override public boolean isANSISupported(){
-        return true;
-      }
-    }
-;
-    try {
-      terminal.initializeTerminal();
-      terminal.enableEcho();
-      fixCtrlC();
-    }
- catch (    Exception e) {
-      terminal=new UnsupportedTerminal();
-    }
-  }
- else {
-    terminal=Terminal.setupTerminal();
-  }
+  terminal=createTerminal();
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

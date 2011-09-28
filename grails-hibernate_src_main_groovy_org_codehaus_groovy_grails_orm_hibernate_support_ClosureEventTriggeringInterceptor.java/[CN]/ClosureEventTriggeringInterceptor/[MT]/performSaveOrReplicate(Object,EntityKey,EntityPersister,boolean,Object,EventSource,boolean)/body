@@ -46,7 +46,7 @@
     }
     cascadeAfterSave(source,persister,entity,anything);
     if (markInterceptorDirtyMethod != null) {
-      ReflectionUtils.invokeMethod(markInterceptorDirtyMethod,this,new Object[]{entity,persister,source});
+      ReflectionUtils.invokeMethod(markInterceptorDirtyMethod,this,entity,persister,source);
     }
   }
   return id;

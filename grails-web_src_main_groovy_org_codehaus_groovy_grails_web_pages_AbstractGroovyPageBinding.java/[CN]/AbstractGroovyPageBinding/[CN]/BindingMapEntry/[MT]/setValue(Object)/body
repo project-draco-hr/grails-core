@@ -1,0 +1,7 @@
+{
+  String key=String.valueOf(getKey());
+  Object oldValue=binding.getVariable(key);
+  binding.setVariable(key,value);
+  super.setValue(value);
+  return oldValue;
+}

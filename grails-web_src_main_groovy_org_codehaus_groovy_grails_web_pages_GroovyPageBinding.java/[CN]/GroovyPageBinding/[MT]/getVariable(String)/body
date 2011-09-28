@@ -1,11 +1,11 @@
 {
-  Object val=getVariables().get(name);
-  if (val == null && !getVariables().containsKey(name)) {
+  Object val=getVariablesMap().get(name);
+  if (val == null && !getVariablesMap().containsKey(name)) {
     if (GroovyPage.PAGE_SCOPE.equals(name))     return this;
     if (parent != null) {
       val=parent.getVariable(name);
       if (val != null) {
-        getVariables().put(name,val);
+        getVariablesMap().put(name,val);
         cachedParentVariableNames.add(name);
       }
     }

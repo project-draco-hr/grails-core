@@ -1,7 +1,0 @@
-{
-  final CriterionAdaptor criterionAdaptor=criterionAdaptors.get(criterion.getClass());
-  if (criterionAdaptor != null) {
-    return criterionAdaptor.toHibernateCriterion(criterion);
-  }
-  return null;
-}

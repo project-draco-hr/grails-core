@@ -19,5 +19,6 @@ catch (  IOException e) {
     String relativePageName=DefaultStackTracePrinter.makeRelativeIfPossible(pageName);
     throw new GroovyPagesException("IO exception parsing script [" + relativePageName + "]: "+ e.getMessage(),e);
   }
+  GroovyPagesMetaUtils.registerMethodMissingForGSP(scriptClass,tagLibraryLookup);
   return scriptClass;
 }

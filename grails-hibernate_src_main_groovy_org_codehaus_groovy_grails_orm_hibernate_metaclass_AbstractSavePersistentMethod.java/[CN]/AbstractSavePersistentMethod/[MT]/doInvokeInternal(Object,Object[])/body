@@ -7,7 +7,7 @@
     Validator validator=domainClass.getValidator();
     Errors errors=setupErrorsProperty(target);
     if (validator != null) {
-      beforeValidateHelper.invokeBeforeValidate(target,null);
+      application.getMainContext().publishEvent(new ValidationEvent(datastore,target));
       boolean deepValidate=true;
       Map argsMap=null;
       if (arguments.length > 0 && arguments[0] instanceof Map) {

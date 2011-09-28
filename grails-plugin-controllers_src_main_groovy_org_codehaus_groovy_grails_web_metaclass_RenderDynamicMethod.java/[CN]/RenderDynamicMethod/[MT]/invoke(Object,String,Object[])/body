@@ -19,14 +19,15 @@
  else   if (arguments[0] instanceof Map) {
     Map argMap=(Map)arguments[0];
     Writer out;
-    if (argMap.containsKey(ARGUMENT_CONTENT_TYPE) && argMap.containsKey(ARGUMENT_ENCODING)) {
-      String contentType=argMap.get(ARGUMENT_CONTENT_TYPE).toString();
+    boolean hasContentType=argMap.containsKey(ARGUMENT_CONTENT_TYPE);
+    String contentType=hasContentType ? argMap.get(ARGUMENT_CONTENT_TYPE).toString() : null;
+    if (hasContentType && argMap.containsKey(ARGUMENT_ENCODING)) {
       String encoding=argMap.get(ARGUMENT_ENCODING).toString();
       setContentType(response,contentType,encoding);
       out=GSPResponseWriter.getInstance(response);
     }
- else     if (argMap.containsKey(ARGUMENT_CONTENT_TYPE)) {
-      setContentType(response,argMap.get(ARGUMENT_CONTENT_TYPE).toString(),DEFAULT_ENCODING);
+ else     if (hasContentType) {
+      setContentType(response,contentType,DEFAULT_ENCODING);
       out=GSPResponseWriter.getInstance(response);
     }
  else {
@@ -73,6 +74,52 @@
     }
  else     if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
       renderView=renderTemplate(target,controller,webRequest,argMap,out);
+    }
+ else     if (argMap.containsKey(ARGUMENT_FILE)) {
+      renderView=false;
+      Object o=argMap.get(ARGUMENT_FILE);
+      Object fnO=argMap.get(ARGUMENT_FILE_NAME);
+      String fileName=fnO != null ? fnO.toString() : ((o instanceof File) ? ((File)o).getName() : null);
+      if (o != null) {
+        if (fileName != null) {
+          detectContentTypeFromFileName(webRequest,response,argMap,fileName,hasContentType);
+          if (fnO != null) {
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION,DISPOSITION_HEADER_PREFIX + fileName);
+          }
+        }
+ else         if (!hasContentType) {
+          throw new ControllerExecutionException("Argument [file] of render method specified without valid [contentType] argument");
+        }
+        InputStream input=null;
+        try {
+          if (o instanceof File) {
+            File f=(File)o;
+            input=FileUtils.openInputStream(f);
+          }
+ else           if (o instanceof InputStream) {
+            input=(InputStream)o;
+          }
+ else           if (o instanceof byte[]) {
+            input=new ByteArrayInputStream((byte[])o);
+          }
+ else {
+            input=FileUtils.openInputStream(new File(o.toString()));
+          }
+          IOUtils.copy(input,response.getOutputStream());
+        }
+ catch (        IOException e) {
+          throw new ControllerExecutionException("I/O error copying file to response: " + e.getMessage(),e);
+        }
+ finally {
+          if (input != null) {
+            try {
+              input.close();
+            }
+ catch (            IOException e) {
+            }
+          }
+        }
+      }
     }
  else     if (statusSet) {
       renderView=false;

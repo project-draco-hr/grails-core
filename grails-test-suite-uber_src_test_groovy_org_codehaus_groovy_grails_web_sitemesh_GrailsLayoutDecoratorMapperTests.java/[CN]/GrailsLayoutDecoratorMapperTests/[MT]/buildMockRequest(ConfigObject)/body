@@ -6,13 +6,27 @@
   appCtx.registerMockBean(GrailsApplication.APPLICATION_ID,grailsApplication);
   GrailsConventionGroovyPageLocator pageLocator=new GrailsConventionGroovyPageLocator();
   pageLocator.setApplicationContext(appCtx);
+  GroovyPagesTemplateEngine gpte=new GroovyPagesTemplateEngine(appCtx.getServletContext());
+  gpte.setApplicationContext(appCtx);
+  gpte.afterPropertiesSet();
+  GrailsViewResolver grailsViewResolver=new GrailsViewResolver();
+  grailsViewResolver.setGrailsApplication(grailsApplication);
+  grailsViewResolver.setApplicationContext(appCtx);
+  grailsViewResolver.setGroovyPageLocator(pageLocator);
+  grailsViewResolver.setPluginManager(new MockGrailsPluginManager(grailsApplication));
+  grailsViewResolver.setTemplateEngine(gpte);
   GroovyPageLayoutFinder layoutFinder=new GroovyPageLayoutFinder();
-  layoutFinder.setGroovyPageLocator(pageLocator);
+  layoutFinder.setViewResolver(grailsViewResolver);
   @SuppressWarnings("rawtypes") Map flat=config != null ? config.flatten() : Collections.emptyMap();
   layoutFinder.setDefaultDecoratorName(flat.get("grails.sitemesh.default.layout") != null ? flat.get("grails.sitemesh.default.layout").toString() : "application");
   appCtx.registerMockBean("groovyPageLocator",pageLocator);
   appCtx.registerMockBean("groovyPageLayoutFinder",layoutFinder);
   appCtx.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
   appCtx.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,appCtx);
-  return GrailsWebUtil.bindMockWebRequest(appCtx);
+  return GrailsWebUtil.bindMockWebRequest(appCtx,new MockHttpServletRequest(appCtx.getServletContext()){
+    @Override public RequestDispatcher getRequestDispatcher(    String path){
+      return null;
+    }
+  }
+,new MockHttpServletResponse());
 }

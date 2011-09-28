@@ -8,5 +8,16 @@
       return;
     }
   }
-  super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
+  if (autowireMode == AUTOWIRE_BY_NAME) {
+    RootBeanDefinition bd=new RootBeanDefinition(ClassUtils.getUserClass(existingBean),autowireMode,dependencyCheck);
+    bd.setScope(BeanDefinition.SCOPE_PROTOTYPE);
+    bd.setSynthetic(true);
+    BeanWrapperImpl bw=new BeanWrapperImpl(false);
+    bw.setWrappedInstance(existingBean);
+    bw.setConversionService(getConversionService());
+    populateBean(bd.getBeanClass().getName(),bd,bw);
+  }
+ else {
+    super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
+  }
 }

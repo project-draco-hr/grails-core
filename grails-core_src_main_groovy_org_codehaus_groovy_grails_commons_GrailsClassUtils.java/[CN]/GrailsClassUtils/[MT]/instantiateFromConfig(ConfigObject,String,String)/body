@@ -1,8 +1,3 @@
 {
-  String className=defaultClassName;
-  Object configName=config.flatten().get(configKey);
-  if (configName instanceof CharSequence) {
-    className=configName.toString();
-  }
-  return ClassUtils.forName(className,ClassUtils.getDefaultClassLoader()).newInstance();
+  return instantiateFromFlatConfig(config.flatten(),configKey,defaultClassName);
 }

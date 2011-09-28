@@ -26,9 +26,8 @@
   BuildSettings build=null;
   try {
     build=new BuildSettings(new File(grailsHome));
-    if (commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT)) {
-      build.setModified(true);
-    }
+    build.setModified(commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT));
+    build.setOffline(commandLine.hasOption(CommandLine.OFFLINE_ARGUMENT));
     if (build.getRootLoader() == null) {
       build.setRootLoader((URLClassLoader)GrailsScriptRunner.class.getClassLoader());
     }

@@ -3,8 +3,6 @@
   HttpServletResponse response=(HttpServletResponse)rs;
   ServletContext servletContext=filterConfig.getServletContext();
   SiteMeshWebAppContext webAppContext=new SiteMeshWebAppContext(request,response,servletContext);
-  ContentProcessor contentProcessor=initContentProcessor(webAppContext);
-  DecoratorSelector decoratorSelector=initDecoratorSelector(webAppContext);
   if (filterAlreadyAppliedForRequest(request)) {
     chain.doFilter(request,response);
     return;
@@ -24,9 +22,14 @@
       return;
     }
     detectContentTypeFromPage(content,response);
-    Decorator decorator=decoratorSelector.selectDecorator(content,webAppContext);
+    com.opensymphony.module.sitemesh.Decorator decorator=decoratorMapper.getDecorator(request,GSPSitemeshPage.content2htmlPage(content));
     persistenceInterceptor.reconnect();
-    decorator.render(content,webAppContext);
+    if (decorator instanceof Decorator) {
+      ((Decorator)decorator).render(content,webAppContext);
+    }
+ else {
+      new OldDecorator2NewDecorator(decorator).render(content,webAppContext);
+    }
     dispatched=true;
   }
  catch (  IllegalStateException e) {

@@ -4,7 +4,9 @@
   MockApplicationContext appCtx=(MockApplicationContext)webRequest.getApplicationContext();
   appCtx.registerMockResource("/grails-app/views/layouts/application.gsp","<html><body><h1>Default Layout</h1><g:layoutBody /></body></html>");
   appCtx.registerMockResource("/grails-app/views/layouts/otherApplication.gsp","<html><body><h1>Other Default Layout</h1><g:layoutBody /></body></html>");
-  MockHttpServletRequest request=new MockHttpServletRequest("GET","orders/list");
+  MockHttpServletRequest request=(MockHttpServletRequest)webRequest.getCurrentRequest();
+  request.setMethod("GET");
+  request.setRequestURI("orders/list");
   ServletContext context=webRequest.getServletContext();
   GroovyClassLoader gcl=new GroovyClassLoader();
   GroovyObject controller=(GroovyObject)gcl.parseClass("class FooController {\n" + "def controllerName = 'foo'\n" + "def actionUri = '/foo/fooAction'\n"+ "}").newInstance();

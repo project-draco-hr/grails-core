@@ -9,13 +9,13 @@
   }
  else {
     if (d == null && !StringUtils.isBlank(actionUri)) {
-      d=getNamedDecorator(request,actionUri.substring(1));
+      d=getNamedDecorator(request,actionUri.substring(1),true);
     }
     if (d == null && !StringUtils.isBlank(controllerName)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action layout not found, trying controller");
       }
-      d=getNamedDecorator(request,controllerName);
+      d=getNamedDecorator(request,controllerName,true);
     }
     if (d == null) {
       d=getApplicationDefaultDecorator(request);

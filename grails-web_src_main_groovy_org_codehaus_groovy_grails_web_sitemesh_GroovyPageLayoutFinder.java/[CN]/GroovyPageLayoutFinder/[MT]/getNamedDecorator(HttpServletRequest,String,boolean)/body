@@ -1,0 +1,27 @@
+{
+  if (StringUtils.isBlank(name))   return null;
+  if (cacheEnabled) {
+    DecoratorCacheValue cacheValue=decoratorCache.get(name);
+    if (cacheValue != null && (!gspReloadEnabled || !cacheValue.isExpired())) {
+      return cacheValue.getDecorator();
+    }
+  }
+  View view;
+  try {
+    view=viewResolver.resolveViewName(GrailsResourceUtils.appendPiecesForUri(LAYOUTS_PATH,name),request.getLocale());
+    if (viewMustExist && !(view instanceof GroovyPageView)) {
+      view=null;
+    }
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Unable to resolve view",e);
+  }
+  Decorator d=null;
+  if (view != null) {
+    d=createDecorator(name,view);
+  }
+  if (cacheEnabled) {
+    decoratorCache.put(name,new DecoratorCacheValue(d));
+  }
+  return d;
+}

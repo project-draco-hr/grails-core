@@ -2,7 +2,7 @@
   if (!isM2compatible()) {
     return null;
   }
-  if (shouldUseMavenMetadata(getWholePattern())) {
+  if (shouldUseMavenMetadata()) {
     InputStream metadataStream=null;
     try {
       String metadataLocation=IvyPatternHelper.substitute(getRoot() + "[organisation]/[module]/[revision]/maven-metadata.xml",mrid);

@@ -2,11 +2,9 @@
   if (minSize <= sizeAtLeast) {
     return true;
   }
- else {
-    boolean retval=calculateIsSizeLarger(minSize);
-    if (retval && minSize > sizeAtLeast) {
-      sizeAtLeast=minSize;
-    }
-    return retval;
+  boolean retval=calculateIsSizeLarger(minSize);
+  if (retval && minSize > sizeAtLeast) {
+    sizeAtLeast=minSize;
   }
+  return retval;
 }

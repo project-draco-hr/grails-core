@@ -3,7 +3,7 @@
     usageFlag=true;
     return;
   }
-  Class clazz=obj.getClass();
+  Class<?> clazz=obj.getClass();
   if (clazz == String.class) {
     write((String)obj);
   }

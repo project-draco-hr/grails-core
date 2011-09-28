@@ -2,9 +2,8 @@
   UrlMappingBuilder builder=new UrlMappingBuilder(null,servletContext);
   closure.setDelegate(builder);
   closure.setResolveStrategy(Closure.DELEGATE_FIRST);
-  closure.call();
+  closure.call(applicationContext);
   builder.urlDefiningMode=false;
-  List mappings=builder.getUrlMappings();
   configureUrlMappingDynamicObjects(closure);
-  return mappings;
+  return builder.getUrlMappings();
 }

@@ -7,7 +7,5 @@
   if (scriptSource != null) {
     return createTemplate(scriptSource);
   }
- else {
-    return null;
-  }
+  return null;
 }

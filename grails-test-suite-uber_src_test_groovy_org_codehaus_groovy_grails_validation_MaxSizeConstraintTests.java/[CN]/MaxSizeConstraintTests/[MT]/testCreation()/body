@@ -1,5 +1,5 @@
 {
-  MaxSizeConstraint constraint=(MaxSizeConstraint)getConstraint("testString",new Integer(10));
+  MaxSizeConstraint constraint=(MaxSizeConstraint)getConstraint("testString",10);
   assertEquals(ConstrainedProperty.MAX_SIZE_CONSTRAINT,constraint.getName());
   assertTrue(constraint.supports(String.class));
   assertTrue(constraint.supports(Object[].class));

@@ -1,4 +1,4 @@
 {
-  addToCriteria(Restrictions.isNotNull(calculatePropertyName(property,this.alias)));
+  addToCriteria(Restrictions.isNotNull(calculatePropertyName(property)));
   return this;
 }

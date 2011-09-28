@@ -7,7 +7,7 @@
       }
     }
  else {
-      HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c,this.alias);
+      HibernateCriterionAdapter adapter=new HibernateCriterionAdapter(c,alias);
       org.hibernate.criterion.Criterion criterion=adapter.toHibernateCriterion(HibernateQuery.this);
       if (criterion != null) {
         hibernateJunction.add(criterion);

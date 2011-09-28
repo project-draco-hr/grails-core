@@ -5,5 +5,5 @@
   chainResolver=new ChainResolver();
   chainResolver.setName("cache");
   chainResolver.setReturnFirst(true);
-  updateChangingPattern(chainResolver);
+  updateChangingPattern();
 }

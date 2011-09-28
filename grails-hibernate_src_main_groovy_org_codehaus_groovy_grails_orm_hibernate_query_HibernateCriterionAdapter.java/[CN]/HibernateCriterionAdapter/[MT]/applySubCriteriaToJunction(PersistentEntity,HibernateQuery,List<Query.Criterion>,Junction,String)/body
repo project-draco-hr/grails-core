@@ -3,7 +3,7 @@
     if (subCriterion instanceof Query.PropertyCriterion) {
       Query.PropertyCriterion pc=(Query.PropertyCriterion)subCriterion;
       if (pc.getValue() instanceof QueryableCriteria) {
-        pc.setValue(HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue()));
+        pc.setValue(HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria<?>)pc.getValue()));
       }
     }
     CriterionAdaptor criterionAdaptor=criterionAdaptors.get(subCriterion.getClass());

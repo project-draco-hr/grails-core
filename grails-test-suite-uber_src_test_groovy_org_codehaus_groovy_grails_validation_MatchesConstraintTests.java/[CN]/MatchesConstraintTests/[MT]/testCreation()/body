@@ -7,7 +7,7 @@
   constraint=(MatchesConstraint)getConstraint("testString","[a-z]");
   assertEquals("[a-z]",constraint.getRegex());
   try {
-    getConstraint("testString",new Long(123));
+    getConstraint("testString",123L);
     fail("MatchesConstraint must throw an exception for non-string parameters.");
   }
  catch (  IllegalArgumentException iae) {

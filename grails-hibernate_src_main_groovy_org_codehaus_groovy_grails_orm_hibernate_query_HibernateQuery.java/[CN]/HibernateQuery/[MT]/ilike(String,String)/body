@@ -1,4 +1,4 @@
 {
-  addToCriteria(Restrictions.ilike(calculatePropertyName(property,this.alias),calculatePropertyName(expr,this.alias)));
+  addToCriteria(Restrictions.ilike(calculatePropertyName(property),calculatePropertyName(expr)));
   return this;
 }

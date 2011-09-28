@@ -1,8 +1,8 @@
 {
   Template t=null;
-  Collection<String> controllerActions=(Collection<String>)scaffoldedActionMap.get(webRequest.getControllerName());
+  Collection<String> controllerActions=scaffoldedActionMap.get(webRequest.getControllerName());
   if (controllerActions != null && controllerActions.contains(webRequest.getActionName())) {
-    GrailsDomainClass domainClass=(GrailsDomainClass)controllerToScaffoldedDomainClassMap.get(webRequest.getControllerName());
+    GrailsDomainClass domainClass=controllerToScaffoldedDomainClassMap.get(webRequest.getControllerName());
     if (domainClass != null) {
       int i=uri.lastIndexOf('/');
       String scaffoldedtemplateName=i > -1 ? uri.substring(i) : uri;

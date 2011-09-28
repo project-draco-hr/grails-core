@@ -1,5 +1,5 @@
 {
-  String associationName=calculatePropertyName(association.getName(),this.alias);
+  String associationName=calculatePropertyName(association.getName());
   String newAlias=generateAlias(associationName);
   CriteriaAndAlias criteriaAndAlias=getOrCreateAlias(associationName,newAlias);
   return criteriaAndAlias.alias;

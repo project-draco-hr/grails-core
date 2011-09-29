@@ -1,3 +1,3 @@
 {
-  return getNamedDecorator(request,(defaultDecoratorName != null) ? defaultDecoratorName : "application",defaultDecoratorName == null);
+  return getNamedDecorator(request,(defaultDecoratorName != null) ? defaultDecoratorName : "application",!enableNonGspViews || defaultDecoratorName == null);
 }

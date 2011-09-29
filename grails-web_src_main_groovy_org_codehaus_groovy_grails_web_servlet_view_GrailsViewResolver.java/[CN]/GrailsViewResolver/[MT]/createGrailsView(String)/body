@@ -15,5 +15,5 @@
   if (scriptSource != null) {
     return createGroovyPageView(webRequest,scriptSource.getURI(),scriptSource);
   }
-  return createJstlView(viewName,request);
+  return createJstlView(viewName);
 }

@@ -3,12 +3,18 @@
     Object o=GrailsClassUtils.getStaticPropertyValue(domainClass.getClazz(),GrailsDomainClassProperty.MAPPING);
     if (o != null || defaultMapping != null) {
       HibernateMappingBuilder builder=new HibernateMappingBuilder(domainClass.getFullName());
+      GrailsApplication application=domainClass.getGrailsApplication();
+      ApplicationContext ctx=null;
+      if (application != null) {
+        ctx=application.getMainContext();
+        if (ctx == null)         ctx=application.getParentContext();
+      }
       Mapping m=null;
       if (defaultMapping != null) {
-        m=builder.evaluate(defaultMapping);
+        m=builder.evaluate(defaultMapping,ctx);
       }
       if (o instanceof Closure) {
-        m=builder.evaluate((Closure<?>)o);
+        m=builder.evaluate((Closure<?>)o,ctx);
       }
       if (cache) {
         MAPPING_CACHE.put(domainClass.getClazz(),m);

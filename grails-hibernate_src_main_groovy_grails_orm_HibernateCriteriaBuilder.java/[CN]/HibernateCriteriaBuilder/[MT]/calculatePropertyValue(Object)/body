@@ -3,12 +3,10 @@
     return propertyValue.toString();
   }
   if (propertyValue instanceof QueryableCriteria) {
-    QueryableCriteria queryableCriteria=(QueryableCriteria)propertyValue;
-    propertyValue=getHibernateDetachedCriteria(queryableCriteria);
+    propertyValue=getHibernateDetachedCriteria((QueryableCriteria<?>)propertyValue);
   }
  else   if (propertyValue instanceof Closure) {
-    QueryableCriteria queryableCriteria=new DetachedCriteria(targetClass).build((Closure)propertyValue);
-    propertyValue=getHibernateDetachedCriteria(queryableCriteria);
+    propertyValue=getHibernateDetachedCriteria(new DetachedCriteria(targetClass).build((Closure<?>)propertyValue));
   }
   return propertyValue;
 }

@@ -1,4 +1,4 @@
 {
-  addToCriteria(new RlikeExpression(calculatePropertyName(property,this.alias),calculatePropertyName(expr,this.alias)));
+  addToCriteria(new RlikeExpression(calculatePropertyName(property),calculatePropertyName(expr)));
   return this;
 }

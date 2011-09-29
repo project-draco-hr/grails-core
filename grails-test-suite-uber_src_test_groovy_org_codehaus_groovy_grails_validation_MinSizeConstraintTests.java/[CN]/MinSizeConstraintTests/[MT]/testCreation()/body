@@ -1,5 +1,5 @@
 {
-  MinSizeConstraint constraint=(MinSizeConstraint)getConstraint("testString",new Integer(10));
+  MinSizeConstraint constraint=(MinSizeConstraint)getConstraint("testString",10);
   assertEquals(ConstrainedProperty.MIN_SIZE_CONSTRAINT,constraint.getName());
   assertTrue(constraint.supports(String.class));
   assertTrue(constraint.supports(Object[].class));

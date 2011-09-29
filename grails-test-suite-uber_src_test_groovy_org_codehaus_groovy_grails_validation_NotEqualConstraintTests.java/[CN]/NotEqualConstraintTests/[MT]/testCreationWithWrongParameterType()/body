@@ -6,7 +6,7 @@
  catch (  IllegalArgumentException iae) {
   }
   try {
-    getConstraint("testString",new Integer(4));
+    getConstraint("testString",4);
     fail("MinConstraint must throw an exception for parameter with wrong type .");
   }
  catch (  IllegalArgumentException iae) {

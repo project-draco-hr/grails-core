@@ -8,12 +8,8 @@
     script.setBinding(b);
     script.run();
     Closure mappings=closure.getMappings();
-    UrlMappingBuilder builder=new UrlMappingBuilder(script.getBinding(),servletContext);
-    mappings.setDelegate(builder);
-    mappings.call();
-    builder.urlDefiningMode=false;
-    configureUrlMappingDynamicObjects(script);
-    return builder.getUrlMappings();
+    Binding binding=script.getBinding();
+    return evaluateMappings(script,mappings,binding);
   }
   throw new UrlMappingException("Unable to configure URL mappings for class [" + theClass + "]. A URL mapping must be an instance of groovy.lang.Script.");
 }

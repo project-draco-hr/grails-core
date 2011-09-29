@@ -3,6 +3,7 @@
   Class<?> clazz=cl.parseClass("@grails.artefact.Artefact(\"Controller\") class MyTestController { static defaultAction = 'someAction'; def index() {}; def someAction = {}; } ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
   assignGrailsApplication(cl,grailsClass,new HyphenatedUrlConverter());
+  grailsClass.initialize();
   assertEquals("MyTest",grailsClass.getName());
   assertEquals("MyTestController",grailsClass.getFullName());
   assertEquals("/myTest/someAction",grailsClass.getViewByName("someAction"));

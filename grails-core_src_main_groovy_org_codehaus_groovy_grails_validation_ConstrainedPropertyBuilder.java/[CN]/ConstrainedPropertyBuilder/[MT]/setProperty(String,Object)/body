@@ -1,0 +1,8 @@
+{
+  try {
+    super.setProperty(property,newValue);
+  }
+ catch (  MissingPropertyException e) {
+    targetMetaClass.setProperty(targetClass,property,newValue);
+  }
+}

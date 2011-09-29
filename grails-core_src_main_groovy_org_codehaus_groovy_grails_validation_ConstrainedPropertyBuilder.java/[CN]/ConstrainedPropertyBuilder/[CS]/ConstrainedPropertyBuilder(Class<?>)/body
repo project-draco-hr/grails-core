@@ -1,4 +1,5 @@
 {
   this.targetClass=targetClass;
   classPropertyFetcher=ClassPropertyFetcher.forClass(targetClass);
+  this.targetMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(targetClass);
 }

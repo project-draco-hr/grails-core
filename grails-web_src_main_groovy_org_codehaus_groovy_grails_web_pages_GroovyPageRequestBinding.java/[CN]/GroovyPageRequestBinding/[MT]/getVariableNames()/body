@@ -1,11 +1,8 @@
 {
-  if (getVariablesMap().size() == 0) {
+  if (getVariablesMap().isEmpty()) {
     return lazyRequestBasedValuesMap.keySet();
   }
- else {
-    HashSet<String> variableNames=new HashSet<String>();
-    variableNames.addAll(lazyRequestBasedValuesMap.keySet());
-    variableNames.addAll(getVariablesMap().keySet());
-    return variableNames;
-  }
+  Set<String> variableNames=new HashSet<String>(lazyRequestBasedValuesMap.keySet());
+  variableNames.addAll(getVariablesMap().keySet());
+  return variableNames;
 }

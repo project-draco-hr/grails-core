@@ -1,7 +1,7 @@
 {
   if (hasContentType)   return;
   String contentType;
-  MimeUtility mimeUtility=lookupMimeUtility(webRequest);
+  @SuppressWarnings("hiding") MimeUtility mimeUtility=lookupMimeUtility(webRequest);
   if (mimeUtility != null) {
     MimeType mimeType=mimeUtility.getMimeTypeForExtension(FilenameUtils.getExtension(fileName));
     if (mimeType != null) {

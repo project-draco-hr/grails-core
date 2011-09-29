@@ -1,5 +1,5 @@
 {
-  org.hibernate.criterion.Criterion criterion=Restrictions.isEmpty(calculatePropertyName(property,this.alias));
+  org.hibernate.criterion.Criterion criterion=Restrictions.isEmpty(calculatePropertyName(property));
   addToCriteria(criterion);
   return this;
 }

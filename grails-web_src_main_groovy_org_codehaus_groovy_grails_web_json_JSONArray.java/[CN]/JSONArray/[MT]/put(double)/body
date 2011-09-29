@@ -1,5 +1,5 @@
 {
-  Double d=new Double(value);
+  Double d=Double.valueOf(value);
   JSONObject.testValidity(d);
   put(d);
   return this;

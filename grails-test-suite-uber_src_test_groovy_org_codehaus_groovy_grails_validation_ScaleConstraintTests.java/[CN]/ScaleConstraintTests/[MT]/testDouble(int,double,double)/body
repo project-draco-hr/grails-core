@@ -1,4 +1,4 @@
 {
   Constraint constraint=getConstraint("testDouble",scale);
-  assertEquals(new Double(result),proceedValidation(constraint,value));
+  assertEquals(Double.valueOf(result),proceedValidation(constraint,value));
 }

@@ -1,17 +1,17 @@
 {
   ConstrainedProperty cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
   assertNull(cp.getMax());
-  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new Double(123.45));
-  assertEquals(new Double(123.45),cp.getMax());
+  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,123.45d);
+  assertEquals(123.45d,cp.getMax());
   cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
-  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(new Double(123.45),new Double(678.90)));
-  assertEquals(new Double(678.90),cp.getMax());
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(123.45d,678.9d));
+  assertEquals(678.9d,cp.getMax());
   cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
-  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new Double(7.89));
-  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(new Double(1.23),new Double(4.56)));
-  assertEquals(new Double(4.56),cp.getMax());
+  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,7.89d);
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(1.23d,4.56d));
+  assertEquals(4.56d,cp.getMax());
   cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
-  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,new Double(4.56));
-  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(new Double(1.23),new Double(7.89)));
-  assertEquals(new Double(4.56),cp.getMax());
+  cp.applyConstraint(ConstrainedProperty.MAX_CONSTRAINT,4.56d);
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(1.23d,7.89d));
+  assertEquals(4.56d,cp.getMax());
 }

@@ -1,5 +1,5 @@
 {
-  String key=String.valueOf(getKey());
+  @SuppressWarnings("hiding") String key=String.valueOf(getKey());
   Object oldValue=binding.getVariable(key);
   binding.setVariable(key,value);
   super.setValue(value);

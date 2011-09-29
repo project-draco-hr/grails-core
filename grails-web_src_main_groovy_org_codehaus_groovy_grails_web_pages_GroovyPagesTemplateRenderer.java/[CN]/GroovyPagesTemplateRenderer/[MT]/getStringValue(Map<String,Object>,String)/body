@@ -4,7 +4,5 @@
   if (val instanceof String) {
     return (String)val;
   }
- else {
-    return String.valueOf(val);
-  }
+  return String.valueOf(val);
 }

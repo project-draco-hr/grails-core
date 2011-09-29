@@ -11,7 +11,7 @@
     }
   }
   Datastore datastore=datastores.get(sessionFactory);
-  if ((datastore == null) && (datastores.size() == 1)) {
+  if (datastore == null && datastores.size() == 1) {
     datastore=datastores.values().iterator().next();
   }
   return datastore;

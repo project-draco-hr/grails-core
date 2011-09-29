@@ -5,8 +5,8 @@
     }
   }
 ;
-  assertTrue(dc.isArgumentsMatch(new Object[]{"test",new Integer(1)}));
+  assertTrue(dc.isArgumentsMatch(new Object[]{"test",1}));
   assertFalse(dc.isArgumentsMatch(new Object[]{"test"}));
   assertFalse(dc.isArgumentsMatch(new Object[]{"test",new Date()}));
-  assertFalse(dc.isArgumentsMatch(new Object[]{"test",new Integer(1),"test"}));
+  assertFalse(dc.isArgumentsMatch(new Object[]{"test",1,"test"}));
 }

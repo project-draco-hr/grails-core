@@ -10,12 +10,11 @@
   }
   StringWriter sw=new StringWriter();
   PrintWriter ps=new PrintWriter(sw);
-  if (message != null) {
-    ps.println(message);
+  message=message != null ? message : error.getMessage();
+  if (!isVerbose()) {
+    message=message + STACKTRACE_FILTERED_MESSAGE;
   }
- else {
-    ps.println(error.getMessage());
-  }
+  ps.println(message);
   error.printStackTrace(ps);
   error(sw.toString());
 }

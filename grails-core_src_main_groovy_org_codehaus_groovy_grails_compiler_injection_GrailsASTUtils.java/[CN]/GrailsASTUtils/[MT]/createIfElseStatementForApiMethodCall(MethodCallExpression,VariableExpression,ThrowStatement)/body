@@ -1,0 +1,7 @@
+{
+  BlockStatement ifBlock=new BlockStatement();
+  ifBlock.addStatement(missingMethodException);
+  BlockStatement elseBlock=new BlockStatement();
+  elseBlock.addStatement(new ExpressionStatement(methodCallExpression));
+  return new IfStatement(new BooleanExpression(new BinaryExpression(apiVar,EQUALS_OPERATOR,NULL_EXPRESSION)),ifBlock,elseBlock);
+}

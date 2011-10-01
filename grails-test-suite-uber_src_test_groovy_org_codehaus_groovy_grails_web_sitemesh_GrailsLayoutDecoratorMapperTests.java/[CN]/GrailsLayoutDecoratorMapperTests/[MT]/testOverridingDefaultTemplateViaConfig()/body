@@ -1,6 +1,7 @@
 {
   ConfigObject config=new ConfigSlurper().parse("grails.sitemesh.default.layout='otherApplication'");
   GrailsWebRequest webRequest=buildMockRequest(config);
+  webRequest.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE,RequestAttributes.SCOPE_REQUEST);
   MockApplicationContext appCtx=(MockApplicationContext)webRequest.getApplicationContext();
   appCtx.registerMockResource("/grails-app/views/layouts/application.gsp","<html><body><h1>Default Layout</h1><g:layoutBody /></body></html>");
   appCtx.registerMockResource("/grails-app/views/layouts/otherApplication.gsp","<html><body><h1>Other Default Layout</h1><g:layoutBody /></body></html>");

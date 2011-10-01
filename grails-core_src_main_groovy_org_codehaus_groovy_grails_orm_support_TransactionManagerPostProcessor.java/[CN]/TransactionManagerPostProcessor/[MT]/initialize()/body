@@ -1,0 +1,11 @@
+{
+  if (beanFactory.containsBean("transactionManager")) {
+    transactionManager=beanFactory.getBean("transactionManager",PlatformTransactionManager.class);
+  }
+ else {
+    String[] beanNames=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory,PlatformTransactionManager.class,false,false);
+    if (beanNames.length > 0) {
+      transactionManager=(PlatformTransactionManager)beanFactory.getBean(beanNames[0]);
+    }
+  }
+}

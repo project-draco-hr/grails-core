@@ -1,11 +1,4 @@
 {
-  if (!initialized) {
-    String[] beanNames=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory,PlatformTransactionManager.class,false,false);
-    if (beanNames.length > 0) {
-      transactionManager=(PlatformTransactionManager)beanFactory.getBean(beanNames[0]);
-    }
-    initialized=true;
-  }
   if (bean instanceof TransactionManagerAware) {
     TransactionManagerAware tma=(TransactionManagerAware)bean;
     tma.setTransactionManager(transactionManager);

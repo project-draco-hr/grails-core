@@ -7,9 +7,11 @@
   }
   for (  File file : files) {
     if (file.isDirectory()) {
-      cacheFilesForDirectory(file,fileExtensions,fireEvent);
+      if (!SVN_DIR_NAME.equals(file.getName())) {
+        cacheFilesForDirectory(file,fileExtensions,fireEvent);
+      }
     }
- else     if (isValidFileToMonitor(file.getName(),fileExtensions)) {
+ else     if (isValidFileToMonitor(file,fileExtensions)) {
       if (!lastModifiedMap.containsKey(file) && fireEvent) {
         for (        FileChangeListener listener : listeners) {
           listener.onNew(file);

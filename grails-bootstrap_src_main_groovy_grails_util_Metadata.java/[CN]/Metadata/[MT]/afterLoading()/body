@@ -1,0 +1,4 @@
+{
+  Object val=get(WAR_DEPLOYED);
+  warDeployed=(val != null && val.equals("true"));
+}

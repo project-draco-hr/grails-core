@@ -1,5 +1,5 @@
 {
-  HibernateTemplate template=new HibernateTemplate(sessionFactory);
+  GrailsHibernateTemplate template=new GrailsHibernateTemplate(sessionFactory);
   template.setExposeNativeSession(true);
   template.execute(new HibernateCallback<Void>(){
     public Void doInHibernate(    Session session) throws HibernateException, SQLException {

@@ -1,6 +1,6 @@
 {
   File f=getCurrent().metadataFile;
-  if (f != null) {
+  if (f != null && f.exists()) {
     return getInstance(f);
   }
   return getCurrent();

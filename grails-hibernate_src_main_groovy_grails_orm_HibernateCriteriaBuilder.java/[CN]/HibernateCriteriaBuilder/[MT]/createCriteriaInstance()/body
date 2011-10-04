@@ -7,6 +7,6 @@
     hibernateSession=sessionFactory.openSession();
   }
   criteria=hibernateSession.createCriteria(targetClass);
-  GrailsHibernateUtil.cacheCriteriaByMapping(targetClass,criteria);
+  GrailsHibernateUtil.cacheCriteriaByMapping(grailsApplication,targetClass,criteria);
   criteriaMetaClass=GroovySystem.getMetaClassRegistry().getMetaClass(criteria.getClass());
 }

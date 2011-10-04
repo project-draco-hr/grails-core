@@ -2,6 +2,6 @@
   Metadata m=metadata.get();
   if (m != null) {
     m.clear();
-    m.initialized=false;
+    m.afterLoading();
   }
 }

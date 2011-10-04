@@ -1,7 +1,7 @@
 {
   super(t.getMessage(),t);
   cause=t;
-  FastStringWriter pw=new FastStringWriter();
+  FastStringPrintWriter pw=new FastStringPrintWriter();
   cause.printStackTrace(pw);
   stackTrace=pw.toString();
   while (cause.getCause() != cause) {

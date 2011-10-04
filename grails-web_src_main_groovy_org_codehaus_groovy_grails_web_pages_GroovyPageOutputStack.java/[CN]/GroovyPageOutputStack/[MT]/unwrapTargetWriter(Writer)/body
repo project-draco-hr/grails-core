@@ -1,9 +1,6 @@
 {
-  if (targetWriter instanceof GrailsPrintWriter) {
-    GrailsPrintWriter gpw=((GrailsPrintWriter)targetWriter);
-    if (gpw.isAllowUnwrappingOut()) {
-      return ((GrailsPrintWriter)targetWriter).getOut();
-    }
+  if (targetWriter instanceof GrailsWrappedWriter) {
+    return ((GrailsWrappedWriter)targetWriter).unwrap();
   }
   return targetWriter;
 }

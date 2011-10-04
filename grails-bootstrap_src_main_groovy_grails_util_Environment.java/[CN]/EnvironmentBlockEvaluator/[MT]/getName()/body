@@ -1,6 +1,3 @@
 {
-  if (name == null) {
-    return toString().toLowerCase(Locale.getDefault());
-  }
   return name;
 }

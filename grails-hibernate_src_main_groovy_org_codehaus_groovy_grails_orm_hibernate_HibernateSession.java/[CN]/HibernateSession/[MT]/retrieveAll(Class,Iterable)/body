@@ -2,7 +2,9 @@
   final PersistentEntity persistentEntity=getMappingContext().getPersistentEntity(type.getName());
   return hibernateTemplate.execute(new HibernateCallback<List>(){
     public List doInHibernate(    org.hibernate.Session session) throws HibernateException, SQLException {
-      return session.createCriteria(type).add(Restrictions.in(persistentEntity.getIdentity().getName(),getIterableAsCollection(keys))).list();
+      Criteria criteria=session.createCriteria(type);
+      hibernateTemplate.applySettings(criteria);
+      return criteria.add(Restrictions.in(persistentEntity.getIdentity().getName(),getIterableAsCollection(keys))).list();
     }
   }
 );

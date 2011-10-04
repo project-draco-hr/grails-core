@@ -4,5 +4,7 @@
     builder.setGrailsApplication(appliation);
     return builder.buildCriteria(additionalCriteria);
   }
-  return session.createCriteria(clazz);
+  Criteria criteria=session.createCriteria(clazz);
+  hibernateTemplate.applySettings(criteria);
+  return criteria;
 }

@@ -13,6 +13,7 @@
  else {
       Criteria subCriteria=c.createCriteria(sortHead);
       Class<?> propertyTargetClass=property.getReferencedDomainClass().getClazz();
+      GrailsHibernateUtil.cacheCriteriaByMapping(grailsApplication,propertyTargetClass,subCriteria);
       addOrderPossiblyNested(grailsApplication,subCriteria,propertyTargetClass,sortTail,order,ignoreCase);
     }
   }

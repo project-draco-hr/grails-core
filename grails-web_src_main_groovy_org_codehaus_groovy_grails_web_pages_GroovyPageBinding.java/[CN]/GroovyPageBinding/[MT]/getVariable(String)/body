@@ -2,6 +2,8 @@
   Object val=getVariablesMap().get(name);
   if (val == null && !getVariablesMap().containsKey(name)) {
     if (GroovyPage.PAGE_SCOPE.equals(name))     return this;
+    if ("variables".equals(name))     return getVariables();
+    if ("metaClass".equals(name))     return getMetaClass();
     if (parent != null) {
       val=parent.getVariable(name);
       if (val != null) {

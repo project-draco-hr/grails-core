@@ -89,7 +89,7 @@
     return new GrailsMethodExpression(application,clazz,calcPropertyName(queryParameter,IN_LIST),IN_LIST,1,isNegation(queryParameter,IN_LIST)){
       @SuppressWarnings("rawtypes") @Override Criterion createCriterion(){
         Collection collection=(Collection)arguments[0];
-        if (collection.isEmpty()) {
+        if (collection == null || collection.isEmpty()) {
           return FORCE_NO_RESULTS;
         }
         return Restrictions.in(propertyName,collection);

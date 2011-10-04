@@ -1,5 +1,6 @@
 {
   GrailsWebRequest webRequest=buildMockRequest(null);
+  webRequest.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE,RequestAttributes.SCOPE_REQUEST);
   MockApplicationContext appCtx=(MockApplicationContext)webRequest.getApplicationContext();
   appCtx.registerMockResource("/grails-app/views/layouts/application.gsp","<html><body><h1>Default Layout</h1><g:layoutBody /></body></html>");
   MockHttpServletRequest request=(MockHttpServletRequest)webRequest.getCurrentRequest();

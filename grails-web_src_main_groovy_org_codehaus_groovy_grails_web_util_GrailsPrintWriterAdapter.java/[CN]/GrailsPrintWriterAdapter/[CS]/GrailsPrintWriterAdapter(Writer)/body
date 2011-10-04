@@ -1,0 +1,9 @@
+{
+  super(new NullWriter());
+  if (!(target instanceof GrailsPrintWriter)) {
+    this.target=new GrailsPrintWriter(wrapped);
+  }
+ else {
+    this.target=((GrailsPrintWriter)target);
+  }
+}

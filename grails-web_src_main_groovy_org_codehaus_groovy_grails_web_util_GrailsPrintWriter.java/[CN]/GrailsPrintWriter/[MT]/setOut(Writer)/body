@@ -1,0 +1,8 @@
+{
+  if (newOut instanceof GrailsWrappedWriter) {
+    this.out=((GrailsWrappedWriter)newOut).unwrap();
+  }
+ else {
+    this.out=newOut;
+  }
+}

@@ -7,8 +7,7 @@
     if (gspSitemeshPage != null) {
       gspSitemeshPage.setPageBuffer(charBuffer);
     }
-    exposedWriter=new GrailsPrintWriter(charBuffer.getWriter());
-    exposedWriter.setFinalTargetHere(true);
+    exposedWriter=new GrailsPrintWriterAdapter(charBuffer.getWriter());
   }
   return exposedWriter;
 }

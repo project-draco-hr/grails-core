@@ -1,5 +1,5 @@
 {
-  GrailsPrintWriter out=(GrailsPrintWriter)createResponseWriter(response);
+  GSPResponseWriter out=createResponseWriter(response);
   try {
     if (template instanceof GroovyPageTemplate) {
       ((GroovyPageTemplate)template).setAllowSettingContentType(true);

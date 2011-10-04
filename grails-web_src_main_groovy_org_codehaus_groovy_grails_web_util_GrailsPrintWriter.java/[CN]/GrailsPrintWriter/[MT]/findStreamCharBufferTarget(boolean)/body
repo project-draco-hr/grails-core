@@ -5,13 +5,13 @@
     return streamCharBufferTarget;
   }
   Writer target=currentOut;
-  while (target instanceof GrailsPrintWriter) {
-    GrailsPrintWriter gpr=((GrailsPrintWriter)target);
+  while (target instanceof GrailsWrappedWriter) {
+    GrailsWrappedWriter gpr=((GrailsWrappedWriter)target);
     if (gpr.isAllowUnwrappingOut()) {
       if (markUsed) {
-        gpr.setUsed(true);
+        gpr.markUsed();
       }
-      target=gpr.getOut();
+      target=gpr.unwrap();
     }
  else {
       break;

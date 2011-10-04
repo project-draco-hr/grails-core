@@ -1,0 +1,8 @@
+{
+  if (isAllowUnwrappingOut()) {
+    return getOut();
+  }
+ else {
+    return this;
+  }
+}

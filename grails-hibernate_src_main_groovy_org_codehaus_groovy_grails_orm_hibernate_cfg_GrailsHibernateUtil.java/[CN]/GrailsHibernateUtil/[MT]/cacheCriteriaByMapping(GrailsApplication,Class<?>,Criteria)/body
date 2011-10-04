@@ -1,0 +1,9 @@
+{
+  boolean cachedByDefault=grailsApplication != null ? isCacheQueriesByDefault(grailsApplication) : false;
+  if (cachedByDefault) {
+    criteria.setCacheable(true);
+  }
+ else {
+    cacheCriteriaByMapping(targetClass,criteria);
+  }
+}

@@ -3,6 +3,7 @@
   return getHibernateTemplate().execute(new HibernateCallback(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Query q=session.createQuery(arguments[0].toString());
+      getHibernateTemplate().applySettings(q);
       SessionFactoryUtils.applyTransactionTimeout(q,getHibernateTemplate().getSessionFactory());
       int index=0;
       for (      Object parameter : extractPositionalParams(arguments)) {

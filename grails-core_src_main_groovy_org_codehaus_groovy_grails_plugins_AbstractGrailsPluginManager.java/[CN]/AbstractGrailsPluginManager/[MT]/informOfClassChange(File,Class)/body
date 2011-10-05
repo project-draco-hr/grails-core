@@ -1,5 +1,5 @@
 {
-  if (cls != null && cls.getName().equals(CONFIG_FILE)) {
+  if (cls != null && (cls.getName().equals(CONFIG_FILE) || cls.getName().equals(DATA_SOURCE_CLASS))) {
     ConfigSlurper configSlurper=ConfigurationHelper.getConfigSlurper(Environment.getCurrent().getName(),application);
     ConfigObject c;
     try {

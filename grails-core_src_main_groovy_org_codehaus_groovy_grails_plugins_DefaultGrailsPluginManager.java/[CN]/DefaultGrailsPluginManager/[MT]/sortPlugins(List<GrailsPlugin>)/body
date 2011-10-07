@@ -5,7 +5,7 @@
     for (    String loadBefore : plugin.getLoadBeforeNames()) {
       final GrailsPlugin loadBeforePlugin=getGrailsPlugin(loadBefore);
       int j=newList.indexOf(loadBeforePlugin);
-      if (i > j) {
+      if (j > -1 && i > j) {
         newList.remove(plugin);
         newList.add(j,plugin);
       }
@@ -14,7 +14,7 @@
     for (    String loadAfter : plugin.getLoadAfterNames()) {
       final GrailsPlugin loadAfterPlugin=getGrailsPlugin(loadAfter);
       int j=newList.indexOf(loadAfterPlugin);
-      if (i < j) {
+      if (j > -1 && i < j) {
         newList.remove(plugin);
         newList.add(j,plugin);
       }

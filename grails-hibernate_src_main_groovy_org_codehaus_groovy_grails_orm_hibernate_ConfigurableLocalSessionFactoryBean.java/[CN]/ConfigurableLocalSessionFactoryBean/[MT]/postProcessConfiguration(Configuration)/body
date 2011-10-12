@@ -2,7 +2,6 @@
   if (hibernateEventListeners == null || hibernateEventListeners.getListenerMap() == null) {
     return;
   }
-  Configuration config=getConfiguration();
   EventListeners listeners=config.getEventListeners();
   Map<String,Object> listenerMap=hibernateEventListeners.getListenerMap();
   addNewListenerToConfiguration(config,"auto-flush",AutoFlushEventListener.class,listeners.getAutoFlushEventListeners(),listenerMap);

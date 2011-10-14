@@ -1,5 +1,5 @@
 {
-  new HibernateTemplate(sessionFactory).execute(new HibernateCallback<Void>(){
+  new GrailsHibernateTemplate(sessionFactory).execute(new HibernateCallback<Void>(){
     public Void doInHibernate(    Session session){
       if (session.getFlushMode() != FlushMode.MANUAL) {
         session.flush();

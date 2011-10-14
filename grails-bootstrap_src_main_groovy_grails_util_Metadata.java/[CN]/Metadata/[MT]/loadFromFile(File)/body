@@ -1,0 +1,16 @@
+{
+  if (file != null && file.exists()) {
+    FileInputStream input=null;
+    try {
+      input=new FileInputStream(file);
+      load(input);
+      afterLoading();
+    }
+ catch (    Exception e) {
+      throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
+    }
+ finally {
+      closeQuietly(input);
+    }
+  }
+}

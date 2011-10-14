@@ -1,6 +1,0 @@
-{
-  if (getDestination() instanceof GrailsPrintWriter) {
-    return ((GrailsPrintWriter)getDestination()).getOut();
-  }
-  return getOut();
-}

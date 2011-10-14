@@ -1,3 +1,3 @@
 {
-  return invoke(clazz,methodName,null,arguments);
+  return invoke(clazz,methodName,(Closure)null,arguments);
 }

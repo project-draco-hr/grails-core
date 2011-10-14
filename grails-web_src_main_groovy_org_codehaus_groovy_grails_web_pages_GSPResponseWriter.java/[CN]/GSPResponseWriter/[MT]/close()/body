@@ -7,7 +7,7 @@
     }
     flushResponse();
   }
- else   if (!trouble) {
+ else   if (!isTrouble()) {
     GrailsWebRequest webRequest=GrailsWebRequest.lookup();
     if (webRequest != null && webRequest.getCurrentRequest().getAttribute(RequestConstants.PAGE) != null) {
       flushResponse();

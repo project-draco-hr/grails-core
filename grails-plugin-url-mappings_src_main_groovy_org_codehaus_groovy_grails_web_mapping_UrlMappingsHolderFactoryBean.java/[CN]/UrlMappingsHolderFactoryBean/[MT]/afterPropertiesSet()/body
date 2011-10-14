@@ -1,4 +1,5 @@
 {
+  Assert.state(applicationContext != null,"Property [applicationContext] must be set!");
   Assert.state(grailsApplication != null,"Property [grailsApplication] must be set!");
   List urlMappings=new ArrayList();
   List excludePatterns=new ArrayList();

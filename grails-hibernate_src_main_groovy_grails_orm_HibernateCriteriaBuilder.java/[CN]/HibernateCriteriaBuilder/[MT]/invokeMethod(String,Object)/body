@@ -44,8 +44,6 @@
  else       if (paginationEnabledList) {
         criteria.setFirstResult(0);
         criteria.setMaxResults(Integer.MAX_VALUE);
-        criteria.setProjection(Projections.rowCount());
-        int totalCount=((Number)criteria.uniqueResult()).intValue();
         if (projectionList != null && projectionList.getLength() > 0) {
           criteria.setProjection(projectionList);
         }
@@ -81,8 +79,8 @@
           }
         }
         GrailsHibernateUtil.populateArgumentsForCriteria(grailsApplication,targetClass,criteria,argMap);
-        PagedResultList pagedRes=new PagedResultList(criteria.list());
-        pagedRes.setTotalCount(totalCount);
+        GrailsHibernateTemplate ght=new GrailsHibernateTemplate(sessionFactory,grailsApplication);
+        PagedResultList pagedRes=new PagedResultList(ght,targetClass,criteria.list());
         result=pagedRes;
       }
  else {

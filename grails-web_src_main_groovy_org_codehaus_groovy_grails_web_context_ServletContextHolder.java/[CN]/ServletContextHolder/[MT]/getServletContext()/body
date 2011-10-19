@@ -1,3 +1,11 @@
 {
+  int id=getClassLoaderId();
+  ServletContext servletContext=servletContexts.get(id);
+  if (servletContext == null) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null) {
+      return webRequest.getServletContext();
+    }
+  }
   return servletContext;
 }

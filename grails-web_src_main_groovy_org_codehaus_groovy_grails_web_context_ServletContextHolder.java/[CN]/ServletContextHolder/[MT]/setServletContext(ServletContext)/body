@@ -1,3 +1,9 @@
 {
-  ServletContextHolder.servletContext=servletContext;
+  int id=getClassLoaderId();
+  if (servletContext != null) {
+    servletContexts.put(id,servletContext);
+  }
+ else {
+    servletContexts.remove(id);
+  }
 }

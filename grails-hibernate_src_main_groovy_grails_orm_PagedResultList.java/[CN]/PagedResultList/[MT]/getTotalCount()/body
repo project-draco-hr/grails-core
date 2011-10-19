@@ -1,3 +1,16 @@
 {
+  if (totalCount == Integer.MIN_VALUE) {
+    totalCount=(Integer)hibernateTemplate.execute(new HibernateCallback<Object>(){
+      public Object doInHibernate(      Session session) throws HibernateException, SQLException {
+        Criteria countCriteria=session.createCriteria(clazz);
+        hibernateTemplate.applySettings(countCriteria);
+        countCriteria.setFirstResult(0);
+        countCriteria.setProjection(Projections.rowCount());
+        int totalCount=((Number)countCriteria.uniqueResult()).intValue();
+        return totalCount;
+      }
+    }
+);
+  }
   return totalCount;
 }

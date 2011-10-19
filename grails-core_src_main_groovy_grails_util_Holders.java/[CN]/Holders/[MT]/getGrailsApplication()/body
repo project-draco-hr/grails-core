@@ -1,0 +1,13 @@
+{
+  try {
+    return (GrailsApplication)getApplicationContext().getBean(APPLICATION_BEAN_NAME);
+  }
+ catch (  IllegalStateException e) {
+    error("ApplicationContext not found in ServletContext or no thread-bound ServletContext found, returning singleton");
+    return applicationSingleton;
+  }
+catch (  IllegalArgumentException e) {
+    error("No thread-bound ServletContext found, returning singleton");
+    return applicationSingleton;
+  }
+}

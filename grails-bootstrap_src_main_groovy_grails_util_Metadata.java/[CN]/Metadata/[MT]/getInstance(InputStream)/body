@@ -1,5 +1,5 @@
 {
   Metadata m=new Metadata(inputStream);
-  metadata=new FinalReference<Metadata>(m);
+  holder.set(new FinalReference<Metadata>(m));
   return m;
 }

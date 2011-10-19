@@ -1,5 +1,5 @@
 {
-  Metadata m=metadata.get();
+  Metadata m=getFromMap();
   if (m != null) {
     m.clear();
     m.afterLoading();

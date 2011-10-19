@@ -1,0 +1,13 @@
+{
+  int id=getClassLoaderId();
+  int thisClassLoaderId=System.identityHashCode(getClass().getClassLoader());
+  if (t == null) {
+    instances.remove(id);
+    instances.remove(thisClassLoaderId);
+  }
+ else {
+    instances.put(id,t);
+    instances.put(thisClassLoaderId,t);
+  }
+  singleton=t;
+}

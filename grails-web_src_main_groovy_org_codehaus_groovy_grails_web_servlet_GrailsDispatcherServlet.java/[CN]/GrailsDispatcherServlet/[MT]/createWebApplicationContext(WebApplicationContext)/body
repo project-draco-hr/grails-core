@@ -2,6 +2,7 @@
   WebApplicationContext wac=WebApplicationContextUtils.getWebApplicationContext(getServletContext());
   Assert.notNull(parent,"Grails requires a parent ApplicationContext, is the /WEB-INF/applicationContext.xml file missing?");
   setApplication(parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class));
+  ServletContextHolder.setServletContext(getServletContext());
   WebApplicationContext webContext;
   if (wac instanceof GrailsApplicationContext) {
     webContext=wac;

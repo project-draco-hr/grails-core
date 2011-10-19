@@ -1,5 +1,3 @@
 {
-  GrailsPluginManager current=getPluginManager();
-  Assert.state(current != null,"No PluginManager set");
-  return current;
+  return Holders.currentPluginManager();
 }

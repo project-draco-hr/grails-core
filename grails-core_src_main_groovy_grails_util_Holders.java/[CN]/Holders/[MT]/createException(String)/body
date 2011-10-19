@@ -1,0 +1,12 @@
+{
+  Throwable t=GrailsUtil.deepSanitize(new Exception(message));
+  List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
+  for (  StackTraceElement element : t.getStackTrace()) {
+    newTrace.add(element);
+    if (!element.getClassName().equals("grails.util.Holders")) {
+      break;
+    }
+  }
+  t.setStackTrace(newTrace.toArray(new StackTraceElement[newTrace.size()]));
+  return t;
+}

@@ -1,8 +1,8 @@
 {
-  Metadata m=metadata.get();
+  Metadata m=getFromMap();
   if (m == null) {
     m=new Metadata();
-    metadata=new SoftReference<Metadata>(m);
+    holder.set(new SoftReference<Metadata>(m));
   }
   return m;
 }

@@ -1,5 +1,5 @@
 {
-  pluginManager=PluginManagerHolder.getPluginManager();
+  pluginManager=Holders.getPluginManager(true);
   if (pluginManager == null) {
     Assert.state(descriptor != null,"Cannot create PluginManager, /WEB-INF/grails.xml not found!");
     ClassLoader classLoader=application.getClassLoader();
@@ -10,7 +10,7 @@
       GPathResult root=new XmlSlurper().parse(inputStream);
       GPathResult plugins=(GPathResult)root.getProperty("plugins");
       GPathResult nodes=(GPathResult)plugins.getProperty("plugin");
-      for (int i=0; i < nodes.size(); i++) {
+      for (int i=0, count=nodes.size(); i < count; i++) {
         GPathResult node=(GPathResult)nodes.getAt(i);
         final String pluginName=node.text();
         Class<?> clazz;

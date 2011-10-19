@@ -1,0 +1,8 @@
+{
+  for (  ModuleRevisionId mrid : dependencies) {
+    EnhancedDefaultDependencyDescriptor descriptor=registerDependency(dependencyManager,scope,mrid);
+    if (excludes != null) {
+      descriptor.exclude(excludes);
+    }
+  }
+}

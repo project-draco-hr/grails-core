@@ -1,0 +1,6 @@
+{
+  EnhancedDefaultDependencyDescriptor descriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,false,scope);
+  descriptor.setInherited(true);
+  dependencyManager.registerDependency(scope,descriptor);
+  return descriptor;
+}

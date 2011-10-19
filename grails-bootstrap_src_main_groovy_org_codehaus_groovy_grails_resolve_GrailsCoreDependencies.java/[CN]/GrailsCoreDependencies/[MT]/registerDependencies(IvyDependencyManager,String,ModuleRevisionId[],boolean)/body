@@ -1,0 +1,8 @@
+{
+  for (  ModuleRevisionId mrid : dependencies) {
+    EnhancedDefaultDependencyDescriptor descriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,false,scope);
+    descriptor.setInherited(true);
+    descriptor.setTransitive(transitive);
+    dependencyManager.registerDependency(scope,descriptor);
+  }
+}

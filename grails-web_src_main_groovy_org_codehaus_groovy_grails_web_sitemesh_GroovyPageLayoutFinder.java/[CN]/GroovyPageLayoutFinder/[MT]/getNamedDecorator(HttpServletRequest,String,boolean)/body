@@ -1,5 +1,7 @@
 {
-  if (StringUtils.isBlank(name))   return null;
+  if (StringUtils.isBlank(name)) {
+    return null;
+  }
   if (cacheEnabled) {
     DecoratorCacheValue cacheValue=decoratorCache.get(name);
     if (cacheValue != null && (!gspReloadEnabled || !cacheValue.isExpired())) {

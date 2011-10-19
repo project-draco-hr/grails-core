@@ -1,15 +1,29 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
+  if (this == obj) {
+    return true;
+  }
+  if (obj == null) {
+    return false;
+  }
+  if (getClass() != obj.getClass()) {
+    return false;
+  }
   LayoutCacheKey other=(LayoutCacheKey)obj;
   if (actionUri == null) {
-    if (other.actionUri != null)     return false;
+    if (other.actionUri != null) {
+      return false;
+    }
   }
- else   if (!actionUri.equals(other.actionUri))   return false;
+ else   if (!actionUri.equals(other.actionUri)) {
+    return false;
+  }
   if (controllerName == null) {
-    if (other.controllerName != null)     return false;
+    if (other.controllerName != null) {
+      return false;
+    }
   }
- else   if (!controllerName.equals(other.controllerName))   return false;
+ else   if (!controllerName.equals(other.controllerName)) {
+    return false;
+  }
   return true;
 }

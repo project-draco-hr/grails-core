@@ -1,5 +1,7 @@
 {
-  if (trouble)   return;
+  if (trouble) {
+    return;
+  }
   try {
     out.flush();
   }

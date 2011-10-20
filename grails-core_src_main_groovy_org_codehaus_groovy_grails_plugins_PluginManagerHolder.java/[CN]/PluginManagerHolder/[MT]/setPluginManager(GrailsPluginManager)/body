@@ -1,3 +1,6 @@
 {
-  Holders.setPluginManager(pluginManager);
+  if (pluginManager != null) {
+    inCreation=false;
+  }
+  gpm=pluginManager;
 }

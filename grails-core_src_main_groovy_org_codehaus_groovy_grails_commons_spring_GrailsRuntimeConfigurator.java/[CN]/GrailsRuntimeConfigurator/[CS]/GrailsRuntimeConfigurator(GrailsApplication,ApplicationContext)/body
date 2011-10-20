@@ -1,12 +1,9 @@
 {
   this.application=application;
   this.parent=parent;
-  if (parent != null) {
-    parent.containsBean(DATA_SOURCE_BEAN);
-  }
   try {
-    pluginManager=parent != null ? parent.getBean(GrailsPluginManager.class) : null;
-    pluginManager=pluginManager != null ? pluginManager : PluginManagerHolder.getPluginManager();
+    pluginManager=parent == null ? null : parent.getBean(GrailsPluginManager.class);
+    pluginManager=pluginManager == null ? PluginManagerHolder.getPluginManager() : pluginManager;
   }
  catch (  BeansException e) {
   }

@@ -1,4 +1,4 @@
 {
   GrailsUtil.deprecated("Method ConfigurationHolder.getConfig() is deprecated and will be removed in a future version of Grails.");
-  return config;
+  return Holders.getConfig();
 }

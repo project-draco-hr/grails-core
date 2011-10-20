@@ -31,9 +31,7 @@ catch (    InvocationTargetException ex) {
       if (ex.getTargetException() instanceof ClassCastException) {
         throw new TypeMismatchException(propertyChangeEvent,pd.getPropertyType(),ex.getTargetException());
       }
- else {
-        throw new MethodInvocationException(propertyChangeEvent,ex.getTargetException());
-      }
+      throw new MethodInvocationException(propertyChangeEvent,ex.getTargetException());
     }
 catch (    Exception ex) {
       PropertyChangeEvent pce=new PropertyChangeEvent(existingBean,beanName,null,value);

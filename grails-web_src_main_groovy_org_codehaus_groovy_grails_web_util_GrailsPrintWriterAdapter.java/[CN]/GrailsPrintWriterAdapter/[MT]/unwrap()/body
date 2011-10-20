@@ -2,7 +2,5 @@
   if (isAllowUnwrappingOut()) {
     return getOut();
   }
- else {
-    return this;
-  }
+  return this;
 }

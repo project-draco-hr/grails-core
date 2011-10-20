@@ -1,4 +1,4 @@
 {
   GrailsUtil.deprecated("Method ApplicationHolder.setApplication(application) is deprecated and will be removed in a future version of Grails.");
-  ApplicationHolder.application=application;
+  Holders.setGrailsApplication(application);
 }

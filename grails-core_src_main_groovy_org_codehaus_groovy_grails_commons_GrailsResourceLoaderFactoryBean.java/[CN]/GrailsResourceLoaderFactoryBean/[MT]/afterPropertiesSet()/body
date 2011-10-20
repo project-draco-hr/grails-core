@@ -1,5 +1,5 @@
 {
-  resourceLoader=Holders.getResourceLoader(true);
+  resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
   if (resourceLoader != null) {
     return;
   }

@@ -1,0 +1,8 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((contextPath == null) ? 0 : contextPath.hashCode());
+  result=prime * result + ((pluginName == null) ? 0 : pluginName.hashCode());
+  result=prime * result + ((uri == null) ? 0 : uri.hashCode());
+  return result;
+}

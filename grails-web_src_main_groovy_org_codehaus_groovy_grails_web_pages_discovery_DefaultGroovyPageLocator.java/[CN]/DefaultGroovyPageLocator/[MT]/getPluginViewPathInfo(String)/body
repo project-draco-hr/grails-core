@@ -1,9 +1,3 @@
 {
-  PluginViewPathInfo info=new PluginViewPathInfo();
-  String path=uri.substring(PLUGINS_PATH.length(),uri.length());
-  info.basePath=path;
-  int i=path.indexOf("/");
-  info.pluginName=path.substring(0,i);
-  info.path=path.substring(i,path.length());
-  return info;
+  return new PluginViewPathInfo(uri);
 }

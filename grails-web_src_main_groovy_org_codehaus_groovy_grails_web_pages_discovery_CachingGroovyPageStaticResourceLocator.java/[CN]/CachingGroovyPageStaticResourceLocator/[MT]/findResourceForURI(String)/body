@@ -1,11 +1,22 @@
 {
-  Resource resource=uriResolveCache.get(uri);
-  if (resource == null) {
-    resource=super.findResourceForURI(uri);
-    if (resource == null && warDeployed) {
-      resource=NULL_RESOURCE;
+  PrivilegedAction<Resource> updater=new PrivilegedAction<Resource>(){
+    public Resource run(){
+      Resource resource=CachingGroovyPageStaticResourceLocator.super.findResourceForURI(uri);
+      if (resource == null) {
+        resource=NULL_RESOURCE;
+      }
+      return resource;
     }
-    if (resource != null)     uriResolveCache.put(uri,resource);
+  }
+;
+  Resource resource=null;
+  CacheEntry<Resource> entry=uriResolveCache.get(uri);
+  if (entry == null) {
+    resource=updater.run();
+    uriResolveCache.put(uri,new CacheEntry<Resource>(resource));
+  }
+ else {
+    resource=entry.getValue(cacheTimeout,updater);
   }
   return resource == NULL_RESOURCE ? null : resource;
 }

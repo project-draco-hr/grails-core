@@ -1,4 +1,5 @@
 {
   this.uri=uri;
   this.compiledClass=compiledClass;
+  this.groovyPageMetaInfo=new GroovyPageMetaInfo(compiledClass);
 }

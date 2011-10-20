@@ -1,0 +1,8 @@
+{
+  basePath=uri.substring(PLUGINS_PATH.length(),uri.length());
+  int i=basePath.indexOf("/");
+  if (i > -1) {
+    pluginName=basePath.substring(0,i);
+    path=basePath.substring(i,basePath.length());
+  }
+}

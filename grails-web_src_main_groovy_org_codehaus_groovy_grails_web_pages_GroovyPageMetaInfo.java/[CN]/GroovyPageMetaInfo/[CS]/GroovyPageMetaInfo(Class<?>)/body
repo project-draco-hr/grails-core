@@ -1,4 +1,5 @@
 {
+  this();
   precompiledMode=true;
   this.pageClass=pageClass;
   contentType=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_CONTENT_TYPE),null);

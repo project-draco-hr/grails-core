@@ -1,0 +1,12 @@
+{
+  GroovyPageCompiledScriptSource scriptSource=new GroovyPageCompiledScriptSource(uri,viewClass);
+  if (reloadEnabled) {
+    scriptSource.setResourceCallable(new PrivilegedAction<Resource>(){
+      public Resource run(){
+        return findReloadablePage(uri);
+      }
+    }
+);
+  }
+  return scriptSource;
+}

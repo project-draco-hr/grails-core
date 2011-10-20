@@ -6,10 +6,36 @@
   if (developmentMode) {
     return createGrailsView(viewName);
   }
-  View view=VIEW_CACHE.get(viewName);
-  if (view == null || (templateEngine.isReloadEnabled() && view instanceof GroovyPageView && ((GroovyPageView)view).isExpired())) {
-    view=createGrailsView(viewName);
+  CacheEntry<View> entry=VIEW_CACHE.get(viewName);
+  final String lookupViewName=viewName;
+  PrivilegedAction<View> updater=new PrivilegedAction<View>(){
+    public View run(){
+      try {
+        return createGrailsView(lookupViewName);
+      }
+ catch (      Exception e) {
+        throw new WrappedInitializationException(e);
+      }
+    }
   }
-  VIEW_CACHE.put(viewName,view);
+;
+  View view=null;
+  if (entry == null) {
+    try {
+      view=updater.run();
+    }
+ catch (    WrappedInitializationException e) {
+      e.rethrow();
+    }
+    entry=new CacheEntry<View>(view);
+    VIEW_CACHE.put(viewName,entry);
+    return view;
+  }
+  try {
+    view=entry.getValue(cacheTimeout,updater);
+  }
+ catch (  WrappedInitializationException e) {
+    e.rethrow();
+  }
   return view;
 }

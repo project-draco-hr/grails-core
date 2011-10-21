@@ -1,11 +1,11 @@
 {
-  if (timeout < 0 || updater == null)   return value;
+  if (timeout < 0 || updater == null)   return valueRef.get();
   if (System.currentTimeMillis() - timeout > createdMillis) {
     try {
       long beforeLockingCreatedMillis=createdMillis;
       writeLock.lock();
       if (beforeLockingCreatedMillis == createdMillis || createdMillis == 0L) {
-        value=updater.run();
+        valueRef.set(updater.run());
         resetTimestamp();
       }
     }
@@ -13,5 +13,5 @@
       writeLock.unlock();
     }
   }
-  return value;
+  return valueRef.get();
 }

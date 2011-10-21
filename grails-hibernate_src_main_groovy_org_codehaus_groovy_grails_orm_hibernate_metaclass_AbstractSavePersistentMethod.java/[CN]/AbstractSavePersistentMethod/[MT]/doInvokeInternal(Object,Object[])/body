@@ -16,11 +16,17 @@
       if (argsMap != null && argsMap.containsKey(ARGUMENT_DEEP_VALIDATE)) {
         deepValidate=GrailsClassUtils.getBooleanFromMap(ARGUMENT_DEEP_VALIDATE,argsMap);
       }
-      if (deepValidate && (validator instanceof CascadingValidator)) {
-        ((CascadingValidator)validator).validate(target,errors,deepValidate);
-      }
+      AbstractPersistentConstraint.sessionFactory.set(datastore.getSessionFactory());
+      try {
+        if (deepValidate && (validator instanceof CascadingValidator)) {
+          ((CascadingValidator)validator).validate(target,errors,deepValidate);
+        }
  else {
-        validator.validate(target,errors);
+          validator.validate(target,errors);
+        }
+      }
+  finally {
+        AbstractPersistentConstraint.sessionFactory.remove();
       }
       if (errors.hasErrors()) {
         handleValidationError(target,errors);

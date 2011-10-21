@@ -29,11 +29,17 @@
     }
   }
   fireEvent(target,validatedFieldsList);
-  if (deepValidate && (validator instanceof CascadingValidator)) {
-    ((CascadingValidator)validator).validate(target,errors,deepValidate);
-  }
+  AbstractPersistentConstraint.sessionFactory.set(datastore.getSessionFactory());
+  try {
+    if (deepValidate && (validator instanceof CascadingValidator)) {
+      ((CascadingValidator)validator).validate(target,errors,deepValidate);
+    }
  else {
-    validator.validate(target,errors);
+      validator.validate(target,errors);
+    }
+  }
+  finally {
+    AbstractPersistentConstraint.sessionFactory.remove();
   }
   int oldErrorCount=errors.getErrorCount();
   errors=filterErrors(errors,validatedFields,target);

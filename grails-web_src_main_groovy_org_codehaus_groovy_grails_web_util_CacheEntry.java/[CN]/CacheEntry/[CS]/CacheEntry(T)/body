@@ -1,4 +1,4 @@
 {
-  this.value=value;
+  this.valueRef.set(value);
   resetTimestamp();
 }

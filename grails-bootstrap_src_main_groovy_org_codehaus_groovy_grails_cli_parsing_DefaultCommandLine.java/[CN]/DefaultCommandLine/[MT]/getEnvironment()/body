@@ -2,8 +2,7 @@
   boolean useDefaultEnv=environment == null;
   String env;
   if (useDefaultEnv && commandName != null) {
-    env=CommandLineParser.DEFAULT_ENVS.get(commandName);
-    env=env != null ? env : Environment.DEVELOPMENT.getName();
+    env=lookupEnvironmentForCommand();
   }
  else {
     env=environment != null ? environment : Environment.DEVELOPMENT.getName();

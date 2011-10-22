@@ -13,6 +13,15 @@
         throw e;
       }
       loadScriptClass(gant,scriptName);
+      if (Boolean.TRUE.toString().equals(System.getProperty(Environment.DEFAULT))) {
+        commandLine.setCommand(GrailsNameUtils.getScriptName(scriptName));
+        env=commandLine.lookupEnvironmentForCommand();
+        binding.setVariable("grailsEnv",env);
+        settings.setGrailsEnv(env);
+        System.setProperty(Environment.KEY,env);
+        settings.setDefaultEnv(false);
+        System.setProperty(Environment.DEFAULT,Boolean.FALSE.toString());
+      }
     }
  else {
       throw e;

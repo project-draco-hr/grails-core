@@ -1,0 +1,4 @@
+{
+  String env=CommandLineParser.DEFAULT_ENVS.get(commandName);
+  return env == null ? Environment.DEVELOPMENT.getName() : env;
+}

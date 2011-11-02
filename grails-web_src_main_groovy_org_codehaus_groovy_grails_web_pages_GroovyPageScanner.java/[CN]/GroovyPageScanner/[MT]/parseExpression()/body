@@ -1,25 +1,17 @@
 {
-  int expressionEndState=HTML;
   char terminationChar='}';
   char nextTerminationChar=0;
   boolean startInExpression=true;
-switch (state) {
-case GTAG_EXPR:
-    expressionEndState=GSTART_TAG;
-  break;
-case GSCRIPT:
-nextTerminationChar='%';
-break;
-case GDECLAR:
-nextTerminationChar='!';
-break;
-}
-int endpos=GroovyPageExpressionParser.findExpressionEndPos(text,end1 - 1,terminationChar,nextTerminationChar,startInExpression);
-if (endpos != -1) {
-end1=endpos + 1;
-return found(expressionEndState,nextTerminationChar == 0 ? 1 : 2);
-}
+  int endpos=GroovyPageExpressionParser.findExpressionEndPos(text,end1 - 1,terminationChar,nextTerminationChar,startInExpression);
+  if (endpos != -1) {
+    end1=endpos + 1;
+    int expressionEndState=HTML;
+    if (state == GTAG_EXPR) {
+      expressionEndState=GSTART_TAG;
+    }
+    return found(expressionEndState,nextTerminationChar == 0 ? 1 : 2);
+  }
  else {
-throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
-}
+    throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
+  }
 }

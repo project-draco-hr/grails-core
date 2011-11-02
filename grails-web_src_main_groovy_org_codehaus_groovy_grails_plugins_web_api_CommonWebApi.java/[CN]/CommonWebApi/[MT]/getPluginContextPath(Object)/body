@@ -1,4 +1,5 @@
 {
+  GrailsPluginManager pluginManager=getPluginManagerInternal(delegate);
   final String pluginPath=pluginManager != null ? pluginManager.getPluginPathForInstance(delegate) : null;
   return pluginPath != null ? pluginPath : "";
 }

@@ -78,10 +78,22 @@ return found(HTML,1);
 break;
 case GTAG_EXPR:
 case GEXPR:
-case GDIRECT:
-case GSCRIPT:
-case GDECLAR:
 return parseExpression();
+case GDIRECT:
+if (c == '}') {
+return found(HTML,1);
+}
+break;
+case GSCRIPT:
+if (c == '}' && c1 == '%') {
+return found(HTML,2);
+}
+break;
+case GDECLAR:
+if (c == '}' && (c1 == '!' || c1 == '%')) {
+return found(HTML,2);
+}
+break;
 }
 }
 }

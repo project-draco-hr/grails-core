@@ -28,7 +28,19 @@
       if (val.indexOf('"') == -1) {
         quoteChar='"';
       }
-      val=quoteChar + val + quoteChar;
+      String quoteStr;
+      if (val.indexOf('\n') != -1 || val.indexOf('\r') != -1) {
+        if (quoteChar == '"') {
+          quoteStr=MULTILINE_GROOVY_STRING_DOUBLEQUOTES;
+        }
+ else {
+          quoteStr=MULTILINE_GROOVY_STRING_SINGLEQUOTES;
+        }
+      }
+ else {
+        quoteStr=String.valueOf(quoteChar);
+      }
+      val=quoteStr + val + quoteStr;
     }
     attrs.put("\"" + name + "\"",val);
     startPos=endQuotepos + 1;

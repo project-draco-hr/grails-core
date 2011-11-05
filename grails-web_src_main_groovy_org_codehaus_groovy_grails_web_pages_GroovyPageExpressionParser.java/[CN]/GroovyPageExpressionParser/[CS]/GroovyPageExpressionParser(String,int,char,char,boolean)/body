@@ -1,0 +1,12 @@
+{
+  this.scriptTokens=scriptTokens;
+  this.startPos=startPos;
+  this.terminationChar=terminationChar;
+  this.nextTerminationChar=nextTerminationChar;
+  if (startInExpression) {
+    parsingStateStack.push(ParsingState.EXPRESSION);
+  }
+ else {
+    parsingStateStack.push(ParsingState.NORMAL);
+  }
+}

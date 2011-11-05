@@ -1,16 +1,7 @@
 {
   int currentPos=startPos;
-  int terminationCharPos=-1;
   char previousChar=0;
   char previousPreviousChar=0;
-  int relativeCharIndex=0;
-  Stack<ParsingState> parsingStateStack=new Stack<ParsingState>();
-  if (startInExpression) {
-    parsingStateStack.push(ParsingState.EXPRESSION);
-  }
- else {
-    parsingStateStack.push(ParsingState.NORMAL);
-  }
   while (currentPos < scriptTokens.length() && terminationCharPos == -1) {
     ParsingState parsingState=parsingStateStack.peek();
     char ch=scriptTokens.charAt(currentPos++);
@@ -25,12 +16,12 @@ case '{':
           return -1;
         }
       if (previousChar == '$' || parsingState == ParsingState.EXPRESSION) {
-        parsingStateStack.push(ParsingState.EXPRESSION);
+        changeState(ParsingState.EXPRESSION);
       }
     break;
 case '[':
   if (relativeCharIndex == 0 || parsingState == ParsingState.EXPRESSION) {
-    parsingStateStack.push(ParsingState.EXPRESSION);
+    changeState(ParsingState.EXPRESSION);
   }
 break;
 case '}':
@@ -43,10 +34,10 @@ case '\'':
 case '"':
 if (parsingState == ParsingState.EXPRESSION) {
 if (nextChar != ch && previousChar != ch) {
-parsingStateStack.push(ch == '"' ? ParsingState.QUOTEDVALUE_DOUBLE : ParsingState.QUOTEDVALUE_SINGLE);
+changeState(ch == '"' ? ParsingState.QUOTEDVALUE_DOUBLE : ParsingState.QUOTEDVALUE_SINGLE);
 }
  else if (previousChar == ch && previousPreviousChar == ch) {
-parsingStateStack.push(ch == '"' ? ParsingState.TRIPLEQUOTED_DOUBLE : ParsingState.TRIPLEQUOTED_SINGLE);
+changeState(ch == '"' ? ParsingState.TRIPLEQUOTED_DOUBLE : ParsingState.TRIPLEQUOTED_SINGLE);
 }
 }
 break;

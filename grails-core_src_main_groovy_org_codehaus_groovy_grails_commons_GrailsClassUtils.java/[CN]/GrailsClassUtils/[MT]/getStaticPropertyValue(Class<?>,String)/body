@@ -4,10 +4,7 @@
     if (getter != null) {
       return getter.invoke(null);
     }
-    Field f=clazz.getDeclaredField(name);
-    if (f != null) {
-      return f.get(null);
-    }
+    return getStaticFieldValue(clazz,name);
   }
  catch (  Exception ignored) {
   }

@@ -1,6 +1,8 @@
 {
   ASTErrorsHelper errorsHelper=new ASTValidationErrorsHelper();
   errorsHelper.injectErrorsCode(classNode);
-  addConstrainedPropertiesProperty(classNode);
+  addConstraintsField(classNode);
+  addStaticInitializer(classNode);
+  addGetConstraintsMethod(classNode);
   addValidateMethod(classNode);
 }

@@ -1,0 +1,4 @@
+{
+  assertEquals("SomeFieldValue",GrailsClassUtils.getStaticFieldValue(ClassWithStaticFieldAndStaticPropertyWithSameName.class,"name"));
+  assertEquals("SomePropertyValue",GrailsClassUtils.getStaticPropertyValue(ClassWithStaticFieldAndStaticPropertyWithSameName.class,"name"));
+}

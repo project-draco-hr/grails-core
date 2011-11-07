@@ -1,0 +1,7 @@
+{
+  ParsingState currentState=parsingStateStack.peek();
+  if (relativeCharIndex > 1 && newState == ParsingState.EXPRESSION && (currentState == ParsingState.QUOTEDVALUE_DOUBLE || currentState == ParsingState.TRIPLEQUOTED_DOUBLE || currentState == ParsingState.NORMAL)) {
+    containsGstrings=true;
+  }
+  parsingStateStack.push(newState);
+}

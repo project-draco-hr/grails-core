@@ -1,0 +1,12 @@
+{
+  try {
+    Field f=clazz.getDeclaredField(name);
+    if (f != null) {
+      f.setAccessible(true);
+      return f.get(null);
+    }
+  }
+ catch (  Exception ignored) {
+  }
+  return null;
+}

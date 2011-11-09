@@ -1,6 +1,7 @@
 {
   List<PropertyNode> tags=new ArrayList<PropertyNode>();
   List<PropertyNode> properties=classNode.getProperties();
+  List<PropertyNode> potentialAliases=new ArrayList<PropertyNode>();
   for (  PropertyNode property : properties) {
     if (property.isPublic()) {
       Expression initialExpression=property.getInitialExpression();
@@ -12,6 +13,18 @@
           property.setType(CLOSURE_CLASS_NODE);
         }
       }
+ else       if (initialExpression instanceof VariableExpression) {
+        potentialAliases.add(property);
+      }
+    }
+  }
+  for (  PropertyNode potentialAlias : potentialAliases) {
+    VariableExpression pe=(VariableExpression)potentialAlias.getInitialExpression();
+    String propertyName=pe.getName();
+    PropertyNode property=classNode.getProperty(propertyName);
+    if (property != null && tags.contains(property)) {
+      potentialAlias.setType(CLOSURE_CLASS_NODE);
+      tags.add(potentialAlias);
     }
   }
   return tags;

@@ -1,5 +1,5 @@
 {
-  GroovyPageCompiledScriptSource scriptSource=new GroovyPageCompiledScriptSource(uri,viewClass);
+  GroovyPageCompiledScriptSource scriptSource=new GroovyPageCompiledScriptSource(uri,fullPath,viewClass);
   if (reloadEnabled) {
     scriptSource.setResourceCallable(new PrivilegedAction<Resource>(){
       public Resource run(){

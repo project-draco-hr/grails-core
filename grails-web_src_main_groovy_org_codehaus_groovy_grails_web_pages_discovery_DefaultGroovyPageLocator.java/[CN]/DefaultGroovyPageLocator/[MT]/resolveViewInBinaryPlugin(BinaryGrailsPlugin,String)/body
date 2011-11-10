@@ -4,7 +4,7 @@
   uri=GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri);
   Class<?> viewClass=binaryPlugin.resolveView(uri);
   if (viewClass != null && !reloadedPrecompiledGspClassNames.contains(viewClass.getName())) {
-    scriptSource=createGroovyPageCompiledScriptSource(uri,viewClass);
+    scriptSource=createGroovyPageCompiledScriptSource(uri,uri,viewClass);
   }
   return scriptSource;
 }

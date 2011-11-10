@@ -1,4 +1,12 @@
 {
   super(resource);
   this.uri=uri;
+  try {
+    URI u=getResource().getURI();
+    String path=u.getPath();
+    isPublic=isPublicPath(path);
+  }
+ catch (  IOException e) {
+    isPublic=isPublicPath(uri);
+  }
 }

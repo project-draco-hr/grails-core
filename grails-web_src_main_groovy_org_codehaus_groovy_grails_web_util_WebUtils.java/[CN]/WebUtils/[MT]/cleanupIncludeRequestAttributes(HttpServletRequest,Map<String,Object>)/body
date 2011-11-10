@@ -4,4 +4,7 @@
   request.removeAttribute(INCLUDE_SERVLET_PATH_ATTRIBUTE);
   request.removeAttribute(INCLUDE_PATH_INFO_ATTRIBUTE);
   request.removeAttribute(INCLUDE_QUERY_STRING_ATTRIBUTE);
+  for (  Map.Entry<String,Object> entry : toRestore.entrySet()) {
+    request.setAttribute(entry.getKey(),entry.getValue());
+  }
 }

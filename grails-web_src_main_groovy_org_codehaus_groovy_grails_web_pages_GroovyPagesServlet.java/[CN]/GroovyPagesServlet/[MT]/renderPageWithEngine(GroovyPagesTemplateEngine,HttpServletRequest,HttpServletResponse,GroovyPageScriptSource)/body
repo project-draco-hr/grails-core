@@ -1,6 +1,7 @@
 {
   GSPResponseWriter out=createResponseWriter(response);
   try {
+    Template template=engine.createTemplate(scriptSource);
     if (template instanceof GroovyPageTemplate) {
       ((GroovyPageTemplate)template).setAllowSettingContentType(true);
     }

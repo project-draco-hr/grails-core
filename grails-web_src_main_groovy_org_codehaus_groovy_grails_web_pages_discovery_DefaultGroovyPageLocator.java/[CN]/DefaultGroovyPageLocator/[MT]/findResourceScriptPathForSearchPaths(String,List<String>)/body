@@ -11,7 +11,7 @@
           LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
         }
         if (gspClass != null) {
-          return createGroovyPageCompiledScriptSource(uri,gspClass);
+          return createGroovyPageCompiledScriptSource(uri,searchPath,gspClass);
         }
       }
     }

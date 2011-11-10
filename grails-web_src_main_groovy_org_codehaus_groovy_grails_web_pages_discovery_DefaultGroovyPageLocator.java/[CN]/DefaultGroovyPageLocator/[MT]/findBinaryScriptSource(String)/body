@@ -6,7 +6,10 @@
     if (!(plugin instanceof BinaryGrailsPlugin)) {
       continue;
     }
-    resolveViewInBinaryPlugin((BinaryGrailsPlugin)plugin,uri);
+    GroovyPageScriptSource scriptSource=resolveViewInBinaryPlugin((BinaryGrailsPlugin)plugin,uri);
+    if (scriptSource != null) {
+      return scriptSource;
+    }
   }
   return null;
 }

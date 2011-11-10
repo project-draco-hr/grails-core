@@ -9,14 +9,14 @@
     sendNotFound(response,pageName);
   }
  else {
-    Template template=groovyPagesTemplateEngine.createTemplateForUri(pageName);
-    if (template == null) {
-      template=findPageInBinaryPlugins(pageName);
+    GroovyPageScriptSource scriptSource=groovyPagesTemplateEngine.findScriptSource(pageName);
+    if (scriptSource == null) {
+      scriptSource=findPageInBinaryPlugins(pageName);
     }
-    if (template == null) {
+    if (scriptSource == null || !scriptSource.isPublic()) {
       sendNotFound(response,pageName);
       return;
     }
-    renderPageWithEngine(groovyPagesTemplateEngine,request,response,template);
+    renderPageWithEngine(groovyPagesTemplateEngine,request,response,scriptSource);
   }
 }

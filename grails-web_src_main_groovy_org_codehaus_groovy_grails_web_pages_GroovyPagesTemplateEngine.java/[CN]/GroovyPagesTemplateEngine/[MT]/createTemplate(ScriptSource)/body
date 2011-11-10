@@ -2,8 +2,8 @@
   if (scriptSource instanceof GroovyPageCompiledScriptSource) {
     return createTemplateFromPrecompiled((GroovyPageCompiledScriptSource)scriptSource);
   }
-  if (scriptSource instanceof ResourceScriptSource) {
-    ResourceScriptSource resourceSource=(ResourceScriptSource)scriptSource;
+  if (scriptSource instanceof GroovyPageResourceScriptSource) {
+    GroovyPageResourceScriptSource resourceSource=(GroovyPageResourceScriptSource)scriptSource;
     Resource resource=resourceSource.getResource();
     return createTemplate(resource,true);
   }

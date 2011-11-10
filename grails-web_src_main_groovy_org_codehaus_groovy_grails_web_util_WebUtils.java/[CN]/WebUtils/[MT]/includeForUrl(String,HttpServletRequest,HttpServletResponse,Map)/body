@@ -2,7 +2,7 @@
   RequestDispatcher dispatcher=request.getRequestDispatcher(includeUrl);
   HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
   response=wrapped != null ? wrapped : response;
-  exposeForwardRequestAttributes(request);
+  exposeIncludeRequestAttributes(request);
   exposeRequestAttributes(request,model);
   try {
     final IncludeResponseWrapper responseWrapper=new IncludeResponseWrapper(response);
@@ -20,5 +20,8 @@
   }
  catch (  Exception e) {
     throw new ControllerExecutionException("Unable to execute include: " + e.getMessage(),e);
+  }
+ finally {
+    cleanupIncludeRequestAttributes(request);
   }
 }

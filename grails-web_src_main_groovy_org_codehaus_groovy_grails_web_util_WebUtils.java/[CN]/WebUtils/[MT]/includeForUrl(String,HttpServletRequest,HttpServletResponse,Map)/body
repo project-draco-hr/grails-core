@@ -3,7 +3,7 @@
   HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
   response=wrapped != null ? wrapped : response;
   exposeIncludeRequestAttributes(request);
-  exposeRequestAttributes(request,model);
+  Map toRestore=exposeRequestAttributesAndReturnOldValues(request,model);
   try {
     final IncludeResponseWrapper responseWrapper=new IncludeResponseWrapper(response);
     try {
@@ -22,6 +22,6 @@
     throw new ControllerExecutionException("Unable to execute include: " + e.getMessage(),e);
   }
  finally {
-    cleanupIncludeRequestAttributes(request);
+    cleanupIncludeRequestAttributes(request,toRestore);
   }
 }

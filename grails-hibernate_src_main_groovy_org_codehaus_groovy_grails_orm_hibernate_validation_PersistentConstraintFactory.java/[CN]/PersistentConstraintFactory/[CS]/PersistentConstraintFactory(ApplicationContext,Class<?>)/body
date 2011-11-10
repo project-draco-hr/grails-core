@@ -1,3 +1,8 @@
 {
-  this(applicationContext,persistentConstraint,"sessionFactory");
+  Assert.notNull(applicationContext,"Argument [applicationContext] cannot be null");
+  if (persistentConstraint == null || !PersistentConstraint.class.isAssignableFrom(persistentConstraint)) {
+    throw new IllegalArgumentException("Argument [persistentConstraint] must be an instance of " + PersistentConstraint.class.getName());
+  }
+  this.applicationContext=applicationContext;
+  this.constraintClass=persistentConstraint;
 }

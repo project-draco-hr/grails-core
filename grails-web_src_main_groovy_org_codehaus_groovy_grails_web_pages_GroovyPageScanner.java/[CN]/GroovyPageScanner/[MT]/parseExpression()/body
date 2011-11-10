@@ -12,7 +12,5 @@
     }
     return found(expressionEndState,nextTerminationChar == 0 ? 1 : 2);
   }
- else {
-    throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
-  }
+  throw new GrailsTagException("Unclosed GSP expression",pageName,getLineNumberForToken());
 }

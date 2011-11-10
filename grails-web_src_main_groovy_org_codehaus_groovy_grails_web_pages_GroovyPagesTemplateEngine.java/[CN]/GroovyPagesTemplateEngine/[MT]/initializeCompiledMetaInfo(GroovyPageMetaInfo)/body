@@ -1,11 +1,11 @@
 {
   meta.initializeOnDemand(new GroovyPageMetaInfo.GroovyPageMetaInfoInitializer(){
-    public void initialize(    GroovyPageMetaInfo meta){
-      meta.setGrailsApplication(grailsApplication);
-      meta.setJspTagLibraryResolver(jspTagLibraryResolver);
-      meta.setTagLibraryLookup(tagLibraryLookup);
-      meta.initialize();
-      GroovyPagesMetaUtils.registerMethodMissingForGSP(meta.getPageClass(),tagLibraryLookup);
+    public void initialize(    GroovyPageMetaInfo metaInfo){
+      metaInfo.setGrailsApplication(grailsApplication);
+      metaInfo.setJspTagLibraryResolver(jspTagLibraryResolver);
+      metaInfo.setTagLibraryLookup(tagLibraryLookup);
+      metaInfo.initialize();
+      GroovyPagesMetaUtils.registerMethodMissingForGSP(metaInfo.getPageClass(),tagLibraryLookup);
     }
   }
 );

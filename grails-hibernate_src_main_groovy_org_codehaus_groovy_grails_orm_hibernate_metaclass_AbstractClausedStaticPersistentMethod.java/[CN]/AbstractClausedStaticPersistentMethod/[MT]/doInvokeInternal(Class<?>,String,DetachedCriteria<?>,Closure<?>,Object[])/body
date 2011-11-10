@@ -1,5 +1,5 @@
 {
-  List expressions=new ArrayList();
+  List<GrailsMethodExpression> expressions=new ArrayList<GrailsMethodExpression>();
   if (arguments == null)   arguments=new Object[0];
   Matcher match=super.getPattern().matcher(methodName);
   match.find();

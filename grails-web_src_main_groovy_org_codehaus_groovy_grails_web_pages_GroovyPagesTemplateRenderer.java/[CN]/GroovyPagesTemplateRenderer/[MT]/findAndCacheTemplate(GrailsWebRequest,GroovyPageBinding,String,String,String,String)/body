@@ -33,7 +33,7 @@
         }
         boolean allowCaching=!disableCache;
         if (t == null && scaffoldingTemplateGenerator != null) {
-          t=generateScaffoldedTemplate(webRequest,templateName,uri);
+          t=generateScaffoldedTemplate(webRequest,uri);
           allowCaching=true;
         }
         if (t != null && allowCaching) {

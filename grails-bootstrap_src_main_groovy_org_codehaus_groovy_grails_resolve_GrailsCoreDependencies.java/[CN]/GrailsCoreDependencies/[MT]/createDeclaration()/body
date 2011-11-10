@@ -1,6 +1,6 @@
 {
   return new Closure(this,this){
-    public Object doCall(){
+    @SuppressWarnings("unused") public Object doCall(){
       DependencyConfigurationConfigurer rootDelegate=(DependencyConfigurationConfigurer)getDelegate();
       rootDelegate.log("warn");
       rootDelegate.repositories(new Closure(this,GrailsCoreDependencies.this){

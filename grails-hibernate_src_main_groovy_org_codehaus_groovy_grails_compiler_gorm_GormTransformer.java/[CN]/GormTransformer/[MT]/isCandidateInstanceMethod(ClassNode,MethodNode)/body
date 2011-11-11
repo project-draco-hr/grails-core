@@ -1,4 +1,0 @@
-{
-  String methodName=declaredMethod.getName();
-  return !isGetter(methodName,declaredMethod) && !isSetter(methodName,declaredMethod) && super.isCandidateInstanceMethod(classNode,declaredMethod);
-}

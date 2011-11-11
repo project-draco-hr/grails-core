@@ -1,3 +1,9 @@
 {
-  alteredClasses.add(cmcu.getClassToUpdate());
+  MetaClass oldMetaClass=cmcu.getOldMetaClass();
+  if (oldMetaClass != null) {
+    alteredClasses.put(cmcu.getClassToUpdate(),oldMetaClass);
+  }
+ else {
+    alteredClasses.put(cmcu.getClassToUpdate(),NO_CUSTOM_METACLASS);
+  }
 }

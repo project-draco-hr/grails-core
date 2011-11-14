@@ -1,0 +1,3 @@
+{
+  getBeanDefinition().addQualifier(new AutowireCandidateQualifier(qualifierClass,name));
+}

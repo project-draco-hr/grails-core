@@ -4,12 +4,14 @@
   if (lookup != null) {
     GroovyObject tagLibrary=lookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,methodName);
     if (tagLibrary != null) {
-      MetaClass controllerMc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
-      WebMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
-      if (controllerMc.respondsTo(instance,methodName,args).size() > 0) {
-        return controllerMc.invokeMethod(instance,methodName,args);
+      if (!developmentMode) {
+        MetaClass controllerMc=GrailsMetaClassUtils.getMetaClass(instance);
+        WebMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
       }
-      throw new MissingMethodException(methodName,instance.getClass(),args);
+      List<MetaMethod> respondsTo=tagLibrary.getMetaClass().respondsTo(tagLibrary,methodName,args);
+      if (respondsTo.size() > 0) {
+        return respondsTo.get(0).invoke(tagLibrary,args);
+      }
     }
   }
   throw new MissingMethodException(methodName,instance.getClass(),args);

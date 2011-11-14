@@ -2,8 +2,8 @@
   TagLibraryLookup gspTagLibraryLookup=getTagLibraryLookup();
   if (gspTagLibraryLookup != null) {
     Object result=gspTagLibraryLookup.lookupNamespaceDispatcher(name);
-    String namespace=getNamespace(instance);
     if (result == null) {
+      String namespace=getNamespace(instance);
       GroovyObject tagLibrary=gspTagLibraryLookup.lookupTagLibrary(namespace,name);
       if (tagLibrary == null) {
         tagLibrary=gspTagLibraryLookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,name);
@@ -15,9 +15,11 @@
         }
       }
     }
-    if (result != null) {
+    if (result != null && !developmentMode) {
       MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
       WebMetaUtils.registerPropertyMissingForTag(mc,name,result);
+    }
+    if (result != null) {
       return result;
     }
   }

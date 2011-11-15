@@ -1,7 +1,5 @@
 {
   CachedIntrospectionResults.clearClassLoader(aClass.getClassLoader());
   ClassPropertyFetcher.clearClassPropertyFetcherCache();
-  if (!aClass.getName().contains("$")) {
-    GrailsProjectWatcher.firePendingClassChangeEvents(aClass);
-  }
+  GrailsProjectWatcher.firePendingClassChangeEvents(aClass);
 }

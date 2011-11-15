@@ -66,7 +66,9 @@
           continue;
         }
         dispatched=true;
-        checkForCompilationErrors(request);
+        if (!WAR_DEPLOYED) {
+          checkDevelopmentReloadingState(request);
+        }
         request=checkMultipart(request);
         if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
           if (info.isParsingRequest()) {

@@ -1,0 +1,6 @@
+{
+  Class classToUpdate=cmcu.getClassToUpdate();
+  MetaClass newMetaClass=cmcu.getNewMetaClass();
+  System.out.println("Class [" + classToUpdate + "] updated MetaClass to ["+ newMetaClass+ "]");
+  Thread.dumpStack();
+}

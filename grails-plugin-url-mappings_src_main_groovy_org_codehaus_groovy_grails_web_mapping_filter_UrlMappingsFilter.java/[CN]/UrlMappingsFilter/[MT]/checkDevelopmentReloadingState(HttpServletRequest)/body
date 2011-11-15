@@ -1,0 +1,18 @@
+{
+  while (GrailsProjectWatcher.isReloadInProgress()) {
+    try {
+      Thread.sleep(100);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+  if (request.getAttribute(GrailsExceptionResolver.EXCEPTION_ATTRIBUTE) != null)   return;
+  MultipleCompilationErrorsException compilationError=GrailsProjectWatcher.getCurrentCompilationError();
+  if (compilationError != null) {
+    throw compilationError;
+  }
+  Throwable currentReloadError=GrailsProjectWatcher.getCurrentReloadError();
+  if (currentReloadError != null) {
+    throw new RuntimeException(currentReloadError);
+  }
+}

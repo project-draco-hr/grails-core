@@ -1,6 +1,8 @@
 {
   super(clazz,"");
   this.application=application;
+  this.sessionFactory=sessionFactory;
+  this.sessionFactoryName=sessionFactoryName;
   new StandardAnnotationMetadata(clazz);
   String ident=metaData.getIdentifierPropertyName();
   if (ident != null) {

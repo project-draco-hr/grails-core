@@ -8,7 +8,7 @@
   addFilterDefinition(new FilterDefinition("dynamicFilterEnabler","1=1",Collections.emptyMap()));
   SessionFactory sessionFactory=super.buildSessionFactory();
   if (grailsApplication != null) {
-    GrailsHibernateUtil.configureHibernateDomainClasses(sessionFactory,grailsApplication);
+    GrailsHibernateUtil.configureHibernateDomainClasses(sessionFactory,sessionFactoryBeanName,grailsApplication);
   }
   return sessionFactory;
 }

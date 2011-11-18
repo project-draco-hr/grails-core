@@ -1,0 +1,20 @@
+{
+  UrlMappingInfo info=matchStatusCode(ex,urlMappings);
+  try {
+    if (info != null && info.getViewName() != null) {
+      resolveView(request,info,mv);
+    }
+ else     if (info != null && info.getControllerName() != null) {
+      String uri=determineUri(request);
+      if (!response.isCommitted()) {
+        forwardRequest(info,request,response,mv,uri);
+        return new ModelAndView();
+      }
+    }
+    return mv;
+  }
+ catch (  Exception e) {
+    LOG.error("Unable to render errors view: " + e.getMessage(),e);
+    throw new GrailsRuntimeException(e);
+  }
+}

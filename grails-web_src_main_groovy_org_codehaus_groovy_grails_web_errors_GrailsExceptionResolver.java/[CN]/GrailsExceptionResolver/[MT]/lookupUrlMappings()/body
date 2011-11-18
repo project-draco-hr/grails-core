@@ -1,0 +1,8 @@
+{
+  try {
+    return WebUtils.lookupUrlMappings(servletContext);
+  }
+ catch (  Exception ignored) {
+    return null;
+  }
+}

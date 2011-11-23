@@ -1,7 +1,3 @@
 {
-  if (hibernateProjectionList != null) {
-    this.criteria.setProjection(hibernateProjectionList.getHibernateProjectionList());
-  }
-  this.criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-  return this.criteria.list();
+  return list();
 }

@@ -11,6 +11,15 @@
     addMockCollaborator(type,targetClass,methodBody);
     BinaryExpression testTargetAssignment=new BinaryExpression(fieldExpression,ASSIGN,new ConstructorCallExpression(targetClass.getType(),GrailsArtefactClassInjector.ZERO_ARGS));
     methodBody.addStatement(new ExpressionStatement(testTargetAssignment));
+    VariableExpression appCtxVar=new VariableExpression("applicationContext");
+    BooleanExpression applicationContextCheck=new BooleanExpression(new BinaryExpression(appCtxVar,GrailsASTUtils.NOT_EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION));
+    BlockStatement performAutowireBlock=new BlockStatement();
+    ArgumentListExpression arguments=new ArgumentListExpression();
+    arguments.addExpression(fieldExpression);
+    arguments.addExpression(new ConstantExpression(1));
+    arguments.addExpression(new ConstantExpression(false));
+    performAutowireBlock.addStatement(new ExpressionStatement(new MethodCallExpression(new PropertyExpression(appCtxVar,"autowireCapableBeanFactory"),"autowireBeanProperties",arguments)));
+    methodBody.addStatement(new IfStatement(applicationContextCheck,performAutowireBlock,new BlockStatement()));
     methodNode=new MethodNode(methodName,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,methodBody);
     methodNode.addAnnotation(BEFORE_ANNOTATION);
     methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);

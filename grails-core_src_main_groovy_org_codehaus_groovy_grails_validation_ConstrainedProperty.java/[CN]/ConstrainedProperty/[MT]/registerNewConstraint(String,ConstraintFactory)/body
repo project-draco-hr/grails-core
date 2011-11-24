@@ -1,5 +1,6 @@
 {
   Assert.hasLength(name,"Argument [name] cannot be null or blank");
   Assert.notNull(factory,"Argument [factory] cannot be null");
-  constraints.put(name,factory);
+  List<Object> objects=getOrInitializeConstraint(name);
+  objects.add(factory);
 }

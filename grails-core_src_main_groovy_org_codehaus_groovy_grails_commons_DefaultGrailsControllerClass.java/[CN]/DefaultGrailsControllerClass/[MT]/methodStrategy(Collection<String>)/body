@@ -12,7 +12,7 @@
     }
     superClass=superClass.getSuperclass();
   }
-  if (!isActionMethod(defaultActionName) && methodNames.size() == 1) {
+  if (!isActionMethod(defaultActionName) && methodNames.size() == 1 && !isReadableProperty("scaffold")) {
     defaultActionName=methodNames.iterator().next();
   }
 }

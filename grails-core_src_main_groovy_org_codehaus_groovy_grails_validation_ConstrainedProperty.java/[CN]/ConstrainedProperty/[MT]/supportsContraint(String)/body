@@ -3,8 +3,8 @@
     return bean.isWritableProperty(constraintName);
   }
   try {
-    Constraint c=instantiateConstraint(constraintName);
-    return c.supports(propertyType);
+    Constraint c=instantiateConstraint(constraintName,false);
+    return c != null && c.supports(propertyType);
   }
  catch (  Exception e) {
     LOG.error("Exception thrown instantiating constraint [" + constraintName + "] to class ["+ owningClass+ "]",e);

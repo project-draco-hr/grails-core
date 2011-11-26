@@ -27,7 +27,7 @@
           registerDependencies(dependencyManager,"build",buildDependencies);
           ModuleRevisionId[] antDependencies={ModuleRevisionId.newInstance("org.apache.ant","ant",antVersion),ModuleRevisionId.newInstance("org.apache.ant","ant-launcher",antVersion),ModuleRevisionId.newInstance("org.apache.ant","ant-junit",antVersion),ModuleRevisionId.newInstance("org.apache.ant","ant-trax","1.7.1")};
           registerDependencies(dependencyManager,"build",antDependencies,"junit");
-          ModuleRevisionId[] docDependencies={ModuleRevisionId.newInstance("org.xhtmlrenderer","core-renderer","R8"),ModuleRevisionId.newInstance("com.lowagie","itext","2.1.7"),ModuleRevisionId.newInstance("org.grails","grails-gdoc-engine","1.0.1"),ModuleRevisionId.newInstance("org.yaml","snakeyaml","1.8")};
+          ModuleRevisionId[] docDependencies={ModuleRevisionId.newInstance("org.xhtmlrenderer","core-renderer","R8"),ModuleRevisionId.newInstance("com.lowagie","itext","2.0.8"),ModuleRevisionId.newInstance("org.grails","grails-gdoc-engine","1.0.1"),ModuleRevisionId.newInstance("org.yaml","snakeyaml","1.8")};
           registerDependencies(dependencyManager,"docs",docDependencies);
           String tomcatVersion="7.0.16";
           ModuleRevisionId[] providedDependencies={ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-core",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-jasper",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-logging-log4j",tomcatVersion)};

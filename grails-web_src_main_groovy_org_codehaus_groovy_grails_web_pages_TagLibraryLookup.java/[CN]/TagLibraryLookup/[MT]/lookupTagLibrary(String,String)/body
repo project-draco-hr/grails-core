@@ -1,3 +1,5 @@
 {
-  return (GroovyObject)tagLibraries.get(tagNameKey(namespace,tagName));
+  Map<String,Object> tags=tagNamespaces.get(namespace);
+  if (tags == null)   return null;
+  return (GroovyObject)tags.get(tagName);
 }

@@ -1,13 +1,16 @@
 {
   String namespace=taglib.getNamespace();
   namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,this));
+  Set<String> tagsThatReturnObject=tagsThatReturnObjectForNamespace.get(namespace);
+  if (tagsThatReturnObject == null) {
+    tagsThatReturnObject=new HashSet<String>();
+    tagsThatReturnObjectForNamespace.put(namespace,tagsThatReturnObject);
+  }
   for (  String tagName : taglib.getTagNames()) {
-    String nameKey=tagNameKey(namespace,tagName);
-    putTagLib(nameKey,taglib);
-    tagsThatReturnObject.remove(nameKey);
+    putTagLib(namespace,tagName,taglib);
+    tagsThatReturnObject.remove(tagName);
   }
   for (  String tagName : taglib.getTagNamesThatReturnObject()) {
-    String nameKey=tagNameKey(namespace,tagName);
-    tagsThatReturnObject.add(nameKey);
+    tagsThatReturnObject.add(tagName);
   }
 }

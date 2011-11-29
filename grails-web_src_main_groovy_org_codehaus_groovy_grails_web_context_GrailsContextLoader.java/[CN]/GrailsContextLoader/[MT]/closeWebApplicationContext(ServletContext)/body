@@ -5,10 +5,10 @@
   WebApplicationContext ctx=WebApplicationContextUtils.getWebApplicationContext(servletContext);
   ConfigurableApplicationContext parent=ctx != null ? (ConfigurableApplicationContext)ctx.getParent() : null;
   try {
-    super.closeWebApplicationContext(servletContext);
+    ShutdownOperations.runOperations();
   }
   finally {
-    ShutdownOperations.runOperations();
+    super.closeWebApplicationContext(servletContext);
   }
   if (parent != null) {
     LOG.info("Destroying Spring parent WebApplicationContext " + parent.getDisplayName());

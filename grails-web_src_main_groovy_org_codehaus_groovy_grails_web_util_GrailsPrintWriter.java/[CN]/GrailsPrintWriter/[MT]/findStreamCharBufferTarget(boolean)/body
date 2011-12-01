@@ -1,9 +1,6 @@
 {
   boolean allowCaching=markUsed;
   Writer currentOut=getOut();
-  if (allowCaching && streamCharBufferTarget != null && previousOut == currentOut) {
-    return streamCharBufferTarget;
-  }
   Writer target=currentOut;
   while (target instanceof GrailsWrappedWriter) {
     GrailsWrappedWriter gpr=((GrailsWrappedWriter)target);

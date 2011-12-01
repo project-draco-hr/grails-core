@@ -15,6 +15,10 @@
         }
         return testForMethod;
       }
+ else {
+        addMockCollaboratorToSetup(classNode,value,artefactType);
+        return null;
+      }
     }
   }
   weaveMixinClass(classNode,DomainClassUnitTestMixin.class);

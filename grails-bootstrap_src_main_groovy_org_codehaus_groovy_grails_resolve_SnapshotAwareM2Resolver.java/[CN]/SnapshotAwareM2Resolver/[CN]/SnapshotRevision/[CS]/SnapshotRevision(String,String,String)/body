@@ -1,5 +1,5 @@
 {
   this.revision=revision + "-SNAPSHOT";
   this.uniqueRevision=revision + "-" + uniqueRevisionSuffix;
-  this.lastModified=lastModified;
+  this.lastModified=calculateLastModified(lastModified);
 }

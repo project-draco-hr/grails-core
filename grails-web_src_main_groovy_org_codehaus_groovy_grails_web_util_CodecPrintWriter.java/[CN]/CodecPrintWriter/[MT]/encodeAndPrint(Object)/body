@@ -12,6 +12,9 @@
  else   if (clazz == StreamCharBuffer.class) {
     super.write((StreamCharBuffer)encoded);
   }
+ else   if (clazz == GStringImpl.class) {
+    super.write((Writable)encoded);
+  }
  else   if (encoded instanceof Writable) {
     super.write((Writable)encoded);
   }

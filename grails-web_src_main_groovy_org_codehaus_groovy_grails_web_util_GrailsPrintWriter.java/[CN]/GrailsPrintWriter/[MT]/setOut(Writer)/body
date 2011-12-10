@@ -1,8 +1,5 @@
 {
-  if (newOut instanceof GrailsWrappedWriter) {
-    this.out=((GrailsWrappedWriter)newOut).unwrap();
-  }
- else {
-    this.out=newOut;
-  }
+  this.out=unwrapWriter(newOut);
+  this.streamCharBufferTarget=null;
+  this.previousOut=null;
 }

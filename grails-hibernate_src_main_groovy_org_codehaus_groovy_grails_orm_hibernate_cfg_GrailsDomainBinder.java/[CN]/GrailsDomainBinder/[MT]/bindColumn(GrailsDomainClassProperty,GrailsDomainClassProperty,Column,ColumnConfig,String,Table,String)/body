@@ -38,13 +38,16 @@
   }
   ConstrainedProperty cp=getConstrainedProperty(property);
   if (cp != null && cp.hasAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT)) {
-    UniqueConstraint uc=(UniqueConstraint)cp.getAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT);
-    if (uc != null && uc.isUnique()) {
-      if (!uc.isUniqueWithinGroup()) {
-        column.setUnique(true);
-      }
- else       if (uc.getUniquenessGroup().size() > 0) {
-        createKeyForProps(property,path,table,columnName,uc.getUniquenessGroup(),sessionFactoryBeanName);
+    Constraint appliedConstraint=cp.getAppliedConstraint(UniqueConstraint.UNIQUE_CONSTRAINT);
+    if (appliedConstraint instanceof UniqueConstraint) {
+      UniqueConstraint uc=(UniqueConstraint)appliedConstraint;
+      if (uc != null && uc.isUnique()) {
+        if (!uc.isUniqueWithinGroup()) {
+          column.setUnique(true);
+        }
+ else         if (uc.getUniquenessGroup().size() > 0) {
+          createKeyForProps(property,path,table,columnName,uc.getUniquenessGroup(),sessionFactoryBeanName);
+        }
       }
     }
   }

@@ -11,12 +11,12 @@
     }
     GrailsWebRequest webRequest=(GrailsWebRequest)request;
     HttpServletResponse response=webRequest.getCurrentResponse();
-    if (!(response instanceof GrailsContentBufferingResponse)) {
+    GrailsContentBufferingResponse contentBufferingResponse=getContentBufferingResponse(response);
+    if (contentBufferingResponse == null) {
       super.afterCompletion(request,ex);
       return;
     }
-    GrailsContentBufferingResponse bufferingResponse=(GrailsContentBufferingResponse)response;
-    if (!bufferingResponse.isActive()) {
+    if (!contentBufferingResponse.isActive()) {
       super.afterCompletion(request,ex);
       return;
     }

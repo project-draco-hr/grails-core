@@ -1,10 +1,10 @@
 {
   if (timeout < 0 || updater == null)   return valueRef.get();
-  if (System.currentTimeMillis() - timeout > createdMillis) {
+  if (hasExpired(timeout)) {
     try {
       long beforeLockingCreatedMillis=createdMillis;
       writeLock.lock();
-      if (beforeLockingCreatedMillis == createdMillis || createdMillis == 0L) {
+      if (shouldUpdate(beforeLockingCreatedMillis)) {
         valueRef.set(updater.run());
         resetTimestamp();
       }

@@ -4,9 +4,9 @@
   }
   String controllerName=getNameForController(controller);
   String viewNameWithFormat=resolveViewFormat(viewName);
-  GroovyPageScriptSource scriptSource=findResourceScriptSource(uriService.getViewURI(controllerName,viewNameWithFormat));
+  GroovyPageScriptSource scriptSource=findPage(uriService.getViewURI(controllerName,viewNameWithFormat));
   if (scriptSource == null) {
-    scriptSource=findResourceScriptSource(uriService.getViewURI(controllerName,viewName));
+    scriptSource=findPage(uriService.getViewURI(controllerName,viewName));
   }
   if (scriptSource == null && pluginManager != null) {
     String pathToView=pluginManager.getPluginViewsPathForInstance(controller);

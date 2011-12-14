@@ -1,0 +1,18 @@
+{
+  Template t=null;
+  Collection<String> controllerActions=scaffoldedActionMap.get(webRequest.getControllerName());
+  if (controllerActions != null && controllerActions.contains(webRequest.getActionName())) {
+    GrailsDomainClass domainClass=controllerToScaffoldedDomainClassMap.get(webRequest.getControllerName());
+    if (domainClass != null) {
+      int i=uri.lastIndexOf('/');
+      String scaffoldedtemplateName=i > -1 ? uri.substring(i) : uri;
+      if (scaffoldedtemplateName.toLowerCase().endsWith(".gsp")) {
+        scaffoldedtemplateName=scaffoldedtemplateName.substring(0,scaffoldedtemplateName.length() - 4);
+      }
+      FastStringWriter sw=new FastStringWriter();
+      ReflectionUtils.invokeMethod(generateViewMethod,scaffoldingTemplateGenerator,domainClass,scaffoldedtemplateName,sw);
+      t=groovyPagesTemplateEngine.createTemplate(sw.toString(),uri);
+    }
+  }
+  return t;
+}

@@ -1,14 +1,14 @@
 {
   if (uri == null)   return null;
-  GroovyPageScriptSource scriptSource=uriResolveCache.get(uri);
-  if (scriptSource == null) {
-    scriptSource=super.findPage(uri);
-    if (scriptSource == null && Environment.isWarDeployed()) {
-      uriResolveCache.put(uri,NULL_SCRIPT);
-    }
- else     if (scriptSource != null) {
-      uriResolveCache.put(uri,scriptSource);
+  PrivilegedAction<GroovyPageScriptSource> updater=new PrivilegedAction<GroovyPageScriptSource>(){
+    public GroovyPageScriptSource run(){
+      GroovyPageScriptSource scriptSource=CachingGrailsConventionGroovyPageLocator.super.findPage(uri);
+      if (scriptSource == null) {
+        scriptSource=NULL_SCRIPT;
+      }
+      return scriptSource;
     }
   }
-  return scriptSource == NULL_SCRIPT ? null : scriptSource;
+;
+  return lookupCache(GroovyPageLocatorCacheKey.build(uri,null,null),updater);
 }

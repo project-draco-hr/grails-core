@@ -1,4 +1,4 @@
 {
-  put(key,new Integer(value));
+  put(key,Integer.valueOf(value));
   return this;
 }

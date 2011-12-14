@@ -8,7 +8,7 @@
   }
   Integer constantNumber=constantsToNumbers.get(text);
   if (constantNumber == null) {
-    constantNumber=new Integer(constantCount++);
+    constantNumber=Integer.valueOf(constantCount++);
     constantsToNumbers.put(text,constantNumber);
     htmlParts.add(text);
   }

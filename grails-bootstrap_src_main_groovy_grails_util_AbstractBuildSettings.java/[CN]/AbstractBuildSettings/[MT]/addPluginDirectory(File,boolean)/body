@@ -1,4 +1,5 @@
 {
+  getPluginDirectories();
   if (location != null) {
     Collection<File> directories=getPluginDirectories();
     if (!directories.contains(location)) {

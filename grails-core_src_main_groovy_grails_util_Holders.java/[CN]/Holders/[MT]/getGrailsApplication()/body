@@ -1,0 +1,11 @@
+{
+  try {
+    return (GrailsApplication)getApplicationContext().getBean(APPLICATION_BEAN_NAME);
+  }
+ catch (  IllegalStateException e) {
+    return applicationSingleton;
+  }
+catch (  IllegalArgumentException e) {
+    return applicationSingleton;
+  }
+}

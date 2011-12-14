@@ -1,7 +1,9 @@
 {
-  this.hibernateTemplate=new HibernateTemplate(sessionFactory);
-  this.datastore=hibernateDatastore;
+  datastore=hibernateDatastore;
   if (datastore.getMappingContext() instanceof GrailsDomainClassMappingContext) {
-    this.hibernateTemplate.setCacheQueries(GrailsHibernateUtil.isCacheQueriesByDefault(((GrailsDomainClassMappingContext)datastore.getMappingContext()).getGrailsApplication()));
+    hibernateTemplate=new GrailsHibernateTemplate(sessionFactory,((GrailsDomainClassMappingContext)datastore.getMappingContext()).getGrailsApplication());
+  }
+ else {
+    hibernateTemplate=new GrailsHibernateTemplate(sessionFactory);
   }
 }

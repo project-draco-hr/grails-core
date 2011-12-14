@@ -1,0 +1,5 @@
+{
+  GrailsPluginManager current=getPluginManager();
+  Assert.notNull(current,"No PluginManager set");
+  return current;
+}

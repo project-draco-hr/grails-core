@@ -1,0 +1,11 @@
+{
+  VariableExpression appCtxVar=new VariableExpression("applicationContext");
+  BooleanExpression applicationContextCheck=new BooleanExpression(new BinaryExpression(appCtxVar,GrailsASTUtils.NOT_EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION));
+  BlockStatement performAutowireBlock=new BlockStatement();
+  ArgumentListExpression arguments=new ArgumentListExpression();
+  arguments.addExpression(fieldExpression);
+  arguments.addExpression(new ConstantExpression(1));
+  arguments.addExpression(new ConstantExpression(false));
+  performAutowireBlock.addStatement(new ExpressionStatement(new MethodCallExpression(new PropertyExpression(appCtxVar,"autowireCapableBeanFactory"),"autowireBeanProperties",arguments)));
+  return new IfStatement(applicationContextCheck,performAutowireBlock,new BlockStatement());
+}

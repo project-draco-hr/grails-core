@@ -17,7 +17,7 @@
       }
     }
   }
- else   if (isUaaAccepted(privacyLevel)) {
+  if (isUaaAccepted(privacyLevel)) {
     Runnable r=new Runnable(){
       public void run(){
         final UaaClient.Product product=VersionHelper.getProduct("Grails",settings.getGrailsVersion());
@@ -48,5 +48,6 @@
 ;
     ConcurrentTaskScheduler scheduler=new ConcurrentTaskScheduler();
     scheduler.schedule(r,new Date(System.currentTimeMillis() + ONE_MINUTE));
+    enabled=true;
   }
 }

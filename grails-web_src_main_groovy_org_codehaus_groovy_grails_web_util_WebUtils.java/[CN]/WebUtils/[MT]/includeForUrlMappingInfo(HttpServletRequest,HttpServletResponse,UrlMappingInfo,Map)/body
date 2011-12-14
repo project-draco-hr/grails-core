@@ -5,8 +5,10 @@
   String currentAction=null;
   String currentId=null;
   ModelAndView currentMv=null;
+  Binding currentPageBinding=null;
   Map currentParams=null;
   if (webRequest != null) {
+    currentPageBinding=(Binding)webRequest.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,0);
     currentController=webRequest.getControllerName();
     currentAction=webRequest.getActionName();
     currentId=webRequest.getId();
@@ -25,6 +27,7 @@
   }
   finally {
     if (webRequest != null) {
+      webRequest.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,currentPageBinding,0);
       webRequest.getParameterMap().clear();
       webRequest.getParameterMap().putAll(currentParams);
       webRequest.setId(currentId);

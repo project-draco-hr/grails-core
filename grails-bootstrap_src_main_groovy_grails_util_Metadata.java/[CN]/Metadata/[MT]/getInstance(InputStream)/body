@@ -1,12 +1,5 @@
 {
-  Metadata m=new Metadata();
-  metadata=new FinalReference<Metadata>(m);
-  try {
-    m.load(inputStream);
-    m.initialized=true;
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
-  }
+  Metadata m=new Metadata(inputStream);
+  holder.set(new FinalReference<Metadata>(m));
   return m;
 }

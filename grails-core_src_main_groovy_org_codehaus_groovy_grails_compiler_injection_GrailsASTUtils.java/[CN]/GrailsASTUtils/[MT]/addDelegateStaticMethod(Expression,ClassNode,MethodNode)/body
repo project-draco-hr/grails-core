@@ -11,7 +11,10 @@
   }
   MethodCallExpression methodCallExpression=new MethodCallExpression(expression,declaredMethodName,arguments);
   methodCallExpression.setMethodTarget(delegateMethod);
-  methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,delegateMethod);
+  VariableExpression apiVar=addApiVariableDeclaration(expression,delegateMethod,methodBody);
+  IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
+  methodBody.addStatement(ifStatement);
   ClassNode returnType=nonGeneric(delegateMethod.getReturnType());
   if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
     declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;

@@ -1,5 +1,3 @@
 {
-synchronized (FactoryHolder.class) {
-    factory=newFactory;
-  }
+  holder.set(factory);
 }

@@ -1,0 +1,9 @@
+{
+  if (clazz == PrintWriter.class) {
+    return asPrintWriter();
+  }
+  if (clazz == Writer.class) {
+    return this;
+  }
+  return DefaultTypeTransformation.castToType(this,clazz);
+}

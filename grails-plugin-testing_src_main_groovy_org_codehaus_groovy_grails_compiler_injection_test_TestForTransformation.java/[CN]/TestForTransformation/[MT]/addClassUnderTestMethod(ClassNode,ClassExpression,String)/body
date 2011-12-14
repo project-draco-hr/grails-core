@@ -1,20 +1,31 @@
 {
   String methodName="setup" + type + "UnderTest";
   String fieldName=GrailsNameUtils.getPropertyName(type);
+  String getterName=GrailsNameUtils.getGetterName(fieldName);
+  fieldName='$' + fieldName;
   if (classNode.getField(fieldName) == null) {
     classNode.addField(fieldName,Modifier.PRIVATE,targetClass.getType(),null);
   }
   MethodNode methodNode=classNode.getMethod(methodName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  VariableExpression fieldExpression=new VariableExpression(fieldName);
   if (methodNode == null) {
-    BlockStatement methodBody=new BlockStatement();
-    VariableExpression fieldExpression=new VariableExpression(fieldName);
-    addMockCollaborator(type,targetClass,methodBody);
-    BinaryExpression testTargetAssignment=new BinaryExpression(fieldExpression,ASSIGN,new ConstructorCallExpression(targetClass.getType(),GrailsArtefactClassInjector.ZERO_ARGS));
-    methodBody.addStatement(new ExpressionStatement(testTargetAssignment));
-    methodNode=new MethodNode(methodName,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,methodBody);
+    BlockStatement setupMethodBody=new BlockStatement();
+    addMockCollaborator(type,targetClass,setupMethodBody);
+    methodNode=new MethodNode(methodName,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,setupMethodBody);
     methodNode.addAnnotation(BEFORE_ANNOTATION);
     methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
     classNode.addMethod(methodNode);
+  }
+  MethodNode getter=classNode.getMethod(getterName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  if (getter == null) {
+    BlockStatement getterBody=new BlockStatement();
+    getter=new MethodNode(getterName,Modifier.PUBLIC,targetClass.getType().getPlainNodeReference(),GrailsArtefactClassInjector.ZERO_PARAMETERS,null,getterBody);
+    BinaryExpression testTargetAssignment=new BinaryExpression(fieldExpression,ASSIGN,new ConstructorCallExpression(targetClass.getType(),GrailsArtefactClassInjector.ZERO_ARGS));
+    getterBody.addStatement(new IfStatement(new BooleanExpression(new BinaryExpression(fieldExpression,GrailsASTUtils.EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION)),new ExpressionStatement(testTargetAssignment),new BlockStatement()));
+    IfStatement autowiringIfStatement=getAutowiringIfStatement(fieldExpression);
+    getterBody.addStatement(autowiringIfStatement);
+    getterBody.addStatement(new ReturnStatement(fieldExpression));
+    classNode.addMethod(getter);
   }
   return methodNode;
 }

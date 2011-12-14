@@ -1,4 +1,4 @@
 {
-  addToCriteria(Restrictions.between(calculatePropertyName(property,this.alias),start,end));
+  addToCriteria(Restrictions.between(calculatePropertyName(property),start,end));
   return this;
 }

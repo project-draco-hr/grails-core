@@ -2,7 +2,7 @@
   if (!isM2compatible()) {
     return null;
   }
-  if (shouldUseMavenMetadata(getWholePattern())) {
+  if (shouldUseMavenMetadata()) {
     InputStream metadataStream=null;
     try {
       String metadataLocation=IvyPatternHelper.substitute(getRoot() + "[organisation]/[module]/[revision]/maven-metadata.xml",mrid);
@@ -31,7 +31,7 @@
           String snapshotRevision=mrid.getRevision();
           String baseRevision=snapshotRevision.substring(0,snapshotRevision.length() - "-SNAPSHOT".length());
           String uniqueRevisionSuffix=new StringBuffer().append(timestamp).append("-").append(buildNumber).toString();
-          return new SnapshotRevision(baseRevision,uniqueRevisionSuffix,Long.parseLong(lastUpdated.toString()));
+          return new SnapshotRevision(baseRevision,uniqueRevisionSuffix,lastUpdated.toString());
         }
       }
  else {

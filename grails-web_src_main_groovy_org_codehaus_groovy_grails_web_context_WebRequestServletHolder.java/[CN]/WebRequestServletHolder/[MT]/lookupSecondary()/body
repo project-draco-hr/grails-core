@@ -1,0 +1,4 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  return webRequest == null ? null : webRequest.getServletContext();
+}

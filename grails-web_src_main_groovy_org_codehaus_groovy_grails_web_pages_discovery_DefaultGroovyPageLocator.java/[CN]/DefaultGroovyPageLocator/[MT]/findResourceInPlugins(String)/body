@@ -1,0 +1,15 @@
+{
+  if (pluginManager == null) {
+    return null;
+  }
+  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+    if (plugin instanceof BinaryGrailsPlugin) {
+      continue;
+    }
+    Resource resource=findResource(resolvePluginViewPath(uri,plugin));
+    if (resource != null) {
+      return resource;
+    }
+  }
+  return null;
+}

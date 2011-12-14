@@ -1,6 +1,5 @@
 {
   super(session,entity);
   this.criteria=criteria;
-  this.opField=ReflectionUtils.findField(SimpleExpression.class,"op");
   ReflectionUtils.makeAccessible(opField);
 }

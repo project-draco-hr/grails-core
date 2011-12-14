@@ -1,0 +1,12 @@
+{
+  Field field=ReflectionUtils.findField(clazz,name);
+  if (field != null) {
+    ReflectionUtils.makeAccessible(field);
+    try {
+      return field.get(clazz);
+    }
+ catch (    IllegalAccessException ignored) {
+    }
+  }
+  return null;
+}

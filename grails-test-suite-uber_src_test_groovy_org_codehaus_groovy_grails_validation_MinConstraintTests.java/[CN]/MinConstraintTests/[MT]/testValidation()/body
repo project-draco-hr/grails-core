@@ -1,8 +1,8 @@
 {
-  testConstraintMessageCodes(getConstraint("testFloat",new Float(1.5d)),new Float(1.4d),new String[]{"testClass.testFloat.min.error","testClass.testFloat.min.notmet"},new Object[]{"testFloat",TestClass.class,new Float(1.4d),new Float(1.5d)});
-  testConstraintPassed(getConstraint("testFloat",new Float(1.5d)),new Float(1.7d));
-  testConstraintFailed(getConstraint("testLong",new Long(15000)),new Long(10000));
-  testConstraintPassed(getConstraint("testInteger",new Integer(100)),new Integer(100));
-  testConstraintPassed(getConstraint("testFloat",new Float(1.5d)),null);
-  testConstraintDefaultMessage(getConstraint("testFloat",new Float(1.7)),new Float(1.5),"Property [{0}] of class [{1}] with value [{2}] is less than minimum value [{3}]");
+  testConstraintMessageCodes(getConstraint("testFloat",1.5f),1.4f,new String[]{"testClass.testFloat.min.error","testClass.testFloat.min.notmet"},new Object[]{"testFloat",TestClass.class,1.4f,1.5f});
+  testConstraintPassed(getConstraint("testFloat",1.5f),1.7f);
+  testConstraintFailed(getConstraint("testLong",15000L),10000L);
+  testConstraintPassed(getConstraint("testInteger",100),100);
+  testConstraintPassed(getConstraint("testFloat",1.5f),null);
+  testConstraintDefaultMessage(getConstraint("testFloat",1.7f),1.5f,"Property [{0}] of class [{1}] with value [{2}] is less than minimum value [{3}]");
 }

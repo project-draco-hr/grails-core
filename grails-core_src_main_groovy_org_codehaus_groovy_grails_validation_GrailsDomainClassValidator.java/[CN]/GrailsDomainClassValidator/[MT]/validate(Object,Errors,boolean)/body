@@ -1,5 +1,5 @@
 {
-  if (!domainClass.getClazz().isInstance(obj)) {
+  if (obj == null || !domainClass.getFullName().equals(obj.getClass().getName())) {
     throw new IllegalArgumentException("Argument [" + obj + "] is not an instance of ["+ domainClass.getClazz()+ "] which this validator is configured for");
   }
   BeanWrapper bean=new BeanWrapperImpl(obj);
@@ -19,12 +19,6 @@
   }
   for (  String name : constrainedPropertyNames) {
     validatePropertyWithConstraint(name,obj,errors,bean,constrainedProperties);
-  }
-  if (obj instanceof GroovyObject) {
-    ((GroovyObject)obj).setProperty(ERRORS_PROPERTY,errors);
-  }
- else {
-    InvokerHelper.setProperty(obj,ERRORS_PROPERTY,errors);
   }
   postValidate(obj,errors);
 }

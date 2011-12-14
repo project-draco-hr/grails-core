@@ -1,5 +1,5 @@
 {
-  Set<GrailsDomainClass> subClasses=domainClass.getSubClasses();
+  Set<GrailsDomainClass> subClasses=new HashSet<GrailsDomainClass>(domainClass.getSubClasses());
   for (  GrailsDomainClass sub : subClasses) {
     if (sub.getClazz().getSuperclass().equals(domainClass.getClazz())) {
       bindSubClass(sub,parent,mappings,sessionFactoryBeanName);

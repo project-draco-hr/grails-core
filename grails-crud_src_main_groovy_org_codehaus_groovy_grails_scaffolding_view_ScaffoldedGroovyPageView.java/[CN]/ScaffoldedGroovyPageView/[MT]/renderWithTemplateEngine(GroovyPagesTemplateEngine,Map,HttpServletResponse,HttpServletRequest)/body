@@ -2,6 +2,7 @@
   if (LOG.isDebugEnabled()) {
     LOG.debug("Rendering scaffolded view [" + getUrl() + "] with model ["+ model+ "]");
   }
+  request.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE);
   Writable w=template.make(model);
   Writer out=null;
   try {

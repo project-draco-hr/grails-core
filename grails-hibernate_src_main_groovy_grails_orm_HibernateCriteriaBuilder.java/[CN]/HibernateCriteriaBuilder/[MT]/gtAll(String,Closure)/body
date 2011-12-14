@@ -1,3 +1,0 @@
-{
-  return gtAll(propertyName,(QueryableCriteria)new DetachedCriteria(targetClass).build(propertyValue));
-}

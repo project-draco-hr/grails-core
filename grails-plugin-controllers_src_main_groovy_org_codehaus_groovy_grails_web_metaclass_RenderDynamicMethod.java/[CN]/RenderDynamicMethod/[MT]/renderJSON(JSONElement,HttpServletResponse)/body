@@ -1,0 +1,4 @@
+{
+  response.setContentType(GrailsWebUtil.getContentType("application/json",gspEncoding));
+  return renderText(object.toString(),response);
+}

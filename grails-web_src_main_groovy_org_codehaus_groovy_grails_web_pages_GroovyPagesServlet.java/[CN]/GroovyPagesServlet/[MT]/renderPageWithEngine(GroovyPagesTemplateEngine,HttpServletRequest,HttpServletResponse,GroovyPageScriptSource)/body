@@ -1,0 +1,18 @@
+{
+  request.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE);
+  GSPResponseWriter out=createResponseWriter(response);
+  try {
+    Template template=engine.createTemplate(scriptSource);
+    if (template instanceof GroovyPageTemplate) {
+      ((GroovyPageTemplate)template).setAllowSettingContentType(true);
+    }
+    template.make().writeTo(out);
+  }
+ catch (  Exception e) {
+    out.setError();
+    throw e;
+  }
+ finally {
+    if (out != null)     out.close();
+  }
+}

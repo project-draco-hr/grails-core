@@ -1,0 +1,16 @@
+{
+  PrivilegedAction<Resource> checkerCallable=new PrivilegedAction<Resource>(){
+    public Resource run(){
+      Resource resource=resourceCallable.run();
+      if (resource != null && resource.exists()) {
+        long currentLastmodified=establishLastModified(resource);
+        if (currentLastmodified > 0 && Math.abs(currentLastmodified - lastModified) > LASTMODIFIED_CHECK_GRANULARITY) {
+          return resource;
+        }
+      }
+      return null;
+    }
+  }
+;
+  return shouldReloadCacheEntry.getValue(LASTMODIFIED_CHECK_INTERVAL,checkerCallable);
+}

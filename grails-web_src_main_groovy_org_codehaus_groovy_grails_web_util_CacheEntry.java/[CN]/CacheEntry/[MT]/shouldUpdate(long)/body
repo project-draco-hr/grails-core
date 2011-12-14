@@ -1,0 +1,3 @@
+{
+  return beforeLockingCreatedMillis == createdMillis || createdMillis == 0L;
+}

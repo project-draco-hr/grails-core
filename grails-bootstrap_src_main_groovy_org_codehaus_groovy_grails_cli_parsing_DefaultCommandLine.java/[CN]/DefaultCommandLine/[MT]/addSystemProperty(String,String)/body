@@ -1,3 +1,6 @@
 {
+  if (Environment.KEY.equals(name)) {
+    setEnvironment(value);
+  }
   systemProperties.put(name,value);
 }

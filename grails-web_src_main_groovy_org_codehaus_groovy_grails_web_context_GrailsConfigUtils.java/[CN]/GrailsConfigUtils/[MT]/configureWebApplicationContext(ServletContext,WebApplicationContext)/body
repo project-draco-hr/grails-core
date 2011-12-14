@@ -1,4 +1,5 @@
 {
+  ServletContextHolder.setServletContext(servletContext);
   GrailsApplication application=(GrailsApplication)parent.getBean(GrailsApplication.APPLICATION_ID);
   if (LOG.isDebugEnabled()) {
     LOG.debug("[GrailsContextLoader] Configuring Grails Application");

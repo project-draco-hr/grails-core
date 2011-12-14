@@ -9,6 +9,6 @@
   }
   Metadata persistedMetadata=Metadata.reload();
   boolean result=allStringValuesMetadata.equals(persistedMetadata);
-  metadata=new SoftReference<Metadata>(transientMetadata);
+  holder.set(new SoftReference<Metadata>(transientMetadata));
   return result;
 }

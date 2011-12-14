@@ -1,8 +1,0 @@
-{
-  if (additionalCriteria != null) {
-    HibernateCriteriaBuilder builder=new HibernateCriteriaBuilder(clazz,session.getSessionFactory());
-    builder.setGrailsApplication(appliation);
-    return builder.buildCriteria(additionalCriteria);
-  }
-  return session.createCriteria(clazz);
-}

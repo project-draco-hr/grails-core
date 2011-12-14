@@ -1,3 +1,3 @@
 {
-  return CONTENT_LENGTH_COUNTING_ENABLED && bytesCounter != null && response != null && !response.isCommitted() && !trouble;
+  return CONTENT_LENGTH_COUNTING_ENABLED && bytesCounter != null && response != null && !response.isCommitted() && !isTrouble();
 }

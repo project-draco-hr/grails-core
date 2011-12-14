@@ -1,0 +1,7 @@
+{
+  Resource resource=findResource(uri);
+  if (resource == null) {
+    resource=findResourceInPlugins(uri);
+  }
+  return resource;
+}

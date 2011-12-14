@@ -6,7 +6,7 @@
     if (plugin instanceof BinaryGrailsPlugin) {
       continue;
     }
-    GroovyPageScriptSource scriptSource=findResourceScriptSource(GrailsResourceUtils.appendPiecesForUri("/plugins/",plugin.getFileSystemName(),GrailsResourceUtils.VIEWS_DIR_PATH,uri));
+    GroovyPageScriptSource scriptSource=findResourceScriptSource(resolvePluginViewPath(uri,plugin));
     if (scriptSource != null) {
       return scriptSource;
     }

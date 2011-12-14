@@ -1,0 +1,6 @@
+{
+  String name=file.getName();
+  String path=file.getAbsolutePath();
+  boolean isSvnFile=path.indexOf(File.separator + SVN_DIR_NAME + File.separator) > 0;
+  return !isSvnFile && (fileExtensions.contains("*") || fileExtensions.contains(StringUtils.getFilenameExtension(name)));
+}

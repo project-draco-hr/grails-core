@@ -126,7 +126,12 @@
     }
  else {
       Object object=arguments[0];
-      renderView=renderObject(object,out);
+      if (object instanceof JSONElement) {
+        renderView=renderJSON((JSONElement)object,response);
+      }
+ else {
+        renderView=renderObject(object,out);
+      }
     }
     try {
       if (!renderView) {

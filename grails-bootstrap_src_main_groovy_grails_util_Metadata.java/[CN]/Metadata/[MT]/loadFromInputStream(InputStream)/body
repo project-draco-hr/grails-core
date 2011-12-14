@@ -1,0 +1,9 @@
+{
+  try {
+    load(inputStream);
+    afterLoading();
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Cannot load application metadata:" + e.getMessage(),e);
+  }
+}

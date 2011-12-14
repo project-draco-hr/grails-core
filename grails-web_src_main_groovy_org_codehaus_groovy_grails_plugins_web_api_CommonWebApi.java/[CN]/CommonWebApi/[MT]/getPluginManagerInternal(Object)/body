@@ -1,0 +1,7 @@
+{
+  if (this.pluginManager == null) {
+    ApplicationContext ctx=getApplicationContext(delegate);
+    pluginManager=ctx != null ? ctx.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class) : null;
+  }
+  return pluginManager;
+}

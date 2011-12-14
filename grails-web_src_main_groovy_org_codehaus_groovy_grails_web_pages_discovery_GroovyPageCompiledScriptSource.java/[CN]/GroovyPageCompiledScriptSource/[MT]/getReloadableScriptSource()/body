@@ -1,0 +1,5 @@
+{
+  if (resourceCallable == null)   return null;
+  Resource resource=groovyPageMetaInfo.checkIfReloadableResourceHasChanged(resourceCallable);
+  return resource == null ? null : new GroovyPageResourceScriptSource(uri,resource);
+}

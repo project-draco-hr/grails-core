@@ -1,0 +1,5 @@
+{
+  String fallbackEnv=System.getProperty(Environment.KEY) != null ? System.getProperty(Environment.KEY) : Environment.DEVELOPMENT.getName();
+  String env=CommandLineParser.DEFAULT_ENVS.get(commandName);
+  return env == null ? fallbackEnv : env;
+}

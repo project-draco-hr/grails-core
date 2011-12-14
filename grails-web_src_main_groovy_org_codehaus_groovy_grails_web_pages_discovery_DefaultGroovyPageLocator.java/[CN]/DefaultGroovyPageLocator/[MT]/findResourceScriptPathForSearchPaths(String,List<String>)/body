@@ -2,7 +2,7 @@
   if (isPrecompiledAvailable()) {
     for (    String searchPath : searchPaths) {
       String gspClassName=precompiledGspMap.get(searchPath);
-      if (gspClassName != null) {
+      if (gspClassName != null && !reloadedPrecompiledGspClassNames.contains(gspClassName)) {
         Class<GroovyPage> gspClass=null;
         try {
           gspClass=(Class<GroovyPage>)Class.forName(gspClassName,true,Thread.currentThread().getContextClassLoader());
@@ -11,22 +11,11 @@
           LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
         }
         if (gspClass != null) {
-          return new GroovyPageCompiledScriptSource(uri,gspClass);
+          return createGroovyPageCompiledScriptSource(uri,searchPath,gspClass);
         }
       }
     }
   }
-  Resource foundResource=null;
-  Resource resource;
-  for (  String path : searchPaths) {
-    for (    ResourceLoader loader : resourceLoaders) {
-      resource=loader.getResource(path);
-      if (resource != null && resource.exists()) {
-        foundResource=resource;
-        break;
-      }
-    }
-    if (foundResource != null)     break;
-  }
+  Resource foundResource=findResource(searchPaths);
   return foundResource != null ? new GroovyPageResourceScriptSource(uri,foundResource) : null;
 }

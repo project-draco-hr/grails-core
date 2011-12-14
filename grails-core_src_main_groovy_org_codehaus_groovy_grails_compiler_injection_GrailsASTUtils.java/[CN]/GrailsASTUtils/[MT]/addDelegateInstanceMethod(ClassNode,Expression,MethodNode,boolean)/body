@@ -17,7 +17,10 @@
   ClassNode returnType=nonGeneric(declaredMethod.getReturnType());
   MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,methodName,arguments);
   methodCallExpression.setMethodTarget(declaredMethod);
-  methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,declaredMethod);
+  VariableExpression apiVar=addApiVariableDeclaration(delegate,declaredMethod,methodBody);
+  IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
+  methodBody.addStatement(ifStatement);
   MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
   methodNode.addAnnotations(declaredMethod.getAnnotations());
   classNode.addMethod(methodNode);

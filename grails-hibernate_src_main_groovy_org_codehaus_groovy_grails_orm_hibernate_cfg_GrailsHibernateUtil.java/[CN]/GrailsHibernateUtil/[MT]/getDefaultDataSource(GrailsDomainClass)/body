@@ -1,4 +1,12 @@
 {
+  if (domainClass instanceof GrailsHibernateDomainClass) {
+    GrailsHibernateDomainClass hibernateDomainClass=(GrailsHibernateDomainClass)domainClass;
+    String sessionFactoryName=hibernateDomainClass.getSessionFactoryName();
+    if ("sessionFactory".equals(sessionFactoryName)) {
+      return GrailsDomainClassProperty.DEFAULT_DATA_SOURCE;
+    }
+    return sessionFactoryName.substring("sessionFactory_".length());
+  }
   List<String> names=getDatasourceNames(domainClass);
   if (names.size() == 1 && GrailsDomainClassProperty.ALL_DATA_SOURCES.equals(names.get(0))) {
     return GrailsDomainClassProperty.DEFAULT_DATA_SOURCE;

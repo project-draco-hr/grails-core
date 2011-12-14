@@ -8,7 +8,6 @@
     char c=text.charAt(end1++);
     char c1=left > 1 ? text.charAt(end1) : 0;
     char c2=left > 2 ? text.charAt(end1 + 1) : 0;
-    boolean gexprBracketsClosed=updateBracketState(c);
 switch (state) {
 case HTML:
       if (isPotentialScriptletOrTag(c,left)) {
@@ -78,25 +77,20 @@ return found(HTML,1);
 }
 break;
 case GTAG_EXPR:
-checkValidExpressionState(c,c1,left);
-if (gexprBracketsClosed && c == '}') {
-return found(GSTART_TAG,1);
-}
-break;
 case GEXPR:
-checkValidExpressionState(c,c1,left);
+return parseExpression();
 case GDIRECT:
-if (gexprBracketsClosed && c == '}') {
+if (c == '}') {
 return found(HTML,1);
 }
 break;
 case GSCRIPT:
-if (gexprBracketsClosed && c == '}' && c1 == '%') {
+if (c == '}' && c1 == '%') {
 return found(HTML,2);
 }
 break;
 case GDECLAR:
-if (gexprBracketsClosed && c == '}' && (c1 == '!' || c1 == '%')) {
+if (c == '}' && (c1 == '!' || c1 == '%')) {
 return found(HTML,2);
 }
 break;

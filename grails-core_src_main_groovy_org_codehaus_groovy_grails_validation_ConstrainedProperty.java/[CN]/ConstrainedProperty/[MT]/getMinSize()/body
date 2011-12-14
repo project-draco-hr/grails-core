@@ -5,7 +5,7 @@
   if ((minSizeConstraint != null) || (sizeConstraint != null)) {
     int minSizeConstraintValue=minSizeConstraint != null ? minSizeConstraint.getMinSize() : Integer.MIN_VALUE;
     int sizeConstraintLowValue=sizeConstraint != null ? sizeConstraint.getRange().getFromInt() : Integer.MIN_VALUE;
-    minSize=new Integer(Math.max(minSizeConstraintValue,sizeConstraintLowValue));
+    minSize=Integer.valueOf(Math.max(minSizeConstraintValue,sizeConstraintLowValue));
   }
   return minSize;
 }

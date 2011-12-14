@@ -1,5 +1,5 @@
 {
-  PrintWriter out=GSPResponseWriter.getInstance(response);
+  GSPResponseWriter out=GSPResponseWriter.getInstance(response);
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
   webRequest.setOut(out);
   return out;

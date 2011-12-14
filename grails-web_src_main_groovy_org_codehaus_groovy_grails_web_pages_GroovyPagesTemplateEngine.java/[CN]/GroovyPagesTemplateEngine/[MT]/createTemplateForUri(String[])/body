@@ -1,13 +1,7 @@
 {
-  GroovyPageScriptSource scriptSource=null;
-  for (  String uri : uris) {
-    scriptSource=groovyPageLocator.findPage(uri);
-    if (scriptSource != null)     break;
-  }
+  GroovyPageScriptSource scriptSource=findScriptSource(uris);
   if (scriptSource != null) {
     return createTemplate(scriptSource);
   }
- else {
-    return null;
-  }
+  return null;
 }

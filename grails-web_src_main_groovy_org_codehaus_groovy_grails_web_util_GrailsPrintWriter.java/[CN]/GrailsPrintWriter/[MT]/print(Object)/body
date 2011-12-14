@@ -3,12 +3,15 @@
     usageFlag=true;
     return;
   }
-  Class clazz=obj.getClass();
+  Class<?> clazz=obj.getClass();
   if (clazz == String.class) {
     write((String)obj);
   }
  else   if (clazz == StreamCharBuffer.class) {
     write((StreamCharBuffer)obj);
+  }
+ else   if (clazz == GStringImpl.class) {
+    write((Writable)obj);
   }
  else   if (obj instanceof Writable) {
     write((Writable)obj);

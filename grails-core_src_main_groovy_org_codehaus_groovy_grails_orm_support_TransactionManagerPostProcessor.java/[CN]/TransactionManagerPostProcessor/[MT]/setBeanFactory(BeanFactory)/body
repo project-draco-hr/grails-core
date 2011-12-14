@@ -1,4 +1,5 @@
 {
   Assert.isInstanceOf(ConfigurableListableBeanFactory.class,beanFactory,"TransactionManagerPostProcessor requires a ConfigurableListableBeanFactory");
   this.beanFactory=(ConfigurableListableBeanFactory)beanFactory;
+  initialize();
 }

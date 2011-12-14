@@ -1,0 +1,6 @@
+{
+  Method method=controllerClass.getMethod(name,args);
+  assertTrue(Modifier.isPublic(method.getModifiers()));
+  assertFalse(Modifier.isFinal(method.getModifiers()));
+  assertSame(Object.class,method.getReturnType());
+}

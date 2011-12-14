@@ -1,11 +1,11 @@
 {
   org.hibernate.criterion.Criterion sqlRestriction;
-  HibernateTemplate hibernateSession=(HibernateTemplate)this.session.getNativeInterface();
+  HibernateTemplate hibernateSession=(HibernateTemplate)session.getNativeInterface();
   SessionFactory sessionFactory=hibernateSession.getSessionFactory();
   String property=criterion.getProperty();
-  PropertyCriterion propertyCriterion=criterion.getPropertyCriterion();
+  Criterion datastoreCriterion=criterion.getPropertyCriterion();
   PersistentProperty pp=entity.getPropertyByName(property);
-  if (pp == null)   throw new InvalidDataAccessResourceUsageException("Cannot execute function defined in query [" + criterion.getFunctionName() + "] on non-existent property ["+ property+ "] of ["+ this.entity.getJavaClass()+ "]");
+  if (pp == null)   throw new InvalidDataAccessResourceUsageException("Cannot execute function defined in query [" + criterion.getFunctionName() + "] on non-existent property ["+ property+ "] of ["+ entity.getJavaClass()+ "]");
   String functionName=criterion.getFunctionName();
   SessionFactoryImplementor impl=(SessionFactoryImplementor)sessionFactory;
   Dialect dialect=impl.getDialect();
@@ -13,19 +13,24 @@
   if (sqlFunction != null) {
     TypeResolver typeResolver=impl.getTypeResolver();
     BasicType basic=typeResolver.basic(pp.getType().getName());
-    if (basic != null) {
-      final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(propertyCriterion,this.alias).toHibernateCriterion(this);
+    if (basic != null && datastoreCriterion instanceof PropertyCriterion) {
+      PropertyCriterion pc=(PropertyCriterion)datastoreCriterion;
+      final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(datastoreCriterion,alias).toHibernateCriterion(this);
       if (hibernateCriterion instanceof SimpleExpression) {
         SimpleExpression expr=(SimpleExpression)hibernateCriterion;
         Object op=ReflectionUtils.getField(opField,expr);
         PropertyMapping mapping=(PropertyMapping)impl.getEntityPersister(entity.getJavaClass().getName());
         String[] columns;
-        if (this.alias != null)         columns=mapping.toColumns(this.alias,property);
+        if (alias != null)         columns=mapping.toColumns(alias,property);
  else         columns=mapping.toColumns(property);
         String root=sqlFunction.render(basic,Arrays.asList(columns),impl);
-        Object value=propertyCriterion.getValue();
-        if (value != null)         sqlRestriction=Restrictions.sqlRestriction(root + op + "?",value,typeResolver.basic(value.getClass().getName()));
- else         sqlRestriction=Restrictions.sqlRestriction(root + op + "?",value,basic);
+        Object value=pc.getValue();
+        if (value != null) {
+          sqlRestriction=Restrictions.sqlRestriction(root + op + "?",value,typeResolver.basic(value.getClass().getName()));
+        }
+ else {
+          sqlRestriction=Restrictions.sqlRestriction(root + op + "?",value,basic);
+        }
       }
  else {
         throw new InvalidDataAccessResourceUsageException("Unsupported function [" + functionName + "] defined in query for property ["+ property+ "] with type ["+ pp.getType()+ "]");

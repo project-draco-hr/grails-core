@@ -15,7 +15,7 @@
  else {
     cacheKey=contextPath + pluginName + uri;
   }
-  CacheEntry cacheEntry=templateCache.get(cacheKey);
+  TemplateRendererCacheEntry cacheEntry=templateCache.get(cacheKey);
   if (cacheEntry != null && cacheEntry.isValid()) {
     t=cacheEntry.template;
   }
@@ -23,21 +23,26 @@
     try {
       if (cacheEntry != null) {
         cacheEntry.getLock().lock();
-      }
-      if (scriptSource != null) {
-        t=groovyPagesTemplateEngine.createTemplate(scriptSource);
-      }
-      boolean allowCaching=!disableCache;
-      if (t == null && scaffoldingTemplateGenerator != null) {
-        t=generateScaffoldedTemplate(webRequest,templateName,uri);
-        allowCaching=true;
-      }
-      if (t != null && allowCaching) {
-        if (cacheEntry != null) {
-          cacheEntry.setTemplate(t);
+        if (cacheEntry.isValid()) {
+          t=cacheEntry.template;
         }
+      }
+      if (t == null) {
+        if (scriptSource != null) {
+          t=groovyPagesTemplateEngine.createTemplate(scriptSource);
+        }
+        boolean allowCaching=!disableCache;
+        if (t == null && scaffoldingTemplateGenerator != null) {
+          t=generateScaffoldedTemplate(webRequest,uri);
+          allowCaching=true;
+        }
+        if (t != null && allowCaching) {
+          if (cacheEntry != null) {
+            cacheEntry.setTemplate(t);
+          }
  else {
-          templateCache.put(cacheKey,new CacheEntry(t,reloadEnabled));
+            templateCache.put(cacheKey,new TemplateRendererCacheEntry(t,reloadEnabled));
+          }
         }
       }
     }

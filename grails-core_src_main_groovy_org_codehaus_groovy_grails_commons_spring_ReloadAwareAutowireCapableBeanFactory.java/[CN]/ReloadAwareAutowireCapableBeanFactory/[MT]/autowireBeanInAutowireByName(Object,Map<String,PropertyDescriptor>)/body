@@ -1,0 +1,41 @@
+{
+  for (  Map.Entry<String,PropertyDescriptor> entry : autowireableBeanProps.entrySet()) {
+    final PropertyDescriptor pd=entry.getValue();
+    final Method writeMethod=pd.getWriteMethod();
+    final String beanName=entry.getKey();
+    final Object value=getBean(beanName);
+    try {
+      if (System.getSecurityManager() != null) {
+        try {
+          AccessController.doPrivileged(new PrivilegedExceptionAction<Object>(){
+            public Object run() throws Exception {
+              writeMethod.invoke(existingBean,value);
+              return null;
+            }
+          }
+,getAccessControlContext());
+        }
+ catch (        PrivilegedActionException ex) {
+          throw ex.getException();
+        }
+      }
+ else {
+        writeMethod.invoke(existingBean,value);
+      }
+    }
+ catch (    TypeMismatchException ex) {
+      throw ex;
+    }
+catch (    InvocationTargetException ex) {
+      PropertyChangeEvent propertyChangeEvent=new PropertyChangeEvent(existingBean,beanName,null,value);
+      if (ex.getTargetException() instanceof ClassCastException) {
+        throw new TypeMismatchException(propertyChangeEvent,pd.getPropertyType(),ex.getTargetException());
+      }
+      throw new MethodInvocationException(propertyChangeEvent,ex.getTargetException());
+    }
+catch (    Exception ex) {
+      PropertyChangeEvent pce=new PropertyChangeEvent(existingBean,beanName,null,value);
+      throw new MethodInvocationException(pce,ex);
+    }
+  }
+}

@@ -1,4 +1,4 @@
 {
-  projectionList.add(Projections.distinct(Projections.property(calculatePropertyName(property,HibernateQuery.this.alias))));
+  projectionList.add(Projections.distinct(Projections.property(calculatePropertyName(property))));
   return this;
 }

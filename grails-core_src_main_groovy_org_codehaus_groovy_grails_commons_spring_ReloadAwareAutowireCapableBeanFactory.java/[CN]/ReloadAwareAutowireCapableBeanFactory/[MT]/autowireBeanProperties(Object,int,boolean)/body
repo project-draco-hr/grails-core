@@ -1,21 +1,11 @@
 {
-  if (!reloadEnabled && autowireMode == AUTOWIRE_BY_NAME) {
-    Set<String> beanProps=autowiringByNameCacheForClass.get(ClassUtils.getUserClass(existingBean.getClass()));
-    if (beanProps != null && beanProps.isEmpty()) {
-      if (logger.isDebugEnabled()) {
-        logger.debug("Nothing to autowire for bean of class " + existingBean.getClass().getName());
-      }
-      return;
-    }
-  }
   if (autowireMode == AUTOWIRE_BY_NAME) {
-    RootBeanDefinition bd=new RootBeanDefinition(ClassUtils.getUserClass(existingBean),autowireMode,dependencyCheck);
-    bd.setScope(BeanDefinition.SCOPE_PROTOTYPE);
-    bd.setSynthetic(true);
-    BeanWrapperImpl bw=new BeanWrapperImpl(false);
-    bw.setWrappedInstance(existingBean);
-    bw.setConversionService(getConversionService());
-    populateBean(bd.getBeanClass().getName(),bd,bw);
+    if (DISABLE_AUTOWIRE_BY_NAME_OPTIMIZATIONS || dependencyCheck || existingBean instanceof Aware) {
+      super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);
+    }
+ else {
+      populateBeanInAutowireByName(existingBean);
+    }
   }
  else {
     super.autowireBeanProperties(existingBean,autowireMode,dependencyCheck);

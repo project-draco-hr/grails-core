@@ -5,11 +5,11 @@
     }
  else {
       try {
-        Constraint c=instantiateConstraint(constraintName);
-        c.setOwningClass(owningClass);
-        c.setPropertyName(propertyName);
-        c.setParameter(constrainingValue);
-        appliedConstraints.put(constraintName,c);
+        Constraint c=instantiateConstraint(constraintName,true);
+        if (c != null) {
+          c.setParameter(constrainingValue);
+          appliedConstraints.put(constraintName,c);
+        }
       }
  catch (      Exception e) {
         LOG.error("Exception thrown applying constraint [" + constraintName + "] to class ["+ owningClass+ "] for value ["+ constrainingValue+ "]: "+ e.getMessage(),e);

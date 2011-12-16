@@ -1,7 +1,7 @@
 {
   userInputActive=true;
   try {
-    return reader.readLine(prompt);
+    return secure ? reader.readLine(prompt,SECURE_MASK_CHAR) : reader.readLine(prompt);
   }
  catch (  IOException e) {
     throw new RuntimeException("Error reading input: " + e.getMessage());

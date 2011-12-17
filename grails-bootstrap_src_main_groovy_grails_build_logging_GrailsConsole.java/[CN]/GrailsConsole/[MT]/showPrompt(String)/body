@@ -1,7 +1,7 @@
 {
   cursorMove=0;
   if (!userInputActive) {
-    return readLine(prompt);
+    return readLine(prompt,false);
   }
   out.print(prompt);
   return null;

@@ -26,10 +26,6 @@
         if (tagLibProp instanceof Closure) {
           Closure tag=(Closure)((Closure)tagLibProp).clone();
           Object tagresult=null;
-          boolean preferSubChunkWhenWritingToOtherBuffer=resolvePreferSubChunk(tagNamespace,tagName);
-          if (body instanceof GroovyPageTagBody && preferSubChunkWhenWritingToOtherBuffer) {
-            ((GroovyPageTagBody)body).setPreferSubChunkWhenWritingToOtherBuffer(true);
-          }
           if (!(attrs instanceof GroovyPageAttributes)) {
             attrs=new GroovyPageAttributes(attrs);
           }

@@ -1,4 +1,5 @@
 {
   this.headBuffer=headBuffer;
+  applyStreamCharBufferSettings(headBuffer);
   used=true;
 }

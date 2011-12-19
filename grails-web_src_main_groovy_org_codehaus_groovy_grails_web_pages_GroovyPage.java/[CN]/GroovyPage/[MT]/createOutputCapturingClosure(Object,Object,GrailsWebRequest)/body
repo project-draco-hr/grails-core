@@ -4,14 +4,13 @@
   }
   if (body1 instanceof GroovyPageTagBody) {
     GroovyPageTagBody gptb=(GroovyPageTagBody)body1;
-    gptb.setPreferSubChunkWhenWritingToOtherBuffer(preferSubChunkWhenWritingToOtherBuffer);
     return gptb;
   }
   if (body1 instanceof ConstantClosure) {
     return (Closure<?>)body1;
   }
   if (body1 instanceof Closure) {
-    return new GroovyPageTagBody(wrappedInstance,webRequest,(Closure<?>)body1,preferSubChunkWhenWritingToOtherBuffer);
+    return new GroovyPageTagBody(wrappedInstance,webRequest,(Closure<?>)body1);
   }
   return new ConstantClosure(body1);
 }

@@ -26,7 +26,7 @@
   BuildSettings build=null;
   try {
     build=new BuildSettings(new File(grailsHome));
-    build.setModified(commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT));
+    build.setModified(commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT));
     build.setOffline(commandLine.hasOption(CommandLine.OFFLINE_ARGUMENT));
     if (build.getRootLoader() == null) {
       build.setRootLoader((URLClassLoader)GrailsScriptRunner.class.getClassLoader());
@@ -47,7 +47,7 @@
     console.log(parser.getHelpMessage());
     System.exit(0);
   }
-  boolean resolveDeps=commandLine.hasOption(CommandLine.RESOLVE_DEPENDENCIES_ARGUMENT);
+  boolean resolveDeps=commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT);
   if (resolveDeps) {
     if (commandLine.hasOption("include-source")) {
       build.setIncludeSource(true);

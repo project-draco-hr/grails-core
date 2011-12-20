@@ -1,4 +1,5 @@
 {
+  request.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE);
   GSPResponseWriter out=createResponseWriter(response);
   try {
     Template template=engine.createTemplate(scriptSource);

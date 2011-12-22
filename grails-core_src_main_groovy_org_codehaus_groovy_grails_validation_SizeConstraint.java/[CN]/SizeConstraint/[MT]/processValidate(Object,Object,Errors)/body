@@ -1,21 +1,21 @@
 {
-  Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
-  Integer size=null;
+  Object[] args={constraintPropertyName,constraintOwningClass,propertyValue,range.getFrom(),range.getTo()};
+  int size;
   if (propertyValue.getClass().isArray()) {
-    size=Integer.valueOf(Array.getLength(propertyValue));
+    size=Array.getLength(propertyValue);
   }
  else   if (propertyValue instanceof Collection<?>) {
-    size=Integer.valueOf(((Collection<?>)propertyValue).size());
+    size=((Collection<?>)propertyValue).size();
   }
- else   if (propertyValue instanceof String) {
-    size=Integer.valueOf(((String)propertyValue).length());
+ else {
+    size=((String)propertyValue).length();
   }
   if (!range.contains(size)) {
     if (range.getFrom().compareTo(size) == 1) {
-      rejectValueTooSmall(args,errors,target);
+      rejectValue(args,errors,target,ConstrainedProperty.TOOSMALL_SUFFIX);
     }
  else     if (range.getTo().compareTo(size) == -1) {
-      rejectValueTooBig(args,errors,target);
+      rejectValue(args,errors,target,ConstrainedProperty.TOOBIG_SUFFIX);
     }
   }
 }

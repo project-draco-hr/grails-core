@@ -1,4 +1,3 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  return (ModelAndView)webRequest.getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
+  return (ModelAndView)currentRequestAttributes().getAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
 }

@@ -1,4 +1,3 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  return webRequest.getAttributes().getTemplateUri(name,webRequest.getCurrentRequest());
+  return getGrailsAttributes(instance).getTemplateUri(name,getRequest(instance));
 }

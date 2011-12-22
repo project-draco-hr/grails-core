@@ -1,4 +1,3 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  return webRequest.getCurrentRequest();
+  return currentRequestAttributes().getCurrentRequest();
 }

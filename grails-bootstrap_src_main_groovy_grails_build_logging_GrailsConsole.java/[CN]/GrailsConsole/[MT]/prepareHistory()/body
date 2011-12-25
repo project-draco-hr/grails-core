@@ -1,0 +1,5 @@
+{
+  String historyFile=System.getProperty("user.home") + File.separator + HISTORYFILE;
+  history=new History(new File(historyFile));
+  return history;
+}

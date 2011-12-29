@@ -7,6 +7,8 @@
   reader.setBellEnabled(false);
   reader.setCompletionHandler(new CandidateListCompletionHandler());
   terminal=createTerminal();
+  history=prepareHistory();
+  reader.setHistory(history);
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
   out.println();
 }

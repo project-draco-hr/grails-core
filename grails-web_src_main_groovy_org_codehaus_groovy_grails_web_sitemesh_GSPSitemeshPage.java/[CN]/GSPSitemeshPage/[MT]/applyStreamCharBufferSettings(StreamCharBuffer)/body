@@ -1,0 +1,5 @@
+{
+  if (!renderingLayout && buffer != null) {
+    buffer.setPreferSubChunkWhenWritingToOtherBuffer(true);
+  }
+}

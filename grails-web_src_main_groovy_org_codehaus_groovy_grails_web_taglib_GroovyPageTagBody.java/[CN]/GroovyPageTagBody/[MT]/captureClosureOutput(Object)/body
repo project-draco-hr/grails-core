@@ -1,5 +1,5 @@
 {
-  final GroovyPageTagWriter capturedOut=new GroovyPageTagWriter(preferSubChunkWhenWritingToOtherBuffer);
+  final GroovyPageTagWriter capturedOut=new GroovyPageTagWriter();
   Binding currentBinding=originalBinding;
   boolean itChanged=false;
   Object originalIt=null;

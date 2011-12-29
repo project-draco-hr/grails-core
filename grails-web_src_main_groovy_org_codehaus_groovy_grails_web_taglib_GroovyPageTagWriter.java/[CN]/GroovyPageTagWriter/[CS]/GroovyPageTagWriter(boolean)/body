@@ -1,4 +1,0 @@
-{
-  super(DEFAULT_CHUNK_SIZE);
-  getBuffer().setPreferSubChunkWhenWritingToOtherBuffer(preferSubChunkWhenWritingToOtherBuffer);
-}

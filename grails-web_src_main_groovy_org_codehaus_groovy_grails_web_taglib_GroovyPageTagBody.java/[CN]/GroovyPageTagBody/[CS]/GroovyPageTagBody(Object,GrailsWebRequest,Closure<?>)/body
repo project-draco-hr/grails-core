@@ -4,5 +4,4 @@
   Assert.notNull(webRequest,"Argument [webRequest] cannot be null!");
   this.bodyClosure=bodyClosure;
   this.webRequest=webRequest;
-  findPageScopeBinding();
 }

@@ -1,6 +1,0 @@
-{
-  if (originalBindingPage != null) {
-    originalBindingPage.setBinding(currentBinding);
-  }
-  webRequest.getCurrentRequest().setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,currentBinding);
-}

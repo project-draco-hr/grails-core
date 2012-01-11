@@ -1,3 +1,3 @@
 {
-  return captureClosureOutput(args);
+  return captureClosureOutput(args,args != null && args.length > 0);
 }

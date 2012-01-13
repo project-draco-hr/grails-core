@@ -1,0 +1,17 @@
+{
+  Map<String,Object> savedVariablesMap=new LinkedHashMap<String,Object>();
+  for (Iterator<Object> i=((Map)args).keySet().iterator(); i.hasNext(); ) {
+    String varname=String.valueOf(i.next());
+    savedVariablesMap.put(varname,binding.getVariable(varname));
+  }
+  if (binding instanceof GroovyPageBinding) {
+    ((GroovyPageBinding)binding).addMap(args);
+  }
+ else {
+    for (Iterator<Map.Entry> i=args.entrySet().iterator(); i.hasNext(); ) {
+      Map.Entry entry=i.next();
+      binding.setVariable(String.valueOf(entry.getKey()),entry.getValue());
+    }
+  }
+  return savedVariablesMap;
+}

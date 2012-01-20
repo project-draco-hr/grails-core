@@ -5,6 +5,9 @@
   boolean shouldValidate=shouldValidate(arguments,domainClass);
   if (shouldValidate) {
     Validator validator=domainClass.getValidator();
+    if (domainClass instanceof DefaultGrailsDomainClass) {
+      GrailsHibernateUtil.autoAssociateBidirectionalOneToOnes((DefaultGrailsDomainClass)domainClass,target);
+    }
     Errors errors=setupErrorsProperty(target);
     if (validator != null) {
       application.getMainContext().publishEvent(new ValidationEvent(datastore,target));

@@ -1,0 +1,21 @@
+{
+  List<GrailsDomainClassProperty> associations=domainClass.getAssociations();
+  for (  GrailsDomainClassProperty association : associations) {
+    if (association.isOneToOne() && association.isBidirectional() && association.isOwningSide()) {
+      if (isInitialized(target,association.getName())) {
+        GrailsDomainClassProperty otherSide=association.getOtherSide();
+        if (otherSide != null) {
+          BeanWrapper bean=new BeanWrapperImpl(target);
+          Object inverseObject=bean.getPropertyValue(association.getName());
+          if (isInitialized(inverseObject,otherSide.getName())) {
+            BeanWrapper inverseBean=new BeanWrapperImpl(inverseObject);
+            Object propertyValue=inverseBean.getPropertyValue(otherSide.getName());
+            if (propertyValue == null) {
+              inverseBean.setPropertyValue(otherSide.getName(),target);
+            }
+          }
+        }
+      }
+    }
+  }
+}

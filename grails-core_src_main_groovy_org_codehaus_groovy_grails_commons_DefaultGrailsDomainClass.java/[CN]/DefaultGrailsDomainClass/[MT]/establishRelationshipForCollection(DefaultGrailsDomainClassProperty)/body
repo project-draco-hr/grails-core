@@ -1,6 +1,7 @@
 {
   Class<?> relatedClassType=getRelatedClassType(property.getName());
   if (relatedClassType != null) {
+    associations.add(property);
     property.setReferencedPropertyType(relatedClassType);
     if (DomainClassArtefactHandler.isDomainClass(relatedClassType)) {
       Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(relatedClassType);

@@ -22,7 +22,7 @@
     getter=new MethodNode(getterName,Modifier.PUBLIC,targetClass.getType().getPlainNodeReference(),GrailsArtefactClassInjector.ZERO_PARAMETERS,null,getterBody);
     BinaryExpression testTargetAssignment=new BinaryExpression(fieldExpression,ASSIGN,new ConstructorCallExpression(targetClass.getType(),GrailsArtefactClassInjector.ZERO_ARGS));
     getterBody.addStatement(new IfStatement(new BooleanExpression(new BinaryExpression(fieldExpression,GrailsASTUtils.EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION)),new ExpressionStatement(testTargetAssignment),new BlockStatement()));
-    IfStatement autowiringIfStatement=getAutowiringIfStatement(fieldExpression);
+    IfStatement autowiringIfStatement=getAutowiringIfStatement(targetClass,fieldExpression);
     getterBody.addStatement(autowiringIfStatement);
     getterBody.addStatement(new ReturnStatement(fieldExpression));
     classNode.addMethod(getter);

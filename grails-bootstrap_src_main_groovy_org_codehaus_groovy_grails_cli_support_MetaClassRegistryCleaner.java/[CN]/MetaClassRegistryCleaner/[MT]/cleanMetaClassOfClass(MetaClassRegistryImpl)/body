@@ -1,0 +1,13 @@
+{
+  Set<Class> classes=new HashSet<Class>(alteredClasses.keySet());
+  for (  Class aClass : classes) {
+    Object alteredMetaClass=alteredClasses.get(aClass);
+    if (alteredMetaClass == NO_CUSTOM_METACLASS) {
+      registry.removeMetaClass(aClass);
+    }
+ else {
+      registry.setMetaClass(aClass,(MetaClass)alteredMetaClass);
+    }
+  }
+  alteredClasses.clear();
+}

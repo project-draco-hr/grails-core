@@ -1,13 +1,11 @@
 {
   MetaClass oldMetaClass=cmcu.getOldMetaClass();
   Class classToUpdate=cmcu.getClassToUpdate();
-  if (oldMetaClass != null) {
-    Object current=alteredClasses.get(classToUpdate);
-    if (current == null || current == NO_CUSTOM_METACLASS) {
-      alteredClasses.put(classToUpdate,oldMetaClass);
-    }
+  Object instanceToUpdate=cmcu.getInstance();
+  if (instanceToUpdate == null) {
+    updateMetaClassOfClass(oldMetaClass,classToUpdate);
   }
  else {
-    alteredClasses.put(classToUpdate,NO_CUSTOM_METACLASS);
+    updateMetaClassOfInstance(oldMetaClass,instanceToUpdate);
   }
 }

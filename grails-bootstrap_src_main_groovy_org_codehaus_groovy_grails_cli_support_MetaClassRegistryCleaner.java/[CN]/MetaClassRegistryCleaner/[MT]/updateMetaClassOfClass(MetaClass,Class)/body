@@ -1,0 +1,11 @@
+{
+  if (oldMetaClass != null) {
+    Object current=alteredClasses.get(classToUpdate);
+    if (current == null || current == NO_CUSTOM_METACLASS) {
+      alteredClasses.put(classToUpdate,oldMetaClass);
+    }
+  }
+ else {
+    alteredClasses.put(classToUpdate,NO_CUSTOM_METACLASS);
+  }
+}

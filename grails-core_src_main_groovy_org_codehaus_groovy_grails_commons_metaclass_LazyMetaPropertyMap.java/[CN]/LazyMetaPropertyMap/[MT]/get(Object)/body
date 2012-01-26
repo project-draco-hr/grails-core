@@ -15,11 +15,11 @@
     }
     return submap;
   }
-  if (EXCLUDES.contains(propertyName)) {
+  if (GrailsDomainConfigurationUtil.isConfigurational(propertyName.toString())) {
     return null;
   }
   Object val=null;
-  MetaProperty mp=metaClass.getMetaProperty((String)propertyName);
+  MetaProperty mp=metaClass.getMetaProperty(propertyName.toString());
   if (mp != null) {
     val=mp.getProperty(instance);
   }

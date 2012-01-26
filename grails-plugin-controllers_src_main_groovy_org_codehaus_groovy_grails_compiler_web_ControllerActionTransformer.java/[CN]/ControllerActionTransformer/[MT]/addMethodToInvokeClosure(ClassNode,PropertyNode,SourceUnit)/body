@@ -3,7 +3,7 @@
   if (method == null || !method.getDeclaringClass().equals(controllerClassNode)) {
     ClosureExpression closureExpression=(ClosureExpression)closureProperty.getInitialExpression();
     final Parameter[] parameters=closureExpression.getParameters();
-    final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,parameters);
+    final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,closureProperty.getName(),parameters,source);
     final ArgumentListExpression closureInvocationArguments=new ArgumentListExpression();
     for (    Parameter p : parameters) {
       closureInvocationArguments.addExpression(new VariableExpression(p.getName()));

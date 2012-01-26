@@ -13,6 +13,6 @@
     initializeStringParameter(wrapper,param,requestParameterName);
   }
  else   if (!paramTypeClassNode.equals(OBJECT_CLASS)) {
-    initializeCommandObjectParameter(wrapper,classNode,paramTypeClassNode,paramName);
+    initializeCommandObjectParameter(wrapper,classNode,paramTypeClassNode,actionName,paramName,source);
   }
 }

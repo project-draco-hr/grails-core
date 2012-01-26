@@ -14,7 +14,7 @@
   }
   MethodNode method=null;
   if (_method.getParameters().length > 0) {
-    method=new MethodNode(_method.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,parameters)));
+    method=new MethodNode(_method.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,_method.getName(),parameters,source)));
     annotateActionMethod(parameters,method);
   }
  else {

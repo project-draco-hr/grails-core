@@ -10,7 +10,7 @@
       }
     }
     final MethodCallExpression methodCallExpression=new MethodCallExpression(closureExpression,"call",closureInvocationArguments);
-    final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,parameters);
+    final BlockStatement newMethodCode=initializeActionParameters(controllerClassNode,closureProperty.getName(),parameters,source);
     newMethodCode.addStatement(new ExpressionStatement(methodCallExpression));
     final MethodNode methodNode=new MethodNode(closureProperty.getName(),Modifier.PUBLIC,new ClassNode(Object.class),ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,newMethodCode);
     annotateActionMethod(parameters,methodNode);

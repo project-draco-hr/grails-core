@@ -1,0 +1,4 @@
+{
+  assertTrue(GrailsDomainConfigurationUtil.isNotConfigurational("foo"));
+  assertFalse(GrailsDomainConfigurationUtil.isNotConfigurational("id"));
+}

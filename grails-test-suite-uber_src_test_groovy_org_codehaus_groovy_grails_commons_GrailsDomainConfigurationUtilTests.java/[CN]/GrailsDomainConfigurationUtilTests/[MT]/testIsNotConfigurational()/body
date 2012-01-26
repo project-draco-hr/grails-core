@@ -1,4 +1,4 @@
 {
   assertTrue(GrailsDomainConfigurationUtil.isNotConfigurational("foo"));
-  assertFalse(GrailsDomainConfigurationUtil.isNotConfigurational("id"));
+  assertFalse(GrailsDomainConfigurationUtil.isNotConfigurational("belongsTo"));
 }

@@ -24,7 +24,9 @@
     }
     reset();
     application.setMainContext(springConfig.getUnrefreshedApplicationContext());
+    System.setProperty(Environment.INITIALIZING,"true");
     ctx=(WebApplicationContext)springConfig.getApplicationContext();
+    System.setProperty(Environment.INITIALIZING,"");
     pluginManager.setApplicationContext(ctx);
     pluginManager.doDynamicMethods();
     ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));

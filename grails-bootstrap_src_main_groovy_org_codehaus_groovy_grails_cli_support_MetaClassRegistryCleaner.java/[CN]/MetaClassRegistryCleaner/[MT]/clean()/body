@@ -1,5 +1,11 @@
 {
-  MetaClassRegistryImpl registry=(MetaClassRegistryImpl)GroovySystem.getMetaClassRegistry();
-  cleanMetaClassOfClass(registry);
-  cleanMetaClassOfInstance(registry);
+  try {
+    cleaning=true;
+    MetaClassRegistryImpl registry=(MetaClassRegistryImpl)GroovySystem.getMetaClassRegistry();
+    cleanMetaClassOfClass(registry);
+    cleanMetaClassOfInstance(registry);
+  }
+  finally {
+    cleaning=false;
+  }
 }

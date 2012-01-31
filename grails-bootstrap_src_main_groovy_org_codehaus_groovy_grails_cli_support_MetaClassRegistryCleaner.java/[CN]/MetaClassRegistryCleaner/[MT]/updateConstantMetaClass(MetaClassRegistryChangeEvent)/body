@@ -1,11 +1,13 @@
 {
-  MetaClass oldMetaClass=cmcu.getOldMetaClass();
-  Class classToUpdate=cmcu.getClassToUpdate();
-  Object instanceToUpdate=cmcu.getInstance();
-  if (instanceToUpdate == null) {
-    updateMetaClassOfClass(oldMetaClass,classToUpdate);
-  }
+  if (!cleaning) {
+    MetaClass oldMetaClass=cmcu.getOldMetaClass();
+    Class classToUpdate=cmcu.getClassToUpdate();
+    Object instanceToUpdate=cmcu.getInstance();
+    if (instanceToUpdate == null) {
+      updateMetaClassOfClass(oldMetaClass,classToUpdate);
+    }
  else {
-    updateMetaClassOfInstance(oldMetaClass,instanceToUpdate);
+      updateMetaClassOfInstance(oldMetaClass,instanceToUpdate);
+    }
   }
 }

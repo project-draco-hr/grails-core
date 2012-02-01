@@ -1,5 +1,5 @@
 {
-  enhanceCommandObjectClass(commandObjectTypeClassNode,actionName,source);
+  enhanceCommandObjectClass(commandObjectTypeClassNode,actionNode,actionName,source);
   final Expression constructorCallExpression=new ConstructorCallExpression(commandObjectTypeClassNode,EMPTY_TUPLE);
   final Statement newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,commandObjectTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
   wrapper.addStatement(newCommandCode);

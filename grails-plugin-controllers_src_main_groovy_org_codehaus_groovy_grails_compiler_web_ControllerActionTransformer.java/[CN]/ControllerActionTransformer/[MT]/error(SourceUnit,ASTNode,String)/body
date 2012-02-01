@@ -1,0 +1,5 @@
+{
+  final SyntaxException syntaxException=new SyntaxException(message,astNode.getLineNumber(),astNode.getColumnNumber());
+  final SyntaxErrorMessage syntaxErrorMessage=new SyntaxErrorMessage(syntaxException,sourceUnit);
+  sourceUnit.getErrorCollector().addError(syntaxErrorMessage,true);
+}

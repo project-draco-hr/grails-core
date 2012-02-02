@@ -1,0 +1,4 @@
+{
+  cleaner.clean();
+  GroovySystem.getMetaClassRegistry().removeMetaClassRegistryChangeEventListener(cleaner);
+}

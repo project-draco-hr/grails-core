@@ -1,0 +1,5 @@
+{
+  MetaClassRegistryCleaner mcr=new MetaClassRegistryCleaner();
+  GroovySystem.getMetaClassRegistry().addMetaClassRegistryChangeEventListener(mcr);
+  return mcr;
+}

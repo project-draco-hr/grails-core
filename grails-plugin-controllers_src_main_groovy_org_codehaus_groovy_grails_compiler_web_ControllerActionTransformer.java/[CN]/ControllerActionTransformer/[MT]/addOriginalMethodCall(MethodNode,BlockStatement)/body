@@ -1,11 +1,11 @@
 {
   if (blockStatement != null) {
     final ArgumentListExpression arguments=new ArgumentListExpression();
-    for (    Parameter p : _method.getParameters()) {
+    for (    Parameter p : methodNode.getParameters()) {
       arguments.addExpression(new VariableExpression(p.getName(),p.getType()));
     }
-    MethodCallExpression callExpression=new MethodCallExpression(THIS_EXPRESSION,_method.getName(),arguments);
-    callExpression.setMethodTarget(_method);
+    MethodCallExpression callExpression=new MethodCallExpression(THIS_EXPRESSION,methodNode.getName(),arguments);
+    callExpression.setMethodTarget(methodNode);
     blockStatement.addStatement(new ReturnStatement(callExpression));
   }
   return blockStatement;

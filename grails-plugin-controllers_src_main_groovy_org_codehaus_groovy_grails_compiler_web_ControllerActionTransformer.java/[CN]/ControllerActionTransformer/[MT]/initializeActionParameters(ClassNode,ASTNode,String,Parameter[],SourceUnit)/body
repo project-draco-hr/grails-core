@@ -8,7 +8,7 @@
   wrapper.addStatement(new ExpressionStatement(errorsAssignmentExpression));
   if (actionParameters != null) {
     for (    Parameter param : actionParameters) {
-      initializeMethodParameter(classNode,wrapper,actionName,param,source);
+      initializeMethodParameter(classNode,wrapper,actionNode,actionName,param,source);
     }
   }
   return wrapper;

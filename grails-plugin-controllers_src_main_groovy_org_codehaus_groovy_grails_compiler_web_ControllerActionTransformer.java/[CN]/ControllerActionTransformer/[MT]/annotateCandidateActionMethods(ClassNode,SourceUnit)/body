@@ -6,7 +6,7 @@
       List<MethodNode> declaredMethodsWithThisName=classNode.getDeclaredMethods(method.getName());
       if (declaredMethodsWithThisName != null && declaredMethodsWithThisName.size() > 1) {
         String message="Controller actions may not be overloaded.  The [" + method.getName() + "] action has been overloaded in ["+ classNode.getName()+ "].";
-        error(source,message);
+        error(source,method,message);
       }
       MethodNode wrapperMethod=convertToMethodAction(classNode,method,source);
       if (wrapperMethod != null) {

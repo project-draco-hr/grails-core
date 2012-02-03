@@ -1,5 +1,4 @@
 {
-  enhanceCommandObjectClass(commandObjectTypeClassNode,actionNode,actionName,source);
   final Expression constructorCallExpression=new ConstructorCallExpression(commandObjectTypeClassNode,EMPTY_TUPLE);
   final Statement newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,commandObjectTypeClassNode),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
   wrapper.addStatement(newCommandCode);
@@ -7,10 +6,27 @@
   wrapper.addStatement(autoWireCommandObjectStatement);
   final Statement statement=getCommandObjectDataBindingStatement(classNode,paramName,commandObjectTypeClassNode);
   wrapper.addStatement(statement);
-  final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
-  MethodNode validateMethod=commandObjectTypeClassNode.getMethod("validate",new Parameter[0]);
-  if (validateMethod != null) {
-    validateMethodCallExpression.setMethodTarget(validateMethod);
+  boolean argumentIsValidateable=false;
+  List<AnnotationNode> validateableAnnotations=commandObjectTypeClassNode.getAnnotations(new ClassNode(grails.validation.Validateable.class));
+  if (validateableAnnotations.size() > 0) {
+    argumentIsValidateable=true;
   }
-  wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
+ else {
+    validateableAnnotations=commandObjectTypeClassNode.getAnnotations(new ClassNode(org.codehaus.groovy.grails.validation.Validateable.class));
+    if (validateableAnnotations.size() > 0) {
+      argumentIsValidateable=true;
+    }
+  }
+  if (argumentIsValidateable) {
+    final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
+    MethodNode validateMethod=commandObjectTypeClassNode.getMethod("validate",new Parameter[0]);
+    if (validateMethod != null) {
+      validateMethodCallExpression.setMethodTarget(validateMethod);
+    }
+    wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
+  }
+ else {
+    final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectTypeClassNode.getName()+ "] which has not been marked with @Validateable.  Data binding will still be applied "+ "to this command object but the instance will not be validateable.";
+    warning(source,actionNode,warningMessage);
+  }
 }

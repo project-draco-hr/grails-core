@@ -1,0 +1,8 @@
+{
+  return CollectionUtils.exists(Arrays.asList(annotationsToLookFor),new Predicate(){
+    public boolean evaluate(    Object object){
+      return hasAnnotation(classNode,(Class)object);
+    }
+  }
+);
+}

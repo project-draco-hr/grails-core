@@ -1,4 +1,7 @@
 {
-  Mapping mapping=isMappedWithHibernate(domainClass) ? GrailsDomainBinder.evaluateMapping(domainClass,null,false) : new Mapping();
+  Mapping mapping=isMappedWithHibernate(domainClass) ? GrailsDomainBinder.evaluateMapping(domainClass,null,false) : null;
+  if (mapping == null) {
+    mapping=new Mapping();
+  }
   return mapping.getDatasources();
 }

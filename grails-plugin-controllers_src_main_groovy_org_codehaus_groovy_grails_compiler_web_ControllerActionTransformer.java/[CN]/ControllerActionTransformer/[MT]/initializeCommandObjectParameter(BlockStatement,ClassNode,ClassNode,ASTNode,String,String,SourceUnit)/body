@@ -13,15 +13,13 @@
     validateMethodCallExpression.setMethodTarget(validateMethod);
   }
   wrapper.addStatement(new ExpressionStatement(validateMethodCallExpression));
-  boolean argumentIsValidateable=false;
-  List<AnnotationNode> validateableAnnotations=commandObjectTypeClassNode.getAnnotations(new ClassNode(grails.validation.Validateable.class));
-  if (validateableAnnotations.size() > 0) {
-    argumentIsValidateable=true;
-  }
- else {
-    validateableAnnotations=commandObjectTypeClassNode.getAnnotations(new ClassNode(org.codehaus.groovy.grails.validation.Validateable.class));
-    if (validateableAnnotations.size() > 0) {
-      argumentIsValidateable=true;
+  @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectTypeClassNode,grails.validation.Validateable.class,org.codehaus.groovy.grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);
+  if (!argumentIsValidateable) {
+    final ModuleNode commandObjectModule=commandObjectTypeClassNode.getModule();
+    if (commandObjectModule != null) {
+      if (commandObjectModule == classNode.getModule() || doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "controllers"+ File.separator) || doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "domain"+ File.separator)) {
+        argumentIsValidateable=true;
+      }
     }
   }
   if (!argumentIsValidateable) {

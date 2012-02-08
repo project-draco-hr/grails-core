@@ -1,15 +1,15 @@
 {
   this.buildSettings=buildSettings;
-  this.buildProps=buildSettings.getConfig().toProperties();
-  this.grailsHome=buildSettings.getGrailsHome();
-  metadataFile=new File(buildSettings.getBaseDir() + "/application.properties");
+  buildProps=buildSettings.getConfig().toProperties();
+  grailsHome=buildSettings.getGrailsHome();
+  metadataFile=new File(buildSettings.getBaseDir(),"application.properties");
   metadata=metadataFile.exists() ? Metadata.getInstance(metadataFile) : Metadata.getCurrent();
-  this.metadataFile=metadata.getMetadataFile();
-  this.enableProfile=Boolean.valueOf(getPropertyValue("grails.script.profile",false).toString());
-  this.pluginsHome=buildSettings.getProjectPluginsDir().getPath();
-  this.pluginSettings=new PluginBuildSettings(buildSettings);
-  this.grailsAppName=metadata.getApplicationName();
-  this.isInteractive=interactive;
+  metadataFile=metadata.getMetadataFile();
+  enableProfile=Boolean.valueOf(getPropertyValue("grails.script.profile",false).toString());
+  pluginsHome=buildSettings.getProjectPluginsDir().getPath();
+  pluginSettings=new PluginBuildSettings(buildSettings);
+  grailsAppName=metadata.getApplicationName();
+  isInteractive=interactive;
   if (grailsAppName == null) {
     grailsAppName=buildSettings.getBaseDir().getName();
   }
@@ -19,6 +19,6 @@
  else {
     appClassName=GrailsNameUtils.getClassNameRepresentation(grailsAppName);
   }
-  this.configSlurper=buildSettings.createConfigSlurper();
-  this.configSlurper.setEnvironment(buildSettings.getGrailsEnv());
+  configSlurper=buildSettings.createConfigSlurper();
+  configSlurper.setEnvironment(buildSettings.getGrailsEnv());
 }

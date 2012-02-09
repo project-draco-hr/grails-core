@@ -31,7 +31,7 @@
           String tomcatVersion="7.0.25";
           ModuleRevisionId[] providedDependencies={ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-core",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-jasper",tomcatVersion),ModuleRevisionId.newInstance("org.apache.tomcat.embed","tomcat-embed-logging-log4j",tomcatVersion)};
           registerDependencies(dependencyManager,"provided",providedDependencies);
-          ModuleRevisionId[] groovyDependencies={ModuleRevisionId.newInstance("org.codehaus.groovy","groovy-all","1.8.5")};
+          ModuleRevisionId[] groovyDependencies={ModuleRevisionId.newInstance("org.codehaus.groovy","groovy-all","1.8.6-SNAPSHOT")};
           registerDependencies(dependencyManager,compileTimeDependenciesMethod,groovyDependencies,"jline");
           ModuleRevisionId[] commonsExcludingLoggingAndXmlApis={ModuleRevisionId.newInstance("commons-beanutils","commons-beanutils","1.8.3"),ModuleRevisionId.newInstance("commons-el","commons-el","1.0"),ModuleRevisionId.newInstance("commons-validator","commons-validator","1.3.1")};
           registerDependencies(dependencyManager,compileTimeDependenciesMethod,commonsExcludingLoggingAndXmlApis,"commons-logging","xml-apis","commons-digester");

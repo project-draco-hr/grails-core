@@ -3,10 +3,10 @@
     MetaClass oldMetaClass=cmcu.getOldMetaClass();
     Class classToUpdate=cmcu.getClassToUpdate();
     Object instanceToUpdate=cmcu.getInstance();
-    if (instanceToUpdate == null) {
+    if (instanceToUpdate == null && (cmcu.getNewMetaClass() instanceof ExpandoMetaClass)) {
       updateMetaClassOfClass(oldMetaClass,classToUpdate);
     }
- else {
+ else     if (instanceToUpdate != null) {
       updateMetaClassOfInstance(oldMetaClass,instanceToUpdate);
     }
   }

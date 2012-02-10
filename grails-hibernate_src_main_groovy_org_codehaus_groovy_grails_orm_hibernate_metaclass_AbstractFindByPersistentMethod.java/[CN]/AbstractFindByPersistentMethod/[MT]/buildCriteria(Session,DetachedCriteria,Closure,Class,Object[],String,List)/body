@@ -1,0 +1,37 @@
+{
+  Criteria crit=getCriteria(datastore,application,session,detachedCriteria,additionalCriteria,clazz);
+  if (arguments.length > 0) {
+    if (arguments[0] instanceof Map<?,?>) {
+      Map<?,?> argMap=(Map<?,?>)arguments[0];
+      GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,crit,argMap);
+      if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
+        crit.setMaxResults(1);
+      }
+    }
+ else {
+      crit.setMaxResults(1);
+    }
+  }
+ else {
+    crit.setMaxResults(1);
+  }
+  if (operator.equals(OPERATOR_OR)) {
+    if (firstExpressionIsRequiredBoolean()) {
+      GrailsMethodExpression expression=(GrailsMethodExpression)expressions.remove(0);
+      crit.add(expression.getCriterion());
+    }
+    Disjunction dis=Restrictions.disjunction();
+    for (    Object expression : expressions) {
+      GrailsMethodExpression current=(GrailsMethodExpression)expression;
+      dis.add(current.getCriterion());
+    }
+    crit.add(dis);
+  }
+ else {
+    for (    Object expression : expressions) {
+      GrailsMethodExpression current=(GrailsMethodExpression)expression;
+      crit.add(current.getCriterion());
+    }
+  }
+  return crit;
+}

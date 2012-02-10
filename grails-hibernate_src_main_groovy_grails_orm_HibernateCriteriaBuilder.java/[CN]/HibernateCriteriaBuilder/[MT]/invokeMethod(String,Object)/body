@@ -161,6 +161,20 @@
         targetClass=oldTargetClass;
         return name;
       }
+ else       if (type instanceof EmbeddedComponentType) {
+        associationStack.add(name);
+        logicalExpressionStack.add(new LogicalExpression(AND));
+        Class oldTargetClass=targetClass;
+        targetClass=pd.getPropertyType();
+        invokeClosureNode(callable);
+        targetClass=oldTargetClass;
+        LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
+        if (!logicalExpression.args.isEmpty()) {
+          addToCriteria(logicalExpression.toCriterion());
+        }
+        associationStack.remove(associationStack.size() - 1);
+        return name;
+      }
     }
   }
  else   if (args.length == 1 && args[0] != null) {

@@ -1,0 +1,7 @@
+{
+  final List<?> list=crit.list();
+  if (!list.isEmpty()) {
+    return GrailsHibernateUtil.unwrapIfProxy(list.get(0));
+  }
+  return null;
+}

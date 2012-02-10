@@ -34,6 +34,6 @@
     final Statement ifRespondsToValidateThenValidateStatement=new IfStatement(new BooleanExpression(respondsToValidateMethodCallExpression),new ExpressionStatement(validateMethodCallExpression),new ExpressionStatement(new EmptyExpression()));
     wrapper.addStatement(ifRespondsToValidateThenValidateStatement);
     final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectNode.getName()+ "] which has not been marked with @Validateable.  Data binding will still be applied "+ "to this command object but the instance will not be validateable.";
-    warning(source,actionNode,warningMessage);
+    GrailsASTUtils.warning(source,actionNode,warningMessage);
   }
 }

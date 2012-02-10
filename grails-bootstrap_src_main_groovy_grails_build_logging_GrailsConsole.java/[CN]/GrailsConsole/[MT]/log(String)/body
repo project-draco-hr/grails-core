@@ -1,8 +1,5 @@
 {
   PrintStream printStream=out;
-  if (!(System.out instanceof GrailsConsolePrintStream)) {
-    printStream=System.out;
-  }
   try {
     if (msg.endsWith(LINE_SEPARATOR)) {
       printStream.print(msg);

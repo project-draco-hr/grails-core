@@ -15,6 +15,5 @@
       removeBeanDefinition(registry,beanName);
     }
     registry.registerBeanDefinition(beanName,bd);
-    registerBeanAliases(registry,beanName);
   }
 }

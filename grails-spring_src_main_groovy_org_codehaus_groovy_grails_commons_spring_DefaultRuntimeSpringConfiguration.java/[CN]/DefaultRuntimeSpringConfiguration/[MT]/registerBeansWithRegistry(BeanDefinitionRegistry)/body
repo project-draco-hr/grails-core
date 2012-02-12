@@ -2,4 +2,5 @@
   registerUnrefreshedBeansWithRegistry(registry);
   registerBeanConfigsWithRegistry(registry);
   registerBeanDefinitionsWithRegistry(registry);
+  registerBeanAliasesWithRegistry(registry);
 }

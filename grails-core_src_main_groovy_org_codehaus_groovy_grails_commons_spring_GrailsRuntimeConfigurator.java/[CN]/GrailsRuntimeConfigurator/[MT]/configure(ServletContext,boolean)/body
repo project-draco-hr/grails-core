@@ -2,10 +2,10 @@
   Assert.notNull(application);
   WebApplicationContext ctx;
   try {
-    WebRuntimeSpringConfiguration springConfig=createWebRuntimeSpringConfiguration(application,parent,application.getClassLoader());
-    springConfig.setBeanFactory(new ReloadAwareAutowireCapableBeanFactory());
+    webSpringConfig=createWebRuntimeSpringConfiguration(application,parent,application.getClassLoader());
+    webSpringConfig.setBeanFactory(new ReloadAwareAutowireCapableBeanFactory());
     if (context != null) {
-      springConfig.setServletContext(context);
+      webSpringConfig.setServletContext(context);
       pluginManager.setServletContext(context);
     }
     if (!pluginManager.isInitialised()) {
@@ -16,16 +16,16 @@
       application.initialise();
     }
     pluginManager.registerProvidedArtefacts(application);
-    registerParentBeanFactoryPostProcessors(springConfig);
-    pluginManager.doRuntimeConfiguration(springConfig);
+    registerParentBeanFactoryPostProcessors(webSpringConfig);
+    pluginManager.doRuntimeConfiguration(webSpringConfig);
     LOG.debug("[RuntimeConfiguration] Processing additional external configurations");
     if (loadExternalBeans) {
-      doPostResourceConfiguration(application,springConfig);
+      doPostResourceConfiguration(application,webSpringConfig);
     }
     reset();
-    application.setMainContext(springConfig.getUnrefreshedApplicationContext());
+    application.setMainContext(webSpringConfig.getUnrefreshedApplicationContext());
     System.setProperty(Environment.INITIALIZING,"true");
-    ctx=(WebApplicationContext)springConfig.getApplicationContext();
+    ctx=(WebApplicationContext)webSpringConfig.getApplicationContext();
     System.setProperty(Environment.INITIALIZING,"");
     pluginManager.setApplicationContext(ctx);
     pluginManager.doDynamicMethods();

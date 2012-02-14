@@ -1,0 +1,12 @@
+{
+  RequestAttributes attributes=RequestContextHolder.currentRequestAttributes();
+  if (attributes != null) {
+    LayoutWriterStack stack=(LayoutWriterStack)attributes.getAttribute(ATTRIBUTE_NAME_WRITER_STACK,RequestAttributes.SCOPE_REQUEST);
+    if (stack == null) {
+      stack=new LayoutWriterStack();
+      attributes.setAttribute(ATTRIBUTE_NAME_WRITER_STACK,stack,RequestAttributes.SCOPE_REQUEST);
+    }
+    return stack;
+  }
+  return null;
+}

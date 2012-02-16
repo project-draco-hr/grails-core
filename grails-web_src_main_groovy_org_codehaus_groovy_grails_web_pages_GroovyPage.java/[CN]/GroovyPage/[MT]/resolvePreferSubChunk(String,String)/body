@@ -1,7 +1,0 @@
-{
-  boolean preferSubChunkWhenWritingToOtherBuffer=false;
-  if ("sitemesh".equals(tagNamespace) && tagName.startsWith("capture")) {
-    preferSubChunkWhenWritingToOtherBuffer=true;
-  }
-  return preferSubChunkWhenWritingToOtherBuffer;
-}

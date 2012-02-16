@@ -1,0 +1,7 @@
+{
+  String property=System.getProperty(prop);
+  if (property != null) {
+    return Boolean.valueOf(property);
+  }
+  return true;
+}

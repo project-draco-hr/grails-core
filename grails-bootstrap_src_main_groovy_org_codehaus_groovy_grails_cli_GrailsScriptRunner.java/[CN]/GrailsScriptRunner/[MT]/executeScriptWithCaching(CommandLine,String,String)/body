@@ -4,21 +4,29 @@
   GantBinding binding=new GantBinding();
   binding.setVariable("scriptName",scriptName);
   setDefaultInputStream(binding);
-  boolean exactMatchFound=false;
-  potentialScripts=new ArrayList<Resource>();
-  for (  Resource scriptPath : allScripts) {
-    String scriptFileName=scriptPath.getFilename().substring(0,scriptPath.getFilename().length() - 7);
-    if (scriptFileName.endsWith("_")) {
-      scriptsAllowedOutsideOfProject.add(scriptPath);
-      scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
+  potentialScripts=getPotentialScripts(scriptName,allScripts);
+  if (potentialScripts.size() == 0) {
+    try {
+      File aliasFile=new File(settings.getUserHome(),".grails/.aliases");
+      if (aliasFile.exists()) {
+        Properties aliasProperties=new Properties();
+        aliasProperties.load(new FileReader(aliasFile));
+        if (aliasProperties.containsKey(commandLine.getCommandName())) {
+          String aliasValue=(String)aliasProperties.get(commandLine.getCommandName());
+          String[] aliasPieces=aliasValue.split(" ");
+          String commandName=aliasPieces[0];
+          String correspondingScriptName=GrailsNameUtils.getNameFromScript(commandName);
+          potentialScripts=getPotentialScripts(correspondingScriptName,allScripts);
+          if (potentialScripts.size() > 0) {
+            String[] additionalArgs=new String[aliasPieces.length - 1];
+            System.arraycopy(aliasPieces,1,additionalArgs,0,additionalArgs.length);
+            insertArgumentsInFrontOfExistingArguments(commandLine,additionalArgs);
+          }
+        }
+      }
     }
-    if (scriptFileName.equals(scriptName)) {
-      potentialScripts.add(scriptPath);
-      exactMatchFound=true;
-      continue;
-    }
-    if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName)) {
-      potentialScripts.add(scriptPath);
+ catch (    Exception e) {
+      console.error(e);
     }
   }
   if (potentialScripts.size() > 0) {

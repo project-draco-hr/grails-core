@@ -1,5 +1,5 @@
 {
-  Mapping mapping=GrailsDomainBinder.evaluateMapping(domainClass,null,false);
+  Mapping mapping=isMappedWithHibernate(domainClass) ? GrailsDomainBinder.evaluateMapping(domainClass,null,false) : null;
   if (mapping == null) {
     mapping=new Mapping();
   }

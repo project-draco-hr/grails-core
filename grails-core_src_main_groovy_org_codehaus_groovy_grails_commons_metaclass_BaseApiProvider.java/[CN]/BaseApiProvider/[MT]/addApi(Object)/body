@@ -5,19 +5,24 @@
   Class<?> currentClass=apiInstance.getClass();
   while (currentClass != Object.class) {
     final Method[] declaredMethods=currentClass.getDeclaredMethods();
-    for (    final Method method : declaredMethods) {
-      final int modifiers=method.getModifiers();
-      if (!isNotExcluded(method,modifiers)) {
+    for (    final Method javaMethod : declaredMethods) {
+      final int modifiers=javaMethod.getModifiers();
+      if (!isNotExcluded(javaMethod,modifiers)) {
         continue;
       }
       if (Modifier.isStatic(modifiers)) {
-        staticMethods.add(method);
+        if (isConstructorCallMethod(javaMethod)) {
+          constructors.add(javaMethod);
+        }
+ else {
+          staticMethods.add(javaMethod);
+        }
       }
  else {
-        instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(method)){
+        instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(javaMethod)){
           @Override public String getName(){
             String methodName=super.getName();
-            if (methodName.equals(CONSTRUCTOR_METHOD)) {
+            if (isConstructorCallMethod(javaMethod)) {
               return CTOR_GROOVY_METHOD;
             }
             return methodName;

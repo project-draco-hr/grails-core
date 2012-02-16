@@ -6,6 +6,9 @@
     subBuffer.writeToImpl(connectedWritersWriter,false,false);
   }
  else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || subBuffer.isSizeLarger(Math.max(subBufferChunkMinSize,getNewChunkMinSize()))) {
+    if (subBuffer.preferSubChunkWhenWritingToOtherBuffer) {
+      StreamCharBuffer.this.preferSubChunkWhenWritingToOtherBuffer=true;
+    }
     appendStreamCharBufferChunk(subBuffer);
     subBuffer.addParentBuffer(StreamCharBuffer.this);
   }

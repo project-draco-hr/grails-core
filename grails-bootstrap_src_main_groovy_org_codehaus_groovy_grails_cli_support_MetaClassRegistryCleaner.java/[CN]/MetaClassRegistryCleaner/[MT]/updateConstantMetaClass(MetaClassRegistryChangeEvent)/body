@@ -1,13 +1,13 @@
 {
-  MetaClass oldMetaClass=cmcu.getOldMetaClass();
-  Class classToUpdate=cmcu.getClassToUpdate();
-  if (oldMetaClass != null) {
-    Object current=alteredClasses.get(classToUpdate);
-    if (current == null || current == NO_CUSTOM_METACLASS) {
-      alteredClasses.put(classToUpdate,oldMetaClass);
+  if (!cleaning) {
+    MetaClass oldMetaClass=cmcu.getOldMetaClass();
+    Class classToUpdate=cmcu.getClassToUpdate();
+    Object instanceToUpdate=cmcu.getInstance();
+    if (instanceToUpdate == null && (cmcu.getNewMetaClass() instanceof ExpandoMetaClass)) {
+      updateMetaClassOfClass(oldMetaClass,classToUpdate);
     }
-  }
- else {
-    alteredClasses.put(classToUpdate,NO_CUSTOM_METACLASS);
+ else     if (instanceToUpdate != null) {
+      updateMetaClassOfInstance(oldMetaClass,instanceToUpdate);
+    }
   }
 }

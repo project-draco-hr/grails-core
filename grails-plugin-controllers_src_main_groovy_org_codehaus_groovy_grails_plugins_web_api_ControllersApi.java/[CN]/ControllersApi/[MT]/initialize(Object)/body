@@ -1,12 +1,13 @@
 {
   ApplicationContext applicationContext=getStaticApplicationContext();
-  if (applicationContext != null) {
-    applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(instance,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
-    if (Environment.getCurrent() == Environment.TEST) {
-      GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-      if (webRequest != null) {
-        webRequest.setControllerName(GrailsNameUtils.getLogicalPropertyName(instance.getClass().getName(),ControllerArtefactHandler.TYPE));
-      }
+  if (applicationContext == null) {
+    return;
+  }
+  applicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(instance,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
+  if (Environment.getCurrent() == Environment.TEST) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null) {
+      webRequest.setControllerName(GrailsNameUtils.getLogicalPropertyName(instance.getClass().getName(),ControllerArtefactHandler.TYPE));
     }
   }
 }

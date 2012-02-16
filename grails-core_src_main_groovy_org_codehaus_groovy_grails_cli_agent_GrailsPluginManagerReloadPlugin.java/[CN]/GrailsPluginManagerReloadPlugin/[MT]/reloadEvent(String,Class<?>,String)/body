@@ -1,5 +1,5 @@
 {
   CachedIntrospectionResults.clearClassLoader(aClass.getClassLoader());
   ClassPropertyFetcher.clearClassPropertyFetcherCache();
-  GrailsProjectWatcher.firePendingClassChangeEvents(aClass);
+  if (GrailsProjectWatcher.isActive())   GrailsProjectWatcher.firePendingClassChangeEvents(aClass);
 }

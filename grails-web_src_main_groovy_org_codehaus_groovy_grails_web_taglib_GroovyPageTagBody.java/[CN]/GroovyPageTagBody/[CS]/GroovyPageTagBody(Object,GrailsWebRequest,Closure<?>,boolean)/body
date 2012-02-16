@@ -1,9 +1,0 @@
-{
-  super(owner);
-  Assert.notNull(bodyClosure,"Argument [bodyClosure] cannot be null!");
-  Assert.notNull(webRequest,"Argument [webRequest] cannot be null!");
-  this.bodyClosure=bodyClosure;
-  this.webRequest=webRequest;
-  this.preferSubChunkWhenWritingToOtherBuffer=preferSubChunkWhenWritingToOtherBuffer;
-  findPageScopeBinding();
-}

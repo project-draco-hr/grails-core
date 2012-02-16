@@ -1,0 +1,18 @@
+{
+  final ClassNode paramTypeClassNode=param.getType();
+  final String paramName=param.getName();
+  String requestParameterName=paramName;
+  List<AnnotationNode> requestParameters=param.getAnnotations(new ClassNode(RequestParameter.class));
+  if (requestParameters.size() == 1) {
+    requestParameterName=requestParameters.get(0).getMember("value").getText();
+  }
+  if ((PRIMITIVE_CLASS_NODES.contains(paramTypeClassNode) || TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(paramTypeClassNode))) {
+    initializePrimitiveOrTypeWrapperParameter(wrapper,param,requestParameterName);
+  }
+ else   if (paramTypeClassNode.equals(new ClassNode(String.class))) {
+    initializeStringParameter(wrapper,param,requestParameterName);
+  }
+ else   if (!paramTypeClassNode.equals(OBJECT_CLASS)) {
+    initializeCommandObjectParameter(wrapper,classNode,paramTypeClassNode,actionNode,actionName,paramName,source);
+  }
+}

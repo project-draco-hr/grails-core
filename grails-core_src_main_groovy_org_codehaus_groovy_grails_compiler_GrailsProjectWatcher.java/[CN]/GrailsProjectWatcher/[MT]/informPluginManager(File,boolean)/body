@@ -1,4 +1,5 @@
 {
+  if (pluginManager == null)   return;
   if (!isSourceFile(file) || isNew) {
     try {
       pluginManager.informOfFileChange(file);

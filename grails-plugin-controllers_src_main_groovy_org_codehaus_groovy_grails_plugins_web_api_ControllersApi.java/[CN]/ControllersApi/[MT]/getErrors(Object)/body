@@ -1,4 +1,3 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  return (Errors)webRequest.getAttribute(GrailsApplicationAttributes.ERRORS,0);
+  return (Errors)currentRequestAttributes().getAttribute(GrailsApplicationAttributes.ERRORS,0);
 }

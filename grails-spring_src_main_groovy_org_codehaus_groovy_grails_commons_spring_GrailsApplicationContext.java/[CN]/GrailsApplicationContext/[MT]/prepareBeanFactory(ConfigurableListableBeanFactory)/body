@@ -1,0 +1,5 @@
+{
+  super.prepareBeanFactory(beanFactory);
+  ((DefaultListableBeanFactory)beanFactory).destroySingleton(ENVIRONMENT_BEAN_NAME);
+  beanFactory.registerSingleton(GRAILS_ENVIRONMENT_BEAN_NAME,getEnvironment());
+}

@@ -5,6 +5,9 @@
   if (existing != null && descriptor.isTransitivelyIncluded()) {
     ModuleRevisionId dependencyRevisionId=existing.getDependencyRevisionId();
     if (dependencyRevisionId.equals(descriptor.getDependencyRevisionId()))     return;
+ else     if (descriptor.getPlugin() != null && (existing instanceof EnhancedDefaultDependencyDescriptor) && ((EnhancedDefaultDependencyDescriptor)existing).getPlugin() == null) {
+      return;
+    }
   }
   String classifierAttribute=descriptor.getExtraAttribute("m:classifier");
   String packaging;

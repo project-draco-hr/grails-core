@@ -88,7 +88,7 @@
     System.out.println(message);
   }
  catch (  LifecycleException e) {
-    e.printStackTrace();
+    e.printStackTrace(System.err);
     System.err.println("Error loading Tomcat: " + e.getMessage());
     System.exit(1);
   }

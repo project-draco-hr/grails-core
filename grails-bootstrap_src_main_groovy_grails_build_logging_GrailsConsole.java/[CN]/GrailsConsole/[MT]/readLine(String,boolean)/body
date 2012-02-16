@@ -1,4 +1,5 @@
 {
+  assertAllowInput();
   userInputActive=true;
   try {
     return secure ? reader.readLine(prompt,SECURE_MASK_CHAR) : reader.readLine(prompt);

@@ -1,0 +1,10 @@
+{
+  boolean substringFoundInDescription=false;
+  if (moduleNode != null) {
+    String commandObjectModuleDescription=moduleNode.getDescription();
+    if (commandObjectModuleDescription != null) {
+      substringFoundInDescription=commandObjectModuleDescription.contains(substring);
+    }
+  }
+  return substringFoundInDescription;
+}

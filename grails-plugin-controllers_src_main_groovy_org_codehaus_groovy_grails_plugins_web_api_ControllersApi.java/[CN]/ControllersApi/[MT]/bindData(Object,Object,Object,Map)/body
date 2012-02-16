@@ -1,3 +1,3 @@
 {
-  return bind.invoke(instance,BIND_DATA_METHOD,new Object[]{target,args,includeExclude});
+  return invokeBindData(instance,target,args,includeExclude);
 }

@@ -1,3 +1,4 @@
 {
-  return AnsiConsole.wrapOutputStream(out);
+  if (isAnsiEnabled())   return AnsiConsole.wrapOutputStream(out);
+ else   return out;
 }

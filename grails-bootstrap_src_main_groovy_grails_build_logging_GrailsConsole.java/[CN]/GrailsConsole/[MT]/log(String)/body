@@ -1,10 +1,11 @@
 {
+  PrintStream printStream=out;
   try {
     if (msg.endsWith(LINE_SEPARATOR)) {
-      out.print(msg);
+      printStream.print(msg);
     }
  else {
-      out.println(msg);
+      printStream.println(msg);
     }
     cursorMove=0;
   }

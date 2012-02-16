@@ -1,5 +1,3 @@
 {
-  if (EXCLUDES.contains(mp.getName()))   return true;
-  if ((mp instanceof MetaBeanProperty) && (((MetaBeanProperty)mp).getGetter()) == null)   return true;
-  return false;
+  return Modifier.isStatic(mp.getModifiers()) || EXCLUDES.contains(mp.getName()) || GrailsDomainConfigurationUtil.isConfigurational(mp.getName())|| (mp instanceof MetaBeanProperty) && (((MetaBeanProperty)mp).getGetter()) == null;
 }

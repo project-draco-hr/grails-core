@@ -1,10 +1,17 @@
 {
-  Class<?> namingStrategyClass;
+  Class<?> namingStrategyClass=null;
+  NamingStrategy namingStrategy;
   if (strategy instanceof Class<?>) {
     namingStrategyClass=(Class<?>)strategy;
   }
- else {
+ else   if (strategy instanceof CharSequence) {
     namingStrategyClass=Thread.currentThread().getContextClassLoader().loadClass(strategy.toString());
   }
-  NAMING_STRATEGIES.put(datasourceName,(NamingStrategy)namingStrategyClass.newInstance());
+  if (namingStrategyClass == null) {
+    namingStrategy=(NamingStrategy)strategy;
+  }
+ else {
+    namingStrategy=(NamingStrategy)namingStrategyClass.newInstance();
+  }
+  NAMING_STRATEGIES.put(datasourceName,namingStrategy);
 }

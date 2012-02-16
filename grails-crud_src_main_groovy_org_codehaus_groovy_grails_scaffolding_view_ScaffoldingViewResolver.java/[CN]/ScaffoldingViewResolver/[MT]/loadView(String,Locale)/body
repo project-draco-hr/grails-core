@@ -27,8 +27,10 @@
           LOG.error("Error generating scaffolded view [" + viewName + "]: "+ e.getMessage(),e);
           return resolvedView;
         }
-        v=createScaffoldedView(viewName,viewCode);
-        scaffoldedViews.put(viewKey,v);
+        if (StringUtils.hasLength(viewCode)) {
+          v=createScaffoldedView(viewName,viewCode);
+          scaffoldedViews.put(viewKey,v);
+        }
       }
       if (v != null) {
         return v;

@@ -8,9 +8,11 @@
         establishRelationshipForCollection(currentProp);
       }
  else       if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
+        associations.add(currentProp);
         establishDomainClassRelationship(currentProp);
       }
  else       if (embedded.contains(currentProp.getName())) {
+        associations.add(currentProp);
         establishDomainClassRelationship(currentProp);
       }
     }

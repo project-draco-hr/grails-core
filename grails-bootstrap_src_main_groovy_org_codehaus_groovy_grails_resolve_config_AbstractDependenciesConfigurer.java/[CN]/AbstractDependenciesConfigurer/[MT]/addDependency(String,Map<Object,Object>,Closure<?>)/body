@@ -33,5 +33,7 @@
   if (configurer != null) {
     dependencyDescriptor.configure(configurer);
   }
-  addDependency(scope,dependencyDescriptor);
+  if (!isExcluded(context,dependencyDescriptor)) {
+    addDependency(scope,dependencyDescriptor);
+  }
 }

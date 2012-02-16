@@ -1,14 +1,11 @@
 {
-  MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
-  Set<Class> classes=new HashSet<Class>(alteredClasses.keySet());
-  for (  Class aClass : classes) {
-    Object alteredMetaClass=alteredClasses.get(aClass);
-    if (alteredMetaClass == NO_CUSTOM_METACLASS) {
-      registry.removeMetaClass(aClass);
-    }
- else {
-      registry.setMetaClass(aClass,(MetaClass)alteredMetaClass);
-    }
+  try {
+    cleaning=true;
+    MetaClassRegistryImpl registry=(MetaClassRegistryImpl)GroovySystem.getMetaClassRegistry();
+    cleanMetaClassOfClass(registry);
+    cleanMetaClassOfInstance(registry);
   }
-  alteredClasses.clear();
+  finally {
+    cleaning=false;
+  }
 }

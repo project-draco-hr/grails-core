@@ -1,0 +1,8 @@
+{
+  LayoutWriterStack stack=LayoutWriterStack.currentStack();
+  stack.push();
+  Map<String,Object> result=new HashMap<String,Object>();
+  result.put("body",body.call());
+  result.putAll(stack.pop());
+  return result;
+}

@@ -1,6 +1,0 @@
-{
-  ArgumentListExpression arguments=new ArgumentListExpression();
-  arguments.addExpression(new ConstantExpression("Cannot locate Grails API implementation. Grails code can only be run within the context of a Grails application."));
-  methodBody.addStatement(new ThrowStatement(new ConstructorCallExpression(new ClassNode(IllegalStateException.class),arguments)));
-  return new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
-}

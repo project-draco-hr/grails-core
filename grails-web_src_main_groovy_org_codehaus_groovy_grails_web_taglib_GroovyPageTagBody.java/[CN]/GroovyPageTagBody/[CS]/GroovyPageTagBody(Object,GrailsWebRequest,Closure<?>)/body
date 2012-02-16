@@ -1,3 +1,7 @@
 {
-  this(owner,webRequest,bodyClosure,false);
+  super(owner);
+  Assert.notNull(bodyClosure,"Argument [bodyClosure] cannot be null!");
+  Assert.notNull(webRequest,"Argument [webRequest] cannot be null!");
+  this.bodyClosure=bodyClosure;
+  this.webRequest=webRequest;
 }

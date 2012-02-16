@@ -10,7 +10,7 @@
         transformClosureToMethod(classNode,closureAction,property,source);
       }
  else {
-        addMethodToInvokeClosure(classNode,property);
+        addMethodToInvokeClosure(classNode,property,source);
       }
     }
   }

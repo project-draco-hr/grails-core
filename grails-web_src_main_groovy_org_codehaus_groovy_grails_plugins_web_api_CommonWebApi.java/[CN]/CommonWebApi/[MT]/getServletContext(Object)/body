@@ -1,7 +1,6 @@
 {
   if (servletContext == null) {
-    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-    servletContext=webRequest.getServletContext();
+    servletContext=currentRequestAttributes().getServletContext();
   }
   return servletContext;
 }

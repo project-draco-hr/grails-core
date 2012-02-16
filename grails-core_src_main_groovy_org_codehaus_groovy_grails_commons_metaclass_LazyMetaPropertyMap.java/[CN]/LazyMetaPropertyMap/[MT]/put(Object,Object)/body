@@ -4,7 +4,7 @@
   }
   Object old=null;
   MetaProperty mp=metaClass.getMetaProperty((String)propertyName);
-  if (mp != null) {
+  if (mp != null && !isExcluded(mp)) {
     old=mp.getProperty(instance);
     if (propertyValue instanceof Map) {
       propertyValue=((Map)propertyValue).get(propertyName);

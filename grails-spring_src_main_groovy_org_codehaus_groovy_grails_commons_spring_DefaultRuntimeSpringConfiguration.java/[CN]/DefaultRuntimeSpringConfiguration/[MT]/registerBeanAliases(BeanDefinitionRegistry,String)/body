@@ -1,8 +1,0 @@
-{
-  List<String> beanAliases=aliases.get(beanName);
-  if (beanAliases != null && !beanAliases.isEmpty()) {
-    for (    String alias : beanAliases) {
-      beanDefinitionRegistry.registerAlias(beanName,alias);
-    }
-  }
-}

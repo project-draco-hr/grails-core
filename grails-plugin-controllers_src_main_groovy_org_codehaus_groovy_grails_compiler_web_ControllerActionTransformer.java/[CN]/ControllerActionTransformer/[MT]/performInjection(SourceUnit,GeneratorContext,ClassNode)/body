@@ -1,4 +1,7 @@
 {
-  annotateCandidateActionMethods(classNode,source);
-  processClosures(classNode,source);
+  final String className=classNode.getName();
+  if (className.endsWith(ControllerArtefactHandler.TYPE)) {
+    annotateCandidateActionMethods(classNode,source);
+    processClosures(classNode,source);
+  }
 }

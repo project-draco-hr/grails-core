@@ -1,6 +1,6 @@
 {
   return CollectionUtils.exists(Arrays.asList(annotationsToLookFor),new Predicate(){
-    public boolean evaluate(    Object object){
+    @SuppressWarnings({"unchecked","rawtypes"}) public boolean evaluate(    Object object){
       return hasAnnotation(classNode,(Class)object);
     }
   }

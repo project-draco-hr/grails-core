@@ -8,6 +8,5 @@
   }
   info.inputName=commandLine.getCommandName();
   info.name=GrailsNameUtils.getNameFromScript(commandLine.getCommandName());
-  info.args=commandLine.getRemainingArgsString();
   return info;
 }

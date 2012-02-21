@@ -1,12 +1,14 @@
 {
-  try {
-    Field f=ConsoleReader.class.getDeclaredField("keybindings");
-    f.setAccessible(true);
-    short[] keybindings=(short[])f.get(reader);
-    if (keybindings[3] == -48) {
-      keybindings[3]=3;
+  if (reader != null) {
+    try {
+      Field f=ConsoleReader.class.getDeclaredField("keybindings");
+      f.setAccessible(true);
+      short[] keybindings=(short[])f.get(reader);
+      if (keybindings[3] == -48) {
+        keybindings[3]=3;
+      }
     }
-  }
- catch (  Exception ignored) {
+ catch (    Exception ignored) {
+    }
   }
 }

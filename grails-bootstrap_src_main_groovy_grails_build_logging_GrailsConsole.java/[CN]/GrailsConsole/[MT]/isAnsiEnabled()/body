@@ -1,3 +1,3 @@
 {
-  return Ansi.isEnabled() && terminal.isANSISupported() && ansiEnabled;
+  return Ansi.isEnabled() && (terminal != null && terminal.isANSISupported()) && ansiEnabled;
 }

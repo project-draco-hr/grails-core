@@ -1,0 +1,24 @@
+{
+  final ClassNode returnType=_method.getReturnType();
+  Parameter[] parameters=_method.getParameters();
+  for (  Parameter param : parameters) {
+    if (param.hasInitialExpression()) {
+      String paramName=param.getName();
+      String methodName=_method.getName();
+      String initialValue=param.getInitialExpression().getText();
+      String methodDeclaration=_method.getText();
+      String message="Parameter [%s] to method [%s] has default value [%s].  Default parameter values are not allowed in controller action methods. ([%s])";
+      String formattedMessage=String.format(message,paramName,methodName,initialValue,methodDeclaration);
+      error(source,formattedMessage);
+    }
+  }
+  MethodNode method=null;
+  if (_method.getParameters().length > 0) {
+    method=new MethodNode(_method.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(_method,initializeActionParameters(classNode,_method,_method.getName(),parameters,source,context)));
+    annotateActionMethod(parameters,method);
+  }
+ else {
+    annotateActionMethod(parameters,_method);
+  }
+  return method;
+}

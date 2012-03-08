@@ -1,0 +1,34 @@
+{
+  final Map<String,Map<String,Expression>> results=new LinkedHashMap<String,Map<String,Expression>>();
+  final Statement closureCode=closureExpression.getCode();
+  if (closureCode instanceof BlockStatement) {
+    final List<Statement> closureStatements=((BlockStatement)closureCode).getStatements();
+    for (    Statement closureStatement : closureStatements) {
+      if (closureStatement instanceof ExpressionStatement) {
+        final Expression expression=((ExpressionStatement)closureStatement).getExpression();
+        if (expression instanceof MethodCallExpression) {
+          final MethodCallExpression methodCallExpression=(MethodCallExpression)expression;
+          final Expression methodCallArguments=methodCallExpression.getArguments();
+          if (methodCallArguments instanceof TupleExpression) {
+            final List<Expression> methodCallArgumentExpressions=((TupleExpression)methodCallArguments).getExpressions();
+            if (methodCallArgumentExpressions != null && methodCallArgumentExpressions.size() == 1 && methodCallArgumentExpressions.get(0) instanceof NamedArgumentListExpression) {
+              final Map<String,Expression> constraintNameToExpression=new LinkedHashMap<String,Expression>();
+              final List<MapEntryExpression> mapEntryExpressions=((NamedArgumentListExpression)methodCallArgumentExpressions.get(0)).getMapEntryExpressions();
+              for (              MapEntryExpression mapEntryExpression : mapEntryExpressions) {
+                final Expression keyExpression=mapEntryExpression.getKeyExpression();
+                if (keyExpression instanceof ConstantExpression) {
+                  final Object value=((ConstantExpression)keyExpression).getValue();
+                  if (value instanceof String) {
+                    constraintNameToExpression.put((String)value,mapEntryExpression.getValueExpression());
+                  }
+                }
+              }
+              results.put(methodCallExpression.getMethodAsString(),constraintNameToExpression);
+            }
+          }
+        }
+      }
+    }
+  }
+  return results;
+}

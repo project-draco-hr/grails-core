@@ -1,4 +1,5 @@
 {
+  System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
   originalIn=System.in;
   originalOut=System.out;
   CommandLineParser parser=getCommandLineParser();

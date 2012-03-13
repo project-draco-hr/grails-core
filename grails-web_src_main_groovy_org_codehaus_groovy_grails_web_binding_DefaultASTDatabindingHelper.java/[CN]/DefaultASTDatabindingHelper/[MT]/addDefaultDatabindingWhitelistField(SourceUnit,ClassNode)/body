@@ -9,7 +9,7 @@
       if (declaredField != null) {
         final ClassNode type=declaredField.getType();
         if (!SIMPLE_TYPES.contains(type)) {
-          if (DATE_TYPES.contains(type)) {
+          if (STRUCTURED_EDITOR_TYPES.contains(type)) {
             listExpression.addExpression(new ConstantExpression(propertyName + "_*"));
           }
  else {

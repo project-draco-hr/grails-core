@@ -1,15 +1,13 @@
 {
-  if (watchedResources.length == 0) {
-    if (watchedResourcePatternReferences != null) {
-      for (      String resourcesReference : watchedResourcePatternReferences) {
-        try {
-          Resource[] tmp=resolver.getResources(resourcesReference);
-          if (tmp.length > 0) {
-            watchedResources=(Resource[])ArrayUtils.addAll(watchedResources,tmp);
-          }
+  if (watchedResources.length == 0 && watchedResourcePatternReferences != null) {
+    for (    String resourcesReference : watchedResourcePatternReferences) {
+      try {
+        Resource[] resources=resolver.getResources(resourcesReference);
+        if (resources.length > 0) {
+          watchedResources=(Resource[])ArrayUtils.addAll(watchedResources,resources);
         }
- catch (        Exception e) {
-        }
+      }
+ catch (      Exception ignored) {
       }
     }
   }

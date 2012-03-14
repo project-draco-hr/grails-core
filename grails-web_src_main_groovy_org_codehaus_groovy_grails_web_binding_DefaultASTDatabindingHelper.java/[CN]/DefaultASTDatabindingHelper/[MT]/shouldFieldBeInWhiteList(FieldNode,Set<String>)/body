@@ -1,0 +1,8 @@
+{
+  boolean shouldInclude=true;
+  final int modifiers=fieldNode.getModifiers();
+  if ((modifiers & Modifier.STATIC) != 0 || (modifiers & Modifier.TRANSIENT) != 0 || fieldsInTransientsList.contains(fieldNode.getName()) || fieldNode.getType().equals(new ClassNode(Object.class))) {
+    shouldInclude=false;
+  }
+  return shouldInclude;
+}

@@ -1,4 +1,5 @@
 {
+  resolveEngine.setDictatorResolver(chainResolver);
   this.chainResolver=chainResolver;
   updateChangingPattern();
 }

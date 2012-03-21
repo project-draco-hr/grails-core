@@ -1,0 +1,18 @@
+{
+  setObjectToReadOnly(target);
+  if (domainClass instanceof DefaultGrailsDomainClass) {
+    DefaultGrailsDomainClass dgdc=(DefaultGrailsDomainClass)domainClass;
+    List<GrailsDomainClassProperty> associations=dgdc.getAssociations();
+    for (    GrailsDomainClassProperty association : associations) {
+      if (association.isOneToOne() || association.isManyToOne()) {
+        BeanWrapper bean=new BeanWrapperImpl(target);
+        Object propertyValue=bean.getPropertyValue(association.getName());
+        if (propertyValue != null) {
+          setObjectToReadOnly(propertyValue);
+        }
+      }
+    }
+  }
+  setErrorsOnInstance(target,errors);
+  return null;
+}

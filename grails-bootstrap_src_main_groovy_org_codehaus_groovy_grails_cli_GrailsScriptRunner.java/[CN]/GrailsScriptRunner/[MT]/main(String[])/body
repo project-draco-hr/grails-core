@@ -1,5 +1,6 @@
 {
   System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
+  ExpandoMetaClass.enableGlobally();
   originalIn=System.in;
   originalOut=System.out;
   CommandLineParser parser=getCommandLineParser();

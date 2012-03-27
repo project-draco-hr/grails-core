@@ -17,6 +17,13 @@
       ExpandoMetaClass newMc=new ExpandoMetaClass(cls,true,true);
       newMc.initialize();
       registry.setMetaClass(cls,newMc);
+      Enhanced en=AnnotationUtils.findAnnotation(cls,Enhanced.class);
+      if (en != null) {
+        Class[] mixinClasses=en.mixins();
+        if (mixinClasses != null) {
+          DefaultGroovyMethods.mixin(newMc,mixinClasses);
+        }
+      }
     }
     for (    GrailsPlugin grailsPlugin : pluginList) {
       if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {

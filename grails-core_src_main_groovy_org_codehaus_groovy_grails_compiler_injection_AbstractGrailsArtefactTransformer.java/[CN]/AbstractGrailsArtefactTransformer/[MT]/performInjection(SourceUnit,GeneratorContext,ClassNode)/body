@@ -65,5 +65,12 @@
     final AnnotationNode annotationNode=new AnnotationNode(ENHANCED_CLASS_NODE);
     annotationNode.setMember("version",new ConstantExpression(GrailsUtil.getGrailsVersion()));
     classNode.addAnnotation(annotationNode);
+    AnnotationNode annotation=GrailsASTUtils.findAnnotation(classNode,Mixin.class);
+    if (annotation != null) {
+      Expression value=annotation.getMember("value");
+      if (value != null) {
+        annotationNode.setMember("mixins",value);
+      }
+    }
   }
 }

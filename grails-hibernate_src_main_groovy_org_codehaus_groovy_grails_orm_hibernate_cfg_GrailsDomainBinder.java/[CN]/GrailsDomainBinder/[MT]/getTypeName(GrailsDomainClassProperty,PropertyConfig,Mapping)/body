@@ -1,16 +1,13 @@
 {
-  String typeName=null;
   if (config != null && config.getType() != null) {
     final Object typeObj=config.getType();
     if (typeObj instanceof Class<?>) {
-      typeName=((Class<?>)typeObj).getName();
+      return ((Class<?>)typeObj).getName();
     }
- else {
-      typeName=typeObj.toString();
-    }
+    return typeObj.toString();
   }
- else   if (mapping != null) {
-    typeName=mapping.getTypeName(property.getType());
+  if (mapping != null) {
+    return mapping.getTypeName(property.getType());
   }
-  return typeName;
+  return null;
 }

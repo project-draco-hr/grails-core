@@ -36,7 +36,9 @@
         }
         column.setUnique(cc.isUnique());
       }
-      if (table != null)       table.addColumn(column);
+      if (table != null) {
+        table.addColumn(column);
+      }
       simpleValue.addColumn(column);
     }
   }

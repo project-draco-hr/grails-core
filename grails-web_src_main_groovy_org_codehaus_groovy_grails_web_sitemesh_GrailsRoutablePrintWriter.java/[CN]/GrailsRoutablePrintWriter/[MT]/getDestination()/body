@@ -7,6 +7,7 @@
       setError();
     }
     super.out=destination;
+    super.setTarget(destination);
   }
   return destination;
 }

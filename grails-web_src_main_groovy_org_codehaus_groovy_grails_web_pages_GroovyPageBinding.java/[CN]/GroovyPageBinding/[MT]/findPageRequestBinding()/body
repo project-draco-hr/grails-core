@@ -1,0 +1,18 @@
+{
+  if (!pageRequestBindingInitialized && parent != null) {
+    Binding nextParent=parent;
+    while (nextParent != null && pageRequestBinding == null) {
+      if (nextParent instanceof GroovyPageRequestBinding) {
+        pageRequestBinding=(GroovyPageRequestBinding)nextParent;
+      }
+      if (nextParent instanceof GroovyPageBinding) {
+        nextParent=((GroovyPageBinding)nextParent).parent;
+      }
+ else {
+        nextParent=null;
+      }
+    }
+    pageRequestBindingInitialized=true;
+  }
+  return pageRequestBinding;
+}

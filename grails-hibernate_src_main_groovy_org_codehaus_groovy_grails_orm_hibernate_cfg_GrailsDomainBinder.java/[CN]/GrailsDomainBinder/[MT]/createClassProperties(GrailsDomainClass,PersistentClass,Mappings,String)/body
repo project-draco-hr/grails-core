@@ -20,7 +20,7 @@
     Class<?> userType=getUserType(currentGrailsProp);
     if (collectionType != null) {
       String typeName=getTypeName(currentGrailsProp,getPropertyConfig(currentGrailsProp),gormMapping);
-      if (typeName != null && "serializable".equals(typeName)) {
+      if ("serializable".equals(typeName)) {
         value=new SimpleValue(mappings,table);
         bindSimpleValue(typeName,(SimpleValue)value,currentGrailsProp.isOptional(),getColumnNameForPropertyAndPath(currentGrailsProp,EMPTY_PATH,null,sessionFactoryBeanName),mappings);
       }

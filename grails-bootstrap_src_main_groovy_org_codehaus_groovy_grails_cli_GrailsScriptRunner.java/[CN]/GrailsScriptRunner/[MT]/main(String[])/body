@@ -1,4 +1,6 @@
 {
+  System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
+  ExpandoMetaClass.enableGlobally();
   originalIn=System.in;
   originalOut=System.out;
   CommandLineParser parser=getCommandLineParser();
@@ -20,7 +22,6 @@
     System.exit(1);
     return;
   }
-  String version=System.getProperty("grails.version");
   ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
@@ -63,7 +64,8 @@
     script.name=null;
   }
   if (script.name == null) {
-    console.updateStatus("Loading Grails " + (version != null ? version : build.getGrailsVersion()));
+    String version=System.getProperty("grails.version");
+    console.updateStatus("Loading Grails " + (version == null ? build.getGrailsVersion() : version));
     build.loadConfig();
     if (resolveDeps) {
       ClasspathConfigurer.cleanResolveCache(build);

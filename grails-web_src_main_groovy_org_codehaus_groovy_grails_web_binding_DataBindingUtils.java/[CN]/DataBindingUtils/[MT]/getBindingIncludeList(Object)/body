@@ -1,0 +1,26 @@
+{
+  List includeList=Collections.EMPTY_LIST;
+  try {
+    final Class<? extends Object> objectClass=object.getClass();
+    if (CLASS_TO_BINDING_INCLUDE_LIST.containsKey(objectClass)) {
+      includeList=CLASS_TO_BINDING_INCLUDE_LIST.get(objectClass);
+    }
+ else {
+      final Field whiteListField=objectClass.getDeclaredField(DefaultASTDatabindingHelper.DEFAULT_DATABINDING_WHITELIST);
+      if (whiteListField != null) {
+        if ((whiteListField.getModifiers() & Modifier.STATIC) != 0) {
+          final Object whiteListValue=whiteListField.get(null);
+          if (whiteListValue instanceof List) {
+            includeList=(List)whiteListValue;
+          }
+        }
+      }
+      if (!Environment.getCurrent().isReloadEnabled()) {
+        CLASS_TO_BINDING_INCLUDE_LIST.put(objectClass,includeList);
+      }
+    }
+  }
+ catch (  Exception e) {
+  }
+  return includeList;
+}

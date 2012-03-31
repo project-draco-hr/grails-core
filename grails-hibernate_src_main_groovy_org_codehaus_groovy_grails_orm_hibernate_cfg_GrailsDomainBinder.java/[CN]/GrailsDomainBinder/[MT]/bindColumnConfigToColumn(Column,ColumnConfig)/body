@@ -1,9 +1,18 @@
 {
-  if (columnConfig != null) {
+  if (columnConfig == null) {
+    return;
+  }
+  if (columnConfig.getLength() != -1) {
     column.setLength(columnConfig.getLength());
+  }
+  if (columnConfig.getPrecision() != -1) {
     column.setPrecision(columnConfig.getPrecision());
-    column.setSqlType(columnConfig.getSqlType());
-    column.setUnique(columnConfig.getUnique());
+  }
+  if (columnConfig.getScale() != -1) {
     column.setScale(columnConfig.getScale());
   }
+  if (columnConfig.getSqlType() != null && !columnConfig.getSqlType().isEmpty()) {
+    column.setSqlType(columnConfig.getSqlType());
+  }
+  column.setUnique(columnConfig.getUnique());
 }

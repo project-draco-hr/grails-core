@@ -1,0 +1,23 @@
+{
+  final FieldNode defaultWhitelistField=classNode.getDeclaredField(DEFAULT_DATABINDING_WHITELIST);
+  if (defaultWhitelistField == null) {
+    final Set<String> propertyNamesToIncludeInWhiteList=getPropertyNamesToIncludeInWhiteList(sourceUnit,classNode);
+    final ListExpression listExpression=new ListExpression();
+    for (    String propertyName : propertyNamesToIncludeInWhiteList) {
+      listExpression.addExpression(new ConstantExpression(propertyName));
+      final FieldNode declaredField=classNode.getDeclaredField(propertyName);
+      if (declaredField != null) {
+        final ClassNode type=declaredField.getType();
+        if (!SIMPLE_TYPES.contains(type)) {
+          if (STRUCTURED_EDITOR_TYPES.contains(type)) {
+            listExpression.addExpression(new ConstantExpression(propertyName + "_*"));
+          }
+ else {
+            listExpression.addExpression(new ConstantExpression(propertyName + ".*"));
+          }
+        }
+      }
+    }
+    classNode.addField(DEFAULT_DATABINDING_WHITELIST,Modifier.STATIC | Modifier.PUBLIC | Modifier.FINAL,new ClassNode(List.class),listExpression);
+  }
+}

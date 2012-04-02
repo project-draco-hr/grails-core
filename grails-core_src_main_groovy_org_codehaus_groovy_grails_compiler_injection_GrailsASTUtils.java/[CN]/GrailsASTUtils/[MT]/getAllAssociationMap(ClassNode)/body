@@ -1,0 +1,7 @@
+{
+  Map<String,ClassNode> associationMap=new HashMap<String,ClassNode>();
+  associationMap.putAll(getAssocationMap(classNode,GrailsDomainClassProperty.HAS_MANY));
+  associationMap.putAll(getAssocationMap(classNode,GrailsDomainClassProperty.HAS_ONE));
+  associationMap.putAll(getAssocationMap(classNode,GrailsDomainClassProperty.BELONGS_TO));
+  return associationMap;
+}

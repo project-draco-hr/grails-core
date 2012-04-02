@@ -1,7 +1,4 @@
 {
   String property=System.getProperty(prop);
-  if (property != null) {
-    return Boolean.valueOf(property);
-  }
-  return true;
+  return property == null ? true : Boolean.valueOf(property);
 }

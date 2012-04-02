@@ -3,8 +3,7 @@
     throw new RuntimeException("Intended grails build listener class of " + listenerClass.getName() + " does not implement "+ GrailsBuildListener.class.getName());
   }
   try {
-    GrailsBuildListener listener=(GrailsBuildListener)listenerClass.newInstance();
-    addGrailsBuildListener(listener);
+    addGrailsBuildListener((GrailsBuildListener)listenerClass.newInstance());
   }
  catch (  Exception e) {
     throw new RuntimeException("Could not instantiate " + listenerClass.getName(),e);

@@ -10,7 +10,7 @@
   }
   StringWriter sw=new StringWriter();
   PrintWriter ps=new PrintWriter(sw);
-  message=message != null ? message : error.getMessage();
+  message=message == null ? error.getMessage() : message;
   if (!isVerbose()) {
     message=message + STACKTRACE_FILTERED_MESSAGE;
   }

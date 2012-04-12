@@ -1,0 +1,6 @@
+{
+  if (render == null) {
+    render=new RenderDynamicMethod();
+  }
+  return render;
+}

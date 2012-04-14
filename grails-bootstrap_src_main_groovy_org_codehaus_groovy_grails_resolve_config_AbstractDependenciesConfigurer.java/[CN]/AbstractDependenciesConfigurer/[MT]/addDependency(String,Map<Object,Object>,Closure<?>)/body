@@ -33,6 +33,7 @@
   if (configurer != null) {
     dependencyDescriptor.configure(configurer);
   }
+  addArtifacts(scope,dependencyDescriptor);
   if (!isExcluded(dependencyDescriptor)) {
     addDependency(scope,dependencyDescriptor);
   }

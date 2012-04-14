@@ -1,0 +1,5 @@
+{
+  ModuleId dependencyId=dependencyDescriptor.getDependencyId();
+  DependencyArtifactDescriptor artifact=new DefaultDependencyArtifactDescriptor(dependencyDescriptor,dependencyId.getName(),"jar","jar",null,dependencyDescriptor.getExtraAttributes());
+  dependencyDescriptor.addDependencyArtifact(scope,artifact);
+}

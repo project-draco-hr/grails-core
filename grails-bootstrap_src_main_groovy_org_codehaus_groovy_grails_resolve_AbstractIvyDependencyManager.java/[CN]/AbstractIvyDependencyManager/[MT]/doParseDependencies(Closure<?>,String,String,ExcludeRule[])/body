@@ -8,6 +8,7 @@
     context=DependencyConfigurationContext.forPlugin(dependencyManager,pluginName);
   }
   context.setOffline(this.offline);
+  context.setParentScope(scope);
   context.setExcludeRules(excludeRules);
   definition.setDelegate(new DependencyConfigurationConfigurer(context));
   definition.setResolveStrategy(Closure.DELEGATE_FIRST);

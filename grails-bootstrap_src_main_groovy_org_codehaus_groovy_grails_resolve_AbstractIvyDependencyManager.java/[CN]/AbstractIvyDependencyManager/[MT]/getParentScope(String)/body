@@ -1,0 +1,8 @@
+{
+  DependencyDescriptor pluginDependencyDescriptor=getPluginDependencyDescriptor(pluginName);
+  String scope=null;
+  if (pluginDependencyDescriptor instanceof EnhancedDefaultDependencyDescriptor) {
+    scope=((EnhancedDefaultDependencyDescriptor)pluginDependencyDescriptor).getScope();
+  }
+  return scope;
+}

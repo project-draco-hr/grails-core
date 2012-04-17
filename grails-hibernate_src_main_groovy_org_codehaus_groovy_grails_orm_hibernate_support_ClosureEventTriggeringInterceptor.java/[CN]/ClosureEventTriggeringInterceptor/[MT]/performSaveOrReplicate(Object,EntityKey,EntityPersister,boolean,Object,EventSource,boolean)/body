@@ -20,8 +20,8 @@
   }
   TypeHelper.deepCopy(values,types,persister.getPropertyUpdateability(),values,source);
   new ForeignKeys.Nullifier(entity,false,useIdentityColumn,source).nullifyTransientReferences(values,types);
-  new Nullability(source).checkNullability(values,persister,false);
   if (useIdentityColumn) {
+    registerNullabilityCheckerAsLastEventListener(source);
     EntityIdentityInsertAction insert=new EntityIdentityInsertAction(values,entity,persister,source,shouldDelayIdentityInserts);
     if (!shouldDelayIdentityInserts) {
       log.debug("executing identity-insert immediately");
@@ -37,6 +37,9 @@
       source.getActionQueue().addAction(insert);
       key=insert.getDelayedEntityKey();
     }
+  }
+ else {
+    new Nullability(source).checkNullability(values,persister,false);
   }
   if (key != null) {
     Object version=Versioning.getVersion(values,persister);

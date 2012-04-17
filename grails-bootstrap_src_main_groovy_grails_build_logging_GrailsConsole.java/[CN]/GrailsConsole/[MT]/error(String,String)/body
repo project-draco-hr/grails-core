@@ -1,24 +1,25 @@
 {
-  if (message != null) {
-    cursorMove=0;
-    try {
-      if (isAnsiEnabled()) {
-        Ansi ansi=outputErrorLabel(userInputActive ? moveDownToSkipPrompt() : ansi(),label).a(message);
-        if (message.endsWith(LINE_SEPARATOR)) {
-          out.print(ansi);
-        }
- else {
-          out.println(ansi);
-        }
+  if (message == null) {
+    return;
+  }
+  cursorMove=0;
+  try {
+    if (isAnsiEnabled()) {
+      Ansi ansi=outputErrorLabel(userInputActive ? moveDownToSkipPrompt() : ansi(),label).a(message);
+      if (message.endsWith(LINE_SEPARATOR)) {
+        out.print(ansi);
       }
  else {
-        out.print(label);
-        out.print(" ");
-        logSimpleError(message);
+        out.println(ansi);
       }
     }
+ else {
+      out.print(label);
+      out.print(" ");
+      logSimpleError(message);
+    }
+  }
   finally {
-      postPrintMessage();
-    }
+    postPrintMessage();
   }
 }

@@ -1,0 +1,6 @@
+{
+  if (forwardMethod == null) {
+    forwardMethod=new ForwardMethod();
+  }
+  return forwardMethod;
+}

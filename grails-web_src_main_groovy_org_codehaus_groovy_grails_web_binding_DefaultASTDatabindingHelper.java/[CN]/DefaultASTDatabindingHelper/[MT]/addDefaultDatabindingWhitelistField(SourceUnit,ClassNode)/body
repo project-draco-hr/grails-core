@@ -8,12 +8,18 @@
       final FieldNode declaredField=classNode.getDeclaredField(propertyName);
       if (declaredField != null) {
         final ClassNode type=declaredField.getType();
-        if (!SIMPLE_TYPES.contains(type)) {
+        if (type != null && !SIMPLE_TYPES.contains(type)) {
           if (STRUCTURED_EDITOR_TYPES.contains(type)) {
             listExpression.addExpression(new ConstantExpression(propertyName + "_*"));
           }
  else {
-            listExpression.addExpression(new ConstantExpression(propertyName + ".*"));
+            String packageName=type.getPackageName();
+            if (packageName != null && packageName.startsWith(JODATIME_PACKAGE)) {
+              listExpression.addExpression(new ConstantExpression(propertyName + "_*"));
+            }
+ else {
+              listExpression.addExpression(new ConstantExpression(propertyName + ".*"));
+            }
           }
         }
       }

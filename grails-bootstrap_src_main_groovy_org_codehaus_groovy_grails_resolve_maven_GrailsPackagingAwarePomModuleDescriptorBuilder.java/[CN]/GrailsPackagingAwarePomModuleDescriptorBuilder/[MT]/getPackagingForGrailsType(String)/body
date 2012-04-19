@@ -1,0 +1,12 @@
+{
+  if (GRAILS_PLUGIN_PACKAGING.equals(packaging)) {
+    packaging="zip";
+  }
+ else   if (GRAILS_BINARY_PLUGIN_PACKAGING.equals(packaging)) {
+    packaging="jar";
+  }
+ else   if (GRAILS_APP_PACKAGING.equals(packaging)) {
+    packaging="war";
+  }
+  return packaging;
+}

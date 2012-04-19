@@ -2,6 +2,7 @@
   this.ivySettings=ivySettings;
   this.buildSettings=buildSettings;
   this.metadata=metadata;
+  ModuleDescriptorParserRegistry.getInstance().addParser(org.codehaus.groovy.grails.resolve.maven.PomModuleDescriptorParser.getInstance());
   chainResolver=new ChainResolver();
   chainResolver.setName("cache");
   chainResolver.setReturnFirst(true);

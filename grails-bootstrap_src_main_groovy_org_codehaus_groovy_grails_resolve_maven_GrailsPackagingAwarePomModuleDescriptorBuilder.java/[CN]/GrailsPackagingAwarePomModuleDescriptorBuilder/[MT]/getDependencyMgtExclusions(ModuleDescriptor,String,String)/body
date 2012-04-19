@@ -1,0 +1,19 @@
+{
+  String exclusionPrefix=getDependencyMgtExtraInfoPrefixForExclusion(groupId,artifactId);
+  List exclusionIds=new LinkedList();
+  Map extras=descriptor.getExtraInfo();
+  for (final Iterator entIter=extras.entrySet().iterator(); entIter.hasNext(); ) {
+    Map.Entry ent=(Map.Entry)entIter.next();
+    String key=(String)ent.getKey();
+    if (key.startsWith(exclusionPrefix)) {
+      String fullExclusion=(String)ent.getValue();
+      String[] exclusionParts=fullExclusion.split(EXTRA_INFO_DELIMITER);
+      if (exclusionParts.length != 2) {
+        Message.error(WRONG_NUMBER_OF_PARTS_MSG + exclusionParts.length + " : "+ fullExclusion);
+        continue;
+      }
+      exclusionIds.add(ModuleId.newInstance(exclusionParts[0],exclusionParts[1]));
+    }
+  }
+  return exclusionIds;
+}

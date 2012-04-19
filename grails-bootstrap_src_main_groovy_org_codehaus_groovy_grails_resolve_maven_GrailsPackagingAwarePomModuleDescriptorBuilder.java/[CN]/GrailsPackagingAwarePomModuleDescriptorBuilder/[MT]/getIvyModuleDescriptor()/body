@@ -1,0 +1,13 @@
+{
+  try {
+    Field field=PomModuleDescriptorBuilder.class.getDeclaredField("ivyModuleDescriptor");
+    field.setAccessible(true);
+    return (DefaultModuleDescriptor)field.get(this);
+  }
+ catch (  NoSuchFieldException e) {
+    throw new RuntimeException("Cannot obtain reference to ivy module descriptor to configure POM data correctly. Message: " + e.getMessage());
+  }
+catch (  IllegalAccessException e) {
+    throw new RuntimeException("Cannot obtain reference to ivy module descriptor to configure POM data correctly. Message: " + e.getMessage());
+  }
+}

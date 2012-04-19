@@ -13,6 +13,11 @@
  finally {
     System.setProperty("disable.grails.plugin.transform","false");
   }
-  BuildSettingsHolder.setSettings(settings);
-  return callPluginOrGrailsScript(commandLine,scriptName,env);
+  try {
+    BuildSettingsHolder.setSettings(settings);
+    return callPluginOrGrailsScript(commandLine,scriptName,env);
+  }
+  finally {
+    BuildSettingsHolder.setSettings(null);
+  }
 }

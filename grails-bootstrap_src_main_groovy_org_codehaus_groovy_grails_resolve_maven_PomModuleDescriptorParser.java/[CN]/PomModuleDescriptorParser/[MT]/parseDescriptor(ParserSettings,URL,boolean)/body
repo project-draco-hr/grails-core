@@ -1,0 +1,4 @@
+{
+  URLResource resource=new URLResource(descriptorURL);
+  return parseDescriptor(ivySettings,descriptorURL,resource,validate);
+}

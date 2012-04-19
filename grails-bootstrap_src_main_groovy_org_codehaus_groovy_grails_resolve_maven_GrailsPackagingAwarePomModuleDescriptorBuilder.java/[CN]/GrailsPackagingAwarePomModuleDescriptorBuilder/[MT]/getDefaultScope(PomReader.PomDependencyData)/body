@@ -1,0 +1,8 @@
+{
+  String key=getDependencyMgtExtraInfoKeyForScope(dep.getGroupId(),dep.getArtifactId());
+  String result=(String)getIvyModuleDescriptor().getExtraInfo().get(key);
+  if ((result == null) || !MAVEN2_CONF_MAPPING.containsKey(result)) {
+    result="compile";
+  }
+  return result;
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    XmlModuleDescriptorWriter.write(md,destFile);
+  }
+  finally {
+    if (is != null) {
+      is.close();
+    }
+  }
+}

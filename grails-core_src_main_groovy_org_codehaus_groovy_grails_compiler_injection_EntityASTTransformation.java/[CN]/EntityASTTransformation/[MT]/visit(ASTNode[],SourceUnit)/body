@@ -13,7 +13,7 @@
     throw new RuntimeException("Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
   }
   GrailsDomainClassInjector domainInjector=new DefaultGrailsDomainClassInjector();
-  domainInjector.performInjectionOnAnnotatedEntity(cNode);
+  domainInjector.performInjectionOnAnnotatedEntity(sourceUnit,cNode);
   ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
   final List<ClassInjector> domainInjectors=ArtefactTypeAstTransformation.findInjectors(DomainClassArtefactHandler.TYPE,classInjectors);
   for (  ClassInjector injector : domainInjectors) {

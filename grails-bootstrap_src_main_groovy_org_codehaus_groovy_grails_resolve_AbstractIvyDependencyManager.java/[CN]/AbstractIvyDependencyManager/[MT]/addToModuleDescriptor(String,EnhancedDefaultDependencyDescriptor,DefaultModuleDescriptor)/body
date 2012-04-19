@@ -1,0 +1,26 @@
+{
+  boolean foundDependency=false;
+  for (  DependencyDescriptor existingDescriptor : moduleDescriptor.getDependencies()) {
+    if (areSameLogicalDependency(descriptor.getDependencyRevisionId(),existingDescriptor.getDependencyRevisionId())) {
+      foundDependency=true;
+      for (      DependencyArtifactDescriptor artifactToAdd : descriptor.getAllDependencyArtifacts()) {
+        boolean foundArtifact=false;
+        for (        DependencyArtifactDescriptor existingArtifact : existingDescriptor.getAllDependencyArtifacts()) {
+          if (existingArtifact.equals(artifactToAdd)) {
+            if (existingArtifact.getExtraAttributes().equals(artifactToAdd.getExtraAttributes())) {
+              foundArtifact=true;
+              break;
+            }
+          }
+        }
+        if (!foundArtifact) {
+          ((DefaultDependencyDescriptor)existingDescriptor).addDependencyArtifact(scope,artifactToAdd);
+        }
+      }
+      break;
+    }
+  }
+  if (!foundDependency) {
+    moduleDescriptor.addDependency(descriptor);
+  }
+}

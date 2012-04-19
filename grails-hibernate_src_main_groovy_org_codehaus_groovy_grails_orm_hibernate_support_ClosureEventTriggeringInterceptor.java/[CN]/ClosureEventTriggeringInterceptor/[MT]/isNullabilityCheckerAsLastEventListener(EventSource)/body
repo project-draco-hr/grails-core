@@ -1,6 +1,0 @@
-{
-  PreInsertEventListener[] preListeners=source.getListeners().getPreInsertEventListeners();
-  if (preListeners == null || preListeners.length == 0 || preListeners[preListeners.length - 1] != NULLABILITY_CHECKER_INSTANCE) {
-    log.warn("Nullability check is not last PreInsertEventListener.");
-  }
-}

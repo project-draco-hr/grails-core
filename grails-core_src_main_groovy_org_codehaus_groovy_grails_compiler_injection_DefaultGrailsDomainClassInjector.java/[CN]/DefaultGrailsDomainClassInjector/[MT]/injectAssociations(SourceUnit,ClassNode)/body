@@ -20,7 +20,7 @@
           GrailsASTUtils.warning(sourceUnit,propertyNode,message);
         }
       }
-      propertiesToAdd.addAll(createPropertiesForBelongsToOrHasOneExpression(sourceUnit,initialExpression,classNode));
+      propertiesToAdd.addAll(createPropertiesForBelongsToOrHasOneExpression(initialExpression,classNode));
     }
   }
   injectAssociationProperties(classNode,propertiesToAdd);

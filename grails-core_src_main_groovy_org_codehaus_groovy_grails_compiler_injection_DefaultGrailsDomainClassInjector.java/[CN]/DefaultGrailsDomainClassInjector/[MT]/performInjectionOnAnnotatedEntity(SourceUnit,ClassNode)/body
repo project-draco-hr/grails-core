@@ -2,5 +2,5 @@
   injectIdProperty(classNode);
   injectVersionProperty(classNode);
   injectToStringMethod(classNode);
-  injectAssociations(classNode);
+  injectAssociations(sourceUnit,classNode);
 }

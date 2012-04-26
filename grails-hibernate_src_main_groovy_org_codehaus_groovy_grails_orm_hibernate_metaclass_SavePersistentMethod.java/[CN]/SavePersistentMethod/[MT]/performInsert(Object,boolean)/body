@@ -1,17 +1,17 @@
 {
   return getHibernateTemplate().execute(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
-      session.save(target);
-      if (shouldFlush) {
-        try {
-          getHibernateTemplate().flush();
+      try {
+        ClosureEventTriggeringInterceptor.markInsertActive();
+        session.save(target);
+        if (shouldFlush) {
+          flushSession(session);
         }
- catch (        DataAccessException e) {
-          getHibernateTemplate().setFlushMode(HibernateTemplate.FLUSH_NEVER);
-          throw e;
-        }
+        return target;
       }
-      return target;
+  finally {
+        ClosureEventTriggeringInterceptor.resetInsertActive();
+      }
     }
   }
 );

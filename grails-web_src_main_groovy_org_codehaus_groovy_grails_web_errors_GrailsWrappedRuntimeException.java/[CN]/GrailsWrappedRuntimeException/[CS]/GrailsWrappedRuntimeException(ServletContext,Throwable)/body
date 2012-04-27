@@ -52,8 +52,8 @@
   }
   LineNumberReader reader=null;
   try {
-    checkIfSourceCodeAware(cause);
     checkIfSourceCodeAware(t);
+    checkIfSourceCodeAware(cause);
     if (getLineNumber() > -1) {
       String fileLocation;
       String url=null;

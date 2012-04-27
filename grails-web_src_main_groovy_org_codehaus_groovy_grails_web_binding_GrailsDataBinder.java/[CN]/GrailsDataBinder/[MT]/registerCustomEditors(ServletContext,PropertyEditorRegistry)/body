@@ -6,7 +6,13 @@
   if (context == null) {
     return;
   }
-  Map<String,PropertyEditorRegistrar> editors=context.getBeansOfType(PropertyEditorRegistrar.class);
+  @SuppressWarnings("unchecked") Map<String,PropertyEditorRegistrar> editors=(Map<String,PropertyEditorRegistrar>)servletContext.getAttribute(PROPERTY_EDITOR_REGISTRARS);
+  if (editors == null) {
+    editors=context.getBeansOfType(PropertyEditorRegistrar.class);
+    if (!Environment.isDevelopmentMode()) {
+      servletContext.setAttribute(PROPERTY_EDITOR_REGISTRARS,editors);
+    }
+  }
   for (  PropertyEditorRegistrar editorRegistrar : editors.values()) {
     editorRegistrar.registerCustomEditors(registry);
   }

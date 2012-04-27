@@ -1,4 +1,4 @@
 {
-  Throwable filteredTrace=(t != null && log4jLogger.isEnabledFor(level) && !("StackTrace".equals(name) || (msg != null && msg.startsWith(StackTraceFilterer.FULL_STACK_TRACE_MESSAGE)))) ? cleanIfException(t) : t;
+  Throwable filteredTrace=(t != null && log4jLogger.isEnabledFor(level) && !DefaultStackTraceFilterer.STACK_LOG_NAME.equals(name)) ? cleanIfException(t) : t;
   log4jLogger.log(FQCN,level,msg,filteredTrace);
 }

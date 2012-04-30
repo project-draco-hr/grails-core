@@ -6,11 +6,13 @@
   try {
     pushCapturedOut(capturedOut);
     Object bodyResult;
-    if (hasArgument) {
-      originalIt=saveItVariable(currentBinding,args);
-    }
-    if (args instanceof Map && ((Map)args).size() > 0) {
-      savedVariablesMap=addAndSaveVariables(currentBinding,(Map)args);
+    if (currentBinding != null) {
+      if (hasArgument) {
+        originalIt=saveItVariable(currentBinding,args);
+      }
+      if (args instanceof Map && ((Map)args).size() > 0) {
+        savedVariablesMap=addAndSaveVariables(currentBinding,(Map)args);
+      }
     }
     bodyResult=executeClosure(args);
     if (!capturedOut.isUsed() && bodyResult != null && !(bodyResult instanceof Writer)) {
@@ -19,9 +21,11 @@
     return capturedOut.getBuffer();
   }
   finally {
-    restoreVariables(currentBinding,savedVariablesMap);
-    if (hasArgument) {
-      restoreItVariable(currentBinding,originalIt);
+    if (currentBinding != null) {
+      restoreVariables(currentBinding,savedVariablesMap);
+      if (hasArgument) {
+        restoreItVariable(currentBinding,originalIt);
+      }
     }
     popCapturedOut();
   }

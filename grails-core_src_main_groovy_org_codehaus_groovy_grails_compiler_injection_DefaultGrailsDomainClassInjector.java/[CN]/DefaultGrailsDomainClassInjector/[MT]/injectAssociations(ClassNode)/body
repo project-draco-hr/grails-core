@@ -13,11 +13,11 @@
       if ((!(initialExpression instanceof MapExpression)) && (!(initialExpression instanceof ClassExpression))) {
         if (name.equals(GrailsDomainClassProperty.HAS_ONE)) {
           final String message="The hasOne property in class [" + classNode.getName() + "] should have an initial expression of type Map or Class.";
-          GrailsASTUtils.warning(sourceUnit,propertyNode,message);
+          GrailsConsole.getInstance().warn(message);
         }
  else         if (!(initialExpression instanceof ListExpression)) {
           final String message="The belongsTo property in class [" + classNode.getName() + "] should have an initial expression of type List, Map or Class.";
-          GrailsASTUtils.warning(sourceUnit,propertyNode,message);
+          GrailsConsole.getInstance().warn(message);
         }
       }
       propertiesToAdd.addAll(createPropertiesForBelongsToOrHasOneExpression(initialExpression,classNode));

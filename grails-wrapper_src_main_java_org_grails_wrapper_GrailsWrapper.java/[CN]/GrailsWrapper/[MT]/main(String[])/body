@@ -1,0 +1,42 @@
+{
+  ResourceBundle bundle=ResourceBundle.getBundle("grails-wrapper");
+  final String grailsVersion=bundle.getString("wrapper.version");
+  final File grailsCacheDir=new File(System.getProperty("user.home") + "/.grails/");
+  final File grailsVersionDir=new File(grailsCacheDir,grailsVersion);
+  final File wrapperDir=new File(grailsVersionDir,"wrapper");
+  String distUrl=bundle.getString("wrapper.dist.url");
+  if (distUrl == null) {
+    distUrl="http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/";
+  }
+  if (!distUrl.endsWith("/")) {
+    distUrl+="/";
+  }
+  final String src=distUrl + "grails-" + grailsVersion+ ".zip";
+  final URI uri=new URI(src);
+  final File file=new File(wrapperDir,"download.zip");
+  new RemoteFileHelper().retrieve(uri,file);
+  final File installDir=new File(wrapperDir,"install");
+  if (!installDir.exists()) {
+    extract(file,installDir);
+  }
+  final File grailsHome=new File(installDir,"grails-" + grailsVersion);
+  final File groovyStartConf=new File(grailsHome,"conf/groovy-starter.conf");
+  System.setProperty("grails.home",grailsHome.getAbsolutePath());
+  final URL[] urls=new URL[2];
+  urls[0]=new File(grailsHome,"dist/grails-bootstrap-" + grailsVersion + ".jar").toURI().toURL();
+  File[] groovyJarCandidates=new File(grailsHome,"lib/org.codehaus.groovy/groovy-all/jars/").listFiles(new FilenameFilter(){
+    public boolean accept(    final File dir,    final String name){
+      return name.startsWith("groovy-all-") && name.endsWith(".jar");
+    }
+  }
+);
+  urls[1]=groovyJarCandidates[0].toURI().toURL();
+  final URLClassLoader urlClassLoader=new URLClassLoader(urls);
+  final Class<?> loadClass=urlClassLoader.loadClass("org.codehaus.groovy.grails.cli.support.GrailsStarter");
+  final Method mainMethod=loadClass.getMethod("main",String[].class);
+  final String[] args2=new String[args.length + 2];
+  System.arraycopy(args,0,args2,0,args.length);
+  args2[args.length]="--conf";
+  args2[args.length + 1]=groovyStartConf.getAbsolutePath();
+  mainMethod.invoke(null,new Object[]{args2});
+}

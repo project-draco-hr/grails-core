@@ -1,0 +1,13 @@
+{
+  final File[] files=directoryToSearch.listFiles();
+  for (  File file : files) {
+    if (file.isDirectory()) {
+      return findGroovyAllJar(file);
+    }
+    final String fileName=file.getName();
+    if (fileName.startsWith("groovy-all-") && fileName.endsWith(".jar")) {
+      return file;
+    }
+  }
+  return null;
+}

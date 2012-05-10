@@ -2,9 +2,6 @@
   final ResourceBundle applicationBundle=ResourceBundle.getBundle("application");
   final ResourceBundle wrapperBundle=ResourceBundle.getBundle("grails-wrapper");
   final String grailsVersion=applicationBundle.getString("app.grails.version");
-  final File grailsCacheDir=new File(System.getProperty("user.home") + "/.grails/");
-  final File grailsVersionDir=new File(grailsCacheDir,grailsVersion);
-  final File wrapperDir=new File(grailsVersionDir,"wrapper");
   String distUrl=wrapperBundle.getString("wrapper.dist.url");
   if (distUrl == null) {
     distUrl="http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/";
@@ -12,15 +9,7 @@
   if (!distUrl.endsWith("/")) {
     distUrl+="/";
   }
-  final String src=distUrl + "grails-" + grailsVersion+ ".zip";
-  final URI uri=new URI(src);
-  final File file=new File(wrapperDir,"download.zip");
-  new RemoteFileHelper().retrieve(uri,file);
-  final File installDir=new File(wrapperDir,"install");
-  if (!installDir.exists()) {
-    extract(file,installDir);
-  }
-  final File grailsHome=new File(installDir,"grails-" + grailsVersion);
+  final File grailsHome=configureGrailsInstallation(distUrl,grailsVersion);
   System.setProperty("grails.home",grailsHome.getAbsolutePath());
   final List<String> newArgsList=new ArrayList<String>();
   for (int i=0; i < args.length; i++) {

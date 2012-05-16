@@ -1,4 +1,8 @@
 {
-  uriToControllerClassCache=new ConcurrentHashMap<String,GrailsClass>();
+  Object cacheSize=grailsApplication.getFlatConfig().get(URL_MAPPING_CACHE_MAX_SIZE);
+  if (cacheSize == null) {
+    cacheSize=10000;
+  }
+  uriToControllerClassCache=new ConcurrentLinkedHashMap.Builder<String,GrailsClass>().initialCapacity(500).maximumWeightedCapacity(new Integer(cacheSize.toString())).build();
   artefactInfo=artefacts;
 }

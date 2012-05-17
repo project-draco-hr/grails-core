@@ -5,19 +5,20 @@
   argsMap.put("params",commandLine.getRemainingArgs());
   binding.setVariable("argsMap",argsMap);
   binding.setVariable("args",commandLine.getRemainingArgsLineSeparated());
-  binding.setVariable("grailsScript",c);
-  binding.setVariable("grailsConsole",GrailsConsole.getInstance());
-  binding.setVariable("grailsSettings",settings);
+  binding.setVariable(GRAILS_SCRIPT,c);
+  final GrailsConsole grailsConsole=GrailsConsole.getInstance();
+  binding.setVariable(GRAILS_CONSOLE,grailsConsole);
+  binding.setVariable(GRAILS_SETTINGS,settings);
   final File basedir=settings.getBaseDir();
   final String baseDirPath=basedir.getPath();
-  binding.setVariable("basedir",baseDirPath);
-  binding.setVariable("scaffoldDir",baseDirPath + "/web-app/WEB-INF/templates/scaffolding");
-  binding.setVariable("baseFile",basedir);
-  binding.setVariable("baseName",basedir.getName());
-  binding.setVariable("grailsHome",(settings.getGrailsHome() != null ? settings.getGrailsHome().getPath() : null));
-  binding.setVariable("grailsVersion",settings.getGrailsVersion());
-  binding.setVariable("userHome",settings.getUserHome());
-  binding.setVariable("grailsEnv",settings.getGrailsEnv());
+  binding.setVariable(BASEDIR,baseDirPath);
+  binding.setVariable(SCAFFOLD_DIR,baseDirPath + "/web-app/WEB-INF/templates/scaffolding");
+  binding.setVariable(BASE_FILE,basedir);
+  binding.setVariable(BASE_NAME,basedir.getName());
+  binding.setVariable(GRAILS_HOME,(settings.getGrailsHome() != null ? settings.getGrailsHome().getPath() : null));
+  binding.setVariable(GRAILS_VERSION,settings.getGrailsVersion());
+  binding.setVariable(USER_HOME,settings.getUserHome());
+  binding.setVariable(GRAILS_ENV,settings.getGrailsEnv());
   binding.setVariable("defaultEnv",Boolean.valueOf(settings.getDefaultEnv()));
   binding.setVariable("buildConfig",settings.getConfig());
   binding.setVariable("rootLoader",settings.getRootLoader());
@@ -38,7 +39,12 @@
   binding.setVariable("pluginsDirPath",settings.getProjectPluginsDir().getPath());
   binding.setVariable("globalPluginsDirPath",settings.getGlobalPluginsDir().getPath());
   binding.setVariable("Ant",binding.getVariable("ant"));
-  final BaseSettingsApi cla=new BaseSettingsApi(settings,isInteractive);
+  GroovyClassLoader eventsClassLoader=new GroovyClassLoader(classLoader);
+  GrailsBuildEventListener buildEventListener=new GrailsBuildEventListener(eventsClassLoader,binding,settings);
+  binding.setVariable("eventsClassLoader",eventsClassLoader);
+  binding.setVariable("eventListener",buildEventListener);
+  binding.addBuildListener(buildEventListener);
+  final BaseSettingsApi cla=new BaseSettingsApi(settings,buildEventListener,isInteractive);
   if (scriptName.equals("RunApp")) {
     cla.enableUaa();
   }
@@ -55,7 +61,7 @@
         descriptors.add(pluginDescriptor);
       }
  else {
-        GrailsConsole.getInstance().log("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
+        grailsConsole.log("Cannot find plugin descriptor for path '" + dir.getPath() + "'.");
       }
     }
     for (    File file : descriptors) {

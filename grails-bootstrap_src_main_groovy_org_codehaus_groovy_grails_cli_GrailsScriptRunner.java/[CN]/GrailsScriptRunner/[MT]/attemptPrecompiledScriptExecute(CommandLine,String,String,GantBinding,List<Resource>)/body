@@ -1,7 +1,7 @@
 {
   console.updateStatus("Running pre-compiled script");
   setRunningEnvironment(commandLine,env);
-  ScriptBindingInitializer bindingInitializer=new ScriptBindingInitializer(commandLine,settings,pluginPathSupport,isInteractive);
+  ScriptBindingInitializer bindingInitializer=new ScriptBindingInitializer(commandLine,classLoader,settings,pluginPathSupport,isInteractive);
   Gant gant=new Gant(bindingInitializer.initBinding(binding,scriptName),classLoader);
   try {
     loadScriptClass(gant,scriptName);

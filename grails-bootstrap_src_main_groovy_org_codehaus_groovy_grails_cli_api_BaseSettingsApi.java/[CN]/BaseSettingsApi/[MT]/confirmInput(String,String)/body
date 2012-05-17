@@ -1,0 +1,9 @@
+{
+  if (code == null)   code="confirm.message";
+  GrailsConsole grailsConsole=GrailsConsole.getInstance();
+  if (!isInteractive) {
+    grailsConsole.error("Cannot ask for input when --non-interactive flag is passed. Please switch back to interactive mode.");
+    exit(1);
+  }
+  return "y".equalsIgnoreCase(grailsConsole.userInput(message,new String[]{"y","n"}));
+}

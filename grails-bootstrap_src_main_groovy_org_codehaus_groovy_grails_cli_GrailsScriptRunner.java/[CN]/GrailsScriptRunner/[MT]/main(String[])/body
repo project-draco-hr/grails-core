@@ -88,6 +88,7 @@
     console.verbose("Base Directory: " + build.getBaseDir().getPath());
     try {
       int exitCode=scriptRunner.executeCommand(commandLine,script.name,script.env);
+      GrailsConsole.getInstance().flush();
       System.exit(exitCode);
     }
  catch (    ScriptNotFoundException ex) {

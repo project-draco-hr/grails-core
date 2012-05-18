@@ -5,7 +5,19 @@
     tableName=m.getTableName();
   }
   if (tableName == null) {
-    tableName=getNamingStrategy(sessionFactoryBeanName).classToTableName(domainClass.getShortName());
+    String shortName=domainClass.getShortName();
+    final GrailsApplication grailsApplication=domainClass.getGrailsApplication();
+    final ApplicationContext mainContext=grailsApplication.getMainContext();
+    if (mainContext != null && mainContext.containsBean("pluginManager")) {
+      final GrailsPluginManager pluginManager=(GrailsPluginManager)mainContext.getBean("pluginManager");
+      if (Boolean.TRUE.equals(grailsApplication.getFlatConfig().get("grails.gorm.table.prefix.enabled"))) {
+        final GrailsPlugin pluginForClass=pluginManager.getPluginForClass(domainClass.getClazz());
+        if (pluginForClass != null) {
+          shortName=pluginForClass.getName() + shortName;
+        }
+      }
+    }
+    tableName=getNamingStrategy(sessionFactoryBeanName).classToTableName(shortName);
   }
   return tableName;
 }

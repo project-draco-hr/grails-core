@@ -2,7 +2,7 @@
   if (!GroovyPage.isReservedName(name)) {
     if (bindingToUse == null) {
       bindingToUse=findBindingForVariable(name);
-      if (bindingToUse == null || (bindingToUse instanceof GroovyPageBinding && ((GroovyPageBinding)bindingToUse).isRoot())) {
+      if (bindingToUse == null || (bindingToUse instanceof GroovyPageBinding && ((GroovyPageBinding)bindingToUse).shouldUseChildBinding(this))) {
         bindingToUse=this;
       }
     }

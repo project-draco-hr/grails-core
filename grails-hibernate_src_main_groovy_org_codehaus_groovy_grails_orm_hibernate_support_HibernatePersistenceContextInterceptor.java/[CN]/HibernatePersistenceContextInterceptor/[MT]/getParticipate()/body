@@ -1,3 +1,4 @@
 {
-  return participate.get().booleanValue();
+  Boolean ret=participate.get();
+  return (ret != null) ? ret : false;
 }

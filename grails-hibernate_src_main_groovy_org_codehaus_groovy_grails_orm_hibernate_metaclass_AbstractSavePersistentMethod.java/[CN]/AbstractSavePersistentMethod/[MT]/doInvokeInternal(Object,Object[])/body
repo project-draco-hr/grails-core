@@ -49,7 +49,7 @@
     autoRetrieveAssocations(domainClass,target);
   }
   if (!shouldValidate) {
-    Set<Integer> identifiers=disableAutoValidationFor.get();
+    Set<Integer> identifiers=getDisableAutoValidationFor();
     identifiers.add(System.identityHashCode(target));
   }
   if (shouldInsert(arguments)) {

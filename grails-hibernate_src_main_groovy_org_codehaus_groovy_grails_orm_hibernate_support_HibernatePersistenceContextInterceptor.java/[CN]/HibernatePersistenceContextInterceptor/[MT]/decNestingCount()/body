@@ -1,8 +1,9 @@
 {
-  int value=nestingCount.get().intValue() - 1;
+  Integer current=nestingCount.get();
+  int value=(current != null) ? current - 1 : 0;
   if (value < 0) {
     value=0;
   }
-  nestingCount.set(Integer.valueOf(value));
+  nestingCount.set(value);
   return value;
 }

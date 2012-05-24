@@ -1,0 +1,7 @@
+{
+  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
+  console.setAnsiEnabled(!commandLine.hasOption(CommandLine.NOANSI_ARGUMENT));
+  console.setStacktrace(commandLine.hasOption(CommandLine.STACKTRACE_ARGUMENT));
+  console.setVerbose(commandLine.hasOption(CommandLine.VERBOSE_ARGUMENT));
+  return console;
+}

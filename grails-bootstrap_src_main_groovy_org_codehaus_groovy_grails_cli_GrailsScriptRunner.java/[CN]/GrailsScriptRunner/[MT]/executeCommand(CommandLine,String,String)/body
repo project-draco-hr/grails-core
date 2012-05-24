@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
+  GrailsConsole console=getConsole(commandLine);
   try {
     System.setProperty("disable.grails.plugin.transform","true");
     console.updateStatus("Loading Grails " + settings.getGrailsVersion());

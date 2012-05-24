@@ -13,11 +13,15 @@
         break;
       }
     }
-    if (controllerClass != null) {
-      if (Environment.getCurrent() != Environment.DEVELOPMENT) {
-        uriToControllerClassCache.putIfAbsent(uri,controllerClass);
-      }
+    if (controllerClass == null) {
+      controllerClass=NO_CONTROLLER;
     }
+    if (Environment.getCurrent() != Environment.DEVELOPMENT) {
+      uriToControllerClassCache.put(uri,controllerClass);
+    }
+  }
+  if (controllerClass == NO_CONTROLLER) {
+    controllerClass=null;
   }
   return controllerClass;
 }

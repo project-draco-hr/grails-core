@@ -18,6 +18,7 @@
     return callPluginOrGrailsScript(commandLine,scriptName,env);
   }
   finally {
+    GrailsConsole.getInstance().flush();
     BuildSettingsHolder.setSettings(null);
   }
 }

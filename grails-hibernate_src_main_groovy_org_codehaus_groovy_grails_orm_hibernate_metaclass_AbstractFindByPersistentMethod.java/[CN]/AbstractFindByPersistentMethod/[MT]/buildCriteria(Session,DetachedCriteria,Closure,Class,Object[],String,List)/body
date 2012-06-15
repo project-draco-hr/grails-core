@@ -1,19 +1,20 @@
 {
   Criteria crit=getCriteria(datastore,application,session,detachedCriteria,additionalCriteria,clazz);
+  boolean useLimit=establishWhetherToUseLimit(clazz);
   if (arguments.length > 0) {
     if (arguments[0] instanceof Map<?,?>) {
       Map<?,?> argMap=(Map<?,?>)arguments[0];
       GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,crit,argMap);
       if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
-        crit.setMaxResults(1);
+        if (useLimit)         crit.setMaxResults(1);
       }
     }
  else {
-      crit.setMaxResults(1);
+      if (useLimit)       crit.setMaxResults(1);
     }
   }
  else {
-    crit.setMaxResults(1);
+    if (useLimit)     crit.setMaxResults(1);
   }
   if (operator.equals(OPERATOR_OR)) {
     if (firstExpressionIsRequiredBoolean()) {

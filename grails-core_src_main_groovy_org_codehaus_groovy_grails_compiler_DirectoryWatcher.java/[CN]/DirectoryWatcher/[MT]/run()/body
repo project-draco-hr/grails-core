@@ -1,0 +1,24 @@
+{
+  int count=0;
+  while (active) {
+    Set<File> files=lastModifiedMap.keySet();
+    for (    File file : files) {
+      long currentLastModified=file.lastModified();
+      Long cachedTime=lastModifiedMap.get(file);
+      if (currentLastModified > cachedTime) {
+        lastModifiedMap.put(file,currentLastModified);
+        fireOnChange(file);
+      }
+    }
+    try {
+      count++;
+      if (count > 2) {
+        count=0;
+        checkForNewFiles();
+      }
+      sleep(sleepTime);
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+}

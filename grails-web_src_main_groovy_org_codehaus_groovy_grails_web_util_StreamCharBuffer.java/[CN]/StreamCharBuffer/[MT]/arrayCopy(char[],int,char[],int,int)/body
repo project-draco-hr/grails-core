@@ -1,0 +1,8 @@
+{
+  if (length == 1) {
+    dest[destPos]=src[srcPos];
+  }
+ else {
+    System.arraycopy(src,srcPos,dest,destPos,length);
+  }
+}

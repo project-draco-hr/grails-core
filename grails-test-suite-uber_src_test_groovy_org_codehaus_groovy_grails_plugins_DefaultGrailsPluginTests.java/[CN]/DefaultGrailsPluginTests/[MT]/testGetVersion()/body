@@ -1,0 +1,4 @@
+{
+  GrailsPlugin versionPlugin=new DefaultGrailsPlugin(versioned,ga);
+  assertEquals("1.1",versionPlugin.getVersion());
+}

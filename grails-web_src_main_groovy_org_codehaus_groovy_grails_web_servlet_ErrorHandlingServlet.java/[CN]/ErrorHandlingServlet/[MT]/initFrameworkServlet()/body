@@ -1,0 +1,8 @@
+{
+  super.initFrameworkServlet();
+  final GrailsApplication grailsApplication=GrailsWebUtil.lookupApplication(getServletContext());
+  String encoding=(String)grailsApplication.getFlatConfig().get(CONFIG_OPTION_GSP_ENCODING);
+  if (encoding != null) {
+    defaultEncoding=encoding;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  if (shouldFilter) {
+    StackTraceElement[] trace=source.getStackTrace();
+    List<StackTraceElement> newTrace=filterTraceWithCutOff(trace,cutOffPackage);
+    if (newTrace.isEmpty()) {
+      newTrace=filterTraceWithCutOff(trace,null);
+    }
+    if (!newTrace.isEmpty()) {
+      STACK_LOG.error(FULL_STACK_TRACE_MESSAGE,source);
+      StackTraceElement[] clean=new StackTraceElement[newTrace.size()];
+      newTrace.toArray(clean);
+      source.setStackTrace(clean);
+    }
+  }
+  return source;
+}

@@ -1,0 +1,6 @@
+{
+  if (type != null) {
+    return type;
+  }
+  return super.getObjectType();
+}

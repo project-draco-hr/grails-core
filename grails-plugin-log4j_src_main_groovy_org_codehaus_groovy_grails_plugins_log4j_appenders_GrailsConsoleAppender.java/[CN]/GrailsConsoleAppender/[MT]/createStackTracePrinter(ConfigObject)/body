@@ -1,0 +1,9 @@
+{
+  try {
+    stackTracePrinter=(StackTracePrinter)GrailsClassUtils.instantiateFromConfig(config,"grails.logging.stackTracePrinterClass",DefaultStackTracePrinter.class.getName());
+  }
+ catch (  Throwable t) {
+    LogLog.error("Problem instantiating StackTracePrinter class, using default: " + t.getMessage());
+    stackTracePrinter=new DefaultStackTracePrinter();
+  }
+}

@@ -1,0 +1,16 @@
+{
+  File projectWorkDir=settings.getProjectWorkDir();
+  if (projectWorkDir != null) {
+    File[] files=projectWorkDir.listFiles(new FilenameFilter(){
+      public boolean accept(      File file,      String s){
+        return s.endsWith(".resolve");
+      }
+    }
+);
+    if (files != null) {
+      for (      File file : files) {
+        file.delete();
+      }
+    }
+  }
+}

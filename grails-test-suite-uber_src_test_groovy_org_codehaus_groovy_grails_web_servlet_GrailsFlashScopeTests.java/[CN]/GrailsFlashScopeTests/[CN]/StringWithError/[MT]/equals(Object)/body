@@ -1,0 +1,6 @@
+{
+  if (value == null) {
+    return (obj == null);
+  }
+  return value.equals(obj);
+}

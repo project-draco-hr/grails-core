@@ -1,0 +1,8 @@
+{
+  try {
+    return ((Method)action).invoke(controller);
+  }
+ catch (  Exception e) {
+    throw new ControllerExecutionException("Runtime error executing action",e);
+  }
+}

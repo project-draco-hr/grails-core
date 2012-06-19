@@ -1,0 +1,6 @@
+{
+  if (location.startsWith("/WEB-INF")) {
+    return new FileSystemResource("./web-app" + location);
+  }
+  return super.getResource(location);
+}

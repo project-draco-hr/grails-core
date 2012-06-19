@@ -1,0 +1,16 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [lt] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  propertyValue=calculatePropertyValue(propertyValue);
+  Criterion lt;
+  if (propertyValue instanceof org.hibernate.criterion.DetachedCriteria) {
+    lt=Property.forName(propertyName).lt((org.hibernate.criterion.DetachedCriteria)propertyValue);
+  }
+ else {
+    lt=Restrictions.lt(propertyName,propertyValue);
+  }
+  addToCriteria(lt);
+  return this;
+}

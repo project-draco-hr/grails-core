@@ -1,0 +1,8 @@
+{
+  Set<String> names=new HashSet<String>();
+  for (  MetaProperty mp : metaClass.getProperties()) {
+    if (isExcluded(mp))     continue;
+    names.add(mp.getName());
+  }
+  return names;
+}

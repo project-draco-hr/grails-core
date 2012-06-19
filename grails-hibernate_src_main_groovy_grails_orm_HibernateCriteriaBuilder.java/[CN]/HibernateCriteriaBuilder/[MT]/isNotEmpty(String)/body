@@ -1,0 +1,5 @@
+{
+  String propertyName=calculatePropertyName(property);
+  addToCriteria(Restrictions.isNotEmpty(propertyName));
+  return this;
+}

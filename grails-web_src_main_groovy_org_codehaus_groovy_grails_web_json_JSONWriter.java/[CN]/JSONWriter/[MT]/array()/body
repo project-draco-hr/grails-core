@@ -1,0 +1,9 @@
+{
+  if (this.mode == INIT || this.mode == OBJECT || this.mode == ARRAY) {
+    this.push(ARRAY);
+    this.append("[");
+    this.comma=false;
+    return this;
+  }
+  throw new JSONException("Misplaced array: expected mode of INIT, OBJECT or ARRAY but was " + this.mode);
+}

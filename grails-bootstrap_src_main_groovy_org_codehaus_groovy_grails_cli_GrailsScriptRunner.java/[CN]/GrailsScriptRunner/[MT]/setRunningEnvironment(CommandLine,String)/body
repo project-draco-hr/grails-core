@@ -1,0 +1,11 @@
+{
+  System.setProperty("base.dir",settings.getBaseDir().getPath());
+  if (env != null) {
+    settings.setGrailsEnv(env);
+    settings.setDefaultEnv(false);
+  }
+ else {
+    settings.setGrailsEnv(commandLine.getEnvironment());
+    settings.setDefaultEnv(!commandLine.isEnvironmentSet());
+  }
+}

@@ -1,0 +1,10 @@
+{
+  NullableConstraint nc=(NullableConstraint)appliedConstraints.get(NULLABLE_CONSTRAINT);
+  if (nc == null) {
+    nc=new NullableConstraint();
+    nc.setOwningClass(owningClass);
+    nc.setPropertyName(propertyName);
+    appliedConstraints.put(NULLABLE_CONSTRAINT,nc);
+  }
+  nc.setParameter(Boolean.valueOf(nullable));
+}

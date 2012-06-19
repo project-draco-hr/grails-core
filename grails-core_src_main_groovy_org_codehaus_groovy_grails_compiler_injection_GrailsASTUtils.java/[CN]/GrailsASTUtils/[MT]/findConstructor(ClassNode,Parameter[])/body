@@ -1,0 +1,9 @@
+{
+  List<ConstructorNode> declaredConstructors=classNode.getDeclaredConstructors();
+  for (  ConstructorNode declaredConstructor : declaredConstructors) {
+    if (parametersEqual(constructorParams,declaredConstructor.getParameters())) {
+      return declaredConstructor;
+    }
+  }
+  return null;
+}

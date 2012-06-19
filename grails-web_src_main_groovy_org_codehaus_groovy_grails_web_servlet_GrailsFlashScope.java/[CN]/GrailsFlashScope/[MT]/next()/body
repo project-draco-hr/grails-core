@@ -1,0 +1,6 @@
+{
+  current.clear();
+  current=new ConcurrentHashMap(next);
+  next.clear();
+  reassociateObjectsWithErrors(current);
+}

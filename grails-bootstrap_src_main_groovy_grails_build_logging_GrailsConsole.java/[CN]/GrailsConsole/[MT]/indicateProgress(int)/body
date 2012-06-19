@@ -1,0 +1,16 @@
+{
+  progressIndicatorActive=true;
+  String currMsg=lastMessage;
+  try {
+    if (isAnsiEnabled()) {
+      updateStatus(currMsg + ' ' + number);
+    }
+ else {
+      out.print("..");
+      out.print(number);
+    }
+  }
+  finally {
+    lastMessage=currMsg;
+  }
+}

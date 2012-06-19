@@ -1,0 +1,10 @@
+{
+  Writer out=attributes.getOut(getCurrentRequest());
+  if (out == null)   try {
+    return getCurrentResponse().getWriter();
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException("Error retrieving response writer: " + e.getMessage(),e);
+  }
+  return out;
+}

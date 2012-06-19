@@ -1,0 +1,13 @@
+{
+  if (usageFlag) {
+    return true;
+  }
+  Writer target=findStreamCharBufferTarget(false);
+  if (target instanceof StreamCharBufferWriter) {
+    StreamCharBuffer buffer=((StreamCharBufferWriter)target).getBuffer();
+    if (!buffer.isEmpty()) {
+      return true;
+    }
+  }
+  return usageFlag;
+}

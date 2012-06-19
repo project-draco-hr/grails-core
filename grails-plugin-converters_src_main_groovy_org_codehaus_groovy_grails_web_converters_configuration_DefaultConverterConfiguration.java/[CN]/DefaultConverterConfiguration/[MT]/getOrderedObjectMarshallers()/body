@@ -1,0 +1,12 @@
+{
+  List<ObjectMarshaller<C>> list=new ArrayList<ObjectMarshaller<C>>();
+  for (  Entry entry : objectMarshallers) {
+    list.add(entry.marshaller);
+  }
+  if (delegate != null) {
+    for (    ObjectMarshaller<C> om : delegate.getOrderedObjectMarshallers()) {
+      list.add(om);
+    }
+  }
+  return list;
+}

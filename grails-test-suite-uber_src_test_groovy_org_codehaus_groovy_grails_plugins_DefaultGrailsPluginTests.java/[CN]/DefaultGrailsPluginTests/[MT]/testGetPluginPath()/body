@@ -1,0 +1,6 @@
+{
+  GrailsPlugin versionPlugin=new DefaultGrailsPlugin(versioned,ga);
+  assertEquals("/plugins/my-1.1",versionPlugin.getPluginPath());
+  GrailsPlugin camelCasedPlugin=new DefaultGrailsPlugin(camelCased,ga);
+  assertEquals("/plugins/camel-cased-2.1",camelCasedPlugin.getPluginPath());
+}

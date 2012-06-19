@@ -1,0 +1,18 @@
+{
+  if (clazz == null || propertyType == null) {
+    return new PropertyDescriptor[0];
+  }
+  Set<PropertyDescriptor> properties=new HashSet<PropertyDescriptor>();
+  try {
+    for (    PropertyDescriptor descriptor : BeanUtils.getPropertyDescriptors(clazz)) {
+      Class<?> currentPropertyType=descriptor.getPropertyType();
+      if (isTypeInstanceOfPropertyType(propertyType,currentPropertyType)) {
+        properties.add(descriptor);
+      }
+    }
+  }
+ catch (  Exception e) {
+    return new PropertyDescriptor[0];
+  }
+  return properties.toArray(new PropertyDescriptor[properties.size()]);
+}

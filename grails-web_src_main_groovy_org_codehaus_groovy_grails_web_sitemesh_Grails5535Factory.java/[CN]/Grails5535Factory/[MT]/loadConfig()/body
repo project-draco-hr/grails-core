@@ -1,0 +1,45 @@
+{
+  try {
+    Element root=loadSitemeshXML();
+    NodeList sections=root.getChildNodes();
+    for (int i=0; i < sections.getLength(); i++) {
+      if (sections.item(i) instanceof Element) {
+        Element curr=(Element)sections.item(i);
+        NodeList children=curr.getChildNodes();
+        if ("config-refresh".equalsIgnoreCase(curr.getTagName())) {
+          String seconds=curr.getAttribute("seconds");
+          configCheckMillis=Long.parseLong(seconds) * 1000L;
+        }
+ else         if ("property".equalsIgnoreCase(curr.getTagName())) {
+          String name=curr.getAttribute("name");
+          String value=curr.getAttribute("value");
+          if (!"".equals(name) && !"".equals(value)) {
+            configProps.put("${" + name + "}",value);
+          }
+        }
+ else         if ("page-parsers".equalsIgnoreCase(curr.getTagName())) {
+          loadPageParsers(children);
+        }
+ else         if ("decorator-mappers".equalsIgnoreCase(curr.getTagName())) {
+          loadDecoratorMappers(children);
+        }
+ else         if ("excludes".equalsIgnoreCase(curr.getTagName())) {
+          String fileName=replaceProperties(curr.getAttribute("file"));
+          if (!"".equals(fileName)) {
+            excludesFileName=fileName;
+            loadExcludes();
+          }
+        }
+      }
+    }
+  }
+ catch (  ParserConfigurationException e) {
+    throw new FactoryException("Could not get XML parser",e);
+  }
+catch (  IOException e) {
+    throw new FactoryException("Could not read config file : " + configFileName,e);
+  }
+catch (  SAXException e) {
+    throw new FactoryException("Could not parse config file : " + configFileName,e);
+  }
+}

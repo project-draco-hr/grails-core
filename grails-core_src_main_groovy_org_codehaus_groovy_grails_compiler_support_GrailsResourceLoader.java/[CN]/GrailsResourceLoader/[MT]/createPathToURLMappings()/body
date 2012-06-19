@@ -1,0 +1,12 @@
+{
+  for (  Resource resource : resources) {
+    try {
+      String resourceURL=resource.getURL().toString();
+      String pathWithinRoot=GrailsResourceUtils.getPathFromRoot(resourceURL);
+      pathToResource.put(pathWithinRoot,resource);
+    }
+ catch (    IOException e) {
+      throw new GrailsConfigurationException("Unable to load Grails resource: " + e.getMessage(),e);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  response.setContentType("text/xml");
+  try {
+    render(response.getWriter());
+  }
+ catch (  IOException e) {
+    throw new ConverterException(e);
+  }
+}

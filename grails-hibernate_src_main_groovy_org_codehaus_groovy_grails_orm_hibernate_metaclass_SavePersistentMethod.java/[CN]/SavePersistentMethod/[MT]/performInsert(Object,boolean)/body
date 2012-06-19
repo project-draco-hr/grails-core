@@ -1,0 +1,18 @@
+{
+  return getHibernateTemplate().execute(new HibernateCallback<Object>(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      try {
+        ClosureEventTriggeringInterceptor.markInsertActive();
+        session.save(target);
+        if (shouldFlush) {
+          flushSession(session);
+        }
+        return target;
+      }
+  finally {
+        ClosureEventTriggeringInterceptor.resetInsertActive();
+      }
+    }
+  }
+);
+}

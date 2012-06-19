@@ -1,0 +1,17 @@
+{
+  try {
+    Set<String> names=new HashSet<String>();
+    for (    Resource script : allScripts) {
+      names.add(script.getFilename().substring(0,script.getFilename().length() - 7));
+    }
+    List<String> mostSimilar=CosineSimilarity.mostSimilar(scriptName,names);
+    if (mostSimilar.isEmpty()) {
+      return null;
+    }
+    List<String> topMatches=mostSimilar.subList(0,Math.min(5,mostSimilar.size()));
+    return askUserForBestMatch(scriptName,topMatches);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

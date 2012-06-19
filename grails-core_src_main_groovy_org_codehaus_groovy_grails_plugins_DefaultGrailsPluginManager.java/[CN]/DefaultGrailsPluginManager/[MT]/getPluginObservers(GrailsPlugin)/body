@@ -1,0 +1,18 @@
+{
+  Assert.notNull(plugin,"Argument [plugin] cannot be null");
+  Collection<GrailsPlugin> c=pluginToObserverMap.get(plugin.getName());
+  Collection<GrailsPlugin> wildcardObservers=pluginToObserverMap.get("*");
+  if (wildcardObservers != null) {
+    if (c != null) {
+      c.addAll(wildcardObservers);
+    }
+ else {
+      c=wildcardObservers;
+    }
+  }
+  if (c != null) {
+    c.remove(plugin);
+    return c;
+  }
+  return Collections.emptySet();
+}

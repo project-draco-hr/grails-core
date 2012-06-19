@@ -1,0 +1,50 @@
+{
+  Value value;
+  CollectionType collectionType=CollectionType.collectionTypeForClass(currentGrailsProp.getType());
+  if (collectionType != null) {
+    Collection collection=collectionType.create(currentGrailsProp,persistentClass,path,mappings,sessionFactoryBeanName);
+    mappings.addCollection(collection);
+    value=collection;
+  }
+ else   if (currentGrailsProp.isManyToOne()) {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as ManyToOne");
+    value=new ManyToOne(mappings,table);
+    bindManyToOne(currentGrailsProp,(ManyToOne)value,path,mappings,sessionFactoryBeanName);
+  }
+ else   if (currentGrailsProp.isOneToOne()) {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as OneToOne");
+    if (canBindOneToOneWithSingleColumnAndForeignKey(currentGrailsProp)) {
+      value=new OneToOne(mappings,table,persistentClass);
+      bindOneToOne(currentGrailsProp,(OneToOne)value,path,sessionFactoryBeanName);
+    }
+ else {
+      value=new ManyToOne(mappings,table);
+      bindManyToOne(currentGrailsProp,(ManyToOne)value,path,mappings,sessionFactoryBeanName);
+    }
+  }
+ else   if (currentGrailsProp.isEmbedded()) {
+    value=new Component(mappings,persistentClass);
+    bindComponent((Component)value,currentGrailsProp,true,mappings,sessionFactoryBeanName);
+  }
+ else {
+    if (LOG.isDebugEnabled())     LOG.debug("[GrailsDomainBinder] Binding property [" + currentGrailsProp.getName() + "] as SimpleValue");
+    value=new SimpleValue(mappings,table);
+    if (currentGrailsProp.isEnum()) {
+      bindEnumType(currentGrailsProp,(SimpleValue)value,path,sessionFactoryBeanName);
+    }
+ else {
+      bindSimpleValue(currentGrailsProp,componentProperty,(SimpleValue)value,path,mappings,sessionFactoryBeanName);
+    }
+  }
+  if (value != null) {
+    Property persistentProperty=createProperty(value,persistentClass,currentGrailsProp,mappings);
+    component.addProperty(persistentProperty);
+    if (isComponentPropertyNullable(componentProperty)) {
+      final Iterator<?> columnIterator=value.getColumnIterator();
+      while (columnIterator.hasNext()) {
+        Column c=(Column)columnIterator.next();
+        c.setNullable(true);
+      }
+    }
+  }
+}

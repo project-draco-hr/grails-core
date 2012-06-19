@@ -1,0 +1,5 @@
+{
+  if (LOG_DEPRECATED) {
+    deprecated("Property or method [" + methodOrPropName + "] of class ["+ clazz.getName()+ "] is deprecated in ["+ version+ "] and will be removed in future releases");
+  }
+}

@@ -1,0 +1,20 @@
+{
+  for (  Object o : propertyMap.values()) {
+    DefaultGrailsDomainClassProperty currentProp=(DefaultGrailsDomainClassProperty)o;
+    if (!currentProp.isPersistent())     continue;
+    Class currentPropType=currentProp.getType();
+    if (currentPropType != null) {
+      if (Collection.class.isAssignableFrom(currentPropType) || Map.class.isAssignableFrom(currentPropType)) {
+        establishRelationshipForCollection(currentProp);
+      }
+ else       if (DomainClassArtefactHandler.isDomainClass(currentPropType) && currentProp.isPersistent()) {
+        associations.add(currentProp);
+        establishDomainClassRelationship(currentProp);
+      }
+ else       if (embedded.contains(currentProp.getName())) {
+        associations.add(currentProp);
+        establishDomainClassRelationship(currentProp);
+      }
+    }
+  }
+}

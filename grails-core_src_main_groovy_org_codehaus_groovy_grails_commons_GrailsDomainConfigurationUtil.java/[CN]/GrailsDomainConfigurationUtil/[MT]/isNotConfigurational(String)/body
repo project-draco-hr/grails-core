@@ -1,0 +1,3 @@
+{
+  return !name.equals(GrailsDomainClassProperty.META_CLASS) && !name.equals(GrailsDomainClassProperty.CLASS) && !name.equals(GrailsDomainClassProperty.TRANSIENT)&& !name.equals(GrailsDomainClassProperty.ATTACHED)&& !name.equals(GrailsDomainClassProperty.RELATES_TO_MANY)&& !name.equals(GrailsDomainClassProperty.HAS_MANY)&& !name.equals(GrailsDomainClassProperty.EVANESCENT)&& !name.equals(GrailsDomainClassProperty.CONSTRAINTS)&& !name.equals(GrailsDomainClassProperty.MAPPING_STRATEGY)&& !name.equals(GrailsDomainClassProperty.MAPPED_BY)&& !name.equals(GrailsDomainClassProperty.BELONGS_TO)&& !name.equals(PROPERTIES_PROPERTY);
+}

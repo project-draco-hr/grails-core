@@ -1,0 +1,4 @@
+{
+  PropertyFetcher fetcher=resolveFetcher(name,onlyInstanceProperties);
+  return getPropertyValueWithFetcher(name,fetcher);
+}

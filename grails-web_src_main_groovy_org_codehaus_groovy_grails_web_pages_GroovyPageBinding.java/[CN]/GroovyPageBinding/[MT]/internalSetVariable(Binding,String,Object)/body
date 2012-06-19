@@ -1,0 +1,24 @@
+{
+  if (!GroovyPage.isReservedName(name)) {
+    if (bindingToUse == null) {
+      bindingToUse=findBindingForVariable(name);
+      if (bindingToUse == null || (bindingToUse instanceof GroovyPageBinding && ((GroovyPageBinding)bindingToUse).shouldUseChildBinding(this))) {
+        bindingToUse=this;
+      }
+    }
+    if (bindingToUse instanceof AbstractGroovyPageBinding) {
+      ((AbstractGroovyPageBinding)bindingToUse).getVariablesMap().put(name,value);
+    }
+ else {
+      bindingToUse.getVariables().put(name,value);
+    }
+    if (bindingToUse != this && cachedParentVariableNames.contains(name)) {
+      getVariablesMap().put(name,value);
+    }
+  }
+ else {
+    if (log.isDebugEnabled()) {
+      log.debug("Cannot override reserved variable '" + name + "'");
+    }
+  }
+}

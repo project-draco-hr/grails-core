@@ -1,0 +1,4 @@
+{
+  context.log("GroovyPagesServlet:  \"" + pageName + "\" not found");
+  response.sendError(404,"\"" + pageName + "\" not found.");
+}

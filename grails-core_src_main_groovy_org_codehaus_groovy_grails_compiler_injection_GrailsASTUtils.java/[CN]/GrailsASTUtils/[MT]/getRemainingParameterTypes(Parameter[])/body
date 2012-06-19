@@ -1,0 +1,8 @@
+{
+  if (parameters.length == 0) {
+    return GrailsArtefactClassInjector.ZERO_PARAMETERS;
+  }
+  Parameter[] newParameters=new Parameter[parameters.length - 1];
+  System.arraycopy(parameters,1,newParameters,0,parameters.length - 1);
+  return newParameters;
+}

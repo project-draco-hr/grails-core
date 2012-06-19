@@ -1,0 +1,7 @@
+{
+  for (  PersistenceContextInterceptor interceptor : interceptors) {
+    if (interceptor.isOpen()) {
+      interceptor.destroy();
+    }
+  }
+}

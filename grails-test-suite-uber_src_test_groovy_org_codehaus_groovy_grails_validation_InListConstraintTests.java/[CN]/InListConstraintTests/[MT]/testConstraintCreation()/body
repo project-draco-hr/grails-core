@@ -1,0 +1,16 @@
+{
+  InListConstraint constraint=new InListConstraint();
+  assertEquals(ConstrainedProperty.IN_LIST_CONSTRAINT,constraint.getName());
+  assertTrue(constraint.supports(String.class));
+  assertTrue(constraint.supports(Long.class));
+  assertTrue(constraint.supports(Object.class));
+  assertFalse(constraint.supports(null));
+  constraint=(InListConstraint)getConstraint("testString",getTestList());
+  assertEquals(constraint.getList(),getTestList());
+  try {
+    getConstraint("testString","wrong");
+    fail("InListConstraint must throw an exception for non-list parameters.");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

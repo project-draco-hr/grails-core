@@ -1,0 +1,4 @@
+{
+  ArtefactInfo info=getArtefactInfo(artefactType);
+  return info == null ? null : info.getGrailsClasses()[0];
+}

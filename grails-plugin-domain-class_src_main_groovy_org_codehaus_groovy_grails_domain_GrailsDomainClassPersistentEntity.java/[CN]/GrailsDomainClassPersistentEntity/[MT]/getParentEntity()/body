@@ -1,0 +1,6 @@
+{
+  if (!isRoot()) {
+    return getOrCreateAssociatedEntity(getJavaClass().getSuperclass());
+  }
+  return null;
+}

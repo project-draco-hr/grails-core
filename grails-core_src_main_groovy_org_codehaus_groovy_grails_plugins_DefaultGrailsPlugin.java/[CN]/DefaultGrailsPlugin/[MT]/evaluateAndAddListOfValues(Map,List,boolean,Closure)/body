@@ -1,0 +1,8 @@
+{
+  for (  Object value : includeExcludeList) {
+    if (value instanceof String) {
+      final String scopeName=(String)value;
+      evaluateAndAddToIncludeExcludeSet(targetMap,scopeName,include,converter);
+    }
+  }
+}

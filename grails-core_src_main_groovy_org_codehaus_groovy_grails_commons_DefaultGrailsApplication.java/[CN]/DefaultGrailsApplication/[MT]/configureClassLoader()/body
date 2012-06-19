@@ -1,0 +1,14 @@
+{
+  final ClassLoader contextLoader=Thread.currentThread().getContextClassLoader();
+  GrailsAwareClassLoader gcl=new GrailsAwareClassLoader(contextLoader);
+  if (resourceLoader != null) {
+    gcl.setResourceLoader(resourceLoader);
+  }
+  cl=gcl;
+  try {
+    Thread.currentThread().setContextClassLoader(cl);
+  }
+ catch (  AccessControlException e) {
+  }
+  return gcl;
+}

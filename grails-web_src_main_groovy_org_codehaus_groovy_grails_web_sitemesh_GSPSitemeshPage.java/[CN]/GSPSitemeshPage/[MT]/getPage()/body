@@ -1,0 +1,6 @@
+{
+  if (pageBuffer != null) {
+    return pageBuffer.toString();
+  }
+  return null;
+}

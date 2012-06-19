@@ -1,0 +1,10 @@
+{
+  MutablePropertyValues mpvs;
+  if (prefix != null) {
+    mpvs=new ServletRequestParameterPropertyValues(request,prefix,PREFIX_SEPERATOR);
+  }
+ else {
+    mpvs=new ServletRequestParameterPropertyValues(request);
+  }
+  bindWithRequestAndPropertyValues(request,mpvs);
+}

@@ -1,0 +1,11 @@
+{
+  Thread thread=Thread.currentThread();
+  ClassLoader cl=thread.getContextClassLoader();
+  try {
+    thread.setContextClassLoader(classLoader);
+    super.afterPropertiesSet();
+  }
+  finally {
+    thread.setContextClassLoader(cl);
+  }
+}

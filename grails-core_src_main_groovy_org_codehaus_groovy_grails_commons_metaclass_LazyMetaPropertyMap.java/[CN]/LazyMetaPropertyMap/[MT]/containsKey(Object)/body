@@ -1,0 +1,6 @@
+{
+  if (propertyName instanceof CharSequence)   propertyName=propertyName.toString();
+  Assert.isInstanceOf(String.class,propertyName,"This map implementation only supports String based keys!");
+  String pn=propertyName.toString();
+  return !GrailsDomainConfigurationUtil.isConfigurational(pn) && metaClass.getMetaProperty(pn) != null;
+}

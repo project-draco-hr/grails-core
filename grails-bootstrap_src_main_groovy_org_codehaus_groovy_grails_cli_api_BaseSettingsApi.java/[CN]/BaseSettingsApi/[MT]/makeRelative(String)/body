@@ -1,0 +1,9 @@
+{
+  if (buildSettings != null && path != null) {
+    String absolutePath=buildSettings.getBaseDir().getAbsolutePath();
+    if (path.startsWith(absolutePath)) {
+      return path.substring(absolutePath.length() + 1);
+    }
+  }
+  return path;
+}

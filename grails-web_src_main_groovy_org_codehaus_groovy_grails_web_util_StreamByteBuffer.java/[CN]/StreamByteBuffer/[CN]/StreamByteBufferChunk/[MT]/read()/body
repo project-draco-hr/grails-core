@@ -1,0 +1,6 @@
+{
+  if (pointer < used) {
+    return buffer[pointer++] & 0xff;
+  }
+  return -1;
+}

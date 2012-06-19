@@ -1,0 +1,3 @@
+{
+  if (name.contains(" "))   throw new ParseException("Invalid argument: " + name);
+}

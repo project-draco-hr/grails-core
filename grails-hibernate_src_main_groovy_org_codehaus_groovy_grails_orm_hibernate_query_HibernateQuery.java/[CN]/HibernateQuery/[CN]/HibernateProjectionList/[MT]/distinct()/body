@@ -1,0 +1,4 @@
+{
+  criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+  return this;
+}

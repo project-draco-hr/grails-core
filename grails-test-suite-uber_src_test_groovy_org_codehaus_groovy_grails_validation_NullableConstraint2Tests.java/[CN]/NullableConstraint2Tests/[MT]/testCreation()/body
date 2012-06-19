@@ -1,0 +1,16 @@
+{
+  NullableConstraint constraint=(NullableConstraint)getConstraint("testString",Boolean.FALSE);
+  assertEquals(ConstrainedProperty.NULLABLE_CONSTRAINT,constraint.getName());
+  assertTrue(constraint.supports(String.class));
+  assertTrue(constraint.supports(Object.class));
+  assertFalse(constraint.supports(int.class));
+  assertFalse(constraint.supports(float.class));
+  assertFalse(constraint.supports(null));
+  assertFalse(constraint.isNullable());
+  try {
+    getConstraint("testString","wrong");
+    fail("NullableConstraint must throw an exception for non-boolean parameters.");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return (GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
+}

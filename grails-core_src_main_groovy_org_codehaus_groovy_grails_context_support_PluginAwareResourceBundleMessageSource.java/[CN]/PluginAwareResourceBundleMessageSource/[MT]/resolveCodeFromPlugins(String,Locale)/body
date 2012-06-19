@@ -1,0 +1,16 @@
+{
+  if (pluginCacheMillis < 0) {
+    PropertiesHolder propHolder=getMergedPluginProperties(locale);
+    MessageFormat result=propHolder.getMessageFormat(code,locale);
+    if (result != null) {
+      return result;
+    }
+  }
+ else {
+    MessageFormat result=findMessageFormatInSourcePlugins(code,locale);
+    if (result != null)     return result;
+    result=findMessageFormatInBinaryPlugins(code,locale);
+    if (result != null)     return result;
+  }
+  return null;
+}

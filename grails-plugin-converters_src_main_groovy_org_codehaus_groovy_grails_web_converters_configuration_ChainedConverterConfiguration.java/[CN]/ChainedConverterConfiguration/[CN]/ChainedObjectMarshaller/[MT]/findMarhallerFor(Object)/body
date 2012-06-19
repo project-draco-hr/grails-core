@@ -1,0 +1,6 @@
+{
+  if (supports(o)) {
+    return om;
+  }
+  return next != null ? next.findMarhallerFor(o) : null;
+}

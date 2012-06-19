@@ -1,0 +1,8 @@
+{
+  if (connectedWriters.size() > 1) {
+    connectedWritersWriter=new MultiOutputWriter(connectedWriters);
+  }
+ else {
+    connectedWritersWriter=new SingleOutputWriter(connectedWriters.get(0));
+  }
+}

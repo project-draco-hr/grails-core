@@ -1,0 +1,52 @@
+{
+  BlockStatement constructorBody=new BlockStatement();
+  Parameter[] constructorParams=getRemainingParameterTypes(constructorMethod.getParameters());
+  ArgumentListExpression arguments=createArgumentListFromParameters(constructorParams,true);
+  MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(constructorMethod.getDeclaringClass()),"initialize",arguments);
+  constructCallExpression.setMethodTarget(constructorMethod);
+  ExpressionStatement constructorInitExpression=new ExpressionStatement(constructCallExpression);
+  if (constructorParams.length > 0) {
+    constructorBody.addStatement(new ExpressionStatement(new ConstructorCallExpression(ClassNode.THIS,GrailsArtefactClassInjector.ZERO_ARGS)));
+  }
+  constructorBody.addStatement(constructorInitExpression);
+  if (constructorParams.length == 0) {
+    ConstructorNode constructorNode=getDefaultConstructor(classNode);
+    if (constructorNode != null) {
+      List<AnnotationNode> annotations=constructorNode.getAnnotations(new ClassNode(GrailsDelegatingConstructor.class));
+      if (annotations.size() == 0) {
+        Statement existingBodyCode=constructorNode.getCode();
+        if (existingBodyCode instanceof BlockStatement) {
+          ((BlockStatement)existingBodyCode).addStatement(constructorInitExpression);
+        }
+ else {
+          constructorNode.setCode(constructorBody);
+        }
+      }
+    }
+ else {
+      constructorNode=new ConstructorNode(Modifier.PUBLIC,constructorBody);
+      classNode.addConstructor(constructorNode);
+    }
+    constructorNode.addAnnotation(new AnnotationNode(new ClassNode(GrailsDelegatingConstructor.class)));
+  }
+ else {
+    ConstructorNode cn=findConstructor(classNode,constructorParams);
+    if (cn == null) {
+      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams),null,constructorBody);
+      classNode.addConstructor(cn);
+    }
+ else {
+      List<AnnotationNode> annotations=cn.getAnnotations(new ClassNode(GrailsDelegatingConstructor.class));
+      if (annotations.size() == 0) {
+        Statement code=cn.getCode();
+        constructorBody.addStatement(code);
+        cn.setCode(constructorBody);
+      }
+    }
+    ConstructorNode defaultConstructor=getDefaultConstructor(classNode);
+    if (defaultConstructor == null) {
+      classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,new BlockStatement()));
+    }
+    cn.addAnnotation(new AnnotationNode(new ClassNode(GrailsDelegatingConstructor.class)));
+  }
+}

@@ -1,0 +1,11 @@
+{
+  for (  GroovyPageInjector classInjector : getGroovyPageInjectors()) {
+    try {
+      classInjector.performInjection(source,context,classNode);
+    }
+ catch (    RuntimeException e) {
+      GrailsConsole.getInstance().error("Error occurred calling AST injector [" + classInjector.getClass() + "]: "+ e.getMessage(),e);
+      throw e;
+    }
+  }
+}

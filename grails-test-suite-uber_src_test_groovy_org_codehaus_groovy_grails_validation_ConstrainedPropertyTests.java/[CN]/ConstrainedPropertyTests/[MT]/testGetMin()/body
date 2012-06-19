@@ -1,0 +1,17 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
+  assertNull(cp.getMin());
+  cp.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,123.45d);
+  assertEquals(123.45d,cp.getMin());
+  cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(123.45d,678.9d));
+  assertEquals(123.45d,cp.getMin());
+  cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
+  cp.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,1.23d);
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(4.56d,7.89d));
+  assertEquals(4.56d,cp.getMin());
+  cp=new ConstrainedProperty(TestClass.class,"testDouble",Double.class);
+  cp.applyConstraint(ConstrainedProperty.MIN_CONSTRAINT,4.56d);
+  cp.applyConstraint(ConstrainedProperty.RANGE_CONSTRAINT,new ObjectRange(1.23d,7.89d));
+  assertEquals(4.56d,cp.getMin());
+}

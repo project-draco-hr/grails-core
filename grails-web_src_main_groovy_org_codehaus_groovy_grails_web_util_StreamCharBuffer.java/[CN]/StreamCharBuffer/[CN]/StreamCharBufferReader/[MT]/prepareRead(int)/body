@@ -1,0 +1,45 @@
+{
+  if (hasReaders && eofReachedCounter != 0) {
+    if (eofReachedCounter != writer.writerUsedCounter) {
+      eofReachedCounter=0;
+      eofException=false;
+      repositionChunkReader();
+    }
+  }
+  if (chunkReader == null && eofReachedCounter == 0) {
+    if (firstChunk != null) {
+      chunkReader=firstChunk.getChunkReader(removeAfterReading);
+      if (removeAfterReading) {
+        firstChunk.subtractFromTotalCount();
+      }
+    }
+ else {
+      chunkReader=new AllocatedBufferReader(allocBuffer,removeAfterReading);
+    }
+  }
+  int available=0;
+  if (chunkReader != null) {
+    available=chunkReader.getReadLenLimit(len);
+    while (available == 0 && chunkReader != null) {
+      chunkReader=chunkReader.next();
+      if (chunkReader != null) {
+        available=chunkReader.getReadLenLimit(len);
+      }
+ else {
+        available=0;
+      }
+    }
+  }
+  if (chunkReader == null) {
+    if (hasReaders) {
+      eofReachedCounter=writer.writerUsedCounter;
+    }
+ else {
+      eofReachedCounter=1;
+    }
+  }
+ else   if (hasReaders) {
+    lastChunkReader=chunkReader;
+  }
+  return available;
+}

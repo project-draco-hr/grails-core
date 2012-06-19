@@ -1,0 +1,9 @@
+{
+  new File(destDir.toString()).mkdirs();
+  Resource[] resources=resolveResources("classpath:" + pattern);
+  for (  Resource resource : resources) {
+    if (resource.isReadable()) {
+      copyGrailsResource(destDir + "/" + resource.getFilename(),resource,overwrite);
+    }
+  }
+}

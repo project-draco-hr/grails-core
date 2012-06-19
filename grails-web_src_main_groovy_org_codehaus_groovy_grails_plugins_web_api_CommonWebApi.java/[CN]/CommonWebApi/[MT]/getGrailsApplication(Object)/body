@@ -1,0 +1,6 @@
+{
+  if (grailsApplication == null) {
+    grailsApplication=getGrailsAttributes(instance).getGrailsApplication();
+  }
+  return grailsApplication;
+}

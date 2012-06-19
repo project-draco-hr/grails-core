@@ -1,0 +1,18 @@
+{
+  if (!bodyInvokation) {
+    if (tagContent == null) {
+      tagContent=sw.toString();
+    }
+    if (tagContent != null) {
+      try {
+        jspWriter=pageContext.getOut();
+        jspWriter.write(tagContent);
+        out.close();
+      }
+ catch (      IOException e) {
+        throw new JspTagException("I/O error writing tag contents [" + tagContent + "] to response out");
+      }
+    }
+  }
+  return SKIP_BODY;
+}

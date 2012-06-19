@@ -1,0 +1,11 @@
+{
+  if (clazz == null || StringUtils.isBlank(propertyName)) {
+    return null;
+  }
+  try {
+    return getPropertyOrStaticPropertyOrFieldValue(BeanUtils.instantiateClass(clazz),propertyName);
+  }
+ catch (  BeanInstantiationException e) {
+    return null;
+  }
+}

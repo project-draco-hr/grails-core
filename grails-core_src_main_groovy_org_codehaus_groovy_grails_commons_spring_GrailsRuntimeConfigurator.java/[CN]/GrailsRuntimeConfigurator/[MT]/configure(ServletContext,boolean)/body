@@ -1,0 +1,40 @@
+{
+  Assert.notNull(application);
+  WebApplicationContext ctx;
+  try {
+    webSpringConfig=createWebRuntimeSpringConfiguration(application,parent,application.getClassLoader());
+    webSpringConfig.setBeanFactory(new ReloadAwareAutowireCapableBeanFactory());
+    if (context != null) {
+      webSpringConfig.setServletContext(context);
+      pluginManager.setServletContext(context);
+    }
+    if (!pluginManager.isInitialised()) {
+      pluginManager.loadPlugins();
+    }
+    if (!application.isInitialised()) {
+      pluginManager.doArtefactConfiguration();
+      application.initialise();
+    }
+    pluginManager.registerProvidedArtefacts(application);
+    registerParentBeanFactoryPostProcessors(webSpringConfig);
+    pluginManager.doRuntimeConfiguration(webSpringConfig);
+    LOG.debug("[RuntimeConfiguration] Processing additional external configurations");
+    if (loadExternalBeans) {
+      doPostResourceConfiguration(application,webSpringConfig);
+    }
+    reset();
+    application.setMainContext(webSpringConfig.getUnrefreshedApplicationContext());
+    Environment.setInitializing(true);
+    ctx=(WebApplicationContext)webSpringConfig.getApplicationContext();
+    Environment.setInitializing(false);
+    pluginManager.setApplicationContext(ctx);
+    pluginManager.doDynamicMethods();
+    ctx.publishEvent(new GrailsContextEvent(ctx,GrailsContextEvent.DYNAMIC_METHODS_REGISTERED));
+    performPostProcessing(ctx);
+    application.refreshConstraints();
+  }
+  finally {
+    ClassPropertyFetcher.clearClassPropertyFetcherCache();
+  }
+  return ctx;
+}

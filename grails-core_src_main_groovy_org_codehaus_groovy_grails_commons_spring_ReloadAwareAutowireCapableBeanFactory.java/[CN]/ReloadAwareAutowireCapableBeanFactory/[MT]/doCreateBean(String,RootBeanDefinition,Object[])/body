@@ -1,0 +1,17 @@
+{
+  if (!reloadEnabled) {
+    return super.doCreateBean(beanName,mbd,args);
+  }
+  try {
+    return super.doCreateBean(beanName,mbd,args);
+  }
+ catch (  BeanCreationException t) {
+    if (t.getCause() instanceof TypeMismatchException) {
+      Object bean=handleTypeMismatchException(beanName,mbd,args);
+      if (bean != null) {
+        return bean;
+      }
+    }
+    throw t;
+  }
+}

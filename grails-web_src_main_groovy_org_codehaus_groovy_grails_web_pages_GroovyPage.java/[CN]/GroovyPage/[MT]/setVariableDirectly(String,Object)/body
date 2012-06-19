@@ -1,0 +1,9 @@
+{
+  Binding binding=getBinding();
+  if (binding instanceof AbstractGroovyPageBinding) {
+    ((AbstractGroovyPageBinding)binding).setVariableDirectly(name,value);
+  }
+ else {
+    binding.getVariables().put(name,value);
+  }
+}

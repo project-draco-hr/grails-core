@@ -1,0 +1,26 @@
+{
+  FastStringWriter target=new FastStringWriter();
+  GrailsWebRequest webRequest=bindMockHttpRequest();
+  GroovyPageOutputStack outputStack=GroovyPageOutputStack.currentStack(true,target,false,true);
+  GrailsPrintWriter out=outputStack.getProxyWriter();
+  webRequest.setOut(out);
+  GrailsPrintWriter codecOut=new CodecPrintWriter(new MockGrailsApplication(),out,CodecWithClosureProperties.class);
+  codecOut.print("hola");
+  out.print("1");
+  out.print("2");
+  out.print("3");
+  FastStringWriter bufferWriter=new FastStringWriter();
+  GrailsPrintWriter out2=new GrailsPrintWriter(bufferWriter);
+  outputStack.push(out2);
+  out.print("4");
+  codecOut.print("A");
+  outputStack.pop();
+  out.print("added");
+  codecOut.print("too");
+  out.leftShift(bufferWriter.getBuffer());
+  codecOut.print("B");
+  out.print("5");
+  codecOut.print("C");
+  RequestContextHolder.setRequestAttributes(null);
+  assertEquals("-> hola <-123added-> too <-4-> A <--> B <-5-> C <-",target.getValue());
+}

@@ -1,0 +1,11 @@
+{
+  if (gormMapping == null) {
+    return false;
+  }
+  Object identityMapping=gormMapping.getIdentity();
+  if (!(identityMapping instanceof Identity)) {
+    return false;
+  }
+  String identityName=((Identity)identityMapping).getName();
+  return identityName != null && identityName.equals(currentGrailsProp.getName());
+}

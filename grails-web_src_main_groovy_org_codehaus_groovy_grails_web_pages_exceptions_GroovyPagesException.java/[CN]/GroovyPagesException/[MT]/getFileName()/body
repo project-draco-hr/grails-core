@@ -1,0 +1,6 @@
+{
+  if (fileName == null && getCause() instanceof SourceCodeAware) {
+    return ((SourceCodeAware)getCause()).getFileName();
+  }
+  return fileName;
+}

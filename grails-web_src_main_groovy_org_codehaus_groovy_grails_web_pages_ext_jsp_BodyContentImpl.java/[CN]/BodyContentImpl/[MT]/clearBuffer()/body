@@ -1,0 +1,8 @@
+{
+  if (streamBuffer != null) {
+    initBuffer();
+  }
+ else {
+    throw new IOException("Can't clear");
+  }
+}

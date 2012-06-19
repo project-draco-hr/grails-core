@@ -1,0 +1,11 @@
+{
+  try {
+    if (verbose) {
+      out.println(msg);
+      cursorMove=0;
+    }
+  }
+  finally {
+    postPrintMessage();
+  }
+}

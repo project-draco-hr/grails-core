@@ -1,0 +1,13 @@
+{
+  Constraint c=appliedConstraints.get(MAX_SIZE_CONSTRAINT);
+  if (c != null) {
+    c.setParameter(maxSize);
+  }
+ else {
+    c=new MaxSizeConstraint();
+    c.setOwningClass(owningClass);
+    c.setPropertyName(propertyName);
+    c.setParameter(maxSize);
+    appliedConstraints.put(MAX_SIZE_CONSTRAINT,c);
+  }
+}

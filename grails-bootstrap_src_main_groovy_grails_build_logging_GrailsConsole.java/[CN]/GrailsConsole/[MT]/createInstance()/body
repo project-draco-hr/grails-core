@@ -1,0 +1,13 @@
+{
+  String className=System.getProperty("grails.console.class");
+  if (className != null) {
+    try {
+      @SuppressWarnings("unchecked") Class<? extends GrailsConsole> klass=(Class<? extends GrailsConsole>)Class.forName(className);
+      return klass.newInstance();
+    }
+ catch (    Exception e) {
+      e.printStackTrace();
+    }
+  }
+  return new GrailsConsole();
+}

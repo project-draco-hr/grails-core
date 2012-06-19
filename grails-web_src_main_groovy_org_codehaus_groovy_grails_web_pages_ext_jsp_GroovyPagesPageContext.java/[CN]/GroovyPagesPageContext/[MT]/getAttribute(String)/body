@@ -1,0 +1,7 @@
+{
+  Assert.notNull(name,"Attribute name cannot be null");
+  if (pageScope.getVariables().containsKey(name)) {
+    return pageScope.getVariable(name);
+  }
+  return null;
+}

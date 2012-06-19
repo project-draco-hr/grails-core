@@ -1,0 +1,9 @@
+{
+  if (!isConnectedMode()) {
+    return -1;
+  }
+  if (writeDirectlyToConnectedMinSize >= 0) {
+    return writeDirectlyToConnectedMinSize;
+  }
+  return getNewChunkMinSize();
+}

@@ -1,0 +1,13 @@
+{
+  if (charBuffer == null) {
+    if (byteBuffer != null) {
+      throw new IllegalStateException("response.getWriter() called after response.getOutputStream()");
+    }
+    charBuffer=new StreamCharBuffer();
+    if (gspSitemeshPage != null) {
+      gspSitemeshPage.setPageBuffer(charBuffer);
+    }
+    exposedWriter=new GrailsPrintWriterAdapter(charBuffer.getWriter());
+  }
+  return exposedWriter;
+}

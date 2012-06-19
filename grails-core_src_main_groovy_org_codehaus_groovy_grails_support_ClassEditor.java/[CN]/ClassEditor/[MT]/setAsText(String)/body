@@ -1,0 +1,15 @@
+{
+  try {
+    Class<?> clazz=ClassUtils.resolvePrimitiveClassName(className);
+    if (clazz != null) {
+      setValue(clazz);
+    }
+ else {
+      final ClassLoader cl=classLoader != null ? classLoader : Thread.currentThread().getContextClassLoader();
+      setValue(cl.loadClass(className));
+    }
+  }
+ catch (  ClassNotFoundException e) {
+    throw new IllegalArgumentException("Could not load class [" + className + "]!");
+  }
+}

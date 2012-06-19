@@ -1,0 +1,4 @@
+{
+  if (NONTRANSACTIONAL_GROOVY_METHODS.contains(methodName))   return false;
+  return super.isMatch(methodName,mappedName);
+}

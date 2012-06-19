@@ -1,0 +1,4 @@
+{
+  Assert.notNull(controller,"Argument [controller] cannot be null");
+  return getViewURI(getLogicalControllerName(controller),viewName);
+}

@@ -1,0 +1,18 @@
+{
+  super.initFilterBean();
+  urlHelper.setUrlDecode(false);
+  final ServletContext servletContext=getServletContext();
+  final WebApplicationContext applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  this.handlerInterceptors=WebUtils.lookupHandlerInterceptors(servletContext);
+  this.application=WebUtils.lookupApplication(servletContext);
+  this.viewResolver=WebUtils.lookupViewResolver(servletContext);
+  ApplicationContext mainContext=application.getMainContext();
+  this.urlConverter=mainContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class);
+  if (application != null) {
+    grailsConfig=new GrailsConfig(application);
+  }
+  if (applicationContext.containsBean(MimeType.BEAN_NAME)) {
+    this.mimeTypes=applicationContext.getBean(MimeType.BEAN_NAME,MimeType[].class);
+  }
+  createStackTraceFilterer();
+}

@@ -1,0 +1,3 @@
+{
+  return declaredMethod.isStatic() && declaredMethod.isPublic() && declaredMethod.getName().equals("initialize")&& declaredMethod.getParameters().length >= 1 && declaredMethod.getParameters()[0].getType().equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS);
+}

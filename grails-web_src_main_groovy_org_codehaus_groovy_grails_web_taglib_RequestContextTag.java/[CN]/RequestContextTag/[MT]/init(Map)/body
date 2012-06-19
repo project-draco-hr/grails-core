@@ -1,0 +1,17 @@
+{
+  Assert.notNull(context,"Argument 'context' cannot be null");
+  out=(Writer)context.get(GroovyPage.OUT);
+  request=(ServletRequest)context.get(GroovyPage.REQUEST);
+  servletContext=(ServletContext)context.get(GroovyPage.SERVLET_CONTEXT);
+  response=(ServletResponse)context.get(GroovyPage.RESPONSE);
+  applicationContext=RequestContextUtils.getWebApplicationContext(request,servletContext);
+  grailsApplication=(GrailsApplication)applicationContext.getBean(GrailsApplication.APPLICATION_ID);
+  if (context.get(GroovyPage.ATTRIBUTES) == null) {
+    attributes=new HashMap();
+  }
+ else {
+    attributes=(Map)context.get(GroovyPage.ATTRIBUTES);
+  }
+  contextPath=urlPathHelper.getContextPath((HttpServletRequest)request);
+  init=true;
+}

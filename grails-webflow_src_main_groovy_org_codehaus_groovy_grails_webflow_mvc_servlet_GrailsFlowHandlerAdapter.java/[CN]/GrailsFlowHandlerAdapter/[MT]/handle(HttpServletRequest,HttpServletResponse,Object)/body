@@ -1,0 +1,10 @@
+{
+  Assert.notNull(grailsApplication,"GrailsFlowHandlerAdapter misconfigured, [grailsApplication] property cannot be null");
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+  GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,webRequest.getControllerName());
+  if (controllerClass != null) {
+    Object controllerInstance=getApplicationContext().getBean(controllerClass.getFullName());
+    request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controllerInstance);
+  }
+  return super.handle(request,response,handler);
+}

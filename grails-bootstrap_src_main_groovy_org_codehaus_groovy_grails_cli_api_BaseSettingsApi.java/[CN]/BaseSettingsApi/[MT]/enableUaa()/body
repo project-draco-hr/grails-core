@@ -1,0 +1,5 @@
+{
+  if (UaaIntegration.isAvailable()) {
+    UaaIntegration.enable(buildSettings,pluginSettings,isInteractive);
+  }
+}

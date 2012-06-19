@@ -1,0 +1,10 @@
+{
+  final ArgumentListExpression autowireBeanPropertiesArgs=new ArgumentListExpression();
+  autowireBeanPropertiesArgs.addExpression(new VariableExpression(paramName));
+  autowireBeanPropertiesArgs.addExpression(new ConstantExpression(AutowireCapableBeanFactory.AUTOWIRE_BY_NAME));
+  autowireBeanPropertiesArgs.addExpression(new ConstantExpression(false));
+  final VariableExpression applicatonContextVariable=new VariableExpression("applicationContext");
+  final PropertyExpression autowireCapableBeanFactoryProperty=new PropertyExpression(applicatonContextVariable,"autowireCapableBeanFactory");
+  final MethodCallExpression invokeAutowireBeanPropertiesMethodExpression=new MethodCallExpression(autowireCapableBeanFactoryProperty,"autowireBeanProperties",autowireBeanPropertiesArgs);
+  return new ExpressionStatement(invokeAutowireBeanPropertiesMethodExpression);
+}

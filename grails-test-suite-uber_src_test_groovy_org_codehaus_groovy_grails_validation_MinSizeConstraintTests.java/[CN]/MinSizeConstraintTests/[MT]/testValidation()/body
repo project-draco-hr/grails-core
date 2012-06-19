@@ -1,0 +1,13 @@
+{
+  testConstraintMessageCodes(getConstraint("testString",10),"123456789",new String[]{"testClass.testString.minSize.error","testClass.testString.minSize.notmet"},new Object[]{"testString",TestClass.class,"123456789",10});
+  testConstraintFailed(getConstraint("testArray",4),new String[]{"one","two","three"});
+  List list=new ArrayList();
+  list.add("one");
+  list.add("two");
+  list.add("three");
+  testConstraintFailed(getConstraint("testCollection",4),list);
+  testConstraintPassed(getConstraint("testCollection",3),list);
+  testConstraintPassed(getConstraint("testString",5),"12345");
+  testConstraintPassed(getConstraint("testString",5),null);
+  testConstraintDefaultMessage(getConstraint("testString",5),"1234","Property [{0}] of class [{1}] with value [{2}] is less than the minimum size of [{3}]");
+}

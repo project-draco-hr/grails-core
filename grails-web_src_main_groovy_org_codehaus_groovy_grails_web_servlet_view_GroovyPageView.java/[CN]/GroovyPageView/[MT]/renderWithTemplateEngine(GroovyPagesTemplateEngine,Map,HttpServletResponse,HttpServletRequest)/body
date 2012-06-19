@@ -1,0 +1,17 @@
+{
+  request.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE);
+  GSPResponseWriter out=null;
+  try {
+    out=createResponseWriter(response);
+    template.make(model).writeTo(out);
+  }
+ catch (  Exception e) {
+    out.setError();
+    handleException(e,engine);
+  }
+ finally {
+    if (out != null) {
+      out.close();
+    }
+  }
+}

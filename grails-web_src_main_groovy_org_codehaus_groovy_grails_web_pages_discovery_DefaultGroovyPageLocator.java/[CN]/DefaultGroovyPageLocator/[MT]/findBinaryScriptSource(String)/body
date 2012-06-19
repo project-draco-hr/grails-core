@@ -1,0 +1,15 @@
+{
+  if (pluginManager == null) {
+    return null;
+  }
+  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+    if (!(plugin instanceof BinaryGrailsPlugin)) {
+      continue;
+    }
+    GroovyPageScriptSource scriptSource=resolveViewInBinaryPlugin((BinaryGrailsPlugin)plugin,uri);
+    if (scriptSource != null) {
+      return scriptSource;
+    }
+  }
+  return null;
+}

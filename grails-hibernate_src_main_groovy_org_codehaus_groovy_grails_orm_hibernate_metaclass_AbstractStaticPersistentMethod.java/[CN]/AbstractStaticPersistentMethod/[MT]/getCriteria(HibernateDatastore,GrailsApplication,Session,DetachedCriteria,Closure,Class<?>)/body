@@ -1,0 +1,17 @@
+{
+  if (additionalCriteria != null) {
+    HibernateCriteriaBuilder builder=new HibernateCriteriaBuilder(clazz,session.getSessionFactory());
+    builder.setGrailsApplication(appliation);
+    return builder.buildCriteria(additionalCriteria);
+  }
+  Criteria criteria=session.createCriteria(clazz);
+  if (detachedCriteria != null) {
+    HibernateSession hibernateSession=new HibernateSession(datastore,session.getSessionFactory());
+    PersistentEntity persistentEntity=datastore.getMappingContext().getPersistentEntity(clazz.getName());
+    if (persistentEntity != null) {
+      DynamicFinder.applyDetachedCriteria(new HibernateQuery(criteria,hibernateSession,persistentEntity),detachedCriteria);
+    }
+  }
+  hibernateTemplate.applySettings(criteria);
+  return criteria;
+}

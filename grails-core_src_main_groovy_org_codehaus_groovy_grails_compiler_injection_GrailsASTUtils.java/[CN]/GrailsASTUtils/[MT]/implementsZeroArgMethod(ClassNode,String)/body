@@ -1,0 +1,4 @@
+{
+  MethodNode method=classNode.getDeclaredMethod(methodName,Parameter.EMPTY_ARRAY);
+  return method != null && (method.isPublic() || method.isProtected()) && !method.isAbstract();
+}

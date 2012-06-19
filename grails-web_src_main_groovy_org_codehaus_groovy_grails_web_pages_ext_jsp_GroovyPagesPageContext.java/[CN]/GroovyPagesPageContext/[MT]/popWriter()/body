@@ -1,0 +1,5 @@
+{
+  outStack.pop();
+  jspOut=(JspWriter)outStack.peek();
+  setCurrentOut();
+}

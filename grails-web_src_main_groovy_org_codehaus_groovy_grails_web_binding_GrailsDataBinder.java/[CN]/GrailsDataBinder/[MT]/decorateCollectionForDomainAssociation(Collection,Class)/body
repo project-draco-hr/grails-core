@@ -1,0 +1,6 @@
+{
+  if (canDecorateWithListOrderedSet(c,referencedType)) {
+    c=ListOrderedSet.decorate((Set)c);
+  }
+  return c;
+}

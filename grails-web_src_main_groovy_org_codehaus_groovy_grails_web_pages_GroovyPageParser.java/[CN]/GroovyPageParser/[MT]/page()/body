@@ -1,0 +1,109 @@
+{
+  LOG.debug("parse: page");
+  if (finalPass) {
+    out.println();
+    if (pluginAnnotation != null) {
+      out.println(pluginAnnotation);
+    }
+    out.print("class ");
+    out.print(className);
+    out.println(" extends GroovyPage {");
+    out.println("public String getGroovyPageFileName() { \"" + pageName.replaceAll("\\\\","/") + "\" }");
+    out.println("public Object run() {");
+    out.println("Writer out = getOut()");
+    out.println("Writer codecOut = getCodecOut()");
+    if (sitemeshPreprocessMode) {
+      out.println("registerSitemeshPreprocessMode()");
+    }
+  }
+  loop:   for (; ; ) {
+    if (doNextScan) {
+      state=scan.nextToken();
+    }
+ else {
+      doNextScan=true;
+    }
+    if ((state != GSTART_TAG) && (state != HTML)) {
+      flushBufferedWhiteSpace();
+      previousContentWasNonWhitespace=false;
+    }
+switch (state) {
+case EOF:
+      break loop;
+case HTML:
+    html();
+  break;
+case JEXPR:
+scriptletExpr();
+break;
+case JSCRIPT:
+script(false);
+break;
+case JDIRECT:
+direct();
+break;
+case JDECLAR:
+declare(false);
+break;
+case GEXPR:
+expr();
+break;
+case GSCRIPT:
+script(true);
+break;
+case GDIRECT:
+direct();
+break;
+case GDECLAR:
+declare(true);
+break;
+case GSTART_TAG:
+startTag();
+break;
+case GEND_EMPTY_TAG:
+case GEND_TAG:
+endTag();
+break;
+}
+}
+if (finalPass) {
+if (!tagMetaStack.isEmpty()) {
+throw new GrailsTagException("Grails tags were not closed! [" + tagMetaStack + "] in GSP "+ pageName+ "",pageName,getCurrentOutputLineNumber());
+}
+out.println("}");
+out.println("public static final Map " + CONSTANT_NAME_JSP_TAGS + " = new HashMap()");
+if (jspTags != null && jspTags.size() > 0) {
+out.println("static {");
+for (Map.Entry<String,String> entry : jspTags.entrySet()) {
+out.print("\t" + CONSTANT_NAME_JSP_TAGS + ".put('");
+out.print(escapeGroovy(entry.getKey()));
+out.print("','");
+out.print(escapeGroovy(entry.getValue()));
+out.println("')");
+}
+out.println("}");
+}
+out.println("protected void init() {");
+out.println("\tthis.jspTags = " + CONSTANT_NAME_JSP_TAGS);
+out.println("}");
+out.println("public static final String " + CONSTANT_NAME_CONTENT_TYPE + " = '"+ escapeGroovy(contentType)+ "'");
+out.println("public static final long " + CONSTANT_NAME_LAST_MODIFIED + " = "+ lastModified+ "L");
+out.print("public static final String " + CONSTANT_NAME_DEFAULT_CODEC + " = ");
+if (defaultCodecDirectiveValue != null && defaultCodecDirectiveValue.length() > 0) {
+out.println("'" + escapeGroovy(defaultCodecDirectiveValue) + "'");
+}
+ else {
+out.println("null");
+}
+out.println("}");
+if (shouldAddLineNumbers()) {
+addLineNumbers();
+}
+}
+ else {
+for (int i=0; i < DEFAULT_IMPORTS.length; i++) {
+out.print("import ");
+out.println(DEFAULT_IMPORTS[i]);
+}
+}
+}

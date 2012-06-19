@@ -1,0 +1,13 @@
+{
+  StreamByteBuffer streamBuf=new StreamByteBuffer(32000);
+  OutputStream output=streamBuf.getOutputStream();
+  byte[] bytes=new byte[]{(byte)1,(byte)2,(byte)3};
+  output.write(bytes);
+  output.close();
+  InputStream input=streamBuf.getInputStream();
+  assertEquals(1,input.read());
+  assertEquals(2,input.read());
+  assertEquals(3,input.read());
+  assertEquals(-1,input.read());
+  input.close();
+}

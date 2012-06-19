@@ -1,0 +1,17 @@
+{
+  checkInitialised();
+  MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+  for (  Class<?> COMMON_CLASS : COMMON_CLASSES) {
+    registry.removeMetaClass(COMMON_CLASS);
+  }
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      try {
+        plugin.doWithDynamicMethods(applicationContext);
+      }
+ catch (      Throwable t) {
+        LOG.error("Error configuring dynamic methods for plugin " + plugin + ": "+ t.getMessage(),t);
+      }
+    }
+  }
+}

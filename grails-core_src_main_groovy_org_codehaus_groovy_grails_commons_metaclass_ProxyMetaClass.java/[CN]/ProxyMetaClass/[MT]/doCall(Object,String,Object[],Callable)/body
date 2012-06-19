@@ -1,0 +1,12 @@
+{
+  if (null == interceptor) {
+    return howToInvoke.call();
+  }
+  InvocationCallback callback=new InvocationCallback();
+  Object result=interceptor.beforeInvoke(object,methodName,arguments,callback);
+  if (!callback.isInvoked()) {
+    result=howToInvoke.call();
+  }
+  result=interceptor.afterInvoke(object,methodName,arguments,result);
+  return result;
+}

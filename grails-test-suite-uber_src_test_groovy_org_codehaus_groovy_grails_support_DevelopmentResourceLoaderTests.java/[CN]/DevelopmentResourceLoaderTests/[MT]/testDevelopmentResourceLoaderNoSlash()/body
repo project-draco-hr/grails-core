@@ -1,0 +1,4 @@
+{
+  DevelopmentResourceLoader resourceLoader=new DevelopmentResourceLoader(new DefaultGrailsApplication(new Class[0],new GroovyClassLoader()));
+  assertEquals("file:./grails-app/i18n",resourceLoader.getRealLocationInProject("WEB-INF/grails-app/i18n"));
+}

@@ -1,0 +1,6 @@
+{
+  if (StringHelper.isNotEmpty(path)) {
+    return StringHelper.qualify(path,property.getName());
+  }
+  return property.getName();
+}

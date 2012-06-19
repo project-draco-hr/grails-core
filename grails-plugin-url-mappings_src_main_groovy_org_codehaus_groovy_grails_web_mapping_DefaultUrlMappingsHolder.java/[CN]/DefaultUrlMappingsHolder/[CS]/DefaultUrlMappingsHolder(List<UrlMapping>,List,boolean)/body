@@ -1,0 +1,7 @@
+{
+  urlMappings=mappings;
+  this.excludePatterns=excludePatterns;
+  if (!doNotCallInit) {
+    initialize();
+  }
+}

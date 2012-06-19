@@ -1,0 +1,4 @@
+{
+  Errors errors=validateConstraint(constraint,value,Boolean.TRUE);
+  assertEquals(false,errors.hasErrors());
+}

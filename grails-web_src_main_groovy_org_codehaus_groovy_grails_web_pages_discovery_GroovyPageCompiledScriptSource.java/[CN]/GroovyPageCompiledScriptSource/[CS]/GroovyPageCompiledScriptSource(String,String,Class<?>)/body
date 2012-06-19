@@ -1,0 +1,6 @@
+{
+  this.uri=uri;
+  this.isPublic=GroovyPageResourceScriptSource.isPublicPath(fullPath);
+  this.compiledClass=compiledClass;
+  this.groovyPageMetaInfo=new GroovyPageMetaInfo(compiledClass);
+}

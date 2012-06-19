@@ -1,0 +1,5 @@
+{
+  super(parent,removeAfterReading);
+  this.parent=parent;
+  reader=(StreamCharBufferReader)parent.streamCharBuffer.getReader();
+}

@@ -1,0 +1,12 @@
+{
+  IdentityWeakReference key=new IdentityWeakReference(instanceToUpdate);
+  if (oldMetaClass != null) {
+    Object current=alteredInstances.get(key);
+    if (current == null || current == NO_CUSTOM_METACLASS) {
+      alteredInstances.put(key,oldMetaClass);
+    }
+  }
+ else {
+    alteredInstances.put(key,NO_CUSTOM_METACLASS);
+  }
+}

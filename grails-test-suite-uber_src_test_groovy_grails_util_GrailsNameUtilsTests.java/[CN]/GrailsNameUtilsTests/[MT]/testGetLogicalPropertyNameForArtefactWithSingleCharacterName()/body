@@ -1,0 +1,4 @@
+{
+  assertEquals("a",GrailsNameUtils.getLogicalPropertyName("AController","Controller"));
+  assertEquals("b",GrailsNameUtils.getLogicalPropertyName("BService","Service"));
+}

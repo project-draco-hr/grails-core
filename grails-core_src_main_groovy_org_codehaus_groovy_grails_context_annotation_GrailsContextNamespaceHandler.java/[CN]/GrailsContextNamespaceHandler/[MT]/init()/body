@@ -1,0 +1,3 @@
+{
+  registerBeanDefinitionParser("component-scan",new ClosureClassIgnoringComponentScanBeanDefinitionParser());
+}

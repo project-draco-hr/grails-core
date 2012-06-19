@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  ViewKey viewKey=(ViewKey)o;
+  if (action != null ? !action.equals(viewKey.action) : viewKey.action != null)   return false;
+  if (!controller.equals(viewKey.controller))   return false;
+  return true;
+}

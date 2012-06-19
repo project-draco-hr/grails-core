@@ -1,0 +1,11 @@
+{
+  try {
+    Resource pluginXml=pluginDescriptor.createRelative("plugin.xml");
+    if (pluginXml.exists()) {
+      return new PluginInfo(pluginXml,pluginSettings);
+    }
+  }
+ catch (  Exception e) {
+  }
+  return null;
+}

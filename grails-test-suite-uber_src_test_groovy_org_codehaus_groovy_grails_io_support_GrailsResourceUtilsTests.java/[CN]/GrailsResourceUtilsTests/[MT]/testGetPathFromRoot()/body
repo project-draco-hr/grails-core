@@ -1,0 +1,4 @@
+{
+  assertEquals("mycompany/Test.groovy",GrailsResourceUtils.getPathFromRoot(TEST_PACKAGE_URL));
+  assertEquals("Test.groovy",GrailsResourceUtils.getPathFromRoot(TEST_URL));
+}

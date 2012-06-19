@@ -1,0 +1,34 @@
+{
+  GrailsRequestStateLookupStrategy requestStateLookupStrategy=new DefaultRequestStateLookupStrategy(webRequest);
+  final String encoding=requestStateLookupStrategy.getCharacterEncoding();
+  String id=null;
+  if (parameterValues.containsKey(ARGUMENT_ID)) {
+    Object o=parameterValues.get(ARGUMENT_ID);
+    if (o != null) {
+      id=o.toString();
+    }
+  }
+  FastStringWriter actualUriBuf=new FastStringWriter();
+  if (includeContextPath) {
+    actualUriBuf.append(requestStateLookupStrategy.getContextPath());
+  }
+  if (actionName != null) {
+    if (actionName.indexOf(SLASH) > -1) {
+      actualUriBuf.append(actionName);
+    }
+ else {
+      if (controllerName != null) {
+        appendUrlToken(actualUriBuf,controllerName,encoding);
+      }
+ else {
+        appendUrlToken(actualUriBuf,requestStateLookupStrategy.getControllerName(),encoding);
+      }
+    }
+    appendUrlToken(actualUriBuf,actionName,encoding);
+  }
+  if (id != null) {
+    appendUrlToken(actualUriBuf,id,encoding);
+  }
+  appendRequestParams(actualUriBuf,parameterValues,encoding);
+  return actualUriBuf.toString();
+}

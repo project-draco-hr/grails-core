@@ -1,0 +1,40 @@
+{
+  Assert.notNull(uri,"Controller URI [" + uri + "] cannot be null!");
+  HttpServletRequest request=grailsWebRequest.getCurrentRequest();
+  HttpServletResponse response=grailsWebRequest.getCurrentResponse();
+  if (uri.endsWith("/")) {
+    uri=uri.substring(0,uri.length() - 1);
+  }
+  GrailsControllerClass controllerClass=getControllerClassByURI(uri);
+  if (controllerClass == null) {
+    throw new UnknownControllerException("No controller found for URI [" + uri + "]!");
+  }
+  String actionName=controllerClass.getMethodActionName(uri);
+  if (controllerClass.isFlowAction(actionName)) {
+    return null;
+  }
+  grailsWebRequest.setActionName(actionName);
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Processing request for controller action [" + actionName + "]");
+  }
+  GroovyObject controller=getControllerInstance(controllerClass);
+  if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
+    try {
+      response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+      return null;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 403 error",e);
+    }
+  }
+  request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
+  String viewName=controllerClass.getViewByURI(uri);
+  boolean executeAction=invokeBeforeInterceptor(controller,actionName,controllerClass);
+  if (!executeAction) {
+    return null;
+  }
+  ModelAndView mv=executeAction(controller,actionName,viewName,grailsWebRequest,params);
+  boolean returnModelAndView=invokeAfterInterceptor(controllerClass,controller,actionName,mv) && !response.isCommitted();
+  return returnModelAndView ? mv : null;
+}

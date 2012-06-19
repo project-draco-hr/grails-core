@@ -1,0 +1,13 @@
+{
+  if (target instanceof GrailsWrappedWriter) {
+    target=((GrailsWrappedWriter)target).unwrap();
+  }
+  if (target instanceof StreamCharBufferWriter) {
+    if (target == writer) {
+      throw new IllegalArgumentException("Cannot write buffer to itself.");
+    }
+    ((StreamCharBufferWriter)target).write(this);
+    return;
+  }
+  writeToImpl(target,flushTarget,emptyAfter);
+}

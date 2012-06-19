@@ -1,0 +1,7 @@
+{
+  Assert.notNull(application,"Argument [application] cannot be null");
+  this.application=application;
+  for (  GrailsPlugin plugin : pluginList) {
+    plugin.setApplication(application);
+  }
+}

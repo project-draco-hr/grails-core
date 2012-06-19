@@ -1,0 +1,8 @@
+{
+  if (ORDER_DESC.equals(order)) {
+    c.addOrder(ignoreCase ? Order.desc(sort).ignoreCase() : Order.desc(sort));
+  }
+ else {
+    c.addOrder(ignoreCase ? Order.asc(sort).ignoreCase() : Order.asc(sort));
+  }
+}

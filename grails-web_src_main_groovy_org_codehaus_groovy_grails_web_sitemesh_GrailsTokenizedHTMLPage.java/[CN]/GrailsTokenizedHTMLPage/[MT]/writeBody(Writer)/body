@@ -1,0 +1,8 @@
+{
+  if (out instanceof PrintWriter) {
+    body.writeTo((PrintWriter)out);
+  }
+ else {
+    super.writeBody(out);
+  }
+}

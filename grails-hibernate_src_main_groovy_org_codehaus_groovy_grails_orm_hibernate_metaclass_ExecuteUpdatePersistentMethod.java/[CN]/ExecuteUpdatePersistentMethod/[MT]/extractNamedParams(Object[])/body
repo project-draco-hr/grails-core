@@ -1,0 +1,6 @@
+{
+  if (arguments.length == 1 || !(arguments[1] instanceof Map)) {
+    return Collections.EMPTY_MAP;
+  }
+  return (Map)arguments[1];
+}

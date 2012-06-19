@@ -1,0 +1,8 @@
+{
+  GrailsRuntimeConfigurator config=new GrailsRuntimeConfigurator(application,parent);
+  MockServletContext servletContext=new MockServletContext(new MockResourceLoader());
+  ConfigurableApplicationContext appCtx=(ConfigurableApplicationContext)config.configure(servletContext);
+  servletContext.setAttribute(ApplicationAttributes.APPLICATION_CONTEXT,appCtx);
+  Assert.notNull(appCtx);
+  return appCtx;
+}

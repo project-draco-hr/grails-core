@@ -1,0 +1,8 @@
+{
+  super(target);
+  this.methodName=methodName;
+  this.expectation=expectation;
+  if (!(expectation instanceof LooseExpectation) && !(expectation instanceof StrictExpectation)) {
+    throw new IllegalArgumentException("Expectation must be either groovy.mock.interceptor.LooseExpectation or " + " groovy.mock.interceptor.StrictExpectation (actual class: " + expectation.getClass() + ")");
+  }
+}

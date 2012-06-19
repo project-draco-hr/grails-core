@@ -1,0 +1,16 @@
+{
+  if (scriptSource instanceof GroovyPageCompiledScriptSource) {
+    return createTemplateFromPrecompiled((GroovyPageCompiledScriptSource)scriptSource);
+  }
+  if (scriptSource instanceof ResourceScriptSource) {
+    ResourceScriptSource resourceSource=(ResourceScriptSource)scriptSource;
+    Resource resource=resourceSource.getResource();
+    return createTemplate(resource,true);
+  }
+  try {
+    return createTemplate(scriptSource.getScriptAsString(),scriptSource.suggestedClassName());
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("IOException in createTemplate",e);
+  }
+}

@@ -1,0 +1,3 @@
+{
+  return (name.equals(LIST_CALL) && args.length == 2 && args[0] instanceof Map && args[1] instanceof Closure) || (name.equals(ROOT_CALL) || name.equals(ROOT_DO_CALL) || name.equals(LIST_CALL)|| name.equals(LIST_DISTINCT_CALL)|| name.equals(GET_CALL)|| name.equals(COUNT_CALL)|| name.equals(SCROLL_CALL) && args.length == 1 && args[0] instanceof Closure);
+}

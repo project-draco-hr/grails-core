@@ -1,0 +1,9 @@
+{
+  super.removePrecompiledPage(scriptSource);
+  for (  Map.Entry<GroovyPageLocatorCacheKey,CacheEntry<GroovyPageScriptSource>> entry : new HashSet<Map.Entry<GroovyPageLocatorCacheKey,CacheEntry<GroovyPageScriptSource>>>(uriResolveCache.entrySet())) {
+    GroovyPageScriptSource ss=entry.getValue().getValue();
+    if (ss == scriptSource || (ss instanceof GroovyPageCompiledScriptSource && scriptSource.getURI().equals(((GroovyPageCompiledScriptSource)ss).getURI()))) {
+      uriResolveCache.remove(entry.getKey());
+    }
+  }
+}

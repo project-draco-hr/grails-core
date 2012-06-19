@@ -1,0 +1,9 @@
+{
+  doBeforeCall(objects);
+  try {
+    return target.call(objects);
+  }
+  finally {
+    doAfterCall(objects);
+  }
+}

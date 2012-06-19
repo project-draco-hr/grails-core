@@ -1,0 +1,9 @@
+{
+  String key=include ? INCLUDES : EXCLUDES;
+  Set set=(Set)targetMap.get(key);
+  if (set == null) {
+    set=new HashSet();
+    targetMap.put(key,set);
+  }
+  return set;
+}

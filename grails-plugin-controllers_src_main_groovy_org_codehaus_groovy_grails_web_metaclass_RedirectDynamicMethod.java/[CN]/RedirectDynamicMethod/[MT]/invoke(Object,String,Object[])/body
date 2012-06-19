@@ -1,0 +1,35 @@
+{
+  if (arguments.length == 0) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  Map argMap=arguments[0] instanceof Map ? (Map)arguments[0] : Collections.EMPTY_MAP;
+  if (argMap.isEmpty()) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  LinkGenerator requestLinkGenerator=getLinkGenerator(webRequest);
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  if (request.getAttribute(GRAILS_REDIRECT_ISSUED) != null) {
+    throw new CannotRedirectException("Cannot issue a redirect(..) here. A previous call to redirect(..) has already redirected the response.");
+  }
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  if (response.isCommitted()) {
+    throw new CannotRedirectException("Cannot issue a redirect(..) here. The response has already been committed either by another redirect or by directly writing to the response.");
+  }
+  GroovyObject controller=(GroovyObject)target;
+  Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
+  Errors errors=(Errors)argMap.get(ARGUMENT_ERRORS);
+  if (controllerErrors != null && errors != null) {
+    controllerErrors.addAllErrors(errors);
+  }
+ else {
+    controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+  }
+  boolean permanent=DefaultGroovyMethods.asBoolean(argMap.get(ARGUMENT_PERMANENT));
+  Object action=argMap.get(GrailsControllerClass.ACTION);
+  if (action != null) {
+    argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
+  }
+  argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
+  return redirectResponse(requestLinkGenerator.getServerBaseURL(),requestLinkGenerator.link(argMap),request,response,permanent);
+}

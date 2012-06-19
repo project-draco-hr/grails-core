@@ -1,0 +1,30 @@
+{
+  PropertiesHolder mergedHolder=cachedMergedPluginProperties.get(locale);
+  if (mergedHolder != null) {
+    return mergedHolder;
+  }
+  Properties mergedProps=new Properties();
+  mergedHolder=new PropertiesHolder(mergedProps,-1);
+  for (  String basename : pluginBaseNames) {
+    List<String> filenames=calculateAllFilenames(basename,locale);
+    for (int j=filenames.size() - 1; j >= 0; j--) {
+      String filename=filenames.get(j);
+      PropertiesHolder propHolder=getProperties(filename);
+      if (propHolder.getProperties() != null) {
+        mergedProps.putAll(propHolder.getProperties());
+      }
+    }
+  }
+  final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+  for (  GrailsPlugin plugin : allPlugins) {
+    if (plugin instanceof BinaryGrailsPlugin) {
+      BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+      final Properties binaryPluginProperties=binaryPlugin.getProperties(locale);
+      if (binaryPluginProperties != null) {
+        mergedProps.putAll(binaryPluginProperties);
+      }
+    }
+  }
+  cachedMergedPluginProperties.put(locale,mergedHolder);
+  return mergedHolder;
+}

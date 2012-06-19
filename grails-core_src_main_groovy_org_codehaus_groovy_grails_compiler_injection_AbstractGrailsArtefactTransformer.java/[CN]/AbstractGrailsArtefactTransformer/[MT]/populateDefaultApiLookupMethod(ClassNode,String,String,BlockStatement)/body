@@ -1,0 +1,4 @@
+{
+  methodBody.addStatement(new ReturnStatement(new VariableExpression(apiInstanceProperty)));
+  return new MethodNode(methodName,Modifier.PRIVATE,implementationNode,ZERO_PARAMETERS,null,methodBody);
+}

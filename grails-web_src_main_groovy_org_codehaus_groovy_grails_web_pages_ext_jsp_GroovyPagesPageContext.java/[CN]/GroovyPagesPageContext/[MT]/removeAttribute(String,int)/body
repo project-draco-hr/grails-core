@@ -1,0 +1,22 @@
+{
+  Assert.notNull(name,"Attribute name cannot be null");
+switch (scope) {
+case PAGE_SCOPE:
+    removeAttribute(name);
+  break;
+case REQUEST_SCOPE:
+request.removeAttribute(name);
+break;
+case SESSION_SCOPE:
+HttpSession httpSession=request.getSession(false);
+if (httpSession != null) {
+httpSession.removeAttribute(name);
+}
+break;
+case APPLICATION_SCOPE:
+servletContext.removeAttribute(name);
+break;
+default :
+removeAttribute(name);
+}
+}

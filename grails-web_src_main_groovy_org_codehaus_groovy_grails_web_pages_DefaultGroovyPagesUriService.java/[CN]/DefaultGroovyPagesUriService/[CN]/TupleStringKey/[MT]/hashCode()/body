@@ -1,0 +1,3 @@
+{
+  return new HashCodeBuilder().append(keyPart1).append(keyPart2).toHashCode();
+}

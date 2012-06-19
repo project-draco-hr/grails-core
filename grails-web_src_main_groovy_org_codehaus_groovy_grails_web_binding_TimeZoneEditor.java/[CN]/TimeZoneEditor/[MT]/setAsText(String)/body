@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isBlank(text)) {
+    setValue(null);
+  }
+  try {
+    setValue(TimeZone.getTimeZone(text));
+  }
+ catch (  IllegalArgumentException e) {
+    setValue(null);
+  }
+}

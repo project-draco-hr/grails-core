@@ -1,0 +1,12 @@
+{
+  try {
+    ProxyFactory factory=createProxyFactory(persistentClass,interfaces);
+    Class<?> proxyClass=factory.createClass();
+    HibernatePluginSupport.enhanceProxyClass(proxyClass);
+    return proxyClass;
+  }
+ catch (  Throwable t) {
+    LogFactory.getLog(BasicLazyInitializer.class).error("Javassist Enhancement failed: " + persistentClass.getName(),t);
+    throw new HibernateException("Javassist Enhancement failed: " + persistentClass.getName(),t);
+  }
+}

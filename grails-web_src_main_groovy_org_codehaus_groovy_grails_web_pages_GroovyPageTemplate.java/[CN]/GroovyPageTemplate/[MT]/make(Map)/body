@@ -1,0 +1,5 @@
+{
+  GroovyPageWritable gptw=new GroovyPageWritable(metaInfo,allowSettingContentType);
+  gptw.setBinding(binding);
+  return gptw;
+}

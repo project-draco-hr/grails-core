@@ -1,0 +1,9 @@
+{
+  if (usingWriter) {
+    return charBuffer;
+  }
+  if (usingStream) {
+    return byteBuffer.readAsString(encoding);
+  }
+  return "";
+}

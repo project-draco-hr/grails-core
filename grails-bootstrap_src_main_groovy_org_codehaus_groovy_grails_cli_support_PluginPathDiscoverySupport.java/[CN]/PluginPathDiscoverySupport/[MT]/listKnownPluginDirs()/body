@@ -1,0 +1,5 @@
+{
+  List<File> dirs=new ArrayList<File>();
+  dirs.addAll(settings.getPluginDirectories());
+  return dirs;
+}

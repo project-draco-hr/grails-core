@@ -1,0 +1,7 @@
+{
+  for (  ArtefactHandler artefactHandler : artefactHandlers) {
+    if (artefactHandler.isArtefact(artefact)) {
+      addArtefact(artefactHandler.getType(),artefact);
+    }
+  }
+}

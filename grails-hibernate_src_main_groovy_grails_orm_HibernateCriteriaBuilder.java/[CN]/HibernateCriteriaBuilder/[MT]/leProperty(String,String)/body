@@ -1,0 +1,9 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [leProperty] with propertyName [" + propertyName + "] and other property name ["+ otherPropertyName+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  otherPropertyName=calculatePropertyName(otherPropertyName);
+  addToCriteria(Restrictions.leProperty(propertyName,otherPropertyName));
+  return this;
+}

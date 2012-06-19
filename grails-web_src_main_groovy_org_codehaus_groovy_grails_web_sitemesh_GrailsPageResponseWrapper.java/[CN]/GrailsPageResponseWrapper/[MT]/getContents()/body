@@ -1,0 +1,6 @@
+{
+  if (isSitemeshNotActive()) {
+    return null;
+  }
+  return buffer.getContents();
+}

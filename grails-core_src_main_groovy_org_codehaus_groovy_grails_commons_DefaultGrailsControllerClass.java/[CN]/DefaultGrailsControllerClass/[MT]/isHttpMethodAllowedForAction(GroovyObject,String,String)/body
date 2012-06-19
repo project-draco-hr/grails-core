@@ -1,0 +1,25 @@
+{
+  boolean isAllowed=true;
+  Object methodRestrictionsProperty=null;
+  MetaProperty metaProp=controller.getMetaClass().getMetaProperty(ALLOWED_HTTP_METHODS_PROPERTY);
+  if (metaProp != null) {
+    methodRestrictionsProperty=metaProp.getProperty(controller);
+  }
+  if (methodRestrictionsProperty instanceof Map) {
+    Map map=(Map)methodRestrictionsProperty;
+    Object value=map.get(actionName);
+    if (value instanceof List) {
+      List listOfMethods=(List)value;
+      isAllowed=CollectionUtils.exists(listOfMethods,new Predicate(){
+        public boolean evaluate(        @SuppressWarnings("hiding") Object value){
+          return httpMethod.equalsIgnoreCase(value.toString());
+        }
+      }
+);
+    }
+ else     if (value instanceof String) {
+      isAllowed=((String)value).equalsIgnoreCase(httpMethod);
+    }
+  }
+  return isAllowed;
+}

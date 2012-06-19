@@ -1,0 +1,5 @@
+{
+  byte[] buf=new byte[totalBytesUnread()];
+  input.readImpl(buf,0,buf.length);
+  return buf;
+}

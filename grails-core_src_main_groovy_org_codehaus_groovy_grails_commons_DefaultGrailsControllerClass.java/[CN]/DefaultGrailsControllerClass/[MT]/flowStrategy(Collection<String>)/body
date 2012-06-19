@@ -1,0 +1,18 @@
+{
+  for (  PropertyDescriptor propertyDescriptor : getPropertyDescriptors()) {
+    Method readMethod=propertyDescriptor.getReadMethod();
+    if (readMethod != null && !Modifier.isStatic(readMethod.getModifiers())) {
+      final Class<?> propertyType=propertyDescriptor.getPropertyType();
+      if ((propertyType == Object.class || propertyType == Closure.class) && propertyDescriptor.getName().endsWith(FLOW_SUFFIX)) {
+        String closureName=propertyDescriptor.getName();
+        String flowId=closureName.substring(0,closureName.length() - FLOW_SUFFIX.length());
+        flows.put(flowId,propertyDescriptor);
+        closureNames.add(flowId);
+        configureMappingForMethodAction(flowId);
+      }
+    }
+  }
+  if (!isReadableProperty(defaultActionName) && closureNames.size() == 1) {
+    defaultActionName=closureNames.iterator().next();
+  }
+}

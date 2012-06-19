@@ -1,0 +1,7 @@
+{
+  String str=in.readUTF();
+  reset();
+  if (str.length() > 0) {
+    addChunk(new StringChunk(str,0,str.length()));
+  }
+}

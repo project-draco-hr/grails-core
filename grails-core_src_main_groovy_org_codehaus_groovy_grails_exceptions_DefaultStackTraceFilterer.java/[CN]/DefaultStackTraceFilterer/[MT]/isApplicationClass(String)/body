@@ -1,0 +1,6 @@
+{
+  for (  String packageName : packagesToFilter) {
+    if (className.startsWith(packageName))     return false;
+  }
+  return true;
+}

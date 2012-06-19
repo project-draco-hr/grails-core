@@ -1,0 +1,94 @@
+{
+  Object[] args=(Object[])arg;
+  final boolean isResponseCode=isResponseCode(methodName);
+  if (methodName.startsWith(SLASH) || isResponseCode) {
+    parameterValues=new HashMap<String,Object>();
+    try {
+      urlDefiningMode=false;
+      args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
+      if (args[0] instanceof Closure) {
+        UrlMappingData urlData=createUrlMappingData(methodName,isResponseCode);
+        Closure callable=(Closure)args[0];
+        if (delegate != null)         callable.setDelegate(delegate);
+        callable.call();
+        @SuppressWarnings("hiding") Object controllerName;
+        @SuppressWarnings("hiding") Object actionName;
+        @SuppressWarnings("hiding") Object viewName;
+        @SuppressWarnings("hiding") Object uri;
+        if (binding != null) {
+          controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
+          actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
+          viewName=binding.getVariables().get(GrailsControllerClass.VIEW);
+          uri=binding.getVariables().get("uri");
+        }
+ else {
+          controllerName=this.controllerName;
+          actionName=this.actionName;
+          viewName=this.viewName;
+          uri=this.uri;
+        }
+        ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+        UrlMapping urlMapping;
+        if (uri != null) {
+          try {
+            urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,sc);
+          }
+ catch (          URISyntaxException e) {
+            throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
+          }
+        }
+ else {
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+        }
+        if (binding != null) {
+          Map bindingVariables=binding.getVariables();
+          Object parse=getParseRequest(Collections.EMPTY_MAP,bindingVariables);
+          if (parse instanceof Boolean) {
+            urlMapping.setParseRequest((Boolean)parse);
+          }
+        }
+        configureUrlMapping(urlMapping);
+        return urlMapping;
+      }
+      if (args[0] instanceof Map) {
+        Map namedArguments=(Map)args[0];
+        UrlMappingData urlData=createUrlMappingData(methodName,isResponseCode);
+        if (args.length > 1 && args[1] instanceof Closure) {
+          Closure callable=(Closure)args[1];
+          callable.call();
+        }
+        UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,methodName,isResponseCode);
+        configureUrlMapping(urlMapping);
+        return urlMapping;
+      }
+      return null;
+    }
+  finally {
+      if (binding != null) {
+        binding.getVariables().clear();
+      }
+ else {
+        controllerName=null;
+        actionName=null;
+        viewName=null;
+      }
+      previousConstraints.clear();
+      urlDefiningMode=true;
+    }
+  }
+ else   if (!urlDefiningMode && CONSTRAINTS.equals(methodName)) {
+    ConstrainedPropertyBuilder builder=new ConstrainedPropertyBuilder(this);
+    if (args.length > 0 && (args[0] instanceof Closure)) {
+      Closure callable=(Closure)args[0];
+      callable.setDelegate(builder);
+      for (      ConstrainedProperty constrainedProperty : previousConstraints) {
+        builder.getConstrainedProperties().put(constrainedProperty.getPropertyName(),constrainedProperty);
+      }
+      callable.call();
+    }
+    return builder.getConstrainedProperties();
+  }
+ else {
+    return super.invokeMethod(methodName,arg);
+  }
+}

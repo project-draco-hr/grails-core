@@ -1,0 +1,9 @@
+{
+  try {
+    Object o=opt(key);
+    return o instanceof Number ? ((Number)o).doubleValue() : Double.valueOf((String)o);
+  }
+ catch (  Exception e) {
+    return defaultValue;
+  }
+}

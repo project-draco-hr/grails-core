@@ -1,0 +1,4 @@
+{
+  HttpServletResponse r=WrappedResponseHolder.getWrappedResponse();
+  return r == null ? response : r;
+}

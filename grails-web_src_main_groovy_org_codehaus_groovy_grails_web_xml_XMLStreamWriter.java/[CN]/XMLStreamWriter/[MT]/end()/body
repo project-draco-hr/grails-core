@@ -1,0 +1,21 @@
+{
+  Writer ue=writer.unescaped();
+  if (mode == TAG) {
+    ue.write(" />");
+    if (tagStack.pop() == null) {
+      throw new IllegalStateException();
+    }
+  }
+ else   if (mode == CONTENT) {
+    ue.write('<');
+    ue.write('/');
+    String t=tagStack.pop();
+    if (t == null) {
+      throw new IllegalStateException();
+    }
+    ue.write(t);
+    ue.write('>');
+  }
+  mode=CONTENT;
+  return this;
+}

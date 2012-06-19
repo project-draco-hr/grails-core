@@ -1,0 +1,33 @@
+{
+  Object[] argsv=(Object[])args;
+  Matcher match=GETCLASS_PATTERN.matcher(methodName);
+  match.find();
+  if (match.matches()) {
+    if (argsv.length > 0) {
+      if (argsv[0] instanceof CharSequence)       argsv[0]=argsv[0].toString();
+      if ((argsv.length != 1) || !(argsv[0] instanceof String)) {
+        throw new IllegalArgumentException("Dynamic method get<Artefact>Class(artefactName) requires a single String parameter");
+      }
+      return getArtefact(match.group(2),argsv[0].toString());
+    }
+    return super.invokeMethod(methodName,args);
+  }
+  match=ISCLASS_PATTERN.matcher(methodName);
+  match.find();
+  if (match.matches()) {
+    if ((argsv.length != 1) || !(argsv[0] instanceof Class<?>)) {
+      throw new IllegalArgumentException("Dynamic method is<Artefact>Class(artefactClass) requires a single Class parameter");
+    }
+    return isArtefactOfType(match.group(2),(Class<?>)argsv[0]);
+  }
+  match=GETCLASSESMETH_PATTERN.matcher(methodName);
+  match.find();
+  if (match.matches()) {
+    String artefactName=GrailsNameUtils.getClassNameRepresentation(match.group(2));
+    if (artefactHandlersByName.containsKey(artefactName)) {
+      return getArtefacts(match.group(2));
+    }
+    throw new IllegalArgumentException("Dynamic method get<Artefact>Classes() called for " + "unrecognized artefact: " + match.group(2));
+  }
+  return super.invokeMethod(methodName,args);
+}

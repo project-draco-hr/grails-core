@@ -1,0 +1,4 @@
+{
+  Boolean ret=participate.get();
+  return (ret != null) ? ret : false;
+}

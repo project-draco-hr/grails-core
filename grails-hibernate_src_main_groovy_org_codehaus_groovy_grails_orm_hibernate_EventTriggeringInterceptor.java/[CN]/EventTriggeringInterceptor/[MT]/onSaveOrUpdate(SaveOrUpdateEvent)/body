@@ -1,0 +1,6 @@
+{
+  ClosureEventListener eventListener=findEventListener(event.getObject());
+  if (eventListener != null) {
+    eventListener.onSaveOrUpdate(event);
+  }
+}

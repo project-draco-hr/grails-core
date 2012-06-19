@@ -1,0 +1,12 @@
+{
+  writer.array();
+  for (  Object element : c) {
+    if (element instanceof Collection) {
+      handleCollectionRecurse((Collection)element);
+    }
+ else {
+      json.convertAnother(element);
+    }
+  }
+  writer.endArray();
+}

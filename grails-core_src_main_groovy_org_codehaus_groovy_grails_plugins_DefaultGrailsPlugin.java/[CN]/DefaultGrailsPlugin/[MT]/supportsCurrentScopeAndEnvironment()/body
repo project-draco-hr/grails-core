@@ -1,0 +1,5 @@
+{
+  BuildScope bs=BuildScope.getCurrent();
+  Environment e=Environment.getCurrent();
+  return supportsEnvironment(e) && supportsScope(bs);
+}

@@ -1,0 +1,11 @@
+{
+  Assert.notNull(properties);
+  if (properties instanceof ConfigObject) {
+    properties=((ConfigObject)properties).flatten();
+  }
+  Object includes=properties.get("grails.plugin.includes");
+  if (includes == null)   properties.get("plugin.includes");
+  Object excludes=properties.get("grails.plugin.excludes");
+  if (excludes == null)   properties.get("plugin.excludes");
+  return getPluginFilter(includes,excludes);
+}

@@ -1,0 +1,4 @@
+{
+  DependencyDescriptor dd=pluginNameToDescriptorMap.get(pluginName);
+  return dd == null || dd.isTransitive();
+}

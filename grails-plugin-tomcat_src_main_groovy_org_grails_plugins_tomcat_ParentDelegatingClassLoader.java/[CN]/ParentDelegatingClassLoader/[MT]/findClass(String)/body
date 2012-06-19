@@ -1,0 +1,11 @@
+{
+  try {
+    return (Class<?>)findClassMethod.invoke(getParent(),className);
+  }
+ catch (  IllegalAccessException e) {
+    throw new ClassNotFoundException(className);
+  }
+catch (  InvocationTargetException e) {
+    throw new ClassNotFoundException(className);
+  }
+}

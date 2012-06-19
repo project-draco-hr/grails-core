@@ -1,0 +1,6 @@
+{
+  if (applicationContext == null) {
+    applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext(instance));
+  }
+  return applicationContext;
+}

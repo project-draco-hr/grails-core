@@ -1,0 +1,6 @@
+{
+  Set keySet=new HashSet();
+  keySet.addAll(current.entrySet());
+  keySet.addAll(next.entrySet());
+  return keySet;
+}

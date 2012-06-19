@@ -1,0 +1,10 @@
+{
+  final Project project=new Project();
+  final ProjectHelper helper=ProjectHelper.getProjectHelper();
+  project.addReference(ProjectHelper.PROJECTHELPER_REFERENCE,helper);
+  helper.getImportStack().addElement("AntBuilder");
+  addGrailsConsoleBuildListener(project);
+  project.init();
+  project.getBaseDir();
+  return project;
+}

@@ -1,0 +1,9 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [rlike] with propertyName [" + propertyName + "] and value ["+ propertyValue+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  propertyValue=calculatePropertyValue(propertyValue);
+  addToCriteria(new RlikeExpression(propertyName,propertyValue));
+  return this;
+}

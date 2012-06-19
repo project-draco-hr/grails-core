@@ -1,0 +1,27 @@
+{
+  TagLibraryLookup gspTagLibraryLookup=getTagLibraryLookup();
+  if (gspTagLibraryLookup != null) {
+    Object result=gspTagLibraryLookup.lookupNamespaceDispatcher(name);
+    if (result == null) {
+      String namespace=getNamespace(instance);
+      GroovyObject tagLibrary=gspTagLibraryLookup.lookupTagLibrary(namespace,name);
+      if (tagLibrary == null) {
+        tagLibrary=gspTagLibraryLookup.lookupTagLibrary(GroovyPage.DEFAULT_NAMESPACE,name);
+      }
+      if (tagLibrary != null) {
+        Object tagProperty=tagLibrary.getProperty(name);
+        if (tagProperty instanceof Closure) {
+          result=((Closure<?>)tagProperty).clone();
+        }
+      }
+    }
+    if (result != null && !developmentMode) {
+      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
+      WebMetaUtils.registerPropertyMissingForTag(mc,name,result);
+    }
+    if (result != null) {
+      return result;
+    }
+  }
+  throw new MissingPropertyException(name,instance.getClass());
+}

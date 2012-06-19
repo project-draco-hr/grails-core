@@ -1,0 +1,6 @@
+{
+  if (relationshipMap == null) {
+    this.relationshipMap=getMergedConfigurationMap(GrailsDomainClassProperty.HAS_MANY);
+  }
+  return relationshipMap;
+}

@@ -1,0 +1,4 @@
+{
+  Assert.isInstanceOf(String.class,value,"A GroovySyntax tag requires only string valued attributes");
+  attributes.put(name.substring(1,name.length() - 1),(String)value);
+}

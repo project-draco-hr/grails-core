@@ -1,0 +1,8 @@
+{
+  Object returnValue;
+  returnValue=namedArguments.get(variableName);
+  if (returnValue == null) {
+    returnValue=binding != null ? bindingVariables.get(variableName) : defaultValue;
+  }
+  return returnValue;
+}

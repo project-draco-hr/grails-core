@@ -1,0 +1,6 @@
+{
+  if (s == null)   s="''";
+  super.print("buf" + index + " << ");
+  super.print(s);
+  println();
+}

@@ -1,0 +1,7 @@
+{
+  Currency c=(Currency)getValue();
+  if (c == null) {
+    return "";
+  }
+  return c.getCurrencyCode();
+}

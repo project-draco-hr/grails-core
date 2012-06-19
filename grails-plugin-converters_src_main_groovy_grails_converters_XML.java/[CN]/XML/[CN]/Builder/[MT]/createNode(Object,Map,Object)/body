@@ -1,0 +1,13 @@
+{
+  xml.startNode(name.toString());
+  if (attributes != null) {
+    for (    Object o : attributes.entrySet()) {
+      Map.Entry attribute=(Map.Entry)o;
+      xml.attribute(attribute.getKey().toString(),attribute.getValue().toString());
+    }
+  }
+  if (value != null) {
+    xml.convertAnother(value);
+  }
+  return name;
+}

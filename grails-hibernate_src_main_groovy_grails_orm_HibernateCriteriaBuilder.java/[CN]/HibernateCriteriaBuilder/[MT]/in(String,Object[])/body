@@ -1,0 +1,8 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [in] with propertyName [" + propertyName + "] and values ["+ values+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  addToCriteria(Restrictions.in(propertyName,values));
+  return this;
+}

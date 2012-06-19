@@ -1,0 +1,21 @@
+{
+  Method method=ReflectionUtils.findMethod(domainClazz,event);
+  if (method != null) {
+    ReflectionUtils.makeAccessible(method);
+    return new MethodCaller(method);
+  }
+  Field field=ReflectionUtils.findField(domainClazz,event);
+  if (field != null) {
+    ReflectionUtils.makeAccessible(field);
+    return new FieldClosureCaller(field);
+  }
+  MetaMethod metaMethod=domainMetaClass.getMetaMethod(event,EMPTY_OBJECT_ARRAY);
+  if (metaMethod != null) {
+    return new MetaMethodCaller(metaMethod);
+  }
+  MetaProperty metaProperty=domainMetaClass.getMetaProperty(event);
+  if (metaProperty != null) {
+    return new MetaPropertyClosureCaller(metaProperty);
+  }
+  return null;
+}

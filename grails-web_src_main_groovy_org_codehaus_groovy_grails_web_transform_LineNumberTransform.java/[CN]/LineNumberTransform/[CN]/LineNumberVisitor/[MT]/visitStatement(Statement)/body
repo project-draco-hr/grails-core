@@ -1,0 +1,8 @@
+{
+  if (statement.getLineNumber() >= 0 && statement.getLineNumber() < lineNumbers.length) {
+    statement.setLineNumber(lineNumbers[statement.getLineNumber() - 1]);
+  }
+  if (statement.getLastLineNumber() > 0 && statement.getLastLineNumber() < lineNumbers.length) {
+    statement.setLastLineNumber(lineNumbers[statement.getLastLineNumber() - 1]);
+  }
+}

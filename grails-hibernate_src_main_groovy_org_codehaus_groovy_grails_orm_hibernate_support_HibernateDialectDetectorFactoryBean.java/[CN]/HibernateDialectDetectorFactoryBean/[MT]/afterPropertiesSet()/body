@@ -1,0 +1,24 @@
+{
+  Assert.notNull(dataSource,"Data source is not set!");
+  Assert.notNull(vendorNameDialectMappings,"Vendor name/dialect mappings are not set!");
+  Connection connection=null;
+  String dbName=(String)JdbcUtils.extractDatabaseMetaData(dataSource,"getDatabaseProductName");
+  try {
+    connection=DataSourceUtils.getConnection(dataSource);
+    try {
+      ConfigObject config=grailsApplication != null ? grailsApplication.getConfig() : null;
+      Properties properties=config != null ? config.toProperties() : new Properties();
+      hibernateDialect=DialectFactory.buildDialect(properties,connection);
+      hibernateDialectClassName=hibernateDialect.getClass().getName();
+    }
+ catch (    HibernateException e) {
+      hibernateDialectClassName=vendorNameDialectMappings.getProperty(dbName);
+    }
+    if (!StringUtils.hasText(hibernateDialectClassName)) {
+      throw new CouldNotDetermineHibernateDialectException("Could not determine Hibernate dialect for database name [" + dbName + "]!");
+    }
+  }
+  finally {
+    DataSourceUtils.releaseConnection(connection,dataSource);
+  }
+}

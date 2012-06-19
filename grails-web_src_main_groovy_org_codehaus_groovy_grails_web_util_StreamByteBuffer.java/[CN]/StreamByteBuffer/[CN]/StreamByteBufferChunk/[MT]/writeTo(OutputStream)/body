@@ -1,0 +1,6 @@
+{
+  if (pointer < used) {
+    target.write(buffer,pointer,used - pointer);
+    pointer=used;
+  }
+}

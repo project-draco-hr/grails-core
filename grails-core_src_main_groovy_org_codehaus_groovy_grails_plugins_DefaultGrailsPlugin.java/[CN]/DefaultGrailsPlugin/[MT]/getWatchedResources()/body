@@ -1,0 +1,15 @@
+{
+  if (watchedResources.length == 0 && watchedResourcePatternReferences != null) {
+    for (    String resourcesReference : watchedResourcePatternReferences) {
+      try {
+        Resource[] resources=resolver.getResources(resourcesReference);
+        if (resources.length > 0) {
+          watchedResources=(Resource[])ArrayUtils.addAll(watchedResources,resources);
+        }
+      }
+ catch (      Exception ignored) {
+      }
+    }
+  }
+  return watchedResources;
+}

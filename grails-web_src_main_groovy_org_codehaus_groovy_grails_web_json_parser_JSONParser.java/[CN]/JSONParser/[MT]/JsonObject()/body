@@ -1,0 +1,18 @@
+{
+  JSONObject o=new JSONObject();
+  jj_consume_token(20);
+switch ((jj_ntk == -1) ? jj_ntk() : jj_ntk) {
+case SINGLE_QUOTE_LITERAL:
+case DOUBLE_QUOTE_LITERAL:
+    Members(o);
+  break;
+default :
+jj_la1[2]=jj_gen;
+;
+}
+jj_consume_token(21);
+{
+if (true) return o;
+}
+throw new Error("Missing return statement in function");
+}

@@ -1,0 +1,8 @@
+{
+  if (modelObject instanceof Map) {
+    template.make((Map)modelObject).writeTo(out);
+  }
+ else {
+    template.make(new BeanMap(target)).writeTo(out);
+  }
+}

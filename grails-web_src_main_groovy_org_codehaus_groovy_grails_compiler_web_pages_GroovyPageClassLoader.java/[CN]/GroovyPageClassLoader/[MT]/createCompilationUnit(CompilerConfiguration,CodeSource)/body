@@ -1,0 +1,7 @@
+{
+  CompilationUnit cu=super.createCompilationUnit(config,source);
+  GroovyPageInjectionOperation operation;
+  operation=new GroovyPageInjectionOperation();
+  cu.addPhaseOperation(operation,Phases.CANONICALIZATION);
+  return cu;
+}

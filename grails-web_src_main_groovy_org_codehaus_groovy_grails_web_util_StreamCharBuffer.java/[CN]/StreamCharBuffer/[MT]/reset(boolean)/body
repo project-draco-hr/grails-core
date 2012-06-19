@@ -1,0 +1,13 @@
+{
+  firstChunk=null;
+  lastChunk=null;
+  totalCharsInList=0;
+  totalCharsInDynamicChunks=-1;
+  sizeAtLeast=-1;
+  if (resetChunkSize) {
+    chunkSize=firstChunkSize;
+    totalChunkSize=0;
+  }
+  allocBuffer=new AllocatedBuffer(chunkSize);
+  dynamicChunkMap=new HashMap<StreamCharBufferKey,StreamCharBufferSubChunk>();
+}

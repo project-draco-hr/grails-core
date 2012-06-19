@@ -1,0 +1,10 @@
+{
+  ClassNode currentSuper=childClass;
+  while (currentSuper != null) {
+    if (currentSuper.equals(superClass)) {
+      return true;
+    }
+    currentSuper=currentSuper.getSuperClass();
+  }
+  return false;
+}

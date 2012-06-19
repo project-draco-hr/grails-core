@@ -1,0 +1,6 @@
+{
+  if (referencedDomainClass != null) {
+    this.referencedDomainClass=referencedDomainClass;
+    this.referencedPropertyType=referencedDomainClass.getClazz();
+  }
+}

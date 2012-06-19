@@ -1,0 +1,7 @@
+{
+  if (propertyName instanceof List) {
+    DataBindingUtils.bindObjectToInstance(getInstance(),propertyValue,(List)propertyName,null,null);
+    return null;
+  }
+  return super.put(propertyName,propertyValue);
+}

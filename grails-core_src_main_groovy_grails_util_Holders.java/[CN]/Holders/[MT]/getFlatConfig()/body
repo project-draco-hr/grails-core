@@ -1,0 +1,4 @@
+{
+  Map<?,?> flatConfig=get(flatConfigs,"flatConfig");
+  return flatConfig == null ? Collections.emptyMap() : flatConfig;
+}

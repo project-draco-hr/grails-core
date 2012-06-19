@@ -1,0 +1,14 @@
+{
+  if (uri == null)   return null;
+  PrivilegedAction<GroovyPageScriptSource> updater=new PrivilegedAction<GroovyPageScriptSource>(){
+    public GroovyPageScriptSource run(){
+      GroovyPageScriptSource scriptSource=CachingGrailsConventionGroovyPageLocator.super.findPageInBinding(uri,binding);
+      if (scriptSource == null) {
+        scriptSource=NULL_SCRIPT;
+      }
+      return scriptSource;
+    }
+  }
+;
+  return lookupCache(GroovyPageLocatorCacheKey.build(uri,null,binding),updater);
+}

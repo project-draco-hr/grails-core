@@ -1,0 +1,9 @@
+{
+  if (constraints != null) {
+    for (int i=0; i < constraints.length; i++) {
+      ConstrainedProperty cp=constraints[i];
+      if (cp.getPropertyName().equals(name))       return true;
+    }
+  }
+  return false;
+}

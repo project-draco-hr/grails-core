@@ -1,0 +1,12 @@
+{
+  for (  Pattern pattern : patterns) {
+    Matcher m=pattern.matcher(uri);
+    if (m.matches()) {
+      UrlMappingInfo urlInfo=createUrlMappingInfo(uri,m);
+      if (urlInfo != null) {
+        return urlInfo;
+      }
+    }
+  }
+  return null;
+}

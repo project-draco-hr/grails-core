@@ -1,0 +1,9 @@
+{
+  if (pagesTemplateEngine != null) {
+    return pagesTemplateEngine;
+  }
+  if (LOG.isWarnEnabled()) {
+    LOG.warn("No bean named [" + GroovyPagesTemplateEngine.BEAN_ID + "] defined in Spring application context!");
+  }
+  return null;
+}

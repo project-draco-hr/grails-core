@@ -1,0 +1,22 @@
+{
+  if (relatedClassPropertyType == null) {
+    if (hasOneMap.containsKey(property.getName())) {
+      property.setHasOne(true);
+    }
+    property.setOneToOne(true);
+    property.setBidirectional(false);
+  }
+ else   if (Collection.class.isAssignableFrom(relatedClassPropertyType) || Map.class.isAssignableFrom(relatedClassPropertyType)) {
+    property.setManyToOne(true);
+    property.setBidirectional(true);
+  }
+ else   if (DomainClassArtefactHandler.isDomainClass(relatedClassPropertyType)) {
+    if (hasOneMap.containsKey(property.getName())) {
+      property.setHasOne(true);
+    }
+    property.setOneToOne(true);
+    if (!getClazz().equals(relatedClassPropertyType)) {
+      property.setBidirectional(true);
+    }
+  }
+}

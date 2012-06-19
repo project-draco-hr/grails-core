@@ -1,0 +1,6 @@
+{
+  if (shouldMapWithGorm(domainClass)) {
+    domainClasses.add(domainClass);
+  }
+  return this;
+}

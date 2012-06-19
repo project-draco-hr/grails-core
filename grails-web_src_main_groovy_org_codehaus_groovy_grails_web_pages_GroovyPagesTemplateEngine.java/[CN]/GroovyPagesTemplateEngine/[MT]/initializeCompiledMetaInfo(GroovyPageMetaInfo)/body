@@ -1,0 +1,13 @@
+{
+  meta.initializeOnDemand(new GroovyPageMetaInfo.GroovyPageMetaInfoInitializer(){
+    public void initialize(    GroovyPageMetaInfo metaInfo){
+      metaInfo.setGrailsApplication(grailsApplication);
+      metaInfo.setJspTagLibraryResolver(jspTagLibraryResolver);
+      metaInfo.setTagLibraryLookup(tagLibraryLookup);
+      metaInfo.initialize();
+      GroovyPagesMetaUtils.registerMethodMissingForGSP(metaInfo.getPageClass(),tagLibraryLookup);
+    }
+  }
+);
+  return meta;
+}

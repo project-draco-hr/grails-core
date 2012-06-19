@@ -1,0 +1,52 @@
+{
+  StringBuilder sb=new StringBuilder();
+  sb.append(exceptionName).append(" occurred when processing request: ").append("[").append(request.getMethod().toUpperCase()).append("] ");
+  if (request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE) != null) {
+    sb.append(request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE));
+  }
+ else {
+    sb.append(request.getRequestURI());
+  }
+  @SuppressWarnings("rawtypes") Map flatConfig=grailsApplication != null ? grailsApplication.getFlatConfig() : Collections.emptyMap();
+  final boolean shouldLogRequestParameters;
+  if (flatConfig.containsKey("grails.exceptionresolver.logRequestParameters")) {
+    shouldLogRequestParameters=Boolean.TRUE.equals(flatConfig.get("grails.exceptionresolver.logRequestParameters"));
+  }
+ else {
+    shouldLogRequestParameters=Environment.getCurrent() == Environment.DEVELOPMENT;
+  }
+  if (shouldLogRequestParameters) {
+    @SuppressWarnings("unchecked") Enumeration<String> params=request.getParameterNames();
+    if (params.hasMoreElements()) {
+      String param;
+      String values[];
+      int i;
+      sb.append(" - parameters:");
+      @SuppressWarnings("unchecked") List<String> blackList=(List<String>)flatConfig.get("grails.exceptionresolver.params.exclude");
+      if (blackList == null) {
+        blackList=Collections.emptyList();
+      }
+      while (params.hasMoreElements()) {
+        param=params.nextElement();
+        values=request.getParameterValues(param);
+        if (values != null) {
+          for (i=0; i < values.length; i++) {
+            sb.append(LINE_SEPARATOR).append(param).append(": ");
+            if (blackList.contains(param)) {
+              sb.append("***");
+            }
+ else {
+              sb.append(values[i]);
+            }
+          }
+        }
+      }
+    }
+  }
+  sb.append(LINE_SEPARATOR);
+  if (message != null) {
+    sb.append(message).append(". ");
+  }
+  sb.append("Stacktrace follows:");
+  return sb.toString();
+}

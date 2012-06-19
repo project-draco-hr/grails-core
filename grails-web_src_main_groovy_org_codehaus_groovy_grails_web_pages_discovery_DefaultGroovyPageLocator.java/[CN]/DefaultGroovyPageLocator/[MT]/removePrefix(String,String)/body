@@ -1,0 +1,6 @@
+{
+  if (uri.startsWith(prefix)) {
+    uri=uri.substring(prefix.length());
+  }
+  return uri;
+}

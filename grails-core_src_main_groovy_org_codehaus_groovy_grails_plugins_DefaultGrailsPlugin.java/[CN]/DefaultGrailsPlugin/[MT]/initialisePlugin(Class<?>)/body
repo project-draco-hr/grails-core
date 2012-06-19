@@ -1,0 +1,16 @@
+{
+  pluginGrailsClass=new GrailsPluginClass(clazz);
+  plugin=(GroovyObject)pluginGrailsClass.newInstance();
+  pluginBean=new BeanWrapperImpl(plugin);
+  evaluatePluginVersion();
+  evaluatePluginDependencies();
+  evaluatePluginLoadAfters();
+  evaluateProvidedArtefacts();
+  evaluatePluginEvictionPolicy();
+  evaluateOnChangeListener();
+  evaluateObservedPlugins();
+  evaluatePluginStatus();
+  evaluatePluginScopes();
+  evaluatePluginExcludes();
+  evaluateTypeFilters();
+}

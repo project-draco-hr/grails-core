@@ -1,0 +1,8 @@
+{
+  if (streamBufferWriter != null) {
+    streamBufferWriter.write(c);
+  }
+ else {
+    getEnclosingWriter().write(c);
+  }
+}

@@ -1,0 +1,28 @@
+{
+  boolean isValidMethod=true;
+  if (OPERATOR_OR.equals(operatorInUse)) {
+    isValidMethod=false;
+  }
+  Iterator iterator=expressions.iterator();
+  while (isValidMethod && iterator.hasNext()) {
+    GrailsMethodExpression gme=(GrailsMethodExpression)iterator.next();
+    isValidMethod=GrailsMethodExpression.EQUAL.equals(gme.type);
+  }
+  if (!isValidMethod) {
+    throw new MissingMethodException(methodName,clazz,arguments);
+  }
+  Object result=super.doInvokeInternalWithExpressions(clazz,methodName,arguments,expressions,operatorInUse,detachedCriteria,additionalCriteria);
+  if (result == null) {
+    Map m=new HashMap();
+    for (    Object o : expressions) {
+      GrailsMethodExpression gme=(GrailsMethodExpression)o;
+      m.put(gme.getPropertyName(),gme.getArguments()[0]);
+    }
+    MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(clazz);
+    result=metaClass.invokeConstructor(new Object[]{m});
+    if (shouldSaveOnCreate()) {
+      metaClass.invokeMethod(result,"save",null);
+    }
+  }
+  return result;
+}

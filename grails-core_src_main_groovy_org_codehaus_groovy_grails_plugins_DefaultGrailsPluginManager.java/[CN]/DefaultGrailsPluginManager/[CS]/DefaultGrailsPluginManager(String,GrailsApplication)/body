@@ -1,0 +1,13 @@
+{
+  super(application);
+  Assert.notNull(application,"Argument [application] cannot be null!");
+  resolver=new PathMatchingResourcePatternResolver();
+  try {
+    pluginResources=resolver.getResources(resourcePath);
+  }
+ catch (  IOException ioe) {
+    LOG.debug("Unable to load plugins for resource path " + resourcePath,ioe);
+  }
+  this.application=application;
+  setPluginFilter();
+}

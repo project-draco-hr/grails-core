@@ -1,0 +1,7 @@
+{
+  if (savedVariablesMap != null) {
+    for (    Map.Entry<String,Object> entry : savedVariablesMap.entrySet()) {
+      binding.setVariable(entry.getKey(),entry.getValue());
+    }
+  }
+}

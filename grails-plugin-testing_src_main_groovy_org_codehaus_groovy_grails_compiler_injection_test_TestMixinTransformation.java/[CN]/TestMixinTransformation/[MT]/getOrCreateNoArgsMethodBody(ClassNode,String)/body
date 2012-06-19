@@ -1,0 +1,4 @@
+{
+  MethodNode setupMethod=classNode.getMethod(name,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  return getOrCreateMethodBody(classNode,setupMethod,name);
+}

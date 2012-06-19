@@ -1,0 +1,13 @@
+{
+  int total=totalCharsInList;
+  if (totalCharsInDynamicChunks == -1) {
+    totalCharsInDynamicChunks=0;
+    for (    StreamCharBufferSubChunk chunk : dynamicChunkMap.values()) {
+      totalCharsInDynamicChunks+=chunk.size();
+    }
+  }
+  total+=totalCharsInDynamicChunks;
+  total+=allocBuffer.charsUsed();
+  sizeAtLeast=total;
+  return total;
+}

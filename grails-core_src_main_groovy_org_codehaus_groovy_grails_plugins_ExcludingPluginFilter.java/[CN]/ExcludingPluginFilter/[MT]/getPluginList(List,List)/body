@@ -1,0 +1,10 @@
+{
+  List<GrailsPlugin> newList=new ArrayList<GrailsPlugin>(original);
+  for (Iterator<GrailsPlugin> iter=newList.iterator(); iter.hasNext(); ) {
+    GrailsPlugin element=iter.next();
+    if (pluginList.contains(element)) {
+      iter.remove();
+    }
+  }
+  return newList;
+}

@@ -1,0 +1,10 @@
+{
+  boolean result=false;
+  for (  String listElement : listOfStrings) {
+    if (stringToMatch.matches(listElement)) {
+      result=true;
+      break;
+    }
+  }
+  return result;
+}

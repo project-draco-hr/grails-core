@@ -1,0 +1,8 @@
+{
+  testConstraintMessageCodes(getConstraint("testInteger",new IntRange(1,5)),7L,new String[]{"testClass.testInteger.range.error","testClass.testInteger.range.toobig"},new Object[]{"testInteger",TestClass.class,7L,1,5});
+  testConstraintMessageCodes(getConstraint("testInteger",new IntRange(1,5)),0,new String[]{"testClass.testInteger.range.error","testClass.testInteger.range.toosmall"},new Object[]{"testInteger",TestClass.class,0,1,5});
+  testConstraintPassed(getConstraint("testString",new ObjectRange("abca","abcf")),"abcd");
+  testConstraintPassed(getConstraint("testInteger",new IntRange(1,7)),5);
+  testConstraintPassed(getConstraint("testInteger",new IntRange(1,7)),null);
+  testConstraintDefaultMessage(getConstraint("testInteger",new IntRange(1,5)),7,"Property [{0}] of class [{1}] with value [{2}] does not fall within the valid range from [{3}] to [{4}]");
+}

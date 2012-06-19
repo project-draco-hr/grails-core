@@ -1,0 +1,7 @@
+{
+  String basedir=System.getProperty(BuildSettings.APP_BASE_DIR);
+  if (basedir == null) {
+    basedir=".";
+  }
+  return new File(basedir);
+}

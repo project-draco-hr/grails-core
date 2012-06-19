@@ -1,0 +1,4 @@
+{
+  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  return lookupViewResolver(wac);
+}

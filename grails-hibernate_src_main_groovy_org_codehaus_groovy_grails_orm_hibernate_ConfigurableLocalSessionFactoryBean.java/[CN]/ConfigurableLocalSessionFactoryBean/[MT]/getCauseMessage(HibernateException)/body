@@ -1,0 +1,7 @@
+{
+  Throwable cause=e.getCause();
+  if (cause instanceof InvocationTargetException) {
+    cause=((InvocationTargetException)cause).getTargetException();
+  }
+  return cause.getMessage();
+}

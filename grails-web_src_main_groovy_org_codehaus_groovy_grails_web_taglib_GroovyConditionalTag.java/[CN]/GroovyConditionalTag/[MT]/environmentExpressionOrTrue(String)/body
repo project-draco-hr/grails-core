@@ -1,0 +1,7 @@
+{
+  String expression="true";
+  if (envAttributeValue != null) {
+    expression="(grails.util.Environment.current.name == '" + calculateExpression(envAttributeValue) + "')";
+  }
+  return expression;
+}

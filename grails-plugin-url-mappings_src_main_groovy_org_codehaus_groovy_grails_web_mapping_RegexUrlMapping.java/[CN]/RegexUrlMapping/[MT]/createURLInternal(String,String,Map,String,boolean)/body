@@ -1,0 +1,22 @@
+{
+  if (paramValues == null)   paramValues=new HashMap();
+  boolean hasController=!StringUtils.isBlank(controller);
+  boolean hasAction=!StringUtils.isBlank(action);
+  try {
+    if (hasController) {
+      paramValues.put(CONTROLLER,controller);
+    }
+    if (hasAction) {
+      paramValues.put(ACTION,action);
+    }
+    return createURLInternal(paramValues,encoding,includeContextPath);
+  }
+  finally {
+    if (hasController) {
+      paramValues.remove(CONTROLLER);
+    }
+    if (hasAction) {
+      paramValues.remove(ACTION);
+    }
+  }
+}

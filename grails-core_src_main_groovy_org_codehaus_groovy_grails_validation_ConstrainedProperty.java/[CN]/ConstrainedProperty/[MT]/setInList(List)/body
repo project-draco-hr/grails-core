@@ -1,0 +1,18 @@
+{
+  Constraint c=appliedConstraints.get(IN_LIST_CONSTRAINT);
+  if (inList == null) {
+    appliedConstraints.remove(IN_LIST_CONSTRAINT);
+  }
+ else {
+    if (c != null) {
+      c.setParameter(inList);
+    }
+ else {
+      c=new InListConstraint();
+      c.setOwningClass(owningClass);
+      c.setPropertyName(propertyName);
+      c.setParameter(inList);
+      appliedConstraints.put(IN_LIST_CONSTRAINT,c);
+    }
+  }
+}

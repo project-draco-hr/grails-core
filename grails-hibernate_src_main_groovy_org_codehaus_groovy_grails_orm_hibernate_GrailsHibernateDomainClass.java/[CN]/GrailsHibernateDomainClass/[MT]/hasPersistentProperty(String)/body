@@ -1,0 +1,6 @@
+{
+  for (  GrailsDomainClassProperty persistantProperty : properties) {
+    if (persistantProperty.getName().equals(propertyName))     return true;
+  }
+  return false;
+}

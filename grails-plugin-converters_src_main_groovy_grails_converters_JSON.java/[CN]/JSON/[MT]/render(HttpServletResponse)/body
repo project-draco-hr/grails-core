@@ -1,0 +1,9 @@
+{
+  response.setContentType(GrailsWebUtil.getContentType("application/json",encoding));
+  try {
+    render(response.getWriter());
+  }
+ catch (  IOException e) {
+    throw new ConverterException(e);
+  }
+}

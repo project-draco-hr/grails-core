@@ -1,0 +1,6 @@
+{
+  if (!isExcludedClass(theClass)) {
+    return new MetadataGeneratingExpandoMetaClass(theClass);
+  }
+  return super.createNormalMetaClass(theClass,registry);
+}

@@ -1,0 +1,16 @@
+{
+  if (pluginManager != null) {
+    String fullPluginName=info.pluginName;
+    GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+    BinaryGrailsPlugin binaryPlugin=null;
+    for (    GrailsPlugin plugin : allPlugins) {
+      if (plugin.getFileSystemName().equals(fullPluginName) && (plugin instanceof BinaryGrailsPlugin)) {
+        binaryPlugin=(BinaryGrailsPlugin)plugin;
+      }
+    }
+    if (binaryPlugin != null) {
+      return binaryPlugin.getResource(info.uri);
+    }
+  }
+  return null;
+}

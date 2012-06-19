@@ -1,0 +1,6 @@
+{
+  Double d=Double.valueOf(value);
+  JSONObject.testValidity(d);
+  put(d);
+  return this;
+}

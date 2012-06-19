@@ -1,0 +1,9 @@
+{
+  registry.setMetaClass(theClass,this);
+  try {
+    closure.call();
+  }
+  finally {
+    registry.setMetaClass(theClass,adaptee);
+  }
+}

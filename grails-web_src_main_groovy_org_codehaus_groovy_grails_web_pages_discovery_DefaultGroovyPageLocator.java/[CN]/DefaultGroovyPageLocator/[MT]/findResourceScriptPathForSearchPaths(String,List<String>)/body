@@ -1,0 +1,21 @@
+{
+  if (isPrecompiledAvailable()) {
+    for (    String searchPath : searchPaths) {
+      String gspClassName=precompiledGspMap.get(searchPath);
+      if (gspClassName != null && !reloadedPrecompiledGspClassNames.contains(gspClassName)) {
+        Class<GroovyPage> gspClass=null;
+        try {
+          gspClass=(Class<GroovyPage>)Class.forName(gspClassName,true,Thread.currentThread().getContextClassLoader());
+        }
+ catch (        ClassNotFoundException e) {
+          LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
+        }
+        if (gspClass != null) {
+          return createGroovyPageCompiledScriptSource(uri,searchPath,gspClass);
+        }
+      }
+    }
+  }
+  Resource foundResource=findResource(searchPaths);
+  return foundResource != null ? new GroovyPageResourceScriptSource(uri,foundResource) : null;
+}

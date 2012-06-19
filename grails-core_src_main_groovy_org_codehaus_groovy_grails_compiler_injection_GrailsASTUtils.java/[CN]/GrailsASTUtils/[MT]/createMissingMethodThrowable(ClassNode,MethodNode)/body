@@ -1,0 +1,6 @@
+{
+  ArgumentListExpression exceptionArgs=new ArgumentListExpression();
+  exceptionArgs.addExpression(new ConstantExpression(declaredMethodNode.getName()));
+  exceptionArgs.addExpression(new ClassExpression(classNode));
+  return new ThrowStatement(new ConstructorCallExpression(MISSING_METHOD_EXCEPTION,exceptionArgs));
+}

@@ -1,0 +1,7 @@
+{
+  List<TypeFilter> list=new ArrayList<TypeFilter>();
+  for (  GrailsPlugin grailsPlugin : pluginList) {
+    list.addAll(grailsPlugin.getTypeFilters());
+  }
+  return Collections.unmodifiableList(list);
+}

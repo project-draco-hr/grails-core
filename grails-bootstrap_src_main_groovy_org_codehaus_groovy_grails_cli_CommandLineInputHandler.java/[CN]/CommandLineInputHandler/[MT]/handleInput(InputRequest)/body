@@ -1,0 +1,12 @@
+{
+  String[] validInputs=null;
+  if (inputRequest instanceof MultipleChoiceInputRequest) {
+    @SuppressWarnings("unchecked") List<String> choices=((MultipleChoiceInputRequest)inputRequest).getChoices();
+    validInputs=choices.toArray(new String[choices.size()]);
+  }
+  String result=GrailsConsole.getInstance().userInput(inputRequest.getPrompt(),validInputs);
+  if (result == null || result.length() == 0) {
+    result=inputRequest.getDefaultValue();
+  }
+  inputRequest.setInput(result);
+}

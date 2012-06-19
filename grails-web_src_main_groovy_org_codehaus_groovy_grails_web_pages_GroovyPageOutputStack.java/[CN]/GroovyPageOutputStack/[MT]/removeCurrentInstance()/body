@@ -1,0 +1,3 @@
+{
+  RequestContextHolder.currentRequestAttributes().removeAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
+}

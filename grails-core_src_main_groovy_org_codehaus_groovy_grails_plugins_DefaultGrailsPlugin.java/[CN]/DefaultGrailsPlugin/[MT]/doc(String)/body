@@ -1,0 +1,5 @@
+{
+  if (enableDocumentationGeneration()) {
+    DocumentationContext.getInstance().document(text);
+  }
+}

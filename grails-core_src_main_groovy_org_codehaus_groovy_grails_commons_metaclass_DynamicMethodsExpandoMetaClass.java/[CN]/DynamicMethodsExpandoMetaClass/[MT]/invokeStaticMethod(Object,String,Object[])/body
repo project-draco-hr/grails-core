@@ -1,0 +1,8 @@
+{
+  InvocationCallback callback=new InvocationCallback();
+  Object returnValue=dynamicMethods.invokeStaticMethod(target,methodName,arguments,callback);
+  if (callback.isInvoked()) {
+    return returnValue;
+  }
+  return super.invokeStaticMethod(target,methodName,arguments);
+}

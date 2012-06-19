@@ -1,0 +1,11 @@
+{
+  Session session=event.getSession();
+  FlushMode current=session.getFlushMode();
+  try {
+    session.setFlushMode(FlushMode.MANUAL);
+    return callable.call();
+  }
+  finally {
+    session.setFlushMode(current);
+  }
+}

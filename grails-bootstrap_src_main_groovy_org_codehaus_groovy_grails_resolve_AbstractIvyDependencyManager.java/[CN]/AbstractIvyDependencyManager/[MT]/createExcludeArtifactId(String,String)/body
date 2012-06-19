@@ -1,0 +1,4 @@
+{
+  ModuleId mid=ModuleId.newInstance(group,excludeName);
+  return new ArtifactId(mid,PatternMatcher.ANY_EXPRESSION,PatternMatcher.ANY_EXPRESSION,PatternMatcher.ANY_EXPRESSION);
+}

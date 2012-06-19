@@ -1,0 +1,4 @@
+{
+  Assert.isInstanceOf(PrintWriter.class,w,"A GroovySynax tag requires a java.io.PrintWriter instance");
+  out=(PrintWriter)w;
+}

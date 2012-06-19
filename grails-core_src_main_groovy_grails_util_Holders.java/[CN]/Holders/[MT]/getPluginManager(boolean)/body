@@ -1,0 +1,18 @@
+{
+  while (true) {
+    Boolean inCreation=get(pluginManagersInCreation,"PluginManager in creation",mappedOnly);
+    if (inCreation == null) {
+      inCreation=false;
+    }
+    if (!inCreation) {
+      break;
+    }
+    try {
+      Thread.sleep(100);
+    }
+ catch (    InterruptedException e) {
+      break;
+    }
+  }
+  return get(pluginManagers,"PluginManager",mappedOnly);
+}

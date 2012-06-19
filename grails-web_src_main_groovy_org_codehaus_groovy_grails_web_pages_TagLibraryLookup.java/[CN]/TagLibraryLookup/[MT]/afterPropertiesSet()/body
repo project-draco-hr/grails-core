@@ -1,0 +1,7 @@
+{
+  if (grailsApplication == null || applicationContext == null) {
+    return;
+  }
+  registerTagLibraries();
+  registerTemplateNamespace();
+}

@@ -1,0 +1,6 @@
+{
+  final boolean reloadOverride=Boolean.getBoolean(RELOAD_ENABLED);
+  final String reloadLocation=getReloadLocationInternal();
+  final boolean reloadLocationSpecified=StringUtils.hasLength(reloadLocation);
+  return this == DEVELOPMENT && reloadLocationSpecified && !Metadata.getCurrent().isWarDeployed() || reloadOverride && reloadLocationSpecified;
+}

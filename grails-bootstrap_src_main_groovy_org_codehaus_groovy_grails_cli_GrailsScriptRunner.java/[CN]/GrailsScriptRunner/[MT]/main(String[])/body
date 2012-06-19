@@ -1,0 +1,102 @@
+{
+  System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
+  ExpandoMetaClass.enableGlobally();
+  originalIn=System.in;
+  originalOut=System.out;
+  CommandLineParser parser=getCommandLineParser();
+  GrailsConsole console=GrailsConsole.getInstance();
+  CommandLine commandLine;
+  try {
+    if (args.length == 0) {
+      commandLine=new DefaultCommandLine();
+    }
+ else {
+      commandLine=parser.parseString(args[0]);
+      if (commandLine.hasOption(CommandLine.NOANSI_ARGUMENT)) {
+        console.setAnsiEnabled(false);
+      }
+    }
+  }
+ catch (  ParseException e) {
+    console.error("Error processing command line arguments: " + e.getMessage());
+    System.exit(1);
+    return;
+  }
+  ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
+  String grailsHome=System.getProperty("grails.home");
+  BuildSettings build=null;
+  try {
+    build=new BuildSettings(new File(grailsHome));
+    build.setModified(commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT));
+    build.setOffline(commandLine.hasOption(CommandLine.OFFLINE_ARGUMENT));
+    if (build.getRootLoader() == null) {
+      build.setRootLoader((URLClassLoader)GrailsScriptRunner.class.getClassLoader());
+    }
+  }
+ catch (  Exception e) {
+    exitWithError("An error occurred loading the grails-app/conf/BuildConfig.groovy file: " + e.getMessage(),null);
+  }
+  final File grailsHomeInSettings=build.getGrailsHome();
+  if (grailsHomeInSettings == null || !grailsHomeInSettings.exists()) {
+    exitWithError("Grails' installation directory not found: " + build.getGrailsHome(),null);
+  }
+  if (commandLine.hasOption(CommandLine.VERSION_ARGUMENT)) {
+    console.log("Grails version: " + build.getGrailsVersion());
+    System.exit(0);
+  }
+  if (commandLine.hasOption(CommandLine.HELP_ARGUMENT)) {
+    if (commandLine.getCommandName() != null) {
+      console.log("The '-help' option is deprecated; use 'grails help [target]'");
+    }
+ else {
+      console.log("The '-help' option is deprecated; use 'grails help'");
+    }
+    System.exit(0);
+  }
+  boolean resolveDeps=commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT);
+  if (resolveDeps) {
+    if (commandLine.hasOption("include-source")) {
+      build.setIncludeSource(true);
+    }
+    if (commandLine.hasOption("include-javadoc")) {
+      build.setIncludeJavadoc(true);
+    }
+  }
+  GrailsScriptRunner scriptRunner=new GrailsScriptRunner(build);
+  scriptRunner.setInteractive(!commandLine.hasOption(CommandLine.NON_INTERACTIVE_ARGUMENT));
+  if ("Interactive".equals(script.name)) {
+    console.error("The 'interactive' script is deprecated; to run in interactive mode just omit the script name");
+    script.name=null;
+  }
+  if (script.name == null) {
+    String version=System.getProperty("grails.version");
+    console.updateStatus("Loading Grails " + (version == null ? build.getGrailsVersion() : version));
+    build.loadConfig();
+    if (resolveDeps) {
+      ClasspathConfigurer.cleanResolveCache(build);
+    }
+    scriptRunner.initializeState();
+    try {
+      new InteractiveMode(build,scriptRunner).run();
+    }
+ catch (    Throwable e) {
+      console.error("Interactive mode exited with error: " + e.getMessage(),e);
+    }
+  }
+ else {
+    console.getCategory().push(script.inputName);
+    console.verbose("Base Directory: " + build.getBaseDir().getPath());
+    try {
+      int exitCode=scriptRunner.executeCommand(commandLine,script.name,script.env);
+      GrailsConsole.getInstance().flush();
+      System.exit(exitCode);
+    }
+ catch (    ScriptNotFoundException ex) {
+      console.error("Script not found: " + ex.getScriptName());
+    }
+catch (    Throwable t) {
+      String msg="Error executing script " + script.name + ": "+ t.getMessage();
+      exitWithError(msg,t);
+    }
+  }
+}

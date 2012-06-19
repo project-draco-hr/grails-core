@@ -1,0 +1,6 @@
+{
+  Assert.hasLength(pattern,"Argument [pattern] must be a valid regular expression");
+  Assert.notNull(closure,"Argument [closure] cannot be null");
+  this.pattern=Pattern.compile(pattern);
+  this.callable=closure;
+}

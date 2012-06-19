@@ -1,0 +1,25 @@
+{
+  StreamCharBuffer charBuffer=new StreamCharBuffer();
+  Writer writer=charBuffer.getWriter();
+  writer.write("ABCDE");
+  writer.write("12345".toCharArray());
+  writer.write("!");
+  StreamCharBuffer charBuffer2=new StreamCharBuffer(3);
+  charBuffer2.setPreferSubChunkWhenWritingToOtherBuffer(true);
+  Writer writer2=charBuffer2.getWriter();
+  writer2.write(">OOOOO<");
+  charBuffer2.writeTo(writer);
+  writer.write("1234567");
+  writer.write("ABCDE");
+  writer.write("67890".toCharArray());
+  writer.close();
+  assertEquals("ABCDE12345!>OOOOO<1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+  assertEquals("ABCDE12345!>OOOOO<1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+  assertEquals(35,charBuffer.size());
+  writer2.write("-----");
+  assertEquals(35,charBuffer.size());
+  writer2.flush();
+  assertEquals(40,charBuffer.size());
+  assertEquals("ABCDE12345!>OOOOO<-----1234567ABCDE67890",charBuffer.toString());
+  assertEquals("ABCDE12345!>OOOOO<-----1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+}

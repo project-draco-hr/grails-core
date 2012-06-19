@@ -1,0 +1,12 @@
+{
+  TupleStringKey key=new TupleStringKey(controllerName,viewName);
+  String uri=noSuffixViewURICache.get(key);
+  if (uri == null) {
+    uri=super.getNoSuffixViewURI(controllerName,viewName);
+    String prevuri=noSuffixViewURICache.putIfAbsent(key,uri);
+    if (prevuri != null) {
+      return prevuri;
+    }
+  }
+  return uri;
+}

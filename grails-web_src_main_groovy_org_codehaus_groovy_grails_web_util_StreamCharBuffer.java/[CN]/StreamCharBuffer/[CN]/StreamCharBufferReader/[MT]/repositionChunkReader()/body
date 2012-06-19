@@ -1,0 +1,32 @@
+{
+  if (lastChunkReader instanceof AllocatedBufferReader) {
+    if (lastChunkReader.isValid()) {
+      chunkReader=lastChunkReader;
+    }
+ else {
+      AllocatedBufferReader allocBufferReader=(AllocatedBufferReader)lastChunkReader;
+      int currentPosition=allocBufferReader.position;
+      AbstractChunk chunk=lastChunk;
+      while (chunk != null && chunk.writerUsedCounter >= lastChunkReader.getWriterUsedCounter()) {
+        if (chunk instanceof CharBufferChunk) {
+          CharBufferChunk charBufChunk=(CharBufferChunk)chunk;
+          if (charBufChunk.allocatedBufferId == allocBufferReader.parent.id) {
+            if (currentPosition >= charBufChunk.offset && currentPosition <= charBufChunk.lastposition) {
+              CharBufferChunkReader charBufChunkReader=(CharBufferChunkReader)charBufChunk.getChunkReader(removeAfterReading);
+              int oldpointer=charBufChunkReader.pointer;
+              charBufChunkReader.pointer=currentPosition;
+              if (removeAfterReading) {
+                int diff=charBufChunkReader.pointer - oldpointer;
+                totalCharsInList-=diff;
+                charBufChunk.subtractFromTotalCount();
+              }
+              chunkReader=charBufChunkReader;
+              break;
+            }
+          }
+        }
+        chunk=chunk.prev;
+      }
+    }
+  }
+}

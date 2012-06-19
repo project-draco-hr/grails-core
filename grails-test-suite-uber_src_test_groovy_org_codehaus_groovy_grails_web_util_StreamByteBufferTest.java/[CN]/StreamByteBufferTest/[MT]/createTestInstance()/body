@@ -1,0 +1,6 @@
+{
+  StreamByteBuffer byteBuffer=new StreamByteBuffer();
+  OutputStream output=byteBuffer.getOutputStream();
+  copyAllFromTestBuffer(output,27);
+  return byteBuffer;
+}

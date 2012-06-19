@@ -1,0 +1,9 @@
+{
+  testConstraintMessageCode(getConstraint("{val,obj -> return 'test.message'}"),"test","testClass.testString.test.message",new Object[]{"testString",TestClass.class,"test"});
+  try {
+    testConstraintFailed(getConstraint("{val,obj -> return 123L}"),"test");
+    fail("Validator constraint must throw an exception about wrong closure return");
+  }
+ catch (  IllegalArgumentException iae) {
+  }
+}

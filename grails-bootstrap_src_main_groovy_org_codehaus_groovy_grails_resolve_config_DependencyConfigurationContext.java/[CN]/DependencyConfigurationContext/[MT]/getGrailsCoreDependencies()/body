@@ -1,0 +1,7 @@
+{
+  BuildSettings buildSettings=dependencyManager.getBuildSettings();
+  if (buildSettings == null) {
+    throw new IllegalStateException("Cannot ask for grails core dependencies if the dependency manager was configured without build settings, as it was in this case.");
+  }
+  return buildSettings.getCoreDependencies();
+}

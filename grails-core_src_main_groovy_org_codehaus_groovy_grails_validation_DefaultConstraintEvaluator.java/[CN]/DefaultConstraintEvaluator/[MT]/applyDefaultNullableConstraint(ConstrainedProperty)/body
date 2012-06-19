@@ -1,0 +1,4 @@
+{
+  boolean isCollection=Collection.class.isAssignableFrom(cp.getPropertyType()) || Map.class.isAssignableFrom(cp.getPropertyType());
+  cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,isCollection);
+}

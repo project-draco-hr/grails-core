@@ -1,0 +1,4 @@
+{
+  String prompt=isAnsiEnabled() ? ansiPrompt(PROMPT).toString() : PROMPT;
+  return showPrompt(prompt);
+}

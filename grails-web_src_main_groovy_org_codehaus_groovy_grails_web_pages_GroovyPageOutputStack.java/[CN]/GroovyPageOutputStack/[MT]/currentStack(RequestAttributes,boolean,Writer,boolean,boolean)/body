@@ -1,0 +1,18 @@
+{
+  GroovyPageOutputStack outputStack=(GroovyPageOutputStack)request.getAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
+  if (outputStack != null) {
+    if (pushTop && topWriter != null) {
+      outputStack.push(topWriter);
+    }
+    return outputStack;
+  }
+  if (allowCreate) {
+    if (topWriter == null) {
+      if (request instanceof GrailsWebRequest) {
+        topWriter=defaultRequest((GrailsWebRequest)request);
+      }
+    }
+    return createNew(topWriter,autoSync);
+  }
+  return null;
+}

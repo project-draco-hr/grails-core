@@ -1,0 +1,3 @@
+{
+  return (Session)session.getScope().get(PERSISTENCE_CONTEXT_ATTRIBUTE);
+}

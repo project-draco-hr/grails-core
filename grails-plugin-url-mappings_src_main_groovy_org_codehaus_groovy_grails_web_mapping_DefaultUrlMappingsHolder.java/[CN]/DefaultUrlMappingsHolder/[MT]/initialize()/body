@@ -1,0 +1,51 @@
+{
+  sortMappings();
+  cachedMatches=new ConcurrentLinkedHashMap.Builder<String,UrlMappingInfo>().maximumWeightedCapacity(maxWeightedCacheCapacity).build();
+  cachedListMatches=new ConcurrentLinkedHashMap.Builder<String,List<UrlMappingInfo>>().maximumWeightedCapacity(maxWeightedCacheCapacity).weigher(CustomListWeigher.INSTANCE).build();
+  if (urlCreatorMaxWeightedCacheCapacity > 0) {
+    urlCreatorCache=new UrlCreatorCache(urlCreatorMaxWeightedCacheCapacity);
+  }
+  mappings=urlMappings.toArray(new UrlMapping[urlMappings.size()]);
+  for (  UrlMapping mapping : mappings) {
+    String mappingName=mapping.getMappingName();
+    if (mappingName != null) {
+      namedMappings.put(mappingName,mapping);
+    }
+    String controllerName=mapping.getControllerName() instanceof String ? mapping.getControllerName().toString() : null;
+    String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
+    ConstrainedProperty[] params=mapping.getConstraints();
+    Set<String> requiredParams=new HashSet<String>();
+    int optionalIndex=-1;
+    for (int j=0; j < params.length; j++) {
+      ConstrainedProperty param=params[j];
+      if (!param.isNullable()) {
+        requiredParams.add(param.getPropertyName());
+      }
+ else {
+        optionalIndex=j;
+        break;
+      }
+    }
+    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,requiredParams);
+    mappingsLookup.put(key,mapping);
+    UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName);
+    mappingsListLookup.put(listKey,key);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
+    }
+    Set<String> requiredParamsAndOptionals=new HashSet<String>(requiredParams);
+    if (optionalIndex > -1) {
+      for (int j=optionalIndex; j < params.length; j++) {
+        ConstrainedProperty param=params[j];
+        requiredParamsAndOptionals.add(param.getPropertyName());
+        key=new UrlMappingKey(controllerName,actionName,new HashSet<String>(requiredParamsAndOptionals));
+        mappingsLookup.put(key,mapping);
+        listKey=new UrlMappingsListKey(controllerName,actionName);
+        mappingsListLookup.put(listKey,key);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
+        }
+      }
+    }
+  }
+}

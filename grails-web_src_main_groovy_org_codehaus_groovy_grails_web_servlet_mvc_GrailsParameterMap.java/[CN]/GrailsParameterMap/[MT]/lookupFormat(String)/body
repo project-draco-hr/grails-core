@@ -1,0 +1,16 @@
+{
+  String format=CACHED_DATE_FORMATS.get(name);
+  if (format == null) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+    if (webRequest != null) {
+      MessageSource messageSource=webRequest.getApplicationContext();
+      if (messageSource != null) {
+        format=messageSource.getMessage("date." + name + ".format",EMPTY_ARGS,webRequest.getLocale());
+        if (format != null) {
+          CACHED_DATE_FORMATS.put(name,format);
+        }
+      }
+    }
+  }
+  return format;
+}

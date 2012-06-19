@@ -1,0 +1,4 @@
+{
+  prepareRead();
+  return currentReadChunk.read();
+}

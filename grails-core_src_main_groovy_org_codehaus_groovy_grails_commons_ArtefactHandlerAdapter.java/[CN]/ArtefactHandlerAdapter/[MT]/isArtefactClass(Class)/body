@@ -1,0 +1,8 @@
+{
+  if (clazz == null)   return false;
+  boolean ok=clazz.getName().endsWith(artefactSuffix) && !Closure.class.isAssignableFrom(clazz);
+  if (ok && !allowAbstract) {
+    ok&=!Modifier.isAbstract(clazz.getModifiers());
+  }
+  return ok;
+}

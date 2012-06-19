@@ -1,0 +1,16 @@
+{
+  int length;
+  if (propertyValue.getClass().isArray()) {
+    length=Array.getLength(propertyValue);
+  }
+ else   if (propertyValue instanceof Collection<?>) {
+    length=((Collection<?>)propertyValue).size();
+  }
+ else {
+    length=((String)propertyValue).length();
+  }
+  if (length > maxSize) {
+    Object[] args={constraintPropertyName,constraintOwningClass,propertyValue,maxSize};
+    rejectValue(target,errors,ConstrainedProperty.DEFAULT_INVALID_MAX_SIZE_MESSAGE_CODE,ConstrainedProperty.MAX_SIZE_CONSTRAINT + ConstrainedProperty.EXCEEDED_SUFFIX,args);
+  }
+}

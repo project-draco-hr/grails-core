@@ -1,0 +1,11 @@
+{
+  if (!(constraintParameter instanceof Integer)) {
+    throw new IllegalArgumentException("Parameter for constraint [" + getName() + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a of type [java.lang.Integer]");
+  }
+  int requestedScale=((Integer)constraintParameter).intValue();
+  if (requestedScale < 0) {
+    throw new IllegalArgumentException("Parameter for constraint [" + getName() + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must have a nonnegative value");
+  }
+  scale=requestedScale;
+  super.setParameter(constraintParameter);
+}

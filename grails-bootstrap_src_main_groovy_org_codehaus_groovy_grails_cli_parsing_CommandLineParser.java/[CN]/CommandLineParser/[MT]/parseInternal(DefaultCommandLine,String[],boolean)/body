@@ -1,0 +1,25 @@
+{
+  for (  String arg : args) {
+    if (arg == null)     continue;
+    String trimmed=arg.trim();
+    if (trimmed != null && trimmed.length() > 0) {
+      if (trimmed.charAt(0) == '-') {
+        processOption(cl,trimmed);
+      }
+ else {
+        if (firstArgumentIsCommand && ENV_ARGS.containsKey(trimmed)) {
+          cl.setEnvironment(ENV_ARGS.get(trimmed));
+        }
+ else {
+          if (firstArgumentIsCommand) {
+            cl.setCommandName(trimmed);
+            firstArgumentIsCommand=false;
+          }
+ else {
+            cl.addRemainingArg(trimmed);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  String propertyName=pv.getName().indexOf(PATH_SEPARATOR) > -1 ? StringUtils.substringAfterLast(pv.getName(),".") : pv.getName();
+  return propertyName.startsWith(fieldMarkerPrefix);
+}

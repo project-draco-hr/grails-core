@@ -1,0 +1,7 @@
+{
+  final Map<String,T> map=getBeansOfType(tClass);
+  if (map.isEmpty()) {
+    throw new NoSuchBeanDefinitionException(tClass,"No bean found for type: " + tClass.getName());
+  }
+  return map.values().iterator().next();
+}

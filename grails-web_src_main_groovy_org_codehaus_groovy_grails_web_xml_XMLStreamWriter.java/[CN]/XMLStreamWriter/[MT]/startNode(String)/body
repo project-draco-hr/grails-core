@@ -1,0 +1,8 @@
+{
+  if (mode == TAG)   endStartTag();
+  startTag();
+  writer.unescaped().write(tag);
+  tagStack.push(tag);
+  mode=TAG;
+  return this;
+}

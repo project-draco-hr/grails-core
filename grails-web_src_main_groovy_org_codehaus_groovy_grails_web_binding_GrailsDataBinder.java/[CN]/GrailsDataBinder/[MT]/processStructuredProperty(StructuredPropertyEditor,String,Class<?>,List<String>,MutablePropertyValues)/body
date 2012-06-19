@@ -1,0 +1,45 @@
+{
+  List requiredFields=structuredEditor.getRequiredFields();
+  List<String> fields=new ArrayList<String>();
+  fields.addAll(requiredFields);
+  fields.addAll(structuredEditor.getOptionalFields());
+  Map<String,String> fieldValues=new HashMap<String,String>();
+  try {
+    String firstRequiredField=null;
+    for (    String field : fields) {
+      String fullName=propertyName + STRUCTURED_PROPERTY_SEPERATOR + field;
+      valueNames.remove(fullName);
+      if (firstRequiredField != null) {
+        continue;
+      }
+      PropertyValue partialStructValue=propertyValues.getPropertyValue(fullName);
+      if (partialStructValue == null) {
+        if (requiredFields.contains(field)) {
+          firstRequiredField=field;
+        }
+      }
+ else {
+        fieldValues.put(field,getStringValue(partialStructValue));
+      }
+    }
+    propertyValues.removePropertyValue(propertyName);
+    if (firstRequiredField != null) {
+      throw new MissingPropertyException("Required structured property is missing [" + firstRequiredField + "]");
+    }
+    try {
+      Object value=structuredEditor.assemble(type,fieldValues);
+      for (      String field : fields) {
+        PropertyValue partialStructValue=propertyValues.getPropertyValue(propertyName + STRUCTURED_PROPERTY_SEPERATOR + field);
+        if (null != partialStructValue) {
+          partialStructValue.setConvertedValue(getStringValue(partialStructValue));
+        }
+      }
+      propertyValues.addPropertyValue(new PropertyValue(propertyName,value));
+    }
+ catch (    IllegalArgumentException e) {
+      LOG.warn("Unable to parse structured date from request for date [" + propertyName + "]",e);
+    }
+  }
+ catch (  InvalidPropertyException ignored) {
+  }
+}

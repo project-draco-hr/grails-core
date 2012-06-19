@@ -1,0 +1,4 @@
+{
+  uri=removeViewLocationPrefixes(uri);
+  return GrailsResourceUtils.appendPiecesForUri(plugin.getPluginPath(),GrailsResourceUtils.VIEWS_DIR_PATH,uri);
+}

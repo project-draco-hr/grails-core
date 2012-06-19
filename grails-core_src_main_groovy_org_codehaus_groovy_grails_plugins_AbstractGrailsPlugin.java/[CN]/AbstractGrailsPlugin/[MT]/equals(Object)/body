@@ -1,0 +1,8 @@
+{
+  if (this == o)   return true;
+  if (!(o instanceof AbstractGrailsPlugin))   return false;
+  AbstractGrailsPlugin that=(AbstractGrailsPlugin)o;
+  if (!pluginClass.equals(that.pluginClass))   return false;
+  if (!version.equals(that.version))   return false;
+  return true;
+}

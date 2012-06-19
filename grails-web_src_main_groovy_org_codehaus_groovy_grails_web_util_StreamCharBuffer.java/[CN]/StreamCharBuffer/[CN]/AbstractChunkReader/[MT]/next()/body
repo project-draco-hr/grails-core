@@ -1,0 +1,25 @@
+{
+  if (removeAfterReading) {
+    if (firstChunk == parentChunk) {
+      firstChunk=null;
+    }
+    if (lastChunk == parentChunk) {
+      lastChunk=null;
+    }
+  }
+  AbstractChunk nextChunk=parentChunk.next;
+  if (nextChunk != null) {
+    if (removeAfterReading) {
+      if (firstChunk == null) {
+        firstChunk=nextChunk;
+      }
+      if (lastChunk == null) {
+        lastChunk=nextChunk;
+      }
+      nextChunk.prev=null;
+      nextChunk.subtractFromTotalCount();
+    }
+    return nextChunk.getChunkReader(removeAfterReading);
+  }
+  return new AllocatedBufferReader(allocBuffer,removeAfterReading);
+}

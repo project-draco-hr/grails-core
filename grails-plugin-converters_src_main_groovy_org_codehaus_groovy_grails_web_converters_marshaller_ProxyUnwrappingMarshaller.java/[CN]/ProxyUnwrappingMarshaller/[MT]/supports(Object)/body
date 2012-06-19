@@ -1,0 +1,5 @@
+{
+  if (object == null)   return false;
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
+  return mc.hasProperty(object,HIBERNATE_LAZY_INITIALIZER_PROP) != null;
+}

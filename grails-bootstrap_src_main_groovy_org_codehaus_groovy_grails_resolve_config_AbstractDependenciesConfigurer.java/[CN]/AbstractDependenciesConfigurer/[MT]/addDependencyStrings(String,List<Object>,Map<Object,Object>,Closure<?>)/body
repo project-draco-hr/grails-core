@@ -1,0 +1,14 @@
+{
+  for (  Object dependency : dependencies) {
+    Map<Object,Object> dependencyProperties=extractDependencyProperties(scope,dependency.toString());
+    if (dependencyProperties == null) {
+      continue;
+    }
+    if (overrides != null) {
+      for (      Map.Entry<Object,Object> override : overrides.entrySet()) {
+        dependencyProperties.put(override.getKey().toString(),override.getValue().toString());
+      }
+    }
+    addDependency(scope,dependencyProperties,configurer);
+  }
+}

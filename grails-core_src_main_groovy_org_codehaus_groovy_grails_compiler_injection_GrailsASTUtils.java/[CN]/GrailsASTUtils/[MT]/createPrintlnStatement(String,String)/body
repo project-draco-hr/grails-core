@@ -1,0 +1,3 @@
+{
+  return new ExpressionStatement(new MethodCallExpression(AbstractGrailsArtefactTransformer.THIS_EXPRESSION,"println",new ArgumentListExpression(new BinaryExpression(new ConstantExpression(message),Token.newSymbol(Types.PLUS,0,0),new VariableExpression(variable)))));
+}

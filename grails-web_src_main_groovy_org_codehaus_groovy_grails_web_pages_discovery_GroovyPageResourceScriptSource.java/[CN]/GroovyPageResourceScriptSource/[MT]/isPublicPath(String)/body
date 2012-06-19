@@ -1,0 +1,3 @@
+{
+  return !(path.contains(GrailsResourceUtils.WEB_INF) || path.contains(GrailsResourceUtils.VIEWS_DIR_PATH));
+}

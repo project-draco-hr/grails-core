@@ -1,0 +1,7 @@
+{
+  if (sc == HttpServletResponse.SC_NOT_MODIFIED) {
+    aborted=true;
+    deactivateSiteMesh();
+  }
+  super.setStatus(sc);
+}

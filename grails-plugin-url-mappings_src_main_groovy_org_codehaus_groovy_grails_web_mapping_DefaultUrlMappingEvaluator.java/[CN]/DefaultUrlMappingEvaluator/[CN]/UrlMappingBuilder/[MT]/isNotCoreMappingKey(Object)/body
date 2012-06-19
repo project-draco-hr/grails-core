@@ -1,0 +1,3 @@
+{
+  return !GrailsControllerClass.ACTION.equals(key) && !GrailsControllerClass.CONTROLLER.equals(key) && !GrailsControllerClass.VIEW.equals(key);
+}

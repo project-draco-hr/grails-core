@@ -1,0 +1,3 @@
+{
+  return webRequest != null ? webRequest : GrailsWebRequest.lookup();
+}

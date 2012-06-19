@@ -1,0 +1,11 @@
+{
+  try {
+    if (out != null) {
+      out.flush();
+      out.close();
+    }
+  }
+ catch (  Exception e) {
+    log.warn("Unexpected exception while closing a writer: " + e.getMessage());
+  }
+}

@@ -1,0 +1,4 @@
+{
+  super(application,sessionFactory,classLoader,METHOD_PATTERN,OPERATORS);
+  this.datastore=datastore;
+}

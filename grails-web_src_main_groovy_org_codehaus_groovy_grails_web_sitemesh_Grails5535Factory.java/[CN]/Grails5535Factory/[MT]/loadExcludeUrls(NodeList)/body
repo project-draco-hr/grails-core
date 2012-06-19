@@ -1,0 +1,17 @@
+{
+  clearExcludeUrls();
+  for (int i=0; i < nodes.getLength(); i++) {
+    if (nodes.item(i) instanceof Element) {
+      Element p=(Element)nodes.item(i);
+      if ("pattern".equalsIgnoreCase(p.getTagName()) || "url-pattern".equalsIgnoreCase(p.getTagName())) {
+        Text patternText=(Text)p.getFirstChild();
+        if (patternText != null) {
+          String pattern=patternText.getData().trim();
+          if (pattern != null) {
+            addExcludeUrl(pattern);
+          }
+        }
+      }
+    }
+  }
+}

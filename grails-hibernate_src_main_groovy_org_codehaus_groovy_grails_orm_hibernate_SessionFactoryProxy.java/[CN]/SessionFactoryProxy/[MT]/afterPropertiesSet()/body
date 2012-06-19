@@ -1,0 +1,4 @@
+{
+  SessionFactoryImplementor sessionFactory=getCurrentSessionFactoryImplementor();
+  updateCurrentSessionContext(sessionFactory);
+}

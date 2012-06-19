@@ -1,0 +1,6 @@
+{
+  uri=removePrefix(uri,GrailsResourceUtils.WEB_INF);
+  uri=removePrefix(uri,SLASHED_VIEWS_DIR_PATH);
+  uri=removePrefix(uri,GrailsResourceUtils.VIEWS_DIR_PATH);
+  return uri;
+}

@@ -1,0 +1,6 @@
+{
+  long time=System.currentTimeMillis();
+  if (time - configLastCheck < configCheckMillis)   return;
+  configLastCheck=time;
+  if (configFile != null && configLastModified != configFile.lastModified())   loadConfig();
+}

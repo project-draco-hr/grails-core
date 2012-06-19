@@ -1,0 +1,46 @@
+{
+  if (cls != null && (cls.getName().equals(CONFIG_FILE) || cls.getName().equals(GrailsApplication.DATA_SOURCE_CLASS))) {
+    ConfigSlurper configSlurper=ConfigurationHelper.getConfigSlurper(Environment.getCurrent().getName(),application);
+    ConfigObject c;
+    try {
+      c=configSlurper.parse(file.toURI().toURL());
+      application.getConfig().merge(c);
+      informPluginsOfConfigChange();
+    }
+ catch (    Exception e) {
+    }
+  }
+ else {
+    if (cls != null) {
+      MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+      registry.removeMetaClass(cls);
+      ExpandoMetaClass newMc=new ExpandoMetaClass(cls,true,true);
+      newMc.initialize();
+      registry.setMetaClass(cls,newMc);
+      Enhanced en=AnnotationUtils.findAnnotation(cls,Enhanced.class);
+      if (en != null) {
+        Class[] mixinClasses=en.mixins();
+        if (mixinClasses != null) {
+          DefaultGroovyMethods.mixin(newMc,mixinClasses);
+        }
+      }
+    }
+    for (    GrailsPlugin grailsPlugin : pluginList) {
+      if (grailsPlugin.hasInterestInChange(file.getAbsolutePath())) {
+        try {
+          if (cls == null) {
+            grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,new FileSystemResource(file));
+          }
+ else {
+            grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
+          }
+          GrailsProjectWatcher.setCurrentReloadError(null);
+        }
+ catch (        Exception e) {
+          LOG.error("Plugin " + grailsPlugin + " could not reload changes to file ["+ file+ "]: "+ e.getMessage(),e);
+          GrailsProjectWatcher.setCurrentReloadError(e);
+        }
+      }
+    }
+  }
+}

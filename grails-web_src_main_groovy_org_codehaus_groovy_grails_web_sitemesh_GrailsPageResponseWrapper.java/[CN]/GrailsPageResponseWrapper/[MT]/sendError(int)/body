@@ -1,0 +1,10 @@
+{
+  aborted=true;
+  GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+  try {
+    super.sendError(sc);
+  }
+  finally {
+    WebUtils.storeGrailsWebRequest(webRequest);
+  }
+}

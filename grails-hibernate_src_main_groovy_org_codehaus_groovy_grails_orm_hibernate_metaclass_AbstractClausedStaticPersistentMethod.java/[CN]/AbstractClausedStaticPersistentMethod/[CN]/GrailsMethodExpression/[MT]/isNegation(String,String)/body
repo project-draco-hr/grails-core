@@ -1,0 +1,11 @@
+{
+  String propName;
+  if (clause != null && !clause.equals(EQUAL)) {
+    int i=queryParameter.indexOf(clause);
+    propName=queryParameter.substring(0,i);
+  }
+ else {
+    propName=queryParameter;
+  }
+  return propName.endsWith(NOT);
+}

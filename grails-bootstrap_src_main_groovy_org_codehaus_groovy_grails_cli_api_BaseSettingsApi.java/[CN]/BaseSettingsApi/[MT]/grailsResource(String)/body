@@ -1,0 +1,10 @@
+{
+  if (grailsHome != null) {
+    FileSystemResource resource=new FileSystemResource(grailsHome + "/" + path);
+    if (!resource.exists()) {
+      resource=new FileSystemResource(grailsHome + "/grails-resources/" + path);
+    }
+    return resource;
+  }
+  return new ClassPathResource(path);
+}

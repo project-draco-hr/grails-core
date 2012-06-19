@@ -1,0 +1,22 @@
+{
+  PrivilegedAction<Resource> updater=new PrivilegedAction<Resource>(){
+    public Resource run(){
+      Resource resource=CachingGroovyPageStaticResourceLocator.super.findResourceForURI(uri);
+      if (resource == null) {
+        resource=NULL_RESOURCE;
+      }
+      return resource;
+    }
+  }
+;
+  Resource resource=null;
+  CacheEntry<Resource> entry=uriResolveCache.get(uri);
+  if (entry == null) {
+    resource=updater.run();
+    uriResolveCache.put(uri,new CacheEntry<Resource>(resource));
+  }
+ else {
+    resource=entry.getValue(cacheTimeout,updater);
+  }
+  return resource == NULL_RESOURCE ? null : resource;
+}

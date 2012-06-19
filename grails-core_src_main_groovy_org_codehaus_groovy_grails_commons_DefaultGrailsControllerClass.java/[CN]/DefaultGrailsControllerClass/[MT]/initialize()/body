@@ -1,0 +1,11 @@
+{
+  ApplicationContext mainContext=grailsApplication.getMainContext();
+  urlConverter=mainContext.getBean("grailsUrlConverter",UrlConverter.class);
+  uri=SLASH + urlConverter.toUrlElement(getName());
+  controllerPath=uri + SLASH;
+  Collection<String> actionNames=new HashSet<String>();
+  flowStrategy(actionNames);
+  methodStrategy(actionNames);
+  configureDefaultActionIfSet();
+  configureURIsForCurrentState();
+}

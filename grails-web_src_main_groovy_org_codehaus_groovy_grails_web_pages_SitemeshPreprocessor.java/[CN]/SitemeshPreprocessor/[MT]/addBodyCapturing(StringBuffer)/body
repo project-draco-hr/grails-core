@@ -1,0 +1,4 @@
+{
+  Matcher m=bodyPattern.matcher(sb);
+  return new StringBuffer(m.replaceAll("<sitemesh:captureBody$1>$2</sitemesh:captureBody>"));
+}

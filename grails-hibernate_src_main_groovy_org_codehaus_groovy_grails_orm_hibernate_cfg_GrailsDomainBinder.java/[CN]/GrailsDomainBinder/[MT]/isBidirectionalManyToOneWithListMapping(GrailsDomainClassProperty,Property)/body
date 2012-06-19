@@ -1,0 +1,4 @@
+{
+  GrailsDomainClassProperty otherSide=grailsProperty.getOtherSide();
+  return grailsProperty.isBidirectional() && otherSide != null && prop.getValue() instanceof ManyToOne && List.class.isAssignableFrom(otherSide.getType());
+}

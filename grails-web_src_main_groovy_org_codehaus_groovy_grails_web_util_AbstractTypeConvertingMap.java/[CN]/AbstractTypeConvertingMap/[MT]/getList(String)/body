@@ -1,0 +1,13 @@
+{
+  Object paramValues=get(name);
+  if (paramValues == null) {
+    return Collections.EMPTY_LIST;
+  }
+  if (paramValues.getClass().isArray()) {
+    return Arrays.asList((Object[])paramValues);
+  }
+  if (paramValues instanceof Collection) {
+    return new ArrayList((Collection)paramValues);
+  }
+  return Collections.singletonList(paramValues);
+}

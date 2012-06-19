@@ -1,0 +1,3 @@
+{
+  return app.getClassForName(shortName) != null || app.getClassForName(artefact.getName()) != null;
+}

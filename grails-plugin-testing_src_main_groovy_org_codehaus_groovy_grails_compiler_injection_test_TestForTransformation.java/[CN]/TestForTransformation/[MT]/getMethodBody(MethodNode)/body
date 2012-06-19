@@ -1,0 +1,9 @@
+{
+  Statement code=methodNode.getCode();
+  if (!(code instanceof BlockStatement)) {
+    BlockStatement body=new BlockStatement();
+    body.addStatement(code);
+    code=body;
+  }
+  return code;
+}

@@ -1,0 +1,33 @@
+{
+  if (authority == null) {
+    return false;
+  }
+  if (authorityValidator != null) {
+    if (authorityValidator.isValid(authority)) {
+      return true;
+    }
+  }
+  Matcher authorityMatcher=AUTHORITY_PATTERN.matcher(authority);
+  if (!authorityMatcher.matches()) {
+    return false;
+  }
+  String hostLocation=authorityMatcher.group(PARSE_AUTHORITY_HOST_IP);
+  DomainValidator domainValidator=DomainValidator.getInstance();
+  if (!domainValidator.isValid(hostLocation)) {
+    InetAddressValidator inetAddressValidator=InetAddressValidator.getInstance();
+    if (!inetAddressValidator.isValid(hostLocation)) {
+      return false;
+    }
+  }
+  String port=authorityMatcher.group(PARSE_AUTHORITY_PORT);
+  if (port != null) {
+    if (!PORT_PATTERN.matcher(port).matches()) {
+      return false;
+    }
+  }
+  String extra=authorityMatcher.group(PARSE_AUTHORITY_EXTRA);
+  if (extra != null && extra.trim().length() > 0) {
+    return false;
+  }
+  return true;
+}

@@ -1,0 +1,6 @@
+{
+  Object result=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,PLUGIN_EXCLUDES);
+  if (result instanceof List) {
+    pluginExcludes=(List<String>)result;
+  }
+}

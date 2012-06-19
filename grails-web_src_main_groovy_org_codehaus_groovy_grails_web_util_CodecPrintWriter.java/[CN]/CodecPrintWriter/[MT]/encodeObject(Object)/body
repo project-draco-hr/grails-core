@@ -1,0 +1,9 @@
+{
+  if (encodeClosure == null)   return o;
+  try {
+    return encodeClosure.call(o);
+  }
+ catch (  Exception e) {
+    throw new RuntimeException("Problem calling encode method " + encodeClosure,e);
+  }
+}

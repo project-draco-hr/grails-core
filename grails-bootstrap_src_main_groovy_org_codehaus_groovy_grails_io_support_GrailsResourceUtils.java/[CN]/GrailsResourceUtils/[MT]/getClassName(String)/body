@@ -1,0 +1,9 @@
+{
+  for (  Pattern pattern : patterns) {
+    Matcher m=pattern.matcher(path);
+    if (m.find()) {
+      return m.group(1).replaceAll("[/\\\\]",".");
+    }
+  }
+  return null;
+}

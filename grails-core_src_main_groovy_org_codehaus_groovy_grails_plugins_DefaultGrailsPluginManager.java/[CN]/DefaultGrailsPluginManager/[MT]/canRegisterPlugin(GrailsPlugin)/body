@@ -1,0 +1,4 @@
+{
+  Environment environment=Environment.getCurrent();
+  return plugin.isEnabled() && plugin.supportsEnvironment(environment);
+}

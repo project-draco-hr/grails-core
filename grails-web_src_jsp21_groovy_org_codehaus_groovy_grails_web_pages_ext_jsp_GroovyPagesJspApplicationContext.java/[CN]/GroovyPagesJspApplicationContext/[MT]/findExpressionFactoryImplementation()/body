@@ -1,0 +1,10 @@
+{
+  ExpressionFactory ef=tryExpressionFactoryImplementation("com.sun");
+  if (ef == null) {
+    ef=tryExpressionFactoryImplementation("org.apache");
+    if (ef == null) {
+      LOG.warn("Could not find any implementation for " + ExpressionFactory.class.getName());
+    }
+  }
+  return ef;
+}

@@ -1,0 +1,24 @@
+{
+  BlockStatement methodBody;
+  if (setupMethod.getDeclaringClass().getName().equals(TestCase.class.getName())) {
+    methodBody=new BlockStatement();
+    setupMethod=new MethodNode(name,Modifier.PUBLIC,setupMethod.getReturnType(),GrailsArtefactClassInjector.ZERO_PARAMETERS,null,methodBody);
+    classNode.addMethod(setupMethod);
+  }
+ else {
+    final Statement setupMethodBody=setupMethod.getCode();
+    if (!(setupMethodBody instanceof BlockStatement)) {
+      methodBody=new BlockStatement();
+      if (setupMethodBody != null) {
+        if (!(setupMethodBody instanceof ReturnStatement)) {
+          methodBody.addStatement(setupMethodBody);
+        }
+      }
+      setupMethod.setCode(methodBody);
+    }
+ else {
+      methodBody=(BlockStatement)setupMethodBody;
+    }
+  }
+  return methodBody;
+}

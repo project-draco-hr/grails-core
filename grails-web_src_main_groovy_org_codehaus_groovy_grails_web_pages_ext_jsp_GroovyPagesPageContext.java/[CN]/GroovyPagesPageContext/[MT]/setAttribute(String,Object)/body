@@ -1,0 +1,4 @@
+{
+  Assert.notNull(name,"Attribute name cannot be null");
+  pageScope.setVariable(name,value);
+}

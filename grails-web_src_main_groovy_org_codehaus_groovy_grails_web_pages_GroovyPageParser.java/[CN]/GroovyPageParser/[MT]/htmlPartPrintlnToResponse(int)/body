@@ -1,0 +1,11 @@
+{
+  if (!tagMetaStack.isEmpty()) {
+    TagMeta tm=tagMetaStack.peek();
+    if (tm.bufferMode && tm.bufferPartNumber == -1) {
+      tm.bufferPartNumber=partNumber;
+      return;
+    }
+  }
+  flushTagBuffering();
+  htmlPartPrintlnRaw(partNumber);
+}

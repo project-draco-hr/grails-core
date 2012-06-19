@@ -1,0 +1,4 @@
+{
+  if (method.isSynthetic())   return null;
+  return super.getTransactionAttribute(method,targetClass);
+}

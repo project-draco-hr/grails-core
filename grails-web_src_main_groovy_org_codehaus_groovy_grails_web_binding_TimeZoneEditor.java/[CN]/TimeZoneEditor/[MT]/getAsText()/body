@@ -1,0 +1,7 @@
+{
+  TimeZone tz=(TimeZone)getValue();
+  if (tz == null) {
+    return "";
+  }
+  return tz.getID();
+}

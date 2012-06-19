@@ -1,0 +1,25 @@
+{
+  int total=totalCharsInList;
+  total+=allocBuffer.charsUsed();
+  if (total > minSize) {
+    return true;
+  }
+  if (totalCharsInDynamicChunks != -1) {
+    total+=totalCharsInDynamicChunks;
+    if (total > minSize) {
+      return true;
+    }
+  }
+ else {
+    for (    StreamCharBufferSubChunk chunk : dynamicChunkMap.values()) {
+      if (!chunk.hasCachedSize() && chunk.getSubBuffer().isSizeLarger(minSize - total)) {
+        return true;
+      }
+      total+=chunk.size();
+      if (total > minSize) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

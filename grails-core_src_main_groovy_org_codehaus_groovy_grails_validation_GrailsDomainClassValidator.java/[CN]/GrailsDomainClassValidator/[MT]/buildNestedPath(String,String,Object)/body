@@ -1,0 +1,9 @@
+{
+  if (indexOrKey == null) {
+    return nestedPath + componentName;
+  }
+  if (indexOrKey instanceof Integer) {
+    return nestedPath + componentName + "["+ indexOrKey+ "]";
+  }
+  return nestedPath + componentName + "['"+ indexOrKey+ "']";
+}

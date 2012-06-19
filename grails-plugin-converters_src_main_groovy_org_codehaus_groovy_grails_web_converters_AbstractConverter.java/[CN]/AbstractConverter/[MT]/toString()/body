@@ -1,0 +1,10 @@
+{
+  FastStringWriter writer=new FastStringWriter();
+  try {
+    render(writer);
+  }
+ catch (  Exception e) {
+    throw new UnhandledException(e);
+  }
+  return writer.toString();
+}

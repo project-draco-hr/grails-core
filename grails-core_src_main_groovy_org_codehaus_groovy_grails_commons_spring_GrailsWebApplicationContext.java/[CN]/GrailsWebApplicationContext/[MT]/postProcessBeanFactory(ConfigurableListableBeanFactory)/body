@@ -1,0 +1,6 @@
+{
+  beanFactory.addBeanPostProcessor(new ServletContextAwareProcessor(servletContext));
+  beanFactory.ignoreDependencyInterface(ServletContextAware.class);
+  beanFactory.registerResolvableDependency(ServletContext.class,servletContext);
+  WebApplicationContextUtils.registerWebApplicationScopes(beanFactory);
+}

@@ -1,0 +1,13 @@
+{
+  try {
+    Template t=createTemplate(url);
+    if (t instanceof GroovyPageTemplate) {
+      return ((GroovyPageTemplate)t).getMetaInfo().getLineNumbers();
+    }
+  }
+ catch (  Exception e) {
+    LOG.warn("Exception retrieving line numbers from GSP: " + url + ", message: "+ e.getMessage());
+    LOG.debug("Full stack trace of error",e);
+  }
+  return new int[0];
+}

@@ -1,0 +1,8 @@
+{
+  List<Object> objects=constraints.get(name);
+  if (objects == null) {
+    objects=new ArrayList<Object>();
+    constraints.put(name,objects);
+  }
+  return objects;
+}

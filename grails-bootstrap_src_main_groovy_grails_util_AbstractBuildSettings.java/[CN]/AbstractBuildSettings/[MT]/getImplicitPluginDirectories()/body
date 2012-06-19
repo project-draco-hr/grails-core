@@ -1,0 +1,16 @@
+{
+  ConcurrentLinkedQueue<File> dirList=new ConcurrentLinkedQueue<File>();
+  for (  String pluginBase : getPluginBaseDirectories()) {
+    File[] pluginDirs=new File(pluginBase).listFiles(new FileFilter(){
+      public boolean accept(      File pathname){
+        final String fileName=pathname.getName();
+        return pathname.isDirectory() && (!fileName.startsWith(".") && fileName.indexOf('-') > -1);
+      }
+    }
+);
+    if (pluginDirs != null) {
+      dirList.addAll(Arrays.asList(pluginDirs));
+    }
+  }
+  return dirList;
+}

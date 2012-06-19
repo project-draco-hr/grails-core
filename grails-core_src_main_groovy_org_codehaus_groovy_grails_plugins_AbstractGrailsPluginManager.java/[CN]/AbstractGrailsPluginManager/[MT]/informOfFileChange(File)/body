@@ -1,0 +1,8 @@
+{
+  String className=GrailsResourceUtils.getClassName(file.getAbsolutePath());
+  Class<?> cls=null;
+  if (className != null) {
+    cls=loadApplicationClass(className);
+  }
+  informOfClassChange(file,cls);
+}

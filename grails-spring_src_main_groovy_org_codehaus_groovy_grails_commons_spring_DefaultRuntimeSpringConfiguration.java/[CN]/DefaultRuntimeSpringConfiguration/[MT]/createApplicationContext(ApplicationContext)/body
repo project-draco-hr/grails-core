@@ -1,0 +1,14 @@
+{
+  if (parentCtx != null && beanFactory != null) {
+    Assert.isInstanceOf(DefaultListableBeanFactory.class,beanFactory,"ListableBeanFactory set must be a subclass of DefaultListableBeanFactory");
+    return new GrailsApplicationContext((DefaultListableBeanFactory)beanFactory,parentCtx);
+  }
+  if (beanFactory != null) {
+    Assert.isInstanceOf(DefaultListableBeanFactory.class,beanFactory,"ListableBeanFactory set must be a subclass of DefaultListableBeanFactory");
+    return new GrailsApplicationContext((DefaultListableBeanFactory)beanFactory);
+  }
+  if (parentCtx != null) {
+    return new GrailsApplicationContext(parentCtx);
+  }
+  return new GrailsApplicationContext();
+}

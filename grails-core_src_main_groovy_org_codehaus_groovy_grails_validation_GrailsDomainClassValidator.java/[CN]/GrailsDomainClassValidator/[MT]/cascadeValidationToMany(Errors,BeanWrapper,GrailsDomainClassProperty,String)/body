@@ -1,0 +1,22 @@
+{
+  Object collection=bean.getPropertyValue(propertyName);
+  if (collection instanceof List || collection instanceof SortedSet) {
+    int idx=0;
+    for (    Object associatedObject : ((Collection)collection)) {
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName + "[" + (idx++)+ "]",idx);
+    }
+  }
+  if (collection instanceof Collection) {
+    Integer index=0;
+    for (    Object associatedObject : ((Collection)collection)) {
+      cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName,index++);
+    }
+  }
+ else   if (collection instanceof Map) {
+    filterGStringKeys((Map)collection);
+    for (    Object entryObject : ((Map)collection).entrySet()) {
+      Map.Entry entry=(Map.Entry)entryObject;
+      cascadeValidationToOne(errors,bean,entry.getValue(),persistentProperty,propertyName,entry.getKey());
+    }
+  }
+}

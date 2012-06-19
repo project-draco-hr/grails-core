@@ -1,0 +1,13 @@
+{
+  DataOutputStream dataOut=null;
+  try {
+    dataOut=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));
+    dataOut.writeInt(htmlParts.size());
+    for (    String part : htmlParts) {
+      dataOut.writeUTF(part);
+    }
+  }
+  finally {
+    IOUtils.closeQuietly(dataOut);
+  }
+}

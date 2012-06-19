@@ -1,0 +1,4 @@
+{
+  SizeConstraint c=(SizeConstraint)appliedConstraints.get(SIZE_CONSTRAINT);
+  return c == null ? null : c.getRange();
+}

@@ -1,0 +1,6 @@
+{
+  if (targetWriter instanceof GrailsWrappedWriter) {
+    return ((GrailsWrappedWriter)targetWriter).unwrap();
+  }
+  return targetWriter;
+}

@@ -1,0 +1,3 @@
+{
+  return controller.getMetaClass().hasProperty(controller,AFTER_INTERCEPTOR) != null && isIntercepted(controller.getProperty(AFTER_INTERCEPTOR),action);
+}

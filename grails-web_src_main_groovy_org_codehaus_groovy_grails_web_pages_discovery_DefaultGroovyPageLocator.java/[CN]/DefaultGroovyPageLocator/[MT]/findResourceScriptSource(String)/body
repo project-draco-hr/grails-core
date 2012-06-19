@@ -1,0 +1,4 @@
+{
+  List<String> searchPaths=resolveSearchPaths(uri);
+  return findResourceScriptPathForSearchPaths(uri,searchPaths);
+}

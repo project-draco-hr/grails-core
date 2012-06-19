@@ -1,0 +1,8 @@
+{
+  GroovyObject controller=getController(request);
+  if (controller != null) {
+    String path=pluginManager.getPluginPathForInstance(controller);
+    return path == null ? "" : path;
+  }
+  return "";
+}

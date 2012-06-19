@@ -1,0 +1,8 @@
+{
+  for (  Map.Entry<GrailsPlugin,String[]> entry : delayedEvictions.entrySet()) {
+    GrailsPlugin plugin=entry.getKey();
+    for (    String pluginName : entry.getValue()) {
+      evictPlugin(plugin,pluginName);
+    }
+  }
+}

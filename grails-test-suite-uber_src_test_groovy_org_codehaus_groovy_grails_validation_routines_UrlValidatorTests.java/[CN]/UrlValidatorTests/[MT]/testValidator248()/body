@@ -1,0 +1,9 @@
+{
+  RegexValidator regex=new RegexValidator(new String[]{"localhost",".*\\.my-testing"});
+  UrlValidator validator=new UrlValidator(regex,0);
+  assertTrue("localhost URL should validate",validator.isValid("http://localhost/test/index.html"));
+  assertTrue("first.my-testing should validate",validator.isValid("http://first.my-testing/test/index.html"));
+  assertTrue("sup3r.my-testing should validate",validator.isValid("http://sup3r.my-testing/test/index.html"));
+  assertFalse("broke.my-test should not validate",validator.isValid("http://broke.my-test/test/index.html"));
+  assertTrue("www.apache.org should still validate",validator.isValid("http://www.apache.org/test/index.html"));
+}

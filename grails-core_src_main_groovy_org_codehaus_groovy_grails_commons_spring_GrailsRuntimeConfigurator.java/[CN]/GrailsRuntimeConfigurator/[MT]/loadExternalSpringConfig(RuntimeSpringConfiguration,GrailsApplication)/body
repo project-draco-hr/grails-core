@@ -1,0 +1,23 @@
+{
+  if (springGroovyResourcesBeanBuilder == null) {
+    try {
+      Class<?> groovySpringResourcesClass=null;
+      try {
+        groovySpringResourcesClass=ClassUtils.forName(GrailsRuntimeConfigurator.SPRING_RESOURCES_CLASS,application.getClassLoader());
+      }
+ catch (      ClassNotFoundException e) {
+      }
+      if (groovySpringResourcesClass != null) {
+        reloadSpringResourcesConfig(config,application,groovySpringResourcesClass);
+      }
+    }
+ catch (    Exception ex) {
+      LOG.error("[RuntimeConfiguration] Unable to load beans from resources.groovy",ex);
+    }
+  }
+ else {
+    if (!springGroovyResourcesBeanBuilder.getSpringConfig().equals(config)) {
+      springGroovyResourcesBeanBuilder.registerBeans(config);
+    }
+  }
+}

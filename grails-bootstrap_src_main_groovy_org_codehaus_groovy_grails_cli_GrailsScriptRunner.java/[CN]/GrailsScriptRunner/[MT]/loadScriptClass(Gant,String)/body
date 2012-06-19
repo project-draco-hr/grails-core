@@ -1,0 +1,15 @@
+{
+  try {
+    gant.loadScriptClass(scriptName + "_");
+  }
+ catch (  Exception e) {
+    try {
+      gant.loadScriptClass(scriptName);
+    }
+ catch (    Exception ex) {
+      if (ex instanceof ClassNotFoundException && ex.getMessage() != null && ex.getMessage().contains(scriptName)) {
+        throw new ScriptNotFoundException(scriptName);
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  if (mode != TAG) {
+    throw new IllegalStateException();
+  }
+  Writer ue=writer.unescaped();
+  ue.write(" ");
+  ue.write(name);
+  ue.write('=');
+  ue.write(quoteChar);
+  writer.setWritingAttribute(true);
+  writer.escaped().write(value);
+  writer.setWritingAttribute(false);
+  ue.write(quoteChar);
+  return this;
+}

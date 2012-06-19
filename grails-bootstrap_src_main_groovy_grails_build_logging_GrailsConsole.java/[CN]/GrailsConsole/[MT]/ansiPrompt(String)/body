@@ -1,0 +1,3 @@
+{
+  return ansi().a(Ansi.Attribute.INTENSITY_BOLD).fg(YELLOW).a(prompt).a(Ansi.Attribute.INTENSITY_BOLD_OFF).fg(DEFAULT);
+}

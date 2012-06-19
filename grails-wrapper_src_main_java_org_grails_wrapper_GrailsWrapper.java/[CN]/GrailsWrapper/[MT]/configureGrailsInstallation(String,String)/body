@@ -1,0 +1,14 @@
+{
+  final String src=distUrl + "grails-" + grailsVersion+ ".zip";
+  final URI uri=new URI(src);
+  final File grailsCacheDir=new File(System.getProperty("user.home") + "/.grails/");
+  final File wrapperDir=new File(grailsCacheDir,"wrapper");
+  final File downloadFile=new File(wrapperDir,"grails-" + grailsVersion + "-download.zip");
+  new RemoteFileHelper().retrieve(uri,downloadFile);
+  final File installDir=new File(wrapperDir,grailsVersion);
+  if (!installDir.exists()) {
+    extract(downloadFile,installDir);
+  }
+  final File grailsHome=new File(installDir,"grails-" + grailsVersion);
+  return grailsHome;
+}

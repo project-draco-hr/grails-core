@@ -1,0 +1,5 @@
+{
+  Assert.hasLength(name,"Argument [name] cannot be null");
+  List<Object> objects=getOrInitializeConstraint(name);
+  objects.clear();
+}

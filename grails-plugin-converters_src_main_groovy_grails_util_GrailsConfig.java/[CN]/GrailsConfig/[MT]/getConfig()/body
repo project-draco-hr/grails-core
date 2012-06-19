@@ -1,0 +1,5 @@
+{
+synchronized (GrailsConfig.class) {
+    return config != null ? config : (config=ConfigurationHolder.getConfig());
+  }
+}

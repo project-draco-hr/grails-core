@@ -1,0 +1,6 @@
+{
+  if (writer == null && lazyInitializingWriter != null) {
+    writer=lazyInitializingWriter.getWriter();
+  }
+  return writer;
+}

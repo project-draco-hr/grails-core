@@ -1,0 +1,11 @@
+{
+  if (lineNumbers == null) {
+    try {
+      readLineNumbers();
+    }
+ catch (    IOException e) {
+      LOG.warn("Problem reading precompiled linenumbers",e);
+    }
+  }
+  return lineNumbers;
+}

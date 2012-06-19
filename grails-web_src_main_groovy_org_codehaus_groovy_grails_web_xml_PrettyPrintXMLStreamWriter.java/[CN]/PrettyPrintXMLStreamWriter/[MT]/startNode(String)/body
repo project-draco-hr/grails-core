@@ -1,0 +1,6 @@
+{
+  doIndent=false;
+  super.startNode(tag);
+  level++;
+  return this;
+}

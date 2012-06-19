@@ -1,0 +1,3 @@
+{
+  return propertyType.isAssignableFrom(type) && !propertyType.equals(Object.class);
+}

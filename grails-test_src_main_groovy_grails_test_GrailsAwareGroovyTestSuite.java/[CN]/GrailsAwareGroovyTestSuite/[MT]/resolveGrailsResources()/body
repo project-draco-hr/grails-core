@@ -1,0 +1,6 @@
+{
+  Resource[] baseResources=pluginSettings.getArtefactResources();
+  List<Resource> grailsResources=new ArrayList<Resource>(Arrays.asList(baseResources));
+  customizeGrailsResources(grailsResources);
+  return grailsResources.toArray(new Resource[grailsResources.size()]);
+}

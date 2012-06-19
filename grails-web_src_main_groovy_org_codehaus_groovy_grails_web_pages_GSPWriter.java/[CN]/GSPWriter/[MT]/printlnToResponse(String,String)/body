@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isEmpty(s)) {
+    return;
+  }
+  parse.flushTagBuffering();
+  super.print(outVarName);
+  super.print(".print(");
+  super.print(s);
+  super.print(")");
+  println();
+}

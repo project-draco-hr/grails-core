@@ -1,0 +1,23 @@
+{
+  Object returnValue=null;
+  if (nestedDateMap.containsKey(key)) {
+    returnValue=nestedDateMap.get(key);
+  }
+ else {
+    returnValue=this.wrappedMap.get(key);
+    if (returnValue instanceof String[]) {
+      String[] valueArray=(String[])returnValue;
+      if (valueArray.length == 1) {
+        returnValue=valueArray[0];
+      }
+ else {
+        returnValue=valueArray;
+      }
+    }
+  }
+  if ("date.struct".equals(returnValue)) {
+    returnValue=lazyEvaluateDateParam(key);
+    nestedDateMap.put(key,returnValue);
+  }
+  return returnValue;
+}

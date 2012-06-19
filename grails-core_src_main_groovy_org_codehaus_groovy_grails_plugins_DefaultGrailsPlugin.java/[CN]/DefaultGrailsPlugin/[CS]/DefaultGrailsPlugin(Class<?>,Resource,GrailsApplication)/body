@@ -1,0 +1,7 @@
+{
+  super(pluginClass,application);
+  dependencies=Collections.emptyMap();
+  pluginDescriptor=resource;
+  resolver=new PathMatchingResourcePatternResolver();
+  initialisePlugin(pluginClass);
+}

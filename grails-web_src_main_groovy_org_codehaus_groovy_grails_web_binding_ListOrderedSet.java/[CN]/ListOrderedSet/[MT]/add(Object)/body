@@ -1,0 +1,8 @@
+{
+  if (collection.contains(object)) {
+    return collection.add(object);
+  }
+  boolean result=collection.add(object);
+  setOrder.add(object);
+  return result;
+}

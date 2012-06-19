@@ -1,0 +1,7 @@
+{
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
+  if (mc != null) {
+    return mc.getMetaMethod("toJSON",new Object[]{JSON.class});
+  }
+  return null;
+}

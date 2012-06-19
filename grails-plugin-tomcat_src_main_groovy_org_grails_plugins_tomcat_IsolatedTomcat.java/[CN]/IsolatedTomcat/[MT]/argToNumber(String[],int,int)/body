@@ -1,0 +1,11 @@
+{
+  if (args.length > i) {
+    try {
+      return Integer.parseInt(args[i]);
+    }
+ catch (    NumberFormatException e) {
+      return orDefault;
+    }
+  }
+  return orDefault;
+}

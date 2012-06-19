@@ -1,0 +1,8 @@
+{
+  GrailsApplication ga=new DefaultGrailsApplication(cl.getLoadedClasses(),cl);
+  MockApplicationContext ctx=new MockApplicationContext();
+  ctx.registerMockBean(UrlConverter.BEAN_NAME,urlConverter);
+  ga.setMainContext(ctx);
+  ga.initialise();
+  grailsClass.setGrailsApplication(ga);
+}

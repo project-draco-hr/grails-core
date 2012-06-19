@@ -1,0 +1,6 @@
+{
+  this.springConfig=springConfig == null ? createRuntimeSpringConfiguration(parentCtx,classLoader) : springConfig;
+  this.parentCtx=parentCtx;
+  this.classLoader=classLoader;
+  initializeSpringConfig();
+}

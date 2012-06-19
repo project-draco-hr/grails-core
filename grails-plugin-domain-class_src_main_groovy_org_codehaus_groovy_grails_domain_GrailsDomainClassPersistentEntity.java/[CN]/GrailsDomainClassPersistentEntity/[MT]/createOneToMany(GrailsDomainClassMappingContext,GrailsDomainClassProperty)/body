@@ -1,0 +1,10 @@
+{
+  final OneToMany oneToMany=new OneToMany(this,mappingContext,grailsDomainClassProperty.getName(),grailsDomainClassProperty.getType()){
+    public PropertyMapping getMapping(){
+      return null;
+    }
+  }
+;
+  configureAssociation(grailsDomainClassProperty,oneToMany);
+  return oneToMany;
+}

@@ -1,0 +1,5 @@
+{
+  if (grailsApplication != null) {
+    defaultConstraints=ConstraintEvalUtils.getDefaultConstraints(grailsApplication.getConfig());
+  }
+}

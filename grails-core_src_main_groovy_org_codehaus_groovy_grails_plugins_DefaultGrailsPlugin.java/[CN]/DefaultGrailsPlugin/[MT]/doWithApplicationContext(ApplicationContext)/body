@@ -1,0 +1,18 @@
+{
+  try {
+    if (!pluginBean.isReadableProperty(DO_WITH_APPLICATION_CONTEXT)) {
+      return;
+    }
+    Closure c=(Closure)plugin.getProperty(DO_WITH_APPLICATION_CONTEXT);
+    if (enableDocumentationGeneration()) {
+      DocumentationContext.getInstance().setActive(true);
+    }
+    c.setDelegate(this);
+    c.call(new Object[]{ctx});
+  }
+  finally {
+    if (enableDocumentationGeneration()) {
+      DocumentationContext.getInstance().reset();
+    }
+  }
+}

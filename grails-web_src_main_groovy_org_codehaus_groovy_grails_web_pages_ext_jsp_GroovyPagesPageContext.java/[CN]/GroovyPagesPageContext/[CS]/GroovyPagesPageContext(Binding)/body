@@ -1,0 +1,10 @@
+{
+  this(new GenericServlet(){
+    @Override public ServletConfig getServletConfig(){
+      return this;
+    }
+    @Override public void service(    ServletRequest servletRequest,    ServletResponse servletResponse) throws ServletException, IOException {
+    }
+  }
+,pageScope != null ? pageScope : new Binding());
+}

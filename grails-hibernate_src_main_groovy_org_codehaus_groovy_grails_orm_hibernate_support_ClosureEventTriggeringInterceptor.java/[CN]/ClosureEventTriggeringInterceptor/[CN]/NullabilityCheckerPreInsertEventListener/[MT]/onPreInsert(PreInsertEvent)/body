@@ -1,0 +1,4 @@
+{
+  new Nullability(event.getSource()).checkNullability(event.getState(),event.getPersister(),false);
+  return false;
+}

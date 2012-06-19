@@ -1,0 +1,5 @@
+{
+  String targetName=buildEvent.getTarget().getName();
+  String eventName=GrailsNameUtils.getClassNameRepresentation(targetName) + "End";
+  triggerEvent(eventName,binding);
+}

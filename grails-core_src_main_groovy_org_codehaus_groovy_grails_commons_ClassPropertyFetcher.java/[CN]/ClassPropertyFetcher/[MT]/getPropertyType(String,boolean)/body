@@ -1,0 +1,7 @@
+{
+  PropertyFetcher fetcher=resolveFetcher(name,onlyInstanceProperties);
+  if (fetcher != null) {
+    return fetcher.getPropertyType(name);
+  }
+  return null;
+}

@@ -1,0 +1,10 @@
+{
+  String[] dependencyNames=plugin.getDependencyNames();
+  for (int i=0; i < dependencyNames.length; i++) {
+    final String dependencyName=dependencyNames[i];
+    if (pluginName.equals(dependencyName)) {
+      return true;
+    }
+  }
+  return false;
+}

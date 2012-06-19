@@ -1,0 +1,7 @@
+{
+  if (used < size) {
+    buffer[used++]=b;
+    return true;
+  }
+  return false;
+}

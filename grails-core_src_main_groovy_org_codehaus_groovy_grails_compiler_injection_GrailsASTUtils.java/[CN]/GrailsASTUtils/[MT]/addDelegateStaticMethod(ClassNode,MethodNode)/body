@@ -1,0 +1,4 @@
+{
+  ClassExpression classExpression=new ClassExpression(delegateMethod.getDeclaringClass());
+  return addDelegateStaticMethod(classExpression,classNode,delegateMethod);
+}

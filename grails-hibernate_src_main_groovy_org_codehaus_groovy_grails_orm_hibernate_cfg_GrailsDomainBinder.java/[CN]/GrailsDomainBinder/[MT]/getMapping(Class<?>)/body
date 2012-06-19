@@ -1,0 +1,3 @@
+{
+  return theClass == null ? null : MAPPING_CACHE.get(theClass);
+}

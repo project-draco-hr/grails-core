@@ -1,0 +1,15 @@
+{
+  BidiEnumMap m=ENUM_MAPPINGS.get(cls);
+  if (m == null) {
+synchronized (ENUM_MAPPINGS) {
+      if (!ENUM_MAPPINGS.containsKey(cls)) {
+        m=new BidiEnumMap(cls);
+        ENUM_MAPPINGS.put(cls,m);
+      }
+ else {
+        m=ENUM_MAPPINGS.get(cls);
+      }
+    }
+  }
+  return m;
+}

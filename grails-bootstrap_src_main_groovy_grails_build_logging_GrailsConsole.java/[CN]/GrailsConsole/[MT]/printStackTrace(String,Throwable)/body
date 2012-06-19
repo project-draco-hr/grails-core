@@ -1,0 +1,20 @@
+{
+  if (error instanceof ScriptExitException) {
+    return;
+  }
+  if ((error instanceof BuildException) && error.getCause() != null) {
+    error=error.getCause();
+  }
+  if (!isVerbose() && !Boolean.getBoolean("grails.full.stacktrace")) {
+    StackTraceUtils.deepSanitize(error);
+  }
+  StringWriter sw=new StringWriter();
+  PrintWriter ps=new PrintWriter(sw);
+  message=message == null ? error.getMessage() : message;
+  if (!isVerbose()) {
+    message=message + STACKTRACE_FILTERED_MESSAGE;
+  }
+  ps.println(message);
+  error.printStackTrace(ps);
+  error(sw.toString());
+}

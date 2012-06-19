@@ -1,0 +1,9 @@
+{
+  if (grailsConfig != null) {
+    final Boolean value=grailsConfig.get(WebUtils.ENABLE_FILE_EXTENSIONS,Boolean.class);
+    if (value != null) {
+      return value;
+    }
+  }
+  return true;
+}

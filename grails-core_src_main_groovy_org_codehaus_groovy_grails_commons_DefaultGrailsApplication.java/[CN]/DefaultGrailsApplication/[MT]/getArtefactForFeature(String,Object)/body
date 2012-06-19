@@ -1,0 +1,3 @@
+{
+  return artefactHandlersByName.get(artefactType).getArtefactForFeature(featureID);
+}

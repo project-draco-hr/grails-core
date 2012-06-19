@@ -1,0 +1,23 @@
+{
+  addExtensions(fileExtensions);
+  directoryWatch.put(directory,directory.lastModified());
+  File[] files=directory.listFiles();
+  if (files == null) {
+    return;
+  }
+  for (  File file : files) {
+    if (file.isDirectory() && !file.isHidden()) {
+      if (!SVN_DIR_NAME.equals(file.getName())) {
+        cacheFilesForDirectory(file,fileExtensions,fireEvent);
+      }
+    }
+ else     if (isValidFileToMonitor(file,fileExtensions)) {
+      if (!lastModifiedMap.containsKey(file) && fireEvent) {
+        for (        FileChangeListener listener : listeners) {
+          listener.onNew(file);
+        }
+      }
+      lastModifiedMap.put(file,file.lastModified());
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (values.get(name) != null) {
+    return Integer.parseInt((String)values.get(name));
+  }
+  return defaultValue;
+}

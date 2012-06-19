@@ -1,0 +1,6 @@
+{
+  if (currentlyBufferingWhitespace) {
+    appendHtmlPart(null);
+  }
+  currentlyBufferingWhitespace=false;
+}

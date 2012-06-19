@@ -1,0 +1,29 @@
+{
+  Errors errors=(Errors)object;
+  try {
+    for (    Object o : errors.getAllErrors()) {
+      if (o instanceof FieldError) {
+        FieldError fe=(FieldError)o;
+        xml.startNode("error");
+        xml.attribute("object",fe.getObjectName());
+        xml.attribute("field",fe.getField());
+        xml.startNode("rejected-value").convertAnother(fe.getRejectedValue());
+        xml.end();
+        Locale locale=LocaleContextHolder.getLocale();
+        if (applicationContext != null) {
+          xml.startNode("message").chars(applicationContext.getMessage(fe,locale)).end();
+        }
+ else {
+          xml.startNode("message").chars(fe.getDefaultMessage()).end();
+        }
+        xml.end();
+      }
+    }
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  Exception e) {
+    throw new ConverterException("Error converting Bean with class " + object.getClass().getName(),e);
+  }
+}

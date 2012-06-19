@@ -1,0 +1,9 @@
+{
+  for (  GrailsPlugin plugin : originalPlugins) {
+    String name=plugin.getName();
+    if (suppliedNames.contains(name)) {
+      explicitlyNamedPlugins.add(plugin);
+      addedNames.add(name);
+    }
+  }
+}

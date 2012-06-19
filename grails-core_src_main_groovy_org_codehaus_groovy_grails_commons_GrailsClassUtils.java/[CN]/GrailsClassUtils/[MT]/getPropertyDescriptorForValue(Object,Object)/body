@@ -1,0 +1,22 @@
+{
+  if (instance == null || propertyValue == null) {
+    return null;
+  }
+  PropertyDescriptor[] descriptors=BeanUtils.getPropertyDescriptors(instance.getClass());
+  for (  PropertyDescriptor pd : descriptors) {
+    if (isAssignableOrConvertibleFrom(pd.getPropertyType(),propertyValue.getClass())) {
+      Object value;
+      try {
+        ReflectionUtils.makeAccessible(pd.getReadMethod());
+        value=pd.getReadMethod().invoke(instance);
+      }
+ catch (      Exception e) {
+        throw new FatalBeanException("Problem calling readMethod of " + pd,e);
+      }
+      if (propertyValue.equals(value)) {
+        return pd;
+      }
+    }
+  }
+  return null;
+}

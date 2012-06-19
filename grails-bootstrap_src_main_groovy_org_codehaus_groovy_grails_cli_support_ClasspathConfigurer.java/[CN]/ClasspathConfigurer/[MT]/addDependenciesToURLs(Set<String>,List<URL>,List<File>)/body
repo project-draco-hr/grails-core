@@ -1,0 +1,14 @@
+{
+  if (runtimeDeps == null) {
+    return;
+  }
+  for (  File file : runtimeDeps) {
+    if (file == null || urls.contains(file)) {
+      continue;
+    }
+    if (excludes != null && !excludes.contains(file.getName())) {
+      urls.add(file.toURI().toURL());
+      excludes.add(file.getName());
+    }
+  }
+}

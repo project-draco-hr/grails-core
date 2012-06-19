@@ -1,0 +1,8 @@
+{
+  tagContext=context;
+  parser=(GroovyPageParser)context.get(GroovyPageParser.class);
+  Object outObj=context.get(GroovyPage.OUT);
+  if (outObj instanceof PrintWriter) {
+    out=(PrintWriter)context.get(GroovyPage.OUT);
+  }
+}

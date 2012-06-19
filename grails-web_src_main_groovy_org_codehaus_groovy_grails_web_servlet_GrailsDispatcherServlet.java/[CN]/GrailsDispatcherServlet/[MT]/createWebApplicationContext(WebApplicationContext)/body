@@ -1,0 +1,24 @@
+{
+  WebApplicationContext wac=WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+  Assert.notNull(parent,"Grails requires a parent ApplicationContext, is the /WEB-INF/applicationContext.xml file missing?");
+  setApplication(parent.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class));
+  ServletContextHolder.setServletContext(getServletContext());
+  WebApplicationContext webContext;
+  if (wac instanceof GrailsApplicationContext) {
+    webContext=wac;
+  }
+ else {
+    webContext=GrailsConfigUtils.configureWebApplicationContext(getServletContext(),parent);
+    try {
+      GrailsConfigUtils.executeGrailsBootstraps(application,webContext,getServletContext());
+    }
+ catch (    Exception e) {
+      if (e instanceof BeansException) {
+        throw (BeansException)e;
+      }
+      throw new BootstrapException("Error executing bootstraps",e);
+    }
+  }
+  interceptors=establishInterceptors(webContext);
+  return webContext;
+}

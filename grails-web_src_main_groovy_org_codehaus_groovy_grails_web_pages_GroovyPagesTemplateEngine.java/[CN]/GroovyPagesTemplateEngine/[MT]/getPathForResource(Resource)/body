@@ -1,0 +1,19 @@
+{
+  if (res == null)   return "";
+  String path=null;
+  try {
+    File file=res.getFile();
+    if (file != null) {
+      path=file.getAbsolutePath();
+    }
+  }
+ catch (  IOException e) {
+  }
+  if (path != null) {
+    return path;
+  }
+  if (res.getDescription() != null) {
+    return res.getDescription();
+  }
+  return "";
+}

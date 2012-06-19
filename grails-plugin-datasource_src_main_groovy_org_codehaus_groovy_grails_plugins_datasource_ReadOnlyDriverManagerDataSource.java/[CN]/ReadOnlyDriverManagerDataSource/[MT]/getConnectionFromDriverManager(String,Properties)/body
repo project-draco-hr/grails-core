@@ -1,0 +1,5 @@
+{
+  Connection connection=super.getConnectionFromDriverManager(url,props);
+  connection.setReadOnly(true);
+  return connection;
+}

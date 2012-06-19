@@ -1,0 +1,7 @@
+{
+  if (bean instanceof TransactionManagerAware) {
+    TransactionManagerAware tma=(TransactionManagerAware)bean;
+    tma.setTransactionManager(transactionManager);
+  }
+  return true;
+}

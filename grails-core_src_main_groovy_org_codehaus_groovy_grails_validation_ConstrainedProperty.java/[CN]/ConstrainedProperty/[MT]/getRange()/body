@@ -1,0 +1,4 @@
+{
+  RangeConstraint c=(RangeConstraint)appliedConstraints.get(RANGE_CONSTRAINT);
+  return c == null ? null : c.getRange();
+}

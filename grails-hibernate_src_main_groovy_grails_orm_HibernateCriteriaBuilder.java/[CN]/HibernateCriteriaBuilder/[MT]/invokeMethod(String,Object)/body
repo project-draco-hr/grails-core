@@ -1,0 +1,212 @@
+{
+  Object[] args=obj.getClass().isArray() ? (Object[])obj : new Object[]{obj};
+  if (paginationEnabledList && SET_RESULT_TRANSFORMER_CALL.equals(name) && args.length == 1 && args[0] instanceof ResultTransformer) {
+    resultTransformer=(ResultTransformer)args[0];
+    return null;
+  }
+  if (isCriteriaConstructionMethod(name,args)) {
+    if (criteria != null) {
+      throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    }
+    if (name.equals(GET_CALL)) {
+      uniqueResult=true;
+    }
+ else     if (name.equals(SCROLL_CALL)) {
+      scroll=true;
+    }
+ else     if (name.equals(COUNT_CALL)) {
+      count=true;
+    }
+ else     if (name.equals(LIST_DISTINCT_CALL)) {
+      resultTransformer=CriteriaSpecification.DISTINCT_ROOT_ENTITY;
+    }
+    createCriteriaInstance();
+    if (name.equals(LIST_CALL) && args.length == 2) {
+      paginationEnabledList=true;
+      orderEntries=new ArrayList<Order>();
+      invokeClosureNode(args[1]);
+    }
+ else {
+      invokeClosureNode(args[0]);
+    }
+    if (resultTransformer != null) {
+      criteria.setResultTransformer(resultTransformer);
+    }
+    Object result;
+    if (!uniqueResult) {
+      if (scroll) {
+        result=criteria.scroll();
+      }
+ else       if (count) {
+        criteria.setProjection(Projections.rowCount());
+        result=criteria.uniqueResult();
+      }
+ else       if (paginationEnabledList) {
+        criteria.setFirstResult(0);
+        criteria.setMaxResults(Integer.MAX_VALUE);
+        if (projectionList != null && projectionList.getLength() > 0) {
+          criteria.setProjection(projectionList);
+        }
+ else {
+          criteria.setProjection(null);
+        }
+        for (        Order orderEntry : orderEntries) {
+          criteria.addOrder(orderEntry);
+        }
+        if (resultTransformer == null) {
+          criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+        }
+ else         if (paginationEnabledList) {
+          criteria.setResultTransformer(resultTransformer);
+        }
+        Map argMap=(Map)args[0];
+        final String sort=(String)argMap.get(GrailsHibernateUtil.ARGUMENT_SORT);
+        if (sort != null) {
+          boolean ignoreCase=true;
+          Object caseArg=argMap.get(GrailsHibernateUtil.ARGUMENT_IGNORE_CASE);
+          if (caseArg instanceof Boolean) {
+            ignoreCase=(Boolean)caseArg;
+          }
+          final String orderParam=(String)argMap.get(GrailsHibernateUtil.ARGUMENT_ORDER);
+          final String order=GrailsHibernateUtil.ORDER_DESC.equalsIgnoreCase(orderParam) ? GrailsHibernateUtil.ORDER_DESC : GrailsHibernateUtil.ORDER_ASC;
+          int lastPropertyPos=sort.lastIndexOf('.');
+          String associationForOrdering=lastPropertyPos >= 0 ? sort.substring(0,lastPropertyPos) : null;
+          if (associationForOrdering != null && aliasMap.containsKey(associationForOrdering)) {
+            addOrder(criteria,aliasMap.get(associationForOrdering) + "." + sort.substring(lastPropertyPos + 1),order,ignoreCase);
+            @SuppressWarnings("unchecked") Map argMap2=new HashMap(argMap);
+            argMap2.remove(GrailsHibernateUtil.ARGUMENT_SORT);
+            argMap=argMap2;
+          }
+        }
+        GrailsHibernateUtil.populateArgumentsForCriteria(grailsApplication,targetClass,criteria,argMap);
+        GrailsHibernateTemplate ght=new GrailsHibernateTemplate(sessionFactory,grailsApplication);
+        PagedResultList pagedRes=new PagedResultList(ght,criteria);
+        result=pagedRes;
+      }
+ else {
+        result=criteria.list();
+      }
+    }
+ else {
+      result=GrailsHibernateUtil.unwrapIfProxy(criteria.uniqueResult());
+    }
+    if (!participate) {
+      hibernateSession.close();
+    }
+    return result;
+  }
+  if (criteria == null)   createCriteriaInstance();
+  MetaMethod metaMethod=getMetaClass().getMetaMethod(name,args);
+  if (metaMethod != null) {
+    return metaMethod.invoke(this,args);
+  }
+  metaMethod=criteriaMetaClass.getMetaMethod(name,args);
+  if (metaMethod != null) {
+    return metaMethod.invoke(criteria,args);
+  }
+  metaMethod=criteriaMetaClass.getMetaMethod(GrailsClassUtils.getSetterName(name),args);
+  if (metaMethod != null) {
+    return metaMethod.invoke(criteria,args);
+  }
+  if (isAssociationQueryMethod(args) || isAssociationQueryWithJoinSpecificationMethod(args)) {
+    final boolean hasMoreThanOneArg=args.length > 1;
+    Object callable=hasMoreThanOneArg ? args[1] : args[0];
+    int joinType=hasMoreThanOneArg ? (Integer)args[0] : CriteriaSpecification.INNER_JOIN;
+    if (name.equals(AND) || name.equals(OR) || name.equals(NOT)) {
+      if (criteria == null) {
+        throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+      }
+      logicalExpressionStack.add(new LogicalExpression(name));
+      invokeClosureNode(callable);
+      LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
+      addToCriteria(logicalExpression.toCriterion());
+      return name;
+    }
+    if (name.equals(PROJECTIONS) && args.length == 1 && (args[0] instanceof Closure)) {
+      if (criteria == null) {
+        throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+      }
+      projectionList=Projections.projectionList();
+      invokeClosureNode(callable);
+      if (projectionList != null && projectionList.getLength() > 0) {
+        criteria.setProjection(projectionList);
+      }
+      return name;
+    }
+    final PropertyDescriptor pd=BeanUtils.getPropertyDescriptor(targetClass,name);
+    if (pd != null && pd.getReadMethod() != null) {
+      ClassMetadata meta=sessionFactory.getClassMetadata(targetClass);
+      Type type=meta.getPropertyType(name);
+      if (type.isAssociationType()) {
+        String otherSideEntityName=((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory);
+        Class oldTargetClass=targetClass;
+        targetClass=sessionFactory.getClassMetadata(otherSideEntityName).getMappedClass(EntityMode.POJO);
+        if (targetClass.equals(oldTargetClass) && !hasMoreThanOneArg) {
+          joinType=CriteriaSpecification.LEFT_JOIN;
+        }
+        associationStack.add(name);
+        final String associationPath=getAssociationPath();
+        createAliasIfNeccessary(name,associationPath,joinType);
+        logicalExpressionStack.add(new LogicalExpression(AND));
+        invokeClosureNode(callable);
+        aliasStack.remove(aliasStack.size() - 1);
+        if (!aliasInstanceStack.isEmpty()) {
+          aliasInstanceStack.remove(aliasInstanceStack.size() - 1);
+        }
+        LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
+        if (!logicalExpression.args.isEmpty()) {
+          addToCriteria(logicalExpression.toCriterion());
+        }
+        associationStack.remove(associationStack.size() - 1);
+        targetClass=oldTargetClass;
+        return name;
+      }
+ else       if (type instanceof EmbeddedComponentType) {
+        associationStack.add(name);
+        logicalExpressionStack.add(new LogicalExpression(AND));
+        Class oldTargetClass=targetClass;
+        targetClass=pd.getPropertyType();
+        invokeClosureNode(callable);
+        targetClass=oldTargetClass;
+        LogicalExpression logicalExpression=logicalExpressionStack.remove(logicalExpressionStack.size() - 1);
+        if (!logicalExpression.args.isEmpty()) {
+          addToCriteria(logicalExpression.toCriterion());
+        }
+        associationStack.remove(associationStack.size() - 1);
+        return name;
+      }
+    }
+  }
+ else   if (args.length == 1 && args[0] != null) {
+    if (criteria == null) {
+      throwRuntimeException(new IllegalArgumentException("call to [" + name + "] not supported here"));
+    }
+    Object value=args[0];
+    Criterion c=null;
+    if (name.equals(ID_EQUALS)) {
+      return eq("id",value);
+    }
+    if (name.equals(IS_NULL) || name.equals(IS_NOT_NULL) || name.equals(IS_EMPTY)|| name.equals(IS_NOT_EMPTY)) {
+      if (!(value instanceof String)) {
+        throwRuntimeException(new IllegalArgumentException("call to [" + name + "] with value ["+ value+ "] requires a String value."));
+      }
+      String propertyName=calculatePropertyName((String)value);
+      if (name.equals(IS_NULL)) {
+        c=Restrictions.isNull(propertyName);
+      }
+ else       if (name.equals(IS_NOT_NULL)) {
+        c=Restrictions.isNotNull(propertyName);
+      }
+ else       if (name.equals(IS_EMPTY)) {
+        c=Restrictions.isEmpty(propertyName);
+      }
+ else       if (name.equals(IS_NOT_EMPTY)) {
+        c=Restrictions.isNotEmpty(propertyName);
+      }
+    }
+    if (c != null) {
+      return addToCriteria(c);
+    }
+  }
+  throw new MissingMethodException(name,getClass(),args);
+}

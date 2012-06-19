@@ -1,0 +1,43 @@
+{
+  final String operator=OPERATOR_OR.equals(operatorInUse) ? OPERATOR_OR : OPERATOR_AND;
+  return getHibernateTemplate().executeFind(new HibernateCallback<Object>(){
+    public Object doInHibernate(    Session session) throws HibernateException, SQLException {
+      final Criteria c=getCriteria(datastore,application,session,detachedCriteria,additionalCriteria,clazz);
+      Map argsMap=(arguments.length > 0 && (arguments[0] instanceof Map)) ? (Map)arguments[0] : Collections.EMPTY_MAP;
+      GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,c,argsMap);
+      if (operator.equals(OPERATOR_OR)) {
+        if (firstExpressionIsRequiredBoolean()) {
+          GrailsMethodExpression expression=(GrailsMethodExpression)expressions.remove(0);
+          c.add(expression.getCriterion());
+        }
+        Disjunction dis=Restrictions.disjunction();
+        int numberOfForceNoResultsCriterion=0;
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
+          if (GrailsMethodExpression.FORCE_NO_RESULTS == current.getCriterion()) {
+            numberOfForceNoResultsCriterion++;
+          }
+ else {
+            dis.add(current.getCriterion());
+          }
+        }
+        if (numberOfForceNoResultsCriterion > 0 && numberOfForceNoResultsCriterion == expressions.size()) {
+          return Collections.EMPTY_LIST;
+        }
+        c.add(dis);
+      }
+ else {
+        for (        Object expression : expressions) {
+          GrailsMethodExpression current=(GrailsMethodExpression)expression;
+          if (GrailsMethodExpression.FORCE_NO_RESULTS == current.getCriterion()) {
+            return Collections.emptyList();
+          }
+          c.add(current.getCriterion());
+        }
+      }
+      c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+      return c.list();
+    }
+  }
+);
+}

@@ -1,0 +1,25 @@
+{
+  RegexValidator multiple=new RegexValidator(MULTIPLE_REGEX);
+  RegexValidator single1=new RegexValidator(REGEX_1);
+  RegexValidator single2=new RegexValidator(REGEX_2);
+  RegexValidator single3=new RegexValidator(REGEX_3);
+  String value="aac FDE 321";
+  String expect="aacFDE321";
+  String[] array=new String[]{"aac","FDE","321"};
+  assertEquals("Sensitive isValid() Multiple",true,multiple.isValid(value));
+  assertEquals("Sensitive isValid() 1st",false,single1.isValid(value));
+  assertEquals("Sensitive isValid() 2nd",true,single2.isValid(value));
+  assertEquals("Sensitive isValid() 3rd",false,single3.isValid(value));
+  assertEquals("Sensitive validate() Multiple",expect,multiple.validate(value));
+  assertEquals("Sensitive validate() 1st",null,single1.validate(value));
+  assertEquals("Sensitive validate() 2nd",expect,single2.validate(value));
+  assertEquals("Sensitive validate() 3rd",null,single3.validate(value));
+  checkArray("Sensitive match() Multiple",array,multiple.match(value));
+  checkArray("Sensitive match() 1st",null,single1.match(value));
+  checkArray("Sensitive match() 2nd",array,single2.match(value));
+  checkArray("Sensitive match() 3rd",null,single3.match(value));
+  value="AAC*FDE*321";
+  assertEquals("isValid() Invalid",false,multiple.isValid(value));
+  assertEquals("validate() Invalid",null,multiple.validate(value));
+  assertEquals("match() Multiple",null,multiple.match(value));
+}

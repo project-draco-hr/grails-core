@@ -1,0 +1,8 @@
+{
+  Assert.hasLength(name,"Argument [name] cannot be null");
+  if (constraintClass == null || !Constraint.class.isAssignableFrom(constraintClass)) {
+    throw new IllegalArgumentException("Argument [constraintClass] with value [" + constraintClass + "] is not a valid constraint");
+  }
+  List<Object> objects=getOrInitializeConstraint(name);
+  objects.add(constraintClass);
+}

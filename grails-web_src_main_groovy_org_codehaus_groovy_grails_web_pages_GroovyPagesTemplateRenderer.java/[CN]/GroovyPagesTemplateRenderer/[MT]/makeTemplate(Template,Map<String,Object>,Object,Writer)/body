@@ -1,0 +1,39 @@
+{
+  String var=getStringValue(attrs,"var");
+  Map b=new LinkedHashMap<String,Object>();
+  b.put("body",body);
+  if (attrs.get("model") instanceof Map) {
+    b.putAll((Map)attrs.get("model"));
+  }
+  if (attrs.containsKey("bean")) {
+    if (StringUtils.isNotBlank(var)) {
+      b.put(var,attrs.get("bean"));
+    }
+ else {
+      b.put("it",attrs.get("bean"));
+    }
+  }
+  if (attrs.containsKey("collection")) {
+    String key=null;
+    Iterator<?> iterator=InvokerHelper.asIterator(attrs.get("collection"));
+    while (iterator.hasNext()) {
+      Object it=iterator.next();
+      if (key == null && StringUtils.isBlank(var) && it != null) {
+        key=GrailsNameUtils.getPropertyName(it.getClass());
+      }
+      Map itmap=new LinkedHashMap<String,Object>();
+      itmap.putAll(b);
+      if (StringUtils.isNotBlank(var)) {
+        itmap.put(var,it);
+      }
+ else {
+        itmap.put("it",it);
+        itmap.put(key,it);
+      }
+      t.make(itmap).writeTo(out);
+    }
+  }
+ else {
+    t.make(b).writeTo(out);
+  }
+}

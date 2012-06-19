@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isBlank(className)) {
+    return null;
+  }
+  for (  Class<?> c : allClasses) {
+    if (c.getName().equals(className)) {
+      return c;
+    }
+  }
+  return null;
+}

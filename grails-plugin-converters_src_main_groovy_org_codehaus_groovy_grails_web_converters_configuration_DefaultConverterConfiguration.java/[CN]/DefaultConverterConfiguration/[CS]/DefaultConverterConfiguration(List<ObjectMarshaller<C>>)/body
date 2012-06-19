@@ -1,0 +1,7 @@
+{
+  this();
+  int initPriority=-1;
+  for (  ObjectMarshaller<C> om : oms) {
+    registerObjectMarshaller(om,initPriority--);
+  }
+}

@@ -1,0 +1,8 @@
+{
+  PropertyFetcher fetcher=staticFetchers.get(name);
+  if (fetcher != null) {
+    Object v=getPropertyValueWithFetcher(name,fetcher);
+    return returnOnlyIfInstanceOf(v,c);
+  }
+  return null;
+}

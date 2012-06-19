@@ -1,0 +1,27 @@
+{
+  RequestDispatcher dispatcher=request.getRequestDispatcher(includeUrl);
+  HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
+  response=wrapped != null ? wrapped : response;
+  exposeIncludeRequestAttributes(request);
+  Map toRestore=exposeRequestAttributesAndReturnOldValues(request,model);
+  try {
+    final IncludeResponseWrapper responseWrapper=new IncludeResponseWrapper(response);
+    try {
+      WrappedResponseHolder.setWrappedResponse(responseWrapper);
+      dispatcher.include(request,responseWrapper);
+      if (responseWrapper.getRedirectURL() != null) {
+        return new IncludedContent(responseWrapper.getRedirectURL());
+      }
+      return new IncludedContent(responseWrapper.getContentType(),responseWrapper.getContent());
+    }
+  finally {
+      WrappedResponseHolder.setWrappedResponse(wrapped);
+    }
+  }
+ catch (  Exception e) {
+    throw new ControllerExecutionException("Unable to execute include: " + e.getMessage(),e);
+  }
+ finally {
+    cleanupIncludeRequestAttributes(request,toRestore);
+  }
+}

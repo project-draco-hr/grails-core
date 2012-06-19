@@ -1,0 +1,31 @@
+{
+  if (trouble || obj == null) {
+    usageFlag=true;
+    return;
+  }
+  Class<?> clazz=obj.getClass();
+  if (clazz == String.class) {
+    write((String)obj);
+  }
+ else   if (clazz == StreamCharBuffer.class) {
+    write((StreamCharBuffer)obj);
+  }
+ else   if (clazz == GStringImpl.class) {
+    write((Writable)obj);
+  }
+ else   if (obj instanceof Writable) {
+    write((Writable)obj);
+  }
+ else   if (obj instanceof CharSequence) {
+    try {
+      usageFlag=true;
+      out.append((CharSequence)obj);
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+    }
+  }
+ else {
+    write(String.valueOf(obj));
+  }
+}

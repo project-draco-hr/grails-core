@@ -1,0 +1,54 @@
+{
+  final MockApplicationContext appCtx=new MockApplicationContext();
+  try {
+    System.setProperty("grails.env","development");
+    appCtx.registerMockBean("localeInterceptor",new LocaleChangeInterceptor());
+    appCtx.registerMockBean("openSessionInView",new OpenSessionInViewInterceptor());
+    appCtx.registerMockBean("grailsUrlConverter",new HyphenatedUrlConverter());
+    SimpleGrailsController controller=new SimpleGrailsController();
+    appCtx.registerMockBean("mainSimpleController",controller);
+    GrailsControllerHandlerMapping handlerMapping=new GrailsControllerHandlerMapping();
+    appCtx.registerMockBean("controllerHandlerMappings",handlerMapping);
+    GrailsDispatcherServlet dispatcherServlet=new GrailsDispatcherServlet(){
+      @Override protected WebApplicationContext initWebApplicationContext(){
+        initStrategies(appCtx);
+        return appCtx;
+      }
+    }
+;
+    GroovyClassLoader cl=new GrailsAwareClassLoader();
+    cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController {" + "def action = {} " + "}");
+    final DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication(cl.getLoadedClasses(),cl);
+    MockApplicationContext mainContext=new MockApplicationContext();
+    mainContext.registerMockBean(UrlConverter.BEAN_NAME,new CamelCaseUrlConverter());
+    grailsApplication.setMainContext(mainContext);
+    grailsApplication.initialise();
+    handlerMapping.setGrailsApplication(grailsApplication);
+    handlerMapping.setApplicationContext(appCtx);
+    grailsApplication.setMainContext(appCtx);
+    dispatcherServlet.setApplication(grailsApplication);
+    dispatcherServlet.init(new MockServletConfig(new MockServletContext()));
+    GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,"TestController");
+    controllerClass.initialize();
+    MockHttpServletRequest request=new MockHttpServletRequest("GET","/test/action");
+    HandlerExecutionChain executionChain=dispatcherServlet.getHandler(request);
+    assertNotNull(executionChain);
+    assertEquals(2,executionChain.getInterceptors().length);
+    for (int i=0; i < executionChain.getInterceptors().length; i++) {
+      HandlerInterceptor interceptor=executionChain.getInterceptors()[i];
+      assertNotNull(interceptor);
+    }
+    request=new MockHttpServletRequest("GET","/test/action/1");
+    executionChain=dispatcherServlet.getHandler(request);
+    assertNotNull(executionChain);
+    request=new MockHttpServletRequest("GET","/test/action/1/param/value");
+    executionChain=dispatcherServlet.getHandler(request);
+    assertNotNull(executionChain);
+    request=new MockHttpServletRequest("GET","/context/rubbish/action");
+    executionChain=dispatcherServlet.getHandler(request);
+    assertNull(executionChain);
+  }
+  finally {
+    System.setProperty("grails.env","");
+  }
+}

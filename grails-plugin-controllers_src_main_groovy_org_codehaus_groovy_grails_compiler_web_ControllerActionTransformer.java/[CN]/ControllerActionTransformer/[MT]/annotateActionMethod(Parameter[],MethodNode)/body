@@ -1,0 +1,14 @@
+{
+  if (isCommandObjectAction(parameters)) {
+    ListExpression initArray=new ListExpression();
+    for (    Parameter parameter : parameters) {
+      initArray.addExpression(new ClassExpression(parameter.getType()));
+    }
+    AnnotationNode paramActionAnn=new AnnotationNode(new ClassNode(Action.class));
+    paramActionAnn.setMember(ACTION_MEMBER_TARGET,initArray);
+    methodNode.addAnnotation(paramActionAnn);
+  }
+ else {
+    methodNode.addAnnotation(ACTION_ANNOTATION_NODE);
+  }
+}

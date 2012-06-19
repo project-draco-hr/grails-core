@@ -1,0 +1,18 @@
+{
+  stream=new StreamingMarkupWriter(out,encoding);
+  writer=config.isPrettyPrint() ? new PrettyPrintXMLStreamWriter(stream) : new XMLStreamWriter(stream);
+  try {
+    isRendering=true;
+    writer.startDocument(encoding,"1.0");
+    writer.startNode(getElementName(target));
+    convertAnother(target);
+    writer.end();
+  }
+ catch (  Exception e) {
+    throw new ConverterException(e);
+  }
+ finally {
+    finalizeRender(out);
+    isRendering=false;
+  }
+}

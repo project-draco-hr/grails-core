@@ -1,0 +1,5 @@
+{
+  Assert.hasLength(constraintPropertyName,"Property 'propertyName' must be set on the constraint");
+  Assert.notNull(constraintOwningClass,"Property 'owningClass' must be set on the constraint");
+  Assert.notNull(constraintParameter,"Property 'constraintParameter' must be set on the constraint");
+}

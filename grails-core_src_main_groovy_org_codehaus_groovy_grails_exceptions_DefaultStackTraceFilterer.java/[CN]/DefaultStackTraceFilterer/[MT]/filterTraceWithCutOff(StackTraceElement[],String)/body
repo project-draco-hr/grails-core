@@ -1,0 +1,18 @@
+{
+  List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
+  boolean foundGroovy=false;
+  for (  StackTraceElement stackTraceElement : trace) {
+    String className=stackTraceElement.getClassName();
+    String fileName=stackTraceElement.getFileName();
+    if (!foundGroovy && fileName != null && fileName.endsWith(".groovy")) {
+      foundGroovy=true;
+    }
+    if (endPackage != null && className.startsWith(endPackage) && foundGroovy)     break;
+    if (isApplicationClass(className)) {
+      if (stackTraceElement.getLineNumber() > -1) {
+        newTrace.add(stackTraceElement);
+      }
+    }
+  }
+  return newTrace;
+}

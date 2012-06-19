@@ -1,0 +1,4 @@
+{
+  assertEquals("Test",GrailsNameUtils.getLogicalName("TestController","Controller"));
+  assertEquals("Test",GrailsNameUtils.getLogicalName("org.music.TestController","Controller"));
+}

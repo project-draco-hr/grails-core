@@ -1,0 +1,9 @@
+{
+  String className=theClazz.getName();
+  for (  Class<?> artefactClass : allArtefactClasses) {
+    if (className.equals(artefactClass.getName())) {
+      return true;
+    }
+  }
+  return false;
+}

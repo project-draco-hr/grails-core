@@ -1,0 +1,16 @@
+{
+  out.println();
+  out.println("@org.codehaus.groovy.grails.web.transform.LineNumber(");
+  out.print("\tlines = [");
+  int[] lineNumbers=filterTrailing0s(out.getLineNumbers());
+  for (int i=0; i < lineNumbers.length; i++) {
+    out.print(lineNumbers[i]);
+    if (i < lineNumbers.length - 1) {
+      out.print(", ");
+    }
+  }
+  out.println("],");
+  out.println("\tsourceName = \"" + sourceName + "\"");
+  out.println(")");
+  out.println("class ___LineNumberPlaceholder { }");
+}

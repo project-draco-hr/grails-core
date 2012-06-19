@@ -1,0 +1,9 @@
+{
+  DependencyDescriptor[] pomDependencies=readDependenciesFromPOM();
+  if (pomDependencies == null) {
+    return;
+  }
+  for (  DependencyDescriptor dependencyDescriptor : pomDependencies) {
+    registerPomDependency(dependencyDescriptor);
+  }
+}

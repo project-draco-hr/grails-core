@@ -1,0 +1,14 @@
+{
+  Map<String,String> result=new HashMap<String,String>();
+  String input=PRESCAN_COMMENT_PATTERN.matcher(gspSource).replaceAll("");
+  Matcher m=PRESCAN_PAGE_DIRECTIVE_PATTERN.matcher(input);
+  if (m.find()) {
+    Matcher mat=PAGE_DIRECTIVE_PATTERN.matcher(m.group(1));
+    while (mat.find()) {
+      String name=mat.group(1);
+      String value=mat.group(2);
+      result.put(name,value);
+    }
+  }
+  return result;
+}

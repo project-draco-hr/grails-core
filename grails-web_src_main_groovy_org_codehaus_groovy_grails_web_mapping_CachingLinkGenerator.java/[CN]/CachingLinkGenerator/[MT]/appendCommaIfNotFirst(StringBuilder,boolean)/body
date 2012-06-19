@@ -1,0 +1,9 @@
+{
+  if (first) {
+    first=false;
+  }
+ else {
+    buffer.append(COMMA_SEPARATOR);
+  }
+  return first;
+}

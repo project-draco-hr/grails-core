@@ -1,0 +1,4 @@
+{
+  super(parent);
+  metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(getClass());
+}

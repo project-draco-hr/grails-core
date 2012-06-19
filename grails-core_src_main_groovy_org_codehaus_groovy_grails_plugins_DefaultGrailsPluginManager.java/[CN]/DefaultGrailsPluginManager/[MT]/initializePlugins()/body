@@ -1,0 +1,7 @@
+{
+  for (  Object plugin : plugins.values()) {
+    if (plugin instanceof ApplicationContextAware) {
+      ((ApplicationContextAware)plugin).setApplicationContext(applicationContext);
+    }
+  }
+}

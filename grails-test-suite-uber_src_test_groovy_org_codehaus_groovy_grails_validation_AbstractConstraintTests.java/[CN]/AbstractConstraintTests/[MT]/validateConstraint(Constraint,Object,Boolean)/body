@@ -1,0 +1,14 @@
+{
+  BeanWrapper constrainedBean=new BeanWrapperImpl(new TestClass());
+  constrainedBean.setPropertyValue(constraint.getPropertyName(),value);
+  Errors errors=new BindException(constrainedBean.getWrappedInstance(),constrainedBean.getWrappedClass().getName());
+  if (!(constraint instanceof VetoingConstraint) || shouldVeto == null) {
+    constraint.validate(constrainedBean.getWrappedInstance(),value,errors);
+  }
+ else {
+    boolean vetoed=((VetoingConstraint)constraint).validateWithVetoing(constrainedBean.getWrappedInstance(),value,errors);
+    if (shouldVeto.booleanValue() && !vetoed)     fail("Constraint should veto");
+ else     if (!shouldVeto.booleanValue() && vetoed)     fail("Constraint shouldn't veto");
+  }
+  return errors;
+}

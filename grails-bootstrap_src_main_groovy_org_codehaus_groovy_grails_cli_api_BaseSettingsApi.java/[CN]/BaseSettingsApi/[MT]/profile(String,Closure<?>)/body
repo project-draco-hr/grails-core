@@ -1,0 +1,13 @@
+{
+  if (enableProfile) {
+    long now=System.currentTimeMillis();
+    GrailsConsole console=GrailsConsole.getInstance();
+    console.addStatus("Profiling [" + name + "] start");
+    callable.call();
+    long then=System.currentTimeMillis() - now;
+    console.addStatus("Profiling [" + name + "] finish. Took "+ then+ " ms");
+  }
+ else {
+    callable.call();
+  }
+}

@@ -1,0 +1,7 @@
+{
+  out.print("else if(");
+  out.print(env);
+  out.print(" && ");
+  out.print(test);
+  out.println(") {");
+}

@@ -1,0 +1,6 @@
+{
+  setExposeNativeSession(true);
+  if (application != null) {
+    setCacheQueries(GrailsHibernateUtil.isCacheQueriesByDefault(application));
+  }
+}

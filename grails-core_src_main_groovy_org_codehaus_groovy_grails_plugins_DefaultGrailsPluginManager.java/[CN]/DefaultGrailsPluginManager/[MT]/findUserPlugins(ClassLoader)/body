@@ -1,0 +1,24 @@
+{
+  List<GrailsPlugin> grailsUserPlugins=new ArrayList<GrailsPlugin>();
+  LOG.info("Attempting to load [" + pluginResources.length + "] user defined plugins");
+  for (  Resource r : pluginResources) {
+    Class<?> pluginClass=loadPluginClass(gcl,r);
+    if (isGrailsPlugin(pluginClass)) {
+      GrailsPlugin plugin=createGrailsPlugin(pluginClass,r);
+      grailsUserPlugins.add(plugin);
+    }
+ else {
+      LOG.warn("Class [" + pluginClass + "] not loaded as plug-in. Grails plug-ins must end with the convention 'GrailsPlugin'!");
+    }
+  }
+  for (  Class<?> pluginClass : pluginClasses) {
+    if (isGrailsPlugin(pluginClass)) {
+      GrailsPlugin plugin=createGrailsPlugin(pluginClass);
+      grailsUserPlugins.add(plugin);
+    }
+ else {
+      LOG.warn("Class [" + pluginClass + "] not loaded as plug-in. Grails plug-ins must end with the convention 'GrailsPlugin'!");
+    }
+  }
+  return grailsUserPlugins;
+}

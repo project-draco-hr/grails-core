@@ -1,0 +1,4 @@
+{
+  super(new StreamCharBuffer(initialChunkSize).getWriter());
+  streamBuffer=((StreamCharBuffer.StreamCharBufferWriter)getOut()).getBuffer();
+}

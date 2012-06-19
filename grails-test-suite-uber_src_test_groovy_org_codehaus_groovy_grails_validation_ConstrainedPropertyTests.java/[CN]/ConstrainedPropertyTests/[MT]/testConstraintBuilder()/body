@@ -1,0 +1,36 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  Class groovyClass=gcl.parseClass("class TestClass {\n" + "Long id\n" + "Long version\n"+ "String login\n"+ "String other\n"+ "String email\n"+ "static constraints = {\n"+ "login(size:5..15,nullable:false,blank:false)\n"+ "other(blank:false,size:5..15,nullable:false)\n"+ "email(email:true)\n"+ "}\n"+ "}");
+  GrailsDomainClass domainClass=new DefaultGrailsDomainClass(groovyClass);
+  Map constrainedProperties=domainClass.getConstrainedProperties();
+  assertTrue(constrainedProperties.size() == 3);
+  ConstrainedProperty loginConstraint=(ConstrainedProperty)constrainedProperties.get("login");
+  Collection appliedConstraints=loginConstraint.getAppliedConstraints();
+  assertTrue(appliedConstraints.size() == 3);
+  int index=0;
+  String[] constraintNames=new String[]{"size","nullable","blank"};
+  for (Iterator iter=appliedConstraints.iterator(); iter.hasNext(); ) {
+    Constraint c=(Constraint)iter.next();
+    assertEquals(constraintNames[index],c.getName());
+    index++;
+  }
+  appliedConstraints=((ConstrainedProperty)constrainedProperties.get("other")).getAppliedConstraints();
+  index=0;
+  constraintNames=new String[]{"blank","size","nullable"};
+  for (Iterator iter=appliedConstraints.iterator(); iter.hasNext(); ) {
+    Constraint c=(Constraint)iter.next();
+    assertEquals(constraintNames[index],c.getName());
+    index++;
+  }
+  ConstrainedProperty emailConstraint=(ConstrainedProperty)constrainedProperties.get("email");
+  assertEquals(2,emailConstraint.getAppliedConstraints().size());
+  GroovyObject go=(GroovyObject)groovyClass.newInstance();
+  go.setProperty("email","rubbish_email");
+  Errors errors=new BindException(go,"TestClass");
+  emailConstraint.validate(go,go.getProperty("email"),errors);
+  assertTrue(errors.hasErrors());
+  go.setProperty("email","valid@email.com");
+  errors=new BindException(go,"TestClass");
+  emailConstraint.validate(go,go.getProperty("email"),errors);
+  assertFalse(errors.hasErrors());
+}

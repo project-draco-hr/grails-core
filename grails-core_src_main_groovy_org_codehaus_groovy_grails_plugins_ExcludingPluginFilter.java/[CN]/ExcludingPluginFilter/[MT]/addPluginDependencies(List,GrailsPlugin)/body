@@ -1,0 +1,13 @@
+{
+  String pluginName=plugin.getName();
+  Collection<GrailsPlugin> values=getAllPlugins();
+  for (  GrailsPlugin p : values) {
+    if (pluginName.equals(p.getName())) {
+      continue;
+    }
+    boolean depends=isDependentOn(p,pluginName);
+    if (depends) {
+      registerDependency(additionalList,p);
+    }
+  }
+}

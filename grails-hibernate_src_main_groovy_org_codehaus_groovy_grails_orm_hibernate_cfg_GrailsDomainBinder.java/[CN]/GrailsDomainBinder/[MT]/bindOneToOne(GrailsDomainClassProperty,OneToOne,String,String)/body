@@ -1,0 +1,22 @@
+{
+  PropertyConfig config=getPropertyConfig(property);
+  final GrailsDomainClassProperty otherSide=property.getOtherSide();
+  oneToOne.setConstrained(otherSide.isHasOne());
+  oneToOne.setForeignKeyType(oneToOne.isConstrained() ? ForeignKeyDirection.FOREIGN_KEY_FROM_PARENT : ForeignKeyDirection.FOREIGN_KEY_TO_PARENT);
+  oneToOne.setAlternateUniqueKey(true);
+  if (config != null && config.getFetch() != null) {
+    oneToOne.setFetchMode(config.getFetch());
+  }
+ else {
+    oneToOne.setFetchMode(FetchMode.DEFAULT);
+  }
+  oneToOne.setReferencedEntityName(otherSide.getDomainClass().getFullName());
+  oneToOne.setPropertyName(property.getName());
+  if (otherSide.isHasOne()) {
+    PropertyConfig pc=getPropertyConfig(property);
+    bindSimpleValue(property,oneToOne,path,pc,sessionFactoryBeanName);
+  }
+ else {
+    oneToOne.setReferencedPropertyName(otherSide.getName());
+  }
+}

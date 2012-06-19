@@ -1,0 +1,8 @@
+{
+  try {
+    return getSession(false).isOpen();
+  }
+ catch (  IllegalStateException e) {
+    return false;
+  }
+}

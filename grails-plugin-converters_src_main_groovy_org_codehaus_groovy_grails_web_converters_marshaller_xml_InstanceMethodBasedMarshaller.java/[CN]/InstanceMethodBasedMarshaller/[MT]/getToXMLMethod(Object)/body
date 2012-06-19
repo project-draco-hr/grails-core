@@ -1,0 +1,7 @@
+{
+  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(object.getClass());
+  if (mc != null) {
+    return mc.getMetaMethod("toXML",new Object[]{XML.class});
+  }
+  return null;
+}

@@ -1,0 +1,6 @@
+{
+  loadExternalSpringConfig(config,application);
+  if (context != null) {
+    springGroovyResourcesBeanBuilder.registerBeans(context);
+  }
+}

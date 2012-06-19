@@ -1,0 +1,60 @@
+{
+  Map params=new HashMap();
+  Errors errors=new MapBindingResult(params,"urlMapping");
+  String lastGroup=null;
+  for (int i=0; i < m.groupCount(); i++) {
+    lastGroup=m.group(i + 1);
+    int j=lastGroup.indexOf('?');
+    if (j > -1) {
+      lastGroup=lastGroup.substring(0,j);
+    }
+    if (constraints.length > i) {
+      ConstrainedProperty cp=constraints[i];
+      cp.validate(this,lastGroup,errors);
+      if (errors.hasErrors()) {
+        return null;
+      }
+      params.put(cp.getPropertyName(),lastGroup);
+    }
+  }
+  Map<String,Object> config=grailsApplication != null ? grailsApplication.getFlatConfig() : null;
+  if (lastGroup != null && config != null && Boolean.TRUE.equals(config.get("grails.mapping.legacyMapping"))) {
+    String remainingUri=uri.substring(uri.lastIndexOf(lastGroup) + lastGroup.length());
+    if (remainingUri.length() > 0) {
+      if (remainingUri.startsWith(SLASH))       remainingUri=remainingUri.substring(1);
+      String[] tokens=remainingUri.split(SLASH);
+      for (int i=0; i < tokens.length; i=i + 2) {
+        String token=tokens[i];
+        if ((i + 1) < tokens.length) {
+          params.put(token,tokens[i + 1]);
+        }
+      }
+    }
+  }
+  for (  Object key : parameterValues.keySet()) {
+    params.put(key,parameterValues.get(key));
+  }
+  if (controllerName == null) {
+    controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,constraints);
+  }
+  if (actionName == null) {
+    actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,constraints);
+  }
+  if (viewName == null) {
+    viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);
+  }
+  DefaultUrlMappingInfo info;
+  if (forwardURI != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(forwardURI,urlData,servletContext);
+  }
+ else   if (viewName != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
+  }
+ else {
+    info=new DefaultUrlMappingInfo(controllerName,actionName,getViewName(),params,urlData,servletContext);
+  }
+  if (parseRequest) {
+    info.setParsingRequest(parseRequest);
+  }
+  return info;
+}

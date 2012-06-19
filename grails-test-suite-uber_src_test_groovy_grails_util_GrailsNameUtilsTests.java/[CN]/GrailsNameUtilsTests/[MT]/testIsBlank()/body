@@ -1,0 +1,8 @@
+{
+  assertTrue("'null' value should count as blank.",GrailsNameUtils.isBlank(null));
+  assertTrue("Empty string should count as blank.",GrailsNameUtils.isBlank(""));
+  assertTrue("Spaces should count as blank.",GrailsNameUtils.isBlank("  "));
+  assertTrue("A tab should count as blank.",GrailsNameUtils.isBlank("\t"));
+  assertFalse("String with whitespace and non-whitespace should not count as blank.",GrailsNameUtils.isBlank("\t  h"));
+  assertFalse("String should not count as blank.",GrailsNameUtils.isBlank("test"));
+}

@@ -1,0 +1,9 @@
+{
+  if (persistentProperty.isEmbedded()) {
+    return persistentProperty.getComponent();
+  }
+  if (grailsApplication != null) {
+    return getAssociatedDomainClassFromApplication(associatedObject);
+  }
+  return persistentProperty.getReferencedDomainClass();
+}

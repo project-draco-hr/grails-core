@@ -1,0 +1,4 @@
+{
+  WebApplicationContext ctx=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  return (MultipartResolver)ctx.getBean(DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME);
+}

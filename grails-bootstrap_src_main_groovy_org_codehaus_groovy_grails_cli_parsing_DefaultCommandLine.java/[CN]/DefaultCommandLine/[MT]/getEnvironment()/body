@@ -1,0 +1,14 @@
+{
+  boolean useDefaultEnv=environment == null;
+  String env;
+  if (useDefaultEnv && commandName != null) {
+    env=lookupEnvironmentForCommand();
+  }
+ else {
+    String fallbackEnv=System.getProperty(Environment.KEY) != null ? System.getProperty(Environment.KEY) : Environment.DEVELOPMENT.getName();
+    env=environment != null ? environment : fallbackEnv;
+  }
+  System.setProperty(Environment.KEY,env);
+  System.setProperty(Environment.DEFAULT,String.valueOf(useDefaultEnv));
+  return env;
+}

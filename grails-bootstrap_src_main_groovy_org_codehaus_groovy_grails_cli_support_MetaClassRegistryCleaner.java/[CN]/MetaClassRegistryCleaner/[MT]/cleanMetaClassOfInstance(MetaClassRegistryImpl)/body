@@ -1,0 +1,14 @@
+{
+  List<IdentityWeakReference> keys=new ArrayList<IdentityWeakReference>(alteredInstances.keySet());
+  for (  IdentityWeakReference key : keys) {
+    Object instance=key.get();
+    if (instance != null) {
+      Object alteredMetaClass=alteredInstances.get(key);
+      if (alteredMetaClass == NO_CUSTOM_METACLASS) {
+        alteredMetaClass=null;
+      }
+      registry.setMetaClass(instance,(MetaClass)alteredMetaClass);
+    }
+  }
+  alteredInstances.clear();
+}

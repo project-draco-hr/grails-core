@@ -1,0 +1,5 @@
+{
+  TestBean testBean=new TestBean();
+  assertEquals("userName",GrailsClassUtils.findPropertyNameForValue(testBean,testBean.getUserName()));
+  assertEquals("welcomeMessage",GrailsClassUtils.findPropertyNameForValue(testBean,TestBean.getWelcomeMessage()));
+}

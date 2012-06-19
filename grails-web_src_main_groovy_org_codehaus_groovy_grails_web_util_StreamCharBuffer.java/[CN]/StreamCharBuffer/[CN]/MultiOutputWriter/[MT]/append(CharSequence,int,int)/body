@@ -1,0 +1,6 @@
+{
+  for (  ConnectedWriter writer : writers) {
+    writer.getWriter().append(csq,start,end);
+  }
+  return this;
+}

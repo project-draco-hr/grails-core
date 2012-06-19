@@ -1,0 +1,3 @@
+{
+  return Collections.synchronizedMap(new ReferenceMap(ReferenceMap.SOFT,ReferenceMap.SOFT));
+}

@@ -1,0 +1,13 @@
+{
+  assertFalse("bare TLD .org shouldn't validate",validator.isValid(".org"));
+  assertFalse("domain name with spaces shouldn't validate",validator.isValid(" apache.org "));
+  assertFalse("domain name containing spaces shouldn't validate",validator.isValid("apa che.org"));
+  assertFalse("domain name starting with dash shouldn't validate",validator.isValid("-testdomain.name"));
+  assertFalse("domain name ending with dash shouldn't validate",validator.isValid("testdomain-.name"));
+  assertFalse("domain name starting with multiple dashes shouldn't validate",validator.isValid("---c.com"));
+  assertFalse("domain name ending with multiple dashes shouldn't validate",validator.isValid("c--.com"));
+  assertFalse("domain name with invalid TLD shouldn't validate",validator.isValid("apache.rog"));
+  assertFalse("URL shouldn't validate",validator.isValid("http://www.apache.org"));
+  assertFalse("Empty string shouldn't validate as domain name",validator.isValid(" "));
+  assertFalse("Null shouldn't validate as domain name",validator.isValid(null));
+}

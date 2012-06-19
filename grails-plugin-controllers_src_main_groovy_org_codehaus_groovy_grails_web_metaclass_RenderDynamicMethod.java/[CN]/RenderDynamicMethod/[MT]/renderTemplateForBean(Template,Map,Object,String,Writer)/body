@@ -1,0 +1,9 @@
+{
+  if (StringUtils.isBlank(varName)) {
+    binding.put(DEFAULT_ARGUMENT,bean);
+  }
+ else {
+    binding.put(varName,bean);
+  }
+  template.make(binding).writeTo(out);
+}

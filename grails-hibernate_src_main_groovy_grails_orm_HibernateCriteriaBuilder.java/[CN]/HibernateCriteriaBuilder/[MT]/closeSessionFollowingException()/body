@@ -1,0 +1,6 @@
+{
+  if (hibernateSession != null && hibernateSession.isOpen() && !participate) {
+    hibernateSession.close();
+  }
+  criteria=null;
+}

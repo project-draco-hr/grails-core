@@ -1,0 +1,6 @@
+{
+  if (c != null) {
+    c.setDelegate(this);
+    c.call();
+  }
+}

@@ -1,0 +1,10 @@
+{
+  BeanWrapper dsBean=new BeanWrapperImpl(obj);
+  for (  Object o : entryProperties.entrySet()) {
+    Map.Entry entry2=(Map.Entry)o;
+    final String propertyName=entry2.getKey().toString();
+    if (dsBean.isWritableProperty(propertyName)) {
+      dsBean.setPropertyValue(propertyName,entry2.getValue());
+    }
+  }
+}

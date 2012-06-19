@@ -1,0 +1,4 @@
+{
+  Assert.notNull(templateName,"Argument [template] cannot be null");
+  return groovyPagesUriService.getTemplateURI(getControllerName(request),templateName.toString());
+}

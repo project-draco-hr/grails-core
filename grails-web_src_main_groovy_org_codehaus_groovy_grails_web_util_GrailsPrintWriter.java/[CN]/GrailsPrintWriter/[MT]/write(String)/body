@@ -1,0 +1,12 @@
+{
+  usageFlag=true;
+  if (trouble || s == null) {
+    return;
+  }
+  try {
+    out.write(s);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

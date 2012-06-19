@@ -1,0 +1,10 @@
+{
+  try {
+    Object scriptRunner=createScriptRunner();
+    Object retval=scriptRunner.getClass().getMethod("executeCommand",new Class[]{String.class,String.class,String.class}).invoke(scriptRunner,new Object[]{script,args,env});
+    return ((Integer)retval).intValue();
+  }
+ catch (  Exception ex) {
+    throw new RuntimeException(ex);
+  }
+}

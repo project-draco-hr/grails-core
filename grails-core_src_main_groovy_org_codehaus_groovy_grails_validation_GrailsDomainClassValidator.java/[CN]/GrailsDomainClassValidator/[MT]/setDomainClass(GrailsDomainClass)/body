@@ -1,0 +1,5 @@
+{
+  this.domainClass=domainClass;
+  domainClass.setValidator(this);
+  targetClass=domainClass.getClazz();
+}

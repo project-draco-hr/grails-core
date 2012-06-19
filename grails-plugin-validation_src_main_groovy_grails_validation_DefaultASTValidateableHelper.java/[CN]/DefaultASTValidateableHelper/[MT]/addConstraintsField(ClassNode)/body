@@ -1,0 +1,6 @@
+{
+  FieldNode field=classNode.getField(CONSTRAINED_PROPERTIES_PROPERTY_NAME);
+  if (field == null || !field.getDeclaringClass().equals(classNode)) {
+    classNode.addField(CONSTRAINED_PROPERTIES_PROPERTY_NAME,Modifier.STATIC | Modifier.PRIVATE,new ClassNode(Map.class),new ConstantExpression(null));
+  }
+}

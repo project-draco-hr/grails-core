@@ -1,0 +1,4 @@
+{
+  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  return (GrailsApplication)wac.getBean(GrailsApplication.APPLICATION_ID);
+}

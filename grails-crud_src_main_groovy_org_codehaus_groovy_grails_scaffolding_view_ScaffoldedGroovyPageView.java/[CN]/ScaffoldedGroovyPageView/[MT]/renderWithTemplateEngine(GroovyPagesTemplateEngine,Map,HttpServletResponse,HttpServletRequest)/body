@@ -1,0 +1,20 @@
+{
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Rendering scaffolded view [" + getUrl() + "] with model ["+ model+ "]");
+  }
+  request.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,Boolean.TRUE);
+  Writable w=template.make(model);
+  Writer out=null;
+  try {
+    out=createResponseWriter(response);
+    w.writeTo(out);
+  }
+ catch (  Exception e) {
+    handleException(e,templateEngine);
+  }
+ finally {
+    if (out != null) {
+      out.close();
+    }
+  }
+}

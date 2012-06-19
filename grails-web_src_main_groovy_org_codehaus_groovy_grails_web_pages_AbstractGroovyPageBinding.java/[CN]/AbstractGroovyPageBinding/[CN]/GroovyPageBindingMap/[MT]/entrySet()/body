@@ -1,0 +1,11 @@
+{
+  return UnmodifiableSet.decorate(new AbstractSet(){
+    @Override public Iterator iterator(){
+      return entryIterator();
+    }
+    @Override public int size(){
+      return binding.getVariableNames().size();
+    }
+  }
+);
+}

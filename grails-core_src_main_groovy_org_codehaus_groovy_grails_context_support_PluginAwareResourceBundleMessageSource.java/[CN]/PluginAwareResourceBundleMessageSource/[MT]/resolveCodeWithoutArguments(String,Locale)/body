@@ -1,0 +1,7 @@
+{
+  String msg=super.resolveCodeWithoutArguments(code,locale);
+  if (msg == null) {
+    return resolveCodeWithoutArgumentsFromPlugins(code,locale);
+  }
+  return msg;
+}

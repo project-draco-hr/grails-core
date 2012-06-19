@@ -1,0 +1,12 @@
+{
+  Expression value=node.getMember("value");
+  ListExpression values=null;
+  if (value instanceof ListExpression) {
+    values=(ListExpression)value;
+  }
+ else   if (value instanceof ClassExpression) {
+    values=new ListExpression();
+    values.addExpression(value);
+  }
+  return values;
+}

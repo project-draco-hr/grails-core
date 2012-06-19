@@ -1,0 +1,19 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  GroovyPageLocatorCacheKey other=(GroovyPageLocatorCacheKey)obj;
+  if (contextPath == null) {
+    if (other.contextPath != null)     return false;
+  }
+ else   if (!contextPath.equals(other.contextPath))   return false;
+  if (pluginName == null) {
+    if (other.pluginName != null)     return false;
+  }
+ else   if (!pluginName.equals(other.pluginName))   return false;
+  if (uri == null) {
+    if (other.uri != null)     return false;
+  }
+ else   if (!uri.equals(other.uri))   return false;
+  return true;
+}

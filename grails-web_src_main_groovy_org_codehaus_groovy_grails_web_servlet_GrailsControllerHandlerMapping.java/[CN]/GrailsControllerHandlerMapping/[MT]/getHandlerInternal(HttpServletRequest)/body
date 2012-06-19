@@ -1,0 +1,8 @@
+{
+  String uri=urlHelper.getPathWithinApplication(request);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Looking up Grails controller for URI [" + uri + "]");
+  }
+  GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefactForFeature(ControllerArtefactHandler.TYPE,uri);
+  return getHandlerForControllerClass(controllerClass,request);
+}

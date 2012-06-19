@@ -1,0 +1,21 @@
+{
+  List<Object> candidateConstraints=constraints.get(constraintName);
+  for (  Object constraintFactory : candidateConstraints) {
+    Constraint c;
+    if (constraintFactory instanceof ConstraintFactory) {
+      c=((ConstraintFactory)constraintFactory).newInstance();
+    }
+ else {
+      c=(Constraint)((Class<?>)constraintFactory).newInstance();
+    }
+    c.setOwningClass(owningClass);
+    c.setPropertyName(propertyName);
+    if (validate && c.isValid()) {
+      return c;
+    }
+ else     if (!validate) {
+      return c;
+    }
+  }
+  return null;
+}

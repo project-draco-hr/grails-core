@@ -1,0 +1,10 @@
+{
+  Collection excludes=(Collection)map.get(EXCLUDES);
+  if (excludes == null) {
+    excludes=new ArrayList();
+    map.put(EXCLUDES,excludes);
+  }
+  Collection includes=(Collection)map.get(INCLUDES);
+  if (includes != null)   includes.remove(o);
+  excludes.add(o);
+}

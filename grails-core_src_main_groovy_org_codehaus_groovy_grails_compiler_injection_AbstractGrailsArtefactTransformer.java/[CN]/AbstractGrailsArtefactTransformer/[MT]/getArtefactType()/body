@@ -1,0 +1,7 @@
+{
+  String simpleName=getClass().getSimpleName();
+  if (simpleName.length() > 11) {
+    return simpleName.substring(0,simpleName.length() - 11);
+  }
+  return simpleName;
+}

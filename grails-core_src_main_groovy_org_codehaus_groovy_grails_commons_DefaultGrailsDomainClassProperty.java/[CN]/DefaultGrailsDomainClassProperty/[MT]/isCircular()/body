@@ -1,0 +1,11 @@
+{
+  if (otherSide != null) {
+    if (otherSide.getDomainClass().getClazz().isAssignableFrom(domainClass.getClazz())) {
+      return true;
+    }
+  }
+ else   if (getReferencedPropertyType().isAssignableFrom(domainClass.getClazz())) {
+    return true;
+  }
+  return false;
+}

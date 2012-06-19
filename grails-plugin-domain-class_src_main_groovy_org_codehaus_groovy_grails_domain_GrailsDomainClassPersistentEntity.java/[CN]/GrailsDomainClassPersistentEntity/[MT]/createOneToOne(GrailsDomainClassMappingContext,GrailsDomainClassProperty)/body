@@ -1,0 +1,10 @@
+{
+  final OneToOne oneToOne=new OneToOne(this,ctx,grailsDomainClassProperty.getName(),grailsDomainClassProperty.getType()){
+    public PropertyMapping getMapping(){
+      return null;
+    }
+  }
+;
+  configureAssociation(grailsDomainClassProperty,oneToOne);
+  return oneToOne;
+}

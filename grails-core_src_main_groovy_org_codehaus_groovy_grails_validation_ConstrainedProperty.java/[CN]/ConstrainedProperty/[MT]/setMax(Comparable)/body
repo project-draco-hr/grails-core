@@ -1,0 +1,25 @@
+{
+  if (max == null) {
+    appliedConstraints.remove(MAX_CONSTRAINT);
+    return;
+  }
+  if (!propertyType.equals(max.getClass())) {
+    throw new MissingPropertyException(MAX_CONSTRAINT,propertyType);
+  }
+  Range r=getRange();
+  if (r != null) {
+    LOG.warn("Range constraint already set ignoring constraint [" + MAX_CONSTRAINT + "] for value ["+ max+ "]");
+    return;
+  }
+  Constraint c=appliedConstraints.get(MAX_CONSTRAINT);
+  if (c != null) {
+    c.setParameter(max);
+  }
+ else {
+    c=new MaxConstraint();
+    c.setOwningClass(owningClass);
+    c.setPropertyName(propertyName);
+    c.setParameter(max);
+    appliedConstraints.put(MAX_CONSTRAINT,c);
+  }
+}

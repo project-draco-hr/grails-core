@@ -1,0 +1,6 @@
+{
+  for (int i=0; i < constructorArgs.length; i++) {
+    Object constructorArg=constructorArgs[i];
+    if (constructorArg instanceof GString)     constructorArgs[i]=constructorArg.toString();
+  }
+}

@@ -1,0 +1,28 @@
+{
+  GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+  for (  GrailsPlugin plugin : allPlugins) {
+    GrailsPluginInfo info=compiler.getPluginSettings().getPluginInfoForName(plugin.getFileSystemShortName());
+    if (info != null && info.getDescriptor() != null) {
+      try {
+        Resource descriptor=info.getDescriptor();
+        plugin.setDescriptor(descriptor);
+        File pluginFile=descriptor.getFile();
+        descriptorToPluginMap.put(pluginFile,plugin);
+        addWatchFile(pluginFile);
+      }
+ catch (      IOException e) {
+      }
+    }
+    List<WatchPattern> watchPatterns=plugin.getWatchedResourcePatterns();
+    if (watchPatterns != null) {
+      for (      WatchPattern watchPattern : watchPatterns) {
+        if (watchPattern.getFile() != null) {
+          addWatchFile(watchPattern.getFile());
+        }
+ else         if (watchPattern.getDirectory() != null) {
+          addWatchDirectory(watchPattern.getDirectory(),watchPattern.getExtension());
+        }
+      }
+    }
+  }
+}

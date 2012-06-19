@@ -1,0 +1,10 @@
+{
+  if (leftType == null) {
+    throw new NullPointerException("Left type is null!");
+  }
+  if (rightType == null) {
+    throw new NullPointerException("Right type is null!");
+  }
+  Class<?> r=PRIMITIVE_TYPE_COMPATIBLE_CLASSES.get(leftType);
+  return r == rightType;
+}

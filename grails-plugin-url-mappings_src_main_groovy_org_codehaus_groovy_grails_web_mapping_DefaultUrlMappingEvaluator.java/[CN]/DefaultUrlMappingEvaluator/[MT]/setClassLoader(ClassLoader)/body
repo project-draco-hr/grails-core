@@ -1,0 +1,4 @@
+{
+  Assert.isInstanceOf(GroovyClassLoader.class,classLoader,"Property [classLoader] must be an instance of GroovyClassLoader");
+  this.classLoader=(GroovyClassLoader)classLoader;
+}

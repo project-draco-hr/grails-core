@@ -1,0 +1,15 @@
+{
+  if (mappedHandler == null || mappedHandler.getInterceptors() == null) {
+    return;
+  }
+  for (int i=interceptorIndex; i >= 0; i--) {
+    HandlerInterceptor interceptor=mappedHandler.getInterceptors()[i];
+    try {
+      interceptor.afterCompletion(request,response,mappedHandler.getHandler(),ex);
+    }
+ catch (    Throwable e) {
+      stackFilterer.filter(e,true);
+      logger.error("HandlerInterceptor.afterCompletion threw exception",e);
+    }
+  }
+}

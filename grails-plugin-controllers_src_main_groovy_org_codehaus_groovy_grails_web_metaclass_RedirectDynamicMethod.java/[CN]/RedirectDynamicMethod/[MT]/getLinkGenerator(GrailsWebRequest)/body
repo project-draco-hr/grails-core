@@ -1,0 +1,9 @@
+{
+  if (this.linkGenerator == null) {
+    ApplicationContext applicationContext=webRequest.getApplicationContext();
+    if (applicationContext != null) {
+      linkGenerator=applicationContext.getBean("grailsLinkGenerator",LinkGenerator.class);
+    }
+  }
+  return linkGenerator;
+}

@@ -1,0 +1,10 @@
+{
+  checkState();
+  try {
+    writer.startNode(tagName);
+  }
+ catch (  Exception e) {
+    throw ConverterUtil.resolveConverterException(e);
+  }
+  return this;
+}

@@ -1,0 +1,14 @@
+{
+  if (pointer < used) {
+    ByteBuffer result;
+    if (pointer > 0 || used < size) {
+      result=ByteBuffer.wrap(buffer,pointer,used - pointer);
+    }
+ else {
+      result=ByteBuffer.wrap(buffer);
+    }
+    pointer=used;
+    return result;
+  }
+  return null;
+}

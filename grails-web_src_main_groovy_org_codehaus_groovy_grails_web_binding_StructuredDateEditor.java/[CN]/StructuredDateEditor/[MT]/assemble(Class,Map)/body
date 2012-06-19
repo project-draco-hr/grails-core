@@ -1,0 +1,31 @@
+{
+  Assert.isTrue(fieldValues.containsKey("year"),"Can't populate a date without a year");
+  String yearString=(String)fieldValues.get("year");
+  String monthString=(String)fieldValues.get("month");
+  String dayString=(String)fieldValues.get("day");
+  String hourString=(String)fieldValues.get("hour");
+  String minuteString=(String)fieldValues.get("minute");
+  if (StringUtils.isBlank(yearString) && StringUtils.isBlank(monthString) && StringUtils.isBlank(dayString)&& StringUtils.isBlank(hourString)&& StringUtils.isBlank(minuteString)) {
+    return null;
+  }
+  int year;
+  try {
+    Assert.isTrue(!StringUtils.isBlank(yearString),"Can't populate a date without a year");
+    year=Integer.parseInt(yearString);
+    int month=getIntegerValue(fieldValues,"month",1);
+    int day=getIntegerValue(fieldValues,"day",1);
+    int hour=getIntegerValue(fieldValues,"hour",0);
+    int minute=getIntegerValue(fieldValues,"minute",0);
+    Calendar c=new GregorianCalendar(year,month - 1,day,hour,minute);
+    if (type == Date.class) {
+      return c.getTime();
+    }
+    if (type == java.sql.Date.class) {
+      return new java.sql.Date(c.getTime().getTime());
+    }
+    return c;
+  }
+ catch (  NumberFormatException nfe) {
+    throw new IllegalArgumentException("Unable to parse structured date from request for date [\"+propertyName+\"]\"");
+  }
+}

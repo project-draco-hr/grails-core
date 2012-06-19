@@ -1,0 +1,8 @@
+{
+  try {
+    TransformerFactory.newInstance().newTransformer().transform(new DOMSource(result),new StreamResult(output));
+  }
+ catch (  TransformerException e) {
+    throw new IOException("Error transforming web.xml: " + e.getMessage(),e);
+  }
+}

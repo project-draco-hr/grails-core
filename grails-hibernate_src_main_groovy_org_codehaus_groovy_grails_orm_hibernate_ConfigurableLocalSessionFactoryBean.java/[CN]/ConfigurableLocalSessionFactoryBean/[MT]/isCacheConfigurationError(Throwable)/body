@@ -1,0 +1,6 @@
+{
+  if (cause instanceof InvocationTargetException) {
+    cause=((InvocationTargetException)cause).getTargetException();
+  }
+  return cause != null && (cause instanceof CacheException);
+}

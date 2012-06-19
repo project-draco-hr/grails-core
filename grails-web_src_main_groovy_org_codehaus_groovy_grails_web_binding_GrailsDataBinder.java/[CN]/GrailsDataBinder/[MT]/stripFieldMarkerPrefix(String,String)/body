@@ -1,0 +1,9 @@
+{
+  String[] pathElements=StringUtils.split(path,PATH_SEPARATOR);
+  for (int i=0; i < pathElements.length; i++) {
+    if (pathElements[i].startsWith(fieldMarkerPrefix)) {
+      pathElements[i]=pathElements[i].substring(fieldMarkerPrefix.length());
+    }
+  }
+  return StringUtils.join(pathElements,PATH_SEPARATOR);
+}

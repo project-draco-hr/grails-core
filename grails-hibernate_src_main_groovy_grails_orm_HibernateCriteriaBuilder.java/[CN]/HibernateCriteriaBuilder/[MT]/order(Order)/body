@@ -1,0 +1,12 @@
+{
+  if (criteria == null) {
+    throwRuntimeException(new IllegalArgumentException("Call to [order] not allowed here."));
+  }
+  if (paginationEnabledList) {
+    orderEntries.add(o);
+  }
+ else {
+    criteria.addOrder(o);
+  }
+  return this;
+}

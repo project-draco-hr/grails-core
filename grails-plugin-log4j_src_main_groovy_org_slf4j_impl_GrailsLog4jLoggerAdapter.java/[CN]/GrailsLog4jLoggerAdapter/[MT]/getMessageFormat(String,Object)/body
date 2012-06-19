@@ -1,0 +1,5 @@
+{
+  FormattingTuple ft=MessageFormatter.arrayFormat(format,args);
+  cleanIfException(ft.getThrowable());
+  return ft;
+}

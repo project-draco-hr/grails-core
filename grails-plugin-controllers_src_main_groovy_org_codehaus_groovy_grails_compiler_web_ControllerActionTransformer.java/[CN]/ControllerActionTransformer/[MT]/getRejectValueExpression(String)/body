@@ -1,0 +1,7 @@
+{
+  ArgumentListExpression rejectValueArgs=new ArgumentListExpression();
+  rejectValueArgs.addExpression(new ConstantExpression(methodParamName));
+  rejectValueArgs.addExpression(new ConstantExpression("params." + methodParamName + ".conversion.error"));
+  Expression rejectValueMethodCallExpression=new MethodCallExpression(new VariableExpression("errors"),"rejectValue",rejectValueArgs);
+  return rejectValueMethodCallExpression;
+}

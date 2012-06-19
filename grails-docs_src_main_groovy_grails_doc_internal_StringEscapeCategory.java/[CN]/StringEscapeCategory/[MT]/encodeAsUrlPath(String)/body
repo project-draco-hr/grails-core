@@ -1,0 +1,9 @@
+{
+  try {
+    String uri=new URI("http","localhost",'/' + str,"").toASCIIString();
+    return uri.substring(17,uri.length() - 1);
+  }
+ catch (  URISyntaxException ex) {
+    throw new RuntimeException(ex);
+  }
+}

@@ -1,0 +1,9 @@
+{
+  Assert.state(baseResource != null,"Property [baseResource] not set!");
+  try {
+    return baseResource.createRelative(location);
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}

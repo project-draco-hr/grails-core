@@ -1,0 +1,40 @@
+{
+  String var=attributes.get(ATTRIBUTE_VAR);
+  String status=attributes.get(ATTRIBUTES_STATUS);
+  var=extractAttributeValue(var);
+  status=extractAttributeValue(status);
+  boolean hasStatus=!StringUtils.isBlank(status);
+  boolean hasVar=!StringUtils.isBlank(var);
+  if (hasStatus && !hasVar) {
+    throw new GrailsTagException(ERROR_NO_VAR_WITH_STATUS,parser.getPageName(),parser.getCurrentOutputLineNumber());
+  }
+  if (var.equals(status) && (hasStatus)) {
+    throw new GrailsTagException("Attribute [" + ATTRIBUTE_VAR + "] cannot have the same value as attribute ["+ ATTRIBUTES_STATUS+ "]",parser.getPageName(),parser.getCurrentOutputLineNumber());
+  }
+  if (hasStatus) {
+    out.println("loop:{");
+    out.println("int " + status + " = 0");
+  }
+  if (!hasVar) {
+    var="_it" + Math.abs(System.identityHashCode(this));
+    foreachRenamedIt=var;
+  }
+  String[] entryVars=null;
+  if (hasVar && var.indexOf(',') > -1) {
+    entryVars=var.split("\\s*,\\s*");
+    var="_entry" + Math.abs(System.identityHashCode(this));
+  }
+  out.print("for( " + var);
+  out.print(" in ");
+  out.print(parser != null ? parser.getExpressionText(in,false) : extractAttributeValue(in));
+  out.print(" )");
+  out.print(" {");
+  out.println();
+  if (!hasVar) {
+    out.println("changeItVariable(" + foreachRenamedIt + ")");
+  }
+ else   if (entryVars != null) {
+    out.println("def " + entryVars[0].trim() + "="+ var+ ".getKey()");
+    out.println("def " + entryVars[1].trim() + "="+ var+ ".getValue()");
+  }
+}

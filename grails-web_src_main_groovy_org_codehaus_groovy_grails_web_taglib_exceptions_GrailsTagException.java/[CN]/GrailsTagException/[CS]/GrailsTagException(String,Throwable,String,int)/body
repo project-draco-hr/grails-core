@@ -1,0 +1,5 @@
+{
+  super(message,cause);
+  this.fileName=fileName;
+  this.lineNumber=lineNumber;
+}

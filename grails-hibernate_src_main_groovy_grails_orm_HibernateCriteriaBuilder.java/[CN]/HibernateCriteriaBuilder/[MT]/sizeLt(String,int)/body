@@ -1,0 +1,8 @@
+{
+  if (!validateSimpleExpression()) {
+    throwRuntimeException(new IllegalArgumentException("Call to [sizeLt] with propertyName [" + propertyName + "] and size ["+ size+ "] not allowed here."));
+  }
+  propertyName=calculatePropertyName(propertyName);
+  addToCriteria(Restrictions.sizeLt(propertyName,size));
+  return this;
+}

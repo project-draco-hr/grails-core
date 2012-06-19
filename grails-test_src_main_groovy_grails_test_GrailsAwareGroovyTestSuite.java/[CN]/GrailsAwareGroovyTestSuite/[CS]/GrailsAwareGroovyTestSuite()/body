@@ -1,0 +1,7 @@
+{
+  initBuildSettings();
+  createClassLoader();
+  if (registerContextClassLoader) {
+    Thread.currentThread().setContextClassLoader(gcl);
+  }
+}

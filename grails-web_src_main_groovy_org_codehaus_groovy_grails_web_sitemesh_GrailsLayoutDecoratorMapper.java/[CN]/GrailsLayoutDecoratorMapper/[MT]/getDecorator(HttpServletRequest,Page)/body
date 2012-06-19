@@ -1,0 +1,11 @@
+{
+  Decorator layout=groovyPageLayoutFinder.findLayout(request,page);
+  if (layout != null) {
+    return layout;
+  }
+  layout=parent != null ? super.getDecorator(request,page) : null;
+  if (layout == null || layout.getPage() == null) {
+    layout=new GrailsNoDecorator();
+  }
+  return layout;
+}

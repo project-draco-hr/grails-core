@@ -1,0 +1,6 @@
+{
+  if (mockResources.containsKey(location)) {
+    return mockResources.get(location);
+  }
+  return super.getResource(location);
+}

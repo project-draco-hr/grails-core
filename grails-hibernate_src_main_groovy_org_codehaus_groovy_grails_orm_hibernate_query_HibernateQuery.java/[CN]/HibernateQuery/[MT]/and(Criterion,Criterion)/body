@@ -1,0 +1,6 @@
+{
+  HibernateCriterionAdapter aa=new HibernateCriterionAdapter(a,alias);
+  HibernateCriterionAdapter ab=new HibernateCriterionAdapter(a,alias);
+  addToCriteria(Restrictions.and(aa.toHibernateCriterion(this),ab.toHibernateCriterion(this)));
+  return this;
+}

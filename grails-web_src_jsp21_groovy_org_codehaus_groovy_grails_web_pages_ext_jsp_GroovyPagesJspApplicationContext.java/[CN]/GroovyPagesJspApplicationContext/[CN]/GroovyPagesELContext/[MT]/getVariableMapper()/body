@@ -1,0 +1,15 @@
+{
+  return new VariableMapper(){
+    @Override public ValueExpression resolveVariable(    String name){
+      Object o=pageCtx.findAttribute(name);
+      if (o == null)       return null;
+      return expressionFactoryImpl.createValueExpression(o,o.getClass());
+    }
+    @Override public ValueExpression setVariable(    String name,    ValueExpression valueExpression){
+      ValueExpression previous=resolveVariable(name);
+      pageCtx.setAttribute(name,valueExpression.getValue(GroovyPagesELContext.this));
+      return previous;
+    }
+  }
+;
+}

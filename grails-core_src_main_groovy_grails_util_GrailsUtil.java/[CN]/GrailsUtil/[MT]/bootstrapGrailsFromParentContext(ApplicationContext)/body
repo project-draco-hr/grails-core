@@ -1,0 +1,4 @@
+{
+  DefaultGrailsApplication application=parent.getBean("grailsApplication",DefaultGrailsApplication.class);
+  return createGrailsApplicationContext(parent,application);
+}

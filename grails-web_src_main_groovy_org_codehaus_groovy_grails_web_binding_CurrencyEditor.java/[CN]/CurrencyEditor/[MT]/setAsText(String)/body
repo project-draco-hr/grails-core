@@ -1,0 +1,11 @@
+{
+  if (StringUtils.isBlank(text)) {
+    setValue(null);
+  }
+  try {
+    setValue(Currency.getInstance(text));
+  }
+ catch (  IllegalArgumentException e) {
+    setValue(null);
+  }
+}

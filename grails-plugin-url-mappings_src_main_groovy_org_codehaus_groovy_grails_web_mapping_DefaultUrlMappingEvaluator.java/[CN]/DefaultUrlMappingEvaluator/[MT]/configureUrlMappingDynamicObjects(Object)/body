@@ -1,0 +1,5 @@
+{
+  if (pluginManager != null) {
+    WebMetaUtils.registerCommonWebProperties(GrailsMetaClassUtils.getExpandoMetaClass(object.getClass()),null);
+  }
+}

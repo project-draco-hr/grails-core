@@ -1,0 +1,7 @@
+{
+  GrailsPlugin grailsPlugin=descriptorToPluginMap.get(file);
+  grailsPlugin.refresh();
+  if (pluginManager instanceof DefaultGrailsPluginManager) {
+    ((DefaultGrailsPluginManager)pluginManager).reloadPlugin(grailsPlugin);
+  }
+}

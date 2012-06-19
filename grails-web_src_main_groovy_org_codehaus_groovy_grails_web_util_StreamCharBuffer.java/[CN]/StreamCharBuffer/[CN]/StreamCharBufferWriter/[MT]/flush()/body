@@ -1,0 +1,6 @@
+{
+  if (isConnectedMode()) {
+    flushToConnected();
+  }
+  notifyBufferChange();
+}

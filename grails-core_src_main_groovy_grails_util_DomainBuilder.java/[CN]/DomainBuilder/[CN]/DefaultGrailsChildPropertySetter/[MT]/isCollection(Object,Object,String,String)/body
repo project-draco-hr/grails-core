@@ -1,0 +1,9 @@
+{
+  try {
+    Field field=parent.getClass().getDeclaredField(propertyName);
+    return Collection.class.isAssignableFrom(field.getType());
+  }
+ catch (  NoSuchFieldException ignored) {
+  }
+  return false;
+}

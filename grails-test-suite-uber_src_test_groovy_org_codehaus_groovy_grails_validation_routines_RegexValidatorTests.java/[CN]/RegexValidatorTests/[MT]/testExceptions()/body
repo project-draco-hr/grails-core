@@ -1,0 +1,8 @@
+{
+  String invalidRegex="^([abCD12]*$";
+  try {
+    new RegexValidator(invalidRegex);
+  }
+ catch (  PatternSyntaxException e) {
+  }
+}

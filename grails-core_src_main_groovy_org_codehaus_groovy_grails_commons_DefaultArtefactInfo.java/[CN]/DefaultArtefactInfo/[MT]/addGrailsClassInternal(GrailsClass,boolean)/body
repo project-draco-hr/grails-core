@@ -1,0 +1,23 @@
+{
+  grailsClassesByName=new LinkedHashMap<String,GrailsClass>(grailsClassesByName);
+  classesByName=new LinkedHashMap<String,Class<?>>(classesByName);
+  Class<?> actualClass=artefactClass.getClazz();
+  boolean addToGrailsClasses=true;
+  if (artefactClass instanceof InjectableGrailsClass) {
+    addToGrailsClasses=((InjectableGrailsClass)artefactClass).getAvailable();
+  }
+  if (addToGrailsClasses) {
+    GrailsClass oldVersion=grailsClassesByName.put(actualClass.getName(),artefactClass);
+    grailsClasses.remove(oldVersion);
+  }
+  classesByName.put(actualClass.getName(),actualClass);
+  logicalPropertyNameToClassMap.put(artefactClass.getLogicalPropertyName(),artefactClass);
+  if (!grailsClasses.contains(artefactClass)) {
+    if (atStart) {
+      grailsClasses.addFirst(artefactClass);
+    }
+ else {
+      grailsClasses.addLast(artefactClass);
+    }
+  }
+}

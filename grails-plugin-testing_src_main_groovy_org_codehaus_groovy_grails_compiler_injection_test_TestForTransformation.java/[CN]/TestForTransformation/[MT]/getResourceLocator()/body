@@ -1,0 +1,15 @@
+{
+  if (resourceLocator == null) {
+    resourceLocator=new DefaultResourceLocator();
+    BuildSettings buildSettings=BuildSettingsHolder.getSettings();
+    String basedir;
+    if (buildSettings != null) {
+      basedir=buildSettings.getBaseDir().getAbsolutePath();
+    }
+ else {
+      basedir=".";
+    }
+    resourceLocator.setSearchLocation(basedir);
+  }
+  return resourceLocator;
+}

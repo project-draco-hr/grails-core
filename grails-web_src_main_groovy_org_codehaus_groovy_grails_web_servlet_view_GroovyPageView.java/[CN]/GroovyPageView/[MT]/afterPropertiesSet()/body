@@ -1,0 +1,9 @@
+{
+  super.afterPropertiesSet();
+  try {
+    initTemplate();
+  }
+ catch (  Exception e) {
+    handleException(e,templateEngine);
+  }
+}

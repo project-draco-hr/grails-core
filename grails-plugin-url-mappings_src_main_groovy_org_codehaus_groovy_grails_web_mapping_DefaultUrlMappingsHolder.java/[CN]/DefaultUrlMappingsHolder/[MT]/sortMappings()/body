@@ -1,0 +1,14 @@
+{
+  List<ResponseCodeUrlMapping> responseCodeUrlMappings=new ArrayList<ResponseCodeUrlMapping>();
+  Iterator<UrlMapping> iter=urlMappings.iterator();
+  while (iter.hasNext()) {
+    UrlMapping mapping=iter.next();
+    if (mapping instanceof ResponseCodeUrlMapping) {
+      responseCodeUrlMappings.add((ResponseCodeUrlMapping)mapping);
+      iter.remove();
+    }
+  }
+  Collections.sort(urlMappings);
+  urlMappings.addAll(responseCodeUrlMappings);
+  Collections.reverse(urlMappings);
+}

@@ -1,0 +1,4 @@
+{
+  String methodName=declaredMethod.getName();
+  return !EXCLUDES.contains(methodName) && !isGetter(methodName,declaredMethod) && !isSetter(methodName,declaredMethod)&& super.isStaticCandidateMethod(classNode,declaredMethod);
+}

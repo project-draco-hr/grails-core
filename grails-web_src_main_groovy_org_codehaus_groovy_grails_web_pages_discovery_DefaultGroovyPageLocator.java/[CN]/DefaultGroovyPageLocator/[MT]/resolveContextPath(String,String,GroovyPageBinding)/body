@@ -1,0 +1,13 @@
+{
+  String contextPath=null;
+  if (uri.startsWith("/plugins/")) {
+    contextPath=BLANK;
+  }
+ else   if (pluginName != null && pluginManager != null) {
+    contextPath=pluginManager.getPluginPath(pluginName);
+  }
+ else {
+    contextPath=binding.getPluginContextPath() != null ? binding.getPluginContextPath() : BLANK;
+  }
+  return contextPath;
+}

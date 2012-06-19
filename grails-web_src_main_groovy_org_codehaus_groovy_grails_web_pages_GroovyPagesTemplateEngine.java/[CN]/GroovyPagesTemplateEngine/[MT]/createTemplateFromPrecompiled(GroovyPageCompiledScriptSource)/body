@@ -1,0 +1,11 @@
+{
+  GroovyPageMetaInfo meta=initializeCompiledMetaInfo(compiledScriptSource.getGroovyPageMetaInfo());
+  if (isReloadEnabled()) {
+    GroovyPageResourceScriptSource changedResourceScriptSource=compiledScriptSource.getReloadableScriptSource();
+    if (changedResourceScriptSource != null) {
+      groovyPageLocator.removePrecompiledPage(compiledScriptSource);
+      return createTemplate(changedResourceScriptSource);
+    }
+  }
+  return new GroovyPageTemplate(meta);
+}

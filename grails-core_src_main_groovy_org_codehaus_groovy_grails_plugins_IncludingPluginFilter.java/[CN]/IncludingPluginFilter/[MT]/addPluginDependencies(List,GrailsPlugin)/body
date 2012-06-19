@@ -1,0 +1,6 @@
+{
+  String[] dependencyNames=plugin.getDependencyNames();
+  for (  String name : dependencyNames) {
+    registerDependency(additionalList,getNamedPlugin(name));
+  }
+}

@@ -1,0 +1,4 @@
+{
+  final GrailsWebRequest req=getWebRequest();
+  return getControllerNameInternal(req);
+}

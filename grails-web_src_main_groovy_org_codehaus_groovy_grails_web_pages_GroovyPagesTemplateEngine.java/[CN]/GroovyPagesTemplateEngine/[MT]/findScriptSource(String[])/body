@@ -1,0 +1,8 @@
+{
+  GroovyPageScriptSource scriptSource=null;
+  for (  String uri : uris) {
+    scriptSource=groovyPageLocator.findPage(uri);
+    if (scriptSource != null)     break;
+  }
+  return scriptSource;
+}

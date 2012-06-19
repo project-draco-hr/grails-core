@@ -1,0 +1,24 @@
+{
+  final ClassNode returnType=methodNode.getReturnType();
+  Parameter[] parameters=methodNode.getParameters();
+  for (  Parameter param : parameters) {
+    if (param.hasInitialExpression()) {
+      String paramName=param.getName();
+      String methodName=methodNode.getName();
+      String initialValue=param.getInitialExpression().getText();
+      String methodDeclaration=methodNode.getText();
+      String message="Parameter [%s] to method [%s] has default value [%s].  Default parameter values are not allowed in controller action methods. ([%s])";
+      String formattedMessage=String.format(message,paramName,methodName,initialValue,methodDeclaration);
+      GrailsASTUtils.error(source,methodNode,formattedMessage);
+    }
+  }
+  MethodNode method=null;
+  if (methodNode.getParameters().length > 0) {
+    method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(methodNode,initializeActionParameters(classNode,methodNode,methodNode.getName(),parameters,source,context)));
+    annotateActionMethod(parameters,method);
+  }
+ else {
+    annotateActionMethod(parameters,methodNode);
+  }
+  return method;
+}

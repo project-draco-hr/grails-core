@@ -1,0 +1,11 @@
+{
+  originalPlugins=Collections.unmodifiableList(original);
+  addedNames=new HashSet<String>();
+  buildNameMap();
+  buildExplicitlyNamedList();
+  buildDerivedPluginList();
+  List<GrailsPlugin> pluginList=new ArrayList<GrailsPlugin>();
+  pluginList.addAll(explicitlyNamedPlugins);
+  pluginList.addAll(derivedPlugins);
+  return getPluginList(originalPlugins,pluginList);
+}

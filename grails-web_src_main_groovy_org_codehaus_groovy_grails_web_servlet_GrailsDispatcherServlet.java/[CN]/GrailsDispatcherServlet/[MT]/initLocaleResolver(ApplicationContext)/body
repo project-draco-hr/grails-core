@@ -1,0 +1,14 @@
+{
+  try {
+    localeResolver=context.getBean(LOCALE_RESOLVER_BEAN_NAME,LocaleResolver.class);
+    if (logger.isDebugEnabled()) {
+      logger.debug("Using LocaleResolver [" + localeResolver + "]");
+    }
+  }
+ catch (  NoSuchBeanDefinitionException ex) {
+    localeResolver=getDefaultStrategy(context,LocaleResolver.class);
+    if (logger.isDebugEnabled()) {
+      logger.debug("Unable to locate LocaleResolver with name '" + LOCALE_RESOLVER_BEAN_NAME + "': using default ["+ localeResolver+ "]");
+    }
+  }
+}

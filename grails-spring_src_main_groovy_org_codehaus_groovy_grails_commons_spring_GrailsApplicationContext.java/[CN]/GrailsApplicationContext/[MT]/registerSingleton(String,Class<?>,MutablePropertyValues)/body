@@ -1,0 +1,6 @@
+{
+  GenericBeanDefinition bd=new GenericBeanDefinition();
+  bd.setBeanClass(clazz);
+  bd.setPropertyValues(pvs);
+  getDefaultListableBeanFactory().registerBeanDefinition(name,bd);
+}

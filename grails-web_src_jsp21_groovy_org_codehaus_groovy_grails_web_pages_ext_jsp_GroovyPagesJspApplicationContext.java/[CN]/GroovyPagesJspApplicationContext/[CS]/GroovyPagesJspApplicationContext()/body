@@ -1,0 +1,10 @@
+{
+  elResolver.add(new ImplicitObjectELResolver());
+  elResolver.add(additionalResolvers);
+  elResolver.add(new MapELResolver());
+  elResolver.add(new ResourceBundleELResolver());
+  elResolver.add(new ListELResolver());
+  elResolver.add(new ArrayELResolver());
+  elResolver.add(new BeanELResolver());
+  elResolver.add(new ScopedAttributeELResolver());
+}

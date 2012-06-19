@@ -1,0 +1,4 @@
+{
+  Writer originalTopWriter=stack.firstElement().originalTarget;
+  applyWriterThreadLocals(originalTopWriter);
+}

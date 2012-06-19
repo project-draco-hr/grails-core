@@ -1,0 +1,10 @@
+{
+  this.streamCharBuffer=streamCharBuffer;
+  if (totalCharsInDynamicChunks != -1) {
+    cachedSize=streamCharBuffer.size();
+    totalCharsInDynamicChunks+=cachedSize;
+  }
+ else {
+    cachedSize=-1;
+  }
+}

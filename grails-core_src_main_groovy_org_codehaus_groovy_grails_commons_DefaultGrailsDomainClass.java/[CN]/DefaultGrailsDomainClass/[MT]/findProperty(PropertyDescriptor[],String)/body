@@ -1,0 +1,10 @@
+{
+  PropertyDescriptor d=null;
+  for (  PropertyDescriptor descriptor : descriptors) {
+    if (descriptor.getName().equals(propertyName)) {
+      d=descriptor;
+      break;
+    }
+  }
+  return d;
+}

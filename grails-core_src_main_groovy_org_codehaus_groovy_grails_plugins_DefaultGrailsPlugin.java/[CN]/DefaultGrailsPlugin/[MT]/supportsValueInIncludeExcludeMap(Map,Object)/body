@@ -1,0 +1,11 @@
+{
+  if (includeExcludeMap.isEmpty()) {
+    return true;
+  }
+  Set includes=(Set)includeExcludeMap.get(INCLUDES);
+  if (includes != null) {
+    return includes.contains(value);
+  }
+  Set excludes=(Set)includeExcludeMap.get(EXCLUDES);
+  return !(excludes != null && excludes.contains(value));
+}

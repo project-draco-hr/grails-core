@@ -1,0 +1,7 @@
+{
+  if (request.getAttribute(ALREADY_APPLIED_KEY) == Boolean.TRUE) {
+    return true;
+  }
+  request.setAttribute(ALREADY_APPLIED_KEY,Boolean.TRUE);
+  return false;
+}

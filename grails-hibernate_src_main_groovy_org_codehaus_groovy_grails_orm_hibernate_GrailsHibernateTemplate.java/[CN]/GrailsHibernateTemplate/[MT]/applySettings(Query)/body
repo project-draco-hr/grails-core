@@ -1,0 +1,5 @@
+{
+  if (isExposeNativeSession()) {
+    super.prepareQuery(queryObject);
+  }
+}

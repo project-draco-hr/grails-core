@@ -1,0 +1,16 @@
+{
+  final GrailsWebRequest req=getWebRequest();
+  if (req != null) {
+    String actionName=req.getActionName();
+    if (actionName == null) {
+      if (grailsApplication == null) {
+        grailsApplication=req.getAttributes().getGrailsApplication();
+      }
+      if (grailsApplication != null) {
+        final String controllerName=getControllerNameInternal(req);
+        return getActionName(grailsApplication,controllerName);
+      }
+    }
+  }
+  return null;
+}

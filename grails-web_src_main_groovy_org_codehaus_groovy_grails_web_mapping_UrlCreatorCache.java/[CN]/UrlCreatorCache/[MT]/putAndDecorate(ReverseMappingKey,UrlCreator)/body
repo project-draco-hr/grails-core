@@ -1,0 +1,8 @@
+{
+  CachingUrlCreator cachingUrlCreator=new CachingUrlCreator(delegate,key.weight() * 2);
+  CachingUrlCreator prevCachingUrlCreator=cacheMap.putIfAbsent(key,cachingUrlCreator);
+  if (prevCachingUrlCreator != null) {
+    return prevCachingUrlCreator;
+  }
+  return cachingUrlCreator;
+}

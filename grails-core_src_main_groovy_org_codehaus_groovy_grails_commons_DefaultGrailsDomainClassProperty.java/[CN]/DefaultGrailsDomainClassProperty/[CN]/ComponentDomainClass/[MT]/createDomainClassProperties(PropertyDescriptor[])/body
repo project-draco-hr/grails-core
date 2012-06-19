@@ -1,0 +1,14 @@
+{
+  List<DefaultGrailsDomainClassProperty> props=new ArrayList<DefaultGrailsDomainClassProperty>();
+  Collection<String> embeddedNames=getEmbeddedList();
+  for (  PropertyDescriptor descriptor : descriptors) {
+    if (isPersistentProperty(descriptor)) {
+      DefaultGrailsDomainClassProperty property=new DefaultGrailsDomainClassProperty(this,descriptor,defaultConstraints);
+      props.add(property);
+      if (embeddedNames.contains(property.getName())) {
+        property.setEmbedded(true);
+      }
+    }
+  }
+  return props.toArray(new GrailsDomainClassProperty[props.size()]);
+}

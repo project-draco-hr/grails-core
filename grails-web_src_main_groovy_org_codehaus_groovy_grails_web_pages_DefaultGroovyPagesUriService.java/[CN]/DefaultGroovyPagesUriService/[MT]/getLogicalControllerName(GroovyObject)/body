@@ -1,0 +1,12 @@
+{
+  ControllerObjectKey key=new ControllerObjectKey(controller);
+  String name=controllerNameCache.get(key);
+  if (name == null) {
+    name=super.getLogicalControllerName(controller);
+    String prevname=controllerNameCache.putIfAbsent(key,name);
+    if (prevname != null) {
+      return prevname;
+    }
+  }
+  return name;
+}

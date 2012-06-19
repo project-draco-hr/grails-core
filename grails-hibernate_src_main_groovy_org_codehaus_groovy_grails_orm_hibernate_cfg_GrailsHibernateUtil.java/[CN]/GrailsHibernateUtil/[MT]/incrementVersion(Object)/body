@@ -1,0 +1,10 @@
+{
+  MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(target.getClass());
+  if (metaClass.hasProperty(target,GrailsDomainClassProperty.VERSION) != null) {
+    Object version=metaClass.getProperty(target,GrailsDomainClassProperty.VERSION);
+    if (version instanceof Long) {
+      Long newVersion=(Long)version + 1;
+      metaClass.setProperty(target,GrailsDomainClassProperty.VERSION,newVersion);
+    }
+  }
+}

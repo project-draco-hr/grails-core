@@ -1,0 +1,5 @@
+{
+  onTearDown();
+  ExpandoMetaClass.disableGlobally();
+  super.tearDown();
+}

@@ -1,0 +1,11 @@
+{
+  MockHttpServletRequest request=new MockHttpServletRequest();
+  request.addParameter("myDateTime","struct");
+  request.addParameter("myDateTime_date",date);
+  request.addParameter("myDateTime_time",time);
+  TestBean testBean=new TestBean();
+  GrailsDataBinder binder=GrailsDataBinder.createBinder(testBean,"testBean",request);
+  binder.registerCustomEditor(TestDateTimeBean.class,new TestDateTimePropertyEditor(DATE_TIME_FORMAT));
+  binder.bind(request);
+  return testBean;
+}

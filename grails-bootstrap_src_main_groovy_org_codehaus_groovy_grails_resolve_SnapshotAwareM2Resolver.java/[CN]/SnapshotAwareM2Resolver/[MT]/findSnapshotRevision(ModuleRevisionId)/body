@@ -1,0 +1,61 @@
+{
+  if (!isM2compatible()) {
+    return null;
+  }
+  if (shouldUseMavenMetadata()) {
+    InputStream metadataStream=null;
+    try {
+      String metadataLocation=IvyPatternHelper.substitute(getRoot() + "[organisation]/[module]/[revision]/maven-metadata.xml",mrid);
+      Resource metadata=getRepository().getResource(metadataLocation);
+      if (metadata.exists()) {
+        metadataStream=metadata.openStream();
+        final StringBuilder timestamp=new StringBuilder();
+        final StringBuilder buildNumber=new StringBuilder();
+        final StringBuilder lastUpdated=new StringBuilder();
+        XMLHelper.parse(metadataStream,null,new ContextualSAXHandler(){
+          @Override public void endElement(          String uri,          String localName,          String qName) throws SAXException {
+            if ("metadata/versioning/snapshot/timestamp".equals(getContext())) {
+              timestamp.append(getText());
+            }
+ else             if ("metadata/versioning/snapshot/buildNumber".equals(getContext())) {
+              buildNumber.append(getText());
+            }
+ else             if ("metadata/versioning/lastUpdated".equals(getContext())) {
+              lastUpdated.append(getText());
+            }
+            super.endElement(uri,localName,qName);
+          }
+        }
+,null);
+        if (timestamp.length() > 0) {
+          String snapshotRevision=mrid.getRevision();
+          String baseRevision=snapshotRevision.substring(0,snapshotRevision.length() - "-SNAPSHOT".length());
+          String uniqueRevisionSuffix=timestamp + "-" + buildNumber;
+          return new SnapshotRevision(baseRevision,uniqueRevisionSuffix,lastUpdated.toString());
+        }
+      }
+ else {
+        Message.verbose("\tmaven-metadata not available: " + metadata);
+      }
+    }
+ catch (    IOException e) {
+      Message.verbose("impossible to access maven metadata file, ignored: " + e.getMessage());
+    }
+catch (    SAXException e) {
+      Message.verbose("impossible to parse maven metadata file, ignored: " + e.getMessage());
+    }
+catch (    ParserConfigurationException e) {
+      Message.verbose("impossible to parse maven metadata file, ignored: " + e.getMessage());
+    }
+ finally {
+      if (metadataStream != null) {
+        try {
+          metadataStream.close();
+        }
+ catch (        IOException e) {
+        }
+      }
+    }
+  }
+  return null;
+}

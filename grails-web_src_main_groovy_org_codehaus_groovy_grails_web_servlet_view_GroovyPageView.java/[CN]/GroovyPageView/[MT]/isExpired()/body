@@ -1,0 +1,3 @@
+{
+  return System.currentTimeMillis() - createTimestamp > LASTMODIFIED_CHECK_INTERVAL;
+}

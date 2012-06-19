@@ -1,0 +1,12 @@
+{
+  if (filename != null) {
+    int lastSegmentStart=filename.lastIndexOf('/');
+    if (lastSegmentStart == -1) {
+      lastSegmentStart=filename.lastIndexOf('\\');
+    }
+    sourceName=filename.substring(lastSegmentStart + 1);
+  }
+ else {
+    sourceName=className;
+  }
+}

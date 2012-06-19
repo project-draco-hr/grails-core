@@ -1,0 +1,13 @@
+{
+  Employee one=new Employee();
+  one.setName("Cosmo");
+  Employee two=new Employee();
+  two.setName("George");
+  childPropertySetter.setChild(employer,one,null,"employees");
+  childPropertySetter.setChild(employer,two,null,"employees");
+  List employees=employer.getEmployees();
+  assertNull(employer.getAddress());
+  assertEquals(2,employees.size());
+  assertEquals(one.getName(),((Employee)employees.get(0)).getName());
+  assertEquals(two.getName(),((Employee)employees.get(1)).getName());
+}

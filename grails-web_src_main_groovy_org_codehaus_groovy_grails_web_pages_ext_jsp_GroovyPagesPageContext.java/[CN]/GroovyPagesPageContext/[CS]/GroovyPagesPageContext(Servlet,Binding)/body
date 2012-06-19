@@ -1,0 +1,21 @@
+{
+  Assert.notNull(pagesServlet,"GroovyPagesPageContext class requires a reference to the GSP servlet");
+  webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  servletContext=webRequest.getServletContext();
+  request=webRequest.getCurrentRequest();
+  response=webRequest.getCurrentResponse();
+  servlet=pagesServlet;
+  servletconfig=pagesServlet.getServletConfig();
+  this.pageScope=pageScope;
+  session=request.getSession(false);
+  pushWriter(new JspWriterDelegate(webRequest.getOut()));
+  setAttribute(REQUEST,request);
+  setAttribute(RESPONSE,response);
+  if (session != null) {
+    setAttribute(SESSION,session);
+  }
+  setAttribute(PAGE,servlet);
+  setAttribute(CONFIG,servlet.getServletConfig());
+  setAttribute(PAGECONTEXT,this);
+  setAttribute(APPLICATION,servletContext);
+}

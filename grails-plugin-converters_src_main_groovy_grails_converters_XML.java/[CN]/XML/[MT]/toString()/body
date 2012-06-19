@@ -1,0 +1,6 @@
+{
+  FastStringWriter strw=new FastStringWriter();
+  render(strw);
+  strw.flush();
+  return strw.toString();
+}

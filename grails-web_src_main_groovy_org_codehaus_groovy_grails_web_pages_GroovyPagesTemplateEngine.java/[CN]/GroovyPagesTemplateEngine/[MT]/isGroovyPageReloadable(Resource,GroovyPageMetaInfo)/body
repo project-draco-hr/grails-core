@@ -1,0 +1,8 @@
+{
+  return isReloadEnabled() && meta.shouldReload(new PrivilegedAction<Resource>(){
+    public Resource run(){
+      return resource;
+    }
+  }
+);
+}

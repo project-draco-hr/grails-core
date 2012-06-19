@@ -1,0 +1,7 @@
+{
+  Object o=getBean(name);
+  if (o != null) {
+    return o.getClass().getAnnotation(annotation);
+  }
+  return null;
+}

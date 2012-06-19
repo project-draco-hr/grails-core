@@ -1,0 +1,7 @@
+{
+  if (context != null) {
+    for (    String beanName : context.getBeanDefinitionNames()) {
+      registry.registerBeanDefinition(beanName,context.getBeanDefinition(beanName));
+    }
+  }
+}

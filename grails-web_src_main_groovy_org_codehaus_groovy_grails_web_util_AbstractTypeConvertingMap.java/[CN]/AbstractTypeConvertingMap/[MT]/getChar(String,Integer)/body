@@ -1,0 +1,7 @@
+{
+  Character value=getChar(name);
+  if (value == null && defaultValue != null) {
+    value=Character.valueOf((char)defaultValue.intValue());
+  }
+  return value;
+}

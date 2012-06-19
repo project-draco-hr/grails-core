@@ -1,0 +1,5 @@
+{
+  assertFalse("IP with characters should be invalid",validator.isValid("124.14.32.abc"));
+  assertFalse("IP with three groups should be invalid",validator.isValid("23.64.12"));
+  assertFalse("IP with five groups should be invalid",validator.isValid("26.34.23.77.234"));
+}

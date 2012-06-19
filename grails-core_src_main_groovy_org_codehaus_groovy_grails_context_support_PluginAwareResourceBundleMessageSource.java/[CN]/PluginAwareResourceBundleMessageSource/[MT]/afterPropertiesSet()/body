@@ -1,0 +1,15 @@
+{
+  if (pluginManager != null && localResourceLoader != null) {
+    GrailsPlugin[] plugins=pluginManager.getAllPlugins();
+    for (    GrailsPlugin plugin : plugins) {
+      Resource[] pluginBundles;
+      final String pluginName=plugin.getFileSystemName();
+      pluginBundles=getPluginBundles(pluginName);
+      for (      Resource pluginBundle : pluginBundles) {
+        String baseName=FilenameUtils.getBaseName(pluginBundle.getFilename());
+        baseName=StringUtils.substringBefore(baseName,"_");
+        pluginBaseNames.add(WEB_INF_PLUGINS_PATH.substring(1) + pluginName + "/grails-app/i18n/"+ baseName);
+      }
+    }
+  }
+}

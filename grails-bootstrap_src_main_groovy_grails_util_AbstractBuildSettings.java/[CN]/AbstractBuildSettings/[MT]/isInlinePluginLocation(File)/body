@@ -1,0 +1,6 @@
+{
+  if (pluginLocation == null)   return false;
+  getPluginDirectories();
+  ConcurrentLinkedQueue<File> locations=(ConcurrentLinkedQueue<File>)cache.get(KEY_INLINE_PLUGIN_LOCATIONS);
+  return locations != null && locations.contains(pluginLocation);
+}

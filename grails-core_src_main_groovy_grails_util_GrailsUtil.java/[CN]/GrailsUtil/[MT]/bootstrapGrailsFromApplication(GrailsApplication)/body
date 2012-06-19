@@ -1,0 +1,5 @@
+{
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,application);
+  return createGrailsApplicationContext(parent,application);
+}

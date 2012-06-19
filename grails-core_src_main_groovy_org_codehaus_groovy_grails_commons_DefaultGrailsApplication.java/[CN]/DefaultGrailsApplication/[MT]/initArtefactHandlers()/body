@@ -1,0 +1,31 @@
+{
+  final DomainClassArtefactHandler domainClassArtefactHandler=new AnnotationDomainClassArtefactHandler();
+  if (!hasArtefactHandler(domainClassArtefactHandler.getType())) {
+    registerArtefactHandler(domainClassArtefactHandler);
+  }
+  final ControllerArtefactHandler controllerArtefactHandler=new ControllerArtefactHandler();
+  if (!hasArtefactHandler(controllerArtefactHandler.getType())) {
+    registerArtefactHandler(controllerArtefactHandler);
+  }
+  final ServiceArtefactHandler serviceArtefactHandler=new ServiceArtefactHandler();
+  if (!hasArtefactHandler(serviceArtefactHandler.getType())) {
+    registerArtefactHandler(serviceArtefactHandler);
+  }
+  final TagLibArtefactHandler tagLibArtefactHandler=new TagLibArtefactHandler();
+  if (!hasArtefactHandler(tagLibArtefactHandler.getType())) {
+    registerArtefactHandler(tagLibArtefactHandler);
+  }
+  final BootstrapArtefactHandler bootstrapArtefactHandler=new BootstrapArtefactHandler();
+  if (!hasArtefactHandler(bootstrapArtefactHandler.getType())) {
+    registerArtefactHandler(bootstrapArtefactHandler);
+  }
+  final CodecArtefactHandler codecArtefactHandler=new CodecArtefactHandler();
+  if (!hasArtefactHandler(codecArtefactHandler.getType())) {
+    registerArtefactHandler(codecArtefactHandler);
+  }
+  final UrlMappingsArtefactHandler urlMappingsArtefactHandler=new UrlMappingsArtefactHandler();
+  if (!hasArtefactHandler(urlMappingsArtefactHandler.getType())) {
+    registerArtefactHandler(urlMappingsArtefactHandler);
+  }
+  updateArtefactHandlers();
+}

@@ -1,0 +1,35 @@
+{
+  Class<?> beanClass=ClassUtils.getUserClass(existingBean.getClass());
+  Map<String,PropertyDescriptor> autowireableBeanProps=autowireableBeanPropsCacheForClass.get(beanClass);
+  if (autowireableBeanProps == null) {
+    autowireableBeanProps=new HashMap<String,PropertyDescriptor>();
+    BeanWrapperImpl bw=new BeanWrapperImpl(false);
+    bw.setWrappedInstance(existingBean);
+    bw.setConversionService(getConversionService());
+    PropertyDescriptor[] pds=bw.getPropertyDescriptors();
+    for (    PropertyDescriptor pd : pds) {
+      if (containsBean(pd.getName()) && pd.getWriteMethod() != null && !isExcludedFromDependencyCheck(pd) && !BeanUtils.isSimpleProperty(pd.getPropertyType())) {
+        final Method writeMethod=pd.getWriteMethod();
+        if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers()) && !writeMethod.isAccessible()) {
+          if (System.getSecurityManager() != null) {
+            AccessController.doPrivileged(new PrivilegedAction<Object>(){
+              public Object run(){
+                writeMethod.setAccessible(true);
+                return null;
+              }
+            }
+);
+          }
+ else {
+            writeMethod.setAccessible(true);
+          }
+        }
+        autowireableBeanProps.put(pd.getName(),pd);
+      }
+    }
+    if (!reloadEnabled) {
+      autowireableBeanPropsCacheForClass.put(beanClass,autowireableBeanProps);
+    }
+  }
+  return autowireableBeanProps;
+}

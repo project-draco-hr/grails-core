@@ -1,0 +1,7 @@
+{
+  Collection potentialList=getStaticPropertyValue(GrailsDomainClassProperty.EMBEDDED,Collection.class);
+  if (potentialList != null) {
+    return potentialList;
+  }
+  return Collections.emptyList();
+}

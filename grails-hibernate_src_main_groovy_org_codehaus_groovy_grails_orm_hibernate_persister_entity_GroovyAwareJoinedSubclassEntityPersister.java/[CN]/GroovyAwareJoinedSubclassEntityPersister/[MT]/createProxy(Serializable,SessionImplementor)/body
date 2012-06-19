@@ -1,0 +1,6 @@
+{
+  if (proxyFactory != null) {
+    return proxyFactory.getProxy(id,session);
+  }
+  return super.createProxy(id,session);
+}

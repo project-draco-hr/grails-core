@@ -1,0 +1,5 @@
+{
+  AbstractPersistenceEvent event=new org.grails.datastore.mapping.engine.event.PreDeleteEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity());
+  publishEvent(hibernateEvent,event);
+  return event.isCancelled();
+}

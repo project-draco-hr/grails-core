@@ -1,0 +1,3 @@
+{
+  return (propertyValue instanceof Map) || ((propertyValue instanceof String) && StringUtils.isBlank((String)propertyValue));
+}

@@ -1,0 +1,6 @@
+{
+  if (bodyBuffer != null) {
+    return bodyBuffer.toString();
+  }
+  return null;
+}

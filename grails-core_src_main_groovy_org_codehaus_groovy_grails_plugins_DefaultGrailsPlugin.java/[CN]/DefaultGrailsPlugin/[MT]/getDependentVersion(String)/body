@@ -1,0 +1,7 @@
+{
+  Object dependentVersion=dependencies.get(name);
+  if (dependentVersion == null) {
+    throw new PluginException("Plugin [" + getName() + "] referenced dependency ["+ name+ "] with no version!");
+  }
+  return dependentVersion.toString();
+}

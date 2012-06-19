@@ -1,0 +1,10 @@
+{
+  if (viewName != null && viewName.startsWith(SLASH_STR)) {
+    return getAbsoluteViewURIInternal(viewName,buf,includeSuffix);
+  }
+  buf.append(SLASH).append(controllerName);
+  if (viewName != null) {
+    buf.append(SLASH).append(viewName);
+  }
+  return includeSuffix ? buf.append(GroovyPage.SUFFIX).toString() : buf.toString();
+}

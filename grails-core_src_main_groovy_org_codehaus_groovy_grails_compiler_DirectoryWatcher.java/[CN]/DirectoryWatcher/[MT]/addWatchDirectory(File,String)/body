@@ -1,0 +1,11 @@
+{
+  extension=removeStartingDotIfPresent(extension);
+  List<String> fileExtensions=new ArrayList<String>();
+  if (!StringUtils.hasText(extension)) {
+    fileExtensions.add("*");
+  }
+ else {
+    fileExtensions.add(extension);
+  }
+  cacheFilesForDirectory(dir,fileExtensions,false);
+}

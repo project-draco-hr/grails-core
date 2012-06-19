@@ -1,0 +1,9 @@
+{
+  Enumeration<URL> result=invokeFindResources(parent,name);
+  while (result.hasMoreElements()) {
+    urls.add(result.nextElement());
+  }
+  if (parent != rootLoader) {
+    findResourcesRecursive(parent.getParent(),name,urls);
+  }
+}

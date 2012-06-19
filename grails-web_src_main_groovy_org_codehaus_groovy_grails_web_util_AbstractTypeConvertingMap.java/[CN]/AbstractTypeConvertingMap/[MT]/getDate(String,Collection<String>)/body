@@ -1,0 +1,7 @@
+{
+  for (  String format : formats) {
+    Date date=getDate(name,format);
+    if (date != null)     return date;
+  }
+  return null;
+}

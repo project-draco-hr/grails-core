@@ -1,0 +1,5 @@
+{
+  String result=(String)request.getAttribute(WebUtils.FORWARD_REQUEST_URI_ATTRIBUTE);
+  if (StringUtils.isBlank(result))   result=request.getRequestURI();
+  return result;
+}

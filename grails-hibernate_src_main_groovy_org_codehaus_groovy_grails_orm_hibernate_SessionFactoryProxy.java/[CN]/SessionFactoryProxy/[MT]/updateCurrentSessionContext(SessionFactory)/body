@@ -1,0 +1,19 @@
+{
+  CurrentSessionContext ssc=createCurrentSessionContext();
+  try {
+    Class<? extends SessionFactory> sessionFactoryClass=sessionFactory.getClass();
+    Field currentSessionContextField=sessionFactoryClass.getDeclaredField("currentSessionContext");
+    if (currentSessionContextField != null) {
+      ReflectionUtils.makeAccessible(currentSessionContextField);
+      currentSessionContextField.set(sessionFactory,ssc);
+    }
+  }
+ catch (  NoSuchFieldException e) {
+  }
+catch (  SecurityException e) {
+  }
+catch (  IllegalArgumentException e) {
+  }
+catch (  IllegalAccessException e) {
+  }
+}

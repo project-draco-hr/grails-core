@@ -1,0 +1,8 @@
+{
+  Assert.state(groovyPageLocator != null,"TemplateEngine not initialised correctly, no [groovyPageLocator] specified!");
+  GroovyPageScriptSource scriptSource=groovyPageLocator.findPage(uri);
+  if (scriptSource != null) {
+    return scriptSource;
+  }
+  return null;
+}

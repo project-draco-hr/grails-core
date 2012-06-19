@@ -1,0 +1,13 @@
+{
+  if (!msg.endsWith(" ") && !msg.endsWith("\t")) {
+    msg+=' ';
+  }
+  lastMessage="";
+  msg=isAnsiEnabled() ? outputCategory(ansi(),">").fg(DEFAULT).a(msg).toString() : msg;
+  try {
+    return readLine(msg,secure);
+  }
+  finally {
+    cursorMove=0;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (domainClass.getMappingStrategy().equalsIgnoreCase(GrailsDomainClass.GORM)) {
+    domainClasses.add(domainClass);
+  }
+  return this;
+}

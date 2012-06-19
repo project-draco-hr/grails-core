@@ -1,0 +1,7 @@
+{
+  this.context=context;
+  if (context != null) {
+    appContext=(ApplicationContext)context.getAttribute(APPLICATION_CONTEXT);
+  }
+  initBeans();
+}

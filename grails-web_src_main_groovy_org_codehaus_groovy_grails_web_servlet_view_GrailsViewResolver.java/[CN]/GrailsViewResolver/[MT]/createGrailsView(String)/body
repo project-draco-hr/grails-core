@@ -1,0 +1,19 @@
+{
+  GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+  HttpServletRequest request=webRequest.getCurrentRequest();
+  GroovyObject controller=webRequest.getAttributes().getController(request);
+  if (grailsApplication == null) {
+    grailsApplication=getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+  }
+  GroovyPageScriptSource scriptSource=null;
+  if (controller == null) {
+    scriptSource=groovyPageLocator.findViewByPath(viewName);
+  }
+ else {
+    scriptSource=groovyPageLocator.findView(controller,viewName);
+  }
+  if (scriptSource != null) {
+    return createGroovyPageView(webRequest,scriptSource.getURI(),scriptSource);
+  }
+  return createJstlView(viewName);
+}

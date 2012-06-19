@@ -1,0 +1,10 @@
+{
+  HTMLPage htmlPage=null;
+  if (content instanceof HTMLPage) {
+    htmlPage=(HTMLPage)content;
+  }
+ else {
+    htmlPage=new Content2HTMLPage(content);
+  }
+  return htmlPage;
+}

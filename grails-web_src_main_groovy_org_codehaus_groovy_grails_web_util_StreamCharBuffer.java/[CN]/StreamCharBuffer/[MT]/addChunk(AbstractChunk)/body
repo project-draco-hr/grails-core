@@ -1,0 +1,19 @@
+{
+  if (lastChunk != null) {
+    lastChunk.next=newChunk;
+    if (hasReaders) {
+      newChunk.prev=lastChunk;
+    }
+  }
+  lastChunk=newChunk;
+  if (firstChunk == null) {
+    firstChunk=newChunk;
+  }
+  if (newChunk instanceof StreamCharBufferSubChunk) {
+    StreamCharBufferSubChunk bufSubChunk=(StreamCharBufferSubChunk)newChunk;
+    dynamicChunkMap.put(bufSubChunk.streamCharBuffer.bufferKey,bufSubChunk);
+  }
+ else {
+    totalCharsInList+=newChunk.size();
+  }
+}

@@ -1,0 +1,11 @@
+{
+  String[] codes=error.getCodes();
+  boolean result=false;
+  for (int i=0; i < codes.length; i++) {
+    if (code.equals(codes[i])) {
+      result=true;
+      break;
+    }
+  }
+  assertTrue("Code " + code + " is not found in error",result);
+}

@@ -1,0 +1,7 @@
+{
+  if (o == null)   return o;
+  final MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
+  MetaClass mc=registry.getMetaClass(o.getClass());
+  final Object hibernateLazyInitializer=mc.getProperty(o,HIBERNATE_LAZY_INITIALIZER_PROP);
+  return registry.getMetaClass(hibernateLazyInitializer.getClass()).getProperty(hibernateLazyInitializer,IMPLEMENTATION_PROP);
+}

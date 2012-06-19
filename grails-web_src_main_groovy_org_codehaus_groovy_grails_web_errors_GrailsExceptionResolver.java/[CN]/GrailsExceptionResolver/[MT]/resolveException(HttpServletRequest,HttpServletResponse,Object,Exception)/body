@@ -1,0 +1,12 @@
+{
+  ex=findWrappedException(ex);
+  filterStackTrace(ex);
+  ModelAndView mv=super.resolveException(request,response,handler,ex);
+  setStatus(request,response,mv,ex);
+  logStackTrace(ex,request);
+  UrlMappingsHolder urlMappings=lookupUrlMappings();
+  if (urlMappings != null) {
+    mv=resolveViewOrForward(ex,urlMappings,request,response,mv);
+  }
+  return mv;
+}

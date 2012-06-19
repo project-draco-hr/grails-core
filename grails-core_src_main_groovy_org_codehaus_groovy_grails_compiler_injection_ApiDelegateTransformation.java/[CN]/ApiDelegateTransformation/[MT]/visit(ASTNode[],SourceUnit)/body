@@ -1,0 +1,18 @@
+{
+  if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
+    throw new GroovyBugError("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes));
+  }
+  AnnotatedNode parent=(AnnotatedNode)nodes[1];
+  AnnotationNode annotationNode=(AnnotationNode)nodes[0];
+  if (parent instanceof FieldNode) {
+    Expression value=annotationNode.getMember("value");
+    FieldNode fieldNode=(FieldNode)parent;
+    final ClassNode type=fieldNode.getType();
+    final ClassNode owner=fieldNode.getOwner();
+    ClassNode supportedType=owner;
+    if (value instanceof ClassExpression) {
+      supportedType=value.getType();
+    }
+    GrailsASTUtils.addDelegateInstanceMethods(supportedType,owner,type,new VariableExpression(fieldNode.getName()));
+  }
+}

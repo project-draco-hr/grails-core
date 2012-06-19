@@ -1,0 +1,9 @@
+{
+  StreamCharBuffer charBuffer=createTestInstance();
+  Reader input=charBuffer.getReader();
+  CharArrayWriter charsOut=new CharArrayWriter(charBuffer.size());
+  copyOneByOne(input,charsOut);
+  char[] result=charsOut.toCharArray();
+  assertTrue(Arrays.equals(testbuffer,result));
+  assertEquals(testbuffer.length,charBuffer.size());
+}

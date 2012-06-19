@@ -1,0 +1,12 @@
+{
+switch (hibernateTemplate.getFlushMode()) {
+case HibernateTemplate.FLUSH_AUTO:
+    return FlushModeType.AUTO;
+case HibernateTemplate.FLUSH_COMMIT:
+  return FlushModeType.COMMIT;
+case HibernateTemplate.FLUSH_ALWAYS:
+return FlushModeType.AUTO;
+default :
+return FlushModeType.AUTO;
+}
+}

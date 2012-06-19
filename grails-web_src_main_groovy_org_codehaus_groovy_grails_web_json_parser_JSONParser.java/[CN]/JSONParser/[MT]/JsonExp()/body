@@ -1,0 +1,10 @@
+{
+  Token t;
+  String digits;
+  t=jj_consume_token(E);
+  digits=Digits();
+{
+    if (true)     return t.image + digits;
+  }
+  throw new Error("Missing return statement in function");
+}

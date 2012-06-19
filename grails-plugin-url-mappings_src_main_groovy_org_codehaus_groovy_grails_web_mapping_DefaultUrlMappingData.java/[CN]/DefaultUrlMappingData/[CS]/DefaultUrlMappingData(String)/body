@@ -1,0 +1,9 @@
+{
+  Assert.hasLength(urlPattern,"Argument [urlPattern] cannot be null or blank");
+  Assert.isTrue(urlPattern.startsWith(SLASH),"Argument [urlPattern] is not a valid URL. It must start with '/' !");
+  this.urlPattern=StringUtils.replace(urlPattern,"(*)**",CAPTURED_DOUBLE_WILDCARD);
+  tokens=this.urlPattern.substring(1).split(SLASH);
+  List<String> urls=new ArrayList<String>();
+  parseUrls(urls);
+  logicalUrls=urls.toArray(new String[urls.size()]);
+}

@@ -1,0 +1,11 @@
+{
+  FlashScope fs=grailsAttributes.getFlashScope(request);
+  if (fs.containsKey(PROPERTY_CHAIN_MODEL)) {
+    Map chainModel=(Map)fs.get(PROPERTY_CHAIN_MODEL);
+    if (chainModel == null) {
+      chainModel=Collections.EMPTY_MAP;
+    }
+    return chainModel;
+  }
+  return Collections.EMPTY_MAP;
+}

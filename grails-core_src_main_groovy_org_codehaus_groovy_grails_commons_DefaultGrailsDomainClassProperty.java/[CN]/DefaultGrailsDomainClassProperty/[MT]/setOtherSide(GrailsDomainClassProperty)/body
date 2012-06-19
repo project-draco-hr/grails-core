@@ -1,0 +1,10 @@
+{
+  if (!equals(property)) {
+    setBidirectional(true);
+    if (isOneToOne() && property.isOneToMany()) {
+      setOneToOne(false);
+      setManyToOne(true);
+    }
+  }
+  otherSide=property;
+}

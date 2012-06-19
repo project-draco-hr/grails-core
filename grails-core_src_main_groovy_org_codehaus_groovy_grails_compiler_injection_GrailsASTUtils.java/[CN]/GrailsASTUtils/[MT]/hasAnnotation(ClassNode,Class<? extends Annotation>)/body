@@ -1,0 +1,4 @@
+{
+  List<AnnotationNode> annotations=classNode.getAnnotations(new ClassNode(annotationClass));
+  return annotations.size() > 0;
+}

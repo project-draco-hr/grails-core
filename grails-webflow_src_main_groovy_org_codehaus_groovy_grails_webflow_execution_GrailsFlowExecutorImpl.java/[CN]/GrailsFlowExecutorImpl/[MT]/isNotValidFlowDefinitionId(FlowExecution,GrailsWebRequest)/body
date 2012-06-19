@@ -1,0 +1,11 @@
+{
+  final FlowDefinitionLocator locator=getDefinitionLocator();
+  final String requestPath=webRequest.getControllerName() + "/" + webRequest.getActionName();
+  try {
+    locator.getFlowDefinition(requestPath);
+    return false;
+  }
+ catch (  NoSuchFlowDefinitionException e) {
+    return true;
+  }
+}

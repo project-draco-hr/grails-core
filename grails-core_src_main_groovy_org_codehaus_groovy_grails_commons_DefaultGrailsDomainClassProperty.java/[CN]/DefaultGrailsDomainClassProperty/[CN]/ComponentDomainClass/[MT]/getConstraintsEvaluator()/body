@@ -1,0 +1,6 @@
+{
+  if (domainClass instanceof DefaultGrailsDomainClass) {
+    return ((DefaultGrailsDomainClass)domainClass).getConstraintsEvaluator();
+  }
+  return new DefaultConstraintEvaluator();
+}

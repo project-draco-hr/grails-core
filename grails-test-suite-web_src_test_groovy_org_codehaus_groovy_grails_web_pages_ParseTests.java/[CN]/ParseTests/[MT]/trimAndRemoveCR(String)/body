@@ -1,0 +1,8 @@
+{
+  int index;
+  StringBuilder sb=new StringBuilder(s.trim());
+  while (((index=sb.toString().indexOf('\r')) != -1) || ((index=sb.toString().indexOf('\n')) != -1)) {
+    sb.deleteCharAt(index);
+  }
+  return sb.toString();
+}

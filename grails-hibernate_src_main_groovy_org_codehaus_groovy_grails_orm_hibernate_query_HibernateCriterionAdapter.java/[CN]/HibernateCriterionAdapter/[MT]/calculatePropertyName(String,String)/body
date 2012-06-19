@@ -1,0 +1,6 @@
+{
+  if (alias != null) {
+    return alias + '.' + property;
+  }
+  return property;
+}

@@ -1,0 +1,22 @@
+{
+  super(clazz,TAG_LIB);
+  for (  PropertyDescriptor prop : getPropertyDescriptors()) {
+    Method readMethod=prop.getReadMethod();
+    if (readMethod == null || Modifier.isStatic(readMethod.getModifiers())) {
+      continue;
+    }
+    if (Closure.class.isAssignableFrom(prop.getPropertyType())) {
+      tags.add(prop.getName());
+    }
+  }
+  String ns=getStaticPropertyValue(NAMESPACE_FIELD_NAME,String.class);
+  if (ns != null && !"".equals(ns.trim())) {
+    namespace=ns.trim();
+  }
+  List returnObjectForTagsList=getStaticPropertyValue(RETURN_OBJECT_FOR_TAGS_FIELD_NAME,List.class);
+  if (returnObjectForTagsList != null) {
+    for (    Object tagName : returnObjectForTagsList) {
+      returnObjectForTagsSet.add(String.valueOf(tagName));
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  for (  UrlMapping mapping : holder.getUrlMappings()) {
+    if (mapping instanceof RegexUrlMapping) {
+      return false;
+    }
+  }
+  return true;
+}

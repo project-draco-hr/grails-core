@@ -1,0 +1,10 @@
+{
+  progressIndicatorActive=true;
+  String currMsg=lastMessage;
+  try {
+    updateStatus(currMsg + ' ' + number+ " of "+ total);
+  }
+  finally {
+    lastMessage=currMsg;
+  }
+}

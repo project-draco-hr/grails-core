@@ -1,0 +1,8 @@
+{
+  if (expectation instanceof LooseExpectation) {
+    ((LooseExpectation)expectation).match(methodName);
+  }
+ else {
+    ((StrictExpectation)expectation).match(methodName);
+  }
+}

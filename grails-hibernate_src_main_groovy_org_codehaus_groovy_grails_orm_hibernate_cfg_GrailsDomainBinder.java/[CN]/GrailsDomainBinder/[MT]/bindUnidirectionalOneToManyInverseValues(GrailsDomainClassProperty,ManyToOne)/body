@@ -1,0 +1,11 @@
+{
+  PropertyConfig config=getPropertyConfig(property);
+  if (config != null) {
+    manyToOne.setLazy(config.getLazy());
+    manyToOne.setIgnoreNotFound(config.getIgnoreNotFound());
+  }
+ else {
+    manyToOne.setLazy(true);
+  }
+  manyToOne.setReferencedEntityName(property.getReferencedPropertyType().getName());
+}

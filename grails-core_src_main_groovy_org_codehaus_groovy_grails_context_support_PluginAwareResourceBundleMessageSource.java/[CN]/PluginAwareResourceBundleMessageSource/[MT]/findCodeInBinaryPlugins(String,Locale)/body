@@ -1,0 +1,15 @@
+{
+  String result=null;
+  final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+  for (  GrailsPlugin plugin : allPlugins) {
+    if (plugin instanceof BinaryGrailsPlugin) {
+      BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+      final Properties binaryPluginProperties=binaryPlugin.getProperties(locale);
+      if (binaryPluginProperties != null) {
+        result=binaryPluginProperties.getProperty(code);
+        if (result != null)         break;
+      }
+    }
+  }
+  return result;
+}

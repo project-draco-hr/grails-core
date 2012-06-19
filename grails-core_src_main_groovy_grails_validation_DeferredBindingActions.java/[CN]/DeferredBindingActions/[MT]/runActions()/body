@@ -1,0 +1,20 @@
+{
+  List<Runnable> runnables=deferredBindingActions.get();
+  if (runnables != null) {
+    try {
+      for (      Runnable runnable : getDeferredBindingActions()) {
+        if (runnable != null) {
+          try {
+            runnable.run();
+          }
+ catch (          Exception e) {
+            LOG.error("Error running deferred data binding: " + e.getMessage(),e);
+          }
+        }
+      }
+    }
+  finally {
+      clear();
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  GroovyPageScriptSource scriptSource=null;
+  if (cacheTimeout == 0) {
+    scriptSource=updater.run();
+  }
+ else {
+    CacheEntry<GroovyPageScriptSource> entry=uriResolveCache.get(cacheKey);
+    if (entry == null) {
+      scriptSource=updater.run();
+      uriResolveCache.put(cacheKey,new CustomCacheEntry<GroovyPageScriptSource>(scriptSource));
+    }
+ else {
+      scriptSource=entry.getValue(cacheTimeout,updater);
+    }
+  }
+  return scriptSource == NULL_SCRIPT ? null : scriptSource;
+}

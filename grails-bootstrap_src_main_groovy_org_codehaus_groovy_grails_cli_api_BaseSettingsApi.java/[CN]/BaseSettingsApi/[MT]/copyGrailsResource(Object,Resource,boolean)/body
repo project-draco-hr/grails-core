@@ -1,0 +1,6 @@
+{
+  File file=new File(targetFile.toString());
+  if (overwrite || !file.exists()) {
+    FileCopyUtils.copy(resource.getInputStream(),new FileOutputStream(file));
+  }
+}

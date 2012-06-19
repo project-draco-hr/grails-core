@@ -1,0 +1,6 @@
+{
+  if (REFRESH_DEPENDENCIES_ARGUMENT.equals(cmd)) {
+    addUndeclaredOption(REFRESH_DEPENDENCIES_ARGUMENT);
+  }
+  this.commandName=cmd;
+}

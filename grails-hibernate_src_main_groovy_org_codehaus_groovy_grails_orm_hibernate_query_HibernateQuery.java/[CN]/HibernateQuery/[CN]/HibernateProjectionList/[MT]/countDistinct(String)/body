@@ -1,0 +1,4 @@
+{
+  projectionList.add(Projections.countDistinct(calculatePropertyName(property)));
+  return this;
+}

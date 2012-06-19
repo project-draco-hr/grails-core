@@ -1,0 +1,6 @@
+{
+  Object result=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,TYPE_FILTERS);
+  if (result instanceof List) {
+    typeFilters=(List<TypeFilter>)result;
+  }
+}

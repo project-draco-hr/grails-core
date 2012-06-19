@@ -1,0 +1,6 @@
+{
+  if (pluginManager != null) {
+    pluginManagersInCreation.set(false);
+  }
+  pluginManagers.set(pluginManager);
+}

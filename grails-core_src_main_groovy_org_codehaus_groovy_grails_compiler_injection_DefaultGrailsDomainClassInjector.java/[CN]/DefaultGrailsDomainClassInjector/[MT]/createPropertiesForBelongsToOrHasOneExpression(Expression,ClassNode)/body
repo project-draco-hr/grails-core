@@ -1,0 +1,19 @@
+{
+  List<PropertyNode> properties=new ArrayList<PropertyNode>();
+  if (e instanceof MapExpression) {
+    MapExpression me=(MapExpression)e;
+    for (    MapEntryExpression mme : me.getMapEntryExpressions()) {
+      String key=mme.getKeyExpression().getText();
+      final Expression expression=mme.getValueExpression();
+      ClassNode type;
+      if (expression instanceof ClassExpression) {
+        type=expression.getType();
+      }
+ else {
+        type=ClassHelper.make(expression.getText());
+      }
+      properties.add(new PropertyNode(key,Modifier.PUBLIC,type,classNode,null,null,null));
+    }
+  }
+  return properties;
+}

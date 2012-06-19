@@ -1,0 +1,8 @@
+{
+  String contextPath=resolveContextPath(pluginName,uri,binding);
+  GroovyPageScriptSource scriptSource=findPageInBinding(GrailsResourceUtils.appendPiecesForUri(contextPath,uri),binding);
+  if (scriptSource == null) {
+    scriptSource=findResourceScriptSource(uri);
+  }
+  return scriptSource;
+}

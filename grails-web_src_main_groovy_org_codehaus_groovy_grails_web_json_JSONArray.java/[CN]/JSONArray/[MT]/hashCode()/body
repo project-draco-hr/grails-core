@@ -1,0 +1,3 @@
+{
+  return myArrayList != null ? myArrayList.hashCode() : super.hashCode();
+}

@@ -1,0 +1,13 @@
+{
+  new DefaultStackTraceFilterer().filter(t,true);
+  StackTraceElement[] trace=t.getStackTrace();
+  List<StackTraceElement> newTrace=new ArrayList<StackTraceElement>();
+  for (  StackTraceElement stackTraceElement : trace) {
+    if (stackTraceElement.getClassName().startsWith(TEST_RUNNING_CLASS)) {
+      break;
+    }
+    newTrace.add(stackTraceElement);
+  }
+  t.setStackTrace(newTrace.toArray(new StackTraceElement[newTrace.size()]));
+  return t;
+}

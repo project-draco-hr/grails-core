@@ -1,0 +1,8 @@
+{
+  for (Iterator<Map.Entry> i=additionalBinding.entrySet().iterator(); i.hasNext(); ) {
+    Map.Entry entry=i.next();
+    String name=String.valueOf(entry.getKey());
+    Object value=entry.getValue();
+    internalSetVariable(this,name,value);
+  }
+}

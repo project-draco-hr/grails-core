@@ -1,0 +1,11 @@
+{
+  if (include == null && exclude == null) {
+    include=getBindingIncludeList(object);
+  }
+  GrailsApplication application=GrailsWebRequest.lookupApplication();
+  GrailsDomainClass domain=null;
+  if (application != null) {
+    domain=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName());
+  }
+  return bindObjectToDomainInstance(domain,object,source,include,exclude,filter);
+}

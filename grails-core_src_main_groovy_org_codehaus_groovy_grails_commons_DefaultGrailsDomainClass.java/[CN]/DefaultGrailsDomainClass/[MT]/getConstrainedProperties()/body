@@ -1,0 +1,6 @@
+{
+  if (constraints == null) {
+    initializeConstraints();
+  }
+  return Collections.unmodifiableMap(constraints);
+}

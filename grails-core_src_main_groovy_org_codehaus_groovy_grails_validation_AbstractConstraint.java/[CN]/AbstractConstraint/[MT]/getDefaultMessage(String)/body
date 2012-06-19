@@ -1,0 +1,11 @@
+{
+  try {
+    if (messageSource != null) {
+      return messageSource.getMessage(code,null,LocaleContextHolder.getLocale());
+    }
+    return ConstrainedProperty.DEFAULT_MESSAGES.get(code);
+  }
+ catch (  Exception e) {
+    return ConstrainedProperty.DEFAULT_MESSAGES.get(code);
+  }
+}

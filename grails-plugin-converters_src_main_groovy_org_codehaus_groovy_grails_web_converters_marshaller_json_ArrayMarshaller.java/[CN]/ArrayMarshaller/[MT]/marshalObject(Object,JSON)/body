@@ -1,0 +1,9 @@
+{
+  JSONWriter writer=converter.getWriter();
+  int len=Array.getLength(o);
+  writer.array();
+  for (int i=0; i < len; i++) {
+    converter.convertAnother(Array.get(o,i));
+  }
+  writer.endArray();
+}

@@ -1,0 +1,30 @@
+{
+  List<File> srcList=new ArrayList<File>();
+  String srcPath=srcDir.getAbsolutePath();
+  String destPath=destDir.getAbsolutePath();
+  for (  String f : files) {
+    File sf=new File(srcPath,f);
+    File df=null;
+    if (f.endsWith(".groovy")) {
+      df=new File(destPath,f.substring(0,f.length() - 7) + ".class");
+      int i=f.lastIndexOf('/');
+      if (!df.exists() && i > -1) {
+        File tmp=new File(destPath,f.substring(i,f.length() - 7) + ".class");
+        if (tmp.exists()) {
+          df=tmp;
+        }
+      }
+    }
+ else     if (f.endsWith(".java")) {
+      df=new File(destPath,f.substring(0,f.length() - 5) + ".class");
+    }
+ else {
+      continue;
+    }
+    if (sf.lastModified() > df.lastModified()) {
+      srcList.add(sf);
+      destList.add(df);
+    }
+  }
+  addToCompileList(srcList.toArray(new File[srcList.size()]));
+}

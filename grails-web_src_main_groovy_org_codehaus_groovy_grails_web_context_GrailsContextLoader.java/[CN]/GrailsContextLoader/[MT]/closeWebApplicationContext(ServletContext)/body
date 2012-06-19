@@ -1,0 +1,23 @@
+{
+  if (application == null || !application.isWarDeployed()) {
+    return;
+  }
+  WebApplicationContext ctx=WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  ConfigurableApplicationContext parent=ctx != null ? (ConfigurableApplicationContext)ctx.getParent() : null;
+  try {
+    ShutdownOperations.runOperations();
+  }
+  finally {
+    super.closeWebApplicationContext(servletContext);
+  }
+  if (parent != null) {
+    LOG.info("Destroying Spring parent WebApplicationContext " + parent.getDisplayName());
+    parent.close();
+  }
+  try {
+    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+  }
+ catch (  AccessControlException e) {
+  }
+  application=null;
+}

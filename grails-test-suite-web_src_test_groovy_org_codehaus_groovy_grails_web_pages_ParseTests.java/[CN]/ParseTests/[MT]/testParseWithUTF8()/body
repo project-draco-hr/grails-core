@@ -1,0 +1,16 @@
+{
+  String src="Chinese text: \u3421\u3437\u343f\u3443\u3410\u3405\u38b3\u389a\u395e\u3947\u3adb\u3b5a\u3b67";
+  assertEquals(src.indexOf('?'),-1);
+  ConfigObject config=new ConfigSlurper().parse("grails.views.gsp.encoding = \"UTF-8\"");
+  buildMockRequest(config);
+  ParsedResult output=null;
+  try {
+    output=parseCode("myTest4",src);
+  }
+  finally {
+    RequestContextHolder.setRequestAttributes(null);
+  }
+  String expected=makeImports() + "\n" + "class myTest4 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest4\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer codecOut = getCodecOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
+  assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output.generatedGsp));
+  assertEquals(src,output.htmlParts[0]);
+}

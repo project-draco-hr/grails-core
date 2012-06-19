@@ -1,0 +1,6 @@
+{
+  if (pluginFilter == null) {
+    pluginFilter=new IdentityPluginFilter();
+  }
+  return pluginFilter;
+}

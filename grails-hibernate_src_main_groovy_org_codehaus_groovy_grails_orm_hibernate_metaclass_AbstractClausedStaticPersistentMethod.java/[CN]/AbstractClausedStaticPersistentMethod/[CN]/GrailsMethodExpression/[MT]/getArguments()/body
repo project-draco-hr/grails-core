@@ -1,0 +1,5 @@
+{
+  Object[] copy=new Object[arguments.length];
+  System.arraycopy(arguments,0,copy,0,arguments.length);
+  return copy;
+}

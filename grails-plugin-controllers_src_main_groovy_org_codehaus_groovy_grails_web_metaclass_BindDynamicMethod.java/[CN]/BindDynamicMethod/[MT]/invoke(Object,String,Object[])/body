@@ -1,0 +1,39 @@
+{
+  if (arguments.length < 2 || arguments.length > 4) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  if (arguments[0] == null) {
+    throw new IllegalArgumentException("Argument [target] is required by method [bindData] on class [" + target.getClass().getName() + "]");
+  }
+  Object targetObject=arguments[0];
+  Object bindParams=arguments[1];
+  Map includeExclude=new HashMap();
+  List include=null;
+  List exclude=null;
+  String filter=null;
+switch (arguments.length) {
+case 3:
+    if (arguments[2] instanceof String) {
+      filter=(String)arguments[2];
+    }
+ else {
+      Assert.isInstanceOf(Map.class,arguments[2],"The 3rd Argument for method bindData must represent included and excluded properties " + "and implement the interface java.util.Map or be a String and represent a prefix to filter parameters with");
+      includeExclude=(Map)arguments[2];
+    }
+  break;
+case 4:
+Assert.isInstanceOf(Map.class,arguments[2],"The 3rd Argument for method bindData must represent included and excluded properties " + "and implement the interface java.util.Map or be a String and represent a prefix to filter parameters with");
+includeExclude=(Map)arguments[2];
+Assert.isInstanceOf(String.class,arguments[3],"Argument [prefix] for method [bindData] must be a String");
+filter=(String)arguments[3];
+break;
+}
+if (includeExclude.containsKey(INCLUDE_MAP_KEY)) {
+include=convertToListIfString(includeExclude.get(INCLUDE_MAP_KEY));
+}
+if (includeExclude.containsKey(EXCLUDE_MAP_KEY)) {
+exclude=convertToListIfString(includeExclude.get(EXCLUDE_MAP_KEY));
+}
+DataBindingUtils.bindObjectToInstance(targetObject,bindParams,include,exclude,filter);
+return targetObject;
+}

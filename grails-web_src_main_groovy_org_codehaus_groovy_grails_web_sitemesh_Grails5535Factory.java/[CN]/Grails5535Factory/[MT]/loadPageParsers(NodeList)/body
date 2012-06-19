@@ -1,0 +1,13 @@
+{
+  clearParserMappings();
+  for (int i=0; i < nodes.getLength(); i++) {
+    if (nodes.item(i) instanceof Element) {
+      Element curr=(Element)nodes.item(i);
+      if ("parser".equalsIgnoreCase(curr.getTagName())) {
+        String className=curr.getAttribute("class");
+        String contentType=curr.getAttribute("content-type");
+        mapParser(contentType,className);
+      }
+    }
+  }
+}

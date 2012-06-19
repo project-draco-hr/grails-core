@@ -1,0 +1,32 @@
+{
+  if (b == null) {
+    throw new NullPointerException();
+  }
+  if ((off < 0) || (off > b.length) || (len < 0)|| ((off + len) > b.length)|| ((off + len) < 0)) {
+    throw new IndexOutOfBoundsException();
+  }
+  if (len == 0) {
+    return 0;
+  }
+  int charsLeft=len;
+  int currentOffset=off;
+  int readChars=prepareRead(charsLeft);
+  if (eofException) {
+    throw new EOFException();
+  }
+  int totalCharsRead=0;
+  while (charsLeft > 0 && readChars > 0) {
+    chunkReader.read(b,currentOffset,readChars);
+    charsLeft-=readChars;
+    currentOffset+=readChars;
+    totalCharsRead+=readChars;
+    if (charsLeft > 0) {
+      readChars=prepareRead(charsLeft);
+    }
+  }
+  if (totalCharsRead > 0) {
+    return totalCharsRead;
+  }
+  eofException=true;
+  return -1;
+}

@@ -1,0 +1,9 @@
+{
+  super(type,"");
+  PropertyDescriptor[] descriptors=getPropertyDescriptors();
+  List tmp=getPropertyValue(GrailsDomainClassProperty.TRANSIENT,List.class);
+  if (tmp != null)   transients=tmp;
+  properties=createDomainClassProperties(descriptors);
+  ConstraintsEvaluator constraintsEvaluator=getConstraintsEvaluator();
+  constraints=constraintsEvaluator.evaluate(type,properties);
+}

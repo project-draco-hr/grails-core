@@ -1,0 +1,3 @@
+{
+  cacheMap=new ConcurrentLinkedHashMap.Builder<ReverseMappingKey,CachingUrlCreator>().maximumWeightedCapacity(maxSize).weigher(CachingUrlCreatorWeigher.INSTANCE).build();
+}

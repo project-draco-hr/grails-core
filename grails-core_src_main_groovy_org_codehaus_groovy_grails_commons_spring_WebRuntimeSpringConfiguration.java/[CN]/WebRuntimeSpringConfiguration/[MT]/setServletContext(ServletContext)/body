@@ -1,0 +1,6 @@
+{
+  initialiseApplicationContext();
+  if (context instanceof ConfigurableWebApplicationContext) {
+    ((ConfigurableWebApplicationContext)context).setServletContext(servletContext);
+  }
+}

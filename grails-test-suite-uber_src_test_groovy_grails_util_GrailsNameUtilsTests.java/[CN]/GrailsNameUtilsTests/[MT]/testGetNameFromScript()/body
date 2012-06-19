@@ -1,0 +1,7 @@
+{
+  assertEquals("GrailsClassUtilsTests",GrailsNameUtils.getNameFromScript("grails-class-utils-tests"));
+  assertEquals("Grails",GrailsNameUtils.getNameFromScript("grails"));
+  assertEquals("CreateApp",GrailsNameUtils.getNameFromScript("create-app"));
+  assertEquals("",GrailsNameUtils.getNameFromScript(""));
+  assertNull(GrailsNameUtils.getNameFromScript(null));
+}

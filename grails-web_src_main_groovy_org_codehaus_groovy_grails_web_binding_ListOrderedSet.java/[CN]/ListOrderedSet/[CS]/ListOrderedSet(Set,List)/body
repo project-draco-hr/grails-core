@@ -1,0 +1,5 @@
+{
+  super(set);
+  Assert.notNull(list,"List must not be null");
+  setOrder=list;
+}

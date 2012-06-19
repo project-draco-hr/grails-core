@@ -1,0 +1,7 @@
+{
+  Map old=MDC.getContext();
+  if (old == null) {
+    return null;
+  }
+  return new HashMap(old);
+}

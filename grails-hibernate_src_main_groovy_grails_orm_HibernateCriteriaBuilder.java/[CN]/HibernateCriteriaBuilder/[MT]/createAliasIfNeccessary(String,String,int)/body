@@ -1,0 +1,13 @@
+{
+  String newAlias;
+  if (aliasMap.containsKey(associationPath)) {
+    newAlias=aliasMap.get(associationPath);
+  }
+ else {
+    aliasCount++;
+    newAlias=associationName + ALIAS + aliasCount;
+    aliasMap.put(associationPath,newAlias);
+    aliasInstanceStack.add(criteria.createAlias(associationPath,newAlias,joinType));
+  }
+  aliasStack.add(newAlias);
+}

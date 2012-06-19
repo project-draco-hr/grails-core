@@ -1,0 +1,40 @@
+{
+  resolveKeepGeneratedDirectory();
+  StreamCharBuffer streamBuffer=new StreamCharBuffer(1024);
+  StreamByteBuffer byteOutputBuffer=new StreamByteBuffer(1024,StreamByteBuffer.ReadMode.RETAIN_AFTER_READING);
+  try {
+    streamBuffer.connectTo(new OutputStreamWriter(byteOutputBuffer.getOutputStream(),GROOVY_SOURCE_CHAR_ENCODING),true);
+  }
+ catch (  UnsupportedEncodingException e) {
+    throw new RuntimeException("Grails cannot run unless your environment supports UTF-8!");
+  }
+  File keepGeneratedFile=null;
+  Writer keepGeneratedWriter=null;
+  if (keepGeneratedDirectory != null) {
+    keepGeneratedFile=new File(keepGeneratedDirectory,className);
+    try {
+      keepGeneratedWriter=new OutputStreamWriter(new FileOutputStream(keepGeneratedFile),GROOVY_SOURCE_CHAR_ENCODING);
+    }
+ catch (    IOException e) {
+      LOG.warn("Cannot open keepgenerated file for writing. File's absolute path is '" + keepGeneratedFile.getAbsolutePath() + "'");
+      keepGeneratedFile=null;
+    }
+    streamBuffer.connectTo(keepGeneratedWriter,true);
+  }
+  Writer target=streamBuffer.getWriter();
+  try {
+    generateGsp(target,false);
+    if (LOG.isDebugEnabled()) {
+      if (keepGeneratedFile != null) {
+        LOG.debug("Compiled GSP into Groovy code. Source is in " + keepGeneratedFile);
+      }
+ else {
+        LOG.debug("Configure " + CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR + " property to view generated source.");
+      }
+    }
+    return byteOutputBuffer.getInputStream();
+  }
+  finally {
+    IOUtils.closeQuietly(keepGeneratedWriter);
+  }
+}

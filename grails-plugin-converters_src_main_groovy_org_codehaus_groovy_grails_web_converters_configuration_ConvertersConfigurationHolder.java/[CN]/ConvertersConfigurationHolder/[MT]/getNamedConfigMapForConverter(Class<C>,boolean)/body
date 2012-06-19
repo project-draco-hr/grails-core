@@ -1,0 +1,8 @@
+{
+  Map<String,ConverterConfiguration> namedConfigs=getInstance().namedConfigurations.get(clazz);
+  if (namedConfigs == null && create) {
+    namedConfigs=new HashMap<String,ConverterConfiguration>();
+    getInstance().namedConfigurations.put(clazz,namedConfigs);
+  }
+  return namedConfigs;
+}

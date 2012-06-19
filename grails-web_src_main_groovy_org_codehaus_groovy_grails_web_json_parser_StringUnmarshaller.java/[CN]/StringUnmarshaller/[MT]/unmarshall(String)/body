@@ -1,0 +1,27 @@
+{
+  str=str.substring(1,str.length() - 1);
+  int len=str.length();
+  StringBuilder sb=new StringBuilder(len);
+  int i=0;
+  while (i < len) {
+    char c=str.charAt(i);
+    ++i;
+    if (c == '\\') {
+      char c1=str.charAt(i);
+      ++i;
+      if (c1 == 'u') {
+        int codePoint=getCodePoint(str,i);
+        sb.appendCodePoint(codePoint);
+        i+=4;
+      }
+ else {
+        char escapedChar=getEscapedChar(str,c1);
+        sb.append(escapedChar);
+      }
+    }
+ else {
+      sb.append(c);
+    }
+  }
+  return sb.toString();
+}

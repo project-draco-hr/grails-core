@@ -1,0 +1,10 @@
+{
+  Class<?> clazz=obj.getClass();
+  try {
+    Field f=clazz.getDeclaredField(name);
+    return f.get(obj);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

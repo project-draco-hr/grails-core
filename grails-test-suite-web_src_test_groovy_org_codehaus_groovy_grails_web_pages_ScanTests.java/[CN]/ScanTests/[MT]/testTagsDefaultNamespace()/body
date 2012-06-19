@@ -1,0 +1,10 @@
+{
+  String gsp="<tbody>\n" + "  <g:form />\n" + "</tbody>";
+  GroovyPageScanner s=new GroovyPageScanner(gsp);
+  int next;
+  while ((next=s.nextToken()) != Tokens.EOF) {
+    if (next == Tokens.GSTART_TAG || next == Tokens.GEND_TAG) {
+      assertEquals(GroovyPage.DEFAULT_NAMESPACE,s.getNamespace());
+    }
+  }
+}

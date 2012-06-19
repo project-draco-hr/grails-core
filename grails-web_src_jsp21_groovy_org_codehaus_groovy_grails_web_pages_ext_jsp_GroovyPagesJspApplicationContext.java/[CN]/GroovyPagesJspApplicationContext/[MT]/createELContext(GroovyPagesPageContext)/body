@@ -1,0 +1,10 @@
+{
+  ELContext ctx=new GroovyPagesELContext(pageCtx);
+  ELContextEvent event=new ELContextEvent(ctx);
+synchronized (listeners) {
+    for (Iterator<ELContextListener> iter=listeners.iterator(); iter.hasNext(); ) {
+      iter.next().contextCreated(event);
+    }
+  }
+  return ctx;
+}

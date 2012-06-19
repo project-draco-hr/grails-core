@@ -1,0 +1,17 @@
+{
+  progressIndicatorActive=true;
+  String currMsg=lastMessage;
+  try {
+    int percentage=Math.round(NumberMath.multiply(NumberMath.divide(number,total),100).floatValue());
+    if (!isAnsiEnabled()) {
+      out.print("..");
+      out.print(percentage + '%');
+    }
+ else {
+      updateStatus(currMsg + ' ' + percentage+ '%');
+    }
+  }
+  finally {
+    lastMessage=currMsg;
+  }
+}

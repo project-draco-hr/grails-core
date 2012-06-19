@@ -1,0 +1,4 @@
+{
+  ConstantExpression newName=(ConstantExpression)node.getMember("sourceName");
+  return (String)newName.getValue();
+}

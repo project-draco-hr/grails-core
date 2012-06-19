@@ -1,0 +1,6 @@
+{
+  reloadedPrecompiledGspClassNames.add(scriptSource.getCompiledClass().getName());
+  if (scriptSource.getURI() != null && precompiledGspMap != null) {
+    precompiledGspMap.remove(scriptSource.getURI());
+  }
+}

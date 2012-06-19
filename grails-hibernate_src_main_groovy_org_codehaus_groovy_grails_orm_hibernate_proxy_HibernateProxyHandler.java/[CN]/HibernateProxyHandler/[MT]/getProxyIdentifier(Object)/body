@@ -1,0 +1,6 @@
+{
+  if (o instanceof HibernateProxy) {
+    return ((HibernateProxy)o).getHibernateLazyInitializer().getIdentifier();
+  }
+  return null;
+}

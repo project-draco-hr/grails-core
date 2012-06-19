@@ -1,0 +1,4 @@
+{
+  Object returnValue=getProperty(object,property,callback);
+  return callback.isInvoked() ? returnValue : null;
+}

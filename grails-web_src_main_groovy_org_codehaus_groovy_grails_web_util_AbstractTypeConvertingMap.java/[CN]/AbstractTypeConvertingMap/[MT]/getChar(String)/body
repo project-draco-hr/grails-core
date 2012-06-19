@@ -1,0 +1,13 @@
+{
+  Object o=get(name);
+  if (o instanceof Character) {
+    return (Character)o;
+  }
+  if (o != null) {
+    String string=o.toString();
+    if (string != null && string.length() == 1) {
+      return string.charAt(0);
+    }
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  GroovyPageScriptSource scriptSource=findScriptSource(uris);
+  if (scriptSource != null) {
+    return createTemplate(scriptSource);
+  }
+  return null;
+}

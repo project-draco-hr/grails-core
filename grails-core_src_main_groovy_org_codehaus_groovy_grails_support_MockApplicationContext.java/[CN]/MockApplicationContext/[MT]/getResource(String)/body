@@ -1,0 +1,13 @@
+{
+  for (  Resource mockResource : resources) {
+    if (pathMatcher.match(mockResource.getDescription(),StringUtils.removeStart(location,"/"))) {
+      return mockResource;
+    }
+  }
+  for (  String resourceLocation : ignoredClassLocations) {
+    if (pathMatcher.match(StringUtils.removeStart(location,"/"),StringUtils.removeStart(resourceLocation,"/"))) {
+      return null;
+    }
+  }
+  return new ClassPathResource(location);
+}

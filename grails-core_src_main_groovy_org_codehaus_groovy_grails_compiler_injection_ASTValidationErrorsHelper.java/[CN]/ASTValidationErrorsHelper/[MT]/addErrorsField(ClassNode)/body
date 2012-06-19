@@ -1,0 +1,6 @@
+{
+  final ASTNode errorsField=paramTypeClassNode.getField(ERRORS_PROPERTY_NAME);
+  if (errorsField == null) {
+    paramTypeClassNode.addField(new FieldNode(ERRORS_PROPERTY_NAME,Modifier.PUBLIC,ERRORS_CLASS_NODE,paramTypeClassNode,NULL_EXPRESSION));
+  }
+}

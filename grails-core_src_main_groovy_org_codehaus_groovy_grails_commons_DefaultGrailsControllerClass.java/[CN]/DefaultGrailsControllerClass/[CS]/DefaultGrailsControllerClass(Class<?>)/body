@@ -1,0 +1,7 @@
+{
+  super(clazz,CONTROLLER);
+  defaultActionName=getStaticPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
+  if (defaultActionName == null) {
+    defaultActionName=INDEX_ACTION;
+  }
+}

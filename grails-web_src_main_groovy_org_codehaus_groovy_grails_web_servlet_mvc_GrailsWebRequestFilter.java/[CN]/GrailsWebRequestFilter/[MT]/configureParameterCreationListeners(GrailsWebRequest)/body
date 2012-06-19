@@ -1,0 +1,10 @@
+{
+  if (paramListenerBeans != null) {
+    for (    ParameterCreationListener creationListenerBean : paramListenerBeans) {
+      webRequest.addParameterListener(creationListenerBean);
+    }
+  }
+ else {
+    logger.warn("paramListenerBeans isn't initialized.");
+  }
+}

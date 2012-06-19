@@ -1,0 +1,9 @@
+{
+  if (staticMethod) {
+    return readMethod.invoke(null);
+  }
+  if (callback != null) {
+    return readMethod.invoke(callback.getReferenceInstance());
+  }
+  return null;
+}

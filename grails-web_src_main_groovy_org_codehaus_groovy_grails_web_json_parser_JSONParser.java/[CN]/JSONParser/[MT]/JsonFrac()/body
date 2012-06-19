@@ -1,0 +1,9 @@
+{
+  String digits;
+  jj_consume_token(30);
+  digits=Digits();
+{
+    if (true)     return "." + digits;
+  }
+  throw new Error("Missing return statement in function");
+}

@@ -1,0 +1,17 @@
+{
+  Object o=get(name);
+  if (o instanceof Number) {
+    return ((Number)o).intValue();
+  }
+  if (o != null) {
+    try {
+      String string=o.toString();
+      if (string != null) {
+        return Integer.parseInt(string);
+      }
+    }
+ catch (    NumberFormatException e) {
+    }
+  }
+  return null;
+}

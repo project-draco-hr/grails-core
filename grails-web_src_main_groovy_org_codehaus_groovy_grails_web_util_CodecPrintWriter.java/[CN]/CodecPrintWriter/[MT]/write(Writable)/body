@@ -1,0 +1,10 @@
+{
+  usageFlag=true;
+  if (trouble)   return;
+  try {
+    writable.writeTo(this);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+}

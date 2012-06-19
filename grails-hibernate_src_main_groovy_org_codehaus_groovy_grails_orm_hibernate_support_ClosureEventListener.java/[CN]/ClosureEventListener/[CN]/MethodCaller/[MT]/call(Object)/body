@@ -1,0 +1,4 @@
+{
+  Object retval=ReflectionUtils.invokeMethod(method,entity);
+  return resolveReturnValue(retval);
+}

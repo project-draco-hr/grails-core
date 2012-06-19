@@ -1,0 +1,6 @@
+{
+  if (value instanceof CharSequence) {
+    return value.toString();
+  }
+  return value;
+}

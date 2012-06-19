@@ -1,0 +1,10 @@
+{
+  if (includeExcludeObject instanceof String) {
+    final String includeExcludeString=(String)includeExcludeObject;
+    evaluateAndAddToIncludeExcludeSet(targetMap,includeExcludeString,include,converter);
+  }
+ else   if (includeExcludeObject instanceof List) {
+    List includeExcludeList=(List)includeExcludeObject;
+    evaluateAndAddListOfValues(targetMap,includeExcludeList,include,converter);
+  }
+}

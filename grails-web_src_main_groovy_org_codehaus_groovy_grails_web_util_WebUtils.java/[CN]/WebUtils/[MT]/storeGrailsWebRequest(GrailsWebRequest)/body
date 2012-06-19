@@ -1,0 +1,4 @@
+{
+  RequestContextHolder.setRequestAttributes(webRequest);
+  webRequest.getRequest().setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
+}

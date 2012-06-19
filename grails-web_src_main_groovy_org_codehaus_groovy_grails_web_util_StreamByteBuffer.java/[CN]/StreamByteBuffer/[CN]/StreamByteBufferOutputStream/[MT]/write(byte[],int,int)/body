@@ -1,0 +1,20 @@
+{
+  if (b == null) {
+    throw new NullPointerException();
+  }
+  if ((off < 0) || (off > b.length) || (len < 0)|| ((off + len) > b.length)|| ((off + len) < 0)) {
+    throw new IndexOutOfBoundsException();
+  }
+  if (len == 0) {
+    return;
+  }
+  int bytesLeft=len;
+  int currentOffset=off;
+  while (bytesLeft > 0) {
+    int spaceLeft=allocateSpace();
+    int writeBytes=Math.min(spaceLeft,bytesLeft);
+    currentWriteChunk.write(b,currentOffset,writeBytes);
+    bytesLeft-=writeBytes;
+    currentOffset+=writeBytes;
+  }
+}

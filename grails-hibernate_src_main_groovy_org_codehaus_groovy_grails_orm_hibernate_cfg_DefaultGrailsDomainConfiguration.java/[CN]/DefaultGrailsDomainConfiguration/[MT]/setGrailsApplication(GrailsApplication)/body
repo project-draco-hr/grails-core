@@ -1,0 +1,10 @@
+{
+  grailsApplication=application;
+  if (grailsApplication == null) {
+    return;
+  }
+  GrailsClass[] existingDomainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
+  for (  GrailsClass existingDomainClass : existingDomainClasses) {
+    addDomainClass((GrailsDomainClass)existingDomainClass);
+  }
+}

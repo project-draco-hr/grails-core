@@ -1,0 +1,27 @@
+{
+  DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
+  DocumentBuilder builder=factory.newDocumentBuilder();
+  InputStream is=null;
+  if (configFile == null) {
+    is=config.getServletContext().getResourceAsStream(configFileName);
+  }
+ else   if (configFile.exists() && configFile.canRead()) {
+    is=configFile.toURI().toURL().openStream();
+  }
+  if (is == null) {
+    is=getClass().getClassLoader().getResourceAsStream("com/opensymphony/module/sitemesh/factory/sitemesh-default.xml");
+  }
+  if (is == null) {
+    is=Thread.currentThread().getContextClassLoader().getResourceAsStream("com/opensymphony/module/sitemesh/factory/sitemesh-default.xml");
+  }
+  if (is == null) {
+    throw new IllegalStateException("Cannot load default configuration from jar");
+  }
+  if (configFile != null)   configLastModified=configFile.lastModified();
+  Document doc=builder.parse(is);
+  Element root=doc.getDocumentElement();
+  if (!"sitemesh".equalsIgnoreCase(root.getTagName())) {
+    throw new FactoryException("Root element of sitemesh configuration file not <sitemesh>",null);
+  }
+  return root;
+}

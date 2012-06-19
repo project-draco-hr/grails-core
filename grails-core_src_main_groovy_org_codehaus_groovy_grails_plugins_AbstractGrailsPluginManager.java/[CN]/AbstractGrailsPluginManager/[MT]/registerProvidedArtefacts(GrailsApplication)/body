@@ -1,0 +1,13 @@
+{
+  checkInitialised();
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.supportsCurrentScopeAndEnvironment()) {
+      for (      Class<?> artefact : plugin.getProvidedArtefacts()) {
+        String shortName=GrailsNameUtils.getShortName(artefact);
+        if (!isAlreadyRegistered(app,artefact,shortName)) {
+          app.addOverridableArtefact(artefact);
+        }
+      }
+    }
+  }
+}

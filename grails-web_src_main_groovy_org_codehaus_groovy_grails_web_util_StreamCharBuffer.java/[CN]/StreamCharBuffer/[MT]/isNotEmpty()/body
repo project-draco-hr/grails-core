@@ -1,0 +1,19 @@
+{
+  if (totalCharsInList > 0) {
+    return true;
+  }
+  if (totalCharsInDynamicChunks > 0) {
+    return true;
+  }
+  if (allocBuffer.charsUsed() > 0) {
+    return true;
+  }
+  if (totalCharsInDynamicChunks == -1) {
+    for (    StreamCharBufferSubChunk chunk : dynamicChunkMap.values()) {
+      if (chunk.getSubBuffer().isNotEmpty()) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

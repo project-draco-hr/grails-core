@@ -1,0 +1,5 @@
+{
+  final String propertyName=property.getDomainClass().getPropertyName();
+  NamingStrategy namingStrategy=getNamingStrategy(sessionFactoryBeanName);
+  return namingStrategy.propertyToColumnName(propertyName) + FOREIGN_KEY_SUFFIX;
+}

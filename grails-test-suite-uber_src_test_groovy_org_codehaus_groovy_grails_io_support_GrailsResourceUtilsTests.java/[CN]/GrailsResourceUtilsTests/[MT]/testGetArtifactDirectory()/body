@@ -1,0 +1,4 @@
+{
+  assertEquals("controllers",GrailsResourceUtils.getArtefactDirectory(TEST_CONTROLLER_URL));
+  assertEquals("domain",GrailsResourceUtils.getArtefactDirectory(TEST_PACKAGE_URL));
+}

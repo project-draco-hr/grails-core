@@ -1,0 +1,6 @@
+{
+  GrailsPlugin disabledPlugin=new DefaultGrailsPlugin(disabled,ga);
+  GrailsPlugin enabledPlugin=new DefaultGrailsPlugin(versioned,ga);
+  assertFalse(disabledPlugin.isEnabled());
+  assertTrue(enabledPlugin.isEnabled());
+}

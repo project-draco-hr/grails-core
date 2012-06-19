@@ -1,0 +1,6 @@
+{
+  final ConvertersConfigurationHolder configurationHolder=getInstance();
+  configurationHolder.defaultConfiguration.clear();
+  configurationHolder.namedConfigurations.clear();
+  configurationHolder.threadLocalConfiguration.clear();
+}

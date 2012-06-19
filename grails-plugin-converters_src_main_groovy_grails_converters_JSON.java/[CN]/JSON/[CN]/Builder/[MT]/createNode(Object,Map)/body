@@ -1,0 +1,16 @@
+{
+  try {
+    if (stack.peek().equals(BuilderMode.OBJECT))     writer.key(String.valueOf(key));
+    writer.object();
+    for (    Object o : valueMap.entrySet()) {
+      Map.Entry element=(Map.Entry)o;
+      writer.key(String.valueOf(element.getKey()));
+      json.convertAnother(element.getValue());
+    }
+    writer.endObject();
+    return null;
+  }
+ catch (  JSONException e) {
+    throw new IllegalArgumentException("invalid element");
+  }
+}

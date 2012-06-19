@@ -1,0 +1,6 @@
+{
+  if (isDomainAssociation()) {
+    return referencedPropertyType;
+  }
+  return getType();
+}

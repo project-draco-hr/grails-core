@@ -1,0 +1,4 @@
+{
+  Object includeUri=request.getAttribute("javax.servlet.include.request_uri");
+  return includeUri == null ? request.getRequestURI() : (String)includeUri;
+}

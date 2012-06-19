@@ -1,0 +1,5 @@
+{
+  if (!pluginDir.exists())   return;
+  File scriptDir=new File(pluginDir,"scripts");
+  if (scriptDir.exists())   addCommandScripts(scriptDir,scripts);
+}

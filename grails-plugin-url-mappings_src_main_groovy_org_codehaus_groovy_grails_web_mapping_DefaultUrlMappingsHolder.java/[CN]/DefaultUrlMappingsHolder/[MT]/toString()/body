@@ -1,0 +1,11 @@
+{
+  StringWriter sw=new StringWriter();
+  PrintWriter pw=new PrintWriter(sw);
+  pw.println("URL Mappings");
+  pw.println("------------");
+  for (  UrlMapping mapping : mappings) {
+    pw.println(mapping);
+  }
+  pw.flush();
+  return sw.toString();
+}

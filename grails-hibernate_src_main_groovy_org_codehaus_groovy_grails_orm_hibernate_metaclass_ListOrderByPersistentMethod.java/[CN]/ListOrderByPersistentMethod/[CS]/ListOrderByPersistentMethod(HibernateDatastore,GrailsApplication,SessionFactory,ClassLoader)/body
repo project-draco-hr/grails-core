@@ -1,0 +1,4 @@
+{
+  super(sessionFactory,classLoader,Pattern.compile(METHOD_PATTERN),grailsApplication);
+  this.datastore=datastore;
+}

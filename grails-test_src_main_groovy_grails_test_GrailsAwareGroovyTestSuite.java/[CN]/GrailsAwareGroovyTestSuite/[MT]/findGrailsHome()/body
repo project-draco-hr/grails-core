@@ -1,0 +1,7 @@
+{
+  final String grailsHome=System.getenv("GRAILS_HOME");
+  if (grailsHome == null) {
+    throw new RuntimeException("You must set the GRAILS_HOME environment variable");
+  }
+  return new File(grailsHome);
+}

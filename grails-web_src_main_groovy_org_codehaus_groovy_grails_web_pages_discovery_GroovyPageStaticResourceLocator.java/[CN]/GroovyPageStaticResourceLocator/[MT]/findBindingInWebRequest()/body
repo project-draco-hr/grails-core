@@ -1,0 +1,7 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    return (GroovyPageBinding)webRequest.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
+  }
+  return null;
+}

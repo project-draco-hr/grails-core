@@ -1,0 +1,10 @@
+{
+  Boolean value;
+  if (containsKey(name)) {
+    value=getBoolean(name);
+  }
+ else {
+    value=defaultValue;
+  }
+  return value;
+}

@@ -1,0 +1,3 @@
+{
+  return failedPlugins.values().toArray(new GrailsPlugin[failedPlugins.size()]);
+}

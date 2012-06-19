@@ -1,0 +1,6 @@
+{
+  Object groupValue=dependency.get("group");
+  if (groupValue == null || groupValue.toString().equals("")) {
+    dependency.put("group","org.grails.plugins");
+  }
+}

@@ -1,0 +1,34 @@
+{
+  Errors errors=(Errors)object;
+  JSONWriter writer=json.getWriter();
+  try {
+    writer.object();
+    writer.key("errors");
+    writer.array();
+    for (    Object o : errors.getAllErrors()) {
+      if (o instanceof FieldError) {
+        FieldError fe=(FieldError)o;
+        writer.object();
+        json.property("object",fe.getObjectName());
+        json.property("field",fe.getField());
+        json.property("rejected-value",fe.getRejectedValue());
+        Locale locale=LocaleContextHolder.getLocale();
+        if (applicationContext != null) {
+          json.property("message",applicationContext.getMessage(fe,locale));
+        }
+ else {
+          json.property("message",fe.getDefaultMessage());
+        }
+        writer.endObject();
+      }
+    }
+    writer.endArray();
+    writer.endObject();
+  }
+ catch (  ConverterException ce) {
+    throw ce;
+  }
+catch (  Exception e) {
+    throw new ConverterException("Error converting Bean with class " + object.getClass().getName(),e);
+  }
+}

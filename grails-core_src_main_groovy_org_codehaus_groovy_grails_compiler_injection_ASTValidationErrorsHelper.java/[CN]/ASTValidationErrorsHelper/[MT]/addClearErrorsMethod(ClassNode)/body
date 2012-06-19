@@ -1,0 +1,9 @@
+{
+  final ASTNode clearErrorsMethod=paramTypeClassNode.getMethod(CLEAR_ERRORS_METHOD_NAME,ZERO_PARAMETERS);
+  if (clearErrorsMethod == null) {
+    final BlockStatement clearErrorsMethodCode=new BlockStatement();
+    Expression nullOutErrorsFieldExpression=new BinaryExpression(ERRORS_EXPRESSION,EQUALS_SYMBOL,NULL_EXPRESSION);
+    clearErrorsMethodCode.addStatement(new ExpressionStatement(nullOutErrorsFieldExpression));
+    paramTypeClassNode.addMethod(new MethodNode(CLEAR_ERRORS_METHOD_NAME,Modifier.PUBLIC,ClassHelper.VOID_TYPE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,clearErrorsMethodCode));
+  }
+}

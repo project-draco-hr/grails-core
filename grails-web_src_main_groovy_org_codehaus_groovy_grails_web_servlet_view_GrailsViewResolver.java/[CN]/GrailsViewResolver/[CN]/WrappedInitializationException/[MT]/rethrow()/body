@@ -1,0 +1,6 @@
+{
+  if (getCause() instanceof Exception) {
+    throw (Exception)getCause();
+  }
+  throw this;
+}

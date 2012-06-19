@@ -1,0 +1,3 @@
+{
+  return declaredMethod.getParameters().length == 0 && GrailsClassUtils.isGetter(methodName,EMPTY_JAVA_CLASS_ARRAY);
+}

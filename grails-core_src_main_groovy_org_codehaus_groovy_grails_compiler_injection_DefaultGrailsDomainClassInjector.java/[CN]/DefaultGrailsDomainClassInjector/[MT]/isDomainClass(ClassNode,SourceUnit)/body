@@ -1,0 +1,13 @@
+{
+  String sourcePath=sourceNode.getName();
+  File sourceFile=new File(sourcePath);
+  File parent=sourceFile.getParentFile();
+  while (parent != null) {
+    File parentParent=parent.getParentFile();
+    if (parent.getName().equals(DOMAIN_DIR) && parentParent != null && parentParent.getName().equals(GRAILS_APP_DIR)) {
+      return true;
+    }
+    parent=parentParent;
+  }
+  return false;
+}

@@ -1,0 +1,5 @@
+{
+  boolean prevUsed=usageFlag;
+  usageFlag=false;
+  return prevUsed;
+}

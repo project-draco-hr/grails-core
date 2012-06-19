@@ -1,0 +1,14 @@
+{
+  T t=instances.get(getClassLoaderId());
+  if (t != null) {
+    return t;
+  }
+  t=lookupSecondary();
+  if (t != null) {
+    return t;
+  }
+  if (t == null && !mappedOnly) {
+    t=singleton;
+  }
+  return t;
+}

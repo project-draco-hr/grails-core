@@ -1,0 +1,22 @@
+{
+  LocaleContextHolder.setLocale(request.getLocale());
+  GrailsWebRequest webRequest=new GrailsWebRequest(request,response,getServletContext());
+  configureParameterCreationListeners(webRequest);
+  if (logger.isDebugEnabled()) {
+    logger.debug("Bound Grails request context to thread: " + request);
+  }
+  try {
+    WebUtils.storeGrailsWebRequest(webRequest);
+    FlashScope fs=webRequest.getAttributes().getFlashScope(request);
+    fs.next();
+    filterChain.doFilter(request,response);
+  }
+  finally {
+    webRequest.requestCompleted();
+    WebUtils.clearGrailsWebRequest();
+    LocaleContextHolder.setLocale(null);
+    if (logger.isDebugEnabled()) {
+      logger.debug("Cleared Grails thread-bound request context: " + request);
+    }
+  }
+}

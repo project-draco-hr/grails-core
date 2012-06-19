@@ -1,0 +1,4 @@
+{
+  RequestAttributes request=RequestContextHolder.currentRequestAttributes();
+  return currentStack(request,allowCreate,topWriter,autoSync,pushTop);
+}

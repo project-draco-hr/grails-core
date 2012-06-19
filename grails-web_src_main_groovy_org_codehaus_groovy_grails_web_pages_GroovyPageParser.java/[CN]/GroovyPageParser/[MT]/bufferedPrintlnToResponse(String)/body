@@ -1,0 +1,9 @@
+{
+  if (currentlyBufferingWhitespace) {
+    whitespaceBuffer.append(s);
+  }
+ else {
+    flushTagBuffering();
+    out.printlnToResponse(s);
+  }
+}

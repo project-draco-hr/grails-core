@@ -1,0 +1,9 @@
+{
+  final PageContext ctx=this;
+  return new VariableResolver(){
+    public Object resolveVariable(    String name) throws ELException {
+      return ctx.findAttribute(name);
+    }
+  }
+;
+}

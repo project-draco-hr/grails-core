@@ -1,0 +1,6 @@
+{
+  if (resourceCallable == null) {
+    return false;
+  }
+  return groovyPageMetaInfo.shouldReload(resourceCallable);
+}

@@ -1,0 +1,4 @@
+{
+  List<Runnable> bindingActions=getDeferredBindingActions();
+  bindingActions.add(runnable);
+}

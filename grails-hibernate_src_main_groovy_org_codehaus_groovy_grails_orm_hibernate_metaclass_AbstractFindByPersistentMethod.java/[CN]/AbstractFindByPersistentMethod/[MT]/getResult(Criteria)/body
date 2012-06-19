@@ -1,0 +1,7 @@
+{
+  CriteriaImpl impl=(CriteriaImpl)crit;
+  String entityOrClassName=impl.getEntityOrClassName();
+  GrailsClass domainClass=application.getArtefact(DomainClassArtefactHandler.TYPE,entityOrClassName);
+  boolean useLimit=establishWhetherToUseLimit(domainClass.getClazz());
+  return getResult(crit,useLimit);
+}

@@ -1,0 +1,14 @@
+{
+  if (firstChunk == lastChunk && firstChunk instanceof CharBufferChunk && allocBuffer.charsUsed() == 0 && ((CharBufferChunk)firstChunk).isSingleBuffer()) {
+    return ((CharBufferChunk)firstChunk).buffer;
+  }
+  int initialReaderCount=readerCount;
+  char[] buf=readAsCharArray();
+  if (initialReaderCount == 0) {
+    reset();
+    if (buf.length > 0) {
+      addChunk(new CharBufferChunk(-1,buf,0,buf.length));
+    }
+  }
+  return buf;
+}

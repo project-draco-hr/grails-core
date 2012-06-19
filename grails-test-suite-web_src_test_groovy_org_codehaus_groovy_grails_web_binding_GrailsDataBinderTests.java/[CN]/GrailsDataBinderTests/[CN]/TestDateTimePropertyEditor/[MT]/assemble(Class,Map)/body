@@ -1,0 +1,17 @@
+{
+  String date=(String)fieldValues.get("date");
+  if (StringUtils.isBlank(date)) {
+    return null;
+  }
+  String time=(String)fieldValues.get("time");
+  if (StringUtils.isBlank(time))   time="00:00 AM";
+  String dateTime=date + " " + time;
+  try {
+    TestDateTimeBean dt=new TestDateTimeBean();
+    dt.setDateTime(dateFormat.parse(dateTime));
+    return dt;
+  }
+ catch (  Exception nfe) {
+    throw new IllegalArgumentException("Unable to parse structured DateTime from request for date (" + dateTime + ").");
+  }
+}

@@ -1,0 +1,10 @@
+{
+  if (finalPass) {
+    return;
+  }
+  LOG.debug("parse: declare");
+  out.println();
+  write(scan.getToken().trim(),gsp);
+  out.println();
+  out.println();
+}

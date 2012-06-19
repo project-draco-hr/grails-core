@@ -1,0 +1,17 @@
+{
+  if (timeout < 0 || updater == null)   return valueRef.get();
+  if (hasExpired(timeout)) {
+    try {
+      long beforeLockingCreatedMillis=createdMillis;
+      writeLock.lock();
+      if (shouldUpdate(beforeLockingCreatedMillis)) {
+        valueRef.set(updater.run());
+        resetTimestamp();
+      }
+    }
+  finally {
+      writeLock.unlock();
+    }
+  }
+  return valueRef.get();
+}

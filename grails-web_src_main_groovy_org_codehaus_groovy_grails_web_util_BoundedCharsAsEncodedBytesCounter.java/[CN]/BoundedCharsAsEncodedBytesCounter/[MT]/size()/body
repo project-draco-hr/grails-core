@@ -1,0 +1,6 @@
+{
+  if (calculationActive) {
+    return bb.position();
+  }
+  return -1;
+}

@@ -1,0 +1,3 @@
+{
+  publishEvent(hibernateEvent,new org.grails.datastore.mapping.engine.event.PostDeleteEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity()));
+}

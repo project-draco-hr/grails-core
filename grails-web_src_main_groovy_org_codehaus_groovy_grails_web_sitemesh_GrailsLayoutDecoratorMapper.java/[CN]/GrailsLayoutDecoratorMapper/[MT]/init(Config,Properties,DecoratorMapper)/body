@@ -1,0 +1,6 @@
+{
+  super.init(c,properties,parentMapper);
+  ServletContext servletContext=c.getServletContext();
+  WebApplicationContext applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+  groovyPageLayoutFinder=applicationContext.getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
+}

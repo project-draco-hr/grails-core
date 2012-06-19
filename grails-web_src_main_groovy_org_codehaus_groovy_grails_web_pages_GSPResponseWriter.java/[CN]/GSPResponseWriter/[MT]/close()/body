@@ -1,0 +1,16 @@
+{
+  flush();
+  if (canFlushContentLengthAwareResponse()) {
+    int size=bytesCounter.size();
+    if (size > 0) {
+      response.setContentLength(size);
+    }
+    flushResponse();
+  }
+ else   if (!isTrouble()) {
+    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+    if (webRequest != null && webRequest.getCurrentRequest().getAttribute(RequestConstants.PAGE) != null) {
+      flushResponse();
+    }
+  }
+}

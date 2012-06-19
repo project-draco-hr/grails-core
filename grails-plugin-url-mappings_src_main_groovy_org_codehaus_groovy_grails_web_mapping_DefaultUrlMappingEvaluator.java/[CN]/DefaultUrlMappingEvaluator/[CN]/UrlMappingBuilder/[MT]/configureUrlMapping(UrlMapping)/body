@@ -1,0 +1,19 @@
+{
+  if (binding != null) {
+    Map<String,Object> vars=binding.getVariables();
+    for (    String key : vars.keySet()) {
+      if (isNotCoreMappingKey(key)) {
+        parameterValues.put(key,vars.get(key));
+      }
+    }
+    binding.getVariables().clear();
+  }
+  if (urlMapping.getControllerName() != null) {
+    parameterValues.put("controller",urlMapping.getControllerName());
+  }
+  if (urlMapping.getActionName() != null) {
+    parameterValues.put("action",urlMapping.getActionName());
+  }
+  urlMapping.setParameterValues(parameterValues);
+  urlMappings.add(urlMapping);
+}

@@ -1,0 +1,3 @@
+{
+  chainResolver.setChangingPattern(isOffline() ? null : IvyDependencyManager.SNAPSHOT_CHANGING_PATTERN);
+}

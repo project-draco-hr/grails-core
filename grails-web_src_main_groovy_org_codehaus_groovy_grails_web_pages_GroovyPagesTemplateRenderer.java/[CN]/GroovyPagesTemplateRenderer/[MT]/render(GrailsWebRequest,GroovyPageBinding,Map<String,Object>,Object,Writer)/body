@@ -1,0 +1,17 @@
+{
+  if (groovyPagesTemplateEngine == null) {
+    throw new IllegalStateException("Property [groovyPagesTemplateEngine] must be set!");
+  }
+  String templateName=getStringValue(attrs,"template");
+  if (StringUtils.isBlank(templateName)) {
+    throw new GrailsTagException("Tag [render] is missing required attribute [template]");
+  }
+  String uri=webRequest.getAttributes().getTemplateUri(templateName,webRequest.getRequest());
+  String contextPath=getStringValue(attrs,"contextPath");
+  String pluginName=getStringValue(attrs,"plugin");
+  Template t=findAndCacheTemplate(webRequest,pageScope,templateName,contextPath,pluginName,uri);
+  if (t == null) {
+    throw new GrailsTagException("Template not found for name [" + templateName + "] and path ["+ uri+ "]");
+  }
+  makeTemplate(t,attrs,body,out);
+}

@@ -1,0 +1,9 @@
+{
+  if (theClass != null) {
+    org.codehaus.groovy.grails.plugins.metadata.GrailsPlugin ann=theClass.getAnnotation(org.codehaus.groovy.grails.plugins.metadata.GrailsPlugin.class);
+    if (ann != null) {
+      return getPluginPath(ann.name());
+    }
+  }
+  return null;
+}

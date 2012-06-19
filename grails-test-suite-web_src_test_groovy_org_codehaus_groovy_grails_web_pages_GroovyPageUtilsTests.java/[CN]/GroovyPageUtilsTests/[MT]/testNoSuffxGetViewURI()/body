@@ -1,0 +1,6 @@
+{
+  GroovyPagesUriSupport uriSupport=new GroovyPagesUriSupport();
+  assertEquals("/foo/bar",uriSupport.getNoSuffixViewURI("foo","bar"));
+  assertEquals("/bar/foo",uriSupport.getNoSuffixViewURI("foo","/bar/foo"));
+  assertEquals("/foo/bar/foo",uriSupport.getNoSuffixViewURI("foo","bar/foo"));
+}

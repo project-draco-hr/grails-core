@@ -1,0 +1,8 @@
+{
+  if (writingAttribute && i == '"') {
+    writer.write("&quot;");
+  }
+ else {
+    super.write(i);
+  }
+}

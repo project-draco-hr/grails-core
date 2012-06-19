@@ -1,0 +1,8 @@
+{
+  if (flushMode == FlushModeType.AUTO) {
+    hibernateTemplate.setFlushMode(HibernateTemplate.FLUSH_AUTO);
+  }
+ else   if (flushMode == FlushModeType.COMMIT) {
+    hibernateTemplate.setFlushMode(HibernateTemplate.FLUSH_COMMIT);
+  }
+}

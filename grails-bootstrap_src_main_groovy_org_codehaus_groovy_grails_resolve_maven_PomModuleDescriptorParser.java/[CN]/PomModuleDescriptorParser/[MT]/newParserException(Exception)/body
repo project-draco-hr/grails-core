@@ -1,0 +1,6 @@
+{
+  Message.error(e.getMessage());
+  ParseException pe=new ParseException(e.getMessage(),0);
+  pe.initCause(e);
+  return pe;
+}

@@ -1,0 +1,6 @@
+{
+  if (!responseCode) {
+    return urlParser.parse(methodName);
+  }
+  return new ResponseCodeMappingData(methodName);
+}

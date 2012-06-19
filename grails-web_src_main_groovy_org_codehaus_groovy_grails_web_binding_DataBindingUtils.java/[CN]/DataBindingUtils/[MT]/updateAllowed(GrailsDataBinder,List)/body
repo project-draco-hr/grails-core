@@ -1,0 +1,11 @@
+{
+  if (allowed == null) {
+    return;
+  }
+  String[] currentAllowed=binder.getAllowedFields();
+  List newAllowed=new ArrayList(allowed);
+  CollectionUtils.addAll(newAllowed,currentAllowed);
+  String[] value=new String[newAllowed.size()];
+  newAllowed.toArray(value);
+  binder.setAllowedFields(value);
+}

@@ -1,0 +1,6 @@
+{
+  StreamCharBuffer charBuffer=new StreamCharBuffer();
+  Writer output=charBuffer.getWriter();
+  copyAllFromTestBuffer(output,27);
+  return charBuffer;
+}

@@ -1,0 +1,7 @@
+{
+  File f=new File(dir,"_Events.groovy");
+  if (!f.exists()) {
+    f=new File(dir,"Events.groovy");
+  }
+  return f.exists() ? f : null;
+}

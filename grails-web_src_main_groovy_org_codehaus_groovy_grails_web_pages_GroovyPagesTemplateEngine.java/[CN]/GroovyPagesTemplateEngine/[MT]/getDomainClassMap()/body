@@ -1,0 +1,6 @@
+{
+  if (cachedDomainsWithoutPackage != null) {
+    return cachedDomainsWithoutPackage;
+  }
+  return createDomainClassMap();
+}

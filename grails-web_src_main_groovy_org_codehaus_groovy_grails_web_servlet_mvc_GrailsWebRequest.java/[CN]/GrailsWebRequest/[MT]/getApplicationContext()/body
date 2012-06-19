@@ -1,0 +1,6 @@
+{
+  if (applicationContext == null) {
+    return getAttributes().getApplicationContext();
+  }
+  return applicationContext;
+}

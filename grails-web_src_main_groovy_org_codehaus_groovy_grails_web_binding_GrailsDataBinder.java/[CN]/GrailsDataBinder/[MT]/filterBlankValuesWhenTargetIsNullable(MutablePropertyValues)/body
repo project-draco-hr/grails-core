@@ -1,0 +1,16 @@
+{
+  Object target=getTarget();
+  Map constrainedProperties=resolveConstrainedProperties(target,domainClass);
+  if (constrainedProperties == null) {
+    return;
+  }
+  PropertyValue[] valueArray=mpvs.getPropertyValues();
+  for (  PropertyValue propertyValue : valueArray) {
+    if (BLANK.equals(propertyValue.getValue())) {
+      ConstrainedProperty cp=getConstrainedPropertyForPropertyValue(constrainedProperties,propertyValue);
+      if (shouldNullifyBlankString(propertyValue,cp)) {
+        propertyValue.setConvertedValue(null);
+      }
+    }
+  }
+}

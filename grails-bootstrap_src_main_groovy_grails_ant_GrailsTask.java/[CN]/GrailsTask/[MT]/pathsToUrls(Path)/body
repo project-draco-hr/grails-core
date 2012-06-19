@@ -1,0 +1,13 @@
+{
+  if (path == null)   return Collections.emptyList();
+  List<URL> urls=new ArrayList<URL>(path.size());
+  for (  String filePath : path.list()) {
+    try {
+      urls.add(new File(filePath).toURI().toURL());
+    }
+ catch (    MalformedURLException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+  return urls;
+}

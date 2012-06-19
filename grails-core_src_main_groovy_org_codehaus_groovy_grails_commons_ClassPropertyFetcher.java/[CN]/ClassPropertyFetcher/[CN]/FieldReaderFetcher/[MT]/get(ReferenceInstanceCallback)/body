@@ -1,0 +1,9 @@
+{
+  if (staticField) {
+    return field.get(null);
+  }
+  if (callback != null) {
+    return field.get(callback.getReferenceInstance());
+  }
+  return null;
+}

@@ -1,0 +1,6 @@
+{
+  ClosureEventListener eventListener=findEventListener(event.getEntity());
+  if (eventListener != null) {
+    eventListener.onPostDelete(event);
+  }
+}

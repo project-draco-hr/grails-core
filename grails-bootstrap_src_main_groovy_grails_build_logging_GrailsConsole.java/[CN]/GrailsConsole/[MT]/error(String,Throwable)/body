@@ -1,0 +1,14 @@
+{
+  try {
+    if ((verbose || stacktrace) && error != null) {
+      printStackTrace(msg,error);
+      error(ERROR,msg);
+    }
+ else {
+      error(ERROR,msg + STACKTRACE_MESSAGE);
+    }
+  }
+  finally {
+    postPrintMessage();
+  }
+}

@@ -1,0 +1,4 @@
+{
+  Errors errors=testConstraintFailed(constraint,value);
+  assertEquals(message,errors.getFieldError(constraint.getPropertyName()).getDefaultMessage());
+}

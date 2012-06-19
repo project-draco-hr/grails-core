@@ -1,0 +1,15 @@
+{
+  PrintStream printStream=out;
+  try {
+    if (msg.endsWith(LINE_SEPARATOR)) {
+      printStream.print(msg);
+    }
+ else {
+      printStream.println(msg);
+    }
+    cursorMove=0;
+  }
+  finally {
+    postPrintMessage();
+  }
+}

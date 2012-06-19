@@ -1,0 +1,8 @@
+{
+  if (bodyBuffer != null) {
+    bodyBuffer.writeTo(out);
+  }
+ else   if (pageBuffer != null) {
+    pageBuffer.writeTo(out);
+  }
+}

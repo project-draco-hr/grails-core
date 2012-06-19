@@ -1,0 +1,9 @@
+{
+  if (o1.equals(domainClass.getIdentifier())) {
+    return -1;
+  }
+  if (o2.equals(domainClass.getIdentifier())) {
+    return 1;
+  }
+  return 0;
+}

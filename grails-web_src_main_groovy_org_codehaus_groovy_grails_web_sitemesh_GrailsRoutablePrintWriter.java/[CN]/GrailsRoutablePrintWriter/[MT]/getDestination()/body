@@ -1,0 +1,13 @@
+{
+  if (destination == null) {
+    try {
+      destination=factory.activateDestination();
+    }
+ catch (    IOException e) {
+      setError();
+    }
+    super.out=destination;
+    super.setTarget(destination);
+  }
+  return destination;
+}

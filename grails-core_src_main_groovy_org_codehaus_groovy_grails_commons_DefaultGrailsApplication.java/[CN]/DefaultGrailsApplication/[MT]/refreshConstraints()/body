@@ -1,0 +1,7 @@
+{
+  ArtefactInfo info=getArtefactInfo(DomainClassArtefactHandler.TYPE,true);
+  GrailsClass[] domainClasses=info.getGrailsClasses();
+  for (  GrailsClass domainClass : domainClasses) {
+    ((GrailsDomainClass)domainClass).refreshConstraints();
+  }
+}

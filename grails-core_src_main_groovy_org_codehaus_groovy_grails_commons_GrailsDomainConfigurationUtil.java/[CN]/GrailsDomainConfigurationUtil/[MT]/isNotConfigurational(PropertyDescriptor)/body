@@ -1,0 +1,9 @@
+{
+  final String name=descriptor.getName();
+  Method readMethod=descriptor.getReadMethod();
+  Method writeMethod=descriptor.getWriteMethod();
+  if ((readMethod != null && Modifier.isStatic(readMethod.getModifiers()) || (writeMethod != null && Modifier.isStatic(writeMethod.getModifiers())))) {
+    return false;
+  }
+  return !Errors.class.isAssignableFrom(descriptor.getPropertyType()) && isNotConfigurational(name);
+}

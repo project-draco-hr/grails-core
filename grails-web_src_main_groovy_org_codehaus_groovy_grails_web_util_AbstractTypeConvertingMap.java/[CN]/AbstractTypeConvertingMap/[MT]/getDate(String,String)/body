@@ -1,0 +1,11 @@
+{
+  Object value=get(name);
+  if (value != null) {
+    try {
+      return new SimpleDateFormat(format).parse(value.toString());
+    }
+ catch (    ParseException e) {
+    }
+  }
+  return null;
+}

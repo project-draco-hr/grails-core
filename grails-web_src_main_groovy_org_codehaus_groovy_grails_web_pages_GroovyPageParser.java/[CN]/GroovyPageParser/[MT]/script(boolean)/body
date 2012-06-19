@@ -1,0 +1,9 @@
+{
+  flushTagBuffering();
+  if (!finalPass)   return;
+  LOG.debug("parse: script");
+  out.println();
+  write(scan.getToken().trim(),gsp);
+  out.println();
+  out.println();
+}

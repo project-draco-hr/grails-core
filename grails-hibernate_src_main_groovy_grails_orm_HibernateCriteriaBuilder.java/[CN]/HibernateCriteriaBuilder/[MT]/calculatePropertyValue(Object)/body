@@ -1,0 +1,12 @@
+{
+  if (propertyValue instanceof CharSequence) {
+    return propertyValue.toString();
+  }
+  if (propertyValue instanceof QueryableCriteria) {
+    propertyValue=getHibernateDetachedCriteria((QueryableCriteria<?>)propertyValue);
+  }
+ else   if (propertyValue instanceof Closure) {
+    propertyValue=getHibernateDetachedCriteria(new DetachedCriteria(targetClass).build((Closure<?>)propertyValue));
+  }
+  return propertyValue;
+}

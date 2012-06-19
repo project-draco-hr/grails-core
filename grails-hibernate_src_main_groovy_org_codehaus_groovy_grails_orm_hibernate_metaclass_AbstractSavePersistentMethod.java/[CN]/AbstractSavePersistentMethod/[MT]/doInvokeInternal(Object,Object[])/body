@@ -1,0 +1,59 @@
+{
+  GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,target.getClass().getName());
+  DeferredBindingActions.runActions();
+  boolean shouldFlush=shouldFlush(arguments);
+  boolean shouldValidate=shouldValidate(arguments,domainClass);
+  if (shouldValidate) {
+    Validator validator=domainClass.getValidator();
+    if (domainClass instanceof DefaultGrailsDomainClass) {
+      GrailsHibernateUtil.autoAssociateBidirectionalOneToOnes((DefaultGrailsDomainClass)domainClass,target);
+    }
+    Errors errors=setupErrorsProperty(target);
+    if (validator != null) {
+      application.getMainContext().publishEvent(new ValidationEvent(datastore,target));
+      boolean deepValidate=true;
+      Map argsMap=null;
+      if (arguments.length > 0 && arguments[0] instanceof Map) {
+        argsMap=(Map)arguments[0];
+      }
+      if (argsMap != null && argsMap.containsKey(ARGUMENT_DEEP_VALIDATE)) {
+        deepValidate=GrailsClassUtils.getBooleanFromMap(ARGUMENT_DEEP_VALIDATE,argsMap);
+      }
+      AbstractPersistentConstraint.sessionFactory.set(datastore.getSessionFactory());
+      try {
+        if (deepValidate && (validator instanceof CascadingValidator)) {
+          ((CascadingValidator)validator).validate(target,errors,deepValidate);
+        }
+ else {
+          validator.validate(target,errors);
+        }
+      }
+  finally {
+        AbstractPersistentConstraint.sessionFactory.remove();
+      }
+      if (errors.hasErrors()) {
+        handleValidationError(domainClass,target,errors);
+        boolean shouldFail=shouldFail(application,domainClass);
+        if (argsMap != null && argsMap.containsKey(ARGUMENT_FAIL_ON_ERROR)) {
+          shouldFail=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap);
+        }
+        if (shouldFail) {
+          throw new ValidationException("Validation Error(s) occurred during save()",errors);
+        }
+        return null;
+      }
+      setObjectToReadWrite(target);
+    }
+  }
+  if (domainClass != null) {
+    autoRetrieveAssocations(domainClass,target);
+  }
+  if (!shouldValidate) {
+    Set<Integer> identifiers=getDisableAutoValidationFor();
+    identifiers.add(System.identityHashCode(target));
+  }
+  if (shouldInsert(arguments)) {
+    return performInsert(target,shouldFlush);
+  }
+  return performSave(target,shouldFlush);
+}

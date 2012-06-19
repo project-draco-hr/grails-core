@@ -1,0 +1,9 @@
+{
+  for (int i=lastLineNumberIndex + 1; i < lineNumberPositions.size(); i++) {
+    if (lineNumberPositions.get(i) > begin2) {
+      lastLineNumberIndex=i - 1;
+      return i;
+    }
+  }
+  return 1;
+}

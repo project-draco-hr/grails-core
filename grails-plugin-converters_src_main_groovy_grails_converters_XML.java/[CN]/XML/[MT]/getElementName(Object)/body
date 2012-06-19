@@ -1,0 +1,13 @@
+{
+  ObjectMarshaller<XML> om=config.getMarshaller(o);
+  if (om instanceof NameAwareMarshaller) {
+    return ((NameAwareMarshaller)om).getElementName(o);
+  }
+  final ProxyHandler proxyHandler=config.getProxyHandler();
+  if (proxyHandler.isProxy(o) && (proxyHandler instanceof EntityProxyHandler)) {
+    EntityProxyHandler entityProxyHandler=(EntityProxyHandler)proxyHandler;
+    final Class<?> cls=entityProxyHandler.getProxiedClass(o);
+    return GrailsNameUtils.getPropertyName(cls);
+  }
+  return GrailsNameUtils.getPropertyName(o.getClass());
+}

@@ -1,0 +1,20 @@
+{
+  resourceLoader=GrailsResourceLoaderHolder.getResourceLoader();
+  if (resourceLoader != null) {
+    return;
+  }
+  if (Environment.getCurrent().isReloadEnabled()) {
+    ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver();
+    try {
+      Resource[] resources=resolver.getResources("file:" + Environment.getCurrent().getReloadLocation() + "/grails-app/**/*.groovy");
+      resourceLoader=new GrailsResourceLoader(resources);
+    }
+ catch (    IOException e) {
+      createDefaultInternal();
+    }
+  }
+ else {
+    createDefaultInternal();
+  }
+  GrailsResourceLoaderHolder.setResourceLoader(resourceLoader);
+}

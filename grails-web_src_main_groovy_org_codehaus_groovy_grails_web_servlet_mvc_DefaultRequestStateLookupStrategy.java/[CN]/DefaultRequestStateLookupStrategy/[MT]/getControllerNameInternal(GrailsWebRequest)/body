@@ -1,0 +1,6 @@
+{
+  if (req != null) {
+    return req.getControllerName();
+  }
+  return null;
+}

@@ -1,0 +1,4 @@
+{
+  Set<String> tagsThatReturnObject=tagsThatReturnObjectForNamespace.get(namespace);
+  return tagsThatReturnObject != null && tagsThatReturnObject.contains(tagName);
+}

@@ -1,0 +1,10 @@
+{
+  try {
+    usageFlag=true;
+    out.append(csq);
+  }
+ catch (  IOException e) {
+    handleIOException(e);
+  }
+  return this;
+}

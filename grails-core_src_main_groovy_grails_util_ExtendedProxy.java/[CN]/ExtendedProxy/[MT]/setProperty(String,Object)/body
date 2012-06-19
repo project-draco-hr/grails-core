@@ -1,0 +1,8 @@
+{
+  if (propertyMap.containsKey(property)) {
+    super.setProperty(property,newValue);
+  }
+ else {
+    InvokerHelper.getMetaClass(getAdaptee()).setProperty(getAdaptee(),property,newValue);
+  }
+}

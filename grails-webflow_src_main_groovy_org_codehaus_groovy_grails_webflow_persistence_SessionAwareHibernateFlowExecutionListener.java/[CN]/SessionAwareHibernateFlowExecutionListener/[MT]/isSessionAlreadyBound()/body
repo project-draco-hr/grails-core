@@ -1,0 +1,3 @@
+{
+  return TransactionSynchronizationManager.hasResource(localSessionFactory);
+}

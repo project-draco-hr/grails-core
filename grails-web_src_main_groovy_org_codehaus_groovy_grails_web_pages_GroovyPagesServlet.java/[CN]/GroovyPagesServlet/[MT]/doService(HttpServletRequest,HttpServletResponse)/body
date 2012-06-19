@@ -1,0 +1,23 @@
+{
+  request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
+  request.setAttribute(GroovyPagesServlet.SERVLET_INSTANCE,this);
+  String pageName=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
+  if (StringUtils.isBlank(pageName)) {
+    pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
+  }
+  boolean isNotInclude=!WebUtils.isIncludeRequest(request);
+  if (isNotInclude && isSecurePath(pageName)) {
+    sendNotFound(response,pageName);
+  }
+ else {
+    GroovyPageScriptSource scriptSource=groovyPagesTemplateEngine.findScriptSource(pageName);
+    if (scriptSource == null) {
+      scriptSource=findPageInBinaryPlugins(pageName);
+    }
+    if (scriptSource == null || (isNotInclude && !scriptSource.isPublic())) {
+      sendNotFound(response,pageName);
+      return;
+    }
+    renderPageWithEngine(groovyPagesTemplateEngine,request,response,scriptSource);
+  }
+}

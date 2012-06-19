@@ -1,0 +1,22 @@
+{
+  Class<?> controllerClass=AopProxyUtils.ultimateTargetClass(controller);
+  Method mAction=ReflectionUtils.findMethod(controllerClass,actionName,MethodGrailsControllerHelper.NOARGS);
+  if (mAction != null) {
+    ReflectionUtils.makeAccessible(mAction);
+    if (mAction.getAnnotation(Action.class) != null) {
+      return mAction;
+    }
+  }
+  try {
+    return controller.getProperty(actionName);
+  }
+ catch (  MissingPropertyException mpe) {
+    try {
+      response.sendError(HttpServletResponse.SC_NOT_FOUND);
+      return null;
+    }
+ catch (    IOException e) {
+      throw new ControllerExecutionException("I/O error sending 404 error",e);
+    }
+  }
+}

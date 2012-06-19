@@ -1,0 +1,6 @@
+{
+  this.namespace=namespace;
+  if (namespace != null) {
+    setDisplayName("WebApplicationContext for namespace '" + namespace + "'");
+  }
+}

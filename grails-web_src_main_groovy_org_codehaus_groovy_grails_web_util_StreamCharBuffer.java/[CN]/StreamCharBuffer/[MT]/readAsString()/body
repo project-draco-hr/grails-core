@@ -1,0 +1,7 @@
+{
+  char[] buf=readAsCharArray();
+  if (buf.length > 0) {
+    return StringCharArrayAccessor.createString(buf);
+  }
+  return "";
+}

@@ -1,0 +1,3 @@
+{
+  return DomainClassArtefactHandler.isDomainClass(clazz) || AnnotationDomainClassArtefactHandler.isJPADomainClass(clazz);
+}

@@ -1,0 +1,11 @@
+{
+  boolean renderView;
+  try {
+    out.write(DefaultGroovyMethods.inspect(object));
+    renderView=false;
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException("I/O error obtaining response writer: " + e.getMessage(),e);
+  }
+  return renderView;
+}

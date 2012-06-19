@@ -1,0 +1,28 @@
+{
+  ModuleRevisionId moduleRevisionId=dependencyDescriptor.getDependencyRevisionId();
+  moduleRevisionId=ModuleRevisionId.newInstance(moduleRevisionId.getOrganisation(),moduleRevisionId.getName(),moduleRevisionId.getRevision());
+  ModuleId moduleId=moduleRevisionId.getModuleId();
+  if (hasDependency(moduleId)) {
+    return;
+  }
+  String scope=dependencyDescriptor.getModuleConfigurations()[0];
+  EnhancedDefaultDependencyDescriptor enhancedDependencyDescriptor=new EnhancedDefaultDependencyDescriptor(moduleRevisionId,false,true,scope);
+  for (  ExcludeRule excludeRule : dependencyDescriptor.getAllExcludeRules()) {
+    ModuleId excludedModule=excludeRule.getId().getModuleId();
+    enhancedDependencyDescriptor.addRuleForModuleId(excludedModule,scope);
+  }
+  DependencyArtifactDescriptor[] allDependencyArtifacts=dependencyDescriptor.getAllDependencyArtifacts();
+  boolean isPlugin=false;
+  for (  DependencyArtifactDescriptor dependencyArtifact : allDependencyArtifacts) {
+    if (dependencyArtifact.getType() != null && dependencyArtifact.getType().equals("zip")) {
+      isPlugin=true;
+      break;
+    }
+  }
+  if (isPlugin) {
+    registerPluginDependency(scope,enhancedDependencyDescriptor);
+  }
+ else {
+    registerDependency(scope,enhancedDependencyDescriptor);
+  }
+}

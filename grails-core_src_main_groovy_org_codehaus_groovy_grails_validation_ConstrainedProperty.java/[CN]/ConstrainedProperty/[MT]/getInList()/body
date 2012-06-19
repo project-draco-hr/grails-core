@@ -1,0 +1,4 @@
+{
+  InListConstraint c=(InListConstraint)appliedConstraints.get(IN_LIST_CONSTRAINT);
+  return c == null ? null : c.getList();
+}

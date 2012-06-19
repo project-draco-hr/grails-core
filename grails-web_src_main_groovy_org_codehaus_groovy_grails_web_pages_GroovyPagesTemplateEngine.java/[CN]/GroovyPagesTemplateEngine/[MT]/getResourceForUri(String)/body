@@ -1,0 +1,7 @@
+{
+  GroovyPageScriptSource scriptSource=getResourceWithinContext(uri);
+  if (scriptSource != null && (scriptSource instanceof GroovyPageResourceScriptSource)) {
+    return ((GroovyPageResourceScriptSource)scriptSource).getResource();
+  }
+  return new ServletContextResource(servletContext,uri);
+}

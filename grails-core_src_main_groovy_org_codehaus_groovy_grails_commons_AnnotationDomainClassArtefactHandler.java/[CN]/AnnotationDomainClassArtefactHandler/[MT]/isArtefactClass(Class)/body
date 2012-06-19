@@ -1,0 +1,7 @@
+{
+  final boolean isJpaDomainClass=isJPADomainClass(clazz);
+  if (isJpaDomainClass) {
+    jpaClassNames.add(clazz.getName());
+  }
+  return super.isArtefactClass(clazz);
+}

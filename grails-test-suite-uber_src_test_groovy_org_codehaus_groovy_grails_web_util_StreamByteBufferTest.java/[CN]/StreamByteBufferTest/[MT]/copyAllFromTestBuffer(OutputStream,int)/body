@@ -1,0 +1,12 @@
+{
+  int position=0;
+  int bytesLeft=testbuffer.length;
+  while (bytesLeft > 0) {
+    output.write(testbuffer,position,partsize);
+    position+=partsize;
+    bytesLeft-=partsize;
+    if (bytesLeft < partsize) {
+      partsize=bytesLeft;
+    }
+  }
+}

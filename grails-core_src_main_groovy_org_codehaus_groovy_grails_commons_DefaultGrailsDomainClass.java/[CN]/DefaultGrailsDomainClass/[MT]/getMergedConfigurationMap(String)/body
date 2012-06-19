@@ -1,0 +1,16 @@
+{
+  Map configurationMap=getStaticPropertyValue(propertyName,Map.class);
+  if (configurationMap == null) {
+    configurationMap=new HashMap();
+  }
+  Class<?> theClass=getClazz();
+  while (theClass != Object.class) {
+    theClass=theClass.getSuperclass();
+    ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(theClass);
+    Map superRelationshipMap=propertyFetcher.getStaticPropertyValue(propertyName,Map.class);
+    if (superRelationshipMap != null && !superRelationshipMap.equals(configurationMap)) {
+      configurationMap.putAll(superRelationshipMap);
+    }
+  }
+  return configurationMap;
+}

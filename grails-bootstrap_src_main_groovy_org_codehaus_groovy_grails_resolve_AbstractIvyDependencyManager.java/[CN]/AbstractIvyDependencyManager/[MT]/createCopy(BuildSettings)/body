@@ -1,0 +1,10 @@
+{
+  IvyDependencyManager copy=new IvyDependencyManager(applicationName,applicationVersion,buildSettings);
+  copy.setOffline(isOffline());
+  copy.setChainResolver(getChainResolver());
+  copy.setResolveEngine(getResolveEngine());
+  if (getLogger() != null) {
+    copy.logger=getLogger();
+  }
+  return copy;
+}

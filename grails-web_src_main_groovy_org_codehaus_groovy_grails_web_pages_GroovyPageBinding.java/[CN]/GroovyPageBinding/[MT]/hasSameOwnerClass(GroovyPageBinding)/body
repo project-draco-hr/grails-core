@@ -1,0 +1,3 @@
+{
+  return (getOwner() != null && otherBinding.getOwner() != null && getOwner().getClass() == otherBinding.getOwner().getClass());
+}

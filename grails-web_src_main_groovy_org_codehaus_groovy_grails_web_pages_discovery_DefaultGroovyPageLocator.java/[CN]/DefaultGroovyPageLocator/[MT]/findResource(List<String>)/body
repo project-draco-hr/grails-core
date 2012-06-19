@@ -1,0 +1,15 @@
+{
+  Resource foundResource=null;
+  Resource resource;
+  for (  ResourceLoader loader : resourceLoaders) {
+    for (    String path : searchPaths) {
+      resource=loader.getResource(path);
+      if (resource != null && resource.exists()) {
+        foundResource=resource;
+        break;
+      }
+    }
+    if (foundResource != null)     break;
+  }
+  return foundResource;
+}

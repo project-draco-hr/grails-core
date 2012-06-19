@@ -1,0 +1,6 @@
+{
+  GenericBeanDefinition bd=new GenericBeanDefinition();
+  bd.setScope(GenericBeanDefinition.SCOPE_PROTOTYPE);
+  bd.setBeanClass(clazz);
+  getDefaultListableBeanFactory().registerBeanDefinition(name,bd);
+}

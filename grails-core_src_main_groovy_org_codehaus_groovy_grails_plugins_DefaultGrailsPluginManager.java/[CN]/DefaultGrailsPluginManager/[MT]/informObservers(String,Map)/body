@@ -1,0 +1,9 @@
+{
+  GrailsPlugin plugin=getGrailsPlugin(pluginName);
+  if (plugin == null) {
+    return;
+  }
+  for (  GrailsPlugin observingPlugin : getPluginObservers(plugin)) {
+    observingPlugin.notifyOfEvent(event);
+  }
+}

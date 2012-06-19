@@ -1,0 +1,15 @@
+{
+  Object collection=bean.getPropertyValue(propertyName);
+  if (collection == null) {
+    return;
+  }
+  if (collection instanceof PersistentCollection) {
+    PersistentCollection persistentCollection=(PersistentCollection)collection;
+    if (persistentCollection.wasInitialized()) {
+      super.cascadeValidationToMany(errors,bean,persistentProperty,propertyName);
+    }
+  }
+ else {
+    super.cascadeValidationToMany(errors,bean,persistentProperty,propertyName);
+  }
+}

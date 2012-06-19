@@ -1,0 +1,4 @@
+{
+  final Class<?> theClass=instance.getClass();
+  return new DefaultConstraintEvaluator(defaultConstraints).evaluate(theClass,properties);
+}

@@ -1,0 +1,6 @@
+{
+  nameMap=new HashMap<String,GrailsPlugin>();
+  for (  GrailsPlugin plugin : originalPlugins) {
+    nameMap.put(plugin.getName(),plugin);
+  }
+}

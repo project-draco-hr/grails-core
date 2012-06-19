@@ -1,0 +1,5 @@
+{
+  if (hasGrailsPlugin(name)) {
+    getGrailsPlugin(name).refresh();
+  }
+}

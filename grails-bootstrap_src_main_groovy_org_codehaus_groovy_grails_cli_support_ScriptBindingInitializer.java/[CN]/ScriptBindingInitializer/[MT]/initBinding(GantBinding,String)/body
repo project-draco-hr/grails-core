@@ -48,8 +48,8 @@
   if (scriptName.equals("RunApp")) {
     cla.enableUaa();
   }
-  makeApiAvailableToScripts(binding,cla);
-  makeApiAvailableToScripts(binding,cla.getPluginSettings());
+  cla.makeApiAvailableToScripts(binding,cla);
+  cla.makeApiAvailableToScripts(binding,cla.getPluginSettings());
   setUIListener(binding);
   try {
     List<File> descriptors=new ArrayList<File>();

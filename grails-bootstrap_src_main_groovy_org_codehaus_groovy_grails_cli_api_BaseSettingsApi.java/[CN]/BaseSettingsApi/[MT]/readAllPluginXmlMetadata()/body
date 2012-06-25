@@ -1,0 +1,10 @@
+{
+  Resource[] allFiles=pluginSettings.getPluginXmlMetadata();
+  List<GPathResult> results=new ArrayList<GPathResult>();
+  for (  Resource resource : allFiles) {
+    if (resource.exists()) {
+      results.add(new XmlSlurper().parse(resource.getFile()));
+    }
+  }
+  return results;
+}

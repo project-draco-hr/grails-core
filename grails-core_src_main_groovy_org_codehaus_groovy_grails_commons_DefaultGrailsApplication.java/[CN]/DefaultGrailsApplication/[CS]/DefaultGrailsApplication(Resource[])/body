@@ -1,3 +1,13 @@
 {
-  this(new GrailsResourceLoader(resources));
+  this();
+  for (  Resource resource : resources) {
+    Class<?> aClass;
+    try {
+      aClass=cl.loadClass(org.codehaus.groovy.grails.io.support.GrailsResourceUtils.getClassName(resource));
+    }
+ catch (    ClassNotFoundException e) {
+      throw new GrailsConfigurationException("Class not found loading Grails application: " + e.getMessage(),e);
+    }
+    loadedClasses.add(aClass);
+  }
 }

@@ -1,18 +1,7 @@
 {
   if (descriptor != null && descriptor.exists()) {
     LOG.info("Loading Grails application with information from descriptor.");
-    ClassLoader classLoader=null;
-    if (Environment.getCurrent().isReloadEnabled()) {
-      LOG.info("Reloading is enabled, using GrailsClassLoader.");
-      final ClassLoader parentLoader=Thread.currentThread().getContextClassLoader();
-      CompilerConfiguration config=CompilerConfiguration.DEFAULT;
-      config.setSourceEncoding("UTF-8");
-      classLoader=new GrailsClassLoader(parentLoader,config,resourceLoader);
-    }
- else {
-      LOG.info("No reloading, using standard classloader.");
-      classLoader=Thread.currentThread().getContextClassLoader();
-    }
+    ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
     List<Class<?>> classes=new ArrayList<Class<?>>();
     InputStream inputStream=null;
     try {
@@ -46,9 +35,12 @@
     Class<?>[] loadedClasses=classes.toArray(new Class[classes.size()]);
     grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
   }
+ else   if (!Environment.isWarDeployed()) {
+    Resource[] resources=GrailsPluginUtils.getPluginBuildSettings().getArtefactResourcesForCurrentEnvironment();
+    grailsApplication=new DefaultGrailsApplication(resources);
+  }
  else {
-    Assert.notNull(resourceLoader,"Property [resourceLoader] must be set!");
-    grailsApplication=new DefaultGrailsApplication(resourceLoader);
+    grailsApplication=new DefaultGrailsApplication();
   }
   ApplicationHolder.setApplication(grailsApplication);
 }

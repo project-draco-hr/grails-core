@@ -1,5 +1,5 @@
 {
-  if (isDomainClass(classNode,source) && shouldInjectClass(classNode)) {
+  if (GrailsASTUtils.isDomainClass(classNode,source) && shouldInjectClass(classNode)) {
     performInjectionOnAnnotatedEntity(classNode);
   }
 }

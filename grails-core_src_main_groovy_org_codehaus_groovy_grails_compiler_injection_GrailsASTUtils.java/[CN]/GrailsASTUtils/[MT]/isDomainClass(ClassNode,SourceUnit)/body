@@ -1,0 +1,16 @@
+{
+  @SuppressWarnings("unchecked") boolean isDomainClass=GrailsASTUtils.hasAnyAnnotations(classNode,grails.persistence.Entity.class,javax.persistence.Entity.class);
+  if (!isDomainClass) {
+    final String sourcePath=sourceNode.getName();
+    final File sourceFile=new File(sourcePath);
+    File parent=sourceFile.getParentFile();
+    while (parent != null && !isDomainClass) {
+      final File parentParent=parent.getParentFile();
+      if (parent.getName().equals(DOMAIN_DIR) && parentParent != null && parentParent.getName().equals(GRAILS_APP_DIR)) {
+        isDomainClass=true;
+      }
+      parent=parentParent;
+    }
+  }
+  return isDomainClass;
+}

@@ -52,7 +52,8 @@
   final List<FieldNode> fields=classNode.getFields();
   for (  FieldNode fieldNode : fields) {
     final String fieldName=fieldNode.getName();
-    if ((!unbindablePropertyNames.contains(fieldName)) && (bindablePropertyNames.contains(fieldName) || shouldFieldBeInWhiteList(fieldNode,fieldsInTransientsList))) {
+    final boolean isDomainClass=GrailsASTUtils.isDomainClass(classNode,sourceUnit);
+    if ((!unbindablePropertyNames.contains(fieldName)) && (bindablePropertyNames.contains(fieldName) || shouldFieldBeInWhiteList(fieldNode,fieldsInTransientsList,isDomainClass))) {
       propertyNamesToIncludeInWhiteList.add(fieldName);
     }
   }

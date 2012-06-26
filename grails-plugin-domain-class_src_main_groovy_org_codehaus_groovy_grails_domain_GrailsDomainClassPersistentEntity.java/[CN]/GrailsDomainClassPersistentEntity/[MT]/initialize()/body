@@ -35,5 +35,8 @@
     }
     propertiesByName.put(grailsDomainClassProperty.getName(),persistentProperty);
     properties.add(persistentProperty);
+    if (persistentProperty instanceof Association) {
+      associations.add((Association)persistentProperty);
+    }
   }
 }

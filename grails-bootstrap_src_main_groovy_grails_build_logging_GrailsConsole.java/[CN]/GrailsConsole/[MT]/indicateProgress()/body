@@ -1,7 +1,7 @@
 {
   progressIndicatorActive=true;
   if (isAnsiEnabled()) {
-    if (StringUtils.hasText(lastMessage)) {
+    if (lastMessage != null && lastMessage.length() > 0) {
       if (!lastMessage.contains(maxIndicatorString)) {
         updateStatus(lastMessage + indicator);
       }

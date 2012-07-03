@@ -36,7 +36,12 @@
     grailsApplication=new DefaultGrailsApplication(loadedClasses,classLoader);
   }
  else   if (!Environment.isWarDeployed()) {
-    Resource[] resources=GrailsPluginUtils.getPluginBuildSettings().getArtefactResourcesForCurrentEnvironment();
+    org.codehaus.groovy.grails.io.support.Resource[] buildResources=GrailsPluginUtils.getPluginBuildSettings().getArtefactResourcesForCurrentEnvironment();
+    Resource[] resources=new Resource[buildResources.length];
+    for (int i=0; i < buildResources.length; i++) {
+      org.codehaus.groovy.grails.io.support.Resource buildResource=buildResources[i];
+      resources[i]=new FileSystemResource(buildResource.getFile());
+    }
     grailsApplication=new DefaultGrailsApplication(resources);
   }
  else {

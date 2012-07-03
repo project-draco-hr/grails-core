@@ -1,0 +1,13 @@
+{
+  if (jarFileUrl.startsWith(GrailsResourceUtils.FILE_URL_PREFIX)) {
+    try {
+      return new JarFile(GrailsResourceUtils.toURI(jarFileUrl).getSchemeSpecificPart());
+    }
+ catch (    URISyntaxException ex) {
+      return new JarFile(jarFileUrl.substring(GrailsResourceUtils.FILE_URL_PREFIX.length()));
+    }
+  }
+ else {
+    return new JarFile(jarFileUrl);
+  }
+}

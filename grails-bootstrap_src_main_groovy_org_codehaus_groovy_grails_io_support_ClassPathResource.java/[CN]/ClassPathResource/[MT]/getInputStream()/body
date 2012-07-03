@@ -1,0 +1,13 @@
+{
+  InputStream is;
+  if (this.clazz != null) {
+    is=this.clazz.getResourceAsStream(this.path);
+  }
+ else {
+    is=this.classLoader.getResourceAsStream(this.path);
+  }
+  if (is == null) {
+    throw new FileNotFoundException(getDescription() + " cannot be opened because it does not exist");
+  }
+  return is;
+}

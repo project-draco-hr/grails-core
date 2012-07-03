@@ -1,0 +1,3 @@
+{
+  return (obj == this || (obj instanceof UrlResource && this.cleanedUrl.equals(((UrlResource)obj).cleanedUrl)));
+}

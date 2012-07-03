@@ -1,0 +1,16 @@
+{
+  this.file=file;
+  if (file.exists()) {
+    String canonicalPath=null;
+    try {
+      canonicalPath=file.getCanonicalPath();
+    }
+ catch (    IOException e) {
+    }
+    if (canonicalPath != null)     this.path=canonicalPath;
+ else     this.path=file.getPath();
+  }
+ else {
+    this.path=file.getPath();
+  }
+}

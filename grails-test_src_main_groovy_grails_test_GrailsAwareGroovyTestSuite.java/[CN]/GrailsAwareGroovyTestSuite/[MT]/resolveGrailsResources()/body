@@ -1,6 +1,6 @@
 {
-  Resource[] baseResources=pluginSettings.getArtefactResources();
-  List<Resource> grailsResources=new ArrayList<Resource>(Arrays.asList(baseResources));
+  org.codehaus.groovy.grails.io.support.Resource[] baseResources=pluginSettings.getArtefactResources();
+  List<org.codehaus.groovy.grails.io.support.Resource> grailsResources=new ArrayList<org.codehaus.groovy.grails.io.support.Resource>(Arrays.asList(baseResources));
   customizeGrailsResources(grailsResources);
-  return grailsResources.toArray(new Resource[grailsResources.size()]);
+  return grailsResources.toArray(new org.codehaus.groovy.grails.io.support.Resource[grailsResources.size()]);
 }

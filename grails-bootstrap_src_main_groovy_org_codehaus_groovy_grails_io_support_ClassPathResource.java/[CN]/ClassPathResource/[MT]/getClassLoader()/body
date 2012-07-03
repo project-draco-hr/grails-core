@@ -1,0 +1,3 @@
+{
+  return (this.classLoader != null ? this.classLoader : this.clazz.getClassLoader());
+}

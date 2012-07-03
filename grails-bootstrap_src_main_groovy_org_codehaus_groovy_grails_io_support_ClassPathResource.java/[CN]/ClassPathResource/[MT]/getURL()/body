@@ -1,0 +1,13 @@
+{
+  URL url;
+  if (this.clazz != null) {
+    url=this.clazz.getResource(this.path);
+  }
+ else {
+    url=this.classLoader.getResource(this.path);
+  }
+  if (url == null) {
+    throw new FileNotFoundException(getDescription() + " cannot be resolved to URL because it does not exist");
+  }
+  return url;
+}

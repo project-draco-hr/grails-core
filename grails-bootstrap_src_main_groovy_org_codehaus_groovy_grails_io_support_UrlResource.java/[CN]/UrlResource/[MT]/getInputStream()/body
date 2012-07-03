@@ -1,0 +1,13 @@
+{
+  URLConnection con=this.url.openConnection();
+  useCachesIfNecessary(con);
+  try {
+    return con.getInputStream();
+  }
+ catch (  IOException ex) {
+    if (con instanceof HttpURLConnection) {
+      ((HttpURLConnection)con).disconnect();
+    }
+    throw ex;
+  }
+}

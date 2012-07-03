@@ -1,0 +1,4 @@
+{
+  AntPathStringMatcher matcher=new AntPathStringMatcher(pattern,str,uriTemplateVariables);
+  return matcher.matchStrings();
+}

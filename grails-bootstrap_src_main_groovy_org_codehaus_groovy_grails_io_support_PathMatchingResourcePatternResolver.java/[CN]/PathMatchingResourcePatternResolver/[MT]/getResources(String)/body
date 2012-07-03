@@ -1,0 +1,19 @@
+{
+  if (locationPattern.startsWith(CLASSPATH_ALL_URL_PREFIX)) {
+    if (getPathMatcher().isPattern(locationPattern.substring(CLASSPATH_ALL_URL_PREFIX.length()))) {
+      return findPathMatchingResources(locationPattern);
+    }
+ else {
+      return findAllClassPathResources(locationPattern.substring(CLASSPATH_ALL_URL_PREFIX.length()));
+    }
+  }
+ else {
+    int prefixEnd=locationPattern.indexOf(":") + 1;
+    if (getPathMatcher().isPattern(locationPattern.substring(prefixEnd))) {
+      return findPathMatchingResources(locationPattern);
+    }
+ else {
+      return new Resource[]{getResourceLoader().getResource(locationPattern)};
+    }
+  }
+}

@@ -14,7 +14,7 @@
       final Method readMethod=pd.getReadMethod();
       if (readMethod != null) {
         if (isDeclared(cla,readMethod)) {
-          binding.setVariable(pd.getName(),ReflectionUtils.invokeMethod(readMethod,cla));
+          binding.setVariable(pd.getName(),invokeMethod(readMethod,cla));
         }
       }
     }

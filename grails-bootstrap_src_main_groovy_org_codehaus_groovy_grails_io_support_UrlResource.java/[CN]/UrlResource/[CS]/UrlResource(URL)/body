@@ -1,0 +1,5 @@
+{
+  this.url=url;
+  this.cleanedUrl=getCleanedUrl(this.url,url.toString());
+  this.uri=null;
+}

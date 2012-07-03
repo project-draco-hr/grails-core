@@ -1,0 +1,3 @@
+{
+  return (this.file.canRead() && !this.file.isDirectory());
+}

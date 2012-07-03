@@ -1,0 +1,3 @@
+{
+  return (this.file.canWrite() && !this.file.isDirectory());
+}

@@ -1,6 +1,6 @@
 {
   try {
-    return pluginDescriptor.createRelative(".");
+    return new SpringResource(pluginDescriptor.createRelative("."));
   }
  catch (  IOException e) {
     return null;

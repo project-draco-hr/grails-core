@@ -1,0 +1,3 @@
+{
+  return (obj == this || (obj instanceof FileSystemResource && this.path.equals(((FileSystemResource)obj).path)));
+}

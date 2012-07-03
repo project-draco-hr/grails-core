@@ -1,4 +1,4 @@
 {
   this.pluginInfo=pluginInfo;
-  wrapper=new BeanWrapperImpl(pluginInfo);
+  this.pluginInfoMetaClass=pluginInfo.getMetaClass();
 }

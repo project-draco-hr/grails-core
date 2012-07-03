@@ -1,0 +1,11 @@
+{
+  try {
+    return readMethod.invoke(cla);
+  }
+ catch (  IllegalAccessException e) {
+    return null;
+  }
+catch (  InvocationTargetException e) {
+    return null;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (!URL_PROTOCOL_FILE.equals(resourceUrl.getProtocol())) {
+    throw new FileNotFoundException(description + " cannot be resolved to absolute file path " + "because it does not reside in the file system: "+ resourceUrl);
+  }
+  try {
+    return new File(toURI(resourceUrl).getSchemeSpecificPart());
+  }
+ catch (  URISyntaxException ex) {
+    return new File(resourceUrl.getFile());
+  }
+}

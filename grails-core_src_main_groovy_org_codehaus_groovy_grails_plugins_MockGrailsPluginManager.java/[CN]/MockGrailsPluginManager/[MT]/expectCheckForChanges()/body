@@ -1,4 +1,4 @@
 {
-  Assert.assertFalse(this.checkForChangesExpected);
+  Assert.state(!this.checkForChangesExpected);
   this.checkForChangesExpected=true;
 }

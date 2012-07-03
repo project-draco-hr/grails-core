@@ -1,5 +1,5 @@
 {
-  Resource descriptor=getDescriptor();
+  org.codehaus.groovy.grails.io.support.Resource descriptor=getDescriptor();
   if (application == null || descriptor == null) {
     return;
   }

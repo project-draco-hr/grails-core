@@ -1,5 +1,5 @@
 {
   super(parent);
-  findClassMethod=ReflectionUtils.findMethod(ClassLoader.class,"findClass",String.class);
-  ReflectionUtils.makeAccessible(findClassMethod);
+  findClassMethod=findMethod(ClassLoader.class,"findClass",String.class);
+  findClassMethod.setAccessible(true);
 }

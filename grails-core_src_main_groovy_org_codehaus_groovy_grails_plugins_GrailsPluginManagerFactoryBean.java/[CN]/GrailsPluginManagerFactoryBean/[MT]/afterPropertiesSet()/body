@@ -1,5 +1,5 @@
 {
-  pluginManager=PluginManagerHolder.getPluginManager();
+  pluginManager=Holders.getPluginManager();
   if (pluginManager == null) {
     Assert.state(descriptor != null,"Cannot create PluginManager, /WEB-INF/grails.xml not found!");
     ClassLoader classLoader=application.getClassLoader();
@@ -33,7 +33,7 @@
     Class<?>[] loadedPlugins=classes.toArray(new Class[classes.size()]);
     pluginManager=new DefaultGrailsPluginManager(loadedPlugins,application);
     pluginManager.setApplicationContext(applicationContext);
-    PluginManagerHolder.setPluginManager(pluginManager);
+    Holders.setPluginManager(pluginManager);
     pluginManager.loadPlugins();
   }
   pluginManager.setApplication(application);

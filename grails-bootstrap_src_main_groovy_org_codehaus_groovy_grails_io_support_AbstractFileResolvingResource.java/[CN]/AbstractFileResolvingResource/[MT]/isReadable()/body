@@ -5,9 +5,7 @@
       File file=getFile();
       return (file.canRead() && !file.isDirectory());
     }
- else {
-      return true;
-    }
+    return true;
   }
  catch (  IOException ex) {
     return false;

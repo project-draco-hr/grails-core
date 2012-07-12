@@ -1,4 +1,5 @@
 {
+  configurePostProcessors(configuration);
   try {
     SessionFactory sf=super.newSessionFactory(configuration);
     if (!grails.util.Environment.getCurrent().isReloadEnabled() || !proxyIfReloadEnabled) {

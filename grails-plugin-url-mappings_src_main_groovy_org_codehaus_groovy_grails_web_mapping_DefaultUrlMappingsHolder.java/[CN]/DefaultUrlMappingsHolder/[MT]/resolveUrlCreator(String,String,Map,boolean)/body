@@ -31,7 +31,9 @@
   }
   UrlCreator creator=null;
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    if (useDefault)     creator=new DefaultUrlCreator(controller,action);
+    if (useDefault) {
+      creator=new DefaultUrlCreator(controller,action);
+    }
   }
  else {
     creator=mapping;

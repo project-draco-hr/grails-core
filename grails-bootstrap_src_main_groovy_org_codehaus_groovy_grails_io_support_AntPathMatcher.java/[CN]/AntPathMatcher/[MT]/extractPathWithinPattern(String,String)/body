@@ -6,8 +6,8 @@
   for (int i=0; i < patternParts.length; i++) {
     String patternPart=patternParts[i];
     if ((patternPart.indexOf('*') > -1 || patternPart.indexOf('?') > -1) && pathParts.length >= i + 1) {
-      if (puts > 0 || (i == 0 && !pattern.startsWith(this.pathSeparator))) {
-        builder.append(this.pathSeparator);
+      if (puts > 0 || (i == 0 && !pattern.startsWith(pathSeparator))) {
+        builder.append(pathSeparator);
       }
       builder.append(pathParts[i]);
       puts++;
@@ -15,7 +15,7 @@
   }
   for (int i=patternParts.length; i < pathParts.length; i++) {
     if (puts > 0 || i > 0) {
-      builder.append(this.pathSeparator);
+      builder.append(pathSeparator);
     }
     builder.append(pathParts[i]);
   }

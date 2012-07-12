@@ -7,10 +7,14 @@
     }
  catch (    IOException e) {
     }
-    if (canonicalPath != null)     this.path=canonicalPath;
- else     this.path=file.getPath();
+    if (canonicalPath != null) {
+      path=canonicalPath;
+    }
+ else {
+      path=file.getPath();
+    }
   }
  else {
-    this.path=file.getPath();
+    path=file.getPath();
   }
 }

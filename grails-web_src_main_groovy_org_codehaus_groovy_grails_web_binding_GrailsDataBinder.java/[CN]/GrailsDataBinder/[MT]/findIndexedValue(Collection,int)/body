@@ -4,8 +4,8 @@
       return ((List)c).get(index);
     }
     int j=0;
-    for (Iterator i=c.iterator(); i.hasNext(); j++) {
-      Object o=i.next();
+    for (    Object o : c) {
+      j++;
       if (j == index)       return o;
     }
   }

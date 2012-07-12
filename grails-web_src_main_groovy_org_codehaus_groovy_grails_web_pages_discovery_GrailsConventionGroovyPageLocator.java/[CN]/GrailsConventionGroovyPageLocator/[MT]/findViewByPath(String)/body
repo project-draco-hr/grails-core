@@ -1,4 +1,3 @@
 {
-  if (uri == null)   return null;
-  return findPage(uriService.getAbsoluteViewURI(uri));
+  return uri == null ? null : findPage(uriService.getAbsoluteViewURI(uri));
 }

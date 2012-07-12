@@ -11,9 +11,7 @@
   if (resolver == null) {
     return null;
   }
- else {
-    dd=NameSpaceHelper.toSystem(dd,ivySettings.getContextNamespace());
-    ResolvedModuleRevision otherModule=resolver.getDependency(dd,data);
-    return otherModule;
-  }
+  dd=NameSpaceHelper.toSystem(dd,ivySettings.getContextNamespace());
+  ResolvedModuleRevision otherModule=resolver.getDependency(dd,data);
+  return otherModule;
 }

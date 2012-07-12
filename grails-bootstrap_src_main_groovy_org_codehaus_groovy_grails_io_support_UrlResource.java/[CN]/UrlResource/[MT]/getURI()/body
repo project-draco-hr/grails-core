@@ -1,8 +1,6 @@
 {
-  if (this.uri != null) {
-    return this.uri;
+  if (uri != null) {
+    return uri;
   }
- else {
-    return getFile().toURI();
-  }
+  return getFile().toURI();
 }

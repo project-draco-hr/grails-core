@@ -1,9 +1,9 @@
 {
   StringBuilder patternBuilder=new StringBuilder();
-  Matcher m=GLOB_PATTERN.matcher(pattern);
+  Matcher m=GLOB_PATTERN.matcher(p);
   int end=0;
   while (m.find()) {
-    patternBuilder.append(quote(pattern,end,m.start()));
+    patternBuilder.append(quote(p,end,m.start()));
     String match=m.group();
     if ("?".equals(match)) {
       patternBuilder.append('.');
@@ -28,6 +28,6 @@
     }
     end=m.end();
   }
-  patternBuilder.append(quote(pattern,end,pattern.length()));
+  patternBuilder.append(quote(p,end,p.length()));
   return Pattern.compile(patternBuilder.toString());
 }

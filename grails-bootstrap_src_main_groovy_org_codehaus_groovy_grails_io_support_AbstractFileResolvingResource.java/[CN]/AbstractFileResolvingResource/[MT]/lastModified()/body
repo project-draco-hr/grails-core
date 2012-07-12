@@ -3,12 +3,10 @@
   if (GrailsResourceUtils.isFileURL(url) || GrailsResourceUtils.isJarURL(url)) {
     return getFile().lastModified();
   }
- else {
-    URLConnection con=url.openConnection();
-    useCachesIfNecessary(con);
-    if (con instanceof HttpURLConnection) {
-      ((HttpURLConnection)con).setRequestMethod("HEAD");
-    }
-    return con.getLastModified();
+  URLConnection con=url.openConnection();
+  useCachesIfNecessary(con);
+  if (con instanceof HttpURLConnection) {
+    ((HttpURLConnection)con).setRequestMethod("HEAD");
   }
+  return con.getLastModified();
 }

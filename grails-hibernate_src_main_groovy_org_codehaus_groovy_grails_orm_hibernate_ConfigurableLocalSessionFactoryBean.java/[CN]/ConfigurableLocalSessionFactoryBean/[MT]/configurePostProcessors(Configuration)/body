@@ -1,0 +1,17 @@
+{
+  Collection<GormMappingPostProcessor> postProcessors=applicationContext.getBeansOfType(GormMappingPostProcessor.class).values();
+  GrailsClass[] domainClasses=grailsApplication.getArtefacts(DomainClassArtefactHandler.TYPE);
+  List<GormMappingPostProcessor> sorted=new ArrayList<GormMappingPostProcessor>(postProcessors);
+  Collections.sort(sorted,new Comparator<GormMappingPostProcessor>(){
+    public int compare(    GormMappingPostProcessor p1,    GormMappingPostProcessor p2){
+      return Integer.valueOf(p1.getOrder()).compareTo(p2.getOrder());
+    }
+  }
+);
+  for (  GrailsClass domainClass : domainClasses) {
+    PersistentClass pc=configuration.getClassMapping(domainClass.getFullName());
+    for (    GormMappingPostProcessor postProcessor : postProcessors) {
+      postProcessor.process(pc,(GrailsDomainClass)domainClass);
+    }
+  }
+}

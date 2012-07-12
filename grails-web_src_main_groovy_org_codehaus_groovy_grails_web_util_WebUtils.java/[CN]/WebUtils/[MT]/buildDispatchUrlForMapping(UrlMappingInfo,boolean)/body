@@ -5,8 +5,12 @@
   final StringBuilder forwardUrl=new StringBuilder();
   if (info.getViewName() != null) {
     String viewName=info.getViewName();
-    if (viewName.startsWith("/"))     forwardUrl.append(viewName);
- else     forwardUrl.append(SLASH).append(viewName);
+    if (viewName.startsWith("/")) {
+      forwardUrl.append(viewName);
+    }
+ else {
+      forwardUrl.append(SLASH).append(viewName);
+    }
   }
  else {
     forwardUrl.append(GrailsUrlPathHelper.GRAILS_SERVLET_PATH);

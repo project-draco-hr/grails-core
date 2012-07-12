@@ -5,7 +5,7 @@
   if (existing != null && descriptor.isTransitivelyIncluded()) {
     ModuleRevisionId dependencyRevisionId=existing.getDependencyRevisionId();
     if (dependencyRevisionId.equals(descriptor.getDependencyRevisionId()))     return;
- else     if (descriptor.getPlugin() != null && (existing instanceof EnhancedDefaultDependencyDescriptor) && ((EnhancedDefaultDependencyDescriptor)existing).getPlugin() == null) {
+    if (descriptor.getPlugin() != null && (existing instanceof EnhancedDefaultDependencyDescriptor) && ((EnhancedDefaultDependencyDescriptor)existing).getPlugin() == null) {
       return;
     }
   }
@@ -13,6 +13,6 @@
   pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
   if (shouldIncludeDependency(descriptor)) {
-    addToModuleDescriptor(scope,descriptor,moduleDescriptor);
+    addToModuleDescriptor(scope,descriptor);
   }
 }

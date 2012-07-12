@@ -1,10 +1,10 @@
 {
   URL url;
-  if (this.clazz != null) {
-    url=this.clazz.getResource(this.path);
+  if (clazz == null) {
+    url=classLoader.getResource(path);
   }
  else {
-    url=this.classLoader.getResource(this.path);
+    url=clazz.getResource(path);
   }
-  return (url != null);
+  return url != null;
 }

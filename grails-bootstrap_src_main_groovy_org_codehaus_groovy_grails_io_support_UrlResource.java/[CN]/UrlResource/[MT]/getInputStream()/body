@@ -1,5 +1,5 @@
 {
-  URLConnection con=this.url.openConnection();
+  URLConnection con=url.openConnection();
   useCachesIfNecessary(con);
   try {
     return con.getInputStream();

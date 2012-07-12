@@ -1,0 +1,15 @@
+{
+  try {
+    Class<?> applicationClass=contextClassLoader.loadClass("org.codehaus.groovy.grails.commons.DefaultGrailsApplication");
+    return applicationClass.newInstance();
+  }
+ catch (  ClassNotFoundException e) {
+    throw new PluginException("Error instantiating GrailsApplication during logging initialization: " + e.getMessage(),e);
+  }
+catch (  InstantiationException e) {
+    throw new PluginException("Error instantiating GrailsApplication during logging initialization: " + e.getMessage(),e);
+  }
+catch (  IllegalAccessException e) {
+    throw new PluginException("Error instantiating GrailsApplication during logging initialization: " + e.getMessage(),e);
+  }
+}

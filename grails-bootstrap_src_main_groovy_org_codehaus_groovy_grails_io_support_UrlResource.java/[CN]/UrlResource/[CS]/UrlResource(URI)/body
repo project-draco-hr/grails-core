@@ -1,5 +1,5 @@
 {
-  this.url=uri.toURL();
-  this.cleanedUrl=getCleanedUrl(this.url,uri.toString());
+  url=uri.toURL();
+  cleanedUrl=getCleanedUrl(url,uri.toString());
   this.uri=uri;
 }

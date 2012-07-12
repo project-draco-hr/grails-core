@@ -1,10 +1,10 @@
 {
   StringBuilder builder=new StringBuilder("class path resource [");
-  if (this.clazz != null) {
-    builder.append(GrailsResourceUtils.classPackageAsResourcePath(this.clazz));
+  if (clazz != null) {
+    builder.append(GrailsResourceUtils.classPackageAsResourcePath(clazz));
     builder.append('/');
   }
-  builder.append(this.path);
+  builder.append(path);
   builder.append(']');
   return builder.toString();
 }

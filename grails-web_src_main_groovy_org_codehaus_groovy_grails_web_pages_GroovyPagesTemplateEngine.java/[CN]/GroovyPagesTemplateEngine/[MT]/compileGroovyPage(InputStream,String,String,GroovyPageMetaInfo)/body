@@ -2,7 +2,7 @@
   GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
   Class<?> scriptClass;
   try {
-    String groovySource=DefaultGroovyMethods.getText(in,GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING);
+    String groovySource=IOGroovyMethods.getText(in,GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING);
     scriptClass=groovyClassLoader.parseClass(groovySource,name);
   }
  catch (  CompilationFailedException e) {

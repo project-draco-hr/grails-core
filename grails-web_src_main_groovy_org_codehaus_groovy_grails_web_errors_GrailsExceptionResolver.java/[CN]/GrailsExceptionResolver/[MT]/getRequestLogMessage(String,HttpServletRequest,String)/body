@@ -16,7 +16,7 @@
     shouldLogRequestParameters=Environment.getCurrent() == Environment.DEVELOPMENT;
   }
   if (shouldLogRequestParameters) {
-    @SuppressWarnings("unchecked") Enumeration<String> params=request.getParameterNames();
+    Enumeration<String> params=request.getParameterNames();
     if (params.hasMoreElements()) {
       String param;
       String values[];

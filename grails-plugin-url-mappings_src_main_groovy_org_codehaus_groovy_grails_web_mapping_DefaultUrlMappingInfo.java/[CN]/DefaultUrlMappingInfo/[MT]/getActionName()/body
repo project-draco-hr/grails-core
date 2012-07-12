@@ -2,7 +2,7 @@
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
   String name=webRequest != null ? checkDispatchAction(webRequest.getCurrentRequest()) : null;
   if (name == null) {
-    name=evaluateNameForValue(this.actionName,webRequest);
+    name=evaluateNameForValue(actionName,webRequest);
   }
   return urlConverter.toUrlElement(name);
 }

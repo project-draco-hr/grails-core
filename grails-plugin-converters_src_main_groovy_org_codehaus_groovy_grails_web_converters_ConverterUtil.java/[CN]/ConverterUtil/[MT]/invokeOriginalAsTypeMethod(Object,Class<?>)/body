@@ -31,10 +31,10 @@
     return DefaultGroovyMethods.asType((Number)delegate,clazz);
   }
   if (delegate instanceof File) {
-    return DefaultGroovyMethods.asType((File)delegate,clazz);
+    return ResourceGroovyMethods.asType((File)delegate,clazz);
   }
   if (delegate instanceof String) {
-    return DefaultGroovyMethods.asType((String)delegate,clazz);
+    return StringGroovyMethods.asType((String)delegate,clazz);
   }
   return DefaultGroovyMethods.asType(delegate,clazz);
 }

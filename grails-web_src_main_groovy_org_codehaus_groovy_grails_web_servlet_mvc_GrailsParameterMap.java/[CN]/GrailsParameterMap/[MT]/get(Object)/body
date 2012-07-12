@@ -4,7 +4,7 @@
     returnValue=nestedDateMap.get(key);
   }
  else {
-    returnValue=this.wrappedMap.get(key);
+    returnValue=wrappedMap.get(key);
     if (returnValue instanceof String[]) {
       String[] valueArray=(String[])returnValue;
       if (valueArray.length == 1) {

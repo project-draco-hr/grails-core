@@ -1,3 +1,3 @@
 {
-  return new File(this.url.getFile()).getName();
+  return new File(url.getFile()).getName();
 }

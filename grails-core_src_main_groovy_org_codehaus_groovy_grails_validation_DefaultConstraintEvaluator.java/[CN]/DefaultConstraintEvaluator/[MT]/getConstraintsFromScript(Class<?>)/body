@@ -5,7 +5,7 @@
   if (stream != null) {
     GroovyClassLoader gcl=new GroovyClassLoader();
     try {
-      Class<?> scriptClass=gcl.parseClass(DefaultGroovyMethods.getText(stream));
+      Class<?> scriptClass=gcl.parseClass(IOGroovyMethods.getText(stream));
       Script script=(Script)scriptClass.newInstance();
       script.run();
       Binding binding=script.getBinding();

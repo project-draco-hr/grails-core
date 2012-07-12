@@ -7,7 +7,5 @@
     }
     return newPath + relativePath;
   }
- else {
-    return relativePath;
-  }
+  return relativePath;
 }

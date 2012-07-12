@@ -1,5 +1,5 @@
 {
   super(parent,removeAfterReading);
   this.parent=parent;
-  this.pointer=parent.offset;
+  pointer=parent.offset;
 }

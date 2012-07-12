@@ -4,7 +4,7 @@
   }
   if (obj instanceof ClassPathResource) {
     ClassPathResource otherRes=(ClassPathResource)obj;
-    return (this.path.equals(otherRes.path) && nullSafeEquals(this.classLoader,otherRes.classLoader) && nullSafeEquals(this.clazz,otherRes.clazz));
+    return (path.equals(otherRes.path) && nullSafeEquals(classLoader,otherRes.classLoader) && nullSafeEquals(clazz,otherRes.clazz));
   }
   return false;
 }

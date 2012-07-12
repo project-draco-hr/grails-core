@@ -4,5 +4,5 @@
     pathToUse=pathToUse.substring(1);
   }
   this.path=pathToUse;
-  this.classLoader=(classLoader != null ? classLoader : DefaultResourceLoader.getDefaultClassLoader());
+  this.classLoader=classLoader == null ? DefaultResourceLoader.getDefaultClassLoader() : classLoader;
 }

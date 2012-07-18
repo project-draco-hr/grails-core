@@ -1,0 +1,4 @@
+{
+  super.performInjection(source,context,classNode);
+  new DefaultASTDatabindingHelper().injectDatabindingCode(source,context,classNode);
+}

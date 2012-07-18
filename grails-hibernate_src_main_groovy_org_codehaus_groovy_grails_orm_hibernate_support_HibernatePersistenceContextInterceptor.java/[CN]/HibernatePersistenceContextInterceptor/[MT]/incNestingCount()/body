@@ -1,5 +1,6 @@
 {
-  int value=nestingCount.get().intValue() + 1;
-  nestingCount.set(Integer.valueOf(value));
+  Integer current=nestingCount.get();
+  int value=(current != null) ? current + 1 : 1;
+  nestingCount.set(value);
   return value;
 }

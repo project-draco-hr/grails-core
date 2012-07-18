@@ -1,7 +1,7 @@
 {
-  final List<?> list=crit.list();
-  if (!list.isEmpty()) {
-    return GrailsHibernateUtil.unwrapIfProxy(list.get(0));
-  }
-  return null;
+  CriteriaImpl impl=(CriteriaImpl)crit;
+  String entityOrClassName=impl.getEntityOrClassName();
+  GrailsClass domainClass=application.getArtefact(DomainClassArtefactHandler.TYPE,entityOrClassName);
+  boolean useLimit=establishWhetherToUseLimit(domainClass.getClazz());
+  return getResult(crit,useLimit);
 }

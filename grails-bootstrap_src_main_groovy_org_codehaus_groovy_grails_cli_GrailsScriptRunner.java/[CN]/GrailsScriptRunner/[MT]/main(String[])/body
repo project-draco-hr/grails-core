@@ -1,4 +1,6 @@
 {
+  System.setProperty("net.sf.ehcache.skipUpdateCheck","true");
+  ExpandoMetaClass.enableGlobally();
   originalIn=System.in;
   originalOut=System.out;
   CommandLineParser parser=getCommandLineParser();
@@ -20,7 +22,6 @@
     System.exit(1);
     return;
   }
-  String version=System.getProperty("grails.version");
   ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
   String grailsHome=System.getProperty("grails.home");
   BuildSettings build=null;
@@ -44,7 +45,12 @@
     System.exit(0);
   }
   if (commandLine.hasOption(CommandLine.HELP_ARGUMENT)) {
-    console.log(parser.getHelpMessage());
+    if (commandLine.getCommandName() != null) {
+      console.log("The '-help' option is deprecated; use 'grails help [target]'");
+    }
+ else {
+      console.log("The '-help' option is deprecated; use 'grails help'");
+    }
     System.exit(0);
   }
   boolean resolveDeps=commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT);
@@ -63,7 +69,8 @@
     script.name=null;
   }
   if (script.name == null) {
-    console.updateStatus("Loading Grails " + (version != null ? version : build.getGrailsVersion()));
+    String version=System.getProperty("grails.version");
+    console.updateStatus("Loading Grails " + (version == null ? build.getGrailsVersion() : version));
     build.loadConfig();
     if (resolveDeps) {
       ClasspathConfigurer.cleanResolveCache(build);
@@ -81,6 +88,7 @@
     console.verbose("Base Directory: " + build.getBaseDir().getPath());
     try {
       int exitCode=scriptRunner.executeCommand(commandLine,script.name,script.env);
+      GrailsConsole.getInstance().flush();
       System.exit(exitCode);
     }
  catch (    ScriptNotFoundException ex) {

@@ -1,5 +1,9 @@
 {
-  if (UaaIntegration.isAvailable()) {
-    UaaIntegration.enable(buildSettings,pluginSettings,isInteractive);
+  try {
+    Class<?> uaaClass=BaseSettingsApi.class.getClassLoader().loadClass("org.codehaus.groovy.grails.cli.support.UaaIntegration");
+    MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(uaaClass);
+    metaClass.invokeMethod(uaaClass,"enable",new Object[]{buildSettings,pluginSettings,isInteractive});
+  }
+ catch (  ClassNotFoundException e) {
   }
 }

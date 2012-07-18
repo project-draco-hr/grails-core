@@ -1,0 +1,55 @@
+{
+  URLConnection con=rootDirResource.getURL().openConnection();
+  JarFile jarFile;
+  String jarFileUrl;
+  String rootEntryPath;
+  boolean newJarFile=false;
+  if (con instanceof JarURLConnection) {
+    JarURLConnection jarCon=(JarURLConnection)con;
+    GrailsResourceUtils.useCachesIfNecessary(jarCon);
+    jarFile=jarCon.getJarFile();
+    jarFileUrl=jarCon.getJarFileURL().toExternalForm();
+    JarEntry jarEntry=jarCon.getJarEntry();
+    rootEntryPath=(jarEntry != null ? jarEntry.getName() : "");
+  }
+ else {
+    String urlFile=rootDirResource.getURL().getFile();
+    int separatorIndex=urlFile.indexOf(GrailsResourceUtils.JAR_URL_SEPARATOR);
+    if (separatorIndex != -1) {
+      jarFileUrl=urlFile.substring(0,separatorIndex);
+      rootEntryPath=urlFile.substring(separatorIndex + GrailsResourceUtils.JAR_URL_SEPARATOR.length());
+      jarFile=getJarFile(jarFileUrl);
+    }
+ else {
+      jarFile=new JarFile(urlFile);
+      jarFileUrl=urlFile;
+      rootEntryPath="";
+    }
+    newJarFile=true;
+  }
+  try {
+    if (logger.isDebugEnabled()) {
+      logger.debug("Looking for matching resources in jar file [" + jarFileUrl + "]");
+    }
+    if (!"".equals(rootEntryPath) && !rootEntryPath.endsWith("/")) {
+      rootEntryPath=rootEntryPath + "/";
+    }
+    Set<Resource> result=new LinkedHashSet<Resource>(8);
+    for (Enumeration<JarEntry> entries=jarFile.entries(); entries.hasMoreElements(); ) {
+      JarEntry entry=entries.nextElement();
+      String entryPath=entry.getName();
+      if (entryPath.startsWith(rootEntryPath)) {
+        String relativePath=entryPath.substring(rootEntryPath.length());
+        if (getPathMatcher().match(subPattern,relativePath)) {
+          result.add(rootDirResource.createRelative(relativePath));
+        }
+      }
+    }
+    return result;
+  }
+  finally {
+    if (newJarFile) {
+      jarFile.close();
+    }
+  }
+}

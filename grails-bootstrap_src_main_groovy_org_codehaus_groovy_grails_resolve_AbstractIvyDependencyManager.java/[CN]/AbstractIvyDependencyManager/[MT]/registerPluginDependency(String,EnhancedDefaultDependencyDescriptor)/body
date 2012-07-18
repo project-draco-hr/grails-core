@@ -5,24 +5,14 @@
   if (existing != null && descriptor.isTransitivelyIncluded()) {
     ModuleRevisionId dependencyRevisionId=existing.getDependencyRevisionId();
     if (dependencyRevisionId.equals(descriptor.getDependencyRevisionId()))     return;
- else     if (descriptor.getPlugin() != null && (existing instanceof EnhancedDefaultDependencyDescriptor) && ((EnhancedDefaultDependencyDescriptor)existing).getPlugin() == null) {
+    if (descriptor.getPlugin() != null && (existing instanceof EnhancedDefaultDependencyDescriptor) && ((EnhancedDefaultDependencyDescriptor)existing).getPlugin() == null) {
       return;
     }
   }
-  String classifierAttribute=descriptor.getExtraAttribute("m:classifier");
-  String packaging;
-  if (classifierAttribute != null && classifierAttribute.equals("plugin")) {
-    packaging="xml";
-  }
- else {
-    packaging="zip";
-  }
-  DependencyArtifactDescriptor artifact=new DefaultDependencyArtifactDescriptor(descriptor,name,packaging,packaging,null,null);
-  descriptor.addDependencyArtifact(scope,artifact);
   registerDependencyCommon(scope,descriptor,true);
   pluginNameToDescriptorMap.put(name,descriptor);
   pluginDependencyDescriptors.add(descriptor);
   if (shouldIncludeDependency(descriptor)) {
-    moduleDescriptor.addDependency(descriptor);
+    addToModuleDescriptor(scope,descriptor);
   }
 }

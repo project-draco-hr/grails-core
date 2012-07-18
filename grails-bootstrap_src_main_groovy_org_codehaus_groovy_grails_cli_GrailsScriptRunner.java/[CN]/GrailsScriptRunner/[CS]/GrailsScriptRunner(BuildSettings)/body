@@ -4,5 +4,5 @@
     originalOut=System.out;
   }
   this.settings=settings;
-  this.pluginPathSupport=new PluginPathDiscoverySupport(settings);
+  pluginPathSupport=new PluginPathDiscoverySupport(settings);
 }

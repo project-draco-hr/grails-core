@@ -1,0 +1,4 @@
+{
+  URL url=getURL();
+  return GrailsResourceUtils.getFile(url,getDescription());
+}

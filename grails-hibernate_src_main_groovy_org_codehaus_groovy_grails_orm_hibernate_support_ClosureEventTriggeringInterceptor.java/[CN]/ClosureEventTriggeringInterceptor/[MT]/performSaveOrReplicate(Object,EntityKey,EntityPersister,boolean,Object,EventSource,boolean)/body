@@ -20,7 +20,6 @@
   }
   TypeHelper.deepCopy(values,types,persister.getPropertyUpdateability(),values,source);
   new ForeignKeys.Nullifier(entity,false,useIdentityColumn,source).nullifyTransientReferences(values,types);
-  new Nullability(source).checkNullability(values,persister,false);
   if (useIdentityColumn) {
     EntityIdentityInsertAction insert=new EntityIdentityInsertAction(values,entity,persister,source,shouldDelayIdentityInserts);
     if (!shouldDelayIdentityInserts) {

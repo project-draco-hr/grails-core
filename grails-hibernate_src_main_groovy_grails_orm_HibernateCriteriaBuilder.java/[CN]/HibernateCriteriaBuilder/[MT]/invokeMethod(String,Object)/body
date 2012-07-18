@@ -161,7 +161,7 @@
         targetClass=oldTargetClass;
         return name;
       }
- else       if (type instanceof EmbeddedComponentType) {
+      if (type instanceof EmbeddedComponentType) {
         associationStack.add(name);
         logicalExpressionStack.add(new LogicalExpression(AND));
         Class oldTargetClass=targetClass;

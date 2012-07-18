@@ -2,6 +2,5 @@
   if (this == obj) {
     return true;
   }
-  IdentityWeakReference ref=(IdentityWeakReference)obj;
-  return this.get() == ref.get();
+  return get() == ((IdentityWeakReference)obj).get();
 }

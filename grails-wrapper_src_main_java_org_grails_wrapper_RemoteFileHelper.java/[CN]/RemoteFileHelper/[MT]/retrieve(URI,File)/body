@@ -1,0 +1,35 @@
+{
+  if (destination.exists()) {
+    return;
+  }
+  destination.getParentFile().mkdirs();
+  System.out.println("Downloading " + address + " to "+ destination.getAbsolutePath());
+  OutputStream out=null;
+  InputStream in=null;
+  try {
+    final URL url=address.toURL();
+    out=new BufferedOutputStream(new FileOutputStream(destination));
+    final URLConnection conn=url.openConnection();
+    in=conn.getInputStream();
+    final byte[] buffer=new byte[BUFFER_SIZE];
+    int numRead;
+    long progressCounter=0;
+    while ((numRead=in.read(buffer)) != -1) {
+      progressCounter+=numRead;
+      if (progressCounter / CHUNK_SIZE > 0) {
+        System.out.print(".");
+        progressCounter=progressCounter - CHUNK_SIZE;
+      }
+      out.write(buffer,0,numRead);
+    }
+  }
+  finally {
+    System.out.println("");
+    if (in != null) {
+      in.close();
+    }
+    if (out != null) {
+      out.close();
+    }
+  }
+}

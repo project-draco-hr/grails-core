@@ -1,0 +1,6 @@
+{
+  GrailsPlugin versionPlugin=new DefaultGrailsPlugin(versioned,ga);
+  assertEquals(versionPlugin.getWatchedResourcePatterns().get(0).getDirectory().getPath(),"./grails-app/taglib");
+  assertEquals(versionPlugin.getWatchedResourcePatterns().get(1).getDirectory().getPath(),"./grails-app/controller");
+  assertEquals(versionPlugin.getWatchedResourcePatterns().get(2).getDirectory().getPath(),"/absolutePath");
+}

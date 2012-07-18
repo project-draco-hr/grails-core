@@ -1,0 +1,15 @@
+{
+  System.out.println("Extracting " + zip.getAbsolutePath() + " to "+ dest.getAbsolutePath());
+  Enumeration<?> entries;
+  final ZipFile zipFile=new ZipFile(zip);
+  entries=zipFile.entries();
+  while (entries.hasMoreElements()) {
+    final ZipEntry entry=(ZipEntry)entries.nextElement();
+    if (entry.isDirectory()) {
+      (new File(dest,entry.getName())).mkdirs();
+      continue;
+    }
+    copy(zipFile.getInputStream(entry),new BufferedOutputStream(new FileOutputStream(new File(dest,entry.getName()))));
+  }
+  zipFile.close();
+}

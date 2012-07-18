@@ -16,7 +16,17 @@
               if (localFile.lastModified() < remoteFile.getLastModified()) {
                 repo.get(url,localFile);
               }
-              parsedXml=new XmlSlurper().parse(localFile);
+              XmlSlurper xmlSlurper=new XmlSlurper();
+              xmlSlurper.setErrorHandler(new ErrorHandler(){
+                public void warning(                SAXParseException e) throws SAXException {
+                }
+                public void error(                SAXParseException e) throws SAXException {
+                }
+                public void fatalError(                SAXParseException e) throws SAXException {
+                }
+              }
+);
+              parsedXml=xmlSlurper.parse(localFile);
               parsedXmlCache.put(localFile,parsedXml);
             }
           }

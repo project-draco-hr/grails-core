@@ -1,0 +1,10 @@
+{
+  URL url;
+  if (clazz == null) {
+    url=classLoader.getResource(path);
+  }
+ else {
+    url=clazz.getResource(path);
+  }
+  return url != null;
+}

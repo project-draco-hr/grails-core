@@ -1,5 +1,4 @@
 {
-  initialize(instance);
   GrailsDomainClass dc=getDomainClass(instance);
   if (dc != null) {
     DataBindingUtils.bindObjectToDomainInstance(dc,instance,namedArgs);
@@ -8,4 +7,5 @@
  else {
     DataBindingUtils.bindObjectToInstance(instance,namedArgs);
   }
+  autowire(instance);
 }

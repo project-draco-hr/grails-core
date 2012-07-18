@@ -22,8 +22,8 @@
  else {
           value=expr.getText();
         }
-        if (wrapper.isWritableProperty(name)) {
-          wrapper.setPropertyValue(name,value);
+        if (DefaultGroovyMethods.hasProperty(pluginInfo,name) != null) {
+          pluginInfoMetaClass.setProperty(pluginInfo,name,value);
         }
  else {
           pluginInfo.setProperty(name,value);
@@ -38,5 +38,5 @@
 ;
   classNode.visitContents(visitor);
   String className=classNode.getNameWithoutPackage();
-  wrapper.setPropertyValue("name",GrailsNameUtils.getPluginName(className + ".groovy"));
+  pluginInfoMetaClass.setProperty(pluginInfo,"name",GrailsNameUtils.getPluginName(className + ".groovy"));
 }

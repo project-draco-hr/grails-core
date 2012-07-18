@@ -3,7 +3,14 @@
   if (webRequest != null) {
     final ApplicationContext applicationContext=webRequest.getApplicationContext();
     if (applicationContext != null) {
-      final Map<String,BindEventListener> bindEventListenerMap=applicationContext.getBeansOfType(BindEventListener.class);
+      ServletContext servletContext=webRequest.getServletContext();
+      @SuppressWarnings("unchecked") Map<String,BindEventListener> bindEventListenerMap=(Map<String,BindEventListener>)servletContext.getAttribute(BIND_EVENT_LISTENERS);
+      if (bindEventListenerMap == null) {
+        bindEventListenerMap=applicationContext.getBeansOfType(BindEventListener.class);
+        if (!Environment.isDevelopmentMode()) {
+          servletContext.setAttribute(BIND_EVENT_LISTENERS,bindEventListenerMap);
+        }
+      }
       for (      BindEventListener bindEventListener : bindEventListenerMap.values()) {
         bindEventListener.doBind(getTarget(),mpvs,getTypeConverter());
       }

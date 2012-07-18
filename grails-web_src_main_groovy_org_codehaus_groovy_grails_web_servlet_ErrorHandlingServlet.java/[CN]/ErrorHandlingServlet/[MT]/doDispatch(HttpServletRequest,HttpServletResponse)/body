@@ -40,7 +40,6 @@
       RequestContextHolder.setRequestAttributes(webRequest);
       urlMappingInfo.configure(webRequest);
     }
-    request.setAttribute("com.opensymphony.sitemesh.APPLIED_ONCE",null);
     HttpServletResponse originalResponse=WrappedResponseHolder.getWrappedResponse();
     try {
       WrappedResponseHolder.setWrappedResponse(response);
@@ -54,7 +53,7 @@
           View v;
           try {
             if (!response.isCommitted()) {
-              response.setContentType(TEXT_HTML);
+              response.setContentType("text/html;charset=" + defaultEncoding);
             }
             v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
             v.render(Collections.EMPTY_MAP,request,response);

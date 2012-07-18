@@ -32,7 +32,7 @@
         AbstractPersistentConstraint.sessionFactory.remove();
       }
       if (errors.hasErrors()) {
-        handleValidationError(target,errors);
+        handleValidationError(domainClass,target,errors);
         boolean shouldFail=shouldFail(application,domainClass);
         if (argsMap != null && argsMap.containsKey(ARGUMENT_FAIL_ON_ERROR)) {
           shouldFail=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FAIL_ON_ERROR,argsMap);
@@ -49,7 +49,7 @@
     autoRetrieveAssocations(domainClass,target);
   }
   if (!shouldValidate) {
-    Set<Integer> identifiers=disableAutoValidationFor.get();
+    Set<Integer> identifiers=getDisableAutoValidationFor();
     identifiers.add(System.identityHashCode(target));
   }
   if (shouldInsert(arguments)) {

@@ -1,8 +1,0 @@
-{
-  GantResult result=new GantResult();
-  result.script=gant.prepareTargets();
-  gant.setAllPerTargetPostHooks(doNothingClosure);
-  gant.setAllPerTargetPreHooks(doNothingClosure);
-  result.exitCode=gant.executeTargets();
-  return result;
-}

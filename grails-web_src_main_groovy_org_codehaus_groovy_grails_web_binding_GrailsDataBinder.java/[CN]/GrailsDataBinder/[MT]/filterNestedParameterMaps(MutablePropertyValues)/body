@@ -4,7 +4,7 @@
     if (JSONObject.NULL.getClass().isInstance(value)) {
       mpvs.removePropertyValue(pv);
     }
-    if (isNotCandidateForBinding(value)) {
+    if (!isCandidateForBinding(pv)) {
       mpvs.removePropertyValue(pv);
     }
   }

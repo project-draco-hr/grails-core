@@ -1,0 +1,9 @@
+{
+  try {
+    session.flush();
+  }
+ catch (  HibernateException e) {
+    session.setFlushMode(FlushMode.MANUAL);
+    throw e;
+  }
+}

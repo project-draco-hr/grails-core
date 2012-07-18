@@ -1,5 +1,15 @@
 {
-  MetaClassRegistryCleaner mcr=new MetaClassRegistryCleaner();
-  GroovySystem.getMetaClassRegistry().addMetaClassRegistryChangeEventListener(mcr);
-  return mcr;
+  MetaClassRegistry metaClassRegistry=GroovySystem.getMetaClassRegistry();
+  MetaClassRegistryChangeEventListener[] listeners=metaClassRegistry.getMetaClassRegistryChangeEventListeners();
+  boolean registered=false;
+  for (  MetaClassRegistryChangeEventListener listener : listeners) {
+    if (listener == INSTANCE) {
+      registered=true;
+      break;
+    }
+  }
+  if (!registered) {
+    GroovySystem.getMetaClassRegistry().addMetaClassRegistryChangeEventListener(INSTANCE);
+  }
+  return INSTANCE;
 }

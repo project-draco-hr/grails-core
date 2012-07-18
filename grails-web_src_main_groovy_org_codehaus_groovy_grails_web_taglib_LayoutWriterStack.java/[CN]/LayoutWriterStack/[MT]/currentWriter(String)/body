@@ -1,0 +1,12 @@
+{
+  Map<String,Object> writers=currentStack().stack.peek();
+  if (writers != null) {
+    Writer result=(Writer)writers.get(name);
+    if (result == null) {
+      result=new StringWriter();
+      writers.put(name,result);
+    }
+    return result;
+  }
+  return null;
+}

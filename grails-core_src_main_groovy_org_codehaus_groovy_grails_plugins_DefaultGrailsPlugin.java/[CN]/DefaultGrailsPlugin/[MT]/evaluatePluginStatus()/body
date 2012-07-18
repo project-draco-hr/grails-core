@@ -1,8 +1,9 @@
 {
-  if (pluginBean.isReadableProperty(STATUS)) {
-    Object statusObj=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,STATUS);
-    if (statusObj != null) {
-      status=statusObj.toString().toLowerCase();
-    }
+  if (!pluginBean.isReadableProperty(STATUS)) {
+    return;
+  }
+  Object statusObj=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,STATUS);
+  if (statusObj != null) {
+    status=statusObj.toString().toLowerCase();
   }
 }

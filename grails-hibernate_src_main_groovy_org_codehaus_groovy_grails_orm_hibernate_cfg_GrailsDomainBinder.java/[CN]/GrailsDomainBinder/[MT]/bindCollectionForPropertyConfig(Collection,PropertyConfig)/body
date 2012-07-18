@@ -1,9 +1,9 @@
 {
-  if (config != null) {
-    collection.setLazy(config.getLazy());
-  }
- else {
+  if (config == null) {
     collection.setLazy(true);
     collection.setExtraLazy(false);
+  }
+ else {
+    collection.setLazy(config.getLazy());
   }
 }

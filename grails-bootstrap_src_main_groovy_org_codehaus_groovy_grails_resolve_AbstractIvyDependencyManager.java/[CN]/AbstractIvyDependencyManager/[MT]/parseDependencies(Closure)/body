@@ -5,7 +5,7 @@
   if (moduleDescriptor == null) {
     setModuleDescriptor((DefaultModuleDescriptor)createModuleDescriptor());
   }
-  doParseDependencies(definition,null,NO_EXCLUDE_RULES);
+  doParseDependencies(definition,null,null,NO_EXCLUDE_RULES);
   if (readPom == true && buildSettings != null) {
     registerPomDependencies();
   }

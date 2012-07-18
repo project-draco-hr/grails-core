@@ -1,0 +1,10 @@
+{
+  FieldNode fieldNode=null;
+  fieldNode=classNode.getDeclaredField(propertyName);
+  if (fieldNode == null) {
+    if (!classNode.getSuperClass().equals(new ClassNode(Object.class))) {
+      return getDeclaredFieldInInheritanceHierarchy(classNode.getSuperClass(),propertyName);
+    }
+  }
+  return fieldNode;
+}

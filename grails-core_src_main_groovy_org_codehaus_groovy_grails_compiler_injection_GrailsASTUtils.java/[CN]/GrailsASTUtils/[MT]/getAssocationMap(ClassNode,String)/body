@@ -1,0 +1,18 @@
+{
+  PropertyNode property=classNode.getProperty(associationType);
+  Map<String,ClassNode> associationMap=new HashMap<String,ClassNode>();
+  if (property != null && property.isStatic()) {
+    Expression e=property.getInitialExpression();
+    if (e instanceof MapExpression) {
+      MapExpression me=(MapExpression)e;
+      for (      MapEntryExpression mee : me.getMapEntryExpressions()) {
+        String key=mee.getKeyExpression().getText();
+        Expression valueExpression=mee.getValueExpression();
+        if (valueExpression instanceof ClassExpression) {
+          associationMap.put(key,valueExpression.getType());
+        }
+      }
+    }
+  }
+  return associationMap;
+}

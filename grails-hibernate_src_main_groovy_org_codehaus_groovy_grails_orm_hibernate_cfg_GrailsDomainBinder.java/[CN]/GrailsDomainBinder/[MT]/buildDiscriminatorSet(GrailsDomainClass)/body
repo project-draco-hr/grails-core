@@ -12,8 +12,7 @@
   }
   theSet.add(quote + discriminator + quote);
   for (  GrailsDomainClass subClass : domainClass.getSubClasses()) {
-    Set<String> subSet=buildDiscriminatorSet(subClass);
-    theSet.addAll(subSet);
+    theSet.addAll(buildDiscriminatorSet(subClass));
   }
   return theSet;
 }

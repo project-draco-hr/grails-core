@@ -1,6 +1,6 @@
 {
-  List<Resource> potentialScripts;
-  List<Resource> allScripts=getAvailableScripts();
+  List<File> potentialScripts;
+  List<File> allScripts=getAvailableScripts();
   GantBinding binding=new GantBinding();
   binding.setVariable("scriptName",scriptName);
   setDefaultInputStream(binding);
@@ -31,7 +31,7 @@
   }
   if (potentialScripts.size() > 0) {
     potentialScripts=(List)DefaultGroovyMethods.unique(potentialScripts);
-    final Resource scriptFile=potentialScripts.get(0);
+    final File scriptFile=potentialScripts.get(0);
     if (!isGrailsProject() && !isExternalScript(scriptFile)) {
       return handleScriptExecutedOutsideProjectError();
     }

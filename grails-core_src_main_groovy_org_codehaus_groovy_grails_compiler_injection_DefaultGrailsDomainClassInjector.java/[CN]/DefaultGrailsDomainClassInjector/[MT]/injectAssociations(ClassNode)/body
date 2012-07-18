@@ -1,16 +1,26 @@
 {
   List<PropertyNode> propertiesToAdd=new ArrayList<PropertyNode>();
-  for (  PropertyNode pn : classNode.getProperties()) {
-    final String name=pn.getName();
+  for (  PropertyNode propertyNode : classNode.getProperties()) {
+    final String name=propertyNode.getName();
     final boolean isHasManyProperty=name.equals(GrailsDomainClassProperty.RELATES_TO_MANY) || name.equals(GrailsDomainClassProperty.HAS_MANY);
     if (isHasManyProperty) {
-      Expression e=pn.getInitialExpression();
+      Expression e=propertyNode.getInitialExpression();
       propertiesToAdd.addAll(createPropertiesForHasManyExpression(e,classNode));
     }
-    final boolean isBelongsTo=name.equals(GrailsDomainClassProperty.BELONGS_TO) || name.equals(GrailsDomainClassProperty.HAS_ONE);
-    if (isBelongsTo) {
-      Expression e=pn.getInitialExpression();
-      propertiesToAdd.addAll(createPropertiesForBelongsToExpression(e,classNode));
+    final boolean isBelongsToOrHasOne=name.equals(GrailsDomainClassProperty.BELONGS_TO) || name.equals(GrailsDomainClassProperty.HAS_ONE);
+    if (isBelongsToOrHasOne) {
+      Expression initialExpression=propertyNode.getInitialExpression();
+      if ((!(initialExpression instanceof MapExpression)) && (!(initialExpression instanceof ClassExpression))) {
+        if (name.equals(GrailsDomainClassProperty.HAS_ONE)) {
+          final String message="The hasOne property in class [" + classNode.getName() + "] should have an initial expression of type Map or Class.";
+          GrailsConsole.getInstance().warn(message);
+        }
+ else         if (!(initialExpression instanceof ListExpression)) {
+          final String message="The belongsTo property in class [" + classNode.getName() + "] should have an initial expression of type List, Map or Class.";
+          GrailsConsole.getInstance().warn(message);
+        }
+      }
+      propertiesToAdd.addAll(createPropertiesForBelongsToOrHasOneExpression(initialExpression,classNode));
     }
   }
   injectAssociationProperties(classNode,propertiesToAdd);

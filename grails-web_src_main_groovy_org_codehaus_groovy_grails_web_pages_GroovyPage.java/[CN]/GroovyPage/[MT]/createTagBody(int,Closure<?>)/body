@@ -1,4 +1,4 @@
 {
-  GroovyPageTagBody tagBody=new GroovyPageTagBody(this,webRequest,bodyClosure);
+  GroovyPageTagBody tagBody=new GroovyPageTagBody(this,webRequest,bodyClosure,true);
   setBodyClosure(bodyClosureIndex,tagBody);
 }

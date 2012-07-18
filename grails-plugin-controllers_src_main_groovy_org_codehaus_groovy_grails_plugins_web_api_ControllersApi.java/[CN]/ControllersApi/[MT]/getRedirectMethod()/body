@@ -1,0 +1,6 @@
+{
+  if (redirect == null) {
+    redirect=new RedirectDynamicMethod();
+  }
+  return redirect;
+}

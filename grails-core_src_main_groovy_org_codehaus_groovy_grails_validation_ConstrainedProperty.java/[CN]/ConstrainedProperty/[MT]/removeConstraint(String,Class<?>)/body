@@ -2,4 +2,11 @@
   Assert.hasLength(name,"Argument [name] cannot be null");
   List<Object> objects=getOrInitializeConstraint(name);
   objects.remove(constraintClass);
+  List<Object> toRemove=new ArrayList<Object>();
+  for (  Object object : objects) {
+    if (constraintClass.isInstance(object)) {
+      toRemove.add(object);
+    }
+  }
+  objects.removeAll(toRemove);
 }

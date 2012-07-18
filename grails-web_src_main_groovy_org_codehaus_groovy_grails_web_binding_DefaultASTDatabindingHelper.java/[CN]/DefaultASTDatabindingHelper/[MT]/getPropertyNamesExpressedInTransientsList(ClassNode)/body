@@ -1,0 +1,21 @@
+{
+  final Set<String> transientFields=new HashSet<String>();
+  final FieldNode transientsField=classNode.getField("transients");
+  if (transientsField != null && transientsField.isStatic()) {
+    final Expression initialValueExpression=transientsField.getInitialValueExpression();
+    if (initialValueExpression instanceof ListExpression) {
+      final ListExpression le=(ListExpression)initialValueExpression;
+      final List<Expression> expressions=le.getExpressions();
+      for (      Expression expr : expressions) {
+        if (expr instanceof ConstantExpression) {
+          final ConstantExpression ce=(ConstantExpression)expr;
+          final Object contantValue=ce.getValue();
+          if (contantValue instanceof String) {
+            transientFields.add((String)contantValue);
+          }
+        }
+      }
+    }
+  }
+  return transientFields;
+}

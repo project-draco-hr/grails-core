@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
+  @SuppressWarnings("hiding") GrailsConsole console=getConsole(commandLine);
   try {
     System.setProperty("disable.grails.plugin.transform","true");
     console.updateStatus("Loading Grails " + settings.getGrailsVersion());
@@ -13,6 +13,12 @@
  finally {
     System.setProperty("disable.grails.plugin.transform","false");
   }
-  BuildSettingsHolder.setSettings(settings);
-  return callPluginOrGrailsScript(commandLine,scriptName,env);
+  try {
+    BuildSettingsHolder.setSettings(settings);
+    return callPluginOrGrailsScript(commandLine,scriptName,env);
+  }
+  finally {
+    GrailsConsole.getInstance().flush();
+    BuildSettingsHolder.setSettings(null);
+  }
 }

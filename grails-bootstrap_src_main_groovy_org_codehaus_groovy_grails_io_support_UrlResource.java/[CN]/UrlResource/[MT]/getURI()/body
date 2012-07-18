@@ -1,0 +1,6 @@
+{
+  if (uri != null) {
+    return uri;
+  }
+  return getFile().toURI();
+}

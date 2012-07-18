@@ -1,4 +1,7 @@
 {
+  if (include == null && exclude == null) {
+    include=getBindingIncludeList(object);
+  }
   GrailsApplication application=GrailsWebRequest.lookupApplication();
   GrailsDomainClass domain=null;
   if (application != null) {

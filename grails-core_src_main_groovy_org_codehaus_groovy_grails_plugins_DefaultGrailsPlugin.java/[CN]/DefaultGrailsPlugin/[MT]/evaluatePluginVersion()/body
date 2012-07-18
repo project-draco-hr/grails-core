@@ -3,10 +3,8 @@
     throw new PluginException("Plugin [" + getName() + "] must specify a version!");
   }
   Object vobj=plugin.getProperty(VERSION);
-  if (vobj != null) {
-    version=vobj.toString();
-  }
- else {
+  if (vobj == null) {
     throw new PluginException("Plugin " + this + " must specify a version. eg: def version = 0.1");
   }
+  version=vobj.toString();
 }

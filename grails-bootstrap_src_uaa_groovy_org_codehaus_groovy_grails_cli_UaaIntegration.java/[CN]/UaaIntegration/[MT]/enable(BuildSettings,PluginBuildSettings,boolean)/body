@@ -1,0 +1,57 @@
+{
+  final UaaService uaaService=UaaServiceFactory.getUaaService();
+  final UaaClient.Privacy.PrivacyLevel privacyLevel=uaaService.getPrivacyLevel();
+  if (!uaaService.isUaaTermsOfUseAccepted() && interactive) {
+    if (privacyLevel.equals(UaaClient.Privacy.PrivacyLevel.UNDECIDED_TOU)) {
+      while (true) {
+        GrailsConsole console=GrailsConsole.getInstance();
+        String selection=console.userInput(MESSAGE,new String[]{"y","n"});
+        if ("y".equalsIgnoreCase(selection)) {
+          uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.ENABLE_UAA);
+          break;
+        }
+ else         if ("n".equalsIgnoreCase(selection)) {
+          uaaService.setPrivacyLevel(UaaClient.Privacy.PrivacyLevel.DECLINE_TOU);
+          break;
+        }
+      }
+    }
+  }
+  if (isUaaAccepted(privacyLevel)) {
+    Runnable r=new Runnable(){
+      public void run(){
+        try {
+          Thread.sleep(ONE_MINUTE);
+          final UaaClient.Product product=VersionHelper.getProduct("Grails",settings.getGrailsVersion());
+          uaaService.registerProductUsage(product);
+          final ChainResolver chainResolver=settings.getDependencyManager().getChainResolver();
+          GrailsRepoResolver centralRepo=findCentralRepoResolver(chainResolver);
+          if (centralRepo != null) {
+            final GPathResult pluginList=centralRepo.getPluginList(new File(settings.getGrailsWorkDir() + "/plugin-list-" + centralRepo.getName()+ ".xml"));
+            final GrailsPluginInfo[] pluginInfos=pluginSettings.getPluginInfos(pluginSettings.getPluginDirPath());
+            for (            GrailsPluginInfo pluginInfo : pluginInfos) {
+              boolean registerUsage=false;
+              if (settings.getDefaultPluginSet().contains(pluginInfo.getName())) {
+                registerUsage=true;
+              }
+ else {
+                final Object plugin=UaaIntegrationSupport.findPlugin(pluginList,pluginInfo.getName());
+                if (plugin != null) {
+                  registerUsage=true;
+                }
+              }
+              if (registerUsage) {
+                uaaService.registerFeatureUsage(product,VersionHelper.getFeatureUse(pluginInfo.getName(),pluginInfo.getVersion()));
+              }
+            }
+          }
+        }
+ catch (        Exception e) {
+        }
+      }
+    }
+;
+    new Thread(r).start();
+    enabled=true;
+  }
+}

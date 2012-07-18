@@ -1,6 +1,6 @@
 {
   Map<String,Object> savedVariablesMap=new LinkedHashMap<String,Object>();
-  for (Iterator<Object> i=((Map)args).keySet().iterator(); i.hasNext(); ) {
+  for (Iterator<Object> i=args.keySet().iterator(); i.hasNext(); ) {
     String varname=String.valueOf(i.next());
     savedVariablesMap.put(varname,binding.getVariable(varname));
   }

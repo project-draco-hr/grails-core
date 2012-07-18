@@ -1,5 +1,6 @@
 {
   ModuleRevisionId moduleRevisionId=dependencyDescriptor.getDependencyRevisionId();
+  moduleRevisionId=ModuleRevisionId.newInstance(moduleRevisionId.getOrganisation(),moduleRevisionId.getName(),moduleRevisionId.getRevision());
   ModuleId moduleId=moduleRevisionId.getModuleId();
   if (hasDependency(moduleId)) {
     return;
@@ -10,5 +11,18 @@
     ModuleId excludedModule=excludeRule.getId().getModuleId();
     enhancedDependencyDescriptor.addRuleForModuleId(excludedModule,scope);
   }
-  registerDependency(scope,enhancedDependencyDescriptor);
+  DependencyArtifactDescriptor[] allDependencyArtifacts=dependencyDescriptor.getAllDependencyArtifacts();
+  boolean isPlugin=false;
+  for (  DependencyArtifactDescriptor dependencyArtifact : allDependencyArtifacts) {
+    if (dependencyArtifact.getType() != null && dependencyArtifact.getType().equals("zip")) {
+      isPlugin=true;
+      break;
+    }
+  }
+  if (isPlugin) {
+    registerPluginDependency(scope,enhancedDependencyDescriptor);
+  }
+ else {
+    registerDependency(scope,enhancedDependencyDescriptor);
+  }
 }

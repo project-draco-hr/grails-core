@@ -7,8 +7,10 @@
     if (parent != null) {
       val=parent.getVariable(name);
       if (val != null) {
-        getVariablesMap().put(name,val);
-        cachedParentVariableNames.add(name);
+        if (findPageRequestBinding() == null || !findPageRequestBinding().isRequestAttributeVariable(name)) {
+          getVariablesMap().put(name,val);
+          cachedParentVariableNames.add(name);
+        }
       }
     }
   }

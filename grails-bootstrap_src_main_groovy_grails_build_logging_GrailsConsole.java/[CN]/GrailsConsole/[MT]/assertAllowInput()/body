@@ -1,3 +1,5 @@
 {
-  if (reader == null)   throw new IllegalStateException("User input is not enabled, cannot obtain input stream");
+  if (reader == null) {
+    throw new IllegalStateException("User input is not enabled, cannot obtain input stream");
+  }
 }

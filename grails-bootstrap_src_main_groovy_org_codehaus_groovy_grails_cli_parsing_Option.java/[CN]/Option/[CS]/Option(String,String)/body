@@ -3,5 +3,5 @@
     throw new IllegalArgumentException("illegal option specified");
   }
   this.name=name;
-  this.description=description != null ? description : "";
+  this.description=description == null ? "" : description;
 }

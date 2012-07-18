@@ -1,0 +1,4 @@
+{
+  List<String> list=StringGroovyMethods.tokenize(pattern,pathSeparator);
+  return list.toArray(new String[list.size()]);
+}

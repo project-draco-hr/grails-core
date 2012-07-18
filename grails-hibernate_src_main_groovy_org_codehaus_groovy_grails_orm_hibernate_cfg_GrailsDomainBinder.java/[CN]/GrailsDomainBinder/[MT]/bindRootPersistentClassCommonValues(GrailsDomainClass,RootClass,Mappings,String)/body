@@ -36,13 +36,13 @@
     LOG.debug("[GrailsDomainBinder] Mapping Grails domain class: " + domainClass.getFullName() + " -> "+ root.getTable().getName());
   }
   bindIdentity(domainClass,root,mappings,m,sessionFactoryBeanName);
-  if (m != null) {
+  if (m == null) {
+    bindVersion(domainClass.getVersion(),root,mappings,sessionFactoryBeanName);
+  }
+ else {
     if (m.getVersioned()) {
       bindVersion(domainClass.getVersion(),root,mappings,sessionFactoryBeanName);
     }
-  }
- else {
-    bindVersion(domainClass.getVersion(),root,mappings,sessionFactoryBeanName);
   }
   root.createPrimaryKey();
   createClassProperties(domainClass,root,mappings,sessionFactoryBeanName);

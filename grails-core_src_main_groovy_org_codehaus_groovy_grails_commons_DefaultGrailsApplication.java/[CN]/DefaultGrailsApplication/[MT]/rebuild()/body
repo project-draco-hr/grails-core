@@ -3,13 +3,7 @@
   loadedClasses.clear();
   initArtefactHandlers();
   if (GrailsUtil.isDevelopmentEnv()) {
-    try {
-      loadGrailsApplicationFromResources(resources);
-      initialise();
-    }
- catch (    IOException e) {
-      throw new GrailsConfigurationException("I/O error rebuilding GrailsApplication: " + e.getMessage(),e);
-    }
+    initialise();
   }
  else {
     throw new IllegalStateException("Cannot rebuild GrailsApplication when not in development mode!");

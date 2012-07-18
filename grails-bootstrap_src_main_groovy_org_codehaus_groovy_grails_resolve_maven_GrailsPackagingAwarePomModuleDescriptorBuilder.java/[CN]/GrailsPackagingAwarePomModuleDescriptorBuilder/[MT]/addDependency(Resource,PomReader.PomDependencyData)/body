@@ -1,0 +1,55 @@
+{
+  String scope=dep.getScope();
+  if ((scope != null) && (scope.length() > 0) && !MAVEN2_CONF_MAPPING.containsKey(scope)) {
+    scope="compile";
+  }
+  String version=dep.getVersion();
+  version=(version == null || version.length() == 0) ? getDefaultVersion(dep) : version;
+  ModuleRevisionId moduleRevId=ModuleRevisionId.newInstance(dep.getGroupId(),dep.getArtifactId(),version);
+  if (moduleRevId.getName().equals("grails-dependencies"))   return;
+  DefaultModuleDescriptor ivyModuleDescriptor=getIvyModuleDescriptor();
+  ModuleRevisionId mRevId=ivyModuleDescriptor.getModuleRevisionId();
+  if ((mRevId != null) && mRevId.getModuleId().equals(moduleRevId.getModuleId())) {
+    return;
+  }
+  DefaultDependencyDescriptor dd=new DefaultDependencyDescriptor(ivyModuleDescriptor,moduleRevId,true,false,true);
+  scope=(scope == null || scope.length() == 0) ? getDefaultScope(dep) : scope;
+  Object mapping=MAVEN2_CONF_MAPPING.get(scope);
+  MetaClass metaClass=GroovySystem.getMetaClassRegistry().getMetaClass(mapping.getClass());
+  metaClass.invokeMethod(mapping,"addMappingConfs",new Object[]{dd,dep.isOptional()});
+  Map extraAtt=new HashMap();
+  if ((dep.getClassifier() != null) || ((dep.getType() != null) && !"jar".equals(dep.getType()))) {
+    String type="jar";
+    if (dep.getType() != null) {
+      type=dep.getType();
+    }
+    type=getPackagingForGrailsType(type);
+    String ext=type;
+    if ("test-jar".equals(type)) {
+      ext="jar";
+      extraAtt.put("m:classifier","tests");
+    }
+ else     if (JAR_PACKAGINGS.contains(type)) {
+      ext="jar";
+    }
+    ext=getPackagingForGrailsType(type);
+    if (dep.getClassifier() != null) {
+      extraAtt.put("m:classifier",dep.getClassifier());
+    }
+    DefaultDependencyArtifactDescriptor depArtifact=new DefaultDependencyArtifactDescriptor(dd,dd.getDependencyId().getName(),type,ext,null,extraAtt);
+    String optionalizedScope=dep.isOptional() ? "optional" : scope;
+    dd.addDependencyArtifact(optionalizedScope,depArtifact);
+  }
+  List excluded=dep.getExcludedModules();
+  if (excluded.isEmpty()) {
+    excluded=getDependencyMgtExclusions(ivyModuleDescriptor,dep.getGroupId(),dep.getArtifactId());
+  }
+  for (Iterator itExcl=excluded.iterator(); itExcl.hasNext(); ) {
+    ModuleId excludedModule=(ModuleId)itExcl.next();
+    String[] confs=dd.getModuleConfigurations();
+    for (int k=0; k < confs.length; k++) {
+      dd.addExcludeRule(confs[k],new DefaultExcludeRule(new ArtifactId(excludedModule,PatternMatcher.ANY_EXPRESSION,PatternMatcher.ANY_EXPRESSION,PatternMatcher.ANY_EXPRESSION),ExactPatternMatcher.INSTANCE,null));
+    }
+  }
+  ivyModuleDescriptor.addDependency(dd);
+}

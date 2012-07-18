@@ -17,11 +17,11 @@
     attrs.put("m:classifier",classifier);
   }
   ModuleRevisionId mrid;
-  if (branch != null) {
-    mrid=ModuleRevisionId.newInstance(group,name,branch,version,attrs);
+  if (branch == null) {
+    mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
   }
  else {
-    mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
+    mrid=ModuleRevisionId.newInstance(group,name,branch,version,attrs);
   }
   EnhancedDefaultDependencyDescriptor dependencyDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,transitive,scope);
   handleExport(dependencyDescriptor,export);
@@ -33,7 +33,8 @@
   if (configurer != null) {
     dependencyDescriptor.configure(configurer);
   }
-  if (!isExcluded(context,dependencyDescriptor)) {
+  addArtifacts(scope,dependencyDescriptor);
+  if (!isExcluded(dependencyDescriptor)) {
     addDependency(scope,dependencyDescriptor);
   }
 }

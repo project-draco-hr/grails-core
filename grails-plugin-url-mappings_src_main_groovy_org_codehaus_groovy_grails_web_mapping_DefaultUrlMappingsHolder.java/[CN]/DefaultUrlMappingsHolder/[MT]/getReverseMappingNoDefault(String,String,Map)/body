@@ -5,7 +5,9 @@
     UrlCreator creator=urlCreatorCache.lookup(key);
     if (creator == null) {
       creator=resolveUrlCreator(controller,action,params,false);
-      if (creator != null)       creator=urlCreatorCache.putAndDecorate(key,creator);
+      if (creator != null) {
+        creator=urlCreatorCache.putAndDecorate(key,creator);
+      }
     }
     params.remove("mappingName");
     return creator;

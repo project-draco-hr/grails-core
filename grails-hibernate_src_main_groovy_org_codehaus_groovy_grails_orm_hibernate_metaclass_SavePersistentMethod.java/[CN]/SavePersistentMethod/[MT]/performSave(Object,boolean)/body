@@ -3,13 +3,7 @@
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       session.saveOrUpdate(target);
       if (flush) {
-        try {
-          getHibernateTemplate().flush();
-        }
- catch (        DataAccessException e) {
-          getHibernateTemplate().setFlushMode(HibernateTemplate.FLUSH_NEVER);
-          throw e;
-        }
+        flushSession(session);
       }
       return target;
     }

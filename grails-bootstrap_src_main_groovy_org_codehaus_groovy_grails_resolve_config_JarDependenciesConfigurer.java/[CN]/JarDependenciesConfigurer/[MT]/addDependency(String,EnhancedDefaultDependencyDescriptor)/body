@@ -1,3 +1,7 @@
 {
+  DependencyConfigurationContext ctx=getContext();
+  if (ctx.getParentScope() != null) {
+    scope=ctx.getParentScope();
+  }
   getDependencyManager().registerDependency(scope,descriptor);
 }

@@ -1,6 +1,7 @@
 {
-  if (pluginBean.isReadableProperty(DEPENDS_ON)) {
-    dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,DEPENDS_ON);
-    dependencyNames=dependencies.keySet().toArray(new String[dependencies.size()]);
+  if (!pluginBean.isReadableProperty(DEPENDS_ON)) {
+    return;
   }
+  dependencies=(Map)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,DEPENDS_ON);
+  dependencyNames=dependencies.keySet().toArray(new String[dependencies.size()]);
 }

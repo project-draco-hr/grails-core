@@ -1,7 +1,7 @@
 {
-  for (  Object scope : includeExcludeList) {
-    if (scope instanceof String) {
-      final String scopeName=(String)scope;
+  for (  Object value : includeExcludeList) {
+    if (value instanceof String) {
+      final String scopeName=(String)value;
       evaluateAndAddToIncludeExcludeSet(targetMap,scopeName,include,converter);
     }
   }

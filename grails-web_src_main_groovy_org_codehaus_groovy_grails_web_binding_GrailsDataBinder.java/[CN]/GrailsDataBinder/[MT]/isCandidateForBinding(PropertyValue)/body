@@ -1,0 +1,19 @@
+{
+  boolean isCandidate=true;
+  final Object value=pv.getValue();
+  if (value instanceof GrailsParameterMap || value instanceof JSONObject) {
+    isCandidate=false;
+  }
+ else   if (value instanceof Map) {
+    isCandidate=false;
+    final String propertyName=pv.getName();
+    final PropertyDescriptor property=BeanUtils.getPropertyDescriptor(getTarget().getClass(),propertyName);
+    if (property != null) {
+      final Class<?> propertyType=property.getPropertyType();
+      if (propertyType.isAssignableFrom(value.getClass())) {
+        isCandidate=true;
+      }
+    }
+  }
+  return isCandidate;
+}

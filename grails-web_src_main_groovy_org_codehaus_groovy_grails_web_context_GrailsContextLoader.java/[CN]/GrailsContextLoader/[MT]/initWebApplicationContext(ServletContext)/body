@@ -50,12 +50,14 @@
     GrailsConfigUtils.executeGrailsBootstraps(application,ctx,servletContext);
   }
  catch (  Throwable e) {
+    GrailsUtil.deepSanitize(e);
+    LOG.error("Error initializing the application: " + e.getMessage(),e);
     if (Environment.isDevelopmentMode() && !Environment.isWarDeployed()) {
-      LOG.error("Error executing bootstraps: " + e.getMessage(),e);
       if (System.getProperty("grails.disable.exit") == null) {
         System.exit(1);
       }
     }
+    LOG.error("Error initializing Grails: " + e.getMessage(),e);
     if (e instanceof BeansException)     throw (BeansException)e;
     throw new BootstrapException("Error executing bootstraps",e);
   }

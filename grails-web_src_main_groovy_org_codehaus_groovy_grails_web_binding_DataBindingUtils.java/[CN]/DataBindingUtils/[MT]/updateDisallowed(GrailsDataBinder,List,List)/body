@@ -1,0 +1,20 @@
+{
+  if (disallowed == null) {
+    return;
+  }
+  String[] currentDisallowed=binder.getDisallowedFields();
+  List newDisallowed=new ArrayList(disallowed);
+  if (allowed == null) {
+    CollectionUtils.addAll(newDisallowed,currentDisallowed);
+  }
+ else {
+    for (    String s : currentDisallowed) {
+      if (!allowed.contains(s)) {
+        newDisallowed.add(s);
+      }
+    }
+  }
+  String[] value=new String[newDisallowed.size()];
+  newDisallowed.toArray(value);
+  binder.setDisallowedFields(value);
+}

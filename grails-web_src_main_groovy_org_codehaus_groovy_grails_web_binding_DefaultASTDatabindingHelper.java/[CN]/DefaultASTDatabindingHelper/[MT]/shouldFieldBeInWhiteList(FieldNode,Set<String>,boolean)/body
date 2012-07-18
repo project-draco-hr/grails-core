@@ -1,0 +1,14 @@
+{
+  boolean shouldInclude=true;
+  final int modifiers=fieldNode.getModifiers();
+  final String fieldName=fieldNode.getName();
+  if ((modifiers & Modifier.STATIC) != 0 || (modifiers & Modifier.TRANSIENT) != 0 || fieldsInTransientsList.contains(fieldName) || fieldNode.getType().equals(new ClassNode(Object.class))) {
+    shouldInclude=false;
+  }
+ else   if (isDomainClass) {
+    if ("id".equals(fieldName) || "version".equals(fieldName)) {
+      shouldInclude=false;
+    }
+  }
+  return shouldInclude;
+}

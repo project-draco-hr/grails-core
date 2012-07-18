@@ -1,0 +1,18 @@
+{
+  final ClassInjector classInjector=new AbstractGrailsArtefactTransformer(){
+    public boolean shouldInject(    final URL url){
+      return true;
+    }
+    @Override public Class<?> getInstanceImplementation(){
+      return DatabindingApi.class;
+    }
+    @Override public Class<?> getStaticImplementation(){
+      return null;
+    }
+    @Override protected boolean requiresAutowiring(){
+      return false;
+    }
+  }
+;
+  classInjector.performInjection(source,context,classNode);
+}

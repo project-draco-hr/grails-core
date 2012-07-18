@@ -1,0 +1,19 @@
+{
+  BuildSettings bs=BuildSettingsHolder.getSettings();
+  BuildSettingsHolder.setSettings(null);
+  try {
+    DefaultGrailsTemplateGenerator generator=new DefaultGrailsTemplateGenerator();
+    generator.setBasedir("/not/there");
+    AbstractResource templateResource=generator.getTemplateResource("list.gsp");
+    assertTrue(templateResource instanceof ClassPathResource);
+    ClassPathResource cpr=(ClassPathResource)templateResource;
+    assertEquals("src/grails/templates/scaffolding/list.gsp",cpr.getPath());
+    templateResource=generator.getTemplateResource("/list.gsp");
+    assertTrue(templateResource instanceof ClassPathResource);
+    cpr=(ClassPathResource)templateResource;
+    assertEquals("src/grails/templates/scaffolding/list.gsp",cpr.getPath());
+  }
+  finally {
+    BuildSettingsHolder.setSettings(bs);
+  }
+}

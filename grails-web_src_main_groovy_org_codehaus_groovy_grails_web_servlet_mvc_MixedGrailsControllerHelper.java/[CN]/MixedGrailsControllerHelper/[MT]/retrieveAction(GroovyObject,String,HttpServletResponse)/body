@@ -1,10 +1,11 @@
 {
-  Method mAction=ReflectionUtils.findMethod(controller.getClass(),actionName,MethodGrailsControllerHelper.NOARGS);
+  Class<?> controllerClass=AopProxyUtils.ultimateTargetClass(controller);
+  Method mAction=ReflectionUtils.findMethod(controllerClass,actionName,MethodGrailsControllerHelper.NOARGS);
   if (mAction != null) {
     ReflectionUtils.makeAccessible(mAction);
-  }
-  if (mAction != null && mAction.getAnnotation(Action.class) != null) {
-    return mAction;
+    if (mAction.getAnnotation(Action.class) != null) {
+      return mAction;
+    }
   }
   try {
     return controller.getProperty(actionName);

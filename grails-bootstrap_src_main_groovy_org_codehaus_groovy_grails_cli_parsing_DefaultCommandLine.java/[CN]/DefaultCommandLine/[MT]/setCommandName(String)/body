@@ -1,6 +1,6 @@
 {
-  if ("refresh-dependencies".equals(cmd)) {
+  if (REFRESH_DEPENDENCIES_ARGUMENT.equals(cmd)) {
     addUndeclaredOption(REFRESH_DEPENDENCIES_ARGUMENT);
   }
-  this.commandName=cmd;
+  commandName=cmd;
 }

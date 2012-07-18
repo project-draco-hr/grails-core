@@ -5,5 +5,6 @@
   if (moduleDescriptor == null) {
     throw new IllegalStateException("Call parseDependencies(Closure) first to parse the application dependencies");
   }
-  doParseDependencies(definition,pluginName,excludeRules);
+  String scope=getParentScope(pluginName);
+  doParseDependencies(definition,pluginName,scope,excludeRules);
 }

@@ -1,3 +1,4 @@
 {
-  return StringUtils.hasLength(getReloadLocationInternal());
+  String reloadingLocation=getReloadLocationInternal();
+  return hasLocation(reloadingLocation);
 }

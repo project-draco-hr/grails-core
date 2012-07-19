@@ -9,10 +9,10 @@
     }
   }
   GrailsClass codecGrailsClass=null;
-  if (codecName != null) {
-    if (grailsApplication != null) {
-      codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
-      if (codecGrailsClass == null)       codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
+  if (codecName != null && grailsApplication != null) {
+    codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
+    if (codecGrailsClass == null) {
+      codecGrailsClass=grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
     }
   }
   if (codecGrailsClass == null && StringUtils.isNotBlank(codecName) && !"none".equalsIgnoreCase(codecName)) {

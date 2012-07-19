@@ -1,5 +1,5 @@
 {
-  this.buildSettings=settings;
+  buildSettings=settings;
   buildProps=buildSettings.getConfig().toProperties();
   grailsHome=buildSettings.getGrailsHome();
   metadataFile=new File(buildSettings.getBaseDir(),"application.properties");

@@ -1,0 +1,8 @@
+{
+  try {
+    return UaaIntegration.class.getClassLoader().loadClass("org.springframework.uaa.client.UaaServiceFactory") != null;
+  }
+ catch (  Throwable e) {
+    return false;
+  }
+}

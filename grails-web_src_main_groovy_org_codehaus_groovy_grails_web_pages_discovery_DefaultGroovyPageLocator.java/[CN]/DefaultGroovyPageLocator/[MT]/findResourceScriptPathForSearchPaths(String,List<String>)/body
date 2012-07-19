@@ -17,5 +17,5 @@
     }
   }
   Resource foundResource=findResource(searchPaths);
-  return foundResource != null ? new GroovyPageResourceScriptSource(uri,foundResource) : null;
+  return foundResource == null ? null : new GroovyPageResourceScriptSource(uri,foundResource);
 }

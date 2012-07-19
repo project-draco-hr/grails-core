@@ -2,7 +2,9 @@
   Date date=super.getDate(name);
   if (date == null) {
     String format=lookupFormat(name);
-    if (format != null)     return getDate(name,format);
+    if (format != null) {
+      return getDate(name,format);
+    }
   }
   return date;
 }

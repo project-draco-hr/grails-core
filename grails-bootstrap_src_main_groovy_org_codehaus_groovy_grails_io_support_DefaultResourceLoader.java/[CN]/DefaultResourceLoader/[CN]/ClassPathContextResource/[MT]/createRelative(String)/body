@@ -1,0 +1,4 @@
+{
+  String pathToUse=GrailsResourceUtils.applyRelativePath(getPath(),relativePath);
+  return new ClassPathContextResource(pathToUse,getClassLoader());
+}

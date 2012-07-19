@@ -1,0 +1,6 @@
+{
+  if (pattern.endsWith(".*")) {
+    pattern=pattern.substring(0,pattern.length() - 2);
+  }
+  return countOccurrencesOf(pattern,"*");
+}

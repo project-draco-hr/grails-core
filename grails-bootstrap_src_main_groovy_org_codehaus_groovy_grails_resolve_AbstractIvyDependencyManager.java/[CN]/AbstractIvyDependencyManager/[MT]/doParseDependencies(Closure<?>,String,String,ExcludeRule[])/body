@@ -7,7 +7,7 @@
  else {
     context=DependencyConfigurationContext.forPlugin(dependencyManager,pluginName);
   }
-  context.setOffline(this.offline);
+  context.setOffline(offline);
   context.setParentScope(scope);
   context.setExcludeRules(excludeRules);
   definition.setDelegate(new DependencyConfigurationConfigurer(context));

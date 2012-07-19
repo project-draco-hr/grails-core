@@ -1,0 +1,8 @@
+{
+  try {
+    return new URL(GrailsResourceUtils.cleanPath(originalPath));
+  }
+ catch (  MalformedURLException ex) {
+    return originalUrl;
+  }
+}

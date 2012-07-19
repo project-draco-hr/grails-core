@@ -1,0 +1,14 @@
+{
+  Matcher matcher=pattern.matcher(str);
+  if (!matcher.matches()) {
+    return false;
+  }
+  if (uriTemplateVariables != null) {
+    for (int i=1, count=matcher.groupCount(); i <= count; i++) {
+      String name=variableNames.get(i - 1);
+      String value=matcher.group(i);
+      uriTemplateVariables.put(name,value);
+    }
+  }
+  return true;
+}

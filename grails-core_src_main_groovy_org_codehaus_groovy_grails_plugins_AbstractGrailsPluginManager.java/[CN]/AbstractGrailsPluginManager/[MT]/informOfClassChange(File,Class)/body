@@ -19,7 +19,7 @@
       registry.setMetaClass(cls,newMc);
       Enhanced en=AnnotationUtils.findAnnotation(cls,Enhanced.class);
       if (en != null) {
-        Class[] mixinClasses=en.mixins();
+        Class<?>[] mixinClasses=en.mixins();
         if (mixinClasses != null) {
           DefaultGroovyMethods.mixin(newMc,mixinClasses);
         }

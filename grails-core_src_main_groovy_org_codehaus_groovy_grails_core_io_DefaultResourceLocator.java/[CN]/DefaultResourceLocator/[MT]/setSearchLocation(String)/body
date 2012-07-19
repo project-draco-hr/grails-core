@@ -1,5 +1,5 @@
 {
   ResourceLoader resourceLoader=getDefaultResourceLoader();
-  this.patchMatchingResolver=new PathMatchingResourcePatternResolver(resourceLoader);
+  patchMatchingResolver=new PathMatchingResourcePatternResolver(resourceLoader);
   initializeForSearchLocation(searchLocation);
 }

@@ -1,0 +1,49 @@
+{
+  if (!hasText(pattern1) && !hasText(pattern2)) {
+    return "";
+  }
+  if (!hasText(pattern1)) {
+    return pattern2;
+  }
+  if (!hasText(pattern2)) {
+    return pattern1;
+  }
+  if (!pattern1.contains("{") && match(pattern1,pattern2)) {
+    return pattern2;
+  }
+  if (pattern1.endsWith("/*")) {
+    if (pattern2.startsWith("/")) {
+      return pattern1.substring(0,pattern1.length() - 1) + pattern2.substring(1);
+    }
+    return pattern1.substring(0,pattern1.length() - 1) + pattern2;
+  }
+  if (pattern1.endsWith("/**")) {
+    if (pattern2.startsWith("/")) {
+      return pattern1 + pattern2;
+    }
+    return pattern1 + "/" + pattern2;
+  }
+  int dotPos1=pattern1.indexOf('.');
+  if (dotPos1 == -1) {
+    if (pattern1.endsWith("/") || pattern2.startsWith("/")) {
+      return pattern1 + pattern2;
+    }
+    return pattern1 + "/" + pattern2;
+  }
+  String fileName1=pattern1.substring(0,dotPos1);
+  String extension1=pattern1.substring(dotPos1);
+  String fileName2;
+  String extension2;
+  int dotPos2=pattern2.indexOf('.');
+  if (dotPos2 != -1) {
+    fileName2=pattern2.substring(0,dotPos2);
+    extension2=pattern2.substring(dotPos2);
+  }
+ else {
+    fileName2=pattern2;
+    extension2="";
+  }
+  String fileName=fileName1.endsWith("*") ? fileName2 : fileName1;
+  String extension=extension1.startsWith("*") ? extension2 : extension1;
+  return fileName + extension;
+}

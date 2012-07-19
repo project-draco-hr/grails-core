@@ -1,0 +1,3 @@
+{
+  return uri == null ? super.getFile() : super.getFile(uri);
+}

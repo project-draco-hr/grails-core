@@ -23,4 +23,5 @@
   codecOut.print("C");
   RequestContextHolder.setRequestAttributes(null);
   assertEquals("-> hola <-123added-> too <-4-> A <--> B <-5-> C <-",target.getValue());
+  codecOut.close();
 }

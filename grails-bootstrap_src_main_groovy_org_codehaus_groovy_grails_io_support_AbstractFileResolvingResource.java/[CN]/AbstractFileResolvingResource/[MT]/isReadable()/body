@@ -1,0 +1,13 @@
+{
+  try {
+    URL url=getURL();
+    if (GrailsResourceUtils.isFileURL(url)) {
+      File file=getFile();
+      return (file.canRead() && !file.isDirectory());
+    }
+    return true;
+  }
+ catch (  IOException ex) {
+    return false;
+  }
+}

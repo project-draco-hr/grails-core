@@ -1,0 +1,8 @@
+{
+  URL url=getURL();
+  if (GrailsResourceUtils.isJarURL(url)) {
+    URL actualUrl=GrailsResourceUtils.extractJarFileURL(url);
+    return GrailsResourceUtils.getFile(actualUrl,"Jar URL");
+  }
+  return getFile();
+}

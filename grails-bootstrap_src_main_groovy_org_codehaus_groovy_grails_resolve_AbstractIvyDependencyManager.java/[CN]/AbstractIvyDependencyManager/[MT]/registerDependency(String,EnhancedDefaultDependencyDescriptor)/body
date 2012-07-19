@@ -32,6 +32,6 @@
   }
   dependencyDescriptors.add(descriptor);
   if (shouldIncludeDependency(descriptor)) {
-    addToModuleDescriptor(scope,descriptor,moduleDescriptor);
+    addToModuleDescriptor(scope,descriptor);
   }
 }

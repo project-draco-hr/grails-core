@@ -1,0 +1,4 @@
+{
+  Matcher m=VARIABLE_PATTERN.matcher(pattern);
+  return m.replaceAll("#").length();
+}

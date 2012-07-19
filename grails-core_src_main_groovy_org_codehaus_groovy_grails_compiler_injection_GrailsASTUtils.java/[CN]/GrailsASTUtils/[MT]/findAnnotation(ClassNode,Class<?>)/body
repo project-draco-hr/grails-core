@@ -1,0 +1,4 @@
+{
+  List<AnnotationNode> annotations=classNode.getAnnotations();
+  return annotations == null ? null : findAnnotation(new ClassNode(type),annotations);
+}

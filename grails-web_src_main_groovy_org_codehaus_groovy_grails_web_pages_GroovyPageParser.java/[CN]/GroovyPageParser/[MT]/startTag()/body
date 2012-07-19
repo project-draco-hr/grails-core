@@ -90,6 +90,7 @@
         }
       }
       attrsVarsMapDefinition.put(tagIndex,buffer.toString());
+      buffer.close();
     }
     if (!emptyTag) {
       tm.bufferMode=true;

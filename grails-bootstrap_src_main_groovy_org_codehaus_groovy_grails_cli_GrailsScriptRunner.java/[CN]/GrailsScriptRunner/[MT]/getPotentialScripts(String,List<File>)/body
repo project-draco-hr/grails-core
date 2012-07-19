@@ -1,0 +1,22 @@
+{
+  List<File> potentialScripts;
+  boolean exactMatchFound=false;
+  potentialScripts=new ArrayList<File>();
+  for (  File scriptPath : allScripts) {
+    String fileName=scriptPath.getName();
+    String scriptFileName=fileName.substring(0,fileName.length() - 7);
+    if (scriptFileName.endsWith("_")) {
+      scriptsAllowedOutsideOfProject.add(scriptPath);
+      scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
+    }
+    if (scriptFileName.equals(scriptName)) {
+      potentialScripts.add(scriptPath);
+      exactMatchFound=true;
+      continue;
+    }
+    if (!exactMatchFound && ScriptNameResolver.resolvesTo(scriptName,scriptFileName)) {
+      potentialScripts.add(scriptPath);
+    }
+  }
+  return potentialScripts;
+}

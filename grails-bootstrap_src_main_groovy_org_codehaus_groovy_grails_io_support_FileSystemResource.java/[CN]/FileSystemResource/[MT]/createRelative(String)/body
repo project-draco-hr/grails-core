@@ -1,0 +1,4 @@
+{
+  String pathToUse=GrailsResourceUtils.applyRelativePath(path,relativePath);
+  return new FileSystemResource(pathToUse);
+}

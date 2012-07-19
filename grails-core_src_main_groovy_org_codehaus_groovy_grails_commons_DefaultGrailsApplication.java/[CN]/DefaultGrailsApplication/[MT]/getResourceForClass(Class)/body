@@ -1,6 +1,3 @@
 {
-  if (resourceLoader == null) {
-    return null;
-  }
-  return resourceLoader.getResourceForClass(theClazz);
+  return null;
 }

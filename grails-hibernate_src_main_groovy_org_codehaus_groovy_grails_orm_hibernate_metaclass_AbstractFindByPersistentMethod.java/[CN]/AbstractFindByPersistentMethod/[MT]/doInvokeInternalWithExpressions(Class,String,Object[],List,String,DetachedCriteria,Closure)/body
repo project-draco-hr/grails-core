@@ -3,7 +3,8 @@
   return getHibernateTemplate().execute(new HibernateCallback<Object>(){
     public Object doInHibernate(    Session session) throws HibernateException, SQLException {
       Criteria crit=buildCriteria(session,detachedCriteria,additionalCriteria,clazz,arguments,operator,expressions);
-      return getResult(crit);
+      boolean useLimit=establishWhetherToUseLimit(clazz);
+      return getResult(crit,useLimit);
     }
   }
 );

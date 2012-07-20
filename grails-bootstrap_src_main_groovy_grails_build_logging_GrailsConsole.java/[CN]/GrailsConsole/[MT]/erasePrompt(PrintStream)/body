@@ -1,0 +1,3 @@
+{
+  printStream.print(ansi().eraseLine(Ansi.Erase.BACKWARD).cursorLeft(PROMPT.length()));
+}

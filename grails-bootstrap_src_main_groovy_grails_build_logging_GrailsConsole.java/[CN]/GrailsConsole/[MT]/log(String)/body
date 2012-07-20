@@ -1,6 +1,9 @@
 {
   PrintStream printStream=out;
   try {
+    if (userInputActive) {
+      erasePrompt(printStream);
+    }
     if (msg.endsWith(LINE_SEPARATOR)) {
       printStream.print(msg);
     }
@@ -10,6 +13,7 @@
     cursorMove=0;
   }
   finally {
+    printStream.flush();
     postPrintMessage();
   }
 }

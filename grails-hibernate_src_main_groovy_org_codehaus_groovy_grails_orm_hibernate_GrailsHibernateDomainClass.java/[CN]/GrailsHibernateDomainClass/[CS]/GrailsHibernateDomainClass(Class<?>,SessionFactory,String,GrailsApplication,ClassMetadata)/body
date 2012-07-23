@@ -22,6 +22,8 @@
   String[] propertyNames=metaData.getPropertyNames();
   for (  String propertyName : propertyNames) {
     if (!propertyName.equals(ident) && !(versionPropertyName != null && propertyName.equals(versionPropertyName))) {
+      PropertyDescriptor pd=GrailsClassUtils.getProperty(clazz,propertyName);
+      if (pd == null)       continue;
       GrailsHibernateDomainClassProperty prop=new GrailsHibernateDomainClassProperty(this,propertyName);
       prop.setType(getPropertyType(propertyName));
       Type hibernateType=metaData.getPropertyType(propertyName);

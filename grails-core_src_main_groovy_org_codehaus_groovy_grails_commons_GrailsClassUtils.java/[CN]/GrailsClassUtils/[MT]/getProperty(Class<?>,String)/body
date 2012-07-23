@@ -1,0 +1,11 @@
+{
+  if (clazz == null || propertyName == null) {
+    return null;
+  }
+  try {
+    return BeanUtils.getPropertyDescriptor(clazz,propertyName);
+  }
+ catch (  Exception e) {
+    return null;
+  }
+}

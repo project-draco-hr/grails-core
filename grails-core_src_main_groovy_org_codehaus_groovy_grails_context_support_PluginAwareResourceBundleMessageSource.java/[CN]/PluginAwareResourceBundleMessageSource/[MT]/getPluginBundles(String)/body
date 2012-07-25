@@ -1,8 +1,0 @@
-{
-  try {
-    return resourceResolver.getResources(WEB_INF_PLUGINS_PATH + pluginName + "/grails-app/i18n/*.properties");
-  }
- catch (  Exception e) {
-    return new Resource[0];
-  }
-}

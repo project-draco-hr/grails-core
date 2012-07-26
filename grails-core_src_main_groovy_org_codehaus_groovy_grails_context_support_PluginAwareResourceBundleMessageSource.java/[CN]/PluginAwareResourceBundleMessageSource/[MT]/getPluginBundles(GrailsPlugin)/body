@@ -1,0 +1,16 @@
+{
+  try {
+    String basePath=null;
+    if (isInlinePlugin(grailsPlugin)) {
+      basePath=getInlinePluginPath(grailsPlugin);
+    }
+ else {
+      basePath=WEB_INF_PLUGINS_PATH + grailsPlugin.getFileSystemName();
+    }
+    return resourceResolver.getResources(basePath + "/grails-app/i18n/*.properties");
+  }
+ catch (  Exception e) {
+    LOG.debug("Could not resolve any resources for plugin " + grailsPlugin.getFileSystemName(),e);
+    return new Resource[0];
+  }
+}

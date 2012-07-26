@@ -1,6 +1,3 @@
 {
-  if (!isWarDeployed()) {
-    DocumentationContext.getInstance().setArtefactType(artefactType);
-  }
   return getArtefactInfo(artefactType,true).getGrailsClasses();
 }

@@ -12,6 +12,7 @@
     controllerName=getControllerName(namedArguments,bindingVariables);
     actionName=getActionName(namedArguments,bindingVariables);
   }
+  @SuppressWarnings("hiding") Object pluginName=getPluginName(namedArguments,bindingVariables);
   @SuppressWarnings("hiding") Object viewName=getViewName(namedArguments,bindingVariables);
   if (actionName != null && viewName != null) {
     viewName=null;
@@ -29,7 +30,7 @@
     }
   }
  else {
-    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,pluginName,viewName,constraints);
   }
   Object exceptionArg=getException(namedArguments,bindingVariables);
   if (isResponseCode && exceptionArg != null) {

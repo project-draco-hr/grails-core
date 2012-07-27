@@ -1,0 +1,14 @@
+{
+  if (params == null)   params=Collections.EMPTY_MAP;
+  if (urlCreatorCache != null) {
+    UrlCreatorCache.ReverseMappingKey key=urlCreatorCache.createKey(controller,action,pluginName,params);
+    UrlCreator creator=urlCreatorCache.lookup(key);
+    if (creator == null) {
+      creator=resolveUrlCreator(controller,action,pluginName,params,true);
+      creator=urlCreatorCache.putAndDecorate(key,creator);
+    }
+    params.remove("mappingName");
+    return creator;
+  }
+  return resolveUrlCreator(controller,action,pluginName,params,true);
+}

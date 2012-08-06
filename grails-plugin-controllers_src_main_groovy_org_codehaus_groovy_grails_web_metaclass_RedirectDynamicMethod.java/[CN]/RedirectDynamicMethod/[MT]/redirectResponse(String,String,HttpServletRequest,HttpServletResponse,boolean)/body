@@ -6,6 +6,7 @@
     LOG.debug("Executing redirect with response [" + response + "]");
   }
   String absoluteURL=actualUri.contains("://") ? actualUri : serverBaseURL + actualUri;
+  absoluteURL=processedUrl(absoluteURL,request);
   String redirectUrl=useJessionId ? response.encodeRedirectURL(absoluteURL) : absoluteURL;
   int status=permanent ? HttpServletResponse.SC_MOVED_PERMANENTLY : HttpServletResponse.SC_MOVED_TEMPORARILY;
   response.setStatus(status);

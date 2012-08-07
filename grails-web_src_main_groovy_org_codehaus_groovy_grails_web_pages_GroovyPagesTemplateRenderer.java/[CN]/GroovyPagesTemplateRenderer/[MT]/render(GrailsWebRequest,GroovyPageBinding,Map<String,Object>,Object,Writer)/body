@@ -1,7 +1,5 @@
 {
-  if (groovyPagesTemplateEngine == null) {
-    throw new IllegalStateException("Property [groovyPagesTemplateEngine] must be set!");
-  }
+  Assert.state(groovyPagesTemplateEngine != null,"Property [groovyPagesTemplateEngine] must be set!");
   String templateName=getStringValue(attrs,"template");
   if (StringUtils.isBlank(templateName)) {
     throw new GrailsTagException("Tag [render] is missing required attribute [template]");

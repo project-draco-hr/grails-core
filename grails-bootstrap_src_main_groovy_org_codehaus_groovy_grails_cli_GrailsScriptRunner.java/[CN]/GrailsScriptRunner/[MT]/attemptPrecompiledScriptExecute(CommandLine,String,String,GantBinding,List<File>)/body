@@ -7,24 +7,27 @@
     loadScriptClass(gant,scriptName);
   }
  catch (  ScriptNotFoundException e) {
-    if (isInteractive && !InteractiveMode.isActive()) {
-      scriptName=fixScriptName(scriptName,allScripts);
-      if (scriptName == null) {
-        throw e;
-      }
-      loadScriptClass(gant,scriptName);
-      if (Boolean.TRUE.toString().equals(System.getProperty(Environment.DEFAULT))) {
-        commandLine.setCommand(GrailsNameUtils.getScriptName(scriptName));
-        env=commandLine.lookupEnvironmentForCommand();
-        binding.setVariable("grailsEnv",env);
-        settings.setGrailsEnv(env);
-        System.setProperty(Environment.KEY,env);
-        settings.setDefaultEnv(false);
-        System.setProperty(Environment.DEFAULT,Boolean.FALSE.toString());
-      }
-    }
- else {
+    if (!isInteractive || InteractiveMode.isActive()) {
       throw e;
+    }
+    scriptName=fixScriptName(scriptName,allScripts);
+    if (scriptName == null) {
+      throw e;
+    }
+    try {
+      loadScriptClass(gant,scriptName);
+    }
+ catch (    ScriptNotFoundException ce) {
+      return executeScriptWithCaching(commandLine,scriptName,env);
+    }
+    if (Boolean.TRUE.toString().equals(System.getProperty(Environment.DEFAULT))) {
+      commandLine.setCommand(GrailsNameUtils.getScriptName(scriptName));
+      env=commandLine.lookupEnvironmentForCommand();
+      binding.setVariable("grailsEnv",env);
+      settings.setGrailsEnv(env);
+      System.setProperty(Environment.KEY,env);
+      settings.setDefaultEnv(false);
+      System.setProperty(Environment.DEFAULT,Boolean.FALSE.toString());
     }
   }
   return executeWithGantInstance(gant,DO_NOTHING_CLOSURE,binding).exitCode;

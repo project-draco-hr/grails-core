@@ -3,15 +3,14 @@
   this.parent=parent;
   try {
     pluginManager=parent == null ? null : parent.getBean(GrailsPluginManager.class);
-    pluginManager=pluginManager == null ? PluginManagerHolder.getPluginManager() : pluginManager;
   }
  catch (  BeansException e) {
   }
   if (pluginManager == null) {
-    pluginManager=PluginManagerHolder.getPluginManager();
+    pluginManager=Holders.getPluginManager();
   }
   if (pluginManager == null) {
     pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
   }
-  PluginManagerHolder.setPluginManager(pluginManager);
+  Holders.setPluginManager(pluginManager);
 }

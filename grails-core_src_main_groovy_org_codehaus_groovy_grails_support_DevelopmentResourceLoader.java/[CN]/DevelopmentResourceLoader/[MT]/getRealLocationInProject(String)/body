@@ -1,5 +1,8 @@
 {
   if (!location.startsWith(SLASH))   location=SLASH + location;
+  if (BuildSettingsHolder.getSettings().isInlinePluginLocation(new File(location.replaceAll(GRAILS_APP_DIR_PATTERN,"")))) {
+    return "file:" + location;
+  }
   if (!location.startsWith(GrailsResourceUtils.WEB_INF)) {
     return GrailsResourceUtils.WEB_APP_DIR + location;
   }
@@ -20,6 +23,7 @@
         return "file:" + r.getFile().getAbsolutePath() + SLASH+ remainingPath;
       }
  catch (      IOException e) {
+        LOG.debug("Unable to locate plugin resource -- returning default path " + defaultPath + ".",e);
         return defaultPath;
       }
     }

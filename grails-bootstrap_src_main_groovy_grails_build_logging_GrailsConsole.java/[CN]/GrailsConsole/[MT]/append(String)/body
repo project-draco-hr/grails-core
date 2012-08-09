@@ -1,8 +1,9 @@
 {
   PrintStream printStream=out;
   try {
-    if (userInputActive) {
-      erasePrompt(printStream);
+    if (userInputActive && !appendCalled) {
+      printStream.print(moveDownToSkipPrompt());
+      appendCalled=true;
     }
     if (msg.endsWith(LINE_SEPARATOR)) {
       printStream.print(msg);
@@ -13,7 +14,6 @@
     cursorMove=0;
   }
   finally {
-    printStream.flush();
-    postPrintMessage();
+    progressIndicatorActive=false;
   }
 }

@@ -11,7 +11,9 @@
       terminal=createTerminal();
     }
     history=prepareHistory();
-    reader.setHistory(history);
+    if (history != null) {
+      reader.setHistory(history);
+    }
   }
  else   if (isActivateTerminal()) {
     terminal=createTerminal();

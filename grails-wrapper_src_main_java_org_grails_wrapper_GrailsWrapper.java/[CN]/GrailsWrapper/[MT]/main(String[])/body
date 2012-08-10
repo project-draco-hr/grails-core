@@ -9,6 +9,7 @@
   if (!distUrl.endsWith("/")) {
     distUrl+="/";
   }
+  addSystemProperties(wrapperBundle);
   final File grailsHome=configureGrailsInstallation(distUrl,grailsVersion);
   System.setProperty("grails.home",grailsHome.getAbsolutePath());
   final List<String> newArgsList=new ArrayList<String>();

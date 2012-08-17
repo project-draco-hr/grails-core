@@ -47,24 +47,22 @@
       if (c != null && currentKeyStart > -1 && currentKeyEnd > -1) {
         String indexString=propertyNameWithIndex.substring(currentKeyStart + 1,currentKeyEnd);
         int index=Integer.parseInt(indexString);
-        if (isDomainClass(referencedType)) {
-          Object instance=findIndexedValue(c,index);
+        Object instance=findIndexedValue(c,index);
+        if (instance != null) {
+          val=instance;
+        }
+ else         if (isDomainClass(referencedType)) {
+          instance=autoInstantiateDomainInstance(referencedType);
           if (instance != null) {
             val=instance;
-          }
- else {
-            instance=autoInstantiateDomainInstance(referencedType);
-            if (instance != null) {
-              val=instance;
-              if (index == c.size()) {
-                addAssociationToTarget(propertyName,beanInstance,instance);
+            if (index == c.size()) {
+              addAssociationToTarget(propertyName,beanInstance,instance);
+            }
+ else             if (index > c.size()) {
+              while (index > c.size()) {
+                addAssociationToTarget(propertyName,beanInstance,autoInstantiateDomainInstance(referencedType));
               }
- else               if (index > c.size()) {
-                while (index > c.size()) {
-                  addAssociationToTarget(propertyName,beanInstance,autoInstantiateDomainInstance(referencedType));
-                }
-                addAssociationToTarget(propertyName,beanInstance,instance);
-              }
+              addAssociationToTarget(propertyName,beanInstance,instance);
             }
           }
         }

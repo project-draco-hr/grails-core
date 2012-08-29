@@ -1,8 +1,8 @@
 {
-  if (precompiledGspMap != null) {
-    this.precompiledGspMap=new ConcurrentHashMap<String,String>(precompiledGspMap);
+  if (precompiledGspMap == null) {
+    this.precompiledGspMap=null;
   }
  else {
-    this.precompiledGspMap=null;
+    this.precompiledGspMap=new ConcurrentHashMap<String,String>(precompiledGspMap);
   }
 }

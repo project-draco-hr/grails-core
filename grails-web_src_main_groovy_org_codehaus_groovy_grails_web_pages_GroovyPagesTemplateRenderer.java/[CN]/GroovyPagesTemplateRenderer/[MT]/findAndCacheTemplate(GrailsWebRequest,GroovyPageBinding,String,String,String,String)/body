@@ -1,55 +1,53 @@
 {
   String templatePath=StringUtils.isNotEmpty(contextPath) ? GrailsResourceUtils.appendPiecesForUri(contextPath,templateName) : templateName;
-  GroovyPageScriptSource scriptSource=null;
-  if (pluginName != null) {
-    scriptSource=groovyPageLocator.findTemplateInBinding(pluginName,templatePath,pageScope);
-  }
- else {
+  GroovyPageScriptSource scriptSource;
+  if (pluginName == null) {
     scriptSource=groovyPageLocator.findTemplateInBinding(templatePath,pageScope);
   }
-  Template t=null;
+ else {
+    scriptSource=groovyPageLocator.findTemplateInBinding(pluginName,templatePath,pageScope);
+  }
   String cacheKey;
-  if (scriptSource != null) {
-    cacheKey=scriptSource.getURI();
+  if (scriptSource == null) {
+    cacheKey=contextPath + pluginName + uri;
   }
  else {
-    cacheKey=contextPath + pluginName + uri;
+    cacheKey=scriptSource.getURI();
   }
   TemplateRendererCacheEntry cacheEntry=templateCache.get(cacheKey);
   if (cacheEntry != null && cacheEntry.isValid()) {
-    t=cacheEntry.template;
+    return cacheEntry.template;
   }
- else {
-    try {
-      if (cacheEntry != null) {
-        cacheEntry.getLock().lock();
-        if (cacheEntry.isValid()) {
-          t=cacheEntry.template;
-        }
+  Template t=null;
+  try {
+    if (cacheEntry != null) {
+      cacheEntry.getLock().lock();
+      if (cacheEntry.isValid()) {
+        t=cacheEntry.template;
       }
-      if (t == null) {
-        if (scriptSource != null) {
-          t=groovyPagesTemplateEngine.createTemplate(scriptSource);
+    }
+    if (t == null) {
+      if (scriptSource != null) {
+        t=groovyPagesTemplateEngine.createTemplate(scriptSource);
+      }
+      boolean allowCaching=!disableCache;
+      if (t == null && scaffoldingTemplateGenerator != null) {
+        t=generateScaffoldedTemplate(webRequest,uri);
+        allowCaching=true;
+      }
+      if (t != null && allowCaching) {
+        if (cacheEntry == null) {
+          templateCache.put(cacheKey,new TemplateRendererCacheEntry(t,reloadEnabled));
         }
-        boolean allowCaching=!disableCache;
-        if (t == null && scaffoldingTemplateGenerator != null) {
-          t=generateScaffoldedTemplate(webRequest,uri);
-          allowCaching=true;
-        }
-        if (t != null && allowCaching) {
-          if (cacheEntry != null) {
-            cacheEntry.setTemplate(t);
-          }
  else {
-            templateCache.put(cacheKey,new TemplateRendererCacheEntry(t,reloadEnabled));
-          }
+          cacheEntry.setTemplate(t);
         }
       }
     }
+  }
   finally {
-      if (cacheEntry != null) {
-        cacheEntry.getLock().unlock();
-      }
+    if (cacheEntry != null) {
+      cacheEntry.getLock().unlock();
     }
   }
   return t;

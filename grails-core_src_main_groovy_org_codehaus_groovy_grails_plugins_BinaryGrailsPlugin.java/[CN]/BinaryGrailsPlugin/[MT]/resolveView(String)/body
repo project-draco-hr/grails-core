@@ -1,3 +1,5 @@
 {
+  String extraPath="/plugins/" + getName() + '-'+ getVersion()+ '/';
+  viewName=viewName.replace(extraPath,"/");
   return precompiledViewMap.get(viewName);
 }

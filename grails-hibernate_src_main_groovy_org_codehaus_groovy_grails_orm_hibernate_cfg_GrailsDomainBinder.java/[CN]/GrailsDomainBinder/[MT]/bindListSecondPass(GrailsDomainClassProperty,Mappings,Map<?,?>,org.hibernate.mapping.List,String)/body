@@ -1,7 +1,12 @@
 {
   bindCollectionSecondPass(property,mappings,persistentClasses,list,sessionFactoryBeanName);
   String columnName=getIndexColumnName(property,sessionFactoryBeanName);
-  SimpleValue iv=new SimpleValue(mappings,list.getCollectionTable());
+  final boolean isManyToMany=property.isManyToMany();
+  if (isManyToMany && !property.isOwningSide()) {
+    throw new MappingException("Invalid association [" + property.getDomainClass().getName() + "->"+ property.getName()+ "]. List collection types only supported on the owning side of a many-to-many relationship.");
+  }
+  Table collectionTable=list.getCollectionTable();
+  SimpleValue iv=new SimpleValue(mappings,collectionTable);
   bindSimpleValue("integer",iv,true,columnName,mappings);
   iv.setTypeName("integer");
   list.setIndex(iv);
@@ -20,7 +25,6 @@
       entityName=((OneToMany)element).getReferencedEntityName();
     }
     PersistentClass referenced=mappings.getClass(entityName);
-    final boolean isManyToMany=property.isManyToMany();
     Class<?> mappedClass=referenced.getMappedClass();
     Mapping m=getMapping(mappedClass);
     boolean compositeIdProperty=isCompositeIdProperty(m,property.getOtherSide());

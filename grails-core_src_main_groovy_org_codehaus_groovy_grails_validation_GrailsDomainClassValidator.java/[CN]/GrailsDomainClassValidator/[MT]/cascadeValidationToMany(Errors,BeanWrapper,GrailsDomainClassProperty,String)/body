@@ -6,7 +6,7 @@
       cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName + "[" + (idx++)+ "]",idx);
     }
   }
-  if (collection instanceof Collection) {
+ else   if (collection instanceof Collection) {
     Integer index=0;
     for (    Object associatedObject : ((Collection)collection)) {
       cascadeValidationToOne(errors,bean,associatedObject,persistentProperty,propertyName,index++);

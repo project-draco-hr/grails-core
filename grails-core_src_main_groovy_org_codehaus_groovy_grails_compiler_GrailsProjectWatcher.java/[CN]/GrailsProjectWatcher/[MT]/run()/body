@@ -15,22 +15,26 @@
   }
   addListener(new FileChangeListener(){
     public void onChange(    File file){
-      LOG.info("File [" + file + "] changed. Applying changes to application.");
-      if (descriptorToPluginMap.containsKey(file)) {
-        reloadPlugin(file);
-      }
+      if (fileIsReloadable(file)) {
+        LOG.info("File [" + file + "] changed. Applying changes to application.");
+        if (descriptorToPluginMap.containsKey(file)) {
+          reloadPlugin(file);
+        }
  else {
-        compileIfSource(file);
-        informPluginManager(file,false);
+          compileIfSource(file);
+          informPluginManager(file,false);
+        }
       }
     }
     public void onNew(    File file){
-      LOG.info("File [" + file + "] added. Applying changes to application.");
-      if (!file.getName().toLowerCase().endsWith(".properties")) {
-        sleep(5000);
+      if (fileIsReloadable(file)) {
+        LOG.info("File [" + file + "] added. Applying changes to application.");
+        if (!file.getName().toLowerCase().endsWith(".properties")) {
+          sleep(5000);
+        }
+        compileIfSource(file);
+        informPluginManager(file,true);
       }
-      compileIfSource(file);
-      informPluginManager(file,true);
     }
   }
 );

@@ -1,0 +1,5 @@
+{
+  ConfigurableEnvironment env=super.getEnvironment();
+  Assert.isInstanceOf(ConfigurableWebEnvironment.class,env,"ConfigurableWebApplication environment must be of type " + "ConfigurableWebEnvironment");
+  return (ConfigurableWebEnvironment)env;
+}

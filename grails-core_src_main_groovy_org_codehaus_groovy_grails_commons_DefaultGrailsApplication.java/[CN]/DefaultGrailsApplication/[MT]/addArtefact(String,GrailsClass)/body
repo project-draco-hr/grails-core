@@ -1,7 +1,4 @@
 {
-  if (Modifier.isAbstract(artefactGrailsClass.getClazz().getModifiers())) {
-    return null;
-  }
   ArtefactHandler handler=artefactHandlersByName.get(artefactType);
   if (handler.isArtefactGrailsClass(artefactGrailsClass)) {
     DefaultArtefactInfo info=getArtefactInfo(artefactType,true);

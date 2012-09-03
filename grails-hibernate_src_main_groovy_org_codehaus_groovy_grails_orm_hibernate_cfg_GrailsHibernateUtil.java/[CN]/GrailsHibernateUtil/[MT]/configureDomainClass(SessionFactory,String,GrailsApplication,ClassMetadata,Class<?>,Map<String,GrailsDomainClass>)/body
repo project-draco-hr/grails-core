@@ -1,7 +1,4 @@
 {
-  if (Modifier.isAbstract(persistentClass.getModifiers())) {
-    return;
-  }
   LOG.trace("Configuring domain class [" + persistentClass + "]");
   GrailsDomainClass dc=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,persistentClass.getName());
   if (dc == null && sessionFactory.getClassMetadata(persistentClass) != null) {

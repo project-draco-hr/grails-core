@@ -3,5 +3,5 @@
   if (grailsApplication != null) {
     return new GrailsEnvironment(grailsApplication);
   }
-  return super.createEnvironment();
+  return new StandardServletEnvironment();
 }

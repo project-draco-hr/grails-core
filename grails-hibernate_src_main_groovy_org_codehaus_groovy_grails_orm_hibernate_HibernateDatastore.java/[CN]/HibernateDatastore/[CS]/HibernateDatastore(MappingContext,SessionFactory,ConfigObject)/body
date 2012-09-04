@@ -3,5 +3,4 @@
   this.sessionFactory=sessionFactory;
   this.config=config;
   super.initializeConverters(mappingContext);
-  setApplicationContext(applicationContext);
 }

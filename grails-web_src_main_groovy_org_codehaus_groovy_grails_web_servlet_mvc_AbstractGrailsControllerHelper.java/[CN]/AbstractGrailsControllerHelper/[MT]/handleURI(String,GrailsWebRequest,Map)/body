@@ -7,7 +7,7 @@
   }
   GrailsControllerClass controllerClass;
   Object attribute=grailsWebRequest.getAttribute(GrailsApplicationAttributes.CONTROLLER_ATTRIBUTE,WebRequest.SCOPE_REQUEST);
-  if (attribute instanceof GrailsControllerClass) {
+  if (attribute instanceof GrailsControllerClass && ((GrailsControllerClass)attribute).mapsToURI(uri)) {
     controllerClass=(GrailsControllerClass)attribute;
   }
  else {

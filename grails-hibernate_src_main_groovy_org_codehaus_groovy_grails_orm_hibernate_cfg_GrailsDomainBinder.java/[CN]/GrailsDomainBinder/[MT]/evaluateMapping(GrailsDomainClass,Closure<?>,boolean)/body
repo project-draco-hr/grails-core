@@ -16,6 +16,19 @@
       if (o instanceof Closure) {
         m=builder.evaluate((Closure<?>)o,ctx);
       }
+      final Object identity=m.getIdentity();
+      if (identity instanceof Identity) {
+        final Identity identityObject=(Identity)identity;
+        final String idName=identityObject.getName();
+        if (idName != null && !GrailsDomainClassProperty.IDENTITY.equals(idName)) {
+          GrailsDomainClassProperty persistentProperty=domainClass.getPersistentProperty(idName);
+          if (!persistentProperty.isIdentity()) {
+            if (persistentProperty instanceof DefaultGrailsDomainClassProperty) {
+              ((DefaultGrailsDomainClassProperty)persistentProperty).setIdentity(true);
+            }
+          }
+        }
+      }
       if (cache) {
         MAPPING_CACHE.put(domainClass.getClazz(),m);
       }

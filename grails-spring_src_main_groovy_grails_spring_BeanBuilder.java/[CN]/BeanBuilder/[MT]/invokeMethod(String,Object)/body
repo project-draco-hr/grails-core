@@ -28,8 +28,7 @@
     return new RuntimeBeanReference(refName,parentRef);
   }
   if (namespaceHandlers.containsKey(name) && args.length > 0 && (args[0] instanceof Closure)) {
-    DynamicElementReader reader=createDynamicElementReader(name,true);
-    reader.invokeMethod("doCall",args);
+    createDynamicElementReader(name,true).invokeMethod("doCall",args);
     return this;
   }
   if (args.length > 0 && args[0] instanceof Closure) {

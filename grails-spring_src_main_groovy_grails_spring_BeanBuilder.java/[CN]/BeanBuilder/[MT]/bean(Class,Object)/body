@@ -14,7 +14,7 @@
         constructorArgs=resolveConstructorArguments(args,0,index);
       }
     }
-    currentBeanConfig=constructorArgs != null ? springConfig.createSingletonBean(type,constructorArgs) : springConfig.createSingletonBean(type);
+    currentBeanConfig=constructorArgs == null ? springConfig.createSingletonBean(type) : springConfig.createSingletonBean(type,constructorArgs);
     if (callable != null) {
       callable.call(new Object[]{currentBeanConfig});
     }

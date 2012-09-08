@@ -1,5 +1,7 @@
 {
-  if (value instanceof GString)   value=value.toString();
+  if (value instanceof GString) {
+    value=value.toString();
+  }
   if (addToDeferred(currentBeanConfig,name,value)) {
     return;
   }

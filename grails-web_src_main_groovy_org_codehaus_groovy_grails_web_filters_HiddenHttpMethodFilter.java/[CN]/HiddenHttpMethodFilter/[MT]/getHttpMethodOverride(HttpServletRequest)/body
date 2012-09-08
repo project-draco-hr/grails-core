@@ -3,5 +3,5 @@
   if (httpMethod == null) {
     httpMethod=request.getHeader(HEADER_X_HTTP_METHOD_OVERRIDE);
   }
-  return httpMethod != null ? httpMethod.toUpperCase() : null;
+  return httpMethod == null ? null : httpMethod.toUpperCase();
 }

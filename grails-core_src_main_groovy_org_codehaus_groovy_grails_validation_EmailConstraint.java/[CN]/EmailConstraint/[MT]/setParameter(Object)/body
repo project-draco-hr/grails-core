@@ -2,6 +2,6 @@
   if (!(constraintParameter instanceof Boolean)) {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.EMAIL_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
   }
-  email=((Boolean)constraintParameter).booleanValue();
+  email=(Boolean)constraintParameter;
   super.setParameter(constraintParameter);
 }

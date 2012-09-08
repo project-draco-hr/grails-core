@@ -6,7 +6,7 @@
     return true;
   }
   if (arguments[0] instanceof Boolean) {
-    return ((Boolean)arguments[0]).booleanValue();
+    return (Boolean)arguments[0];
   }
   if (arguments[0] instanceof Map) {
     Map argsMap=(Map)arguments[0];

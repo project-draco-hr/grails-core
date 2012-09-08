@@ -12,15 +12,12 @@
   }
  else {
     Constraint c=appliedConstraints.get(RANGE_CONSTRAINT);
-    if (c != null) {
-      c.setParameter(range);
-    }
- else {
+    if (c == null) {
       c=new RangeConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(range);
       appliedConstraints.put(RANGE_CONSTRAINT,c);
     }
+    c.setParameter(range);
   }
 }

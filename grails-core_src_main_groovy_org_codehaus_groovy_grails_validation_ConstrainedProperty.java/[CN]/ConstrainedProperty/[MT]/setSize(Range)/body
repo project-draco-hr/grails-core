@@ -4,15 +4,12 @@
     appliedConstraints.remove(SIZE_CONSTRAINT);
   }
  else {
-    if (c != null) {
-      c.setParameter(size);
-    }
- else {
+    if (c == null) {
       c=new SizeConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(size);
       appliedConstraints.put(SIZE_CONSTRAINT,c);
     }
+    c.setParameter(size);
   }
 }

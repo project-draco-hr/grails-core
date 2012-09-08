@@ -39,8 +39,7 @@
               }
             }
  else {
-              final String message="The bindable constraint for property [" + propertyName + "] in class ["+ classNode.getName()+ "] has a value which is not a boolean literal and will be ignored.";
-              GrailsASTUtils.warning(sourceUnit,valueExpression,message);
+              GrailsASTUtils.warning(sourceUnit,valueExpression,"The bindable constraint for property [" + propertyName + "] in class ["+ classNode.getName()+ "] has a value which is not a boolean literal and will be ignored.");
             }
           }
         }

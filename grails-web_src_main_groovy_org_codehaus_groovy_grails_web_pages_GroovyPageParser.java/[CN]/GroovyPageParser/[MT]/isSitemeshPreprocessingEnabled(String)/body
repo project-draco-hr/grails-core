@@ -1,6 +1,6 @@
 {
   if (gspFilePreprocessDirective != null) {
-    return BooleanUtils.toBoolean(String.valueOf(gspFilePreprocessDirective).trim());
+    return BooleanUtils.toBoolean(gspFilePreprocessDirective.trim());
   }
   return enableSitemeshPreprocessing;
 }

@@ -12,14 +12,11 @@
     return;
   }
   Constraint c=appliedConstraints.get(MIN_CONSTRAINT);
-  if (c != null) {
-    c.setParameter(min);
-  }
- else {
+  if (c == null) {
     c=new MinConstraint();
     c.setOwningClass(owningClass);
     c.setPropertyName(propertyName);
-    c.setParameter(min);
     appliedConstraints.put(MIN_CONSTRAINT,c);
   }
+  c.setParameter(min);
 }

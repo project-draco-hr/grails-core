@@ -29,6 +29,7 @@
           if (!(attrs instanceof GroovyPageAttributes)) {
             attrs=new GroovyPageAttributes(attrs);
           }
+          ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
 switch (tag.getParameterTypes().length) {
 case 1:
             tagresult=tag.call(new Object[]{attrs});

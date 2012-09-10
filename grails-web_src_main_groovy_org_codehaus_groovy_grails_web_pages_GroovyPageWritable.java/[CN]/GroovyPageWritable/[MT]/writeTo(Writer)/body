@@ -30,7 +30,7 @@
       }
     }
     GroovyPageBinding binding=createBinding(parentBinding);
-    String previousGspCode=null;
+    String previousGspCode=GSP_NONE_CODEC_NAME;
     if (hasRequest) {
       request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,binding);
       previousGspCode=(String)request.getAttribute(GrailsApplicationAttributes.GSP_CODEC);
@@ -43,7 +43,7 @@
     }
  else {
       if (hasRequest) {
-        request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,null);
+        request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,GSP_NONE_CODEC_NAME);
       }
       binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,gspNoneCodeInstance);
     }
@@ -91,7 +91,7 @@
  else {
           request.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,parentBinding);
         }
-        request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,previousGspCode);
+        request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,previousGspCode != null ? previousGspCode : GSP_NONE_CODEC_NAME);
       }
     }
     if (debugTemplates) {

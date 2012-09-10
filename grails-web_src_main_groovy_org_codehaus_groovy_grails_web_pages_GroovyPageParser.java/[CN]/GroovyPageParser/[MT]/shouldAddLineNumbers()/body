@@ -1,7 +1,6 @@
 {
   try {
-    String prop=System.getenv("GROOVY_PAGE_ADD_LINE_NUMBERS");
-    return Boolean.valueOf(prop).booleanValue();
+    return Boolean.valueOf(System.getenv("GROOVY_PAGE_ADD_LINE_NUMBERS"));
   }
  catch (  Exception e) {
     return false;

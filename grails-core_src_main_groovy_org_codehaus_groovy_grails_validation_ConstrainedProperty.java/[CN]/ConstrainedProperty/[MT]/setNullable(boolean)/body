@@ -6,5 +6,5 @@
     nc.setPropertyName(propertyName);
     appliedConstraints.put(NULLABLE_CONSTRAINT,nc);
   }
-  nc.setParameter(Boolean.valueOf(nullable));
+  nc.setParameter(nullable);
 }

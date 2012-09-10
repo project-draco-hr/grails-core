@@ -1,6 +1,5 @@
 {
-  for (  Object o : deferredProperties.values()) {
-    DeferredProperty dp=(DeferredProperty)o;
+  for (  DeferredProperty dp : deferredProperties.values()) {
     if (dp.value instanceof List) {
       dp.value=manageListIfNecessary(dp.value);
     }

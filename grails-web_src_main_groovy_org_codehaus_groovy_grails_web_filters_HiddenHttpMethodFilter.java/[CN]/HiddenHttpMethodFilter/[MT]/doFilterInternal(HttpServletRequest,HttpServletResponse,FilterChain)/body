@@ -3,12 +3,8 @@
     String httpMethod=getHttpMethodOverride(request);
     if (StringUtils.hasLength(httpMethod)) {
       filterChain.doFilter(new HttpMethodRequestWrapper(httpMethod,request),response);
-    }
- else {
-      filterChain.doFilter(request,response);
+      return;
     }
   }
- else {
-    filterChain.doFilter(request,response);
-  }
+  filterChain.doFilter(request,response);
 }

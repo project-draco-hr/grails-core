@@ -1,14 +1,14 @@
 {
-  if (JdkVersion.getMajorJavaVersion() >= JdkVersion.JAVA_15) {
-    Method m=BeanUtils.findMethod(type.getClass(),"isEnum");
-    if (m == null)     return false;
-    try {
-      Object result=m.invoke(type);
-      return result instanceof Boolean && ((Boolean)result).booleanValue();
-    }
- catch (    Exception e) {
-      return false;
-    }
+  if (JdkVersion.getMajorJavaVersion() < JdkVersion.JAVA_15) {
+    return false;
   }
-  return false;
+  Method m=BeanUtils.findMethod(type.getClass(),"isEnum");
+  if (m == null)   return false;
+  try {
+    Object result=m.invoke(type);
+    return result instanceof Boolean && (Boolean)result;
+  }
+ catch (  Exception e) {
+    return false;
+  }
 }

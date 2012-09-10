@@ -4,15 +4,12 @@
     appliedConstraints.remove(IN_LIST_CONSTRAINT);
   }
  else {
-    if (c != null) {
-      c.setParameter(inList);
-    }
- else {
+    if (c == null) {
       c=new InListConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(inList);
       appliedConstraints.put(IN_LIST_CONSTRAINT,c);
     }
+    c.setParameter(inList);
   }
 }

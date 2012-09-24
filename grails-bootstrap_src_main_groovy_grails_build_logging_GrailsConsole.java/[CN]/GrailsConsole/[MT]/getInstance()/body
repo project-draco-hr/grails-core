@@ -1,14 +1,11 @@
 {
   if (instance == null) {
     try {
-      instance=createInstance();
+      setInstance(createInstance());
     }
  catch (    IOException e) {
       throw new RuntimeException("Cannot create grails console: " + e.getMessage(),e);
     }
-  }
-  if (!(System.out instanceof GrailsConsolePrintStream)) {
-    System.setOut(new GrailsConsolePrintStream(instance.out));
   }
   return instance;
 }

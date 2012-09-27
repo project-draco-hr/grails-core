@@ -1,3 +1,14 @@
 {
   settings=newSettings;
+  try {
+    Class.forName("org.springframework.core.io.Resource");
+    if (settings != null) {
+      GrailsPluginUtils.getPluginBuildSettings(settings);
+    }
+ else {
+      GrailsPluginUtils.setPluginBuildSettings(null);
+    }
+  }
+ catch (  ClassNotFoundException e) {
+  }
 }

@@ -1,8 +1,7 @@
 {
   this.gspEncoding=encoding;
   if (filename != null && BuildSettingsHolder.getSettings() != null) {
-    PluginBuildSettings pluginBuildSettings=new PluginBuildSettings(BuildSettingsHolder.getSettings());
-    GrailsPluginInfo info=pluginBuildSettings.getPluginInfoForSource(filename);
+    GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
     if (info != null) {
       pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
     }

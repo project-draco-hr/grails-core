@@ -1,13 +1,11 @@
 {
-  boolean executeAction=true;
-  if (controllerClass.isInterceptedBefore(controller,actionName)) {
-    Closure<?> beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
-    if (beforeInterceptor != null) {
-      Object interceptorResult=beforeInterceptor.call();
-      if (interceptorResult instanceof Boolean) {
-        executeAction=((Boolean)interceptorResult).booleanValue();
-      }
-    }
+  if (!(controllerClass.isInterceptedBefore(controller,actionName))) {
+    return true;
   }
-  return executeAction;
+  Closure<?> beforeInterceptor=controllerClass.getBeforeInterceptor(controller);
+  if (beforeInterceptor == null) {
+    return true;
+  }
+  Object interceptorResult=beforeInterceptor.call();
+  return interceptorResult instanceof Boolean ? (Boolean)interceptorResult : true;
 }

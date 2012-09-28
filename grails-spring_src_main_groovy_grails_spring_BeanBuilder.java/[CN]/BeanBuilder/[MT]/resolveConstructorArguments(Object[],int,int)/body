@@ -9,6 +9,5 @@
       constructorArgs[i]=manageMapIfNecessary(constructorArgs[i]);
     }
   }
-  List constructorArgsList=Arrays.asList(constructorArgs);
-  return constructorArgsList;
+  return Arrays.asList(constructorArgs);
 }

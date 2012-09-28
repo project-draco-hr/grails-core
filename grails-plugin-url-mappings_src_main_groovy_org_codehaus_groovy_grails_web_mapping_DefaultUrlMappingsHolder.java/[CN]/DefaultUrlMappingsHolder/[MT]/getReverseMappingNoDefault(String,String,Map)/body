@@ -1,16 +1,3 @@
 {
-  if (params == null)   params=Collections.EMPTY_MAP;
-  if (urlCreatorCache != null) {
-    UrlCreatorCache.ReverseMappingKey key=urlCreatorCache.createKey(controller,action,params);
-    UrlCreator creator=urlCreatorCache.lookup(key);
-    if (creator == null) {
-      creator=resolveUrlCreator(controller,action,params,false);
-      if (creator != null) {
-        creator=urlCreatorCache.putAndDecorate(key,creator);
-      }
-    }
-    params.remove("mappingName");
-    return creator;
-  }
-  return resolveUrlCreator(controller,action,params,true);
+  return getReverseMappingNoDefault(controller,action,null,params);
 }

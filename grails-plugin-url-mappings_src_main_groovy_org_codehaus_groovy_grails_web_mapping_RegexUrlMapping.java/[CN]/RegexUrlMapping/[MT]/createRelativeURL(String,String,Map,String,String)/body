@@ -1,4 +1,3 @@
 {
-  final String url=createURLInternal(controller,action,paramValues,encoding,false);
-  return createUrlWithFragment(url,fragment,encoding);
+  return createRelativeURL(controller,action,null,paramValues,encoding,fragment);
 }

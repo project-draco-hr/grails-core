@@ -4,16 +4,13 @@
   }
   Constraint c=appliedConstraints.get(EMAIL_CONSTRAINT);
   if (email) {
-    if (c != null) {
-      c.setParameter(Boolean.valueOf(email));
-    }
- else {
+    if (c == null) {
       c=new EmailConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(Boolean.valueOf(email));
       appliedConstraints.put(EMAIL_CONSTRAINT,c);
     }
+    c.setParameter(true);
   }
  else {
     if (c != null) {

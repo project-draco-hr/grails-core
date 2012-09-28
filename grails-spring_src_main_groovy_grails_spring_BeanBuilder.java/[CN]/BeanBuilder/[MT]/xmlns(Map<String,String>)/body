@@ -5,10 +5,7 @@
   }
   for (  Map.Entry<String,String> entry : definition.entrySet()) {
     String namespace=entry.getKey();
-    String uri=null;
-    if (entry.getValue() != null) {
-      uri=entry.getValue();
-    }
+    String uri=entry.getValue() == null ? null : entry.getValue();
     Assert.notNull(uri,"Namespace definition cannot supply a null URI");
     final NamespaceHandler namespaceHandler=namespaceHandlerResolver.resolve(uri);
     if (namespaceHandler == null) {

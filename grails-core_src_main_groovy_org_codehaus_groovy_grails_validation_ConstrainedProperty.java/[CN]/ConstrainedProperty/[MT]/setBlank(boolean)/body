@@ -2,20 +2,17 @@
   if (isNotValidStringType()) {
     throw new MissingPropertyException("Blank constraint can only be applied to a String property",BLANK_CONSTRAINT,owningClass);
   }
-  if (!blank) {
-    appliedConstraints.remove(BLANK_CONSTRAINT);
-  }
- else {
+  if (blank) {
     Constraint c=appliedConstraints.get(BLANK_CONSTRAINT);
-    if (c != null) {
-      c.setParameter(Boolean.valueOf(blank));
-    }
- else {
+    if (c == null) {
       c=new BlankConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(Boolean.valueOf(blank));
       appliedConstraints.put(BLANK_CONSTRAINT,c);
     }
+    c.setParameter(blank);
+  }
+ else {
+    appliedConstraints.remove(BLANK_CONSTRAINT);
   }
 }

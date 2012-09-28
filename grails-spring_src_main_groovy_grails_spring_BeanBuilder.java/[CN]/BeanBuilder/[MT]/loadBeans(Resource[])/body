@@ -21,7 +21,7 @@
   b.setVariable("beans",beans);
   for (  Resource resource : resources) {
     try {
-      GroovyShell shell=classLoader != null ? new GroovyShell(classLoader,b) : new GroovyShell(b);
+      GroovyShell shell=classLoader == null ? new GroovyShell(b) : new GroovyShell(classLoader,b);
       shell.evaluate(new InputStreamReader(resource.getInputStream()));
     }
  catch (    Throwable e) {

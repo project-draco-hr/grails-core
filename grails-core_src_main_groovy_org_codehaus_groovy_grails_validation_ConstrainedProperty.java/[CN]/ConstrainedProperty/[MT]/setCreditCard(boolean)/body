@@ -4,16 +4,13 @@
   }
   Constraint c=appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
   if (creditCard) {
-    if (c != null) {
-      c.setParameter(Boolean.valueOf(creditCard));
-    }
- else {
+    if (c == null) {
       c=new CreditCardConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(Boolean.valueOf(creditCard));
       appliedConstraints.put(CREDIT_CARD_CONSTRAINT,c);
     }
+    c.setParameter(true);
   }
  else {
     if (c != null) {

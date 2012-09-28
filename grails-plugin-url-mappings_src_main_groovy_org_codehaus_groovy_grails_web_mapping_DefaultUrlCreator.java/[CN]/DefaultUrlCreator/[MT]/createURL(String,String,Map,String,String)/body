@@ -1,4 +1,3 @@
 {
-  String url=createURL(controller,action,parameterValues,encoding);
-  return createUrlWithFragment(encoding,fragment,url);
+  return createURL(controller,action,null,parameterValues,encoding,fragment);
 }

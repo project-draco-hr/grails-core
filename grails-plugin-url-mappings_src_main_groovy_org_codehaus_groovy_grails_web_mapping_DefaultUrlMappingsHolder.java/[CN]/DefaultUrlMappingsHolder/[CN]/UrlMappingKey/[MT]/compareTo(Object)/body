@@ -10,5 +10,7 @@
   if (comparison != EQUAL)   return comparison;
   comparison=action != null ? action.compareTo(other.action) : EQUAL;
   if (comparison != EQUAL)   return comparison;
+  comparison=pluginName != null ? pluginName.compareTo(other.pluginName) : EQUAL;
+  if (comparison != EQUAL)   return comparison;
   return EQUAL;
 }

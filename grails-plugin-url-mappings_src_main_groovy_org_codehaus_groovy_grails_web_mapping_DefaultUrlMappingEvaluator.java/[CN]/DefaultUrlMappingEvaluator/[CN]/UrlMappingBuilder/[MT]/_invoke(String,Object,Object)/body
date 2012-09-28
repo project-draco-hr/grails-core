@@ -13,6 +13,7 @@
         callable.call();
         @SuppressWarnings("hiding") Object controllerName;
         @SuppressWarnings("hiding") Object actionName;
+        @SuppressWarnings("hiding") Object pluginName;
         @SuppressWarnings("hiding") Object viewName;
         @SuppressWarnings("hiding") Object uri;
         if (binding != null) {
@@ -20,10 +21,12 @@
           actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
           viewName=binding.getVariables().get(GrailsControllerClass.VIEW);
           uri=binding.getVariables().get("uri");
+          pluginName=binding.getVariables().get("plugin");
         }
  else {
           controllerName=this.controllerName;
           actionName=this.actionName;
+          pluginName=this.pluginName;
           viewName=this.viewName;
           uri=this.uri;
         }
@@ -38,7 +41,7 @@
           }
         }
  else {
-          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,viewName,constraints);
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,pluginName,viewName,constraints);
         }
         if (binding != null) {
           Map bindingVariables=binding.getVariables();
@@ -71,6 +74,7 @@
         controllerName=null;
         actionName=null;
         viewName=null;
+        pluginName=null;
       }
       previousConstraints.clear();
       urlDefiningMode=true;

@@ -1,8 +1,8 @@
 {
-  if (export != null) {
-    descriptor.setExported(export);
+  if (export == null) {
+    descriptor.setExport(true);
   }
  else {
-    descriptor.setExport(true);
+    descriptor.setExported(export);
   }
 }

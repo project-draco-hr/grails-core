@@ -2,7 +2,7 @@
   Map params=new HashMap();
   Errors errors=new MapBindingResult(params,"urlMapping");
   String lastGroup=null;
-  for (int i=0; i < m.groupCount(); i++) {
+  for (int i=0, count=m.groupCount(); i < count; i++) {
     lastGroup=m.group(i + 1);
     int j=lastGroup.indexOf('?');
     if (j > -1) {

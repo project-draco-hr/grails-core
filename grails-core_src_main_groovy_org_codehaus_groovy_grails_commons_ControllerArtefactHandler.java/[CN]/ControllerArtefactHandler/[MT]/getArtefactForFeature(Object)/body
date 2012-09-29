@@ -2,7 +2,7 @@
   if (artefactInfo == null) {
     return null;
   }
-  String uri=null;
+  String uri;
   String pluginName=null;
   if (featureId instanceof Map) {
     Map featureIdMap=(Map)featureId;

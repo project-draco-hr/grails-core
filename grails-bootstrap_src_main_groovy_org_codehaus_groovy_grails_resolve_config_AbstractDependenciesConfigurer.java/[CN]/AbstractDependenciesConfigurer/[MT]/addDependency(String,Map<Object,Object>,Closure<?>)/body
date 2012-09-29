@@ -7,7 +7,7 @@
   String branch=nullSafeToString(dependency.get("branch"));
   boolean transitive=getBooleanValueOrDefault(dependency,"transitive",true);
   Boolean export=getExportSetting(dependency);
-  boolean isExcluded=context.pluginName != null ? context.dependencyManager.isExcludedFromPlugin(context.pluginName,name) : context.dependencyManager.isExcluded(name);
+  boolean isExcluded=context.pluginName == null ? context.dependencyManager.isExcluded(name) : context.dependencyManager.isExcludedFromPlugin(context.pluginName,name);
   if (isExcluded) {
     return;
   }

@@ -4,7 +4,7 @@
     return null;
   }
   List<Object> argsList=Arrays.asList((Object[])args);
-  if (argsList.size() == 0) {
+  if (argsList.isEmpty()) {
     GrailsConsole.getInstance().error("WARNING: Configurational method [" + name + "] in grails-app/conf/BuildConfig.groovy doesn't exist. Ignoring..");
     return null;
   }

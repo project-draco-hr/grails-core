@@ -5,13 +5,11 @@
   if (fileIsExcluded == true) {
     return false;
   }
- else   if (fileIsIncluded == true) {
+  if (fileIsIncluded == true) {
     return true;
   }
- else   if (fileIsExcluded == false && fileIsIncluded == false && reloadIncludes.size() > 0) {
+  if (fileIsExcluded == false && fileIsIncluded == false && reloadIncludes.size() > 0) {
     return false;
   }
- else {
-    return true;
-  }
+  return true;
 }

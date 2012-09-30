@@ -1,4 +1,8 @@
 {
+  if (cc != null) {
+    column.setComment(cc.getComment());
+    column.setDefaultValue(cc.getDefaultValue());
+  }
   Class<?> userType=getUserType(property);
   String columnName=getColumnNameForPropertyAndPath(property,path,cc,sessionFactoryBeanName);
   if ((property.isAssociation() || property.isBasicCollectionType()) && userType == null) {

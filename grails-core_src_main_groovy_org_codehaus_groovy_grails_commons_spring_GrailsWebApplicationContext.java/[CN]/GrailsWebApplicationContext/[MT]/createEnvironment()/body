@@ -1,7 +1,4 @@
 {
   GrailsApplication grailsApplication=getGrailsApplication();
-  if (grailsApplication != null) {
-    return new GrailsEnvironment(grailsApplication);
-  }
-  return new StandardServletEnvironment();
+  return grailsApplication == null ? new StandardServletEnvironment() : new GrailsEnvironment(grailsApplication);
 }

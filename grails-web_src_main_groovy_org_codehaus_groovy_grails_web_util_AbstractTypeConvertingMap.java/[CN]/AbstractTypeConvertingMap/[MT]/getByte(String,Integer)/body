@@ -1,7 +1,7 @@
 {
   Byte value=getByte(name);
   if (value == null && defaultValue != null) {
-    value=Byte.valueOf((byte)defaultValue.intValue());
+    value=(byte)defaultValue.intValue();
   }
   return value;
 }

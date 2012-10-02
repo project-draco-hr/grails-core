@@ -8,11 +8,9 @@
   }
  else {
     int j=0;
-    for (Iterator i=c.iterator(); i.hasNext(); j++) {
-      Object o=i.next();
-      if (j == index) {
-        return o;
-      }
+    for (    Object o : c) {
+      j++;
+      if (j == index)       return o;
     }
   }
   return null;

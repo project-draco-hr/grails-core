@@ -1,0 +1,11 @@
+{
+  if (relativePath.startsWith("/")) {
+    relativePath=relativePath.substring(1);
+  }
+  try {
+    return new UrlResource(new URL(url,relativePath));
+  }
+ catch (  MalformedURLException e) {
+    return null;
+  }
+}

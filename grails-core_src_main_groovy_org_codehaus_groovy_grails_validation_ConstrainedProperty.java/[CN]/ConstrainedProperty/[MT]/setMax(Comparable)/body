@@ -12,14 +12,11 @@
     return;
   }
   Constraint c=appliedConstraints.get(MAX_CONSTRAINT);
-  if (c != null) {
-    c.setParameter(max);
-  }
- else {
+  if (c == null) {
     c=new MaxConstraint();
     c.setOwningClass(owningClass);
     c.setPropertyName(propertyName);
-    c.setParameter(max);
     appliedConstraints.put(MAX_CONSTRAINT,c);
   }
+  c.setParameter(max);
 }

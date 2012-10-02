@@ -22,7 +22,7 @@
       if (argMap.containsKey(ARGUMENT_MODEL)) {
         Object modelObject=argMap.get(ARGUMENT_MODEL);
         if (modelObject instanceof Map) {
-          binding.putAll((Map)modelObject);
+          setTemplateModel(webRequest,binding,(Map)modelObject);
         }
       }
       renderTemplateForBean(t,binding,bean,var,out);
@@ -32,13 +32,16 @@
       if (argMap.containsKey(ARGUMENT_MODEL)) {
         Object modelObject=argMap.get(ARGUMENT_MODEL);
         if (modelObject instanceof Map) {
-          binding.putAll((Map)modelObject);
+          setTemplateModel(webRequest,binding,(Map)modelObject);
         }
       }
       renderTemplateForCollection(t,binding,colObject,var,out);
     }
  else     if (argMap.containsKey(ARGUMENT_MODEL)) {
       Object modelObject=argMap.get(ARGUMENT_MODEL);
+      if (modelObject instanceof Map) {
+        setTemplateModel(webRequest,binding,(Map)modelObject);
+      }
       renderTemplateForModel(t,modelObject,target,out);
     }
  else {

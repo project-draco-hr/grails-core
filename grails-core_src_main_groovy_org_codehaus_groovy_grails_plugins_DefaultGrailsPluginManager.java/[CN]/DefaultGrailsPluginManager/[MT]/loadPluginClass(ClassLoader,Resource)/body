@@ -5,7 +5,7 @@
       if (LOG.isInfoEnabled()) {
         LOG.info("Parsing & compiling " + r.getFilename());
       }
-      pluginClass=((GroovyClassLoader)cl).parseClass(DefaultGroovyMethods.getText(r.getInputStream()));
+      pluginClass=((GroovyClassLoader)cl).parseClass(IOGroovyMethods.getText(r.getInputStream()));
     }
  catch (    CompilationFailedException e) {
       throw new PluginException("Error compiling plugin [" + r.getFilename() + "] "+ e.getMessage(),e);
@@ -15,7 +15,13 @@ catch (    IOException e) {
     }
   }
  else {
-    String className=GrailsResourceUtils.getClassName(r);
+    String className=null;
+    try {
+      className=GrailsResourceUtils.getClassName(r.getFile().getAbsolutePath());
+    }
+ catch (    IOException e) {
+      throw new PluginException("Cannot find plugin class [" + className + "] resource: ["+ r.getFilename()+ "]",e);
+    }
     try {
       pluginClass=Class.forName(className,true,cl);
     }

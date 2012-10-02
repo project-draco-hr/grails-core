@@ -1,5 +1,5 @@
 {
-  if (!(classLoader instanceof GroovyClassLoader)) {
+  if (!(classLoader instanceof GroovyPageClassLoader)) {
     classLoader=initGroovyClassLoader(classLoader);
   }
   return (GroovyClassLoader)classLoader;

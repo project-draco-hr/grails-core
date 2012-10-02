@@ -2,6 +2,9 @@
   GrailsDomainClassProperty[] persistentProperties=domainClass.getPersistentProperties();
   Table table=persistentClass.getTable();
   Mapping gormMapping=getMapping(domainClass.getClazz());
+  if (gormMapping != null) {
+    table.setComment(gormMapping.getComment());
+  }
   for (  GrailsDomainClassProperty currentGrailsProp : persistentProperties) {
     boolean isBidirectionalManyToOne=isBidirectionalManyToOne(currentGrailsProp);
     if (currentGrailsProp.isInherited()) {

@@ -1,0 +1,15 @@
+{
+  String classname=GrailsResourceUtils.getClassName(file.getAbsolutePath());
+  boolean fileIsExcluded=(reloadExcludes != null) ? reloadExcludes.contains(classname) : false;
+  boolean fileIsIncluded=(reloadIncludes != null) ? reloadIncludes.contains(classname) : true;
+  if (fileIsExcluded == true) {
+    return false;
+  }
+  if (fileIsIncluded == true) {
+    return true;
+  }
+  if (fileIsExcluded == false && fileIsIncluded == false && reloadIncludes.size() > 0) {
+    return false;
+  }
+  return true;
+}

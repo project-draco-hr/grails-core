@@ -4,5 +4,6 @@
   UrlMappingsListKey that=(UrlMappingsListKey)o;
   if (action != null && !action.equals(that.action))   return false;
   if (controller != null && !controller.equals(that.controller))   return false;
+  if (pluginName != null && !pluginName.equals(that.pluginName))   return false;
   return true;
 }

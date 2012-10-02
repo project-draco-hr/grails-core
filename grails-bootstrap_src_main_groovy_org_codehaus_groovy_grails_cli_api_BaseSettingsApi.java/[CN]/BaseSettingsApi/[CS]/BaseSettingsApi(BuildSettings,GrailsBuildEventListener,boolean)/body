@@ -1,5 +1,5 @@
 {
-  this.buildSettings=settings;
+  buildSettings=settings;
   buildProps=buildSettings.getConfig().toProperties();
   grailsHome=buildSettings.getGrailsHome();
   metadataFile=new File(buildSettings.getBaseDir(),"application.properties");
@@ -7,7 +7,7 @@
   metadataFile=metadata.getMetadataFile();
   enableProfile=Boolean.valueOf(getPropertyValue("grails.script.profile",false).toString());
   pluginsHome=buildSettings.getProjectPluginsDir().getPath();
-  pluginSettings=new PluginBuildSettings(buildSettings);
+  pluginSettings=GrailsPluginUtils.getPluginBuildSettings(settings);
   grailsAppName=metadata.getApplicationName();
   isInteractive=interactive;
   if (grailsAppName == null) {

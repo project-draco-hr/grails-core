@@ -1,8 +1,7 @@
 {
   try {
     Resource[] resources=resourcePatternResolver.getResources(resourcePattern);
-    for (int i=0; i < resources.length; i++) {
-      Resource resource=resources[i];
+    for (    Resource resource : resources) {
       if (resource.getFilename().endsWith(".groovy")) {
         loadBeans(resource);
       }
@@ -11,8 +10,7 @@
         XmlBeanDefinitionReader beanReader=new XmlBeanDefinitionReader(beanRegistry);
         beanReader.loadBeanDefinitions(resource);
         String[] beanNames=beanRegistry.getBeanDefinitionNames();
-        for (int j=0; j < beanNames.length; j++) {
-          String beanName=beanNames[j];
+        for (        String beanName : beanNames) {
           springConfig.addBeanDefinition(beanName,beanRegistry.getBeanDefinition(beanName));
         }
       }

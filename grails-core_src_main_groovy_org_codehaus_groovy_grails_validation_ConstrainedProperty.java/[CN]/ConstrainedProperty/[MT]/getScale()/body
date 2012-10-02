@@ -1,7 +1,4 @@
 {
   ScaleConstraint scaleConstraint=(ScaleConstraint)appliedConstraints.get(SCALE_CONSTRAINT);
-  if (scaleConstraint != null) {
-    return scaleConstraint.getScale();
-  }
-  return null;
+  return scaleConstraint == null ? null : scaleConstraint.getScale();
 }

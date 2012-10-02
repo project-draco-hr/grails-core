@@ -1,0 +1,13 @@
+{
+  String path=location;
+  if (path.startsWith("/")) {
+    path=path.substring(1);
+  }
+  Enumeration<URL> resourceUrls=getClassLoader().getResources(path);
+  Set<Resource> result=new LinkedHashSet<Resource>(16);
+  while (resourceUrls.hasMoreElements()) {
+    URL url=resourceUrls.nextElement();
+    result.add(convertClassLoaderURL(url));
+  }
+  return result.toArray(new Resource[result.size()]);
+}

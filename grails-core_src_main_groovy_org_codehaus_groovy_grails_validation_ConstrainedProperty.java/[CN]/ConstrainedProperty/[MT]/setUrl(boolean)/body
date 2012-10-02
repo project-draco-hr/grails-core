@@ -4,16 +4,13 @@
   }
   Constraint c=appliedConstraints.get(URL_CONSTRAINT);
   if (url) {
-    if (c != null) {
-      c.setParameter(Boolean.valueOf(url));
-    }
- else {
+    if (c == null) {
       c=new UrlConstraint();
       c.setOwningClass(owningClass);
       c.setPropertyName(propertyName);
-      c.setParameter(Boolean.valueOf(url));
       appliedConstraints.put(URL_CONSTRAINT,c);
     }
+    c.setParameter(true);
   }
  else {
     if (c != null) {

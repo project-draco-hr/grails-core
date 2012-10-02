@@ -13,6 +13,7 @@
     }
     String controllerName=mapping.getControllerName() instanceof String ? mapping.getControllerName().toString() : null;
     String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
+    String pluginName=mapping.getPluginName() instanceof String ? mapping.getPluginName().toString() : null;
     ConstrainedProperty[] params=mapping.getConstraints();
     Set<String> requiredParams=new HashSet<String>();
     int optionalIndex=-1;
@@ -26,9 +27,9 @@
         break;
       }
     }
-    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,requiredParams);
+    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,pluginName,requiredParams);
     mappingsLookup.put(key,mapping);
-    UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName);
+    UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName,pluginName);
     mappingsListLookup.put(listKey,key);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
@@ -38,9 +39,9 @@
       for (int j=optionalIndex; j < params.length; j++) {
         ConstrainedProperty param=params[j];
         requiredParamsAndOptionals.add(param.getPropertyName());
-        key=new UrlMappingKey(controllerName,actionName,new HashSet<String>(requiredParamsAndOptionals));
+        key=new UrlMappingKey(controllerName,actionName,pluginName,new HashSet<String>(requiredParamsAndOptionals));
         mappingsLookup.put(key,mapping);
-        listKey=new UrlMappingsListKey(controllerName,actionName);
+        listKey=new UrlMappingsListKey(controllerName,actionName,pluginName);
         mappingsListLookup.put(listKey,key);
         if (LOG.isDebugEnabled()) {
           LOG.debug("Reverse mapping: " + key + " -> "+ mapping);

@@ -4,5 +4,6 @@
     return readLine(prompt,false);
   }
   out.print(prompt);
+  out.flush();
   return null;
 }

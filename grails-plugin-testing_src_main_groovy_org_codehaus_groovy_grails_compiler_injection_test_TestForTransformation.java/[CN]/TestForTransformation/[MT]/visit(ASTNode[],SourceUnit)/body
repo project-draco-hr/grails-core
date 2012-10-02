@@ -26,7 +26,7 @@
       List<AnnotationNode> annotations=classNode.getAnnotations(MY_TYPE);
       if (annotations.size() > 0)       return;
       String fileName=source.getName();
-      String className=GrailsResourceUtils.getClassName(new FileSystemResource(fileName));
+      String className=GrailsResourceUtils.getClassName(new org.codehaus.groovy.grails.io.support.FileSystemResource(fileName));
       if (className != null) {
         boolean isSpock=className.endsWith("Spec");
         String targetClassName=null;

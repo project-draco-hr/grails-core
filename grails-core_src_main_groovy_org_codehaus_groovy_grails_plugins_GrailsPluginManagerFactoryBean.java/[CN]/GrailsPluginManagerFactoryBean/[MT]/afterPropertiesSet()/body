@@ -1,40 +1,47 @@
 {
-  pluginManager=PluginManagerHolder.getPluginManager();
+  pluginManager=Holders.getPluginManager();
   if (pluginManager == null) {
     Assert.state(descriptor != null,"Cannot create PluginManager, /WEB-INF/grails.xml not found!");
-    ClassLoader classLoader=application.getClassLoader();
-    List<Class<?>> classes=new ArrayList<Class<?>>();
-    InputStream inputStream=null;
-    try {
-      inputStream=descriptor.getInputStream();
-      GPathResult root=new XmlSlurper().parse(inputStream);
-      GPathResult plugins=(GPathResult)root.getProperty("plugins");
-      GPathResult nodes=(GPathResult)plugins.getProperty("plugin");
-      for (int i=0, count=nodes.size(); i < count; i++) {
-        GPathResult node=(GPathResult)nodes.getAt(i);
-        final String pluginName=node.text();
-        Class<?> clazz;
-        if (classLoader instanceof GroovyClassLoader) {
-          clazz=classLoader.loadClass(pluginName);
-        }
+    if (!descriptor.exists()) {
+      BuildSettings buildSettings=BuildSettingsHolder.getSettings();
+      GrailsProjectPluginLoader pluginLoader=new GrailsProjectPluginLoader(application,application.getClassLoader(),buildSettings,null);
+      pluginManager=pluginLoader.loadPlugins();
+    }
  else {
-          clazz=Class.forName(pluginName,true,classLoader);
-        }
-        if (!classes.contains(clazz)) {
-          classes.add(clazz);
+      ClassLoader classLoader=application.getClassLoader();
+      List<Class<?>> classes=new ArrayList<Class<?>>();
+      InputStream inputStream=null;
+      try {
+        inputStream=descriptor.getInputStream();
+        GPathResult root=new XmlSlurper().parse(inputStream);
+        GPathResult plugins=(GPathResult)root.getProperty("plugins");
+        GPathResult nodes=(GPathResult)plugins.getProperty("plugin");
+        for (int i=0, count=nodes.size(); i < count; i++) {
+          GPathResult node=(GPathResult)nodes.getAt(i);
+          final String pluginName=node.text();
+          Class<?> clazz;
+          if (classLoader instanceof GroovyClassLoader) {
+            clazz=classLoader.loadClass(pluginName);
+          }
+ else {
+            clazz=Class.forName(pluginName,true,classLoader);
+          }
+          if (!classes.contains(clazz)) {
+            classes.add(clazz);
+          }
         }
       }
-    }
   finally {
-      if (inputStream != null) {
-        inputStream.close();
+        if (inputStream != null) {
+          inputStream.close();
+        }
       }
+      Class<?>[] loadedPlugins=classes.toArray(new Class[classes.size()]);
+      pluginManager=new DefaultGrailsPluginManager(loadedPlugins,application);
+      pluginManager.setApplicationContext(applicationContext);
+      Holders.setPluginManager(pluginManager);
+      pluginManager.loadPlugins();
     }
-    Class<?>[] loadedPlugins=classes.toArray(new Class[classes.size()]);
-    pluginManager=new DefaultGrailsPluginManager(loadedPlugins,application);
-    pluginManager.setApplicationContext(applicationContext);
-    PluginManagerHolder.setPluginManager(pluginManager);
-    pluginManager.loadPlugins();
   }
   pluginManager.setApplication(application);
   pluginManager.doArtefactConfiguration();

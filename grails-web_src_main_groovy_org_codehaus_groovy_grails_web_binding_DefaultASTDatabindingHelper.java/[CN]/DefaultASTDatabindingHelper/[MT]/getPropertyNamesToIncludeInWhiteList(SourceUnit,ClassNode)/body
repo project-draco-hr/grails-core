@@ -39,8 +39,7 @@
               }
             }
  else {
-              final String message="The bindable constraint for property [" + propertyName + "] in class ["+ classNode.getName()+ "] has a value which is not a boolean literal and will be ignored.";
-              GrailsASTUtils.warning(sourceUnit,valueExpression,message);
+              GrailsASTUtils.warning(sourceUnit,valueExpression,"The bindable constraint for property [" + propertyName + "] in class ["+ classNode.getName()+ "] has a value which is not a boolean literal and will be ignored.");
             }
           }
         }
@@ -52,7 +51,8 @@
   final List<FieldNode> fields=classNode.getFields();
   for (  FieldNode fieldNode : fields) {
     final String fieldName=fieldNode.getName();
-    if ((!unbindablePropertyNames.contains(fieldName)) && (bindablePropertyNames.contains(fieldName) || shouldFieldBeInWhiteList(fieldNode,fieldsInTransientsList))) {
+    final boolean isDomainClass=GrailsASTUtils.isDomainClass(classNode,sourceUnit);
+    if ((!unbindablePropertyNames.contains(fieldName)) && (bindablePropertyNames.contains(fieldName) || shouldFieldBeInWhiteList(fieldNode,fieldsInTransientsList,isDomainClass))) {
       propertyNamesToIncludeInWhiteList.add(fieldName);
     }
   }

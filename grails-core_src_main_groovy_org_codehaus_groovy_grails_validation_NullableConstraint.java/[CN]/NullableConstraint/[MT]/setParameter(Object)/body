@@ -2,6 +2,6 @@
   if (!(constraintParameter instanceof Boolean)) {
     throw new IllegalArgumentException("Parameter for constraint [" + ConstrainedProperty.NULLABLE_CONSTRAINT + "] of property ["+ constraintPropertyName+ "] of class ["+ constraintOwningClass+ "] must be a boolean value");
   }
-  nullable=((Boolean)constraintParameter).booleanValue();
+  nullable=(Boolean)constraintParameter;
   super.setParameter(constraintParameter);
 }

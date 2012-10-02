@@ -1,7 +1,4 @@
 {
   GrailsApplication application=getGrailsApplication();
-  if (application != null) {
-    return application.getClassLoader();
-  }
-  return super.getClassLoader();
+  return application == null ? super.getClassLoader() : application.getClassLoader();
 }

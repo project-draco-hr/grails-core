@@ -1,7 +1,7 @@
 {
   final boolean shouldFlush;
   if (arguments.length > 0 && arguments[0] instanceof Boolean) {
-    shouldFlush=((Boolean)arguments[0]).booleanValue();
+    shouldFlush=(Boolean)arguments[0];
   }
  else   if (arguments.length > 0 && arguments[0] instanceof Map && ((Map)arguments[0]).containsKey(ARGUMENT_FLUSH)) {
     shouldFlush=GrailsClassUtils.getBooleanFromMap(ARGUMENT_FLUSH,((Map)arguments[0]));

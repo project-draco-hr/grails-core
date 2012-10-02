@@ -1,0 +1,12 @@
+{
+  if (clazz == null) {
+    return "";
+  }
+  String className=clazz.getName();
+  int packageEndIndex=className.lastIndexOf('.');
+  if (packageEndIndex == -1) {
+    return "";
+  }
+  String packageName=className.substring(0,packageEndIndex);
+  return packageName.replace('.','/');
+}

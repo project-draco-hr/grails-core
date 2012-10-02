@@ -7,7 +7,7 @@
   String branch=nullSafeToString(dependency.get("branch"));
   boolean transitive=getBooleanValueOrDefault(dependency,"transitive",true);
   Boolean export=getExportSetting(dependency);
-  boolean isExcluded=context.pluginName != null ? context.dependencyManager.isExcludedFromPlugin(context.pluginName,name) : context.dependencyManager.isExcluded(name);
+  boolean isExcluded=context.pluginName == null ? context.dependencyManager.isExcluded(name) : context.dependencyManager.isExcludedFromPlugin(context.pluginName,name);
   if (isExcluded) {
     return;
   }
@@ -17,11 +17,11 @@
     attrs.put("m:classifier",classifier);
   }
   ModuleRevisionId mrid;
-  if (branch != null) {
-    mrid=ModuleRevisionId.newInstance(group,name,branch,version,attrs);
+  if (branch == null) {
+    mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
   }
  else {
-    mrid=ModuleRevisionId.newInstance(group,name,version,attrs);
+    mrid=ModuleRevisionId.newInstance(group,name,branch,version,attrs);
   }
   EnhancedDefaultDependencyDescriptor dependencyDescriptor=new EnhancedDefaultDependencyDescriptor(mrid,false,transitive,scope);
   handleExport(dependencyDescriptor,export);

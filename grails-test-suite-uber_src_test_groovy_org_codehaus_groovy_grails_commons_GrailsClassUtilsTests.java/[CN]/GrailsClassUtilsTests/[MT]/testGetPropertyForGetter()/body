@@ -1,4 +1,5 @@
 {
   assertEquals("something",GrailsClassUtils.getPropertyForGetter("getSomething"));
   assertEquals("URL",GrailsClassUtils.getPropertyForGetter("getURL"));
+  assertEquals("p",GrailsClassUtils.getPropertyForGetter("getP"));
 }

@@ -1,9 +1,9 @@
 {
   this.config=config;
-  if (config != null) {
-    this.flatConfig=config.flatten();
+  if (config == null) {
+    flatConfig=Collections.emptyMap();
   }
  else {
-    this.flatConfig=Collections.emptyMap();
+    flatConfig=config.flatten();
   }
 }

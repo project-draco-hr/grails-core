@@ -2,15 +2,44 @@
   if (artefactInfo == null) {
     return null;
   }
-  String uri=feature.toString();
+  String uri;
+  String pluginName=null;
+  if (featureId instanceof Map) {
+    Map featureIdMap=(Map)featureId;
+    uri=(String)featureIdMap.get("uri");
+    pluginName=(String)featureIdMap.get("pluginName");
+  }
+ else {
+    uri=featureId.toString();
+  }
   GrailsClass controllerClass=uriToControllerClassCache.get(uri);
   if (controllerClass == null) {
+    final ApplicationContext mainContext=grailsApplication.getMainContext();
+    GrailsPluginManager grailsPluginManager=null;
+    if (mainContext.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      final Object pluginManagerBean=mainContext.getBean(GrailsPluginManager.BEAN_NAME);
+      if (pluginManagerBean instanceof GrailsPluginManager) {
+        grailsPluginManager=(GrailsPluginManager)pluginManagerBean;
+      }
+    }
     final GrailsClass[] controllerClasses=artefactInfo.getGrailsClasses();
     for (int i=(controllerClasses.length - 1); i >= 0; i--) {
       GrailsClass c=controllerClasses[i];
       if (((GrailsControllerClass)c).mapsToURI(uri)) {
-        controllerClass=c;
-        break;
+        boolean foundController=false;
+        if (pluginName != null && grailsPluginManager != null) {
+          final GrailsPlugin pluginForClass=grailsPluginManager.getPluginForClass(c.getClazz());
+          if (pluginForClass != null && pluginName.equals(pluginForClass.getName())) {
+            foundController=true;
+          }
+        }
+ else {
+          foundController=true;
+        }
+        if (foundController) {
+          controllerClass=c;
+          break;
+        }
       }
     }
     if (controllerClass == null) {

@@ -1,0 +1,19 @@
+{
+  PrintStream printStream=out;
+  try {
+    if (userInputActive && !appendCalled) {
+      printStream.print(moveDownToSkipPrompt());
+      appendCalled=true;
+    }
+    if (msg.endsWith(LINE_SEPARATOR)) {
+      printStream.print(msg);
+    }
+ else {
+      printStream.println(msg);
+    }
+    cursorMove=0;
+  }
+  finally {
+    progressIndicatorActive=false;
+  }
+}

@@ -1,0 +1,4 @@
+{
+  String protocol=url.getProtocol();
+  return (URL_PROTOCOL_FILE.equals(protocol) || protocol.startsWith(URL_PROTOCOL_VFS));
+}

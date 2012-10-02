@@ -1,5 +1,5 @@
 {
-  if (this.tagLibraryLookup == null) {
+  if (tagLibraryLookup == null) {
     ApplicationContext applicationContext=getApplicationContext(null);
     if (applicationContext != null && applicationContext.containsBean("gspTagLibraryLookup")) {
       tagLibraryLookup=applicationContext.getBean("gspTagLibraryLookup",TagLibraryLookup.class);

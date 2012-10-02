@@ -10,9 +10,7 @@
         return (ConstrainedProperty)nestedConstrainedProperties.get(propertyNames[propertyNames.length - 1]);
       }
     }
+    return null;
   }
- else {
-    return (ConstrainedProperty)constrainedProperties.get(propertyName);
-  }
-  return null;
+  return (ConstrainedProperty)constrainedProperties.get(propertyName);
 }

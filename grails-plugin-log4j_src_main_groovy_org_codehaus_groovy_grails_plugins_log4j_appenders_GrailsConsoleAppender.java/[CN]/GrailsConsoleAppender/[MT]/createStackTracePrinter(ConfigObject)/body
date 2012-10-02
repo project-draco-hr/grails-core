@@ -1,9 +1,27 @@
 {
   try {
-    stackTracePrinter=(StackTracePrinter)GrailsClassUtils.instantiateFromConfig(config,"grails.logging.stackTracePrinterClass",DefaultStackTracePrinter.class.getName());
+    stackTracePrinter=(StackTracePrinter)GrailsResourceUtils.instantiateFromConfig(config,"grails.logging.stackTracePrinterClass",DefaultStackTracePrinter.class.getName());
   }
  catch (  Throwable t) {
-    LogLog.error("Problem instantiating StackTracePrinter class, using default: " + t.getMessage());
-    stackTracePrinter=new DefaultStackTracePrinter();
+    LogLog.warn("Problem instantiating StackTracePrinter class, using default: " + t.getMessage());
+    try {
+      stackTracePrinter=new DefaultStackTracePrinter();
+    }
+ catch (    Throwable t1) {
+      stackTracePrinter=new StackTracePrinter(){
+        /** 
+ * Pretty print the given stack trace and return the result
+ * @param throwable The throwable
+ * @return The result
+ */
+        public String prettyPrint(        Throwable throwable){
+          StringWriter sw=new StringWriter();
+          PrintWriter pw=new PrintWriter(sw);
+          throwable.printStackTrace(pw);
+          return sw.toString();
+        }
+      }
+;
+    }
   }
 }

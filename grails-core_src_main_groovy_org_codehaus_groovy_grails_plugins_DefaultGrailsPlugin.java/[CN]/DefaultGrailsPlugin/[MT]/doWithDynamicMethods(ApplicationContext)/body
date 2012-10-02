@@ -1,17 +1,7 @@
 {
-  try {
-    if (pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
-      Closure c=(Closure)plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
-      if (enableDocumentationGeneration()) {
-        DocumentationContext.getInstance().setActive(true);
-      }
-      c.setDelegate(this);
-      c.call(new Object[]{ctx});
-    }
-  }
-  finally {
-    if (enableDocumentationGeneration()) {
-      DocumentationContext.getInstance().reset();
-    }
+  if (pluginBean.isReadableProperty(DO_WITH_DYNAMIC_METHODS)) {
+    Closure c=(Closure)plugin.getProperty(DO_WITH_DYNAMIC_METHODS);
+    c.setDelegate(this);
+    c.call(new Object[]{ctx});
   }
 }

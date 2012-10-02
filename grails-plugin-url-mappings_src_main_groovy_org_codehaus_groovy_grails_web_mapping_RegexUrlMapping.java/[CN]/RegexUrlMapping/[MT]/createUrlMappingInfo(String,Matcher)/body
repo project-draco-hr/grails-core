@@ -2,7 +2,7 @@
   Map params=new HashMap();
   Errors errors=new MapBindingResult(params,"urlMapping");
   String lastGroup=null;
-  for (int i=0; i < m.groupCount(); i++) {
+  for (int i=0, count=m.groupCount(); i < count; i++) {
     lastGroup=m.group(i + 1);
     int j=lastGroup.indexOf('?');
     if (j > -1) {
@@ -51,7 +51,7 @@
     info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
   }
  else {
-    info=new DefaultUrlMappingInfo(controllerName,actionName,getViewName(),params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(controllerName,actionName,pluginName,getViewName(),params,urlData,servletContext);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

@@ -6,15 +6,21 @@
       Map<?,?> argMap=(Map<?,?>)arguments[0];
       GrailsHibernateUtil.populateArgumentsForCriteria(application,clazz,crit,argMap);
       if (!argMap.containsKey(GrailsHibernateUtil.ARGUMENT_FETCH)) {
-        if (useLimit)         crit.setMaxResults(1);
+        if (useLimit) {
+          crit.setMaxResults(1);
+        }
       }
     }
  else {
-      if (useLimit)       crit.setMaxResults(1);
+      if (useLimit) {
+        crit.setMaxResults(1);
+      }
     }
   }
  else {
-    if (useLimit)     crit.setMaxResults(1);
+    if (useLimit) {
+      crit.setMaxResults(1);
+    }
   }
   if (operator.equals(OPERATOR_OR)) {
     if (firstExpressionIsRequiredBoolean()) {

@@ -1,0 +1,5 @@
+{
+  Map<String,String> variables=new LinkedHashMap<String,String>();
+  doMatch(pattern,path,true,variables);
+  return variables;
+}

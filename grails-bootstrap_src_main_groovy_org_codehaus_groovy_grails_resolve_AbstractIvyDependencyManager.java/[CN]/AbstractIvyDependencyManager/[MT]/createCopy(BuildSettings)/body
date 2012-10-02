@@ -1,5 +1,5 @@
 {
-  IvyDependencyManager copy=new IvyDependencyManager(applicationName,applicationVersion,buildSettings);
+  IvyDependencyManager copy=new IvyDependencyManager(applicationName,applicationVersion,settings);
   copy.setOffline(isOffline());
   copy.setChainResolver(getChainResolver());
   copy.setResolveEngine(getResolveEngine());

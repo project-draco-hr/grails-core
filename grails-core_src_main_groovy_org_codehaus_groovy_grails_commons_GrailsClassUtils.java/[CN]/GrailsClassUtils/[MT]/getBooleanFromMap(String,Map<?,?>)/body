@@ -4,9 +4,9 @@
     Object o=map.get(key);
     if (o == null)     return false;
     if (o instanceof Boolean) {
-      return ((Boolean)o).booleanValue();
+      return (Boolean)o;
     }
-    return Boolean.valueOf(o.toString()).booleanValue();
+    return Boolean.valueOf(o.toString());
   }
   return false;
 }

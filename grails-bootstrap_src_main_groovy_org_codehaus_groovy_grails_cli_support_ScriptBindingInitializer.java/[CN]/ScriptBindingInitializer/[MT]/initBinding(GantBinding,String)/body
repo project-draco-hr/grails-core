@@ -19,7 +19,7 @@
   binding.setVariable(GRAILS_VERSION,settings.getGrailsVersion());
   binding.setVariable(USER_HOME,settings.getUserHome());
   binding.setVariable(GRAILS_ENV,settings.getGrailsEnv());
-  binding.setVariable("defaultEnv",Boolean.valueOf(settings.getDefaultEnv()));
+  binding.setVariable("defaultEnv",settings.getDefaultEnv());
   binding.setVariable("buildConfig",settings.getConfig());
   binding.setVariable("rootLoader",settings.getRootLoader());
   binding.setVariable("configFile",new File(baseDirPath + "/grails-app/conf/Config.groovy"));
@@ -48,8 +48,8 @@
   if (scriptName.equals("RunApp")) {
     cla.enableUaa();
   }
-  makeApiAvailableToScripts(binding,cla);
-  makeApiAvailableToScripts(binding,cla.getPluginSettings());
+  cla.makeApiAvailableToScripts(binding,cla);
+  cla.makeApiAvailableToScripts(binding,cla.getPluginSettings());
   setUIListener(binding);
   try {
     List<File> descriptors=new ArrayList<File>();

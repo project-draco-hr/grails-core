@@ -1,4 +1,4 @@
 {
-  Assert.assertTrue(this.checkForChangesExpected);
-  this.checkForChangesExpected=false;
+  Assert.isTrue(checkForChangesExpected);
+  checkForChangesExpected=false;
 }

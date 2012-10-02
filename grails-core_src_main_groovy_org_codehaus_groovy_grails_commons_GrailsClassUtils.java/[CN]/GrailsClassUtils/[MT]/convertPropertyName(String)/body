@@ -1,4 +1,7 @@
 {
+  if (prop.length() == 1) {
+    return prop.toLowerCase();
+  }
   if (Character.isUpperCase(prop.charAt(0)) && Character.isUpperCase(prop.charAt(1))) {
     return prop;
   }

@@ -17,7 +17,7 @@
         }
         mpvs.removePropertyValue(pv);
       }
- else       if (v != null && (v instanceof String)) {
+ else       if (v instanceof String) {
         associateObjectForId(pv,v,associatedType);
         mpvs.removePropertyValue(pv);
       }

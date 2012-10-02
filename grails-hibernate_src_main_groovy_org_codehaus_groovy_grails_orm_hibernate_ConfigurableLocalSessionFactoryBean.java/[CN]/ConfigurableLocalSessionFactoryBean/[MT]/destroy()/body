@@ -1,5 +1,5 @@
 {
-  if (this.grailsApplication.isWarDeployed()) {
+  if (grailsApplication.isWarDeployed()) {
     MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
     Map<?,?> classMetaData=getSessionFactory().getAllClassMetadata();
     for (    Object o : classMetaData.values()) {

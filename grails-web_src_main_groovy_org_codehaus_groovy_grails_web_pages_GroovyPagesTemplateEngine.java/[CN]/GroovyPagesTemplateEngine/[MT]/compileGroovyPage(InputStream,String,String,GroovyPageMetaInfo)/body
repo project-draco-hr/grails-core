@@ -2,7 +2,7 @@
   GroovyClassLoader groovyClassLoader=findOrInitGroovyClassLoader();
   Class<?> scriptClass;
   try {
-    String groovySource=DefaultGroovyMethods.getText(in,GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING);
+    String groovySource=IOGroovyMethods.getText(in,GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING);
     scriptClass=groovyClassLoader.parseClass(groovySource,name);
   }
  catch (  CompilationFailedException e) {
@@ -12,11 +12,11 @@
     if (lineNumber > 0 && lineNumber < lineMappings.length) {
       lineNumber=lineMappings[lineNumber - 1];
     }
-    String relativePageName=DefaultStackTracePrinter.makeRelativeIfPossible(pageName);
+    String relativePageName=DefaultErrorsPrinter.makeRelativeIfPossible(pageName);
     throw new GroovyPagesException("Could not parse script [" + relativePageName + "]: "+ e.getMessage(),e,lineNumber,pageName);
   }
 catch (  IOException e) {
-    String relativePageName=DefaultStackTracePrinter.makeRelativeIfPossible(pageName);
+    String relativePageName=DefaultErrorsPrinter.makeRelativeIfPossible(pageName);
     throw new GroovyPagesException("IO exception parsing script [" + relativePageName + "]: "+ e.getMessage(),e);
   }
   GroovyPagesMetaUtils.registerMethodMissingForGSP(scriptClass,tagLibraryLookup);

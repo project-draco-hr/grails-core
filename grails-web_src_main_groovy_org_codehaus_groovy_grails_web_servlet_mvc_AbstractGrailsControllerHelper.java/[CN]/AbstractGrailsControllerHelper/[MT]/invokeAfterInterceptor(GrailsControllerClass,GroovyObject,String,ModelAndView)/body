@@ -4,7 +4,7 @@
     Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
     Map model=new HashMap();
     if (mv != null) {
-      model=mv.getModel() != null ? mv.getModel() : new HashMap();
+      model=mv.getModel() == null ? new HashMap() : mv.getModel();
     }
 switch (afterInterceptor.getMaximumNumberOfParameters()) {
 case 1:
@@ -17,5 +17,5 @@ default :
 throw new ControllerExecutionException("AfterInterceptor closure must accept one or two parameters");
 }
 }
-return !(interceptorResult != null && interceptorResult instanceof Boolean) || ((Boolean)interceptorResult).booleanValue();
+return !(interceptorResult != null && interceptorResult instanceof Boolean) || (Boolean)interceptorResult;
 }

@@ -25,6 +25,14 @@
  else   if (!controller.equals(other.controller)) {
     return false;
   }
+  if (pluginName == null) {
+    if (other.pluginName != null) {
+      return false;
+    }
+  }
+ else   if (!pluginName.equals(other.pluginName)) {
+    return false;
+  }
   if (!Arrays.equals(paramKeys,other.paramKeys)) {
     return false;
   }

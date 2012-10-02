@@ -1,4 +1,8 @@
 {
+  if (cc != null) {
+    column.setComment(cc.getComment());
+    column.setDefaultValue(cc.getDefaultValue());
+  }
   Class<?> userType=getUserType(property);
   String columnName=getColumnNameForPropertyAndPath(property,path,cc,sessionFactoryBeanName);
   if ((property.isAssociation() || property.isBasicCollectionType()) && userType == null) {
@@ -54,7 +58,7 @@
  else {
     Object val=cp != null ? cp.getMetaConstraintValue(UniqueConstraint.UNIQUE_CONSTRAINT) : null;
     if (val instanceof Boolean) {
-      column.setUnique(((Boolean)val).booleanValue());
+      column.setUnique((Boolean)val);
     }
  else     if (val instanceof String) {
       createKeyForProps(property,path,table,columnName,Arrays.asList(new String[]{(String)val}),sessionFactoryBeanName);

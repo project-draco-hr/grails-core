@@ -1,0 +1,7 @@
+{
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  ApplicationContext applicationContext=webRequest.getApplicationContext();
+  if (requestDataValueProcessor == null && applicationContext.containsBean("requestDataValueProcessor")) {
+    requestDataValueProcessor=applicationContext.getBean("requestDataValueProcessor",RequestDataValueProcessor.class);
+  }
+}

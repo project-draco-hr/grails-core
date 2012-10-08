@@ -1,0 +1,9 @@
+{
+  String resultAction=action;
+  if (action.indexOf("requestDataValueProcessorParamName=paramValue") > -1) {
+    resultAction=resultAction.replace("?requestDataValueProcessorParamName=paramValue&","?");
+    resultAction=resultAction.replace("?requestDataValueProcessorParamName=paramValue","");
+    resultAction=resultAction.replace("&requestDataValueProcessorParamName=paramValue","");
+  }
+  return resultAction;
+}

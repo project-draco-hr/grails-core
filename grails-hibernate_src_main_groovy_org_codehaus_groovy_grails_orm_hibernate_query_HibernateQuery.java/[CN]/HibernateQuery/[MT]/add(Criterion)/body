@@ -7,12 +7,16 @@
   }
  else   if (criterion instanceof PropertyCriterion) {
     PropertyCriterion pc=(PropertyCriterion)criterion;
-    if (pc.getValue() instanceof QueryableCriteria) {
-      DetachedCriteria hibernateDetachedCriteria=HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)pc.getValue());
+    Object value=pc.getValue();
+    if (value instanceof QueryableCriteria) {
+      DetachedCriteria hibernateDetachedCriteria=HibernateCriteriaBuilder.getHibernateDetachedCriteria((QueryableCriteria)value);
       pc.setValue(hibernateDetachedCriteria);
     }
+ else {
+      doTypeConversionIfNeccessary(getEntity(),pc);
+    }
   }
-  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(criterion,alias).toHibernateCriterion(this);
+  final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(getEntity(),criterion,alias).toHibernateCriterion(this);
   if (hibernateCriterion != null) {
     addToCriteria(hibernateCriterion);
   }

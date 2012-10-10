@@ -6,5 +6,6 @@
     this.criteria.setProjection(projectionList);
   }
   if (projectionLength < 2)   criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+  applyFetchStrategies();
   return criteria.list();
 }

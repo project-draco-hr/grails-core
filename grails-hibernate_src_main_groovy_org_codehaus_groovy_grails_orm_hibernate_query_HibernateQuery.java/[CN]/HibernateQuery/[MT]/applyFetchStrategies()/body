@@ -1,0 +1,12 @@
+{
+  for (  Map.Entry<String,FetchType> entry : fetchStrategies.entrySet()) {
+switch (entry.getValue()) {
+case EAGER:
+      criteria.setFetchMode(entry.getKey(),FetchMode.JOIN);
+    break;
+case LAZY:
+  criteria.setFetchMode(entry.getKey(),FetchMode.SELECT);
+break;
+}
+}
+}

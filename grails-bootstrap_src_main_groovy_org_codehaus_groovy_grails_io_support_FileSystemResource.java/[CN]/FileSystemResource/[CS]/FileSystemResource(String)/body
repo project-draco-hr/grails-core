@@ -1,3 +1,5 @@
 {
-  this(new File(path));
+  assertNotNull(path,"Path must not be null");
+  file=new File(path);
+  this.path=GrailsResourceUtils.cleanPath(path);
 }

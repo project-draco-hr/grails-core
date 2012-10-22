@@ -1,8 +1,7 @@
 {
   initRequestDataValueProcessor();
-  String currentLink=link;
   if (requestDataValueProcessor != null) {
-    currentLink=requestDataValueProcessor.processUrl(request,link);
+    link=requestDataValueProcessor.processUrl(request,link);
   }
-  return currentLink;
+  return link;
 }

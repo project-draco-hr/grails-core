@@ -1,17 +1,16 @@
 {
-  String resultUrl=url;
-  String toAppend=null;
-  if (resultUrl.indexOf("?") > -1) {
+  String toAppend;
+  if (url.indexOf("?") > -1) {
     toAppend="&requestDataValueProcessorParamName=paramValue";
   }
  else {
     toAppend="?requestDataValueProcessorParamName=paramValue";
   }
-  if (resultUrl.indexOf("#") > -1) {
-    resultUrl=resultUrl.replace("#",toAppend + "#");
+  if (url.indexOf("#") > -1) {
+    url=url.replace("#",toAppend + "#");
   }
  else {
-    resultUrl=resultUrl + toAppend;
+    url=url + toAppend;
   }
-  return resultUrl;
+  return url;
 }

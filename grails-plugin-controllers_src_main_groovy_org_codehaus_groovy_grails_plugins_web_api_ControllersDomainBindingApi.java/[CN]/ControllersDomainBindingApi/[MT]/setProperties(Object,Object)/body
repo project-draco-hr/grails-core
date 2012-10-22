@@ -1,7 +1,7 @@
 {
   GrailsDomainClass dc=getDomainClass(instance);
-  if (dc != null) {
-    return DataBindingUtils.bindObjectToDomainInstance(dc,instance,bindingSource);
+  if (dc == null) {
+    return DataBindingUtils.bindObjectToInstance(instance,bindingSource);
   }
-  return DataBindingUtils.bindObjectToInstance(instance,bindingSource);
+  return DataBindingUtils.bindObjectToDomainInstance(dc,instance,bindingSource);
 }

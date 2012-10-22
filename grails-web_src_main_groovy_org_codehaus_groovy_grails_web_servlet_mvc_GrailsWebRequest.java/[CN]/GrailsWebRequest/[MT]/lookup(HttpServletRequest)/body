@@ -1,7 +1,4 @@
 {
   GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
-  if (webRequest == null) {
-    return lookup();
-  }
-  return webRequest;
+  return webRequest == null ? lookup() : webRequest;
 }

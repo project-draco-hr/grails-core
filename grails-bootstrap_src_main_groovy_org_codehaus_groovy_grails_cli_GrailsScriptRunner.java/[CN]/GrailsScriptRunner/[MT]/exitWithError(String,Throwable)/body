@@ -1,10 +1,10 @@
 {
   GrailsConsole grailsConsole=GrailsConsole.getInstance();
-  if (t != null) {
-    grailsConsole.error(error,t);
+  if (t == null) {
+    grailsConsole.error(error);
   }
  else {
-    grailsConsole.error(error);
+    grailsConsole.error(error,t);
   }
   grailsConsole.flush();
   System.exit(1);

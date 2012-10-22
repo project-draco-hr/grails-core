@@ -1,11 +1,11 @@
 {
   GrailsDomainClass dc=getDomainClass(instance);
-  if (dc != null) {
-    DataBindingUtils.bindObjectToDomainInstance(dc,instance,namedArgs);
-    DataBindingUtils.assignBidirectionalAssociations(instance,namedArgs,dc);
+  if (dc == null) {
+    DataBindingUtils.bindObjectToInstance(instance,namedArgs);
   }
  else {
-    DataBindingUtils.bindObjectToInstance(instance,namedArgs);
+    DataBindingUtils.bindObjectToDomainInstance(dc,instance,namedArgs);
+    DataBindingUtils.assignBidirectionalAssociations(instance,namedArgs,dc);
   }
   autowire(instance);
 }

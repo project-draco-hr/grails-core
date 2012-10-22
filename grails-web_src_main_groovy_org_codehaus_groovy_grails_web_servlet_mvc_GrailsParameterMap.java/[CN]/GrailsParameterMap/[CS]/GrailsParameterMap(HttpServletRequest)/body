@@ -1,13 +1,13 @@
 {
   this.request=request;
   final Map requestMap=new LinkedHashMap(request.getParameterMap());
-  if (requestMap.size() == 0 && "PUT".equals(request.getMethod()) && request.getAttribute(REQUEST_BODY_PARSED) == null) {
+  if (requestMap.isEmpty() && "PUT".equals(request.getMethod()) && request.getAttribute(REQUEST_BODY_PARSED) == null) {
     String contentType=request.getContentType();
     if ("application/x-www-form-urlencoded".equals(contentType)) {
       try {
         String contents=IOUtils.toString(request.getReader());
         request.setAttribute(REQUEST_BODY_PARSED,true);
-        requestMap.putAll(org.codehaus.groovy.grails.web.util.WebUtils.fromQueryString(contents));
+        requestMap.putAll(WebUtils.fromQueryString(contents));
       }
  catch (      Exception e) {
         LOG.error("Error processing form encoded PUT request",e);

@@ -2,6 +2,5 @@
   if (webRequest == null) {
     return;
   }
-  final GrailsApplication grailsApplication=webRequest.getAttributes().getGrailsApplication();
-  binder.setGrailsApplication(grailsApplication);
+  binder.setGrailsApplication(webRequest.getAttributes().getGrailsApplication());
 }

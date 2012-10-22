@@ -1,6 +1,3 @@
 {
-  if (applicationContext == null) {
-    return getAttributes().getApplicationContext();
-  }
-  return applicationContext;
+  return applicationContext == null ? getAttributes().getApplicationContext() : applicationContext;
 }

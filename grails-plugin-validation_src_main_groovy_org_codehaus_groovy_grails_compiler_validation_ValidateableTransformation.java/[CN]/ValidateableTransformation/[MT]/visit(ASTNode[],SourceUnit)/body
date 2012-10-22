@@ -15,6 +15,5 @@
   if (cNode.isInterface()) {
     throw new RuntimeException("Error processing interface '" + cName + "'.  @Validateable not allowed for interfaces.");
   }
-  ASTValidateableHelper helper=new DefaultASTValidateableHelper();
-  helper.injectValidateableCode(cNode);
+  new DefaultASTValidateableHelper().injectValidateableCode(cNode);
 }

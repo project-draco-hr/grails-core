@@ -15,7 +15,7 @@
     BasicType basic=typeResolver.basic(pp.getType().getName());
     if (basic != null && datastoreCriterion instanceof PropertyCriterion) {
       PropertyCriterion pc=(PropertyCriterion)datastoreCriterion;
-      final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(datastoreCriterion,alias).toHibernateCriterion(this);
+      final org.hibernate.criterion.Criterion hibernateCriterion=new HibernateCriterionAdapter(getEntity(),datastoreCriterion,alias).toHibernateCriterion(this);
       if (hibernateCriterion instanceof SimpleExpression) {
         SimpleExpression expr=(SimpleExpression)hibernateCriterion;
         Object op=ReflectionUtils.getField(opField,expr);

@@ -1,0 +1,10 @@
+{
+  if (!pc.getClass().getSimpleName().startsWith(SIZE_CONSTRAINT_PREFIX)) {
+    String property=pc.getProperty();
+    Object value=pc.getValue();
+    PersistentProperty p=entity.getPropertyByName(property);
+    if (p != null && !p.getType().isInstance(value)) {
+      pc.setValue(conversionService.convert(value,p.getType()));
+    }
+  }
+}

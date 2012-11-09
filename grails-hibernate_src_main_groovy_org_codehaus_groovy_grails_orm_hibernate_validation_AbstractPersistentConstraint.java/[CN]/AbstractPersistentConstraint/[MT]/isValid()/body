@@ -4,7 +4,7 @@
     GrailsDomainClass domainClass=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,constraintOwningClass.getName());
     if (domainClass != null) {
       String mappingStrategy=domainClass.getMappingStrategy();
-      return mappingStrategy.equals(GrailsDomainClass.GORM);
+      return mappingStrategy.equals(GrailsDomainClass.GORM) || mappingStrategy.equals(GrailsHibernateDomainClass.HIBERNATE);
     }
   }
   return false;

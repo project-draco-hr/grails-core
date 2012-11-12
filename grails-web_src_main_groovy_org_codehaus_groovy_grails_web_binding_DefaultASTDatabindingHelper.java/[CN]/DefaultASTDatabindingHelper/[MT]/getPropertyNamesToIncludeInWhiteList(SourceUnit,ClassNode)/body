@@ -1,12 +1,9 @@
 {
-  if (CLASS_NAME_TO_WHITE_LIST_PROPERTY_NAMES.containsKey(classNode)) {
-    return CLASS_NAME_TO_WHITE_LIST_PROPERTY_NAMES.get(classNode);
-  }
   final Set<String> propertyNamesToIncludeInWhiteList=new HashSet<String>();
   final Set<String> unbindablePropertyNames=new HashSet<String>();
   final Set<String> bindablePropertyNames=new HashSet<String>();
   if (!classNode.getSuperClass().equals(new ClassNode(Object.class))) {
-    final Set<String> parentClassPropertyNames=getPropertyNamesToIncludeInWhiteList(sourceUnit,classNode.getSuperClass());
+    final Set<String> parentClassPropertyNames=getPropertyNamesToIncludeInWhiteListForParentClass(sourceUnit,classNode.getSuperClass());
     bindablePropertyNames.addAll(parentClassPropertyNames);
   }
   final FieldNode constraintsFieldNode=classNode.getDeclaredField(CONSTRAINTS_FIELD_NAME);
@@ -77,7 +74,7 @@
       }
     }
   }
-  CLASS_NAME_TO_WHITE_LIST_PROPERTY_NAMES.put(classNode,propertyNamesToIncludeInWhiteList);
+  CLASS_NODE_TO_WHITE_LIST_PROPERTY_NAMES.put(classNode,propertyNamesToIncludeInWhiteList);
   Map<String,ClassNode> allAssociationMap=GrailsASTUtils.getAllAssociationMap(classNode);
   for (  String associationName : allAssociationMap.keySet()) {
     if (!propertyNamesToIncludeInWhiteList.contains(associationName)) {

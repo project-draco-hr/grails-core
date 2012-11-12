@@ -1,0 +1,10 @@
+{
+  final Set<String> propertyNames;
+  if (CLASS_NODE_TO_WHITE_LIST_PROPERTY_NAMES.containsKey(parentClassNode)) {
+    propertyNames=CLASS_NODE_TO_WHITE_LIST_PROPERTY_NAMES.get(parentClassNode);
+  }
+ else {
+    propertyNames=getPropertyNamesToIncludeInWhiteList(sourceUnit,parentClassNode);
+  }
+  return propertyNames;
+}

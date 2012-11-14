@@ -19,8 +19,8 @@
           boolean defaultDependenciesProvided=dependencyManager.getDefaultDependenciesProvided();
           String compileTimeDependenciesMethod=defaultDependenciesProvided ? "provided" : "compile";
           String runtimeDependenciesMethod=defaultDependenciesProvided ? "provided" : "runtime";
-          String antVersion="1.8.2";
-          String slf4jVersion="1.6.2";
+          String antVersion="1.8.4";
+          String slf4jVersion="1.7.2";
           String junitVersion="4.10";
           ModuleRevisionId[] buildDependencies={ModuleRevisionId.newInstance("org.springframework.uaa","org.springframework.uaa.client","1.0.1.RELEASE"),ModuleRevisionId.newInstance("com.google.protobuf","protobuf-java","2.4.1"),ModuleRevisionId.newInstance("com.googlecode.json-simple","json-simple","1.1"),ModuleRevisionId.newInstance("org.bouncycastle","bcpg-jdk15","1.45"),ModuleRevisionId.newInstance("org.bouncycastle","bcprov-jdk15","1.45"),ModuleRevisionId.newInstance("jline","jline","1.0"),ModuleRevisionId.newInstance("org.apache.ivy","ivy","2.2.0"),ModuleRevisionId.newInstance("org.fusesource.jansi","jansi","1.2.1"),ModuleRevisionId.newInstance("net.java.dev.jna","jna","3.2.3"),ModuleRevisionId.newInstance("xalan","serializer","2.7.1"),ModuleRevisionId.newInstance("org.grails","grails-docs",grailsVersion),ModuleRevisionId.newInstance("org.grails","grails-bootstrap",grailsVersion),ModuleRevisionId.newInstance("org.grails","grails-scripts",grailsVersion),ModuleRevisionId.newInstance("org.slf4j","slf4j-api",slf4jVersion),ModuleRevisionId.newInstance("org.slf4j","jcl-over-slf4j",slf4jVersion)};
           registerDependencies(dependencyManager,"build",buildDependencies);

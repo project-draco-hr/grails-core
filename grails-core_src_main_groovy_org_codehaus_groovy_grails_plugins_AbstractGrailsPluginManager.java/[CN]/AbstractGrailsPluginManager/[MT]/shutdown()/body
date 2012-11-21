@@ -1,8 +1,13 @@
 {
   checkInitialised();
-  for (  GrailsPlugin plugin : pluginList) {
-    if (plugin.supportsCurrentScopeAndEnvironment()) {
-      plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_SHUTDOWN,plugin);
+  try {
+    for (    GrailsPlugin plugin : pluginList) {
+      if (plugin.supportsCurrentScopeAndEnvironment()) {
+        plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_SHUTDOWN,plugin);
+      }
     }
+  }
+  finally {
+    shutdown=true;
   }
 }

@@ -5,5 +5,10 @@
   for (  GrailsClass bootstrap : bootstraps) {
     ((GrailsBootstrapClass)bootstrap).callDestroy();
   }
-  super.destroy();
+  try {
+    super.destroy();
+  }
+  finally {
+    ShutdownOperations.runOperations();
+  }
 }

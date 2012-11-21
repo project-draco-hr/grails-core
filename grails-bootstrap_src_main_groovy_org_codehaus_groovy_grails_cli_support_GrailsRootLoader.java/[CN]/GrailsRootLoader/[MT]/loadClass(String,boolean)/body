@@ -1,6 +1,6 @@
 {
   try {
-    if (name.startsWith("java.") || name.startsWith("javax.xml.") || name.startsWith("org.w3c.dom.")) {
+    if (name.startsWith("java.") || name.startsWith("javax.xml.") || name.startsWith("org.w3c.dom.")|| name.startsWith("org.xml.")) {
       try {
         return getParent().loadClass(name);
       }

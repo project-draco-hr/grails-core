@@ -40,19 +40,16 @@
           if (v.startsWith(SLASH)) {
             v=v.substring(SLASH.length());
           }
-          String[] segs=v.split(SLASH);
-          for (          String segment : segs) {
-            uri.append(SLASH).append(URLEncoder.encode(segment,encoding));
-          }
+          uri.append(SLASH).append(new URI(null,null,v,null).toString());
         }
  else         if (v.length() > 0) {
-          uri.append(SLASH).append(URLEncoder.encode(v,encoding));
+          uri.append(SLASH).append(new URI(null,null,v,null).toString());
         }
  else {
           break;
         }
       }
- catch (      UnsupportedEncodingException e) {
+ catch (      URISyntaxException e) {
         throw new ControllerExecutionException("Error creating URL for parameters [" + paramValues + "], problem encoding URL part ["+ buf+ "]: "+ e.getMessage(),e);
       }
     }

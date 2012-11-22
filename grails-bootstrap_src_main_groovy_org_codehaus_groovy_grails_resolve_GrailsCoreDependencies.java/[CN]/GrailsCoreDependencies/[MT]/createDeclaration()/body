@@ -3,6 +3,15 @@
     @SuppressWarnings("unused") public Object doCall(){
       DependencyConfigurationConfigurer rootDelegate=(DependencyConfigurationConfigurer)getDelegate();
       rootDelegate.log("warn");
+      rootDelegate.repositories(new Closure(this,GrailsCoreDependencies.this){
+        public Object doCall(){
+          RepositoriesConfigurer repositoriesDelegate=(RepositoriesConfigurer)getDelegate();
+          repositoriesDelegate.grailsPlugins();
+          repositoriesDelegate.grailsHome();
+          return null;
+        }
+      }
+);
       rootDelegate.dependencies(new Closure(this,GrailsCoreDependencies.this){
         public Object doCall(){
           JarDependenciesConfigurer dependenciesDelegate=(JarDependenciesConfigurer)getDelegate();

@@ -2,7 +2,7 @@
   if (!isCacheable(attrs)) {
     return super.link(attrs,encoding);
   }
-  final String key=LINK_PREFIX + createKey(attrs);
+  final String key=makeKey(LINK_PREFIX,attrs);
   Object resourceLink=linkCache.get(key);
   if (resourceLink == null) {
     resourceLink=super.link(attrs,encoding);

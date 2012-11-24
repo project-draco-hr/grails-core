@@ -1,5 +1,5 @@
 {
-  final String key=RESOURCE_PREFIX + attrs;
+  final String key=makeKey(RESOURCE_PREFIX,attrs);
   Object resourceLink=linkCache.get(key);
   if (resourceLink == null) {
     resourceLink=super.resource(attrs);

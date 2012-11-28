@@ -1,8 +1,8 @@
 {
-  if (map.isEmpty()) {
-    return EMPTY_MAP_STRING;
+  if (map == null || map.isEmpty()) {
+    buffer.append(EMPTY_MAP_STRING);
   }
-  StringBuilder buffer=new StringBuilder(OPENING_BRACKET);
+  buffer.append(OPENING_BRACKET);
   boolean first=true;
   for (  Object o : map.entrySet()) {
     Map.Entry entry=(Map.Entry)o;
@@ -17,5 +17,4 @@
     appendKeyValue(buffer,map,key,value);
   }
   buffer.append(CLOSING_BRACKET);
-  return buffer.toString();
 }

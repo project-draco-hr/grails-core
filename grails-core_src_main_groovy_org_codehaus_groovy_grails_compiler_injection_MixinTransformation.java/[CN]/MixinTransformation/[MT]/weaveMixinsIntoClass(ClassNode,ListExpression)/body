@@ -1,0 +1,32 @@
+{
+  if (values != null) {
+    for (    Expression current : values.getExpressions()) {
+      if (current instanceof ClassExpression) {
+        ClassExpression ce=(ClassExpression)current;
+        ClassNode mixinClassNode=ce.getType();
+        final String fieldName='$' + GrailsNameUtils.getPropertyName(mixinClassNode.getName());
+        GrailsASTUtils.addFieldIfNonExistent(classNode,mixinClassNode,fieldName);
+        VariableExpression fieldReference=new VariableExpression(fieldName);
+        while (!mixinClassNode.getName().equals(OBJECT_CLASS)) {
+          final List<MethodNode> mixinMethods=mixinClassNode.getMethods();
+          for (          MethodNode mixinMethod : mixinMethods) {
+            if (isCandidateMethod(mixinMethod) && !hasDeclaredMethod(classNode,mixinMethod)) {
+              if (mixinMethod.isStatic()) {
+                MethodNode methodNode=GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
+              }
+ else {
+                MethodNode methodNode=GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+              }
+            }
+          }
+          List<PropertyNode> properties=mixinClassNode.getProperties();
+          System.out.println("properties = " + properties);
+          for (          PropertyNode property : properties) {
+            System.out.println("property = " + property);
+          }
+          mixinClassNode=mixinClassNode.getSuperClass();
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  autoAnnotateSetupTeardown(classNode);
   boolean junit3Test=isJunit3Test(classNode);
   FieldNode log=classNode.getField("log");
   if (log == null || log.getDeclaringClass().equals(GROOVY_TEST_CASE_CLASS)) {

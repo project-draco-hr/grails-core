@@ -1,0 +1,5 @@
+{
+  super.initializeTerminal();
+  setConsoleModeHacked(getConsoleModeHacked() | ENABLE_PROCESSED_INPUT | ENABLE_WINDOW_INPUT);
+  fixCtrlC(reader);
+}

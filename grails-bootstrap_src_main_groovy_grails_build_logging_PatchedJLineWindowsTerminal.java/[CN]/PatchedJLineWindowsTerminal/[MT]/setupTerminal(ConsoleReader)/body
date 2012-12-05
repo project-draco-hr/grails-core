@@ -1,0 +1,5 @@
+{
+  final Terminal terminal=new PatchedJLineWindowsTerminal(reader);
+  terminal.initializeTerminal();
+  return terminal;
+}

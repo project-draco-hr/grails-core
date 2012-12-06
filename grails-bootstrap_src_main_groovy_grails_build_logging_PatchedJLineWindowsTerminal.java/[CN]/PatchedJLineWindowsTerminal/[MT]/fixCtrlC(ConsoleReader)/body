@@ -1,0 +1,21 @@
+{
+  if (reader == null) {
+    return;
+  }
+  try {
+    Field f=ConsoleReader.class.getDeclaredField("keybindings");
+    f.setAccessible(true);
+    short[] keybindings=(short[])f.get(reader);
+    if (keybindings[3] == Terminal.INSERT) {
+      keybindings[3]=Terminal.CTRL_C;
+    }
+  }
+ catch (  Exception ignored) {
+  }
+  reader.addTriggeredAction(Terminal.CTRL_C,new ActionListener(){
+    public void actionPerformed(    ActionEvent e){
+      System.exit(0);
+    }
+  }
+);
+}

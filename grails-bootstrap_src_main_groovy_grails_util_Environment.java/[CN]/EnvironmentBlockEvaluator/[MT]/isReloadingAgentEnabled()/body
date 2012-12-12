@@ -1,6 +1,6 @@
 {
   try {
-    Class.forName("com.springsource.loaded.TypeRegistry");
+    Class.forName("org.springsource.loaded.TypeRegistry");
     return true;
   }
  catch (  ClassNotFoundException e) {

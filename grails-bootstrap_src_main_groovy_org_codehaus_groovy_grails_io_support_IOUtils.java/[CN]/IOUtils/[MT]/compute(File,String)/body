@@ -1,0 +1,16 @@
+{
+  InputStream is=new FileInputStream(f);
+  try {
+    MessageDigest md=getMessageDigest(algorithm);
+    md.reset();
+    byte[] buf=new byte[BUFFER_SIZE];
+    int len=0;
+    while ((len=is.read(buf)) != -1) {
+      md.update(buf,0,len);
+    }
+    return md.digest();
+  }
+  finally {
+    is.close();
+  }
+}

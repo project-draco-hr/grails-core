@@ -24,23 +24,23 @@
       addPluginLibs(dir,urls,settings);
     }
   }
-  ResolveReport buildResolveReport=settings.getBuildResolveReport();
+  DependencyReport buildResolveReport=settings.getBuildResolveReport();
   if (buildResolveReport != null && buildResolveReport.hasError()) {
     handleResolveError(settings,buildResolveReport);
   }
-  ResolveReport compileResolveReport=settings.getCompileResolveReport();
+  DependencyReport compileResolveReport=settings.getCompileResolveReport();
   if (compileResolveReport != null && compileResolveReport.hasError()) {
     handleResolveError(settings,compileResolveReport);
   }
-  ResolveReport runtimeResolveReport=settings.getRuntimeResolveReport();
+  DependencyReport runtimeResolveReport=settings.getRuntimeResolveReport();
   if (runtimeResolveReport != null && runtimeResolveReport.hasError()) {
     handleResolveError(settings,runtimeResolveReport);
   }
-  ResolveReport testResolveReport=settings.getTestResolveReport();
+  DependencyReport testResolveReport=settings.getTestResolveReport();
   if (testResolveReport != null && testResolveReport.hasError()) {
     handleResolveError(settings,testResolveReport);
   }
-  ResolveReport providedResolveReport=settings.getProvidedResolveReport();
+  DependencyReport providedResolveReport=settings.getProvidedResolveReport();
   if (providedResolveReport != null && providedResolveReport.hasError()) {
     handleResolveError(settings,providedResolveReport);
   }

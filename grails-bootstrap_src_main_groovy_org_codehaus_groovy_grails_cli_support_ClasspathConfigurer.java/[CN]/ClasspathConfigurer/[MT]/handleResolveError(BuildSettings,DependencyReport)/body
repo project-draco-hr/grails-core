@@ -1,0 +1,7 @@
+{
+  cleanResolveCache(settings);
+  GrailsConsole.getInstance().error(buildResolveReport.getResolveError().getMessage());
+  if (exitOnResolveError) {
+    System.exit(1);
+  }
+}

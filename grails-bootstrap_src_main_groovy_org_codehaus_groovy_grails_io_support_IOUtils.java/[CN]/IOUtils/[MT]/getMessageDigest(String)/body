@@ -1,0 +1,12 @@
+{
+  String mdAlgorithm=(String)algorithms.get(algorithm);
+  if (mdAlgorithm == null) {
+    throw new IllegalArgumentException("unknown algorithm " + algorithm);
+  }
+  try {
+    return MessageDigest.getInstance(mdAlgorithm);
+  }
+ catch (  NoSuchAlgorithmException e) {
+    throw new IllegalArgumentException("unknown algorithm " + algorithm);
+  }
+}

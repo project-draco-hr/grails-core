@@ -1,0 +1,16 @@
+{
+  byte ch=0x00;
+  if (in == null || in.length <= 0) {
+    return null;
+  }
+  StringBuffer out=new StringBuffer(in.length * 2);
+  for (int i=0; i < in.length; i++) {
+    ch=(byte)(in[i] & 0xF0);
+    ch=(byte)(ch >>> 4);
+    ch=(byte)(ch & 0x0F);
+    out.append(CHARS[(int)ch]);
+    ch=(byte)(in[i] & 0x0F);
+    out.append(CHARS[(int)ch]);
+  }
+  return out.toString();
+}

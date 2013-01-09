@@ -1,0 +1,9 @@
+{
+  cleanResolveCache(settings);
+  GrailsConsole grailsConsole=GrailsConsole.getInstance();
+  grailsConsole.error(buildResolveReport.getResolveError().getMessage());
+  grailsConsole.addStatus("Run 'grails dependency-report' for further information.");
+  if (exitOnResolveError) {
+    System.exit(1);
+  }
+}

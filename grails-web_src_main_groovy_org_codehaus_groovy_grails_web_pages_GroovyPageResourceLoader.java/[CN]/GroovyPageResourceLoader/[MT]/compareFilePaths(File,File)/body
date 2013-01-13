@@ -1,0 +1,3 @@
+{
+  return FilenameUtils.normalizeNoEndSeparator(f1.getAbsolutePath()).equals(FilenameUtils.normalizeNoEndSeparator(f2.getAbsolutePath()));
+}

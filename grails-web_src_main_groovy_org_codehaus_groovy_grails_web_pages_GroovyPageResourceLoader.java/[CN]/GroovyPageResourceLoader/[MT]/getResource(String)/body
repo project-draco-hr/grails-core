@@ -17,22 +17,9 @@
       r=super.getResource(pathToResource);
       if (r.exists())       return r;
     }
-    org.codehaus.groovy.grails.io.support.Resource[] inlinePluginDirectories=pluginSettings.getInlinePluginDirectories();
-    for (    org.codehaus.groovy.grails.io.support.Resource inlinePluginDirectory : inlinePluginDirectories) {
-      try {
-        File dirFile=inlinePluginDirectory.getFile();
-        File pageFile=new File(dirFile,pathRelativeToPlugin);
-        if (pageFile.exists()) {
-          return new FileSystemResource(pageFile);
-        }
-        String pathToInlinePluginView=buildPluginViewPathFromBase(dirFile.getAbsolutePath(),pathRelativeToPlugin,new StringBuilder("file:"));
-        Resource resource=super.getResource(pathToInlinePluginView);
-        if (resource.exists()) {
-          return resource;
-        }
-      }
- catch (      IOException e) {
-      }
+    Resource r=findInInlinePlugin(pluginName,pathRelativeToPlugin);
+    if (r != null && r.exists()) {
+      return r;
     }
   }
   Resource resource=super.getResource(location);

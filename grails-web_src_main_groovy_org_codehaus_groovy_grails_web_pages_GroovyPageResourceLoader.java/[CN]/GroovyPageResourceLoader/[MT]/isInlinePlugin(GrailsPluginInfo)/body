@@ -1,0 +1,8 @@
+{
+  for (  org.codehaus.groovy.grails.io.support.Resource pluginDirResource : pluginSettings.getInlinePluginDirectories()) {
+    if (compareFilePaths(pluginDirResource.getFile(),pluginInfo.getPluginDir().getFile())) {
+      return true;
+    }
+  }
+  return false;
+}

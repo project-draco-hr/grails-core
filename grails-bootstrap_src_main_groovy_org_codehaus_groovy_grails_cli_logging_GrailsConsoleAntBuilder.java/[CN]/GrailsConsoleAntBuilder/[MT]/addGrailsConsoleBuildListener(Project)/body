@@ -4,4 +4,13 @@
   logger.setOutputPrintStream(System.out);
   logger.setErrorPrintStream(System.err);
   project.addBuildListener(logger);
+  GrailsConsole instance=GrailsConsole.getInstance();
+  project.addBuildListener(new GrailsConsoleBuildListener(instance));
+  if (!instance.isVerbose()) {
+    for (    Object buildListener : project.getBuildListeners()) {
+      if (buildListener instanceof BuildLogger) {
+        ((BuildLogger)buildListener).setMessageOutputLevel(LogLevel.ERR.getLevel());
+      }
+    }
+  }
 }

@@ -1,0 +1,9 @@
+{
+  resourceLoaders.set(null);
+  pluginManagers.set(null);
+  pluginManagersInCreation.set(null);
+  configs.set(null);
+  if (servletContexts != null) {
+    servletContexts.set(null);
+  }
+}

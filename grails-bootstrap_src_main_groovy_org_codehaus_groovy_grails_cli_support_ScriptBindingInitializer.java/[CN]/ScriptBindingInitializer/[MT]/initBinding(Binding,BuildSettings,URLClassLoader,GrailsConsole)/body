@@ -1,0 +1,44 @@
+{
+  binding.setVariable(GRAILS_CONSOLE,grailsConsole);
+  binding.setVariable(GRAILS_SETTINGS,buildSettings);
+  final File basedir=buildSettings.getBaseDir();
+  final String baseDirPath=basedir.getPath();
+  binding.setVariable(BASEDIR,baseDirPath);
+  binding.setVariable(SCAFFOLD_DIR,baseDirPath + "/web-app/WEB-INF/templates/scaffolding");
+  binding.setVariable(BASE_FILE,basedir);
+  binding.setVariable(BASE_NAME,basedir.getName());
+  binding.setVariable(GRAILS_HOME,(buildSettings.getGrailsHome() != null ? buildSettings.getGrailsHome().getPath() : null));
+  binding.setVariable(GRAILS_VERSION,buildSettings.getGrailsVersion());
+  binding.setVariable(USER_HOME,buildSettings.getUserHome());
+  binding.setVariable(GRAILS_ENV,buildSettings.getGrailsEnv());
+  binding.setVariable("defaultEnv",buildSettings.getDefaultEnv());
+  binding.setVariable("buildConfig",buildSettings.getConfig());
+  binding.setVariable("rootLoader",buildSettings.getRootLoader());
+  binding.setVariable("configFile",buildSettings.getConfigFile());
+  String grailsWork=buildSettings.getGrailsWorkDir().getPath();
+  binding.setVariable("grailsWorkDir",grailsWork);
+  binding.setVariable("projectWorkDir",buildSettings.getProjectWorkDir().getPath());
+  binding.setVariable("projectTargetDir",buildSettings.getProjectTargetDir());
+  binding.setVariable("classesDir",buildSettings.getClassesDir());
+  binding.setVariable("pluginClassesDir",buildSettings.getPluginClassesDir());
+  binding.setVariable("grailsTmp",grailsWork + "/tmp");
+  binding.setVariable("classesDirPath",buildSettings.getClassesDir().getPath());
+  binding.setVariable("pluginClassesDirPath",buildSettings.getPluginClassesDir().getPath());
+  binding.setVariable("testDirPath",buildSettings.getTestClassesDir().getPath());
+  final String resourcesDir=buildSettings.getResourcesDir().getPath();
+  binding.setVariable("resourcesDirPath",resourcesDir);
+  binding.setVariable("webXmlFile",buildSettings.getWebXmlLocation());
+  binding.setVariable("pluginsDirPath",buildSettings.getProjectPluginsDir().getPath());
+  binding.setVariable("globalPluginsDirPath",buildSettings.getGlobalPluginsDir().getPath());
+  GroovyClassLoader eventsClassLoader=new GroovyClassLoader(classLoader);
+  GrailsBuildEventListener buildEventListener=new GrailsBuildEventListener(eventsClassLoader,binding,buildSettings);
+  binding.setVariable("eventsClassLoader",eventsClassLoader);
+  binding.setVariable("eventListener",buildEventListener);
+  if (binding instanceof GantBinding) {
+    ((GantBinding)binding).addBuildListener(buildEventListener);
+  }
+  final BaseSettingsApi cla=new BaseSettingsApi(buildSettings,buildEventListener,false);
+  cla.makeApiAvailableToScripts(binding,cla);
+  cla.makeApiAvailableToScripts(binding,cla.getPluginSettings());
+  return cla;
+}

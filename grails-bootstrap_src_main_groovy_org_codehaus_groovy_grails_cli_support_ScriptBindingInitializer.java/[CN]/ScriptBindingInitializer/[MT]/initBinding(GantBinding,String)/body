@@ -4,7 +4,7 @@
   c.setDelegate(binding);
   @SuppressWarnings("rawtypes") Map argsMap=new LinkedHashMap(commandLine.getUndeclaredOptions());
   argsMap.put("params",commandLine.getRemainingArgs());
-  binding.setVariable("argsMap",argsMap);
+  binding.setVariable(ARGS_MAP,argsMap);
   binding.setVariable("args",commandLine.getRemainingArgsLineSeparated());
   binding.setVariable(GRAILS_SCRIPT,c);
   URLClassLoader classLoader=this.classLoader;

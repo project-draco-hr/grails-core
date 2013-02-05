@@ -1,0 +1,8 @@
+{
+  criterionAdaptors.put(clazz,new CriterionAdaptor(){
+    @Override public org.hibernate.criterion.Criterion toHibernateCriterion(    HibernateQuery hibernateQuery,    Query.Criterion criterion,    String alias){
+      return callRestrictionsMethod(constraintName,new Class[]{String.class,String.class},new Object[]{getPropertyName(criterion,alias),((Query.PropertyComparisonCriterion)criterion).getOtherProperty()});
+    }
+  }
+);
+}

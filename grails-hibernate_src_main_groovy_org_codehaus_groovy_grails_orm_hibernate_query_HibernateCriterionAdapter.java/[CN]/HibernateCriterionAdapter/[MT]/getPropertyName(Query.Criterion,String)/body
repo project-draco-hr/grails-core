@@ -1,0 +1,3 @@
+{
+  return calculatePropertyName(((Query.PropertyNameCriterion)criterion).getProperty(),alias);
+}

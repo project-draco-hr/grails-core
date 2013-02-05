@@ -1,4 +1,5 @@
 {
+  verifySystemOut();
   if (msg == null || msg.trim().length() == 0)   return;
   try {
     if (isAnsiEnabled()) {

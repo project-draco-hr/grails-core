@@ -1,8 +1,10 @@
 {
   cursorMove=1;
-  out=new PrintStream(ansiWrap(System.out));
+  originalSystemOut=System.out;
+  originalSystemErr=System.err;
+  out=new PrintStream(ansiWrap(originalSystemOut));
   System.setOut(new GrailsConsolePrintStream(out));
-  System.setErr(new GrailsConsoleErrorPrintStream(ansiWrap(System.err)));
+  System.setErr(new GrailsConsoleErrorPrintStream(ansiWrap(originalSystemErr)));
   if (isInteractiveEnabled()) {
     reader=createConsoleReader();
     reader.setBellEnabled(false);

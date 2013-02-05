@@ -1,4 +1,5 @@
 {
+  verifySystemOut();
   cursorMove=0;
   if (!userInputActive) {
     return readLine(prompt,false);

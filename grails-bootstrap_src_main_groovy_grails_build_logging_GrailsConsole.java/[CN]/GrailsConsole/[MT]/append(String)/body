@@ -1,4 +1,5 @@
 {
+  verifySystemOut();
   PrintStream printStream=out;
   try {
     if (userInputActive && !appendCalled) {

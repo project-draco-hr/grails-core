@@ -1,0 +1,17 @@
+{
+  criterionAdaptors.put(clazz,new CriterionAdaptor(){
+    @Override public org.hibernate.criterion.Criterion toHibernateCriterion(    HibernateQuery hibernateQuery,    Query.Criterion criterion,    String alias){
+      Query.PropertyCriterion propertyCriterion=(Query.PropertyCriterion)criterion;
+      Object value=propertyCriterion.getValue();
+      String propertyName=getPropertyName(criterion,alias);
+      if (value instanceof DetachedCriteria) {
+        Method propertyMethod=ReflectionUtils.findMethod(Property.class,constraintName,new Class[]{DetachedCriteria.class});
+        if (propertyMethod != null) {
+          return (Criterion)ReflectionUtils.invokeMethod(propertyMethod,Property.forName(propertyName),new Object[]{value});
+        }
+      }
+      return callRestrictionsMethod(constraintName,new Class[]{String.class,valueClass},new Object[]{propertyName,value});
+    }
+  }
+);
+}

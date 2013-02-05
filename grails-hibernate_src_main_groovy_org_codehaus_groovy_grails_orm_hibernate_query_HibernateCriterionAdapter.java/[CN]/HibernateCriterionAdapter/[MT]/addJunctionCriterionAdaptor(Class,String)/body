@@ -1,0 +1,10 @@
+{
+  criterionAdaptors.put(clazz,new CriterionAdaptor(){
+    @Override public org.hibernate.criterion.Criterion toHibernateCriterion(    HibernateQuery hibernateQuery,    Query.Criterion criterion,    String alias){
+      Junction junction=(Junction)callRestrictionsMethod(constraintName,new Class[0],new Object[0]);
+      applySubCriteriaToJunction(hibernateQuery.getEntity(),hibernateQuery,((Query.Junction)criterion).getCriteria(),junction,alias);
+      return junction;
+    }
+  }
+);
+}

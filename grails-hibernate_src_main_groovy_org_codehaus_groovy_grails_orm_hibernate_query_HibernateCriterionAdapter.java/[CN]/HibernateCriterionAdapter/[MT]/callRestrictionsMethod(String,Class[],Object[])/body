@@ -1,0 +1,5 @@
+{
+  final Method restrictionsMethod=ReflectionUtils.findMethod(Restrictions.class,constraintName,paramTypes);
+  Assert.notNull(restrictionsMethod,"Could not find method: " + constraintName + " in class Restrictions for parameters: "+ ArrayUtils.toString(params)+ " with types: "+ ArrayUtils.toString(paramTypes));
+  return (Criterion)ReflectionUtils.invokeMethod(restrictionsMethod,null,params);
+}

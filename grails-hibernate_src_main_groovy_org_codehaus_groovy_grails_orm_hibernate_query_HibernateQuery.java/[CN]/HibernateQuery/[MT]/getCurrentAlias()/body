@@ -1,0 +1,13 @@
+{
+  if (alias != null) {
+    return alias;
+  }
+ else {
+    if (!aliasStack.isEmpty()) {
+      return aliasStack.getLast();
+    }
+ else {
+      return null;
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  if (!entityStack.isEmpty()) {
+    return entityStack.getLast();
+  }
+  return super.getEntity();
+}

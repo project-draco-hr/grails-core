@@ -1,0 +1,10 @@
+{
+  StringBuilder fullPath=new StringBuilder();
+  for (Iterator<Association> iterator=associationStack.iterator(); iterator.hasNext(); ) {
+    Association association=iterator.next();
+    fullPath.append(association.getName());
+    fullPath.append('.');
+  }
+  fullPath.append(propertyName);
+  return fullPath.toString();
+}

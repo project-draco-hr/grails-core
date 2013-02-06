@@ -1,5 +1,11 @@
 {
   if (criterion != null) {
-    criteria.add(criterion);
+    if (!aliasInstanceStack.isEmpty()) {
+      Criteria c=aliasInstanceStack.getLast();
+      c.add(criterion);
+    }
+ else {
+      criteria.add(criterion);
+    }
   }
 }

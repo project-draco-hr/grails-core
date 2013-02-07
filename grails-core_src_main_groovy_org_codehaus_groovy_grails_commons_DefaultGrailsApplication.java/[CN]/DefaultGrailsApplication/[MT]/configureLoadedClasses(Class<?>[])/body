@@ -5,8 +5,12 @@
   allArtefactClassesArray=null;
   allClasses=classes;
   log.debug("Going to inspect artefact classes.");
+  boolean warDeployed=Environment.isWarDeployed();
   for (  final Class<?> theClass : classes) {
     log.debug("Inspecting [" + theClass.getName() + "]");
+    if (!warDeployed) {
+      GroovySystem.getMetaClassRegistry().removeMetaClass(theClass);
+    }
     if (allArtefactClasses.contains(theClass)) {
       continue;
     }

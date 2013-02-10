@@ -1,0 +1,8 @@
+{
+  for (  GrailsDomainClassProperty property : persistentProperties) {
+    PropertyConfig propConf=mapping.getPropertyConfig(property.getName());
+    if (propConf != null && propConf.getCascade() != null) {
+      property.setExplicitSaveUpdateCascade(isSaveUpdateCascade(propConf.getCascade()));
+    }
+  }
+}

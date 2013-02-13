@@ -29,6 +29,7 @@
           }
         }
       }
+      trackCustomCascadingSaves(m,domainClass.getPersistentProperties());
       if (cache) {
         MAPPING_CACHE.put(domainClass.getClazz(),m);
       }

@@ -12,6 +12,7 @@
   if (classNode.isInterface()) {
     throw new RuntimeException("Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
   }
+  autoAnnotateSetupTeardown(classNode);
   ListExpression values=getListOfClasses(node);
   weaveMixinsIntoClass(classNode,values);
 }

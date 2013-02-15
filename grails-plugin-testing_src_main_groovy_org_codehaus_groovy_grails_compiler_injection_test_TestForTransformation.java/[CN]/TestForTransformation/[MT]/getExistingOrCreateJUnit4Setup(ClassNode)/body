@@ -1,0 +1,9 @@
+{
+  Statement code=getExistingJUnit4BeforeMethod(classNode);
+  if (code instanceof BlockStatement) {
+    return (BlockStatement)code;
+  }
+ else {
+    return getJunit4Setup(classNode);
+  }
+}

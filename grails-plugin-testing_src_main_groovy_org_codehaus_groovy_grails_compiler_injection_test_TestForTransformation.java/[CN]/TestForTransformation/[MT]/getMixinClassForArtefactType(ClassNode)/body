@@ -1,0 +1,12 @@
+{
+  String className=classNode.getName();
+  for (  String artefactType : artefactTypeToTestMap.keySet()) {
+    if (className.endsWith(artefactType)) {
+      Class mixinClass=artefactTypeToTestMap.get(artefactType);
+      if (mixinClass != null) {
+        return mixinClass;
+      }
+    }
+  }
+  return null;
+}

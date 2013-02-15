@@ -17,9 +17,22 @@
     error(source,"Error processing class '" + cName + "'. "+ MY_TYPE_NAME+ " annotation expects a class or a list of classes to mock");
     return;
   }
+  List<ClassExpression> domainClassNodes=new ArrayList<ClassExpression>();
   for (  Expression expression : values.getExpressions()) {
     if (expression instanceof ClassExpression) {
-      weaveMock(classNode,(ClassExpression)expression,false);
+      ClassExpression classEx=(ClassExpression)expression;
+      ClassNode cn=classEx.getType();
+      Class mixinClassForArtefactType=getMixinClassForArtefactType(cn);
+      if (mixinClassForArtefactType != null) {
+        weaveMock(classNode,classEx,false);
+      }
+ else {
+        domainClassNodes.add(classEx);
+      }
     }
+  }
+  if (!domainClassNodes.isEmpty()) {
+    weaveMixinClass(classNode,DomainClassUnitTestMixin.class);
+    addMockCollaborators(classNode,"Domain",domainClassNodes);
   }
 }

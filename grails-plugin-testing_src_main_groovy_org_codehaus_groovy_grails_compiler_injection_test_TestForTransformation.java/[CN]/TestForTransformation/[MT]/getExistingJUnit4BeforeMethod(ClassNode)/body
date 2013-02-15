@@ -1,0 +1,10 @@
+{
+  Statement code=null;
+  Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();
+  for (  MethodNode methodNode : declaredMethodsMap.values()) {
+    if (isDeclaredBeforeMethod(methodNode)) {
+      code=getMethodBody(methodNode);
+    }
+  }
+  return code;
+}

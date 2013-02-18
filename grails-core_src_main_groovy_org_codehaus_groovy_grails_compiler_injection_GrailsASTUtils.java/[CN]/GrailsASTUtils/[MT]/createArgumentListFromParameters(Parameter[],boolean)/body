@@ -4,7 +4,7 @@
     arguments.addExpression(AbstractGrailsArtefactTransformer.THIS_EXPRESSION);
   }
   for (  Parameter parameterType : parameterTypes) {
-    arguments.addExpression(new VariableExpression(parameterType.getName()));
+    arguments.addExpression(new VariableExpression(parameterType.getName(),nonGeneric(parameterType.getType())));
   }
   return arguments;
 }

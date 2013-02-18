@@ -26,7 +26,8 @@
     }
     public void onNew(    File file){
       LOG.info("File [" + file + "] added. Applying changes to application.");
-      if (!file.getName().toLowerCase().endsWith(".properties")) {
+      String fileName=file.getName();
+      if (fileName.endsWith(".groovy") || fileName.endsWith(".java")) {
         sleep(5000);
       }
       compileIfSource(file);

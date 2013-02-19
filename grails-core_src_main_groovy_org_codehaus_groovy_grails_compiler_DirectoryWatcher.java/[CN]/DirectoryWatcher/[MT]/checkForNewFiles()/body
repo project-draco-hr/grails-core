@@ -2,6 +2,10 @@
   for (  File directory : directoryWatch.keySet()) {
     final Long currentTimestamp=directoryWatch.get(directory);
     if (currentTimestamp < directory.lastModified()) {
+      Collection<String> extensions=directoryToExtensionsMap.get(directory);
+      if (extensions == null) {
+        extensions=this.extensions;
+      }
       cacheFilesForDirectory(directory,extensions,true);
     }
   }

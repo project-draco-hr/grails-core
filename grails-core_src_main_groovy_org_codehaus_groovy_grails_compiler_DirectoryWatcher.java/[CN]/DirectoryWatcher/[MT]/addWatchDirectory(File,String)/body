@@ -7,5 +7,6 @@
  else {
     fileExtensions.add(extension);
   }
+  trackDirectoryExtensions(dir,fileExtensions);
   cacheFilesForDirectory(dir,fileExtensions,false);
 }

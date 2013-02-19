@@ -1,0 +1,9 @@
+{
+  Collection<String> existingExtensions=directoryToExtensionsMap.get(dir);
+  if (existingExtensions == null) {
+    directoryToExtensionsMap.put(dir,fileExtensions);
+  }
+ else {
+    existingExtensions.addAll(fileExtensions);
+  }
+}

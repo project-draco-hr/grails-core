@@ -16,7 +16,8 @@
       List<AnnotationNode> existingTestAnnotations=methodNode.getAnnotations(testAnnotationClassNode);
       if (isCandidateMethod(methodNode) && (methodNode.getName().startsWith("test") || existingTestAnnotations.size() > 0)) {
         if (existingTestAnnotations.size() == 0) {
-          methodNode.addAnnotation(TEST_ANNOTATION);
+          ClassNode returnType=methodNode.getReturnType();
+          if (returnType.getName().equals(VOID_TYPE))           methodNode.addAnnotation(TEST_ANNOTATION);
         }
         hasTestMethods=true;
       }

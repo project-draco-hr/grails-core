@@ -1,0 +1,37 @@
+{
+  SessionFactory currentDataStoreSessionFactory=((HibernateDatastore)datastore).getSessionFactory();
+  ApplicationContext applicationContext=datastore.getApplicationContext();
+  Mapping mapping=GrailsDomainBinder.getMapping(entity.getClass());
+  List<String> dataSourceNames=null;
+  if (mapping == null) {
+    GrailsApplication grailsApplication=applicationContext.getBean("grailsApplication",GrailsApplication.class);
+    GrailsDomainClass dc=(GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,entity.getClass().getName());
+    if (dc != null) {
+      dataSourceNames=GrailsHibernateUtil.getDatasourceNames(dc);
+    }
+  }
+ else {
+    dataSourceNames=mapping.getDatasources();
+  }
+  if (dataSourceNames == null) {
+    return false;
+  }
+  for (  String dataSource : dataSourceNames) {
+    if (GrailsDomainClassProperty.ALL_DATA_SOURCES.equals(dataSource)) {
+      return true;
+    }
+    boolean isDefault=dataSource.equals(GrailsDomainClassProperty.DEFAULT_DATA_SOURCE);
+    String suffix=isDefault ? "" : "_" + dataSource;
+    String sessionFactoryBeanName="sessionFactory" + suffix;
+    if (applicationContext.containsBean(sessionFactoryBeanName)) {
+      SessionFactory sessionFactory=applicationContext.getBean(sessionFactoryBeanName,SessionFactory.class);
+      if (currentDataStoreSessionFactory == sessionFactory) {
+        return true;
+      }
+    }
+ else {
+      log.warn("Cannot resolve SessionFactory for dataSource {} and entity {}",new Object[]{dataSource,entity.getClass().getName()});
+    }
+  }
+  return false;
+}

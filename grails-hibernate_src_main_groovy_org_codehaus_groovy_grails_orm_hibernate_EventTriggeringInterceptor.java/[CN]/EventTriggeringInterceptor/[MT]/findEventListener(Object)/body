@@ -11,7 +11,7 @@
 synchronized (clazz) {
       eventListener=eventListeners.get(key);
       if (eventListener == null) {
-        shouldTrigger=(entity != null && (GroovySystem.getMetaClassRegistry().getMetaClass(entity.getClass()) != null) && (DomainClassArtefactHandler.isDomainClass(clazz) || AnnotationDomainClassArtefactHandler.isJPADomainClass(clazz)));
+        shouldTrigger=(GroovySystem.getMetaClassRegistry().getMetaClass(entity.getClass()) != null && (DomainClassArtefactHandler.isDomainClass(clazz) || AnnotationDomainClassArtefactHandler.isJPADomainClass(clazz)) && isDefinedByCurrentDataStore(entity));
         if (shouldTrigger) {
           eventListener=new ClosureEventListener(clazz,failOnError,failOnErrorPackages);
           ClosureEventListener previous=eventListeners.putIfAbsent(key,eventListener);

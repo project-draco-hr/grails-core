@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("hiding") GrailsConsole console=GrailsConsole.getInstance();
+  GrailsConsole console=GrailsConsole.getInstance();
   console.addStatus("Script '" + scriptName + "' not found, did you mean:");
   int i=0;
   for (  String s : topMatches) {

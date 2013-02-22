@@ -1,9 +1,10 @@
 {
-  if (dir.exists()) {
-    for (    File file : dir.listFiles()) {
-      if (scriptFilePattern.matcher(file.getName()).matches()) {
-        scripts.add(file);
-      }
+  if (!dir.exists()) {
+    return;
+  }
+  for (  File file : dir.listFiles()) {
+    if (scriptFilePattern.matcher(file.getName()).matches()) {
+      scripts.add(file);
     }
   }
 }

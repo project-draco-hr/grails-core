@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("hiding") int cursorMove=this.cursorMove;
+  int cursorMove=this.cursorMove;
   if (userInputActive)   cursorMove++;
   if (cursorMove > 0) {
     int moveLeftLength=categoryName.length() + lastMessage.length();

@@ -8,9 +8,9 @@
     ch=(byte)(in[i] & 0xF0);
     ch=(byte)(ch >>> 4);
     ch=(byte)(ch & 0x0F);
-    out.append(CHARS[(int)ch]);
+    out.append(CHARS[ch]);
     ch=(byte)(in[i] & 0x0F);
-    out.append(CHARS[(int)ch]);
+    out.append(CHARS[ch]);
   }
   return out.toString();
 }

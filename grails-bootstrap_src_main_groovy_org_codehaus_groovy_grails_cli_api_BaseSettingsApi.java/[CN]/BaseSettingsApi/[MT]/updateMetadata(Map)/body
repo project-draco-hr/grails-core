@@ -1,4 +1,3 @@
 {
-  @SuppressWarnings("hiding") Metadata metadata=Metadata.getCurrent();
-  updateMetadata(metadata,entries);
+  updateMetadata(Metadata.getCurrent(),entries);
 }

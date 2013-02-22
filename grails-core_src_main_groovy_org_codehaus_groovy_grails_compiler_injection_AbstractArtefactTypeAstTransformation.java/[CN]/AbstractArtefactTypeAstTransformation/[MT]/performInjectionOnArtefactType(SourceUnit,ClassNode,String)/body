@@ -1,11 +1,8 @@
 {
   try {
-    ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
-    List<ClassInjector> injectors=ArtefactTypeAstTransformation.findInjectors(artefactType,classInjectors);
-    if (!injectors.isEmpty()) {
-      for (      ClassInjector injector : injectors) {
-        injector.performInjection(sourceUnit,cNode);
-      }
+    List<ClassInjector> injectors=ArtefactTypeAstTransformation.findInjectors(artefactType,GrailsAwareInjectionOperation.getClassInjectors());
+    for (    ClassInjector injector : injectors) {
+      injector.performInjection(sourceUnit,cNode);
     }
   }
  catch (  RuntimeException e) {

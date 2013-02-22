@@ -1,20 +1,18 @@
 {
-  if (pluginManager != null && localResourceLoader != null) {
-    GrailsPlugin[] plugins=pluginManager.getAllPlugins();
-    for (    GrailsPlugin plugin : plugins) {
-      Resource[] pluginBundles;
-      pluginBundles=getPluginBundles(plugin);
-      for (      Resource pluginBundle : pluginBundles) {
-        String basePath=null;
-        final String baseName=StringUtils.substringBefore(FilenameUtils.getBaseName(pluginBundle.getFilename()),"_");
-        if (isInlinePlugin(plugin)) {
-          basePath=getInlinePluginPath(plugin);
-        }
- else {
-          basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
-        }
-        pluginBaseNames.add(basePath + "/grails-app/i18n/" + baseName);
+  if (pluginManager == null || localResourceLoader == null) {
+    return;
+  }
+  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+    for (    Resource pluginBundle : getPluginBundles(plugin)) {
+      String basePath;
+      if (isInlinePlugin(plugin)) {
+        basePath=getInlinePluginPath(plugin);
       }
+ else {
+        basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
+      }
+      final String baseName=StringUtils.substringBefore(FilenameUtils.getBaseName(pluginBundle.getFilename()),"_");
+      pluginBaseNames.add(basePath + "/grails-app/i18n/" + baseName);
     }
   }
 }

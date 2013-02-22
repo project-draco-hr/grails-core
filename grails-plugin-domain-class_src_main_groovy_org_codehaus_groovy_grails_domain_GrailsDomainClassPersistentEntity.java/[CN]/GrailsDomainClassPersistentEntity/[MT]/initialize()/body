@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("hiding") final GrailsDomainClassProperty identifier=domainClass.getIdentifier();
+  final GrailsDomainClassProperty identifier=domainClass.getIdentifier();
   if (identifier != null) {
     this.identifier=new GrailsDomainClassPersistentProperty(this,identifier);
   }

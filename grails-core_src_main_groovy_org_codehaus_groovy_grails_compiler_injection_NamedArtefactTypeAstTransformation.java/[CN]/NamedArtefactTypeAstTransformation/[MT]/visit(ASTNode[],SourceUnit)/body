@@ -1,6 +1,5 @@
 {
-  List<ClassNode> classes=source.getAST().getClasses();
-  for (  ClassNode aClass : classes) {
-    performInjectionOnArtefactType(source,aClass,artefactType);
+  for (  ClassNode node : source.getAST().getClasses()) {
+    performInjectionOnArtefactType(source,node,artefactType);
   }
 }

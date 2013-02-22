@@ -1,6 +1,6 @@
 {
   try {
-    String basePath=null;
+    String basePath;
     if (isInlinePlugin(grailsPlugin)) {
       basePath=getInlinePluginPath(grailsPlugin);
     }

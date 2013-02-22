@@ -12,10 +12,10 @@
           for (          MethodNode mixinMethod : mixinMethods) {
             if (isCandidateMethod(mixinMethod) && !hasDeclaredMethod(classNode,mixinMethod)) {
               if (mixinMethod.isStatic()) {
-                MethodNode methodNode=GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
+                GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
               }
  else {
-                MethodNode methodNode=GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+                GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
               }
             }
           }

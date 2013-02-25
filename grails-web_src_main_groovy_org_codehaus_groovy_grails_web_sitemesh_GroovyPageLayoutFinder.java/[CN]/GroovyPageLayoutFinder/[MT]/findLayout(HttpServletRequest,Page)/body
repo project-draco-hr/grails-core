@@ -4,7 +4,7 @@
   }
   final Object layoutAttribute=request.getAttribute(LAYOUT_ATTRIBUTE);
   if (request.getAttribute(RENDERING_VIEW_ATTRIBUTE) != null || layoutAttribute != null) {
-    String layoutName=layoutAttribute != null ? layoutAttribute.toString() : null;
+    String layoutName=layoutAttribute == null ? null : layoutAttribute.toString();
     if (layoutName == null) {
       layoutName=page.getProperty("meta.layout");
     }

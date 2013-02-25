@@ -22,7 +22,7 @@
     if (expression instanceof ClassExpression) {
       ClassExpression classEx=(ClassExpression)expression;
       ClassNode cn=classEx.getType();
-      Class mixinClassForArtefactType=getMixinClassForArtefactType(cn);
+      Class<?> mixinClassForArtefactType=getMixinClassForArtefactType(cn);
       if (mixinClassForArtefactType != null) {
         weaveMock(classNode,classEx,false);
       }

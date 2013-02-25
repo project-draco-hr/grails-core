@@ -25,7 +25,7 @@
     associationStack.add(association);
     entityStack.add(association.getAssociatedEntity());
     try {
-      List<Criterion> associationCriteriaList=associationCriteria.getCriteria();
+      @SuppressWarnings("unchecked") List<Criterion> associationCriteriaList=associationCriteria.getCriteria();
       for (      Criterion c : associationCriteriaList) {
         add(c);
       }

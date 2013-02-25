@@ -1,5 +1,5 @@
 {
-  Map modelMap=(Map)modelObject;
+  Map modelMap=modelObject;
   webRequest.setAttribute(GrailsApplicationAttributes.TEMPLATE_MODEL,modelMap,RequestAttributes.SCOPE_REQUEST);
   binding.putAll(modelMap);
 }

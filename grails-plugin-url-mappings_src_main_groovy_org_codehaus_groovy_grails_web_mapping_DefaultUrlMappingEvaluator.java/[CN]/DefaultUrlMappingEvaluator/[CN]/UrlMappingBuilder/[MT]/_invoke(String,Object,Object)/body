@@ -11,11 +11,11 @@
         Closure callable=(Closure)args[0];
         if (delegate != null)         callable.setDelegate(delegate);
         callable.call();
-        @SuppressWarnings("hiding") Object controllerName;
-        @SuppressWarnings("hiding") Object actionName;
-        @SuppressWarnings("hiding") Object pluginName;
-        @SuppressWarnings("hiding") Object viewName;
-        @SuppressWarnings("hiding") Object uri;
+        Object controllerName;
+        Object actionName;
+        Object pluginName;
+        Object viewName;
+        Object uri;
         if (binding != null) {
           controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
           actionName=binding.getVariables().get(GrailsControllerClass.ACTION);

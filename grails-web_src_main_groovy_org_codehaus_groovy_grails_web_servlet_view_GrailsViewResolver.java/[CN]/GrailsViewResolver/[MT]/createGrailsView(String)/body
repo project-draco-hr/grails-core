@@ -5,7 +5,7 @@
   if (grailsApplication == null) {
     grailsApplication=getApplicationContext().getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
   }
-  GroovyPageScriptSource scriptSource=null;
+  GroovyPageScriptSource scriptSource;
   if (controller == null) {
     scriptSource=groovyPageLocator.findViewByPath(viewName);
   }

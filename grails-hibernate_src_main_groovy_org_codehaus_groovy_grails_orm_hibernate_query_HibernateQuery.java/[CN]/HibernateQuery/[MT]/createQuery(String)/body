@@ -1,7 +1,7 @@
 {
   final PersistentProperty property=entity.getPropertyByName(calculatePropertyName(associationName));
   if (property != null && (property instanceof Association)) {
-    @SuppressWarnings("hiding") String alias=generateAlias(associationName);
+    String alias=generateAlias(associationName);
     CriteriaAndAlias subCriteria=getOrCreateAlias(associationName,alias);
     Association association=(Association)property;
     return new HibernateAssociationQuery(subCriteria.criteria,(HibernateSession)getSession(),association.getAssociatedEntity(),association,alias);

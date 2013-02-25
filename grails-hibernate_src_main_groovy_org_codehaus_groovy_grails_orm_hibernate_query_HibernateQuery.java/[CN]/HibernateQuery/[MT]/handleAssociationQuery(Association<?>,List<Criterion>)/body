@@ -1,4 +1,3 @@
 {
-  CriteriaAndAlias criteriaAndAlias=getCriteriaAndAlias(association);
-  return criteriaAndAlias.alias;
+  return getCriteriaAndAlias(association).alias;
 }

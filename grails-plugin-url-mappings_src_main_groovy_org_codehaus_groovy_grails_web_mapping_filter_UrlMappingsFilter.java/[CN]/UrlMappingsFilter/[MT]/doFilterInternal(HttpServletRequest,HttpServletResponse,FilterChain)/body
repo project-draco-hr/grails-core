@@ -16,7 +16,7 @@
   if (areFileExtensionsEnabled()) {
     String format=WebUtils.getFormatFromURI(uri,mimeTypes);
     if (format != null) {
-      MimeType[] configuredMimes=mimeTypes != null ? mimeTypes : MimeType.getConfiguredMimeTypes();
+      MimeType[] configuredMimes=mimeTypes == null ? MimeType.getConfiguredMimeTypes() : mimeTypes;
       for (      MimeType configuredMime : configuredMimes) {
         if (configuredMime.getExtension().equals(format)) {
           request.setAttribute(GrailsApplicationAttributes.RESPONSE_FORMAT,format);

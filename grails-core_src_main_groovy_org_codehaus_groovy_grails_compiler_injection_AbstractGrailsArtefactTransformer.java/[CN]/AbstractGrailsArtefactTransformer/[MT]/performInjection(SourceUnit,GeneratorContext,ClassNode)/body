@@ -1,4 +1,5 @@
 {
+  if (classNode instanceof InnerClassNode)   return;
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {
     ClassNode implementationNode=new ClassNode(instanceImplementation);

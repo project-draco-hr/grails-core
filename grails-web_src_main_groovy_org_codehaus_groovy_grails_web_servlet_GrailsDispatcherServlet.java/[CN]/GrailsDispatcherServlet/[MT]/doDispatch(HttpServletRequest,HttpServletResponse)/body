@@ -26,8 +26,11 @@
         processedRequest=checkMultipart(request);
       }
       previousRequestAttributes=RequestContextHolder.currentRequestAttributes();
+      GrailsWebRequest previousWebRequest=GrailsWebRequest.lookup(request);
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
-      copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
+      if (previousWebRequest != null) {
+        copyParamsFromPreviousRequest(previousWebRequest,requestAttributes);
+      }
       WebUtils.storeGrailsWebRequest(requestAttributes);
       if (logger.isDebugEnabled()) {
         logger.debug("Bound request context to thread: " + request);

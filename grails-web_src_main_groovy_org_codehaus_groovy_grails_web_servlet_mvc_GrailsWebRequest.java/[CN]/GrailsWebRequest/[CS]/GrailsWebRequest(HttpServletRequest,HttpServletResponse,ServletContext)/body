@@ -1,5 +1,5 @@
 {
-  super(request);
+  targetWebRequest=new DispatcherServletWebRequest(request,response);
   attributes=new DefaultGrailsApplicationAttributes(servletContext);
   this.response=response;
 }

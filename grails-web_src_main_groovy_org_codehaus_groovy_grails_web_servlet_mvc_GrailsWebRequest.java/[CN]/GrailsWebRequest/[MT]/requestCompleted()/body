@@ -1,4 +1,5 @@
 {
-  super.requestCompleted();
+  this.active=false;
+  targetWebRequest.requestCompleted();
   DeferredBindingActions.clear();
 }

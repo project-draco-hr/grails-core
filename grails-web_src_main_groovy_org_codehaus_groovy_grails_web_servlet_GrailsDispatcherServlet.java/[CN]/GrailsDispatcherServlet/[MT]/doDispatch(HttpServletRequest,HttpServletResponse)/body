@@ -26,10 +26,9 @@
         processedRequest=checkMultipart(request);
       }
       previousRequestAttributes=RequestContextHolder.currentRequestAttributes();
-      GrailsWebRequest previousWebRequest=GrailsWebRequest.lookup(request);
       requestAttributes=new GrailsWebRequest(processedRequest,response,getServletContext());
-      if (previousWebRequest != null) {
-        copyParamsFromPreviousRequest(previousWebRequest,requestAttributes);
+      if (previousRequestAttributes != null) {
+        copyParamsFromPreviousRequest(previousRequestAttributes,requestAttributes);
       }
       WebUtils.storeGrailsWebRequest(requestAttributes);
       if (logger.isDebugEnabled()) {

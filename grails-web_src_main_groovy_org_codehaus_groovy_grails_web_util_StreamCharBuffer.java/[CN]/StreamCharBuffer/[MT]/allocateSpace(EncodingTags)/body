@@ -1,0 +1,7 @@
+{
+  int spaceLeft=allocBuffer.spaceLeft(tags);
+  if (spaceLeft == 0) {
+    spaceLeft=appendCharBufferChunk(tags,true,true);
+  }
+  return spaceLeft;
+}

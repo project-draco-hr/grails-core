@@ -1,5 +1,5 @@
 {
   super(clazz,CODEC);
-  encodeMethod=getMethodOrClosureMethod("encode");
-  decodeMethod=getMethodOrClosureMethod("decode");
+  encodeMethod=getMethodOrClosureMethod(clazz,"encode");
+  decodeMethod=getMethodOrClosureMethod(clazz,"decode");
 }

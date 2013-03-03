@@ -1,5 +1,5 @@
 {
   markUsed();
-  allocateSpace();
+  allocateSpace(null);
   allocBuffer.write((char)b);
 }

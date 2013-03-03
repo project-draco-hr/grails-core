@@ -1,14 +1,26 @@
 {
   if (firstChunk == lastChunk && firstChunk instanceof StringChunk && allocBuffer.charsUsed() == 0 && ((StringChunk)firstChunk).isSingleBuffer()) {
-    return ((StringChunk)firstChunk).str;
+    StringChunk strChunk=((StringChunk)firstChunk);
+    return strChunk.str;
   }
   int initialReaderCount=readerCount;
+  EncodingTags tags=null;
+  if (firstChunk != null) {
+    tags=firstChunk.getTags();
+  }
+ else {
+    tags=allocBuffer.getTags();
+  }
   String str=readAsString();
   if (initialReaderCount == 0) {
     reset();
     if (str.length() > 0) {
-      addChunk(new StringChunk(str,0,str.length()));
+      addChunk(new StringChunk(str,0,str.length())).setTags(tags);
     }
+  }
+  if (tags != null) {
+    Encoder encoder=tags.getFirstEncoder();
+    if (encoder != null)     encoder.markEncoded(str);
   }
   return str;
 }

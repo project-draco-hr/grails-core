@@ -1,22 +1,5 @@
 {
-  if (len == 0)   return;
-  markUsed();
-  if (shouldWriteDirectly(len)) {
-    appendCharBufferChunk(true);
-    connectedWritersWriter.write(str,off,len);
-  }
- else   if (len >= subStringChunkMinSize && isNextChunkBigEnough(len)) {
-    appendStringChunk(str,off,len);
-  }
- else {
-    int charsLeft=len;
-    int currentOffset=off;
-    while (charsLeft > 0) {
-      int spaceLeft=allocateSpace();
-      int writeChars=Math.min(spaceLeft,charsLeft);
-      allocBuffer.writeString(str,currentOffset,writeChars);
-      charsLeft-=writeChars;
-      currentOffset+=writeChars;
-    }
-  }
+  EncodingTags tags=null;
+  if (off == 0 && len == str.length())   tags=resolveTags(str);
+  write(tags,str,off,len);
 }

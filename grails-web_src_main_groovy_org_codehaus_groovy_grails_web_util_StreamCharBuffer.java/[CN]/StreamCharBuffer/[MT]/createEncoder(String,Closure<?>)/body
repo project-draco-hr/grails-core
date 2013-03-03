@@ -1,0 +1,17 @@
+{
+  return new Encoder(){
+    public String getCodecName(){
+      return codecName;
+    }
+    public Object encode(    Object o){
+      return encodeClosure.call(o);
+    }
+    public void markEncoded(    String string){
+      GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+      if (webRequest != null && "HTML".equals(getCodecName())) {
+        webRequest.registerHtmlEscaped(string);
+      }
+    }
+  }
+;
+}

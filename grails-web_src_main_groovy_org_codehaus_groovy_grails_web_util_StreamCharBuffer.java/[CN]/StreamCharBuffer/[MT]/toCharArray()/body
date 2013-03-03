@@ -3,11 +3,18 @@
     return ((CharBufferChunk)firstChunk).buffer;
   }
   int initialReaderCount=readerCount;
+  EncodingTags tags=null;
+  if (firstChunk != null) {
+    tags=firstChunk.getTags();
+  }
+ else {
+    tags=allocBuffer.getTags();
+  }
   char[] buf=readAsCharArray();
   if (initialReaderCount == 0) {
     reset();
     if (buf.length > 0) {
-      addChunk(new CharBufferChunk(-1,buf,0,buf.length));
+      addChunk(new CharBufferChunk(-1,buf,0,buf.length)).setTags(tags);
     }
   }
   return buf;

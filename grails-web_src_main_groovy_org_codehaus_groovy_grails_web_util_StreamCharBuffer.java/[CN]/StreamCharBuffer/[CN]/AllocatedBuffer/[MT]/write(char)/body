@@ -1,5 +1,6 @@
 {
   if (used < size) {
+    applyTags();
     buffer[used++]=ch;
     return true;
   }

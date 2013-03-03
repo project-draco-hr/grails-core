@@ -1,5 +1,6 @@
 {
   CharBufferChunk chunk=new CharBufferChunk(id,buffer,chunkStart,used - chunkStart);
+  chunk.setTags(tags);
   chunkStart=used;
   return chunk;
 }

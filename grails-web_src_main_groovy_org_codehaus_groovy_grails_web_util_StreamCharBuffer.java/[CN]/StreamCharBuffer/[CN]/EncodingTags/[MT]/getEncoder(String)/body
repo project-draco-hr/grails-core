@@ -1,0 +1,6 @@
+{
+  if (encoders != null) {
+    return encoders.get(tag);
+  }
+  return null;
+}

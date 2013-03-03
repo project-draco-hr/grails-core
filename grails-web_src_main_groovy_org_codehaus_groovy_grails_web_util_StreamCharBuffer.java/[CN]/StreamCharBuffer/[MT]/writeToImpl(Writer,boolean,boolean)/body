@@ -14,7 +14,7 @@
   }
   allocBuffer.writeTo(target);
   if (emptyAfter) {
-    allocBuffer.reuseBuffer();
+    allocBuffer.reuseBuffer(null);
   }
   if (flushTarget) {
     target.flush();

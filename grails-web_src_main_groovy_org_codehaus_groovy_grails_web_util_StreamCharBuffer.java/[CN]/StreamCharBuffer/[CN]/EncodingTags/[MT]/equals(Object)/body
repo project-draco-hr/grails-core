@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EncodingTags other=(EncodingTags)obj;
+  if (tags == null) {
+    if (other.tags != null)     return false;
+  }
+ else   if (!tags.equals(other.tags))   return false;
+  return true;
+}

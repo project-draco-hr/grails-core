@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null && "HTML".equals(getCodecName())) {
+    webRequest.registerHtmlEscaped(string);
+  }
+}

@@ -1,0 +1,13 @@
+{
+  if (b == null || len <= 0) {
+    return;
+  }
+  if (currentTags == null || !currentTags.hasTag(encoder.getCodecName())) {
+    EncodingTags newTags=(currentTags != null) ? currentTags.appendToNew(encoder) : EncodingTags.createNew(encoder);
+    String encoded=String.valueOf(encoder.encode(String.valueOf(b,off,len)));
+    write(newTags,encoded,0,encoded.length());
+  }
+ else {
+    write(currentTags,b,off,len);
+  }
+}

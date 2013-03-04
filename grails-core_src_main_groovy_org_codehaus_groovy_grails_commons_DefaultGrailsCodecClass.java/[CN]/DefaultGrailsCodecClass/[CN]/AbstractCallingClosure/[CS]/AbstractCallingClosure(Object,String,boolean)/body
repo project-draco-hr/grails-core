@@ -1,0 +1,7 @@
+{
+  super(owner);
+  maximumNumberOfParameters=1;
+  parameterTypes=new Class[]{Object.class};
+  this.codecName=codecName;
+  this.encode=encode;
+}

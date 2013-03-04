@@ -1,0 +1,6 @@
+{
+  EncodingState encodingState=encodingStateLookup.lookup();
+  if (encodingState != null) {
+    encodingState.registerEncodedWith(codecName,string);
+  }
+}

@@ -3,10 +3,10 @@
     public String getCodecName(){
       return codecName;
     }
-    public Object encode(    Object o){
-      return encodeClosure.call(o);
+    public CharSequence encode(    Object o){
+      return (CharSequence)encodeClosure.call(o);
     }
-    public void markEncoded(    String string){
+    public void markEncoded(    CharSequence string){
       GrailsWebRequest webRequest=GrailsWebRequest.lookup();
       if (webRequest != null) {
         webRequest.registerEncodedWith(getCodecName(),string);

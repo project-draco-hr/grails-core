@@ -1,0 +1,19 @@
+{
+  if (target instanceof Encodeable) {
+    return ((Encodeable)target).encode(this);
+  }
+  String targetSrc=String.valueOf(target);
+  if (targetSrc.length() == 0) {
+    return "";
+  }
+  EncodingState encodingState=encodingStateLookup.lookup();
+  if (encodingState != null) {
+    Set<String> tags=encodingState.getEncodingTagsFor(targetSrc);
+    if (tags != null && tags.contains(codecName)) {
+      return targetSrc;
+    }
+  }
+  String encoded=String.valueOf(callMethod(targetSrc));
+  if (encodingState != null)   encodingState.registerEncodedWith(codecName,encoded);
+  return encoded;
+}

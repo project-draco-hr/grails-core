@@ -1,6 +1,0 @@
-{
-  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-  if (webRequest != null) {
-    webRequest.registerEncodedWith("HTML",string);
-  }
-}

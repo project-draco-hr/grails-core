@@ -1,3 +1,0 @@
-{
-  return ReflectionUtils.invokeMethod(method,!Modifier.isStatic(method.getModifiers()) ? getOwner() : null,(Object[])arguments);
-}

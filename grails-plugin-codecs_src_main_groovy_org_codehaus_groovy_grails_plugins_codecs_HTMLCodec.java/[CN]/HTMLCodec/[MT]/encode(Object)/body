@@ -1,22 +1,6 @@
 {
   if (target != null) {
-    if (target instanceof StreamCharBuffer) {
-      return ((StreamCharBuffer)target).encodeToBuffer(encoderInstance);
-    }
-    String targetSrc=String.valueOf(target);
-    if (targetSrc.length() == 0) {
-      return "";
-    }
-    GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-    if (webRequest != null) {
-      Set<String> tags=webRequest.getEncodingTagsFor(targetSrc);
-      if (tags != null && tags.contains("HTML")) {
-        return targetSrc;
-      }
-    }
-    String escaped=HtmlUtils.htmlEscape(targetSrc);
-    if (webRequest != null)     webRequest.registerEncodedWith("HTML",escaped);
-    return escaped;
+    return HtmlUtils.htmlEscape(target.toString());
   }
   return null;
 }

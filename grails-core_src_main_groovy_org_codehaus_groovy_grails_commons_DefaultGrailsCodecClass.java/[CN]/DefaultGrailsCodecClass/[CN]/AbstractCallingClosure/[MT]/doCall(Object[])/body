@@ -1,0 +1,13 @@
+{
+  Object target=null;
+  if (args != null && args.length > 0)   target=args[0];
+  if (target == null) {
+    return null;
+  }
+  if (encode) {
+    return encode(target);
+  }
+ else {
+    return callMethod(target);
+  }
+}

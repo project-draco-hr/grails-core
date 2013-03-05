@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=getGrailsWebRequest();
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
   if (webRequest != null) {
     webRequest.setOut(writer);
   }

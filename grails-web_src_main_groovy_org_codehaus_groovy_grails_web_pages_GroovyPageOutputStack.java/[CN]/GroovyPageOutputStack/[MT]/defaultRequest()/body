@@ -1,4 +1,4 @@
 {
-  GrailsWebRequest webRequest=getGrailsWebRequest();
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
   return defaultRequest(webRequest);
 }

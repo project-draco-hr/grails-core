@@ -13,6 +13,6 @@
     subBuffer.addParentBuffer(StreamCharBuffer.this);
   }
  else {
-    subBuffer.writeToImpl(this,false,false);
+    subBuffer.encodeTo(this,null);
   }
 }

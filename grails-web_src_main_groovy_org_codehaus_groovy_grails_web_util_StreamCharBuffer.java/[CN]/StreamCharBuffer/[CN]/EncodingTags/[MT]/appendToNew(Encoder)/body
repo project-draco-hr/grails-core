@@ -1,11 +1,16 @@
 {
-  Set<String> newTags=new LinkedHashSet<String>();
-  newTags.addAll(tags);
-  newTags.add(encoder.getCodecName());
-  Map<String,Encoder> allEncoders=new HashMap<String,Encoder>();
-  if (encoders != null) {
-    allEncoders.putAll(encoders);
+  if (encoder != null) {
+    Set<String> newTags=new LinkedHashSet<String>();
+    newTags.addAll(tags);
+    newTags.add(encoder.getCodecName());
+    Map<String,Encoder> allEncoders=new HashMap<String,Encoder>();
+    if (encoders != null) {
+      allEncoders.putAll(encoders);
+    }
+    allEncoders.put(encoder.getCodecName(),encoder);
+    return new EncodingTags(newTags,allEncoders);
   }
-  allEncoders.put(encoder.getCodecName(),encoder);
-  return new EncodingTags(newTags,allEncoders);
+ else {
+    return new EncodingTags(tags,encoders);
+  }
 }

@@ -1,6 +1,3 @@
 {
-  if (target != null) {
-    return HtmlUtils.htmlEscape(target.toString());
-  }
-  return null;
+  return ENCODER_INSTANCE.encode(target);
 }

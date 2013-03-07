@@ -1,0 +1,16 @@
+{
+  CodecFactory codecFactory=(CodecFactory)getPropertyOrStaticPropertyOrFieldValue("codecFactory",CodecFactory.class);
+  if (codecFactory == null) {
+    codecFactory=new ClosureCodecFactory();
+  }
+  encoder=codecFactory.getEncoder();
+  if (encoder != null) {
+    if (encoder instanceof StreamingEncoder) {
+      encoder=new StreamingStateAwareEncoderWrapper((StreamingEncoder)encoder);
+    }
+ else {
+      encoder=new StateAwareEncoderWrapper(encoder);
+    }
+  }
+  decoder=codecFactory.getDecoder();
+}

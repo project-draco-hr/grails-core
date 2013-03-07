@@ -1,0 +1,4 @@
+{
+  if (o == null)   return null;
+  return HtmlUtils.htmlEscape(String.valueOf(o));
+}

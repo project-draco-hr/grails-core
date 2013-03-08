@@ -3,9 +3,9 @@
   if (obj == null)   return false;
   if (getClass() != obj.getClass())   return false;
   EncodingTags other=(EncodingTags)obj;
-  if (tags == null) {
-    if (other.tags != null)     return false;
+  if (encoders == null) {
+    if (other.encoders != null)     return false;
   }
- else   if (!tags.equals(other.tags))   return false;
+ else   if (!encoders.equals(other.encoders))   return false;
   return true;
 }

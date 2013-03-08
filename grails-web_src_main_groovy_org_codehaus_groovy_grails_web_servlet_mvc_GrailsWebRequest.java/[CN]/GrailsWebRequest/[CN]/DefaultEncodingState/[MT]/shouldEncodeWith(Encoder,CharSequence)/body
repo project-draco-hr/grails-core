@@ -1,0 +1,11 @@
+{
+  Set<Encoder> tags=getEncodersFor(string);
+  if (tags != null) {
+    for (    Encoder encoder : tags) {
+      if (isEncoderEquivalentToPrevious(encoderToApply,encoder)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

@@ -1,6 +1,6 @@
 {
   if (encoders != null && encoders.size() > 0) {
-    return encoders.values().iterator().next();
+    return encoders.iterator().next();
   }
   return null;
 }

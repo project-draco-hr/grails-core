@@ -1,8 +1,0 @@
-{
-  Set<Integer> identityHashCodes=encodingTagIdentityHashCodes.get(encoding);
-  if (identityHashCodes == null) {
-    identityHashCodes=new HashSet<Integer>();
-    encodingTagIdentityHashCodes.put(encoding,identityHashCodes);
-  }
-  return identityHashCodes;
-}

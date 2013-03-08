@@ -1,0 +1,3 @@
+{
+  return encoder == encoderToApply || encoder.isPreventAllOthers() || encoder.getCodecName().equals(encoderToApply.getCodecName()) || (encoder.getEquivalentCodecNames() != null && encoder.getEquivalentCodecNames().contains(encoderToApply.getCodecName()));
+}

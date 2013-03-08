@@ -1,6 +1,0 @@
-{
-  Set<String> newTags=new LinkedHashSet<String>();
-  newTags.addAll(tags);
-  newTags.add(tag);
-  return new EncodingTags(newTags,encoders);
-}

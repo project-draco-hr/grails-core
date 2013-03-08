@@ -2,7 +2,7 @@
   if (str == null || len <= 0) {
     return;
   }
-  if (encoder != null && (currentTags == null || !currentTags.hasTag(encoder.getCodecName()))) {
+  if (encoder != null && (currentTags == null || currentTags.shouldEncodeWith(encoder))) {
     EncodingTags newTags=(currentTags != null) ? currentTags.appendToNew(encoder) : EncodingTags.createNew(encoder);
     String source;
     if (off == 0 && len == str.length()) {

@@ -1,3 +1,3 @@
 {
-  return new EncodingTags(Collections.singleton(encoder.getCodecName()),Collections.singletonMap(encoder.getCodecName(),encoder));
+  return new EncodingTags(Collections.singleton(encoder));
 }

@@ -2,7 +2,7 @@
   if (b == null || len <= 0) {
     return;
   }
-  if (encoder != null && (currentTags == null || !currentTags.hasTag(encoder.getCodecName()))) {
+  if (encoder != null && (currentTags == null || currentTags.shouldEncodeWith(encoder))) {
     EncodingTags newTags=(currentTags != null) ? currentTags.appendToNew(encoder) : EncodingTags.createNew(encoder);
     String encoded=String.valueOf(encoder.encode(String.valueOf(b,off,len)));
     write(newTags,encoded,0,encoded.length());

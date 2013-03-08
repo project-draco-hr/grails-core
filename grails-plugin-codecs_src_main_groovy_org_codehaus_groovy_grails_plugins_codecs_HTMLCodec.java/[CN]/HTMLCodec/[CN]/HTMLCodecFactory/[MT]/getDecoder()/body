@@ -1,12 +1,3 @@
 {
-  return new Decoder(){
-    public String getCodecName(){
-      return CODEC_NAME;
-    }
-    public Object decode(    Object o){
-      if (o == null)       return null;
-      return HtmlUtils.htmlUnescape(String.valueOf(o));
-    }
-  }
-;
+  return decoder;
 }

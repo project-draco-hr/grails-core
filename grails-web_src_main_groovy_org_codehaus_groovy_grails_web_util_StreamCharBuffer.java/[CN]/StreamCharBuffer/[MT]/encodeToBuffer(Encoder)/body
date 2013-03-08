@@ -1,6 +1,6 @@
 {
   StreamCharBuffer coded=new StreamCharBuffer(Math.min(Math.max(totalChunkSize,chunkSize) * 12 / 10,maxChunkSize));
-  EncoderWriter codedWriter=(EncoderWriter)coded.getWriter();
+  EncodedAppender codedWriter=(EncodedAppender)coded.getWriter();
   try {
     encodeTo(codedWriter,encoder);
   }

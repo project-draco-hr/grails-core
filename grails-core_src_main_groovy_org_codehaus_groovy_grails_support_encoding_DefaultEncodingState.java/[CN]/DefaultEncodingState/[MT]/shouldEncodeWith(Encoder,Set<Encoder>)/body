@@ -1,0 +1,10 @@
+{
+  if (currentEncoders != null) {
+    for (    Encoder encoder : currentEncoders) {
+      if (isEncoderEquivalentToPrevious(encoderToApply,encoder)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

@@ -1,5 +1,0 @@
-{
-  if (used - chunkStart > 0) {
-    target.write(encoder,getTags(),buffer,chunkStart,used - chunkStart);
-  }
-}

@@ -1,0 +1,12 @@
+{
+  if (encodingState == null) {
+    encodingState=DefaultGrailsCodecClass.getEncodingStateLookup().lookup();
+  }
+  if (encodingState != null) {
+    Set<String> tags=encodingState.getEncodingTagsFor(str);
+    if (tags != null) {
+      return new EncodingTags(tags,null);
+    }
+  }
+  return null;
+}

@@ -1,8 +1,0 @@
-{
-  if (tagsResolver == null)   return null;
-  Set<String> tags=tagsResolver.getTags(string);
-  if (tags != null) {
-    return new EncodingTags(tags,null);
-  }
-  return null;
-}

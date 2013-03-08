@@ -1,6 +1,6 @@
 {
   if (used < size) {
-    applyTags();
+    applyEncoders();
     buffer[used++]=ch;
     return true;
   }

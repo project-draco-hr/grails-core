@@ -2,16 +2,26 @@
   if (str == null || len <= 0) {
     return;
   }
-  CharSequence source;
-  if (off == 0 && len == str.length()) {
-    source=str;
+  int n=Math.min(str.length(),off + len);
+  int i;
+  int startPos=-1;
+  for (i=off; i < n; i++) {
+    char ch=str.charAt(i);
+    if (startPos == -1) {
+      startPos=i;
+    }
+    String escaped=escapeCharacter(ch);
+    if (escaped != null) {
+      if (i - startPos > 0) {
+        appender.append(this,encodingState,str,startPos,i - startPos);
+      }
+      if (escaped.length() > 0) {
+        appender.append(this,encodingState,escaped,0,escaped.length());
+      }
+      startPos=-1;
+    }
   }
- else {
-    source=str.subSequence(off,off + len);
-  }
-  String encoded=(String)encode(source);
-  if (encoded != null) {
-    String encodedStr=String.valueOf(encoded);
-    appender.append(this,encodingState,encodedStr,0,encodedStr.length());
+  if (startPos > -1 && i - startPos > 0) {
+    appender.append(this,encodingState,str,startPos,i - startPos);
   }
 }

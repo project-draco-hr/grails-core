@@ -1,4 +1,39 @@
 {
   if (o == null)   return null;
-  return HtmlUtils.htmlEscape(String.valueOf(o));
+  CharSequence str=null;
+  if (o instanceof CharSequence) {
+    str=(CharSequence)o;
+  }
+ else {
+    str=String.valueOf(o);
+  }
+  if (str.length() == 0) {
+    return str;
+  }
+  StringBuilder sb=null;
+  int n=str.length(), i;
+  int startPos=-1;
+  for (i=0; i < n; i++) {
+    char ch=str.charAt(i);
+    if (startPos == -1) {
+      startPos=i;
+    }
+    String escaped=escapeCharacter(ch);
+    if (escaped != null) {
+      if (sb == null) {
+        sb=new StringBuilder(str.length() * 110 / 100);
+      }
+      if (i - startPos > 0) {
+        sb.append(str,startPos,i);
+      }
+      if (escaped.length() > 0) {
+        sb.append(escaped);
+      }
+      startPos=-1;
+    }
+  }
+  if (startPos > -1 && i - startPos > 0) {
+    sb.append(str,startPos,i);
+  }
+  return sb.toString();
 }

@@ -1,0 +1,6 @@
+{
+  if (encodingState == null) {
+    encodingState=new DefaultEncodingState();
+  }
+  return encodingState;
+}

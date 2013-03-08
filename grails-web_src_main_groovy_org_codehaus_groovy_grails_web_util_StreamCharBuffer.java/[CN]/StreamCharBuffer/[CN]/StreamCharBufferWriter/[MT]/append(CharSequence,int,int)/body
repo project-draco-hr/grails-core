@@ -4,31 +4,9 @@
     write("null");
   }
  else {
-    if (csq instanceof String || csq instanceof StringBuffer || csq instanceof StringBuilder) {
-      Set<Encoder> encoders=null;
-      if (csq instanceof String && start == 0 && end == csq.length())       encoders=resolveTags((String)csq);
-      int len=end - start;
-      int charsLeft=len;
-      int currentOffset=start;
-      while (charsLeft > 0) {
-        int spaceLeft=allocateSpace(encoders);
-        int writeChars=Math.min(spaceLeft,charsLeft);
-        if (csq instanceof String) {
-          allocBuffer.writeString((String)csq,currentOffset,writeChars);
-        }
- else         if (csq instanceof StringBuffer) {
-          allocBuffer.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
-        }
- else         if (csq instanceof StringBuilder) {
-          allocBuffer.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
-        }
-        charsLeft-=writeChars;
-        currentOffset+=writeChars;
-      }
-    }
- else {
-      write(csq.subSequence(start,end).toString());
-    }
+    EncodingState encodingState=null;
+    if (csq instanceof String && start == 0 && end == csq.length())     encodingState=resolveEncodingState((String)csq);
+    appendCharSequence(encodingState,csq,start,end);
   }
   return this;
 }

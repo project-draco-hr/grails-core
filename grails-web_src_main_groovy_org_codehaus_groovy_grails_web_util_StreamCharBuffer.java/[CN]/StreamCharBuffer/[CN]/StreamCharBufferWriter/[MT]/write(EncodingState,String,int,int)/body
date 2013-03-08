@@ -1,0 +1,22 @@
+{
+  if (len == 0)   return;
+  markUsed();
+  if (shouldWriteDirectly(len)) {
+    appendCharBufferChunk(encodingState,true,false);
+    connectedWritersWriter.write(str,off,len);
+  }
+ else   if (len >= subStringChunkMinSize && isNextChunkBigEnough(len)) {
+    appendStringChunk(encodingState,str,off,len);
+  }
+ else {
+    int charsLeft=len;
+    int currentOffset=off;
+    while (charsLeft > 0) {
+      int spaceLeft=allocateSpace(encodingState);
+      int writeChars=Math.min(spaceLeft,charsLeft);
+      allocBuffer.writeString(str,currentOffset,writeChars);
+      charsLeft-=writeChars;
+      currentOffset+=writeChars;
+    }
+  }
+}

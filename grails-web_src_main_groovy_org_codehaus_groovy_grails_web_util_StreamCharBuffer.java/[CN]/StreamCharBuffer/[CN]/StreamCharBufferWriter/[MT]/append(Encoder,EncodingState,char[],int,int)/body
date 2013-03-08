@@ -1,0 +1,17 @@
+{
+  if (b == null || len <= 0) {
+    return;
+  }
+  if (encoder != null && (encodingState == null || DefaultEncodingStateRegistry.shouldEncodeWith(encoder,encodingState))) {
+    EncodingState newEncoders=appendEncoders(encoder,encodingState);
+    if (encoder instanceof StreamingEncoder) {
+      ((StreamingEncoder)encoder).encodeToStream(String.valueOf(b,off,len),0,len,this,newEncoders);
+    }
+ else {
+      encodeAndWrite(encoder,newEncoders,String.valueOf(b,off,len));
+    }
+  }
+ else {
+    write(encodingState,b,off,len);
+  }
+}

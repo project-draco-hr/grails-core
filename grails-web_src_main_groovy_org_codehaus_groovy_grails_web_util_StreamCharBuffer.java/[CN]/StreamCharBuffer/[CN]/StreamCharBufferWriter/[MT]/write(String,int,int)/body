@@ -1,5 +1,5 @@
 {
-  Set<Encoder> encoders=null;
-  if (off == 0 && len == str.length())   encoders=resolveTags(str);
-  write(encoders,str,off,len);
+  EncodingState encodingState=null;
+  if (off == 0 && len == str.length())   encodingState=resolveEncodingState(str);
+  write(encodingState,str,off,len);
 }

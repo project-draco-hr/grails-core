@@ -1,9 +1,9 @@
 {
-  if (encoders == nextEncoders) {
+  if (encodingState == nextEncoders) {
     return;
   }
-  if (encoders != null && (nextEncoders == null || !encoders.equals(nextEncoders))) {
+  if (encodingState != null && (nextEncoders == null || !encodingState.equals(nextEncoders))) {
     throw new IOException("Illegal operation in AllocatedBuffer");
   }
-  encoders=nextEncoders;
+  encodingState=nextEncoders;
 }

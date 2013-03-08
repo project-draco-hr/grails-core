@@ -1,7 +1,0 @@
-{
-  if (this.encoders != null && (encoders == null || !this.encoders.equals(encoders))) {
-    return 0;
-  }
-  this.nextEncoders=encoders;
-  return size - used;
-}

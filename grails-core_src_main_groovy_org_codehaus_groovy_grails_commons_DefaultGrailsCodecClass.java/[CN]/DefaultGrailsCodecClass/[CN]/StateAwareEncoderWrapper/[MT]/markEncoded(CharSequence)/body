@@ -1,5 +1,5 @@
 {
-  EncodingState encodingState=lookupEncodingState();
+  EncodingStateRegistry encodingState=lookupEncodingState();
   if (encodingState != null) {
     encodingState.registerEncodedWith(this,string);
   }

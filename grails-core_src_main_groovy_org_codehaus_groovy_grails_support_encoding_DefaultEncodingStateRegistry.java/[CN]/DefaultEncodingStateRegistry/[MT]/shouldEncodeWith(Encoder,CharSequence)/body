@@ -1,0 +1,4 @@
+{
+  EncodingState encodingState=getEncodingStateFor(string);
+  return shouldEncodeWith(encoderToApply,encodingState);
+}

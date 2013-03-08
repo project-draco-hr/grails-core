@@ -1,0 +1,7 @@
+{
+  if (this.encodingState != null && (encodingState == null || !this.encodingState.equals(encodingState))) {
+    return 0;
+  }
+  this.nextEncoders=encodingState;
+  return size - used;
+}

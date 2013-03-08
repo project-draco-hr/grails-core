@@ -1,0 +1,9 @@
+{
+  if (encodingStateRegistry == null) {
+    encodingStateRegistry=DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null;
+  }
+  if (encodingStateRegistry != null) {
+    return encodingStateRegistry.getEncodingStateFor(str);
+  }
+  return null;
+}

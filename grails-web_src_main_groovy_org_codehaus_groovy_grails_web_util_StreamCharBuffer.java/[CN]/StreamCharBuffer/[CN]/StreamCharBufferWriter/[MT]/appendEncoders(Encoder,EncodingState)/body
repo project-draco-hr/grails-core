@@ -1,0 +1,12 @@
+{
+  Set<Encoder> newEncoders;
+  if (encodingState == null || encodingState.getEncoders() == null) {
+    newEncoders=Collections.singleton(encoder);
+  }
+ else {
+    newEncoders=new LinkedHashSet<Encoder>();
+    newEncoders.addAll(encodingState.getEncoders());
+    newEncoders.add(encoder);
+  }
+  return new EncodingStateImpl(newEncoders);
+}

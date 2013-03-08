@@ -1,0 +1,7 @@
+{
+  int spaceLeft=allocBuffer.spaceLeft(encodingState);
+  if (spaceLeft == 0) {
+    spaceLeft=appendCharBufferChunk(encodingState,true,true);
+  }
+  return spaceLeft;
+}

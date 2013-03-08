@@ -1,0 +1,7 @@
+{
+  Object encoded=encoder.encode(source);
+  if (encoded != null) {
+    String encodedStr=String.valueOf(encoded);
+    write(newEncoders,encodedStr,0,encodedStr.length());
+  }
+}

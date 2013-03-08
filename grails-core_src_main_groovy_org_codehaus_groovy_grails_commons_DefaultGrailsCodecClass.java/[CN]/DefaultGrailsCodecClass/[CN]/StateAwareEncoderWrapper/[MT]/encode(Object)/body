@@ -2,7 +2,7 @@
   if (target instanceof Encodeable) {
     return ((Encodeable)target).encode(this);
   }
-  EncodingState encodingState=lookupEncodingState();
+  EncodingStateRegistry encodingState=lookupEncodingState();
   if (encodingState != null && target instanceof CharSequence) {
     if (!encodingState.shouldEncodeWith(this,(CharSequence)target)) {
       return target;

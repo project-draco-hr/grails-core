@@ -1,7 +1,0 @@
-{
-  if (this.tags != null && (tags == null || !this.tags.equals(tags))) {
-    return 0;
-  }
-  this.nextTags=tags;
-  return size - used;
-}

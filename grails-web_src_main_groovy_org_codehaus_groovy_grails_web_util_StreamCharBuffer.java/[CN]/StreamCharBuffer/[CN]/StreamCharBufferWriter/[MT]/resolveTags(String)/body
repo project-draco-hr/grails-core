@@ -3,10 +3,7 @@
     encodingState=DefaultGrailsCodecClass.getEncodingStateLookup().lookup();
   }
   if (encodingState != null) {
-    Set<Encoder> tags=encodingState.getEncodersFor(str);
-    if (tags != null) {
-      return new EncodingTags(tags);
-    }
+    return encodingState.getEncodersFor(str);
   }
   return null;
 }

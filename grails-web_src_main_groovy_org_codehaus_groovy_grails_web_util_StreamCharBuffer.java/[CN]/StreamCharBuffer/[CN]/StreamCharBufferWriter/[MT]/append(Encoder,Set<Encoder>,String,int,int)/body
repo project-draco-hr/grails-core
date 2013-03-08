@@ -14,9 +14,9 @@
       source=String.valueOf(buff);
     }
     String encoded=String.valueOf(encoder.encode(source));
-    write(new EncodingTags(newEncoders),encoded,0,encoded.length());
+    write(newEncoders,encoded,0,encoded.length());
   }
  else {
-    write(currentEncoders != null ? new EncodingTags(currentEncoders) : null,str,off,len);
+    write(currentEncoders,str,off,len);
   }
 }

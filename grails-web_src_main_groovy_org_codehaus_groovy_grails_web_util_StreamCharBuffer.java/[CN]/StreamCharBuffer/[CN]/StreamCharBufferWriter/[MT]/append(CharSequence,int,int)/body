@@ -5,13 +5,13 @@
   }
  else {
     if (csq instanceof String || csq instanceof StringBuffer || csq instanceof StringBuilder) {
-      EncodingTags tags=null;
-      if (csq instanceof String && start == 0 && end == csq.length())       tags=resolveTags((String)csq);
+      Set<Encoder> encoders=null;
+      if (csq instanceof String && start == 0 && end == csq.length())       encoders=resolveTags((String)csq);
       int len=end - start;
       int charsLeft=len;
       int currentOffset=start;
       while (charsLeft > 0) {
-        int spaceLeft=allocateSpace(tags);
+        int spaceLeft=allocateSpace(encoders);
         int writeChars=Math.min(spaceLeft,charsLeft);
         if (csq instanceof String) {
           allocBuffer.writeString((String)csq,currentOffset,writeChars);

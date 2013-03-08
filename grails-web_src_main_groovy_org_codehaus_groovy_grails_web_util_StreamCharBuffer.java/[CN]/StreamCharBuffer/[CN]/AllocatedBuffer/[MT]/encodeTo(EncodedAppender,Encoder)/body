@@ -1,5 +1,5 @@
 {
   if (used - chunkStart > 0) {
-    appender.append(encoder,getEncoders(),buffer,chunkStart,used - chunkStart);
+    appender.append(encoder,encoders,buffer,chunkStart,used - chunkStart);
   }
 }

@@ -4,22 +4,22 @@
     return strChunk.str;
   }
   int initialReaderCount=readerCount;
-  EncodingTags tags=null;
+  Set<Encoder> encoders=null;
   if (firstChunk != null) {
-    tags=firstChunk.getTags();
+    encoders=firstChunk.getEncoders();
   }
  else {
-    tags=allocBuffer.getTags();
+    encoders=allocBuffer.getEncoders();
   }
   String str=readAsString();
   if (initialReaderCount == 0) {
     reset();
     if (str.length() > 0) {
-      addChunk(new StringChunk(str,0,str.length())).setTags(tags);
+      addChunk(new StringChunk(str,0,str.length())).setEncoders(encoders);
     }
   }
-  if (tags != null) {
-    Encoder encoder=tags.getFirstEncoder();
+  if (encoders != null && encoders.size() > 0) {
+    Encoder encoder=encoders.iterator().next();
     if (encoder != null)     encoder.markEncoded(str);
   }
   return str;

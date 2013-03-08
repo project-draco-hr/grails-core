@@ -1,6 +1,6 @@
 {
-  if (tags != null && (nextTags == null || !tags.equals(nextTags))) {
+  if (encoders != null && (nextEncoders == null || !encoders.equals(nextEncoders))) {
     throw new IOException("Illegal operation in AllocatedBuffer");
   }
-  tags=nextTags;
+  encoders=nextEncoders;
 }

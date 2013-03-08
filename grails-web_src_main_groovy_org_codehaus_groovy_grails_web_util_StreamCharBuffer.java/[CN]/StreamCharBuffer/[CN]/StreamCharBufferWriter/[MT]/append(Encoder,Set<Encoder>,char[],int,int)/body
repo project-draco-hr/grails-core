@@ -5,9 +5,9 @@
   if (encoder != null && (currentEncoders == null || DefaultEncodingState.shouldEncodeWith(encoder,currentEncoders))) {
     Set<Encoder> newEncoders=appendEncoders(encoder,currentEncoders);
     String encoded=String.valueOf(encoder.encode(String.valueOf(b,off,len)));
-    write(new EncodingTags(newEncoders),encoded,0,encoded.length());
+    write(newEncoders,encoded,0,encoded.length());
   }
  else {
-    write(currentEncoders != null ? new EncodingTags(currentEncoders) : null,b,off,len);
+    write(currentEncoders,b,off,len);
   }
 }

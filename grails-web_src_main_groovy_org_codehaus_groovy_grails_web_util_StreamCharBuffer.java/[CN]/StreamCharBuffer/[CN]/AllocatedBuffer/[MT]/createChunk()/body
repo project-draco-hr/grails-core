@@ -1,6 +1,6 @@
 {
   CharBufferChunk chunk=new CharBufferChunk(id,buffer,chunkStart,used - chunkStart);
-  chunk.setTags(tags);
+  chunk.setEncoders(encoders);
   chunkStart=used;
   return chunk;
 }

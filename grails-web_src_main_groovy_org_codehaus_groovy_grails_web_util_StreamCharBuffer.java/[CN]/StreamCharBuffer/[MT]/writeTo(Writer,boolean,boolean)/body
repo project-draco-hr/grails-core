@@ -9,5 +9,24 @@
     ((StreamCharBufferWriter)target).write(this);
     return;
   }
+ else   if (target instanceof EncodedAppenderWriter) {
+    EncodedAppenderWriter eaw=(EncodedAppenderWriter)target;
+    if (eaw.getEncodedAppender() == writer) {
+      throw new IllegalArgumentException("Cannot write buffer to itself.");
+    }
+    if (eaw.getEncoder() == null && eaw.getEncodedAppender().getClass() == StreamCharBufferWriter.class) {
+      writeTo((Writer)eaw.getEncodedAppender(),flushTarget,emptyAfter);
+    }
+ else {
+      encodeTo(eaw.getEncodedAppender(),eaw.getEncoder());
+      if (emptyAfter) {
+        emptyAfterReading();
+      }
+      if (flushTarget) {
+        target.flush();
+      }
+    }
+    return;
+  }
   writeToImpl(target,flushTarget,emptyAfter);
 }

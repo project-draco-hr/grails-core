@@ -13,14 +13,14 @@ case '"':
 return ESCAPED_QUOTE;
 case '\'':
 return ESCAPED_APOS;
-case '+':
-return ESCAPED_PLUS;
-case '=':
-return ESCAPED_EQUAL;
+case '\\':
+return ESCAPED_BACKSLASH;
 case '@':
 return ESCAPED_AT;
 case '`':
 return ESCAPED_BACKTICK;
+case NBSP:
+return ESCAPED_NON_BREAKING_SPACE;
 }
 return null;
 }

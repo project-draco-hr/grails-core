@@ -1,3 +1,8 @@
 {
-  encodeAndPrint(c);
+  if (encoder == null) {
+    super.write(c);
+  }
+ else {
+    encodeAndPrint(c);
+  }
 }

@@ -1,0 +1,5 @@
+{
+  markUsed();
+  allocateSpace(new EncodingStateImpl(Collections.singleton(encoder)));
+  allocBuffer.write(character);
+}

@@ -1,3 +1,13 @@
 {
-  encodeAndPrint(s.substring(off,off + len));
+  if (encoder == null) {
+    super.write(s,off,len);
+  }
+ else {
+    if (off == 0 && len == s.length()) {
+      encodeAndPrint(s);
+    }
+ else {
+      encodeAndPrint(s.substring(off,off + len));
+    }
+  }
 }

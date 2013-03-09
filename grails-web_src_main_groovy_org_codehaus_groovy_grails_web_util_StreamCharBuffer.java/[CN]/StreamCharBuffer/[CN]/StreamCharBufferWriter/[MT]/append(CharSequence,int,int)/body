@@ -4,9 +4,7 @@
     write("null");
   }
  else {
-    EncodingState encodingState=null;
-    if (csq instanceof String && start == 0 && end == csq.length())     encodingState=resolveEncodingState((String)csq);
-    appendCharSequence(encodingState,csq,start,end);
+    appendCharSequence(null,csq,start,end);
   }
   return this;
 }

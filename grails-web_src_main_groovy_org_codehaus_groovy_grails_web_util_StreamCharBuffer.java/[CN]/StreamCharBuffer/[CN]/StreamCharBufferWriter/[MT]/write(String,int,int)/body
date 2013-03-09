@@ -1,5 +1,3 @@
 {
-  EncodingState encodingState=null;
-  if (off == 0 && len == str.length())   encodingState=resolveEncodingState(str);
-  write(encodingState,str,off,len);
+  write(null,str,off,len);
 }

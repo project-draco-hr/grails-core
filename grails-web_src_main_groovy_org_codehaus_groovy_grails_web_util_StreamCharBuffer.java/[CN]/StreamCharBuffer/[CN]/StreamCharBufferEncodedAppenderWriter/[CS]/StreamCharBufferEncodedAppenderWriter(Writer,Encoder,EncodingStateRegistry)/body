@@ -1,0 +1,4 @@
+{
+  super((EncodedAppender)writer,encoder,encodingStateRegistry);
+  this.writer=writer;
+}

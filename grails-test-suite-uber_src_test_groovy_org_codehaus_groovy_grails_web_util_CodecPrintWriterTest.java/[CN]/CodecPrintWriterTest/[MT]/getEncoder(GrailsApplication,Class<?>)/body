@@ -1,6 +1,8 @@
 {
+  Encoder encoder=null;
   if (grailsApplication != null && codecClass != null) {
     GrailsCodecClass codecArtefact=(GrailsCodecClass)grailsApplication.getArtefact("Codec",codecClass.getName());
     encoder=codecArtefact.getEncoder();
   }
+  return encoder;
 }

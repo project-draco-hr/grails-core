@@ -1,0 +1,7 @@
+{
+  Writer realTarget=out;
+  Writer codecTarget=new CodecPrintWriter(realTarget,encoder,encodingStateRegistry);
+  Writer previousCodecTarget=codecOut.getOut();
+  codecOut.setOut(codecTarget);
+  return previousCodecTarget;
+}

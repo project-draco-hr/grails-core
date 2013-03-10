@@ -7,33 +7,18 @@
     request=grailsWebRequest.getCurrentRequest();
   }
   setVariableDirectly(OUT,out);
-  Encoder encoder=null;
+  encoder=null;
   if (grailsApplication != null && codecClass != null) {
     GrailsCodecClass codecArtefact=(GrailsCodecClass)grailsApplication.getArtefact("Codec",codecClass.getName());
     encoder=codecArtefact.getEncoder();
   }
-  Writer realTarget=target;
-  while (realTarget instanceof GrailsWrappedWriter) {
-    GrailsWrappedWriter gpr=((GrailsWrappedWriter)realTarget);
-    if (gpr.isAllowUnwrappingOut()) {
-      realTarget=gpr.unwrap();
-    }
- else {
-      break;
+  encodingStateRegistry=DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null;
+  codecOut=new GrailsPrintWriter(new NullWriter()){
+    @Override public boolean isAllowUnwrappingOut(){
+      return false;
     }
   }
-  EncodingStateRegistry encodingStateRegistry=DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null;
-  if (realTarget instanceof EncoderAwareWriterFactory) {
-    Writer codecWriter=((EncoderAwareWriterFactory)realTarget).getWriterForEncoder(encoder,encodingStateRegistry);
-    if (codecWriter instanceof GrailsPrintWriter) {
-      codecOut=(GrailsPrintWriter)codecWriter;
-    }
- else     if (codecWriter != null) {
-      codecOut=new GrailsPrintWriter(codecWriter);
-    }
-  }
- else {
-    codecOut=new CodecPrintWriter(realTarget,encoder,encodingStateRegistry);
-  }
+;
+  updateCodecOut();
   setVariableDirectly(CODEC_OUT,codecOut);
 }

@@ -1,0 +1,9 @@
+{
+  Writer previous=updateCodecOut();
+  try {
+    return wrappedClosure.call(args);
+  }
+  finally {
+    codecOut.setOut(previous);
+  }
+}

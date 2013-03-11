@@ -1,0 +1,27 @@
+{
+  if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
+    throw new GroovyBugError("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes));
+  }
+  AnnotatedNode parent=(AnnotatedNode)nodes[1];
+  AnnotationNode annotationNode=(AnnotationNode)nodes[0];
+  if (parent instanceof ClassNode) {
+    Expression value=annotationNode.getMember("value");
+    if (value instanceof ClassExpression) {
+      ClassNode targetApi=value.getType().getPlainNodeReference();
+      ClassNode classNode=(ClassNode)parent;
+      final String fieldName='$' + Introspector.decapitalize(targetApi.getNameWithoutPackage());
+      FieldNode fieldNode=classNode.getField(fieldName);
+      if (fieldNode == null) {
+        fieldNode=new FieldNode(fieldName,Modifier.PRIVATE,targetApi,classNode,new ConstructorCallExpression(targetApi,NO_ARGS));
+        classNode.addField(fieldNode);
+      }
+      applyDelegateAsyncTransform(classNode,targetApi,fieldName);
+    }
+  }
+ else   if (parent instanceof FieldNode) {
+    FieldNode fieldNode=(FieldNode)parent;
+    ClassNode targetApi=fieldNode.getType().getPlainNodeReference();
+    ClassNode classNode=fieldNode.getOwner();
+    applyDelegateAsyncTransform(classNode,targetApi,fieldNode.getName());
+  }
+}

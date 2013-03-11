@@ -1,0 +1,12 @@
+{
+  if (!decorators.isEmpty()) {
+    for (int i=0; i < c.length; i++) {
+      Closure<T> closure=c[i];
+      for (      grails.async.Promise.Decorator d : decorators) {
+        closure=d.decorate(closure);
+      }
+      c[i]=closure;
+    }
+  }
+  return createPromisesInternal(c);
+}

@@ -2,8 +2,5 @@
   while (index >= bodyClosures.size()) {
     bodyClosures.add(null);
   }
-  if (!(bodyClosure instanceof ConstantClosure)) {
-    bodyClosure=new BodyClosureWrapperClosure(bodyClosure);
-  }
   bodyClosures.set(index,bodyClosure);
 }

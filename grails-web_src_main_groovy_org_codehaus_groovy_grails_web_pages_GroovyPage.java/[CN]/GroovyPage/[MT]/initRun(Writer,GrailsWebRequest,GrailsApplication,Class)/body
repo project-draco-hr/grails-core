@@ -1,5 +1,6 @@
 {
   outputStack=GroovyPageOutputStack.currentStack(true,target,false,true);
+  outputStack.registerOutputChangeListener(this);
   out=outputStack.getProxyWriter();
   this.webRequest=grailsWebRequest;
   if (grailsWebRequest != null) {
@@ -13,12 +14,15 @@
     encoder=codecArtefact.getEncoder();
   }
   encodingStateRegistry=DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null;
-  codecOut=new GrailsPrintWriter(new NullWriter()){
+  codecOut=new GrailsPrintWriter(null){
     @Override public boolean isAllowUnwrappingOut(){
-      return false;
+      return encoder == null;
+    }
+    @Override protected Writer unwrapWriter(    Writer writer){
+      return writer;
     }
   }
 ;
-  updateCodecOut();
+  outputChanged(((GrailsPrintWriter)out).getOut());
   setVariableDirectly(CODEC_OUT,codecOut);
 }

@@ -1,0 +1,6 @@
+{
+  super.setOut(newOut);
+  for (  OutputChangeListener outputChangeListener : outputChangeListeners) {
+    outputChangeListener.outputChanged(getOut());
+  }
+}

@@ -1,0 +1,10 @@
+{
+  Writer codecTarget;
+  if (newOut instanceof EncoderAwareWriterFactory) {
+    codecTarget=((EncoderAwareWriterFactory)newOut).getWriterForEncoder(encoder,encodingStateRegistry);
+  }
+ else {
+    codecTarget=new CodecPrintWriter(newOut,encoder,encodingStateRegistry);
+  }
+  codecOut.setOut(codecTarget);
+}

@@ -6,8 +6,11 @@
     if (value instanceof Promise) {
       promiseMap.put(key,(Promise)value);
     }
-    if (value instanceof Closure) {
+ else     if (value instanceof Closure) {
       promiseMap.put(key,(Closure)value);
+    }
+ else {
+      promiseMap.put(key,new BoundPromise<V>((V)value));
     }
   }
   return promiseMap;

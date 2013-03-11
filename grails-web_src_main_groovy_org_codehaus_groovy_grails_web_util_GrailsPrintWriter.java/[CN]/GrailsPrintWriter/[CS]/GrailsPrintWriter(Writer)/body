@@ -1,3 +1,4 @@
 {
+  this.metaClass=InvokerHelper.getMetaClass(this.getClass());
   setOut(out);
 }

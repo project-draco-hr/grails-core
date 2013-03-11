@@ -1,7 +1,3 @@
 {
-  PromiseList<T> promiseList=new PromiseList<T>();
-  for (  Promise<T> promise : promises) {
-    promiseList.add(promise);
-  }
-  return promiseList.get();
+  return waitAll(Arrays.asList(promises));
 }

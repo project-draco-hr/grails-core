@@ -1,0 +1,17 @@
+{
+  if (!decorators.isEmpty()) {
+    List<Closure<T>> newClosures=new ArrayList<Closure<T>>(closures.size());
+    for (    Closure<T> closure : closures) {
+      for (      Promise.Decorator decorator : decorators) {
+        closure=decorator.decorate(closure);
+      }
+      newClosures.add(closure);
+    }
+    closures=newClosures;
+  }
+  PromiseList<T> promiseList=new PromiseList<T>();
+  for (  Closure<T> closure : closures) {
+    promiseList.add(closure);
+  }
+  return promiseList;
+}

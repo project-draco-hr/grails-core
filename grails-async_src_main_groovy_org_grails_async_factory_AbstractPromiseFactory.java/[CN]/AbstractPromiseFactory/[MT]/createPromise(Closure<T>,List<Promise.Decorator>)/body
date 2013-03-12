@@ -1,0 +1,8 @@
+{
+  if (!decorators.isEmpty()) {
+    for (    grails.async.Promise.Decorator d : decorators) {
+      c=d.decorate(c);
+    }
+  }
+  return createPromise(c);
+}

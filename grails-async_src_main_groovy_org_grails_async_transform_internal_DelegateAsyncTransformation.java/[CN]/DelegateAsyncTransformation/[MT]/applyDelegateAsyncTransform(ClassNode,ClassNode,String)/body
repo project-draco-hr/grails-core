@@ -5,7 +5,10 @@
       MethodNode existingMethod=classNode.getMethod(m.getName(),m.getParameters());
       if (existingMethod == null) {
         ClassNode promiseNode=ClassHelper.make(Promise.class).getPlainNodeReference();
-        promiseNode.setGenericsTypes(new GenericsType[]{new GenericsType(m.getReturnType().getPlainNodeReference())});
+        ClassNode returnType=m.getReturnType().getPlainNodeReference();
+        if (!returnType.getNameWithoutPackage().equals(VOID)) {
+          promiseNode.setGenericsTypes(new GenericsType[]{new GenericsType(returnType)});
+        }
         final BlockStatement methodBody=new BlockStatement();
         final BlockStatement promiseBody=new BlockStatement();
         ClassNode promisesClass=ClassHelper.make(Promises.class).getPlainNodeReference();

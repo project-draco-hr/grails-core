@@ -1,5 +1,13 @@
 {
-  Metadata m=new Metadata(file);
-  holder.set(new FinalReference<Metadata>(m));
-  return m;
+  Reference<Metadata> ref=holder.get();
+  if (ref != null) {
+    Metadata metadata=ref.get();
+    if (metadata != null && metadata.getMetadataFile() != null && metadata.getMetadataFile().equals(file)) {
+      return metadata;
+    }
+ else {
+      createAndBindNew(file);
+    }
+  }
+  return createAndBindNew(file);
 }

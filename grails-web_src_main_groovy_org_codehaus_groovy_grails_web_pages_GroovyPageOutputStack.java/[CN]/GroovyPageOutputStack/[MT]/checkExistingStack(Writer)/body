@@ -1,7 +1,9 @@
 {
-  for (  StackEntry item : stack) {
-    if (item.originalTarget == topWriter) {
-      log.warn("Pushed a writer to stack a second time. Writer type " + topWriter.getClass().getName(),new Exception());
+  if (topWriter != null) {
+    for (    StackEntry item : stack) {
+      if (item.originalTarget == topWriter) {
+        log.warn("Pushed a writer to stack a second time. Writer type " + topWriter.getClass().getName(),new Exception());
+      }
     }
   }
 }

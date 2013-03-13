@@ -1,17 +1,25 @@
 {
-  if (cloneStackIfSameWriter(attributes.getTopWriter())) {
-    return;
-  }
   if (checkExisting)   checkExistingStack(attributes.getTopWriter());
-  Writer unwrappedWriter=unwrapTargetWriter(attributes.getTopWriter());
-  if (unwrappedWriter == pageWriter && stack.size() > 0) {
-    stack.push(stack.peek().clone());
-    return;
+  StackEntry previousStackEntry=null;
+  if (stack.size() > 0) {
+    previousStackEntry=stack.peek();
   }
-  StackEntry stackEntry=new StackEntry(attributes.getTopWriter(),unwrappedWriter);
-  stackEntry.pageEncoder=attributes.getPageEncoder();
-  stackEntry.templateEncoder=attributes.getTemplateEncoder();
-  stackEntry.defaultEncoder=attributes.getDefaultEncoder();
+  Writer topWriter=attributes.getTopWriter();
+  Writer unwrappedWriter=null;
+  if (topWriter != null) {
+    unwrappedWriter=unwrapTargetWriter(topWriter);
+  }
+ else   if (previousStackEntry != null) {
+    topWriter=previousStackEntry.originalTarget;
+    unwrappedWriter=previousStackEntry.unwrappedTarget;
+  }
+ else {
+    throw new NullPointerException("attributes.getTopWriter() is null and there is no previous stack item");
+  }
+  StackEntry stackEntry=new StackEntry(topWriter,unwrappedWriter);
+  stackEntry.pageEncoder=applyEncoder(attributes.getPageEncoder(),previousStackEntry != null ? previousStackEntry.pageEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.templateEncoder=applyEncoder(attributes.getTemplateEncoder(),previousStackEntry != null ? previousStackEntry.templateEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.defaultEncoder=applyEncoder(attributes.getDefaultEncoder(),previousStackEntry != null ? previousStackEntry.defaultEncoder : null,attributes.isInheritPreviousEncoders());
   stack.push(stackEntry);
   updateWriters(stackEntry);
   if (autoSync) {

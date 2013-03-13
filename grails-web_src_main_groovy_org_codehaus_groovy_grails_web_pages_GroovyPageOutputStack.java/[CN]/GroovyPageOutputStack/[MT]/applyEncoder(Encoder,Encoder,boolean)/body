@@ -1,0 +1,11 @@
+{
+  if (newEncoder != null) {
+    return newEncoder;
+  }
+ else   if (allowInheriting) {
+    return previousEncoder;
+  }
+ else {
+    return null;
+  }
+}

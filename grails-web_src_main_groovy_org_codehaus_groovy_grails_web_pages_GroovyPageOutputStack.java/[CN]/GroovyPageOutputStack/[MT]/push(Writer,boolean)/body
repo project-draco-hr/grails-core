@@ -1,15 +1,6 @@
 {
-  if (cloneStackIfSameWriter(newWriter)) {
-    return;
-  }
-  if (checkExisting)   checkExistingStack(newWriter);
   GroovyPageOutputStackAttributes.Builder attributesBuilder=new GroovyPageOutputStackAttributes.Builder();
-  if (stack.size() > 0) {
-    StackEntry stackEntry=stack.peek();
-    attributesBuilder.pageEncoder(stackEntry.pageEncoder);
-    attributesBuilder.templateEncoder(stackEntry.templateEncoder);
-    attributesBuilder.defaultEncoder(stackEntry.defaultEncoder);
-  }
+  attributesBuilder.inheritPreviousEncoders(true);
   attributesBuilder.topWriter(newWriter);
-  push(attributesBuilder.build(),false);
+  push(attributesBuilder.build(),checkExisting);
 }

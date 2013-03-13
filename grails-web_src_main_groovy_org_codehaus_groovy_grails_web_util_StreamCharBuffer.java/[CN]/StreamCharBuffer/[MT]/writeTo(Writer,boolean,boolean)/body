@@ -1,6 +1,12 @@
 {
   if (target instanceof GrailsWrappedWriter) {
-    target=((GrailsWrappedWriter)target).unwrap();
+    GrailsWrappedWriter wrappedWriter=((GrailsWrappedWriter)target);
+    if (wrappedWriter.isAllowUnwrappingOut()) {
+      target=wrappedWriter.unwrap();
+    }
+ else     if (target instanceof GrailsPrintWriter && ((GrailsPrintWriter)target).getOut() instanceof EncodedAppenderWriter) {
+      target=((GrailsPrintWriter)target).getOut();
+    }
   }
   if (target instanceof StreamCharBufferWriter) {
     if (target == writer) {

@@ -1,7 +1,7 @@
 {
   Writer encodingWriter;
-  if (out instanceof EncoderAwareWriterFactory) {
-    encodingWriter=((EncoderAwareWriterFactory)out).getWriterForEncoder(encoder,encodingStateRegistry);
+  if (out instanceof EncodedAppenderWriterFactory) {
+    encodingWriter=((EncodedAppenderWriterFactory)out).getWriterForEncoder(encoder,encodingStateRegistry);
   }
  else {
     encodingWriter=new CodecPrintWriter(out,encoder,encodingStateRegistry);

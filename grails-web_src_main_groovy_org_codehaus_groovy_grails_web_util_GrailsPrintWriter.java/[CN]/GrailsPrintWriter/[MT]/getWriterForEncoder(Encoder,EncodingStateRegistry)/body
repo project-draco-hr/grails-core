@@ -1,16 +1,13 @@
 {
   Writer target=null;
-  if (this instanceof EncoderAware) {
+  if (getOut() instanceof EncodedAppenderWriterFactory) {
     target=getOut();
-    if (target instanceof GrailsWrappedWriter) {
-      target=((GrailsWrappedWriter)target).unwrap();
-    }
   }
  else {
     target=findStreamCharBufferTarget(false);
   }
-  if (target instanceof EncoderAwareWriterFactory) {
-    return ((EncoderAwareWriterFactory)target).getWriterForEncoder(encoder,encodingStateRegistry);
+  if (target instanceof EncodedAppenderWriterFactory) {
+    return ((EncodedAppenderWriterFactory)target).getWriterForEncoder(encoder,encodingStateRegistry);
   }
  else   if (target != null) {
     return new CodecPrintWriter(target,encoder,encodingStateRegistry);

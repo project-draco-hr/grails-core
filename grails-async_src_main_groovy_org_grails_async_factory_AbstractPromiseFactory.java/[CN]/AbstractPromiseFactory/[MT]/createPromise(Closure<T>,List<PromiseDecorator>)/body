@@ -1,6 +1,6 @@
 {
   if (!decorators.isEmpty()) {
-    for (    grails.async.Promise.Decorator d : decorators) {
+    for (    PromiseDecorator d : decorators) {
       c=d.decorate(c);
     }
   }

@@ -1,0 +1,25 @@
+{
+  setJspTags(metaInfo.getJspTags());
+  setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
+  setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
+  setHtmlParts(metaInfo.getHtmlParts());
+  setPluginContextPath(metaInfo.getPluginPath());
+  encodingStateRegistry=grailsWebRequest.getEncodingStateRegistry();
+  GroovyPageOutputStackAttributes.Builder attributesBuilder=new GroovyPageOutputStackAttributes.Builder();
+  attributesBuilder.pageEncoder(metaInfo.getPageEncoder());
+  attributesBuilder.templateEncoder(metaInfo.getTemplateEncoder());
+  attributesBuilder.defaultEncoder(metaInfo.getDefaultEncoder());
+  attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
+  attributesBuilder.webRequest(grailsWebRequest);
+  outputStack=GroovyPageOutputStack.currentStack(attributesBuilder.build());
+  out=outputStack.getPageWriter();
+  templateOut=outputStack.getTemplateWriter();
+  codecOut=outputStack.getCodecWriter();
+  this.webRequest=grailsWebRequest;
+  if (grailsWebRequest != null) {
+    grailsWebRequest.setOut(out);
+    request=grailsWebRequest.getCurrentRequest();
+  }
+  setVariableDirectly(OUT,out);
+  setVariableDirectly(CODEC_OUT,codecOut);
+}

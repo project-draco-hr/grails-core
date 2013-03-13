@@ -1,0 +1,7 @@
+{
+  if (topWriter == pageWriter && stack.size() > 0) {
+    stack.push(stack.peek().clone());
+    return true;
+  }
+  return false;
+}

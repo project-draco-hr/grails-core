@@ -1,0 +1,20 @@
+{
+  if (cloneStackIfSameWriter(attributes.getTopWriter())) {
+    return;
+  }
+  if (checkExisting)   checkExistingStack(attributes.getTopWriter());
+  Writer unwrappedWriter=unwrapTargetWriter(attributes.getTopWriter());
+  if (unwrappedWriter == pageWriter && stack.size() > 0) {
+    stack.push(stack.peek().clone());
+    return;
+  }
+  StackEntry stackEntry=new StackEntry(attributes.getTopWriter(),unwrappedWriter);
+  stackEntry.pageEncoder=attributes.getPageEncoder();
+  stackEntry.templateEncoder=attributes.getTemplateEncoder();
+  stackEntry.defaultEncoder=attributes.getDefaultEncoder();
+  stack.push(stackEntry);
+  updateWriters(stackEntry);
+  if (autoSync) {
+    applyWriterThreadLocals(attributes.getTopWriter());
+  }
+}

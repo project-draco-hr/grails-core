@@ -1,0 +1,12 @@
+{
+  pageWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.pageEncoder,encodingStateRegistry));
+  Writer templateWriterTarget=null;
+  if (stackEntry.templateEncoder != null) {
+    templateWriterTarget=createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.templateEncoder,encodingStateRegistry);
+  }
+ else {
+    templateWriterTarget=stackEntry.unwrappedTarget;
+  }
+  templateWriter.setOut(templateWriterTarget);
+  codecWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.defaultEncoder,encodingStateRegistry));
+}

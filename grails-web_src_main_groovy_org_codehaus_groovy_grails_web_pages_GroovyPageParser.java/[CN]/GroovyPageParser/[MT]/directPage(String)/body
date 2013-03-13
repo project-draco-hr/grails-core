@@ -16,6 +16,12 @@
     if (name.equals(DEFAULT_CODEC_DIRECTIVE)) {
       defaultCodecDirectiveValue=value.trim();
     }
+    if (name.equals(TEMPLATE_CODEC_DIRECTIVE)) {
+      templateCodecDirectiveValue=value.trim();
+    }
+    if (name.equals(PAGE_CODEC_DIRECTIVE)) {
+      pageCodecDirectiveValue=value.trim();
+    }
     ix=mat.end();
   }
 }

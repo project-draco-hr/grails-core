@@ -1,0 +1,13 @@
+{
+  GroovyPageOutputStack outputStack=lookupStack(attributes.getWebRequest());
+  if (outputStack != null) {
+    if (attributes.isPushTop() && attributes.getTopWriter() != null) {
+      outputStack.push(attributes.getTopWriter());
+    }
+    return outputStack;
+  }
+  if (attributes.isAllowCreate()) {
+    return createNew(attributes);
+  }
+  return null;
+}

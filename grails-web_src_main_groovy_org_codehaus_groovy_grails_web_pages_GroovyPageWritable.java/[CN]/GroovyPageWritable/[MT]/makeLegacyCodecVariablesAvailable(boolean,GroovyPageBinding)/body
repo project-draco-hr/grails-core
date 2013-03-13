@@ -1,0 +1,14 @@
+{
+  if (metaInfo.getDefaultCodec() != null) {
+    if (hasRequest) {
+      request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,metaInfo.getDefaultCodec().getName());
+    }
+    binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,metaInfo.getDefaultCodec().getEncoder());
+  }
+ else {
+    if (hasRequest) {
+      request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,GSP_NONE_CODEC_NAME);
+    }
+    binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,gspNoneCodeInstance);
+  }
+}

@@ -2,7 +2,7 @@
   if (str == null || len <= 0) {
     return;
   }
-  if (encoder != null && (encodingState == null || DefaultEncodingStateRegistry.shouldEncodeWith(encoder,encodingState))) {
+  if (shouldEncode(encoder,encodingState)) {
     EncodingState newEncoders=appendEncoders(encoder,encodingState);
     if (encoder instanceof StreamingEncoder) {
       ((StreamingEncoder)encoder).encodeToStream(str,off,len,this,newEncoders);

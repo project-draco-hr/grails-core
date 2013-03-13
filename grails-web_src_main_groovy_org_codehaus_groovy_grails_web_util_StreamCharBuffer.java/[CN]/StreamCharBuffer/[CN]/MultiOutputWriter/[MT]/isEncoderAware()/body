@@ -1,0 +1,12 @@
+{
+  if (encoderAware == null) {
+    encoderAware=false;
+    for (    ConnectedWriter writer : writers) {
+      if (writer.isEncoderAware()) {
+        encoderAware=true;
+        break;
+      }
+    }
+  }
+  return encoderAware;
+}

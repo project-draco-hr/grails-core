@@ -1,0 +1,7 @@
+{
+  Writer target=writer;
+  if (target instanceof GrailsWrappedWriter) {
+    target=((GrailsWrappedWriter)target).unwrap();
+  }
+  encoderAware=(target instanceof StreamCharBufferWriter || target instanceof EncodedAppenderWriter);
+}

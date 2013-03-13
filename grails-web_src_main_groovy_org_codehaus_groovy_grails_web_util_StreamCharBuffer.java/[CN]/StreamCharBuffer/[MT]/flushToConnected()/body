@@ -1,3 +1,6 @@
 {
+  if (notConnectedToEncodeAwareWriters == null) {
+    notConnectedToEncodeAwareWriters=!connectedWritersWriter.isEncoderAware();
+  }
   writeTo(connectedWritersWriter,true,true);
 }

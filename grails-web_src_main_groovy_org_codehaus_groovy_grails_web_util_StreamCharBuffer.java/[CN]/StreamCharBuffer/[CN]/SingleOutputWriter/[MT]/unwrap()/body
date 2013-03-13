@@ -1,0 +1,12 @@
+{
+  try {
+    Writer target=writer.getWriter();
+    if (target instanceof GrailsWrappedWriter) {
+      target=((GrailsWrappedWriter)target).unwrap();
+    }
+    return target;
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Exception in initializing writer",e);
+  }
+}

@@ -1,5 +1,5 @@
 {
   markUsed();
-  allocateSpace(new EncodingStateImpl(Collections.singleton(encoder)));
+  allocateSpace((notConnectedToEncodeAwareWriters != null && notConnectedToEncodeAwareWriters) ? null : new EncodingStateImpl(Collections.singleton(encoder)));
   allocBuffer.write(character);
 }

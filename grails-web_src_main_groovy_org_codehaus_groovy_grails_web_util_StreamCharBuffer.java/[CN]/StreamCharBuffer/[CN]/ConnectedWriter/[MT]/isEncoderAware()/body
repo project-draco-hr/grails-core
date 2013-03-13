@@ -1,0 +1,6 @@
+{
+  if (encoderAware == null) {
+    getWriter();
+  }
+  return encoderAware;
+}

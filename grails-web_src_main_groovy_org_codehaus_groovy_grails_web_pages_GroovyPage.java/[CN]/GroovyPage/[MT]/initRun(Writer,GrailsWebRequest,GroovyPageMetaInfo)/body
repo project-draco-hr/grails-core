@@ -1,14 +1,15 @@
 {
-  setJspTags(metaInfo.getJspTags());
-  setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
-  setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
-  setHtmlParts(metaInfo.getHtmlParts());
-  setPluginContextPath(metaInfo.getPluginPath());
-  encodingStateRegistry=grailsWebRequest.getEncodingStateRegistry();
   GroovyPageOutputStackAttributes.Builder attributesBuilder=new GroovyPageOutputStackAttributes.Builder();
-  attributesBuilder.pageEncoder(metaInfo.getPageEncoder());
-  attributesBuilder.templateEncoder(metaInfo.getTemplateEncoder());
-  attributesBuilder.defaultEncoder(metaInfo.getDefaultEncoder());
+  if (metaInfo != null) {
+    setJspTags(metaInfo.getJspTags());
+    setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
+    setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
+    setHtmlParts(metaInfo.getHtmlParts());
+    setPluginContextPath(metaInfo.getPluginPath());
+    attributesBuilder.pageEncoder(metaInfo.getPageEncoder());
+    attributesBuilder.templateEncoder(metaInfo.getTemplateEncoder());
+    attributesBuilder.defaultEncoder(metaInfo.getDefaultEncoder());
+  }
   attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
   attributesBuilder.webRequest(grailsWebRequest);
   outputStack=GroovyPageOutputStack.currentStack(attributesBuilder.build());

@@ -1,5 +1,5 @@
 {
-  if (!decorators.isEmpty()) {
+  if (decorators != null && !decorators.isEmpty()) {
     List<Closure<T>> newClosures=new ArrayList<Closure<T>>(closures.size());
     for (    Closure<T> closure : closures) {
       for (      PromiseDecorator decorator : decorators) {

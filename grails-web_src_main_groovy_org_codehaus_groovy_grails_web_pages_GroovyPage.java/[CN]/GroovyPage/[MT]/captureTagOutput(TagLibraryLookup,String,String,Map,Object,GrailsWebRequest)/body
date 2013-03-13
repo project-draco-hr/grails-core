@@ -9,12 +9,15 @@
   }
   Closure actualBody=createOutputCapturingClosure(tagLib,body,webRequest);
   final GroovyPageTagWriter out=new GroovyPageTagWriter();
+  GroovyPageOutputStack outputStack=null;
   try {
-    GroovyPageOutputStack outputStack=GroovyPageOutputStack.currentStack(webRequest,false);
+    outputStack=GroovyPageOutputStack.currentStack(webRequest,false);
     if (outputStack == null) {
       outputStack=GroovyPageOutputStack.currentStack(webRequest,true,out,true,true);
     }
-    outputStack.push(out);
+    GroovyPageOutputStackAttributes.Builder builder=createOutputStackAttributesBuilder(webRequest,attrs);
+    builder.topWriter(out);
+    outputStack.push(builder.build());
     Object tagLibProp=tagLib.getProperty(tagName);
     if (tagLibProp instanceof Closure) {
       Closure tag=(Closure)((Closure)tagLibProp).clone();
@@ -44,6 +47,6 @@ return out.getBuffer();
 throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
 }
   finally {
-GroovyPageOutputStack.currentStack(webRequest).pop();
+if (outputStack != null) outputStack.pop();
 }
 }

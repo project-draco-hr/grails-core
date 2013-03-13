@@ -1,0 +1,9 @@
+{
+  GroovyPageOutputStackAttributes.Builder builder=new GroovyPageOutputStackAttributes.Builder();
+  builder.inheritPreviousEncoders(true);
+  if (attrs.containsKey("encodeAs")) {
+    Encoder encoder=WithCodecHelper.lookupEncoder(webRequest.getAttributes().getGrailsApplication(),attrs.get("encodeAs").toString());
+    builder.pageEncoder(encoder).defaultEncoder(encoder);
+  }
+  return builder;
+}

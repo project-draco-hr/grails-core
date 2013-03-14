@@ -6,11 +6,11 @@
   ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
   boolean encodeAsPushedToStack=false;
   try {
-    Object codecInfo=null;
-    if (attrs.containsKey("encodeAs")) {
-      codecInfo=attrs.get("encodeAs");
+    Object codecInfo=defaultEncodeAs;
+    if (attrs.containsKey(ENCODE_AS_ATTRIBUTE_NAME)) {
+      codecInfo=attrs.get(ENCODE_AS_ATTRIBUTE_NAME);
     }
- else     if (DEFAULT_NAMESPACE.equals(tagNamespace) && "applyCodec".equals(tagName)) {
+ else     if (DEFAULT_NAMESPACE.equals(tagNamespace) && APPLY_CODEC_TAG_NAME.equals(tagName)) {
       codecInfo=attrs;
     }
     if (codecInfo != null) {

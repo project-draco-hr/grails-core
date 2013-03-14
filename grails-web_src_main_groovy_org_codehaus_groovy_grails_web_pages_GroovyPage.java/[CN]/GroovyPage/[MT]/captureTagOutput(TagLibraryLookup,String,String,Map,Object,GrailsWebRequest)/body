@@ -15,10 +15,19 @@
     if (outputStack == null) {
       outputStack=GroovyPageOutputStack.currentStack(webRequest,true,tagOutput,true,true);
     }
-    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(attrs.get("encodeAs"),webRequest.getAttributes().getGrailsApplication());
+    Object codecInfo=null;
+    if (attrs.containsKey(ENCODE_AS_ATTRIBUTE_NAME)) {
+      codecInfo=attrs.get(ENCODE_AS_ATTRIBUTE_NAME);
+    }
+ else     if (DEFAULT_NAMESPACE.equals(namespace) && APPLY_CODEC_TAG_NAME.equals(tagName)) {
+      codecInfo=attrs;
+    }
+ else {
+      codecInfo=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
+    }
+    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecInfo,webRequest.getAttributes().getGrailsApplication());
     builder.topWriter(tagOutput);
     outputStack.push(builder.build());
-    GrailsPrintWriter out=outputStack.getPageWriter();
     Object tagLibProp=tagLib.getProperty(tagName);
     if (tagLibProp instanceof Closure) {
       Closure tag=(Closure)((Closure)tagLibProp).clone();
@@ -33,7 +42,7 @@ case 1:
             outputStack.getTemplateWriter().print(bodyResult2);
           }
  else {
-            out.print(bodyResult2);
+            outputStack.getPageWriter().print(bodyResult2);
           }
         }
       }
@@ -44,11 +53,20 @@ break;
 default :
 throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
 }
+Encoder pageEncoder=outputStack.getPageEncoder();
 boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
 if (returnsObject && bodyResult != null && !(bodyResult instanceof Writer)) {
+if (pageEncoder != null) {
+bodyResult=pageEncoder.encode(bodyResult);
+}
 return bodyResult;
 }
+if (pageEncoder != null) {
+return pageEncoder.encode(tagOutput.getBuffer());
+}
+ else {
 return tagOutput.getBuffer();
+}
 }
 throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
 }

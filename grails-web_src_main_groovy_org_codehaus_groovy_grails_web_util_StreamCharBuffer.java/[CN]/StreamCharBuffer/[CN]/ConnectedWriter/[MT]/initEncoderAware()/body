@@ -3,5 +3,5 @@
   if (target instanceof GrailsWrappedWriter) {
     target=((GrailsWrappedWriter)target).unwrap();
   }
-  encoderAware=(target instanceof StreamCharBufferWriter || target instanceof EncodedAppenderWriter);
+  encoderAware=(target instanceof EncodedAppenderFactory || target instanceof EncodedAppenderWriterFactory);
 }

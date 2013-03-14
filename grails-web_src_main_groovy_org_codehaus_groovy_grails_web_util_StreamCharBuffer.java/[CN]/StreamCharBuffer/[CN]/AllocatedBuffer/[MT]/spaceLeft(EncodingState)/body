@@ -1,5 +1,5 @@
 {
-  if (this.encodingState != null && (encodingState == null || !this.encodingState.equals(encodingState)) && hasChunk()) {
+  if (this.encodingState != null && (encodingState == null || !this.encodingState.equals(encodingState)) && hasChunk() && !isNotConnectedToEncoderAwareWriters()) {
     addChunk(allocBuffer.createChunk());
     this.encodingState=null;
   }

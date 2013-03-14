@@ -2,7 +2,7 @@
   if (encodingState == nextEncoders) {
     return;
   }
-  if (encodingState != null && (nextEncoders == null || !encodingState.equals(nextEncoders))) {
+  if (encodingState != null && !isNotConnectedToEncoderAwareWriters() && (nextEncoders == null || !encodingState.equals(nextEncoders))) {
     throw new IOException("Illegal operation in AllocatedBuffer");
   }
   encodingState=nextEncoders;

@@ -1,8 +1,4 @@
 {
-  if (!decorators.isEmpty()) {
-    for (    PromiseDecorator d : decorators) {
-      c=d.decorate(c);
-    }
-  }
+  c=applyDecorators(c,decorators);
   return createPromise(c);
 }

@@ -1,3 +1,0 @@
-{
-  return encoder != null && (notConnectedToEncodeAwareWriters == null || !notConnectedToEncodeAwareWriters) && (encodingState == null || DefaultEncodingStateRegistry.shouldEncodeWith(encoder,encodingState));
-}

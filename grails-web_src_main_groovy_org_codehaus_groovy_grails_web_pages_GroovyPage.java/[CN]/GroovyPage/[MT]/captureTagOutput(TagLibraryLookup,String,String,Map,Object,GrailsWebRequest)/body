@@ -15,7 +15,7 @@
     if (outputStack == null) {
       outputStack=GroovyPageOutputStack.currentStack(webRequest,true,out,true,true);
     }
-    GroovyPageOutputStackAttributes.Builder builder=createOutputStackAttributesBuilder(webRequest,attrs);
+    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(attrs.get("encodeAs"),webRequest.getAttributes().getGrailsApplication());
     builder.topWriter(out);
     outputStack.push(builder.build());
     Object tagLibProp=tagLib.getProperty(tagName);

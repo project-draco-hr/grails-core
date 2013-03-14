@@ -6,29 +6,29 @@
   ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
   boolean encodeAsPushedToStack=false;
   try {
+    Object codecInfo=null;
     if (attrs.containsKey("encodeAs")) {
-      GroovyPageOutputStackAttributes.Builder builder=createOutputStackAttributesBuilder(webRequest,attrs);
-      outputStack.push(builder.build());
+      codecInfo=attrs.get("encodeAs");
+    }
+ else     if (DEFAULT_NAMESPACE.equals(tagNamespace) && "applyCodec".equals(tagName)) {
+      codecInfo=attrs;
+    }
+    if (codecInfo != null) {
+      outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecInfo,webRequest.getAttributes().getGrailsApplication()).build());
       encodeAsPushedToStack=true;
     }
     Object tagresult=null;
 switch (tag.getParameterTypes().length) {
 case 1:
       tagresult=tag.call(new Object[]{attrs});
-    if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
-      out.print(tagresult);
-    }
+    outputTagResult(returnsObject,tagresult);
   if (body != null && body != EMPTY_BODY_CLOSURE) {
     body.call();
   }
 break;
 case 2:
-if (tag.getParameterTypes().length == 2) {
 tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
-if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
-  out.print(tagresult);
-}
-}
+outputTagResult(returnsObject,tagresult);
 break;
 }
 }

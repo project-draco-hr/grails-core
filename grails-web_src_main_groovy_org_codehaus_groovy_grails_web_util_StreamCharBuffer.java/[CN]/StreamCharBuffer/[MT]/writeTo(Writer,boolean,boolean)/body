@@ -15,24 +15,25 @@
     ((StreamCharBufferWriter)target).write(this);
     return;
   }
- else   if (target instanceof EncodedAppenderWriter) {
-    EncodedAppenderWriter eaw=(EncodedAppenderWriter)target;
-    if (eaw.getEncodedAppender() == writer) {
+ else   if (target instanceof EncodedAppenderFactory) {
+    EncodedAppenderFactory eaw=(EncodedAppenderFactory)target;
+    if (eaw.getEncodedAppender() == writer.getEncodedAppender()) {
       throw new IllegalArgumentException("Cannot write buffer to itself.");
     }
-    if (eaw.getEncoder() == null && eaw.getEncodedAppender().getClass() == StreamCharBufferWriter.class) {
-      writeTo((Writer)eaw.getEncodedAppender(),flushTarget,emptyAfter);
+    if (eaw.getClass() == StreamCharBufferWriter.class) {
+      writeTo((StreamCharBufferWriter)eaw,flushTarget,emptyAfter);
+      return;
     }
- else {
-      encodeTo(eaw.getEncodedAppender(),eaw.getEncoder());
+ else     if (target instanceof EncoderAware) {
+      encodeTo(eaw.getEncodedAppender(),((EncoderAware)eaw).getEncoder());
       if (emptyAfter) {
         emptyAfterReading();
       }
       if (flushTarget) {
         target.flush();
       }
+      return;
     }
-    return;
   }
   writeToImpl(target,flushTarget,emptyAfter);
 }

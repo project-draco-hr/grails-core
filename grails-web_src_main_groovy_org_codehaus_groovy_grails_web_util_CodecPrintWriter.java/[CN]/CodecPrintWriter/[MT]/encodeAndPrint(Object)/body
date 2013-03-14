@@ -4,8 +4,8 @@
     return;
   }
   Writer writer=findStreamCharBufferTarget(true);
-  if (writer instanceof EncodedAppender) {
-    EncodedAppender appender=(EncodedAppender)writer;
+  if (writer instanceof EncodedAppenderFactory) {
+    EncodedAppender appender=((EncodedAppenderFactory)writer).getEncodedAppender();
     Class<?> clazz=obj.getClass();
     try {
       if (clazz == StreamCharBuffer.class) {

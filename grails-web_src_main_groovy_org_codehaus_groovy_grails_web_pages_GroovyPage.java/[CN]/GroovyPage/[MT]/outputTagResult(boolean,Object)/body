@@ -1,0 +1,10 @@
+{
+  if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
+    if (tagresult instanceof String && isHtmlPart((String)tagresult)) {
+      templateOut.print(tagresult);
+    }
+ else {
+      out.print(tagresult);
+    }
+  }
+}

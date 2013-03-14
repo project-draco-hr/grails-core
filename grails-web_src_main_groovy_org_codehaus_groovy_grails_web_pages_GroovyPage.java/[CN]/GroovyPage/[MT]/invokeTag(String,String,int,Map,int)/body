@@ -24,7 +24,7 @@
         boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(tagNamespace,tagName);
         Object tagLibClosure=tagLib.getProperty(tagName);
         if (tagLibClosure instanceof Closure) {
-          invokeTagLibClosure((Closure)tagLibClosure,attrs,body,returnsObject);
+          invokeTagLibClosure(tagName,tagNamespace,(Closure)tagLibClosure,attrs,body,returnsObject);
         }
  else {
           throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]",getGroovyPageFileName(),lineNumber);

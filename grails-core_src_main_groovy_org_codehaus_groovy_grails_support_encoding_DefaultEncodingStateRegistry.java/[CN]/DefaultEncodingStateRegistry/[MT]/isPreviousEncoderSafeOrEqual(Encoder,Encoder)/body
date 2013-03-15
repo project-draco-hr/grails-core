@@ -1,0 +1,3 @@
+{
+  return previousEncoder == encoderToApply || previousEncoder.isSafe() || previousEncoder.getCodecName().equals(encoderToApply.getCodecName());
+}

@@ -1,7 +1,7 @@
 {
   if (currentEncoders != null && currentEncoders.getEncoders() != null) {
     for (    Encoder encoder : currentEncoders.getEncoders()) {
-      if (isEncoderEquivalentToPrevious(encoderToApply,encoder)) {
+      if (isPreviousEncoderSafeOrEqual(encoderToApply,encoder)) {
         return false;
       }
     }

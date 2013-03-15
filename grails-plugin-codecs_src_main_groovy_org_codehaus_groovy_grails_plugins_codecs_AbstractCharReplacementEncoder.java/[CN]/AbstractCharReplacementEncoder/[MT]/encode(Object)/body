@@ -5,7 +5,7 @@
     str=(CharSequence)o;
   }
  else   if (o instanceof Character) {
-    String escaped=escapeCharacter((Character)o);
+    String escaped=escapeCharacter((Character)o,(char)0);
     if (escaped != null) {
       return escaped;
     }
@@ -22,12 +22,13 @@
   StringBuilder sb=null;
   int n=str.length(), i;
   int startPos=-1;
+  char prevChar=(char)0;
   for (i=0; i < n; i++) {
     char ch=str.charAt(i);
     if (startPos == -1) {
       startPos=i;
     }
-    String escaped=escapeCharacter(ch);
+    String escaped=escapeCharacter(ch,prevChar);
     if (escaped != null) {
       if (sb == null) {
         sb=new StringBuilder(str.length() * 110 / 100);
@@ -40,6 +41,7 @@
       }
       startPos=-1;
     }
+    prevChar=ch;
   }
   if (sb != null) {
     if (startPos > -1 && i - startPos > 0) {

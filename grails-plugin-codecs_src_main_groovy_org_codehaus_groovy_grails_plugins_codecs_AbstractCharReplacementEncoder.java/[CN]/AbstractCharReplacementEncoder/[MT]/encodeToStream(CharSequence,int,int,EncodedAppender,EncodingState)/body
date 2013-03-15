@@ -5,12 +5,13 @@
   int n=Math.min(str.length(),off + len);
   int i;
   int startPos=-1;
+  char prevChar=(char)0;
   for (i=off; i < n; i++) {
     char ch=str.charAt(i);
     if (startPos == -1) {
       startPos=i;
     }
-    String escaped=escapeCharacter(ch);
+    String escaped=escapeCharacter(ch,prevChar);
     if (escaped != null) {
       if (i - startPos > 0) {
         appender.append(this,encodingState,str,startPos,i - startPos);
@@ -20,6 +21,7 @@
       }
       startPos=-1;
     }
+    prevChar=ch;
   }
   if (startPos > -1 && i - startPos > 0) {
     appender.append(this,encodingState,str,startPos,i - startPos);

@@ -1,5 +1,0 @@
-{
-  if (isPersistenceContext(session.getDefinition()) && !isSessionAlreadyBound()) {
-    super.sessionEnded(context,session,outcome,output);
-  }
-}

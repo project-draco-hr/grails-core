@@ -1,7 +1,16 @@
 {
   String viewName=argMap.get(ARGUMENT_VIEW).toString();
-  Object modelObject=argMap.get(ARGUMENT_MODEL);
   String viewUri=webRequest.getAttributes().getNoSuffixViewURI((GroovyObject)target,viewName);
+  Object modelObject=argMap.get(ARGUMENT_MODEL);
+  if (modelObject != null) {
+    modelObject=argMap.get(ARGUMENT_MODEL);
+    boolean isPromise=modelObject instanceof Promise;
+    Collection<ActionResultTransformer> resultTransformers=getActionResultTransformers(webRequest);
+    for (    ActionResultTransformer resultTransformer : resultTransformers) {
+      modelObject=resultTransformer.transformActionResult(webRequest,viewUri,modelObject);
+    }
+    if (isPromise)     return;
+  }
   Map model;
   if (modelObject instanceof Map) {
     model=(Map)modelObject;

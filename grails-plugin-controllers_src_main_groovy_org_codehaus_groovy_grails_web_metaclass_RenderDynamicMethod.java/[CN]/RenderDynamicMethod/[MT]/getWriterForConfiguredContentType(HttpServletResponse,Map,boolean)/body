@@ -1,0 +1,18 @@
+{
+  Writer out;
+  String contentType=hasContentType ? argMap.get(ARGUMENT_CONTENT_TYPE).toString() : null;
+  if (hasContentType && argMap.containsKey(ARGUMENT_ENCODING)) {
+    String encoding=argMap.get(ARGUMENT_ENCODING).toString();
+    setContentType(response,contentType,encoding);
+    out=GSPResponseWriter.getInstance(response);
+  }
+ else   if (hasContentType) {
+    setContentType(response,contentType,DEFAULT_ENCODING);
+    out=GSPResponseWriter.getInstance(response);
+  }
+ else {
+    setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
+    out=GSPResponseWriter.getInstance(response);
+  }
+  return out;
+}

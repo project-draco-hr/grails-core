@@ -1,5 +1,7 @@
 {
   boolean renderView;
+  boolean hasModel=argMap.containsKey(ARGUMENT_MODEL);
+  Object modelObject=null;
   String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
   String contextPath=getContextPath(webRequest,argMap);
   String var=null;
@@ -19,8 +21,7 @@
     Map binding=new HashMap();
     if (argMap.containsKey(ARGUMENT_BEAN)) {
       Object bean=argMap.get(ARGUMENT_BEAN);
-      if (argMap.containsKey(ARGUMENT_MODEL)) {
-        Object modelObject=argMap.get(ARGUMENT_MODEL);
+      if (hasModel) {
         if (modelObject instanceof Map) {
           setTemplateModel(webRequest,binding,(Map)modelObject);
         }
@@ -29,16 +30,14 @@
     }
  else     if (argMap.containsKey(ARGUMENT_COLLECTION)) {
       Object colObject=argMap.get(ARGUMENT_COLLECTION);
-      if (argMap.containsKey(ARGUMENT_MODEL)) {
-        Object modelObject=argMap.get(ARGUMENT_MODEL);
+      if (hasModel) {
         if (modelObject instanceof Map) {
           setTemplateModel(webRequest,binding,(Map)modelObject);
         }
       }
       renderTemplateForCollection(t,binding,colObject,var,out);
     }
- else     if (argMap.containsKey(ARGUMENT_MODEL)) {
-      Object modelObject=argMap.get(ARGUMENT_MODEL);
+ else     if (hasModel) {
       if (modelObject instanceof Map) {
         setTemplateModel(webRequest,binding,(Map)modelObject);
       }

@@ -7,6 +7,9 @@
     Object returnValue=null;
     try {
       returnValue=handleAction(controller,action,request,response,params);
+      for (      ActionResultTransformer actionResultTransformer : actionResultTransformers) {
+        returnValue=actionResultTransformer.transformActionResult(webRequest,viewName,returnValue);
+      }
     }
  catch (    Throwable t) {
       String pluginName=GrailsPluginUtils.getPluginName(controller.getClass());
@@ -36,7 +39,7 @@
         throw new ControllerExecutionException("I/O error sending redirect to URI: " + uri,e);
       }
     }
-    if (request.getAttribute(FORWARD_CALLED) == null) {
+    if (request.getAttribute(FORWARD_CALLED) == null && request.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) == null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action [" + actionName + "] executed with result ["+ returnValue+ "] and view name ["+ viewName+ "]");
       }

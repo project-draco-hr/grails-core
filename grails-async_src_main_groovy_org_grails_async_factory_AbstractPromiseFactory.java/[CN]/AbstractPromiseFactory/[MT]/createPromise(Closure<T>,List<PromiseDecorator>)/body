@@ -1,0 +1,4 @@
+{
+  c=applyDecorators(c,decorators);
+  return createPromise(c);
+}

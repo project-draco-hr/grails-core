@@ -128,7 +128,9 @@
     }
     try {
       if (!renderView) {
-        if (out != null)         out.flush();
+        if (out != null) {
+          out.flush();
+        }
       }
     }
  catch (    IOException e) {

@@ -1,6 +1,6 @@
 {
   PromiseList<T> promiseList=new PromiseList<T>();
-  for (  Promise p : promises) {
+  for (  Promise<T> p : promises) {
     promiseList.add(p);
   }
   return promiseList;

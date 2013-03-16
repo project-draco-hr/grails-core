@@ -4,10 +4,10 @@
     K key=entry.getKey();
     Object value=entry.getValue();
     if (value instanceof Promise) {
-      promiseMap.put(key,(Promise)value);
+      promiseMap.put(key,(Promise<?>)value);
     }
  else     if (value instanceof Closure) {
-      Closure c=(Closure)value;
+      Closure<?> c=(Closure<?>)value;
       promiseMap.put(key,createPromise(c));
     }
  else {

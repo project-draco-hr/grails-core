@@ -4,13 +4,15 @@
   }
   if (titleCaptured) {
     if (titleBuffer != null) {
+      int headlen=headBuffer.length();
       titleBuffer.clear();
-      headBuffer.writeTo(out);
+      if (headBuffer.length() < headlen) {
+        headBuffer.writeTo(out);
+        return;
+      }
     }
- else {
-      String headAsString=headBuffer.toString();
-      out.write(headAsString.replaceFirst("<title(\\s[^>]*)?>(.*?)</title>",""));
-    }
+    String headAsString=headBuffer.toString();
+    out.write(headAsString.replaceFirst("<title(\\s[^>]*)?>(.*?)</title>",""));
   }
  else {
     headBuffer.writeTo(out);

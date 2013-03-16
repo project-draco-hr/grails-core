@@ -1,5 +1,0 @@
-{
-  final AggregateProjection proj=Projections.sum(calculatePropertyName(propertyName));
-  addProjectionToList(proj,alias);
-  return this;
-}

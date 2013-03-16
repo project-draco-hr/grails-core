@@ -1,6 +1,0 @@
-{
-  if (!validateSimpleExpression()) {
-    throwRuntimeException(new IllegalArgumentException("Call to [sqlRestriction] with value [" + sqlRestriction + "] not allowed here."));
-  }
-  return sqlRestriction(sqlRestriction,Collections.EMPTY_LIST);
-}

@@ -1,4 +1,0 @@
-{
-  ProjectionAdapter projectionAdapter=adapterMap.get(projection.getClass());
-  return projectionAdapter.toHibernateProjection(projection);
-}

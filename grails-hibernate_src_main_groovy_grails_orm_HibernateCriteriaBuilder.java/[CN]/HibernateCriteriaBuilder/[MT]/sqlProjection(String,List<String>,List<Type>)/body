@@ -1,3 +1,0 @@
-{
-  projectionList.add(Projections.sqlProjection(sql,columnAliases.toArray(new String[columnAliases.size()]),types.toArray(new Type[types.size()])));
-}

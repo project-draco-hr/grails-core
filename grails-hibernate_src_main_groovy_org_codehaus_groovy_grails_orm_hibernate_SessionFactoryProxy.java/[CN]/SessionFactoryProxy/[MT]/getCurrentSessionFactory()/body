@@ -1,5 +1,0 @@
-{
-  SessionFactory sf=applicationContext.getBean(targetBean,SessionFactoryHolder.class).getSessionFactory();
-  updateCurrentSessionContext(sf);
-  return sf;
-}

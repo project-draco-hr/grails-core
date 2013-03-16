@@ -1,6 +1,0 @@
-{
-  final PersistentEntity persistentEntity=getMappingContext().getPersistentEntity(type.getName());
-  final Criteria criteria=hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(type);
-  hibernateTemplate.applySettings(criteria);
-  return new HibernateQuery(criteria,this,persistentEntity);
-}

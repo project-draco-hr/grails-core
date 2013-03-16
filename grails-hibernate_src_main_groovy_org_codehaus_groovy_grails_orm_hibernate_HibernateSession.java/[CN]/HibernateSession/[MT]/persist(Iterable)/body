@@ -1,7 +1,0 @@
-{
-  List<Serializable> identifiers=new ArrayList<Serializable>();
-  for (  Object object : objects) {
-    identifiers.add(hibernateTemplate.save(object));
-  }
-  return identifiers;
-}

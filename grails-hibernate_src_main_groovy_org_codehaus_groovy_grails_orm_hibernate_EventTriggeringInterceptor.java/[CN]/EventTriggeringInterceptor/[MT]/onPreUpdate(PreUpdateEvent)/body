@@ -1,8 +1,0 @@
-{
-  boolean evict=false;
-  ClosureEventListener eventListener=findEventListener(event.getEntity());
-  if (eventListener != null) {
-    evict=eventListener.onPreUpdate(event);
-  }
-  return evict;
-}

@@ -1,5 +1,0 @@
-{
-  for (  PersistenceContextInterceptor interceptor : interceptors) {
-    interceptor.disconnect();
-  }
-}

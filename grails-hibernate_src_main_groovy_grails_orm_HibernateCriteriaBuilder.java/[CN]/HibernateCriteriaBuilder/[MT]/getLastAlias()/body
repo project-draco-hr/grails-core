@@ -1,6 +1,0 @@
-{
-  if (aliasStack.size() > 0) {
-    return aliasStack.get(aliasStack.size() - 1).toString();
-  }
-  return null;
-}

@@ -1,4 +1,0 @@
-{
-  super(datastore,application,sessionFactory,classLoader);
-  setPattern(Pattern.compile(METHOD_PATTERN));
-}

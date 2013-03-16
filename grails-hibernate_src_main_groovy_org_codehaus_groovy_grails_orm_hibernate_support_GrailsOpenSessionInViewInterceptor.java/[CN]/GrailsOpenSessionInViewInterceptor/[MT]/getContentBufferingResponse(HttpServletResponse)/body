@@ -1,9 +1,0 @@
-{
-  while (response instanceof HttpServletResponseWrapper) {
-    if (response instanceof GrailsContentBufferingResponse) {
-      return (GrailsContentBufferingResponse)response;
-    }
-    response=(HttpServletResponse)((HttpServletResponseWrapper)response).getResponse();
-  }
-  return null;
-}

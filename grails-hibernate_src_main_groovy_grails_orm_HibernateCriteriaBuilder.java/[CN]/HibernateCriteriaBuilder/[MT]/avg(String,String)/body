@@ -1,5 +1,0 @@
-{
-  final AggregateProjection aggregateProjection=Projections.avg(calculatePropertyName(propertyName));
-  addProjectionToList(aggregateProjection,alias);
-  return this;
-}

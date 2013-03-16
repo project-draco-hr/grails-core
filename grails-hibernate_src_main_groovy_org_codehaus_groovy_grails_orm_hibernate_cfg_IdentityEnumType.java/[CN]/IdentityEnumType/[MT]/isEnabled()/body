@@ -1,4 +1,0 @@
-{
-  Object disableConfigOption=GrailsWebUtil.currentFlatConfiguration().get("grails.orm.enum.id.mapping");
-  return disableConfigOption == null || !(Boolean.FALSE.equals(disableConfigOption));
-}

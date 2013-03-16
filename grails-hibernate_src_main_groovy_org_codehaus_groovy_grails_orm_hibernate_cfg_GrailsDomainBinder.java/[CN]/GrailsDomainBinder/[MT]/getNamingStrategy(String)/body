@@ -1,4 +1,0 @@
-{
-  String key="sessionFactory".equals(sessionFactoryBeanName) ? GrailsDomainClassProperty.DEFAULT_DATA_SOURCE : sessionFactoryBeanName.substring("sessionFactory_".length());
-  return NAMING_STRATEGIES.get(key);
-}

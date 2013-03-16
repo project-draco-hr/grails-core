@@ -1,9 +1,0 @@
-{
-  if (propertyConfig != null) {
-    List<ColumnConfig> columns=propertyConfig.getColumns();
-    if (columns != null && !columns.isEmpty()) {
-      return columns.get(0);
-    }
-  }
-  return null;
-}

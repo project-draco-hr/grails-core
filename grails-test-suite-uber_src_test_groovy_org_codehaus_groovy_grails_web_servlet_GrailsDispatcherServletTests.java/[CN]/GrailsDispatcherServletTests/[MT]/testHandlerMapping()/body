@@ -3,7 +3,6 @@
   try {
     System.setProperty("grails.env","development");
     appCtx.registerMockBean("localeInterceptor",new LocaleChangeInterceptor());
-    appCtx.registerMockBean("openSessionInView",new OpenSessionInViewInterceptor());
     appCtx.registerMockBean("grailsUrlConverter",new HyphenatedUrlConverter());
     SimpleGrailsController controller=new SimpleGrailsController();
     appCtx.registerMockBean("mainSimpleController",controller);
@@ -33,10 +32,9 @@
     MockHttpServletRequest request=new MockHttpServletRequest("GET","/test/action");
     HandlerExecutionChain executionChain=dispatcherServlet.getHandler(request);
     assertNotNull(executionChain);
-    assertEquals(2,executionChain.getInterceptors().length);
+    assertEquals(1,executionChain.getInterceptors().length);
     for (int i=0; i < executionChain.getInterceptors().length; i++) {
-      HandlerInterceptor interceptor=executionChain.getInterceptors()[i];
-      assertNotNull(interceptor);
+      assertNotNull(executionChain.getInterceptors()[i]);
     }
     request=new MockHttpServletRequest("GET","/test/action/1");
     executionChain=dispatcherServlet.getHandler(request);

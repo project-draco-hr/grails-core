@@ -1,8 +1,0 @@
-{
-  int numDigits=0;
-  if (number != null) {
-    String digitsOnly=number.toString().replaceAll("\\D",EMPTY_PATH);
-    numDigits=digitsOnly.length();
-  }
-  return numDigits;
-}

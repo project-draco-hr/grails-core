@@ -1,8 +1,0 @@
-{
-  if (value == null) {
-    pstmt.setNull(idx,sqlTypes[0]);
-  }
- else {
-    type.nullSafeSet(pstmt,bidiMap.getKey(value),idx,null);
-  }
-}

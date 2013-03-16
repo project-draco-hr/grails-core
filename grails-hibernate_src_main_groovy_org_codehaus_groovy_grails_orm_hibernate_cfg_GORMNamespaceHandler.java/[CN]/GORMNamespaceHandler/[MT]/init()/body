@@ -1,4 +1,0 @@
-{
-  ExpandoMetaClass.enableGlobally();
-  registerBeanDefinitionParser("sessionFactory",new GORMSessionFactoryDefinitionParser());
-}

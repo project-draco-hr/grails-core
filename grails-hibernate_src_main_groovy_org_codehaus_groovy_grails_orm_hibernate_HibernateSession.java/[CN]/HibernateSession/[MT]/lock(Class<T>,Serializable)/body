@@ -1,3 +1,0 @@
-{
-  return hibernateTemplate.get(type,key,LockMode.PESSIMISTIC_WRITE);
-}

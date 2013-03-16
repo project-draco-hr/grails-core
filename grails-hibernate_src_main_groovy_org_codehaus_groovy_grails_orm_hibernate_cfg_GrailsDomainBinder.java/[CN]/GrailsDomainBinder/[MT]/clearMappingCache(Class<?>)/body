@@ -1,9 +1,0 @@
-{
-  String className=theClass.getName();
-  for (Iterator<Map.Entry<Class<?>,Mapping>> it=MAPPING_CACHE.entrySet().iterator(); it.hasNext(); ) {
-    Map.Entry<Class<?>,Mapping> entry=it.next();
-    if (className.equals(entry.getKey().getName())) {
-      it.remove();
-    }
-  }
-}

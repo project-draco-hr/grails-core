@@ -1,7 +1,0 @@
-{
-  Object id=type.nullSafeGet(resultSet,names[0],null);
-  if ((!resultSet.wasNull()) && id != null) {
-    return bidiMap.getEnumValue(id);
-  }
-  return null;
-}

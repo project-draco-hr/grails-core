@@ -1,9 +1,0 @@
-{
-  if (!logicalExpressionStack.isEmpty()) {
-    logicalExpressionStack.get(logicalExpressionStack.size() - 1).args.add(c);
-  }
- else {
-    criteria.add(c);
-  }
-  return c;
-}

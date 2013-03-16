@@ -1,8 +1,0 @@
-{
-  if (alias != null) {
-    projectionList.add(propertyProjection,alias);
-  }
- else {
-    projectionList.add(propertyProjection);
-  }
-}

@@ -1,6 +1,0 @@
-{
-  ClosureEventListener eventListener=findEventListener(event.getEntityObject());
-  if (eventListener != null) {
-    eventListener.onValidate(event);
-  }
-}

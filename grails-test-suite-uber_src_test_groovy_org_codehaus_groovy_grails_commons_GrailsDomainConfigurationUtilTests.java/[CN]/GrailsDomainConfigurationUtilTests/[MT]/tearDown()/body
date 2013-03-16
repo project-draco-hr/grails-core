@@ -1,6 +1,0 @@
-{
-  super.tearDown();
-  GrailsDomainBinder.NAMING_STRATEGIES.clear();
-  GrailsDomainBinder.NAMING_STRATEGIES.put(GrailsDomainClassProperty.DEFAULT_DATA_SOURCE,ImprovedNamingStrategy.INSTANCE);
-  PluginManagerHolder.setPluginManager(null);
-}

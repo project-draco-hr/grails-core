@@ -1,5 +1,0 @@
-{
-  super(session,entity);
-  this.criteria=criteria;
-  ReflectionUtils.makeAccessible(opField);
-}

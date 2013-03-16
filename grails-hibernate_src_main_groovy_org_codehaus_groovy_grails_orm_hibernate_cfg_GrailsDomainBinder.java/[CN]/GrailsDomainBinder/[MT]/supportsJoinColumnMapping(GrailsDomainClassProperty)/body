@@ -1,3 +1,0 @@
-{
-  return grailsProp.isManyToMany() || isUnidirectionalOneToMany(grailsProp) || grailsProp.isBasicCollectionType();
-}

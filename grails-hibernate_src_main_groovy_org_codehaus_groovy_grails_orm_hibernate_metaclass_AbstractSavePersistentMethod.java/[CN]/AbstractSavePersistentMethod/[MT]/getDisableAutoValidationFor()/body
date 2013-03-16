@@ -1,5 +1,0 @@
-{
-  Set<Integer> identifiers=disableAutoValidationFor.get();
-  if (identifiers == null)   disableAutoValidationFor.set(identifiers=new HashSet<Integer>());
-  return identifiers;
-}

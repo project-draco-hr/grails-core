@@ -1,8 +1,0 @@
-{
-  ShutdownOperations.addOperation(new Runnable(){
-    public void run(){
-      ConstrainedProperty.removeConstraint(UNIQUE_CONSTRAINT,PersistentConstraintFactory.class);
-    }
-  }
-);
-}

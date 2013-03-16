@@ -1,7 +1,0 @@
-{
-  try {
-    getSession(false).disconnect();
-  }
- catch (  IllegalStateException e) {
-  }
-}

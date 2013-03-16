@@ -1,7 +1,0 @@
-{
-  boolean valid=true;
-  if (arguments.length < 1)   valid=false;
- else   if (arguments.length == 3 && !(arguments[2] instanceof Map))   valid=false;
- else   if (arguments.length > 3)   valid=false;
-  if (!valid)   throw new MissingMethodException(METHOD_SIGNATURE,clazz,arguments);
-}

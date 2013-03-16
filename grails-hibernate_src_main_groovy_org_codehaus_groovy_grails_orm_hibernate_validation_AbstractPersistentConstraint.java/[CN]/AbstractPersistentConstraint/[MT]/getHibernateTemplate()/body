@@ -1,7 +1,0 @@
-{
-  SessionFactory sf=sessionFactory.get();
-  if (sf == null) {
-    sf=applicationContext.getBean("sessionFactory",SessionFactory.class);
-  }
-  return new HibernateTemplate(sf,true);
-}

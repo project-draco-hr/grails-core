@@ -1,4 +1,0 @@
-{
-  Collection list=getIterableAsCollection(objects);
-  hibernateTemplate.deleteAll(list);
-}

@@ -1,4 +1,0 @@
-{
-  Set<Integer> identifiers=getDisableAutoValidationFor();
-  return obj != null && identifiers.contains(System.identityHashCode(obj));
-}

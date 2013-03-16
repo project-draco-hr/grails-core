@@ -1,3 +1,0 @@
-{
-  publishEvent(hibernateEvent,new org.grails.datastore.mapping.engine.event.PreLoadEvent(findDatastore(hibernateEvent),hibernateEvent.getEntity()));
-}

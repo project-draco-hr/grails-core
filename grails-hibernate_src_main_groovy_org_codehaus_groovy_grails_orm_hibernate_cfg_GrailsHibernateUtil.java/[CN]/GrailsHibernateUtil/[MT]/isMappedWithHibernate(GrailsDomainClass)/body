@@ -1,3 +1,0 @@
-{
-  return domainClass instanceof GrailsHibernateDomainClass || domainClass.getMappingStrategy().equals(GrailsDomainClass.GORM);
-}

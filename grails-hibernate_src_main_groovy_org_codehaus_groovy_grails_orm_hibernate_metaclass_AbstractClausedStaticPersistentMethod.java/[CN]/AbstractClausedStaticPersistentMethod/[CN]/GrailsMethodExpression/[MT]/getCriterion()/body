@@ -1,4 +1,0 @@
-{
-  Assert.notNull(arguments,"Parameters array must be set before retrieving Criterion");
-  return negation ? Restrictions.not(createCriterion()) : createCriterion();
-}

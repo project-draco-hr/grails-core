@@ -1,5 +1,0 @@
-{
-  super(parent);
-  findClassMethod=findMethod(ClassLoader.class,"findClass",String.class);
-  findClassMethod.setAccessible(true);
-}

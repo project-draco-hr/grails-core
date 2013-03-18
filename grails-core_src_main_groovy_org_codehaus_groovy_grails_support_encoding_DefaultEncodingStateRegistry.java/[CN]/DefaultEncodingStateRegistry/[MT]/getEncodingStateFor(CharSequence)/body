@@ -14,5 +14,5 @@
       }
     }
   }
-  return new EncodingStateImpl(result);
+  return result != null ? new EncodingStateImpl(result) : EncodingStateImpl.UNDEFINED_ENCODING_STATE;
 }

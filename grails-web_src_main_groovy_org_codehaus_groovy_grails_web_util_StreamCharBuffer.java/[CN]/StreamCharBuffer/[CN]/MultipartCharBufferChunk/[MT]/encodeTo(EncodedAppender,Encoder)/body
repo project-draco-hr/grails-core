@@ -1,0 +1,14 @@
+{
+  if (firstPart != null) {
+    EncodingStatePart current=firstPart;
+    int offset=0;
+    while (current != null) {
+      appender.append(encoder,current.encodingState,buffer,offset,current.len);
+      offset+=current.len;
+      current=current.next;
+    }
+  }
+ else {
+    super.encodeTo(appender,encoder);
+  }
+}

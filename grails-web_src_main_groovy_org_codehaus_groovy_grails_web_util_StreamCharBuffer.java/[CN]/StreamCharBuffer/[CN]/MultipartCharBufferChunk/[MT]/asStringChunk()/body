@@ -1,0 +1,7 @@
+{
+  String str=StringCharArrayAccessor.createString(buffer);
+  MultipartStringChunk chunk=new MultipartStringChunk(str);
+  chunk.firstPart=firstPart;
+  chunk.lastPart=lastPart;
+  return chunk;
+}

@@ -3,19 +3,12 @@
     return ((CharBufferChunk)firstChunk).buffer;
   }
   int initialReaderCount=readerCount;
-  EncodingState encodingState=null;
-  if (firstChunk != null) {
-    encodingState=firstChunk.getEncodingState();
-  }
- else {
-    encodingState=allocBuffer.getEncodingState();
-  }
-  char[] buf=readAsCharArray();
+  MultipartCharBufferChunk chunk=readToSingleChunk();
   if (initialReaderCount == 0) {
     reset();
-    if (buf.length > 0) {
-      addChunk(new CharBufferChunk(-1,buf,0,buf.length)).setEncodingState(encodingState);
+    if (chunk != null) {
+      addChunk(chunk);
     }
   }
-  return buf;
+  return chunk.buffer;
 }

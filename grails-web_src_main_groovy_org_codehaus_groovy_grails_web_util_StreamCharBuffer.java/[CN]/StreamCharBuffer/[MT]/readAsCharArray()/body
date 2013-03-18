@@ -1,14 +1,3 @@
 {
-  int currentSize=size();
-  if (currentSize == 0) {
-    return new char[0];
-  }
-  FixedCharArrayWriter target=new FixedCharArrayWriter(currentSize);
-  try {
-    writeTo(target);
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Unexpected IOException",e);
-  }
-  return target.getCharArray();
+  return toCharArray();
 }

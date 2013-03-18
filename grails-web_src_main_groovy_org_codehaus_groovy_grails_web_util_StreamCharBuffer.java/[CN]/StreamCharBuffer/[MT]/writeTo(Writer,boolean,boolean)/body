@@ -20,11 +20,7 @@
     if (eaw.getEncodedAppender() == writer.getEncodedAppender()) {
       throw new IllegalArgumentException("Cannot write buffer to itself.");
     }
-    if (eaw.getEncodedAppender().getClass() == StreamCharBufferEncodedAppender.class) {
-      ((StreamCharBufferEncodedAppender)eaw.getEncodedAppender()).getWriter().write(this);
-      return;
-    }
- else     if (target instanceof EncoderAware) {
+    if (target instanceof EncoderAware) {
       encodeTo(eaw.getEncodedAppender(),((EncoderAware)eaw).getEncoder());
       if (emptyAfter) {
         emptyAfterReading();

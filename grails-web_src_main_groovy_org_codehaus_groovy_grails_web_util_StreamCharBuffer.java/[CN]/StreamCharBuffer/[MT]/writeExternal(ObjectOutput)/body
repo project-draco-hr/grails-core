@@ -1,4 +1,36 @@
 {
-  String str=toString();
-  out.writeUTF(str);
+  out.writeInt(EXTERNALIZABLE_VERSION);
+  StringChunk stringChunk=readToSingleStringChunk(false);
+  if (stringChunk != null && stringChunk.str.length() > 0) {
+    char[] buf=StringCharArrayAccessor.getValue(stringChunk.str);
+    out.writeInt(buf.length);
+    Writer writer=new OutputStreamWriter((OutputStream)out,"UTF-8");
+    writer.write(buf);
+    writer.flush();
+    if (stringChunk instanceof MultipartStringChunk) {
+      MultipartStringChunk mpStringChunk=(MultipartStringChunk)stringChunk;
+      out.writeInt(mpStringChunk.partCount());
+      EncodingStatePart current=mpStringChunk.firstPart;
+      while (current != null) {
+        out.writeInt(current.len);
+        if (current.encodingState != null && current.encodingState.getEncoders() != null && current.encodingState.getEncoders().size() > 0) {
+          out.writeInt(current.encodingState.getEncoders().size());
+          for (          Encoder encoder : current.encodingState.getEncoders()) {
+            out.writeUTF(encoder.getCodecName());
+            out.writeBoolean(encoder.isSafe());
+          }
+        }
+ else {
+          out.writeInt(0);
+        }
+        current=current.next;
+      }
+    }
+ else {
+      out.writeInt(0);
+    }
+  }
+ else {
+    out.writeInt(0);
+  }
 }

@@ -2,6 +2,9 @@
   boolean renderView;
   boolean hasModel=argMap.containsKey(ARGUMENT_MODEL);
   Object modelObject=null;
+  if (hasModel) {
+    modelObject=argMap.get(ARGUMENT_MODEL);
+  }
   String templateName=argMap.get(ARGUMENT_TEMPLATE).toString();
   String contextPath=getContextPath(webRequest,argMap);
   String var=null;

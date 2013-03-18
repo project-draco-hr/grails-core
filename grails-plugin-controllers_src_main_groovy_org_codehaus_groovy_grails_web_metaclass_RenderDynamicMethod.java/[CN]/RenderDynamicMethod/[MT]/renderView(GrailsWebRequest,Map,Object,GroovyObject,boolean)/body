@@ -11,6 +11,7 @@
     }
     if (isPromise)     return;
   }
+  getWriterForConfiguredContentType(webRequest.getResponse(),argMap,hasContentType);
   Map model;
   if (modelObject instanceof Map) {
     model=(Map)modelObject;

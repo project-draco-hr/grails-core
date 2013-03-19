@@ -1,8 +1,8 @@
 {
   List<MethodNode> methods=targetApi.getAllDeclaredMethods();
   ClassNode promisesClass=ClassHelper.make(Promises.class).getPlainNodeReference();
-  MethodNode createPromiseMethodTarget=promisesClass.getDeclaredMethod("createPromise",new Parameter[]{new Parameter(new ClassNode(Closure.class),"c")});
   MethodNode createPromiseMethodTargetWithDecorators=promisesClass.getDeclaredMethod("createPromise",new Parameter[]{new Parameter(new ClassNode(Closure.class),"c"),new Parameter(new ClassNode(List.class),"c")});
+  DelegateAsyncTransactionalMethodTransformer delegateAsyncTransactionalMethodTransformer=lookupAsyncTransactionalMethodTransformer();
   for (  MethodNode m : methods) {
     if (isCandidateMethod(m)) {
       MethodNode existingMethod=classNode.getMethod(m.getName(),m.getParameters());
@@ -17,21 +17,19 @@
         final ClosureExpression closureExpression=new ClosureExpression(new Parameter[0],promiseBody);
         VariableScope variableScope=new VariableScope();
         closureExpression.setVariableScope(variableScope);
-        MethodCallExpression createPromise=new MethodCallExpression(new ClassExpression(promisesClass),"createPromise",new ArgumentListExpression(closureExpression));
-        if (createPromiseMethodTarget != null) {
-          createPromise.setMethodTarget(createPromiseMethodTarget);
-        }
         VariableExpression thisObject=new VariableExpression("this");
-        MethodCallExpression createPromiseWithDecorators=new MethodCallExpression(new ClassExpression(promisesClass),"createPromise",new ArgumentListExpression(closureExpression,new MethodCallExpression(thisObject,"getDecorators",new ArgumentListExpression())));
+        ClassNode delegateAsyncUtilsClassNode=new ClassNode(DelegateAsyncUtils.class);
+        MethodNode getPromiseDecoratorsMethodNode=delegateAsyncUtilsClassNode.getDeclaredMethods("getPromiseDecorators").get(0);
+        ListExpression promiseDecorators=new ListExpression();
+        ArgumentListExpression getPromiseDecoratorsArguments=new ArgumentListExpression(thisObject,promiseDecorators);
+        delegateAsyncTransactionalMethodTransformer.transformTransactionalMethod(classNode,targetApi,m,promiseDecorators);
+        MethodCallExpression getDecoratorsMethodCall=new MethodCallExpression(new ClassExpression(delegateAsyncUtilsClassNode),"getPromiseDecorators",getPromiseDecoratorsArguments);
+        getDecoratorsMethodCall.setMethodTarget(getPromiseDecoratorsMethodNode);
+        MethodCallExpression createPromiseWithDecorators=new MethodCallExpression(new ClassExpression(promisesClass),"createPromise",new ArgumentListExpression(closureExpression,getDecoratorsMethodCall));
         if (createPromiseMethodTargetWithDecorators != null) {
           createPromiseWithDecorators.setMethodTarget(createPromiseMethodTargetWithDecorators);
         }
-        if (createPromiseMethodTarget != null) {
-          createPromise.setMethodTarget(createPromiseMethodTarget);
-        }
-        BinaryExpression instanceofCheck=new BinaryExpression(thisObject,Token.newSymbol(Types.KEYWORD_INSTANCEOF,-1,-1),new ClassExpression(new ClassNode(PromiseDecoratorProvider.class).getPlainNodeReference()));
-        IfStatement ifStatement=new IfStatement(new BooleanExpression(instanceofCheck),new ExpressionStatement(createPromiseWithDecorators),new ExpressionStatement(createPromise));
-        methodBody.addStatement(ifStatement);
+        methodBody.addStatement(new ExpressionStatement(createPromiseWithDecorators));
         final ArgumentListExpression arguments=new ArgumentListExpression();
         Parameter[] parameters=copyParameters(m.getParameters());
         for (        Parameter p : parameters) {

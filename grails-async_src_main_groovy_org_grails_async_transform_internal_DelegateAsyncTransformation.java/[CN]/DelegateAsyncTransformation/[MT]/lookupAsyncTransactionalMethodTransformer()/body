@@ -1,0 +1,9 @@
+{
+  try {
+    Class transformerClass=getClass().getClassLoader().loadClass("org.grails.async.transform.internal.DefaultDelegateAsyncTransactionalMethodTransformer");
+    return (DelegateAsyncTransactionalMethodTransformer)transformerClass.newInstance();
+  }
+ catch (  Throwable e) {
+  }
+  return new NoopDelegateAsyncTransactionalMethodTransformer();
+}

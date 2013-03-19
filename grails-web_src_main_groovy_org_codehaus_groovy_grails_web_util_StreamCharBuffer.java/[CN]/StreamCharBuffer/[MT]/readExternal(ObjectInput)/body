@@ -14,14 +14,7 @@
     int partCount=in.readInt();
     for (int i=0; i < partCount; i++) {
       EncodingStatePart current=new EncodingStatePart();
-      if (mpStringChunk.firstPart == null) {
-        mpStringChunk.firstPart=current;
-        mpStringChunk.lastPart=current;
-      }
- else {
-        mpStringChunk.lastPart.next=current;
-        mpStringChunk.lastPart=current;
-      }
+      mpStringChunk.appendEncodingStatePart(current);
       current.len=in.readInt();
       int encodersSize=in.readInt();
       Set<Encoder> encoders=null;

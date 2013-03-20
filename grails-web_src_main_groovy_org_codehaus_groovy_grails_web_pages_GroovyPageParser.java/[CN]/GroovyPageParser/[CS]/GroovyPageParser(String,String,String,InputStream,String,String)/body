@@ -1,6 +1,18 @@
 {
   this.gspEncoding=encoding;
   this.defaultCodecDirectiveValue=defaultCodecName;
+  if (defaultCodecDirectiveValue == null) {
+    Map<?,?> config=Holders.getFlatConfig();
+    if (config != null) {
+      Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
+      if (o != null) {
+        defaultCodecDirectiveValue=o.toString();
+      }
+    }
+    if (defaultCodecDirectiveValue == null) {
+      defaultCodecDirectiveValue=DEFAULT_DEFAULTCODEC;
+    }
+  }
   if (filename != null && BuildSettingsHolder.getSettings() != null) {
     GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
     if (info != null) {

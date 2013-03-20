@@ -1,5 +1,4 @@
 {
-  super(request);
+  super(request,response);
   attributes=new DefaultGrailsApplicationAttributes(servletContext);
-  this.response=response;
 }

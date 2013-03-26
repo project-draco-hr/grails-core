@@ -9,7 +9,7 @@
     pd=beanWrapper.getPropertyDescriptor(property);
   }
  catch (  BeansException e) {
-    throw new GrailsTagException("Property [" + property + "] is not a valid bean property in tag [renderInput]:"+ e.getMessage(),e);
+    throw new GrailsTagException("Property [" + property + "] is not a valid bean property in tag ["+ TAG_NAME+ "]:"+ e.getMessage(),e);
   }
   GroovyPagesTemplateEngine engine=(GroovyPagesTemplateEngine)servletContext.getAttribute(GrailsApplicationAttributes.GSP_TEMPLATE_ENGINE);
   Template t=null;
@@ -17,7 +17,7 @@
     String uri=findUriForType(pd.getPropertyType());
     t=engine.createTemplate(uri);
     if (t == null) {
-      throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag [scaffold]. No template found.");
+      throw new GrailsTagException("Type [" + pd.getPropertyType() + "] is unsupported by tag ["+ TAG_NAME+ "]. No template found.");
     }
     Map<String,Object> binding=new HashMap<String,Object>();
     binding.put("name",pd.getName());

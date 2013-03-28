@@ -37,7 +37,7 @@
   if (binding instanceof GantBinding) {
     ((GantBinding)binding).addBuildListener(buildEventListener);
   }
-  final BaseSettingsApi cla=new BaseSettingsApi(buildSettings,buildEventListener,false);
+  final BaseSettingsApi cla=new BaseSettingsApi(buildSettings,buildEventListener,interactive);
   cla.makeApiAvailableToScripts(binding,cla);
   cla.makeApiAvailableToScripts(binding,cla.getPluginSettings());
   return cla;

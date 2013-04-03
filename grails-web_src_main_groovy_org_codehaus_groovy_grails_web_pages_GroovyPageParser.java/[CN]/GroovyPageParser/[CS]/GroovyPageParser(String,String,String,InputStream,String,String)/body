@@ -1,16 +1,16 @@
 {
   this.gspEncoding=encoding;
-  this.defaultCodecDirectiveValue=defaultCodecName;
-  if (defaultCodecDirectiveValue == null) {
+  this.expressionCodecDirectiveValue=expressionCodecName;
+  if (expressionCodecDirectiveValue == null) {
     Map<?,?> config=Holders.getFlatConfig();
     if (config != null) {
       Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
       if (o != null) {
-        defaultCodecDirectiveValue=o.toString();
+        expressionCodecDirectiveValue=o.toString();
       }
     }
-    if (defaultCodecDirectiveValue == null) {
-      defaultCodecDirectiveValue=DEFAULT_DEFAULTCODEC;
+    if (expressionCodecDirectiveValue == null) {
+      expressionCodecDirectiveValue=DEFAULT_EXPRESSIONCODEC;
     }
   }
   if (filename != null && BuildSettingsHolder.getSettings() != null) {

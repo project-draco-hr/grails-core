@@ -1,8 +1,8 @@
 {
   this.topWriter=builder.topWriter;
   this.templateEncoder=builder.templateEncoder;
-  this.pageEncoder=builder.pageEncoder;
-  this.defaultEncoder=builder.defaultEncoder;
+  this.outEncoder=builder.outEncoder;
+  this.expressionEncoder=builder.expressionEncoder;
   this.allowCreate=builder.allowCreate;
   this.pushTop=builder.pushTop;
   this.autoSync=builder.autoSync;

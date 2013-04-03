@@ -1,5 +1,5 @@
 {
-  pageWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.pageEncoder,encodingStateRegistry));
+  outWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry));
   Writer templateWriterTarget=null;
   if (stackEntry.templateEncoder != null) {
     templateWriterTarget=createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.templateEncoder,encodingStateRegistry);
@@ -8,5 +8,5 @@
     templateWriterTarget=stackEntry.unwrappedTarget;
   }
   templateWriter.setOut(templateWriterTarget);
-  codecWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.defaultEncoder,encodingStateRegistry));
+  expressionWriter.setOut(createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry));
 }

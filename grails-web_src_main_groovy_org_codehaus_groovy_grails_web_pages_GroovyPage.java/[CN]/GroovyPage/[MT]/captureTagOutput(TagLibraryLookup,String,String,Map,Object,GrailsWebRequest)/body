@@ -42,7 +42,7 @@ case 1:
             outputStack.getTemplateWriter().print(bodyResult2);
           }
  else {
-            outputStack.getPageWriter().print(bodyResult2);
+            outputStack.getOutWriter().print(bodyResult2);
           }
         }
       }
@@ -53,7 +53,7 @@ break;
 default :
 throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
 }
-Encoder pageEncoder=outputStack.getPageEncoder();
+Encoder pageEncoder=outputStack.getOutEncoder();
 boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
 if (returnsObject && bodyResult != null && !(bodyResult instanceof Writer)) {
 if (pageEncoder != null) {

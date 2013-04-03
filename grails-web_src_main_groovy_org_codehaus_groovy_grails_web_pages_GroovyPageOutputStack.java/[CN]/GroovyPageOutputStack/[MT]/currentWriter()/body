@@ -1,7 +1,7 @@
 {
   GroovyPageOutputStack outputStack=currentStack(false);
   if (outputStack != null) {
-    return outputStack.getPageWriter();
+    return outputStack.getOutWriter();
   }
   return lookupRequestWriter();
 }

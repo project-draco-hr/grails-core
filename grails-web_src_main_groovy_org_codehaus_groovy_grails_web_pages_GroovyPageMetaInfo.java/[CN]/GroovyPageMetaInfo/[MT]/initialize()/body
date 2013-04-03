@@ -1,7 +1,7 @@
 {
-  defaultCodec=getCodec(defaultCodecName);
+  expressionCodec=getCodec(expressionCodecName);
   templateCodec=getCodec(templateCodecName);
-  pageCodec=getCodec(pageCodecName);
+  outCodec=getCodec(outCodecName);
   initializePluginPath();
   initialized=true;
 }

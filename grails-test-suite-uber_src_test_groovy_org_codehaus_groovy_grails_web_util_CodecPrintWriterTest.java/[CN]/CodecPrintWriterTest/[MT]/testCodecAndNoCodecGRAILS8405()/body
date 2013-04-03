@@ -2,7 +2,7 @@
   FastStringWriter target=new FastStringWriter();
   GrailsWebRequest webRequest=bindMockHttpRequest();
   GroovyPageOutputStack outputStack=GroovyPageOutputStack.currentStack(true,target,false,true);
-  GrailsPrintWriter out=outputStack.getPageWriter();
+  GrailsPrintWriter out=outputStack.getOutWriter();
   webRequest.setOut(out);
   GrailsPrintWriter codecOut=new CodecPrintWriter(out,getEncoder(new MockGrailsApplication(),CodecWithClosureProperties.class),registry);
   codecOut.print("hola");

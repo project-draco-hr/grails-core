@@ -1,0 +1,12 @@
+{
+  if (this.codecName.equals(other.getCodecName())) {
+    return true;
+  }
+ else   if (this.codecAliases != null && this.codecAliases.contains(other.getCodecName())) {
+    return true;
+  }
+ else   if (other.getCodecAliases() != null && other.getCodecAliases().contains(this.codecName)) {
+    return true;
+  }
+  return false;
+}

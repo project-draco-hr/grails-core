@@ -16,7 +16,7 @@
         if (current.encodingState != null && current.encodingState.getEncoders() != null && current.encodingState.getEncoders().size() > 0) {
           out.writeInt(current.encodingState.getEncoders().size());
           for (          Encoder encoder : current.encodingState.getEncoders()) {
-            out.writeUTF(encoder.getCodecName());
+            out.writeUTF(encoder.getCodecIdentifier().getCodecName());
             out.writeBoolean(encoder.isSafe());
           }
         }

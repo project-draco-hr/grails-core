@@ -1,4 +1,4 @@
 {
-  this.codecName=codecName;
+  this.codecIdentifier=new DefaultCodecIdentifier(codecName);
   this.safe=safe;
 }

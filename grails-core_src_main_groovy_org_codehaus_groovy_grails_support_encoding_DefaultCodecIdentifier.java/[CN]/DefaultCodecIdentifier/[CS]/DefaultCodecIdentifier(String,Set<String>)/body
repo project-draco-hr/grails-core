@@ -1,0 +1,4 @@
+{
+  this.codecName=codecName;
+  this.codecAliases=codecAliases != null ? Collections.unmodifiableSet(codecAliases) : null;
+}

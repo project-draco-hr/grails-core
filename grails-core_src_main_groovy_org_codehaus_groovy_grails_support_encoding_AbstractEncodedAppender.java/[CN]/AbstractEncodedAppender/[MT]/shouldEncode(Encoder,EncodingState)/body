@@ -1,3 +1,3 @@
 {
-  return encoder != null && (encodingState == null || DefaultEncodingStateRegistry.shouldEncodeWith(encoder,encodingState));
+  return encoderToApply != null && (encodingState == null || DefaultEncodingStateRegistry.shouldEncodeWith(encoderToApply,encodingState));
 }

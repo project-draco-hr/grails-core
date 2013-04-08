@@ -1,0 +1,15 @@
+{
+  Set<Encoder> newEncoders;
+  if (encoders == null || encoders.size() == 0) {
+    newEncoders=Collections.singleton(encoder);
+  }
+ else   if (encoders.size() == 1 && encoders.contains(encoder)) {
+    return this;
+  }
+ else {
+    newEncoders=new LinkedHashSet<Encoder>();
+    newEncoders.addAll(encoders);
+    newEncoders.add(encoder);
+  }
+  return new EncodingStateImpl(newEncoders);
+}

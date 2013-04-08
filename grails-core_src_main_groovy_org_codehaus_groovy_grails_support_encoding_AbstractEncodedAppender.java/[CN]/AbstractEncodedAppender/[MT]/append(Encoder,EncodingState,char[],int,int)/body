@@ -5,7 +5,7 @@
   if (shouldEncode(encoder,encodingState)) {
     EncodingState newEncoders=appendEncoders(encoder,encodingState);
     if (encoder instanceof StreamingEncoder) {
-      ((StreamingEncoder)encoder).encodeToStream(String.valueOf(b,off,len),0,len,this,newEncoders);
+      ((StreamingEncoder)encoder).encodeToStream(new CharArrayCharSequence(b,off,len),0,len,this,newEncoders);
     }
  else {
       encodeAndWrite(encoder,newEncoders,String.valueOf(b,off,len));

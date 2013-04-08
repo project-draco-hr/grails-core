@@ -1,0 +1,3 @@
+{
+  return URLEncoder.encode(s,encoding).replaceAll("\\+","%20");
+}

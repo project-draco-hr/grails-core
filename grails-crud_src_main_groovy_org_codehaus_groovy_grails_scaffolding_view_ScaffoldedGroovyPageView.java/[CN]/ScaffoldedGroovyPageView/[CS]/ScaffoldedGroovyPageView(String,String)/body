@@ -1,6 +1,0 @@
-{
-  Assert.hasLength(contents,"Argument [contents] cannot be blank or null");
-  Assert.hasLength(uri,"Argument [uri] cannot be blank or null");
-  this.contents=contents;
-  setUrl(uri);
-}

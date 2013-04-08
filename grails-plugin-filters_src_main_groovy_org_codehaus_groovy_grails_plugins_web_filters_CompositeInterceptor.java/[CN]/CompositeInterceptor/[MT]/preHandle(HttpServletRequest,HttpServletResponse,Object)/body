@@ -1,0 +1,7 @@
+{
+  if (log.isDebugEnabled())   log.debug("preHandle " + request + ", "+ response+ ", "+ o);
+  for (  HandlerInterceptor handler : handlers) {
+    if (!handler.preHandle(request,response,o))     return false;
+  }
+  return true;
+}

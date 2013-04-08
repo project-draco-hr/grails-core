@@ -5,9 +5,7 @@
     if (metadata != null && metadata.getMetadataFile() != null && metadata.getMetadataFile().equals(file)) {
       return metadata;
     }
- else {
-      createAndBindNew(file);
-    }
+    createAndBindNew(file);
   }
   return createAndBindNew(file);
 }

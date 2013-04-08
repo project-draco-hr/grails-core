@@ -1,6 +1,6 @@
 {
   try {
-    Object ds=BeanUtils.instantiate(Class.forName("org.apache.commons.dbcp.BasicDataSource",true,Thread.currentThread().getContextClassLoader()));
+    Object ds=BeanUtils.instantiate(Class.forName("org.apache.tomcat.jdbc.pool.DataSource",true,Thread.currentThread().getContextClassLoader()));
     bindProperties(ds,entryProperties);
     builder.bind(entryName,ds);
   }

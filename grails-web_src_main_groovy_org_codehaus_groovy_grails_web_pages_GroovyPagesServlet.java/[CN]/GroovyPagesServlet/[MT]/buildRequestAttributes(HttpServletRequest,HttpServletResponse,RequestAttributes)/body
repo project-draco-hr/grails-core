@@ -1,0 +1,8 @@
+{
+  if (previousAttributes instanceof GrailsWebRequest) {
+    return null;
+  }
+ else {
+    return super.buildRequestAttributes(request,response,previousAttributes);
+  }
+}

@@ -2,5 +2,5 @@
   if (chunkMinSize <= 0 || allocBuffer.charsUsed() == 0 || allocBuffer.charsUsed() >= chunkMinSize) {
     return 0;
   }
-  return allocBuffer.spaceLeft();
+  return allocBuffer.spaceLeft(null);
 }

@@ -1,0 +1,8 @@
+{
+  if (currentState != null && (encodingState == null || !currentState.equals(encodingState))) {
+    addPart();
+  }
+  if (currentState == null) {
+    currentState=encodingState;
+  }
+}

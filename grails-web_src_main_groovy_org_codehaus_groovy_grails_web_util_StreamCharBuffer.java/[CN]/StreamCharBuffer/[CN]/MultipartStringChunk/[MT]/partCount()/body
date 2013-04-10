@@ -1,0 +1,9 @@
+{
+  int partCount=0;
+  EncodingStatePart current=firstPart;
+  while (current != null) {
+    partCount++;
+    current=current.next;
+  }
+  return partCount;
+}

@@ -1,0 +1,22 @@
+{
+  if (firstChunk == lastChunk && firstChunk instanceof StringChunk && allocBuffer.charsUsed() == 0 && ((StringChunk)firstChunk).isSingleBuffer()) {
+    StringChunk chunk=((StringChunk)firstChunk);
+    if (registerEncodingState) {
+      markEncoded(chunk);
+    }
+    return chunk;
+  }
+  int initialReaderCount=readerCount;
+  MultipartCharBufferChunk chunk=readToSingleChunk();
+  MultipartStringChunk stringChunk=(chunk != null) ? chunk.asStringChunk() : null;
+  if (initialReaderCount == 0) {
+    reset();
+    if (stringChunk != null) {
+      addChunk(stringChunk);
+    }
+  }
+  if (registerEncodingState) {
+    markEncoded(stringChunk);
+  }
+  return stringChunk;
+}

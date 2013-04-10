@@ -1,0 +1,4 @@
+{
+  appendCharBufferChunk(encodingState,false,false);
+  addChunk(new StringChunk(str,off,len)).setEncodingState(encodingState);
+}

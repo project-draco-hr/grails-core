@@ -1,9 +1,0 @@
-{
-  if (target != null) {
-    if (target instanceof StreamCharBuffer) {
-      return ((StreamCharBuffer)target).encodeAsHTML();
-    }
-    return HtmlUtils.htmlEscape(target.toString());
-  }
-  return null;
-}

@@ -1,0 +1,6 @@
+{
+  if (encodingStateRegistry == null) {
+    encodingStateRegistry=new DefaultEncodingStateRegistry();
+  }
+  return encodingStateRegistry;
+}

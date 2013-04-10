@@ -1,4 +1,3 @@
 {
-  RequestAttributes request=RequestContextHolder.currentRequestAttributes();
-  return currentStack(request,allowCreate,topWriter,autoSync,pushTop);
+  return currentStack(GrailsWebRequest.lookup(),allowCreate,topWriter,autoSync,pushTop);
 }

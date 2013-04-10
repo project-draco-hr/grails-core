@@ -3,6 +3,34 @@
     usageFlag=true;
     return;
   }
+  Writer writer=findStreamCharBufferTarget(true);
+  if (writer instanceof EncodedAppenderFactory) {
+    EncodedAppender appender=((EncodedAppenderFactory)writer).getEncodedAppender();
+    Class<?> clazz=obj.getClass();
+    try {
+      if (clazz == StreamCharBuffer.class) {
+        ((StreamEncodeable)obj).encodeTo(appender,encoder);
+        return;
+      }
+ else       if (clazz == GStringImpl.class || clazz == String.class || obj instanceof CharSequence) {
+        CharSequence source=(CharSequence)obj;
+        EncodingState encodingState=null;
+        if (encodingStateRegistry != null) {
+          encodingState=encodingStateRegistry.getEncodingStateFor(source);
+        }
+        appender.append(encoder,encodingState,source,0,source.length());
+        return;
+      }
+ else       if (obj instanceof StreamEncodeable) {
+        ((StreamEncodeable)obj).encodeTo(appender,encoder);
+        return;
+      }
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+      return;
+    }
+  }
   Object encoded=encodeObject(obj);
   if (encoded == null)   return;
   Class<?> clazz=encoded.getClass();

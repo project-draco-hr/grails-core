@@ -1,0 +1,6 @@
+{
+  if (encodingState == null) {
+    return new EncodingStateImpl(encoder);
+  }
+  return encodingState.appendEncoder(encoder);
+}

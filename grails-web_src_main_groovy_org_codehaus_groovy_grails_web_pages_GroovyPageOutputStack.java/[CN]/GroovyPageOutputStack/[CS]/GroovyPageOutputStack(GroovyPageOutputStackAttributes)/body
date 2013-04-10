@@ -1,0 +1,11 @@
+{
+  outWriter=new GroovyPageProxyWriter();
+  templateWriter=new GroovyPageProxyWriter();
+  expressionWriter=new GroovyPageProxyWriter();
+  this.autoSync=attributes.isAutoSync();
+  push(attributes,false);
+  if (!autoSync) {
+    applyWriterThreadLocals(outWriter);
+  }
+  this.encodingStateRegistry=attributes.getWebRequest().getEncodingStateRegistry();
+}

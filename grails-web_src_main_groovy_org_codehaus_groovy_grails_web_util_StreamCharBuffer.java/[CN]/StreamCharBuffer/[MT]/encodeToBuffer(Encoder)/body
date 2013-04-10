@@ -1,0 +1,11 @@
+{
+  StreamCharBuffer coded=new StreamCharBuffer(Math.min(Math.max(totalChunkSize,chunkSize) * 12 / 10,maxChunkSize));
+  EncodedAppender codedWriter=coded.writer.getEncodedAppender();
+  try {
+    encodeTo(codedWriter,encoder);
+  }
+ catch (  IOException e) {
+    log.error("IOException in StreamCharBuffer.encodeToBuffer",e);
+  }
+  return coded;
+}

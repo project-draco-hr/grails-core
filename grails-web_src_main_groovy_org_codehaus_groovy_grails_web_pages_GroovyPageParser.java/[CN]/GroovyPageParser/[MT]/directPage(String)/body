@@ -13,8 +13,17 @@
     if (name.equals(CONTENT_TYPE_DIRECTIVE)) {
       contentType(value);
     }
-    if (name.equals(DEFAULT_CODEC_DIRECTIVE)) {
-      defaultCodecDirectiveValue=value.trim();
+    if (name.equals(EXPRESSION_CODEC_DIRECTIVE)) {
+      expressionCodecDirectiveValue=value.trim();
+    }
+    if (name.equals(EXPRESSION_CODEC_DIRECTIVE_ALIAS)) {
+      expressionCodecDirectiveValue=value.trim();
+    }
+    if (name.equals(TEMPLATE_CODEC_DIRECTIVE)) {
+      templateCodecDirectiveValue=value.trim();
+    }
+    if (name.equals(OUT_CODEC_DIRECTIVE)) {
+      outCodecDirectiveValue=value.trim();
     }
     ix=mat.end();
   }

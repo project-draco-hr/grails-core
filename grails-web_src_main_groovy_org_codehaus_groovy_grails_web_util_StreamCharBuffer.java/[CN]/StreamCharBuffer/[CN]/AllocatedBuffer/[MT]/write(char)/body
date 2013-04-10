@@ -1,5 +1,6 @@
 {
   if (used < size) {
+    applyEncoders();
     buffer[used++]=ch;
     return true;
   }

@@ -1,0 +1,28 @@
+{
+  if (checkExisting)   checkExistingStack(attributes.getTopWriter());
+  StackEntry previousStackEntry=null;
+  if (stack.size() > 0) {
+    previousStackEntry=stack.peek();
+  }
+  Writer topWriter=attributes.getTopWriter();
+  Writer unwrappedWriter=null;
+  if (topWriter != null) {
+    unwrappedWriter=unwrapTargetWriter(topWriter);
+  }
+ else   if (previousStackEntry != null) {
+    topWriter=previousStackEntry.originalTarget;
+    unwrappedWriter=previousStackEntry.unwrappedTarget;
+  }
+ else {
+    throw new NullPointerException("attributes.getTopWriter() is null and there is no previous stack item");
+  }
+  StackEntry stackEntry=new StackEntry(topWriter,unwrappedWriter);
+  stackEntry.outEncoder=applyEncoder(attributes.getOutEncoder(),previousStackEntry != null ? previousStackEntry.outEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.templateEncoder=applyEncoder(attributes.getTemplateEncoder(),previousStackEntry != null ? previousStackEntry.templateEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.expressionEncoder=applyEncoder(attributes.getExpressionEncoder(),previousStackEntry != null ? previousStackEntry.expressionEncoder : null,attributes.isInheritPreviousEncoders());
+  stack.push(stackEntry);
+  updateWriters(stackEntry);
+  if (autoSync) {
+    applyWriterThreadLocals(attributes.getTopWriter());
+  }
+}

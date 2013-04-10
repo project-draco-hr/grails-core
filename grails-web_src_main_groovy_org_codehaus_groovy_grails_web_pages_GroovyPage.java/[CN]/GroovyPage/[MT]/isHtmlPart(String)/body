@@ -1,0 +1,3 @@
+{
+  return htmlPartsSet != null && htmlPart != null && htmlPartsSet.contains(System.identityHashCode(htmlPart));
+}

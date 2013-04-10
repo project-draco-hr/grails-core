@@ -2,7 +2,7 @@
   markUsed();
   int directChunkMinSize=getDirectChunkMinSize();
   if (directChunkMinSize != -1 && subBuffer.isSizeLarger(directChunkMinSize)) {
-    appendCharBufferChunk(true);
+    appendCharBufferChunk(null,true,false);
     subBuffer.writeToImpl(connectedWritersWriter,false,false);
   }
  else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || subBuffer.isSizeLarger(Math.max(subBufferChunkMinSize,getNewChunkMinSize()))) {
@@ -13,6 +13,6 @@
     subBuffer.addParentBuffer(StreamCharBuffer.this);
   }
  else {
-    subBuffer.writeToImpl(this,false,false);
+    subBuffer.encodeTo(this.getEncodedAppender(),null);
   }
 }

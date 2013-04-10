@@ -6,7 +6,9 @@
   try {
 synchronized (str) {
       valueField.set(str,charBuf);
-      countField.set(str,charBuf.length);
+      if (!jdk7_string) {
+        countField.set(str,charBuf.length);
+      }
     }
 synchronized (str) {
       if (str.length() != charBuf.length) {

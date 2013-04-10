@@ -1,0 +1,6 @@
+{
+  super(out);
+  allowUnwrappingOut=false;
+  this.encoder=encoder;
+  this.encodingStateRegistry=encodingStateRegistry;
+}

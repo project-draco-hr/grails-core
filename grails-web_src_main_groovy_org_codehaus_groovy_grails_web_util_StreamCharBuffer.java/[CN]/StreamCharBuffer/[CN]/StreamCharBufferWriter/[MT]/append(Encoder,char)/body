@@ -1,0 +1,5 @@
+{
+  markUsed();
+  allocateSpace(isNotConnectedToEncoderAwareWriters() ? EncodingStateImpl.UNDEFINED_ENCODING_STATE : new EncodingStateImpl(Collections.singleton(encoder)));
+  allocBuffer.write(character);
+}

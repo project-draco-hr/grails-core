@@ -1,3 +1,8 @@
 {
-  encodeAndPrint(new String(buf,off,len));
+  if (encoder == null) {
+    super.write(buf,off,len);
+  }
+ else {
+    encodeAndPrint(new String(buf,off,len));
+  }
 }

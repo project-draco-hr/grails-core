@@ -1,0 +1,6 @@
+{
+  if (encodedAppender == null) {
+    encodedAppender=new StreamCharBufferEncodedAppender(this);
+  }
+  return encodedAppender;
+}

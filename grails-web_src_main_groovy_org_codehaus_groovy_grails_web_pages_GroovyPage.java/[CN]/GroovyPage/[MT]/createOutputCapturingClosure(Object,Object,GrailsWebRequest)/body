@@ -2,11 +2,7 @@
   if (body1 == null) {
     return EMPTY_BODY_CLOSURE;
   }
-  if (body1 instanceof GroovyPageTagBody) {
-    GroovyPageTagBody gptb=(GroovyPageTagBody)body1;
-    return gptb;
-  }
-  if (body1 instanceof ConstantClosure) {
+  if (body1 instanceof ConstantClosure || body1 instanceof GroovyPageTagBody) {
     return (Closure<?>)body1;
   }
   if (body1 instanceof Closure) {

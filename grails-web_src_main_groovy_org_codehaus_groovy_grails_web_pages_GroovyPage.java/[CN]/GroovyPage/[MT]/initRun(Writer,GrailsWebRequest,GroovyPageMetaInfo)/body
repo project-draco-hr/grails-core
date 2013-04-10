@@ -7,14 +7,14 @@
     setHtmlParts(metaInfo.getHtmlParts());
     setPluginContextPath(metaInfo.getPluginPath());
     attributesBuilder.outEncoder(metaInfo.getOutEncoder());
-    attributesBuilder.templateEncoder(metaInfo.getTemplateEncoder());
+    attributesBuilder.staticEncoder(metaInfo.getStaticEncoder());
     attributesBuilder.expressionEncoder(metaInfo.getExpressionEncoder());
   }
   attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
   attributesBuilder.webRequest(grailsWebRequest);
   outputStack=GroovyPageOutputStack.currentStack(attributesBuilder.build());
   out=outputStack.getOutWriter();
-  templateOut=outputStack.getTemplateWriter();
+  staticOut=outputStack.getStaticWriter();
   expressionOut=outputStack.getExpressionWriter();
   this.webRequest=grailsWebRequest;
   if (grailsWebRequest != null) {

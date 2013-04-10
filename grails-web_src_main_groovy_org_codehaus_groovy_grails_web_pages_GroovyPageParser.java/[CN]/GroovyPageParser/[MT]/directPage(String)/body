@@ -19,8 +19,8 @@
     if (name.equals(EXPRESSION_CODEC_DIRECTIVE_ALIAS)) {
       expressionCodecDirectiveValue=value.trim();
     }
-    if (name.equals(TEMPLATE_CODEC_DIRECTIVE)) {
-      templateCodecDirectiveValue=value.trim();
+    if (name.equals(STATIC_CODEC_DIRECTIVE)) {
+      staticCodecDirectiveValue=value.trim();
     }
     if (name.equals(OUT_CODEC_DIRECTIVE)) {
       outCodecDirectiveValue=value.trim();

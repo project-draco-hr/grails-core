@@ -1,6 +1,6 @@
 {
   outWriter=new GroovyPageProxyWriter();
-  templateWriter=new GroovyPageProxyWriter();
+  staticWriter=new GroovyPageProxyWriter();
   expressionWriter=new GroovyPageProxyWriter();
   this.autoSync=attributes.isAutoSync();
   push(attributes,false);

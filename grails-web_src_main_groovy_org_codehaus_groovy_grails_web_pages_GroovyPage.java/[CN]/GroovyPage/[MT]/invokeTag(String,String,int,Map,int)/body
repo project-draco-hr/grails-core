@@ -36,30 +36,30 @@
       }
     }
  else {
-      templateOut.append('<').append(tagNamespace).append(':').append(tagName);
+      staticOut.append('<').append(tagNamespace).append(':').append(tagName);
       for (      Object o : attrs.entrySet()) {
         Map.Entry entry=(Map.Entry)o;
-        templateOut.append(' ');
-        templateOut.append(entry.getKey()).append('=');
+        staticOut.append(' ');
+        staticOut.append(entry.getKey()).append('=');
         String value=String.valueOf(entry.getValue());
         boolean containsQuotes=(value.indexOf('"') > -1);
         boolean containsSingleQuote=(value.indexOf('\'') > -1);
         if (containsQuotes && !containsSingleQuote) {
-          templateOut.append('\'').append(value).append('\'');
+          staticOut.append('\'').append(value).append('\'');
         }
  else         if (containsQuotes & containsSingleQuote) {
-          templateOut.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
+          staticOut.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
         }
  else {
-          templateOut.append('\"').append(value).append('\"');
+          staticOut.append('\"').append(value).append('\"');
         }
       }
-      templateOut.append('>');
+      staticOut.append('>');
       if (body != null) {
         Object bodyOutput=body.call();
-        if (bodyOutput != null)         templateOut.print(bodyOutput);
+        if (bodyOutput != null)         staticOut.print(bodyOutput);
       }
-      templateOut.append("</").append(tagNamespace).append(':').append(tagName).append('>');
+      staticOut.append("</").append(tagNamespace).append(':').append(tagName).append('>');
     }
   }
  catch (  Throwable e) {

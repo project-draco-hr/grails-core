@@ -1,6 +1,6 @@
 {
   expressionCodec=getCodec(expressionCodecName);
-  templateCodec=getCodec(templateCodecName);
+  staticCodec=getCodec(staticCodecName);
   outCodec=getCodec(outCodecName);
   initializePluginPath();
   initialized=true;

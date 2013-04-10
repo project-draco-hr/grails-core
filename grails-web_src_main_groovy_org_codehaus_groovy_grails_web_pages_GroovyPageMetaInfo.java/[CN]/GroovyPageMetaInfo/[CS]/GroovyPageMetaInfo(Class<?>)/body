@@ -6,7 +6,7 @@
   jspTags=(Map)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_JSP_TAGS),null);
   lastModified=(Long)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_LAST_MODIFIED),null);
   expressionCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_EXPRESSION_CODEC),null);
-  templateCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_TEMPLATE_CODEC),null);
+  staticCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_STATIC_CODEC),null);
   outCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_OUT_CODEC),null);
   try {
     readHtmlData();

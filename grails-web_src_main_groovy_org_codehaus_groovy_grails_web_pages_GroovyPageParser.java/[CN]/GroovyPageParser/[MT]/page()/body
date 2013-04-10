@@ -89,7 +89,7 @@ out.println("}");
 out.println("public static final String " + CONSTANT_NAME_CONTENT_TYPE + " = '"+ escapeGroovy(contentType)+ "'");
 out.println("public static final long " + CONSTANT_NAME_LAST_MODIFIED + " = "+ lastModified+ "L");
 out.println("public static final String " + CONSTANT_NAME_EXPRESSION_CODEC + " = '"+ escapeGroovy(expressionCodecDirectiveValue)+ "'");
-out.println("public static final String " + CONSTANT_NAME_TEMPLATE_CODEC + " = '"+ escapeGroovy(templateCodecDirectiveValue)+ "'");
+out.println("public static final String " + CONSTANT_NAME_STATIC_CODEC + " = '"+ escapeGroovy(staticCodecDirectiveValue)+ "'");
 out.println("public static final String " + CONSTANT_NAME_OUT_CODEC + " = '"+ escapeGroovy(outCodecDirectiveValue)+ "'");
 out.println("}");
 if (shouldAddLineNumbers()) {

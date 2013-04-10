@@ -1,0 +1,16 @@
+{
+  GroovyPageOutputStack outputStack=lookupStack(attributes.getWebRequest());
+  if (outputStack != null) {
+    if (attributes.isPushTop()) {
+      outputStack.push(attributes,false);
+    }
+    return outputStack;
+  }
+  if (attributes.isAllowCreate()) {
+    if (attributes.getTopWriter() == null) {
+      attributes=new GroovyPageOutputStackAttributes.Builder(attributes).topWriter(lookupRequestWriter(attributes.getWebRequest())).build();
+    }
+    return createNew(attributes);
+  }
+  return null;
+}

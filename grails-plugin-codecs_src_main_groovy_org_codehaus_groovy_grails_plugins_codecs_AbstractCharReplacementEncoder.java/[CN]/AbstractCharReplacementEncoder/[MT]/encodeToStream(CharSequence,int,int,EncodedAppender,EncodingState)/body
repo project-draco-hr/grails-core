@@ -1,0 +1,29 @@
+{
+  if (str == null || len <= 0) {
+    return;
+  }
+  int n=Math.min(str.length(),off + len);
+  int i;
+  int startPos=-1;
+  char prevChar=(char)0;
+  for (i=off; i < n; i++) {
+    char ch=str.charAt(i);
+    if (startPos == -1) {
+      startPos=i;
+    }
+    String escaped=escapeCharacter(ch,prevChar);
+    if (escaped != null) {
+      if (i - startPos > 0) {
+        appender.appendEncoded(this,encodingState,str,startPos,i - startPos);
+      }
+      if (escaped.length() > 0) {
+        appender.appendEncoded(this,encodingState,escaped,0,escaped.length());
+      }
+      startPos=-1;
+    }
+    prevChar=ch;
+  }
+  if (startPos > -1 && i - startPos > 0) {
+    appender.appendEncoded(this,encodingState,str,startPos,i - startPos);
+  }
+}

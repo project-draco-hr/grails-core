@@ -1,4 +1,5 @@
 {
+  notConnectedToEncodeAwareWriters=null;
   if (connectedWriters.size() > 1) {
     connectedWritersWriter=new MultiOutputWriter(connectedWriters);
   }

@@ -1,0 +1,29 @@
+{
+  if (csq instanceof String || csq instanceof StringBuffer || csq instanceof StringBuilder|| csq instanceof CharArrayAccessible) {
+    int len=end - start;
+    int charsLeft=len;
+    int currentOffset=start;
+    while (charsLeft > 0) {
+      int spaceLeft=allocateSpace(encodingState);
+      int writeChars=Math.min(spaceLeft,charsLeft);
+      if (csq instanceof String) {
+        allocBuffer.writeString((String)csq,currentOffset,writeChars);
+      }
+ else       if (csq instanceof StringBuffer) {
+        allocBuffer.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
+      }
+ else       if (csq instanceof StringBuilder) {
+        allocBuffer.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
+      }
+ else       if (csq instanceof CharArrayAccessible) {
+        allocBuffer.writeCharArrayAccessible((CharArrayAccessible)csq,currentOffset,writeChars);
+      }
+      charsLeft-=writeChars;
+      currentOffset+=writeChars;
+    }
+  }
+ else {
+    String str=csq.subSequence(start,end).toString();
+    write(encodingState,str,0,str.length());
+  }
+}

@@ -6,7 +6,9 @@
   int internalOffset=0;
   try {
     value=(char[])valueField.get(str);
-    internalOffset=offsetField.getInt(str);
+    if (!jdk7_string) {
+      internalOffset=offsetField.getInt(str);
+    }
   }
  catch (  Exception e) {
     handleError(e);

@@ -1,0 +1,24 @@
+{
+  if (str == null || len <= 0) {
+    return;
+  }
+  if (shouldEncode(encoder,encodingState)) {
+    EncodingState newEncoders=appendEncoders(encoder,encodingState);
+    if (encoder instanceof StreamingEncoder) {
+      ((StreamingEncoder)encoder).encodeToStream(str,off,len,this,newEncoders);
+    }
+ else {
+      CharSequence source;
+      if (off == 0 && len == str.length()) {
+        source=str;
+      }
+ else {
+        source=str.subSequence(off,off + len);
+      }
+      encodeAndWrite(encoder,newEncoders,source);
+    }
+  }
+ else {
+    appendCharSequence(encodingState,str,off,off + len);
+  }
+}

@@ -22,84 +22,61 @@
     if (tagLib != null || (gspTagLibraryLookup != null && gspTagLibraryLookup.hasNamespace(tagNamespace))) {
       if (tagLib != null) {
         boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(tagNamespace,tagName);
-        Object tagLibProp=tagLib.getProperty(tagName);
-        if (tagLibProp instanceof Closure) {
-          Closure tag=(Closure)((Closure)tagLibProp).clone();
-          Object tagresult=null;
-          if (!(attrs instanceof GroovyPageAttributes)) {
-            attrs=new GroovyPageAttributes(attrs);
-          }
-          ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
-switch (tag.getParameterTypes().length) {
-case 1:
-            tagresult=tag.call(new Object[]{attrs});
-          if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
-            out.print(tagresult);
-          }
-        if (body != null && body != EMPTY_BODY_CLOSURE) {
-          body.call();
+        Object tagLibClosure=tagLib.getProperty(tagName);
+        if (tagLibClosure instanceof Closure) {
+          Object encodeAsForTag=gspTagLibraryLookup.getEncodeAsForTag(tagNamespace,tagName);
+          invokeTagLibClosure(tagName,tagNamespace,(Closure)tagLibClosure,attrs,body,returnsObject,encodeAsForTag);
         }
-      break;
-case 2:
-    if (tag.getParameterTypes().length == 2) {
-      tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
-      if (returnsObject && tagresult != null && !(tagresult instanceof Writer)) {
-        out.print(tagresult);
+ else {
+          throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]",getGroovyPageFileName(),lineNumber);
+        }
+      }
+ else {
+        throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag library found for namespace: "+ tagNamespace,getGroovyPageFileName(),lineNumber);
       }
     }
-  break;
-}
-}
  else {
-throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]",getGroovyPageFileName(),lineNumber);
-}
-}
+      templateOut.append('<').append(tagNamespace).append(':').append(tagName);
+      for (      Object o : attrs.entrySet()) {
+        Map.Entry entry=(Map.Entry)o;
+        templateOut.append(' ');
+        templateOut.append(entry.getKey()).append('=');
+        String value=String.valueOf(entry.getValue());
+        boolean containsQuotes=(value.indexOf('"') > -1);
+        boolean containsSingleQuote=(value.indexOf('\'') > -1);
+        if (containsQuotes && !containsSingleQuote) {
+          templateOut.append('\'').append(value).append('\'');
+        }
+ else         if (containsQuotes & containsSingleQuote) {
+          templateOut.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
+        }
  else {
-throw new GrailsTagException("Tag [" + tagName + "] does not exist. No tag library found for namespace: "+ tagNamespace,getGroovyPageFileName(),lineNumber);
-}
-}
+          templateOut.append('\"').append(value).append('\"');
+        }
+      }
+      templateOut.append('>');
+      if (body != null) {
+        Object bodyOutput=body.call();
+        if (bodyOutput != null)         templateOut.print(bodyOutput);
+      }
+      templateOut.append("</").append(tagNamespace).append(':').append(tagName).append('>');
+    }
+  }
+ catch (  Throwable e) {
+    if (LOG.isTraceEnabled()) {
+      LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
+    }
+    if (tagName.matches("capture(Body|Head|Meta|Title|Component)")) {
+      RuntimeException rte=GrailsExceptionResolver.getFirstRuntimeException(e);
+      if (rte == null) {
+        throwRootCause(tagName,tagNamespace,lineNumber,e);
+      }
  else {
-out.append('<').append(tagNamespace).append(':').append(tagName);
-for (Object o : attrs.entrySet()) {
-Map.Entry entry=(Map.Entry)o;
-out.append(' ');
-out.append(entry.getKey()).append('=');
-String value=String.valueOf(entry.getValue());
-boolean containsQuotes=(value.indexOf('"') > -1);
-boolean containsSingleQuote=(value.indexOf('\'') > -1);
-if (containsQuotes && !containsSingleQuote) {
-out.append('\'').append(value).append('\'');
-}
- else if (containsQuotes & containsSingleQuote) {
-out.append('\"').append(value.replaceAll("\"","&quot;")).append('\"');
-}
+        throw rte;
+      }
+    }
  else {
-out.append('\"').append(value).append('\"');
-}
-}
-out.append('>');
-if (body != null) {
-Object bodyOutput=body.call();
-if (bodyOutput != null) out.print(bodyOutput);
-}
-out.append("</").append(tagNamespace).append(':').append(tagName).append('>');
-}
-}
- catch (Throwable e) {
-if (LOG.isTraceEnabled()) {
-LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
-}
-if (tagName.matches("capture(Body|Head|Meta|Title|Component)")) {
-RuntimeException rte=GrailsExceptionResolver.getFirstRuntimeException(e);
-if (rte == null) {
-throwRootCause(tagName,tagNamespace,lineNumber,e);
-}
- else {
-throw rte;
-}
-}
- else {
-throwRootCause(tagName,tagNamespace,lineNumber,e);
-}
-}
+      throwRootCause(tagName,tagNamespace,lineNumber,e);
+    }
+  }
 }

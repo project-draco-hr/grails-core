@@ -1,0 +1,14 @@
+{
+  if (target instanceof Encodeable) {
+    return ((Encodeable)target).encode(this);
+  }
+  EncodingStateRegistry encodingState=lookupEncodingState();
+  if (encodingState != null && target instanceof CharSequence) {
+    if (!encodingState.shouldEncodeWith(this,(CharSequence)target)) {
+      return target;
+    }
+  }
+  Object encoded=delegate.encode(target);
+  if (encodingState != null && encoded instanceof CharSequence)   encodingState.registerEncodedWith(this,(CharSequence)encoded);
+  return encoded;
+}

@@ -1,6 +1,7 @@
 {
   if (writer == null && lazyInitializingWriter != null) {
     writer=lazyInitializingWriter.getWriter();
+    initEncoderAware();
   }
   return writer;
 }

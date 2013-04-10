@@ -1,0 +1,6 @@
+{
+  super(owner);
+  maximumNumberOfParameters=1;
+  parameterTypes=new Class[]{Object.class};
+  this.method=method;
+}

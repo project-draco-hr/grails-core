@@ -1,6 +1,12 @@
 {
   if (target instanceof GrailsWrappedWriter) {
-    target=((GrailsWrappedWriter)target).unwrap();
+    GrailsWrappedWriter wrappedWriter=((GrailsWrappedWriter)target);
+    if (wrappedWriter.isAllowUnwrappingOut()) {
+      target=wrappedWriter.unwrap();
+    }
+ else     if (target instanceof GrailsPrintWriter && ((GrailsPrintWriter)target).getOut() instanceof EncodedAppenderWriter) {
+      target=((GrailsPrintWriter)target).getOut();
+    }
   }
   if (target instanceof StreamCharBufferWriter) {
     if (target == writer) {
@@ -8,6 +14,22 @@
     }
     ((StreamCharBufferWriter)target).write(this);
     return;
+  }
+ else   if (target instanceof EncodedAppenderFactory) {
+    EncodedAppenderFactory eaw=(EncodedAppenderFactory)target;
+    if (eaw.getEncodedAppender() == writer.getEncodedAppender()) {
+      throw new IllegalArgumentException("Cannot write buffer to itself.");
+    }
+    if (target instanceof EncoderAware) {
+      encodeTo(eaw.getEncodedAppender(),((EncoderAware)eaw).getEncoder());
+      if (emptyAfter) {
+        emptyAfterReading();
+      }
+      if (flushTarget) {
+        target.flush();
+      }
+      return;
+    }
   }
   writeToImpl(target,flushTarget,emptyAfter);
 }

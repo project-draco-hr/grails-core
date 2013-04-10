@@ -1,0 +1,10 @@
+{
+  if (currentEncodingState != null && currentEncodingState.getEncoders() != null) {
+    for (    Encoder encoder : currentEncodingState.getEncoders()) {
+      if (isPreviousEncoderSafeOrEqual(encoderToApply,encoder)) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

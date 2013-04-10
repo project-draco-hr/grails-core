@@ -10,8 +10,8 @@
     out.println(" extends GroovyPage {");
     out.println("public String getGroovyPageFileName() { \"" + pageName.replaceAll("\\\\","/") + "\" }");
     out.println("public Object run() {");
-    out.println("Writer out = getOut()");
-    out.println("Writer codecOut = getCodecOut()");
+    out.println("Writer " + GroovyPage.OUT + " = getOut()");
+    out.println("Writer " + GroovyPage.EXPRESSION_OUT + " = getExpressionOut()");
     if (sitemeshPreprocessMode) {
       out.println("registerSitemeshPreprocessMode()");
     }
@@ -88,13 +88,9 @@ out.println("\tthis.jspTags = " + CONSTANT_NAME_JSP_TAGS);
 out.println("}");
 out.println("public static final String " + CONSTANT_NAME_CONTENT_TYPE + " = '"+ escapeGroovy(contentType)+ "'");
 out.println("public static final long " + CONSTANT_NAME_LAST_MODIFIED + " = "+ lastModified+ "L");
-out.print("public static final String " + CONSTANT_NAME_DEFAULT_CODEC + " = ");
-if (defaultCodecDirectiveValue != null && defaultCodecDirectiveValue.length() > 0) {
-out.println("'" + escapeGroovy(defaultCodecDirectiveValue) + "'");
-}
- else {
-out.println("null");
-}
+out.println("public static final String " + CONSTANT_NAME_EXPRESSION_CODEC + " = '"+ escapeGroovy(expressionCodecDirectiveValue)+ "'");
+out.println("public static final String " + CONSTANT_NAME_TEMPLATE_CODEC + " = '"+ escapeGroovy(templateCodecDirectiveValue)+ "'");
+out.println("public static final String " + CONSTANT_NAME_OUT_CODEC + " = '"+ escapeGroovy(outCodecDirectiveValue)+ "'");
 out.println("}");
 if (shouldAddLineNumbers()) {
 addLineNumbers();

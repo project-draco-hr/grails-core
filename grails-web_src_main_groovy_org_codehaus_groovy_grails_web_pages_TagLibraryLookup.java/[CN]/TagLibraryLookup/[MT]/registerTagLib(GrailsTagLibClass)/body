@@ -18,4 +18,15 @@
   for (  String tagName : taglib.getTagNamesThatReturnObject()) {
     tagsThatReturnObject.add(tagName);
   }
+  Map<String,Object> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
+  if (encodeAsForTagNamespace == null) {
+    encodeAsForTagNamespace=new HashMap<String,Object>();
+    encodeAsForTagNamespaces.put(namespace,encodeAsForTagNamespace);
+  }
+  for (  String tagName : taglib.getTagNames()) {
+    Object codecInfo=taglib.getEncodeAsForTag(tagName);
+    if (codecInfo != null) {
+      encodeAsForTagNamespace.put(tagName,codecInfo);
+    }
+  }
 }

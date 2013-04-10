@@ -1,3 +1,11 @@
 {
   this.htmlParts=htmlParts;
+  this.htmlPartsSet=new HashSet<Integer>();
+  if (htmlParts != null) {
+    for (    String htmlPart : htmlParts) {
+      if (htmlPart != null) {
+        htmlPartsSet.add(System.identityHashCode(htmlPart));
+      }
+    }
+  }
 }

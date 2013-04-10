@@ -1,0 +1,12 @@
+{
+  if (strChunk instanceof MultipartStringChunk) {
+    MultipartStringChunk stringChunk=(MultipartStringChunk)strChunk;
+    if (stringChunk.isSingleEncoding()) {
+      EncodingState encodingState=stringChunk.firstPart.encodingState;
+      if (encodingState != null && encodingState.getEncoders() != null && encodingState.getEncoders().size() > 0) {
+        Encoder encoder=encodingState.getEncoders().iterator().next();
+        if (encoder != null)         encoder.markEncoded(stringChunk.str);
+      }
+    }
+  }
+}

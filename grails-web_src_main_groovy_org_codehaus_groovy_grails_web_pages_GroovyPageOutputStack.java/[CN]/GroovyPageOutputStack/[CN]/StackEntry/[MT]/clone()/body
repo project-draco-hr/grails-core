@@ -1,0 +1,7 @@
+{
+  StackEntry newEntry=new StackEntry(originalTarget,unwrappedTarget);
+  newEntry.templateEncoder=templateEncoder;
+  newEntry.outEncoder=outEncoder;
+  newEntry.expressionEncoder=expressionEncoder;
+  return newEntry;
+}

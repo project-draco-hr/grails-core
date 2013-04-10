@@ -1,4 +1,5 @@
 {
+  applyEncoders();
   str.getChars(off,off + len,buffer,used);
   used+=len;
 }

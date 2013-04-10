@@ -1,0 +1,3 @@
+{
+  return getIdentityHashCodesForEncoder(encoder).contains(System.identityHashCode(string));
+}

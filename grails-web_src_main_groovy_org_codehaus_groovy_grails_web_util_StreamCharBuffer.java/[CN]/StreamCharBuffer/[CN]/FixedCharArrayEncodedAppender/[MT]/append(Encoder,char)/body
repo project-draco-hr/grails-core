@@ -1,0 +1,5 @@
+{
+  EncodingState encodingState=new EncodingStateImpl(encoder != null ? Collections.singleton(encoder) : null);
+  checkEncodingChange(encodingState);
+  buf[count++]=character;
+}

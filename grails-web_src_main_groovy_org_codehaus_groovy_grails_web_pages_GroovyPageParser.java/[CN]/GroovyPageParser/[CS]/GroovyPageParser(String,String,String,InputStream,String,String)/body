@@ -1,0 +1,36 @@
+{
+  this.gspEncoding=encoding;
+  this.expressionCodecDirectiveValue=expressionCodecName;
+  if (expressionCodecDirectiveValue == null) {
+    Map<?,?> config=Holders.getFlatConfig();
+    if (config != null) {
+      Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
+      if (o != null) {
+        expressionCodecDirectiveValue=o.toString();
+      }
+    }
+    if (expressionCodecDirectiveValue == null) {
+      expressionCodecDirectiveValue=DEFAULT_EXPRESSIONCODEC;
+    }
+  }
+  if (filename != null && BuildSettingsHolder.getSettings() != null) {
+    GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
+    if (info != null) {
+      pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
+    }
+  }
+  String gspSource=readStream(in);
+  Map<String,String> directives=parseDirectives(gspSource);
+  if (isSitemeshPreprocessingEnabled(directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with sitemesh:capture*.");
+    }
+    gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
+    sitemeshPreprocessMode=true;
+  }
+  scan=new GroovyPageScanner(gspSource,uri);
+  pageName=uri;
+  environment=Environment.getCurrent();
+  makeName(name);
+  makeSourceName(filename);
+}

@@ -1,0 +1,8 @@
+{
+  if (!disabled) {
+    return (String)ReflectionUtils.invokeMethod(mapMethod,instance,c);
+  }
+ else {
+    return HtmlUtils.htmlEscape(String.valueOf(c));
+  }
+}

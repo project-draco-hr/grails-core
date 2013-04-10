@@ -1,0 +1,17 @@
+{
+  if (count - currentStart > 0) {
+    EncodingStatePart newPart=new EncodingStatePart();
+    newPart.encodingState=currentState;
+    newPart.len=count - currentStart;
+    if (chunk.lastPart == null) {
+      chunk.firstPart=newPart;
+      chunk.lastPart=newPart;
+    }
+ else {
+      chunk.lastPart.next=newPart;
+      chunk.lastPart=newPart;
+    }
+    currentState=null;
+    currentStart=count;
+  }
+}

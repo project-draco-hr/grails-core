@@ -1,0 +1,18 @@
+{
+  checkEncodingChange(encodingState);
+  if (csq instanceof String) {
+    write(encodingState,(String)csq,start,end - start);
+  }
+ else   if (csq instanceof StringBuffer) {
+    ((StringBuffer)csq).getChars(start,end,buf,count);
+    count+=end - start;
+  }
+ else   if (csq instanceof StringBuilder) {
+    ((StringBuilder)csq).getChars(start,end,buf,count);
+    count+=end - start;
+  }
+ else {
+    String str=csq.subSequence(start,end).toString();
+    write(encodingState,str,0,str.length());
+  }
+}

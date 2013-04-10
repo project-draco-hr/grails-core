@@ -1,7 +1,33 @@
 {
-  String str=in.readUTF();
+  int version=in.readInt();
+  if (version != EXTERNALIZABLE_VERSION) {
+    throw new IOException("Uncompatible version in serialization stream.");
+  }
   reset();
-  if (str.length() > 0) {
-    addChunk(new StringChunk(str,0,str.length()));
+  int len=in.readInt();
+  if (len > 0) {
+    char[] buf=new char[len];
+    Reader reader=new InputStreamReader((InputStream)in,"UTF-8");
+    reader.read(buf);
+    String str=StringCharArrayAccessor.createString(buf);
+    MultipartStringChunk mpStringChunk=new MultipartStringChunk(str);
+    int partCount=in.readInt();
+    for (int i=0; i < partCount; i++) {
+      EncodingStatePart current=new EncodingStatePart();
+      mpStringChunk.appendEncodingStatePart(current);
+      current.len=in.readInt();
+      int encodersSize=in.readInt();
+      Set<Encoder> encoders=null;
+      if (encodersSize > 0) {
+        encoders=new LinkedHashSet<Encoder>();
+        for (int j=0; j < encodersSize; j++) {
+          String codecName=in.readUTF();
+          boolean safe=in.readBoolean();
+          encoders.add(new SavedEncoder(codecName,safe));
+        }
+      }
+      current.encodingState=new EncodingStateImpl(encoders);
+    }
+    addChunk(mpStringChunk);
   }
 }

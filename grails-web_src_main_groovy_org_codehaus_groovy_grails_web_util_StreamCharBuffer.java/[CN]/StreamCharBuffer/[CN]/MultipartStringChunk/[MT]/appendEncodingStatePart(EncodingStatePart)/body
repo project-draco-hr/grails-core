@@ -1,0 +1,10 @@
+{
+  if (firstPart == null) {
+    firstPart=current;
+    lastPart=current;
+  }
+ else {
+    lastPart.next=current;
+    lastPart=current;
+  }
+}

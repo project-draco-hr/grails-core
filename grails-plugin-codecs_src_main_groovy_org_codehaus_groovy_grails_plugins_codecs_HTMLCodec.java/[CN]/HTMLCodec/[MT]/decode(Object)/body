@@ -1,6 +1,0 @@
-{
-  if (target != null) {
-    return HtmlUtils.htmlUnescape(target.toString());
-  }
-  return null;
-}

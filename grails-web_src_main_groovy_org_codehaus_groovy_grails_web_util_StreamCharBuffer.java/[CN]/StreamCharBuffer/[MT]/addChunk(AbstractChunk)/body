@@ -16,4 +16,5 @@
  else {
     totalCharsInList+=newChunk.size();
   }
+  return newChunk;
 }

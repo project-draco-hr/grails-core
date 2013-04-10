@@ -1,5 +1,6 @@
 {
   CharBufferChunk chunk=new CharBufferChunk(id,buffer,chunkStart,used - chunkStart);
+  chunk.setEncodingState(encodingState);
   chunkStart=used;
   return chunk;
 }

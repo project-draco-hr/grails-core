@@ -1,0 +1,15 @@
+{
+  int currentSize=size();
+  if (currentSize == 0) {
+    return null;
+  }
+  FixedCharArrayEncodedAppender appender=new FixedCharArrayEncodedAppender(currentSize);
+  try {
+    encodeTo(appender,null);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException("Unexpected IOException",e);
+  }
+  appender.close();
+  return appender.chunk;
+}

@@ -1,4 +1,5 @@
 {
   this.writer=writer;
   this.autoFlush=autoFlush;
+  initEncoderAware();
 }

@@ -2,5 +2,6 @@
   if (connectedWriters != null) {
     connectedWriters.clear();
     connectedWritersWriter=null;
+    notConnectedToEncodeAwareWriters=null;
   }
 }

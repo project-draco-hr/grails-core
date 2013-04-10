@@ -1,7 +1,0 @@
-{
-  GroovyPageOutputStack instance=new GroovyPageOutputStack(topWriter,autoSync);
-  RequestAttributes requestAttributes=RequestContextHolder.currentRequestAttributes();
-  requestAttributes.setAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,instance,RequestAttributes.SCOPE_REQUEST);
-  requestAttributes.setAttribute(GrailsApplicationAttributes.OUT,topWriter,RequestAttributes.SCOPE_REQUEST);
-  return instance;
-}

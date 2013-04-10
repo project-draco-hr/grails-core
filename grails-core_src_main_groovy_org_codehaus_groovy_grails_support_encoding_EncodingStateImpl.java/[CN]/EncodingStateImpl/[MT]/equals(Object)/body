@@ -1,0 +1,11 @@
+{
+  if (this == obj)   return true;
+  if (obj == null)   return false;
+  if (getClass() != obj.getClass())   return false;
+  EncodingStateImpl other=(EncodingStateImpl)obj;
+  if (encoders == null) {
+    if (other.encoders != null && other.encoders.size() > 0)     return false;
+  }
+ else   if (!encoders.equals(other.encoders))   return false;
+  return true;
+}

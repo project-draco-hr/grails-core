@@ -1,10 +1,10 @@
 {
   stack.pop();
   if (stack.size() > 0) {
-    WriterPair pair=stack.peek();
-    proxyWriter.setOut(pair.unwrappedTarget);
+    StackEntry stackEntry=stack.peek();
+    updateWriters(stackEntry);
     if (forceSync) {
-      applyWriterThreadLocals(pair.originalTarget);
+      applyWriterThreadLocals(stackEntry.originalTarget);
     }
   }
 }

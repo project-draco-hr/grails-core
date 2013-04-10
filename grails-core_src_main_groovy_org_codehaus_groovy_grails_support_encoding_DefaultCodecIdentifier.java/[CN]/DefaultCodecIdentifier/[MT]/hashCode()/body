@@ -1,0 +1,7 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((codecAliases == null) ? 0 : codecAliases.hashCode());
+  result=prime * result + ((codecName == null) ? 0 : codecName.hashCode());
+  return result;
+}

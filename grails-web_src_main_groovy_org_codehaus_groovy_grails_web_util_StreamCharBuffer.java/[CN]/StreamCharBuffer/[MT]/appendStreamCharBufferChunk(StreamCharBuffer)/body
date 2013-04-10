@@ -1,4 +1,4 @@
 {
-  appendCharBufferChunk(false);
+  appendCharBufferChunk(null,false,false);
   addChunk(new StreamCharBufferSubChunk(subBuffer));
 }

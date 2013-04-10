@@ -1,0 +1,30 @@
+{
+  if (Encoder.class.isAssignableFrom(getClazz())) {
+    encoder=(Encoder)getReferenceInstance();
+  }
+  if (Decoder.class.isAssignableFrom(getClazz())) {
+    decoder=(Decoder)getReferenceInstance();
+  }
+  if (encoder == null && decoder == null) {
+    CodecFactory codecFactory=null;
+    if (CodecFactory.class.isAssignableFrom(getClazz())) {
+      codecFactory=(CodecFactory)getReferenceInstance();
+    }
+    if (codecFactory == null) {
+      codecFactory=(CodecFactory)getPropertyOrStaticPropertyOrFieldValue("codecFactory",CodecFactory.class);
+    }
+    if (codecFactory == null) {
+      codecFactory=new ClosureCodecFactory();
+    }
+    encoder=codecFactory.getEncoder();
+    decoder=codecFactory.getDecoder();
+  }
+  if (encoder != null) {
+    if (encoder instanceof StreamingEncoder) {
+      encoder=new StreamingStateAwareEncoderWrapper((StreamingEncoder)encoder);
+    }
+ else {
+      encoder=new StateAwareEncoderWrapper(encoder);
+    }
+  }
+}

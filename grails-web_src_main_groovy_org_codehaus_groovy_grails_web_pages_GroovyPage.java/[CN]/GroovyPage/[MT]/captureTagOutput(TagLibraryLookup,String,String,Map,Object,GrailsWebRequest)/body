@@ -39,7 +39,7 @@ case 1:
         Object bodyResult2=actualBody.call();
         if (bodyResult2 != null) {
           if (actualBody instanceof ConstantClosure) {
-            outputStack.getTemplateWriter().print(bodyResult2);
+            outputStack.getStaticWriter().print(bodyResult2);
           }
  else {
             outputStack.getOutWriter().print(bodyResult2);

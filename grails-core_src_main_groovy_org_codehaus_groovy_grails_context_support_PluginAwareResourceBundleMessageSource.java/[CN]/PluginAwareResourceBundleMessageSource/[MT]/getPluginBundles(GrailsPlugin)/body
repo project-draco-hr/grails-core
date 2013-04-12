@@ -1,13 +1,19 @@
 {
   try {
     String basePath=null;
-    if (isInlinePlugin(grailsPlugin)) {
-      basePath=getInlinePluginPath(grailsPlugin);
+    if (!(grailsPlugin instanceof BinaryGrailsPlugin)) {
+      String inlinePath=getInlinePluginPath(grailsPlugin);
+      if (inlinePath != null) {
+        basePath="file:" + inlinePath;
+      }
+ else {
+        basePath=WEB_INF_PLUGINS_PATH + grailsPlugin.getFileSystemName();
+      }
+      return resourceResolver.getResources(basePath + "/grails-app/i18n/*.properties");
     }
  else {
-      basePath=WEB_INF_PLUGINS_PATH + grailsPlugin.getFileSystemName();
+      return new Resource[0];
     }
-    return resourceResolver.getResources(basePath + "/grails-app/i18n/*.properties");
   }
  catch (  Exception e) {
     LOG.debug("Could not resolve any resources for plugin " + grailsPlugin.getFileSystemName(),e);

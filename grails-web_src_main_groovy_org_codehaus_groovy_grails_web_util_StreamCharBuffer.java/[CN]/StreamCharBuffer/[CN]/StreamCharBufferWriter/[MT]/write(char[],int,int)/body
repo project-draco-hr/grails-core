@@ -10,7 +10,7 @@
   }
   markUsed();
   if (shouldWriteDirectly(len)) {
-    appendCharBufferChunk(true);
+    appendCharBufferChunk(true,true);
     connectedWritersWriter.write(b,off,len);
   }
  else {

@@ -1,4 +1,4 @@
 {
-  appendCharBufferChunk(false);
+  appendCharBufferChunk(false,false);
   addChunk(new StringChunk(str,off,len));
 }

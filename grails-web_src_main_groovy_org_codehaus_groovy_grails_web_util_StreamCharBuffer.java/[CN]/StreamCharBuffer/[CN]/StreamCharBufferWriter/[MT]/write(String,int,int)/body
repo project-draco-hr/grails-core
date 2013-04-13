@@ -2,7 +2,7 @@
   if (len == 0)   return;
   markUsed();
   if (shouldWriteDirectly(len)) {
-    appendCharBufferChunk(true);
+    appendCharBufferChunk(true,false);
     connectedWritersWriter.write(str,off,len);
   }
  else   if (len >= subStringChunkMinSize && isNextChunkBigEnough(len)) {

@@ -12,7 +12,8 @@
  else {
     uri=featureId.toString();
   }
-  GrailsClass controllerClass=uriToControllerClassCache.get(uri);
+  String cacheKey=(pluginName != null ? pluginName : "") + ":" + uri;
+  GrailsClass controllerClass=uriToControllerClassCache.get(cacheKey);
   if (controllerClass == null) {
     final ApplicationContext mainContext=grailsApplication.getMainContext();
     GrailsPluginManager grailsPluginManager=null;
@@ -46,7 +47,7 @@
       controllerClass=NO_CONTROLLER;
     }
     if (Environment.getCurrent() != Environment.DEVELOPMENT) {
-      uriToControllerClassCache.put(uri,controllerClass);
+      uriToControllerClassCache.put(cacheKey,controllerClass);
     }
   }
   if (controllerClass == NO_CONTROLLER) {

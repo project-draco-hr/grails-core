@@ -1,16 +1,20 @@
 {
-  Assert.notNull(uri,"Controller URI [" + uri + "] cannot be null!");
+  Assert.notNull(originalUri,"Controller URI [" + originalUri + "] cannot be null!");
   HttpServletRequest request=grailsWebRequest.getCurrentRequest();
   HttpServletResponse response=grailsWebRequest.getCurrentResponse();
+  String uri=originalUri;
   if (uri.endsWith("/")) {
     uri=uri.substring(0,uri.length() - 1);
   }
-  GrailsControllerClass controllerClass;
+  GrailsControllerClass controllerClass=null;
   Object attribute=grailsWebRequest.getAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS,WebRequest.SCOPE_REQUEST);
   if (attribute instanceof GrailsControllerClass) {
-    controllerClass=(GrailsControllerClass)attribute;
+    String matchedUri=(String)grailsWebRequest.getAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_MATCHED_URI,WebRequest.SCOPE_REQUEST);
+    if (matchedUri != null && originalUri.equals(matchedUri)) {
+      controllerClass=(GrailsControllerClass)attribute;
+    }
   }
- else {
+  if (controllerClass == null) {
     controllerClass=getControllerClassByURI(uri);
   }
   if (controllerClass == null) {

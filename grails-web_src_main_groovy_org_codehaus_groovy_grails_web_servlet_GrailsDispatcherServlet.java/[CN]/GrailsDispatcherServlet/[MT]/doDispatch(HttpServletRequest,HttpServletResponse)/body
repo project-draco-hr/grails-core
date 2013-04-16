@@ -36,18 +36,21 @@
         logger.debug("Using response object: " + response.getClass());
       }
       mappedHandler=getHandler(processedRequest);
-      if (mappedHandler == null || mappedHandler.getHandler() == null) {
+      Object handler=mappedHandler.getHandler();
+      if (mappedHandler == null || handler == null) {
         noHandlerFound(processedRequest,response);
         return;
       }
-      if (mappedHandler.getInterceptors() != null) {
-        for (int i=0; i < mappedHandler.getInterceptors().length; i++) {
-          HandlerInterceptor interceptor=mappedHandler.getInterceptors()[i];
-          if (!interceptor.preHandle(processedRequest,response,mappedHandler.getHandler())) {
+      HandlerInterceptor[] interceptors=mappedHandler.getInterceptors();
+      if (interceptors != null) {
+        int i=0;
+        for (        HandlerInterceptor interceptor : interceptors) {
+          if (!interceptor.preHandle(processedRequest,response,handler)) {
             triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,null);
             return;
           }
           interceptorIndex=i;
+          i++;
         }
       }
       if (isAsyncRequest) {
@@ -60,8 +63,8 @@
         }
       }
  else {
-        HandlerAdapter ha=getHandlerAdapter(mappedHandler.getHandler());
-        mv=ha.handle(processedRequest,response,mappedHandler.getHandler());
+        HandlerAdapter ha=getHandlerAdapter(handler);
+        mv=ha.handle(processedRequest,response,handler);
         if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
           processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
           return;
@@ -70,10 +73,9 @@
           mv.setViewName(getDefaultViewName(request));
         }
       }
-      if (mappedHandler.getInterceptors() != null) {
-        for (int i=mappedHandler.getInterceptors().length - 1; i >= 0; i--) {
-          HandlerInterceptor interceptor=mappedHandler.getInterceptors()[i];
-          interceptor.postHandle(processedRequest,response,mappedHandler.getHandler(),mv);
+      if (interceptors != null) {
+        for (int i=interceptors.length - 1; i >= 0; i--) {
+          interceptors[i].postHandle(processedRequest,response,handler,mv);
         }
       }
     }
@@ -86,7 +88,7 @@
     }
 catch (    Exception ex) {
       handlerException=ex;
-      Object handler=(mappedHandler != null ? mappedHandler.getHandler() : null);
+      Object handler=mappedHandler == null ? null : mappedHandler.getHandler();
       mv=processHandlerException(request,response,handler,ex);
       errorView=(mv != null);
     }

@@ -1,0 +1,6 @@
+{
+  this.notifyParentBuffersEnabled=notifyParentBuffersEnabled;
+  if (!notifyParentBuffersEnabled && parentBuffers != null) {
+    parentBuffers.clear();
+  }
+}

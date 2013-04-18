@@ -29,7 +29,7 @@
           GrailsASTUtils.addDelegateConstructor(classNode,declaredMethod);
         }
  else         if (isCandidateInstanceMethod(classNode,declaredMethod)) {
-          GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod);
+          GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod,getMarkerAnnotation());
         }
       }
       implementationNode=implementationNode.getSuperClass();
@@ -57,7 +57,7 @@
     MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
     for (    MethodNode declaredMethod : declaredMethods) {
       if (isStaticCandidateMethod(classNode,declaredMethod)) {
-        GrailsASTUtils.addDelegateStaticMethod(apiLookupMethod,classNode,declaredMethod);
+        GrailsASTUtils.addDelegateStaticMethod(apiLookupMethod,classNode,declaredMethod,getMarkerAnnotation());
       }
     }
   }

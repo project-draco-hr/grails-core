@@ -1,0 +1,18 @@
+{
+  String[] interceptorNames=webContext.getBeanNamesForType(HandlerInterceptor.class);
+  String[] webRequestInterceptors=webContext.getBeanNamesForType(WebRequestInterceptor.class);
+  List<HandlerInterceptor> interceptors=new ArrayList<HandlerInterceptor>();
+  for (  String webRequestInterceptor : webRequestInterceptors) {
+    WebRequestInterceptor interceptor=webContext.getBean(webRequestInterceptor,WebRequestInterceptor.class);
+    if (!previousInterceptors.contains(interceptor)) {
+      interceptors.add(new WebRequestHandlerInterceptorAdapter(interceptor));
+    }
+  }
+  for (  String interceptorName : interceptorNames) {
+    HandlerInterceptor interceptor=webContext.getBean(interceptorName,HandlerInterceptor.class);
+    if (!previousInterceptors.contains(interceptor)) {
+      interceptors.add(interceptor);
+    }
+  }
+  return interceptors.toArray(new HandlerInterceptor[interceptors.size()]);
+}

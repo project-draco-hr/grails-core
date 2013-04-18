@@ -1,5 +1,5 @@
 {
-  checkStructuredProperties(mpvs);
   autoCreateIfPossible(mpvs);
+  checkStructuredProperties(mpvs);
   bindAssociations(mpvs);
 }

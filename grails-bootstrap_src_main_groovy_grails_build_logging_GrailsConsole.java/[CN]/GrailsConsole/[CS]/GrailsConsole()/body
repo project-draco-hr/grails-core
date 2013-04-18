@@ -3,8 +3,9 @@
   originalSystemOut=System.out;
   originalSystemErr=System.err;
   out=new PrintStream(ansiWrap(originalSystemOut));
+  err=ansiWrap(originalSystemErr);
   System.setOut(new GrailsConsolePrintStream(out));
-  System.setErr(new GrailsConsoleErrorPrintStream(ansiWrap(originalSystemErr)));
+  System.setErr(new GrailsConsoleErrorPrintStream(err));
   if (isInteractiveEnabled()) {
     reader=createConsoleReader();
     reader.setBellEnabled(false);

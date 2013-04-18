@@ -1,0 +1,3 @@
+{
+  return new AnnotationNode(new ClassNode(PersistenceMethod.class).getPlainNodeReference());
+}

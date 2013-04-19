@@ -1,0 +1,3 @@
+{
+  return markerAnnotation != null && methodNode.getAnnotations(markerAnnotation.getClassNode()).isEmpty();
+}

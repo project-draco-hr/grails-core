@@ -6,4 +6,5 @@
  else {
     connectedWritersWriter=new SingleOutputWriter(connectedWriters.get(0));
   }
+  setNotifyParentBuffersEnabled(false);
 }

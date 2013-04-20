@@ -3,6 +3,7 @@
   markUsed();
   if (shouldWriteDirectly(len)) {
     appendCharBufferChunk(encodingState,true,false);
+    startUsingConnectedWritersWriter();
     connectedWritersWriter.write(str,off,len);
   }
  else   if (len >= subStringChunkMinSize && isNextChunkBigEnough(len)) {

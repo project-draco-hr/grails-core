@@ -1,5 +1,5 @@
 {
   this.writer=writer;
   this.autoFlush=autoFlush;
-  initEncoderAware();
+  this.encoderAware=(writer instanceof EncodedAppenderFactory || writer instanceof EncodedAppenderWriterFactory);
 }

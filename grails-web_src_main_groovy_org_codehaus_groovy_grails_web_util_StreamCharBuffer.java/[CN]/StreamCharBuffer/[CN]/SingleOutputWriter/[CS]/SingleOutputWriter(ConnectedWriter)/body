@@ -1,3 +1,5 @@
 {
-  this.writer=writer;
+  this.connectedWriter=connectedWriter;
+  this.writer=connectedWriter.getWriter();
+  this.encoderAware=connectedWriter.isEncoderAware();
 }

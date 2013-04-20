@@ -1,5 +1,5 @@
 {
   initConnected();
-  connectedWriters.add(new ConnectedWriter(w,autoFlush));
+  connectToWriters.add(new ConnectToWriter(w,autoFlush));
   initConnectedWritersWriter();
 }

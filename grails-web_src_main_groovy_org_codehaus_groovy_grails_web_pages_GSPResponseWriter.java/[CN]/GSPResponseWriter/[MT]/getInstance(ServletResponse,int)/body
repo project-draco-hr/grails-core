@@ -1,18 +1,53 @@
 {
   Writer target=null;
-  StreamCharBuffer streamBuffer=null;
-  BoundedCharsAsEncodedBytesCounter bytesCounter=null;
+  final BoundedCharsAsEncodedBytesCounter bytesCounter=new BoundedCharsAsEncodedBytesCounter();
   if (!(response instanceof GrailsContentBufferingResponse) && (BUFFERING_ENABLED || CONTENT_LENGTH_COUNTING_ENABLED)) {
-    streamBuffer=new StreamCharBuffer(max,0,max);
+    final StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
     streamBuffer.setChunkMinSize(max / 2);
     target=streamBuffer.getWriter();
-    if (CONTENT_LENGTH_COUNTING_ENABLED) {
-      bytesCounter=new BoundedCharsAsEncodedBytesCounter(max * 2,response.getCharacterEncoding());
-      streamBuffer.connectTo(bytesCounter.getCountingWriter(),AUTOFLUSH_ENABLED);
-    }
-    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingWriter(){
+    final StreamCharBuffer.LazyInitializingWriter lazyResponseWriter=new StreamCharBuffer.LazyInitializingWriter(){
       public Writer getWriter() throws IOException {
         return response.getWriter();
+      }
+    }
+;
+    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
+      public Writer getWriter() throws IOException {
+        return null;
+      }
+      public LazyInitializingWriter[] initializeMultiple(      boolean autoFlush) throws IOException {
+        final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+        final Encoder encoder=webRequest != null ? webRequest.lookupFilteringEncoder() : null;
+        final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
+        if (CONTENT_LENGTH_COUNTING_ENABLED) {
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
+            public Writer getWriter() throws IOException {
+              bytesCounter.setCapacity(max * 2);
+              bytesCounter.setEncoding(response.getCharacterEncoding());
+              return bytesCounter.getCountingWriter();
+            }
+          }
+,lazyResponseWriter};
+        }
+ else {
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
+        }
+        if (encoder != null) {
+          return new StreamCharBuffer.LazyInitializingWriter[]{streamBuffer.createEncodingInitializer(new EncoderAware(){
+            public Encoder getEncoder(){
+              return encoder;
+            }
+          }
+,new EncodingStateRegistryLookup(){
+            public EncodingStateRegistry lookup(){
+              return webRequest.getEncodingStateRegistry();
+            }
+          }
+,lazyWriters)};
+        }
+ else {
+          return lazyWriters;
+        }
       }
     }
 ,AUTOFLUSH_ENABLED);

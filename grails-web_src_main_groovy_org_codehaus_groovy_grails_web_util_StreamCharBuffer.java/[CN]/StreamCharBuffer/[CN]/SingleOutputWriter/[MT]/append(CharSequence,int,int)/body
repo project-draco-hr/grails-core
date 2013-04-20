@@ -1,4 +1,4 @@
 {
-  writer.getWriter().append(csq,start,end);
+  writer.append(csq,start,end);
   return this;
 }

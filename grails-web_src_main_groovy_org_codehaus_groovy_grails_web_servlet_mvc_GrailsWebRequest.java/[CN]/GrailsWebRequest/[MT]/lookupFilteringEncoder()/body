@@ -1,0 +1,6 @@
+{
+  if (filteringEncoder == null && applicationContext != null && applicationContext.containsBean(FilteringCodecsByContentTypeSettings.BEAN_NAME)) {
+    filteringEncoder=applicationContext.getBean(FilteringCodecsByContentTypeSettings.BEAN_NAME,FilteringCodecsByContentTypeSettings.class).getEncoderForMimeType(getResponse().getContentType());
+  }
+  return filteringEncoder;
+}

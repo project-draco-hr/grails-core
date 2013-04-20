@@ -1,10 +1,17 @@
 {
-  for (  ConnectedWriter writer : writers) {
-    if (!writer.isEncoderAware()) {
-      StringCharArrayAccessor.writeStringAsCharArray(writer.getWriter(),str,off,len);
-    }
+  if (isEncoderAware()) {
+    for (    ConnectedWriter connectedWriter : connectedWriters) {
+      if (!connectedWriter.isEncoderAware()) {
+        StringCharArrayAccessor.writeStringAsCharArray(connectedWriter.getWriter(),str,off,len);
+      }
  else {
-      writer.getWriter().write(str,off,len);
+        connectedWriter.getWriter().write(str,off,len);
+      }
+    }
+  }
+ else {
+    for (    Writer writer : writers) {
+      writer.write(str,off,len);
     }
   }
 }

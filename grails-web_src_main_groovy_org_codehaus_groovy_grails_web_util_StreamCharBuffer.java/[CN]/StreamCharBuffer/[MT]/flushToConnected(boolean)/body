@@ -1,6 +1,10 @@
 {
+  startUsingConnectedWritersWriter();
   if (notConnectedToEncodeAwareWriters == null) {
     notConnectedToEncodeAwareWriters=!connectedWritersWriter.isEncoderAware();
   }
   writeTo(connectedWritersWriter,true,true);
+  if (forceFlush) {
+    connectedWritersWriter.forceFlush();
+  }
 }

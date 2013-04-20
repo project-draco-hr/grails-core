@@ -1,3 +1,8 @@
 {
+  if (writer == null) {
+    ce=Charset.forName(encoding).newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
+    bb=ByteBuffer.allocate(capacity);
+    writer=new BoundedCharsAsEncodedBytesCounterWriter();
+  }
   return writer;
 }

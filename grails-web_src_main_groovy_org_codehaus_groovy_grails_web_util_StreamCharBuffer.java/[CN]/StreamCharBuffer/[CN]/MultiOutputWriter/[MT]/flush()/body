@@ -1,5 +1,5 @@
 {
-  for (  ConnectedWriter writer : writers) {
-    writer.flush();
+  for (  ConnectedWriter connectedWriter : connectedWriters) {
+    connectedWriter.flush();
   }
 }

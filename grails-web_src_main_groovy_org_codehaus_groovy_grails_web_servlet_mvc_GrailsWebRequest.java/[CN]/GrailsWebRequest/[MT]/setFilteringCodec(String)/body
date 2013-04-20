@@ -1,0 +1,3 @@
+{
+  filteringEncoder=codecName != null ? WithCodecHelper.lookupEncoder(attributes.getGrailsApplication(),codecName) : null;
+}

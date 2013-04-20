@@ -1,0 +1,25 @@
+{
+  mimeTypeToEncoderMapping=null;
+  mimeTypePatternToEncoderMapping=null;
+  Object codecForMimeTypeConfig=grailsApplication.getFlatConfig().get(CONFIG_PROPERTY_CODEC_FOR_MIME_TYPE);
+  if (codecForMimeTypeConfig != null) {
+    if (codecForMimeTypeConfig instanceof Map) {
+      mimeTypeToEncoderMapping=new LinkedHashMap<String,Encoder>();
+      mimeTypePatternToEncoderMapping=new LinkedHashMap<Pattern,Encoder>();
+      Map codecForMimeTypeMapping=(Map)codecForMimeTypeConfig;
+      for (Iterator i=codecForMimeTypeMapping.entrySet().iterator(); i.hasNext(); ) {
+        Map.Entry entry=(Map.Entry)i.next();
+        Encoder encoder=WithCodecHelper.lookupEncoder(grailsApplication,String.valueOf(entry.getValue()));
+        if (entry.getKey() instanceof Pattern) {
+          mimeTypePatternToEncoderMapping.put((Pattern)entry.getKey(),encoder);
+        }
+ else {
+          mimeTypeToEncoderMapping.put(String.valueOf(entry.getKey()),encoder);
+        }
+      }
+    }
+ else {
+      throw new IllegalStateException(CONFIG_PROPERTY_CODEC_FOR_MIME_TYPE + " only accepts a configuration that is a java.util.Map instance");
+    }
+  }
+}

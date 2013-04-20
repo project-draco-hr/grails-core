@@ -1,5 +1,4 @@
 {
-  charset=Charset.forName(encoding);
-  ce=charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
-  bb=ByteBuffer.allocate(capacity);
+  this.capacity=capacity;
+  this.encoding=encoding;
 }

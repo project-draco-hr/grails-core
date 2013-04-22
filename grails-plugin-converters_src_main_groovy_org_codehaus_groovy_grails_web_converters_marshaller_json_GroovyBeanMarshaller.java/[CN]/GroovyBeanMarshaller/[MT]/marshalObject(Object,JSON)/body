@@ -5,8 +5,9 @@
     for (    PropertyDescriptor property : BeanUtils.getPropertyDescriptors(o.getClass())) {
       String name=property.getName();
       Method readMethod=property.getReadMethod();
-      if (readMethod != null && !(name.equals("metaClass"))) {
+      if (readMethod != null && !(name.equals("metaClass")) && !(name.equals("class"))) {
         if (readMethod.getAnnotation(PersistenceMethod.class) != null)         continue;
+        if (readMethod.getAnnotation(ControllerMethod.class) != null)         continue;
         Object value=readMethod.invoke(o,(Object[])null);
         writer.key(name);
         json.convertAnother(value);

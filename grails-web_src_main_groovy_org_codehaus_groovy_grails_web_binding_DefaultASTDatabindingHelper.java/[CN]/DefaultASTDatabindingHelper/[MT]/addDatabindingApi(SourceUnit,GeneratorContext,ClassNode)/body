@@ -12,6 +12,9 @@
     @Override protected boolean requiresAutowiring(){
       return false;
     }
+    @Override protected AnnotationNode getMarkerAnnotation(){
+      return new AnnotationNode(new ClassNode(ControllerMethod.class));
+    }
   }
 .performInjection(source,context,classNode);
 }

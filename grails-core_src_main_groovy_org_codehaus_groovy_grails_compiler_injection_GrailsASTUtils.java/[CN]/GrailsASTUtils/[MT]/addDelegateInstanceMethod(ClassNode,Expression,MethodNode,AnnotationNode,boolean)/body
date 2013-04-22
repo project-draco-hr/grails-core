@@ -23,7 +23,7 @@
   methodBody.addStatement(ifStatement);
   MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
   methodNode.addAnnotations(declaredMethod.getAnnotations());
-  if (markerAnnotation != null) {
+  if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {
     methodNode.addAnnotation(markerAnnotation);
   }
   classNode.addMethod(methodNode);

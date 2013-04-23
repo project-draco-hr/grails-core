@@ -1,6 +1,18 @@
 {
   String prefix=ownerTable.getSchema();
+  PropertyConfig config=getPropertyConfig(property);
+  JoinTable jt=config != null ? config.getJoinTable() : null;
   NamingStrategy namingStrategy=getNamingStrategy(sessionFactoryBeanName);
   String tableName=(prefix == null ? "" : prefix + '.') + namingStrategy.tableName(calculateTableForMany(property,sessionFactoryBeanName));
-  collection.setCollectionTable(mappings.addTable(mappings.getSchemaName(),mappings.getCatalogName(),tableName,null,false));
+  String schemaName=mappings.getSchemaName();
+  String catalogName=mappings.getCatalogName();
+  if (jt != null) {
+    if (jt.getSchema() != null) {
+      schemaName=jt.getSchema();
+    }
+    if (jt.getCatalog() != null) {
+      catalogName=jt.getCatalog();
+    }
+  }
+  collection.setCollectionTable(mappings.addTable(schemaName,catalogName,tableName,null,false));
 }

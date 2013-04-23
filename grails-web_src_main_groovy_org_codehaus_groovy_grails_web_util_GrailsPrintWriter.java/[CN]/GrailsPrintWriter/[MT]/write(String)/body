@@ -4,7 +4,7 @@
     return;
   }
   try {
-    out.write(s);
+    getOut().write(s);
   }
  catch (  IOException e) {
     handleIOException(e);

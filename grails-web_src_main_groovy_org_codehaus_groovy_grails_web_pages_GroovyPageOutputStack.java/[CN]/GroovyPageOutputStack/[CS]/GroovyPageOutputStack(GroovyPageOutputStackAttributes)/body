@@ -1,7 +1,37 @@
 {
-  outWriter=new GroovyPageProxyWriter();
-  staticWriter=new GroovyPageProxyWriter();
-  expressionWriter=new GroovyPageProxyWriter();
+  outWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry);
+    }
+  }
+);
+  staticWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      if (stackEntry.staticEncoder != null) {
+        return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry);
+      }
+ else {
+        return stackEntry.unwrappedTarget;
+      }
+    }
+  }
+);
+  expressionWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry);
+    }
+  }
+);
+  taglibWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder,encodingStateRegistry);
+    }
+  }
+);
   this.autoSync=attributes.isAutoSync();
   push(attributes,false);
   if (!autoSync) {

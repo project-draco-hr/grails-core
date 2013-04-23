@@ -1,12 +1,12 @@
 {
   Writer target=null;
-  if (getOut() instanceof EncodedAppenderWriterFactory) {
+  if (getOut() instanceof EncodedAppenderWriterFactory && getOut() != this) {
     target=getOut();
   }
  else {
     target=findStreamCharBufferTarget(false);
   }
-  if (target instanceof EncodedAppenderWriterFactory) {
+  if (target instanceof EncodedAppenderWriterFactory && target != this) {
     return ((EncodedAppenderWriterFactory)target).getWriterForEncoder(encoder,encodingStateRegistry);
   }
  else   if (target instanceof EncodedAppenderFactory) {

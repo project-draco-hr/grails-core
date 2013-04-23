@@ -1,5 +1,5 @@
 {
-  Closure<?> tag=(Closure<?>)tagLibClosure.clone();
+  Closure tag=(Closure)tagLibClosure.clone();
   if (!(attrs instanceof GroovyPageAttributes)) {
     attrs=new GroovyPageAttributes(attrs);
   }

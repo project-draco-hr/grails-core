@@ -4,7 +4,7 @@
       staticOut.print(tagresult);
     }
  else {
-      out.print(tagresult);
+      outputStack.getTaglibWriter().print(tagresult);
     }
   }
 }

@@ -7,6 +7,9 @@
   Writer topWriter=attributes.getTopWriter();
   Writer unwrappedWriter=null;
   if (topWriter != null) {
+    if (topWriter instanceof GroovyPageProxyWriter) {
+      topWriter=((GroovyPageProxyWriter)topWriter).getOut();
+    }
     unwrappedWriter=unwrapTargetWriter(topWriter);
   }
  else   if (previousStackEntry != null) {
@@ -20,8 +23,9 @@
   stackEntry.outEncoder=applyEncoder(attributes.getOutEncoder(),previousStackEntry != null ? previousStackEntry.outEncoder : null,attributes.isInheritPreviousEncoders());
   stackEntry.staticEncoder=applyEncoder(attributes.getStaticEncoder(),previousStackEntry != null ? previousStackEntry.staticEncoder : null,attributes.isInheritPreviousEncoders());
   stackEntry.expressionEncoder=applyEncoder(attributes.getExpressionEncoder(),previousStackEntry != null ? previousStackEntry.expressionEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.taglibEncoder=applyEncoder(attributes.getTaglibEncoder(),previousStackEntry != null ? previousStackEntry.taglibEncoder : null,attributes.isInheritPreviousEncoders());
   stack.push(stackEntry);
-  updateWriters(stackEntry);
+  resetWriters();
   if (autoSync) {
     applyWriterThreadLocals(attributes.getTopWriter());
   }

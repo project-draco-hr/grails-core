@@ -1,8 +1,10 @@
 {
-  try {
-    out.close();
-  }
- catch (  IOException e) {
-    handleIOException(e);
+  if (isDestinationActivated()) {
+    try {
+      getOut().close();
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+    }
   }
 }

@@ -1,7 +1,7 @@
 {
   try {
     usageFlag=true;
-    out.append(csq,start,end);
+    getOut().append(csq,start,end);
   }
  catch (  IOException e) {
     handleIOException(e);

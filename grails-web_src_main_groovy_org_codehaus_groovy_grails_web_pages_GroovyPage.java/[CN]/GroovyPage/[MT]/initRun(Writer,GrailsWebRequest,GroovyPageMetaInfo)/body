@@ -12,6 +12,7 @@
   }
   attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
   attributesBuilder.webRequest(grailsWebRequest);
+  attributesBuilder.inheritPreviousEncoders(false);
   outputStack=GroovyPageOutputStack.currentStack(attributesBuilder.build());
   out=outputStack.getOutWriter();
   staticOut=outputStack.getStaticWriter();

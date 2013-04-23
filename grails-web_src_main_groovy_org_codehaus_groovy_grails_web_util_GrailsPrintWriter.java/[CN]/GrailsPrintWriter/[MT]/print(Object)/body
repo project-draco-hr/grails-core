@@ -19,7 +19,7 @@
  else   if (obj instanceof CharSequence) {
     try {
       usageFlag=true;
-      out.append((CharSequence)obj);
+      getOut().append((CharSequence)obj);
     }
  catch (    IOException e) {
       handleIOException(e);

@@ -1,3 +1,4 @@
 {
-  getDestination().write(c);
+  activateDestination();
+  super.write(c);
 }

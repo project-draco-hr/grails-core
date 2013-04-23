@@ -4,7 +4,7 @@
   if (!resolved.contains(identityHashCode) && lazyInitializingWriter instanceof LazyInitializingMultipleWriter) {
     resolved.add(identityHashCode);
     writerList=new LinkedHashSet<Writer>();
-    LazyInitializingWriter[] writers=((LazyInitializingMultipleWriter)lazyInitializingWriter).initializeMultiple(autoFlush);
+    LazyInitializingWriter[] writers=((LazyInitializingMultipleWriter)lazyInitializingWriter).initializeMultiple(StreamCharBuffer.this,autoFlush);
     for (    LazyInitializingWriter writer : writers) {
       writerList.addAll(resolveLazyInitializers(resolved,writer));
     }

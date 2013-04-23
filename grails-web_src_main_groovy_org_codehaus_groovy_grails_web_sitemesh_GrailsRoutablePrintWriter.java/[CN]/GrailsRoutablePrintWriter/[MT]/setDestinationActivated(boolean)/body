@@ -1,0 +1,6 @@
+{
+  this.destinationActivated=destinationActivated;
+  if (!this.destinationActivated) {
+    super.setTarget(new NullWriter());
+  }
+}

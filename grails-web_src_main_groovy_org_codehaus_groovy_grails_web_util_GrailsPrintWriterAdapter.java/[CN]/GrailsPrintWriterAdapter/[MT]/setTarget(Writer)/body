@@ -5,4 +5,5 @@
  else {
     this.target=new GrailsPrintWriter(wrapped);
   }
+  super.out=this.target;
 }

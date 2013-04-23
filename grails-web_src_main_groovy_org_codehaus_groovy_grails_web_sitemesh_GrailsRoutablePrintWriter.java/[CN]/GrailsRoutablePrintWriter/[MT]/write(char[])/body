@@ -1,3 +1,4 @@
 {
-  getDestination().write(buf);
+  activateDestination();
+  super.write(buf);
 }

@@ -1,5 +1,6 @@
 {
   if (!isBlockFlush()) {
-    getDestination().flush();
+    activateDestination();
+    super.flush();
   }
 }

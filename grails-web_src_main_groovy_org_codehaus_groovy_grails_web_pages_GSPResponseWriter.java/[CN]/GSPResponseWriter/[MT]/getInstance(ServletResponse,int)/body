@@ -1,65 +1,48 @@
 {
-  Writer target=null;
   final BoundedCharsAsEncodedBytesCounter bytesCounter=new BoundedCharsAsEncodedBytesCounter();
-  if (!(response instanceof GrailsContentBufferingResponse) && (BUFFERING_ENABLED || CONTENT_LENGTH_COUNTING_ENABLED)) {
-    final StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
-    streamBuffer.setChunkMinSize(max / 2);
-    target=streamBuffer.getWriter();
-    final StreamCharBuffer.LazyInitializingWriter lazyResponseWriter=new StreamCharBuffer.LazyInitializingWriter(){
-      public Writer getWriter() throws IOException {
-        return response.getWriter();
-      }
+  final StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
+  streamBuffer.setChunkMinSize(max / 2);
+  final StreamCharBuffer.LazyInitializingWriter lazyResponseWriter=new StreamCharBuffer.LazyInitializingWriter(){
+    public Writer getWriter() throws IOException {
+      return response.getWriter();
     }
+  }
 ;
-    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
-      public Writer getWriter() throws IOException {
-        return null;
-      }
-      public LazyInitializingWriter[] initializeMultiple(      boolean autoFlush) throws IOException {
-        final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-        final Encoder encoder=webRequest != null ? webRequest.lookupFilteringEncoder() : null;
-        final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
-        if (CONTENT_LENGTH_COUNTING_ENABLED) {
-          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
-            public Writer getWriter() throws IOException {
-              bytesCounter.setCapacity(max * 2);
-              bytesCounter.setEncoding(response.getCharacterEncoding());
-              return bytesCounter.getCountingWriter();
-            }
+  streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
+    public Writer getWriter() throws IOException {
+      return null;
+    }
+    public LazyInitializingWriter[] initializeMultiple(    StreamCharBuffer buffer,    boolean autoFlush) throws IOException {
+      final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
+      if (CONTENT_LENGTH_COUNTING_ENABLED) {
+        lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
+          public Writer getWriter() throws IOException {
+            bytesCounter.setCapacity(max * 2);
+            bytesCounter.setEncoding(response.getCharacterEncoding());
+            return bytesCounter.getCountingWriter();
           }
+        }
 ,lazyResponseWriter};
-        }
+      }
  else {
-          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
-        }
-        if (encoder != null) {
-          return new StreamCharBuffer.LazyInitializingWriter[]{streamBuffer.createEncodingInitializer(new EncoderAware(){
-            public Encoder getEncoder(){
-              return encoder;
-            }
-          }
-,new EncodingStateRegistryLookup(){
-            public EncodingStateRegistry lookup(){
-              return webRequest.getEncodingStateRegistry();
-            }
-          }
-,lazyWriters)};
-        }
+        lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
+      }
+      return lazyWriters;
+    }
+  }
+,AUTOFLUSH_ENABLED);
+  DestinationFactory lazyTargetFactory=new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+      final Encoder encoder=webRequest != null ? webRequest.lookupFilteringEncoder() : null;
+      if (encoder != null) {
+        return streamBuffer.getWriterForEncoder(encoder,webRequest.getEncodingStateRegistry());
+      }
  else {
-          return lazyWriters;
-        }
+        return streamBuffer.getWriter();
       }
     }
-,AUTOFLUSH_ENABLED);
   }
- else {
-    try {
-      target=response.getWriter();
-    }
- catch (    IOException e) {
-      LOG.error("Problem getting writer from response",e);
-      throw new RuntimeException("Problem getting writer from response",e);
-    }
-  }
-  return new GSPResponseWriter(target,response,bytesCounter);
+;
+  return new GSPResponseWriter(lazyTargetFactory,response,bytesCounter);
 }

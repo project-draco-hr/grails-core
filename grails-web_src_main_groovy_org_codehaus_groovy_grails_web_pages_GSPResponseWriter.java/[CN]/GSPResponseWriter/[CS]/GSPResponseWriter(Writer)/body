@@ -1,3 +1,8 @@
 {
-  super(activeWriter);
+  this(new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      return activeWriter;
+    }
+  }
+,null,null);
 }

@@ -1,7 +1,13 @@
 {
   BindingResult bindingResult=null;
   boolean useLegacyBinder=false;
-  final GrailsApplication grailsApplication=GrailsWebRequest.lookupApplication();
+  GrailsApplication grailsApplication=null;
+  if (domain != null) {
+    grailsApplication=domain.getGrailsApplication();
+  }
+  if (grailsApplication == null) {
+    grailsApplication=GrailsWebRequest.lookupApplication();
+  }
   if (grailsApplication != null) {
     if (Boolean.TRUE.equals(grailsApplication.getFlatConfig().get("grails.databinding.useLegacyBinder"))) {
       useLegacyBinder=true;

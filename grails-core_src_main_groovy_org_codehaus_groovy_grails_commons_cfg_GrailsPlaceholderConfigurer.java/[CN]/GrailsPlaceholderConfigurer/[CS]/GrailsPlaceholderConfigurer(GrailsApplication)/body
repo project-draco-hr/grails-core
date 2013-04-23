@@ -1,3 +1,6 @@
 {
   this.grailsApplication=grailsApplication;
+  GrailsConfig config=new GrailsConfig(grailsApplication);
+  setPlaceholderPrefix(config.get(GrailsConfig.SPRING_PLACEHOLDER_PREFIX,"${"));
+  setIgnoreUnresolvablePlaceholders(true);
 }

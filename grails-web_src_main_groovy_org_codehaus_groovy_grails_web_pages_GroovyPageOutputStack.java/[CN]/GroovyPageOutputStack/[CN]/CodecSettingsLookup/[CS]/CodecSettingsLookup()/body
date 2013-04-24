@@ -1,0 +1,7 @@
+{
+  groovyPageConfig=new GroovyPageConfig(Holders.getFlatConfig());
+  GrailsApplication grailsApplication=Holders.getGrailsApplication();
+  if (grailsApplication != null) {
+    codecLookup=grailsApplication.getMainContext().getBean("codecLookup",CodecLookup.class);
+  }
+}

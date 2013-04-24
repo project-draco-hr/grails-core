@@ -1,4 +1,5 @@
 {
+  if (encoderToApply == NONE_ENCODER)   return false;
   EncodingState encodingState=getEncodingStateFor(string);
   return shouldEncodeWith(encoderToApply,encodingState);
 }

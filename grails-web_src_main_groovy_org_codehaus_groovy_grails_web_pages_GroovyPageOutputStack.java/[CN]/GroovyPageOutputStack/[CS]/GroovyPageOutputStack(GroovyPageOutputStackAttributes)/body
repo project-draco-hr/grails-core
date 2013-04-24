@@ -2,7 +2,7 @@
   outWriter=new GroovyPageProxyWriter(new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
-      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry);
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry,WithCodecHelper.OUT_CODEC_NAME);
     }
   }
 );
@@ -10,7 +10,7 @@
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
       if (stackEntry.staticEncoder != null) {
-        return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry);
+        return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry,WithCodecHelper.STATIC_CODEC_NAME);
       }
  else {
         return stackEntry.unwrappedTarget;
@@ -21,14 +21,14 @@
   expressionWriter=new GroovyPageProxyWriter(new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
-      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry);
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry,WithCodecHelper.EXPRESSION_CODEC_NAME);
     }
   }
 );
   taglibWriter=new GroovyPageProxyWriter(new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
-      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder,encodingStateRegistry);
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder,encodingStateRegistry,WithCodecHelper.TAGLIB_CODEC_NAME);
     }
   }
 );

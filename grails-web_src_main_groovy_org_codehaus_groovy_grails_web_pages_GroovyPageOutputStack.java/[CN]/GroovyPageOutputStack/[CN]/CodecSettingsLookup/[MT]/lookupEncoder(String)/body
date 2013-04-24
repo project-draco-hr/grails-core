@@ -1,0 +1,13 @@
+{
+  if (codecLookup == null)   return null;
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    GrailsPlugin plugin=null;
+    GroovyPageBinding binding=(GroovyPageBinding)webRequest.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
+    if (binding != null) {
+      plugin=binding.getPagePlugin();
+    }
+    return codecLookup.lookupEncoder(groovyPageConfig.getCodecSettings(plugin,codecWriterName));
+  }
+  return null;
+}

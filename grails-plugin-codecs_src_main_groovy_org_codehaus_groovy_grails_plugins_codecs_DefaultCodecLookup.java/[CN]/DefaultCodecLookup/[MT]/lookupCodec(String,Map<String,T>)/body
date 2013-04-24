@@ -1,8 +1,0 @@
-{
-  if (codecName != null && codecName.length() > 0 && !NONE_CODEC_NAME.equalsIgnoreCase(codecName)) {
-    return map.get(codecName);
-  }
- else {
-    return null;
-  }
-}

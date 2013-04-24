@@ -1,9 +1,16 @@
 {
+  Integer orderSetting=(Integer)getPropertyOrStaticPropertyOrFieldValue("order",Integer.class);
   if (Encoder.class.isAssignableFrom(getClazz())) {
     encoder=(Encoder)getReferenceInstance();
+    if (encoder instanceof Ordered) {
+      order=((Ordered)encoder).getOrder();
+    }
   }
   if (Decoder.class.isAssignableFrom(getClazz())) {
     decoder=(Decoder)getReferenceInstance();
+    if (decoder instanceof Ordered) {
+      order=((Ordered)decoder).getOrder();
+    }
   }
   if (encoder == null && decoder == null) {
     CodecFactory codecFactory=null;
@@ -18,6 +25,9 @@
     }
     encoder=codecFactory.getEncoder();
     decoder=codecFactory.getDecoder();
+    if (codecFactory instanceof Ordered) {
+      order=((Ordered)codecFactory).getOrder();
+    }
   }
   if (encoder != null) {
     if (encoder instanceof StreamingEncoder) {

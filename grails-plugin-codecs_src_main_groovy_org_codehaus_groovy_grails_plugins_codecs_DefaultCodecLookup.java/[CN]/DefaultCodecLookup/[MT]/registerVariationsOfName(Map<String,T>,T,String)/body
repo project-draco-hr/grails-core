@@ -1,0 +1,6 @@
+{
+  destinationMap.put(name,target);
+  destinationMap.put(name.toLowerCase(),target);
+  destinationMap.put(name.toUpperCase(),target);
+  destinationMap.put(GrailsNameUtils.getPropertyNameRepresentation(name),target);
+}

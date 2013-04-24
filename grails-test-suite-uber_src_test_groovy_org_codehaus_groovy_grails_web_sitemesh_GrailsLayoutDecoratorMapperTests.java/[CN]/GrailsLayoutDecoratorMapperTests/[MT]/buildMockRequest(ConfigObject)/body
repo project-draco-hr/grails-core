@@ -3,6 +3,7 @@
   appCtx.registerMockBean(GroovyPagesUriService.BEAN_ID,new DefaultGroovyPagesUriService());
   DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication();
   grailsApplication.setConfig(config);
+  Holders.setConfig(config);
   appCtx.registerMockBean(GrailsApplication.APPLICATION_ID,grailsApplication);
   GrailsConventionGroovyPageLocator pageLocator=new GrailsConventionGroovyPageLocator();
   pageLocator.setApplicationContext(appCtx);

@@ -1,0 +1,10 @@
+{
+  String name=target.getCodecIdentifier().getCodecName();
+  registerVariationsOfName(destinationMap,target,name);
+  Set<String> aliases=target.getCodecIdentifier().getCodecAliases();
+  if (aliases != null) {
+    for (    String alias : aliases) {
+      registerVariationsOfName(destinationMap,target,alias);
+    }
+  }
+}

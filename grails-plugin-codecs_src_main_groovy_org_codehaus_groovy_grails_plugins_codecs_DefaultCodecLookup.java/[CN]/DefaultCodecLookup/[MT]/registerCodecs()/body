@@ -1,0 +1,10 @@
+{
+  List<GrailsClass> codecs=Arrays.asList(grailsApplication.getArtefacts(CodecArtefactHandler.TYPE));
+  Collections.sort(codecs,OrderComparator.INSTANCE);
+  Collections.reverse(codecs);
+  encoders=new HashMap<String,Encoder>();
+  decoders=new HashMap<String,Decoder>();
+  for (  GrailsClass grailsClass : codecs) {
+    registerCodec((GrailsCodecClass)grailsClass);
+  }
+}

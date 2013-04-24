@@ -1,0 +1,10 @@
+{
+  for (  PersistenceContextInterceptor interceptor : interceptors) {
+    if (interceptor instanceof ParticipatingInterceptor) {
+      if (((ParticipatingInterceptor)interceptor).getParticipate()) {
+        return true;
+      }
+    }
+  }
+  return false;
+}

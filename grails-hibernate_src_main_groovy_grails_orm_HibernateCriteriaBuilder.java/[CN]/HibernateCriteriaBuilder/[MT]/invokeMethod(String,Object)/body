@@ -44,17 +44,13 @@
  else       if (paginationEnabledList) {
         criteria.setFirstResult(0);
         criteria.setMaxResults(Integer.MAX_VALUE);
-        if (projectionList != null && projectionList.getLength() > 0) {
-          criteria.setProjection(projectionList);
-        }
- else {
-          criteria.setProjection(null);
-        }
+        boolean isProjection=(projectionList != null && projectionList.getLength() > 0);
+        criteria.setProjection(isProjection ? projectionList : null);
         for (        Order orderEntry : orderEntries) {
           criteria.addOrder(orderEntry);
         }
         if (resultTransformer == null) {
-          criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+          criteria.setResultTransformer(isProjection ? CriteriaSpecification.PROJECTION : CriteriaSpecification.ROOT_ENTITY);
         }
  else         if (paginationEnabledList) {
           criteria.setResultTransformer(resultTransformer);

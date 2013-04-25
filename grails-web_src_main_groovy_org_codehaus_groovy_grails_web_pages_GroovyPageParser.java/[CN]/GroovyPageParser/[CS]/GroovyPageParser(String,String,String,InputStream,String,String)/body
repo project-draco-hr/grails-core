@@ -9,18 +9,6 @@
       }
     }
   }
-  this.expressionCodecDirectiveValue=expressionCodecName;
-  if (expressionCodecDirectiveValue == null) {
-    if (config != null) {
-      Object o=config.get(GroovyPageParser.CONFIG_PROPERTY_DEFAULT_CODEC);
-      if (o != null) {
-        expressionCodecDirectiveValue=o.toString();
-      }
-    }
-    if (expressionCodecDirectiveValue == null) {
-      expressionCodecDirectiveValue=DEFAULT_EXPRESSIONCODEC;
-    }
-  }
   if (config != null) {
     Object sitemeshPreprocessEnabled=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
     if (sitemeshPreprocessEnabled != null) {
@@ -28,12 +16,21 @@
       setEnableSitemeshPreprocessing(enableSitemeshPreprocessing);
     }
   }
+  GrailsPluginInfo pluginInfo=null;
   if (filename != null && BuildSettingsHolder.getSettings() != null) {
-    GrailsPluginInfo info=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
-    if (info != null) {
-      pluginAnnotation="@GrailsPlugin(name='" + info.getName() + "', version='"+ info.getVersion()+ "')";
+    pluginInfo=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
+    if (pluginInfo != null) {
+      pluginAnnotation="@GrailsPlugin(name='" + pluginInfo.getName() + "', version='"+ pluginInfo.getVersion()+ "')";
     }
   }
+  GroovyPageConfig gspConfig=new GroovyPageConfig(config);
+  this.expressionCodecDirectiveValue=expressionCodecName;
+  if (expressionCodecDirectiveValue == null) {
+    expressionCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.EXPRESSION_CODEC_NAME);
+  }
+  staticCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.STATIC_CODEC_NAME);
+  outCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.OUT_CODEC_NAME);
+  taglibCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.TAGLIB_CODEC_NAME);
   String gspSource=readStream(in);
   Map<String,String> directives=parseDirectives(gspSource);
   if (isSitemeshPreprocessingEnabled(directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {

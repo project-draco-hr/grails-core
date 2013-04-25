@@ -1,13 +1,3 @@
 {
-  GrailsCodecClass codecGrailsClass=null;
-  if (codecName != null && grailsApplication != null && StringUtils.isNotBlank(codecName)) {
-    codecGrailsClass=(GrailsCodecClass)grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName);
-    if (codecGrailsClass == null) {
-      codecGrailsClass=(GrailsCodecClass)grailsApplication.getArtefactByLogicalPropertyName(CodecArtefactHandler.TYPE,codecName.toUpperCase());
-    }
-  }
-  if (codecGrailsClass == null && StringUtils.isNotBlank(codecName) && !"none".equalsIgnoreCase(codecName)) {
-    LOG.warn("Couldn't initialize Codec by name '" + codecName + "' , pageClass="+ ((pageClass != null) ? pageClass.getName() : null));
-  }
-  return codecGrailsClass;
+  return WithCodecHelper.lookupEncoder(grailsApplication,codecName);
 }

@@ -1,7 +1,8 @@
 {
-  expressionCodec=getCodec(expressionCodecName);
-  staticCodec=getCodec(staticCodecName);
-  outCodec=getCodec(outCodecName);
+  expressionEncoder=getCodec(expressionCodecName);
+  staticEncoder=getCodec(staticCodecName);
+  outEncoder=getCodec(outCodecName);
+  taglibEncoder=getCodec(taglibCodecName);
   initializePluginPath();
   initialized=true;
 }

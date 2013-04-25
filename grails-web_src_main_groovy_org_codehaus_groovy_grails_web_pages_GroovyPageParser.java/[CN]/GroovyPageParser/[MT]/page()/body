@@ -91,6 +91,7 @@ out.println("public static final long " + CONSTANT_NAME_LAST_MODIFIED + " = "+ l
 out.println("public static final String " + CONSTANT_NAME_EXPRESSION_CODEC + " = '"+ escapeGroovy(expressionCodecDirectiveValue)+ "'");
 out.println("public static final String " + CONSTANT_NAME_STATIC_CODEC + " = '"+ escapeGroovy(staticCodecDirectiveValue)+ "'");
 out.println("public static final String " + CONSTANT_NAME_OUT_CODEC + " = '"+ escapeGroovy(outCodecDirectiveValue)+ "'");
+out.println("public static final String " + CONSTANT_NAME_TAGLIB_CODEC + " = '"+ escapeGroovy(taglibCodecDirectiveValue)+ "'");
 out.println("}");
 if (shouldAddLineNumbers()) {
 addLineNumbers();

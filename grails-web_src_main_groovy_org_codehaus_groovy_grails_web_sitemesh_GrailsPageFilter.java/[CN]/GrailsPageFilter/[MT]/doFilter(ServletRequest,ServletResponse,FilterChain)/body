@@ -42,6 +42,9 @@
       request.setAttribute(ALREADY_APPLIED_KEY,null);
     }
     if (persistenceInterceptor.isOpen()) {
+      if (persistenceInterceptor instanceof ParticipatingInterceptor) {
+        ((ParticipatingInterceptor)persistenceInterceptor).setParticipate(false);
+      }
       persistenceInterceptor.destroy();
     }
   }

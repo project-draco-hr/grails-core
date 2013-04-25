@@ -1,0 +1,11 @@
+{
+  if (grailsApplication != null && grailsApplication.getFlatConfig() != null) {
+    Object htmlCodecSetting=grailsApplication.getFlatConfig().get(CONFIG_PROPERTY_GSP_HTMLCODEC);
+    if (htmlCodecSetting != null) {
+      String htmlCodecSettingStr=htmlCodecSetting.toString().toLowerCase();
+      if (htmlCodecSettingStr.startsWith("xml") || "xhtml".equalsIgnoreCase(htmlCodecSettingStr)) {
+        setUseLegacyEncoder(false);
+      }
+    }
+  }
+}

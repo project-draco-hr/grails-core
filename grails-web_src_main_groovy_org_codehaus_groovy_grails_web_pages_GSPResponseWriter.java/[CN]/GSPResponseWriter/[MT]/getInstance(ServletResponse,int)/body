@@ -8,41 +8,33 @@
     }
   }
 ;
-  streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
-    public Writer getWriter() throws IOException {
-      return null;
-    }
-    public LazyInitializingWriter[] initializeMultiple(    StreamCharBuffer buffer,    boolean autoFlush) throws IOException {
-      final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
-      if (CONTENT_LENGTH_COUNTING_ENABLED) {
-        lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
-          public Writer getWriter() throws IOException {
-            bytesCounter.setCapacity(max * 2);
-            bytesCounter.setEncoding(response.getCharacterEncoding());
-            return bytesCounter.getCountingWriter();
+  if (!(response instanceof GrailsContentBufferingResponse)) {
+    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
+      public Writer getWriter() throws IOException {
+        return null;
+      }
+      public LazyInitializingWriter[] initializeMultiple(      StreamCharBuffer buffer,      boolean autoFlush) throws IOException {
+        final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
+        if (CONTENT_LENGTH_COUNTING_ENABLED) {
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
+            public Writer getWriter() throws IOException {
+              bytesCounter.setCapacity(max * 2);
+              bytesCounter.setEncoding(response.getCharacterEncoding());
+              return bytesCounter.getCountingWriter();
+            }
           }
-        }
 ,lazyResponseWriter};
-      }
+        }
  else {
-        lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
+        }
+        return lazyWriters;
       }
-      return lazyWriters;
     }
-  }
 ,AUTOFLUSH_ENABLED);
-  DestinationFactory lazyTargetFactory=new DestinationFactory(){
-    public Writer activateDestination() throws IOException {
-      final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-      final Encoder encoder=webRequest != null ? webRequest.lookupFilteringEncoder() : null;
-      if (encoder != null) {
-        return streamBuffer.getWriterForEncoder(encoder,webRequest.getEncodingStateRegistry());
-      }
- else {
-        return streamBuffer.getWriter();
-      }
-    }
   }
-;
-  return new GSPResponseWriter(lazyTargetFactory,response,bytesCounter);
+ else {
+    streamBuffer.connectTo(lazyResponseWriter);
+  }
+  return new GSPResponseWriter(streamBuffer,response,bytesCounter);
 }

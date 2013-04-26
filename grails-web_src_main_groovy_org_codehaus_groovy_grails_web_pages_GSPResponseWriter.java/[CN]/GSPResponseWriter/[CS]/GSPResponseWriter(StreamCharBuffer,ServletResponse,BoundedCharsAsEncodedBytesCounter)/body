@@ -1,0 +1,20 @@
+{
+  super(null);
+  DestinationFactory lazyTargetFactory=new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      final GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+      encoder=webRequest != null ? webRequest.lookupFilteringEncoder() : null;
+      if (encoder != null) {
+        return buffer.getWriterForEncoder(encoder,webRequest.getEncodingStateRegistry());
+      }
+ else {
+        return buffer.getWriter();
+      }
+    }
+  }
+;
+  updateDestination(lazyTargetFactory);
+  this.response=response;
+  this.bytesCounter=bytesCounter;
+  setBlockFlush(false);
+}

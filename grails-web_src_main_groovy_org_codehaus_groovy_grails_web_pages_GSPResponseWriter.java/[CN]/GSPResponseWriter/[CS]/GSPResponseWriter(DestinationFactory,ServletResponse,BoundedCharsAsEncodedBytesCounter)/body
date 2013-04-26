@@ -1,6 +1,0 @@
-{
-  super(destinationFactory);
-  this.response=response;
-  this.bytesCounter=bytesCounter;
-  setBlockFlush(false);
-}

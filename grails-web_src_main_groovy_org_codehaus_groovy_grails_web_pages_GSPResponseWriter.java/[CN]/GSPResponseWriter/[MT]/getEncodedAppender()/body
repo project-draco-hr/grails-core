@@ -1,0 +1,13 @@
+{
+  if (buffer != null) {
+    return ((EncodedAppenderFactory)buffer.getWriter()).getEncodedAppender();
+  }
+ else {
+    activateDestination();
+    Writer target=getTarget().unwrap();
+    if (target != this && target instanceof EncodedAppenderFactory) {
+      return ((EncodedAppenderFactory)target).getEncodedAppender();
+    }
+  }
+  return null;
+}

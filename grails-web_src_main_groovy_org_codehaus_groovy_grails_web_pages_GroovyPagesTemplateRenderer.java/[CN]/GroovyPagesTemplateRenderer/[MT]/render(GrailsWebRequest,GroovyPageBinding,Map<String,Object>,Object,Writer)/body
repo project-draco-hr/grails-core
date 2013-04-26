@@ -11,5 +11,5 @@
   if (t == null) {
     throw new GrailsTagException("Template not found for name [" + templateName + "] and path ["+ uri+ "]");
   }
-  makeTemplate(t,attrs,body,out);
+  makeTemplate(webRequest,t,attrs,body,out);
 }

@@ -1,9 +1,0 @@
-{
-  if (encoder == null)   return o;
-  try {
-    return encoder.encode(o);
-  }
- catch (  Exception e) {
-    throw new RuntimeException("Problem calling encode method " + encoder,e);
-  }
-}

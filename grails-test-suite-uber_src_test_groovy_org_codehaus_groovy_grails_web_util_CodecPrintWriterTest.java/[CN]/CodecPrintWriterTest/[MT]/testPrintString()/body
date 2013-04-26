@@ -2,5 +2,6 @@
   FastStringWriter stringwriter=new FastStringWriter();
   CodecPrintWriter writer=new CodecPrintWriter(stringwriter,getEncoder(new MockGrailsApplication(),HTMLCodec.class),registry);
   writer.print("&&");
+  writer.flush();
   assertEquals("&amp;&amp;",stringwriter.getValue());
 }

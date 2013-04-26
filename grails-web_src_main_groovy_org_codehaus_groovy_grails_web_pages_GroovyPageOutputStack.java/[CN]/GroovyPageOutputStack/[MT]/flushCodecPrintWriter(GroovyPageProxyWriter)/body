@@ -1,0 +1,5 @@
+{
+  if (writer.isDestinationActivated() && writer.getOut() instanceof CodecPrintWriter) {
+    writer.getOut().flush();
+  }
+}

@@ -1,8 +1,10 @@
 {
-  this(new DestinationFactory(){
+  super(null);
+  updateDestination(new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       return activeWriter;
     }
   }
-,null,null);
+);
+  setBlockFlush(false);
 }

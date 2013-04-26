@@ -1,7 +1,4 @@
 {
-  if (encoder == null) {
-    encoder=codecSettingsLookup.lookupEncoder(codecWriterName);
-  }
   Writer encodingWriter;
   if (out instanceof EncodedAppenderWriterFactory) {
     encodingWriter=((EncodedAppenderWriterFactory)out).getWriterForEncoder(encoder,encodingStateRegistry);

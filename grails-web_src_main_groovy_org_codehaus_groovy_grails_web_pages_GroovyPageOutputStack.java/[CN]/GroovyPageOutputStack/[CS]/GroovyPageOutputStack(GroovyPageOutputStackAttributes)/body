@@ -28,7 +28,7 @@
   taglibWriter=new GroovyPageProxyWriter(new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
-      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder,encodingStateRegistry,GroovyPageConfig.TAGLIB_CODEC_NAME);
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder != null ? stackEntry.taglibEncoder : stackEntry.defaultTaglibEncoder,encodingStateRegistry,GroovyPageConfig.TAGLIB_CODEC_NAME);
     }
   }
 );

@@ -24,6 +24,7 @@
   stackEntry.staticEncoder=applyEncoder(attributes.getStaticEncoder(),previousStackEntry != null ? previousStackEntry.staticEncoder : null,attributes.isInheritPreviousEncoders());
   stackEntry.expressionEncoder=applyEncoder(attributes.getExpressionEncoder(),previousStackEntry != null ? previousStackEntry.expressionEncoder : null,attributes.isInheritPreviousEncoders());
   stackEntry.taglibEncoder=applyEncoder(attributes.getTaglibEncoder(),previousStackEntry != null ? previousStackEntry.taglibEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.defaultTaglibEncoder=applyEncoder(attributes.getDefaultTaglibEncoder(),previousStackEntry != null ? previousStackEntry.defaultTaglibEncoder : null,attributes.isInheritPreviousEncoders());
   stack.push(stackEntry);
   resetWriters();
   if (autoSync) {

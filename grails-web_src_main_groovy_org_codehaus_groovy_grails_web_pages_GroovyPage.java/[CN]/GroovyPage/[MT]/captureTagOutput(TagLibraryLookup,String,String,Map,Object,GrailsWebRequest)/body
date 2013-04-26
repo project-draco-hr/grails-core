@@ -15,17 +15,9 @@
     if (outputStack == null) {
       outputStack=GroovyPageOutputStack.currentStack(webRequest,true,tagOutput,true,true);
     }
-    Object codecInfo=null;
-    if (attrs.containsKey(ENCODE_AS_ATTRIBUTE_NAME)) {
-      codecInfo=attrs.get(ENCODE_AS_ATTRIBUTE_NAME);
-    }
- else     if (DEFAULT_NAMESPACE.equals(namespace) && APPLY_CODEC_TAG_NAME.equals(tagName)) {
-      codecInfo=attrs;
-    }
- else {
-      codecInfo=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
-    }
-    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecInfo,webRequest.getAttributes().getGrailsApplication());
+    Map<String,Object> defaultEncodeAs=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
+    Map<String,Object> codecSettings=createCodecSettings(namespace,tagName,attrs,defaultEncodeAs);
+    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,webRequest.getAttributes().getGrailsApplication());
     builder.topWriter(tagOutput);
     outputStack.push(builder.build());
     Object tagLibProp=tagLib.getProperty(tagName);

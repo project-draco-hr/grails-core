@@ -18,15 +18,20 @@
   for (  String tagName : taglib.getTagNamesThatReturnObject()) {
     tagsThatReturnObject.add(tagName);
   }
-  Map<String,Object> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
+  Map<String,Map<String,Object>> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
   if (encodeAsForTagNamespace == null) {
-    encodeAsForTagNamespace=new HashMap<String,Object>();
+    encodeAsForTagNamespace=new HashMap<String,Map<String,Object>>();
     encodeAsForTagNamespaces.put(namespace,encodeAsForTagNamespace);
+  }
+  Map<String,Object> defaultEncodeAsForTagLib=null;
+  if (taglib.getDefaultEncodeAs() != null) {
+    defaultEncodeAsForTagLib=Collections.unmodifiableMap(WithCodecHelper.makeSettingsCanonical(taglib.getDefaultEncodeAs()));
   }
   for (  String tagName : taglib.getTagNames()) {
     Object codecInfo=taglib.getEncodeAsForTag(tagName);
-    if (codecInfo != null) {
-      encodeAsForTagNamespace.put(tagName,codecInfo);
+    Map<String,Object> codecInfoMap=WithCodecHelper.mergeSettingsAndMakeCanonical(codecInfo,defaultEncodeAsForTagLib);
+    if (codecInfoMap != null) {
+      encodeAsForTagNamespace.put(tagName,codecInfoMap);
     }
   }
 }

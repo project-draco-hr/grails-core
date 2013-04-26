@@ -6,15 +6,9 @@
   ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
   boolean encodeAsPushedToStack=false;
   try {
-    Object codecInfo=defaultEncodeAs;
-    if (attrs.containsKey(ENCODE_AS_ATTRIBUTE_NAME)) {
-      codecInfo=attrs.get(ENCODE_AS_ATTRIBUTE_NAME);
-    }
- else     if (DEFAULT_NAMESPACE.equals(tagNamespace) && APPLY_CODEC_TAG_NAME.equals(tagName)) {
-      codecInfo=attrs;
-    }
-    if (codecInfo != null) {
-      outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecInfo,webRequest.getAttributes().getGrailsApplication()).build());
+    Map<String,Object> codecSettings=createCodecSettings(tagNamespace,tagName,attrs,defaultEncodeAs);
+    if (codecSettings != null) {
+      outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,webRequest.getAttributes().getGrailsApplication()).build());
       encodeAsPushedToStack=true;
     }
     Object tagresult=null;

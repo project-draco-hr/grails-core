@@ -1,6 +1,3 @@
 {
-  if (isAllowUnwrappingOut()) {
-    return target.unwrap();
-  }
-  return this;
+  return target.unwrap();
 }

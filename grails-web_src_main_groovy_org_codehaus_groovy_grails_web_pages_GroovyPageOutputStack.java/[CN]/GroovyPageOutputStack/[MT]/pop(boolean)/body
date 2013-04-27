@@ -1,11 +1,6 @@
 {
+  writerGroup.reset();
   stack.pop();
-  try {
-    flushCodecPrintWriters();
-  }
- catch (  IOException e) {
-    throw new RuntimeException("Error flushing",e);
-  }
   resetWriters();
   if (stack.size() > 0) {
     StackEntry stackEntry=stack.peek();

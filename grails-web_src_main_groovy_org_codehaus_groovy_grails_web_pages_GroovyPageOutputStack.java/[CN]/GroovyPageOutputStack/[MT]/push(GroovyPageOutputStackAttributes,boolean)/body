@@ -1,16 +1,9 @@
 {
+  writerGroup.reset();
   if (checkExisting)   checkExistingStack(attributes.getTopWriter());
   StackEntry previousStackEntry=null;
   if (stack.size() > 0) {
     previousStackEntry=stack.peek();
-  }
-  if (previousStackEntry != null) {
-    try {
-      flushCodecPrintWriters();
-    }
- catch (    IOException e) {
-      throw new RuntimeException("Error flushing",e);
-    }
   }
   Writer topWriter=attributes.getTopWriter();
   Writer unwrappedWriter=null;

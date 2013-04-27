@@ -1,12 +1,12 @@
 {
-  outWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+  outWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
       return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry,GroovyPageConfig.OUT_CODEC_NAME);
     }
   }
 );
-  staticWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+  staticWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
       if (stackEntry.staticEncoder != null) {
@@ -18,14 +18,14 @@
     }
   }
 );
-  expressionWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+  expressionWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
       return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry,GroovyPageConfig.EXPRESSION_CODEC_NAME);
     }
   }
 );
-  taglibWriter=new GroovyPageProxyWriter(new DestinationFactory(){
+  taglibWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
       return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder != null ? stackEntry.taglibEncoder : stackEntry.defaultTaglibEncoder,encodingStateRegistry,GroovyPageConfig.TAGLIB_CODEC_NAME);

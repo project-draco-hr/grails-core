@@ -1,8 +1,0 @@
-{
-  if (encoder == null) {
-    super.write(buf);
-  }
- else {
-    encodeAndPrint(new String(buf));
-  }
-}

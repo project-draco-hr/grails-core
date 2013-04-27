@@ -1,0 +1,3 @@
+{
+  return filteringEncoder != null ? filteringEncoder.getCodecIdentifier().getCodecName() : null;
+}

@@ -1,9 +1,9 @@
 {
-  if (metaInfo.getExpressionCodec() != null) {
+  if (metaInfo.getExpressionEncoder() != null) {
     if (hasRequest) {
-      request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,metaInfo.getExpressionCodec().getName());
+      request.setAttribute(GrailsApplicationAttributes.GSP_CODEC,metaInfo.getExpressionEncoder().getCodecIdentifier().getCodecName());
     }
-    binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,metaInfo.getExpressionCodec().getEncoder());
+    binding.setVariableDirectly(GroovyPage.CODEC_VARNAME,metaInfo.getExpressionEncoder());
   }
  else {
     if (hasRequest) {

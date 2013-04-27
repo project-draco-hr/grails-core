@@ -1,0 +1,8 @@
+{
+  encodeInStreamingModeTo(encoderLookup,encodingStateRegistryLookup,autoFlush,new LazyInitializingWriter(){
+    public Writer getWriter() throws IOException {
+      return w;
+    }
+  }
+);
+}

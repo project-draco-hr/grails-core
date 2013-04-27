@@ -1,0 +1,15 @@
+{
+  List<EncodedPart> encodedParts=new ArrayList<StreamCharBuffer.EncodedPart>();
+  MultipartStringChunk mpStringChunk=readToSingleChunk().asStringChunk();
+  if (mpStringChunk.firstPart != null) {
+    EncodingStatePart current=mpStringChunk.firstPart;
+    int offset=0;
+    char[] buf=StringCharArrayAccessor.getValue(mpStringChunk.str);
+    while (current != null) {
+      encodedParts.add(new EncodedPart(current.encodingState,new String(buf,offset,current.len)));
+      offset+=current.len;
+      current=current.next;
+    }
+  }
+  return encodedParts;
+}

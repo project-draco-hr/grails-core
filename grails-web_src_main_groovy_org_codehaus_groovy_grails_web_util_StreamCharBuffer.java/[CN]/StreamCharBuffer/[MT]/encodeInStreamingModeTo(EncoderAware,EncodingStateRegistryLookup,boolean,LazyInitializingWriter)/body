@@ -1,0 +1,4 @@
+{
+  LazyInitializingWriter encodingWriterInitializer=createEncodingInitializer(encoderLookup,encodingStateRegistryLookup,writers);
+  connectTo(encodingWriterInitializer,autoFlush);
+}

@@ -1,0 +1,18 @@
+{
+  if (contentTypeToEncoderMapping == null) {
+    return null;
+  }
+  if (contentType == null) {
+    contentType=WILDCARD_CONTENT_TYPE;
+  }
+  Encoder encoder=contentTypeToEncoderMapping.get(contentType);
+  if (encoder != null) {
+    return encoder;
+  }
+  for (  Map.Entry<Pattern,Encoder> entry : contentTypePatternToEncoderMapping.entrySet()) {
+    if (entry.getKey().matcher(contentType).matches()) {
+      return encoder;
+    }
+  }
+  return contentTypeToEncoderMapping.get(WILDCARD_CONTENT_TYPE);
+}

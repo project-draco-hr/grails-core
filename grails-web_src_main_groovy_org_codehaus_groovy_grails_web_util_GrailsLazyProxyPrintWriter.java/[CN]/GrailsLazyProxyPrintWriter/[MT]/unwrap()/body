@@ -1,0 +1,3 @@
+{
+  return destinationActivated ? super.unwrap() : this;
+}

@@ -1,7 +1,7 @@
 {
   if (encoderAware == null) {
     encoderAware=false;
-    for (    ConnectedWriter writer : writers) {
+    for (    ConnectedWriter writer : connectedWriters) {
       if (writer.isEncoderAware()) {
         encoderAware=true;
         break;

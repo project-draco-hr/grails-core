@@ -1,3 +1,4 @@
 {
-  return getDestination().append(csq,start,end);
+  activateDestination();
+  return super.append(csq,start,end);
 }

@@ -8,6 +8,6 @@
   }
   GrailsPluginManager pluginManager=applicationContext.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
   pluginPath=pluginManager.getPluginPathForClass(pageClass);
-  if (pluginPath == null)   pluginPath="";
+  if (pluginPath == null)   pluginPath=DEFAULT_PLUGIN_PATH;
   pagePlugin=pluginManager.getPluginForClass(pageClass);
 }

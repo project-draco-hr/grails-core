@@ -1,19 +1,21 @@
 {
   Writer target=null;
-  if (getOut() instanceof EncodedAppenderWriterFactory) {
+  if (getOut() instanceof EncodedAppenderWriterFactory && getOut() != this) {
     target=getOut();
   }
  else {
     target=findStreamCharBufferTarget(false);
   }
-  if (target instanceof EncodedAppenderWriterFactory) {
+  if (target instanceof EncodedAppenderWriterFactory && target != this) {
     return ((EncodedAppenderWriterFactory)target).getWriterForEncoder(encoder,encodingStateRegistry);
   }
  else   if (target instanceof EncodedAppenderFactory) {
     EncodedAppender encodedAppender=((EncodedAppenderFactory)target).getEncodedAppender();
-    return new EncodedAppenderWriter(encodedAppender,encoder,encodingStateRegistry);
+    if (encodedAppender != null) {
+      return new EncodedAppenderWriter(encodedAppender,encoder,encodingStateRegistry);
+    }
   }
- else   if (target != null) {
+  if (target != null) {
     return new CodecPrintWriter(target,encoder,encodingStateRegistry);
   }
  else {

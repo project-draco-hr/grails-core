@@ -1,0 +1,16 @@
+{
+  Set<Writer> writerList=Collections.emptySet();
+  Integer identityHashCode=System.identityHashCode(lazyInitializingWriter);
+  if (!resolved.contains(identityHashCode) && lazyInitializingWriter instanceof LazyInitializingMultipleWriter) {
+    resolved.add(identityHashCode);
+    writerList=new LinkedHashSet<Writer>();
+    LazyInitializingWriter[] writers=((LazyInitializingMultipleWriter)lazyInitializingWriter).initializeMultiple(StreamCharBuffer.this,autoFlush);
+    for (    LazyInitializingWriter writer : writers) {
+      writerList.addAll(resolveLazyInitializers(resolved,writer));
+    }
+  }
+ else {
+    writerList=Collections.singleton(lazyInitializingWriter.getWriter());
+  }
+  return writerList;
+}

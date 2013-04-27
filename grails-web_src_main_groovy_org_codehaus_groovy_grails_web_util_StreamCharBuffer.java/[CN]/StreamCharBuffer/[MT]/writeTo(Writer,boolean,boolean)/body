@@ -17,11 +17,19 @@
   }
  else   if (target instanceof EncodedAppenderFactory) {
     EncodedAppenderFactory eaw=(EncodedAppenderFactory)target;
-    if (eaw.getEncodedAppender() == writer.getEncodedAppender()) {
-      throw new IllegalArgumentException("Cannot write buffer to itself.");
-    }
-    if (target instanceof EncoderAware) {
-      encodeTo(eaw.getEncodedAppender(),((EncoderAware)eaw).getEncoder());
+    EncodedAppender appender=eaw.getEncodedAppender();
+    if (appender != null) {
+      if (appender == writer.getEncodedAppender()) {
+        throw new IllegalArgumentException("Cannot write buffer to itself.");
+      }
+      Encoder encoder=null;
+      if (target instanceof EncoderAware) {
+        encoder=((EncoderAware)target).getEncoder();
+      }
+      if (encoder == null && appender instanceof EncoderAware) {
+        encoder=((EncoderAware)appender).getEncoder();
+      }
+      encodeTo(appender,encoder);
       if (emptyAfter) {
         emptyAfterReading();
       }

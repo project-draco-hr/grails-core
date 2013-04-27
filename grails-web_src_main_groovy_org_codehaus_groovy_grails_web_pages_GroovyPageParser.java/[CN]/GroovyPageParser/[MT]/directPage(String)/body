@@ -25,6 +25,9 @@
     if (name.equals(OUT_CODEC_DIRECTIVE)) {
       outCodecDirectiveValue=value.trim();
     }
+    if (name.equals(TAGLIB_CODEC_DIRECTIVE)) {
+      taglibCodecDirectiveValue=value.trim();
+    }
     ix=mat.end();
   }
 }

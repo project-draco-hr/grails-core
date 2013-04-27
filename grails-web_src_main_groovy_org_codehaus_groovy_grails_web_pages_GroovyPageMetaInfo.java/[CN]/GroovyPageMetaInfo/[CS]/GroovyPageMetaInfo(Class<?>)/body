@@ -8,6 +8,7 @@
   expressionCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_EXPRESSION_CODEC),null);
   staticCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_STATIC_CODEC),null);
   outCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_OUT_CODEC),null);
+  taglibCodecName=(String)ReflectionUtils.getField(ReflectionUtils.findField(pageClass,GroovyPageParser.CONSTANT_NAME_TAGLIB_CODEC),null);
   try {
     readHtmlData();
   }

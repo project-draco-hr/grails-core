@@ -1,30 +1,41 @@
 {
-  Writer target=null;
-  StreamCharBuffer streamBuffer=null;
-  BoundedCharsAsEncodedBytesCounter bytesCounter=null;
-  if (!(response instanceof GrailsContentBufferingResponse) && (BUFFERING_ENABLED || CONTENT_LENGTH_COUNTING_ENABLED)) {
-    streamBuffer=new StreamCharBuffer(max,0,max);
-    streamBuffer.setChunkMinSize(max / 2);
-    target=streamBuffer.getWriter();
-    if (CONTENT_LENGTH_COUNTING_ENABLED) {
-      bytesCounter=new BoundedCharsAsEncodedBytesCounter(max * 2,response.getCharacterEncoding());
-      streamBuffer.connectTo(bytesCounter.getCountingWriter(),AUTOFLUSH_ENABLED);
+  final BoundedCharsAsEncodedBytesCounter bytesCounter=new BoundedCharsAsEncodedBytesCounter();
+  final StreamCharBuffer streamBuffer=new StreamCharBuffer(max,0,max);
+  streamBuffer.setChunkMinSize(max / 2);
+  streamBuffer.setNotifyParentBuffersEnabled(false);
+  final StreamCharBuffer.LazyInitializingWriter lazyResponseWriter=new StreamCharBuffer.LazyInitializingWriter(){
+    public Writer getWriter() throws IOException {
+      return response.getWriter();
     }
-    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingWriter(){
+  }
+;
+  if (!(response instanceof GrailsContentBufferingResponse)) {
+    streamBuffer.connectTo(new StreamCharBuffer.LazyInitializingMultipleWriter(){
       public Writer getWriter() throws IOException {
-        return response.getWriter();
+        return null;
+      }
+      public LazyInitializingWriter[] initializeMultiple(      StreamCharBuffer buffer,      boolean autoFlush) throws IOException {
+        final StreamCharBuffer.LazyInitializingWriter[] lazyWriters;
+        if (CONTENT_LENGTH_COUNTING_ENABLED) {
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{new StreamCharBuffer.LazyInitializingWriter(){
+            public Writer getWriter() throws IOException {
+              bytesCounter.setCapacity(max * 2);
+              bytesCounter.setEncoding(response.getCharacterEncoding());
+              return bytesCounter.getCountingWriter();
+            }
+          }
+,lazyResponseWriter};
+        }
+ else {
+          lazyWriters=new StreamCharBuffer.LazyInitializingWriter[]{lazyResponseWriter};
+        }
+        return lazyWriters;
       }
     }
 ,AUTOFLUSH_ENABLED);
   }
  else {
-    try {
-      target=response.getWriter();
-    }
- catch (    IOException e) {
-      LOG.error("Problem getting writer from response",e);
-      throw new RuntimeException("Problem getting writer from response",e);
-    }
+    streamBuffer.connectTo(lazyResponseWriter);
   }
-  return new GSPResponseWriter(target,response,bytesCounter);
+  return new GSPResponseWriter(streamBuffer,response,bytesCounter);
 }

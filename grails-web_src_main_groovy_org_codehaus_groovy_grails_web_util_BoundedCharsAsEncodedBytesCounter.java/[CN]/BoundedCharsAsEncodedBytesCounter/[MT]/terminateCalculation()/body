@@ -1,5 +1,7 @@
 {
   calculationActive=false;
-  bb.clear();
-  bb=null;
+  if (bb != null) {
+    bb.clear();
+    bb=null;
+  }
 }

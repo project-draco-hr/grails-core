@@ -1,8 +1,8 @@
 {
-  if (!writer.isEncoderAware()) {
-    StringCharArrayAccessor.writeStringAsCharArray(writer.getWriter(),str,off,len);
+  if (!encoderAware) {
+    StringCharArrayAccessor.writeStringAsCharArray(writer,str,off,len);
   }
  else {
-    writer.getWriter().write(str,off,len);
+    writer.write(str,off,len);
   }
 }

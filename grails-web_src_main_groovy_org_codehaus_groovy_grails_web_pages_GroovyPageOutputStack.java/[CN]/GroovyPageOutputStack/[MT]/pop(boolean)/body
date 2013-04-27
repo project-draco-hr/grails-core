@@ -1,8 +1,9 @@
 {
+  writerGroup.reset();
   stack.pop();
+  resetWriters();
   if (stack.size() > 0) {
     StackEntry stackEntry=stack.peek();
-    updateWriters(stackEntry);
     if (forceSync) {
       applyWriterThreadLocals(stackEntry.originalTarget);
     }

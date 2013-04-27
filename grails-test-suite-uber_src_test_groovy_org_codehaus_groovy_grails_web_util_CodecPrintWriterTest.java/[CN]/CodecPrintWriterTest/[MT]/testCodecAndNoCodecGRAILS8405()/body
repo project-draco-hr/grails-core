@@ -6,6 +6,7 @@
   webRequest.setOut(out);
   GrailsPrintWriter codecOut=new CodecPrintWriter(out,getEncoder(new MockGrailsApplication(),CodecWithClosureProperties.class),registry);
   codecOut.print("hola");
+  codecOut.flush();
   out.print("1");
   out.print("2");
   out.print("3");
@@ -14,13 +15,17 @@
   outputStack.push(out2);
   out.print("4");
   codecOut.print("A");
+  codecOut.flush();
   outputStack.pop();
   out.print("added");
   codecOut.print("too");
+  codecOut.flush();
   out.leftShift(bufferWriter.getBuffer());
   codecOut.print("B");
+  codecOut.flush();
   out.print("5");
   codecOut.print("C");
+  codecOut.flush();
   RequestContextHolder.setRequestAttributes(null);
   assertEquals("-> hola <-123added-> too <-4-> A <--> B <-5-> C <-",target.getValue());
   codecOut.close();

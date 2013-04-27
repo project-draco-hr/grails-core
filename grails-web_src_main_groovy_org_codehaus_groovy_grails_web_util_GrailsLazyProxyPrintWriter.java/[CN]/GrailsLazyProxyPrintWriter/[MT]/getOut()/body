@@ -1,0 +1,12 @@
+{
+  if (!destinationActivated) {
+    try {
+      super.setOut(factory.activateDestination());
+    }
+ catch (    IOException e) {
+      setError();
+    }
+    destinationActivated=true;
+  }
+  return super.getOut();
+}

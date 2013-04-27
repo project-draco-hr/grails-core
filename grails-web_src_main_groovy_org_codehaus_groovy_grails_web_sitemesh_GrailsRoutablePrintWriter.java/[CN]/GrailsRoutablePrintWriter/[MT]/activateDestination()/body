@@ -1,0 +1,11 @@
+{
+  if (!destinationActivated && factory != null) {
+    try {
+      super.setTarget(factory.activateDestination());
+    }
+ catch (    IOException e) {
+      setError();
+    }
+    destinationActivated=true;
+  }
+}

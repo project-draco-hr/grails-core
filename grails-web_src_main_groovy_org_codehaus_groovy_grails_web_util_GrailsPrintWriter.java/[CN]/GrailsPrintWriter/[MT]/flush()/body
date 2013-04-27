@@ -2,10 +2,12 @@
   if (trouble) {
     return;
   }
-  try {
-    out.flush();
-  }
- catch (  IOException e) {
-    handleIOException(e);
+  if (isDestinationActivated()) {
+    try {
+      getOut().flush();
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+    }
   }
 }

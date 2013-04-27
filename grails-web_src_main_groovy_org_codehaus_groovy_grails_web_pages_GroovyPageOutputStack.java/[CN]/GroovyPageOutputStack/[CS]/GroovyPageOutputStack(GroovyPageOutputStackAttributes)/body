@@ -1,7 +1,37 @@
 {
-  outWriter=new GroovyPageProxyWriter();
-  staticWriter=new GroovyPageProxyWriter();
-  expressionWriter=new GroovyPageProxyWriter();
+  outWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry,GroovyPageConfig.OUT_CODEC_NAME);
+    }
+  }
+);
+  staticWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      if (stackEntry.staticEncoder != null) {
+        return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry,GroovyPageConfig.STATIC_CODEC_NAME);
+      }
+ else {
+        return stackEntry.unwrappedTarget;
+      }
+    }
+  }
+);
+  expressionWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry,GroovyPageConfig.EXPRESSION_CODEC_NAME);
+    }
+  }
+);
+  taglibWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder != null ? stackEntry.taglibEncoder : stackEntry.defaultTaglibEncoder,encodingStateRegistry,GroovyPageConfig.TAGLIB_CODEC_NAME);
+    }
+  }
+);
   this.autoSync=attributes.isAutoSync();
   push(attributes,false);
   if (!autoSync) {

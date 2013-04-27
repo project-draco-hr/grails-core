@@ -11,6 +11,7 @@
   markUsed();
   if (shouldWriteDirectly(len)) {
     appendCharBufferChunk(encodingState,true,true);
+    startUsingConnectedWritersWriter();
     connectedWritersWriter.write(b,off,len);
   }
  else {

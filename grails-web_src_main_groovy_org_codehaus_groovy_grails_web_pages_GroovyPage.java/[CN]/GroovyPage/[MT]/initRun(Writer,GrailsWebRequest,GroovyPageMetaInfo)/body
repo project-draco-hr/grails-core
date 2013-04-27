@@ -9,9 +9,11 @@
     attributesBuilder.outEncoder(metaInfo.getOutEncoder());
     attributesBuilder.staticEncoder(metaInfo.getStaticEncoder());
     attributesBuilder.expressionEncoder(metaInfo.getExpressionEncoder());
+    attributesBuilder.defaultTaglibEncoder(metaInfo.getTaglibEncoder());
   }
   attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
   attributesBuilder.webRequest(grailsWebRequest);
+  attributesBuilder.inheritPreviousEncoders(false);
   outputStack=GroovyPageOutputStack.currentStack(attributesBuilder.build());
   out=outputStack.getOutWriter();
   staticOut=outputStack.getStaticWriter();

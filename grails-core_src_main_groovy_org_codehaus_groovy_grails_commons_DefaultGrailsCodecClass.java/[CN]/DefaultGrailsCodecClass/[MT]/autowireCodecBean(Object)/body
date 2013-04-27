@@ -1,0 +1,5 @@
+{
+  if (existingBean != null && grailsApplication != null && grailsApplication.getMainContext() instanceof AutowireCapableBeanFactory) {
+    ((AutowireCapableBeanFactory)grailsApplication.getMainContext()).autowireBean(existingBean);
+  }
+}

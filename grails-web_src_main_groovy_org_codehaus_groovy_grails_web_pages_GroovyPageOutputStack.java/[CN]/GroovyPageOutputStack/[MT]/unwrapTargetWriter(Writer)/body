@@ -1,5 +1,5 @@
 {
-  if (targetWriter instanceof GrailsWrappedWriter) {
+  if (targetWriter instanceof GrailsWrappedWriter && ((GrailsWrappedWriter)targetWriter).isAllowUnwrappingOut()) {
     return ((GrailsWrappedWriter)targetWriter).unwrap();
   }
   return targetWriter;

@@ -1,12 +1,12 @@
 {
-  if (!(attrs instanceof GroovyPageAttributes)) {
-    attrs=new GroovyPageAttributes(attrs,false);
-  }
-  ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(false);
   GroovyObject tagLib=lookupCachedTagLib(gspTagLibraryLookup,namespace,tagName);
   if (tagLib == null) {
     throw new GrailsTagException("Tag [" + tagName + "] does not exist. No corresponding tag library found.");
   }
+  if (!(attrs instanceof GroovyPageAttributes)) {
+    attrs=new GroovyPageAttributes(attrs,false);
+  }
+  ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(false);
   Closure actualBody=createOutputCapturingClosure(tagLib,body,webRequest);
   final GroovyPageTagWriter tagOutput=new GroovyPageTagWriter();
   GroovyPageOutputStack outputStack=null;
@@ -15,17 +15,9 @@
     if (outputStack == null) {
       outputStack=GroovyPageOutputStack.currentStack(webRequest,true,tagOutput,true,true);
     }
-    Object codecInfo=null;
-    if (attrs.containsKey(ENCODE_AS_ATTRIBUTE_NAME)) {
-      codecInfo=attrs.get(ENCODE_AS_ATTRIBUTE_NAME);
-    }
- else     if (DEFAULT_NAMESPACE.equals(namespace) && APPLY_CODEC_TAG_NAME.equals(tagName)) {
-      codecInfo=attrs;
-    }
- else {
-      codecInfo=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
-    }
-    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecInfo,webRequest.getAttributes().getGrailsApplication());
+    Map<String,Object> defaultEncodeAs=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
+    Map<String,Object> codecSettings=createCodecSettings(namespace,tagName,attrs,defaultEncodeAs);
+    GroovyPageOutputStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,webRequest.getAttributes().getGrailsApplication());
     builder.topWriter(tagOutput);
     outputStack.push(builder.build());
     Object tagLibProp=tagLib.getProperty(tagName);
@@ -42,7 +34,7 @@ case 1:
             outputStack.getStaticWriter().print(bodyResult2);
           }
  else {
-            outputStack.getOutWriter().print(bodyResult2);
+            outputStack.getTaglibWriter().print(bodyResult2);
           }
         }
       }
@@ -53,16 +45,16 @@ break;
 default :
 throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
 }
-Encoder pageEncoder=outputStack.getOutEncoder();
+Encoder taglibEncoder=outputStack.getTaglibEncoder();
 boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
 if (returnsObject && bodyResult != null && !(bodyResult instanceof Writer)) {
-if (pageEncoder != null) {
-bodyResult=pageEncoder.encode(bodyResult);
+if (taglibEncoder != null) {
+bodyResult=taglibEncoder.encode(bodyResult);
 }
 return bodyResult;
 }
-if (pageEncoder != null) {
-return pageEncoder.encode(tagOutput.getBuffer());
+if (taglibEncoder != null) {
+return taglibEncoder.encode(tagOutput.getBuffer());
 }
  else {
 return tagOutput.getBuffer();

@@ -1,0 +1,6 @@
+{
+  if (newWriter != activeWriter) {
+    flushActive();
+    activeWriter=newWriter;
+  }
+}

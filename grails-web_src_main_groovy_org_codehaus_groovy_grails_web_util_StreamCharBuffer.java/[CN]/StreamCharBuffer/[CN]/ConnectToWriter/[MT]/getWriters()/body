@@ -1,0 +1,9 @@
+{
+  if (writer != null) {
+    return new Writer[]{writer};
+  }
+ else {
+    Set<Writer> writerList=resolveLazyInitializers(new HashSet<Integer>(),lazyInitializingWriter);
+    return writerList.toArray(new Writer[writerList.size()]);
+  }
+}

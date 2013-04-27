@@ -1,3 +1,4 @@
 {
-  return getDestination().append(c);
+  activateDestination();
+  return super.append(c);
 }

@@ -1,6 +1,3 @@
 {
-  if (isAllowUnwrappingOut()) {
-    return getOut();
-  }
-  return this;
+  return target.unwrap();
 }

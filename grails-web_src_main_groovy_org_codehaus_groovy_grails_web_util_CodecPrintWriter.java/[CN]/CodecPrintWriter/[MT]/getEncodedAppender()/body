@@ -1,3 +1,3 @@
 {
-  return new WriterEncodedAppender(getOut());
+  return ((EncodedAppenderFactory)buffer.getWriter()).getEncodedAppender();
 }

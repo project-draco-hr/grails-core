@@ -4,5 +4,6 @@
   StreamCharBuffer buf=new StreamCharBuffer();
   buf.getWriter().write("&&");
   writer.write(buf);
+  writer.flush();
   assertEquals("&amp;&amp;",stringwriter.getValue());
 }

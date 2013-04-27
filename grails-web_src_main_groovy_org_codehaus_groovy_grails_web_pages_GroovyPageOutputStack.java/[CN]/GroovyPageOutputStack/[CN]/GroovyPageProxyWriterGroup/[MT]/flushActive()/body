@@ -1,0 +1,5 @@
+{
+  if (activeWriter != null) {
+    activeWriter.flush();
+  }
+}

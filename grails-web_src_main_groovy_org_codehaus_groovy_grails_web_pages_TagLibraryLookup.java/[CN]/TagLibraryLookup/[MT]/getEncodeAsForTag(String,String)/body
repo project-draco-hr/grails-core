@@ -1,4 +1,4 @@
 {
-  Map<String,Object> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
+  Map<String,Map<String,Object>> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
   return encodeAsForTagNamespace != null ? encodeAsForTagNamespace.get(tagName) : null;
 }

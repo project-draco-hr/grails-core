@@ -1,8 +1,9 @@
 {
   markUsed();
   int directChunkMinSize=getDirectChunkMinSize();
-  if (directChunkMinSize != -1 && subBuffer.isSizeLarger(directChunkMinSize)) {
+  if (directChunkMinSize == 0 || (directChunkMinSize != -1 && subBuffer.isSizeLarger(directChunkMinSize))) {
     appendCharBufferChunk(null,true,false);
+    startUsingConnectedWritersWriter();
     subBuffer.writeToImpl(connectedWritersWriter,false,false);
   }
  else   if (subBuffer.preferSubChunkWhenWritingToOtherBuffer || subBuffer.isSizeLarger(Math.max(subBufferChunkMinSize,getNewChunkMinSize()))) {

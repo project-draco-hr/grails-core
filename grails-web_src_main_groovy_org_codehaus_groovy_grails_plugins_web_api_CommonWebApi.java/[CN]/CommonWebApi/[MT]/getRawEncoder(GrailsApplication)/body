@@ -1,0 +1,10 @@
+{
+  if (application != null) {
+    GrailsClass grailsClass=application.getArtefact(CodecArtefactHandler.TYPE,RAW_CODEC_NAME);
+    GrailsCodecClass codecClass=(GrailsCodecClass)grailsClass;
+    if (codecClass != null) {
+      return codecClass.getEncoder();
+    }
+  }
+  return null;
+}

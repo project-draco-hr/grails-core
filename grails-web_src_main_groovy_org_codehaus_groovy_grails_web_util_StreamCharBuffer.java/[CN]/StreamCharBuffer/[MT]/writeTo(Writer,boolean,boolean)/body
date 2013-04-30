@@ -4,9 +4,6 @@
     if (wrappedWriter.isAllowUnwrappingOut()) {
       target=wrappedWriter.unwrap();
     }
- else     if (target instanceof GrailsPrintWriter && ((GrailsPrintWriter)target).getOut() instanceof EncodedAppenderWriter) {
-      target=((GrailsPrintWriter)target).getOut();
-    }
   }
   if (target == writer) {
     throw new IllegalArgumentException("Cannot write buffer to itself.");

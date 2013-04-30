@@ -1,6 +1,5 @@
 {
-  if (!isBlockClose()) {
-    activateDestination();
+  if (!isBlockClose() && isDestinationActivated()) {
     super.close();
   }
 }

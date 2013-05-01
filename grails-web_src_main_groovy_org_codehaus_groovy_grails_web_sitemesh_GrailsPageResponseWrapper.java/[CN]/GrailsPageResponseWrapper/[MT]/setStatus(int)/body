@@ -1,7 +1,6 @@
 {
-  if (sc == HttpServletResponse.SC_NOT_MODIFIED) {
-    aborted=true;
-    deactivateSiteMesh();
+  if (sc == HttpServletResponse.SC_NOT_MODIFIED || sc >= 400) {
+    abortRequest();
   }
   super.setStatus(sc);
 }

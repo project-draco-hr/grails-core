@@ -3,6 +3,10 @@
   this.proxyHandler=proxyHandler;
   encoding=cfg.getEncoding();
   prettyPrint=cfg.isPrettyPrint();
+  cacheObjectMarshallerByClass=cfg.isCacheObjectMarshallerByClass();
+  if (cacheObjectMarshallerByClass) {
+    objectMarshallerForClassCache=new ConcurrentHashMap<Integer,ObjectMarshaller<C>>();
+  }
   circularReferenceBehaviour=cfg.getCircularReferenceBehaviour();
   List<ObjectMarshaller<C>> oms=new ArrayList<ObjectMarshaller<C>>(marshallerList);
   Collections.reverse(oms);

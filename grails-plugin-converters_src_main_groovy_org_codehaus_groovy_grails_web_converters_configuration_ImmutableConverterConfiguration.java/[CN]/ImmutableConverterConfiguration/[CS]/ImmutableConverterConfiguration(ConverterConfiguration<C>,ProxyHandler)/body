@@ -2,6 +2,7 @@
   marshallers=Collections.unmodifiableList(cfg.getOrderedObjectMarshallers());
   encoding=cfg.getEncoding();
   prettyPrint=cfg.isPrettyPrint();
+  cacheObjectMarshallerByClass=cfg.isCacheObjectMarshallerByClass();
   circularReferenceBehaviour=cfg.getCircularReferenceBehaviour();
   this.proxyHandler=proxyHandler;
 }

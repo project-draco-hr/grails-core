@@ -7,6 +7,9 @@
  else     if (info != null && info.getControllerName() != null) {
       String uri=determineUri(request);
       if (!response.isCommitted()) {
+        if (response instanceof GrailsContentBufferingResponse) {
+          ((GrailsContentBufferingResponse)response).deactivateSitemesh();
+        }
         forwardRequest(info,request,response,mv,uri);
         return new ModelAndView();
       }

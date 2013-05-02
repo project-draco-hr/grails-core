@@ -1,0 +1,24 @@
+{
+  Object methodRestrictionsProperty=null;
+  MetaProperty metaProp=controller.getMetaClass().getMetaProperty(ALLOWED_HTTP_METHODS_PROPERTY);
+  if (metaProp != null) {
+    methodRestrictionsProperty=metaProp.getProperty(controller);
+  }
+  if (!(methodRestrictionsProperty instanceof Map)) {
+    return true;
+  }
+  Map map=(Map)methodRestrictionsProperty;
+  Object value=map.get(actionName);
+  if (value instanceof String) {
+    return ((String)value).equalsIgnoreCase(httpMethod);
+  }
+  if (!(value instanceof List)) {
+    return true;
+  }
+  return CollectionUtils.exists((List)value,new Predicate(){
+    public boolean evaluate(    Object method){
+      return httpMethod.equalsIgnoreCase(method.toString());
+    }
+  }
+);
+}

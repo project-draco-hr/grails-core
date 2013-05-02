@@ -1,24 +1,11 @@
 {
-  Object methodRestrictionsProperty=null;
-  MetaProperty metaProp=controller.getMetaClass().getMetaProperty(ALLOWED_HTTP_METHODS_PROPERTY);
-  if (metaProp != null) {
-    methodRestrictionsProperty=metaProp.getProperty(controller);
-  }
-  if (!(methodRestrictionsProperty instanceof Map)) {
-    return true;
-  }
-  Map map=(Map)methodRestrictionsProperty;
-  Object value=map.get(actionName);
-  if (value instanceof String) {
-    return ((String)value).equalsIgnoreCase(httpMethod);
-  }
-  if (!(value instanceof List)) {
-    return true;
-  }
-  return CollectionUtils.exists((List)value,new Predicate(){
-    public boolean evaluate(    Object method){
-      return httpMethod.equalsIgnoreCase(method.toString());
+  Triple<Class<?>,String,String> key=new Triple<Class<?>,String,String>(controller.getClass(),actionName,httpMethod);
+  Boolean httpMethodAllowed=isHttpMethodAllowedCache.get(key);
+  if (httpMethodAllowed == null) {
+    httpMethodAllowed=doCheckIsHttpMethodAllowedForAction(controller,httpMethod,actionName);
+    if (!developerMode) {
+      isHttpMethodAllowedCache.put(key,httpMethodAllowed);
     }
   }
-);
+  return httpMethodAllowed;
 }

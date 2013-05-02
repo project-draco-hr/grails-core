@@ -1,21 +1,22 @@
 {
+  if (!controllerClass.isInterceptedAfter(controller,actionName)) {
+    return true;
+  }
   Object interceptorResult=null;
-  if (controllerClass.isInterceptedAfter(controller,actionName)) {
-    Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
-    Map model=new HashMap();
-    if (mv != null) {
-      model=mv.getModel() == null ? new HashMap() : mv.getModel();
-    }
+  Closure afterInterceptor=controllerClass.getAfterInterceptor(controller);
+  Map model=new HashMap();
+  if (mv != null) {
+    model=mv.getModel() == null ? new HashMap() : mv.getModel();
+  }
 switch (afterInterceptor.getMaximumNumberOfParameters()) {
 case 1:
-      interceptorResult=afterInterceptor.call(new Object[]{model});
-    break;
+    interceptorResult=afterInterceptor.call(new Object[]{model});
+  break;
 case 2:
-  interceptorResult=afterInterceptor.call(new Object[]{model,mv});
+interceptorResult=afterInterceptor.call(new Object[]{model,mv});
 break;
 default :
 throw new ControllerExecutionException("AfterInterceptor closure must accept one or two parameters");
 }
-}
-return !(interceptorResult != null && interceptorResult instanceof Boolean) || (Boolean)interceptorResult;
+return interceptorResult instanceof Boolean ? (Boolean)interceptorResult : true;
 }

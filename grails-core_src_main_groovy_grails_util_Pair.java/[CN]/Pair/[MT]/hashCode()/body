@@ -1,0 +1,7 @@
+{
+  final int prime=31;
+  int result=1;
+  result=prime * result + ((aValue == null) ? 0 : aValue.hashCode());
+  result=prime * result + ((bValue == null) ? 0 : bValue.hashCode());
+  return result;
+}

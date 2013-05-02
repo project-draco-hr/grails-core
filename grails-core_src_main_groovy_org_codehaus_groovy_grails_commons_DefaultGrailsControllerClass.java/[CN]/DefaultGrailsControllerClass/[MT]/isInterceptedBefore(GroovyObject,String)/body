@@ -1,3 +1,11 @@
 {
-  return controller.getMetaClass().hasProperty(controller,BEFORE_INTERCEPTOR) != null && isIntercepted(controller.getProperty(BEFORE_INTERCEPTOR),action);
+  Pair<Class<?>,String> key=new Pair<Class<?>,String>(controller.getClass(),action);
+  Boolean interceptedBefore=isInterceptedBeforeCache.get(key);
+  if (interceptedBefore == null) {
+    interceptedBefore=controller.getMetaClass().hasProperty(controller,BEFORE_INTERCEPTOR) != null && isIntercepted(controller.getProperty(BEFORE_INTERCEPTOR),action);
+    if (!developerMode) {
+      isInterceptedBeforeCache.put(key,interceptedBefore);
+    }
+  }
+  return interceptedBefore;
 }

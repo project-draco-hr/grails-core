@@ -2,24 +2,9 @@
   Map dispatchParams=webRequest.getParams();
   String encoding=webRequest.getRequest().getCharacterEncoding();
   if (encoding == null)   encoding="UTF-8";
-  Collection keys=params.keySet();
-  keys=DefaultGroovyMethods.toList(keys);
-  Collections.sort((List)keys,new Comparator(){
-    public int compare(    Object leftKey,    Object rightKey){
-      Object leftValue=params.get(leftKey);
-      Object rightValue=params.get(rightKey);
-      boolean leftIsClosure=leftValue instanceof Closure;
-      boolean rightIsClosure=rightValue instanceof Closure;
-      if (leftIsClosure && rightIsClosure)       return 0;
-      if (leftIsClosure && !rightIsClosure)       return 1;
-      if (rightIsClosure && !leftIsClosure)       return -1;
-      return 0;
-    }
-  }
-);
-  for (  Object key : keys) {
-    String name=(String)key;
-    Object param=params.get(name);
+  for (  Map.Entry<String,Object> entry : params.entrySet()) {
+    String name=entry.getKey();
+    Object param=entry.getValue();
     if (param instanceof Closure) {
       param=evaluateNameForValue(param);
     }

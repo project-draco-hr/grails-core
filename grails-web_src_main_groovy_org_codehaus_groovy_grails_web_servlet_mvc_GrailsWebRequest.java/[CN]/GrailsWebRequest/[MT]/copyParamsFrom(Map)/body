@@ -1,0 +1,12 @@
+{
+  if (previousParams instanceof GrailsParameterMap) {
+    this.params=(GrailsParameterMap)((GrailsParameterMap)previousParams).clone();
+  }
+ else {
+    resetParams();
+    for (    Object key : previousParams.keySet()) {
+      String name=String.valueOf(key);
+      params.put(name,previousParams.get(key));
+    }
+  }
+}

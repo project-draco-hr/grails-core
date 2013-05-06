@@ -31,18 +31,9 @@
   WrappedResponseHolder.setWrappedResponse(response);
   boolean dispatched=false;
   try {
-    Map backupParameters;
-    try {
-      backupParameters=new HashMap(webRequest.getParams());
-    }
- catch (    Exception e) {
-      LOG.error("Error creating params object: " + e.getMessage(),e);
-      backupParameters=Collections.EMPTY_MAP;
-    }
     for (    UrlMappingInfo info : urlInfos) {
       if (info != null) {
-        webRequest.getParams().clear();
-        webRequest.getParams().putAll(backupParameters);
+        webRequest.resetParams();
         final String viewName;
         try {
           info.configure(webRequest);

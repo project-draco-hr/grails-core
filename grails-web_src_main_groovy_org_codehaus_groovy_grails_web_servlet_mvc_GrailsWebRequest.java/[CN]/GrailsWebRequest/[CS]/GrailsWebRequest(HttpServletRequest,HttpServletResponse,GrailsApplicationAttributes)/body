@@ -1,4 +1,5 @@
 {
   super(request,response);
   this.attributes=attributes;
+  initialize();
 }

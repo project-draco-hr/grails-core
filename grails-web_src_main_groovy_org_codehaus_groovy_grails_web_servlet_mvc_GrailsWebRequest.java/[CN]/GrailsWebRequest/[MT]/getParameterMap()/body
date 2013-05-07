@@ -1,6 +1,6 @@
 {
   if (params == null) {
-    resetParams();
+    params=new GrailsParameterMap(getCurrentRequest());
   }
   return params;
 }

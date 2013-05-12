@@ -19,8 +19,11 @@
       HttpServletRequest req=(HttpServletRequest)source;
       bindingSource=new GrailsParameterMap(req);
     }
- else {
+ else     if (source instanceof Map) {
       bindingSource=convertPotentialGStrings((Map)source);
+    }
+ else {
+      bindingSource=(Map)InvokerHelper.getPropertySafe(source,"properties");
     }
     final DataBinder gormAwareDataBinder=createGormAwareDataBinder(grailsApplication);
     final BindingResult tmpBindingResult=new BeanPropertyBindingResult(object,object.getClass().getName());

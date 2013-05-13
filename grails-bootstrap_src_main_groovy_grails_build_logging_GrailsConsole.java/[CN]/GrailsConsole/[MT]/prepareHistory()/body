@@ -1,4 +1,4 @@
 {
   File file=new File(System.getProperty("user.home"),HISTORYFILE);
-  return file.canWrite() ? new History(file) : null;
+  return file.canWrite() ? new FileHistory(file) : null;
 }

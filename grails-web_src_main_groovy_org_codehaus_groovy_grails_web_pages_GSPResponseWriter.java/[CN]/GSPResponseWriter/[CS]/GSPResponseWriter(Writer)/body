@@ -1,10 +1,4 @@
 {
   super(null);
-  updateDestination(new DestinationFactory(){
-    public Writer activateDestination() throws IOException {
-      return activeWriter;
-    }
-  }
-);
-  setBlockFlush(false);
+  initialize(activeWriter);
 }

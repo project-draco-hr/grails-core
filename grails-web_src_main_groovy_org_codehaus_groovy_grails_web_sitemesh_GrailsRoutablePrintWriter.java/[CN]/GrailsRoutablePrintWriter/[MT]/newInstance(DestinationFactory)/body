@@ -1,0 +1,13 @@
+{
+  if (instantiator != null) {
+    GrailsRoutablePrintWriter instance=(GrailsRoutablePrintWriter)instantiator.newInstance();
+    instance.out=new NullWriter();
+    instance.factory=factory;
+    instance.blockFlush=true;
+    instance.blockClose=true;
+    return instance;
+  }
+ else {
+    return new GrailsRoutablePrintWriter(factory);
+  }
+}

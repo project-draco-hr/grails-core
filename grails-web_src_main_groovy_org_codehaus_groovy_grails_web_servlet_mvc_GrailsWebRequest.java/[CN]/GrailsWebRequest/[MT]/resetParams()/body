@@ -1,3 +1,6 @@
 {
-  params=new GrailsParameterMap(getCurrentRequest());
+  if (originalParams == null) {
+    originalParams=new GrailsParameterMap(getCurrentRequest());
+  }
+  params=(GrailsParameterMap)originalParams.clone();
 }

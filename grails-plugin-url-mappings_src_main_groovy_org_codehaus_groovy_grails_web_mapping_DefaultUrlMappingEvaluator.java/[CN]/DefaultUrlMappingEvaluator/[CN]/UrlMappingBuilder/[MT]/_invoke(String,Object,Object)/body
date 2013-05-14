@@ -3,6 +3,7 @@
   final boolean isResponseCode=isResponseCode(methodName);
   if (methodName.startsWith(SLASH) || isResponseCode) {
     parameterValues=new HashMap<String,Object>();
+    Map variables=binding != null ? binding.getVariables() : null;
     try {
       urlDefiningMode=false;
       args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
@@ -14,14 +15,18 @@
         Object controllerName;
         Object actionName;
         Object pluginName;
+        String httpMethod=null;
         Object viewName;
         Object uri;
         if (binding != null) {
-          controllerName=binding.getVariables().get(GrailsControllerClass.CONTROLLER);
-          actionName=binding.getVariables().get(GrailsControllerClass.ACTION);
-          viewName=binding.getVariables().get(GrailsControllerClass.VIEW);
-          uri=binding.getVariables().get("uri");
-          pluginName=binding.getVariables().get("plugin");
+          controllerName=variables.get(GrailsControllerClass.CONTROLLER);
+          actionName=variables.get(GrailsControllerClass.ACTION);
+          viewName=variables.get(GrailsControllerClass.VIEW);
+          uri=variables.get(URI);
+          pluginName=variables.get(PLUGIN);
+          if (variables.containsKey(HTTP_METHOD)) {
+            httpMethod=variables.get(HTTP_METHOD).toString();
+          }
         }
  else {
           controllerName=this.controllerName;
@@ -29,6 +34,7 @@
           pluginName=this.pluginName;
           viewName=this.viewName;
           uri=this.uri;
+          httpMethod=this.httpMethod;
         }
         ConstrainedProperty[] constraints=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
         UrlMapping urlMapping;
@@ -41,10 +47,10 @@
           }
         }
  else {
-          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,pluginName,viewName,constraints);
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,pluginName,viewName,httpMethod,constraints);
         }
         if (binding != null) {
-          Map bindingVariables=binding.getVariables();
+          Map bindingVariables=variables;
           Object parse=getParseRequest(Collections.EMPTY_MAP,bindingVariables);
           if (parse instanceof Boolean) {
             urlMapping.setParseRequest((Boolean)parse);
@@ -68,7 +74,7 @@
     }
   finally {
       if (binding != null) {
-        binding.getVariables().clear();
+        variables.clear();
       }
  else {
         controllerName=null;

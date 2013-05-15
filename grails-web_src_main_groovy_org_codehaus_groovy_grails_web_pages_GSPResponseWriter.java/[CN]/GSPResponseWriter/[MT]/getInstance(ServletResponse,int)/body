@@ -37,5 +37,12 @@
  else {
     streamBuffer.connectTo(lazyResponseWriter);
   }
-  return new GSPResponseWriter(streamBuffer,response,bytesCounter);
+  if (instantiator != null) {
+    GSPResponseWriter instance=(GSPResponseWriter)instantiator.newInstance();
+    instance.initialize(streamBuffer,response,bytesCounter);
+    return instance;
+  }
+ else {
+    return new GSPResponseWriter(streamBuffer,response,bytesCounter);
+  }
 }

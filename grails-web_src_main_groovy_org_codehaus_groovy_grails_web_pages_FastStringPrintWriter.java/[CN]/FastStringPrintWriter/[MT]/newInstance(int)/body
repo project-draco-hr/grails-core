@@ -1,0 +1,21 @@
+{
+  if (instantiator != null) {
+    FastStringPrintWriter instance=(FastStringPrintWriter)instantiator.newInstance();
+    if (initialChunkSize > 0) {
+      instance.streamBuffer=new StreamCharBuffer(initialChunkSize);
+    }
+ else {
+      instance.streamBuffer=new StreamCharBuffer();
+    }
+    instance.setTarget(instance.streamBuffer.getWriter());
+    return instance;
+  }
+ else {
+    if (initialChunkSize > 0) {
+      return new FastStringPrintWriter(initialChunkSize);
+    }
+ else {
+      return new FastStringPrintWriter();
+    }
+  }
+}

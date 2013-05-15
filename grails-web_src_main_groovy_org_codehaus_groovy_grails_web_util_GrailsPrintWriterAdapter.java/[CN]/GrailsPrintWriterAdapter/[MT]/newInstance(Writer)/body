@@ -1,0 +1,10 @@
+{
+  if (instantiator != null) {
+    GrailsPrintWriterAdapter instance=(GrailsPrintWriterAdapter)instantiator.newInstance();
+    instance.setTarget(wrapped);
+    return instance;
+  }
+ else {
+    return new GrailsPrintWriterAdapter(wrapped);
+  }
+}

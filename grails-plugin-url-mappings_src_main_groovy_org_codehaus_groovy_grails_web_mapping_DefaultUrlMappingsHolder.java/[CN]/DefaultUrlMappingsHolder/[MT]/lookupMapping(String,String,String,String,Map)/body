@@ -4,6 +4,10 @@
   final String actionName=lookupKey.action;
   boolean secondAttempt=false;
   final boolean isIndexAction=GrailsControllerClass.INDEX_ACTION.equals(actionName);
+  if (null == mappingKeysSet) {
+    lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;
+    mappingKeysSet=mappingsListLookup.get(lookupKey);
+  }
   if (null == mappingKeysSet && actionName != null) {
     lookupKey.action=null;
     mappingKeysSet=mappingsListLookup.get(lookupKey);

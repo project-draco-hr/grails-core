@@ -12,5 +12,7 @@
   if (comparison != EQUAL)   return comparison;
   comparison=pluginName != null ? pluginName.compareTo(other.pluginName) : EQUAL;
   if (comparison != EQUAL)   return comparison;
+  comparison=httpMethod != null ? httpMethod.compareTo(other.httpMethod) : EQUAL;
+  if (comparison != EQUAL)   return comparison;
   return EQUAL;
 }

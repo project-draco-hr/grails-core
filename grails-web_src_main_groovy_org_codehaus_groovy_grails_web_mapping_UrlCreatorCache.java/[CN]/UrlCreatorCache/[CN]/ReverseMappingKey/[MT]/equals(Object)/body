@@ -33,6 +33,14 @@
  else   if (!pluginName.equals(other.pluginName)) {
     return false;
   }
+  if (httpMethod == null) {
+    if (other.httpMethod != null) {
+      return false;
+    }
+  }
+ else   if (!httpMethod.equals(other.httpMethod)) {
+    return false;
+  }
   if (!Arrays.equals(paramKeys,other.paramKeys)) {
     return false;
   }

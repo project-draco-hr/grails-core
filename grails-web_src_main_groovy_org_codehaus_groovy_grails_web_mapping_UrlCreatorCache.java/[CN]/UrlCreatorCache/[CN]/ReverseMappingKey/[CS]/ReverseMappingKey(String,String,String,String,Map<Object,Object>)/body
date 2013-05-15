@@ -2,6 +2,12 @@
   this.controller=controller;
   this.action=action;
   this.pluginName=pluginName;
+  if (httpMethod != null && !UrlMapping.ANY_HTTP_METHOD.equalsIgnoreCase(httpMethod)) {
+    this.httpMethod=httpMethod;
+  }
+ else {
+    this.httpMethod=null;
+  }
   if (params != null) {
     paramKeys=new String[params.size()];
     paramValues=new String[params.size()];

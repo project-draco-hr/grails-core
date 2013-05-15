@@ -1,5 +1,5 @@
 {
-  UrlCreatorKey key=new UrlCreatorKey(controller,action,pluginName,parameterValues,encoding,fragment,0);
+  UrlCreatorKey key=new UrlCreatorKey(controller,action,pluginName,null,parameterValues,encoding,fragment,0);
   String url=cache.get(key);
   if (url == null) {
     url=delegate.createRelativeURL(controller,action,pluginName,parameterValues,encoding,fragment);

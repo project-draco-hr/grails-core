@@ -3,5 +3,6 @@
   result=(controller != null ? controller.hashCode() : 0);
   result=31 * result + (action != null ? action.hashCode() : 0);
   result=31 * result + (pluginName != null ? pluginName.hashCode() : 0);
+  result=31 * result + (httpMethod != null ? httpMethod.hashCode() : 0);
   return result;
 }

@@ -66,9 +66,17 @@
           Closure callable=(Closure)args[1];
           callable.call();
         }
-        UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,methodName,isResponseCode);
-        configureUrlMapping(urlMapping);
-        return urlMapping;
+        if (namedArguments.containsKey(RESOURCE)) {
+          Object controller=namedArguments.get(RESOURCE);
+          if (controller != null) {
+            createSingleResourceRestfulMappings(controller.toString(),pluginName,urlData,previousConstraints);
+          }
+        }
+ else {
+          UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,methodName,isResponseCode);
+          configureUrlMapping(urlMapping);
+          return urlMapping;
+        }
       }
       return null;
     }

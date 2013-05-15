@@ -1,0 +1,11 @@
+{
+  Assert.hasLength(path,"Argument [path] cannot be null or blank");
+  Assert.isTrue(path.startsWith(SLASH),"Argument [path] with value [" + path + "] is not a valid URL. It must start with '/' !");
+  String newPattern=this.urlPattern + configureUrlPattern(path);
+  String[] tokens=tokenizeUrlPattern(newPattern);
+  List<String> urls=new ArrayList<String>();
+  List<Boolean> optionalTokens=new ArrayList<Boolean>();
+  parseUrls(urls,tokens,optionalTokens);
+  String[] logicalUrls=urls.toArray(new String[urls.size()]);
+  return new DefaultUrlMappingData(newPattern,logicalUrls,tokens,optionalTokens);
+}

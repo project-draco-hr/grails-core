@@ -1,0 +1,5 @@
+{
+  int result=uri != null ? uri.hashCode() : 0;
+  result=31 * result + (httpMethod != null ? httpMethod.hashCode() : 0);
+  return result;
+}

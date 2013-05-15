@@ -1,5 +1,3 @@
 {
-  if (isControllerClassNode(classNode)) {
-    super.performInjection(source,classNode);
-  }
+  performInjection(source,null,classNode);
 }

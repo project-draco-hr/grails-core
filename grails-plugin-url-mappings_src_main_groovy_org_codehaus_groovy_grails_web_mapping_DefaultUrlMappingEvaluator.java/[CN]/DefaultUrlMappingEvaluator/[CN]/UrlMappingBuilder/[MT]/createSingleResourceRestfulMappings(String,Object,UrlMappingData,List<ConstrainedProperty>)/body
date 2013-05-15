@@ -1,0 +1,17 @@
+{
+  ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+  UrlMappingData createMappingData=urlData.createRelative("/create");
+  UrlMapping createUrlMapping=new RegexUrlMapping(createMappingData,controllerName,"create",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  configureUrlMapping(createUrlMapping);
+  UrlMapping saveUrlMapping=new RegexUrlMapping(urlData,controllerName,"save",pluginName,null,HttpMethod.POST.toString(),constraintArray,servletContext);
+  configureUrlMapping(saveUrlMapping);
+  UrlMapping showUrlMapping=new RegexUrlMapping(urlData,controllerName,"show",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  configureUrlMapping(showUrlMapping);
+  UrlMappingData editMappingData=urlData.createRelative("/edit");
+  UrlMapping editUrlMapping=new RegexUrlMapping(editMappingData,controllerName,"edit",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  configureUrlMapping(editUrlMapping);
+  UrlMapping updateUrlMapping=new RegexUrlMapping(urlData,controllerName,"update",pluginName,null,HttpMethod.PUT.toString(),constraintArray,servletContext);
+  configureUrlMapping(updateUrlMapping);
+  UrlMapping deleteUrlMapping=new RegexUrlMapping(urlData,controllerName,"delete",pluginName,null,HttpMethod.DELETE.toString(),constraintArray,servletContext);
+  configureUrlMapping(deleteUrlMapping);
+}

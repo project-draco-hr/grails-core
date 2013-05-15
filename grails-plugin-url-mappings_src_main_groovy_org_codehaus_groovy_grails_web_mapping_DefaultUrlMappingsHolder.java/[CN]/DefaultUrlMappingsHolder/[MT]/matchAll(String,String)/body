@@ -1,7 +1,8 @@
 {
   List<UrlMappingInfo> matchingUrls=new ArrayList<UrlMappingInfo>();
-  if (cachedListMatches.containsKey(uri)) {
-    matchingUrls=cachedListMatches.get(uri);
+  UriToUrlMappingKey cacheKey=new UriToUrlMappingKey(uri,httpMethod);
+  if (cachedListMatches.containsKey(cacheKey)) {
+    matchingUrls=cachedListMatches.get(cacheKey);
   }
  else {
     for (    UrlMapping mapping : mappings) {
@@ -17,7 +18,7 @@
         if (mappingHttpMethod == null || mappingHttpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD) || mappingHttpMethod.equalsIgnoreCase(httpMethod))         matchingUrls.add(current);
       }
     }
-    cachedListMatches.put(uri,matchingUrls);
+    cachedListMatches.put(cacheKey,matchingUrls);
   }
   return matchingUrls.toArray(new UrlMappingInfo[matchingUrls.size()]);
 }

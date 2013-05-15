@@ -1,5 +1,3 @@
 {
-  super(controllerName,actionName,pluginName,viewName,constraints != null ? constraints : new ConstrainedProperty[0],servletContext);
-  grailsApplication=GrailsWebUtil.lookupApplication(servletContext);
-  parse(data,constraints);
+  this(data,controllerName,actionName,pluginName,viewName,null,constraints,servletContext);
 }

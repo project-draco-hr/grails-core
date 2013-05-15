@@ -3,7 +3,11 @@
   id=getParams().get(ID_PARAM);
   this.urlData=urlData;
   this.servletContext=servletContext;
-  GrailsApplication grailsApplication=WebUtils.lookupApplication(servletContext);
-  ApplicationContext mainContext=grailsApplication.getMainContext();
-  urlConverter=mainContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class);
+  ApplicationContext applicationContext=WebUtils.findApplicationContext(servletContext);
+  if (applicationContext != null) {
+    urlConverter=applicationContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class);
+  }
+ else {
+    urlConverter=new CamelCaseUrlConverter();
+  }
 }

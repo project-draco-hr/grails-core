@@ -1,5 +1,5 @@
 {
-  final UrlMappingsListKey lookupKey=new UrlMappingsListKey(controller,action,pluginName);
+  final UrlMappingsListKey lookupKey=new UrlMappingsListKey(controller,action,pluginName,httpMethod);
   SortedSet mappingKeysSet=mappingsListLookup.get(lookupKey);
   final String actionName=lookupKey.action;
   boolean secondAttempt=false;

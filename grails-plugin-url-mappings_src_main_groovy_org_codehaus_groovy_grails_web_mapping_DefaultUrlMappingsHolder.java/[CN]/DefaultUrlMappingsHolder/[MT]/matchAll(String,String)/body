@@ -14,7 +14,7 @@
           LOG.debug("Matched URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "], adding to posibilities");
         }
         String mappingHttpMethod=current.getHttpMethod();
-        if (mappingHttpMethod == null || mappingHttpMethod.equalsIgnoreCase(httpMethod))         matchingUrls.add(current);
+        if (mappingHttpMethod == null || mappingHttpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD) || mappingHttpMethod.equalsIgnoreCase(httpMethod))         matchingUrls.add(current);
       }
     }
     cachedListMatches.put(uri,matchingUrls);

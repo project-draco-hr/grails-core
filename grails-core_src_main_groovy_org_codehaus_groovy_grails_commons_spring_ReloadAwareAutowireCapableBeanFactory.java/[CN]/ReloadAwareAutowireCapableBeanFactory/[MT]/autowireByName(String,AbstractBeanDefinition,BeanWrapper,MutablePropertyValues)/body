@@ -1,0 +1,25 @@
+{
+  if (!DISABLE_AUTOWIRE_BY_NAME_OPTIMIZATIONS && mbd.isPrototype()) {
+    Map<String,PropertyDescriptor> autowireableBeanProps=resolveAutowireablePropertyDescriptorsForClass(bw.getWrappedClass(),new Callable<BeanWrapper>(){
+      public BeanWrapper call() throws Exception {
+        return bw;
+      }
+    }
+);
+    for (    Map.Entry<String,PropertyDescriptor> entry : autowireableBeanProps.entrySet()) {
+      final PropertyDescriptor pd=entry.getValue();
+      final String propertyName=pd.getName();
+      if (!pvs.contains(propertyName)) {
+        final String otherBeanName=entry.getKey();
+        final Object otherBean=getBean(otherBeanName);
+        pvs.add(propertyName,otherBean);
+        if (logger.isDebugEnabled()) {
+          logger.debug("Added autowiring by name from bean name '" + beanName + "' via property '"+ propertyName+ "' to bean named '"+ propertyName+ "'");
+        }
+      }
+    }
+  }
+ else {
+    super.autowireByName(beanName,mbd,bw,pvs);
+  }
+}

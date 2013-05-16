@@ -1,0 +1,36 @@
+{
+  List<String> includes=new ArrayList<String>(defaultResourcesIncludes);
+  Object excludesObject=namedArguments.get("excludes");
+  if (excludesObject != null) {
+    if (excludesObject instanceof List) {
+      List excludeList=(List)excludesObject;
+      for (      Object exc : excludeList) {
+        if (exc != null) {
+          String excStr=exc.toString().toLowerCase();
+          includes.remove(excStr);
+        }
+      }
+    }
+ else {
+      includes.remove(excludesObject.toString());
+    }
+  }
+  Object includesObject=namedArguments.get("includes");
+  if (includesObject != null) {
+    if (includesObject instanceof List) {
+      List includeList=(List)includesObject;
+      includes.clear();
+      for (      Object inc : includeList) {
+        if (inc != null) {
+          String incStr=inc.toString().toLowerCase();
+          includes.add(incStr);
+        }
+      }
+    }
+ else {
+      includes.clear();
+      includes.add(includesObject.toString());
+    }
+  }
+  return includes;
+}

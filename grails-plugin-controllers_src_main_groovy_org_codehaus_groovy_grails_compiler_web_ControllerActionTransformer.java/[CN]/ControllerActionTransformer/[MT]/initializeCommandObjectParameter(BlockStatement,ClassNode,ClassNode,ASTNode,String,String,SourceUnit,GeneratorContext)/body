@@ -1,9 +1,14 @@
 {
-  final Expression constructorCallExpression=new ConstructorCallExpression(commandObjectNode,EMPTY_TUPLE);
-  final Statement newCommandCode=new ExpressionStatement(new DeclarationExpression(new VariableExpression(paramName,commandObjectNode),Token.newSymbol(Types.EQUALS,0,0),constructorCallExpression));
-  wrapper.addStatement(newCommandCode);
-  final Statement statement=getCommandObjectDataBindingStatement(controllerNode,paramName,commandObjectNode);
-  wrapper.addStatement(statement);
+  final DeclarationExpression declareCoExpression=new DeclarationExpression(new VariableExpression(paramName,commandObjectNode),Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression());
+  wrapper.addStatement(new ExpressionStatement(declareCoExpression));
+  final Statement constructWithJsonBlock=getStatementToInitializeCommandObjectWithJson(commandObjectNode,paramName);
+  final Statement constructWithXmlBlock=getStatementToInitializeCommandObjectWithXml(commandObjectNode,paramName);
+  final Statement constructAndBindParamsBlock=getStatementToInitializeCommandObject(commandObjectNode,paramName);
+  final Expression contentTypeExpression=new PropertyExpression(new VariableExpression("request"),"contentType");
+  final Expression isJsonRequestExpression=new BinaryExpression(contentTypeExpression,Token.newSymbol(Types.COMPARE_EQUAL,0,0),new ConstantExpression("application/json"));
+  final Expression isXmlRequestExpression=new BinaryExpression(contentTypeExpression,Token.newSymbol(Types.COMPARE_EQUAL,0,0),new ConstantExpression("application/xml"));
+  final Statement isJsonRequestStatement=new IfStatement(new BooleanExpression(isJsonRequestExpression),constructWithJsonBlock,new IfStatement(new BooleanExpression(isXmlRequestExpression),constructWithXmlBlock,constructAndBindParamsBlock));
+  wrapper.addStatement(isJsonRequestStatement);
   final Statement autoWireCommandObjectStatement=getAutoWireCommandObjectStatement(paramName);
   wrapper.addStatement(autoWireCommandObjectStatement);
   @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectNode,grails.validation.Validateable.class,org.codehaus.groovy.grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);

@@ -1,0 +1,4 @@
+{
+  final Expression requestJsonProperty=new PropertyExpression(new VariableExpression("request"),"JSON");
+  return getStatementToInitializeAndDataBindObject(commandObjectNode,paramName,requestJsonProperty);
+}

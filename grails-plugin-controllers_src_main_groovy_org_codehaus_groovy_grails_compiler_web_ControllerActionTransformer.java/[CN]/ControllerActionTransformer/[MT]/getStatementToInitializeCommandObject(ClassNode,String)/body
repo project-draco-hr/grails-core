@@ -1,0 +1,7 @@
+{
+  final ArgumentListExpression getCommandObjectBindingParamsArgs=new ArgumentListExpression();
+  getCommandObjectBindingParamsArgs.addExpression(new MethodCallExpression(new VariableExpression(paramName),"getClass",ZERO_ARGS));
+  getCommandObjectBindingParamsArgs.addExpression(PARAMS_EXPRESSION);
+  final Expression invokeGetCommandObjectBindingParamsExpression=new StaticMethodCallExpression(new ClassNode(WebMetaUtils.class),"getCommandObjectBindingParams",getCommandObjectBindingParamsArgs);
+  return getStatementToInitializeAndDataBindObject(commandObjectNode,paramName,invokeGetCommandObjectBindingParamsExpression);
+}

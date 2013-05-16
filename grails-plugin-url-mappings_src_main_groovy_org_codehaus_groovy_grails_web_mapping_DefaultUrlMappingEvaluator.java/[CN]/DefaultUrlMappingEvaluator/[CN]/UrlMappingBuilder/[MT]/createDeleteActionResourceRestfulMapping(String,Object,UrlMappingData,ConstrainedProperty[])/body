@@ -1,0 +1,3 @@
+{
+  return new RegexUrlMapping(urlData,controllerName,"delete",pluginName,null,HttpMethod.DELETE.toString(),constraintArray,servletContext);
+}

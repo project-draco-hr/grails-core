@@ -1,0 +1,3 @@
+{
+  return new RegexUrlMapping(urlData,controllerName,"show",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+}

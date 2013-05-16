@@ -1,0 +1,3 @@
+{
+  return new RegexUrlMapping(urlData,controllerName,"save",pluginName,null,HttpMethod.POST.toString(),constraintArray,servletContext);
+}

@@ -1,30 +1,17 @@
 {
   ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-  UrlMapping listUrlMapping=new RegexUrlMapping(urlData,controllerName,"list",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  UrlMapping listUrlMapping=createListActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(listUrlMapping);
-  UrlMappingData createMappingData=urlData.createRelative("/create");
-  UrlMapping createUrlMapping=new RegexUrlMapping(createMappingData,controllerName,"create",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  UrlMapping createUrlMapping=createCreateActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(createUrlMapping);
-  UrlMapping saveUrlMapping=new RegexUrlMapping(urlData,controllerName,"save",pluginName,null,HttpMethod.POST.toString(),constraintArray,servletContext);
+  UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(saveUrlMapping);
-  UrlMappingData showUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD);
-  List<ConstrainedProperty> showUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
-  showUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  UrlMapping showUrlMapping=new RegexUrlMapping(showUrlMappingData,controllerName,"show",pluginName,null,HttpMethod.GET.toString(),showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),servletContext);
+  UrlMapping showUrlMapping=createShowActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
   configureUrlMapping(showUrlMapping);
-  UrlMappingData editUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD + "/edit");
-  List<ConstrainedProperty> editUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
-  editUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  UrlMapping editUrlMapping=new RegexUrlMapping(editUrlMappingData,controllerName,"edit",pluginName,null,HttpMethod.GET.toString(),editUrlMappingConstraints.toArray(new ConstrainedProperty[editUrlMappingConstraints.size()]),servletContext);
+  UrlMapping editUrlMapping=createEditActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
   configureUrlMapping(editUrlMapping);
-  UrlMappingData updateUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD);
-  List<ConstrainedProperty> updateUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
-  updateUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  UrlMapping updateUrlMapping=new RegexUrlMapping(updateUrlMappingData,controllerName,"update",pluginName,null,HttpMethod.PUT.toString(),updateUrlMappingConstraints.toArray(new ConstrainedProperty[updateUrlMappingConstraints.size()]),servletContext);
+  UrlMapping updateUrlMapping=createUpdateActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
   configureUrlMapping(updateUrlMapping);
-  UrlMappingData deleteUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD);
-  List<ConstrainedProperty> deleteUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
-  deleteUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  UrlMapping deleteUrlMapping=new RegexUrlMapping(deleteUrlMappingData,controllerName,"delete",pluginName,null,HttpMethod.DELETE.toString(),deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),servletContext);
+  UrlMapping deleteUrlMapping=createDeleteActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
   configureUrlMapping(deleteUrlMapping);
 }

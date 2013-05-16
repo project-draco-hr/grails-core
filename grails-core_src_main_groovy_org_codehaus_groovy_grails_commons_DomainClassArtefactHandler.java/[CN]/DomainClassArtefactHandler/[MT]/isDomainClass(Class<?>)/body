@@ -1,0 +1,12 @@
+{
+  Integer cacheKey=System.identityHashCode(clazz);
+  Boolean retval=DOMAIN_CLASS_CHECK_CACHE.get(cacheKey);
+  if (retval != null) {
+    return retval;
+  }
+  retval=doIsDomainClassCheck(clazz);
+  if (!developmentMode) {
+    DOMAIN_CLASS_CHECK_CACHE.put(cacheKey,retval);
+  }
+  return retval;
+}

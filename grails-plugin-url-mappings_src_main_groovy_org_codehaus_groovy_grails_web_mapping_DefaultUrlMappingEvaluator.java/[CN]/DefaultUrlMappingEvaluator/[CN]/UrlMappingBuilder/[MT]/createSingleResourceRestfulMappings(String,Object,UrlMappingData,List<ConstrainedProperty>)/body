@@ -1,17 +1,15 @@
 {
   ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
-  UrlMappingData createMappingData=urlData.createRelative("/create");
-  UrlMapping createUrlMapping=new RegexUrlMapping(createMappingData,controllerName,"create",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  UrlMapping createUrlMapping=createCreateActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(createUrlMapping);
-  UrlMapping saveUrlMapping=new RegexUrlMapping(urlData,controllerName,"save",pluginName,null,HttpMethod.POST.toString(),constraintArray,servletContext);
+  UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(saveUrlMapping);
-  UrlMapping showUrlMapping=new RegexUrlMapping(urlData,controllerName,"show",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  UrlMapping showUrlMapping=createShowActionResourceRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(showUrlMapping);
-  UrlMappingData editMappingData=urlData.createRelative("/edit");
-  UrlMapping editUrlMapping=new RegexUrlMapping(editMappingData,controllerName,"edit",pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
+  UrlMapping editUrlMapping=createEditctionResourceRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(editUrlMapping);
-  UrlMapping updateUrlMapping=new RegexUrlMapping(urlData,controllerName,"update",pluginName,null,HttpMethod.PUT.toString(),constraintArray,servletContext);
+  UrlMapping updateUrlMapping=createUpdateActionResourceRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(updateUrlMapping);
-  UrlMapping deleteUrlMapping=new RegexUrlMapping(urlData,controllerName,"delete",pluginName,null,HttpMethod.DELETE.toString(),constraintArray,servletContext);
+  UrlMapping deleteUrlMapping=createDeleteActionResourceRestfulMapping(controllerName,pluginName,urlData,constraintArray);
   configureUrlMapping(deleteUrlMapping);
 }

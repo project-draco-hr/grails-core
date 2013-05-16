@@ -1,0 +1,6 @@
+{
+  if (args.length > 1 && args[1] instanceof Closure) {
+    Closure callable=(Closure)args[1];
+    callable.call();
+  }
+}

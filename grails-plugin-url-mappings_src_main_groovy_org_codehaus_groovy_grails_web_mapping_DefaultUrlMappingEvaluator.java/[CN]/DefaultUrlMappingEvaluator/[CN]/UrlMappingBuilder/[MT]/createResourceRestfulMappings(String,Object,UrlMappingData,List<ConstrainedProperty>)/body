@@ -1,0 +1,17 @@
+{
+  ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+  UrlMapping listUrlMapping=createListActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
+  configureUrlMapping(listUrlMapping);
+  UrlMapping createUrlMapping=createCreateActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
+  configureUrlMapping(createUrlMapping);
+  UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
+  configureUrlMapping(saveUrlMapping);
+  UrlMapping showUrlMapping=createShowActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
+  configureUrlMapping(showUrlMapping);
+  UrlMapping editUrlMapping=createEditActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
+  configureUrlMapping(editUrlMapping);
+  UrlMapping updateUrlMapping=createUpdateActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
+  configureUrlMapping(updateUrlMapping);
+  UrlMapping deleteUrlMapping=createDeleteActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
+  configureUrlMapping(deleteUrlMapping);
+}

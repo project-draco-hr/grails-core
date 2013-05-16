@@ -3,6 +3,13 @@
     return (String)ReflectionUtils.invokeMethod(mapMethod,instance,c);
   }
  else {
-    return HtmlUtils.htmlEscape(String.valueOf(c));
+    String charAsString=String.valueOf(c);
+    String replacement=HtmlUtils.htmlEscape(charAsString);
+    if (charAsString.equals(replacement)) {
+      return null;
+    }
+ else {
+      return replacement;
+    }
   }
 }

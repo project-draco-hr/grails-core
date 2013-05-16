@@ -1,0 +1,9 @@
+{
+  try {
+    parentResources.push(new ParentResource(null,uri,true));
+    mappings.call();
+  }
+  finally {
+    parentResources.pop();
+  }
+}

@@ -72,6 +72,12 @@
             createSingleResourceRestfulMappings(controller.toString(),pluginName,urlData,previousConstraints);
           }
         }
+ else         if (namedArguments.containsKey(RESOURCES)) {
+          Object controller=namedArguments.get(RESOURCES);
+          if (controller != null) {
+            createResourceRestfulMappings(controller.toString(),pluginName,urlData,previousConstraints);
+          }
+        }
  else {
           UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,methodName,isResponseCode);
           configureUrlMapping(urlMapping);

@@ -1,5 +1,6 @@
 {
   super(clazz,CONTROLLER);
+  namespace=getStaticPropertyValue(NAMESPACE_PROPERTY,String.class);
   defaultActionName=getStaticPropertyValue(DEFAULT_CLOSURE_PROPERTY,String.class);
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;

@@ -1,0 +1,10 @@
+{
+  boolean controllerNamespaceMatches;
+  if (controllerNamespace != null) {
+    controllerNamespaceMatches=controllerNamespace.equals(c.getNamespace());
+  }
+ else {
+    controllerNamespaceMatches=(c.getNamespace() == null);
+  }
+  return controllerNamespaceMatches;
+}

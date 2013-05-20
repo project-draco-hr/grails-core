@@ -1,0 +1,13 @@
+{
+  boolean pluginMatches=false;
+  if (pluginName != null && grailsPluginManager != null) {
+    final GrailsPlugin pluginForClass=grailsPluginManager.getPluginForClass(c.getClazz());
+    if (pluginForClass != null && pluginName.equals(pluginForClass.getName())) {
+      pluginMatches=true;
+    }
+  }
+ else {
+    pluginMatches=true;
+  }
+  return pluginMatches;
+}

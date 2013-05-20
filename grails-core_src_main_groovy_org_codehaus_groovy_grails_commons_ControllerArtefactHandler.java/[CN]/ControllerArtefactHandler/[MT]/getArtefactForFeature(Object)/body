@@ -4,15 +4,17 @@
   }
   String uri;
   String pluginName=null;
+  String controllerNamespace=null;
   if (featureId instanceof Map) {
     Map featureIdMap=(Map)featureId;
     uri=(String)featureIdMap.get("uri");
     pluginName=(String)featureIdMap.get("pluginName");
+    controllerNamespace=(String)featureIdMap.get("controllerNamespace");
   }
  else {
     uri=featureId.toString();
   }
-  String cacheKey=(pluginName != null ? pluginName : "") + ":" + uri;
+  String cacheKey=(controllerNamespace != null ? controllerNamespace : "") + ":" + (pluginName != null ? pluginName : "")+ ":"+ uri;
   GrailsClass controllerClass=uriToControllerClassCache.get(cacheKey);
   if (controllerClass == null) {
     final ApplicationContext mainContext=grailsApplication.getMainContext();
@@ -28,14 +30,17 @@
       GrailsClass c=controllerClasses[i];
       if (((GrailsControllerClass)c).mapsToURI(uri)) {
         boolean foundController=false;
-        if (pluginName != null && grailsPluginManager != null) {
-          final GrailsPlugin pluginForClass=grailsPluginManager.getPluginForClass(c.getClazz());
-          if (pluginForClass != null && pluginName.equals(pluginForClass.getName())) {
-            foundController=true;
-          }
+        if (pluginName == null && controllerNamespace == null) {
+          foundController=true;
         }
  else {
-          foundController=true;
+          boolean pluginMatches=false;
+          boolean controllerNamespaceMatches=false;
+          controllerNamespaceMatches=namespaceMatches((GrailsControllerClass)c,controllerNamespace);
+          if (controllerNamespaceMatches) {
+            pluginMatches=pluginMatches(c,pluginName,grailsPluginManager);
+          }
+          foundController=pluginMatches && controllerNamespaceMatches;
         }
         if (foundController) {
           controllerClass=c;

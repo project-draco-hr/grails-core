@@ -1,0 +1,10 @@
+{
+  this.controller=controller;
+  this.action=action;
+  this.controllerNamespace=controllerNamespace;
+  this.pluginName=pluginName;
+  if (httpMethod != null) {
+    this.httpMethod=httpMethod;
+  }
+  this.paramNames=paramNames;
+}

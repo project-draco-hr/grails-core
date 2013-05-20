@@ -25,6 +25,14 @@
  else   if (!controller.equals(other.controller)) {
     return false;
   }
+  if (controllerNamespace == null) {
+    if (other.controllerNamespace != null) {
+      return false;
+    }
+  }
+ else   if (!controllerNamespace.equals(other.controllerNamespace)) {
+    return false;
+  }
   if (pluginName == null) {
     if (other.pluginName != null) {
       return false;

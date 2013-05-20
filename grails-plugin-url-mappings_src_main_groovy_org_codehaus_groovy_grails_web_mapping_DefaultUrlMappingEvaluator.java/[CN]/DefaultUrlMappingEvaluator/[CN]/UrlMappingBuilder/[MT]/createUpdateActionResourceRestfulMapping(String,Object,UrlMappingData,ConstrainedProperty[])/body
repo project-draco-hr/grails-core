@@ -1,3 +1,3 @@
 {
-  return new RegexUrlMapping(urlData,controllerName,"update",pluginName,null,HttpMethod.PUT.toString(),constraintArray,servletContext);
+  return new RegexUrlMapping(urlData,controllerName,"update",null,pluginName,null,HttpMethod.PUT.toString(),constraintArray,servletContext);
 }

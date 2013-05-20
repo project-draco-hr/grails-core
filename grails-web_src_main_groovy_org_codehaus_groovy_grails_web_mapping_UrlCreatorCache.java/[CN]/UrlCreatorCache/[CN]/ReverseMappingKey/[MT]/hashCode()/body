@@ -2,6 +2,7 @@
   final int prime=31;
   int result=1;
   result=prime * result + ((action == null) ? 0 : action.hashCode());
+  result=prime * result + ((controllerNamespace == null) ? 0 : controllerNamespace.hashCode());
   result=prime * result + ((pluginName == null) ? 0 : pluginName.hashCode());
   result=prime * result + ((controller == null) ? 0 : controller.hashCode());
   result=prime * result + Arrays.hashCode(paramKeys);

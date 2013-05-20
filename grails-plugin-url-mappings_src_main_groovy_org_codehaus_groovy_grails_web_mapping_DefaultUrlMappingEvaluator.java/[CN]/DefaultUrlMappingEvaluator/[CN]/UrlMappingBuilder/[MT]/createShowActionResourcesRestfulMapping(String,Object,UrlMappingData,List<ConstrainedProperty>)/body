@@ -2,5 +2,5 @@
   UrlMappingData showUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD);
   List<ConstrainedProperty> showUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
   showUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  return new RegexUrlMapping(showUrlMappingData,controllerName,ACTION_SHOW,pluginName,null,HttpMethod.GET.toString(),showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(showUrlMappingData,controllerName,ACTION_SHOW,null,pluginName,null,HttpMethod.GET.toString(),showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),servletContext);
 }

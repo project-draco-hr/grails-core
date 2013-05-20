@@ -1,6 +1,6 @@
 {
   if (responseCode == urlData.getResponseCode()) {
-    return new DefaultUrlMappingInfo(controllerName,actionName,pluginName,viewName,parameterValues,urlData,servletContext);
+    return new DefaultUrlMappingInfo(controllerName,actionName,controllerNamespace,pluginName,viewName,parameterValues,urlData,servletContext);
   }
   return null;
 }

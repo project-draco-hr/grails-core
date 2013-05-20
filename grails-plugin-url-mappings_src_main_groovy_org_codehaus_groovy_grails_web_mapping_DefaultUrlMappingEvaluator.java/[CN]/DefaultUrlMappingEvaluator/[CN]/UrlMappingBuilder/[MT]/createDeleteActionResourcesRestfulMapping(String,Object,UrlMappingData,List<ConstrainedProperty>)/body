@@ -2,5 +2,5 @@
   UrlMappingData deleteUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD);
   List<ConstrainedProperty> deleteUrlMappingConstraints=new ArrayList<ConstrainedProperty>(previousConstraints);
   deleteUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  return new RegexUrlMapping(deleteUrlMappingData,controllerName,ACTION_DELETE,pluginName,null,HttpMethod.DELETE.toString(),deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(deleteUrlMappingData,controllerName,ACTION_DELETE,null,pluginName,null,HttpMethod.DELETE.toString(),deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),servletContext);
 }

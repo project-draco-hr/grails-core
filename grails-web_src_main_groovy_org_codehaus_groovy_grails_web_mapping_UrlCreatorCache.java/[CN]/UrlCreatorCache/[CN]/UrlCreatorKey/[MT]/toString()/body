@@ -1,3 +1,3 @@
 {
-  return "UrlCreatorCache.UrlCreatorKey [encoding=" + encoding + ", fragment="+ fragment+ ", urlType="+ urlType+ ", action="+ action+ ", controller="+ controller+ ", plugin="+ pluginName+ ", paramKeys="+ Arrays.toString(paramKeys)+ ", paramValues="+ Arrays.toString(paramValues)+ "]";
+  return "UrlCreatorCache.UrlCreatorKey [encoding=" + encoding + ", fragment="+ fragment+ ", urlType="+ urlType+ ", action="+ action+ ", controller="+ controller+ ", controllerNamespace="+ controllerNamespace+ ", plugin="+ pluginName+ ", paramKeys="+ Arrays.toString(paramKeys)+ ", paramValues="+ Arrays.toString(paramValues)+ "]";
 }

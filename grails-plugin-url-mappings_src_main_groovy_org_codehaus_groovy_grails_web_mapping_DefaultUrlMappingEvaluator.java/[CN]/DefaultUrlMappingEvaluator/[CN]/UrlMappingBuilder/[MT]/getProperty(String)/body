@@ -1,6 +1,6 @@
 {
   if (urlDefiningMode) {
-    previousConstraints.add(new ConstrainedProperty(UrlMapping.class,name,String.class));
+    getCurrentConstraints().add(new ConstrainedProperty(UrlMapping.class,name,String.class));
     return CAPTURING_WILD_CARD;
   }
   return super.getProperty(name);

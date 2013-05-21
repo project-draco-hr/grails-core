@@ -1,5 +1,6 @@
 {
   this.controllerName=controllerName;
   this.uri=uri;
+  this.constraints=new ArrayList<ConstrainedProperty>(constraints);
   isSingle=single;
 }

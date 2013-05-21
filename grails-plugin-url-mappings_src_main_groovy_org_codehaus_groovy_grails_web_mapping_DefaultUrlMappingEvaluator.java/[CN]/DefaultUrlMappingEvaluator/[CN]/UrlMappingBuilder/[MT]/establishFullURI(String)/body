@@ -4,15 +4,14 @@
   }
  else {
     StringBuilder uriBuilder=new StringBuilder();
-    for (    ParentResource parentResource : parentResources) {
-      if (parentResource.isSingle) {
-        uriBuilder.append(parentResource.uri);
-      }
+    ParentResource parentResource=parentResources.peek();
+    if (parentResource.isSingle) {
+      uriBuilder.append(parentResource.uri);
+    }
  else {
-        if (parentResource.controllerName != null) {
-          uriBuilder.append(parentResource.uri).append(SLASH).append(CAPTURING_WILD_CARD);
-          previousConstraints.add(new ConstrainedProperty(UrlMapping.class,parentResource.controllerName + "Id",String.class));
-        }
+      if (parentResource.controllerName != null) {
+        uriBuilder.append(parentResource.uri).append(SLASH).append(CAPTURING_WILD_CARD);
+        getCurrentConstraints().add(new ConstrainedProperty(UrlMapping.class,parentResource.controllerName + "Id",String.class));
       }
     }
     uriBuilder.append(uri);

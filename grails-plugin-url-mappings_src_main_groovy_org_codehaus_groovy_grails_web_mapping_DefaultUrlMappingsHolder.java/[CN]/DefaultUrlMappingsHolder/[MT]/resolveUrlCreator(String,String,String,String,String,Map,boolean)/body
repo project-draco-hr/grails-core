@@ -5,13 +5,13 @@
   }
   mapping=namedMappings.get(params.remove("mappingName"));
   if (mapping == null) {
-    mapping=lookupMapping(controller,action,controllerNamespace,pluginName,httpMethod,params);
+    mapping=lookupMapping(controller,action,namespace,pluginName,httpMethod,params);
     if (mapping == null) {
-      lookupMapping(controller,action,controllerNamespace,pluginName,UrlMapping.ANY_HTTP_METHOD,params);
+      lookupMapping(controller,action,namespace,pluginName,UrlMapping.ANY_HTTP_METHOD,params);
     }
   }
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    UrlMappingKey lookupKey=new UrlMappingKey(controller,action,controllerNamespace,pluginName,httpMethod,Collections.EMPTY_SET);
+    UrlMappingKey lookupKey=new UrlMappingKey(controller,action,namespace,pluginName,httpMethod,Collections.EMPTY_SET);
     mapping=mappingsLookup.get(lookupKey);
     if (mapping == null) {
       lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;
@@ -23,7 +23,7 @@
     Set<String> paramKeys=new HashSet<String>(params.keySet());
     paramKeys.removeAll(lookupParams);
     lookupParams.addAll(paramKeys);
-    UrlMappingKey lookupKey=new UrlMappingKey(controller,null,controllerNamespace,pluginName,httpMethod,lookupParams);
+    UrlMappingKey lookupKey=new UrlMappingKey(controller,null,namespace,pluginName,httpMethod,lookupParams);
     mapping=mappingsLookup.get(lookupKey);
     if (mapping == null) {
       lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;
@@ -31,7 +31,7 @@
     }
     if (mapping == null) {
       lookupParams.removeAll(paramKeys);
-      UrlMappingKey lookupKeyModifiedParams=new UrlMappingKey(controller,null,controllerNamespace,pluginName,httpMethod,lookupParams);
+      UrlMappingKey lookupKeyModifiedParams=new UrlMappingKey(controller,null,namespace,pluginName,httpMethod,lookupParams);
       mapping=mappingsLookup.get(lookupKeyModifiedParams);
       if (mapping == null) {
         lookupKeyModifiedParams.httpMethod=UrlMapping.ANY_HTTP_METHOD;
@@ -44,7 +44,7 @@
     Set<String> paramKeys=new HashSet<String>(params.keySet());
     paramKeys.removeAll(lookupParams);
     lookupParams.addAll(paramKeys);
-    UrlMappingKey lookupKey=new UrlMappingKey(null,null,controllerNamespace,pluginName,httpMethod,lookupParams);
+    UrlMappingKey lookupKey=new UrlMappingKey(null,null,namespace,pluginName,httpMethod,lookupParams);
     mapping=mappingsLookup.get(lookupKey);
     if (mapping == null) {
       lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;
@@ -52,7 +52,7 @@
     }
     if (mapping == null) {
       lookupParams.removeAll(paramKeys);
-      UrlMappingKey lookupKeyModifiedParams=new UrlMappingKey(null,null,controllerNamespace,pluginName,httpMethod,lookupParams);
+      UrlMappingKey lookupKeyModifiedParams=new UrlMappingKey(null,null,namespace,pluginName,httpMethod,lookupParams);
       mapping=mappingsLookup.get(lookupKeyModifiedParams);
       if (mapping == null) {
         lookupKeyModifiedParams.httpMethod=UrlMapping.ANY_HTTP_METHOD;

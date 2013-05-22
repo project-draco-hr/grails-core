@@ -2,7 +2,7 @@
   int weight=0;
   weight+=(controller != null) ? controller.length() : 0;
   weight+=(action != null) ? action.length() : 0;
-  weight+=(controllerNamespace != null) ? controllerNamespace.length() : 0;
+  weight+=(namespace != null) ? namespace.length() : 0;
   weight+=(pluginName != null) ? pluginName.length() : 0;
   for (int i=0; i < paramKeys.length; i++) {
     weight+=(paramKeys[i] != null) ? paramKeys[i].length() : 0;

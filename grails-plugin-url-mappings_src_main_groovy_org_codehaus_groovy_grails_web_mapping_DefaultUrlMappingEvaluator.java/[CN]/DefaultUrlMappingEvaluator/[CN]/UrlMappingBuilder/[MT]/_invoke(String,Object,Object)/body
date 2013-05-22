@@ -19,7 +19,7 @@
         Object actionName;
         Object pluginName;
         String httpMethod=null;
-        Object controllerNamespace;
+        Object namespace;
         Object viewName;
         Object uri;
         if (binding != null) {
@@ -28,7 +28,7 @@
           viewName=variables.get(GrailsControllerClass.VIEW);
           uri=variables.get(URI);
           pluginName=variables.get(PLUGIN);
-          controllerNamespace=variables.get("controllerNamespace");
+          namespace=variables.get(NAMESPACE);
           if (variables.containsKey(HTTP_METHOD)) {
             httpMethod=variables.get(HTTP_METHOD).toString();
           }
@@ -37,7 +37,7 @@
           controllerName=this.controllerName;
           actionName=this.actionName;
           pluginName=this.pluginName;
-          controllerNamespace=this.controllerNamespace;
+          namespace=this.namespace;
           viewName=this.viewName;
           uri=this.uri;
           httpMethod=this.httpMethod;
@@ -53,7 +53,7 @@
           }
         }
  else {
-          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,controllerNamespace,pluginName,viewName,httpMethod,constraints);
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod,constraints);
         }
         if (binding != null) {
           Map bindingVariables=variables;
@@ -115,7 +115,7 @@
         actionName=null;
         viewName=null;
         pluginName=null;
-        controllerNamespace=null;
+        namespace=null;
       }
       if (parentResources.isEmpty()) {
         previousConstraints.clear();

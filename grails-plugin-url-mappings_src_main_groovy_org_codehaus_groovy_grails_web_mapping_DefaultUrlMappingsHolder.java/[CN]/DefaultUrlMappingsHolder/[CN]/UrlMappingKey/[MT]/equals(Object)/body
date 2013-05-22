@@ -4,7 +4,7 @@
   UrlMappingKey that=(UrlMappingKey)o;
   if (action != null && !action.equals(that.action))   return false;
   if (controller != null && !controller.equals(that.controller))   return false;
-  if (controllerNamespace != null && !controllerNamespace.equals(that.controllerNamespace))   return false;
+  if (namespace != null && !namespace.equals(that.namespace))   return false;
   if (pluginName != null && !pluginName.equals(that.pluginName))   return false;
   if (httpMethod != null && !httpMethod.equals(that.httpMethod))   return false;
   if (!paramNames.equals(that.paramNames))   return false;

@@ -1,5 +1,5 @@
 {
-  super(controller,action,controllerNamespace,pluginName,httpMethod,params);
+  super(controller,action,namespace,pluginName,httpMethod,params);
   this.encoding=(encoding != null) ? encoding.toLowerCase() : null;
   this.fragment=fragment;
   this.urlType=urlType;

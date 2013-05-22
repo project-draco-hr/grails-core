@@ -15,7 +15,7 @@
     String actionName=mapping.getActionName() instanceof String ? mapping.getActionName().toString() : null;
     String pluginName=mapping.getPluginName() instanceof String ? mapping.getPluginName().toString() : null;
     String httpMethod=mapping.getHttpMethod();
-    String controllerNamespace=mapping.getControllerNamespace() instanceof String ? mapping.getControllerNamespace().toString() : null;
+    String namespace=mapping.getNamespace() instanceof String ? mapping.getNamespace().toString() : null;
     ConstrainedProperty[] params=mapping.getConstraints();
     Set<String> requiredParams=new HashSet<String>();
     int optionalIndex=-1;
@@ -29,9 +29,9 @@
         break;
       }
     }
-    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,controllerNamespace,pluginName,httpMethod,requiredParams);
+    UrlMappingKey key=new UrlMappingKey(controllerName,actionName,namespace,pluginName,httpMethod,requiredParams);
     mappingsLookup.put(key,mapping);
-    UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName,controllerNamespace,pluginName,httpMethod);
+    UrlMappingsListKey listKey=new UrlMappingsListKey(controllerName,actionName,namespace,pluginName,httpMethod);
     mappingsListLookup.put(listKey,key);
     if (LOG.isDebugEnabled()) {
       LOG.debug("Reverse mapping: " + key + " -> "+ mapping);
@@ -41,9 +41,9 @@
       for (int j=optionalIndex; j < params.length; j++) {
         ConstrainedProperty param=params[j];
         requiredParamsAndOptionals.add(param.getPropertyName());
-        key=new UrlMappingKey(controllerName,actionName,controllerNamespace,pluginName,httpMethod,new HashSet<String>(requiredParamsAndOptionals));
+        key=new UrlMappingKey(controllerName,actionName,namespace,pluginName,httpMethod,new HashSet<String>(requiredParamsAndOptionals));
         mappingsLookup.put(key,mapping);
-        listKey=new UrlMappingsListKey(controllerName,actionName,controllerNamespace,pluginName,httpMethod);
+        listKey=new UrlMappingsListKey(controllerName,actionName,namespace,pluginName,httpMethod);
         mappingsListLookup.put(listKey,key);
         if (LOG.isDebugEnabled()) {
           LOG.debug("Reverse mapping: " + key + " -> "+ mapping);

@@ -1,4 +1,4 @@
 {
-  final String url=createURLInternal(controller,action,controllerNamespace,pluginName,paramValues,encoding,false);
+  final String url=createURLInternal(controller,action,namespace,pluginName,paramValues,encoding,false);
   return createUrlWithFragment(url,fragment,encoding);
 }

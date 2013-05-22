@@ -25,12 +25,12 @@
  else   if (!controller.equals(other.controller)) {
     return false;
   }
-  if (controllerNamespace == null) {
-    if (other.controllerNamespace != null) {
+  if (namespace == null) {
+    if (other.namespace != null) {
       return false;
     }
   }
- else   if (!controllerNamespace.equals(other.controllerNamespace)) {
+ else   if (!namespace.equals(other.namespace)) {
     return false;
   }
   if (pluginName == null) {

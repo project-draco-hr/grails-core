@@ -10,7 +10,7 @@
   if (comparison != EQUAL)   return comparison;
   comparison=action != null ? action.compareTo(other.action) : EQUAL;
   if (comparison != EQUAL)   return comparison;
-  comparison=controllerNamespace != null ? controllerNamespace.compareTo(other.controllerNamespace) : EQUAL;
+  comparison=namespace != null ? namespace.compareTo(other.namespace) : EQUAL;
   if (comparison != EQUAL)   return comparison;
   comparison=pluginName != null ? pluginName.compareTo(other.pluginName) : EQUAL;
   if (comparison != EQUAL)   return comparison;

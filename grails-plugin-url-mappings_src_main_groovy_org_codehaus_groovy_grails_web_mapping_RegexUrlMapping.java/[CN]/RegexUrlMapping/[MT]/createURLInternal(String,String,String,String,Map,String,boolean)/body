@@ -3,7 +3,7 @@
   boolean hasController=!StringUtils.isBlank(controller);
   boolean hasAction=!StringUtils.isBlank(action);
   boolean hasPlugin=!StringUtils.isBlank(pluginName);
-  boolean hasControllerNamespace=!StringUtils.isBlank(controllerNamespace);
+  boolean hasNamespace=!StringUtils.isBlank(namespace);
   try {
     if (hasController) {
       paramValues.put(CONTROLLER,controller);
@@ -14,8 +14,8 @@
     if (hasPlugin) {
       paramValues.put("plugin",pluginName);
     }
-    if (hasControllerNamespace) {
-      paramValues.put("controllerNamespace",controllerNamespace);
+    if (hasNamespace) {
+      paramValues.put("namespace",namespace);
     }
     return createURLInternal(paramValues,encoding,includeContextPath);
   }

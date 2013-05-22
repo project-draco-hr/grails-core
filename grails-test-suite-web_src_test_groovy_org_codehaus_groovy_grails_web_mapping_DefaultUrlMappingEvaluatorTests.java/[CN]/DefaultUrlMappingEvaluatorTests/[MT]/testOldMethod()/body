@@ -7,6 +7,6 @@
   assertNull(((UrlMapping)mappings.get(0)).getActionName());
   assertNull(((UrlMapping)mappings.get(0)).getControllerName());
   assertEquals("(*)",((UrlMapping)mappings.get(0)).getUrlData().getTokens()[0]);
-  assertEquals("(*)",((UrlMapping)mappings.get(0)).getUrlData().getTokens()[1]);
-  assertEquals("(*)",((UrlMapping)mappings.get(0)).getUrlData().getTokens()[2]);
+  assertEquals("(*)?",((UrlMapping)mappings.get(0)).getUrlData().getTokens()[1]);
+  assertEquals("(*)?",((UrlMapping)mappings.get(0)).getUrlData().getTokens()[2]);
 }

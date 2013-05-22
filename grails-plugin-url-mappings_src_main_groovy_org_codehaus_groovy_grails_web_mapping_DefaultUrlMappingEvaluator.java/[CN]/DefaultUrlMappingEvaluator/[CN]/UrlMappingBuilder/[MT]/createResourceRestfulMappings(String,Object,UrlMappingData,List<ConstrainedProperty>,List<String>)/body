@@ -1,7 +1,7 @@
 {
   ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
   if (includes.contains(ACTION_INDEX)) {
-    UrlMapping listUrlMapping=createIndexActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
+    UrlMapping listUrlMapping=createIndexActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
     configureUrlMapping(listUrlMapping);
   }
   if (includes.contains(ACTION_CREATE)) {
@@ -9,7 +9,7 @@
     configureUrlMapping(createUrlMapping);
   }
   if (includes.contains(ACTION_SAVE)) {
-    UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,urlData,constraintArray);
+    UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,urlData,previousConstraints);
     configureUrlMapping(saveUrlMapping);
   }
   if (includes.contains(ACTION_SHOW)) {

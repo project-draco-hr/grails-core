@@ -4,8 +4,11 @@
   try {
     pattern=url.replace(".","\\.");
     pattern=pattern.replace("+","\\+");
-    pattern=pattern.replace("(\\.(*))","\\.?([^/\\.]+)?");
-    pattern="^" + pattern.replaceAll("([^\\*])\\*([^\\*])","$1[^/\\.]+$2").replaceAll("([^\\*])\\*$","$1[^/\\.]+").replaceAll("\\*\\*",".*");
+    int lastSlash=pattern.lastIndexOf('/');
+    String urlRoot=lastSlash > -1 ? pattern.substring(0,lastSlash) : pattern;
+    String urlEnd=lastSlash > -1 ? pattern.substring(lastSlash,pattern.length()) : "";
+    pattern="^" + urlRoot.replace("(\\.(*))","\\.?([^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/]+$2").replaceAll("([^\\*])\\*$","$1[^/]+").replaceAll("\\*\\*",".*");
+    pattern+=urlEnd.replace("(\\.(*))","\\.?([^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/\\.]+$2").replaceAll("([^\\*])\\*$","$1[^/\\.]+").replaceAll("\\*\\*",".*");
     pattern+="/??$";
     regex=Pattern.compile(pattern);
   }

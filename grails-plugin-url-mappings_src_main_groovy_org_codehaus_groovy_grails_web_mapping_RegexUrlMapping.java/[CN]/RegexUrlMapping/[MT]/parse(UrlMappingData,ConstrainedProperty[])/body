@@ -12,20 +12,45 @@
     patterns[i]=pattern;
   }
   if (constraints != null) {
-    String pattern=data.getUrlPattern();
+    String[] tokens=data.getTokens();
     int pos=0;
+    int currentToken=0;
+    int tokensLength=tokens.length - 1;
     for (    ConstrainedProperty constraint : constraints) {
-      pos=pattern.indexOf("(*)",pos);
+      String token=tokens[currentToken];
+      int shiftLength=3;
+      pos=token.indexOf(UrlMapping.CAPTURED_WILDCARD,pos);
+      while (pos == -1) {
+        boolean isLastToken=currentToken == tokensLength - 1;
+        if (currentToken < tokensLength) {
+          token=tokens[++currentToken];
+          if (isLastToken) {
+            if (token.startsWith(UrlMapping.CAPTURED_WILDCARD + '?')) {
+              constraint.setNullable(true);
+            }
+            if (token.endsWith(UrlMapping.OPTIONAL_EXTENSION_WILDCARD + '?')) {
+              constraints[constraints.length - 1].setNullable(true);
+            }
+          }
+ else {
+            pos=token.indexOf(UrlMapping.CAPTURED_WILDCARD,pos);
+          }
+        }
+ else {
+          break;
+        }
+      }
       if (pos == -1) {
         constraint.setNullable(true);
       }
- else       if (pos + 3 < pattern.length() && pattern.charAt(pos + 3) == '?') {
+ else       if (pos + shiftLength < token.length() && token.charAt(pos + shiftLength) == '?') {
         constraint.setNullable(true);
       }
- else {
-        constraint.setNullable(false);
+      pos+=shiftLength;
+      if (token.indexOf(UrlMapping.CAPTURED_WILDCARD,pos) == -1) {
+        currentToken++;
+        pos=0;
       }
-      pos+=3;
     }
   }
 }

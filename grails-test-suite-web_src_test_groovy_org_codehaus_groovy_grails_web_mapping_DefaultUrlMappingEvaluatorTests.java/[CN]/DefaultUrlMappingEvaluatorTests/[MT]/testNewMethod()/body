@@ -11,8 +11,8 @@
   assertNull(mapping.getActionName());
   assertNull(mapping.getControllerName());
   assertEquals("(*)",mapping.getUrlData().getTokens()[0]);
-  assertEquals("(*)",mapping.getUrlData().getTokens()[1]);
-  assertEquals("(*)",mapping.getUrlData().getTokens()[2]);
+  assertEquals("(*)?",mapping.getUrlData().getTokens()[1]);
+  assertEquals("(*)?",mapping.getUrlData().getTokens()[2]);
   assertNotNull(mapping.getConstraints());
   assertTrue(makeSureMatchesConstraintExistsOnId(mapping));
   GrailsWebRequest r=GrailsWebUtil.bindMockWebRequest();

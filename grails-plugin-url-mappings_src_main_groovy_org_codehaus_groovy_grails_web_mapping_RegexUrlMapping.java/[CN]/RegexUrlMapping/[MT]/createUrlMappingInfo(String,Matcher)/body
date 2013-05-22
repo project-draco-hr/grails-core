@@ -4,6 +4,7 @@
   String lastGroup=null;
   for (int i=0, count=m.groupCount(); i < count; i++) {
     lastGroup=m.group(i + 1);
+    if (lastGroup == null)     continue;
     int j=lastGroup.indexOf('?');
     if (j > -1) {
       lastGroup=lastGroup.substring(0,j);

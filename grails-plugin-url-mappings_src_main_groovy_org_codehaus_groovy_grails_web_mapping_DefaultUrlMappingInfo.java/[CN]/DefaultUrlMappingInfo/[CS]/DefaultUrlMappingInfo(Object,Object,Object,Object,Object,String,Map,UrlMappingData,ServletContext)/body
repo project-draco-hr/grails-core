@@ -5,7 +5,7 @@
   this.controllerName=controllerName;
   this.actionName=actionName;
   this.pluginName=pluginName;
-  this.controllerNamespace=controllerNamespace;
+  this.namespace=namespace;
   this.httpMethod=httpMethod;
   if (actionName == null) {
     this.viewName=viewName;

@@ -31,5 +31,8 @@
     argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
   }
   argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
+  if (!argMap.containsKey(GrailsControllerClass.NAMESPACE_PROPERTY)) {
+    argMap.put(GrailsControllerClass.NAMESPACE_PROPERTY,GrailsClassUtils.getStaticFieldValue(controller.getClass(),GrailsControllerClass.NAMESPACE_PROPERTY));
+  }
   return redirectResponse(requestLinkGenerator.getServerBaseURL(),requestLinkGenerator.link(argMap),request,response,permanent);
 }

@@ -41,8 +41,8 @@
   if (actionName == null) {
     actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,constraints);
   }
-  if (controllerNamespace == null) {
-    controllerNamespace=createRuntimeConstraintEvaluator("controllerNamespace",constraints);
+  if (namespace == null) {
+    namespace=createRuntimeConstraintEvaluator(NAMESPACE,constraints);
   }
   if (viewName == null) {
     viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);
@@ -55,7 +55,7 @@
     info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
   }
  else {
-    info=new DefaultUrlMappingInfo(controllerName,actionName,controllerNamespace,pluginName,getViewName(),getHttpMethod(),params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),params,urlData,servletContext);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

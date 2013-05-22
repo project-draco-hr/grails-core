@@ -6,7 +6,7 @@
   actionName=getActionName(namedArguments,bindingVariables);
   Object pluginName=getPluginName(namedArguments,bindingVariables);
   Object httpMethod=getHttpMethod(namedArguments,bindingVariables);
-  Object controllerNamespace=getControllerNamespace(namedArguments,bindingVariables);
+  Object namespace=getNamespace(namedArguments,bindingVariables);
   Object viewName=getViewName(namedArguments,bindingVariables);
   if (actionName != null && viewName != null) {
     viewName=null;
@@ -24,7 +24,7 @@
     }
   }
  else {
-    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,controllerNamespace,pluginName,viewName,httpMethod != null ? httpMethod.toString() : null,constraints);
+    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod != null ? httpMethod.toString() : null,constraints);
   }
   Object exceptionArg=getException(namedArguments,bindingVariables);
   if (isResponseCode && exceptionArg != null) {

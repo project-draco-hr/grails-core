@@ -1,10 +1,10 @@
 {
-  boolean controllerNamespaceMatches;
-  if (controllerNamespace != null) {
-    controllerNamespaceMatches=controllerNamespace.equals(c.getNamespace());
+  boolean namespaceMatches;
+  if (namespace != null) {
+    namespaceMatches=namespace.equals(c.getNamespace());
   }
  else {
-    controllerNamespaceMatches=(c.getNamespace() == null);
+    namespaceMatches=(c.getNamespace() == null);
   }
-  return controllerNamespaceMatches;
+  return namespaceMatches;
 }

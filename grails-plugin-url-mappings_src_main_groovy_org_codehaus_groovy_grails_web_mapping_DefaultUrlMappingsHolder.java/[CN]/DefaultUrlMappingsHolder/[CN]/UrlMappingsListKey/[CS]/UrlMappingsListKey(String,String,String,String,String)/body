@@ -1,7 +1,7 @@
 {
   this.controller=controller;
   this.action=action;
-  this.controllerNamespace=controllerNamespace;
+  this.namespace=namespace;
   this.pluginName=pluginName;
   if (httpMethod != null) {
     this.httpMethod=httpMethod;

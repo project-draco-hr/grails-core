@@ -1,21 +1,29 @@
 {
   StringBuilder buf=new StringBuilder();
-  for (  String t : tokens) {
-    String token=t.trim();
+  String optionalExtensionPattern=UrlMapping.OPTIONAL_EXTENSION_WILDCARD + '?';
+  String optionalExtension=null;
+  if (tokens.length > 0) {
+    String lastToken=tokens[tokens.length - 1];
+    hasOptionalExtension=lastToken.endsWith(optionalExtensionPattern);
+    if (hasOptionalExtension) {
+      int i=lastToken.indexOf(optionalExtensionPattern);
+      optionalExtension=lastToken.substring(i,lastToken.length());
+      tokens[tokens.length - 1]=lastToken.substring(0,i);
+    }
+  }
+  for (int i=0; i < tokens.length; i++) {
+    String token=tokens[i].trim();
     if (token.equals(SLASH)) {
       continue;
     }
-    String optionalExtensionPattern=UrlMapping.OPTIONAL_EXTENSION_WILDCARD + '?';
-    boolean hasOptionalExtension=token.endsWith(optionalExtensionPattern);
-    String optionalExtension=null;
-    if (hasOptionalExtension) {
-      int i=token.indexOf(optionalExtensionPattern);
-      optionalExtension=token.substring(i,token.length());
-      token=token.substring(0,i);
-    }
     boolean isOptional=false;
     if (token.endsWith(QUESTION_MARK)) {
-      urls.add(buf.toString());
+      if (optionalExtension != null) {
+        urls.add(buf.toString() + optionalExtension);
+      }
+ else {
+        urls.add(buf.toString());
+      }
       buf.append(SLASH).append(token);
       isOptional=true;
     }
@@ -33,10 +41,12 @@
     if (CAPTURED_DOUBLE_WILDCARD.equals(token)) {
       optionalTokens.add(Boolean.TRUE);
     }
-    if (optionalExtension != null) {
-      buf.append(optionalExtension);
-    }
   }
-  urls.add(buf.toString());
+  if (optionalExtension != null) {
+    urls.add(buf.toString() + optionalExtension);
+  }
+ else {
+    urls.add(buf.toString());
+  }
   Collections.reverse(urls);
 }

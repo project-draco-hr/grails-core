@@ -26,11 +26,11 @@
           controllerName=variables.get(GrailsControllerClass.CONTROLLER);
           actionName=variables.get(GrailsControllerClass.ACTION);
           viewName=variables.get(GrailsControllerClass.VIEW);
-          uri=variables.get(URI);
-          pluginName=variables.get(PLUGIN);
-          namespace=variables.get(NAMESPACE);
-          if (variables.containsKey(HTTP_METHOD)) {
-            httpMethod=variables.get(HTTP_METHOD).toString();
+          uri=variables.get(UrlMapping.URI);
+          pluginName=variables.get(UrlMapping.PLUGIN);
+          namespace=variables.get(UrlMapping.NAMESPACE);
+          if (variables.containsKey(UrlMapping.HTTP_METHOD)) {
+            httpMethod=variables.get(UrlMapping.HTTP_METHOD).toString();
           }
         }
  else {

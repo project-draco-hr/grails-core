@@ -1,3 +1,3 @@
 {
-  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,HTTP_METHOD,pluginName);
+  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,UrlMapping.HTTP_METHOD,pluginName);
 }

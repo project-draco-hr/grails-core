@@ -41,7 +41,7 @@
     actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,constraints);
   }
   if (namespace == null) {
-    namespace=createRuntimeConstraintEvaluator("namespace",constraints);
+    namespace=createRuntimeConstraintEvaluator(NAMESPACE,constraints);
   }
   if (viewName == null) {
     viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);

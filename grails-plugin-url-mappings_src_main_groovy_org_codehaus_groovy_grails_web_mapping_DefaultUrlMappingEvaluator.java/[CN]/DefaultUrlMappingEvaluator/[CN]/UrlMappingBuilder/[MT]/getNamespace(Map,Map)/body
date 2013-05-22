@@ -1,3 +1,3 @@
 {
-  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,"namespace",namespace);
+  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,UrlMapping.NAMESPACE,namespace);
 }

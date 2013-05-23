@@ -1,0 +1,5 @@
+{
+  final Expression ctorCall=new ConstructorCallExpression(classNode,EMPTY_TUPLE);
+  final Expression intitializeObjectExpression=new BinaryExpression(new VariableExpression(variableName),Token.newSymbol(Types.EQUALS,0,0),ctorCall);
+  return new ExpressionStatement(intitializeObjectExpression);
+}

@@ -1,5 +1,0 @@
-{
-  final Expression requestXmlProperty=new PropertyExpression(new VariableExpression("request"),"XML");
-  final Expression newGPathResultMapExpression=new ConstructorCallExpression(new ClassNode(GPathResultMap.class),requestXmlProperty);
-  return getStatementToInitializeAndDataBindObject(commandObjectNode,paramName,newGPathResultMapExpression);
-}

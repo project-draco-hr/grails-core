@@ -1,0 +1,6 @@
+{
+  final ArgumentListExpression arguments=new ArgumentListExpression();
+  arguments.addExpression(new VariableExpression(variableName));
+  arguments.addExpression(valueToBind);
+  return new MethodCallExpression(THIS_EXPRESSION,"bindData",arguments);
+}

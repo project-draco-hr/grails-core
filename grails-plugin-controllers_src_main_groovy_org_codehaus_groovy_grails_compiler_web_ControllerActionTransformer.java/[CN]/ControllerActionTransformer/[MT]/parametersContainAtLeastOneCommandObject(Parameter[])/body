@@ -1,0 +1,11 @@
+{
+  final List<Parameter> parameterList=Arrays.asList(actionParameters);
+  return org.apache.commons.collections.CollectionUtils.exists(parameterList,new Predicate(){
+    public boolean evaluate(    Object object){
+      Parameter param=(Parameter)object;
+      ClassNode type=param.getType();
+      return !PRIMITIVE_CLASS_NODES.contains(type) && !TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(type) && !type.equals(new ClassNode(String.class))&& !type.equals(OBJECT_CLASS);
+    }
+  }
+);
+}

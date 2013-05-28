@@ -1,0 +1,17 @@
+{
+  if (object != null) {
+    Class<?> objectClass=object.getClass();
+    boolean isDomain=DomainClassArtefactHandler.isDomainClass(objectClass) && object instanceof GroovyObject;
+    if (isDomain) {
+      String controllerName=GrailsNameUtils.getPropertyName(objectClass);
+      Object id=((GroovyObject)object).getProperty(GrailsDomainClassProperty.IDENTITY);
+      if (id != null) {
+        Map args=new HashMap();
+        args.put(GrailsControllerClass.CONTROLLER,controllerName);
+        args.put(GrailsDomainClassProperty.IDENTITY,id.toString());
+        return redirect(instance,args);
+      }
+    }
+  }
+  throw new CannotRedirectException("Cannot redirect for object [" + object + "] it is not a domain or has no identifier. Use an explicit redirect instead ");
+}

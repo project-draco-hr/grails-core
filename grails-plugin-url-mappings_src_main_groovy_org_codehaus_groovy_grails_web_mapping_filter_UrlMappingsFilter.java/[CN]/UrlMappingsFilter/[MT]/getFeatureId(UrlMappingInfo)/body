@@ -1,0 +1,23 @@
+{
+  final String action=info.getActionName() == null ? "" : info.getActionName();
+  final String controllerName=info.getControllerName();
+  final String pluginName=info.getPluginName();
+  final String namespace=info.getNamespace();
+  final String featureUri=getControllerFeatureURI(controllerName,action);
+  Object featureId;
+  if (pluginName != null || namespace != null) {
+    Map featureIdMap=new HashMap();
+    featureIdMap.put(UrlMapping.URI,featureUri);
+    if (pluginName != null) {
+      featureIdMap.put("pluginName",pluginName);
+    }
+    if (namespace != null) {
+      featureIdMap.put(UrlMapping.NAMESPACE,namespace);
+    }
+    featureId=featureIdMap;
+  }
+ else {
+    featureId=featureUri;
+  }
+  return featureId;
+}

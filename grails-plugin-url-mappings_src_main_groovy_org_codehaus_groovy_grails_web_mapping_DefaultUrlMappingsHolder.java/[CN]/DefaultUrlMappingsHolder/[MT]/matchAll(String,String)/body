@@ -1,4 +1,5 @@
 {
+  boolean anyHttpMethod=httpMethod != null && httpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD);
   List<UrlMappingInfo> matchingUrls=new ArrayList<UrlMappingInfo>();
   UriToUrlMappingKey cacheKey=new UriToUrlMappingKey(uri,httpMethod);
   if (cachedListMatches.containsKey(cacheKey)) {
@@ -15,7 +16,7 @@
           LOG.debug("Matched URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "], adding to posibilities");
         }
         String mappingHttpMethod=current.getHttpMethod();
-        if (mappingHttpMethod == null || mappingHttpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD) || mappingHttpMethod.equalsIgnoreCase(httpMethod))         matchingUrls.add(current);
+        if (mappingHttpMethod == null || anyHttpMethod || mappingHttpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD) || mappingHttpMethod.equalsIgnoreCase(httpMethod))         matchingUrls.add(current);
       }
     }
     cachedListMatches.put(cacheKey,matchingUrls);

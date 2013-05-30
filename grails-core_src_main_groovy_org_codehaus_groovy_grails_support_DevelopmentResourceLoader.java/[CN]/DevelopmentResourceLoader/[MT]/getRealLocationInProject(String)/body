@@ -2,8 +2,8 @@
   if (new File(location).exists()) {
     return "file:" + location;
   }
-  if (!location.startsWith(SLASH))   location=SLASH + location;
   if (HAS_SCHEME_PATTERN.matcher(location).matches())   return location;
+  if (!location.startsWith(SLASH))   location=SLASH + location;
   if (BuildSettingsHolder.getSettings().isInlinePluginLocation(new File(location.replaceAll(GRAILS_APP_DIR_PATTERN,"")))) {
     return "file:" + location;
   }

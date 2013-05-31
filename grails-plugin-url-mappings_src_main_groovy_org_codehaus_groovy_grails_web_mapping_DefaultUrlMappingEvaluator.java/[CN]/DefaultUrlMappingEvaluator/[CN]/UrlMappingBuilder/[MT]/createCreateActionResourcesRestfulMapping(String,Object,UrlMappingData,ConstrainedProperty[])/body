@@ -1,4 +1,0 @@
-{
-  UrlMappingData createMappingData=urlData.createRelative("/create");
-  return new RegexUrlMapping(createMappingData,controllerName,ACTION_CREATE,null,pluginName,null,HttpMethod.GET.toString(),constraintArray,servletContext);
-}

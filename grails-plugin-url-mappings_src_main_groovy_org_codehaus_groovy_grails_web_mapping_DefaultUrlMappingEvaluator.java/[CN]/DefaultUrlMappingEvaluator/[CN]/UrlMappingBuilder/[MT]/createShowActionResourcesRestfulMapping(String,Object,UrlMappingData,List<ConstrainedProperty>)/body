@@ -1,5 +1,0 @@
-{
-  UrlMappingData showUrlMappingData=createRelativeUrlDataWithIdAndFormat(urlData);
-  List<ConstrainedProperty> showUrlMappingConstraints=createConstraintsWithIdAndFormat(previousConstraints);
-  return new RegexUrlMapping(showUrlMappingData,controllerName,ACTION_SHOW,null,pluginName,null,HttpMethod.GET.toString(),showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),servletContext);
-}

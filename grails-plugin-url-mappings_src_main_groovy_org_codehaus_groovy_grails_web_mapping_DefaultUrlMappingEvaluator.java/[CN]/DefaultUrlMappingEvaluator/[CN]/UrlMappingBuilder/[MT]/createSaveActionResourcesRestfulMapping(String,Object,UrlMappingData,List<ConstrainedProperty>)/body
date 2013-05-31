@@ -1,5 +1,0 @@
-{
-  UrlMappingData saveActionUrlMappingData=urlData.createRelative(UrlMapping.OPTIONAL_EXTENSION_WILDCARD + UrlMapping.QUESTION_MARK);
-  List<ConstrainedProperty> saveUrlMappingConstraints=createFormatOnlyConstraints(constraints);
-  return new RegexUrlMapping(saveActionUrlMappingData,controllerName,ACTION_SAVE,null,pluginName,null,HttpMethod.POST.toString(),saveUrlMappingConstraints.toArray(new ConstrainedProperty[saveUrlMappingConstraints.size()]),servletContext);
-}

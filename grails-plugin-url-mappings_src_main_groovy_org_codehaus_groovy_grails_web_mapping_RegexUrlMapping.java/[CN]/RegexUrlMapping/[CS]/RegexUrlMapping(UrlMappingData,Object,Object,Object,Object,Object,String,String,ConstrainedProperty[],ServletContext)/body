@@ -1,0 +1,7 @@
+{
+  super(controllerName,actionName,namespace,pluginName,viewName,constraints != null ? constraints : new ConstrainedProperty[0],servletContext);
+  grailsApplication=GrailsWebUtil.lookupApplication(servletContext);
+  if (httpMethod != null)   this.httpMethod=httpMethod;
+  if (version != null)   this.version=version;
+  parse(data,constraints);
+}

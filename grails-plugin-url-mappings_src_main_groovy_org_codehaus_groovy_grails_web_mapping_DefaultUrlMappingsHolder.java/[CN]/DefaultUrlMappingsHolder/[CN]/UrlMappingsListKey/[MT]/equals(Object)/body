@@ -7,5 +7,6 @@
   if (namespace != null && !namespace.equals(that.namespace))   return false;
   if (pluginName != null && !pluginName.equals(that.pluginName))   return false;
   if (httpMethod != null && !httpMethod.equals(that.httpMethod))   return false;
+  if (version != null && !version.equals(that.version))   return false;
   return true;
 }

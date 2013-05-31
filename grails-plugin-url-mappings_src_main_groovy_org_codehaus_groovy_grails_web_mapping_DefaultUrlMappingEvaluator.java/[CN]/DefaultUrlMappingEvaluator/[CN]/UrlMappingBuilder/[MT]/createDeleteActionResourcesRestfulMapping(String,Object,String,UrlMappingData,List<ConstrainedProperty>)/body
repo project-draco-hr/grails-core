@@ -1,0 +1,5 @@
+{
+  UrlMappingData deleteUrlMappingData=createRelativeUrlDataWithIdAndFormat(urlData);
+  List<ConstrainedProperty> deleteUrlMappingConstraints=createConstraintsWithIdAndFormat(previousConstraints);
+  return new RegexUrlMapping(deleteUrlMappingData,controllerName,ACTION_DELETE,null,pluginName,null,HttpMethod.DELETE.toString(),version,deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),servletContext);
+}

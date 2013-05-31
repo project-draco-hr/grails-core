@@ -19,6 +19,7 @@
         Object actionName;
         Object pluginName;
         String httpMethod=null;
+        String version=null;
         Object namespace;
         Object viewName;
         Object uri;
@@ -53,7 +54,7 @@
           }
         }
  else {
-          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod,constraints);
+          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints);
         }
         if (binding != null) {
           Map bindingVariables=variables;
@@ -68,6 +69,10 @@
       if (args[0] instanceof Map) {
         Map namedArguments=(Map)args[0];
         String uri=mappedURI;
+        String version=null;
+        if (namedArguments.containsKey(UrlMapping.VERSION)) {
+          version=namedArguments.get(UrlMapping.VERSION).toString();
+        }
         UrlMappingData urlData=createUrlMappingData(uri,isResponseCode);
         if (namedArguments.containsKey(RESOURCE)) {
           Object controller=namedArguments.get(RESOURCE);
@@ -80,7 +85,7 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createSingleResourceRestfulMappings(controllerName,pluginName,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
+            createSingleResourceRestfulMappings(controllerName,pluginName,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
           }
         }
  else         if (namedArguments.containsKey(RESOURCES)) {
@@ -94,7 +99,7 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createResourceRestfulMappings(controllerName,pluginName,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
+            createResourceRestfulMappings(controllerName,pluginName,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
           }
         }
  else {

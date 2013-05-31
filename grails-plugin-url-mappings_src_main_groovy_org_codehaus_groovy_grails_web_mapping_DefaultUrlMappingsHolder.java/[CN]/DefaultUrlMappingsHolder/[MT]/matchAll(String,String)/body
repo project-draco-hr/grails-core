@@ -1,7 +1,7 @@
 {
   boolean anyHttpMethod=httpMethod != null && httpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD);
   List<UrlMappingInfo> matchingUrls=new ArrayList<UrlMappingInfo>();
-  UriToUrlMappingKey cacheKey=new UriToUrlMappingKey(uri,httpMethod);
+  UriToUrlMappingKey cacheKey=new UriToUrlMappingKey(uri,httpMethod,UrlMapping.ANY_VERSION);
   if (cachedListMatches.containsKey(cacheKey)) {
     matchingUrls=cachedListMatches.get(cacheKey);
   }

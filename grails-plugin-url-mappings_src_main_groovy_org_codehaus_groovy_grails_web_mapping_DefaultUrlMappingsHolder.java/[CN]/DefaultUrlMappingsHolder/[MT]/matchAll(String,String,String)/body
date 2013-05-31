@@ -1,0 +1,31 @@
+{
+  boolean anyHttpMethod=httpMethod != null && httpMethod.equals(UrlMapping.ANY_HTTP_METHOD);
+  boolean anyVersion=version != null && version.equals(UrlMapping.ANY_VERSION);
+  List<UrlMappingInfo> matchingUrls=new ArrayList<UrlMappingInfo>();
+  UriToUrlMappingKey cacheKey=new UriToUrlMappingKey(uri,httpMethod,version);
+  if (cachedListMatches.containsKey(cacheKey)) {
+    matchingUrls=cachedListMatches.get(cacheKey);
+  }
+ else {
+    for (    UrlMapping mapping : mappings) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Attempting to match URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "]");
+      }
+      UrlMappingInfo current=mapping.match(uri);
+      if (current != null) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Matched URI [" + uri + "] with pattern ["+ mapping.getUrlData().getUrlPattern()+ "], adding to posibilities");
+        }
+        String mappingHttpMethod=current.getHttpMethod();
+        String mappingVersion=current.getVersion();
+        boolean isValidHttpMethod=mappingHttpMethod == null || anyHttpMethod || mappingHttpMethod.equalsIgnoreCase(UrlMapping.ANY_HTTP_METHOD) || mappingHttpMethod.equalsIgnoreCase(httpMethod);
+        boolean isValidVersion=mappingVersion == null || anyVersion || mappingVersion.equals(UrlMapping.ANY_VERSION) || mappingVersion.equals(version);
+        if (isValidHttpMethod && isValidVersion) {
+          matchingUrls.add(current);
+        }
+      }
+    }
+    cachedListMatches.put(cacheKey,matchingUrls);
+  }
+  return matchingUrls.toArray(new UrlMappingInfo[matchingUrls.size()]);
+}

@@ -9,6 +9,9 @@
   if (httpMethod != null ? !httpMethod.equals(that.httpMethod) : that.httpMethod != null) {
     return false;
   }
+  if (version != null ? !version.equals(that.version) : that.version != null) {
+    return false;
+  }
   if (uri != null ? !uri.equals(that.uri) : that.uri != null) {
     return false;
   }

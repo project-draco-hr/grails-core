@@ -53,7 +53,7 @@
     info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
   }
  else {
-    info=new DefaultUrlMappingInfo(controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,servletContext);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

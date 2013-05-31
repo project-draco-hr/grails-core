@@ -1,0 +1,4 @@
+{
+  UrlMappingData editMappingData=urlData.createRelative("/edit");
+  return new RegexUrlMapping(editMappingData,controllerName,ACTION_EDIT,null,pluginName,null,HttpMethod.GET.toString(),version,constraintArray,servletContext);
+}

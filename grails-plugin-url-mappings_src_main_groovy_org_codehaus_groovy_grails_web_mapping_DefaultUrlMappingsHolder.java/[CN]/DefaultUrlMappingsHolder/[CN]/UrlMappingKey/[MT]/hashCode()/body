@@ -5,6 +5,7 @@
   result=31 * result + (namespace != null ? namespace.hashCode() : 0);
   result=31 * result + (pluginName != null ? pluginName.hashCode() : 0);
   result=31 * result + (httpMethod != null ? httpMethod.hashCode() : 0);
+  result=31 * result + (version != null ? version.hashCode() : 0);
   result=31 * result + paramNames.hashCode();
   return result;
 }

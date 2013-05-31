@@ -1,0 +1,6 @@
+{
+  if (format == null) {
+    return viewName;
+  }
+  return viewName + DOT + format;
+}

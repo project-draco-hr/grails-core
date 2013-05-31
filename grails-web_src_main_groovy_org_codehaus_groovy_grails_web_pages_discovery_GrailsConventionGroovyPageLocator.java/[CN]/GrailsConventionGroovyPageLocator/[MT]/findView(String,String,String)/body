@@ -1,0 +1,7 @@
+{
+  GroovyPageScriptSource scriptSource=findViewForFormat(controllerName,viewName,format);
+  if (scriptSource == null) {
+    scriptSource=findPage(uriService.getViewURI(controllerName,viewName));
+  }
+  return scriptSource;
+}

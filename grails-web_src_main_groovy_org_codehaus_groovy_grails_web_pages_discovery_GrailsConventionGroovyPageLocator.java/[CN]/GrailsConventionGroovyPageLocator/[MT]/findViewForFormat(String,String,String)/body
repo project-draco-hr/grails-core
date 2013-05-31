@@ -1,0 +1,4 @@
+{
+  String viewNameWithFormat=getViewNameWithFormat(viewName,format);
+  return findPage(uriService.getViewURI(controllerName,viewNameWithFormat));
+}

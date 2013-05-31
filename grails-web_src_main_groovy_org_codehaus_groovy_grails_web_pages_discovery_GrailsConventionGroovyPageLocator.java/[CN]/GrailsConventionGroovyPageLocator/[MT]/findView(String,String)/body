@@ -1,8 +1,3 @@
 {
-  String viewNameWithFormat=resolveViewFormat(viewName);
-  GroovyPageScriptSource scriptSource=findPage(uriService.getViewURI(controllerName,viewNameWithFormat));
-  if (scriptSource == null) {
-    scriptSource=findPage(uriService.getViewURI(controllerName,viewName));
-  }
-  return scriptSource;
+  return findView(controllerName,viewName,lookupRequestFormat());
 }

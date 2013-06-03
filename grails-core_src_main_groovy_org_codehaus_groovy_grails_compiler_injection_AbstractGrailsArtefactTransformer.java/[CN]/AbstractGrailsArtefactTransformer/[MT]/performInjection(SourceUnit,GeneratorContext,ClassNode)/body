@@ -1,5 +1,6 @@
 {
   if (classNode instanceof InnerClassNode)   return;
+  if (!classNode.getAnnotations(new ClassNode(Artefact.class)).isEmpty())   return;
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {
     ClassNode implementationNode=new ClassNode(instanceImplementation);

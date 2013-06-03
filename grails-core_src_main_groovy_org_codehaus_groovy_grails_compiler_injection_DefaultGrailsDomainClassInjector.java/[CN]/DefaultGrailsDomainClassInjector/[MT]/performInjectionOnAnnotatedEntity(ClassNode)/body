@@ -1,4 +1,5 @@
 {
+  if (!classNode.getAnnotations(new ClassNode(Artefact.class)).isEmpty())   return;
   injectIdProperty(classNode);
   injectVersionProperty(classNode);
   injectToStringMethod(classNode);

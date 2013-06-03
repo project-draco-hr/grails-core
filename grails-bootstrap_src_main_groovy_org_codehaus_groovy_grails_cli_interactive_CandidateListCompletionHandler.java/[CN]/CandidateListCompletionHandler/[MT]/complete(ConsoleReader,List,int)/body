@@ -5,17 +5,17 @@
     if (value.equals(buf.toString())) {
       return false;
     }
-    jline.console.completer.CandidateListCompletionHandler.setBuffer(reader,value,pos);
+    jline.CandidateListCompletionHandler.setBuffer(reader,value,pos);
     return true;
   }
   if (candidates.size() > 1) {
     String value=getUnambiguousCompletions(candidates);
-    jline.console.completer.CandidateListCompletionHandler.setBuffer(reader,value,pos);
+    jline.CandidateListCompletionHandler.setBuffer(reader,value,pos);
   }
   if (eagerNewlines) {
-    reader.println();
+    reader.printNewline();
   }
-  jline.console.completer.CandidateListCompletionHandler.printCandidates(reader,candidates);
+  jline.CandidateListCompletionHandler.printCandidates(reader,candidates,eagerNewlines);
   reader.drawLine();
   return true;
 }

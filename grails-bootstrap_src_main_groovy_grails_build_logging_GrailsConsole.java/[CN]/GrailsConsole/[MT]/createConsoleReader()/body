@@ -1,5 +1,3 @@
 {
-  ConsoleReader consoleReader=new ConsoleReader(System.in,out);
-  consoleReader.setExpandEvents(false);
-  return consoleReader;
+  return new ConsoleReader(System.in,new OutputStreamWriter(out));
 }

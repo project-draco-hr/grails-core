@@ -8,5 +8,6 @@
   parser.addOption(CommandLine.NON_INTERACTIVE_ARGUMENT,"Whether to allow the command line to request input");
   parser.addOption(CommandLine.VERSION_ARGUMENT,"Current Grails version");
   parser.addOption(CommandLine.NOANSI_ARGUMENT,"Disables ANSI output");
+  parser.addOption(CommandLine.DEBUG_FORK,"Whether to debug the forked JVM if using forked mode");
   return parser;
 }

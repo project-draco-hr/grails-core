@@ -2,7 +2,7 @@
   try {
     List<ClassInjector> injectors=ArtefactTypeAstTransformation.findInjectors(artefactType,GrailsAwareInjectionOperation.getClassInjectors());
     for (    ClassInjector injector : injectors) {
-      injector.performInjection(sourceUnit,cNode);
+      injector.performInjectionOnAnnotatedClass(sourceUnit,cNode);
     }
   }
  catch (  RuntimeException e) {

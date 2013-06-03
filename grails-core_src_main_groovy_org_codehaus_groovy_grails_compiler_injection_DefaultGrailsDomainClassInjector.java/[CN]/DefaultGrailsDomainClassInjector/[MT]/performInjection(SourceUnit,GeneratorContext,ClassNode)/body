@@ -1,5 +1,6 @@
 {
   if (GrailsASTUtils.isDomainClass(classNode,source) && shouldInjectClass(classNode)) {
+    if (!classNode.getAnnotations(new ClassNode(Artefact.class)).isEmpty())     return;
     performInjectionOnAnnotatedEntity(classNode);
   }
 }

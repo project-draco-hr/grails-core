@@ -4,7 +4,5 @@
     instance.setTarget(wrapped);
     return instance;
   }
- else {
-    return new GrailsPrintWriterAdapter(wrapped);
-  }
+  return new GrailsPrintWriterAdapter(wrapped);
 }

@@ -2,10 +2,8 @@
   if (newEncoder != null) {
     return newEncoder;
   }
- else   if (allowInheriting) {
+  if (allowInheriting) {
     return previousEncoder;
   }
- else {
-    return null;
-  }
+  return null;
 }

@@ -1,5 +1,5 @@
 {
-  Integer orderSetting=(Integer)getPropertyOrStaticPropertyOrFieldValue("order",Integer.class);
+  Integer orderSetting=getPropertyOrStaticPropertyOrFieldValue("order",Integer.class);
   if (orderSetting != null) {
     order=orderSetting;
   }
@@ -24,7 +24,7 @@
       autowireCodecBean(codecFactory);
     }
     if (codecFactory == null) {
-      codecFactory=(CodecFactory)getPropertyOrStaticPropertyOrFieldValue("codecFactory",CodecFactory.class);
+      codecFactory=getPropertyOrStaticPropertyOrFieldValue("codecFactory",CodecFactory.class);
       autowireCodecBean(codecFactory);
     }
     if (codecFactory == null) {

@@ -1,7 +1,4 @@
 {
   MessageFormat mf=super.resolveCode(code,locale);
-  if (mf == null) {
-    return resolveCodeFromPlugins(code,locale);
-  }
-  return mf;
+  return mf == null ? resolveCodeFromPlugins(code,locale) : mf;
 }

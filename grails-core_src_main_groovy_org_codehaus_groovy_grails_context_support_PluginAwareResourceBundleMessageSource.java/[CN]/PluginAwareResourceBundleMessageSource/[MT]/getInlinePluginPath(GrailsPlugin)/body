@@ -1,15 +1,12 @@
 {
-  String path=null;
   try {
     final GrailsPluginInfo pluginInfo=pluginBuildSettings.getPluginInfoForName(grailsPlugin.getFileSystemShortName());
     if (pluginInfo != null) {
-      BuildSettings buildSettings=pluginBuildSettings.getBuildSettings();
-      File resourcesDir=buildSettings.getResourcesDir();
-      path=new File(resourcesDir,"plugins/" + pluginInfo.getFullName()).getCanonicalPath();
+      return new File(pluginBuildSettings.getBuildSettings().getResourcesDir(),"plugins/" + pluginInfo.getFullName()).getCanonicalPath();
     }
   }
  catch (  final IOException e) {
-    LOG.debug("Unable to retrieve plugin directory for plugin " + grailsPlugin.getFileSystemShortName() + ".",e);
+    LOG.debug("Unable to retrieve plugin directory for plugin " + grailsPlugin.getFileSystemShortName(),e);
   }
-  return path;
+  return null;
 }

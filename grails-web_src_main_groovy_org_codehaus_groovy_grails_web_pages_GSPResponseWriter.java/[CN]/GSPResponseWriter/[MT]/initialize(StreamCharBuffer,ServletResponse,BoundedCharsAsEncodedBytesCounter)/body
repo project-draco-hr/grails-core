@@ -6,9 +6,7 @@
       if (encoder != null) {
         return buffer.getWriterForEncoder(encoder,webRequest.getEncodingStateRegistry());
       }
- else {
-        return buffer.getWriter();
-      }
+      return buffer.getWriter();
     }
   }
 ;

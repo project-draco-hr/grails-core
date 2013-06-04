@@ -1,5 +1,5 @@
 {
-  @SuppressWarnings("unchecked") Closure<Object> closure=(Closure<Object>)getPropertyOrStaticPropertyOrFieldValue(methodName,Closure.class);
+  @SuppressWarnings("unchecked") Closure<Object> closure=getPropertyOrStaticPropertyOrFieldValue(methodName,Closure.class);
   if (closure == null) {
     Method method=ReflectionUtils.findMethod(clazz,methodName,(Class<?>[])null);
     if (method != null) {

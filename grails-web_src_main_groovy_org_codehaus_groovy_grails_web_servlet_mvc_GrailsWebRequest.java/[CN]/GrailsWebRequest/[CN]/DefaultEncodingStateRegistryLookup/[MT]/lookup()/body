@@ -1,9 +1,4 @@
 {
   GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-  if (webRequest != null) {
-    return webRequest.getEncodingStateRegistry();
-  }
- else {
-    return null;
-  }
+  return webRequest == null ? null : webRequest.getEncodingStateRegistry();
 }

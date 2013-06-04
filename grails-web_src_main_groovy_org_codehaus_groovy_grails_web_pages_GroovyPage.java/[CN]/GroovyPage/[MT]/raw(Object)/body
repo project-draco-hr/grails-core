@@ -1,8 +1,6 @@
 {
-  if (rawEncoder != null) {
-    return rawEncoder.encode(value);
-  }
- else {
+  if (rawEncoder == null) {
     return InvokerHelper.invokeMethod(value,"encodeAsRaw",null);
   }
+  return rawEncoder.encode(value);
 }

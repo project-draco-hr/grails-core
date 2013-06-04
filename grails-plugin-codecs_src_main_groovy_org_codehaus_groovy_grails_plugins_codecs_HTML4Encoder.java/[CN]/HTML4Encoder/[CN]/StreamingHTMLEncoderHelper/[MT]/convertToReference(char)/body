@@ -2,14 +2,10 @@
   if (!disabled) {
     return (String)ReflectionUtils.invokeMethod(mapMethod,instance,c);
   }
- else {
-    String charAsString=String.valueOf(c);
-    String replacement=HtmlUtils.htmlEscape(charAsString);
-    if (charAsString.equals(replacement)) {
-      return null;
-    }
- else {
-      return replacement;
-    }
+  String charAsString=String.valueOf(c);
+  String replacement=HtmlUtils.htmlEscape(charAsString);
+  if (charAsString.equals(replacement)) {
+    return null;
   }
+  return replacement;
 }

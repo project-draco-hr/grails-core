@@ -4,12 +4,10 @@
     streamBuffer.connectTo(target,false);
     target=streamBuffer.getWriter();
   }
-  if (instantiator != null) {
-    GSPResponseWriter instance=(GSPResponseWriter)instantiator.newInstance();
-    instance.initialize(target);
-    return instance;
-  }
- else {
+  if (instantiator == null) {
     return new GSPResponseWriter(target);
   }
+  GSPResponseWriter instance=(GSPResponseWriter)instantiator.newInstance();
+  instance.initialize(target);
+  return instance;
 }

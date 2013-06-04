@@ -1,5 +1,5 @@
 {
-  if (wrappedMap.size() == 0) {
+  if (wrappedMap.isEmpty()) {
     return new GrailsParameterMap(new LinkedHashMap(),request);
   }
  else {

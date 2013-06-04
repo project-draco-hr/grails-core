@@ -1,5 +1,7 @@
 {
-  if (o == null)   return null;
+  if (o == null) {
+    return null;
+  }
   CharSequence str=null;
   if (o instanceof CharSequence) {
     str=(CharSequence)o;

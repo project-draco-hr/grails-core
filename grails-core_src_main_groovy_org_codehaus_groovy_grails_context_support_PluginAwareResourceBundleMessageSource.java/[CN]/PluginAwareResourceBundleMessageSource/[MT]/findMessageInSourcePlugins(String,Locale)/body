@@ -1,12 +1,11 @@
 {
-  String result=null;
   for (  String pluginBaseName : pluginBaseNames) {
     List<String> filenames=calculateAllFilenames(pluginBaseName,locale);
     for (    String filename : filenames) {
       PropertiesHolder holder=getProperties(filename);
-      result=holder.getProperty(code);
+      String result=holder.getProperty(code);
       if (result != null)       return result;
     }
   }
-  return result;
+  return null;
 }

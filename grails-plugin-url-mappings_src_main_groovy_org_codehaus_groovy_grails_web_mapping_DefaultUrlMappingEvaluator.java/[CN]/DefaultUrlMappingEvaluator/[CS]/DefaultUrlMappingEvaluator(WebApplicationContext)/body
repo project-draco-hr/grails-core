@@ -1,4 +1,6 @@
 {
-  if (applicationContext != null)   this.servletContext=applicationContext.getServletContext();
+  if (applicationContext != null) {
+    this.servletContext=applicationContext.getServletContext();
+  }
   this.applicationContext=applicationContext;
 }

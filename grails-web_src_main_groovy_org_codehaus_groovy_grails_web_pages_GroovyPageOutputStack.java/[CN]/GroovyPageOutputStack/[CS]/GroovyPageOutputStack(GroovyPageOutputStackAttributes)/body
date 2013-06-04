@@ -9,12 +9,10 @@
   staticWriter=new GroovyPageProxyWriter(writerGroup,new DestinationFactory(){
     public Writer activateDestination() throws IOException {
       StackEntry stackEntry=stack.peek();
-      if (stackEntry.staticEncoder != null) {
-        return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry,GroovyPageConfig.STATIC_CODEC_NAME);
-      }
- else {
+      if (stackEntry.staticEncoder == null) {
         return stackEntry.unwrappedTarget;
       }
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry,GroovyPageConfig.STATIC_CODEC_NAME);
     }
   }
 );

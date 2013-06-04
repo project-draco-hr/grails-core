@@ -1,8 +1,6 @@
 {
-  if (!allowCreate) {
-    return lookupStack(request);
-  }
- else {
+  if (allowCreate) {
     return currentStack(request,allowCreate,null,allowCreate,false);
   }
+  return lookupStack(request);
 }

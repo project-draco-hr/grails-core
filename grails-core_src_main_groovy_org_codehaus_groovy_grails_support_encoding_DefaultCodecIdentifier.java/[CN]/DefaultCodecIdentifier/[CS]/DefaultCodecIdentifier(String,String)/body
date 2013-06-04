@@ -1,3 +1,3 @@
 {
-  this(codecName,(Set<String>)(codecAliases != null ? new HashSet<String>(Arrays.asList(codecAliases)) : null));
+  this(codecName,codecAliases != null ? new HashSet<String>(Arrays.asList(codecAliases)) : null);
 }

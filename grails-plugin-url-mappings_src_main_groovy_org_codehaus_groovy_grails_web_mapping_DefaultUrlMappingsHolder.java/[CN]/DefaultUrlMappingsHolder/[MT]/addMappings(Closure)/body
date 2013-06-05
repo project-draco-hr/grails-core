@@ -1,0 +1,8 @@
+{
+  WebApplicationContext applicationContext=(WebApplicationContext)Holders.findApplicationContext();
+  UrlMappingEvaluator evaluator=new DefaultUrlMappingEvaluator(applicationContext);
+  List<UrlMapping> newMappings=evaluator.evaluateMappings(mappings);
+  this.urlMappings.addAll(newMappings);
+  initialize();
+  return newMappings;
+}

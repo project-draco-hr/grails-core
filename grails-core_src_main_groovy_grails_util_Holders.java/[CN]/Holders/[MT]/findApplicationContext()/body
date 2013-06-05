@@ -1,3 +1,7 @@
 {
-  return WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+  ServletContext servletContext=getServletContext();
+  if (servletContext != null) {
+    return WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  }
+  return null;
 }

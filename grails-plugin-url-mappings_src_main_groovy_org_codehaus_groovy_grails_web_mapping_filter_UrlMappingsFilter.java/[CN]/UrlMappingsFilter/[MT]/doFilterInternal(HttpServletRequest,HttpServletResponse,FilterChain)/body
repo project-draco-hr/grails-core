@@ -15,7 +15,7 @@
   }
   GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   HttpServletRequest currentRequest=webRequest.getCurrentRequest();
-  String version=currentRequest.getHeader(HttpHeaders.ACCEPT_VERSION);
+  String version=findRequestedVersion(webRequest);
   UrlMappingInfo[] urlInfos=holder.matchAll(uri,currentRequest.getMethod(),version != null ? version : UrlMapping.ANY_VERSION);
   WrappedResponseHolder.setWrappedResponse(response);
   boolean dispatched=false;

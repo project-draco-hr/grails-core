@@ -1,4 +1,6 @@
 {
+  if (classNode.isEnum())   return;
+  if (!DomainClassArtefactHandler.TYPE.equals(getArtefactType()) && !classNode.getName().endsWith(getArtefactType()))   return;
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {
     ClassNode implementationNode=new ClassNode(instanceImplementation);

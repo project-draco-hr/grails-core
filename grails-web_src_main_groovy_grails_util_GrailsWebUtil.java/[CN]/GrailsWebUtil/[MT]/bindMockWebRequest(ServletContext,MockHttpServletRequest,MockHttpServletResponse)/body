@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest webRequest=new GrailsWebRequest(request,response,servletContext);
+  request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
+  RequestContextHolder.setRequestAttributes(webRequest);
+  return webRequest;
+}

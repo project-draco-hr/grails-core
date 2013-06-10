@@ -1,0 +1,5 @@
+{
+  Assert.notNull(domainClass,"Argument 'domainClass' is required!");
+  constrainedProperties=domainClass.getConstrainedProperties();
+  this.domainClass=domainClass;
+}

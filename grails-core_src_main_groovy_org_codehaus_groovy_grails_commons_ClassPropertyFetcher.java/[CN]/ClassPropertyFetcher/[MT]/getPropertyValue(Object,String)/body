@@ -1,0 +1,9 @@
+{
+  PropertyFetcher fetcher=resolveFetcher(name,true);
+  return getPropertyWithFetcherAndCallback(name,fetcher,new ReferenceInstanceCallback(){
+    @Override public Object getReferenceInstance(){
+      return object;
+    }
+  }
+);
+}

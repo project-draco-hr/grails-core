@@ -3,7 +3,7 @@
     return ((GroovyObject)domainObject).getProperty(property.getName());
   }
  else {
-    BeanWrapper beanWrapper=new BeanWrapperImpl(domainObject);
-    return beanWrapper.getPropertyValue(property.getName());
+    ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(domainObject.getClass());
+    return propertyFetcher.getPropertyValue(domainObject,property.getName());
   }
 }

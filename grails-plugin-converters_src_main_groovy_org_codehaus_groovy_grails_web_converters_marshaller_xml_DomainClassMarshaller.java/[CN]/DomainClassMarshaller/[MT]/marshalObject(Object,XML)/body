@@ -3,21 +3,25 @@
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,ConverterUtil.trimProxySuffix(clazz.getName()));
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
-  Object idValue=beanWrapper.getPropertyValue(id.getName());
-  if (idValue != null)   xml.attribute("id",String.valueOf(idValue));
-  if (includeVersion) {
+  if (shouldInclude(domainClass,id.getName())) {
+    Object idValue=beanWrapper.getPropertyValue(id.getName());
+    if (idValue != null)     xml.attribute("id",String.valueOf(idValue));
+  }
+  if (shouldInclude(domainClass,GrailsDomainClassProperty.VERSION) && includeVersion) {
     Object versionValue=beanWrapper.getPropertyValue(domainClass.getVersion().getName());
     xml.attribute("version",String.valueOf(versionValue));
   }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {
-    xml.startNode(property.getName());
+    String propertyName=property.getName();
+    if (!shouldInclude(domainClass,property.getName()))     continue;
+    xml.startNode(propertyName);
     if (!property.isAssociation()) {
-      Object val=beanWrapper.getPropertyValue(property.getName());
+      Object val=beanWrapper.getPropertyValue(propertyName);
       xml.convertAnother(val);
     }
  else {
-      Object referenceObject=beanWrapper.getPropertyValue(property.getName());
+      Object referenceObject=beanWrapper.getPropertyValue(propertyName);
       if (isRenderDomainClassRelations()) {
         if (referenceObject != null) {
           referenceObject=proxyHandler.unwrapIfProxy(referenceObject);

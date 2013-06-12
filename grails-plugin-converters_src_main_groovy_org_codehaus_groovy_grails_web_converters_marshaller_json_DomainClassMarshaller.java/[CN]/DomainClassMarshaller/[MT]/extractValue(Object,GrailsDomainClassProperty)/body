@@ -1,4 +1,9 @@
 {
-  BeanWrapper beanWrapper=new BeanWrapperImpl(domainObject);
-  return beanWrapper.getPropertyValue(property.getName());
+  if (domainObject instanceof GroovyObject) {
+    return ((GroovyObject)domainObject).getProperty(property.getName());
+  }
+ else {
+    BeanWrapper beanWrapper=new BeanWrapperImpl(domainObject);
+    return beanWrapper.getPropertyValue(property.getName());
+  }
 }

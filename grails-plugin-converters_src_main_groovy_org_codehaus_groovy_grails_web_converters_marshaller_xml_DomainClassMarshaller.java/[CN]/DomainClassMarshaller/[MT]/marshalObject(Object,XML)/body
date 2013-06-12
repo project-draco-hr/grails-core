@@ -3,27 +3,27 @@
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,ConverterUtil.trimProxySuffix(clazz.getName()));
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
-  if (shouldInclude(domainClass,id.getName())) {
+  if (shouldInclude(value,id.getName())) {
     Object idValue=beanWrapper.getPropertyValue(id.getName());
     if (idValue != null)     xml.attribute("id",String.valueOf(idValue));
   }
-  if (shouldInclude(domainClass,GrailsDomainClassProperty.VERSION) && includeVersion) {
+  if (shouldInclude(value,GrailsDomainClassProperty.VERSION) && includeVersion) {
     Object versionValue=beanWrapper.getPropertyValue(domainClass.getVersion().getName());
     xml.attribute("version",String.valueOf(versionValue));
   }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {
     String propertyName=property.getName();
-    if (!shouldInclude(domainClass,property.getName()))     continue;
+    if (!shouldInclude(value,property.getName()))     continue;
     xml.startNode(propertyName);
     if (!property.isAssociation()) {
       Object val=beanWrapper.getPropertyValue(propertyName);
       xml.convertAnother(val);
     }
  else {
-      Object referenceObject=beanWrapper.getPropertyValue(propertyName);
       if (isRenderDomainClassRelations()) {
-        if (referenceObject != null) {
+        Object referenceObject=beanWrapper.getPropertyValue(propertyName);
+        if (referenceObject != null && shouldInitializeProxy(referenceObject)) {
           referenceObject=proxyHandler.unwrapIfProxy(referenceObject);
           if (referenceObject instanceof SortedMap) {
             referenceObject=new TreeMap((SortedMap)referenceObject);
@@ -44,6 +44,7 @@
         }
       }
  else {
+        Object referenceObject=beanWrapper.getPropertyValue(propertyName);
         if (referenceObject != null) {
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
           if (referencedDomainClass == null || property.isEmbedded() || GrailsClassUtils.isJdk5Enum(property.getType())) {

@@ -3,11 +3,13 @@
   if (proxyHandler instanceof EntityProxyHandler) {
     idValue=((EntityProxyHandler)proxyHandler).getProxyIdentifier(refObj);
     if (idValue == null) {
-      idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+      ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(refObj.getClass());
+      idValue=propertyFetcher.getPropertyValue(idProperty.getName());
     }
   }
  else {
-    idValue=new BeanWrapperImpl(refObj).getPropertyValue(idProperty.getName());
+    ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(refObj.getClass());
+    idValue=propertyFetcher.getPropertyValue(idProperty.getName());
   }
-  xml.attribute("id",String.valueOf(idValue));
+  xml.attribute(GrailsDomainClassProperty.IDENTITY,String.valueOf(idValue));
 }

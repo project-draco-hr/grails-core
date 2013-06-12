@@ -1,0 +1,3 @@
+{
+  return includesProperty(object,propertyName) && !excludesProperty(object,propertyName);
+}

@@ -85,7 +85,7 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createSingleResourceRestfulMappings(controllerName,pluginName,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
+            createSingleResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
           }
         }
  else         if (namedArguments.containsKey(RESOURCES)) {
@@ -99,7 +99,7 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createResourceRestfulMappings(controllerName,pluginName,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
+            createResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
           }
         }
  else {

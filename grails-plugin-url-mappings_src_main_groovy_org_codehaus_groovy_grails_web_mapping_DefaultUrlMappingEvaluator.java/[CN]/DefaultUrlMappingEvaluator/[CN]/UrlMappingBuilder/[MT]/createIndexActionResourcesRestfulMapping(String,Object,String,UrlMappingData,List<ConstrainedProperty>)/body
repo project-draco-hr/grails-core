@@ -1,5 +1,0 @@
-{
-  UrlMappingData indexActionUrlMappingData=urlData.createRelative(UrlMapping.OPTIONAL_EXTENSION_WILDCARD + UrlMapping.QUESTION_MARK);
-  List<ConstrainedProperty> indexUrlMappingConstraints=createFormatOnlyConstraints(constraints);
-  return new RegexUrlMapping(indexActionUrlMappingData,controllerName,ACTION_INDEX,null,pluginName,null,HttpMethod.GET.toString(),version,indexUrlMappingConstraints.toArray(new ConstrainedProperty[indexUrlMappingConstraints.size()]),servletContext);
-}

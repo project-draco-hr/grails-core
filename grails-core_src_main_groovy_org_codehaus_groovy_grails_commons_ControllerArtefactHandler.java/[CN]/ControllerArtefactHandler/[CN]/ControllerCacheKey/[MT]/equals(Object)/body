@@ -1,0 +1,19 @@
+{
+  if (this == o) {
+    return true;
+  }
+  if (o == null || getClass() != o.getClass()) {
+    return false;
+  }
+  ControllerCacheKey that=(ControllerCacheKey)o;
+  if (namespace != null ? !namespace.equals(that.namespace) : that.namespace != null) {
+    return false;
+  }
+  if (plugin != null ? !plugin.equals(that.plugin) : that.plugin != null) {
+    return false;
+  }
+  if (!uri.equals(that.uri)) {
+    return false;
+  }
+  return true;
+}

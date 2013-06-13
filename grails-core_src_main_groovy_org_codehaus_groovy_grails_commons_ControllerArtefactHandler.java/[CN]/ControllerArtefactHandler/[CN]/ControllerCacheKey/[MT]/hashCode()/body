@@ -1,0 +1,6 @@
+{
+  int result=uri.hashCode();
+  result=31 * result + (plugin != null ? plugin.hashCode() : 0);
+  result=31 * result + (namespace != null ? namespace.hashCode() : 0);
+  return result;
+}

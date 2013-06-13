@@ -5,16 +5,17 @@
   String uri;
   String pluginName=null;
   String namespace=null;
-  if (featureId instanceof Map) {
-    Map featureIdMap=(Map)featureId;
-    uri=(String)featureIdMap.get("uri");
-    pluginName=(String)featureIdMap.get("pluginName");
-    namespace=(String)featureIdMap.get("namespace");
+  ControllerCacheKey cacheKey;
+  if (featureId instanceof ControllerCacheKey) {
+    cacheKey=(ControllerCacheKey)featureId;
+    pluginName=cacheKey.plugin;
+    namespace=cacheKey.namespace;
+    uri=cacheKey.uri;
   }
  else {
     uri=featureId.toString();
+    cacheKey=new ControllerCacheKey(uri,null,null);
   }
-  String cacheKey=(namespace != null ? namespace : "") + ":" + (pluginName != null ? pluginName : "")+ ":"+ uri;
   GrailsClass controllerClass=uriToControllerClassCache.get(cacheKey);
   if (controllerClass == null) {
     final ApplicationContext mainContext=grailsApplication.getMainContext();

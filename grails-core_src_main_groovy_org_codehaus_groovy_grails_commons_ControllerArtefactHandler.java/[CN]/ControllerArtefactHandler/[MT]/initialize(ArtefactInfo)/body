@@ -3,6 +3,6 @@
   if (cacheSize == null) {
     cacheSize=10000;
   }
-  uriToControllerClassCache=new ConcurrentLinkedHashMap.Builder<String,GrailsClass>().initialCapacity(500).maximumWeightedCapacity(new Integer(cacheSize.toString())).build();
+  uriToControllerClassCache=new ConcurrentLinkedHashMap.Builder<ControllerCacheKey,GrailsClass>().initialCapacity(500).maximumWeightedCapacity(new Integer(cacheSize.toString())).build();
   artefactInfo=artefacts;
 }

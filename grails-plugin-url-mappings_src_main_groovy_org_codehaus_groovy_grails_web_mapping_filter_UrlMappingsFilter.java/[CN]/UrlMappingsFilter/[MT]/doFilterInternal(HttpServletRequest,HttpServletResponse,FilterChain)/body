@@ -28,7 +28,7 @@
           info.configure(webRequest);
           viewName=info.getViewName();
           if (viewName == null && info.getURI() == null) {
-            Object featureId=getFeatureId(info);
+            ControllerArtefactHandler.ControllerCacheKey featureId=getFeatureId(info);
             GrailsClass controller=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,featureId);
             if (controller == null) {
               continue;

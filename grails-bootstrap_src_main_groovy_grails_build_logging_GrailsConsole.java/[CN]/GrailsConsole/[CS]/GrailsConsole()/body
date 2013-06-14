@@ -3,7 +3,7 @@
   originalSystemOut=System.out;
   originalSystemErr=System.err;
   out=new PrintStream(ansiWrap(originalSystemOut));
-  err=ansiWrap(originalSystemErr);
+  err=new PrintStream(ansiWrap(originalSystemErr));
   System.setOut(new GrailsConsolePrintStream(out));
   System.setErr(new GrailsConsoleErrorPrintStream(err));
   if (isInteractiveEnabled()) {
@@ -22,5 +22,4 @@
     terminal=createTerminal();
   }
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
-  out.println();
 }

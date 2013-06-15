@@ -1,0 +1,11 @@
+{
+  if (promiseFactory == null) {
+    if (GparsPromiseFactory.isGparsAvailable()) {
+      promiseFactory=new GparsPromiseFactory();
+    }
+ else {
+      promiseFactory=new SynchronousPromiseFactory();
+    }
+  }
+  return promiseFactory;
+}

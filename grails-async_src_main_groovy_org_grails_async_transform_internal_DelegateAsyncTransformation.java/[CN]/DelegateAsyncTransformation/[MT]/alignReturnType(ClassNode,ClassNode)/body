@@ -1,0 +1,21 @@
+{
+  ClassNode copiedReturnType=originalReturnType.getPlainNodeReference();
+  ClassNode actualReceiver=receiver;
+  List<GenericsType> redirectTypes=new ArrayList<GenericsType>();
+  if (actualReceiver.redirect().getGenericsTypes() != null) {
+    Collections.addAll(redirectTypes,actualReceiver.redirect().getGenericsTypes());
+  }
+  if (!redirectTypes.isEmpty()) {
+    GenericsType[] redirectReceiverTypes=redirectTypes.toArray(new GenericsType[redirectTypes.size()]);
+    GenericsType[] receiverParameterizedTypes=actualReceiver.getGenericsTypes();
+    if (receiverParameterizedTypes == null) {
+      receiverParameterizedTypes=redirectReceiverTypes;
+    }
+    if (originalReturnType.isUsingGenerics()) {
+      GenericsType[] alignmentTypes=originalReturnType.getGenericsTypes();
+      GenericsType[] genericsTypes=GenericsUtils.alignGenericTypes(redirectReceiverTypes,receiverParameterizedTypes,alignmentTypes);
+      copiedReturnType.setGenericsTypes(genericsTypes);
+    }
+  }
+  return copiedReturnType;
+}

@@ -10,13 +10,17 @@
       if (!StringUtils.isBlank(mappingProperty)) {
         PropertyDescriptor pd=findProperty(GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz()),mappingProperty);
         if (pd == null)         pd=findProperty(GrailsClassUtils.getPropertiesAssignableToType(relatedClassType,Collection.class),mappingProperty);
-        if (pd == null) {
+        boolean isNone="none".equals(mappingProperty);
+        if (pd == null && !isNone) {
           throw new GrailsDomainException("Non-existent mapping property [" + mappingProperty + "] specified for property ["+ property.getName()+ "] in class ["+ getClazz()+ "]");
         }
-        relatedClassPropertyType=pd.getPropertyType();
-        property.setReferencePropertyName(pd.getName());
+ else         if (pd != null) {
+          relatedClassPropertyType=pd.getPropertyType();
+          property.setReferencePropertyName(pd.getName());
+        }
       }
  else {
+        if (mappedBy.containsKey(property.getName()) && mappedBy.get(property.getName()) == null)         return;
         if (isRelationshipManyToMany(property,relatedClassType,relatedClassRelationships)) {
           String relatedClassPropertyName=null;
           Map relatedClassMappedBy=GrailsDomainConfigurationUtil.getMappedByMap(relatedClassType);

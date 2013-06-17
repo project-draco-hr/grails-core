@@ -1,7 +1,7 @@
 {
-  String simpleName=getClass().getSimpleName();
-  if (simpleName.length() > 11) {
-    return simpleName.substring(0,simpleName.length() - 11);
+  String name=getClass().getSimpleName();
+  if (name.endsWith("Transformer")) {
+    return name.substring(0,name.length() - 11);
   }
-  return simpleName;
+  return name;
 }

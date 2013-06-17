@@ -1,4 +1,4 @@
 {
   if (!classNode.getAnnotations(new ClassNode(Artefact.class)).isEmpty())   return;
-  performInjectionOnAnnotatedClass(source,classNode);
+  performInjectionOnAnnotatedClass(source,context,classNode);
 }

@@ -1,0 +1,84 @@
+{
+  if (classNode.isEnum())   return;
+  if (classNode instanceof InnerClassNode)   return;
+  if (classNode.getName().contains("$"))   return;
+  if (!DomainClassArtefactHandler.TYPE.equals(getArtefactType()) && !isValidArtefactTypeByConvention(classNode))   return;
+  Class instanceImplementation=getInstanceImplementation();
+  if (instanceImplementation != null) {
+    ClassNode implementationNode=new ClassNode(instanceImplementation);
+    String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
+    Expression apiInstance=new VariableExpression(apiInstanceProperty);
+    if (requiresStaticLookupMethod()) {
+      final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
+      createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
+      apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    }
+ else     if (requiresAutowiring()) {
+      final ConstructorCallExpression constructorCallExpression=GrailsASTUtils.hasZeroArgsConstructor(implementationNode) ? new ConstructorCallExpression(implementationNode,ZERO_ARGS) : null;
+      PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,constructorCallExpression,null,null);
+      propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
+      if (getMarkerAnnotation() != null) {
+        propertyNode.addAnnotation(getMarkerAnnotation());
+      }
+      classNode.addProperty(propertyNode);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
+      FieldNode fieldNode=classNode.getField(apiInstanceProperty);
+      if (fieldNode == null || (Modifier.isPrivate(fieldNode.getModifiers()) && !fieldNode.getDeclaringClass().equals(classNode))) {
+        fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
+        classNode.addField(fieldNode);
+      }
+    }
+    while (!implementationNode.equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS)) {
+      List<MethodNode> declaredMethods=implementationNode.getMethods();
+      for (      MethodNode declaredMethod : declaredMethods) {
+        if (GrailsASTUtils.isConstructorMethod(declaredMethod)) {
+          GrailsASTUtils.addDelegateConstructor(classNode,declaredMethod);
+        }
+ else         if (isCandidateInstanceMethod(classNode,declaredMethod)) {
+          GrailsASTUtils.addDelegateInstanceMethod(classNode,apiInstance,declaredMethod,getMarkerAnnotation());
+        }
+      }
+      implementationNode=implementationNode.getSuperClass();
+    }
+    performInjectionInternal(apiInstanceProperty,source,classNode);
+  }
+  Class staticImplementation=getStaticImplementation();
+  if (staticImplementation != null) {
+    ClassNode staticImplementationNode=new ClassNode(staticImplementation);
+    final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
+    final String staticImplementationSimpleName=staticImplementation.getSimpleName();
+    String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
+    final String lookupMethodName=CURRENT_PREFIX + staticImplementationSimpleName;
+    if (requiresStaticLookupMethod()) {
+      createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
+    }
+ else {
+      final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
+      FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,staticImplementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
+      BlockStatement methodBody=new BlockStatement();
+      MethodNode lookupMethod=populateDefaultApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+      classNode.addMethod(lookupMethod);
+    }
+    MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    for (    MethodNode declaredMethod : declaredMethods) {
+      if (isStaticCandidateMethod(classNode,declaredMethod)) {
+        GrailsASTUtils.addDelegateStaticMethod(apiLookupMethod,classNode,declaredMethod,getMarkerAnnotation());
+      }
+    }
+  }
+  if (classNode.getAnnotations(ENHANCED_CLASS_NODE).isEmpty()) {
+    final AnnotationNode annotationNode=new AnnotationNode(ENHANCED_CLASS_NODE);
+    annotationNode.setMember("version",new ConstantExpression(GrailsUtil.getGrailsVersion()));
+    classNode.addAnnotation(annotationNode);
+    AnnotationNode annotation=GrailsASTUtils.findAnnotation(classNode,Mixin.class);
+    if (annotation != null) {
+      Expression value=annotation.getMember("value");
+      if (value != null) {
+        annotationNode.setMember("mixins",value);
+      }
+    }
+  }
+}

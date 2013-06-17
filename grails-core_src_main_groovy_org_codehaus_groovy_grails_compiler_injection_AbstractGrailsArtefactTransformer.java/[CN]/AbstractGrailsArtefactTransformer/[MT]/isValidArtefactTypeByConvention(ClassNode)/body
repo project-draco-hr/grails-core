@@ -1,0 +1,8 @@
+{
+  String[] artefactTypes=getArtefactTypes();
+  for (  String artefactType : artefactTypes) {
+    if (artefactType.equals("*"))     return true;
+    if (classNode.getName().endsWith(artefactType))     return true;
+  }
+  return false;
+}

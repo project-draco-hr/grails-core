@@ -1,7 +1,12 @@
 {
   if (log.isDebugEnabled())   log.debug("preHandle " + request + ", "+ response+ ", "+ o);
   for (  HandlerInterceptor handler : handlers) {
-    if (!handler.preHandle(request,response,o))     return false;
+    if (!handler.preHandle(request,response,o)) {
+      return false;
+    }
+    if (request.getAttribute(ForwardMethod.CALLED) != null) {
+      return false;
+    }
   }
   return true;
 }

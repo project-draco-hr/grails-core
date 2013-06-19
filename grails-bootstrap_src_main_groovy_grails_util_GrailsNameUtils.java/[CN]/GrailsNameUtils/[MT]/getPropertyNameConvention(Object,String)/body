@@ -1,0 +1,42 @@
+{
+  if (object != null) {
+    Class<?> type=object.getClass();
+    if (type.isArray()) {
+      return getPropertyName(type.getComponentType()) + suffix + "Array";
+    }
+ else     if (object instanceof Collection) {
+      Collection coll=(Collection)object;
+      if (coll.isEmpty()) {
+        return "emptyCollection";
+      }
+ else {
+        Object first=coll.iterator().next();
+        if (coll instanceof List) {
+          return getPropertyName(first.getClass()) + suffix + "List";
+        }
+ else         if (coll instanceof Set) {
+          return getPropertyName(first.getClass()) + suffix + "Set";
+        }
+ else {
+          return getPropertyName(first.getClass()) + suffix + "Collection";
+        }
+      }
+    }
+ else     if (object instanceof Map) {
+      Map map=(Map)object;
+      if (map.isEmpty()) {
+        return "emptyMap";
+      }
+ else {
+        Object entry=map.values().iterator().next();
+        if (entry != null) {
+          return getPropertyName(entry.getClass()) + suffix + "Map";
+        }
+      }
+    }
+ else {
+      return getPropertyName(object.getClass()) + suffix;
+    }
+  }
+  return null;
+}

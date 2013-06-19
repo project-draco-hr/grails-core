@@ -1,0 +1,28 @@
+{
+  final DataBindingSourceRegistry registry=new DefaultDataBindingSourceRegistry();
+  final MimeType mimeType;
+  if (bindingSource instanceof HttpServletRequest) {
+    HttpServletRequest req=(HttpServletRequest)bindingSource;
+    String contentType=req.getContentType();
+    if ("application/json".equals(contentType)) {
+      mimeType=MimeType.JSON;
+    }
+ else     if ("application/hal+json".equals(contentType)) {
+      mimeType=MimeType.HAL_JSON;
+    }
+ else     if ("application/xml".equals(contentType)) {
+      mimeType=MimeType.XML;
+    }
+ else     if ("text/xml".equals(contentType)) {
+      mimeType=MimeType.TEXT_XML;
+    }
+ else {
+      mimeType=MimeType.ALL;
+    }
+  }
+ else {
+    mimeType=MimeType.ALL;
+  }
+  final DataBindingSourceHelper dataBindingSourceHelper=registry.getDataBindingSourceHelper(mimeType,bindingTarget.getClass(),bindingSource);
+  return dataBindingSourceHelper.createDataBindingSource(mimeType,bindingTarget,bindingSource);
+}

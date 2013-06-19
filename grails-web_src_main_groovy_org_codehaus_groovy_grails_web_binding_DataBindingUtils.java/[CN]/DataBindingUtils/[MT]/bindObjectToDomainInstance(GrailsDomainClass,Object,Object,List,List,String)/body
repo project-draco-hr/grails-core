@@ -14,17 +14,7 @@
     }
   }
   if (!useSpringBinder) {
-    Map bindingSource=null;
-    if (source instanceof HttpServletRequest) {
-      HttpServletRequest req=(HttpServletRequest)source;
-      bindingSource=new GrailsParameterMap(req);
-    }
- else     if (source instanceof Map) {
-      bindingSource=convertPotentialGStrings((Map)source);
-    }
- else {
-      bindingSource=new BeanMap(source);
-    }
+    final DataBindingSource bindingSource=createDataBindingSource(object,source);
     final DataBinder gormAwareDataBinder=createGormAwareDataBinder(grailsApplication);
     final BindingResult tmpBindingResult=new BeanPropertyBindingResult(object,object.getClass().getName());
     final DataBindingListener listener=new GormAwareDataBindingListener(tmpBindingResult);

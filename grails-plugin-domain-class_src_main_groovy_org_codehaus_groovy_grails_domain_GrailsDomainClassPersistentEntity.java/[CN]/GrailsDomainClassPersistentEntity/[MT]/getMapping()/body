@@ -1,7 +1,8 @@
 {
+  final Entity e=new Entity();
   return new AbstractClassMapping(this,getMappingContext()){
-    @Override public Object getMappedForm(){
-      return null;
+    @Override public Entity getMappedForm(){
+      return e;
     }
     @Override public IdentityMapping getIdentifier(){
       return new IdentityMapping(){
@@ -11,8 +12,8 @@
         public ClassMapping getClassMapping(){
           return entity.getMapping();
         }
-        public Object getMappedForm(){
-          return null;
+        public Property getMappedForm(){
+          return new Property();
         }
       }
 ;

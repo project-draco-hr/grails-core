@@ -5,7 +5,7 @@
     public ClassMapping getClassMapping(){
       return owner.getMapping();
     }
-    public Object getMappedForm(){
+    public Property getMappedForm(){
       return null;
     }
   }

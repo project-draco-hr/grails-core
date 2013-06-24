@@ -28,7 +28,7 @@
       mimeType=MimeType.TEXT_XML;
     }
  else {
-      mimeType=MimeType.ALL;
+      mimeType=new MimeType(contentType);
     }
   }
  else {

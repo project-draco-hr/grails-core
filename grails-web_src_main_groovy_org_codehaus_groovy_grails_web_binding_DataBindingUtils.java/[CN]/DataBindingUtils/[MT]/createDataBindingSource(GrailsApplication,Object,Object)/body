@@ -1,5 +1,16 @@
 {
-  final DataBindingSourceRegistry registry=new DefaultDataBindingSourceRegistry();
+  DataBindingSourceRegistry registry=null;
+  if (grailsApplication != null) {
+    ApplicationContext context=grailsApplication.getMainContext();
+    if (context != null) {
+      if (context.containsBean(DataBindingSourceRegistry.BEAN_NAME)) {
+        registry=context.getBean(DataBindingSourceRegistry.BEAN_NAME,DataBindingSourceRegistry.class);
+      }
+    }
+  }
+  if (registry == null) {
+    registry=new DefaultDataBindingSourceRegistry();
+  }
   final MimeType mimeType;
   if (bindingSource instanceof HttpServletRequest) {
     HttpServletRequest req=(HttpServletRequest)bindingSource;

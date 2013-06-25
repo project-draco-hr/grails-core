@@ -1,10 +1,14 @@
 {
   DataBindingSourceRegistry registry=null;
+  MimeTypeResolver mimeTypeResolver=null;
   if (grailsApplication != null) {
     ApplicationContext context=grailsApplication.getMainContext();
     if (context != null) {
       if (context.containsBean(DataBindingSourceRegistry.BEAN_NAME)) {
         registry=context.getBean(DataBindingSourceRegistry.BEAN_NAME,DataBindingSourceRegistry.class);
+      }
+      if (context.containsBean(MimeTypeResolver.BEAN_NAME)) {
+        mimeTypeResolver=context.getBean(MimeTypeResolver.BEAN_NAME,MimeTypeResolver.class);
       }
     }
   }
@@ -12,23 +16,17 @@
     registry=new DefaultDataBindingSourceRegistry();
   }
   final MimeType mimeType;
-  if (bindingSource instanceof HttpServletRequest) {
+  if (mimeTypeResolver != null) {
+    mimeType=mimeTypeResolver.resolveRequestMimeType();
+  }
+ else   if (bindingSource instanceof HttpServletRequest) {
     HttpServletRequest req=(HttpServletRequest)bindingSource;
     String contentType=req.getContentType();
-    if ("application/json".equals(contentType)) {
-      mimeType=MimeType.JSON;
-    }
- else     if ("application/hal+json".equals(contentType)) {
-      mimeType=MimeType.HAL_JSON;
-    }
- else     if ("application/xml".equals(contentType)) {
-      mimeType=MimeType.XML;
-    }
- else     if ("text/xml".equals(contentType)) {
-      mimeType=MimeType.TEXT_XML;
+    if (contentType != null) {
+      mimeType=new MimeType(contentType);
     }
  else {
-      mimeType=new MimeType(contentType);
+      mimeType=MimeType.ALL;
     }
   }
  else {

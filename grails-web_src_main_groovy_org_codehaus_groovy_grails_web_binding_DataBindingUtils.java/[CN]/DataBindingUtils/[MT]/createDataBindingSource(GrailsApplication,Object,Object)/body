@@ -15,23 +15,6 @@
   if (registry == null) {
     registry=new DefaultDataBindingSourceRegistry();
   }
-  final MimeType mimeType;
-  if (mimeTypeResolver != null) {
-    MimeType resolvedMimeType=mimeTypeResolver.resolveRequestMimeType();
-    mimeType=resolvedMimeType != null ? resolvedMimeType : MimeType.ALL;
-  }
- else   if (bindingSource instanceof HttpServletRequest) {
-    HttpServletRequest req=(HttpServletRequest)bindingSource;
-    String contentType=req.getContentType();
-    if (contentType != null) {
-      mimeType=new MimeType(contentType);
-    }
- else {
-      mimeType=MimeType.ALL;
-    }
-  }
- else {
-    mimeType=MimeType.ALL;
-  }
+  final MimeType mimeType=resolveMimeType(bindingSource,mimeTypeResolver);
   return registry.createDataBindingSource(mimeType,bindingTarget,bindingSource);
 }

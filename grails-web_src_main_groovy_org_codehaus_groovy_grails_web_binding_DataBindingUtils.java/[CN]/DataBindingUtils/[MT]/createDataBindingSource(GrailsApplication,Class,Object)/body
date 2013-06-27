@@ -16,5 +16,5 @@
     registry=new DefaultDataBindingSourceRegistry();
   }
   final MimeType mimeType=resolveMimeType(bindingSource,mimeTypeResolver);
-  return registry.createDataBindingSource(mimeType,bindingTarget,bindingSource);
+  return registry.createDataBindingSource(mimeType,bindingTargetType,bindingSource);
 }

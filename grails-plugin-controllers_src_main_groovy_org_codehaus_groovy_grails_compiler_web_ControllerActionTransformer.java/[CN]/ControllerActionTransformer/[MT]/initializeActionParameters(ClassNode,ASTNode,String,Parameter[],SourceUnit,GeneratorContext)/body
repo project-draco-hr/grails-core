@@ -7,10 +7,6 @@
   final Expression errorsAssignmentExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),mapBindingResultConstructorCallExpression);
   wrapper.addStatement(new ExpressionStatement(errorsAssignmentExpression));
   if (actionParameters != null) {
-    if (parametersContainAtLeastOneCommandObject(actionParameters)) {
-      final DeclarationExpression declareBindingMapExpression=new DeclarationExpression(DATA_BINDING_SOURCE_EXPRESSION,Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression());
-      wrapper.addStatement(new ExpressionStatement(declareBindingMapExpression));
-    }
     for (    Parameter param : actionParameters) {
       initializeMethodParameter(classNode,wrapper,actionNode,actionName,param,source,context);
     }

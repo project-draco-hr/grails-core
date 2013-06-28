@@ -1,8 +1,0 @@
-{
-  final ArgumentListExpression argumentsForCallToGet=new ArgumentListExpression();
-  final MethodCallExpression getIdExpression=new MethodCallExpression(DATA_BINDING_SOURCE_EXPRESSION,"getIdentifierValue",EMPTY_TUPLE);
-  argumentsForCallToGet.addExpression(getIdExpression);
-  final Expression retrieveEntityExpressin=new StaticMethodCallExpression(commandObjectNode,"get",argumentsForCallToGet);
-  final Expression expr=new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),retrieveEntityExpressin);
-  return new ExpressionStatement(expr);
-}

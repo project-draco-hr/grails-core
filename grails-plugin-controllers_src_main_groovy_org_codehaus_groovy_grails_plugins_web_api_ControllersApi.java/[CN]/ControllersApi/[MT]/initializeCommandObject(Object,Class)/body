@@ -1,0 +1,19 @@
+{
+  final HttpServletRequest request=getRequest(controllerInstance);
+  final DataBindingSource dataBindingSource=DataBindingUtils.createDataBindingSource(getGrailsApplication(controllerInstance),type,request);
+  final DataBindingSource commandObjectBindingSource=WebMetaUtils.getCommandObjectBindingSource(type,dataBindingSource);
+  final Object commandObjectInstance;
+  if (commandObjectBindingSource.hasIdentifier() && DomainClassArtefactHandler.isDomainClass(type)) {
+    commandObjectInstance=InvokerHelper.invokeStaticMethod(type,"get",commandObjectBindingSource.getIdentifierValue());
+  }
+ else {
+    commandObjectInstance=type.newInstance();
+  }
+  if (commandObjectInstance != null) {
+    bindData(controllerInstance,commandObjectInstance,commandObjectBindingSource);
+    final ApplicationContext applicationContext=getApplicationContext(controllerInstance);
+    final AutowireCapableBeanFactory autowireCapableBeanFactory=applicationContext.getAutowireCapableBeanFactory();
+    autowireCapableBeanFactory.autowireBeanProperties(commandObjectInstance,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
+  }
+  return commandObjectInstance;
+}

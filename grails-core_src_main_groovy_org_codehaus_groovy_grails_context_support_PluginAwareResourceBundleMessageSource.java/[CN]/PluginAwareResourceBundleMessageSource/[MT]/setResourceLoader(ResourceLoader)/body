@@ -19,5 +19,7 @@
     }
   }
   super.setResourceLoader(localResourceLoader);
-  resourceResolver=new PathMatchingResourcePatternResolver(localResourceLoader);
+  if (resourceResolver == null) {
+    resourceResolver=new PathMatchingResourcePatternResolver(localResourceLoader);
+  }
 }

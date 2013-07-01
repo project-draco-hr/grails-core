@@ -1,27 +1,7 @@
 {
   final DeclarationExpression declareCoExpression=new DeclarationExpression(new VariableExpression(paramName,commandObjectNode),Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression());
   wrapper.addStatement(new ExpressionStatement(declareCoExpression));
-  final BlockStatement intializeCommandObjectBlock=new BlockStatement();
-  final Statement instantiateCommandObjectStatement=getStatementToInstantiateCommandObject(commandObjectNode,paramName);
-  if (GrailsASTUtils.isDomainClass(commandObjectNode,source)) {
-    final Statement retrieveFromDatabaseExpression=creatStatementToRetrieveCommandObjectFromDatabase(commandObjectNode,paramName);
-    final BooleanExpression bindingMapContainsId=new BooleanExpression(new MethodCallExpression(BINDING_MAP_EXPRESSION,"containsKey",new ConstantExpression("id")));
-    final Statement initializeCommandObjectStatement=new IfStatement(bindingMapContainsId,retrieveFromDatabaseExpression,instantiateCommandObjectStatement);
-    intializeCommandObjectBlock.addStatement(initializeCommandObjectStatement);
-  }
- else {
-    intializeCommandObjectBlock.addStatement(instantiateCommandObjectStatement);
-  }
-  wrapper.addStatement(intializeCommandObjectBlock);
-  final ArgumentListExpression getCommandObjectBindingParamsArgs=new ArgumentListExpression();
-  getCommandObjectBindingParamsArgs.addExpression(new MethodCallExpression(new VariableExpression(paramName),"getClass",ZERO_ARGS));
-  getCommandObjectBindingParamsArgs.addExpression(BINDING_MAP_EXPRESSION);
-  final Expression invokeGetCommandObjectBindingParamsExpression=new StaticMethodCallExpression(new ClassNode(WebMetaUtils.class),"getCommandObjectBindingParams",getCommandObjectBindingParamsArgs);
-  final BlockStatement dataBindAndAutoWire=new BlockStatement();
-  final Expression doDatabinding=getExpressionToDoDataBinding(paramName,invokeGetCommandObjectBindingParamsExpression);
-  dataBindAndAutoWire.addStatement(new ExpressionStatement(doDatabinding));
-  final Statement autoWireCommandObjectStatement=getAutoWireCommandObjectStatement(paramName);
-  dataBindAndAutoWire.addStatement(autoWireCommandObjectStatement);
-  final Statement ifCommandObjectIsNotNull=new IfStatement(new BooleanExpression(new VariableExpression(paramName)),dataBindAndAutoWire,new ExpressionStatement(new EmptyExpression()));
-  wrapper.addStatement(ifCommandObjectIsNotNull);
+  final Expression initializeCommandObjectMethodCall=new MethodCallExpression(THIS_EXPRESSION,"initializeCommandObject",new ClassExpression(commandObjectNode));
+  final Expression assignCommandObjectToParameter=new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),initializeCommandObjectMethodCall);
+  wrapper.addStatement(new ExpressionStatement(assignCommandObjectToParameter));
 }

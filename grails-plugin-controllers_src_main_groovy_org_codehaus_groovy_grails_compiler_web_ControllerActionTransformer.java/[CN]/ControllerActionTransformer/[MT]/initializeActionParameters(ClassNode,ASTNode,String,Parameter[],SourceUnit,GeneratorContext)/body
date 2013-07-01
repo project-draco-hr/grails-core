@@ -7,9 +7,6 @@
   final Expression errorsAssignmentExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),mapBindingResultConstructorCallExpression);
   wrapper.addStatement(new ExpressionStatement(errorsAssignmentExpression));
   if (actionParameters != null) {
-    if (parametersContainAtLeastOneCommandObject(actionParameters)) {
-      initializeCommandObjectBindingMap(wrapper);
-    }
     for (    Parameter param : actionParameters) {
       initializeMethodParameter(classNode,wrapper,actionNode,actionName,param,source,context);
     }

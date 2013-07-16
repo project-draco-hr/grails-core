@@ -1,6 +1,8 @@
 {
   Object json=request.getAttribute(CACHED_JSON);
-  if (json != null)   return json;
+  if (json != null) {
+    return json;
+  }
   String encoding=request.getCharacterEncoding();
   if (encoding == null) {
     encoding=Converter.DEFAULT_REQUEST_ENCODING;

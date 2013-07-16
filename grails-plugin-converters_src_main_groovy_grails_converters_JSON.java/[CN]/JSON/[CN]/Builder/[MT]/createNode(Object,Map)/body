@@ -1,6 +1,8 @@
 {
   try {
-    if (stack.peek().equals(BuilderMode.OBJECT))     writer.key(String.valueOf(key));
+    if (stack.peek().equals(BuilderMode.OBJECT)) {
+      writer.key(String.valueOf(key));
+    }
     writer.object();
     for (    Object o : valueMap.entrySet()) {
       Map.Entry element=(Map.Entry)o;

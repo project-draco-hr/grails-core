@@ -1,5 +1,6 @@
 {
   config=ConvertersConfigurationHolder.getConverterConfiguration(XML.class);
   encoding=config.getEncoding() != null ? config.getEncoding() : "UTF-8";
+  contentType=MimeType.XML.getName();
   circularReferenceBehaviour=config.getCircularReferenceBehaviour();
 }

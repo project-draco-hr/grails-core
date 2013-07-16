@@ -1,6 +1,7 @@
 {
   config=initConfig();
   encoding=config != null ? config.getEncoding() : "UTF-8";
+  contentType=MimeType.JSON.getName();
   circularReferenceBehaviour=config != null ? config.getCircularReferenceBehaviour() : CircularReferenceBehaviour.DEFAULT;
   prettyPrint=config != null && config.isPrettyPrint();
 }

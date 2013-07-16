@@ -1,0 +1,13 @@
+{
+  DataBinder dataBinder=null;
+  if (grailsApplication != null) {
+    final ApplicationContext mainContext=grailsApplication.getMainContext();
+    if (mainContext != null && mainContext.containsBean(DATA_BINDER_BEAN_NAME)) {
+      dataBinder=mainContext.getBean(DATA_BINDER_BEAN_NAME,DataBinder.class);
+    }
+  }
+  if (dataBinder == null) {
+    dataBinder=new GrailsWebDataBinder(grailsApplication);
+  }
+  return dataBinder;
+}

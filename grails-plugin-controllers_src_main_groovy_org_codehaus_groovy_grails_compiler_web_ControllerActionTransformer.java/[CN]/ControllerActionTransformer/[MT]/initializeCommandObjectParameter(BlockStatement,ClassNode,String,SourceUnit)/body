@@ -12,6 +12,6 @@
   final ReturnStatement returnStatement=new ReturnStatement(new ExpressionStatement(new ConstantExpression(null)));
   catchBlock.addStatement(returnStatement);
   final TryCatchStatement tryCatchStatement=new TryCatchStatement(tryBlock,new EmptyStatement());
-  tryCatchStatement.addCatch(new CatchStatement(new Parameter(new ClassNode(DataBindingSourceInitializationException.class),"$dataBindingSourceInitializationException"),catchBlock));
+  tryCatchStatement.addCatch(new CatchStatement(new Parameter(new ClassNode(DataBindingSourceCreationException.class),"$dataBindingSourceInitializationException"),catchBlock));
   wrapper.addStatement(tryCatchStatement);
 }

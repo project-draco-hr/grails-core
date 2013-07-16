@@ -1,0 +1,3 @@
+{
+  return includeExcludeSupport.shouldInclude(includes,excludes,name) && shouldInclude(o,name);
+}

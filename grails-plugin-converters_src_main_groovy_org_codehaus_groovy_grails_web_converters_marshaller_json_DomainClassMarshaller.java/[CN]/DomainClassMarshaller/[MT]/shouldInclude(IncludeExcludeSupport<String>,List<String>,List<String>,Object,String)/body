@@ -1,0 +1,3 @@
+{
+  return includeExcludeSupport.shouldInclude(includes,excludes,propertyName) && shouldInclude(object,propertyName);
+}

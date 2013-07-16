@@ -1,20 +1,23 @@
 {
   Class clazz=value.getClass();
+  List<String> excludes=xml.getExcludes(clazz);
+  List<String> includes=xml.getIncludes(clazz);
+  IncludeExcludeSupport<String> includeExcludeSupport=new IncludeExcludeSupport<String>();
   GrailsDomainClass domainClass=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,ConverterUtil.trimProxySuffix(clazz.getName()));
   BeanWrapper beanWrapper=new BeanWrapperImpl(value);
   GrailsDomainClassProperty id=domainClass.getIdentifier();
-  if (shouldInclude(value,id.getName())) {
+  if (shouldInclude(includeExcludeSupport,includes,excludes,value,id.getName())) {
     Object idValue=beanWrapper.getPropertyValue(id.getName());
     if (idValue != null)     xml.attribute("id",String.valueOf(idValue));
   }
-  if (shouldInclude(value,GrailsDomainClassProperty.VERSION) && includeVersion) {
+  if (shouldInclude(includeExcludeSupport,includes,excludes,value,GrailsDomainClassProperty.VERSION) && includeVersion) {
     Object versionValue=beanWrapper.getPropertyValue(domainClass.getVersion().getName());
     xml.attribute("version",String.valueOf(versionValue));
   }
   GrailsDomainClassProperty[] properties=domainClass.getPersistentProperties();
   for (  GrailsDomainClassProperty property : properties) {
     String propertyName=property.getName();
-    if (!shouldInclude(value,property.getName()))     continue;
+    if (!shouldInclude(includeExcludeSupport,includes,excludes,value,property.getName()))     continue;
     xml.startNode(propertyName);
     if (!property.isAssociation()) {
       Object val=beanWrapper.getPropertyValue(propertyName);

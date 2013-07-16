@@ -1,9 +1,13 @@
 {
   try {
+    Class<? extends Object> clazz=o.getClass();
+    List<String> excludes=xml.getExcludes(clazz);
+    List<String> includes=xml.getIncludes(clazz);
+    IncludeExcludeSupport<String> includeExcludeSupport=new IncludeExcludeSupport<String>();
     boolean isEntity=o.getClass().getAnnotation(Entity.class) != null;
     for (    PropertyDescriptor property : BeanUtils.getPropertyDescriptors(o.getClass())) {
       String name=property.getName();
-      if (!shouldInclude(o,name))       continue;
+      if (!shouldInclude(includeExcludeSupport,includes,excludes,o,name))       continue;
       if (isEntity && (name.equals(GrailsDomainClassProperty.ATTACHED) || name.equals(GrailsDomainClassProperty.ERRORS)))       continue;
       Method readMethod=property.getReadMethod();
       if (readMethod != null && !(name.equals("metaClass")) && !(name.equals("class"))) {
@@ -19,6 +23,7 @@
       int modifiers=field.getModifiers();
       if (Modifier.isPublic(modifiers) && !(Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers))) {
         String name=field.getName();
+        if (!shouldInclude(includeExcludeSupport,includes,excludes,o,name))         continue;
         if (isEntity && (name.equals(GrailsDomainClassProperty.ATTACHED) || name.equals(GrailsDomainClassProperty.ERRORS)))         continue;
         xml.startNode(name);
         xml.convertAnother(field.get(o));

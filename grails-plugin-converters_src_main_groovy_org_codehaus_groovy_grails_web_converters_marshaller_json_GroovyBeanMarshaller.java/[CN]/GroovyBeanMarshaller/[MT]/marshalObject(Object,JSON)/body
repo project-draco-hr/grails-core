@@ -1,11 +1,15 @@
 {
   JSONWriter writer=json.getWriter();
+  Class<? extends Object> clazz=o.getClass();
+  List<String> excludes=json.getExcludes(clazz);
+  List<String> includes=json.getIncludes(clazz);
+  IncludeExcludeSupport<String> includeExcludeSupport=new IncludeExcludeSupport<String>();
   try {
     writer.object();
-    for (    PropertyDescriptor property : BeanUtils.getPropertyDescriptors(o.getClass())) {
+    for (    PropertyDescriptor property : BeanUtils.getPropertyDescriptors(clazz)) {
       Method readMethod=property.getReadMethod();
       String name=property.getName();
-      if (!shouldInclude(o,name))       continue;
+      if (!shouldInclude(includeExcludeSupport,includes,excludes,o,name))       continue;
       if (readMethod != null && !(name.equals("metaClass")) && !(name.equals("class"))) {
         if (readMethod.getAnnotation(PersistenceMethod.class) != null)         continue;
         if (readMethod.getAnnotation(ControllerMethod.class) != null)         continue;
@@ -14,10 +18,12 @@
         json.convertAnother(value);
       }
     }
-    for (    Field field : o.getClass().getDeclaredFields()) {
+    for (    Field field : clazz.getDeclaredFields()) {
       int modifiers=field.getModifiers();
       if (Modifier.isPublic(modifiers) && !(Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers))) {
-        writer.key(field.getName());
+        String name=field.getName();
+        if (!shouldInclude(includeExcludeSupport,includes,excludes,o,name))         continue;
+        writer.key(name);
         json.convertAnother(field.get(o));
       }
     }
@@ -27,6 +33,6 @@
     throw ce;
   }
 catch (  Exception e) {
-    throw new ConverterException("Error converting Bean with class " + o.getClass().getName(),e);
+    throw new ConverterException("Error converting Bean with class " + clazz.getName(),e);
   }
 }

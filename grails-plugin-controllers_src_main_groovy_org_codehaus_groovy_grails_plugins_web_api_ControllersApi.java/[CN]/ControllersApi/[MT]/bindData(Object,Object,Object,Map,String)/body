@@ -1,6 +1,6 @@
 {
   List include=convertToListIfString(includeExclude.get(INCLUDE_MAP_KEY));
   List exclude=convertToListIfString(includeExclude.get(EXCLUDE_MAP_KEY));
-  DataBindingUtils.bindObjectToInstance(target,args,include,exclude,filter);
+  DataBindingUtils.bindObjectToInstance(target,bindingSource,include,exclude,filter);
   return target;
 }

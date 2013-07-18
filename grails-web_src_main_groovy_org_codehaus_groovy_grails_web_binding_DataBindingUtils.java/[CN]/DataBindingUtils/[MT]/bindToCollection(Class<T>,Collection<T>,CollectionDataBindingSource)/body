@@ -1,0 +1,13 @@
+{
+  final GrailsApplication application=GrailsWebRequest.lookupApplication();
+  GrailsDomainClass domain=null;
+  if (application != null) {
+    domain=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,targetType.getName());
+  }
+  final List<DataBindingSource> dataBindingSources=collectionBindingSource.getDataBindingSources();
+  for (  final DataBindingSource dataBindingSource : dataBindingSources) {
+    final T newObject=targetType.newInstance();
+    bindObjectToDomainInstance(domain,newObject,dataBindingSource,getBindingIncludeList(newObject),Collections.EMPTY_LIST,null);
+    collectionToPopulate.add(newObject);
+  }
+}

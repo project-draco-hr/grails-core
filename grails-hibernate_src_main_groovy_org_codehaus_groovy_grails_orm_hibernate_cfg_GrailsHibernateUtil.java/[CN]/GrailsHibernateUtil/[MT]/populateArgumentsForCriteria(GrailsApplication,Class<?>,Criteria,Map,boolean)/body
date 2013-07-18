@@ -1,0 +1,68 @@
+{
+  Integer maxParam=null;
+  Integer offsetParam=null;
+  SimpleTypeConverter converter=new SimpleTypeConverter();
+  if (argMap.containsKey(ARGUMENT_MAX)) {
+    maxParam=converter.convertIfNecessary(argMap.get(ARGUMENT_MAX),Integer.class);
+  }
+  if (argMap.containsKey(ARGUMENT_OFFSET)) {
+    offsetParam=converter.convertIfNecessary(argMap.get(ARGUMENT_OFFSET),Integer.class);
+  }
+  if (argMap.containsKey(ARGUMENT_FETCH_SIZE)) {
+    c.setFetchSize(converter.convertIfNecessary(argMap.get(ARGUMENT_FETCH_SIZE),Integer.class));
+  }
+  if (argMap.containsKey(ARGUMENT_TIMEOUT)) {
+    c.setTimeout(converter.convertIfNecessary(argMap.get(ARGUMENT_TIMEOUT),Integer.class));
+  }
+  if (argMap.containsKey(ARGUMENT_FLUSH_MODE)) {
+    c.setFlushMode(converter.convertIfNecessary(argMap.get(ARGUMENT_FLUSH_MODE),FlushMode.class));
+  }
+  if (argMap.containsKey(ARGUMENT_READ_ONLY)) {
+    c.setReadOnly(GrailsClassUtils.getBooleanFromMap(ARGUMENT_READ_ONLY,argMap));
+  }
+  String orderParam=(String)argMap.get(ARGUMENT_ORDER);
+  Object fetchObj=argMap.get(ARGUMENT_FETCH);
+  if (fetchObj instanceof Map) {
+    Map fetch=(Map)fetchObj;
+    for (    Object o : fetch.keySet()) {
+      String associationName=(String)o;
+      c.setFetchMode(associationName,getFetchMode(fetch.get(associationName)));
+    }
+  }
+  final String sort=(String)argMap.get(ARGUMENT_SORT);
+  final String order=ORDER_DESC.equalsIgnoreCase(orderParam) ? ORDER_DESC : ORDER_ASC;
+  final int max=maxParam == null ? -1 : maxParam;
+  final int offset=offsetParam == null ? -1 : offsetParam;
+  if (max > -1) {
+    c.setMaxResults(max);
+  }
+  if (offset > -1) {
+    c.setFirstResult(offset);
+  }
+  if (GrailsClassUtils.getBooleanFromMap(ARGUMENT_LOCK,argMap)) {
+    c.setLockMode(LockMode.PESSIMISTIC_WRITE);
+    c.setCacheable(false);
+  }
+ else {
+    if (argMap.containsKey(ARGUMENT_CACHE)) {
+      c.setCacheable(GrailsClassUtils.getBooleanFromMap(ARGUMENT_CACHE,argMap));
+    }
+ else {
+      cacheCriteriaByMapping(targetClass,c);
+    }
+  }
+  if (sort != null) {
+    boolean ignoreCase=true;
+    Object caseArg=argMap.get(ARGUMENT_IGNORE_CASE);
+    if (caseArg instanceof Boolean) {
+      ignoreCase=(Boolean)caseArg;
+    }
+    addOrderPossiblyNested(grailsApplication,c,targetClass,sort,order,ignoreCase);
+  }
+ else   if (includeDefaultMapping) {
+    Mapping m=GrailsDomainBinder.getMapping(targetClass);
+    if (m != null && !StringUtils.isBlank(m.getSort())) {
+      addOrderPossiblyNested(grailsApplication,c,targetClass,m.getSort(),m.getOrder(),true);
+    }
+  }
+}

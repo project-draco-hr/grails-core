@@ -1,5 +1,5 @@
 {
   final DataBindingSourceRegistry registry=getDataBindingSourceRegistry(grailsApplication);
   final MimeType mimeType=getMimeType(grailsApplication,bindingSource);
-  return registry.createDataBindingSource(mimeType,bindingTargetType,bindingSource);
+  return registry.createCollectionDataBindingSource(mimeType,bindingTargetType,bindingSource);
 }

@@ -1,9 +1,8 @@
 {
-  Assert.notNull(collectionToPopulate,"The 2nd argument to the bindData method must not be null");
   final List<DataBindingSource> dataBindingSources=collectionBindingSource.getDataBindingSources();
-  for (  DataBindingSource bindingSource : dataBindingSources) {
+  for (  DataBindingSource dataBindingSource : dataBindingSources) {
     T newObject=targetType.newInstance();
-    bindData(instance,newObject,bindingSource);
+    bindData(instance,newObject,dataBindingSource,Collections.EMPTY_MAP,null);
     collectionToPopulate.add(newObject);
   }
 }

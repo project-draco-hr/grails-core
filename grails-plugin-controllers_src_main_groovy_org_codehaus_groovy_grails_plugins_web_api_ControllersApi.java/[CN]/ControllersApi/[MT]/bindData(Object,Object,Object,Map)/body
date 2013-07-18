@@ -1,3 +1,3 @@
 {
-  return invokeBindData(instance,target,args,includeExclude);
+  return bindData(instance,target,args,includeExclude,null);
 }

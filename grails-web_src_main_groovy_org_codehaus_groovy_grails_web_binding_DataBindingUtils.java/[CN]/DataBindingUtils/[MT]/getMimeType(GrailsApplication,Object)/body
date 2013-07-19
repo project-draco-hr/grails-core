@@ -1,0 +1,4 @@
+{
+  final MimeTypeResolver mimeTypeResolver=getMimeTypeResolver(grailsApplication);
+  return resolveMimeType(bindingSource,mimeTypeResolver);
+}

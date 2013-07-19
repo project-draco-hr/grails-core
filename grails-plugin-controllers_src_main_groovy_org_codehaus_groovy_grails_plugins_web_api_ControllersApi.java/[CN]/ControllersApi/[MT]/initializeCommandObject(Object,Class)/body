@@ -28,7 +28,7 @@ default :
 shouldDoDataBinding=true;
 }
 if (shouldDoDataBinding) {
-bindData(controllerInstance,commandObjectInstance,commandObjectBindingSource);
+bindData(controllerInstance,commandObjectInstance,commandObjectBindingSource,Collections.EMPTY_MAP,null);
 }
 final ApplicationContext applicationContext=getApplicationContext(controllerInstance);
 final AutowireCapableBeanFactory autowireCapableBeanFactory=applicationContext.getAutowireCapableBeanFactory();

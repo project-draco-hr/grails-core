@@ -1,0 +1,12 @@
+{
+  MimeTypeResolver mimeTypeResolver=null;
+  if (grailsApplication != null) {
+    ApplicationContext context=grailsApplication.getMainContext();
+    if (context != null) {
+      if (context.containsBean(MimeTypeResolver.BEAN_NAME)) {
+        mimeTypeResolver=context.getBean(MimeTypeResolver.BEAN_NAME,MimeTypeResolver.class);
+      }
+    }
+  }
+  return mimeTypeResolver;
+}

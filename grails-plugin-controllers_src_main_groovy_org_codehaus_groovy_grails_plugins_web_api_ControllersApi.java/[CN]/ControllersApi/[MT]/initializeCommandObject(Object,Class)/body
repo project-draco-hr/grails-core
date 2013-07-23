@@ -23,6 +23,7 @@
     if (queryWasUsedToRetrieveDomainObject) {
       final HttpMethod requestMethod=HttpMethod.valueOf(request.getMethod());
 switch (requestMethod) {
+case PATCH:
 case POST:
 case PUT:
         shouldDoDataBinding=true;

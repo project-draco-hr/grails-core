@@ -7,6 +7,7 @@
     actionName=actionRef.toString();
   }
  else   if (actionRef instanceof Closure) {
+    GrailsUtil.deprecated("Using a closure reference in the 'action' argument of the 'redirect' method is deprecated. Please change to use a String.");
     actionName=GrailsClassUtils.findPropertyNameForValue(target,actionRef);
   }
   return actionName;

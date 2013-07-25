@@ -23,6 +23,7 @@
         Object namespace;
         Object viewName;
         Object uri;
+        Object redirectInfo=null;
         if (binding != null) {
           controllerName=variables.get(GrailsControllerClass.CONTROLLER);
           actionName=variables.get(GrailsControllerClass.ACTION);
@@ -36,6 +37,7 @@
         }
  else {
           controllerName=this.controllerName;
+          redirectInfo=this.redirectInfo;
           actionName=this.actionName;
           pluginName=this.pluginName;
           namespace=this.namespace;
@@ -54,7 +56,7 @@
           }
         }
  else {
-          urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints);
+          urlMapping=createURLMapping(urlData,isResponseCode,redirectInfo,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints);
         }
         if (binding != null) {
           Map bindingVariables=variables;
@@ -117,6 +119,7 @@
       }
  else {
         controllerName=null;
+        redirectInfo=null;
         actionName=null;
         viewName=null;
         pluginName=null;

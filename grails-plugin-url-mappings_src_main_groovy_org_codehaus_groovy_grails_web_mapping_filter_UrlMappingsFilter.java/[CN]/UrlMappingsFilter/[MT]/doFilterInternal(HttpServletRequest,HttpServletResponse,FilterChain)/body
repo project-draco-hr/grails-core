@@ -22,6 +22,21 @@
   try {
     for (    UrlMappingInfo info : urlInfos) {
       if (info != null) {
+        Object redirectInfo=info.getRedirectInfo();
+        if (redirectInfo != null) {
+          final Map redirectArgs;
+          if (redirectInfo instanceof Map) {
+            redirectArgs=(Map)redirectInfo;
+          }
+ else {
+            redirectArgs=CollectionUtils.newMap("uri",redirectInfo);
+          }
+          GrailsParameterMap params=webRequest.getParams();
+          redirectArgs.put("params",params);
+          redirectDynamicMethod.invoke(this,"redirect",new Object[]{redirectArgs});
+          dispatched=true;
+          break;
+        }
         webRequest.resetParams();
         final String viewName;
         try {

@@ -16,23 +16,25 @@
   if (response.isCommitted()) {
     throw new CannotRedirectException("Cannot issue a redirect(..) here. The response has already been committed either by another redirect or by directly writing to the response.");
   }
-  GroovyObject controller=(GroovyObject)target;
-  Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
-  Errors errors=(Errors)argMap.get(ARGUMENT_ERRORS);
-  if (controllerErrors != null && errors != null) {
-    controllerErrors.addAllErrors(errors);
-  }
+  if (target instanceof GroovyObject) {
+    GroovyObject controller=(GroovyObject)target;
+    Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
+    Errors errors=(Errors)argMap.get(ARGUMENT_ERRORS);
+    if (controllerErrors != null && errors != null) {
+      controllerErrors.addAllErrors(errors);
+    }
  else {
-    controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+      controller.setProperty(ControllerDynamicMethods.ERRORS_PROPERTY,errors);
+    }
+    Object action=argMap.get(GrailsControllerClass.ACTION);
+    if (action != null) {
+      argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
+    }
+    if (!argMap.containsKey(GrailsControllerClass.NAMESPACE_PROPERTY)) {
+      argMap.put(GrailsControllerClass.NAMESPACE_PROPERTY,GrailsClassUtils.getStaticFieldValue(controller.getClass(),GrailsControllerClass.NAMESPACE_PROPERTY));
+    }
   }
   boolean permanent=DefaultGroovyMethods.asBoolean(argMap.get(ARGUMENT_PERMANENT));
-  Object action=argMap.get(GrailsControllerClass.ACTION);
-  if (action != null) {
-    argMap.put(GrailsControllerClass.ACTION,establishActionName(action,controller));
-  }
   argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
-  if (!argMap.containsKey(GrailsControllerClass.NAMESPACE_PROPERTY)) {
-    argMap.put(GrailsControllerClass.NAMESPACE_PROPERTY,GrailsClassUtils.getStaticFieldValue(controller.getClass(),GrailsControllerClass.NAMESPACE_PROPERTY));
-  }
   return redirectResponse(requestLinkGenerator.getServerBaseURL(),requestLinkGenerator.link(argMap),request,response,permanent);
 }

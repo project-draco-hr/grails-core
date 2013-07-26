@@ -8,6 +8,7 @@
   Object httpMethod=getHttpMethod(namedArguments,bindingVariables);
   Object version=getVersion(namedArguments,bindingVariables);
   Object namespace=getNamespace(namedArguments,bindingVariables);
+  Object redirectInfo=getRedirectInfo(namedArguments,bindingVariables);
   Object viewName=getViewName(namedArguments,bindingVariables);
   if (actionName != null && viewName != null) {
     viewName=null;
@@ -25,7 +26,7 @@
     }
   }
  else {
-    urlMapping=createURLMapping(urlData,isResponseCode,controllerName,actionName,namespace,pluginName,viewName,httpMethod != null ? httpMethod.toString() : null,version != null ? version.toString() : null,constraints);
+    urlMapping=createURLMapping(urlData,isResponseCode,redirectInfo,controllerName,actionName,namespace,pluginName,viewName,httpMethod != null ? httpMethod.toString() : null,version != null ? version.toString() : null,constraints);
   }
   Object exceptionArg=getException(namedArguments,bindingVariables);
   if (isResponseCode && exceptionArg != null) {

@@ -61,7 +61,7 @@
         }
  else {
           GrailsDomainClass referencedDomainClass=property.getReferencedDomainClass();
-          if (referencedDomainClass == null || property.isEmbedded() || GrailsClassUtils.isJdk5Enum(property.getType())) {
+          if (referencedDomainClass == null || property.isEmbedded() || property.getType().isEnum()) {
             json.convertAnother(referenceObject);
           }
  else           if (property.isOneToOne() || property.isManyToOne() || property.isEmbedded()) {

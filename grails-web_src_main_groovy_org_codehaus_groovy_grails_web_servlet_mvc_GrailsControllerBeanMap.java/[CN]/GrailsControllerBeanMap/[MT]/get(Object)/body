@@ -1,7 +1,0 @@
-{
-  Method method=getReadMethod(name);
-  if (method.getAnnotation(Action.class) == null) {
-    return super.get(name);
-  }
-  return null;
-}

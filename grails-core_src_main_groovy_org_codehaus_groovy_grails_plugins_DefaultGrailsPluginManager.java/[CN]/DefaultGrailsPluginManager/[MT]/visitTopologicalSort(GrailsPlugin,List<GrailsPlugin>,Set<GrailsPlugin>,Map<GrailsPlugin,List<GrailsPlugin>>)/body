@@ -1,0 +1,12 @@
+{
+  if (plugin != null && !visitedPlugins.contains(plugin)) {
+    visitedPlugins.add(plugin);
+    List<GrailsPlugin> loadDepsForPlugin=loadOrderDependencies.get(plugin);
+    if (loadDepsForPlugin != null) {
+      for (      GrailsPlugin dependentPlugin : loadDepsForPlugin) {
+        visitTopologicalSort(dependentPlugin,sortedPlugins,visitedPlugins,loadOrderDependencies);
+      }
+    }
+    sortedPlugins.add(plugin);
+  }
+}

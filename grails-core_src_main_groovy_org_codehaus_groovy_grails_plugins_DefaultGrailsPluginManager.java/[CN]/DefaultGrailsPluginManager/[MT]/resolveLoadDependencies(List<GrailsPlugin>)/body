@@ -1,0 +1,30 @@
+{
+  Map<GrailsPlugin,List<GrailsPlugin>> loadOrderDependencies=new HashMap<GrailsPlugin,List<GrailsPlugin>>();
+  for (  GrailsPlugin plugin : plugins) {
+    if (plugin.getLoadAfterNames() != null) {
+      List<GrailsPlugin> loadDepsForPlugin=loadOrderDependencies.get(plugin);
+      if (loadDepsForPlugin == null) {
+        loadDepsForPlugin=new ArrayList<GrailsPlugin>();
+        loadOrderDependencies.put(plugin,loadDepsForPlugin);
+      }
+      for (      String pluginName : plugin.getLoadAfterNames()) {
+        GrailsPlugin loadAfterPlugin=getGrailsPlugin(pluginName);
+        if (loadAfterPlugin != null) {
+          loadDepsForPlugin.add(loadAfterPlugin);
+        }
+      }
+    }
+    for (    String loadBefore : plugin.getLoadBeforeNames()) {
+      GrailsPlugin loadBeforePlugin=getGrailsPlugin(loadBefore);
+      if (loadBeforePlugin != null) {
+        List<GrailsPlugin> loadDepsForPlugin=loadOrderDependencies.get(loadBeforePlugin);
+        if (loadDepsForPlugin == null) {
+          loadDepsForPlugin=new ArrayList<GrailsPlugin>();
+          loadOrderDependencies.put(loadBeforePlugin,loadDepsForPlugin);
+        }
+        loadDepsForPlugin.add(plugin);
+      }
+    }
+  }
+  return loadOrderDependencies;
+}

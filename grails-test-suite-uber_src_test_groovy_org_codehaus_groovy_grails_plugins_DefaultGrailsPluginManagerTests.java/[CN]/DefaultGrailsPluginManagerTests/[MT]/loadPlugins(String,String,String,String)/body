@@ -1,0 +1,15 @@
+{
+  GroovyClassLoader gcl=new GroovyClassLoader();
+  first=gcl.parseClass(firstClassString);
+  second=gcl.parseClass(secondClassString);
+  third=gcl.parseClass(thirdClassString);
+  fourth=gcl.parseClass(fourthClassString);
+  GrailsApplication app=new DefaultGrailsApplication(new Class[]{},gcl);
+  MockApplicationContext parent=new MockApplicationContext();
+  parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
+  DefaultGrailsPluginManager manager=new DefaultGrailsPluginManager(new Class[]{first,second,third,fourth},app);
+  manager.setParentApplicationContext(parent);
+  manager.setPluginFilter(new IncludingPluginFilter(new String[]{"first","second","third","fourth"}));
+  manager.loadPlugins();
+  return manager;
+}

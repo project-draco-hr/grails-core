@@ -3,7 +3,7 @@
   try {
     System.setProperty("disable.grails.plugin.transform","true");
     console.updateStatus("Loading Grails " + settings.getGrailsVersion());
-    settings.loadConfig();
+    loadConfigEnvironment(commandLine,settings);
     settings.initializeResourcesDir();
     System.setProperty("springloaded.directoriesContainingReloadableCode",settings.getClassesDir().getAbsolutePath() + ',' + settings.getPluginClassesDir().getAbsolutePath());
   }

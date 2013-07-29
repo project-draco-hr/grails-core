@@ -1,20 +1,5 @@
 {
-  DataBindingSourceRegistry registry=null;
-  MimeTypeResolver mimeTypeResolver=null;
-  if (grailsApplication != null) {
-    ApplicationContext context=grailsApplication.getMainContext();
-    if (context != null) {
-      if (context.containsBean(DataBindingSourceRegistry.BEAN_NAME)) {
-        registry=context.getBean(DataBindingSourceRegistry.BEAN_NAME,DataBindingSourceRegistry.class);
-      }
-      if (context.containsBean(MimeTypeResolver.BEAN_NAME)) {
-        mimeTypeResolver=context.getBean(MimeTypeResolver.BEAN_NAME,MimeTypeResolver.class);
-      }
-    }
-  }
-  if (registry == null) {
-    registry=new DefaultDataBindingSourceRegistry();
-  }
-  final MimeType mimeType=resolveMimeType(bindingSource,mimeTypeResolver);
+  final DataBindingSourceRegistry registry=getDataBindingSourceRegistry(grailsApplication);
+  final MimeType mimeType=getMimeType(grailsApplication,bindingSource);
   return registry.createDataBindingSource(mimeType,bindingTargetType,bindingSource);
 }

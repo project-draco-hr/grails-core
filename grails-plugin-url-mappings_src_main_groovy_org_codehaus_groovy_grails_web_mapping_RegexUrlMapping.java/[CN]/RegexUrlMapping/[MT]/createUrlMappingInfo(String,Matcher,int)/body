@@ -45,6 +45,9 @@
   if (viewName == null) {
     viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);
   }
+  if (redirectInfo == null) {
+    redirectInfo=createRuntimeConstraintEvaluator("redirect",constraints);
+  }
   DefaultUrlMappingInfo info;
   if (forwardURI != null && controllerName == null) {
     info=new DefaultUrlMappingInfo(forwardURI,getHttpMethod(),urlData,servletContext);
@@ -53,7 +56,7 @@
     info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
   }
  else {
-    info=new DefaultUrlMappingInfo(controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(redirectInfo,controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,servletContext);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

@@ -1,24 +1,9 @@
 {
-  List<GrailsPlugin> newList=new ArrayList<GrailsPlugin>(toSort);
+  List<GrailsPlugin> sortedPlugins=new ArrayList<GrailsPlugin>(toSort.size());
+  Set<GrailsPlugin> visitedPlugins=new HashSet<GrailsPlugin>();
+  Map<GrailsPlugin,List<GrailsPlugin>> loadOrderDependencies=resolveLoadDependencies(toSort);
   for (  GrailsPlugin plugin : toSort) {
-    int i=newList.indexOf(plugin);
-    for (    String loadBefore : plugin.getLoadBeforeNames()) {
-      final GrailsPlugin loadBeforePlugin=getGrailsPlugin(loadBefore);
-      int j=newList.indexOf(loadBeforePlugin);
-      if (j > -1 && i > j) {
-        newList.remove(plugin);
-        newList.add(j,plugin);
-      }
-    }
-    i=newList.indexOf(plugin);
-    for (    String loadAfter : plugin.getLoadAfterNames()) {
-      final GrailsPlugin loadAfterPlugin=getGrailsPlugin(loadAfter);
-      int j=newList.indexOf(loadAfterPlugin);
-      if (j > -1 && i < j) {
-        newList.remove(plugin);
-        newList.add(j,plugin);
-      }
-    }
+    visitTopologicalSort(plugin,sortedPlugins,visitedPlugins,loadOrderDependencies);
   }
-  return newList;
+  return sortedPlugins;
 }

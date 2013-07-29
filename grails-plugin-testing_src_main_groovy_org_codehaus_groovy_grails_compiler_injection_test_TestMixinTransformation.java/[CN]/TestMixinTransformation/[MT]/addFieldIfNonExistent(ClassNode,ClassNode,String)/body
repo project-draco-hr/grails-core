@@ -1,0 +1,13 @@
+{
+  ClassNode targetAwareInterface=GrailsASTUtils.findInterface(fieldType,new ClassNode(TestMixinTargetAware.class).getPlainNodeReference());
+  if (classNode != null && classNode.getField(fieldName) == null) {
+    Expression constructorArgument=new ArgumentListExpression();
+    if (targetAwareInterface != null) {
+      MapExpression namedArguments=new MapExpression();
+      namedArguments.addMapEntryExpression(new MapEntryExpression(new ConstantExpression("target"),THIS_EXPRESSION));
+      constructorArgument=namedArguments;
+    }
+    return classNode.addField(fieldName,Modifier.PRIVATE,fieldType,new ConstructorCallExpression(fieldType,constructorArgument));
+  }
+  return null;
+}

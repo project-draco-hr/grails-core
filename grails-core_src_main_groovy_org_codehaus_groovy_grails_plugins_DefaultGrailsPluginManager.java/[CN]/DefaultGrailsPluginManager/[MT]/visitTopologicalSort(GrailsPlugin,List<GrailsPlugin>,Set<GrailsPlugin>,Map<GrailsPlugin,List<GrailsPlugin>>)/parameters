@@ -1,0 +1,4 @@
+GrailsPlugin plugin
+List<GrailsPlugin> sortedPlugins
+Set<GrailsPlugin> visitedPlugins
+Map<GrailsPlugin,List<GrailsPlugin>> loadOrderDependencies

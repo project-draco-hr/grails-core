@@ -7,7 +7,7 @@
     uri=uri.substring(0,uri.length() - 1);
   }
   GrailsControllerClass controllerClass=null;
-  if (!WebUtils.isIncludeRequest(request)) {
+  if (!WebUtils.isIncludeRequest(request) && request.getAttribute(FORWARD_IN_PROGRESS) == null) {
     Object attribute=grailsWebRequest.getAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS,WebRequest.SCOPE_REQUEST);
     if (attribute instanceof GrailsControllerClass) {
       controllerClass=(GrailsControllerClass)attribute;

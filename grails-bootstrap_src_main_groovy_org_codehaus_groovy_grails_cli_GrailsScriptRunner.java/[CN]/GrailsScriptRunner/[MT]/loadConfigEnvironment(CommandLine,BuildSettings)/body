@@ -1,0 +1,11 @@
+{
+  String env;
+  if (commandLine.isEnvironmentSet()) {
+    env=commandLine.getEnvironment();
+  }
+ else {
+    env=commandLine.lookupEnvironmentForCommand();
+  }
+  build.setGrailsEnv(env);
+  build.loadConfig(env);
+}

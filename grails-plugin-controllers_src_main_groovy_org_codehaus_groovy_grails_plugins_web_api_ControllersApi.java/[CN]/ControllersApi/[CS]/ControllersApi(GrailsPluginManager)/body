@@ -2,7 +2,6 @@
   super(pluginManager);
   redirect=new RedirectDynamicMethod();
   render=new RenderDynamicMethod();
-  bind=new BindDynamicMethod();
   withFormMethod=new WithFormMethod();
   forwardMethod=new ForwardMethod();
 }

@@ -1,6 +1,0 @@
-{
-  if (!isResponseCode) {
-    return new RegexUrlMapping(urlData,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints,sc);
-  }
-  return new ResponseCodeUrlMapping(urlData,controllerName,actionName,namespace,pluginName,viewName,null,sc);
-}

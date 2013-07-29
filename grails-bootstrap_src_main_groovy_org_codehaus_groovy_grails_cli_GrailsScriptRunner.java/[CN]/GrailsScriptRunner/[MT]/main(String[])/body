@@ -74,7 +74,7 @@
   if (script.name == null) {
     String version=System.getProperty("grails.version");
     console.updateStatus("Loading Grails " + (version == null ? build.getGrailsVersion() : version));
-    build.loadConfig();
+    loadConfigEnvironment(commandLine,build);
     if (resolveDeps) {
       ClasspathConfigurer.cleanResolveCache(build);
     }

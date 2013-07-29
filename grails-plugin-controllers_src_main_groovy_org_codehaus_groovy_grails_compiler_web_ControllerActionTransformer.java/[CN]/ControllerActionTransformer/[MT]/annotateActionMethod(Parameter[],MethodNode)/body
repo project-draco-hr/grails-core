@@ -11,4 +11,5 @@
  else {
     methodNode.addAnnotation(ACTION_ANNOTATION_NODE);
   }
+  wrapMethodBodyWithExceptionHandling(methodNode);
 }

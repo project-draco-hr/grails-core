@@ -1,0 +1,31 @@
+{
+  final Map<ClassNode,MethodNode> exceptionTypeToHandlerMethodMap=new HashMap<ClassNode,MethodNode>();
+  final List<MethodNode> methods=classNode.getMethods();
+  for (  MethodNode methodNode : methods) {
+    if (isExceptionHandlingMethod(methodNode)) {
+      final Parameter exceptionParameter=methodNode.getParameters()[0];
+      final ClassNode exceptionType=exceptionParameter.getType();
+      if (!exceptionTypeToHandlerMethodMap.containsKey(exceptionType)) {
+        exceptionTypeToHandlerMethodMap.put(exceptionType,methodNode);
+      }
+ else {
+        final MethodNode otherHandlerMethod=exceptionTypeToHandlerMethodMap.get(exceptionType);
+        final String message="A controller may not define more than 1 exception handler for a particular exception type.  [%s] defines the [%s] and [%s] exception handlers which each accept a [%s] which is not allowed.";
+        final String formattedMessage=String.format(message,classNode.getName(),otherHandlerMethod.getName(),methodNode.getName(),exceptionType.getName());
+        GrailsASTUtils.error(sourceUnit,methodNode,formattedMessage);
+      }
+    }
+  }
+  final ClassNode superClass=classNode.getSuperClass();
+  if (!superClass.equals(OBJECT_CLASS)) {
+    final Collection<MethodNode> superClassMethods=getExceptionHandlerMethods(superClass,sourceUnit);
+    for (    MethodNode superClassMethod : superClassMethods) {
+      final Parameter exceptionParameter=superClassMethod.getParameters()[0];
+      final ClassNode exceptionType=exceptionParameter.getType();
+      if (!exceptionTypeToHandlerMethodMap.containsKey(exceptionType)) {
+        exceptionTypeToHandlerMethodMap.put(exceptionType,superClassMethod);
+      }
+    }
+  }
+  return exceptionTypeToHandlerMethodMap.values();
+}

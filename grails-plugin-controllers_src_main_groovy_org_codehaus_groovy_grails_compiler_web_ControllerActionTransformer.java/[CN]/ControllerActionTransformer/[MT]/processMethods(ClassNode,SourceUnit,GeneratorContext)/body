@@ -1,0 +1,42 @@
+{
+  List<MethodNode> deferredNewMethods=new ArrayList<MethodNode>();
+  for (  MethodNode method : classNode.getMethods()) {
+    if (!method.isStatic() && method.isPublic() && method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty()&& method.getLineNumber() >= 0) {
+      if (method.getReturnType().getName().equals(VOID_TYPE) || isExceptionHandlingMethod(method))       continue;
+      final List<MethodNode> declaredMethodsWithThisName=classNode.getDeclaredMethods(method.getName());
+      if (declaredMethodsWithThisName != null) {
+        final int numberOfNonExceptionHandlerMethodsWithThisName=org.apache.commons.collections.CollectionUtils.countMatches(declaredMethodsWithThisName,new Predicate(){
+          public boolean evaluate(          Object object){
+            return !isExceptionHandlingMethod((MethodNode)object);
+          }
+        }
+);
+        if (numberOfNonExceptionHandlerMethodsWithThisName > 1) {
+          String message="Controller actions may not be overloaded.  The [" + method.getName() + "] action has been overloaded in ["+ classNode.getName()+ "].";
+          GrailsASTUtils.error(source,method,message);
+        }
+      }
+      MethodNode wrapperMethod=convertToMethodAction(classNode,method,source,context);
+      if (wrapperMethod != null) {
+        deferredNewMethods.add(wrapperMethod);
+      }
+    }
+  }
+  Collection<MethodNode> exceptionHandlerMethods=getExceptionHandlerMethods(classNode,source);
+  final FieldNode exceptionHandlerMetaDataField=classNode.getField(EXCEPTION_HANDLER_META_DATA_FIELD_NAME);
+  if (exceptionHandlerMetaDataField == null || !exceptionHandlerMetaDataField.getDeclaringClass().equals(classNode)) {
+    final ListExpression listOfExceptionHandlerMetaData=new ListExpression();
+    for (    final MethodNode exceptionHandlerMethod : exceptionHandlerMethods) {
+      final Class<?> exceptionHandlerExceptionType=exceptionHandlerMethod.getParameters()[0].getType().getPlainNodeReference().getTypeClass();
+      final String exceptionHandlerMethodName=exceptionHandlerMethod.getName();
+      final ArgumentListExpression defaultControllerExceptionHandlerMetaDataCtorArgs=new ArgumentListExpression();
+      defaultControllerExceptionHandlerMetaDataCtorArgs.addExpression(new ConstantExpression(exceptionHandlerMethodName));
+      defaultControllerExceptionHandlerMetaDataCtorArgs.addExpression(new ClassExpression(new ClassNode(exceptionHandlerExceptionType)));
+      listOfExceptionHandlerMetaData.addExpression(new ConstructorCallExpression(new ClassNode(DefaultControllerExceptionHandlerMetaData.class),defaultControllerExceptionHandlerMetaDataCtorArgs));
+    }
+    classNode.addField(EXCEPTION_HANDLER_META_DATA_FIELD_NAME,Modifier.STATIC | Modifier.PRIVATE | Modifier.FINAL,new ClassNode(List.class),listOfExceptionHandlerMetaData);
+  }
+  for (  MethodNode newMethod : deferredNewMethods) {
+    classNode.addMethod(newMethod);
+  }
+}

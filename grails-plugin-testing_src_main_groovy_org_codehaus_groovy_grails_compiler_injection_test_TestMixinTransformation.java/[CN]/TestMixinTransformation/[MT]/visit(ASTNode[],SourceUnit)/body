@@ -3,17 +3,11 @@
     throw new RuntimeException("Internal error: wrong types: $node.class / $parent.class");
   }
   AnnotatedNode parent=(AnnotatedNode)astNodes[1];
-  AnnotationNode node=(AnnotationNode)astNodes[0];
-  if (!MY_TYPE.equals(node.getClassNode()) || !(parent instanceof ClassNode)) {
+  AnnotationNode annotationNode=(AnnotationNode)astNodes[0];
+  if (!MY_TYPE.equals(annotationNode.getClassNode()) || !(parent instanceof ClassNode)) {
     return;
   }
   ClassNode classNode=(ClassNode)parent;
-  String cName=classNode.getName();
-  if (classNode.isInterface()) {
-    throw new RuntimeException("Error processing interface '" + cName + "'. "+ MY_TYPE_NAME+ " not allowed for interfaces.");
-  }
-  autoAnnotateSetupTeardown(classNode);
-  autoAddTestAnnotation(classNode);
-  ListExpression values=getListOfClasses(node);
-  weaveMixinsIntoClass(classNode,values);
+  ListExpression values=getListOfClasses(annotationNode);
+  weaveTestMixins(classNode,values);
 }

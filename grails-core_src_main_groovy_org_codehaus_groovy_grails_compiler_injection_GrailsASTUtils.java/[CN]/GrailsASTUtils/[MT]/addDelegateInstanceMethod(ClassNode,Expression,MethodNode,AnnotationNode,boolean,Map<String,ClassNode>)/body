@@ -1,7 +1,7 @@
 {
   Parameter[] parameterTypes=thisAsFirstArgument ? getRemainingParameterTypes(declaredMethod.getParameters()) : declaredMethod.getParameters();
   String methodName=declaredMethod.getName();
-  if (classNode.hasDeclaredMethod(methodName,parameterTypes)) {
+  if (classNode.hasDeclaredMethod(methodName,copyParameters(parameterTypes,genericsPlaceholders))) {
     return null;
   }
   String propertyName=GrailsClassUtils.getPropertyForGetter(methodName);

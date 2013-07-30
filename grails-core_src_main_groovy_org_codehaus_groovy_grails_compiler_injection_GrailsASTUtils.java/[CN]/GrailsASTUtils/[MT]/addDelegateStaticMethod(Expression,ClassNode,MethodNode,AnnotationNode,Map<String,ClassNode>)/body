@@ -1,7 +1,7 @@
 {
   Parameter[] parameterTypes=delegateMethod.getParameters();
   String declaredMethodName=delegateMethod.getName();
-  if (classNode.hasDeclaredMethod(declaredMethodName,parameterTypes)) {
+  if (classNode.hasDeclaredMethod(declaredMethodName,copyParameters(parameterTypes,genericsPlaceholders))) {
     return null;
   }
   BlockStatement methodBody=new BlockStatement();

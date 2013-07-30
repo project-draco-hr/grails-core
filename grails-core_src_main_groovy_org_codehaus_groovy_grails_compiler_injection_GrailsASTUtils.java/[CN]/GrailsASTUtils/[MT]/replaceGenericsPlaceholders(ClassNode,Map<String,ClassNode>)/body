@@ -1,0 +1,41 @@
+{
+  if (type.isArray()) {
+    return replaceGenericsPlaceholders(type.getComponentType(),genericsPlaceholders).makeArray();
+  }
+  if (!type.isUsingGenerics() && !type.isRedirectNode()) {
+    return type.getPlainNodeReference();
+  }
+  if (type.isGenericsPlaceHolder()) {
+    ClassNode placeHolderType=genericsPlaceholders != null ? genericsPlaceholders.get(type.getUnresolvedName()) : null;
+    if (placeHolderType != null) {
+      return placeHolderType.getPlainNodeReference();
+    }
+ else {
+      return ClassHelper.make(Object.class).getPlainNodeReference();
+    }
+  }
+  final ClassNode nonGen=type.getPlainNodeReference();
+  GenericsType[] parameterized=type.getGenericsTypes();
+  if (parameterized != null && parameterized.length > 0) {
+    GenericsType[] copiedGenericsTypes=new GenericsType[parameterized.length];
+    for (int i=0; i < parameterized.length; i++) {
+      GenericsType parameterizedType=parameterized[i];
+      GenericsType copiedGenericsType=null;
+      if (parameterizedType.isPlaceholder()) {
+        ClassNode placeHolderType=genericsPlaceholders != null ? genericsPlaceholders.get(parameterizedType.getName()) : null;
+        if (placeHolderType != null) {
+          copiedGenericsType=new GenericsType(placeHolderType.getPlainNodeReference());
+        }
+ else {
+          copiedGenericsType=new GenericsType(ClassHelper.make(Object.class).getPlainNodeReference());
+        }
+      }
+ else {
+        copiedGenericsType=new GenericsType(replaceGenericsPlaceholders(parameterizedType.getType(),genericsPlaceholders));
+      }
+      copiedGenericsTypes[i]=copiedGenericsType;
+    }
+    nonGen.setGenericsTypes(copiedGenericsTypes);
+  }
+  return nonGen;
+}

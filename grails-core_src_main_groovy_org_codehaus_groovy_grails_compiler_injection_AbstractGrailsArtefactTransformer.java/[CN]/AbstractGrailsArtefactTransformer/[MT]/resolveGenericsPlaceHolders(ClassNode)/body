@@ -1,0 +1,7 @@
+{
+  Map<String,ClassNode> genericsPlaceHolders=new HashMap<String,ClassNode>();
+  for (  String placeHolder : DEFAULT_GENERICS_PLACEHOLDERS) {
+    genericsPlaceHolders.put(placeHolder,classNode);
+  }
+  return genericsPlaceHolders;
+}

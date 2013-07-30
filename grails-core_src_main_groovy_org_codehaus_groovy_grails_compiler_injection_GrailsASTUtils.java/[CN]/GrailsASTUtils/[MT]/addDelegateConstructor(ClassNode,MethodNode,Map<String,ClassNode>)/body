@@ -1,7 +1,7 @@
 {
   BlockStatement constructorBody=new BlockStatement();
   Parameter[] constructorParams=getRemainingParameterTypes(constructorMethod.getParameters());
-  ArgumentListExpression arguments=createArgumentListFromParameters(constructorParams,true);
+  ArgumentListExpression arguments=createArgumentListFromParameters(constructorParams,true,genericsPlaceholders);
   MethodCallExpression constructCallExpression=new MethodCallExpression(new ClassExpression(constructorMethod.getDeclaringClass()),"initialize",arguments);
   constructCallExpression.setMethodTarget(constructorMethod);
   ExpressionStatement constructorInitExpression=new ExpressionStatement(constructCallExpression);
@@ -32,7 +32,7 @@
  else {
     ConstructorNode cn=findConstructor(classNode,constructorParams);
     if (cn == null) {
-      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams),null,constructorBody);
+      cn=new ConstructorNode(Modifier.PUBLIC,copyParameters(constructorParams,genericsPlaceholders),null,constructorBody);
       classNode.addConstructor(cn);
     }
  else {

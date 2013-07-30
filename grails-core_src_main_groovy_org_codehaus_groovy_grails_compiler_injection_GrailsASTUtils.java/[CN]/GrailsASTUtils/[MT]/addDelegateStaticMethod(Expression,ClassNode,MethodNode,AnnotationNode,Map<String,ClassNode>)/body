@@ -15,13 +15,13 @@
   VariableExpression apiVar=addApiVariableDeclaration(expression,delegateMethod,methodBody);
   IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
   methodBody.addStatement(ifStatement);
-  ClassNode returnType=nonGeneric(delegateMethod.getReturnType());
+  ClassNode returnType=replaceGenericsPlaceholders(delegateMethod.getReturnType(),genericsPlaceholders);
   if (METHOD_MISSING_METHOD_NAME.equals(declaredMethodName)) {
     declaredMethodName=STATIC_METHOD_MISSING_METHOD_NAME;
   }
   MethodNode methodNode=classNode.getDeclaredMethod(declaredMethodName,parameterTypes);
   if (methodNode == null) {
-    methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+    methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
     methodNode.addAnnotations(delegateMethod.getAnnotations());
     if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {
       methodNode.addAnnotation(markerAnnotation);

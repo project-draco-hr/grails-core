@@ -1,7 +1,4 @@
 {
-  if (destination.exists()) {
-    return;
-  }
   destination.getParentFile().mkdirs();
   System.out.println("Downloading " + address + " to "+ destination.getAbsolutePath());
   OutputStream out=null;

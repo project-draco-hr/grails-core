@@ -1,3 +1,5 @@
 {
-  return new DefaultCommandLine();
+  DefaultCommandLine defaultCommandLine=new DefaultCommandLine();
+  CURRENT=defaultCommandLine;
+  return defaultCommandLine;
 }

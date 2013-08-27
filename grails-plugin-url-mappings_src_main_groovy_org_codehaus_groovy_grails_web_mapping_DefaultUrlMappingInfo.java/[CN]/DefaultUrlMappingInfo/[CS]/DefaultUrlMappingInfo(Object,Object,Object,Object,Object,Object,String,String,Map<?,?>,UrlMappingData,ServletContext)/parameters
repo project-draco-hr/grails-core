@@ -6,6 +6,6 @@ Object pluginName
 Object viewName
 String httpMethod
 String version
-Map params
+Map<?,?> params
 UrlMappingData urlData
 ServletContext servletContext

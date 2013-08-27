@@ -14,14 +14,13 @@
     }
   }
   if (!useSpringBinder) {
-    bindingResult=new BeanPropertyBindingResult(object,object.getClass().getName());
     try {
       final DataBindingSource bindingSource=createDataBindingSource(grailsApplication,object.getClass(),source);
       final DataBinder grailsWebDataBinder=getGrailsWebDataBinder(grailsApplication);
-      final DataBindingListener listener=new GrailsWebDataBindingListener(bindingResult);
-      grailsWebDataBinder.bind(object,bindingSource,filter,include,exclude,listener);
+      grailsWebDataBinder.bind(object,bindingSource,filter,include,exclude);
     }
  catch (    Exception e) {
+      bindingResult=new BeanPropertyBindingResult(object,object.getClass().getName());
       bindingResult.addError(new ObjectError(bindingResult.getObjectName(),e.getMessage()));
     }
   }

@@ -1,0 +1,4 @@
+{
+  Assert.notNull(instance,"Instance must not be null");
+  return getAllInterfacesForClass(instance.getClass());
+}

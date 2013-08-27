@@ -1,0 +1,12 @@
+{
+  if (classLoader == null) {
+    return true;
+  }
+  try {
+    Class<?> actualClass=classLoader.loadClass(clazz.getName());
+    return (clazz == actualClass);
+  }
+ catch (  ClassNotFoundException ex) {
+    return false;
+  }
+}

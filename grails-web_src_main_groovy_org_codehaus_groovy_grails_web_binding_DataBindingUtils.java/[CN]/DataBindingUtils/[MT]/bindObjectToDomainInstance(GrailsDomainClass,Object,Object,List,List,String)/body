@@ -19,7 +19,15 @@
       final DataBinder grailsWebDataBinder=getGrailsWebDataBinder(grailsApplication);
       grailsWebDataBinder.bind(object,bindingSource,filter,include,exclude);
     }
- catch (    Exception e) {
+ catch (    InvalidRequestBodyException e) {
+      String messageCode="invalidRequestBody";
+      Class objectType=object.getClass();
+      String defaultMessage="An error occurred parsing the body of the request";
+      String[] codes=getMessageCodes(messageCode,objectType);
+      bindingResult=new BeanPropertyBindingResult(object,objectType.getName());
+      bindingResult.addError(new ObjectError(bindingResult.getObjectName(),codes,null,defaultMessage));
+    }
+catch (    Exception e) {
       bindingResult=new BeanPropertyBindingResult(object,object.getClass().getName());
       bindingResult.addError(new ObjectError(bindingResult.getObjectName(),e.getMessage()));
     }

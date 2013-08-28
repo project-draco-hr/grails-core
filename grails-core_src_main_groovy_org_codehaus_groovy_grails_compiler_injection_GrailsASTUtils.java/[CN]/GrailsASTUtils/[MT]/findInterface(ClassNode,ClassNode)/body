@@ -1,7 +1,10 @@
 {
-  Set<ClassNode> interfaces=classNode.getAllInterfaces();
-  for (  ClassNode anInterface : interfaces) {
-    if (anInterface.equals(interfaceNode))     return anInterface;
+  while (!classNode.equals(OBJECT_CLASS_NODE)) {
+    Set<ClassNode> interfaces=classNode.getAllInterfaces();
+    for (    ClassNode anInterface : interfaces) {
+      if (anInterface.equals(interfaceNode))       return anInterface;
+    }
+    classNode=classNode.getSuperClass();
   }
   return null;
 }

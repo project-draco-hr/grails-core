@@ -11,9 +11,9 @@
     return null;
   }
   Properties properties=new Properties();
-  final String defaultName=BASE_MESSAGES_PROPERTIES;
+  final String defaultName=getBaseMessagesProperties();
   attemptLoadProperties(descriptorResource,properties,defaultName);
-  for (  String filename : calculateFilenamesForLocale("grails-app/i18n/messages",locale)) {
+  for (  String filename : calculateFilenamesForLocale(defaultName,locale)) {
     attemptLoadProperties(descriptorResource,properties,filename);
   }
   return properties;

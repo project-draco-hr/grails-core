@@ -1,0 +1,7 @@
+{
+  exposeRequestAttributeIfNotPresent(request,FORWARD_REQUEST_URI_ATTRIBUTE,request.getRequestURI());
+  exposeRequestAttributeIfNotPresent(request,FORWARD_CONTEXT_PATH_ATTRIBUTE,request.getContextPath());
+  exposeRequestAttributeIfNotPresent(request,FORWARD_SERVLET_PATH_ATTRIBUTE,request.getServletPath());
+  exposeRequestAttributeIfNotPresent(request,FORWARD_PATH_INFO_ATTRIBUTE,request.getPathInfo());
+  exposeRequestAttributeIfNotPresent(request,FORWARD_QUERY_STRING_ATTRIBUTE,request.getQueryString());
+}

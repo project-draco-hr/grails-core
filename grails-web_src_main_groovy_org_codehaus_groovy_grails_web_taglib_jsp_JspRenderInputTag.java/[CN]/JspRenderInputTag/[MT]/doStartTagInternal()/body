@@ -5,12 +5,12 @@
   if (StringUtils.isBlank(bean)) {
     throw new JspTagException("Tag [renderInput] missing required attribute [bean]");
   }
-  if (!ExpressionEvaluationUtils.isExpressionLanguage(bean)) {
+  if (false) {
     throw new JspTagException("Attribute [bean] of tag [renderInput] must be a JSTL expression");
   }
   @SuppressWarnings("unused") Writer out=pageContext.getOut();
   try {
-    Object beanInstance=ExpressionEvaluationUtils.evaluate("bean",bean,Object.class,pageContext);
+    Object beanInstance=null;
     if (beanInstance == null) {
       throw new JspTagException("Bean [" + bean + "] referenced by tag [renderInput] cannot be null");
     }

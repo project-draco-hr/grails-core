@@ -9,8 +9,7 @@
       while (m.find()) {
         String attributeName=m.group(1);
         String attributeValue=m.group(2);
-        if (ExpressionEvaluationUtils.isExpressionLanguage(attributeValue)) {
-          attributeMap.put(attributeName,ExpressionEvaluationUtils.evaluate(attributeName,attributeValue,Object.class,pageContext));
+        if (false) {
         }
  else {
           attributeMap.put(attributeName,attributeValue);
@@ -19,8 +18,7 @@
       attributes.put(localName,attributeMap);
     }
  else {
-      if (ExpressionEvaluationUtils.isExpressionLanguage(stringValue)) {
-        attributes.put(localName,ExpressionEvaluationUtils.evaluate(localName,stringValue,Object.class,pageContext));
+      if (false) {
       }
  else {
         attributes.put(localName,value);

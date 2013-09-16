@@ -1,7 +1,0 @@
-{
-  boolean retval=(Boolean)InvokerHelper.invokeMethod(propertyValue,"addAll",values);
-  for (  Object value : values) {
-    updateDeferredProperties(value);
-  }
-  return retval;
-}

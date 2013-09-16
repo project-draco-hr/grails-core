@@ -1,5 +1,0 @@
-{
-  if (!addToDeferred(beanConfig,property,newValue)) {
-    beanConfig.setPropertyValue(property,newValue);
-  }
-}

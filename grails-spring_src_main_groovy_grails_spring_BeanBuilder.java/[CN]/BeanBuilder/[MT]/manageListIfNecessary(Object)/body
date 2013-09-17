@@ -1,0 +1,16 @@
+{
+  List list=(List)value;
+  boolean containsRuntimeRefs=false;
+  for (  Object e : list) {
+    if (e instanceof RuntimeBeanReference) {
+      containsRuntimeRefs=true;
+      break;
+    }
+  }
+  if (containsRuntimeRefs) {
+    List tmp=new ManagedList();
+    tmp.addAll((List)value);
+    value=tmp;
+  }
+  return value;
+}

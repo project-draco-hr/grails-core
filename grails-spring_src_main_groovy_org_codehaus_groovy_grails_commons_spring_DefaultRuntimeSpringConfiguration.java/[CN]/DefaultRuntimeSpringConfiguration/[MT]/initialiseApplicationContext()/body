@@ -1,0 +1,13 @@
+{
+  if (context != null) {
+    return;
+  }
+  context=createApplicationContext(parent);
+  if (parent != null && classLoader == null) {
+    trySettingClassLoaderOnContextIfFoundInParent(parent);
+  }
+ else   if (classLoader != null) {
+    setClassLoaderOnContext(classLoader);
+  }
+  Assert.notNull(context);
+}

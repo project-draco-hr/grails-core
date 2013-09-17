@@ -1,0 +1,11 @@
+{
+  for (  Map.Entry<String,List<String>> entry : aliases.entrySet()) {
+    String beanName=entry.getKey();
+    List<String> beanAliases=entry.getValue();
+    if (beanAliases != null && !beanAliases.isEmpty()) {
+      for (      String alias : beanAliases) {
+        beanDefinitionRegistry.registerAlias(beanName,alias);
+      }
+    }
+  }
+}

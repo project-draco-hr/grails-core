@@ -1,0 +1,4 @@
+{
+  getBeanDefinition().setFactoryBeanName(beanName);
+  return this;
+}

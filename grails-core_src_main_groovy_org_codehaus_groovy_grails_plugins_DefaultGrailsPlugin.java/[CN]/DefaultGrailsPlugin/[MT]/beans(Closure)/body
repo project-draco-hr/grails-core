@@ -1,5 +1,5 @@
 {
-  GroovyBeanDefinitionReader bb=new GroovyBeanDefinitionReader(getParentCtx(),new GroovyClassLoader(application.getClassLoader()));
+  BeanBuilder bb=new BeanBuilder(getParentCtx(),new GroovyClassLoader(application.getClassLoader()));
   bb.invokeMethod("beans",new Object[]{closure});
   return bb;
 }

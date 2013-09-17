@@ -1,0 +1,9 @@
+{
+  Assert.isTrue(j <= args.length,"Upper bound can't be greater than array length");
+  Object[] b=new Object[j - i];
+  int n=0;
+  for (int k=i; k < j; k++, n++) {
+    b[n]=args[k];
+  }
+  return b;
+}

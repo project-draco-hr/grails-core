@@ -1,6 +1,0 @@
-{
-  MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(registry.getClass());
-  if (!mc.respondsTo(registry,"removeBeanDefinition").isEmpty()) {
-    mc.invokeMethod(registry,"removeBeanDefinition",new Object[]{beanName});
-  }
-}

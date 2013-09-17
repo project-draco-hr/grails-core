@@ -1,6 +1,0 @@
-{
-  super(beanName,toParent);
-  Assert.notNull(beanConfig,"Argument [beanConfig] cannot be null");
-  this.beanConfig=beanConfig;
-  metaClass=InvokerHelper.getMetaClass(this);
-}

@@ -1,8 +1,0 @@
-{
-  List<String> beanAliases=aliases.get(beanName);
-  if (beanAliases == null) {
-    beanAliases=new ArrayList<String>();
-    aliases.put(beanName,beanAliases);
-  }
-  beanAliases.add(alias);
-}

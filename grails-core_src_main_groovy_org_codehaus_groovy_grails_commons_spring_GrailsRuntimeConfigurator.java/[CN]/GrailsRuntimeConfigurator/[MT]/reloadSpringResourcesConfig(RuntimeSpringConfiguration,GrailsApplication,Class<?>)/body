@@ -1,5 +1,5 @@
 {
-  springGroovyResourcesBeanBuilder=new BeanBuilder(null,config,Thread.currentThread().getContextClassLoader());
+  springGroovyResourcesBeanBuilder=new GroovyBeanDefinitionReader(null,config,Thread.currentThread().getContextClassLoader());
   springGroovyResourcesBeanBuilder.setBinding(new Binding(CollectionUtils.newMap("application",application,"grailsApplication",application)));
   Script script=(Script)groovySpringResourcesClass.newInstance();
   script.run();

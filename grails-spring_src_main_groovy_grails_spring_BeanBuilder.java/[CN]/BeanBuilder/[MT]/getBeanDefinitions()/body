@@ -1,7 +1,0 @@
-{
-  Map<String,BeanDefinition> beanDefinitions=new HashMap<String,BeanDefinition>();
-  for (  String beanName : getSpringConfig().getBeanNames()) {
-    beanDefinitions.put(beanName,getSpringConfig().getBeanConfig(beanName).getBeanDefinition());
-  }
-  return beanDefinitions;
-}

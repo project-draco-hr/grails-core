@@ -45,6 +45,9 @@
       bd.setInitMethodName(newValue.toString());
     }
   }
+ else   if (SINGLETON.equals(property)) {
+    bd.setScope(Boolean.TRUE.equals(newValue) ? BeanDefinition.SCOPE_SINGLETON : BeanDefinition.SCOPE_PROTOTYPE);
+  }
  else   if (wrapper.isWritableProperty(property)) {
     wrapper.setPropertyValue(property,newValue);
   }

@@ -4,7 +4,7 @@
   if (listArgValidateMethod == null) {
     final BlockStatement validateMethodCode=new BlockStatement();
     final ArgumentListExpression validateInstanceArguments=new ArgumentListExpression();
-    validateInstanceArguments.addExpression(THIS_EXPRESSION);
+    validateInstanceArguments.addExpression(new VariableExpression("this"));
     validateInstanceArguments.addExpression(new VariableExpression(fieldsToValidateParameterName));
     final ClassNode validationSupportClassNode=new ClassNode(ValidationSupport.class);
     final StaticMethodCallExpression invokeValidateInstanceExpression=new StaticMethodCallExpression(validationSupportClassNode,"validateInstance",validateInstanceArguments);
@@ -17,7 +17,7 @@
     final BlockStatement validateMethodCode=new BlockStatement();
     final ArgumentListExpression validateInstanceArguments=new ArgumentListExpression();
     validateInstanceArguments.addExpression(new CastExpression(new ClassNode(List.class),new ConstantExpression(null)));
-    final Expression callListArgValidateMethod=new MethodCallExpression(THIS_EXPRESSION,VALIDATE_METHOD_NAME,validateInstanceArguments);
+    final Expression callListArgValidateMethod=new MethodCallExpression(new VariableExpression("this"),VALIDATE_METHOD_NAME,validateInstanceArguments);
     validateMethodCode.addStatement(new ReturnStatement(callListArgValidateMethod));
     classNode.addMethod(new MethodNode(VALIDATE_METHOD_NAME,Modifier.PUBLIC,ClassHelper.boolean_TYPE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,validateMethodCode));
   }

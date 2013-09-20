@@ -13,6 +13,9 @@
         argumentIsValidateable=true;
       }
     }
+ else {
+      argumentIsValidateable=commandObjectNode.hasMethod("validate",new Parameter[0]);
+    }
   }
   if (argumentIsValidateable) {
     final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);

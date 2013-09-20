@@ -1,3 +1,3 @@
 {
-  return new ExpressionStatement(new MethodCallExpression(AbstractGrailsArtefactTransformer.THIS_EXPRESSION,"println",new ArgumentListExpression(new ConstantExpression(message))));
+  return new ExpressionStatement(new MethodCallExpression(new VariableExpression("this"),"println",new ArgumentListExpression(new ConstantExpression(message))));
 }

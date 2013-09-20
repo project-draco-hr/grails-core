@@ -3,11 +3,12 @@
   final String caughtExceptionArgumentName="$caughtException";
   final Expression caughtExceptionVariableExpression=new VariableExpression(caughtExceptionArgumentName);
   final Expression caughtExceptionTypeExpression=new PropertyExpression(caughtExceptionVariableExpression,"class");
-  final Expression getExceptionHandlerMethodCall=new MethodCallExpression(THIS_EXPRESSION,"getExceptionHandlerMethodFor",caughtExceptionTypeExpression);
+  final Expression thisExpression=new VariableExpression("this");
+  final Expression getExceptionHandlerMethodCall=new MethodCallExpression(thisExpression,"getExceptionHandlerMethodFor",caughtExceptionTypeExpression);
   final String exceptionHandlerMethodVariableName="$method";
   final Expression declareExceptionHandlerMethod=new DeclarationExpression(new VariableExpression(exceptionHandlerMethodVariableName,new ClassNode(Method.class)),Token.newSymbol(Types.EQUALS,0,0),getExceptionHandlerMethodCall);
   final ArgumentListExpression invokeArguments=new ArgumentListExpression();
-  invokeArguments.addExpression(THIS_EXPRESSION);
+  invokeArguments.addExpression(thisExpression);
   invokeArguments.addExpression(caughtExceptionVariableExpression);
   final Expression invokeExceptionHandlerMethodExpression=new MethodCallExpression(new VariableExpression(exceptionHandlerMethodVariableName),"invoke",invokeArguments);
   final Statement returnStatement=new ReturnStatement(invokeExceptionHandlerMethodExpression);

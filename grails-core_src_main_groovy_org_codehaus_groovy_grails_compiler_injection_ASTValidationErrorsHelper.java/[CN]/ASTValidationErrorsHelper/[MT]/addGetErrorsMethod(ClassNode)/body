@@ -2,7 +2,8 @@
   final ASTNode getErrorsMethod=paramTypeClassNode.getMethod(GET_ERRORS_METHOD_NAME,ZERO_PARAMETERS);
   if (getErrorsMethod == null) {
     final BlockStatement getErrorsMethodCode=new BlockStatement();
-    getErrorsMethodCode.addStatement(new ExpressionStatement(INIT_ERRORS_METHOD_CALL_EXPRESSION));
+    final Expression initErrorsMethodCallExpression=new MethodCallExpression(new VariableExpression("this"),INIT_ERRORS_METHOD_NAME,EMPTY_TUPLE);
+    getErrorsMethodCode.addStatement(new ExpressionStatement(initErrorsMethodCallExpression));
     final Statement returnStatement=new ReturnStatement(ERRORS_EXPRESSION);
     getErrorsMethodCode.addStatement(returnStatement);
     paramTypeClassNode.addMethod(new MethodNode(GET_ERRORS_METHOD_NAME,Modifier.PUBLIC,ERRORS_CLASS_NODE,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,getErrorsMethodCode));

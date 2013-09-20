@@ -1,7 +1,7 @@
 {
   ArgumentListExpression arguments=new ArgumentListExpression();
   if (thisAsFirstArgument) {
-    arguments.addExpression(AbstractGrailsArtefactTransformer.THIS_EXPRESSION);
+    arguments.addExpression(new VariableExpression("this"));
   }
   for (  Parameter parameterType : parameterTypes) {
     arguments.addExpression(new VariableExpression(parameterType.getName(),replaceGenericsPlaceholders(parameterType.getType(),genericsPlaceholders)));

@@ -4,7 +4,11 @@
   final Expression caughtExceptionVariableExpression=new VariableExpression(caughtExceptionArgumentName);
   final Expression caughtExceptionTypeExpression=new PropertyExpression(caughtExceptionVariableExpression,"class");
   final Expression thisExpression=new VariableExpression("this");
-  final Expression getExceptionHandlerMethodCall=new MethodCallExpression(thisExpression,"getExceptionHandlerMethodFor",caughtExceptionTypeExpression);
+  final MethodCallExpression getExceptionHandlerMethodCall=new MethodCallExpression(thisExpression,"getExceptionHandlerMethodFor",caughtExceptionTypeExpression);
+  final MethodNode getExceptionHandlerMethodForMethod=classNode.getMethod("getExceptionHandlerMethodFor",new Parameter[]{new Parameter(ClassHelper.make(Class.class),"arg")});
+  if (getExceptionHandlerMethodForMethod != null) {
+    getExceptionHandlerMethodCall.setMethodTarget(getExceptionHandlerMethodForMethod);
+  }
   final String exceptionHandlerMethodVariableName="$method";
   final Expression exceptionHandlerMethodExpression=new VariableExpression(exceptionHandlerMethodVariableName,new ClassNode(Method.class));
   final Expression declareExceptionHandlerMethod=new DeclarationExpression(exceptionHandlerMethodExpression,Token.newSymbol(Types.EQUALS,0,0),getExceptionHandlerMethodCall);

@@ -16,10 +16,10 @@
   if (methodNode.getParameters().length > 0) {
     method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(methodNode,initializeActionParameters(classNode,methodNode,methodNode.getName(),parameters,source,context)));
     copyAnnotations(methodNode,method);
-    annotateActionMethod(parameters,method);
+    annotateActionMethodAndWrapWithExceptionHandling(parameters,method);
   }
  else {
-    annotateActionMethod(parameters,methodNode);
+    annotateActionMethodAndWrapWithExceptionHandling(parameters,methodNode);
   }
   return method;
 }

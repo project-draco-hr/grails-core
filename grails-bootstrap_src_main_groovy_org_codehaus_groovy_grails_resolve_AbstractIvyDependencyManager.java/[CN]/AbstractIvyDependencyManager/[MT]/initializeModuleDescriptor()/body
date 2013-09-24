@@ -1,0 +1,5 @@
+{
+  if (moduleDescriptor == null) {
+    setModuleDescriptor((DefaultModuleDescriptor)createModuleDescriptor());
+  }
+}

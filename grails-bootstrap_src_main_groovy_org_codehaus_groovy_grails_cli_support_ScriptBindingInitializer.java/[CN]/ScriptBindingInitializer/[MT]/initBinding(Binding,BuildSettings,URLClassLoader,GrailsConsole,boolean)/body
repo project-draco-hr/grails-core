@@ -1,4 +1,7 @@
 {
+  Closure<?> c=buildSettings.getGrailsScriptClosure();
+  c.setDelegate(binding);
+  binding.setVariable(GRAILS_SCRIPT,c);
   binding.setVariable(GRAILS_CONSOLE,grailsConsole);
   binding.setVariable(GRAILS_SETTINGS,buildSettings);
   final File basedir=buildSettings.getBaseDir();

@@ -1,7 +1,6 @@
 {
   String className=classNode.getNameWithoutPackage();
-  String groovyFileName=className + ".groovy";
-  if (groovyFileName.equals(this.pluginLocation.getFilename())) {
+  if (className.endsWith("GrailsPlugin")) {
     visitContents(className,source,classNode);
   }
 }

@@ -1,12 +1,9 @@
 {
   BuildSettings buildSettings=settings;
-  Closure<?> c=buildSettings.getGrailsScriptClosure();
-  c.setDelegate(binding);
   @SuppressWarnings("rawtypes") Map argsMap=new LinkedHashMap(commandLine.getUndeclaredOptions());
   argsMap.put("params",commandLine.getRemainingArgs());
   binding.setVariable(ARGS_MAP,argsMap);
   binding.setVariable("args",commandLine.getRemainingArgsLineSeparated());
-  binding.setVariable(GRAILS_SCRIPT,c);
   URLClassLoader classLoader=this.classLoader;
   final GrailsConsole grailsConsole=GrailsConsole.getInstance();
   final File basedir=buildSettings.getBaseDir();
@@ -19,7 +16,9 @@
   try {
     List<File> descriptors=new ArrayList<File>();
     File desc=pluginPathSupport.getPluginDescriptor(basedir);
-    if (desc != null)     descriptors.add(desc);
+    if (desc != null) {
+      descriptors.add(desc);
+    }
     for (    File dir : pluginPathSupport.listKnownPluginDirs()) {
       File pluginDescriptor=pluginPathSupport.getPluginDescriptor(dir);
       if (pluginDescriptor != null) {

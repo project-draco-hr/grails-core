@@ -1,0 +1,9 @@
+{
+  if (reader == null) {
+    String msg="User input is not enabled, cannot obtain input stream";
+    if (prompt != null) {
+      msg=msg + " - while trying: " + prompt;
+    }
+    throw new IllegalStateException(msg);
+  }
+}

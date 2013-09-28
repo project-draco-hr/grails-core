@@ -1,17 +1,3 @@
 {
-  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
-  View v;
-  if (viewName.startsWith(String.valueOf(SLASH))) {
-    v=viewResolver.resolveViewName(viewName,webRequest.getLocale());
-  }
- else {
-    StringBuilder buf=new StringBuilder();
-    buf.append(SLASH);
-    if (controllerName != null) {
-      buf.append(controllerName).append(SLASH);
-    }
-    buf.append(viewName);
-    v=viewResolver.resolveViewName(buf.toString(),webRequest.getLocale());
-  }
-  return v;
+  return viewResolver.resolveViewName(addViewPrefix(viewName,controllerName),GrailsWebRequest.lookup(request).getLocale());
 }

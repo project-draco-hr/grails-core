@@ -1,0 +1,4 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  return addViewPrefix(viewName,webRequest != null ? webRequest.getControllerName() : null);
+}

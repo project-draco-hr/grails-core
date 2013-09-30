@@ -10,6 +10,8 @@
     final ArgumentListExpression args=new ArgumentListExpression();
     args.addExpression(new VariableExpression("this")).addExpression(new VariableExpression("callable"));
     methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(new VariableExpression(FIELD_MIME_TYPES_API),WITH_FORMAT_METHOD,args)));
-    classNode.addMethod(new MethodNode(WITH_FORMAT_METHOD,Modifier.PUBLIC,new ClassNode(Object.class),CLOSURE_PARAMETER,null,methodBody));
+    MethodNode methodNode=new MethodNode(WITH_FORMAT_METHOD,Modifier.PUBLIC,new ClassNode(Object.class),CLOSURE_PARAMETER,null,methodBody);
+    methodNode.addAnnotation(getMarkerAnnotation());
+    classNode.addMethod(methodNode);
   }
 }

@@ -1,11 +1,3 @@
 {
-  final List<AnnotationNode> annotationsToCopy=from.getAnnotations();
-  for (  final AnnotationNode node : annotationsToCopy) {
-    final AnnotationNode copyOfAnnotationNode=new AnnotationNode(node.getClassNode());
-    final Map<String,Expression> members=node.getMembers();
-    for (    final Map.Entry<String,Expression> entry : members.entrySet()) {
-      copyOfAnnotationNode.addMember(entry.getKey(),entry.getValue());
-    }
-    to.addAnnotation(copyOfAnnotationNode);
-  }
+  copyAnnotations(from,to,null,null);
 }

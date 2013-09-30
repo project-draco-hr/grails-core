@@ -1,0 +1,9 @@
+{
+  for (Iterator<AnnotationNode> iterator=annotatedNode.getAnnotations().iterator(); iterator.hasNext(); ) {
+    final AnnotationNode node=iterator.next();
+    String annotationClassName=node.getClassNode().getName();
+    if ((classNamesToRemove == null || classNamesToRemove.contains(annotationClassName)) && (classNamesToRetain == null || !classNamesToRetain.contains(annotationClassName))) {
+      iterator.remove();
+    }
+  }
+}

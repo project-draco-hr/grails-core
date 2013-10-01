@@ -75,6 +75,9 @@
         if (namedArguments.containsKey(UrlMapping.VERSION)) {
           version=namedArguments.get(UrlMapping.VERSION).toString();
         }
+        if (namedArguments.containsKey(UrlMapping.NAMESPACE)) {
+          namespace=namedArguments.get(UrlMapping.NAMESPACE).toString();
+        }
         UrlMappingData urlData=createUrlMappingData(uri,isResponseCode);
         if (namedArguments.containsKey(RESOURCE)) {
           Object controller=namedArguments.get(RESOURCE);

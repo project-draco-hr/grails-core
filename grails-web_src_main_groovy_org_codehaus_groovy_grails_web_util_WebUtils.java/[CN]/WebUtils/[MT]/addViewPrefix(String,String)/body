@@ -1,0 +1,12 @@
+{
+  if (!viewName.startsWith(String.valueOf(SLASH))) {
+    StringBuilder buf=new StringBuilder();
+    buf.append(SLASH);
+    if (controllerName != null) {
+      buf.append(controllerName).append(SLASH);
+    }
+    buf.append(viewName);
+    return buf.toString();
+  }
+  return viewName;
+}

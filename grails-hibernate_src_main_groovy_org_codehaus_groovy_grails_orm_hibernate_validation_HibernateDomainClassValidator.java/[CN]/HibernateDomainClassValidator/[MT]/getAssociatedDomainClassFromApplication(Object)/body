@@ -1,7 +1,4 @@
 {
-  String associatedObjectType=associatedObject.getClass().getName();
-  if (associatedObject instanceof HibernateProxy) {
-    associatedObjectType=((HibernateProxy)associatedObject).getHibernateLazyInitializer().getEntityName();
-  }
+  String associatedObjectType=Hibernate.getClass(associatedObject).getName();
   return (GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,associatedObjectType);
 }

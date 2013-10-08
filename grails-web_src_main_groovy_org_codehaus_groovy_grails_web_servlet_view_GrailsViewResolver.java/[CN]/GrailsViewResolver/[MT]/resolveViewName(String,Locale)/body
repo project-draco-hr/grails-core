@@ -1,0 +1,3 @@
+{
+  return super.resolveViewName(WebUtils.addViewPrefix(viewName),locale);
+}

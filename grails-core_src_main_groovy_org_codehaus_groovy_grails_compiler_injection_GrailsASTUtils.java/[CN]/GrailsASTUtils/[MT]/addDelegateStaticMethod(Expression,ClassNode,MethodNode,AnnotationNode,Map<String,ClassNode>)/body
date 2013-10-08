@@ -6,10 +6,10 @@
   }
   BlockStatement methodBody=new BlockStatement();
   ArgumentListExpression arguments=createArgumentListFromParameters(parameterTypes,false,genericsPlaceholders);
-  MethodCallExpression methodCallExpression=new MethodCallExpression(expression,declaredMethodName,arguments);
+  MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,declaredMethodName,arguments);
   methodCallExpression.setMethodTarget(delegateMethod);
   ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,delegateMethod);
-  VariableExpression apiVar=addApiVariableDeclaration(expression,delegateMethod,methodBody);
+  VariableExpression apiVar=addApiVariableDeclaration(delegate,delegateMethod,methodBody);
   IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
   methodBody.addStatement(ifStatement);
   ClassNode returnType=replaceGenericsPlaceholders(delegateMethod.getReturnType(),genericsPlaceholders);

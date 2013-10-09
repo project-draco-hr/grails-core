@@ -1,5 +1,5 @@
 {
-  VariableExpression apiVar=new VariableExpression("$api_" + declaredMethod.getName());
+  VariableExpression apiVar=new VariableExpression("$api_" + declaredMethod.getName(),delegate.getType());
   DeclarationExpression de=new DeclarationExpression(apiVar,ASSIGNMENT_OPERATOR,delegate);
   methodBody.addStatement(new ExpressionStatement(de));
   return apiVar;

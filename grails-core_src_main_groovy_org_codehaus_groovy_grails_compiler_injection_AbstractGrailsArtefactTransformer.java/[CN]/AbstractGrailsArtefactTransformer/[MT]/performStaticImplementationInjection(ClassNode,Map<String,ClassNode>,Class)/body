@@ -9,11 +9,8 @@
   }
  else {
     final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
-    FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,staticImplementationNode,classNode,constructorCallExpression);
-    classNode.addField(fieldNode);
-    BlockStatement methodBody=new BlockStatement();
-    MethodNode lookupMethod=populateDefaultApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
-    classNode.addMethod(lookupMethod);
+    addApiLookupFieldAndSetter(classNode,staticImplementationNode,apiInstanceProperty,constructorCallExpression);
+    createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
   }
   MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
   for (  MethodNode declaredMethod : declaredMethods) {

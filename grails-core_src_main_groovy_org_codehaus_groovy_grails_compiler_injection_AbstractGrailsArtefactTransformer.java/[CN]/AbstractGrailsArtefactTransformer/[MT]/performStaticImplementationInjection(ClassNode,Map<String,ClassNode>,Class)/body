@@ -1,0 +1,24 @@
+{
+  ClassNode staticImplementationNode=GrailsASTUtils.replaceGenericsPlaceholders(ClassHelper.make(staticImplementation),genericsPlaceholders);
+  final List<MethodNode> declaredMethods=staticImplementationNode.getMethods();
+  final String staticImplementationSimpleName=staticImplementation.getSimpleName();
+  String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
+  final String lookupMethodName=CURRENT_PREFIX + staticImplementationSimpleName;
+  if (requiresStaticLookupMethod()) {
+    createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
+  }
+ else {
+    final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
+    FieldNode fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,staticImplementationNode,classNode,constructorCallExpression);
+    classNode.addField(fieldNode);
+    BlockStatement methodBody=new BlockStatement();
+    MethodNode lookupMethod=populateDefaultApiLookupMethod(staticImplementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+    classNode.addMethod(lookupMethod);
+  }
+  MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+  for (  MethodNode declaredMethod : declaredMethods) {
+    if (isStaticCandidateMethod(classNode,declaredMethod)) {
+      addDelegateStaticMethod(classNode,apiLookupMethod,declaredMethod,genericsPlaceholders);
+    }
+  }
+}

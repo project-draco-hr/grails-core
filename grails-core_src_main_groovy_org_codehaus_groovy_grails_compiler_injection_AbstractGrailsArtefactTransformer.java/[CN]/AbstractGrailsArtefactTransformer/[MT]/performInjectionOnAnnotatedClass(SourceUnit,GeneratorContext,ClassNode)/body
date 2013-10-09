@@ -1,8 +1,5 @@
 {
-  if (classNode.isEnum())   return;
-  if (classNode instanceof InnerClassNode)   return;
-  if (classNode.getName().contains("$"))   return;
-  if (!DomainClassArtefactHandler.TYPE.equals(getArtefactType()) && !isValidArtefactTypeByConvention(classNode))   return;
+  if (shouldSkipInjection(classNode))   return;
   Map<String,ClassNode> genericsPlaceholders=resolveGenericsPlaceHolders(classNode);
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {

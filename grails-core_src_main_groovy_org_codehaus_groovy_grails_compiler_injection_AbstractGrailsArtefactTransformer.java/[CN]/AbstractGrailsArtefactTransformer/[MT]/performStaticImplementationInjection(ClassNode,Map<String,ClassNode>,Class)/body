@@ -4,15 +4,13 @@
   final String staticImplementationSimpleName=staticImplementation.getSimpleName();
   String apiInstanceProperty=STATIC_PREFIX + staticImplementationSimpleName;
   final String lookupMethodName=CURRENT_PREFIX + staticImplementationSimpleName;
-  if (requiresStaticLookupMethod()) {
-    createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
-  }
- else {
+  if (!requiresStaticLookupMethod()) {
     final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(staticImplementationNode,ZERO_ARGS);
     addApiLookupFieldAndSetter(classNode,staticImplementationNode,apiInstanceProperty,constructorCallExpression);
-    createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
   }
+  MethodNode lookupMethod=createStaticLookupMethod(classNode,staticImplementationNode,apiInstanceProperty,lookupMethodName);
   MethodCallExpression apiLookupMethod=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+  apiLookupMethod.setMethodTarget(lookupMethod);
   for (  MethodNode declaredMethod : declaredMethods) {
     if (isStaticCandidateMethod(classNode,declaredMethod)) {
       addDelegateStaticMethod(classNode,apiLookupMethod,declaredMethod,genericsPlaceholders);

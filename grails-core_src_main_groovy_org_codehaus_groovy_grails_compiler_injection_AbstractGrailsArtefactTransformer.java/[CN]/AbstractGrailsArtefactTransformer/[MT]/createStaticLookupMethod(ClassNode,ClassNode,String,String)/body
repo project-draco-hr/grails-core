@@ -6,4 +6,5 @@
     classNode.addMethod(lookupMethod);
     GrailsASTUtils.addCompileStaticAnnotation(lookupMethod);
   }
+  return lookupMethod;
 }

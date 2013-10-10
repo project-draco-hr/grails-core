@@ -4,8 +4,9 @@
   Expression apiInstance=new VariableExpression(apiInstanceProperty,implementationNode);
   if (requiresStaticLookupMethod()) {
     final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
-    createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
+    MethodNode lookupMethod=createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
     apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    ((MethodCallExpression)apiInstance).setMethodTarget(lookupMethod);
   }
  else   if (requiresAutowiring()) {
     final ConstructorCallExpression constructorCallExpression=GrailsASTUtils.hasZeroArgsConstructor(implementationNode) ? new ConstructorCallExpression(implementationNode,ZERO_ARGS) : null;

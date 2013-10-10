@@ -6,7 +6,7 @@
         addDelegateConstructor(classNode,declaredMethod,genericsPlaceholders);
       }
  else       if (isCandidateInstanceMethod(supportedSuperType,declaredMethod)) {
-        addDelegateInstanceMethod(classNode,delegateInstance,declaredMethod,null,true,genericsPlaceholders);
+        addDelegateInstanceMethod(classNode,delegateInstance,declaredMethod,null,true,genericsPlaceholders,noNullCheck);
       }
     }
     delegateNode=delegateNode.getSuperClass();

@@ -11,10 +11,15 @@
   ArgumentListExpression arguments=createArgumentListFromParameters(parameterTypes,false,genericsPlaceholders);
   MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,delegateMethod.getName(),arguments);
   methodCallExpression.setMethodTarget(delegateMethod);
-  ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,delegateMethod);
-  VariableExpression apiVar=addApiVariableDeclaration(delegate,delegateMethod,methodBody);
-  IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
-  methodBody.addStatement(ifStatement);
+  if (!noNullCheck && !(delegate instanceof ClassExpression)) {
+    ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,delegateMethod);
+    VariableExpression apiVar=addApiVariableDeclaration(delegate,delegateMethod,methodBody);
+    IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
+    methodBody.addStatement(ifStatement);
+  }
+ else {
+    methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  }
   ClassNode returnType=replaceGenericsPlaceholders(delegateMethod.getReturnType(),genericsPlaceholders);
   MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
   methodNode.addAnnotations(delegateMethod.getAnnotations());

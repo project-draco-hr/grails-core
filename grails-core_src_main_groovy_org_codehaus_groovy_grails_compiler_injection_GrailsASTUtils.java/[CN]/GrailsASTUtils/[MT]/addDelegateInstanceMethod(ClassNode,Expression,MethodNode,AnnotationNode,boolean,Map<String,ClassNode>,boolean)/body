@@ -17,10 +17,15 @@
   ClassNode returnType=replaceGenericsPlaceholders(declaredMethod.getReturnType(),genericsPlaceholders);
   MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,methodName,arguments);
   methodCallExpression.setMethodTarget(declaredMethod);
-  ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,declaredMethod);
-  VariableExpression apiVar=addApiVariableDeclaration(delegate,declaredMethod,methodBody);
-  IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
-  methodBody.addStatement(ifStatement);
+  if (!noNullCheck) {
+    ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,declaredMethod);
+    VariableExpression apiVar=addApiVariableDeclaration(delegate,declaredMethod,methodBody);
+    IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
+    methodBody.addStatement(ifStatement);
+  }
+ else {
+    methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  }
   MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
   methodNode.addAnnotations(declaredMethod.getAnnotations());
   if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {

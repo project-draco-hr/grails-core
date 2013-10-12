@@ -1,6 +1,6 @@
 {
   Collection elements;
-  if (interfaceType.equals(List.class)) {
+  if (interfaceType.equals(List.class) || interfaceType.equals(Collection.class)) {
     elements=new ArrayList();
   }
  else   if (interfaceType.equals(SortedSet.class)) {

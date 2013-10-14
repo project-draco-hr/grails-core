@@ -1,3 +1,6 @@
 {
   mainContext=context;
+  if (context != null) {
+    mainContext.getBean(GrailsPluginManager.class).setApplicationContext(context);
+  }
 }

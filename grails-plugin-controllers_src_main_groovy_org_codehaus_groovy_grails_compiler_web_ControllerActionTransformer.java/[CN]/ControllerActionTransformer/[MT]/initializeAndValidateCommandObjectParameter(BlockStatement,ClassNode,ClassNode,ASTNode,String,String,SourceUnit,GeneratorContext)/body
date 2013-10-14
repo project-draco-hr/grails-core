@@ -1,45 +1,53 @@
 {
-  initializeCommandObjectParameter(wrapper,commandObjectNode,paramName,source);
-  @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectNode,grails.validation.Validateable.class,org.codehaus.groovy.grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);
-  if (!argumentIsValidateable) {
-    final ModuleNode commandObjectModule=commandObjectNode.getModule();
-    if (commandObjectModule != null) {
-      if (commandObjectModule == controllerNode.getModule() || doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "controllers"+ File.separator)) {
-        final ASTValidateableHelper h=new DefaultASTValidateableHelper();
-        h.injectValidateableCode(commandObjectNode);
-        argumentIsValidateable=true;
-      }
- else       if (doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "domain"+ File.separator)) {
-        argumentIsValidateable=true;
+  final DeclarationExpression declareCoExpression=new DeclarationExpression(new VariableExpression(paramName,commandObjectNode),Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression());
+  wrapper.addStatement(new ExpressionStatement(declareCoExpression));
+  if (commandObjectNode.isInterface() || Modifier.isAbstract(commandObjectNode.getModifiers())) {
+    final String warningMessage="The [" + actionName + "] action in ["+ controllerNode.getName()+ "] accepts a parameter of type ["+ commandObjectNode.getName()+ "].  Interface types and abstract class types are not supported as command objects.  This parameter will be ignored.";
+    GrailsASTUtils.warning(source,actionNode,warningMessage);
+  }
+ else {
+    initializeCommandObjectParameter(wrapper,commandObjectNode,paramName,source);
+    @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectNode,grails.validation.Validateable.class,org.codehaus.groovy.grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);
+    if (!argumentIsValidateable) {
+      final ModuleNode commandObjectModule=commandObjectNode.getModule();
+      if (commandObjectModule != null) {
+        if (commandObjectModule == controllerNode.getModule() || doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "controllers"+ File.separator)) {
+          final ASTValidateableHelper h=new DefaultASTValidateableHelper();
+          h.injectValidateableCode(commandObjectNode);
+          argumentIsValidateable=true;
+        }
+ else         if (doesModulePathIncludeSubstring(commandObjectModule,"grails-app" + File.separator + "domain"+ File.separator)) {
+          argumentIsValidateable=true;
+        }
       }
     }
  else {
       argumentIsValidateable=commandObjectNode.hasMethod("validate",new Parameter[0]);
     }
-  }
-  if (argumentIsValidateable) {
-    final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
-    final MethodNode validateMethod=commandObjectNode.getMethod("validate",new Parameter[0]);
-    if (validateMethod != null) {
-      validateMethodCallExpression.setMethodTarget(validateMethod);
+    if (argumentIsValidateable) {
+      final MethodCallExpression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",EMPTY_TUPLE);
+      final MethodNode validateMethod=commandObjectNode.getMethod("validate",new Parameter[0]);
+      if (validateMethod != null) {
+        validateMethodCallExpression.setMethodTarget(validateMethod);
+      }
+      final Statement ifCommandObjectIsNotNullThenValidate=new IfStatement(new BooleanExpression(new VariableExpression(paramName)),new ExpressionStatement(validateMethodCallExpression),new ExpressionStatement(new EmptyExpression()));
+      wrapper.addStatement(ifCommandObjectIsNotNullThenValidate);
     }
-    final Statement ifCommandObjectIsNotNullThenValidate=new IfStatement(new BooleanExpression(new VariableExpression(paramName)),new ExpressionStatement(validateMethodCallExpression),new ExpressionStatement(new EmptyExpression()));
-    wrapper.addStatement(ifCommandObjectIsNotNullThenValidate);
-  }
  else {
-    final Expression respondsToValidateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"respondsTo",new ArgumentListExpression(new ConstantExpression("validate")));
-    final Expression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",new ArgumentListExpression());
-    final Statement ifRespondsToValidateThenValidateStatement=new IfStatement(new BooleanExpression(respondsToValidateMethodCallExpression),new ExpressionStatement(validateMethodCallExpression),new ExpressionStatement(new EmptyExpression()));
-    final Statement ifCommandObjectIsNotNullThenValidate=new IfStatement(new BooleanExpression(new VariableExpression(paramName)),ifRespondsToValidateThenValidateStatement,new ExpressionStatement(new EmptyExpression()));
-    wrapper.addStatement(ifCommandObjectIsNotNullThenValidate);
-    final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectNode.getName()+ "] which has not been marked with @Validateable.  Data binding will still be applied "+ "to this command object but the instance will not be validateable.";
-    GrailsASTUtils.warning(source,actionNode,warningMessage);
-  }
-  if (GrailsASTUtils.isInnerClassNode(commandObjectNode)) {
-    final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectNode.getName()+ "] which is an inner class. Command object classes should not be inner classes.";
-    GrailsASTUtils.warning(source,actionNode,warningMessage);
-  }
+      final Expression respondsToValidateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"respondsTo",new ArgumentListExpression(new ConstantExpression("validate")));
+      final Expression validateMethodCallExpression=new MethodCallExpression(new VariableExpression(paramName),"validate",new ArgumentListExpression());
+      final Statement ifRespondsToValidateThenValidateStatement=new IfStatement(new BooleanExpression(respondsToValidateMethodCallExpression),new ExpressionStatement(validateMethodCallExpression),new ExpressionStatement(new EmptyExpression()));
+      final Statement ifCommandObjectIsNotNullThenValidate=new IfStatement(new BooleanExpression(new VariableExpression(paramName)),ifRespondsToValidateThenValidateStatement,new ExpressionStatement(new EmptyExpression()));
+      wrapper.addStatement(ifCommandObjectIsNotNullThenValidate);
+      final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectNode.getName()+ "] which has not been marked with @Validateable.  Data binding will still be applied "+ "to this command object but the instance will not be validateable.";
+      GrailsASTUtils.warning(source,actionNode,warningMessage);
+    }
+    if (GrailsASTUtils.isInnerClassNode(commandObjectNode)) {
+      final String warningMessage="The [" + actionName + "] action accepts a parameter of type ["+ commandObjectNode.getName()+ "] which is an inner class. Command object classes should not be inner classes.";
+      GrailsASTUtils.warning(source,actionNode,warningMessage);
+    }
  else {
-    new DefaultASTDatabindingHelper().injectDatabindingCode(source,context,commandObjectNode);
+      new DefaultASTDatabindingHelper().injectDatabindingCode(source,context,commandObjectNode);
+    }
   }
 }

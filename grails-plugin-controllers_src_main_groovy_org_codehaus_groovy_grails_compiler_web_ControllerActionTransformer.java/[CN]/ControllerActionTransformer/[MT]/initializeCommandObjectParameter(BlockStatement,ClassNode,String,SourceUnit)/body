@@ -1,6 +1,4 @@
 {
-  final DeclarationExpression declareCoExpression=new DeclarationExpression(new VariableExpression(paramName,commandObjectNode),Token.newSymbol(Types.EQUALS,0,0),new EmptyExpression());
-  wrapper.addStatement(new ExpressionStatement(declareCoExpression));
   final BlockStatement tryBlock=new BlockStatement();
   final Expression initializeCommandObjectMethodCall=new MethodCallExpression(new VariableExpression("this"),"initializeCommandObject",new ClassExpression(commandObjectNode));
   final Expression assignCommandObjectToParameter=new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),initializeCommandObjectMethodCall);

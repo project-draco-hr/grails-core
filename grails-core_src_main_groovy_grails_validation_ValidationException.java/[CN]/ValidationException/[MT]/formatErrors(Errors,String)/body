@@ -1,0 +1,10 @@
+{
+  StringBuilder b=new StringBuilder();
+  if (msg != null && msg.length() > 0) {
+    b.append(msg).append(":\n");
+  }
+  for (  ObjectError error : errors.getAllErrors()) {
+    b.append("\n- ").append(error).append("\n");
+  }
+  return b.toString();
+}

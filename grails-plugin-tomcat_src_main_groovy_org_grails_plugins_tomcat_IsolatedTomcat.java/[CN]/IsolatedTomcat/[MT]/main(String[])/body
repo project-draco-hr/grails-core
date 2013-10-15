@@ -12,7 +12,7 @@
   int httpsPort=argToNumber(args,5,0);
   String keystorePath="";
   String keystorePassword="";
-  if (httpsPort > 0) {
+  if (httpsPort >= 0) {
     keystorePath=args[6];
     keystorePassword=args[7];
   }
@@ -40,7 +40,7 @@
     connector.setAttribute("address",host);
   }
   connector.setURIEncoding("UTF-8");
-  if (httpsPort > 0) {
+  if (httpsPort >= 0) {
     Connector sslConnector;
     try {
       sslConnector=new Connector();
@@ -60,11 +60,11 @@
     }
     tomcat.getService().addConnector(sslConnector);
   }
-  final int serverPort=port;
-  startKillSwitch(tomcat,serverPort);
   try {
     tomcat.start();
-    String message="Server running. Browse to http://" + (host != null ? host : "localhost") + ":"+ port+ contextPath;
+    final int serverPort=tomcat.getConnector().getLocalPort();
+    startKillSwitch(tomcat,serverPort);
+    String message="Server running. Browse to http://" + (host != null ? host : "localhost") + ":"+ serverPort+ contextPath+ getSslMessage(tomcat,host,contextPath);
     System.out.println(message);
   }
  catch (  LifecycleException e) {

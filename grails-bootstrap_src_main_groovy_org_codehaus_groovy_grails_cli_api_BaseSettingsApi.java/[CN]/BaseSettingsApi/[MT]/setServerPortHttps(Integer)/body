@@ -1,0 +1,6 @@
+{
+  if (port != null) {
+    System.setProperty("server.port.https",port.toString());
+    System.setProperty("grails.server.port.https",port.toString());
+  }
+}

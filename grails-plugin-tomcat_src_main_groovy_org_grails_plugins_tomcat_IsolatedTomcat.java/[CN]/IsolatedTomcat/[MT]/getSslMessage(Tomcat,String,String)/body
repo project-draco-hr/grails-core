@@ -1,0 +1,16 @@
+{
+  Connector[] connectors=tomcat.getService().findConnectors();
+  Connector sslConnector=null;
+  for (  Connector c : connectors) {
+    if (c.getScheme().equals("https")) {
+      sslConnector=c;
+      break;
+    }
+  }
+  if (sslConnector != null) {
+    return " or https://" + (host != null ? host : "localhost") + ":"+ sslConnector.getLocalPort()+ contextPath;
+  }
+ else {
+    return "";
+  }
+}

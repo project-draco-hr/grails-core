@@ -43,13 +43,12 @@
       if (info != null) {
         webRequest.getParams().clear();
         webRequest.getParams().putAll(backupParameters);
-        final String viewName;
         try {
           info.configure(webRequest);
           UrlConverter urlConverterToUse=urlConverter;
           GrailsApplication grailsApplicationToUse=application;
           GrailsClass controller=WebUtils.getConfiguredControllerForUrlMappingInfo(webRequest,info,urlConverterToUse,grailsApplicationToUse);
-          if (controller == null)           continue;
+          if (controller == null && info.getViewName() == null && info.getURI() == null)           continue;
         }
  catch (        Exception e) {
           if (e instanceof MultipartException) {

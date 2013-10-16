@@ -1,0 +1,5 @@
+{
+  super(msg);
+  errors=e;
+  fullMessage=formatErrors(e,msg);
+}

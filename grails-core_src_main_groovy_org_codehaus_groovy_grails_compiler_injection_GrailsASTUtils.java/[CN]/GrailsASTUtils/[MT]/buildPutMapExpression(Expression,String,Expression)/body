@@ -1,0 +1,3 @@
+{
+  return applyDefaultMethodTarget(new MethodCallExpression(objectExpression,"put",new ArgumentListExpression(new ConstantExpression(keyName),valueExpression)),Map.class);
+}

@@ -1,0 +1,3 @@
+{
+  return applyDefaultMethodTarget(methodCallExpression,ClassHelper.make(targetClass).getPlainNodeReference());
+}

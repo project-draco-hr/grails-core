@@ -3,7 +3,7 @@
   for (int i=0; i < parameterTypes.length; i++) {
     Parameter parameterType=parameterTypes[i];
     Parameter newParameter=new Parameter(replaceGenericsPlaceholders(parameterType.getType(),genericsPlaceholders),parameterType.getName(),parameterType.getInitialExpression());
-    newParameter.addAnnotations(parameterType.getAnnotations());
+    copyAnnotations(parameterType,newParameter);
     newParameterTypes[i]=newParameter;
   }
   return newParameterTypes;

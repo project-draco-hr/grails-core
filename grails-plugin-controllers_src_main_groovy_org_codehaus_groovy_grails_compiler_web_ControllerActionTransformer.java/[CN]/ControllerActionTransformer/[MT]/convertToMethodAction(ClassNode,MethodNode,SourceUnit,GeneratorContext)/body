@@ -15,7 +15,7 @@
   MethodNode method=null;
   if (methodNode.getParameters().length > 0) {
     method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(methodNode,initializeActionParameters(classNode,methodNode,methodNode.getName(),parameters,source,context)));
-    copyAnnotations(methodNode,method);
+    GrailsASTUtils.copyAnnotations(methodNode,method);
     annotateActionMethodAndWrapWithExceptionHandling(parameters,method);
   }
  else {

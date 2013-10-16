@@ -3,6 +3,6 @@
   final String controllerName=info.getControllerName();
   final String pluginName=info.getPluginName();
   final String namespace=info.getNamespace();
-  final String featureUri=getControllerFeatureURI(controllerName,action);
+  final String featureUri=getControllerFeatureURI(urlConverter,controllerName,action);
   return new ControllerArtefactHandler.ControllerCacheKey(featureUri,pluginName,namespace);
 }

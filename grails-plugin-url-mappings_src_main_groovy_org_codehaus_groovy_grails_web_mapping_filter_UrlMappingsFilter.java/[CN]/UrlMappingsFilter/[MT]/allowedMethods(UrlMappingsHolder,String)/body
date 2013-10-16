@@ -2,7 +2,7 @@
   UrlMappingInfo[] urlMappingInfos=holder.matchAll(uri,UrlMapping.ANY_HTTP_METHOD);
   Set<HttpMethod> methods=new HashSet<HttpMethod>();
   for (  UrlMappingInfo urlMappingInfo : urlMappingInfos) {
-    Object featureId=getFeatureId(urlMappingInfo);
+    Object featureId=WebUtils.getFeatureId(urlConverter,urlMappingInfo);
     GrailsClass controllerClass=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,featureId);
     if (controllerClass != null) {
       if (urlMappingInfo.getHttpMethod() == null || urlMappingInfo.getHttpMethod().equals(UrlMapping.ANY_HTTP_METHOD)) {

@@ -1,22 +1,9 @@
 {
   String viewName;
-  String action=info.getActionName() == null ? "" : info.getActionName();
   viewName=info.getViewName();
   GrailsClass controller=null;
   if (viewName == null && info.getURI() == null) {
-    final String controllerName=info.getControllerName();
-    String pluginName=info.getPluginName();
-    String featureUri=SLASH + urlConverterToUse.toUrlElement(controllerName) + SLASH+ urlConverterToUse.toUrlElement(action);
-    Object featureId;
-    if (pluginName != null) {
-      Map featureIdMap=new HashMap();
-      featureIdMap.put("uri",featureUri);
-      featureIdMap.put("pluginName",pluginName);
-      featureId=featureIdMap;
-    }
- else {
-      featureId=featureUri;
-    }
+    ControllerArtefactHandler.ControllerCacheKey featureId=getFeatureId(urlConverterToUse,info);
     controller=grailsApplicationToUse.getArtefactForFeature(ControllerArtefactHandler.TYPE,featureId);
     if (controller != null) {
       webRequest.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE,controller.getLogicalPropertyName(),WebRequest.SCOPE_REQUEST);

@@ -1,6 +1,0 @@
-{
-  if (port != null) {
-    System.setProperty("server.port",port.toString());
-    System.setProperty("grails.server.port.http",port.toString());
-  }
-}

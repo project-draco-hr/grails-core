@@ -1,0 +1,10 @@
+{
+  VariableScopeVisitor scopeVisitor=new VariableScopeVisitor(source);
+  if (methodNode == null) {
+    scopeVisitor.visitClass(classNode);
+  }
+ else {
+    scopeVisitor.prepareVisit(classNode);
+    scopeVisitor.visitMethod(methodNode);
+  }
+}

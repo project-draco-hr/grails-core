@@ -1,0 +1,6 @@
+{
+  if (astNode instanceof ClassNode) {
+    astNode=((ClassNode)astNode).redirect();
+  }
+  return astNode;
+}

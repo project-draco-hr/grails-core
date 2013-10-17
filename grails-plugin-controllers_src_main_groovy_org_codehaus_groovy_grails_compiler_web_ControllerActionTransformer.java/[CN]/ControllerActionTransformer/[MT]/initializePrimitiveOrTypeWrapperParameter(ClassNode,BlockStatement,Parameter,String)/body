@@ -20,9 +20,15 @@
  else {
     conversionMethodName=paramTypeClassNode.getName();
   }
-  final Expression retrieveConvertedValueExpression=new MethodCallExpression(PARAMS_EXPRESSION,conversionMethodName,paramsTypeConversionMethodArguments);
+  Expression getParamsExpression=buildGetPropertyExpression(new VariableExpression("this"),"params",classNode);
+  final MethodCallExpression retrieveConvertedValueExpression=new MethodCallExpression(getParamsExpression,conversionMethodName,paramsTypeConversionMethodArguments);
+  Class<?> defaultValueClass=null;
+  if ("char".equals(conversionMethodName)) {
+    defaultValueClass=Integer.class;
+  }
+  applyMethodTarget(retrieveConvertedValueExpression,TypeConvertingMap.class,null,defaultValueClass);
   final Expression paramsContainsKeyMethodArguments=new ArgumentListExpression(paramConstantExpression);
-  final BooleanExpression containsKeyExpression=new BooleanExpression(new MethodCallExpression(PARAMS_EXPRESSION,"containsKey",paramsContainsKeyMethodArguments));
+  final BooleanExpression containsKeyExpression=new BooleanExpression(applyDefaultMethodTarget(new MethodCallExpression(getParamsExpression,"containsKey",paramsContainsKeyMethodArguments),Map.class));
   final Token equalsToken=Token.newSymbol(Types.EQUALS,0,0);
   final VariableExpression convertedValueExpression=new VariableExpression("___converted_" + methodParamName,new ClassNode(Object.class));
   final DeclarationExpression declareConvertedValueExpression=new DeclarationExpression(convertedValueExpression,equalsToken,new EmptyExpression());
@@ -34,7 +40,7 @@
   wrapper.addStatement(declareVariableStatement);
   final Expression assignmentExpression=new BinaryExpression(convertedValueExpression,equalsToken,new TernaryExpression(containsKeyExpression,retrieveConvertedValueExpression,defaultValueExpression));
   wrapper.addStatement(new ExpressionStatement(assignmentExpression));
-  Expression rejectValueMethodCallExpression=getRejectValueExpression(methodParamName);
+  Expression rejectValueMethodCallExpression=getRejectValueExpression(classNode,methodParamName);
   BlockStatement ifConvertedValueIsNullBlockStatement=new BlockStatement();
   ifConvertedValueIsNullBlockStatement.addStatement(new ExpressionStatement(rejectValueMethodCallExpression));
   ifConvertedValueIsNullBlockStatement.addStatement(new ExpressionStatement(new BinaryExpression(methodParamExpression,equalsToken,defaultValueExpression)));

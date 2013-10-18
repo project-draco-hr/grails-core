@@ -13,6 +13,6 @@
     if (value instanceof ClassExpression) {
       supportedType=value.getType();
     }
-    GrailsASTUtils.addDelegateInstanceMethods(supportedType,owner,type,new VariableExpression(fieldNode.getName()),resolveGenericsPlaceHolders(supportedType));
+    GrailsASTUtils.addDelegateInstanceMethods(supportedType,owner,type,new VariableExpression(fieldNode.getName()),resolveGenericsPlaceHolders(supportedType),isNoNullCheck(),isUseCompileStatic());
   }
 }

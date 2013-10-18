@@ -1,0 +1,3 @@
+{
+  filterAnnotations(annotatedNode,null,new HashSet<String>(Arrays.asList(new String[]{CompileStatic.class.getName(),TypeChecked.class.getName()})));
+}

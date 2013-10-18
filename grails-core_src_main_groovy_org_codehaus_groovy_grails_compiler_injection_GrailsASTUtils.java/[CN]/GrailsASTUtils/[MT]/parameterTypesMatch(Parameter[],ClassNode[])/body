@@ -1,0 +1,9 @@
+{
+  if (targetParameterTypes == null || targetParameterTypes.length == 0)   return true;
+  for (int i=0; i < parameters.length; i++) {
+    if (targetParameterTypes.length > i && targetParameterTypes[i] != null && !parameters[i].getType().getName().equals(targetParameterTypes[i].getName())) {
+      return false;
+    }
+  }
+  return true;
+}

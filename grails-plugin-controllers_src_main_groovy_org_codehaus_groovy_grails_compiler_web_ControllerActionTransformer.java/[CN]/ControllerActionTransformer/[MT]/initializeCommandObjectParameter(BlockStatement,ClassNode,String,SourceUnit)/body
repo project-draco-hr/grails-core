@@ -1,11 +1,13 @@
 {
   final BlockStatement tryBlock=new BlockStatement();
-  final Expression initializeCommandObjectMethodCall=new MethodCallExpression(new VariableExpression("this"),"initializeCommandObject",new ClassExpression(commandObjectNode));
+  final MethodCallExpression initializeCommandObjectMethodCall=new MethodCallExpression(new VariableExpression("this"),"initializeCommandObject",new ClassExpression(commandObjectNode));
+  applyDefaultMethodTarget(initializeCommandObjectMethodCall,commandObjectNode);
   final Expression assignCommandObjectToParameter=new BinaryExpression(new VariableExpression(paramName),Token.newSymbol(Types.EQUALS,0,0),initializeCommandObjectMethodCall);
   tryBlock.addStatement(new ExpressionStatement(assignCommandObjectToParameter));
   final BlockStatement catchBlock=new BlockStatement();
   final VariableExpression responseVariableExpression=new VariableExpression("response");
   final MethodCallExpression setStatusMethodCallExpression=new MethodCallExpression(responseVariableExpression,"setStatus",new ConstantExpression(400));
+  applyDefaultMethodTarget(setStatusMethodCallExpression,HttpServletResponse.class);
   catchBlock.addStatement(new ExpressionStatement(setStatusMethodCallExpression));
   final ReturnStatement returnStatement=new ReturnStatement(new ExpressionStatement(new ConstantExpression(null)));
   catchBlock.addStatement(returnStatement);

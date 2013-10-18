@@ -1,6 +1,13 @@
 {
+  addApiLookupFieldAndSetter(classNode,implementationNode,apiProperty,null);
+  VariableExpression apiVar=new VariableExpression(apiProperty,implementationNode);
+  BlockStatement ifBlock=new BlockStatement();
   ArgumentListExpression arguments=new ArgumentListExpression();
   arguments.addExpression(new ConstantExpression("Method on class [" + classNode + "] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly."));
-  methodBody.addStatement(new ThrowStatement(new ConstructorCallExpression(new ClassNode(IllegalStateException.class),arguments)));
-  return new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
+  ifBlock.addStatement(new ThrowStatement(new ConstructorCallExpression(new ClassNode(IllegalStateException.class),arguments)));
+  BlockStatement elseBlock=new BlockStatement();
+  elseBlock.addStatement(new ReturnStatement(apiVar));
+  methodBody.addStatement(new IfStatement(new BooleanExpression(new BinaryExpression(apiVar,GrailsASTUtils.EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION)),ifBlock,elseBlock));
+  MethodNode methodNode=new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
+  return methodNode;
 }

@@ -1,0 +1,9 @@
+{
+  String methodName=(useBooleanGetter ? "is" : "get") + MetaClassHelper.capitalize(propertyName);
+  MethodCallExpression methodCallExpression=new MethodCallExpression(objectExpression,methodName,MethodCallExpression.NO_ARGUMENTS);
+  MethodNode getterMethod=targetClassNode.getGetterMethod(methodName);
+  if (getterMethod != null) {
+    methodCallExpression.setMethodTarget(getterMethod);
+  }
+  return methodCallExpression;
+}

@@ -1,0 +1,20 @@
+{
+  String methodName=methodCallExpression.getMethodAsString();
+  if (methodName == null)   return methodCallExpression;
+  int argumentCount=methodCallExpression.getArguments() != null ? ((TupleExpression)methodCallExpression.getArguments()).getExpressions().size() : 0;
+  String methodFoundInClass=null;
+  for (  MethodNode method : targetClassNode.getMethods(methodName)) {
+    int methodParameterCount=method.getParameters() != null ? method.getParameters().length : 0;
+    if (methodParameterCount == argumentCount && (targetParameterTypes == null || (parameterTypesMatch(method.getParameters(),targetParameterTypes)))) {
+      String methodFromClass=method.getDeclaringClass().getName();
+      if (methodFoundInClass == null) {
+        methodCallExpression.setMethodTarget(method);
+        methodFoundInClass=methodFromClass;
+      }
+ else       if (methodFromClass.equals(methodFoundInClass)) {
+        throw new RuntimeException("Multiple methods with same name '" + methodName + "' and argument count ("+ argumentCount+ ") in "+ targetClassNode.getName()+ ". Cannot apply default method target.");
+      }
+    }
+  }
+  return methodCallExpression;
+}

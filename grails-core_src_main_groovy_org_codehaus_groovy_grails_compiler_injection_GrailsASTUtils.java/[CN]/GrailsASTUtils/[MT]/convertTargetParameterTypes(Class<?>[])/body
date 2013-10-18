@@ -1,0 +1,10 @@
+{
+  ClassNode[] targetParameterTypes=null;
+  if (targetParameterClassTypes != null) {
+    targetParameterTypes=new ClassNode[targetParameterClassTypes.length];
+    for (int i=0; i < targetParameterClassTypes.length; i++) {
+      targetParameterTypes[i]=targetParameterClassTypes[i] != null ? ClassHelper.make(targetParameterClassTypes[i]).getPlainNodeReference() : null;
+    }
+  }
+  return targetParameterTypes;
+}

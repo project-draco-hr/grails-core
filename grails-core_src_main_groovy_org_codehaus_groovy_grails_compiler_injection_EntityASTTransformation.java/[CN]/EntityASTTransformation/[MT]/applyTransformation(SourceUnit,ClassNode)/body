@@ -1,0 +1,23 @@
+{
+  if (GrailsASTUtils.isApplied(classNode,EntityASTTransformation.class)) {
+    return;
+  }
+  GrailsASTUtils.markApplied(classNode,EntityASTTransformation.class);
+  GrailsDomainClassInjector domainInjector=new DefaultGrailsDomainClassInjector();
+  domainInjector.performInjectionOnAnnotatedEntity(classNode);
+  ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
+  final List<ClassInjector> domainInjectors=ArtefactTypeAstTransformation.findInjectors(DomainClassArtefactHandler.TYPE,classInjectors);
+  for (  ClassInjector injector : domainInjectors) {
+    try {
+      injector.performInjection(sourceUnit,classNode);
+    }
+ catch (    RuntimeException e) {
+      try {
+        GrailsConsole.getInstance().error("Error occurred calling AST injector [" + injector.getClass().getName() + "]: "+ e.getMessage(),e);
+      }
+ catch (      Throwable t) {
+      }
+      throw e;
+    }
+  }
+}

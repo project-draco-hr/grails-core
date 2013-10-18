@@ -4,7 +4,7 @@
   mapBindingResultConstructorArgs.addExpression(new ConstructorCallExpression(new ClassNode(HashMap.class),EMPTY_TUPLE));
   mapBindingResultConstructorArgs.addExpression(new ConstantExpression("controller"));
   final Expression mapBindingResultConstructorCallExpression=new ConstructorCallExpression(new ClassNode(MapBindingResult.class),mapBindingResultConstructorArgs);
-  final Expression errorsAssignmentExpression=new BinaryExpression(new VariableExpression("errors"),Token.newSymbol(Types.EQUALS,0,0),mapBindingResultConstructorCallExpression);
+  final Expression errorsAssignmentExpression=buildSetPropertyExpression(new VariableExpression("this",classNode),"errors",classNode,mapBindingResultConstructorCallExpression);
   wrapper.addStatement(new ExpressionStatement(errorsAssignmentExpression));
   if (actionParameters != null) {
     for (    Parameter param : actionParameters) {

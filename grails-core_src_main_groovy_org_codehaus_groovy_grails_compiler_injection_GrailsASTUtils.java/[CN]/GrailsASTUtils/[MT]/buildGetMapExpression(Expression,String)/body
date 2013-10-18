@@ -1,0 +1,3 @@
+{
+  return applyDefaultMethodTarget(new MethodCallExpression(objectExpression,"get",new ArgumentListExpression(new ConstantExpression(keyName))),Map.class);
+}

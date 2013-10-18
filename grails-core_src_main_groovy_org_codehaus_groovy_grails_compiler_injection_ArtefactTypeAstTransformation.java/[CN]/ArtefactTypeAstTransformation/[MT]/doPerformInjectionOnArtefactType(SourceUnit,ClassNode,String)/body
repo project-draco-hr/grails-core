@@ -1,16 +1,4 @@
 {
-  try {
-    List<ClassInjector> injectors=ArtefactTypeAstTransformation.findInjectors(artefactType,GrailsAwareInjectionOperation.getClassInjectors());
-    for (    ClassInjector injector : injectors) {
-      injector.performInjectionOnAnnotatedClass(sourceUnit,cNode);
-    }
-  }
- catch (  RuntimeException e) {
-    try {
-      GrailsConsole.getInstance().error("Error occurred calling AST injector: " + e.getMessage(),e);
-    }
- catch (    Throwable t) {
-    }
-    throw e;
-  }
+  List<ClassInjector> injectors=findInjectors(artefactType,GrailsAwareInjectionOperation.getClassInjectors());
+  performInjection(sourceUnit,cNode,injectors);
 }

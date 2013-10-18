@@ -1,8 +1,10 @@
 {
   MethodNode lookupMethod=classNode.getMethod(lookupMethodName,ZERO_PARAMETERS);
-  if (lookupMethod == null) {
+  if (lookupMethod == null || !lookupMethod.getDeclaringClass().equals(classNode)) {
     BlockStatement methodBody=new BlockStatement();
-    lookupMethod=populateAutowiredApiLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName,methodBody);
+    lookupMethod=populateAutowiredApiLookupMethod(classNode,implementationNode,apiProperty,lookupMethodName,methodBody);
     classNode.addMethod(lookupMethod);
+    GrailsASTUtils.addCompileStaticAnnotation(lookupMethod);
   }
+  return lookupMethod;
 }

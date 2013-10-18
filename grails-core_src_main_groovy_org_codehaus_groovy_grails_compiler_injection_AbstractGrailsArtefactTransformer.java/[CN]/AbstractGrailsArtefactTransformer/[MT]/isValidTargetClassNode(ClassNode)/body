@@ -1,0 +1,6 @@
+{
+  if (classNode.isEnum())   return false;
+  if (classNode instanceof InnerClassNode)   return false;
+  if (classNode.getName().contains("$"))   return false;
+  return true;
+}

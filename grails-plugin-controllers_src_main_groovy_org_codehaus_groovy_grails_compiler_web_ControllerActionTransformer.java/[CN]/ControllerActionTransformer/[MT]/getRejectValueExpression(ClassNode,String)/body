@@ -1,0 +1,8 @@
+{
+  ArgumentListExpression rejectValueArgs=new ArgumentListExpression();
+  rejectValueArgs.addExpression(new ConstantExpression(methodParamName));
+  rejectValueArgs.addExpression(new ConstantExpression("params." + methodParamName + ".conversion.error"));
+  Expression getErrorsExpression=buildGetPropertyExpression(new VariableExpression("this",classNode),"errors",classNode);
+  Expression rejectValueMethodCallExpression=applyDefaultMethodTarget(new MethodCallExpression(getErrorsExpression,"rejectValue",rejectValueArgs),Errors.class);
+  return rejectValueMethodCallExpression;
+}

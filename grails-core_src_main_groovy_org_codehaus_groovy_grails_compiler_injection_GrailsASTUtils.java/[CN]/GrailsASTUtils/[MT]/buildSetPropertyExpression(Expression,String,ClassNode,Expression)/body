@@ -1,0 +1,9 @@
+{
+  String methodName="set" + MetaClassHelper.capitalize(propertyName);
+  MethodCallExpression methodCallExpression=new MethodCallExpression(objectExpression,methodName,new ArgumentListExpression(valueExpression));
+  MethodNode setterMethod=targetClassNode.getSetterMethod(methodName);
+  if (setterMethod != null) {
+    methodCallExpression.setMethodTarget(setterMethod);
+  }
+  return methodCallExpression;
+}

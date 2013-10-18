@@ -1,0 +1,13 @@
+{
+  if (annotatedNode != null) {
+    AnnotationNode an=new AnnotationNode(COMPILESTATIC_CLASS_NODE);
+    if (skip) {
+      an.addMember("value",new PropertyExpression(new ClassExpression(TYPECHECKINGMODE_CLASS_NODE),"SKIP"));
+    }
+    annotatedNode.addAnnotation(an);
+    if (!skip) {
+      annotatedNode.getDeclaringClass().addTransform(StaticCompileTransformation.class,an);
+    }
+  }
+  return annotatedNode;
+}

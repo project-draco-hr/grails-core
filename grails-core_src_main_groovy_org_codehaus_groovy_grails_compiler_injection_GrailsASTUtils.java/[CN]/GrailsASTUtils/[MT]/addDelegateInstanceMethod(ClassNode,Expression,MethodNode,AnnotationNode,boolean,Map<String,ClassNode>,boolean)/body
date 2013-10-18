@@ -1,0 +1,36 @@
+{
+  Parameter[] parameterTypes=thisAsFirstArgument ? getRemainingParameterTypes(declaredMethod.getParameters()) : declaredMethod.getParameters();
+  String methodName=declaredMethod.getName();
+  if (classNode.hasDeclaredMethod(methodName,copyParameters(parameterTypes,genericsPlaceholders))) {
+    return null;
+  }
+  String propertyName=GrailsClassUtils.getPropertyForGetter(methodName);
+  if (propertyName != null && parameterTypes.length == 0 && classNode.hasProperty(propertyName)) {
+    return null;
+  }
+  propertyName=GrailsClassUtils.getPropertyForSetter(methodName);
+  if (propertyName != null && parameterTypes.length == 1 && classNode.hasProperty(propertyName)) {
+    return null;
+  }
+  BlockStatement methodBody=new BlockStatement();
+  ArgumentListExpression arguments=createArgumentListFromParameters(parameterTypes,thisAsFirstArgument,genericsPlaceholders);
+  ClassNode returnType=replaceGenericsPlaceholders(declaredMethod.getReturnType(),genericsPlaceholders);
+  MethodCallExpression methodCallExpression=new MethodCallExpression(delegate,methodName,arguments);
+  methodCallExpression.setMethodTarget(declaredMethod);
+  if (!noNullCheck) {
+    ThrowStatement missingMethodException=createMissingMethodThrowable(classNode,declaredMethod);
+    VariableExpression apiVar=addApiVariableDeclaration(delegate,declaredMethod,methodBody);
+    IfStatement ifStatement=createIfElseStatementForApiMethodCall(methodCallExpression,apiVar,missingMethodException);
+    methodBody.addStatement(ifStatement);
+  }
+ else {
+    methodBody.addStatement(new ExpressionStatement(methodCallExpression));
+  }
+  MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
+  methodNode.addAnnotations(declaredMethod.getAnnotations());
+  if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {
+    methodNode.addAnnotation(markerAnnotation);
+  }
+  classNode.addMethod(methodNode);
+  return methodNode;
+}

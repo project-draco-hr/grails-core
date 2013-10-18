@@ -1,0 +1,15 @@
+{
+  try {
+    for (    ClassInjector injector : injectors) {
+      injector.performInjectionOnAnnotatedClass(sourceUnit,cNode);
+    }
+  }
+ catch (  RuntimeException e) {
+    try {
+      GrailsConsole.getInstance().error("Error occurred calling AST injector: " + e.getMessage(),e);
+    }
+ catch (    Throwable t) {
+    }
+    throw e;
+  }
+}

@@ -7,10 +7,10 @@
     requestParameterName=requestParameters.get(0).getMember("value").getText();
   }
   if ((PRIMITIVE_CLASS_NODES.contains(paramTypeClassNode) || TYPE_WRAPPER_CLASS_TO_CONVERSION_METHOD_NAME.containsKey(paramTypeClassNode))) {
-    initializePrimitiveOrTypeWrapperParameter(wrapper,param,requestParameterName);
+    initializePrimitiveOrTypeWrapperParameter(classNode,wrapper,param,requestParameterName);
   }
  else   if (paramTypeClassNode.equals(new ClassNode(String.class))) {
-    initializeStringParameter(wrapper,param,requestParameterName);
+    initializeStringParameter(classNode,wrapper,param,requestParameterName);
   }
  else   if (!paramTypeClassNode.equals(OBJECT_CLASS)) {
     initializeAndValidateCommandObjectParameter(wrapper,classNode,paramTypeClassNode,actionNode,actionName,paramName,source,context);

@@ -28,6 +28,7 @@
       classNode.addConstructor(constructorNode);
     }
     constructorNode.addAnnotation(new AnnotationNode(new ClassNode(GrailsDelegatingConstructor.class)));
+    return constructorNode;
   }
  else {
     ConstructorNode cn=findConstructor(classNode,constructorParams);
@@ -48,5 +49,6 @@
       classNode.addConstructor(new ConstructorNode(Modifier.PUBLIC,new BlockStatement()));
     }
     cn.addAnnotation(new AnnotationNode(new ClassNode(GrailsDelegatingConstructor.class)));
+    return cn;
   }
 }

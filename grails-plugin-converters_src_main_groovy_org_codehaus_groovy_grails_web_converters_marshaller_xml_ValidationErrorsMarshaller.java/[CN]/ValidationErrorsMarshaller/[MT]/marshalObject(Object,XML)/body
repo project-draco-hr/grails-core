@@ -15,7 +15,9 @@
         }
  else {
           String defaultMessage=fe.getDefaultMessage();
-          if (defaultMessage != null)           xml.startNode("message").chars(defaultMessage).end();
+          if (defaultMessage != null) {
+            xml.startNode("message").chars(defaultMessage).end();
+          }
         }
         xml.end();
       }

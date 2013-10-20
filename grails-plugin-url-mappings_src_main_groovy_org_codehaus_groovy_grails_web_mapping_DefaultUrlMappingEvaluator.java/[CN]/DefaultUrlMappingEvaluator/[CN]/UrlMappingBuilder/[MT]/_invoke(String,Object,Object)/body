@@ -24,7 +24,17 @@
         Object viewName;
         Object uri;
         Object redirectInfo=null;
-        if (binding != null) {
+        if (binding == null) {
+          controllerName=this.controllerName;
+          redirectInfo=this.redirectInfo;
+          actionName=this.actionName;
+          pluginName=this.pluginName;
+          namespace=this.namespace;
+          viewName=this.viewName;
+          uri=this.uri;
+          httpMethod=this.httpMethod;
+        }
+ else {
           controllerName=variables.get(GrailsControllerClass.CONTROLLER);
           actionName=variables.get(GrailsControllerClass.ACTION);
           viewName=variables.get(GrailsControllerClass.VIEW);
@@ -34,16 +44,6 @@
           if (variables.containsKey(UrlMapping.HTTP_METHOD)) {
             httpMethod=variables.get(UrlMapping.HTTP_METHOD).toString();
           }
-        }
- else {
-          controllerName=this.controllerName;
-          redirectInfo=this.redirectInfo;
-          actionName=this.actionName;
-          pluginName=this.pluginName;
-          namespace=this.namespace;
-          viewName=this.viewName;
-          uri=this.uri;
-          httpMethod=this.httpMethod;
         }
         ConstrainedProperty[] constraints=getCurrentConstraints().toArray(new ConstrainedProperty[getCurrentConstraints().size()]);
         UrlMapping urlMapping;

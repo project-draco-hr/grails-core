@@ -1,5 +1,5 @@
 {
-  this.firstChunkSize=chunkSize;
+  firstChunkSize=chunkSize;
   this.growProcent=growProcent;
   this.maxChunkSize=maxChunkSize;
   writer=new StreamCharBufferWriter();

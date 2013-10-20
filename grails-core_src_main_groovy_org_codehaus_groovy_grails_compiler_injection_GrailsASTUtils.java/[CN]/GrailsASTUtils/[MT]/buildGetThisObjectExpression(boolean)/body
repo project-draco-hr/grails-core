@@ -1,8 +1,6 @@
 {
-  if (!inClosureBlock) {
-    return buildThisExpression();
-  }
- else {
+  if (inClosureBlock) {
     return buildGetPropertyExpression(buildThisExpression(),"thisObject",ClassHelper.make(Closure.class).getPlainNodeReference());
   }
+  return buildThisExpression();
 }

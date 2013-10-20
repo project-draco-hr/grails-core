@@ -8,6 +8,5 @@
   BlockStatement elseBlock=new BlockStatement();
   elseBlock.addStatement(new ReturnStatement(apiVar));
   methodBody.addStatement(new IfStatement(new BooleanExpression(new BinaryExpression(apiVar,GrailsASTUtils.EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION)),ifBlock,elseBlock));
-  MethodNode methodNode=new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
-  return methodNode;
+  return new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
 }

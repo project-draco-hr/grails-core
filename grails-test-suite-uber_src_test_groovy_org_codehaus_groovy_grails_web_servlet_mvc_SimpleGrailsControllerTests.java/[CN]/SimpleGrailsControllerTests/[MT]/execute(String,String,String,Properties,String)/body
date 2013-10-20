@@ -1,5 +1,5 @@
 {
-  GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest((GrailsWebApplicationContext)this.appCtx);
+  GrailsWebRequest webRequest=GrailsWebUtil.bindMockWebRequest((GrailsWebApplicationContext)appCtx);
   webRequest.setControllerName(controllerName);
   webRequest.setActionName(actionName);
   MockHttpServletRequest request=(MockHttpServletRequest)webRequest.getCurrentRequest();

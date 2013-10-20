@@ -1,6 +1,6 @@
 {
   this.connectedWriters=connectedWriters;
-  this.writers=new ArrayList<Writer>(connectedWriters.size());
+  writers=new ArrayList<Writer>(connectedWriters.size());
   for (  ConnectedWriter connectedWriter : connectedWriters) {
     writers.add(connectedWriter.getWriter());
   }

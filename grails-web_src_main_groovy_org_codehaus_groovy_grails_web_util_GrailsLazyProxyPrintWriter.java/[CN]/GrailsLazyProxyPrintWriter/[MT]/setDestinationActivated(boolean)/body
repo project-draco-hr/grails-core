@@ -1,6 +1,6 @@
 {
   this.destinationActivated=destinationActivated;
-  if (!this.destinationActivated) {
+  if (!destinationActivated) {
     super.setOut(null);
   }
 }

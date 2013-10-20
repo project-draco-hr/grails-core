@@ -1,6 +1,6 @@
 {
-  this.out=unwrapWriter(newOut);
-  this.lock=this.out != null ? this.out : this;
-  this.streamCharBufferTarget=null;
-  this.previousOut=null;
+  out=unwrapWriter(newOut);
+  lock=out == null ? this : this.out;
+  streamCharBufferTarget=null;
+  previousOut=null;
 }

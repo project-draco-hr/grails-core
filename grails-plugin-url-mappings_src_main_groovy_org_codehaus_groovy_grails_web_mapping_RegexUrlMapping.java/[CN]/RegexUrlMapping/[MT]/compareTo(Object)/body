@@ -41,13 +41,11 @@
   if ((thisVersion.equals(thatVersion))) {
     return 0;
   }
- else   if (thisVersion.equals(UrlMapping.ANY_VERSION) && !thatVersion.equals(UrlMapping.ANY_VERSION)) {
+  if (thisVersion.equals(UrlMapping.ANY_VERSION) && !thatVersion.equals(UrlMapping.ANY_VERSION)) {
     return -1;
   }
- else   if (!thisVersion.equals(UrlMapping.ANY_VERSION) && thatVersion.equals(UrlMapping.ANY_VERSION)) {
+  if (!thisVersion.equals(UrlMapping.ANY_VERSION) && thatVersion.equals(UrlMapping.ANY_VERSION)) {
     return 1;
   }
- else {
-    return new VersionComparator().compare(thisVersion,thatVersion);
-  }
+  return new VersionComparator().compare(thisVersion,thatVersion);
 }

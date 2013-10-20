@@ -1,4 +1,3 @@
 {
-  String suffix="";
-  return getPropertyNameConvention(object,suffix);
+  return getPropertyNameConvention(object,"");
 }

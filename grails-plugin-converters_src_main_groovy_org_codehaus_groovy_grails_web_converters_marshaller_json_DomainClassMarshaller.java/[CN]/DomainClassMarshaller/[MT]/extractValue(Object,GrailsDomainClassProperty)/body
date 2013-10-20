@@ -2,8 +2,5 @@
   if (domainObject instanceof GroovyObject) {
     return ((GroovyObject)domainObject).getProperty(property.getName());
   }
- else {
-    ClassPropertyFetcher propertyFetcher=ClassPropertyFetcher.forClass(domainObject.getClass());
-    return propertyFetcher.getPropertyValue(domainObject,property.getName());
-  }
+  return ClassPropertyFetcher.forClass(domainObject.getClass()).getPropertyValue(domainObject,property.getName());
 }

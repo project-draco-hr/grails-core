@@ -89,7 +89,7 @@
       processFilterChain(request,response,filterChain);
     }
  else {
-      response.addHeader(HttpHeaders.ALLOW,DefaultGroovyMethods.join(allowedHttpMethods,","));
+      response.addHeader(HttpHeaders.ALLOW,DefaultGroovyMethods.join((Iterable<HttpMethod>)allowedHttpMethods,","));
       response.sendError(HttpStatus.METHOD_NOT_ALLOWED.value());
     }
   }

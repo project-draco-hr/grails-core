@@ -1,0 +1,3 @@
+{
+  return GrailsASTUtils.applyDefaultMethodTarget(new MethodCallExpression(apiVar,"get",MethodCallExpression.NO_ARGUMENTS),referenceClassNode);
+}

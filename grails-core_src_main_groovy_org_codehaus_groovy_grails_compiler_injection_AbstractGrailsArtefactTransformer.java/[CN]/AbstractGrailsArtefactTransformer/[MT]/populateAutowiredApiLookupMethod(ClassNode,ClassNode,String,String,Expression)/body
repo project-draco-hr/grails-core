@@ -1,0 +1,25 @@
+{
+  FieldNode fieldNode=addApiLookupFieldAndSetter(classNode,implementationNode,apiProperty,initialValueExpression);
+  FieldExpression apiVar=new FieldExpression(fieldNode);
+  ClassNode referenceClassNode=resolveReferenceClassNode(implementationNode,initialValueExpression);
+  BlockStatement ifBlock=new BlockStatement();
+  if (initialValueExpression == null) {
+    ArgumentListExpression arguments=new ArgumentListExpression();
+    arguments.addExpression(new ConstantExpression("Method on class [" + classNode + "] was used outside of a Grails application. If running in the context of a test using the mocking API or bootstrap Grails correctly."));
+    ifBlock.addStatement(new ThrowStatement(new ConstructorCallExpression(new ClassNode(IllegalStateException.class),arguments)));
+  }
+ else {
+    VariableExpression apiVarLocal=new VariableExpression("$local_" + apiProperty,implementationNode);
+    DeclarationExpression de=new DeclarationExpression(apiVarLocal,GrailsASTUtils.ASSIGNMENT_OPERATOR,initialValueExpression);
+    ifBlock.addStatement(new ExpressionStatement(de));
+    String setterName="set" + MetaClassHelper.capitalize(apiProperty);
+    ifBlock.addStatement(new ExpressionStatement(new MethodCallExpression(new ClassExpression(classNode),setterName,apiVarLocal)));
+    ifBlock.addStatement(new ReturnStatement(new CastExpression(implementationNode,apiVarLocal)));
+  }
+  BlockStatement elseBlock=new BlockStatement();
+  elseBlock.addStatement(new ReturnStatement(buildGetReferenceCall(apiVar,referenceClassNode)));
+  BlockStatement methodBody=new BlockStatement();
+  methodBody.addStatement(new IfStatement(new BooleanExpression(new BinaryExpression(equalsNullExpr(apiVar),Token.newSymbol(Types.LOGICAL_OR,-1,-1),equalsNullExpr(buildGetReferenceCall(apiVar,referenceClassNode)))),ifBlock,elseBlock));
+  MethodNode methodNode=new MethodNode(methodName,PUBLIC_STATIC_MODIFIER,implementationNode,ZERO_PARAMETERS,null,methodBody);
+  return methodNode;
+}

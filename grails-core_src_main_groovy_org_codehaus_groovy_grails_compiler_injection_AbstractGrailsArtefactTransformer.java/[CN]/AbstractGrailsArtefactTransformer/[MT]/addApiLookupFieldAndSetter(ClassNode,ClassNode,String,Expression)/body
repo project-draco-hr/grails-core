@@ -1,12 +1,15 @@
 {
   FieldNode fieldNode=classNode.getField(apiProperty);
   if (fieldNode == null || !fieldNode.getDeclaringClass().equals(classNode)) {
-    fieldNode=new FieldNode(apiProperty,Modifier.PRIVATE | Modifier.STATIC,implementationNode,classNode,initialValueExpression);
+    ClassNode referenceClassNode=resolveReferenceClassNode(implementationNode,initialValueExpression);
+    ConstructorCallExpression referenceInitialValue=(initialValueExpression != null) ? new ConstructorCallExpression(referenceClassNode,initialValueExpression) : null;
+    fieldNode=new FieldNode(apiProperty,Modifier.PRIVATE | Modifier.STATIC,referenceClassNode,classNode,referenceInitialValue);
     classNode.addField(fieldNode);
     String setterName="set" + MetaClassHelper.capitalize(apiProperty);
     Parameter setterParameter=new Parameter(implementationNode,apiProperty);
     BlockStatement setterBody=new BlockStatement();
-    setterBody.addStatement(new ExpressionStatement(new BinaryExpression(new AttributeExpression(new ClassExpression(classNode),new ConstantExpression(apiProperty)),Token.newSymbol(Types.EQUAL,0,0),new VariableExpression(setterParameter))));
+    setterBody.addStatement(new ExpressionStatement(new BinaryExpression(new AttributeExpression(new ClassExpression(classNode),new ConstantExpression(apiProperty)),Token.newSymbol(Types.EQUAL,0,0),new ConstructorCallExpression(referenceClassNode,new VariableExpression(setterParameter)))));
     GrailsASTUtils.addCompileStaticAnnotation(classNode.addMethod(setterName,Modifier.PUBLIC | Modifier.STATIC,ClassHelper.VOID_TYPE,new Parameter[]{setterParameter},null,setterBody));
   }
+  return fieldNode;
 }

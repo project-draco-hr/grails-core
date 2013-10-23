@@ -1,6 +1,6 @@
 {
   ConfigObject co=getConfig();
-  flatConfig=co.flatten();
+  flatConfig=co.flatten(new LinkedHashMap());
   final ArtefactHandler[] handlers=getArtefactHandlers();
   for (  ArtefactHandler handler : handlers) {
     if (handler instanceof GrailsConfigurationAware) {

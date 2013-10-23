@@ -1,14 +1,3 @@
 {
-  if (isWindows()) {
-    try {
-      return PatchedJLineWindowsTerminal.setupTerminal(reader);
-    }
- catch (    Exception ex) {
-      error(ex);
-    }
-  }
- else {
-    terminal=Terminal.setupTerminal();
-  }
-  return terminal;
+  return terminal=TerminalFactory.create();
 }

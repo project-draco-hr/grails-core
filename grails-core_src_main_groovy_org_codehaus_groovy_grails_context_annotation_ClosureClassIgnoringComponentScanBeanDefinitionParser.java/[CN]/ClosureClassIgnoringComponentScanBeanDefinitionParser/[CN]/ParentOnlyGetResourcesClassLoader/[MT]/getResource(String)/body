@@ -1,6 +1,11 @@
 {
-  if (rootLoader != null) {
-    return findResourceRecursive(getParent(),name);
+  if (Environment.isFork()) {
+    return super.getResource(name);
   }
-  return invokeFindResource(getParent(),name);
+ else {
+    if (rootLoader != null) {
+      return findResourceRecursive(getParent(),name);
+    }
+    return invokeFindResource(getParent(),name);
+  }
 }

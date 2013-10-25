@@ -18,7 +18,7 @@
  else {
     str=String.valueOf(o);
   }
-  if (str.length() == 0) {
+  if (str == null || str.length() == 0) {
     return str;
   }
   StringBuilder sb=null;

@@ -1,5 +1,5 @@
 {
   super(parent,removeAfterReading);
   this.parent=parent;
-  position=parent.offset;
+  this.position=parent.offset;
 }

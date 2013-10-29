@@ -3,6 +3,6 @@
     addChunk(allocBuffer.createChunk());
     this.encodingState=null;
   }
-  nextEncoders=encodingState;
+  this.nextEncoders=encodingState;
   return size - used;
 }

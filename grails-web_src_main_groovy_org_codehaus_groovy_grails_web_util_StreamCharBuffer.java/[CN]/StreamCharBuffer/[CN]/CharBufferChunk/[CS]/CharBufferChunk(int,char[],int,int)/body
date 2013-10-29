@@ -1,7 +1,8 @@
 {
+  super();
   this.allocatedBufferId=allocatedBufferId;
   this.buffer=buffer;
   this.offset=offset;
-  lastposition=offset + len;
-  length=len;
+  this.lastposition=offset + len;
+  this.length=len;
 }

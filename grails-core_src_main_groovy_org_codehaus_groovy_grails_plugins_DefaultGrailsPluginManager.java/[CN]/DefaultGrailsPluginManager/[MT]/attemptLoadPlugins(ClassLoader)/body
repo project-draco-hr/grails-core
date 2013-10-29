@@ -8,14 +8,13 @@
   List<GrailsPlugin> orderedCorePlugins=new ArrayList<GrailsPlugin>();
   List<GrailsPlugin> orderedUserPlugins=new ArrayList<GrailsPlugin>();
   for (  GrailsPlugin plugin : filteredPlugins) {
-    if (grailsCorePlugins == null) {
-      continue;
-    }
-    if (grailsCorePlugins.contains(plugin)) {
-      orderedCorePlugins.add(plugin);
-    }
+    if (grailsCorePlugins != null) {
+      if (grailsCorePlugins.contains(plugin)) {
+        orderedCorePlugins.add(plugin);
+      }
  else {
-      orderedUserPlugins.add(plugin);
+        orderedUserPlugins.add(plugin);
+      }
     }
   }
   List<GrailsPlugin> orderedPlugins=new ArrayList<GrailsPlugin>();

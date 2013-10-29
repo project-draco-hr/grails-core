@@ -10,7 +10,9 @@
     if (placeHolderType != null) {
       return placeHolderType.getPlainNodeReference();
     }
-    return ClassHelper.make(Object.class).getPlainNodeReference();
+ else {
+      return ClassHelper.make(Object.class).getPlainNodeReference();
+    }
   }
   final ClassNode nonGen=type.getPlainNodeReference();
   if ("java.lang.Object".equals(type.getName())) {

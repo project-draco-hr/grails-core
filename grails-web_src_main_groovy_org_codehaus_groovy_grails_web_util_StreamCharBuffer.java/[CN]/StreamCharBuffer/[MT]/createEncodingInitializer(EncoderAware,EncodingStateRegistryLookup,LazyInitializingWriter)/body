@@ -6,16 +6,18 @@
     }
     public LazyInitializingWriter[] initializeMultiple(    StreamCharBuffer buffer,    boolean autoFlushMode) throws IOException {
       Encoder encoder=encoderLookup.getEncoder();
-      if (encoder == null) {
+      if (encoder != null) {
+        EncodingStateRegistry encodingStateRegistry=encodingStateRegistryLookup.lookup();
+        StreamCharBuffer encodeBuffer=new StreamCharBuffer(chunkSize,growProcent,maxChunkSize);
+        lazyWriter=encodeBuffer.getWriterForEncoder(encoder,encodingStateRegistry);
+        for (        LazyInitializingWriter w : writers) {
+          encodeBuffer.connectTo(w,autoFlushMode);
+        }
+        return new LazyInitializingWriter[]{this};
+      }
+ else {
         return writers;
       }
-      EncodingStateRegistry encodingStateRegistry=encodingStateRegistryLookup.lookup();
-      StreamCharBuffer encodeBuffer=new StreamCharBuffer(chunkSize,growProcent,maxChunkSize);
-      lazyWriter=encodeBuffer.getWriterForEncoder(encoder,encodingStateRegistry);
-      for (      LazyInitializingWriter w : writers) {
-        encodeBuffer.connectTo(w,autoFlushMode);
-      }
-      return new LazyInitializingWriter[]{this};
     }
   }
 ;

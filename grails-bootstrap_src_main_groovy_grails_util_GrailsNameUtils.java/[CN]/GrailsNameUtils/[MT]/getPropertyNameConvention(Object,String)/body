@@ -1,37 +1,36 @@
 {
-  if (object == null) {
-    return null;
-  }
-  Class<?> type=object.getClass();
-  if (type.isArray()) {
-    return getPropertyName(type.getComponentType()) + suffix + "Array";
-  }
-  if (object instanceof Collection) {
-    Collection coll=(Collection)object;
-    if (coll.isEmpty()) {
-      return "emptyCollection";
+  if (object != null) {
+    Class<?> type=object.getClass();
+    if (type.isArray()) {
+      return getPropertyName(type.getComponentType()) + suffix + "Array";
     }
-    Object first=coll.iterator().next();
-    if (coll instanceof List) {
-      return getPropertyName(first.getClass()) + suffix + "List";
+    if (object instanceof Collection) {
+      Collection coll=(Collection)object;
+      if (coll.isEmpty()) {
+        return "emptyCollection";
+      }
+      Object first=coll.iterator().next();
+      if (coll instanceof List) {
+        return getPropertyName(first.getClass()) + suffix + "List";
+      }
+      if (coll instanceof Set) {
+        return getPropertyName(first.getClass()) + suffix + "Set";
+      }
+      return getPropertyName(first.getClass()) + suffix + "Collection";
     }
-    if (coll instanceof Set) {
-      return getPropertyName(first.getClass()) + suffix + "Set";
+    if (object instanceof Map) {
+      Map map=(Map)object;
+      if (map.isEmpty()) {
+        return "emptyMap";
+      }
+      Object entry=map.values().iterator().next();
+      if (entry != null) {
+        return getPropertyName(entry.getClass()) + suffix + "Map";
+      }
     }
-    return getPropertyName(first.getClass()) + suffix + "Collection";
-  }
-  if (object instanceof Map) {
-    Map map=(Map)object;
-    if (map.isEmpty()) {
-      return "emptyMap";
-    }
-    Object entry=map.values().iterator().next();
-    if (entry != null) {
-      return getPropertyName(entry.getClass()) + suffix + "Map";
-    }
-  }
  else {
-    return getPropertyName(object.getClass()) + suffix;
+      return getPropertyName(object.getClass()) + suffix;
+    }
   }
   return null;
 }

@@ -1,23 +1,22 @@
 {
-  if (pageName == null) {
-    return null;
-  }
-  Class<?> pageClass=binaryPluginViewsMap.get(pageName);
-  if (pageClass == null && pluginManager != null) {
-    final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
-    for (    GrailsPlugin plugin : allPlugins) {
-      if (plugin instanceof BinaryGrailsPlugin) {
-        BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
-        pageClass=binaryPlugin.resolveView(pageName);
-        if (pageClass != null) {
-          binaryPluginViewsMap.put(pageName,pageClass);
-          break;
+  if (pageName != null) {
+    Class<?> pageClass=binaryPluginViewsMap.get(pageName);
+    if (pageClass == null && pluginManager != null) {
+      final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
+      for (      GrailsPlugin plugin : allPlugins) {
+        if (plugin instanceof BinaryGrailsPlugin) {
+          BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+          pageClass=binaryPlugin.resolveView(pageName);
+          if (pageClass != null) {
+            binaryPluginViewsMap.put(pageName,pageClass);
+            break;
+          }
         }
       }
     }
+    if (pageClass != null) {
+      return new GroovyPageCompiledScriptSource(pageName,pageName,pageClass);
+    }
   }
-  if (pageClass == null) {
-    return null;
-  }
-  return new GroovyPageCompiledScriptSource(pageName,pageName,pageClass);
+  return null;
 }

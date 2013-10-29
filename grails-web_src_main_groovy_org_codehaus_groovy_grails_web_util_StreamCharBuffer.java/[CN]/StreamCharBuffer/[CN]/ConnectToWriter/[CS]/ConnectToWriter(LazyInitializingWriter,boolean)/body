@@ -1,5 +1,5 @@
 {
   this.lazyInitializingWriter=lazyInitializingWriter;
-  writer=null;
+  this.writer=null;
   this.autoFlush=autoFlush;
 }

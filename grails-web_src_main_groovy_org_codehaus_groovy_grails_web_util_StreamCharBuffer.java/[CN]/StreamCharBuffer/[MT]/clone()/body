@@ -1,7 +1,7 @@
 {
   StreamCharBuffer cloned=new StreamCharBuffer();
   cloned.setNotifyParentBuffersEnabled(false);
-  if (size() > 0) {
+  if (this.size() > 0) {
     cloned.addChunk(readToSingleChunk());
   }
   return cloned;

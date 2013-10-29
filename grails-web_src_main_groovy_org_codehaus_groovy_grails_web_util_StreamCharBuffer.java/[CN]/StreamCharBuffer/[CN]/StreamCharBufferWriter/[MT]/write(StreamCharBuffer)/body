@@ -14,6 +14,6 @@
     subBuffer.addParentBuffer(StreamCharBuffer.this);
   }
  else {
-    subBuffer.encodeTo(getEncodedAppender(),null);
+    subBuffer.encodeTo(this.getEncodedAppender(),null);
   }
 }

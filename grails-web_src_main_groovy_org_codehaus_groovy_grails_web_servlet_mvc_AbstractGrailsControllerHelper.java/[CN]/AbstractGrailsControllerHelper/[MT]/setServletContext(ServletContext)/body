@@ -1,4 +1,4 @@
 {
   this.servletContext=servletContext;
-  grailsAttributes=new DefaultGrailsApplicationAttributes(servletContext);
+  this.grailsAttributes=new DefaultGrailsApplicationAttributes(servletContext);
 }

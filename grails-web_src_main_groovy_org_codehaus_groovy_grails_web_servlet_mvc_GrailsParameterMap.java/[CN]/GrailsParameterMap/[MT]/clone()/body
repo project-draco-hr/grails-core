@@ -2,12 +2,14 @@
   if (wrappedMap.isEmpty()) {
     return new GrailsParameterMap(new LinkedHashMap(),request);
   }
-  Map clonedMap=new LinkedHashMap(wrappedMap);
-  for (Iterator it=clonedMap.entrySet().iterator(); it.hasNext(); ) {
-    Map.Entry entry=(Map.Entry)it.next();
-    if (entry.getValue() instanceof GrailsParameterMap) {
-      entry.setValue(((GrailsParameterMap)entry.getValue()).clone());
+ else {
+    Map clonedMap=new LinkedHashMap(wrappedMap);
+    for (Iterator it=clonedMap.entrySet().iterator(); it.hasNext(); ) {
+      Map.Entry entry=(Map.Entry)it.next();
+      if (entry.getValue() instanceof GrailsParameterMap) {
+        entry.setValue(((GrailsParameterMap)entry.getValue()).clone());
+      }
     }
+    return new GrailsParameterMap(clonedMap,request);
   }
-  return new GrailsParameterMap(clonedMap,request);
 }

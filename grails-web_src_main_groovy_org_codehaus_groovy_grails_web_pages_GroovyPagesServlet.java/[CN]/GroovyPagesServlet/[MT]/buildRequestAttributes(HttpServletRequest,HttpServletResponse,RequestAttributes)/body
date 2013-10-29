@@ -2,5 +2,7 @@
   if (previousAttributes instanceof GrailsWebRequest) {
     return null;
   }
-  return super.buildRequestAttributes(request,response,previousAttributes);
+ else {
+    return super.buildRequestAttributes(request,response,previousAttributes);
+  }
 }

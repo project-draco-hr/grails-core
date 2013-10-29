@@ -2,7 +2,13 @@
   ClassNode implementationNode=GrailsASTUtils.replaceGenericsPlaceholders(ClassHelper.make(instanceImplementation),genericsPlaceholders);
   String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
   Expression apiInstance=new VariableExpression(apiInstanceProperty,implementationNode);
-  if (!requiresStaticLookupMethod() && requiresAutowiring()) {
+  if (requiresStaticLookupMethod()) {
+    final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
+    MethodNode lookupMethod=createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName);
+    apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
+    ((MethodCallExpression)apiInstance).setMethodTarget(lookupMethod);
+  }
+ else   if (requiresAutowiring()) {
     final ConstructorCallExpression constructorCallExpression=GrailsASTUtils.hasZeroArgsConstructor(implementationNode) ? new ConstructorCallExpression(implementationNode,ZERO_ARGS) : null;
     PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,constructorCallExpression,null,null);
     propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
@@ -12,14 +18,12 @@
     classNode.addProperty(propertyNode);
   }
  else {
-    Expression initialValueExpression=null;
-    if (!requiresStaticLookupMethod()) {
-      initialValueExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
+    final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
+    FieldNode fieldNode=classNode.getField(apiInstanceProperty);
+    if (fieldNode == null || (Modifier.isPrivate(fieldNode.getModifiers()) && !fieldNode.getDeclaringClass().equals(classNode))) {
+      fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);
+      classNode.addField(fieldNode);
     }
-    final String lookupMethodName=CURRENT_PREFIX + instanceImplementation.getSimpleName();
-    MethodNode lookupMethod=createStaticLookupMethod(classNode,implementationNode,apiInstanceProperty,lookupMethodName,initialValueExpression);
-    apiInstance=new MethodCallExpression(new ClassExpression(classNode),lookupMethodName,ZERO_ARGS);
-    ((MethodCallExpression)apiInstance).setMethodTarget(lookupMethod);
   }
   while (!implementationNode.equals(AbstractGrailsArtefactTransformer.OBJECT_CLASS)) {
     List<MethodNode> declaredMethods=implementationNode.getMethods();

@@ -1,3 +1,0 @@
-{
-  return GrailsASTUtils.nonGeneric(ClassHelper.makeWithoutCaching((initialValueExpression != null) ? SoftReference.class : WeakReference.class),implementationNode);
-}

@@ -21,11 +21,11 @@
     throw new NullPointerException("attributes.getTopWriter() is null and there is no previous stack item");
   }
   StackEntry stackEntry=new StackEntry(topWriter,unwrappedWriter);
-  stackEntry.outEncoder=applyEncoder(attributes.getOutEncoder(),previousStackEntry != null ? previousStackEntry.outEncoder : null,attributes.isInheritPreviousEncoders());
-  stackEntry.staticEncoder=applyEncoder(attributes.getStaticEncoder(),previousStackEntry != null ? previousStackEntry.staticEncoder : null,attributes.isInheritPreviousEncoders());
-  stackEntry.expressionEncoder=applyEncoder(attributes.getExpressionEncoder(),previousStackEntry != null ? previousStackEntry.expressionEncoder : null,attributes.isInheritPreviousEncoders());
-  stackEntry.taglibEncoder=applyEncoder(attributes.getTaglibEncoder(),previousStackEntry != null ? previousStackEntry.taglibEncoder : null,attributes.isInheritPreviousEncoders());
-  stackEntry.defaultTaglibEncoder=applyEncoder(attributes.getDefaultTaglibEncoder(),previousStackEntry != null ? previousStackEntry.defaultTaglibEncoder : null,attributes.isInheritPreviousEncoders());
+  stackEntry.outEncoder=applyEncoder(attributes.getOutEncoder(),previousStackEntry != null ? previousStackEntry.outEncoder : null,attributes.isInheritPreviousEncoders(),attributes.isReplaceOnly());
+  stackEntry.staticEncoder=applyEncoder(attributes.getStaticEncoder(),previousStackEntry != null ? previousStackEntry.staticEncoder : null,attributes.isInheritPreviousEncoders(),attributes.isReplaceOnly());
+  stackEntry.expressionEncoder=applyEncoder(attributes.getExpressionEncoder(),previousStackEntry != null ? previousStackEntry.expressionEncoder : null,attributes.isInheritPreviousEncoders(),attributes.isReplaceOnly());
+  stackEntry.taglibEncoder=applyEncoder(attributes.getTaglibEncoder(),previousStackEntry != null ? previousStackEntry.taglibEncoder : null,attributes.isInheritPreviousEncoders(),attributes.isReplaceOnly());
+  stackEntry.defaultTaglibEncoder=applyEncoder(attributes.getDefaultTaglibEncoder(),previousStackEntry != null ? previousStackEntry.defaultTaglibEncoder : null,attributes.isInheritPreviousEncoders(),attributes.isReplaceOnly());
   stack.push(stackEntry);
   resetWriters();
   if (autoSync) {

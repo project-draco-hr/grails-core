@@ -1,0 +1,9 @@
+{
+  if (newEncoder != null && (!replaceOnly || previousEncoder == null || replaceOnly && previousEncoder.isSafe())) {
+    return newEncoder;
+  }
+  if (allowInheriting) {
+    return previousEncoder;
+  }
+  return null;
+}

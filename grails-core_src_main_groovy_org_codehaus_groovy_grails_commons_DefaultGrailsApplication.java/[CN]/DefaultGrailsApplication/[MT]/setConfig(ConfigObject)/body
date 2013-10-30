@@ -4,6 +4,6 @@
     flatConfig=Collections.emptyMap();
   }
  else {
-    flatConfig=config.flatten();
+    flatConfig=config.flatten(new LinkedHashMap());
   }
 }

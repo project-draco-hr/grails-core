@@ -1,9 +1,0 @@
-{
-  if (newEncoder != null) {
-    return newEncoder;
-  }
-  if (allowInheriting) {
-    return previousEncoder;
-  }
-  return null;
-}

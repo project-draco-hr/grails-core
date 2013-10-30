@@ -7,5 +7,5 @@
  catch (    IOException ignored) {
     }
   }
-  return file.canWrite() ? new History(file) : null;
+  return file.canWrite() ? new FileHistory(file) : null;
 }

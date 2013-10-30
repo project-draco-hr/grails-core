@@ -1,8 +1,13 @@
 {
-  if (rootLoader != null) {
-    Collection<URL> urls=new LinkedHashSet<URL>();
-    findResourcesRecursive(getParent(),name,urls);
-    return Collections.enumeration(urls);
+  if (Environment.isFork()) {
+    return super.getResources(name);
   }
-  return invokeFindResources(getParent(),name);
+ else {
+    if (rootLoader != null) {
+      Collection<URL> urls=new LinkedHashSet<URL>();
+      findResourcesRecursive(getParent(),name,urls);
+      return Collections.enumeration(urls);
+    }
+    return invokeFindResources(getParent(),name);
+  }
 }

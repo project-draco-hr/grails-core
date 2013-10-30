@@ -1,8 +1,4 @@
 {
   if (target == null)   return null;
-  Object encoded=closure.call(target);
-  if (encoded != null && !(encoded instanceof CharSequence)) {
-    return String.valueOf(encoded);
-  }
-  return (CharSequence)encoded;
+  return closure.call(target);
 }

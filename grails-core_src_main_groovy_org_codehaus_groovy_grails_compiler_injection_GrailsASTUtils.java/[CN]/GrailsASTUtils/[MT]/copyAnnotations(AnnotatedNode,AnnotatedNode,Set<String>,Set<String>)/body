@@ -3,11 +3,7 @@
   for (  final AnnotationNode node : annotationsToCopy) {
     String annotationClassName=node.getClassNode().getName();
     if ((excluded == null || !excluded.contains(annotationClassName)) && (included == null || included.contains(annotationClassName))) {
-      final AnnotationNode copyOfAnnotationNode=new AnnotationNode(node.getClassNode());
-      final Map<String,Expression> members=node.getMembers();
-      for (      final Map.Entry<String,Expression> entry : members.entrySet()) {
-        copyOfAnnotationNode.addMember(entry.getKey(),entry.getValue());
-      }
+      final AnnotationNode copyOfAnnotationNode=cloneAnnotation(node);
       to.addAnnotation(copyOfAnnotationNode);
     }
   }

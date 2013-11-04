@@ -22,7 +22,7 @@
   }
   ClassNode returnType=replaceGenericsPlaceholders(delegateMethod.getReturnType(),genericsPlaceholders);
   MethodNode methodNode=new MethodNode(declaredMethodName,Modifier.PUBLIC | Modifier.STATIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
-  methodNode.addAnnotations(delegateMethod.getAnnotations());
+  copyAnnotations(delegateMethod,methodNode);
   if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {
     methodNode.addAnnotation(markerAnnotation);
   }

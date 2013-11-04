@@ -27,7 +27,7 @@
     methodBody.addStatement(new ExpressionStatement(methodCallExpression));
   }
   MethodNode methodNode=new MethodNode(methodName,Modifier.PUBLIC,returnType,copyParameters(parameterTypes,genericsPlaceholders),GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,methodBody);
-  methodNode.addAnnotations(declaredMethod.getAnnotations());
+  copyAnnotations(declaredMethod,methodNode);
   if (shouldAddMarkerAnnotation(markerAnnotation,methodNode)) {
     methodNode.addAnnotation(markerAnnotation);
   }

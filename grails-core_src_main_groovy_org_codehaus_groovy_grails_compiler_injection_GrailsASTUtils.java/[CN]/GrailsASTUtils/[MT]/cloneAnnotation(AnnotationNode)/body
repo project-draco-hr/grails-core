@@ -1,0 +1,8 @@
+{
+  final AnnotationNode copyOfAnnotationNode=new AnnotationNode(node.getClassNode());
+  final Map<String,Expression> members=node.getMembers();
+  for (  final Map.Entry<String,Expression> entry : members.entrySet()) {
+    copyOfAnnotationNode.addMember(entry.getKey(),entry.getValue());
+  }
+  return copyOfAnnotationNode;
+}

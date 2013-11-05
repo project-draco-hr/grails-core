@@ -1,4 +1,5 @@
 {
+  ConfigurationHelper.clearCachedConfig(this);
   Assert.notNull(classes,"Constructor argument 'classes' cannot be null");
   loadedClasses.addAll(Arrays.asList(classes));
   allClasses=classes;

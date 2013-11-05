@@ -6,6 +6,7 @@
   err=new PrintStream(ansiWrap(originalSystemErr));
   System.setOut(new GrailsConsolePrintStream(out));
   System.setErr(new GrailsConsoleErrorPrintStream(err));
+  System.setProperty(ShutdownHooks.JLINE_SHUTDOWNHOOK,"false");
   if (isInteractiveEnabled()) {
     reader=createConsoleReader();
     reader.setBellEnabled(false);

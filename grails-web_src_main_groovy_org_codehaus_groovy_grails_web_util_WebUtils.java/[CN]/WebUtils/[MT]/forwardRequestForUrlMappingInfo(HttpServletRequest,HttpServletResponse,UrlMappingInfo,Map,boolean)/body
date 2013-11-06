@@ -1,5 +1,4 @@
 {
-  exposeForwardRequestAttributes(request);
   exposeRequestAttributes(request,model);
   String forwardUrl=buildDispatchUrlForMapping(info,includeParams);
   RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);

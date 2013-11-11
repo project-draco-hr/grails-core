@@ -10,5 +10,10 @@
       addChunk(chunk);
     }
   }
-  return chunk.buffer;
+  if (chunk != null) {
+    return chunk.buffer;
+  }
+ else {
+    return new char[0];
+  }
 }

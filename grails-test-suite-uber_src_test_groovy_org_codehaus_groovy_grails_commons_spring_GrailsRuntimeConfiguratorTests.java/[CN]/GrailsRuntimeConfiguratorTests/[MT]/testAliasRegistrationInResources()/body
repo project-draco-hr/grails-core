@@ -12,4 +12,5 @@
   springConfig.registerBeansWithContext(ctx);
   assertTrue(ctx.containsBean("foo"));
   assertTrue(ctx.containsBean("bar"));
+  assertTrue(ctx.containsBean("grapp"));
 }

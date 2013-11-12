@@ -4,18 +4,17 @@
     processFilterChain(request,response,filterChain);
     return;
   }
-  if (isUriExcluded(holder,uri)) {
+  if (uriExclusionCache.isUriExcluded(uri)) {
     processFilterChain(request,response,filterChain);
     return;
   }
   if (LOG.isDebugEnabled()) {
     LOG.debug("Executing URL mapping filter...");
-    LOG.debug(holder);
   }
   GrailsWebRequest webRequest=(GrailsWebRequest)request.getAttribute(GrailsApplicationAttributes.WEB_REQUEST);
   HttpServletRequest currentRequest=webRequest.getCurrentRequest();
   String version=findRequestedVersion(webRequest);
-  UrlMappingInfo[] urlInfos=holder.matchAll(uri,currentRequest.getMethod(),version != null ? version : UrlMapping.ANY_VERSION);
+  UrlMappingInfo[] urlInfos=urlMappingsHolder.matchAll(uri,currentRequest.getMethod(),version != null ? version : UrlMapping.ANY_VERSION);
   WrappedResponseHolder.setWrappedResponse(response);
   boolean dispatched=false;
   try {
@@ -80,7 +79,7 @@
     WrappedResponseHolder.setWrappedResponse(null);
   }
   if (!dispatched) {
-    Set<HttpMethod> allowedHttpMethods=allowHeaderForWrongHttpMethod ? allowedMethods(holder,uri) : Collections.EMPTY_SET;
+    Set<HttpMethod> allowedHttpMethods=allowHeaderForWrongHttpMethod ? allowedMethods(urlMappingsHolder,uri) : Collections.EMPTY_SET;
     if (allowedHttpMethods.isEmpty()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("No match found, processing remaining filter chain.");

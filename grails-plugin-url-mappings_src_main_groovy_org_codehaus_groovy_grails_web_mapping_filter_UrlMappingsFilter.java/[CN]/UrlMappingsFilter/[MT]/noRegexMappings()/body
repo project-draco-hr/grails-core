@@ -1,5 +1,5 @@
 {
-  for (  UrlMapping mapping : holder.getUrlMappings()) {
+  for (  UrlMapping mapping : urlMappingsHolder.getUrlMappings()) {
     if (mapping instanceof RegexUrlMapping) {
       return false;
     }

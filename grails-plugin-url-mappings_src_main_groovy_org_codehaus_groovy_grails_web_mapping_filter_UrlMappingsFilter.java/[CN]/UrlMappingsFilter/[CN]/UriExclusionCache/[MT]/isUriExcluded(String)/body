@@ -1,0 +1,10 @@
+{
+  Boolean isExcluded=exclusionCache.get(uri);
+  if (isExcluded == null) {
+    isExcluded=UrlMappingsFilter.isUriExcluded(holder,uri);
+    if (!Environment.isDevelopmentMode()) {
+      exclusionCache.put(uri,isExcluded);
+    }
+  }
+  return isExcluded;
+}

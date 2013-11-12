@@ -1,0 +1,13 @@
+{
+  boolean appWithoutControllersAndRegexMappings;
+  if (cachedGrailsAppWithoutControllersAndRegexMappings != null) {
+    appWithoutControllersAndRegexMappings=cachedGrailsAppWithoutControllersAndRegexMappings;
+  }
+ else {
+    appWithoutControllersAndRegexMappings=noControllers() && noRegexMappings();
+    if (!Environment.isDevelopmentMode()) {
+      cachedGrailsAppWithoutControllersAndRegexMappings=appWithoutControllersAndRegexMappings;
+    }
+  }
+  return appWithoutControllersAndRegexMappings;
+}

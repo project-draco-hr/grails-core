@@ -1,7 +1,6 @@
 {
-  UrlMappingsHolder holder=WebUtils.lookupUrlMappings(getServletContext());
   String uri=urlHelper.getPathWithinApplication(request);
-  if (!"/".equals(uri) && noControllers() && noRegexMappings(holder)) {
+  if (!"/".equals(uri) && isGrailsAppWithoutControllersAndRegexMappings()) {
     processFilterChain(request,response,filterChain);
     return;
   }

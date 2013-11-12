@@ -8,6 +8,7 @@
   viewResolver=WebUtils.lookupViewResolver(servletContext);
   ApplicationContext mainContext=application.getMainContext();
   urlConverter=mainContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class);
+  holder=WebUtils.lookupUrlMappings(servletContext);
   if (application != null) {
     grailsConfig=new GrailsConfig(application);
   }

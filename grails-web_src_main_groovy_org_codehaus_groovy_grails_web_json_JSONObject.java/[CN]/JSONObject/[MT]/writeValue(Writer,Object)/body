@@ -1,0 +1,20 @@
+{
+  if (value == null || value.equals(null)) {
+    writer.write("null");
+  }
+ else   if (value instanceof Number) {
+    writeNumber(writer,(Number)value);
+  }
+ else   if (value instanceof Date) {
+    writeDate(writer,(Date)value);
+  }
+ else   if (value instanceof Boolean) {
+    writer.write(value.toString());
+  }
+ else   if (value instanceof JSONElement) {
+    ((JSONElement)value).writeTo(writer);
+  }
+ else {
+    writeQuoted(writer,value);
+  }
+}

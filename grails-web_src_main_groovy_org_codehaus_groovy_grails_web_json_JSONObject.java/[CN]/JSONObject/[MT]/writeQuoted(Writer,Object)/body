@@ -1,0 +1,7 @@
+{
+  writer.write("\"");
+  CodecPrintWriter codecWriter=new CodecPrintWriter(writer,javascriptEncoder,null);
+  codecWriter.print(value);
+  codecWriter.flush();
+  writer.write("\"");
+}

@@ -7,7 +7,10 @@
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;
   final Object renderArgument=arguments[0];
-  if (renderArgument instanceof Writable) {
+  if (renderArgument instanceof Converter<?>) {
+    renderView=renderConverter((Converter<?>)renderArgument,response);
+  }
+ else   if (renderArgument instanceof Writable) {
     applyContentType(response,null,renderArgument);
     Writable writable=(Writable)renderArgument;
     renderView=renderWritable(writable,response);

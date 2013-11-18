@@ -1,17 +1,14 @@
 {
-  if (hasContentType)   return;
-  String contentType;
   MimeUtility mimeUtility=lookupMimeUtility(webRequest);
   if (mimeUtility != null) {
     MimeType mimeType=mimeUtility.getMimeTypeForExtension(FilenameUtils.getExtension(fileName));
     if (mimeType != null) {
-      contentType=mimeType.getName();
+      String contentType=mimeType.getName();
       Object encodingObj=argMap.get(ARGUMENT_ENCODING);
       String encoding=encodingObj != null ? encodingObj.toString() : DEFAULT_ENCODING;
       setContentType(response,contentType,encoding);
-    }
- else {
-      throw new ControllerExecutionException("Content type could not be determined for file: " + fileName);
+      return true;
     }
   }
+  return false;
 }

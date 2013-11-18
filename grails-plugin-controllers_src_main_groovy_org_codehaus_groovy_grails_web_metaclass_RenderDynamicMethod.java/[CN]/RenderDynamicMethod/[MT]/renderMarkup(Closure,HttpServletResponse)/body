@@ -1,14 +1,6 @@
 {
-  boolean renderView;
   StreamingMarkupBuilder b=new StreamingMarkupBuilder();
   b.setEncoding(response.getCharacterEncoding());
   Writable markup=(Writable)b.bind(closure);
-  try {
-    markup.writeTo(response.getWriter());
-  }
- catch (  IOException e) {
-    throw new ControllerExecutionException("I/O error executing render method for arguments [" + closure + "]: "+ e.getMessage(),e);
-  }
-  renderView=false;
-  return renderView;
+  return renderWritable(markup,response);
 }

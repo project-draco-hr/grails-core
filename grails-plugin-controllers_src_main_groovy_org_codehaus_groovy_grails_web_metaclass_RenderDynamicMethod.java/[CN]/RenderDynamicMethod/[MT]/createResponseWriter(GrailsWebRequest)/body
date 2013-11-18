@@ -1,0 +1,5 @@
+{
+  GSPResponseWriter out=GSPResponseWriter.getInstance(webRequest.getResponse());
+  webRequest.setOut(out);
+  return out;
+}

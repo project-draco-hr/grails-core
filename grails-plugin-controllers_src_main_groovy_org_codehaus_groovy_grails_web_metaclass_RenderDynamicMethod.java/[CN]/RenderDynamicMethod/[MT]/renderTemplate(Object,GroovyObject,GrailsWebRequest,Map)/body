@@ -1,4 +1,5 @@
 {
+  GSPResponseWriter out=createResponseWriter(webRequest);
   boolean renderView;
   boolean hasModel=argMap.containsKey(ARGUMENT_MODEL);
   Object modelObject=null;
@@ -50,6 +51,7 @@
       Writable w=t.make(new BeanMap(target));
       w.writeTo(out);
     }
+    out.flush();
     renderView=false;
   }
  catch (  GroovyRuntimeException gre) {

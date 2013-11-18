@@ -1,5 +1,5 @@
 {
-  if (response.getContentType() == null || !contentTypeIsDefault) {
+  if (!contentTypeIsDefault || response.getContentType() == null) {
     response.setContentType(GrailsWebUtil.getContentType(contentType,encoding));
   }
 }

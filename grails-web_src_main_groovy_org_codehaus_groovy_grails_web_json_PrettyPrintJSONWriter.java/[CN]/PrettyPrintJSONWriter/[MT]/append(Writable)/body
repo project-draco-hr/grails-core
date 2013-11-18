@@ -1,0 +1,23 @@
+{
+  if (mode == OBJECT || mode == ARRAY) {
+    try {
+      if (comma && mode == ARRAY) {
+        comma();
+      }
+      if (mode == ARRAY) {
+        newline();
+        indent();
+      }
+      writableValue.writeTo(writer);
+    }
+ catch (    IOException e) {
+      throw new JSONException(e);
+    }
+    if (mode == OBJECT) {
+      mode=KEY;
+    }
+    comma=true;
+    return this;
+  }
+  throw new JSONException("Value out of sequence: expected mode to be OBJECT or ARRAY when writing '" + writableValue + "' but was "+ this.mode);
+}

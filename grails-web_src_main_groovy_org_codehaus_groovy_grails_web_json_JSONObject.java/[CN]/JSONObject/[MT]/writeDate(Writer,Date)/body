@@ -1,0 +1,5 @@
+{
+  writer.write("new Date(");
+  writer.write(String.valueOf(d.getTime()));
+  writer.write(")");
+}

@@ -1,7 +1,4 @@
 {
-  if (s == null) {
-    throw new JSONException("Null pointer");
-  }
   if (mode == OBJECT || mode == ARRAY) {
     try {
       if (comma && mode == ARRAY) {
@@ -11,7 +8,7 @@
         newline();
         indent();
       }
-      writer.write(s);
+      writableValue.writeTo(writer);
     }
  catch (    IOException e) {
       throw new JSONException(e);
@@ -22,5 +19,5 @@
     comma=true;
     return this;
   }
-  throw new JSONException("Value out of sequence: expected mode to be OBJECT or ARRAY when writing '" + s + "' but was "+ this.mode);
+  throw new JSONException("Value out of sequence: expected mode to be OBJECT or ARRAY when writing '" + writableValue + "' but was "+ this.mode);
 }

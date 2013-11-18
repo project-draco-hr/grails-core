@@ -1,7 +1,17 @@
 {
-  writer.write("\"");
-  CodecPrintWriter codecWriter=new CodecPrintWriter(writer,javascriptEncoder,null);
-  codecWriter.print(value);
-  codecWriter.flush();
-  writer.write("\"");
+  if (useStreamingJavascriptEncoder) {
+    writer.write("\"");
+    if (value instanceof String || value instanceof StringBuilder || value instanceof StringBuffer) {
+      javascriptEncoderStateless.encodeToWriter((CharSequence)value,writer);
+    }
+ else {
+      CodecPrintWriter codecWriter=new CodecPrintWriter(writer,javascriptEncoder,null);
+      codecWriter.print(value);
+      codecWriter.flush();
+    }
+    writer.write("\"");
+  }
+ else {
+    writer.write(valueToString(value));
+  }
 }

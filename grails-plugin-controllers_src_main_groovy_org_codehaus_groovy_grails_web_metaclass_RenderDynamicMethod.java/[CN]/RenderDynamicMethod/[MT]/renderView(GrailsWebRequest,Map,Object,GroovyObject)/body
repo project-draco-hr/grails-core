@@ -11,7 +11,7 @@
     }
     if (isPromise)     return;
   }
-  applyContentType(webRequest.getResponse(),argMap,null);
+  applyContentType(webRequest.getCurrentResponse(),argMap,null);
   Map model;
   if (modelObject instanceof Map) {
     model=(Map)modelObject;

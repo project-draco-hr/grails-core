@@ -1,0 +1,11 @@
+{
+  if (charBuffer != null) {
+    charBuffer.clear();
+  }
+ else   if (byteBuffer != null) {
+    byteBuffer.clear();
+  }
+  if (gspSitemeshPage != null) {
+    gspSitemeshPage.reset();
+  }
+}

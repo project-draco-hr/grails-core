@@ -11,6 +11,6 @@
   previousContentWasNonWhitespace=false;
   currentlyBufferingWhitespace=false;
   page();
-  out.flush();
+  out.close();
   scan=null;
 }

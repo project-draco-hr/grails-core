@@ -6,6 +6,7 @@
  else {
       writer.write(text.toString());
     }
+    writer.flush();
     return false;
   }
  catch (  IOException e) {

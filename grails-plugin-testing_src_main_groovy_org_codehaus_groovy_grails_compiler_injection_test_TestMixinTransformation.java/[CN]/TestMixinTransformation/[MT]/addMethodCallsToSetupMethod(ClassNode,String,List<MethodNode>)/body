@@ -1,8 +1,0 @@
-{
-  if (methods != null && !methods.isEmpty()) {
-    BlockStatement setupMethodBody=getOrCreateNoArgsMethodBody(classNode,name);
-    for (    MethodNode beforeMethod : methods) {
-      setupMethodBody.getStatements().add(0,new ExpressionStatement(new MethodCallExpression(new VariableExpression("this"),beforeMethod.getName(),GrailsArtefactClassInjector.ZERO_ARGS)));
-    }
-  }
-}

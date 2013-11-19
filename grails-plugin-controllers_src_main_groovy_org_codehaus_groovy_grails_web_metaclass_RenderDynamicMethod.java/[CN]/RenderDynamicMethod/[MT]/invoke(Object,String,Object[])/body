@@ -6,6 +6,7 @@
   HttpServletResponse response=webRequest.getCurrentResponse();
   boolean renderView=true;
   GroovyObject controller=(GroovyObject)target;
+  String explicitSiteMeshLayout=null;
   final Object renderArgument=arguments[0];
   if (renderArgument instanceof Converter<?>) {
     renderView=renderConverter((Converter<?>)renderArgument,response);
@@ -30,7 +31,7 @@
  else     if (renderArgument instanceof Map) {
       Map argMap=(Map)renderArgument;
       if (argMap.containsKey(ARGUMENT_LAYOUT)) {
-        webRequest.getCurrentRequest().setAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,argMap.get(ARGUMENT_LAYOUT));
+        explicitSiteMeshLayout=String.valueOf(argMap.get(ARGUMENT_LAYOUT));
       }
       boolean statusSet=false;
       if (argMap.containsKey(ARGUMENT_STATUS)) {
@@ -155,6 +156,7 @@
       throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
     }
   }
+  applySiteMeshLayout(webRequest.getCurrentRequest(),renderView,explicitSiteMeshLayout);
   webRequest.setRenderView(renderView);
   return null;
 }

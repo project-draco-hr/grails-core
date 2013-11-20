@@ -1,3 +1,8 @@
 {
-  return getResponse();
+  if (wrappedResponse != null) {
+    return wrappedResponse;
+  }
+ else {
+    return getResponse();
+  }
 }

@@ -1,0 +1,11 @@
+{
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+  HttpServletResponse previousResponse=webRequest.getWrappedResponse();
+  try {
+    webRequest.setWrappedResponse(contentBufferingResponse);
+    chain.doFilter(request,contentBufferingResponse);
+  }
+  finally {
+    webRequest.setWrappedResponse(previousResponse);
+  }
+}

@@ -27,6 +27,7 @@
         encoder=((EncoderAware)appender).getEncoder();
       }
       encodeTo(appender,encoder);
+      appender.flush();
       if (emptyAfter) {
         emptyAfterReading();
       }

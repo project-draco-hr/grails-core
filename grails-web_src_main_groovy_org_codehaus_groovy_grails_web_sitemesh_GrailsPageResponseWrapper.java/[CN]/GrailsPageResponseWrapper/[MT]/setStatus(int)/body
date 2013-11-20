@@ -1,10 +1,9 @@
 {
   if (sc == HttpServletResponse.SC_NOT_MODIFIED) {
-    abortRequest();
     deactivateSiteMesh();
   }
  else   if (sc >= 400) {
-    abortRequest();
+    clearBuffer();
   }
   super.setStatus(sc);
 }

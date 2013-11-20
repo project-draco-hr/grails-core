@@ -4,7 +4,7 @@
     request.setAttribute(GSP_SITEMESH_PAGE,new GSPSitemeshPage());
     GrailsContentBufferingResponse contentBufferingResponse=new GrailsContentBufferingResponse(response,contentProcessor,webAppContext);
     setDefaultConfiguredEncoding(request,contentBufferingResponse);
-    chain.doFilter(request,contentBufferingResponse);
+    executeFilterChainWithWrappedResponse(chain,request,contentBufferingResponse);
     webAppContext.setUsingStream(contentBufferingResponse.isUsingStream());
     return contentBufferingResponse.getContent();
   }

@@ -1,0 +1,9 @@
+{
+  if (explicitSiteMeshLayout == null && request.getAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE) != null) {
+    return;
+  }
+  String siteMeshLayout=explicitSiteMeshLayout != null ? explicitSiteMeshLayout : (renderView ? null : GrailsLayoutDecoratorMapper.NONE_LAYOUT);
+  if (siteMeshLayout != null) {
+    request.setAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,siteMeshLayout);
+  }
+}

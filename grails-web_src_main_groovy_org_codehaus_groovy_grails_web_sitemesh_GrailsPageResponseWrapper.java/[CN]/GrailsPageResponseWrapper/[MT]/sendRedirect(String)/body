@@ -1,4 +1,4 @@
 {
-  abortRequest();
+  clearBuffer();
   super.sendRedirect(location);
 }

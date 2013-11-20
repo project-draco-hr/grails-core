@@ -1,5 +1,5 @@
 {
-  abortRequest();
+  clearBuffer();
   GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
   try {
     super.sendError(sc);

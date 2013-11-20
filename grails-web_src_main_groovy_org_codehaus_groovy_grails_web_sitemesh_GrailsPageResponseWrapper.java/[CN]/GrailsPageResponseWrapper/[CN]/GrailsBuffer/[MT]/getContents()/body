@@ -1,6 +1,11 @@
 {
   if (charBuffer != null) {
-    return charBuffer.toCharArray();
+    if (!charBuffer.isEmpty()) {
+      return charBuffer.toCharArray();
+    }
+ else {
+      return null;
+    }
   }
   if (byteBuffer != null) {
     return TEXT_ENCODER.encode(byteBuffer.readAsByteArray(),encoding);

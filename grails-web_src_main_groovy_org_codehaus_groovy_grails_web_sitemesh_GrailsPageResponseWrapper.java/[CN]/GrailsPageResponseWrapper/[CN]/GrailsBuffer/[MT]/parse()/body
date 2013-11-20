@@ -1,3 +1,4 @@
 {
-  return pageParser.parse(getContents());
+  PageParser pageParser=parserSelector.getPageParser(contentType);
+  return pageParser != null ? pageParser.parse(getContents()) : null;
 }

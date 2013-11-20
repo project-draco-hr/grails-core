@@ -5,5 +5,5 @@
   totalCharsInDynamicChunks=-1;
   sizeAtLeast=-1;
   dynamicChunkMap.clear();
-  allocBuffer.reuseBuffer(null);
+  allocBuffer.clear();
 }

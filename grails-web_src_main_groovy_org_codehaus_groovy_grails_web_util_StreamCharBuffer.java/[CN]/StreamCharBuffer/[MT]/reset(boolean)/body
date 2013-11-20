@@ -8,6 +8,16 @@
     chunkSize=firstChunkSize;
     totalChunkSize=0;
   }
-  allocBuffer=new AllocatedBuffer(chunkSize);
-  dynamicChunkMap=new HashMap<StreamCharBufferKey,StreamCharBufferSubChunk>();
+  if (allocBuffer == null) {
+    allocBuffer=new AllocatedBuffer(chunkSize);
+  }
+ else {
+    allocBuffer.clear();
+  }
+  if (dynamicChunkMap == null) {
+    dynamicChunkMap=new HashMap<StreamCharBufferKey,StreamCharBufferSubChunk>();
+  }
+ else {
+    dynamicChunkMap.clear();
+  }
 }

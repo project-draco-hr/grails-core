@@ -1,0 +1,10 @@
+{
+  List<String> beanNamesList=new ArrayList<String>();
+  for (  Object beanName : beans.keySet()) {
+    Object bean=beans.get(beanName);
+    if (bean != null && bean.getClass().getAnnotation(annotationType) != null) {
+      beanNamesList.add(beanName.toString());
+    }
+  }
+  return beanNamesList.toArray(new String[beanNamesList.size()]);
+}

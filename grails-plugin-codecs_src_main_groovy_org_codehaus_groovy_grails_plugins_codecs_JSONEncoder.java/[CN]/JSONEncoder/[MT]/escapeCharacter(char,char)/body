@@ -1,0 +1,33 @@
+{
+switch (ch) {
+case '"':
+    return "\\\"";
+case '\\':
+  return "\\\\";
+case '\t':
+return "\\t";
+case '\n':
+return "\\n";
+case '\r':
+return "\\r";
+case '\f':
+return "\\f";
+case '\b':
+return "\\b";
+case '\u000B':
+return "\\v";
+case '\u2028':
+return "\\u2028";
+case '\u2029':
+return "\\u2029";
+case '/':
+if (previousChar == '<') {
+return "\\u002f";
+}
+break;
+}
+if (ch < ' ') {
+return "\\u" + StringUtils.leftPad(Integer.toHexString(ch),4,'0');
+}
+return null;
+}

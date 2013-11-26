@@ -1,4 +1,5 @@
 {
   super(request,response);
   attributes=new DefaultGrailsApplicationAttributes(servletContext);
+  inheritEncodingStateRegistry();
 }

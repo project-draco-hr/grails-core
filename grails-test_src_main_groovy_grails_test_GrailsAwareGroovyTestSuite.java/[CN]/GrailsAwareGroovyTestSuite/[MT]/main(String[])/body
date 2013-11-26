@@ -1,4 +1,5 @@
 {
+  System.setProperty("file.encoding","UTF-8");
   if (args.length > 0) {
     file=args[0];
   }

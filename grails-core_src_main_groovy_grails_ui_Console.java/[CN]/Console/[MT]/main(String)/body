@@ -1,4 +1,5 @@
 {
+  System.setProperty("file.encoding","UTF-8");
   final ApplicationContext ctx=GrailsUtil.bootstrapGrailsFromClassPath();
   GrailsApplication app=(GrailsApplication)ctx.getBean(GrailsApplication.APPLICATION_ID);
   Binding b=new Binding();

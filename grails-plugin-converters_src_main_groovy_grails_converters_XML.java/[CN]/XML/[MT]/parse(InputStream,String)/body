@@ -1,7 +1,7 @@
 {
   try {
     InputStreamReader reader=new InputStreamReader(is,encoding);
-    return new XmlSlurper().parse(reader);
+    return IOUtils.createXmlSlurper().parse(reader);
   }
  catch (  Exception e) {
     throw new ConverterException("Error parsing XML",e);

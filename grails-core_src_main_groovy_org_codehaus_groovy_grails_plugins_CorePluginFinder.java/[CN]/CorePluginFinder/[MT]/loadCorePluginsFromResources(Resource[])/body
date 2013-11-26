@@ -1,7 +1,7 @@
 {
   LOG.debug("Attempting to load [" + resources.length + "] core plugins");
   try {
-    XmlSlurper slurper=new XmlSlurper();
+    XmlSlurper slurper=IOUtils.createXmlSlurper();
     for (    Resource resource : resources) {
       InputStream input=null;
       try {

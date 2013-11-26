@@ -1,7 +1,7 @@
 {
   checkInitialised();
   try {
-    Document document=DOMBuilder.parse(new InputStreamReader(inputStream));
+    Document document=DOMBuilder.parse(new InputStreamReader(inputStream,"UTF-8"));
     Element documentElement=document.getDocumentElement();
     for (    GrailsPlugin plugin : pluginList) {
       if (plugin.supportsCurrentScopeAndEnvironment()) {

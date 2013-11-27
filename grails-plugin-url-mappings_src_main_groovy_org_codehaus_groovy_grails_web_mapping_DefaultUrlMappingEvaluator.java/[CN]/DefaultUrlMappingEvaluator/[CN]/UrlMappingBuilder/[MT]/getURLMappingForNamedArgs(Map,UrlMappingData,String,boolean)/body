@@ -15,7 +15,7 @@
     LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
   }
   Object uri=getURI(namedArguments,bindingVariables);
-  ConstrainedProperty[] constraints=currentConstraints.toArray(new ConstrainedProperty[currentConstraints.size()]);
+  ConstrainedProperty[] constraints=getCurrentConstraints().toArray(new ConstrainedProperty[getCurrentConstraints().size()]);
   UrlMapping urlMapping;
   if (uri != null) {
     try {

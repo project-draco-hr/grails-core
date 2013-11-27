@@ -1,6 +1,11 @@
 {
   Object[] args=(Object[])arg;
-  String mappedURI=establishFullURI(methodName);
+  List<ConstrainedProperty> currentConstraints=new ArrayList<ConstrainedProperty>();
+  List<ConstrainedProperty> parentConstraints=getParentConstraints();
+  if (parentConstraints != null) {
+    currentConstraints.addAll(parentConstraints);
+  }
+  String mappedURI=establishFullURI(methodName,currentConstraints);
   final boolean isResponseCode=isResponseCode(mappedURI);
   if (mappedURI.startsWith(SLASH) || isResponseCode) {
     parameterValues=new HashMap<String,Object>();
@@ -45,7 +50,7 @@
           uri=this.uri;
           httpMethod=this.httpMethod;
         }
-        ConstrainedProperty[] constraints=getCurrentConstraints().toArray(new ConstrainedProperty[getCurrentConstraints().size()]);
+        ConstrainedProperty[] constraints=currentConstraints.toArray(new ConstrainedProperty[currentConstraints.size()]);
         UrlMapping urlMapping;
         if (uri != null) {
           try {
@@ -82,7 +87,7 @@
         if (namedArguments.containsKey(RESOURCE)) {
           Object controller=namedArguments.get(RESOURCE);
           String controllerName=controller.toString();
-          parentResources.push(new ParentResource(controllerName,uri,getCurrentConstraints(),true));
+          parentResources.push(new ParentResource(controllerName,uri,currentConstraints,true));
           try {
             invokeLastArgumentIfClosure(args);
           }
@@ -90,14 +95,13 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createSingleResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
+            createSingleResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
           }
-          currentConstraints=null;
         }
  else         if (namedArguments.containsKey(RESOURCES)) {
           Object controller=namedArguments.get(RESOURCES);
           String controllerName=controller.toString();
-          parentResources.push(new ParentResource(controllerName,uri,getCurrentConstraints(),false));
+          parentResources.push(new ParentResource(controllerName,uri,currentConstraints,false));
           try {
             invokeLastArgumentIfClosure(args);
           }
@@ -105,15 +109,13 @@
             parentResources.pop();
           }
           if (controller != null) {
-            createResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
+            createResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
           }
-          currentConstraints=null;
         }
  else {
           invokeLastArgumentIfClosure(args);
-          UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,mappedURI,isResponseCode);
+          UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,mappedURI,isResponseCode,currentConstraints);
           configureUrlMapping(urlMapping);
-          currentConstraints=null;
           return urlMapping;
         }
       }
@@ -142,7 +144,7 @@
     if (args.length > 0 && (args[0] instanceof Closure)) {
       Closure callable=(Closure)args[0];
       callable.setDelegate(builder);
-      for (      ConstrainedProperty constrainedProperty : getCurrentConstraints()) {
+      for (      ConstrainedProperty constrainedProperty : currentConstraints) {
         builder.getConstrainedProperties().put(constrainedProperty.getPropertyName(),constrainedProperty);
       }
       callable.call();

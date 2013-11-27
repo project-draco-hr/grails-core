@@ -1,0 +1,4 @@
+{
+  ParentResource parentResource=parentResources.peek();
+  return parentResource == null ? previousConstraints : parentResource.constraints;
+}

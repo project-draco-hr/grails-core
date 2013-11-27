@@ -1,0 +1,6 @@
+{
+  GrailsWebRequest parentRequest=GrailsWebRequest.lookup(getRequest());
+  if (parentRequest != null) {
+    this.encodingStateRegistry=parentRequest.getEncodingStateRegistry();
+  }
+}

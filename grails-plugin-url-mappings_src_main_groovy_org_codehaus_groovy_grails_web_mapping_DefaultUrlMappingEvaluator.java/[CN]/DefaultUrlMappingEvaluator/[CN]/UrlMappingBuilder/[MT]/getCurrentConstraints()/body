@@ -1,4 +1,11 @@
 {
-  ParentResource parentResource=parentResources.peek();
-  return parentResource == null ? previousConstraints : parentResource.constraints;
+  if (currentConstraints == null) {
+    currentConstraints=new ArrayList<ConstrainedProperty>();
+    ParentResource parentResource=parentResources.peek();
+    List<ConstrainedProperty> c=parentResource == null ? previousConstraints : parentResource.constraints;
+    for (    ConstrainedProperty p : c) {
+      currentConstraints.add(p);
+    }
+  }
+  return currentConstraints;
 }

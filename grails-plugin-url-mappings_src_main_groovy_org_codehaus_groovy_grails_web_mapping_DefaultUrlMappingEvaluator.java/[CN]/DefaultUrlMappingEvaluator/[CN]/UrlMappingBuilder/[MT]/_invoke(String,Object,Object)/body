@@ -92,6 +92,7 @@
           if (controller != null) {
             createSingleResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
           }
+          currentConstraints=null;
         }
  else         if (namedArguments.containsKey(RESOURCES)) {
           Object controller=namedArguments.get(RESOURCES);
@@ -106,11 +107,13 @@
           if (controller != null) {
             createResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,getCurrentConstraints(),calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
           }
+          currentConstraints=null;
         }
  else {
           invokeLastArgumentIfClosure(args);
           UrlMapping urlMapping=getURLMappingForNamedArgs(namedArguments,urlData,mappedURI,isResponseCode);
           configureUrlMapping(urlMapping);
+          currentConstraints=null;
           return urlMapping;
         }
       }

@@ -1,0 +1,6 @@
+{
+  clearCache();
+  if (getParentMessageSource() instanceof ReloadableResourceBundleMessageSource) {
+    ((ReloadableResourceBundleMessageSource)getParentMessageSource()).clearCacheIncludingAncestors();
+  }
+}

@@ -1,0 +1,9 @@
+{
+  logger.debug("Clearing entire resource bundle cache");
+synchronized (this.cachedProperties) {
+    this.cachedProperties.clear();
+  }
+synchronized (this.cachedMergedProperties) {
+    this.cachedMergedProperties.clear();
+  }
+}

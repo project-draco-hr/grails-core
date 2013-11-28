@@ -1,0 +1,22 @@
+{
+synchronized (this.cachedMergedProperties) {
+    PropertiesHolder mergedHolder=this.cachedMergedProperties.get(locale);
+    if (mergedHolder != null) {
+      return mergedHolder;
+    }
+    Properties mergedProps=new Properties();
+    mergedHolder=new PropertiesHolder(mergedProps,-1);
+    for (int i=this.basenames.length - 1; i >= 0; i--) {
+      List filenames=calculateAllFilenames(this.basenames[i],locale);
+      for (int j=filenames.size() - 1; j >= 0; j--) {
+        String filename=(String)filenames.get(j);
+        PropertiesHolder propHolder=getProperties(filename);
+        if (propHolder.getProperties() != null) {
+          mergedProps.putAll(propHolder.getProperties());
+        }
+      }
+    }
+    this.cachedMergedProperties.put(locale,mergedHolder);
+    return mergedHolder;
+  }
+}

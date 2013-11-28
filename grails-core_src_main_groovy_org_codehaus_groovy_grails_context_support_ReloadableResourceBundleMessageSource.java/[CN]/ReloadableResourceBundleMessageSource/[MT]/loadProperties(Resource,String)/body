@@ -1,0 +1,37 @@
+{
+  InputStream is=resource.getInputStream();
+  Properties props=new Properties();
+  try {
+    if (resource.getFilename().endsWith(XML_SUFFIX)) {
+      if (logger.isDebugEnabled()) {
+        logger.debug("Loading properties [" + resource.getFilename() + "]");
+      }
+      this.propertiesPersister.loadFromXml(props,is);
+    }
+ else {
+      String encoding=null;
+      if (this.fileEncodings != null) {
+        encoding=this.fileEncodings.getProperty(filename);
+      }
+      if (encoding == null) {
+        encoding=this.defaultEncoding;
+      }
+      if (encoding != null) {
+        if (logger.isDebugEnabled()) {
+          logger.debug("Loading properties [" + resource.getFilename() + "] with encoding '"+ encoding+ "'");
+        }
+        this.propertiesPersister.load(props,new InputStreamReader(is,encoding));
+      }
+ else {
+        if (logger.isDebugEnabled()) {
+          logger.debug("Loading properties [" + resource.getFilename() + "]");
+        }
+        this.propertiesPersister.load(props,is);
+      }
+    }
+    return props;
+  }
+  finally {
+    is.close();
+  }
+}

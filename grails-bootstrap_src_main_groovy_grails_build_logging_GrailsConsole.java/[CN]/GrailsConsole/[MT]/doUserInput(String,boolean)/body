@@ -3,7 +3,7 @@
     msg+=' ';
   }
   lastMessage="";
-  msg=isAnsiEnabled() ? outputCategory(ansi(),">").fg(DEFAULT).a(msg).toString() : msg;
+  msg=isAnsiEnabled() ? outputCategory(ansi(),">").fg(DEFAULT).a(msg).reset().toString() : msg;
   try {
     return readLine(msg,secure);
   }

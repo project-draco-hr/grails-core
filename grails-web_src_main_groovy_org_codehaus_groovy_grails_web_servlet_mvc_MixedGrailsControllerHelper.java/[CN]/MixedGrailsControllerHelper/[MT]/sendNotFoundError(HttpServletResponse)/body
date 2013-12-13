@@ -1,0 +1,9 @@
+{
+  try {
+    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+    return null;
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException("I/O error sending 404 error",e);
+  }
+}

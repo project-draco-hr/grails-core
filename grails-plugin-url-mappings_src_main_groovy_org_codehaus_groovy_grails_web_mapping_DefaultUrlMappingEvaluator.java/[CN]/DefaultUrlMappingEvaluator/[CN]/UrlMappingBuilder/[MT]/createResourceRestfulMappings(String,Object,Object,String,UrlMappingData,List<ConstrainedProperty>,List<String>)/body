@@ -1,7 +1,7 @@
 {
-  ConstrainedProperty[] constraintArray=previousConstraints.toArray(new ConstrainedProperty[previousConstraints.size()]);
+  ConstrainedProperty[] constraintArray=constrainedPropertyList.toArray(new ConstrainedProperty[constrainedPropertyList.size()]);
   if (includes.contains(ACTION_INDEX)) {
-    UrlMapping listUrlMapping=createIndexActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping listUrlMapping=createIndexActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(listUrlMapping);
   }
   if (includes.contains(ACTION_CREATE)) {
@@ -9,23 +9,23 @@
     configureUrlMapping(createUrlMapping);
   }
   if (includes.contains(ACTION_SAVE)) {
-    UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping saveUrlMapping=createSaveActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(saveUrlMapping);
   }
   if (includes.contains(ACTION_SHOW)) {
-    UrlMapping showUrlMapping=createShowActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping showUrlMapping=createShowActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(showUrlMapping);
   }
   if (includes.contains(ACTION_EDIT)) {
-    UrlMapping editUrlMapping=createEditActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping editUrlMapping=createEditActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(editUrlMapping);
   }
   if (includes.contains(ACTION_UPDATE)) {
-    UrlMapping updateUrlMapping=createUpdateActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping updateUrlMapping=createUpdateActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(updateUrlMapping);
   }
   if (includes.contains(ACTION_DELETE)) {
-    UrlMapping deleteUrlMapping=createDeleteActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,previousConstraints);
+    UrlMapping deleteUrlMapping=createDeleteActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(deleteUrlMapping);
   }
 }

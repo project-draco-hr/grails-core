@@ -1,6 +1,6 @@
 {
   try {
-    parentResources.push(new ParentResource(null,uri,previousConstraints,true));
+    parentResources.push(new ParentResource(null,uri,true));
     mappings.call();
   }
   finally {

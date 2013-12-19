@@ -7,7 +7,8 @@
   if (Environment.getCurrent() == Environment.TEST) {
     GrailsWebRequest webRequest=GrailsWebRequest.lookup();
     if (webRequest != null) {
-      webRequest.setControllerName(GrailsNameUtils.getLogicalPropertyName(instance.getClass().getName(),ControllerArtefactHandler.TYPE));
+      String className=instance.getClass().getName().replaceAll("\\$\\$.*$","");
+      webRequest.setControllerName(GrailsNameUtils.getLogicalPropertyName(className,ControllerArtefactHandler.TYPE));
     }
   }
 }

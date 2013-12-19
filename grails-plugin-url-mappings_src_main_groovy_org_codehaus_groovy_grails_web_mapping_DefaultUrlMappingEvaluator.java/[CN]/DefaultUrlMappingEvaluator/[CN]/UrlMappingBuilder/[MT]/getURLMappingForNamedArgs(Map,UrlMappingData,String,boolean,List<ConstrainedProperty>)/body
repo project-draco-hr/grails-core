@@ -1,9 +1,7 @@
 {
-  Object controllerName;
-  Object actionName;
   final Map bindingVariables=binding != null ? binding.getVariables() : null;
-  controllerName=getControllerName(namedArguments,bindingVariables);
-  actionName=getActionName(namedArguments,bindingVariables);
+  Object controllerName=getControllerName(namedArguments,bindingVariables);
+  Object actionName=getActionName(namedArguments,bindingVariables);
   Object pluginName=getPluginName(namedArguments,bindingVariables);
   Object httpMethod=getHttpMethod(namedArguments,bindingVariables);
   Object version=getVersion(namedArguments,bindingVariables);

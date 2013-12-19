@@ -1,0 +1,16 @@
+{
+  MetaMappingInfo mappingInfo=new MetaMappingInfo();
+  MetaMappingInfo parentMappingInfo=mappingInfoDeque.peek();
+  if (parentMappingInfo != null) {
+    List<ConstrainedProperty> parentMappingConstraints=parentMappingInfo.getConstraints();
+    if (parentMappingConstraints != null) {
+      mappingInfo.getConstraints().addAll(parentMappingConstraints);
+    }
+  }
+  if (previousConstraints.size() > 0) {
+    mappingInfo.getConstraints().addAll(previousConstraints);
+    previousConstraints.clear();
+  }
+  mappingInfoDeque.push(mappingInfo);
+  return mappingInfo;
+}

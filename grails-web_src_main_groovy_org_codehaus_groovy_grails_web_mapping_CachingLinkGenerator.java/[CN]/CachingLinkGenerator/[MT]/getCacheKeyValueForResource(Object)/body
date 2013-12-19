@@ -1,0 +1,12 @@
+{
+  StringBuilder builder=new StringBuilder(o.getClass().getName());
+  builder.append("->");
+  Object idValue=GrailsMetaClassUtils.invokeMethodIfExists(o,"ident",new Object[0]);
+  if (idValue != null) {
+    builder.append(idValue.toString());
+  }
+ else {
+    builder.append(o);
+  }
+  return builder.toString();
+}

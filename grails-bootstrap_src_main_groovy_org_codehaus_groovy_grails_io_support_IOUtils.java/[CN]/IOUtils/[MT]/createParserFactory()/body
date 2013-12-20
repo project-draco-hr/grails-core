@@ -1,0 +1,18 @@
+{
+  if (saxParserFactory == null) {
+    saxParserFactory=FactorySupport.createSaxParserFactory();
+    saxParserFactory.setNamespaceAware(true);
+    saxParserFactory.setValidating(false);
+    try {
+      saxParserFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl",false);
+    }
+ catch (    Exception pce) {
+    }
+    try {
+      saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,true);
+    }
+ catch (    Exception e) {
+    }
+  }
+  return saxParserFactory;
+}

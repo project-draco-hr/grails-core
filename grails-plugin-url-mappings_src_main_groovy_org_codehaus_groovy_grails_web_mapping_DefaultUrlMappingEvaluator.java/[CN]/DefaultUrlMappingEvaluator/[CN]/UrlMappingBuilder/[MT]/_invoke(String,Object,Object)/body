@@ -1,6 +1,7 @@
 {
   try {
-    List<ConstrainedProperty> currentConstraints=pushNewConstraints();
+    MetaMappingInfo mappingInfo=pushNewMetaMappingInfo();
+    List<ConstrainedProperty> currentConstraints=mappingInfo.getConstraints();
     Object[] args=(Object[])arg;
     String mappedURI=establishFullURI(methodName,currentConstraints);
     final boolean isResponseCode=isResponseCode(mappedURI);
@@ -19,48 +20,29 @@
             callable.setDelegate(delegate);
           }
           callable.call();
-          Object controllerName;
-          Object actionName;
-          Object pluginName;
-          String httpMethod=null;
-          String version=null;
-          Object namespace;
-          Object viewName;
-          Object uri;
-          Object redirectInfo=null;
           if (binding != null) {
-            controllerName=variables.get(GrailsControllerClass.CONTROLLER);
-            actionName=variables.get(GrailsControllerClass.ACTION);
-            viewName=variables.get(GrailsControllerClass.VIEW);
-            uri=variables.get(UrlMapping.URI);
-            pluginName=variables.get(UrlMapping.PLUGIN);
-            namespace=variables.get(UrlMapping.NAMESPACE);
+            mappingInfo.setController(variables.get(GrailsControllerClass.CONTROLLER));
+            mappingInfo.setAction(variables.get(GrailsControllerClass.ACTION));
+            mappingInfo.setView(variables.get(GrailsControllerClass.VIEW));
+            mappingInfo.setUri(variables.get(UrlMapping.URI));
+            mappingInfo.setPlugin(variables.get(UrlMapping.PLUGIN));
+            mappingInfo.setNamespace(variables.get(UrlMapping.NAMESPACE));
             if (variables.containsKey(UrlMapping.HTTP_METHOD)) {
-              httpMethod=variables.get(UrlMapping.HTTP_METHOD).toString();
+              mappingInfo.setHttpMethod(variables.get(UrlMapping.HTTP_METHOD).toString());
             }
-          }
- else {
-            controllerName=this.controllerName;
-            redirectInfo=this.redirectInfo;
-            actionName=this.actionName;
-            pluginName=this.pluginName;
-            namespace=this.namespace;
-            viewName=this.viewName;
-            uri=this.uri;
-            httpMethod=this.httpMethod;
           }
           ConstrainedProperty[] constraints=currentConstraints.toArray(new ConstrainedProperty[currentConstraints.size()]);
           UrlMapping urlMapping;
-          if (uri != null) {
+          if (mappingInfo.getUri() != null) {
             try {
-              urlMapping=new RegexUrlMapping(urlData,new URI(uri.toString()),constraints,sc);
+              urlMapping=new RegexUrlMapping(urlData,new URI(mappingInfo.getUri().toString()),constraints,sc);
             }
  catch (            URISyntaxException e) {
               throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);
             }
           }
  else {
-            urlMapping=createURLMapping(urlData,isResponseCode,redirectInfo,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints);
+            urlMapping=createURLMapping(urlData,isResponseCode,mappingInfo.getRedirectInfo(),mappingInfo.getController(),mappingInfo.getAction(),mappingInfo.getNamespace(),mappingInfo.getPlugin(),mappingInfo.getView(),mappingInfo.getHttpMethod(),null,constraints);
           }
           if (binding != null) {
             Map bindingVariables=variables;
@@ -80,12 +62,16 @@
             version=namedArguments.get(UrlMapping.VERSION).toString();
           }
           if (namedArguments.containsKey(UrlMapping.NAMESPACE)) {
-            namespace=namedArguments.get(UrlMapping.NAMESPACE).toString();
+            mappingInfo.setNamespace(namedArguments.get(UrlMapping.NAMESPACE).toString());
+          }
+          if (namedArguments.containsKey(UrlMapping.PLUGIN)) {
+            mappingInfo.setPlugin(namedArguments.get(UrlMapping.PLUGIN).toString());
           }
           UrlMappingData urlData=createUrlMappingData(uri,isResponseCode);
           if (namedArguments.containsKey(RESOURCE)) {
             Object controller=namedArguments.get(RESOURCE);
             String controllerName=controller.toString();
+            mappingInfo.setController(controllerName);
             parentResources.push(new ParentResource(controllerName,uri,true));
             try {
               invokeLastArgumentIfClosure(args);
@@ -94,12 +80,13 @@
               parentResources.pop();
             }
             if (controller != null) {
-              createSingleResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
+              createSingleResourceRestfulMappings(controllerName,mappingInfo.getPlugin(),mappingInfo.getNamespace(),version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCE_INCLUDES));
             }
           }
  else           if (namedArguments.containsKey(RESOURCES)) {
             Object controller=namedArguments.get(RESOURCES);
             String controllerName=controller.toString();
+            mappingInfo.setController(controllerName);
             parentResources.push(new ParentResource(controllerName,uri,false));
             try {
               invokeLastArgumentIfClosure(args);
@@ -108,10 +95,7 @@
               parentResources.pop();
             }
             if (controller != null) {
-              if (namedArguments.containsKey(UrlMapping.NAMESPACE)) {
-                namespace=namedArguments.get(UrlMapping.NAMESPACE).toString();
-              }
-              createResourceRestfulMappings(controllerName,pluginName,namespace,version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
+              createResourceRestfulMappings(controllerName,mappingInfo.getPlugin(),mappingInfo.getNamespace(),version,urlData,currentConstraints,calculateIncludes(namedArguments,DEFAULT_RESOURCES_INCLUDES));
             }
           }
  else {
@@ -126,14 +110,6 @@
   finally {
         if (binding != null) {
           variables.clear();
-        }
- else {
-          controllerName=null;
-          redirectInfo=null;
-          actionName=null;
-          viewName=null;
-          pluginName=null;
-          namespace=null;
         }
         if (parentResources.isEmpty()) {
           urlDefiningMode=true;
@@ -157,6 +133,6 @@
     }
   }
   finally {
-    constrainedPropertyDeque.pop();
+    mappingInfoDeque.pop();
   }
 }

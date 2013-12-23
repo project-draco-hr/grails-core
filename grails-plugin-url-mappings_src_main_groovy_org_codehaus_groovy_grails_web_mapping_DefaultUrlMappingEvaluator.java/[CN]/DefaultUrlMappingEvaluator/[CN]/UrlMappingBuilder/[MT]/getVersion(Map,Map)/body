@@ -1,3 +1,3 @@
 {
-  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,UrlMapping.VERSION,pluginName);
+  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,UrlMapping.VERSION,getMetaMappingInfo().getView());
 }

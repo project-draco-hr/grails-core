@@ -14,6 +14,9 @@
       appendKeyValue(buffer,map,UrlMapping.CONTROLLER,getRequestStateLookupStrategy().getControllerName());
       appendCommaIfNotFirst(buffer,false);
     }
+    if (RESOURCE_PREFIX.equals(key)) {
+      value=getCacheKeyValueForResource(value);
+    }
     appendKeyValue(buffer,map,key,value);
   }
   buffer.append(CLOSING_BRACKET);

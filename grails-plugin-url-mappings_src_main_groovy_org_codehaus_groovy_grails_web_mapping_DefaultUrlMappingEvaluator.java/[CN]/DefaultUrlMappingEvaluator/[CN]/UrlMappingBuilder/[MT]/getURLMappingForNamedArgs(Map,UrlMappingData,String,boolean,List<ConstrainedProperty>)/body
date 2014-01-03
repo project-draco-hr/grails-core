@@ -1,9 +1,7 @@
 {
-  Object controllerName;
-  Object actionName;
   final Map bindingVariables=binding != null ? binding.getVariables() : null;
-  controllerName=getControllerName(namedArguments,bindingVariables);
-  actionName=getActionName(namedArguments,bindingVariables);
+  Object controllerName=getControllerName(namedArguments,bindingVariables);
+  Object actionName=getActionName(namedArguments,bindingVariables);
   Object pluginName=getPluginName(namedArguments,bindingVariables);
   Object httpMethod=getHttpMethod(namedArguments,bindingVariables);
   Object version=getVersion(namedArguments,bindingVariables);
@@ -15,7 +13,7 @@
     LOG.warn("Both [action] and [view] specified in URL mapping [" + mapping + "]. The action takes precendence!");
   }
   Object uri=getURI(namedArguments,bindingVariables);
-  ConstrainedProperty[] constraints=currentConstraints.toArray(new ConstrainedProperty[currentConstraints.size()]);
+  ConstrainedProperty[] constraints=constrainedPropertyList.toArray(new ConstrainedProperty[constrainedPropertyList.size()]);
   UrlMapping urlMapping;
   if (uri != null) {
     try {

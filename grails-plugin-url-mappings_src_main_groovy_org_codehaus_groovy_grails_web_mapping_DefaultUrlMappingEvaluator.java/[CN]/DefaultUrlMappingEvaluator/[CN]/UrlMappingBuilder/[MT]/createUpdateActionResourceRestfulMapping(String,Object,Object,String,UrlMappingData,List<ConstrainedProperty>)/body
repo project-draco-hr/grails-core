@@ -1,5 +1,5 @@
 {
   UrlMappingData updateUrlMappingData=createFormatOnlyUrlMappingData(urlData);
-  List<ConstrainedProperty> updateUrlMappingConstraints=createFormatOnlyConstraints(previousConstraints);
+  List<ConstrainedProperty> updateUrlMappingConstraints=createFormatOnlyConstraints(constrainedPropertyList);
   return new RegexUrlMapping(updateUrlMappingData,controllerName,ACTION_UPDATE,null,pluginName,null,HttpMethod.PUT.toString(),version,updateUrlMappingConstraints.toArray(new ConstrainedProperty[updateUrlMappingConstraints.size()]),servletContext);
 }

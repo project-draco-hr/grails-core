@@ -1,0 +1,32 @@
+{
+  final AnnotationNode enhancedAnnotationNode;
+  final List<AnnotationNode> annotations=classNode.getAnnotations(ENHANCED_CLASS_NODE);
+  if (annotations.isEmpty()) {
+    enhancedAnnotationNode=new AnnotationNode(ENHANCED_CLASS_NODE);
+    enhancedAnnotationNode.setMember("version",new ConstantExpression(GrailsUtil.getGrailsVersion()));
+    classNode.addAnnotation(enhancedAnnotationNode);
+  }
+ else {
+    enhancedAnnotationNode=annotations.get(0);
+  }
+  if (enhancedFor != null && enhancedFor.length > 0) {
+    ListExpression enhancedForArray=(ListExpression)enhancedAnnotationNode.getMember("enhancedFor");
+    if (enhancedForArray == null) {
+      enhancedForArray=new ListExpression();
+      enhancedAnnotationNode.setMember("enhancedFor",enhancedForArray);
+    }
+    final List<Expression> featureNameExpressions=enhancedForArray.getExpressions();
+    for (    final String feature : enhancedFor) {
+      final boolean exists=CollectionUtils.exists(featureNameExpressions,new Predicate(){
+        @SuppressWarnings({"unchecked","rawtypes"}) public boolean evaluate(        Object object){
+          return object instanceof ConstantExpression && feature.equals(((ConstantExpression)object).getValue());
+        }
+      }
+);
+      if (!exists) {
+        featureNameExpressions.add(new ConstantExpression(feature));
+      }
+    }
+  }
+  return enhancedAnnotationNode;
+}

@@ -35,13 +35,16 @@
     LOG.debug("Processing request for controller action [" + actionName + "]");
   }
   GroovyObject controller=getControllerInstance(controllerClass);
-  if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
-    try {
-      response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-      return null;
-    }
- catch (    IOException e) {
-      throw new ControllerExecutionException("I/O error sending 403 error",e);
+  boolean allowedMethodsHandledAtCompileTime=hasCompileTimeSupportForAllowedMethods(controller);
+  if (!allowedMethodsHandledAtCompileTime) {
+    if (!controllerClass.isHttpMethodAllowedForAction(controller,request.getMethod(),actionName)) {
+      try {
+        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return null;
+      }
+ catch (      IOException e) {
+        throw new ControllerExecutionException("I/O error sending 403 error",e);
+      }
     }
   }
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);

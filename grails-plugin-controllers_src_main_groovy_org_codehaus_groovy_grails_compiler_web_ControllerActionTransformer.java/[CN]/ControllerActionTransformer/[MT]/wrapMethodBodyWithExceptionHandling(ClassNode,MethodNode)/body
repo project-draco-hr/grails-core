@@ -22,7 +22,11 @@
   catchBlockCode.addStatement(ifExceptionHandlerMethodExistsStatement);
   final CatchStatement catchStatement=new CatchStatement(new Parameter(new ClassNode(Exception.class),caughtExceptionArgumentName),catchBlockCode);
   final Statement methodBody=methodNode.getCode();
-  final TryCatchStatement tryCatchStatement=new TryCatchStatement(methodBody,new EmptyStatement());
+  BlockStatement tryBlock=new BlockStatement();
+  BlockStatement codeToHandleAllowedMethods=getCodeToHandleAllowedMethods(controllerClassNode,methodNode);
+  tryBlock.addStatement(codeToHandleAllowedMethods);
+  tryBlock.addStatement(methodBody);
+  final TryCatchStatement tryCatchStatement=new TryCatchStatement(tryBlock,new EmptyStatement());
   tryCatchStatement.addCatch(catchStatement);
   methodNode.setCode(tryCatchStatement);
 }

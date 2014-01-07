@@ -1,0 +1,11 @@
+{
+  final Class<?> controllerClass=controller.getClass();
+  Boolean allowedMethodsHandledAtCompileTime=allowedMethodsSupport.get(controllerClass);
+  if (allowedMethodsHandledAtCompileTime == null) {
+    allowedMethodsHandledAtCompileTime=GrailsClassUtils.hasBeenEnhancedForFeature(controllerClass,DefaultGrailsControllerClass.ALLOWED_HTTP_METHODS_PROPERTY);
+    if (!developerMode) {
+      allowedMethodsSupport.put(controllerClass,allowedMethodsHandledAtCompileTime);
+    }
+  }
+  return allowedMethodsHandledAtCompileTime;
+}

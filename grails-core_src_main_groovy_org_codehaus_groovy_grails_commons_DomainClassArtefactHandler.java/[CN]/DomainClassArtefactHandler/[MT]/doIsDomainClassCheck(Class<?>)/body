@@ -1,5 +1,4 @@
 {
-  if (clazz == null)   return false;
   if (Closure.class.isAssignableFrom(clazz)) {
     return false;
   }

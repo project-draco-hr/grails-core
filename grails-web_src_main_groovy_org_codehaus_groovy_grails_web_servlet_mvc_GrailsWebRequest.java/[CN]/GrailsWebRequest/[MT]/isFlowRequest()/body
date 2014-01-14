@@ -1,6 +1,6 @@
 {
   GrailsApplication application=getAttributes().getGrailsApplication();
-  GrailsControllerClass controllerClass=(GrailsControllerClass)application.getArtefactByLogicalPropertyName(ControllerArtefactHandler.TYPE,getControllerName());
+  GrailsControllerClass controllerClass=getControllerClass();
   if (controllerClass == null)   return false;
   String actionName=getActionName();
   if (actionName == null)   actionName=controllerClass.getDefaultAction();

@@ -1,3 +1,11 @@
 {
-  return o;
+  if (o instanceof String) {
+    return new String((String)o);
+  }
+ else   if (o instanceof CharSequence) {
+    return String.valueOf(o);
+  }
+ else {
+    return o;
+  }
 }

@@ -31,7 +31,6 @@
       }
     }
  else {
-      currentBeanConfig=springConfig.addSingletonBean(name);
       @SuppressWarnings("rawtypes") Map.Entry factoryBeanEntry=(Map.Entry)((Map)args[0]).entrySet().iterator().next();
       int constructorArgsTest=hasClosureArgument ? 2 : 1;
       if (args.length > constructorArgsTest) {

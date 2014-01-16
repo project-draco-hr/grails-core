@@ -5,6 +5,12 @@
     if (controller != null) {
       controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
       request.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE,controllerName);
+      if (controller instanceof GrailsControllerClass) {
+        String namespace=((GrailsControllerClass)controller).getNamespace();
+        if (namespace != null) {
+          request.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAMESPACE_ATTRIBUTE,namespace);
+        }
+      }
     }
   }
   return controllerName != null ? controllerName : "";

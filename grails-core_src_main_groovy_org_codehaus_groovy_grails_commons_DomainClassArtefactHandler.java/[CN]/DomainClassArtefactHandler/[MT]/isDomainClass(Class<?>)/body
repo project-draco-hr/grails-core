@@ -1,4 +1,5 @@
 {
+  if (clazz == null)   return false;
   Integer cacheKey=System.identityHashCode(clazz);
   Boolean retval=DOMAIN_CLASS_CHECK_CACHE.get(cacheKey);
   if (retval != null) {

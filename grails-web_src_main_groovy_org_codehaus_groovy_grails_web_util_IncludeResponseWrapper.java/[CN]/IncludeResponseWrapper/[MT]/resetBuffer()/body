@@ -1,0 +1,9 @@
+{
+  if (isCommitted())   throw new IllegalStateException("Response already committed");
+  if (usingWriter) {
+    charBuffer.reset();
+  }
+  if (usingStream) {
+    byteBuffer.reset();
+  }
+}

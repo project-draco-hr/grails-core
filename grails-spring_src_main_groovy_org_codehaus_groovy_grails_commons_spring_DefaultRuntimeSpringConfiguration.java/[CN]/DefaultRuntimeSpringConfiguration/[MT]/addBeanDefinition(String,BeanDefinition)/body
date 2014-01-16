@@ -1,4 +1,5 @@
 {
   beanDefinitions.put(name,bd);
+  beanConfigs.remove(name);
   beanNames.add(name);
 }

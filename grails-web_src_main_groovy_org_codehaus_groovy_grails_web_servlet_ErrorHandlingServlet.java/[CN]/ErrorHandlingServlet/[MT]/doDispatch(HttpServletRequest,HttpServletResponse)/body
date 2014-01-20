@@ -43,6 +43,7 @@
     RequestContextHolder.setRequestAttributes(webRequest);
     urlMappingInfo.configure(webRequest);
   }
+  webRequest.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,WebRequest.SCOPE_REQUEST);
   HttpServletResponse originalResponse=WrappedResponseHolder.getWrappedResponse();
   try {
     WrappedResponseHolder.setWrappedResponse(response);

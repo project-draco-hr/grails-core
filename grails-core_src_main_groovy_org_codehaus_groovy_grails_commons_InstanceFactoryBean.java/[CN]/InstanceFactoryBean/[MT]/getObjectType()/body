@@ -1,0 +1,3 @@
+{
+  return objectType != null ? objectType : object.getClass();
+}

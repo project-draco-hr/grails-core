@@ -1,4 +1,5 @@
 {
+  request.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE);
   ex=findWrappedException(ex);
   filterStackTrace(ex);
   ModelAndView mv=super.resolveException(request,response,handler,ex);

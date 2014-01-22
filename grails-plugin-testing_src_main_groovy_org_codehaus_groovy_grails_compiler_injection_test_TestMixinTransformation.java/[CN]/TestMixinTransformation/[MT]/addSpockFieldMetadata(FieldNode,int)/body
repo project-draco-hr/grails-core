@@ -1,0 +1,7 @@
+{
+  AnnotationNode ann=new AnnotationNode(ClassHelper.make(FieldMetadata.class));
+  ann.setMember(FieldMetadata.NAME,new ConstantExpression(field.getName()));
+  ann.setMember(FieldMetadata.ORDINAL,new ConstantExpression(ordinal));
+  ann.setMember(FieldMetadata.LINE,new ConstantExpression(field.getLineNumber()));
+  field.addAnnotation(ann);
+}

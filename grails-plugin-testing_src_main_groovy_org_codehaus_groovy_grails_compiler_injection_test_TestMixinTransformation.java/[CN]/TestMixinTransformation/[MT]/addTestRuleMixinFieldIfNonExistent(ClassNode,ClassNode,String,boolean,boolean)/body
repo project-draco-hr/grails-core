@@ -1,0 +1,32 @@
+{
+  if (classNode != null && classNode.getField(fieldName) == null) {
+    FieldNode mixinInstanceFieldNode=classNode.addField(fieldName,Modifier.PRIVATE | (implementsClassRuleFactory ? Modifier.STATIC : 0),fieldType,new ConstructorCallExpression(fieldType,MethodCallExpression.NO_ARGUMENTS));
+    String ruleFieldNameBase=fieldName;
+    boolean spockTest=isSpockTest(classNode);
+    if (implementsClassRuleFactory) {
+      FieldNode staticRuleFieldNode=classNode.addField(ruleFieldNameBase + "StaticClassRule",Modifier.PRIVATE | Modifier.STATIC,ClassHelper.make(TestRule.class),new MethodCallExpression(new FieldExpression(mixinInstanceFieldNode),"newClassRule",new ClassExpression(classNode)));
+      AnnotationNode classRuleAnnotation=new AnnotationNode(ClassHelper.make(ClassRule.class));
+      if (spockTest) {
+        FieldNode spockSharedRuleFieldNode=classNode.addField(ruleFieldNameBase + "SharedClassRule",Modifier.PUBLIC,ClassHelper.make(TestRule.class),new FieldExpression(staticRuleFieldNode));
+        spockSharedRuleFieldNode.addAnnotation(classRuleAnnotation);
+        spockSharedRuleFieldNode.addAnnotation(new AnnotationNode(ClassHelper.make(Shared.class)));
+        if (spockTest) {
+          addSpockFieldMetadata(spockSharedRuleFieldNode,0);
+        }
+      }
+ else {
+        staticRuleFieldNode.setModifiers(Modifier.PUBLIC | Modifier.STATIC);
+        staticRuleFieldNode.addAnnotation(classRuleAnnotation);
+      }
+    }
+    if (implementsRuleFactory) {
+      FieldNode ruleFieldNode=classNode.addField(ruleFieldNameBase + "Rule",Modifier.PUBLIC,ClassHelper.make(TestRule.class),new MethodCallExpression(new FieldExpression(mixinInstanceFieldNode),"newRule",new VariableExpression("this")));
+      ruleFieldNode.addAnnotation(new AnnotationNode(ClassHelper.make(Rule.class)));
+      if (spockTest) {
+        addSpockFieldMetadata(ruleFieldNode,0);
+      }
+    }
+    return mixinInstanceFieldNode;
+  }
+  return null;
+}

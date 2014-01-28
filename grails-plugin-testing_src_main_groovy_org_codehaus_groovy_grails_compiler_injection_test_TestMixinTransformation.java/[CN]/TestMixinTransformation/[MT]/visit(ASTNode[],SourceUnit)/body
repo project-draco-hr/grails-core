@@ -10,4 +10,5 @@
   ClassNode classNode=(ClassNode)parent;
   ListExpression values=getListOfClasses(annotationNode);
   weaveTestMixins(classNode,values);
+  addEnableEMCStatement(classNode);
 }

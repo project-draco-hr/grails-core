@@ -2,6 +2,10 @@
   if (grailsApplication == null || applicationContext == null) {
     return;
   }
-  registerTagLibraries();
+  try {
+    registerTagLibraries();
+  }
+ catch (  GrailsConfigurationException e) {
+  }
   registerTemplateNamespace();
 }

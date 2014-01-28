@@ -20,6 +20,12 @@
       }
  else {
         instanceMethods.add(new ReflectionMetaMethod(new CachedMethod(javaMethod)){
+{
+            CachedClass[] paramTypes=super.getParameterTypes();
+            if (paramTypes.length > 0) {
+              setParametersTypes((CachedClass[])ArrayUtils.subarray(paramTypes,1,paramTypes.length));
+            }
+          }
           @Override public String getName(){
             String methodName=super.getName();
             if (isConstructorCallMethod(javaMethod)) {
@@ -40,13 +46,6 @@
               }
             }
             return arguments;
-          }
-          @Override public CachedClass[] getParameterTypes(){
-            final CachedClass[] paramTypes=method.getParameterTypes();
-            if (paramTypes.length > 0) {
-              return (CachedClass[])ArrayUtils.subarray(paramTypes,1,paramTypes.length);
-            }
-            return paramTypes;
           }
         }
 );

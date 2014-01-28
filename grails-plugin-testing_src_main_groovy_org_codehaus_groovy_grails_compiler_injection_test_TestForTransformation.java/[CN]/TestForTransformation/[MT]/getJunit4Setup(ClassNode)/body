@@ -1,5 +1,5 @@
 {
-  MethodNode setupMethod=classNode.getMethod(SET_UP_METHOD,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  MethodNode setupMethod=classNode.getDeclaredMethod(SET_UP_METHOD,GrailsArtefactClassInjector.ZERO_PARAMETERS);
   if (setupMethod == null) {
     setupMethod=new MethodNode(SET_UP_METHOD,Modifier.PUBLIC,ClassHelper.VOID_TYPE,GrailsArtefactClassInjector.ZERO_PARAMETERS,null,new BlockStatement());
     setupMethod.addAnnotation(MIXIN_METHOD_ANNOTATION);

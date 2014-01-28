@@ -1,0 +1,5 @@
+{
+  this.classNode=classNode;
+  hasExistingSetUp=classNode.hasDeclaredMethod(SET_UP_METHOD,Parameter.EMPTY_ARRAY);
+  hasExistingTearDown=classNode.hasDeclaredMethod(TEAR_DOWN_METHOD,Parameter.EMPTY_ARRAY);
+}

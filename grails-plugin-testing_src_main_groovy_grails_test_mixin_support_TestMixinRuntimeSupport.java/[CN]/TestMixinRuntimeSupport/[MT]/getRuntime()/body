@@ -1,0 +1,12 @@
+{
+  if (currentRuntime == null && testClass != null) {
+    TestRuntimeFactory.getRuntimeForTestClass(testClass);
+  }
+  if (currentRuntime == null) {
+    throw new IllegalStateException("Current TestRuntime instance is null.");
+  }
+ else   if (currentRuntime.isClosed()) {
+    throw new IllegalStateException("Current TestRuntime instance is closed.");
+  }
+  return currentRuntime;
+}

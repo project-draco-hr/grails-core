@@ -6,8 +6,8 @@
   if (classNode.getField(fieldName) == null) {
     classNode.addField(fieldName,Modifier.PRIVATE,targetClass.getType(),null);
   }
-  MethodNode methodNode=classNode.getMethod(methodName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
-  VariableExpression fieldExpression=new VariableExpression(fieldName);
+  MethodNode methodNode=classNode.getDeclaredMethod(methodName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  VariableExpression fieldExpression=new VariableExpression(fieldName,targetClass.getType());
   if (methodNode == null) {
     BlockStatement setupMethodBody=new BlockStatement();
     addMockCollaborator(type,targetClass,setupMethodBody);
@@ -15,8 +15,9 @@
     methodNode.addAnnotation(BEFORE_ANNOTATION);
     methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
     classNode.addMethod(methodNode);
+    GrailsASTUtils.addCompileStaticAnnotation(methodNode);
   }
-  MethodNode getter=classNode.getMethod(getterName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  MethodNode getter=classNode.getDeclaredMethod(getterName,GrailsArtefactClassInjector.ZERO_PARAMETERS);
   if (getter == null) {
     BlockStatement getterBody=new BlockStatement();
     getter=new MethodNode(getterName,Modifier.PUBLIC,targetClass.getType().getPlainNodeReference(),GrailsArtefactClassInjector.ZERO_PARAMETERS,null,getterBody);
@@ -25,6 +26,7 @@
     getterBody.addStatement(autowiringIfStatement);
     getterBody.addStatement(new ReturnStatement(fieldExpression));
     classNode.addMethod(getter);
+    GrailsASTUtils.addCompileStaticAnnotation(getter);
   }
   return methodNode;
 }

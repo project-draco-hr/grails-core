@@ -1,0 +1,40 @@
+{
+  final String fieldName='$' + GrailsNameUtils.getPropertyName(mixinClassNode.getName());
+  boolean implementsTestRuntimeAwareMixin=GrailsASTUtils.findInterface(mixinClassNode,ClassHelper.make(TestRuntimeAwareMixin.class)) != null;
+  FieldNode mixinFieldNode=null;
+  if (!implementsTestRuntimeAwareMixin) {
+    mixinFieldNode=addLegacyMixinFieldIfNonExistent(classNode,mixinClassNode,fieldName);
+  }
+ else {
+    mixinFieldNode=addTestRuntimeAwareMixinFieldIfNonExistent(classNode,mixinClassNode,fieldName);
+  }
+  if (mixinFieldNode == null)   return;
+  FieldExpression fieldReference=new FieldExpression(mixinFieldNode);
+  ClassNode currentMixinClassNode=mixinClassNode;
+  while (!currentMixinClassNode.getName().equals(OBJECT_CLASS)) {
+    final List<MethodNode> mixinMethods=currentMixinClassNode.getMethods();
+    for (    MethodNode mixinMethod : mixinMethods) {
+      if (!isCandidateMethod(mixinMethod) || hasDeclaredMethod(classNode,mixinMethod)) {
+        continue;
+      }
+      MethodNode methodNode;
+      if (mixinMethod.isStatic()) {
+        methodNode=GrailsASTUtils.addDelegateStaticMethod(classNode,mixinMethod);
+      }
+ else {
+        methodNode=GrailsASTUtils.addDelegateInstanceMethod(classNode,fieldReference,mixinMethod,false);
+      }
+      if (methodNode != null) {
+        methodNode.addAnnotation(MIXIN_METHOD_ANNOTATION);
+        GrailsASTUtils.addCompileStaticAnnotation(methodNode);
+      }
+      if (junit3MethodHandler != null) {
+        junit3MethodHandler.handle(mixinMethod,methodNode);
+      }
+    }
+    currentMixinClassNode=currentMixinClassNode.getSuperClass();
+    if (junit3MethodHandler != null) {
+      junit3MethodHandler.mixinSuperClassChanged();
+    }
+  }
+}

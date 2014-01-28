@@ -1,0 +1,27 @@
+{
+  if (classNode.getField(JUNIT_ADAPTER_FIELD_NAME) != null) {
+    return;
+  }
+  ClassNode junitAdapterType=ClassHelper.make(TestRuntimeJunitAdapter.class);
+  FieldNode junitAdapterFieldNode=classNode.addField(JUNIT_ADAPTER_FIELD_NAME,Modifier.STATIC,junitAdapterType,new ConstructorCallExpression(junitAdapterType,MethodCallExpression.NO_ARGUMENTS));
+  boolean spockTest=isSpockTest(classNode);
+  FieldNode staticRuleFieldNode=classNode.addField(RULE_FIELD_NAME_BASE + "StaticClassRule",Modifier.PRIVATE | Modifier.STATIC,ClassHelper.make(TestRule.class),new MethodCallExpression(new FieldExpression(junitAdapterFieldNode),"newClassRule",MethodCallExpression.NO_ARGUMENTS));
+  AnnotationNode classRuleAnnotation=new AnnotationNode(ClassHelper.make(ClassRule.class));
+  if (spockTest) {
+    FieldNode spockSharedRuleFieldNode=classNode.addField(RULE_FIELD_NAME_BASE + "SharedClassRule",Modifier.PUBLIC,ClassHelper.make(TestRule.class),new FieldExpression(staticRuleFieldNode));
+    spockSharedRuleFieldNode.addAnnotation(classRuleAnnotation);
+    spockSharedRuleFieldNode.addAnnotation(new AnnotationNode(ClassHelper.make(Shared.class)));
+    if (spockTest) {
+      addSpockFieldMetadata(spockSharedRuleFieldNode,0);
+    }
+  }
+ else {
+    staticRuleFieldNode.setModifiers(Modifier.PUBLIC | Modifier.STATIC);
+    staticRuleFieldNode.addAnnotation(classRuleAnnotation);
+  }
+  FieldNode ruleFieldNode=classNode.addField(RULE_FIELD_NAME_BASE + "Rule",Modifier.PUBLIC,ClassHelper.make(TestRule.class),new MethodCallExpression(new FieldExpression(junitAdapterFieldNode),"newRule",MethodCallExpression.NO_ARGUMENTS));
+  ruleFieldNode.addAnnotation(new AnnotationNode(ClassHelper.make(Rule.class)));
+  if (spockTest) {
+    addSpockFieldMetadata(ruleFieldNode,0);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  if (classNode == null || classNode.getField(fieldName) != null) {
+    return null;
+  }
+  MapExpression constructorArguments=new MapExpression();
+  constructorArguments.addMapEntryExpression(new MapEntryExpression(new ConstantExpression("testClass"),new ClassExpression(classNode)));
+  FieldNode mixinInstanceFieldNode=classNode.addField(fieldName,Modifier.STATIC,fieldType,new ConstructorCallExpression(fieldType,constructorArguments));
+  mixinInstanceFieldNode.addAnnotation(new AnnotationNode(ClassHelper.make(MixinInstance.class)));
+  addJunitRuleFields(classNode);
+  return mixinInstanceFieldNode;
+}

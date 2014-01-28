@@ -1,3 +1,3 @@
 {
-  return isAddableMethod(declaredMethod);
+  return isAddableMethod(declaredMethod) && !hasSimilarMethod(declaredMethod,ClassHelper.make(TestRuntimeAwareMixin.class));
 }

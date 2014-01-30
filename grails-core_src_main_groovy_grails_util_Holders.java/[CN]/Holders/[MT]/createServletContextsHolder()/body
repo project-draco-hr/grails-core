@@ -4,12 +4,12 @@
     servletContexts=(Holder<ServletContext>)clazz.newInstance();
   }
  catch (  ClassNotFoundException e) {
-    LOG.error("Error initializing servlet context holder",e);
+    LOG.debug("Error initializing servlet context holder, not running in Servlet environment: " + e.getMessage(),e);
   }
 catch (  InstantiationException e) {
-    LOG.error("Error initializing servlet context holder",e);
+    LOG.debug("Error initializing servlet context holder, not running in Servlet environment: " + e.getMessage(),e);
   }
 catch (  IllegalAccessException e) {
-    LOG.error("Error initializing servlet context holder",e);
+    LOG.debug("Error initializing servlet context holder, not running in Servlet environment: " + e.getMessage(),e);
   }
 }

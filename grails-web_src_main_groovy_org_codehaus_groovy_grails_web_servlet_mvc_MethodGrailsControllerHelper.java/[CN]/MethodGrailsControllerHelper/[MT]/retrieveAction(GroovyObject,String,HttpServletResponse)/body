@@ -1,5 +1,5 @@
 {
-  Method action=ReflectionUtils.findMethod(controller.getClass(),actionName,NOARGS);
+  Method action=(controller != null && actionName != null) ? ReflectionUtils.findMethod(controller.getClass(),actionName,NOARGS) : null;
   if (action != null) {
     ReflectionUtils.makeAccessible(action);
   }

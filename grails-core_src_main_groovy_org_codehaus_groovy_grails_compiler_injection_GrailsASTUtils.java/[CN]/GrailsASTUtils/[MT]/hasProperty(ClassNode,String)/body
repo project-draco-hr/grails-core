@@ -1,5 +1,5 @@
 {
-  if (classNode == null || StringUtils.isBlank(propertyName)) {
+  if (classNode == null || !StringUtils.hasText(propertyName)) {
     return false;
   }
   final MethodNode method=classNode.getMethod(GrailsNameUtils.getGetterName(propertyName),Parameter.EMPTY_ARRAY);

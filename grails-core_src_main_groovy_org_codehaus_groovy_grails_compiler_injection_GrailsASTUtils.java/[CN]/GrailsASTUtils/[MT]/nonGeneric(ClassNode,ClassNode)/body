@@ -1,3 +1,8 @@
 {
-  return replaceGenericsPlaceholders(type,DefaultedMap.decorate(emptyGenericsPlaceHoldersMap,wildcardReplacement));
+  return replaceGenericsPlaceholders(type,DefaultGroovyMethods.withDefault(emptyGenericsPlaceHoldersMap,new Closure(GrailsASTUtils.class){
+    @Override public Object call(    Object... args){
+      return wildcardReplacement;
+    }
+  }
+));
 }

@@ -1,6 +1,6 @@
 {
   if (LOG.isDebugEnabled()) {
-    LOG.debug("[DynamicMethods] Attempting invocation of dynamic constructor with arguments [" + ArrayUtils.toString(arguments) + "]");
+    LOG.debug("[DynamicMethods] Attempting invocation of dynamic constructor with arguments [" + DefaultGroovyMethods.inspect(arguments) + "]");
   }
   for (  DynamicConstructor constructor : dynamicConstructors) {
     if (constructor.isArgumentsMatch(arguments)) {

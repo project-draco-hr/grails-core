@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(setterName))   return null;
+  if (!StringUtils.hasText(setterName))   return null;
   if (setterName.startsWith("set")) {
     String prop=setterName.substring(3);
     return convertPropertyName(prop);

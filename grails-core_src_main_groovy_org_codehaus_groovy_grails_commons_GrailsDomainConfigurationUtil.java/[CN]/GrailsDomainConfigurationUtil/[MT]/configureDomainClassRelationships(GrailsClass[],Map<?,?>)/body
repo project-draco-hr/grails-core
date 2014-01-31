@@ -39,7 +39,7 @@
       }
  catch (      UnsupportedOperationException e) {
       }
-      if (StringUtils.isBlank(refPropertyName)) {
+      if (!StringUtils.hasText(refPropertyName)) {
         GrailsDomainClassProperty[] referencedProperties=referenced.getPersistentProperties();
         for (        GrailsDomainClassProperty referencedProp : referencedProperties) {
           if (prop.equals(referencedProp) && prop.isBidirectional()) {

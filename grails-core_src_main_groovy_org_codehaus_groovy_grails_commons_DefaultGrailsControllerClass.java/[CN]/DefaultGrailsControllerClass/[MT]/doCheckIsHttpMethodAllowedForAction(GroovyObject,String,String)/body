@@ -15,10 +15,11 @@
   if (!(value instanceof List)) {
     return true;
   }
-  return CollectionUtils.exists((List)value,new Predicate(){
-    public boolean evaluate(    Object method){
-      return httpMethod.equalsIgnoreCase(method.toString());
+  List values=(List)value;
+  for (  Object method : values) {
+    if (httpMethod.equalsIgnoreCase(method.toString())) {
+      return true;
     }
   }
-);
+  return false;
 }

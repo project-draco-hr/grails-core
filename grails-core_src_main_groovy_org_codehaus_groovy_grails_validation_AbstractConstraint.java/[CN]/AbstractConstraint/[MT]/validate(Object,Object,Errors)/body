@@ -3,7 +3,7 @@
   if (propertyValue == null && skipNullValues()) {
     return;
   }
-  if (skipBlankValues() && propertyValue instanceof String && StringUtils.isBlank((String)propertyValue)) {
+  if (skipBlankValues() && propertyValue instanceof String && GrailsStringUtils.isBlank((String)propertyValue)) {
     return;
   }
   processValidate(target,propertyValue,errors);

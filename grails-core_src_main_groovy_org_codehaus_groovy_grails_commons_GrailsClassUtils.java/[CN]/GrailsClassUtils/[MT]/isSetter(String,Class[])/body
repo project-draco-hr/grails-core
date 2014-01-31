@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(name) || args == null)   return false;
+  if (!StringUtils.hasText(name) || args == null)   return false;
   if (name.startsWith("set")) {
     if (args.length != 1)     return false;
     name=name.substring(3);

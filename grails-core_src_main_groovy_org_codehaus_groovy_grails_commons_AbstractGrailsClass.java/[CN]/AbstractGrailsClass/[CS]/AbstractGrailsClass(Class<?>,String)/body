@@ -4,10 +4,10 @@
   fullName=clazz.getName();
   packageName=ClassUtils.getPackageName(clazz);
   naturalName=GrailsNameUtils.getNaturalName(clazz.getName());
-  shortName=ClassUtils.getShortClassName(clazz);
+  shortName=ClassUtils.getShortName(clazz);
   name=GrailsNameUtils.getLogicalName(clazz,trailingName);
   propertyName=GrailsNameUtils.getPropertyNameRepresentation(shortName);
-  if (StringUtils.isBlank(name)) {
+  if (!StringUtils.hasText(name)) {
     logicalPropertyName=propertyName;
   }
  else {

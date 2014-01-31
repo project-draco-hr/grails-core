@@ -11,7 +11,9 @@
  else {
         basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
       }
-      final String baseName=StringUtils.substringBefore(FilenameUtils.getBaseName(pluginBundle.getFilename()),"_");
+      String fileName=StringUtils.stripFilenameExtension(pluginBundle.getFilename());
+      int i=fileName.indexOf("_");
+      final String baseName=i > -1 ? fileName.substring(0,i) : fileName;
       pluginBaseNames.add(basePath + "/grails-app/i18n/" + baseName);
     }
   }

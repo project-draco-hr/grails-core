@@ -22,7 +22,7 @@
       }
  else {
         failedPlugins.put(plugin.getName(),plugin);
-        LOG.warn("WARNING: Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ ArrayUtils.toString(plugin.getDependencyNames())+ "] cannot be resolved");
+        LOG.warn("WARNING: Plugin [" + plugin.getName() + "] cannot be loaded because its dependencies ["+ DefaultGroovyMethods.inspect(plugin.getDependencyNames())+ "] cannot be resolved");
       }
     }
   }

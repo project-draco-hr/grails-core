@@ -1,6 +1,6 @@
 {
   if (LOG.isTraceEnabled()) {
-    LOG.debug("[DynamicMethods] Attempting invocation of dynamic method [" + methodName + "] on target ["+ object+ "] with arguments ["+ ArrayUtils.toString(arguments)+ "]");
+    LOG.debug("[DynamicMethods] Attempting invocation of dynamic method [" + methodName + "] on target ["+ object+ "] with arguments ["+ DefaultGroovyMethods.inspect(arguments)+ "]");
   }
   for (  DynamicMethodInvocation methodInvocation : dynamicMethodInvocations) {
     if (methodInvocation.isMethodMatch(methodName)) {

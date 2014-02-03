@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(name) || args == null)   return false;
+  if (!StringUtils.hasText(name) || args == null)   return false;
   if (args.length != 0)   return false;
   if (name.startsWith("get")) {
     name=name.substring(3);

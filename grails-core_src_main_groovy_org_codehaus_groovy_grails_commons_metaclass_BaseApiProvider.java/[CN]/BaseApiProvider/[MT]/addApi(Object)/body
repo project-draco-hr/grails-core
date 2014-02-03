@@ -37,7 +37,7 @@
             if (arguments.length == 0) {
               return super.invoke(apiInstance,new Object[]{object});
             }
-            return super.invoke(apiInstance,ArrayUtils.add(checkForGStrings(arguments),0,object));
+            return super.invoke(apiInstance,(Object[])GrailsArrayUtils.add(checkForGStrings(arguments),0,object));
           }
           private Object[] checkForGStrings(          Object[] arguments){
             for (int i=0; i < arguments.length; i++) {
@@ -46,6 +46,13 @@
               }
             }
             return arguments;
+          }
+          @Override public CachedClass[] getParameterTypes(){
+            final CachedClass[] paramTypes=method.getParameterTypes();
+            if (paramTypes.length > 0) {
+              return (CachedClass[])GrailsArrayUtils.subarray(paramTypes,1,paramTypes.length);
+            }
+            return paramTypes;
           }
         }
 );

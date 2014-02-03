@@ -1,5 +1,5 @@
 {
-  if (clazz == null || StringUtils.isBlank(propertyName)) {
+  if (clazz == null || !StringUtils.hasText(propertyName)) {
     return null;
   }
   try {

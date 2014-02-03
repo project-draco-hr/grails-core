@@ -19,9 +19,9 @@
   if (application != null) {
     BuildSettings settings=BuildSettingsHolder.getSettings();
     PluginBuildSettings pluginBuildSettings=org.codehaus.groovy.grails.plugins.GrailsPluginUtils.getPluginBuildSettings();
-    String pluginPath=StringUtils.substringAfter(noWebInf,SLASH);
-    String pluginName=StringUtils.substringBefore(pluginPath,SLASH);
-    String remainingPath=StringUtils.substringAfter(pluginPath,SLASH);
+    String pluginPath=GrailsStringUtils.substringAfter(noWebInf,SLASH);
+    String pluginName=GrailsStringUtils.substringBefore(pluginPath,SLASH);
+    String remainingPath=GrailsStringUtils.substringAfter(pluginPath,SLASH);
     org.codehaus.groovy.grails.io.support.Resource r=pluginBuildSettings.getPluginDirForName(pluginName);
     if (r != null) {
       try {

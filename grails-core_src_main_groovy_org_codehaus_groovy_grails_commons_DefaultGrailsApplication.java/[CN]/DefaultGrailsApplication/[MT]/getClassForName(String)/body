@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(className)) {
+  if (!StringUtils.hasText(className)) {
     return null;
   }
   for (  Class<?> c : allClasses) {

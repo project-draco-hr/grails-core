@@ -1,11 +1,11 @@
 {
   for (  Resource mockResource : resources) {
-    if (pathMatcher.match(mockResource.getDescription(),StringUtils.removeStart(location,"/"))) {
+    if (pathMatcher.match(mockResource.getDescription(),GrailsStringUtils.trimStart(location,"/"))) {
       return mockResource;
     }
   }
   for (  String resourceLocation : ignoredClassLocations) {
-    if (pathMatcher.match(StringUtils.removeStart(location,"/"),StringUtils.removeStart(resourceLocation,"/"))) {
+    if (pathMatcher.match(GrailsStringUtils.trimStart(location,"/"),GrailsStringUtils.trimStart(resourceLocation,"/"))) {
       return null;
     }
   }

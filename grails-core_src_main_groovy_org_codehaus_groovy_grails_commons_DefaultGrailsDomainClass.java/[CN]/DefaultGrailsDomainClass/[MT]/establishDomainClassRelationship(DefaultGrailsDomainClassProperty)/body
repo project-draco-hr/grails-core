@@ -12,7 +12,7 @@
     String relatedClassPropertyName=findOneToManyThatMatchesType(property,relatedClassRelationships);
     PropertyDescriptor[] descriptors=GrailsClassUtils.getPropertiesOfType(getClazz(),property.getType());
     if (descriptors.length == 1 && isNotMappedToDifferentProperty(property,relatedClassPropertyName,mappedBy)) {
-      if (!StringUtils.isBlank(relatedClassPropertyName)) {
+      if (StringUtils.hasText(relatedClassPropertyName)) {
         property.setReferencePropertyName(relatedClassPropertyName);
         relatedClassPropertyType=GrailsClassUtils.getPropertyType(propType,relatedClassPropertyName);
       }

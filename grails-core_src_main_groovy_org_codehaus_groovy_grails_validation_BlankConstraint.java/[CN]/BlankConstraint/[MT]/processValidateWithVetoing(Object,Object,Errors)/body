@@ -1,5 +1,5 @@
 {
-  if (propertyValue instanceof String && StringUtils.isBlank((String)propertyValue)) {
+  if (propertyValue instanceof String && GrailsStringUtils.isBlank((String)propertyValue)) {
     if (!blank) {
       Object[] args=new Object[]{constraintPropertyName,constraintOwningClass};
       rejectValue(target,errors,ConstrainedProperty.DEFAULT_BLANK_MESSAGE_CODE,ConstrainedProperty.BLANK_CONSTRAINT,args);

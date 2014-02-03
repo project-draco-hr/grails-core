@@ -5,7 +5,7 @@
   EmailValidator emailValidator=EmailValidator.getInstance();
   Object[] args=new Object[]{constraintPropertyName,constraintOwningClass,propertyValue};
   String value=propertyValue.toString();
-  if (StringUtils.isBlank(value)) {
+  if (GrailsStringUtils.isBlank(value)) {
     return;
   }
   if (!emailValidator.isValid(value)) {

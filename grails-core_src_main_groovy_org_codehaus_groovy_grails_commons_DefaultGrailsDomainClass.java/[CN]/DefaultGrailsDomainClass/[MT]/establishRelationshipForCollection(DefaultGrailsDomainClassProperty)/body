@@ -7,7 +7,7 @@
       Map relatedClassRelationships=GrailsDomainConfigurationUtil.getAssociationMap(relatedClassType);
       Class<?> relatedClassPropertyType=null;
       String mappingProperty=(String)mappedBy.get(property.getName());
-      if (!StringUtils.isBlank(mappingProperty)) {
+      if (StringUtils.hasText(mappingProperty)) {
         PropertyDescriptor pd=findProperty(GrailsClassUtils.getPropertiesOfType(relatedClassType,getClazz()),mappingProperty);
         if (pd == null)         pd=findProperty(GrailsClassUtils.getPropertiesAssignableToType(relatedClassType,Collection.class),mappingProperty);
         boolean isNone="none".equals(mappingProperty);

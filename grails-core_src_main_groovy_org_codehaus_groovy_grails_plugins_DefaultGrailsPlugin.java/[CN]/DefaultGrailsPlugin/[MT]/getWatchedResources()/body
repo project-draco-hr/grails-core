@@ -4,7 +4,9 @@
       try {
         Resource[] resources=resolver.getResources(resourcesReference);
         if (resources.length > 0) {
-          watchedResources=(Resource[])ArrayUtils.addAll(watchedResources,resources);
+          List<Resource> newList=Arrays.asList(watchedResources);
+          newList.addAll(Arrays.asList(resources));
+          watchedResources=newList.toArray(new Resource[newList.size()]);
         }
       }
  catch (      Exception ignored) {

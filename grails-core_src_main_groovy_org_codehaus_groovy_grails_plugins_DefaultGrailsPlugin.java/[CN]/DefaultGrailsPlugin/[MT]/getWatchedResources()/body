@@ -4,9 +4,7 @@
       try {
         Resource[] resources=resolver.getResources(resourcesReference);
         if (resources.length > 0) {
-          List<Resource> newList=Arrays.asList(watchedResources);
-          newList.addAll(Arrays.asList(resources));
-          watchedResources=newList.toArray(new Resource[newList.size()]);
+          watchedResources=(Resource[])GrailsArrayUtils.addAll(watchedResources,resources);
         }
       }
  catch (      Exception ignored) {

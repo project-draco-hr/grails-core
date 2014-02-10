@@ -1,0 +1,3 @@
+{
+  tm=new ChainedTransactionManager(new TestSynchronizationManager(),transactionManagers);
+}

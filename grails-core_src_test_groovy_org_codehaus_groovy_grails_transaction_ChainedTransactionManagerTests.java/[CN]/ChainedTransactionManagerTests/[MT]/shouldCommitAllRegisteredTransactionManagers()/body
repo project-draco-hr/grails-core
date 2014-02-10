@@ -1,0 +1,8 @@
+{
+  PlatformTransactionManager first=createNonFailingTransactionManager("first");
+  PlatformTransactionManager second=createNonFailingTransactionManager("second");
+  setupTransactionManagers(first,second);
+  createAndCommitTransaction();
+  assertThat(first,isCommitted());
+  assertThat(second,isCommitted());
+}

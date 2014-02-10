@@ -1,0 +1,5 @@
+{
+  for (  TransactionStatus transactionStatus : transactionStatuses.values()) {
+    transactionStatus.flush();
+  }
+}

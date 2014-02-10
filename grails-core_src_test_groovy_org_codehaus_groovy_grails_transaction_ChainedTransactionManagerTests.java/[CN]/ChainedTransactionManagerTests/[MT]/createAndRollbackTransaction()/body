@@ -1,0 +1,4 @@
+{
+  MultiTransactionStatus transaction=tm.getTransaction(new DefaultTransactionDefinition());
+  tm.rollback(transaction);
+}

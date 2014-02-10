@@ -1,0 +1,3 @@
+{
+  return name + (isCommitted() ? " (committed) " : " (not committed)");
+}

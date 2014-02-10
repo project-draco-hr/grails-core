@@ -1,0 +1,5 @@
+{
+  PlatformTransactionManager first=createFailingTransactionManager("first");
+  setupTransactionManagers(first);
+  createAndRollbackTransaction();
+}

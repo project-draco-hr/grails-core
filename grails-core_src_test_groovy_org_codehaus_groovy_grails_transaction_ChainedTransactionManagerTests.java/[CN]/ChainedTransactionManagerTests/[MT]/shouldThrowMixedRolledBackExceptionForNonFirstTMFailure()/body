@@ -1,0 +1,10 @@
+{
+  setupTransactionManagers(TestPlatformTransactionManager.createFailingTransactionManager("first"),createNonFailingTransactionManager("second"));
+  try {
+    createAndCommitTransaction();
+    fail("Didn't throw the expected exception");
+  }
+ catch (  HeuristicCompletionException e) {
+    assertHeuristicException(HeuristicCompletionException.STATE_MIXED,e.getOutcomeState());
+  }
+}

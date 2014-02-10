@@ -1,0 +1,7 @@
+{
+  PlatformTransactionManager first=createNonFailingTransactionManager("first");
+  PlatformTransactionManager second=createNonFailingTransactionManager("second");
+  setupTransactionManagers(first,second);
+  createAndCommitTransaction();
+  assertThat("second tm commited before first ",commitTime(first) >= commitTime(second),is(true));
+}

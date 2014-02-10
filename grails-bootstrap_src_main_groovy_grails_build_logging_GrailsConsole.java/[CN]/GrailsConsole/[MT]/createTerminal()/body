@@ -1,3 +1,5 @@
 {
-  return terminal=TerminalFactory.create();
+  terminal=TerminalFactory.create();
+  terminal.setEchoEnabled(true);
+  return terminal;
 }

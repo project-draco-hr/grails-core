@@ -1,0 +1,23 @@
+{
+  if (!registry.containsBeanDefinition(oldName)) {
+    return false;
+  }
+  Set<String> previousChildBeans=new LinkedHashSet<String>();
+  for (  String bdName : registry.getBeanDefinitionNames()) {
+    if (!oldName.equals(bdName)) {
+      BeanDefinition bd=registry.getBeanDefinition(bdName);
+      if (oldName.equals(bd.getParentName())) {
+        bd.setParentName(null);
+        previousChildBeans.add(bdName);
+      }
+    }
+  }
+  BeanDefinition oldBeanDefinition=registry.getBeanDefinition(oldName);
+  registry.removeBeanDefinition(oldName);
+  registry.registerBeanDefinition(newName,oldBeanDefinition);
+  for (  String bdName : previousChildBeans) {
+    BeanDefinition bd=registry.getBeanDefinition(bdName);
+    bd.setParentName(newName);
+  }
+  return true;
+}

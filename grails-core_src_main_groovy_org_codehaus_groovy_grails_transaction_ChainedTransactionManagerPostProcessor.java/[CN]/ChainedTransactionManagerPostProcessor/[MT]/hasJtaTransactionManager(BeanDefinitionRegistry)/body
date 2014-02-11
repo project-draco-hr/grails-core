@@ -1,0 +1,10 @@
+{
+  if (!registry.containsBeanDefinition(TRANSACTION_MANAGER)) {
+    return false;
+  }
+  BeanDefinition transactionManagerBeanDefinition=registry.getBeanDefinition(TRANSACTION_MANAGER);
+  ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  Class<?> transactionManagerBeanClass=ClassUtils.resolveClassName(transactionManagerBeanDefinition.getBeanClassName(),classLoader);
+  boolean isJtaTransactionManager=JtaTransactionManager.class.isAssignableFrom(transactionManagerBeanClass);
+  return isJtaTransactionManager;
+}

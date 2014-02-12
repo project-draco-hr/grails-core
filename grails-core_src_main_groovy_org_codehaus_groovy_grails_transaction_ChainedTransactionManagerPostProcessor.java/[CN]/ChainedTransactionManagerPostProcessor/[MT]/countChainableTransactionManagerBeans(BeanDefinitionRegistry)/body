@@ -1,0 +1,13 @@
+{
+  Map<String,ConfigObject> dsConfigs=readDataSourceConfig();
+  int transactionManagerBeanCount=0;
+  for (  String beanName : registry.getBeanDefinitionNames()) {
+    if (isValidTransactionManagerBeanName(beanName)) {
+      String suffix=resolveDataSourceSuffix(beanName);
+      if (beanName.equals(TRANSACTION_MANAGER) || !isNotTransactional(dsConfigs,suffix)) {
+        transactionManagerBeanCount++;
+      }
+    }
+  }
+  return transactionManagerBeanCount;
+}

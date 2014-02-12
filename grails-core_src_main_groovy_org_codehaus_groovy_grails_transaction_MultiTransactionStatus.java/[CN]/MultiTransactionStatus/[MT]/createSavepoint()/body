@@ -1,0 +1,7 @@
+{
+  SavePoints savePoints=new SavePoints();
+  for (  TransactionStatus transactionStatus : transactionStatuses.values()) {
+    savePoints.save(transactionStatus);
+  }
+  return savePoints;
+}

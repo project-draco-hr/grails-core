@@ -1,0 +1,13 @@
+{
+  if (suffix == null) {
+    return false;
+  }
+  ConfigObject dsConfig=dsConfigs.get(suffix);
+  if (dsConfig != null && dsConfig.containsKey(TRANSACTIONAL)) {
+    Object transactionalValue=dsConfig.get(TRANSACTIONAL);
+    if (transactionalValue instanceof Boolean) {
+      return !((Boolean)transactionalValue).booleanValue();
+    }
+  }
+  return false;
+}

@@ -1,0 +1,5 @@
+{
+  if (registry.containsBeanDefinition(TRANSACTION_MANAGER) && countChainableTransactionManagerBeans(registry) > 1 && !hasJtaTransactionManager(registry)) {
+    addChainedTransactionManager(registry);
+  }
+}

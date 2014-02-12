@@ -1,0 +1,5 @@
+{
+  if (beanFactory.containsBean(TRANSACTION_MANAGER) && beanFactory.isTypeMatch(TRANSACTION_MANAGER,ChainedTransactionManager.class)) {
+    registerAdditionalTransactionManagers(beanFactory);
+  }
+}

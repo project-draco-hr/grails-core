@@ -1,0 +1,11 @@
+{
+  return new TestPlatformTransactionManager(name + "-failing"){
+    @Override public void commit(    TransactionStatus status) throws TransactionException {
+      throw new RuntimeException();
+    }
+    @Override public void rollback(    TransactionStatus status) throws TransactionException {
+      throw new RuntimeException();
+    }
+  }
+;
+}

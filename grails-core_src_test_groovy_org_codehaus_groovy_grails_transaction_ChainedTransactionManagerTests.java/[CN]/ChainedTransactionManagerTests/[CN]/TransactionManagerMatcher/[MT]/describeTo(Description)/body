@@ -1,0 +1,3 @@
+{
+  description.appendText("that a " + (commitCheck ? "committed" : "rolled-back") + " TransactionManager");
+}

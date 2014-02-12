@@ -1,0 +1,34 @@
+{
+  MultiTransactionStatus multiTransactionStatus=(MultiTransactionStatus)status;
+  boolean commit=true;
+  Exception commitException=null;
+  PlatformTransactionManager commitExceptionTransactionManager=null;
+  for (  PlatformTransactionManager transactionManager : reverse(transactionManagers)) {
+    if (commit) {
+      try {
+        multiTransactionStatus.commit(transactionManager);
+      }
+ catch (      Exception ex) {
+        commit=false;
+        commitException=ex;
+        commitExceptionTransactionManager=transactionManager;
+      }
+    }
+ else {
+      try {
+        multiTransactionStatus.rollback(transactionManager);
+      }
+ catch (      Exception ex) {
+        LOGGER.warn("Rollback exception (after commit) (" + transactionManager + ") "+ ex.getMessage(),ex);
+      }
+    }
+  }
+  if (multiTransactionStatus.isNewSynchonization()) {
+    synchronizationManager.clearSynchronization();
+  }
+  if (commitException != null) {
+    boolean firstTransactionManagerFailed=commitExceptionTransactionManager == getLastTransactionManager();
+    int transactionState=firstTransactionManagerFailed ? HeuristicCompletionException.STATE_ROLLED_BACK : HeuristicCompletionException.STATE_MIXED;
+    throw new HeuristicCompletionException(transactionState,commitException);
+  }
+}

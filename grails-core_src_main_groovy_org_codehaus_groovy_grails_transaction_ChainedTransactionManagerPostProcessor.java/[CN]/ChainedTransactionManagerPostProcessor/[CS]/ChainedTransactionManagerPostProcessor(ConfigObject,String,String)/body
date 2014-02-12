@@ -1,0 +1,9 @@
+{
+  this.config=config;
+  if (whitelistPattern != null) {
+    beanNameWhitelistPattern=whitelistPattern;
+  }
+  if (blacklistPattern != null) {
+    beanNameBlacklistPattern=blacklistPattern;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  PlatformTransactionManager transactionManager=createNonFailingTransactionManager("single");
+  setupTransactionManagers(transactionManager);
+  createAndCommitTransaction();
+  assertThat(transactionManager,isCommitted());
+}

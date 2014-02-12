@@ -1,0 +1,3 @@
+{
+  return beanName.matches(beanNameWhitelistPattern) && (beanNameBlacklistPattern == null || !beanName.matches(beanNameBlacklistPattern)) && !beanName.matches(beanNameInternalBlacklistPattern);
+}

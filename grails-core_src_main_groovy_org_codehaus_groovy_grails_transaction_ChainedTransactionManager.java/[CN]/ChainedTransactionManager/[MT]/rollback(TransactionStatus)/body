@@ -1,0 +1,25 @@
+{
+  Exception rollbackException=null;
+  PlatformTransactionManager rollbackExceptionTransactionManager=null;
+  MultiTransactionStatus multiTransactionStatus=(MultiTransactionStatus)status;
+  for (  PlatformTransactionManager transactionManager : reverse(transactionManagers)) {
+    try {
+      multiTransactionStatus.rollback(transactionManager);
+    }
+ catch (    Exception ex) {
+      if (rollbackException == null) {
+        rollbackException=ex;
+        rollbackExceptionTransactionManager=transactionManager;
+      }
+ else {
+        LOGGER.warn("Rollback exception (" + transactionManager + ") "+ ex.getMessage(),ex);
+      }
+    }
+  }
+  if (multiTransactionStatus.isNewSynchonization()) {
+    synchronizationManager.clearSynchronization();
+  }
+  if (rollbackException != null) {
+    throw new UnexpectedRollbackException("Rollback exception, originated at (" + rollbackExceptionTransactionManager + ") "+ rollbackException.getMessage(),rollbackException);
+  }
+}

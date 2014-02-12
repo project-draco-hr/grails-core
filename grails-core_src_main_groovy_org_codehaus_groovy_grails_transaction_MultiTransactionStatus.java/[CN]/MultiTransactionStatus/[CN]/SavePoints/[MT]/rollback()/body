@@ -1,0 +1,5 @@
+{
+  for (  TransactionStatus transactionStatus : savepoints.keySet()) {
+    transactionStatus.rollbackToSavepoint(savepointFor(transactionStatus));
+  }
+}

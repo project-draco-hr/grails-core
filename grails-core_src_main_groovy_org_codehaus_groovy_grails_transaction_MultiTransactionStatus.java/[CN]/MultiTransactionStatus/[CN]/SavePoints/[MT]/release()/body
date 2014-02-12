@@ -1,0 +1,5 @@
+{
+  for (  TransactionStatus transactionStatus : savepoints.keySet()) {
+    transactionStatus.releaseSavepoint(savepointFor(transactionStatus));
+  }
+}

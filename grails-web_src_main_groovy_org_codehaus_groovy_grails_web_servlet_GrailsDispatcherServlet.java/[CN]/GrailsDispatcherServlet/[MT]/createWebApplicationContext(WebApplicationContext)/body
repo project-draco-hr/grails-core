@@ -19,6 +19,11 @@
       throw new BootstrapException("Error executing bootstraps",e);
     }
   }
+  if (webContext instanceof ConfigurableWebApplicationContext) {
+    ConfigurableWebApplicationContext configurableContext=(ConfigurableWebApplicationContext)webContext;
+    postProcessWebApplicationContext(configurableContext);
+    applyInitializers(configurableContext);
+  }
   interceptors=establishInterceptors(webContext);
   return webContext;
 }

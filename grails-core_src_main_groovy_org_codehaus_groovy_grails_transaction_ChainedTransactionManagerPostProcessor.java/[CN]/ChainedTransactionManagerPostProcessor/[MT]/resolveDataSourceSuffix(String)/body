@@ -1,0 +1,12 @@
+{
+  if (TRANSACTION_MANAGER.equals(transactionManagerBeanName)) {
+    return "";
+  }
+ else {
+    Matcher matcher=SUFFIX_PATTERN.matcher(transactionManagerBeanName);
+    if (matcher.matches()) {
+      return matcher.group(1);
+    }
+  }
+  return null;
+}

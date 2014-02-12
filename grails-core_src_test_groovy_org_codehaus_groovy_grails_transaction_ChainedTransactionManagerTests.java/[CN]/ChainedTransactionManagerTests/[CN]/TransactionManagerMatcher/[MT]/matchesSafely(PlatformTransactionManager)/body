@@ -1,0 +1,9 @@
+{
+  TestPlatformTransactionManager ptm=(TestPlatformTransactionManager)platformTransactionManager;
+  if (commitCheck) {
+    return ptm.isCommitted();
+  }
+ else {
+    return ptm.wasRolledBack();
+  }
+}

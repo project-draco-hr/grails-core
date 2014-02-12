@@ -1,0 +1,8 @@
+{
+  Assert.notNull(synchronizationManager,"SynchronizationManager must not be null!");
+  Assert.notNull(transactionManagers,"Transaction managers must not be null!");
+  Assert.isTrue(transactionManagers.length > 0,"At least one PlatformTransactionManager must be given!");
+  this.synchronizationManager=synchronizationManager;
+  this.transactionManagers=new ArrayList<PlatformTransactionManager>();
+  this.transactionManagers.addAll(Arrays.asList(transactionManagers));
+}

@@ -1,0 +1,4 @@
+{
+  Assert.notNull(status,"TransactionStatus must not be null!");
+  this.savepoints.put(status,savepoint);
+}

@@ -1,0 +1,5 @@
+{
+  for (  TransactionStatus ts : transactionStatuses.values()) {
+    ts.setRollbackOnly();
+  }
+}

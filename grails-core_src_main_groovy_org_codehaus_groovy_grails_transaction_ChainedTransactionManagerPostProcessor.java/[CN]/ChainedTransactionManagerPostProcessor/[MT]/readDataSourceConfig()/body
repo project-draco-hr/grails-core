@@ -1,0 +1,15 @@
+{
+  Map<String,ConfigObject> dsConfigs=new LinkedHashMap<String,ConfigObject>();
+  if (config != null) {
+    if (config.containsKey("dataSource")) {
+      dsConfigs.put("",(ConfigObject)config.get("dataSource"));
+    }
+    for (    Map.Entry entry : (Set<Map.Entry>)config.entrySet()) {
+      String name=String.valueOf(entry.getKey());
+      if (name.startsWith("dataSource_") && entry.getValue() instanceof ConfigObject) {
+        dsConfigs.put(name.substring("dataSource_".length()),(ConfigObject)entry.getValue());
+      }
+    }
+  }
+  return dsConfigs;
+}

@@ -1,7 +1,7 @@
 {
   contentTypeToEncoderMapping=null;
   contentTypePatternToEncoderMapping=null;
-  Object codecForContentTypeConfig=grailsApplication.getFlatConfig().get(CONFIG_PROPERTY_CODEC_FOR_CONTENT_TYPE);
+  Object codecForContentTypeConfig=getConfigSettings(grailsApplication.getConfig());
   if (codecForContentTypeConfig != null) {
     if (codecForContentTypeConfig instanceof Map) {
       contentTypeToEncoderMapping=new LinkedHashMap<String,Encoder>();

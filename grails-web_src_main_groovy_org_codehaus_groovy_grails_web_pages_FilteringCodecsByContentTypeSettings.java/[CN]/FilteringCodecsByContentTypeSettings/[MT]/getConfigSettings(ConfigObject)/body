@@ -1,0 +1,13 @@
+{
+  Object settings=null;
+  if (config != null) {
+    Object grailsConfig=config.get("grails");
+    if (grailsConfig instanceof Map) {
+      Object viewsConfig=((Map)grailsConfig).get("views");
+      if (viewsConfig instanceof Map) {
+        settings=((Map)viewsConfig).get("filteringCodecForContentType");
+      }
+    }
+  }
+  return settings;
+}

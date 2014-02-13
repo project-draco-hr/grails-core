@@ -1,0 +1,12 @@
+{
+  if (!(value instanceof Properties) && value instanceof Map) {
+    Properties props=new Properties();
+    for (    Map.Entry entry : (Set<Map.Entry>)((Map)value).entrySet()) {
+      props.put(String.valueOf(entry.getKey()),entry.getValue() != null ? String.valueOf(entry.getValue()) : null);
+    }
+    super.setValue(props);
+  }
+ else {
+    super.setValue(value);
+  }
+}

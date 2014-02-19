@@ -1,0 +1,9 @@
+{
+  Class<?> transactionManagerBeanClass=resolveTransactionManagerClass(registry);
+  if (transactionManagerBeanClass == null) {
+    return false;
+  }
+  boolean isJtaTransactionManager=JtaTransactionManager.class.isAssignableFrom(transactionManagerBeanClass);
+  boolean isChainedTransactionManager=ChainedTransactionManager.class.isAssignableFrom(transactionManagerBeanClass);
+  return isJtaTransactionManager || isChainedTransactionManager;
+}

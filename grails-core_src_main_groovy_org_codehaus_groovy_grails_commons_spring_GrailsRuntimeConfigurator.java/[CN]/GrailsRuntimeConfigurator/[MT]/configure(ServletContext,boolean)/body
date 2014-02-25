@@ -3,7 +3,6 @@
   WebApplicationContext ctx;
   try {
     webSpringConfig=createWebRuntimeSpringConfiguration(application,parent,application.getClassLoader());
-    webSpringConfig.setBeanFactory(new ReloadAwareAutowireCapableBeanFactory());
     if (context != null) {
       webSpringConfig.setServletContext(context);
       pluginManager.setServletContext(context);

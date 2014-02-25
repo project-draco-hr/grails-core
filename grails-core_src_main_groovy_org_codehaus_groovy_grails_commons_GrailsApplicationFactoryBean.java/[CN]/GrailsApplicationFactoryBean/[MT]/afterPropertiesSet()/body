@@ -13,13 +13,7 @@
         GPathResult node=(GPathResult)grailsClasses.getAt(i);
         String className=node.text();
         try {
-          Class<?> clazz;
-          if (classLoader instanceof GrailsClassLoader) {
-            clazz=classLoader.loadClass(className);
-          }
- else {
-            clazz=Class.forName(className,true,classLoader);
-          }
+          Class<?> clazz=Class.forName(className,true,classLoader);
           classes.add(clazz);
         }
  catch (        ClassNotFoundException e) {
@@ -47,5 +41,5 @@
  else {
     grailsApplication=new DefaultGrailsApplication();
   }
-  ApplicationHolder.setApplication(grailsApplication);
+  Holders.setGrailsApplication(grailsApplication);
 }

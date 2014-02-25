@@ -1,6 +1,0 @@
-{
-  if (hasCompilationErrors()) {
-    return compilationErrors.values().iterator().next();
-  }
-  return null;
-}

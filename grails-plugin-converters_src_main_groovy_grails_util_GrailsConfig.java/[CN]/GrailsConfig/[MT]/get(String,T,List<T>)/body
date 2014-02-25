@@ -1,8 +1,0 @@
-{
-  T v=get(key,defaultValue);
-  if (!allowedValues.contains(v)) {
-    LOG.warn(String.format("Configuration value for key %s is not one of the allowed values (%s)",key,DefaultGroovyMethods.inspect(allowedValues)));
-    return defaultValue;
-  }
-  return v;
-}

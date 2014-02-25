@@ -1,0 +1,4 @@
+{
+  Map<String,PropertyDescriptor> autowireableBeanProps=resolveAutowireablePropertyDescriptors(existingBean);
+  autowireBeanInAutowireByName(existingBean,autowireableBeanProps);
+}

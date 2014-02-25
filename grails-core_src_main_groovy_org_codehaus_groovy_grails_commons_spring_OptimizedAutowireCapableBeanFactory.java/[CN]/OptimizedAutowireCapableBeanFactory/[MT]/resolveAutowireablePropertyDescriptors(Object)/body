@@ -1,0 +1,11 @@
+{
+  return resolveAutowireablePropertyDescriptorsForClass(existingBean.getClass(),new Callable<BeanWrapper>(){
+    public BeanWrapper call() throws Exception {
+      BeanWrapperImpl bw=new BeanWrapperImpl(false);
+      bw.setWrappedInstance(existingBean);
+      bw.setConversionService(getConversionService());
+      return bw;
+    }
+  }
+);
+}

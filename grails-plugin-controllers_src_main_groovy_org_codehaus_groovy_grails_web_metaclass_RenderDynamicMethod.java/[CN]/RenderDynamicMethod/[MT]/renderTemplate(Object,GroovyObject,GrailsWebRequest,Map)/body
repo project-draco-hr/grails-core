@@ -48,7 +48,7 @@
       renderTemplateForModel(t,modelObject,target,out);
     }
  else {
-      Writable w=t.make(new BeanMap(target));
+      Writable w=t.make();
       w.writeTo(out);
     }
     out.flush();

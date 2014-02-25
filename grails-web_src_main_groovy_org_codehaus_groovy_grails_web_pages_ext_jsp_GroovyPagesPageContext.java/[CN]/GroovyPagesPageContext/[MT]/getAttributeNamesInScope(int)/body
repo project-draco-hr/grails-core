@@ -1,15 +1,26 @@
 {
 switch (scope) {
 case PAGE_SCOPE:
-    return new IteratorEnumeration(pageScope.getVariables().keySet().iterator());
+    final Iterator i=pageScope.getVariables().keySet().iterator();
+  return new Enumeration(){
+    @Override public boolean hasMoreElements(){
+      return i.hasNext();
+    }
+    @Override public Object nextElement(){
+      return i.next();
+    }
+  }
+;
 case REQUEST_SCOPE:
-  return request.getAttributeNames();
+return request.getAttributeNames();
 case SESSION_SCOPE:
 HttpSession httpSession=request.getSession(false);
 if (httpSession != null) {
 return httpSession.getAttributeNames();
 }
+ else {
 return EMPTY_ENUMERATION;
+}
 case APPLICATION_SCOPE:
 return servletContext.getAttributeNames();
 }

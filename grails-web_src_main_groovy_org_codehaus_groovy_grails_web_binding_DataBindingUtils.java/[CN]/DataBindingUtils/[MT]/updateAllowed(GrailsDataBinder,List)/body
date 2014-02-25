@@ -4,7 +4,7 @@
   }
   String[] currentAllowed=binder.getAllowedFields();
   List newAllowed=new ArrayList(allowed);
-  CollectionUtils.addAll(newAllowed,currentAllowed);
+  newAllowed.addAll(Arrays.asList(currentAllowed));
   String[] value=new String[newAllowed.size()];
   newAllowed.toArray(value);
   binder.setAllowedFields(value);

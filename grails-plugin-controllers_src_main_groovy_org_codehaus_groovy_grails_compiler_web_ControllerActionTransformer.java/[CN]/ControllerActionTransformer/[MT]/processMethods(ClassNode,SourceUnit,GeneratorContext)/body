@@ -4,12 +4,12 @@
     if (methodShouldBeConfiguredAsControllerAction(method)) {
       final List<MethodNode> declaredMethodsWithThisName=classNode.getDeclaredMethods(method.getName());
       if (declaredMethodsWithThisName != null) {
-        final int numberOfNonExceptionHandlerMethodsWithThisName=org.apache.commons.collections.CollectionUtils.countMatches(declaredMethodsWithThisName,new Predicate(){
-          public boolean evaluate(          Object object){
+        final int numberOfNonExceptionHandlerMethodsWithThisName=DefaultGroovyMethods.count(declaredMethodsWithThisName,new Closure(this){
+          @Override public Object call(          Object object){
             return !isExceptionHandlingMethod((MethodNode)object);
           }
         }
-);
+).intValue();
         if (numberOfNonExceptionHandlerMethodsWithThisName > 1) {
           String message="Controller actions may not be overloaded.  The [" + method.getName() + "] action has been overloaded in ["+ classNode.getName()+ "].";
           GrailsASTUtils.error(source,method,message);

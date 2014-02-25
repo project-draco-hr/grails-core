@@ -1,5 +1,5 @@
 {
-  return UnmodifiableSet.decorate(new AbstractSet(){
+  return Collections.unmodifiableSet(new AbstractSet(){
     @Override public Iterator iterator(){
       return entryIterator();
     }

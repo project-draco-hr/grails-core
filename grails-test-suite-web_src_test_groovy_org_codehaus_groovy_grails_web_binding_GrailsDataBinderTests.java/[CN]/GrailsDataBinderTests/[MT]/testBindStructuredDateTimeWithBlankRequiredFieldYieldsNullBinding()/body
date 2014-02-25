@@ -1,4 +1,0 @@
-{
-  TestBean bean=bindDateTimeWithCustomEditor("","01:00 PM");
-  assertNull(bean.getMyDateTime());
-}

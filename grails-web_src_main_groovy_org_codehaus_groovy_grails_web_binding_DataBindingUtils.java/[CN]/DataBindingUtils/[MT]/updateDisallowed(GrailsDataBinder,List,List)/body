@@ -5,7 +5,7 @@
   String[] currentDisallowed=binder.getDisallowedFields();
   List newDisallowed=new ArrayList(disallowed);
   if (allowed == null) {
-    CollectionUtils.addAll(newDisallowed,currentDisallowed);
+    newDisallowed.addAll(Arrays.asList(currentDisallowed));
   }
  else {
     for (    String s : currentDisallowed) {

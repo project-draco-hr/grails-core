@@ -5,8 +5,8 @@
   Method handlerMethod=null;
   final List<ControllerExceptionHandlerMetaData> exceptionHandlerMetaDataInstances=(List<ControllerExceptionHandlerMetaData>)GrailsClassUtils.getStaticFieldValue(controllerInstance.getClass(),ControllerActionTransformer.EXCEPTION_HANDLER_META_DATA_FIELD_NAME);
   if (exceptionHandlerMetaDataInstances != null && exceptionHandlerMetaDataInstances.size() > 0) {
-    final List<ControllerExceptionHandlerMetaData> matches=(List<ControllerExceptionHandlerMetaData>)org.apache.commons.collections.CollectionUtils.select(exceptionHandlerMetaDataInstances,new Predicate(){
-      @Override public boolean evaluate(      Object object){
+    final List<ControllerExceptionHandlerMetaData> matches=(List<ControllerExceptionHandlerMetaData>)DefaultGroovyMethods.findAll(exceptionHandlerMetaDataInstances,new Closure(this){
+      @Override public Object call(      Object object){
         ControllerExceptionHandlerMetaData md=(ControllerExceptionHandlerMetaData)object;
         return md.getExceptionType().isAssignableFrom(exceptionType);
       }

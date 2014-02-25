@@ -16,9 +16,6 @@
   if (modelObject instanceof Map) {
     model=(Map)modelObject;
   }
- else   if (target instanceof GroovyObject) {
-    model=new BeanMap(target);
-  }
  else {
     model=new HashMap();
   }

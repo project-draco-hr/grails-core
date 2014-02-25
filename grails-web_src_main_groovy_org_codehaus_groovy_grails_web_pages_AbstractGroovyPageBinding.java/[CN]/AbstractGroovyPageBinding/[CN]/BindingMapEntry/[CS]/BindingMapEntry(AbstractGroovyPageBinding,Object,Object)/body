@@ -1,4 +1,5 @@
 {
-  super(key,value);
   this.binding=binding;
+  this.key=key;
+  this.value=value;
 }

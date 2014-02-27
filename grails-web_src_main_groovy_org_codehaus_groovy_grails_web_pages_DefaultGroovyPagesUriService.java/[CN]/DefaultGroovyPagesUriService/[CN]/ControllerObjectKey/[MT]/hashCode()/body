@@ -1,3 +1,5 @@
 {
-  return new HashCodeBuilder().append(controllerHashCode).append(controllerClassName).toHashCode();
+  int result=(int)(controllerHashCode ^ (controllerHashCode >>> 32));
+  result=31 * result + controllerClassName.hashCode();
+  return result;
 }

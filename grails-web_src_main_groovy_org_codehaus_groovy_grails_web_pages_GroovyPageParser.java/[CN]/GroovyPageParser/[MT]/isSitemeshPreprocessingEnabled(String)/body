@@ -1,6 +1,6 @@
 {
   if (gspFilePreprocessDirective != null) {
-    return BooleanUtils.toBoolean(gspFilePreprocessDirective.trim());
+    return GrailsStringUtils.toBoolean(gspFilePreprocessDirective.trim());
   }
   return enableSitemeshPreprocessing;
 }

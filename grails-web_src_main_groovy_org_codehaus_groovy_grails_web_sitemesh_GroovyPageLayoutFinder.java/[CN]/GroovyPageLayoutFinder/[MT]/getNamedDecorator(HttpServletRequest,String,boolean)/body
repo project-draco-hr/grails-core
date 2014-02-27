@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(name) || NONE_LAYOUT.equals(name)) {
+  if (GrailsStringUtils.isBlank(name) || NONE_LAYOUT.equals(name)) {
     return null;
   }
   if (cacheEnabled) {

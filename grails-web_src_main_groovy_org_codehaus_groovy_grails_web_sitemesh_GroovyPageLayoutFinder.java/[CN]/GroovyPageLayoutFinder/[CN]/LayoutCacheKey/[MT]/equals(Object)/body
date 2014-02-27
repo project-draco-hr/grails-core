@@ -1,7 +1,8 @@
 {
-  if (this == obj)   return true;
-  if (obj == null)   return false;
-  if (getClass() != obj.getClass())   return false;
-  LayoutCacheKey other=(LayoutCacheKey)obj;
-  return new EqualsBuilder().append(other.actionUri,actionUri).append(other.controllerName,controllerName).isEquals();
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  LayoutCacheKey that=(LayoutCacheKey)o;
+  if (!actionUri.equals(that.actionUri))   return false;
+  if (!controllerName.equals(that.controllerName))   return false;
+  return true;
 }

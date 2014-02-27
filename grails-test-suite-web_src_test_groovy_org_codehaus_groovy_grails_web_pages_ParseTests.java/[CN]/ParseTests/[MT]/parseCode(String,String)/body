@@ -8,7 +8,7 @@
   InputStream in=parse.parse();
   ParsedResult result=new ParsedResult();
   result.parser=parse;
-  result.generatedGsp=IOUtils.toString(in,enc.toString());
+  result.generatedGsp=IOGroovyMethods.getText(in,enc.toString());
   result.htmlParts=parse.getHtmlPartsArray();
   return result;
 }

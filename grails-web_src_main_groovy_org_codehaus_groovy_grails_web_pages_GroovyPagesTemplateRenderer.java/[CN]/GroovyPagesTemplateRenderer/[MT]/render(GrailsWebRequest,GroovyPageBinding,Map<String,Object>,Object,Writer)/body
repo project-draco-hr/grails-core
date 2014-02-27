@@ -1,7 +1,7 @@
 {
   Assert.state(groovyPagesTemplateEngine != null,"Property [groovyPagesTemplateEngine] must be set!");
   String templateName=getStringValue(attrs,"template");
-  if (StringUtils.isBlank(templateName)) {
+  if (GrailsStringUtils.isBlank(templateName)) {
     throw new GrailsTagException("Tag [render] is missing required attribute [template]");
   }
   String uri=webRequest.getAttributes().getTemplateUri(templateName,webRequest.getRequest());

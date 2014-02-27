@@ -1,3 +1,3 @@
 {
-  return (propertyValue instanceof Map) || ((propertyValue instanceof String) && StringUtils.isBlank((String)propertyValue));
+  return (propertyValue instanceof Map) || ((propertyValue instanceof String) && GrailsStringUtils.isBlank((String)propertyValue));
 }

@@ -1,7 +1,7 @@
 {
-  HashCodeBuilder builder=new HashCodeBuilder(23,31);
+  int hashCode=HashCodeHelper.initHash();
   for (  Object entry : wrappedMap.entrySet()) {
-    builder.append(entry);
+    hashCode=HashCodeHelper.updateHash(hashCode,entry);
   }
-  return builder.toHashCode();
+  return hashCode;
 }

@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(attr)) {
+  if (GrailsStringUtils.isBlank(attr)) {
     return "";
   }
   if (((attr.startsWith("\"") && attr.endsWith("\"")) || (attr.startsWith("'") && attr.endsWith("'"))) && attr.length() > 1) {

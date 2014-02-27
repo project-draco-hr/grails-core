@@ -1,5 +1,5 @@
 {
-  String templatePath=StringUtils.isNotEmpty(contextPath) ? GrailsResourceUtils.appendPiecesForUri(contextPath,templateName) : templateName;
+  String templatePath=GrailsStringUtils.isNotEmpty(contextPath) ? GrailsResourceUtils.appendPiecesForUri(contextPath,templateName) : templateName;
   GroovyPageScriptSource scriptSource;
   if (pluginName == null) {
     scriptSource=groovyPageLocator.findTemplateInBinding(templatePath,pageScope);

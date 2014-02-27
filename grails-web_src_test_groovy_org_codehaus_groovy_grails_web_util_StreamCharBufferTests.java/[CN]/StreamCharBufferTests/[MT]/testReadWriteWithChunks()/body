@@ -1,5 +1,5 @@
 {
-  StreamCharBuffer buf=new StreamCharBuffer();
+  StreamCharBuffer buf=new StreamCharBuffer(5);
   Writer writer=buf.getWriter();
   Reader reader=buf.getReader();
   writer.write("12345");
@@ -7,11 +7,11 @@
   reader.read(b);
   assertEquals("12345",new String(b));
   StringWriter sw=new StringWriter();
-  IOUtils.copy(reader,sw);
+  GrailsIOUtils.copy(reader,sw);
   assertEquals("",sw.toString());
   writer.write("12345");
   writer.write("12345");
   sw=new StringWriter();
-  IOUtils.copy(reader,sw);
+  GrailsIOUtils.copy(reader,sw);
   assertEquals("1234512345",sw.toString());
 }

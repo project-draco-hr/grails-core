@@ -20,10 +20,10 @@
         value=String.valueOf(entry.getValue());
       }
  else       if (entry.getValue() instanceof Collection) {
-        value=StringUtils.join((Collection)entry.getValue(),',');
+        value=DefaultGroovyMethods.join((Collection)entry.getValue(),",");
       }
  else       if (entry.getValue() instanceof Object[]) {
-        value=StringUtils.join((Object[])entry.getValue(),',');
+        value=DefaultGroovyMethods.join((Object[])entry.getValue(),",");
       }
  else {
         value=String.valueOf(entry.getValue());

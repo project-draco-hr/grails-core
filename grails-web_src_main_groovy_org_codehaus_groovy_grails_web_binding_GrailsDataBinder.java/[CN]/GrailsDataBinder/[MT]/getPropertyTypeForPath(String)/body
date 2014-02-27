@@ -4,9 +4,9 @@
     Object target=bean.getWrappedInstance();
     String path=propertyName.replaceAll("\\[.+?\\]","");
     if (path.indexOf(PATH_SEPARATOR) > -1) {
-      String nestedProp=StringUtils.substringBeforeLast(propertyName,".");
+      String nestedProp=GrailsStringUtils.substringBeforeLast(propertyName,".");
       target=bean.getPropertyValue(nestedProp);
-      path=StringUtils.substringAfterLast(path,".");
+      path=GrailsStringUtils.substringAfterLast(path,".");
     }
     if (target != null) {
       type=getReferencedTypeForCollection(path,target);

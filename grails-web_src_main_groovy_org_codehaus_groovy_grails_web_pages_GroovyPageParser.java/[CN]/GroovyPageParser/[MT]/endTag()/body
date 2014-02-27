@@ -6,7 +6,7 @@
   TagMeta tm=tagMetaStack.pop();
   String lastInStack=tm.name;
   String lastNamespaceInStack=tm.namespace;
-  if (StringUtils.isBlank(tagName)) {
+  if (GrailsStringUtils.isBlank(tagName)) {
     tagName=lastInStack;
   }
   if (!lastInStack.equals(tagName) || !lastNamespaceInStack.equals(ns)) {

@@ -5,7 +5,7 @@
     String contentType=request.getContentType();
     if ("application/x-www-form-urlencoded".equals(contentType)) {
       try {
-        String contents=IOUtils.toString(request.getReader());
+        String contents=GrailsIOUtils.toString(request.getReader());
         request.setAttribute(REQUEST_BODY_PARSED,true);
         requestMap.putAll(WebUtils.fromQueryString(contents));
       }

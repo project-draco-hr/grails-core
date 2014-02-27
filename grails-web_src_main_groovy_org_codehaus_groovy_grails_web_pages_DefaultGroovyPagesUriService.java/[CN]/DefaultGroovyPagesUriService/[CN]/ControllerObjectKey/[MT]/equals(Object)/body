@@ -1,13 +1,8 @@
 {
-  if (this == that) {
-    return true;
-  }
-  if (that == null) {
-    return false;
-  }
-  if (getClass() != that.getClass()) {
-    return false;
-  }
-  ControllerObjectKey thatKey=(ControllerObjectKey)that;
-  return new EqualsBuilder().append(controllerHashCode,thatKey.controllerHashCode).append(controllerClassName,thatKey.controllerClassName).isEquals();
+  if (this == o)   return true;
+  if (o == null || getClass() != o.getClass())   return false;
+  ControllerObjectKey that=(ControllerObjectKey)o;
+  if (controllerHashCode != that.controllerHashCode)   return false;
+  if (!controllerClassName.equals(that.controllerClassName))   return false;
+  return true;
 }

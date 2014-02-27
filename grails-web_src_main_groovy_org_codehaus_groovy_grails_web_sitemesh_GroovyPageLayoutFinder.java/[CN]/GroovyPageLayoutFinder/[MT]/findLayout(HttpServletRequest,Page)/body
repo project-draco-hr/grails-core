@@ -9,7 +9,7 @@
       layoutName=page.getProperty("meta.layout");
     }
     Decorator d=null;
-    if (StringUtils.isBlank(layoutName)) {
+    if (GrailsStringUtils.isBlank(layoutName)) {
       GroovyObject controller=(GroovyObject)request.getAttribute(GrailsApplicationAttributes.CONTROLLER);
       if (controller != null) {
         String controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);

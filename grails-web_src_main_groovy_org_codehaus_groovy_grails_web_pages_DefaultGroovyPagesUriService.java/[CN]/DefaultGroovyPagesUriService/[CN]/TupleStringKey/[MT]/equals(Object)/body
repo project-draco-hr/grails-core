@@ -1,13 +1,16 @@
 {
-  if (this == that) {
+  if (this == o) {
     return true;
   }
-  if (that == null) {
+  if (o == null || getClass() != o.getClass()) {
     return false;
   }
-  if (getClass() != that.getClass()) {
+  TupleStringKey that=(TupleStringKey)o;
+  if (keyPart1 != null ? !keyPart1.equals(that.keyPart1) : that.keyPart1 != null) {
     return false;
   }
-  TupleStringKey thatKey=(TupleStringKey)that;
-  return new EqualsBuilder().append(keyPart1,thatKey.keyPart1).append(keyPart2,thatKey.keyPart2).isEquals();
+  if (keyPart2 != null ? !keyPart2.equals(that.keyPart2) : that.keyPart2 != null) {
+    return false;
+  }
+  return true;
 }

@@ -8,10 +8,10 @@
     d=getNamedDecorator(request,layoutProperty.toString());
   }
  else {
-    if (d == null && !StringUtils.isBlank(actionUri)) {
+    if (d == null && !GrailsStringUtils.isBlank(actionUri)) {
       d=getNamedDecorator(request,actionUri.substring(1),true);
     }
-    if (d == null && !StringUtils.isBlank(controllerName)) {
+    if (d == null && !GrailsStringUtils.isBlank(controllerName)) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Action layout not found, trying controller");
       }

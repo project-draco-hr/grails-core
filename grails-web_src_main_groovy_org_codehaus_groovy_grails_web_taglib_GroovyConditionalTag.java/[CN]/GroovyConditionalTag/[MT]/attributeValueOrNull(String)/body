@@ -1,4 +1,4 @@
 {
   String attributeValue=attributes.get(attributeName);
-  return StringUtils.isBlank(attributeValue) ? null : attributeValue;
+  return GrailsStringUtils.isBlank(attributeValue) ? null : attributeValue;
 }

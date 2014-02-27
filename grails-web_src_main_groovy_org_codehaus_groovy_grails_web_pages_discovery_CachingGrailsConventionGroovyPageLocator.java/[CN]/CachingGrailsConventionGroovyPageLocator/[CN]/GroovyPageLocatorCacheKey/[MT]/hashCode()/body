@@ -1,3 +1,6 @@
 {
-  return new HashCodeBuilder().append(contextPath).append(pluginName).append(uri).toHashCode();
+  int result=uri != null ? uri.hashCode() : 0;
+  result=31 * result + (pluginName != null ? pluginName.hashCode() : 0);
+  result=31 * result + (contextPath != null ? contextPath.hashCode() : 0);
+  return result;
 }

@@ -24,7 +24,7 @@
     webRequest.setActionName(getActionName());
   }
   String id=getId();
-  if (!StringUtils.isBlank(id))   try {
+  if (!GrailsStringUtils.isBlank(id))   try {
     dispatchParams.put(GrailsWebRequest.ID_PARAMETER,URLDecoder.decode(id,encoding));
   }
  catch (  UnsupportedEncodingException e) {

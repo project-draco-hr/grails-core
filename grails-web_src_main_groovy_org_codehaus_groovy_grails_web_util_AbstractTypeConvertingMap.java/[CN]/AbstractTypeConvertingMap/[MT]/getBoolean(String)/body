@@ -7,7 +7,7 @@
     try {
       String string=o.toString();
       if (string != null) {
-        return BooleanUtils.toBoolean(string);
+        return GrailsStringUtils.toBoolean(string);
       }
     }
  catch (    Exception e) {

@@ -1,8 +1,8 @@
 {
-  if (StringUtils.isBlank(property)) {
+  if (GrailsStringUtils.isBlank(property)) {
     throw new JspTagException("Tag [renderInput] missing required attribute [property]");
   }
-  if (StringUtils.isBlank(bean)) {
+  if (GrailsStringUtils.isBlank(bean)) {
     throw new JspTagException("Tag [renderInput] missing required attribute [bean]");
   }
   @SuppressWarnings("unused") Writer out=pageContext.getOut();

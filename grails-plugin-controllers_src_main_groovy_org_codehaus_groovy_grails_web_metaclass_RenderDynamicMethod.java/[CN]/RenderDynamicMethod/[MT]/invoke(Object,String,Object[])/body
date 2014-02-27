@@ -108,7 +108,7 @@
           try {
             if (o instanceof File) {
               File f=(File)o;
-              input=FileUtils.openInputStream(f);
+              input=GrailsIOUtils.openStream(f);
             }
  else             if (o instanceof InputStream) {
               input=(InputStream)o;
@@ -117,7 +117,7 @@
               input=new ByteArrayInputStream((byte[])o);
             }
  else {
-              input=FileUtils.openInputStream(new File(o.toString()));
+              input=GrailsIOUtils.openStream(new File(o.toString()));
             }
             IOUtils.copy(input,response.getOutputStream());
           }

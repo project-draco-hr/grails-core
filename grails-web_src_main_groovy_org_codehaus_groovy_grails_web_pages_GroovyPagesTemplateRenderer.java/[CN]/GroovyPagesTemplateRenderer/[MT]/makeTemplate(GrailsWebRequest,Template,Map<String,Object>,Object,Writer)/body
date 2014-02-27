@@ -9,7 +9,7 @@
     b.putAll((Map)attrs.get("model"));
   }
   if (attrs.containsKey("bean")) {
-    if (StringUtils.isNotBlank(var)) {
+    if (GrailsStringUtils.isNotBlank(var)) {
       b.put(var,attrs.get("bean"));
     }
  else {
@@ -21,12 +21,12 @@
     Iterator<?> iterator=InvokerHelper.asIterator(attrs.get("collection"));
     while (iterator.hasNext()) {
       Object it=iterator.next();
-      if (key == null && StringUtils.isBlank(var) && it != null) {
+      if (key == null && GrailsStringUtils.isBlank(var) && it != null) {
         key=GrailsNameUtils.getPropertyName(it.getClass());
       }
       Map itmap=new LinkedHashMap<String,Object>();
       itmap.putAll(b);
-      if (StringUtils.isNotBlank(var)) {
+      if (GrailsStringUtils.isNotBlank(var)) {
         itmap.put(var,it);
       }
  else {

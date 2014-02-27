@@ -27,7 +27,7 @@ return "\\u002f";
 break;
 }
 if (ch < ' ') {
-return "\\u" + StringUtils.leftPad(Integer.toHexString(ch),4,'0');
+return "\\u" + StringGroovyMethods.padLeft(Integer.toHexString(ch),4,"0");
 }
 return null;
 }

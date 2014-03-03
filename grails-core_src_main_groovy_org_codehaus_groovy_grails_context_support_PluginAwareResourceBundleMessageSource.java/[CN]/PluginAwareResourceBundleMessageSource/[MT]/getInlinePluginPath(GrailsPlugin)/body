@@ -1,4 +1,5 @@
 {
+  if (Environment.isWarDeployed())   return null;
   try {
     final GrailsPluginInfo pluginInfo=pluginBuildSettings.getPluginInfoForName(grailsPlugin.getFileSystemShortName());
     if (pluginInfo != null) {

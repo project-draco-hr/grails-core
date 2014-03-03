@@ -23,7 +23,7 @@
   if (!hasArtefactHandler(urlMappingsArtefactHandler.getType())) {
     registerArtefactHandler(urlMappingsArtefactHandler);
   }
-  List<ArtefactHandler> additionalArtefactHandlers=SpringFactoriesLoader.loadFactories(ArtefactHandler.class,getClassLoader());
+  List<ArtefactHandler> additionalArtefactHandlers=GrailsFactoriesLoader.loadFactories(ArtefactHandler.class,getClassLoader());
   for (  ArtefactHandler artefactHandler : additionalArtefactHandlers) {
     registerArtefactHandler(artefactHandler);
   }

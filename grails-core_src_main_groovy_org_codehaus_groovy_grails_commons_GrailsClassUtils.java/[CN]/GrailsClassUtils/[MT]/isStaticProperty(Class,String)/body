@@ -1,5 +1,5 @@
 {
-  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(propertyName),null);
+  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(propertyName),(Class[])null);
   if (getter != null) {
     return isPublicStatic(getter);
   }

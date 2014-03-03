@@ -3,8 +3,7 @@
   if (pluginManager == null) {
     Assert.state(descriptor != null,"Cannot create PluginManager, /WEB-INF/grails.xml not found!");
     if (!descriptor.exists()) {
-      BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-      GrailsProjectPluginLoader pluginLoader=new GrailsProjectPluginLoader(application,application.getClassLoader(),buildSettings,null);
+      PluginManagerLoader pluginLoader=(PluginManagerLoader)application.getClassLoader().loadClass(PLUGIN_LOADER_CLASS).getConstructor(GrailsApplication.class).newInstance(application);
       pluginManager=pluginLoader.loadPlugins();
     }
  else {

@@ -1,5 +1,5 @@
 {
-  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(name),null);
+  Method getter=BeanUtils.findDeclaredMethod(clazz,getGetterName(name),(Class[])null);
   try {
     if (getter != null) {
       return getter.invoke(null);

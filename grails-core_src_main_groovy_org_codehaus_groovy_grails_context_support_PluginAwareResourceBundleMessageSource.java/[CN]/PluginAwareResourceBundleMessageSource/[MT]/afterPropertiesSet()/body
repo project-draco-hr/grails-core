@@ -12,7 +12,10 @@
         basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
       }
       final String baseName=GrailsStringUtils.substringBefore(GrailsStringUtils.getFileBasename(pluginBundle.getFilename()),"_");
-      pluginBaseNames.add(basePath + "/grails-app/i18n/" + baseName);
+      String pathToAdd=basePath + GRAILS_APP_I18N_PATH_COMPONENT + baseName;
+      if (!pluginBaseNames.contains(pathToAdd)) {
+        pluginBaseNames.add(pathToAdd);
+      }
     }
   }
 }

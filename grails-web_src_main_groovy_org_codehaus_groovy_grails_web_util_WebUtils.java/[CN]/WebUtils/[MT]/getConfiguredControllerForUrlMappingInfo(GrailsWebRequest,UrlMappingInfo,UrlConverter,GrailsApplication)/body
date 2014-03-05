@@ -1,18 +1,3 @@
 {
-  String viewName;
-  viewName=info.getViewName();
-  GrailsClass controller=null;
-  if (viewName == null && info.getURI() == null) {
-    ControllerArtefactHandler.ControllerCacheKey featureId=getFeatureId(urlConverterToUse,info);
-    controller=grailsApplicationToUse.getArtefactForFeature(ControllerArtefactHandler.TYPE,featureId);
-    if (controller != null) {
-      webRequest.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE,controller.getLogicalPropertyName(),WebRequest.SCOPE_REQUEST);
-      webRequest.setAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS,controller,WebRequest.SCOPE_REQUEST);
-      webRequest.setAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,Boolean.TRUE,WebRequest.SCOPE_REQUEST);
-      if (((GrailsControllerClass)controller).getNamespace() != null) {
-        webRequest.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAMESPACE_ATTRIBUTE,((GrailsControllerClass)controller).getNamespace(),WebRequest.SCOPE_REQUEST);
-      }
-    }
-  }
-  return controller;
+  return passControllerForUrlMappingInfoInRequest(webRequest,info,urlConverterToUse,grailsApplicationToUse);
 }

@@ -22,14 +22,14 @@
       classChangeEventQueue.put(className,new ClassUpdate(){
         public void run(        Class<?> cls){
           try {
-            reloadInProgress=true;
+            System.setProperty("grails.reloading.in.progress","true");
             pluginManager.informOfClassChange(file,cls);
           }
  catch (          Exception e) {
             LOG.error("Failed to reload file [" + file + "] with error: "+ e.getMessage(),e);
           }
  finally {
-            reloadInProgress=false;
+            System.setProperty("grails.reloading.in.progress","false");
           }
         }
       }

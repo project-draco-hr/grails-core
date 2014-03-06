@@ -36,11 +36,11 @@
  else {
             grailsPlugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,cls);
           }
-          GrailsProjectWatcher.setCurrentReloadError(null);
+          Environment.setCurrentReloadError(null);
         }
  catch (        Exception e) {
           LOG.error("Plugin " + grailsPlugin + " could not reload changes to file ["+ file+ "]: "+ e.getMessage(),e);
-          GrailsProjectWatcher.setCurrentReloadError(e);
+          Environment.setCurrentReloadError(e);
         }
       }
     }

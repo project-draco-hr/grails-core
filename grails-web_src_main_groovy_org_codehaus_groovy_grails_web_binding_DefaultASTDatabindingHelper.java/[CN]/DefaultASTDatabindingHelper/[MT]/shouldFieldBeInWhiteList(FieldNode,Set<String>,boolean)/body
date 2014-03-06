@@ -6,7 +6,7 @@
     shouldInclude=false;
   }
  else   if (isDomainClass) {
-    if ("id".equals(fieldName) || "version".equals(fieldName)) {
+    if (DOMAIN_CLASS_PROPERTIES_TO_EXCLUDE_BY_DEFAULT.contains(fieldName)) {
       shouldInclude=false;
     }
   }

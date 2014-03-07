@@ -1,3 +1,5 @@
 {
-  return new HashCodeBuilder().append(keyPart1).append(keyPart2).toHashCode();
+  int result=keyPart1 != null ? keyPart1.hashCode() : 0;
+  result=31 * result + (keyPart2 != null ? keyPart2.hashCode() : 0);
+  return result;
 }

@@ -1,9 +1,9 @@
 {
   if (paramValues == null)   paramValues=new HashMap();
-  boolean hasController=!StringUtils.isBlank(controller);
-  boolean hasAction=!StringUtils.isBlank(action);
-  boolean hasPlugin=!StringUtils.isBlank(pluginName);
-  boolean hasNamespace=!StringUtils.isBlank(namespace);
+  boolean hasController=!GrailsStringUtils.isBlank(controller);
+  boolean hasAction=!GrailsStringUtils.isBlank(action);
+  boolean hasPlugin=!GrailsStringUtils.isBlank(pluginName);
+  boolean hasNamespace=!GrailsStringUtils.isBlank(namespace);
   try {
     if (hasController) {
       paramValues.put(CONTROLLER,controller);

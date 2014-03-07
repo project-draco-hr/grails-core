@@ -1,0 +1,23 @@
+{
+  try {
+    if (isSourceFile(file)) {
+      compiler.compileAll();
+      Environment.currentCompilationError=null;
+      ClassPropertyFetcher.clearClassPropertyFetcherCache();
+    }
+  }
+ catch (  MultipleCompilationErrorsException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+    Environment.currentCompilationError=e;
+  }
+catch (  CompilationFailedException e) {
+    LOG.error("Compilation Error: " + e.getMessage());
+  }
+catch (  BuildException e) {
+    Throwable cause=e.getCause();
+    if (cause instanceof MultipleCompilationErrorsException) {
+      Environment.currentCompilationError=(MultipleCompilationErrorsException)cause;
+    }
+    LOG.error("Compilation Error: " + e.getCause().getMessage());
+  }
+}

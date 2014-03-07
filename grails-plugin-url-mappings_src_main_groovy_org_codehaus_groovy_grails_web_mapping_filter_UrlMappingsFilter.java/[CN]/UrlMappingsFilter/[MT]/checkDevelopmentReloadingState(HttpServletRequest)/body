@@ -1,5 +1,5 @@
 {
-  while (GrailsProjectWatcher.isReloadInProgress()) {
+  while (Environment.isReloadInProgress()) {
     try {
       Thread.sleep(100);
     }
@@ -7,11 +7,11 @@
     }
   }
   if (request.getAttribute(GrailsExceptionResolver.EXCEPTION_ATTRIBUTE) != null)   return;
-  MultipleCompilationErrorsException compilationError=GrailsProjectWatcher.getCurrentCompilationError();
+  MultipleCompilationErrorsException compilationError=Environment.getCurrentCompilationError();
   if (compilationError != null) {
     throw compilationError;
   }
-  Throwable currentReloadError=GrailsProjectWatcher.getCurrentReloadError();
+  Throwable currentReloadError=Environment.getCurrentReloadError();
   if (currentReloadError != null) {
     throw new RuntimeException(currentReloadError);
   }

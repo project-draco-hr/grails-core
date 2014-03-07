@@ -12,7 +12,7 @@
   if (config != null) {
     Object sitemeshPreprocessEnabled=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
     if (sitemeshPreprocessEnabled != null) {
-      final boolean enableSitemeshPreprocessing=BooleanUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim());
+      final boolean enableSitemeshPreprocessing=GrailsStringUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim());
       setEnableSitemeshPreprocessing(enableSitemeshPreprocessing);
     }
   }

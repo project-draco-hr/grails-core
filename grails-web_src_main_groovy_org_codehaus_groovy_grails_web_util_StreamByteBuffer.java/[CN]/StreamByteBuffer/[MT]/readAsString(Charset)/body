@@ -27,7 +27,7 @@
       int len=charbuffer.remaining();
       char[] ch=charbuffer.array();
       if (len != ch.length) {
-        ch=ArrayUtils.subarray(ch,0,len);
+        ch=(char[])GrailsArrayUtils.subarray(ch,0,len);
       }
       str=StringCharArrayAccessor.createString(ch);
     }

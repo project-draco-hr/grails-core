@@ -1,3 +1,5 @@
 {
-  return new HashCodeBuilder().append(actionUri).append(controllerName).toHashCode();
+  int result=controllerName.hashCode();
+  result=31 * result + actionUri.hashCode();
+  return result;
 }

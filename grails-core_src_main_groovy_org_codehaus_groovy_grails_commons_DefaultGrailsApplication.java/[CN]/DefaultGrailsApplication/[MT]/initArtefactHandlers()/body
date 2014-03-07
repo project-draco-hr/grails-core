@@ -15,10 +15,6 @@
   if (!hasArtefactHandler(tagLibArtefactHandler.getType())) {
     registerArtefactHandler(tagLibArtefactHandler);
   }
-  final BootstrapArtefactHandler bootstrapArtefactHandler=new BootstrapArtefactHandler();
-  if (!hasArtefactHandler(bootstrapArtefactHandler.getType())) {
-    registerArtefactHandler(bootstrapArtefactHandler);
-  }
   final CodecArtefactHandler codecArtefactHandler=new CodecArtefactHandler();
   if (!hasArtefactHandler(codecArtefactHandler.getType())) {
     registerArtefactHandler(codecArtefactHandler);
@@ -26,6 +22,10 @@
   final UrlMappingsArtefactHandler urlMappingsArtefactHandler=new UrlMappingsArtefactHandler();
   if (!hasArtefactHandler(urlMappingsArtefactHandler.getType())) {
     registerArtefactHandler(urlMappingsArtefactHandler);
+  }
+  List<ArtefactHandler> additionalArtefactHandlers=GrailsFactoriesLoader.loadFactories(ArtefactHandler.class,getClassLoader());
+  for (  ArtefactHandler artefactHandler : additionalArtefactHandlers) {
+    registerArtefactHandler(artefactHandler);
   }
   updateArtefactHandlers();
 }

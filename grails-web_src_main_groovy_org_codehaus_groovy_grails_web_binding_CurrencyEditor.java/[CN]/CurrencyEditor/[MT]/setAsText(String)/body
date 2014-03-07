@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(text)) {
+  if (GrailsStringUtils.isBlank(text)) {
     setValue(null);
   }
   try {

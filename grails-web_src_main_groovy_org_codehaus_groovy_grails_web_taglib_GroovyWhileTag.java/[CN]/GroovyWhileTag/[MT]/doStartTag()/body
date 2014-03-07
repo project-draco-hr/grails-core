@@ -1,6 +1,6 @@
 {
   String test=attributes.get(ATTRIBUTE_TEST);
-  if (StringUtils.isBlank(test)) {
+  if (GrailsStringUtils.isBlank(test)) {
     throw new GrailsTagException("Tag [" + TAG_NAME + "] missing required attribute ["+ ATTRIBUTE_TEST+ "]",parser.getPageName(),parser.getCurrentOutputLineNumber());
   }
   out.print("while(");

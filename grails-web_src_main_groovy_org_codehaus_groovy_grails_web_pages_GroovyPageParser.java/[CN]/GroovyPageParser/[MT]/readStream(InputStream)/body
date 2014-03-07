@@ -1,3 +1,3 @@
 {
-  return IOUtils.toString(in,gspEncoding);
+  return GrailsIOUtils.toString(in,gspEncoding != null ? gspEncoding : "UTF-8");
 }

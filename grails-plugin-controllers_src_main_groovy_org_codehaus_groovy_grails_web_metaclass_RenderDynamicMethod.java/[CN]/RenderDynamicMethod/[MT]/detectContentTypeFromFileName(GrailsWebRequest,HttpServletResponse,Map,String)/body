@@ -1,7 +1,7 @@
 {
   MimeUtility mimeUtility=lookupMimeUtility(webRequest);
   if (mimeUtility != null) {
-    MimeType mimeType=mimeUtility.getMimeTypeForExtension(FilenameUtils.getExtension(fileName));
+    MimeType mimeType=mimeUtility.getMimeTypeForExtension(GrailsStringUtils.getFilenameExtension(fileName));
     if (mimeType != null) {
       String contentType=mimeType.getName();
       Object encodingObj=argMap.get(ARGUMENT_ENCODING);

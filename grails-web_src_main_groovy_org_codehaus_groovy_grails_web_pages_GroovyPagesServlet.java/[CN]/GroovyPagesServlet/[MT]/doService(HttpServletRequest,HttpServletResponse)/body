@@ -2,7 +2,7 @@
   request.setAttribute(GrailsApplicationAttributes.REQUEST_SCOPE_ID,grailsAttributes);
   request.setAttribute(GroovyPagesServlet.SERVLET_INSTANCE,this);
   String pageName=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
-  if (StringUtils.isBlank(pageName)) {
+  if (GrailsStringUtils.isBlank(pageName)) {
     pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
   }
   boolean isNotInclude=!WebUtils.isIncludeRequest(request);

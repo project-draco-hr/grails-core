@@ -1,5 +1,5 @@
 {
-  if (StringUtils.isBlank(varName)) {
+  if (GrailsStringUtils.isBlank(varName)) {
     binding.put(DEFAULT_ARGUMENT,bean);
   }
  else {

@@ -14,13 +14,13 @@
   conf.setPluginManager(manager);
   ApplicationContext ctx=conf.configure(new MockServletContext());
   assertNotNull(ctx);
-  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.CLASS_LOADER_BEAN) instanceof GroovyClassLoader);
-  GrailsExceptionResolver er=getBean(ctx,GrailsRuntimeConfigurator.EXCEPTION_HANDLER_BEAN);
+  assertTrue(ctx.getBean(GrailsApplication.CLASS_LOADER_BEAN) instanceof GroovyClassLoader);
+  GrailsExceptionResolver er=getBean(ctx,GrailsApplication.EXCEPTION_HANDLER_BEAN);
   assertNotNull(er);
   ModelAndView mv=er.resolveException(new MockHttpServletRequest(),new MockHttpServletResponse(),null,new Exception());
   assertEquals("/error",mv.getViewName());
-  assertTrue(ctx.getBean(GrailsRuntimeConfigurator.MULTIPART_RESOLVER_BEAN) instanceof CommonsMultipartResolver);
-  MessageSource ms=getBean(ctx,GrailsRuntimeConfigurator.MESSAGE_SOURCE_BEAN);
+  assertTrue(ctx.getBean(GrailsApplication.MULTIPART_RESOLVER_BEAN) instanceof CommonsMultipartResolver);
+  MessageSource ms=getBean(ctx,GrailsApplication.MESSAGE_SOURCE_BEAN);
   assertNotNull(ms);
   GrailsDomainClass domainClass=getBean(ctx,"TestDomainClass");
   assertNotNull(domainClass);

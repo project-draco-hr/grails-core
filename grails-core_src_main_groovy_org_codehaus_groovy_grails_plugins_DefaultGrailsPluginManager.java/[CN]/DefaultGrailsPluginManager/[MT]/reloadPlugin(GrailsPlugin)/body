@@ -1,7 +1,6 @@
 {
   plugin.doArtefactConfiguration();
-  WebRuntimeSpringConfiguration springConfig=new WebRuntimeSpringConfiguration(parentCtx);
-  springConfig.setServletContext(getServletContext());
+  RuntimeSpringConfiguration springConfig=new DefaultRuntimeSpringConfiguration(parentCtx);
   doRuntimeConfiguration(plugin.getName(),springConfig);
   springConfig.registerBeansWithContext((GenericApplicationContext)applicationContext);
   plugin.doWithApplicationContext(applicationContext);

@@ -1,6 +1,6 @@
 {
-  if (beanFactory.containsBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN)) {
-    transactionManager=beanFactory.getBean(GrailsRuntimeConfigurator.TRANSACTION_MANAGER_BEAN,PlatformTransactionManager.class);
+  if (beanFactory.containsBean(GrailsApplication.TRANSACTION_MANAGER_BEAN)) {
+    transactionManager=beanFactory.getBean(GrailsApplication.TRANSACTION_MANAGER_BEAN,PlatformTransactionManager.class);
   }
  else {
     String[] beanNames=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory,PlatformTransactionManager.class,false,false);

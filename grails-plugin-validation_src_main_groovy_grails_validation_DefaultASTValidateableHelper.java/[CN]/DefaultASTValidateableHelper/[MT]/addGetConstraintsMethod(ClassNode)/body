@@ -17,6 +17,33 @@
     ifConstraintsPropertyIsNullBlockStatement.addStatement(new ExpressionStatement(declareApplicationContextExpression));
     ifConstraintsPropertyIsNullBlockStatement.addStatement(new ExpressionStatement(declareConstraintsEvaluatorExpression));
     ifConstraintsPropertyIsNullBlockStatement.addStatement(new ExpressionStatement(initializeConstraintsFieldExpression));
+    final Set<FieldNode> fields=getFieldsToEnsureConstraintsFor(classNode);
+    for (    final FieldNode field : fields) {
+      final String fieldName=field.getName();
+      final String cpName="$" + fieldName + "$constrainedProperty";
+      final ArgumentListExpression constrainedPropertyConstructorArgumentList=new ArgumentListExpression();
+      constrainedPropertyConstructorArgumentList.addExpression(new ClassExpression(classNode));
+      constrainedPropertyConstructorArgumentList.addExpression(new ConstantExpression(fieldName));
+      constrainedPropertyConstructorArgumentList.addExpression(new ClassExpression(field.getType()));
+      final ConstructorCallExpression constrainedPropertyCtorCallExpression=new ConstructorCallExpression(new ClassNode(ConstrainedProperty.class),constrainedPropertyConstructorArgumentList);
+      final Expression declareConstrainedPropertyExpression=new DeclarationExpression(new VariableExpression(cpName,ClassHelper.OBJECT_TYPE),Token.newSymbol(Types.EQUALS,0,0),constrainedPropertyCtorCallExpression);
+      final ArgumentListExpression applyConstraintMethodArgumentList=new ArgumentListExpression();
+      applyConstraintMethodArgumentList.addExpression(new ConstantExpression(ConstrainedProperty.NULLABLE_CONSTRAINT));
+      applyConstraintMethodArgumentList.addExpression(new ConstantExpression(false));
+      final Expression applyNullableConstraintMethodCallExpression=new MethodCallExpression(new VariableExpression(cpName),"applyConstraint",applyConstraintMethodArgumentList);
+      final ArgumentListExpression putMethodArgumentList=new ArgumentListExpression();
+      putMethodArgumentList.addExpression(new ConstantExpression(fieldName));
+      putMethodArgumentList.addExpression(new VariableExpression(cpName));
+      final MethodCallExpression addToConstraintsMapExpression=new MethodCallExpression(new VariableExpression(CONSTRAINED_PROPERTIES_PROPERTY_NAME),"put",putMethodArgumentList);
+      final BlockStatement addNullableConstraintBlock=new BlockStatement();
+      addNullableConstraintBlock.addStatement(new ExpressionStatement(declareConstrainedPropertyExpression));
+      addNullableConstraintBlock.addStatement(new ExpressionStatement(applyNullableConstraintMethodCallExpression));
+      addNullableConstraintBlock.addStatement(new ExpressionStatement(addToConstraintsMapExpression));
+      final Expression constraintsMapContainsKeyExpression=new MethodCallExpression(new VariableExpression(CONSTRAINED_PROPERTIES_PROPERTY_NAME),"containsKey",new ArgumentListExpression(new ConstantExpression(fieldName)));
+      final BooleanExpression ifPropertyIsAlreadyConstrainedExpression=new BooleanExpression(constraintsMapContainsKeyExpression);
+      final Statement ifPropertyIsAlreadyConstrainedStatement=new IfStatement(ifPropertyIsAlreadyConstrainedExpression,new ExpressionStatement(new EmptyExpression()),addNullableConstraintBlock);
+      ifConstraintsPropertyIsNullBlockStatement.addStatement(ifPropertyIsAlreadyConstrainedStatement);
+    }
     final BlockStatement methodBlockStatement=new BlockStatement();
     methodBlockStatement.addStatement(ifConstraintsPropertyIsNullStatement);
     final Statement returnStatement=new ReturnStatement(new VariableExpression(CONSTRAINED_PROPERTIES_PROPERTY_NAME));

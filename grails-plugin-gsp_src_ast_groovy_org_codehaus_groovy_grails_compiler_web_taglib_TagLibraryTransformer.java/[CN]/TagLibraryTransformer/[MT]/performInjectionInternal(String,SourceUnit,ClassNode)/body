@@ -8,13 +8,14 @@
       namespace=initialExpression.getText();
     }
   }
+  addGetTagLibNamespaceMethod(classNode,namespace);
   MethodCallExpression tagLibraryLookupMethodCall=new MethodCallExpression(new VariableExpression(apiInstanceProperty),"getTagLibraryLookup",ZERO_ARGS);
   for (  PropertyNode tag : tags) {
     String tagName=tag.getName();
-    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,namespace,tagName);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName);
     addAttributesAndStringBodyMethod(classNode,tagName);
-    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,namespace,tagName,false);
-    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,namespace,tagName,true,false);
-    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,namespace,tagName,false,false);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,false);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,true,false);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,false,false);
   }
 }

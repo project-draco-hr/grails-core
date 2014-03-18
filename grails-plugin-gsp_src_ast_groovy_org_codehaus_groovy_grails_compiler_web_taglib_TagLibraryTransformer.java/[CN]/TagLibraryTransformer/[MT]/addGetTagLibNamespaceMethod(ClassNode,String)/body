@@ -1,0 +1,6 @@
+{
+  final ConstantExpression namespaceConstantExpression=new ConstantExpression(namespace);
+  Statement returnNamespaceStatement=new ReturnStatement(namespaceConstantExpression);
+  final MethodNode m=new MethodNode(GET_TAG_LIB_NAMESPACE_METHOD_NAME,Modifier.PROTECTED,new ClassNode(String.class),Parameter.EMPTY_ARRAY,null,returnNamespaceStatement);
+  classNode.addMethod(m);
+}

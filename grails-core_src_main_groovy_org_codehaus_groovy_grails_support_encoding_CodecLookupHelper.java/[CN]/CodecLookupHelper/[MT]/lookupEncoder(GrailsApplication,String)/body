@@ -1,0 +1,13 @@
+{
+  ApplicationContext ctx=grailsApplication != null ? grailsApplication.getMainContext() : null;
+  if (ctx != null) {
+    try {
+      CodecLookup codecLookup=ctx.getBean("codecLookup",CodecLookup.class);
+      return codecLookup.lookupEncoder(codecName);
+    }
+ catch (    NoSuchBeanDefinitionException e) {
+      log.debug("codecLookup bean is missing from test context.",e);
+    }
+  }
+  return null;
+}

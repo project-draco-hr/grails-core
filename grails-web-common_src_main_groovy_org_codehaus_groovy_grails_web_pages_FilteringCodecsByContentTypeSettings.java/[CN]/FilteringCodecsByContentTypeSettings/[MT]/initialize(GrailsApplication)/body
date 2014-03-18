@@ -9,7 +9,7 @@
       Map codecForContentTypeMapping=(Map)codecForContentTypeConfig;
       for (Iterator i=codecForContentTypeMapping.entrySet().iterator(); i.hasNext(); ) {
         Map.Entry entry=(Map.Entry)i.next();
-        Encoder encoder=WithCodecHelper.lookupEncoder(grailsApplication,String.valueOf(entry.getValue()));
+        Encoder encoder=CodecLookupHelper.lookupEncoder(grailsApplication,String.valueOf(entry.getValue()));
         if (entry.getKey() instanceof Pattern) {
           contentTypePatternToEncoderMapping.put((Pattern)entry.getKey(),encoder);
         }

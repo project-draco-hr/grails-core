@@ -1,5 +1,10 @@
 {
   super(request,response);
-  attributes=new DefaultGrailsApplicationAttributes(servletContext);
+  try {
+    attributes=grailsApplicationAttributesConstructor.newInstance(servletContext);
+  }
+ catch (  Exception e) {
+    ReflectionUtils.rethrowRuntimeException(e);
+  }
   inheritEncodingStateRegistry();
 }

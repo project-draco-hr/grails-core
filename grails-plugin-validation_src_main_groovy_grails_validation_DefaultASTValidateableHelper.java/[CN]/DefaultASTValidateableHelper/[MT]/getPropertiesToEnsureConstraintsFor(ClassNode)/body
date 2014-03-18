@@ -1,0 +1,34 @@
+{
+  final Map<String,ClassNode> fieldsToConstrain=new HashMap<String,ClassNode>();
+  final List<FieldNode> allFields=classNode.getFields();
+  for (  final FieldNode field : allFields) {
+    if (!field.isStatic()) {
+      final PropertyNode property=classNode.getProperty(field.getName());
+      if (property != null) {
+        fieldsToConstrain.put(field.getName(),field.getType());
+      }
+    }
+  }
+  final Map<String,MethodNode> declaredMethodsMap=classNode.getDeclaredMethodsMap();
+  for (  Entry<String,MethodNode> methodEntry : declaredMethodsMap.entrySet()) {
+    final MethodNode value=methodEntry.getValue();
+    if (!value.isStatic() && value.isPublic() && classNode.equals(value.getDeclaringClass())) {
+      Parameter[] parameters=value.getParameters();
+      if (parameters != null && parameters.length == 1) {
+        final String methodName=value.getName();
+        if (methodName.startsWith("set")) {
+          final Parameter parameter=parameters[0];
+          final ClassNode paramType=parameter.getType();
+          final String restOfMethodName=methodName.substring(3);
+          final String propertyName=GrailsNameUtils.getPropertyName(restOfMethodName);
+          fieldsToConstrain.put(propertyName,paramType);
+        }
+      }
+    }
+  }
+  final ClassNode superClass=classNode.getSuperClass();
+  if (!superClass.equals(new ClassNode(Object.class))) {
+    fieldsToConstrain.putAll(getPropertiesToEnsureConstraintsFor(superClass));
+  }
+  return fieldsToConstrain;
+}

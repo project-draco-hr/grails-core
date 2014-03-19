@@ -1,7 +1,7 @@
 {
   final HttpServletRequest request=getRequest(controllerInstance);
   final DataBindingSource dataBindingSource=DataBindingUtils.createDataBindingSource(getGrailsApplication(controllerInstance),type,request);
-  final DataBindingSource commandObjectBindingSource=WebMetaUtils.getCommandObjectBindingSource(type,dataBindingSource);
+  final DataBindingSource commandObjectBindingSource=WebMetaUtils.getCommandObjectBindingSourceForPrefix(commandObjectParameterName,dataBindingSource);
   final Object commandObjectInstance;
   Object entityIdentifierValue=null;
   if (DomainClassArtefactHandler.isDomainClass(type)) {

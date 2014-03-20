@@ -3,7 +3,7 @@
   ArgumentListExpression arguments=new ArgumentListExpression();
   ArgumentListExpression constructorArgs=new ArgumentListExpression();
   constructorArgs.addExpression(BODY_EXPRESSION);
-  arguments.addExpression(ATTRS_EXPRESSION).addExpression(new ConstructorCallExpression(new ClassNode(GroovyPage.ConstantClosure.class),constructorArgs));
+  arguments.addExpression(new CastExpression(ClassHelper.make(Map.class),ATTRS_EXPRESSION)).addExpression(new ConstructorCallExpression(new ClassNode(GroovyPage.ConstantClosure.class),constructorArgs));
   methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(new VariableExpression("this"),tagName,arguments)));
   classNode.addMethod(new MethodNode(tagName,Modifier.PUBLIC,OBJECT_CLASS,MAP_CHARSEQUENCE_PARAMETERS,null,methodBody));
 }

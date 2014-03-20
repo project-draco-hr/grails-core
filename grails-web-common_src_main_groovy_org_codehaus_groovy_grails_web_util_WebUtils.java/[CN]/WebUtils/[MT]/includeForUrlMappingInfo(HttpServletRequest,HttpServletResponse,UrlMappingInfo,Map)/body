@@ -12,13 +12,13 @@
   if (webRequest != null) {
     currentPageBinding=(Binding)webRequest.getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,0);
     webRequest.removeAttribute(GrailsApplicationAttributes.PAGE_SCOPE,0);
-    currentLayoutAttribute=webRequest.getAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,0);
+    currentLayoutAttribute=webRequest.getAttribute(LAYOUT_ATTRIBUTE,0);
     if (currentLayoutAttribute != null) {
-      webRequest.removeAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,0);
+      webRequest.removeAttribute(LAYOUT_ATTRIBUTE,0);
     }
-    currentRenderingView=webRequest.getAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,0);
+    currentRenderingView=webRequest.getAttribute(RENDERING_VIEW,0);
     if (currentRenderingView != null) {
-      webRequest.removeAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,0);
+      webRequest.removeAttribute(RENDERING_VIEW,0);
     }
     currentController=webRequest.getControllerName();
     currentAction=webRequest.getActionName();
@@ -41,10 +41,10 @@
     if (webRequest != null) {
       webRequest.setAttribute(GrailsApplicationAttributes.PAGE_SCOPE,currentPageBinding,0);
       if (currentLayoutAttribute != null) {
-        webRequest.setAttribute(GrailsLayoutDecoratorMapper.LAYOUT_ATTRIBUTE,currentLayoutAttribute,0);
+        webRequest.setAttribute(LAYOUT_ATTRIBUTE,currentLayoutAttribute,0);
       }
       if (currentRenderingView != null) {
-        webRequest.setAttribute(GrailsLayoutDecoratorMapper.RENDERING_VIEW,currentRenderingView,0);
+        webRequest.setAttribute(RENDERING_VIEW,currentRenderingView,0);
       }
       webRequest.getParameterMap().clear();
       webRequest.getParameterMap().putAll(currentParams);

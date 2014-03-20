@@ -1,0 +1,3 @@
+{
+  return file.isDirectory() && !file.isHidden() && !DirectoryWatcher.SVN_DIR_NAME.equals(file.getName());
+}

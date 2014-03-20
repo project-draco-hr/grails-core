@@ -1,0 +1,11 @@
+{
+  if (!isValidFileToMonitor(fileToWatch,Arrays.asList("*")))   return;
+  try {
+    Path pathToWatch=fileToWatch.toPath().toAbsolutePath();
+    individualWatchedFiles.add(pathToWatch);
+    pathToWatch.getParent().register(watchService,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_DELETE,StandardWatchEventKinds.ENTRY_MODIFY);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

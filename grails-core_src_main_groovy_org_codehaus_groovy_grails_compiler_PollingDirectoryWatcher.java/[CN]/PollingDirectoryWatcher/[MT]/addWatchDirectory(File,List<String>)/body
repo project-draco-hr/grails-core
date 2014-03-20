@@ -1,0 +1,7 @@
+{
+  if (!isValidDirectoryToMonitor(dir)) {
+    return;
+  }
+  trackDirectoryExtensions(dir,fileExtensions);
+  cacheFilesForDirectory(dir,fileExtensions,false);
+}

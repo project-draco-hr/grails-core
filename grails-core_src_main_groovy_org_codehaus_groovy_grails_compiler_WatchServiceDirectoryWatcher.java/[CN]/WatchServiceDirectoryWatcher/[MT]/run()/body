@@ -1,0 +1,60 @@
+{
+  while (active) {
+    try {
+      WatchKey watchKey=watchService.poll(sleepTime,TimeUnit.MILLISECONDS);
+      if (watchKey != null) {
+        List<WatchEvent<?>> watchEvents=watchKey.pollEvents();
+        for (        WatchEvent<?> watchEvent : watchEvents) {
+          WatchEvent.Kind<?> kind=watchEvent.kind();
+          if (kind == StandardWatchEventKinds.OVERFLOW) {
+            LOG.warn("WatchService Overflow occurred");
+            continue;
+          }
+          WatchEvent<Path> pathWatchEvent=cast(watchEvent);
+          Path name=pathWatchEvent.context();
+          Path dir=(Path)watchKey.watchable();
+          Path child=dir.resolve(name).toAbsolutePath();
+          File childFile=child.toFile();
+          if (individualWatchedFiles.contains(child)) {
+            if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+              fireOnNew(childFile);
+            }
+ else             if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+              fireOnChange(childFile);
+            }
+ else             if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+            }
+          }
+ else {
+            List<String> fileExtensions=watchKeyToExtensionsMap.get(watchKey);
+            if (fileExtensions == null) {
+              throw new IllegalStateException("No file extensions list found for path not being watched");
+            }
+            if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+              addWatchDirectory(child,fileExtensions);
+            }
+            if (isValidFileToMonitor(childFile,fileExtensions)) {
+              if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+                fireOnNew(childFile);
+              }
+ else               if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+                fireOnChange(childFile);
+              }
+ else               if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+              }
+            }
+          }
+        }
+        watchKey.reset();
+      }
+    }
+ catch (    InterruptedException e) {
+    }
+  }
+  try {
+    watchService.close();
+  }
+ catch (  IOException e) {
+    LOG.debug("Exception while closing watchService",e);
+  }
+}

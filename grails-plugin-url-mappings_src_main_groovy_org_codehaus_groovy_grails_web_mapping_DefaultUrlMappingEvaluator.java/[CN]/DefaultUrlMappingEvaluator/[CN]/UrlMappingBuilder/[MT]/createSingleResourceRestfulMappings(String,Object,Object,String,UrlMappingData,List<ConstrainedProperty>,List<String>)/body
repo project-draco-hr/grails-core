@@ -13,7 +13,7 @@
     configureUrlMapping(showUrlMapping);
   }
   if (includes.contains(ACTION_EDIT)) {
-    UrlMapping editUrlMapping=createEditctionResourceRestfulMapping(controllerName,pluginName,namespace,version,urlData,constraintArray);
+    UrlMapping editUrlMapping=createEditActionResourceRestfulMapping(controllerName,pluginName,namespace,version,urlData,constraintArray);
     configureUrlMapping(editUrlMapping);
   }
   if (includes.contains(ACTION_UPDATE)) {

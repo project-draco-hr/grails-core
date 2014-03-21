@@ -11,7 +11,7 @@
   View view;
   try {
     view=viewResolver.resolveViewName(GrailsResourceUtils.appendPiecesForUri(LAYOUTS_PATH,name),request.getLocale());
-    if (viewMustExist && !(view instanceof GroovyPageView)) {
+    if (viewMustExist && !(view instanceof AbstractGrailsView)) {
       view=null;
     }
   }

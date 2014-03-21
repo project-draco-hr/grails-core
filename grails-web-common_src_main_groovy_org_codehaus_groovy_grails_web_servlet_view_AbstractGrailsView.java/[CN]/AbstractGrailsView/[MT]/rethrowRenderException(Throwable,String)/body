@@ -1,0 +1,9 @@
+{
+  if (ex instanceof Error) {
+    throw (Error)ex;
+  }
+  if (ex instanceof RuntimeException) {
+    throw (RuntimeException)ex;
+  }
+  throw new UndeclaredThrowableException(ex,message);
+}

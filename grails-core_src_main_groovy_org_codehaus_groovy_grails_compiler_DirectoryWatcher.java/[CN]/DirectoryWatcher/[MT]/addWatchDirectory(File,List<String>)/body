@@ -1,4 +1,7 @@
 {
-  trackDirectoryExtensions(dir,fileExtensions);
-  cacheFilesForDirectory(dir,fileExtensions,false);
+  List<String> fileExtensionsWithoutDot=new ArrayList<String>(fileExtensions.size());
+  for (  String fileExtension : fileExtensions) {
+    fileExtensionsWithoutDot.add(removeStartingDotIfPresent(fileExtension));
+  }
+  directoryWatcherDelegate.addWatchDirectory(dir,fileExtensions);
 }

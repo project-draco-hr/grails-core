@@ -1,0 +1,21 @@
+{
+  if (!isValidDirectoryToMonitor(dir.toFile())) {
+    return;
+  }
+  try {
+    Files.walkFileTree(dir,new SimpleFileVisitor<Path>(){
+      @Override public FileVisitResult preVisitDirectory(      Path dir,      BasicFileAttributes attrs) throws IOException {
+        if (!isValidDirectoryToMonitor(dir.toFile())) {
+          return FileVisitResult.SKIP_SUBTREE;
+        }
+        WatchKey watchKey=dir.register(watchService,StandardWatchEventKinds.ENTRY_CREATE,StandardWatchEventKinds.ENTRY_DELETE,StandardWatchEventKinds.ENTRY_MODIFY);
+        watchKeyToExtensionsMap.put(watchKey,fileExtensions);
+        return FileVisitResult.CONTINUE;
+      }
+    }
+);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+}

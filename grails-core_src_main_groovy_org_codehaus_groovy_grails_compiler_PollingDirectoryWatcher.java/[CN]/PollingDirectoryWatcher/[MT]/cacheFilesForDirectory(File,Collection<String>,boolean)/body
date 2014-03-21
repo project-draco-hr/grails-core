@@ -6,16 +6,12 @@
     return;
   }
   for (  File file : files) {
-    if (file.isDirectory() && !file.isHidden()) {
-      if (!SVN_DIR_NAME.equals(file.getName())) {
-        cacheFilesForDirectory(file,fileExtensions,fireEvent);
-      }
+    if (isValidDirectoryToMonitor(file)) {
+      cacheFilesForDirectory(file,fileExtensions,fireEvent);
     }
  else     if (isValidFileToMonitor(file,fileExtensions)) {
       if (!lastModifiedMap.containsKey(file) && fireEvent) {
-        for (        FileChangeListener listener : listeners) {
-          listener.onNew(file);
-        }
+        fireOnNew(file);
       }
       lastModifiedMap.put(file,file.lastModified());
     }

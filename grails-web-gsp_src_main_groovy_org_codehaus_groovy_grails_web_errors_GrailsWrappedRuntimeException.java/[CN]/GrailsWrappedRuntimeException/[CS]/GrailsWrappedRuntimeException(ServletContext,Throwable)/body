@@ -78,12 +78,15 @@
         }
  else {
           url=gspFile;
-          GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(servletContext);
-          GroovyPagesTemplateEngine engine=attrs.getPagesTemplateEngine();
-          int[] lineNumbers=engine.calculateLineNumbersForPage(servletContext,url);
-          if (lineNumber < lineNumbers.length) {
-            lineNumber=lineNumbers[lineNumber - 1];
+          GrailsApplicationAttributes attrs=null;
+          try {
+            attrs=grailsApplicationAttributesConstructor.newInstance(servletContext);
           }
+ catch (          Exception e) {
+            ReflectionUtils.rethrowRuntimeException(e);
+          }
+          ResourceAwareTemplateEngine engine=attrs.getPagesTemplateEngine();
+          lineNumber=engine.mapStackLineNumber(url,lineNumber);
         }
         fileLocation="grails-app" + urlPrefix + fileName;
       }

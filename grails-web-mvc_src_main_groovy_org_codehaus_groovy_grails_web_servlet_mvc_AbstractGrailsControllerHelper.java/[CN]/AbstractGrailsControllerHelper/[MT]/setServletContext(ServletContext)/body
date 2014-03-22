@@ -1,4 +1,4 @@
 {
   this.servletContext=servletContext;
-  this.grailsAttributes=new DefaultGrailsApplicationAttributes(servletContext);
+  this.grailsAttributes=GrailsFactoriesLoader.loadFactories(GrailsApplicationAttributes.class,getClass().getClassLoader(),servletContext).get(0);
 }

@@ -1,7 +1,0 @@
-{
-  if (application == null) {
-    grailsAttributes=new DefaultGrailsApplicationAttributes(pageContext.getServletContext());
-    application=grailsAttributes.getGrailsApplication();
-    appContext=grailsAttributes.getApplicationContext();
-  }
-}

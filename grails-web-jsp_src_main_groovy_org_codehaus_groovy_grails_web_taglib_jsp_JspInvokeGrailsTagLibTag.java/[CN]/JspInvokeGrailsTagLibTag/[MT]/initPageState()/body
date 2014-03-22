@@ -1,0 +1,6 @@
+{
+  if (application == null) {
+    application=Holders.getGrailsApplication();
+    appContext=application != null ? application.getMainContext() : null;
+  }
+}

@@ -1,0 +1,25 @@
+{
+  contentTypeToEncoderMapping=null;
+  contentTypePatternToEncoderMapping=null;
+  Object codecForContentTypeConfig=getConfigSettings(grailsApplication.getConfig());
+  if (codecForContentTypeConfig != null) {
+    if (codecForContentTypeConfig instanceof Map) {
+      contentTypeToEncoderMapping=new LinkedHashMap<String,Encoder>();
+      contentTypePatternToEncoderMapping=new LinkedHashMap<Pattern,Encoder>();
+      Map codecForContentTypeMapping=(Map)codecForContentTypeConfig;
+      for (Iterator i=codecForContentTypeMapping.entrySet().iterator(); i.hasNext(); ) {
+        Map.Entry entry=(Map.Entry)i.next();
+        Encoder encoder=CodecLookupHelper.lookupEncoder(grailsApplication,String.valueOf(entry.getValue()));
+        if (entry.getKey() instanceof Pattern) {
+          contentTypePatternToEncoderMapping.put((Pattern)entry.getKey(),encoder);
+        }
+ else {
+          contentTypeToEncoderMapping.put(String.valueOf(entry.getKey()),encoder);
+        }
+      }
+    }
+ else {
+      throw new IllegalStateException(CONFIG_PROPERTY_CODEC_FOR_CONTENT_TYPE + " only accepts a configuration that is a java.util.Map instance");
+    }
+  }
+}

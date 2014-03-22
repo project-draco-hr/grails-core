@@ -1,9 +1,0 @@
-{
-  context=getServletContext();
-  context.log("GSP servlet initialized");
-  context.setAttribute(SERVLET_INSTANCE,this);
-  final WebApplicationContext webApplicationContext=getWebApplicationContext();
-  grailsAttributes=new DefaultGrailsApplicationAttributes(context);
-  webApplicationContext.getAutowireCapableBeanFactory().autowireBeanProperties(this,AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,false);
-  groovyPagesTemplateEngine=webApplicationContext.getBean(GroovyPagesTemplateEngine.BEAN_ID,GroovyPagesTemplateEngine.class);
-}

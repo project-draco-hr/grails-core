@@ -13,7 +13,7 @@
     var=String.valueOf(argMap.get(ARGUMENT_VAR));
   }
   String templateUri=webRequest.getAttributes().getTemplateURI(controller,templateName);
-  GroovyPagesTemplateEngine engine=webRequest.getAttributes().getPagesTemplateEngine();
+  ResourceAwareTemplateEngine engine=webRequest.getAttributes().getPagesTemplateEngine();
   try {
     Template t=engine.createTemplateForUri(new String[]{GrailsResourceUtils.appendPiecesForUri(contextPath,templateUri),GrailsResourceUtils.appendPiecesForUri(contextPath,"/grails-app/views/",templateUri)});
     if (t == null) {

@@ -1,0 +1,7 @@
+{
+  int[] lineNumbers=calculateLineNumbersForPage(null,url);
+  if (lineNumber < lineNumbers.length) {
+    lineNumber=lineNumbers[lineNumber - 1];
+  }
+  return lineNumber;
+}

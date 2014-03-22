@@ -1,0 +1,6 @@
+{
+  if (application != null) {
+    return CodecLookupHelper.lookupEncoder(application,"Raw");
+  }
+  return null;
+}

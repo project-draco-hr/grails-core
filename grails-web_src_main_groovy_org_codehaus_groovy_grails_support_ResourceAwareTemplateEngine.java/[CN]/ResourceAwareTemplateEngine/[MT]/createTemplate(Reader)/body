@@ -1,5 +1,0 @@
-{
-  StreamByteBuffer buf=new StreamByteBuffer();
-  GrailsIOUtils.copy(reader,new OutputStreamWriter(buf.getOutputStream(),GroovyPageParser.GROOVY_SOURCE_CHAR_ENCODING));
-  return createTemplate(buf.getInputStream());
-}

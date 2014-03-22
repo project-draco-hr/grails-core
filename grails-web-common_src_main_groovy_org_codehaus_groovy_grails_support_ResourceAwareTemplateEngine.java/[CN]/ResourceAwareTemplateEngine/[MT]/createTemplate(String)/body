@@ -1,0 +1,3 @@
+{
+  return createTemplate(new ByteArrayInputStream(templateText.getBytes(GROOVY_SOURCE_CHAR_ENCODING)));
+}

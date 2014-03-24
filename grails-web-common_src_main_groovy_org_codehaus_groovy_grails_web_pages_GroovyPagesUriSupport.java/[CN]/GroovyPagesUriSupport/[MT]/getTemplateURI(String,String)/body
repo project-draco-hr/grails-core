@@ -10,5 +10,5 @@
     templateName=templateName.substring(lastSlash + 1);
   }
   buf.append(SLASH).append(controllerName).append(SLASH).append(pathToTemplate).append(UNDERSCORE).append(templateName);
-  return buf.append(GroovyPage.EXTENSION).toString();
+  return buf.append(EXTENSION).toString();
 }

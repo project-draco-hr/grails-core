@@ -6,5 +6,5 @@
   if (viewName != null) {
     buf.append(SLASH).append(viewName);
   }
-  return includeSuffix ? buf.append(GroovyPage.SUFFIX).toString() : buf.toString();
+  return includeSuffix ? buf.append(SUFFIX).toString() : buf.toString();
 }

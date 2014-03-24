@@ -1,6 +1,6 @@
 {
   if (appContext != null) {
-    pagesTemplateEngine=fetchBeanFromAppCtx(GroovyPagesTemplateEngine.BEAN_ID);
+    pagesTemplateEngine=fetchBeanFromAppCtx(ResourceAwareTemplateEngine.BEAN_ID);
     pluginManager=fetchBeanFromAppCtx(GrailsPluginManager.BEAN_NAME);
     grailsApplication=fetchBeanFromAppCtx(GrailsApplication.APPLICATION_ID);
     groovyPagesUriService=fetchBeanFromAppCtx(GroovyPagesUriService.BEAN_ID);

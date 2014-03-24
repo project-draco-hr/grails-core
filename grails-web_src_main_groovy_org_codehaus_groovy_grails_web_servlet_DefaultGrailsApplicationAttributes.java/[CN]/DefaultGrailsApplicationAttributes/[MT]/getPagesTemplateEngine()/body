@@ -3,7 +3,7 @@
     return pagesTemplateEngine;
   }
   if (LOG.isWarnEnabled()) {
-    LOG.warn("No bean named [" + GroovyPagesTemplateEngine.BEAN_ID + "] defined in Spring application context!");
+    LOG.warn("No bean named [" + ResourceAwareTemplateEngine.BEAN_ID + "] defined in Spring application context!");
   }
   return null;
 }

@@ -10,7 +10,7 @@
       usednamespace=GroovyPage.DEFAULT_NAMESPACE;
     }
     if (tagLibrary != null && !developmentMode) {
-      WebMetaUtils.registerMethodMissingForTags(mc,lookup,usednamespace,methodName);
+      TagLibraryMetaUtils.registerMethodMissingForTags(mc,lookup,usednamespace,methodName);
     }
     if (tagLibrary != null) {
       List<MetaMethod> respondsTo=tagLibrary.getMetaClass().respondsTo(tagLibrary,methodName,args);

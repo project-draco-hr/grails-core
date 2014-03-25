@@ -6,7 +6,7 @@
     if (tagLibrary != null) {
       if (!developmentMode) {
         MetaClass controllerMc=GrailsMetaClassUtils.getMetaClass(instance);
-        WebMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
+        TagLibraryMetaUtils.registerMethodMissingForTags(controllerMc,lookup,GroovyPage.DEFAULT_NAMESPACE,methodName);
       }
       List<MetaMethod> respondsTo=tagLibrary.getMetaClass().respondsTo(tagLibrary,methodName,args);
       if (respondsTo.size() > 0) {

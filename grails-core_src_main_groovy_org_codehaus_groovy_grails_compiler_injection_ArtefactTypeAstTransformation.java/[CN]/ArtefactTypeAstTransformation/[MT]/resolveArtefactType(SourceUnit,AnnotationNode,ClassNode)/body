@@ -1,0 +1,10 @@
+{
+  Expression value=annotationNode.getMember("value");
+  if (value != null && (value instanceof ConstantExpression)) {
+    ConstantExpression ce=(ConstantExpression)value;
+    return ce.getText();
+  }
+ else {
+    throw new RuntimeException("Class [" + classNode.getName() + "] contains an invalid @Artefact annotation. No artefact found for value specified.");
+  }
+}

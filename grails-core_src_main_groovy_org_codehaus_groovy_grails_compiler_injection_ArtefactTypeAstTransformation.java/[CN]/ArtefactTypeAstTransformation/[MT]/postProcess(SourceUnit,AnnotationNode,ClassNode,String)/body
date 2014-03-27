@@ -1,0 +1,7 @@
+{
+  if (!MY_TYPE.equals(annotationNode.getClassNode())) {
+    AnnotationNode annotation=new AnnotationNode(MY_TYPE);
+    annotation.addMember("value",new ConstantExpression(artefactType));
+    classNode.addAnnotation(annotation);
+  }
+}

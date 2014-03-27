@@ -1,5 +1,5 @@
 {
-  List<ConstrainedProperty> indexUrlMappingConstraints=new ArrayList<ConstrainedProperty>(constrainedPropertyList);
+  List<ConstrainedProperty> indexUrlMappingConstraints=new ArrayList<ConstrainedProperty>(constrainedList);
   ConstrainedProperty cp=new ConstrainedProperty(UrlMapping.class,"format",String.class);
   cp.setNullable(true);
   indexUrlMappingConstraints.add(cp);

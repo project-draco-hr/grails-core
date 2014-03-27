@@ -5,5 +5,5 @@
       return context.getBean(ConstraintsEvaluator.BEAN_NAME,ConstraintsEvaluator.class);
     }
   }
-  return new DefaultConstraintEvaluator(defaultConstraints);
+  return GrailsFactoriesLoader.loadFactory(ConstraintsEvaluator.class,defaultConstraints);
 }

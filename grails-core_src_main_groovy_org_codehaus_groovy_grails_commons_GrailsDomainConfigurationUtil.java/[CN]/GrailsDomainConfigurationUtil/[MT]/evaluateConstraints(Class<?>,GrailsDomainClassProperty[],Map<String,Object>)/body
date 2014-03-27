@@ -1,3 +1,3 @@
 {
-  return new DefaultConstraintEvaluator(defaultConstraints).evaluate(theClass,properties);
+  return getConstraintMap(properties,defaultConstraints,theClass);
 }

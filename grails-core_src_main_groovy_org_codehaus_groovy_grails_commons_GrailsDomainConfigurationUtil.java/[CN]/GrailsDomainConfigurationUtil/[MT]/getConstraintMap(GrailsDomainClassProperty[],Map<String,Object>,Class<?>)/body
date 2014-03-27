@@ -1,0 +1,7 @@
+{
+  ConstraintsEvaluator constraintsEvaluator=GrailsFactoriesLoader.loadFactory(ConstraintsEvaluator.class,defaultConstraints);
+  if (constraintsEvaluator != null) {
+    return constraintsEvaluator.evaluate(theClass,properties);
+  }
+  return Collections.emptyMap();
+}

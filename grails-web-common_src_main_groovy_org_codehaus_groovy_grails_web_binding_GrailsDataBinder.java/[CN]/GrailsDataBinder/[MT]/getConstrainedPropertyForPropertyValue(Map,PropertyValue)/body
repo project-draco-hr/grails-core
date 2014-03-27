@@ -7,10 +7,10 @@
     if (value != null) {
       Map nestedConstrainedProperties=resolveConstrainedProperties(value);
       if (nestedConstrainedProperties != null) {
-        return (ConstrainedProperty)nestedConstrainedProperties.get(propertyNames[propertyNames.length - 1]);
+        return (Constrained)nestedConstrainedProperties.get(propertyNames[propertyNames.length - 1]);
       }
     }
     return null;
   }
-  return (ConstrainedProperty)constrainedProperties.get(propertyName);
+  return (Constrained)constrainedProperties.get(propertyName);
 }

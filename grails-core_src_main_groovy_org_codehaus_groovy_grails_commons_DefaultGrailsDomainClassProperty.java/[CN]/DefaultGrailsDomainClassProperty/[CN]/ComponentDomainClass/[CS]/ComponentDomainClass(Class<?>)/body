@@ -5,5 +5,10 @@
   if (tmp != null)   transients=tmp;
   properties=createDomainClassProperties(descriptors);
   ConstraintsEvaluator constraintsEvaluator=getConstraintsEvaluator();
-  constraints=constraintsEvaluator.evaluate(type,properties);
+  if (constraintsEvaluator != null) {
+    constraints=constraintsEvaluator.evaluate(type,properties);
+  }
+ else {
+    constraints=Collections.emptyMap();
+  }
 }

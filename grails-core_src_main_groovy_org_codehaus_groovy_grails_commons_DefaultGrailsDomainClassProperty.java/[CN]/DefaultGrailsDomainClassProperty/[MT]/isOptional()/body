@@ -1,4 +1,4 @@
 {
-  ConstrainedProperty constrainedProperty=(ConstrainedProperty)domainClass.getConstrainedProperties().get(name);
-  return (constrainedProperty != null) && constrainedProperty.isNullable();
+  Constrained constrained=(Constrained)domainClass.getConstrainedProperties().get(name);
+  return (constrained != null) && constrained.isNullable();
 }

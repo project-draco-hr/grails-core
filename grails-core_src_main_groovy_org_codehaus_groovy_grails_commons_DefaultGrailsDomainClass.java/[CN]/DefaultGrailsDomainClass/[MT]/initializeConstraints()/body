@@ -1,4 +1,9 @@
 {
   final ConstraintsEvaluator constraintsEvaluator=getConstraintsEvaluator();
-  constraints=constraintsEvaluator.evaluate(getClazz(),persistentProperties);
+  if (constraintsEvaluator != null) {
+    constraints=constraintsEvaluator.evaluate(getClazz(),persistentProperties);
+  }
+ else {
+    constraints=Collections.emptyMap();
+  }
 }

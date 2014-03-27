@@ -3,16 +3,16 @@
   GroovyClassLoader gcl=new GroovyClassLoader();
   DefaultGrailsDomainClass bookClass=new DefaultGrailsDomainClass(gcl.parseClass(bookClassSource,"Book"));
   Map constraints=bookClass.getConstrainedProperties();
-  ConstrainedProperty p=(ConstrainedProperty)constraints.get("title");
+  Constrained p=(Constrained)constraints.get("title");
   assertFalse("Title property should be required",p.isNullable());
-  p=(ConstrainedProperty)constraints.get("description");
+  p=(Constrained)constraints.get("description");
   assertTrue("Description property should be optional",p.isNullable());
-  p=(ConstrainedProperty)constraints.get("author");
+  p=(Constrained)constraints.get("author");
   assertFalse("Author property should be required",p.isNullable());
-  p=(ConstrainedProperty)constraints.get("assistent");
+  p=(Constrained)constraints.get("assistent");
   assertTrue("Assistent property should be optional",p.isNullable());
-  p=(ConstrainedProperty)constraints.get("chapters");
+  p=(Constrained)constraints.get("chapters");
   assertTrue("Chapters property should be optional",p.isNullable());
-  p=(ConstrainedProperty)constraints.get("remarks");
+  p=(Constrained)constraints.get("remarks");
   assertTrue("Remarks property should be optional",p.isNullable());
 }

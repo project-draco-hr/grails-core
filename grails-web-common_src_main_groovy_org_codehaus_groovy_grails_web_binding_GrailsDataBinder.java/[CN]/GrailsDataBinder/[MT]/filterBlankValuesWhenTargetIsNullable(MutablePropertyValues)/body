@@ -7,7 +7,7 @@
   PropertyValue[] valueArray=mpvs.getPropertyValues();
   for (  PropertyValue propertyValue : valueArray) {
     if (BLANK.equals(propertyValue.getValue())) {
-      ConstrainedProperty cp=getConstrainedPropertyForPropertyValue(constrainedProperties,propertyValue);
+      Constrained cp=getConstrainedPropertyForPropertyValue(constrainedProperties,propertyValue);
       if (shouldNullifyBlankString(propertyValue,cp)) {
         propertyValue.setConvertedValue(null);
       }

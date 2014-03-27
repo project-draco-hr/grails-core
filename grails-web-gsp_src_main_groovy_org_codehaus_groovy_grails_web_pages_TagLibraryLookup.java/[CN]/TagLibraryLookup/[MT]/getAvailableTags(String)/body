@@ -1,0 +1,7 @@
+{
+  Map<String,Object> tags=tagNamespaces.get(namespace);
+  if (tags == null) {
+    return Collections.emptySet();
+  }
+  return tags.keySet();
+}

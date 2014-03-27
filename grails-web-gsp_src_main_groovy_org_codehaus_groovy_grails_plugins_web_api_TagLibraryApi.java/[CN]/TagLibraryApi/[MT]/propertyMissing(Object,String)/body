@@ -16,7 +16,7 @@
       }
     }
     if (result != null && !developmentMode) {
-      MetaClass mc=GroovySystem.getMetaClassRegistry().getMetaClass(instance.getClass());
+      MetaClass mc=InvokerHelper.getMetaClass(instance);
       TagLibraryMetaUtils.registerPropertyMissingForTag(mc,name,result);
     }
     if (result != null) {

@@ -1,11 +1,9 @@
 {
-  try {
-    return (GrailsApplication)getApplicationContext().getBean(APPLICATION_BEAN_NAME);
+  for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
+    GrailsApplication grailsApplication=strategy.findGrailsApplication();
+    if (grailsApplication != null) {
+      return grailsApplication;
+    }
   }
- catch (  IllegalStateException e) {
-    return applicationSingleton;
-  }
-catch (  IllegalArgumentException e) {
-    return applicationSingleton;
-  }
+  return applicationSingleton;
 }

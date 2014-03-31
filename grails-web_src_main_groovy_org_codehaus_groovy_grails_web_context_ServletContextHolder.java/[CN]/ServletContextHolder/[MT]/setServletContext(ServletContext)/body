@@ -1,3 +1,4 @@
 {
   Holders.setServletContext(servletContext);
+  Holders.addApplicationDiscoveryStrategy(new ServletEnvironmentGrailsApplicationDiscoveryStrategy(servletContext));
 }

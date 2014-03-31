@@ -1,7 +1,9 @@
 {
-  ServletContext servletContext=getServletContext();
-  if (servletContext != null) {
-    return WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
+    ApplicationContext applicationContext=strategy.findApplicationContext();
+    if (applicationContext != null) {
+      return applicationContext;
+    }
   }
   return null;
 }

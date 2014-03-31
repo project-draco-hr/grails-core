@@ -6,4 +6,5 @@
   if (servletContexts != null) {
     servletContexts.set(null);
   }
+  applicationDiscoveryStrategies.clear();
 }

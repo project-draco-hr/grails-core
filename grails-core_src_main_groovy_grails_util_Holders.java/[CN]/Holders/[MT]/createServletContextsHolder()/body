@@ -1,7 +1,7 @@
 {
   try {
     Class<?> clazz=Holders.class.getClassLoader().loadClass("org.codehaus.groovy.grails.web.context.WebRequestServletHolder");
-    servletContexts=(Holder<ServletContext>)clazz.newInstance();
+    servletContexts=(Holder)clazz.newInstance();
   }
  catch (  ClassNotFoundException e) {
     LOG.debug("Error initializing servlet context holder, not running in Servlet environment: " + e.getMessage(),e);

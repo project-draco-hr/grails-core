@@ -1,3 +1,9 @@
 {
-  return WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+  for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
+    ApplicationContext applicationContext=strategy.findApplicationContext();
+    if (applicationContext != null) {
+      return applicationContext;
+    }
+  }
+  throw new IllegalStateException("Could not find ApplicationContext, configure Grails correctly first");
 }

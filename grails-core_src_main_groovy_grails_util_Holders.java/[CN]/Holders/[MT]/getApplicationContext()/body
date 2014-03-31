@@ -2,7 +2,10 @@
   for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
     ApplicationContext applicationContext=strategy.findApplicationContext();
     if (applicationContext != null) {
-      return applicationContext;
+      boolean running=((Lifecycle)applicationContext).isRunning();
+      if (running) {
+        return applicationContext;
+      }
     }
   }
   throw new IllegalStateException("Could not find ApplicationContext, configure Grails correctly first");

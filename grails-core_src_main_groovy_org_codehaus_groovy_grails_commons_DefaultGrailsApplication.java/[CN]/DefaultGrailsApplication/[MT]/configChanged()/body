@@ -1,5 +1,6 @@
 {
   ConfigObject co=getConfig();
+  Holders.setConfig(co);
   flatConfig=co.flatten(new LinkedHashMap());
   final ArtefactHandler[] handlers=getArtefactHandlers();
   if (handlers != null) {

@@ -6,4 +6,5 @@
  else {
     flatConfig=config.flatten(new LinkedHashMap());
   }
+  Holders.setConfig(config);
 }

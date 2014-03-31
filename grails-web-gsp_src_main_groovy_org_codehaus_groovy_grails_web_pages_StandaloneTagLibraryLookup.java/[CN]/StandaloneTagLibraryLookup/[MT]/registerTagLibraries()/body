@@ -1,0 +1,7 @@
+{
+  if (tagLibInstancesSet != null) {
+    for (    Object tagLibInstance : tagLibInstancesSet) {
+      registerTagLib(new DefaultGrailsTagLibClass(tagLibInstance.getClass()));
+    }
+  }
+}

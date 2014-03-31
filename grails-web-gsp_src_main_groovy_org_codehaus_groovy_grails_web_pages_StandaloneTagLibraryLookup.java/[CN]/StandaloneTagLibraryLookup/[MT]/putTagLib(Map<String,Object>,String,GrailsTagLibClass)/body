@@ -1,0 +1,8 @@
+{
+  for (  Object tagLibInstance : tagLibInstancesSet) {
+    if (tagLibInstance.getClass() == taglib.getClazz()) {
+      tags.put(name,tagLibInstance);
+      break;
+    }
+  }
+}

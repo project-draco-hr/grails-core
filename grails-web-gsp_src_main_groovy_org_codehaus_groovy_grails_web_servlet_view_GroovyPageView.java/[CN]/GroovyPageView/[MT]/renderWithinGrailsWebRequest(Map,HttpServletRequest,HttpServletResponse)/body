@@ -1,0 +1,12 @@
+{
+  RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
+  try {
+    if (!(requestAttributes instanceof GrailsWebRequest)) {
+      RequestContextHolder.setRequestAttributes(createGrailsWebRequest(request,response,getServletContext()));
+    }
+    renderWithTemplateEngine(templateEngine,model,response,request);
+  }
+  finally {
+    RequestContextHolder.setRequestAttributes(requestAttributes);
+  }
+}

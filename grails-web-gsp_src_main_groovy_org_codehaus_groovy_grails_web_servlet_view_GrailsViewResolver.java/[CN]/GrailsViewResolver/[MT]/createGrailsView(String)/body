@@ -1,7 +1,10 @@
 {
+  GroovyObject controller=null;
   GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
-  HttpServletRequest request=webRequest.getCurrentRequest();
-  GroovyObject controller=webRequest.getAttributes().getController(request);
+  if (webRequest != null) {
+    HttpServletRequest request=webRequest.getCurrentRequest();
+    controller=webRequest.getAttributes().getController(request);
+  }
   GroovyPageScriptSource scriptSource;
   if (controller == null) {
     scriptSource=groovyPageLocator.findViewByPath(viewName);
@@ -10,7 +13,7 @@
     scriptSource=groovyPageLocator.findView(controller,viewName);
   }
   if (scriptSource != null) {
-    return createGroovyPageView(webRequest,scriptSource.getURI(),scriptSource);
+    return createGroovyPageView(scriptSource.getURI(),scriptSource);
   }
   return createFallbackView(viewName);
 }

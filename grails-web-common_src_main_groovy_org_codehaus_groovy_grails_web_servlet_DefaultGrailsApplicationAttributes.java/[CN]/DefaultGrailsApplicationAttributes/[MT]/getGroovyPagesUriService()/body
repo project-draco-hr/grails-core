@@ -1,3 +1,9 @@
 {
+  if (groovyPagesUriService == null) {
+    groovyPagesUriService=fetchBeanFromAppCtx(GroovyPagesUriService.BEAN_ID);
+    if (groovyPagesUriService == null) {
+      groovyPagesUriService=new DefaultGroovyPagesUriService();
+    }
+  }
   return groovyPagesUriService;
 }

@@ -1,6 +1,14 @@
 {
+  if (appContext == null) {
+    return null;
+  }
   try {
-    return (T)appContext.getBean(name);
+    if (appContext.containsBean(name)) {
+      return (T)appContext.getBean(name);
+    }
+ else {
+      return null;
+    }
   }
  catch (  BeansException e) {
     LOG.warn("Bean named '" + name + "' is missing.");

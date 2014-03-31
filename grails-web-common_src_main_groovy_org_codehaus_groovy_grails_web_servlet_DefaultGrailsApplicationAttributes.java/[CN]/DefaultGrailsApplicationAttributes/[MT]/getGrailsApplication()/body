@@ -1,3 +1,6 @@
 {
+  if (grailsApplication == null) {
+    grailsApplication=fetchBeanFromAppCtx(GrailsApplication.APPLICATION_ID);
+  }
   return grailsApplication;
 }

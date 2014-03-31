@@ -1,0 +1,6 @@
+{
+  if (pluginManager == null) {
+    pluginManager=fetchBeanFromAppCtx(GrailsPluginManager.BEAN_NAME);
+  }
+  return pluginManager;
+}

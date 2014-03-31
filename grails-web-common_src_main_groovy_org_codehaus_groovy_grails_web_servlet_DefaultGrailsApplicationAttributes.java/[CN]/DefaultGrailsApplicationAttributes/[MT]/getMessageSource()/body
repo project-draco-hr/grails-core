@@ -1,3 +1,6 @@
 {
+  if (messageSource == null) {
+    messageSource=fetchBeanFromAppCtx("messageSource");
+  }
   return messageSource;
 }

@@ -1,12 +1,19 @@
 {
   RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
+  boolean attributesChanged=false;
   try {
     if (!(requestAttributes instanceof GrailsWebRequest)) {
-      RequestContextHolder.setRequestAttributes(createGrailsWebRequest(request,response,getServletContext()));
+      GrailsWebRequest webRequest=createGrailsWebRequest(request,response,getServletContext());
+      RequestContextHolder.setRequestAttributes(webRequest);
+      attributesChanged=true;
+      request.setAttribute(GrailsApplicationAttributes.WEB_REQUEST,webRequest);
     }
     renderWithTemplateEngine(templateEngine,model,response,request);
   }
   finally {
-    RequestContextHolder.setRequestAttributes(requestAttributes);
+    if (attributesChanged) {
+      request.removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+      RequestContextHolder.setRequestAttributes(requestAttributes);
+    }
   }
 }

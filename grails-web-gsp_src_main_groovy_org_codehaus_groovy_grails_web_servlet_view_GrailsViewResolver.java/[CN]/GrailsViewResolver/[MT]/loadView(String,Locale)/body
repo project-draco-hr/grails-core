@@ -3,7 +3,7 @@
   if (viewName.endsWith(GSP_SUFFIX)) {
     viewName=viewName.substring(0,viewName.length() - GSP_SUFFIX.length());
   }
-  if (developmentMode) {
+  if (!allowGrailsViewCaching) {
     return createGrailsView(viewName);
   }
   String viewCacheKey=groovyPageLocator.resolveViewFormat(viewName);

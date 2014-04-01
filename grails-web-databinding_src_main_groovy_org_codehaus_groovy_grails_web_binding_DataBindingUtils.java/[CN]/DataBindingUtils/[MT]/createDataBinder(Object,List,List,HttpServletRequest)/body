@@ -1,0 +1,16 @@
+{
+  SpringWebDataBinder binder;
+  if (springBinderCreator != null) {
+    if (request == null) {
+      binder=springBinderCreator.createBinder(object,object.getClass().getName());
+    }
+ else {
+      binder=springBinderCreator.createBinder(object,object.getClass().getName(),request);
+    }
+    includeExcludeFields(binder,include,exclude);
+    return binder;
+  }
+ else {
+    throw new IllegalStateException("Cannot use Spring data binder. 'grails-web-databinding-spring' missing from classpath.");
+  }
+}

@@ -11,7 +11,7 @@
       }
     }
   }
-  DateFormat dateFormat=new SimpleDateFormat(GrailsDataBinder.DEFAULT_DATE_FORMAT,LocaleContextHolder.getLocale());
+  DateFormat dateFormat=new SimpleDateFormat(DataBinder.DEFAULT_DATE_FORMAT,LocaleContextHolder.getLocale());
   StructuredDateEditor editor=new StructuredDateEditor(dateFormat,true);
   try {
     return (Date)editor.assemble(Date.class,dateParams);

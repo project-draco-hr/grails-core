@@ -5,6 +5,6 @@
   if (context.containsBean(DataBindingSourceRegistry.BEAN_NAME))   dataBindingSourceRegistry=context.getBean(DataBindingSourceRegistry.BEAN_NAME,DataBindingSourceRegistry.class);
   MimeTypeResolver mimeTypeResolver=null;
   if (context.containsBean(MimeTypeResolver.BEAN_NAME))   mimeTypeResolver=context.getBean(MimeTypeResolver.BEAN_NAME,MimeTypeResolver.class);
-  MimeType mimeType=DataBindingUtils.resolveMimeType(this,mimeTypeResolver);
+  MimeType mimeType=MimeTypeUtils.resolveMimeType(this,mimeTypeResolver);
   return dataBindingSourceRegistry != null ? dataBindingSourceRegistry.createDataBindingSource(mimeType,targetType,this) : new SimpleMapDataBindingSource(this);
 }

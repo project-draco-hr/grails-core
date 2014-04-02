@@ -1,6 +1,3 @@
 {
-  while (ex.getCause() != null && !ex.equals(ex.getCause())) {
-    ex=ex.getCause();
-  }
-  return ex;
+  return ExceptionUtils.getRootCause(ex);
 }

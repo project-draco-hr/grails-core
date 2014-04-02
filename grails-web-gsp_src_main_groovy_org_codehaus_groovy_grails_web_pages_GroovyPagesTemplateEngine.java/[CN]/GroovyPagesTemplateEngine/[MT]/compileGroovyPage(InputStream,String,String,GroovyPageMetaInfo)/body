@@ -7,7 +7,7 @@
   }
  catch (  CompilationFailedException e) {
     LOG.error("Compilation error compiling GSP [" + name + "]:"+ e.getMessage(),e);
-    int lineNumber=GrailsExceptionResolver.extractLineNumber(e);
+    int lineNumber=ExceptionUtils.extractLineNumber(e);
     final int[] lineMappings=metaInfo.getLineNumbers();
     if (lineNumber > 0 && lineNumber < lineMappings.length) {
       lineNumber=lineMappings[lineNumber - 1];

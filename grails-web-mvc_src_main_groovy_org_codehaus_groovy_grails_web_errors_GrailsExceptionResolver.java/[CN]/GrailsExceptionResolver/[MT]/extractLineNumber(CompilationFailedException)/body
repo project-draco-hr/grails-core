@@ -1,12 +1,3 @@
 {
-  int lineNumber=-1;
-  if (e instanceof MultipleCompilationErrorsException) {
-    MultipleCompilationErrorsException mcee=(MultipleCompilationErrorsException)e;
-    Object message=mcee.getErrorCollector().getErrors().iterator().next();
-    if (message instanceof SyntaxErrorMessage) {
-      SyntaxErrorMessage sem=(SyntaxErrorMessage)message;
-      lineNumber=sem.getCause().getLine();
-    }
-  }
-  return lineNumber;
+  return ExceptionUtils.extractLineNumber(e);
 }

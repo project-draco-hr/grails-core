@@ -1,5 +1,5 @@
 {
-  Throwable cause=GrailsExceptionResolver.getRootCause(e);
+  Throwable cause=ExceptionUtils.getRootCause(e);
   if (cause instanceof GrailsTagException) {
     throw new GrailsTagException(cause.getMessage(),getGroovyPageFileName(),lineNumber);
   }

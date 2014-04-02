@@ -73,7 +73,7 @@
       LOG.trace("Full exception for problem at " + getGroovyPageFileName() + ":"+ lineNumber,e);
     }
     if (tagName.matches("capture(Body|Head|Meta|Title|Component)")) {
-      RuntimeException rte=GrailsExceptionResolver.getFirstRuntimeException(e);
+      RuntimeException rte=ExceptionUtils.getFirstRuntimeException(e);
       if (rte == null) {
         throwRootCause(tagName,tagNamespace,lineNumber,e);
       }

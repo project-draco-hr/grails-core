@@ -1,0 +1,16 @@
+{
+  if (request.getAttribute(WebUtils.EXCEPTION_ATTRIBUTE) != null)   return null;
+  String dispatchActionName=null;
+  Enumeration<String> paramNames=tryMultipartParams(request,request.getParameterNames());
+  while (paramNames.hasMoreElements()) {
+    String name=paramNames.nextElement();
+    if (name.startsWith(WebUtils.DISPATCH_ACTION_PARAMETER)) {
+      if (name.endsWith(".x") || name.endsWith(".y")) {
+        name=name.substring(0,name.length() - 2);
+      }
+      dispatchActionName=GrailsNameUtils.getPropertyNameRepresentation(name.substring((WebUtils.DISPATCH_ACTION_PARAMETER).length()));
+      break;
+    }
+  }
+  return dispatchActionName;
+}

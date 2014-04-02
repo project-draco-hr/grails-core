@@ -49,9 +49,9 @@
     WrappedResponseHolder.setWrappedResponse(response);
     String viewName=urlMappingInfo.getViewName();
     if (viewName == null || viewName.endsWith(GSP_SUFFIX) || viewName.endsWith(JSP_SUFFIX)) {
-      GrailsClass controller=WebUtils.passControllerForUrlMappingInfoInRequest(webRequest,urlMappingInfo,webRequest.getApplicationContext().getBean(UrlConverter.BEAN_NAME,UrlConverter.class),webRequest.getAttributes().getGrailsApplication());
+      GrailsClass controller=UrlMappingUtils.passControllerForUrlMappingInfoInRequest(webRequest,urlMappingInfo,webRequest.getApplicationContext().getBean(UrlConverter.BEAN_NAME,UrlConverter.class),webRequest.getAttributes().getGrailsApplication());
       if (controller != null) {
-        WebUtils.forwardRequestForUrlMappingInfo(request,response,urlMappingInfo,Collections.EMPTY_MAP);
+        UrlMappingUtils.forwardRequestForUrlMappingInfo(request,response,urlMappingInfo,Collections.EMPTY_MAP);
       }
     }
  else {
@@ -62,7 +62,7 @@
           if (!response.isCommitted()) {
             response.setContentType("text/html;charset=" + defaultEncoding);
           }
-          v=WebUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
+          v=UrlMappingUtils.resolveView(request,urlMappingInfo,viewName,viewResolver);
           v.render(Collections.EMPTY_MAP,request,response);
         }
  catch (        Throwable e) {

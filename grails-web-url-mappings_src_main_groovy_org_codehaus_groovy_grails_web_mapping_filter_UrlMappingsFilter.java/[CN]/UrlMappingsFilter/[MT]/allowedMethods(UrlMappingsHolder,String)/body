@@ -1,0 +1,19 @@
+{
+  UrlMappingInfo[] urlMappingInfos=holder.matchAll(uri,UrlMapping.ANY_HTTP_METHOD);
+  Set<HttpMethod> methods=new HashSet<HttpMethod>();
+  for (  UrlMappingInfo urlMappingInfo : urlMappingInfos) {
+    Object featureId=UrlMappingUtils.getFeatureId(urlConverter,urlMappingInfo);
+    GrailsClass controllerClass=application.getArtefactForFeature(ControllerArtefactHandler.TYPE,featureId);
+    if (controllerClass != null) {
+      if (urlMappingInfo.getHttpMethod() == null || urlMappingInfo.getHttpMethod().equals(UrlMapping.ANY_HTTP_METHOD)) {
+        methods.addAll(Arrays.asList(HttpMethod.values()));
+        break;
+      }
+ else {
+        HttpMethod method=HttpMethod.valueOf(urlMappingInfo.getHttpMethod().toUpperCase());
+        methods.add(method);
+      }
+    }
+  }
+  return Collections.unmodifiableSet(methods);
+}

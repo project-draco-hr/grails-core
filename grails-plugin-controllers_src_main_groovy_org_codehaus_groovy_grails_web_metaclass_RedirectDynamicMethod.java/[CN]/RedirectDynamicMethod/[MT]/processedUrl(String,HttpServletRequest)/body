@@ -1,7 +1,0 @@
-{
-  initRequestDataValueProcessor();
-  if (requestDataValueProcessor != null) {
-    link=requestDataValueProcessor.processUrl(request,link);
-  }
-  return link;
-}

@@ -1,0 +1,33 @@
+{
+  if (info.getURI() != null) {
+    return info.getURI();
+  }
+  final StringBuilder forwardUrl=new StringBuilder();
+  if (info.getViewName() != null) {
+    String viewName=info.getViewName();
+    if (viewName.startsWith("/")) {
+      forwardUrl.append(viewName);
+    }
+ else {
+      forwardUrl.append(WebUtils.SLASH).append(viewName);
+    }
+  }
+ else {
+    forwardUrl.append(WebUtils.GRAILS_SERVLET_PATH);
+    forwardUrl.append(WebUtils.SLASH).append(info.getControllerName());
+    if (!GrailsStringUtils.isBlank(info.getActionName())) {
+      forwardUrl.append(WebUtils.SLASH).append(info.getActionName());
+    }
+    forwardUrl.append(WebUtils.GRAILS_DISPATCH_EXTENSION);
+  }
+  final Map parameters=info.getParameters();
+  if (parameters != null && !parameters.isEmpty() && includeParams) {
+    try {
+      forwardUrl.append(WebUtils.toQueryString(parameters));
+    }
+ catch (    UnsupportedEncodingException e) {
+      throw new ControllerExecutionException("Unable to include ");
+    }
+  }
+  return forwardUrl.toString();
+}

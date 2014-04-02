@@ -1,0 +1,9 @@
+{
+  webRequest.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,WebRequest.SCOPE_REQUEST);
+  if (info.getViewName() == null && info.getURI() == null) {
+    GrailsApplication grailsApplicationToUse=webRequest.getAttributes().getGrailsApplication();
+    if (grailsApplicationToUse != null) {
+      passControllerForUrlMappingInfoInRequest(webRequest,info,locateUrlConverter(webRequest),grailsApplicationToUse);
+    }
+  }
+}

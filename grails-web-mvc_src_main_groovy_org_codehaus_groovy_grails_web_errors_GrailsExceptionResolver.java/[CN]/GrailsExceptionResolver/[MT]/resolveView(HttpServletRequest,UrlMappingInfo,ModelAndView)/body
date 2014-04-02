@@ -1,6 +1,6 @@
 {
   ViewResolver viewResolver=WebUtils.lookupViewResolver(servletContext);
-  View v=WebUtils.resolveView(request,info,info.getViewName(),viewResolver);
+  View v=UrlMappingUtils.resolveView(request,info,info.getViewName(),viewResolver);
   if (v != null) {
     mv.setView(v);
   }

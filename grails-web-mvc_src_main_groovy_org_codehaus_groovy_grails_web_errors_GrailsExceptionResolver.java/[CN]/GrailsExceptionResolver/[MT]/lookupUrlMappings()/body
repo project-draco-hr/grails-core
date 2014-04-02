@@ -1,6 +1,6 @@
 {
   try {
-    return WebUtils.lookupUrlMappings(servletContext);
+    return UrlMappingUtils.lookupUrlMappings(servletContext);
   }
  catch (  Exception ignored) {
     return null;

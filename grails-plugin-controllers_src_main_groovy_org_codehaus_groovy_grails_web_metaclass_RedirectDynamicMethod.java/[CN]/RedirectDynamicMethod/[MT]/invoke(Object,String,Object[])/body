@@ -7,15 +7,8 @@
     throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
   }
   GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-  LinkGenerator requestLinkGenerator=getLinkGenerator(webRequest);
   HttpServletRequest request=webRequest.getCurrentRequest();
-  if (request.getAttribute(GRAILS_REDIRECT_ISSUED) != null) {
-    throw new CannotRedirectException("Cannot issue a redirect(..) here. A previous call to redirect(..) has already redirected the response.");
-  }
   HttpServletResponse response=webRequest.getCurrentResponse();
-  if (response.isCommitted()) {
-    throw new CannotRedirectException("Cannot issue a redirect(..) here. The response has already been committed either by another redirect or by directly writing to the response.");
-  }
   if (target instanceof GroovyObject) {
     GroovyObject controller=(GroovyObject)target;
     Errors controllerErrors=(Errors)controller.getProperty(ControllerDynamicMethods.ERRORS_PROPERTY);
@@ -34,7 +27,10 @@
       argMap.put(GrailsControllerClass.NAMESPACE_PROPERTY,GrailsClassUtils.getStaticFieldValue(controller.getClass(),GrailsControllerClass.NAMESPACE_PROPERTY));
     }
   }
-  boolean permanent=DefaultGroovyMethods.asBoolean(argMap.get(ARGUMENT_PERMANENT));
-  argMap.put(LinkGenerator.ATTRIBUTE_CONTEXT_PATH,BLANK);
-  return redirectResponse(requestLinkGenerator.getServerBaseURL(),requestLinkGenerator.link(argMap),request,response,permanent);
+  ResponseRedirector redirector=new ResponseRedirector(getLinkGenerator(webRequest));
+  redirector.setRedirectListeners(redirectListeners);
+  redirector.setRequestDataValueProcessor(initRequestDataValueProcessor());
+  redirector.setUseJessionId(useJessionId);
+  redirector.redirect(request,response,argMap);
+  return null;
 }

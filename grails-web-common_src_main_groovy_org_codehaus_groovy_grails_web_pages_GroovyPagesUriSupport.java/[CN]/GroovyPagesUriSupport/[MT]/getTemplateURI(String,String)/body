@@ -9,6 +9,9 @@
     pathToTemplate=templateName.substring(0,lastSlash + 1);
     templateName=templateName.substring(lastSlash + 1);
   }
-  buf.append(SLASH).append(controllerName).append(SLASH).append(pathToTemplate).append(UNDERSCORE).append(templateName);
+  if (controllerName != null) {
+    buf.append(SLASH).append(controllerName);
+  }
+  buf.append(SLASH).append(pathToTemplate).append(UNDERSCORE).append(templateName);
   return buf.append(EXTENSION).toString();
 }

@@ -1,13 +1,8 @@
 {
-  ServletRequest request=null;
-  try {
-    request=(ServletRequest)controller.getProperty(ControllerDynamicMethods.REQUEST_PROPERTY);
-  }
- catch (  MissingPropertyException mpe) {
-  }
-  String logicalName=request != null ? (String)request.getAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE) : null;
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  String logicalName=webRequest != null ? webRequest.getControllerName() : null;
   if (logicalName == null) {
-    logicalName=GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE);
+    logicalName=controller != null ? GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE) : null;
   }
   return logicalName;
 }

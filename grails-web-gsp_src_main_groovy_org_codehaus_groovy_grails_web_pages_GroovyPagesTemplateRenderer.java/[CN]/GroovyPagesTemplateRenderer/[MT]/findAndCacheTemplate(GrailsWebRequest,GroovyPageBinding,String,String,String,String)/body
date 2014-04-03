@@ -30,7 +30,7 @@
       if (scriptSource != null) {
         t=groovyPagesTemplateEngine.createTemplate(scriptSource);
       }
-      boolean allowCaching=!disableCache;
+      boolean allowCaching=cacheEnabled;
       if (t == null && scaffoldingTemplateGenerator != null) {
         t=generateScaffoldedTemplate(webRequest,uri);
         allowCaching=true;

@@ -1,0 +1,5 @@
+{
+  GroovyPageTemplate cloned=new GroovyPageTemplate(metaInfo);
+  cloned.setAllowSettingContentType(allowSettingContentType);
+  return cloned;
+}

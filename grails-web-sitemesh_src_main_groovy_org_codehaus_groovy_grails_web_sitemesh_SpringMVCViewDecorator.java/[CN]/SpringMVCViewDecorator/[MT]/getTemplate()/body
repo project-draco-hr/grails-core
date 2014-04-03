@@ -1,0 +1,6 @@
+{
+  if (view instanceof AbstractGrailsView) {
+    return ((AbstractGrailsView)view).getTemplate();
+  }
+  return null;
+}

@@ -1,0 +1,5 @@
+{
+  if (beanClassLoader != null && this.classLoader == null) {
+    this.classLoader=beanClassLoader;
+  }
+}

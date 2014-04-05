@@ -1,5 +1,4 @@
 {
   Factory factory=holder.get();
-  Assert.state(factory != null,"Cannot return Sitemesh factory it has not been set!");
   return factory;
 }

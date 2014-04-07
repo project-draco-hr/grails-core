@@ -1,11 +1,4 @@
 {
   grailsClass.configureCodecMethods();
-  Encoder encoder=grailsClass.getEncoder();
-  if (encoder != null) {
-    registerWithNameVaritions(encoders,encoder);
-  }
-  Decoder decoder=grailsClass.getDecoder();
-  if (decoder != null) {
-    registerWithNameVaritions(decoders,decoder);
-  }
+  registerCodecFactory(grailsClass);
 }

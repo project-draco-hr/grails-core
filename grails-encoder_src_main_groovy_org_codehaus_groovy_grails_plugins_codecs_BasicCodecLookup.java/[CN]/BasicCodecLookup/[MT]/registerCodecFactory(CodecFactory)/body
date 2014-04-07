@@ -1,0 +1,10 @@
+{
+  Encoder encoder=codecFactory.getEncoder();
+  if (encoder != null) {
+    registerEncoder(encoder);
+  }
+  Decoder decoder=codecFactory.getDecoder();
+  if (decoder != null) {
+    registerDecoder(decoder);
+  }
+}

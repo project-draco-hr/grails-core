@@ -1,0 +1,6 @@
+{
+  Collection<String> nameVariations=createNameVariations(name,target);
+  for (  String nameVariation : nameVariations) {
+    destinationMap.put(nameVariation,target);
+  }
+}

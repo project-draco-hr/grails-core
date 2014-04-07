@@ -1,0 +1,8 @@
+{
+  Set<String> nameVariations=new LinkedHashSet<String>();
+  nameVariations.add(name);
+  nameVariations.add(name.toLowerCase());
+  nameVariations.add(name.toUpperCase());
+  nameVariations.add(GrailsNameUtils.getPropertyNameRepresentation(name));
+  return nameVariations;
+}

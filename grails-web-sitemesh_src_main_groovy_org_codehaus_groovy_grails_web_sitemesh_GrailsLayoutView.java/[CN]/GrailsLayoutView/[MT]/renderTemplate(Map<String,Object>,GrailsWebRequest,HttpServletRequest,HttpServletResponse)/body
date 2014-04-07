@@ -1,0 +1,12 @@
+{
+  Content content=obtainContent(model,webRequest,request,response);
+  if (content != null) {
+    SpringMVCViewDecorator decorator=(SpringMVCViewDecorator)groovyPageLayoutFinder.findLayout(request,content);
+    if (decorator != null) {
+      decorator.render(content,model,request,response,request.getServletContext());
+    }
+ else {
+      content.writeOriginal(response.getWriter());
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  if (innerViewResolver instanceof ApplicationContextAware) {
+    ((ApplicationContextAware)innerViewResolver).setApplicationContext(applicationContext);
+  }
+}

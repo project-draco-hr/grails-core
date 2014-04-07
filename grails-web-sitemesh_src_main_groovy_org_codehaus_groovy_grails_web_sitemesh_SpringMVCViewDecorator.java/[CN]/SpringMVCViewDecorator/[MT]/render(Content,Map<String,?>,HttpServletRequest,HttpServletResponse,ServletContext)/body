@@ -1,0 +1,35 @@
+{
+  HTMLPage htmlPage=GSPSitemeshPage.content2htmlPage(content);
+  request.setAttribute(RequestConstants.PAGE,htmlPage);
+  if (!response.isCommitted()) {
+    boolean dispatched=false;
+    try {
+      request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,new GSPSitemeshPage(true));
+      request.setAttribute(GrailsPageFilter.ALREADY_APPLIED_KEY,Boolean.TRUE);
+      try {
+        view.render(model,request,response);
+        dispatched=true;
+        if (!response.isCommitted()) {
+          response.getWriter().flush();
+        }
+      }
+ catch (      Exception e) {
+        cleanRequestAttributes(request);
+        String message="Error applying layout : " + getName();
+        if (view instanceof AbstractGrailsView) {
+          ((AbstractGrailsView)view).rethrowRenderException(e,message);
+        }
+ else {
+          throw new RuntimeException(message,e);
+        }
+      }
+    }
+  finally {
+      if (!dispatched) {
+        cleanRequestAttributes(request);
+      }
+    }
+  }
+  request.removeAttribute(RequestConstants.PAGE);
+  request.removeAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+}

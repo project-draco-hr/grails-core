@@ -11,7 +11,7 @@
   gpte.setServletContext(appCtx.getServletContext());
   gpte.setApplicationContext(appCtx);
   gpte.afterPropertiesSet();
-  GrailsViewResolver grailsViewResolver=new GrailsViewResolver();
+  GroovyPageViewResolver grailsViewResolver=new GroovyPageViewResolver();
   grailsViewResolver.setApplicationContext(appCtx);
   grailsViewResolver.setGroovyPageLocator(pageLocator);
   grailsViewResolver.setTemplateEngine(gpte);

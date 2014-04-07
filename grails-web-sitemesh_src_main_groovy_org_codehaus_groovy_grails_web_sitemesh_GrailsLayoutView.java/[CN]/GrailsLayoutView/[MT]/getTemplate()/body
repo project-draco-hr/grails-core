@@ -1,0 +1,6 @@
+{
+  if (innerView instanceof AbstractGrailsView) {
+    return ((AbstractGrailsView)innerView).getTemplate();
+  }
+  return null;
+}

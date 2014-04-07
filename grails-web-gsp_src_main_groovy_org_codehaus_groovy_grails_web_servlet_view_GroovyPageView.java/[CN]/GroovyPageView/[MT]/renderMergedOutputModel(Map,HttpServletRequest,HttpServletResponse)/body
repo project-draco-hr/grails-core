@@ -1,5 +1,0 @@
-{
-  Assert.state(templateEngine != null,"No GroovyPagesTemplateEngine found in ApplicationContext!");
-  exposeModelAsRequestAttributes(model,request);
-  renderWithinGrailsWebRequest(model,request,response);
-}

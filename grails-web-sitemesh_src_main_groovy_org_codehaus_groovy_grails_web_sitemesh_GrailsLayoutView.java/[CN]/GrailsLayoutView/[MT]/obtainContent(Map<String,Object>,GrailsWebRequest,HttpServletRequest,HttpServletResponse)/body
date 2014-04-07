@@ -1,0 +1,24 @@
+{
+  Object oldPage=request.getAttribute(RequestConstants.PAGE);
+  request.removeAttribute(RequestConstants.PAGE);
+  Object oldGspSiteMeshPage=request.getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+  HttpServletResponse previousResponse=webRequest.getWrappedResponse();
+  try {
+    request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,new GSPSitemeshPage());
+    GrailsViewBufferingResponse contentBufferingResponse=new GrailsViewBufferingResponse(request,response);
+    webRequest.setWrappedResponse(contentBufferingResponse);
+    innerView.render(model,request,contentBufferingResponse);
+    return contentBufferingResponse.getContent();
+  }
+  finally {
+    if (oldGspSiteMeshPage != null) {
+      request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,oldGspSiteMeshPage);
+    }
+    if (oldPage != null) {
+      request.setAttribute(RequestConstants.PAGE,oldPage);
+    }
+    if (previousResponse != null) {
+      webRequest.setWrappedResponse(previousResponse);
+    }
+  }
+}

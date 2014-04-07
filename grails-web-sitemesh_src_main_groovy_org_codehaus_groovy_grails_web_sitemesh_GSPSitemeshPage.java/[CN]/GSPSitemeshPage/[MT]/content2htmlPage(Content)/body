@@ -3,6 +3,9 @@
   if (content instanceof HTMLPage) {
     htmlPage=(HTMLPage)content;
   }
+ else   if (content instanceof TokenizedHTMLPage2Content) {
+    htmlPage=((TokenizedHTMLPage2Content)content).getPage();
+  }
  else {
     htmlPage=new Content2HTMLPage(content);
   }

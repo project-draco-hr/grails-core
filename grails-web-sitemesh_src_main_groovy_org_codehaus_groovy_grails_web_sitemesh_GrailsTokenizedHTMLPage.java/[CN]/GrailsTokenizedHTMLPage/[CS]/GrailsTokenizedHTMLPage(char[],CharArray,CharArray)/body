@@ -1,5 +1,6 @@
 {
-  super(original,body,head);
+  super(data,body,head);
+  this.data=data;
   this.body=body;
   this.head=head;
 }

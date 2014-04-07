@@ -1,0 +1,3 @@
+{
+  return new GrailsLayoutView(groovyPageLayoutFinder,innerViewResolver.resolveViewName(viewName,locale));
+}

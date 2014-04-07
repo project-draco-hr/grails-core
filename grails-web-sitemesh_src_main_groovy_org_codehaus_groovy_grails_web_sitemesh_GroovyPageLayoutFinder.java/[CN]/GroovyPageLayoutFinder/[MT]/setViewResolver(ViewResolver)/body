@@ -1,3 +1,8 @@
 {
-  this.viewResolver=viewResolver;
+  if (viewResolver instanceof LayoutViewResolver) {
+    this.viewResolver=((LayoutViewResolver)viewResolver).getInnerViewResolver();
+  }
+ else {
+    this.viewResolver=viewResolver;
+  }
 }

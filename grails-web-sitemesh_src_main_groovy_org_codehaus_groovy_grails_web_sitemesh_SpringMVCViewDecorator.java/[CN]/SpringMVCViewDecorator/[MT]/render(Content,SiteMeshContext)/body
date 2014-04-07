@@ -1,4 +1,4 @@
 {
   SiteMeshWebAppContext ctx=(SiteMeshWebAppContext)context;
-  render(content,ctx.getRequest(),ctx.getResponse(),ctx.getServletContext());
+  render(content,Collections.<String,Object>emptyMap(),ctx.getRequest(),ctx.getResponse(),ctx.getServletContext());
 }

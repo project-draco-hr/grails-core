@@ -1,4 +1,4 @@
 {
-  ConfigurationHelper.clearCachedConfig(this);
-  cl=new GroovyClassLoader();
+  super();
+  classLoader=new GroovyClassLoader();
 }

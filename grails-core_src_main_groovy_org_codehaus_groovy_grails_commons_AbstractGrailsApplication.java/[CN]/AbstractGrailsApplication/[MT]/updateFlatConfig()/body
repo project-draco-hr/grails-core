@@ -1,10 +1,8 @@
 {
-  this.config=config;
   if (config == null) {
-    flatConfig=Collections.emptyMap();
+    flatConfig=new LinkedHashMap();
   }
  else {
     flatConfig=config.flatten(new LinkedHashMap());
   }
-  Holders.setConfig(config);
 }

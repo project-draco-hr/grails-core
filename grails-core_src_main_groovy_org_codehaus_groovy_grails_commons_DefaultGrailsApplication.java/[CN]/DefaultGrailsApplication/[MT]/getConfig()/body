@@ -1,5 +1,6 @@
 {
   if (config == null) {
+    this.config=new ConfigObject();
     setConfig(ConfigurationHelper.loadConfigFromClasspath(this));
   }
   return config;

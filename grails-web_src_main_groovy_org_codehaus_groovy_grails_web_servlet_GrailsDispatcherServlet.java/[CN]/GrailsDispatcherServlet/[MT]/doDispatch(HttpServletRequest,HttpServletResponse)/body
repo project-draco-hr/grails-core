@@ -41,7 +41,7 @@
         logger.debug("Using response object: " + response.getClass());
       }
       mappedHandler=getHandler(processedRequest);
-      Object handler=mappedHandler.getHandler();
+      Object handler=mappedHandler != null ? mappedHandler.getHandler() : null;
       if (mappedHandler == null || handler == null) {
         noHandlerFound(processedRequest,response);
         return;

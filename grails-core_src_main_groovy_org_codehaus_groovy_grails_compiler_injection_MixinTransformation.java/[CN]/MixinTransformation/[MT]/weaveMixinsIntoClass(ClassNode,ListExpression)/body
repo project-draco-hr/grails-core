@@ -5,7 +5,17 @@
         ClassExpression ce=(ClassExpression)current;
         ClassNode mixinClassNode=ce.getType();
         final String fieldName='$' + GrailsNameUtils.getPropertyName(mixinClassNode.getName());
-        GrailsASTUtils.addFieldIfNonExistent(classNode,mixinClassNode,fieldName);
+        if (classNode != null && classNode.getField(fieldName) == null) {
+          boolean isTargetAware=GrailsASTUtils.findInterface(mixinClassNode,new ClassNode(MixinTargetAware.class)) != null;
+          ConstructorCallExpression initialValue;
+          if (isTargetAware) {
+            initialValue=new ConstructorCallExpression(mixinClassNode,new MapExpression(Arrays.asList(new MapEntryExpression(new ConstantExpression("target"),new VariableExpression("this")))));
+          }
+ else {
+            initialValue=new ConstructorCallExpression(mixinClassNode,GrailsASTUtils.ZERO_ARGUMENTS);
+          }
+          classNode.addField(fieldName,Modifier.PRIVATE,mixinClassNode,initialValue);
+        }
         VariableExpression fieldReference=new VariableExpression(fieldName,mixinClassNode);
         while (!mixinClassNode.getName().equals(OBJECT_CLASS)) {
           final List<MethodNode> mixinMethods=mixinClassNode.getMethods();

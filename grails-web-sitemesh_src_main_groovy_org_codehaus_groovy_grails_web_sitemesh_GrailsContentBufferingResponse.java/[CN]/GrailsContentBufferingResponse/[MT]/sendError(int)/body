@@ -1,11 +1,13 @@
 {
-  GrailsWebRequest webRequest=WebUtils.retrieveGrailsWebRequest();
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
   try {
     if (!redirectCalled && !isCommitted()) {
       super.sendError(sc);
     }
   }
   finally {
-    WebUtils.storeGrailsWebRequest(webRequest);
+    if (webRequest != null) {
+      WebUtils.storeGrailsWebRequest(webRequest);
+    }
   }
 }

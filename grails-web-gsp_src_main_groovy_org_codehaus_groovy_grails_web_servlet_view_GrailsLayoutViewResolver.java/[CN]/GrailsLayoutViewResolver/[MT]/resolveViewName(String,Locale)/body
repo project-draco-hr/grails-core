@@ -1,3 +1,9 @@
 {
-  return new GrailsLayoutView(groovyPageLayoutFinder,innerViewResolver.resolveViewName(viewName,locale));
+  View innerView=innerViewResolver.resolveViewName(viewName,locale);
+  if (innerView instanceof SmartView && ((SmartView)innerView).isRedirectView()) {
+    return innerView;
+  }
+ else {
+    return new GrailsLayoutView(groovyPageLayoutFinder,innerView);
+  }
 }

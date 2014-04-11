@@ -1,3 +1,8 @@
 {
-  pageCache.clear();
+  for (Iterator<Map.Entry<String,GroovyPageMetaInfo>> it=pageCache.entrySet().iterator(); it.hasNext(); ) {
+    Map.Entry<String,GroovyPageMetaInfo> entry=it.next();
+    Class<?> oldPageClass=entry.getValue().getPageClass();
+    if (oldPageClass != null)     GroovySystem.getMetaClassRegistry().removeMetaClass(oldPageClass);
+    it.remove();
+  }
 }

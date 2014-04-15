@@ -13,6 +13,16 @@
     }
  catch (    Exception e) {
     }
+    try {
+      saxParserFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar",false);
+    }
+ catch (    Exception e) {
+    }
+    try {
+      saxParserFactory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
+    }
+ catch (    Exception e) {
+    }
   }
   return saxParserFactory;
 }

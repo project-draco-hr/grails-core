@@ -1,12 +1,3 @@
 {
-  SAXParserFactory factory=FactorySupport.createSaxParserFactory();
-  factory.setNamespaceAware(true);
-  factory.setValidating(false);
-  try {
-    factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl",false);
-    factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,true);
-  }
- catch (  ParserConfigurationException pce) {
-  }
-  return new XmlSlurper(factory.newSAXParser());
+  return IOUtils.createXmlSlurper();
 }

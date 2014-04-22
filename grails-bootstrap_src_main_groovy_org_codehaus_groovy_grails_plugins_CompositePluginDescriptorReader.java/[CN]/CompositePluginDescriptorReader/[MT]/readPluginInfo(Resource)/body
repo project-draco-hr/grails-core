@@ -1,5 +1,8 @@
 {
   for (  PluginDescriptorReader reader : pluginDescriptorReaders) {
+    if (reader instanceof XmlPluginDescriptorReader && pluginSettings.isInlinePluginLocation(r.createRelative("."))) {
+      continue;
+    }
     GrailsPluginInfo info=reader.readPluginInfo(r);
     if (info != null)     return info;
   }

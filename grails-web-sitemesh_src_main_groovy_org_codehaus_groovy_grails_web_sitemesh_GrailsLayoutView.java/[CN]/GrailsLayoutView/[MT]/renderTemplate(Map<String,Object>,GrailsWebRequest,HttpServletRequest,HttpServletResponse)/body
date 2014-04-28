@@ -6,7 +6,11 @@
       decorator.render(content,model,request,response,request.getServletContext());
     }
  else {
-      content.writeOriginal(response.getWriter());
+      PrintWriter writer=response.getWriter();
+      content.writeOriginal(writer);
+      if (!response.isCommitted()) {
+        writer.flush();
+      }
     }
   }
 }

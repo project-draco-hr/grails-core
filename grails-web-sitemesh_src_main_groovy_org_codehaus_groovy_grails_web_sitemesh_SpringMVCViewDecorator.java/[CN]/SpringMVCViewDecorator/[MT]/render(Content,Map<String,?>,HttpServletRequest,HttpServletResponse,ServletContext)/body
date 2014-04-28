@@ -4,8 +4,7 @@
   if (!response.isCommitted()) {
     boolean dispatched=false;
     try {
-      request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,new GSPSitemeshPage(true));
-      request.setAttribute(GrailsPageFilter.ALREADY_APPLIED_KEY,Boolean.TRUE);
+      request.setAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE,new GSPSitemeshPage(true));
       try {
         view.render(model,request,response);
         dispatched=true;
@@ -31,5 +30,5 @@
     }
   }
   request.removeAttribute(RequestConstants.PAGE);
-  request.removeAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+  request.removeAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE);
 }

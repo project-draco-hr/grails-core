@@ -1,7 +1,0 @@
-{
-  UrlPathHelper urlHelper=new UrlPathHelper();
-  String requestURI=urlHelper.getOriginatingRequestUri(request);
-  if (requestURI.endsWith(HTML_EXT)) {
-    contentBufferingResponse.setContentType("text/html;charset=" + defaultEncoding);
-  }
-}

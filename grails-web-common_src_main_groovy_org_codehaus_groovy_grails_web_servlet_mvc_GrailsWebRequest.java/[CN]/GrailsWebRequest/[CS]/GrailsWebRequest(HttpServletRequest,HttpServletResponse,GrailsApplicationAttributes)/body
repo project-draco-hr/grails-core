@@ -1,5 +1,6 @@
 {
   super(request,response);
   this.attributes=attributes;
+  this.applicationContext=attributes.getApplicationContext();
   inheritEncodingStateRegistry();
 }

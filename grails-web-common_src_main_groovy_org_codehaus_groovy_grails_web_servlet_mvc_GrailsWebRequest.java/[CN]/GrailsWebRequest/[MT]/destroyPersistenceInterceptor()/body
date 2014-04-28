@@ -1,0 +1,14 @@
+{
+  if (applicationContext != null) {
+    Map<String,PersistenceContextInterceptor> interceptors=applicationContext.getBeansOfType(PersistenceContextInterceptor.class);
+    if (!interceptors.isEmpty()) {
+      PersistenceContextInterceptor persistenceInterceptor=interceptors.values().iterator().next();
+      if (persistenceInterceptor.isOpen()) {
+        if (persistenceInterceptor instanceof ParticipatingInterceptor) {
+          ((ParticipatingInterceptor)persistenceInterceptor).setParticipate(false);
+        }
+        persistenceInterceptor.destroy();
+      }
+    }
+  }
+}

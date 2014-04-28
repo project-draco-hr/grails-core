@@ -2,6 +2,7 @@
   super(request,response);
   try {
     attributes=grailsApplicationAttributesConstructor.newInstance(servletContext);
+    this.applicationContext=attributes.getApplicationContext();
   }
  catch (  Exception e) {
     ReflectionUtils.rethrowRuntimeException(e);

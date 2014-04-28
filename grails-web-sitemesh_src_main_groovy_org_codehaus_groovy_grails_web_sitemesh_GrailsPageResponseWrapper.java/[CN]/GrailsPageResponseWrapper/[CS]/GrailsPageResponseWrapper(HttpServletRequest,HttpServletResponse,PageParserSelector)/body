@@ -14,5 +14,5 @@
   }
 );
   this.request=request;
-  gspSitemeshPage=(GSPSitemeshPage)request.getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+  gspSitemeshPage=(GSPSitemeshPage)request.getAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE);
 }

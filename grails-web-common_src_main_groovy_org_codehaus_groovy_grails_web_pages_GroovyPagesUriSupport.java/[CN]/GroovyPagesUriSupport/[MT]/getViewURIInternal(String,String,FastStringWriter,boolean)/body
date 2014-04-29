@@ -2,8 +2,8 @@
   if (viewName != null && viewName.startsWith(SLASH_STR)) {
     return getAbsoluteViewURIInternal(viewName,buf,includeSuffix);
   }
-  if (controllerName != null) {
-    buf.append(SLASH).append(controllerName);
+  if (viewPathPrefix != null) {
+    buf.append(SLASH).append(viewPathPrefix);
   }
   if (viewName != null) {
     buf.append(SLASH).append(viewName);

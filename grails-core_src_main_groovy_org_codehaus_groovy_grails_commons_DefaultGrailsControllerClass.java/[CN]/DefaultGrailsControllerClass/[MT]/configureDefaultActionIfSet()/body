@@ -2,7 +2,7 @@
   if (defaultActionName == null) {
     return;
   }
-  final String defaultViewPath=SLASH + getViewPathPrefix() + SLASH+ defaultActionName;
+  final String defaultViewPath=SLASH + GrailsNameUtils.getPropertyNameRepresentation(getName()) + SLASH+ defaultActionName;
   uri2methodMap.put(uri,defaultActionName);
   uri2methodMap.put(controllerPath,defaultActionName);
   uri2viewMap.put(controllerPath,defaultViewPath);

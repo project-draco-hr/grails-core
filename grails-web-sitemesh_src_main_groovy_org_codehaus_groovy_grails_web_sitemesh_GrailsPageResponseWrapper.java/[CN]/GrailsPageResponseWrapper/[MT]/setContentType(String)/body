@@ -1,4 +1,5 @@
 {
+  this.wrapperContentType=type;
   super.setContentType(type);
   if (type == null) {
     return;

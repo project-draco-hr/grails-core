@@ -6,7 +6,7 @@
     final ClassNode mimeTypesApiClass=new ClassNode(ControllersMimeTypesApi.class);
     field=new FieldNode(FIELD_MIME_TYPES_API,PRIVATE_STATIC_MODIFIER,mimeTypesApiClass,classNode,new ConstructorCallExpression(mimeTypesApiClass,GrailsArtefactClassInjector.ZERO_ARGS));
     classNode.addField(field);
-    if (classNode.getMethod(WITH_FORMAT_METHOD,CLOSURE_PARAMETER) == null) {
+    if (!classNode.hasMethod(WITH_FORMAT_METHOD,CLOSURE_PARAMETER)) {
       final BlockStatement methodBody=new BlockStatement();
       final ArgumentListExpression args=new ArgumentListExpression();
       args.addExpression(new VariableExpression("this",classNode)).addExpression(new VariableExpression("callable",new ClassNode(Closure.class)));

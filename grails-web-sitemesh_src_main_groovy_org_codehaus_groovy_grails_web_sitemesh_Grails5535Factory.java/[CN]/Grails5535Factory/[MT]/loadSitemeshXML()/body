@@ -9,6 +9,9 @@
     is=configFile.toURI().toURL().openStream();
   }
   if (is == null) {
+    is=getClass().getResourceAsStream("sitemesh-default.xml");
+  }
+  if (is == null) {
     is=getClass().getClassLoader().getResourceAsStream("com/opensymphony/module/sitemesh/factory/sitemesh-default.xml");
   }
   if (is == null) {

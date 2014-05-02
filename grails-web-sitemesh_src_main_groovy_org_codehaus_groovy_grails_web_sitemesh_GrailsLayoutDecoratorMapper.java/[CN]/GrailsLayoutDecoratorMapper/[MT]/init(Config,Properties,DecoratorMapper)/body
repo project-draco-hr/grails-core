@@ -1,7 +1,9 @@
 {
   super.init(c,properties,parentMapper);
   ServletContext servletContext=c.getServletContext();
-  WebApplicationContext applicationContext=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  GrailsApplication grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
-  groovyPageLayoutFinder=grailsApplication.getMainContext().getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
+  WebApplicationContext applicationContext=WebApplicationContextUtils.getWebApplicationContext(servletContext);
+  if (applicationContext != null) {
+    GrailsApplication grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    groovyPageLayoutFinder=grailsApplication.getMainContext().getBean("groovyPageLayoutFinder",GroovyPageLayoutFinder.class);
+  }
 }

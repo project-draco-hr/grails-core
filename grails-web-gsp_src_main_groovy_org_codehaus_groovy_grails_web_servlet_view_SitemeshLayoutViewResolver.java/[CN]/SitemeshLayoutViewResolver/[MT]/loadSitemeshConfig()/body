@@ -1,0 +1,32 @@
+{
+  FilterConfig filterConfig=new FilterConfig(){
+    @Override public ServletContext getServletContext(){
+      return servletContext;
+    }
+    @Override public Enumeration<String> getInitParameterNames(){
+      return new Enumeration<String>(){
+        @Override public boolean hasMoreElements(){
+          return false;
+        }
+        @Override public String nextElement(){
+          throw new NoSuchElementException();
+        }
+      }
+;
+    }
+    @Override public String getInitParameter(    String name){
+      return null;
+    }
+    @Override public String getFilterName(){
+      return null;
+    }
+  }
+;
+  Config config=new Config(filterConfig);
+  Grails5535Factory sitemeshFactory=new Grails5535Factory(config);
+  servletContext.setAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE,sitemeshFactory);
+  sitemeshFactory.refresh();
+  FactoryHolder.setFactory(sitemeshFactory);
+  sitemeshConfigLoaded=true;
+  return sitemeshFactory;
+}

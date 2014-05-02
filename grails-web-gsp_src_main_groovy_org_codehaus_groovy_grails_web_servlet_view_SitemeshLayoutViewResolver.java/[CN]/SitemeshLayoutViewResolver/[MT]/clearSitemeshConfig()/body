@@ -1,0 +1,7 @@
+{
+  if (sitemeshConfigLoaded) {
+    FactoryHolder.setFactory(null);
+    servletContext.removeAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE);
+    sitemeshConfigLoaded=false;
+  }
+}

@@ -1,5 +1,0 @@
-{
-  if (innerViewResolver instanceof ServletConfigAware) {
-    ((ServletConfigAware)innerViewResolver).setServletConfig(servletConfig);
-  }
-}

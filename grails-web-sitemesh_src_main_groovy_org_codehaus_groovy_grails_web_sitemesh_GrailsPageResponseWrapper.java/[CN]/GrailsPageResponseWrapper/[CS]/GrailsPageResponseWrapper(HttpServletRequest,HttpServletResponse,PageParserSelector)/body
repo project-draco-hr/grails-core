@@ -15,4 +15,5 @@
 );
   this.request=request;
   gspSitemeshPage=(GSPSitemeshPage)request.getAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE);
+  applyContentType(response.getContentType());
 }

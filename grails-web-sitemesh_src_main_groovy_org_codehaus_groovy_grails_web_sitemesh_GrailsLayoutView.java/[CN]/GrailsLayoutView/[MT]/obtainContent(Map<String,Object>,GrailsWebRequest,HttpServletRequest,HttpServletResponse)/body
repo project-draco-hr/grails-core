@@ -6,10 +6,10 @@
   HttpServletResponse previousWrappedResponse=WrappedResponseHolder.getWrappedResponse();
   try {
     request.setAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE,new GSPSitemeshPage());
-    GrailsViewBufferingResponse contentBufferingResponse=new GrailsViewBufferingResponse(request,response);
+    GrailsContentBufferingResponse contentBufferingResponse=createContentBufferingResponse(model,webRequest,request,response);
     webRequest.setWrappedResponse(contentBufferingResponse);
     WrappedResponseHolder.setWrappedResponse(contentBufferingResponse);
-    innerView.render(model,request,contentBufferingResponse);
+    renderInnerView(model,webRequest,request,response,contentBufferingResponse);
     return contentBufferingResponse.getContent();
   }
   finally {

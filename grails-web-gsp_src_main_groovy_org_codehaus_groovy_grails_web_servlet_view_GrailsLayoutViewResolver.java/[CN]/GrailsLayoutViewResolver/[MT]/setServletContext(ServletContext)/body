@@ -1,4 +1,5 @@
 {
+  this.servletContext=servletContext;
   if (innerViewResolver instanceof ServletContextAware) {
     ((ServletContextAware)innerViewResolver).setServletContext(servletContext);
   }

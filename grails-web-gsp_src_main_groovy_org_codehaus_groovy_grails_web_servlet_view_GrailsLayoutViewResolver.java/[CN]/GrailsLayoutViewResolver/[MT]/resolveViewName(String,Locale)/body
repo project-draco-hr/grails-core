@@ -7,6 +7,6 @@
     return innerView;
   }
  else {
-    return new GrailsLayoutView(groovyPageLayoutFinder,innerView);
+    return createLayoutView(innerView);
   }
 }

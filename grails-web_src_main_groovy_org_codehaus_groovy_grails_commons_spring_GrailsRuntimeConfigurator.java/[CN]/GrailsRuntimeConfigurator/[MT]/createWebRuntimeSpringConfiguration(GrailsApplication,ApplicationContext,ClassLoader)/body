@@ -1,3 +1,5 @@
 {
-  return new WebRuntimeSpringConfiguration(parentCtx,classLoader);
+  WebRuntimeSpringConfiguration springConfig=new WebRuntimeSpringConfiguration(parentCtx,classLoader);
+  springConfig.setBeanFactory(new OptimizedAutowireCapableBeanFactory());
+  return springConfig;
 }

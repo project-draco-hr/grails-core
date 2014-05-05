@@ -1,16 +1,5 @@
 {
   this.application=application;
   this.parent=parent;
-  try {
-    pluginManager=parent == null ? null : parent.getBean(GrailsPluginManager.class);
-  }
- catch (  BeansException e) {
-  }
-  if (pluginManager == null) {
-    pluginManager=Holders.getPluginManager();
-  }
-  if (pluginManager == null) {
-    pluginManager=new DefaultGrailsPluginManager("**/plugins/*/**GrailsPlugin.groovy",application);
-  }
-  Holders.setPluginManager(pluginManager);
+  initializePluginManager();
 }

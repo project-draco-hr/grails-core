@@ -1,5 +1,5 @@
 {
-  ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  ClassLoader classLoader=app.getClassLoader();
   String resourceName=null;
   try {
     Resource springResources;

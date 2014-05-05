@@ -1,4 +1,3 @@
 {
-  super();
-  classLoader=new GroovyClassLoader();
+  this(new GroovyClassLoader());
 }

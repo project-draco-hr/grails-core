@@ -1,0 +1,8 @@
+{
+  try {
+    super.pushDecoratorMapper(className,properties);
+  }
+ catch (  Exception e) {
+    log.warn("Error initializing decorator mapper",e);
+  }
+}

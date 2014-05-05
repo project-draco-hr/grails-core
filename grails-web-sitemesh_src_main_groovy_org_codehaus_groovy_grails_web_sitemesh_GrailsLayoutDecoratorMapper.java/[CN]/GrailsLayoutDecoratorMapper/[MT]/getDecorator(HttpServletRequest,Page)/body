@@ -1,4 +1,7 @@
 {
+  if (groovyPageLayoutFinder == null) {
+    return super.getDecorator(request,page);
+  }
   Decorator layout=groovyPageLayoutFinder.findLayout(request,page);
   if (layout != null) {
     return layout;

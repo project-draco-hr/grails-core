@@ -84,7 +84,7 @@
       }
  else       if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
         applyContentType(response,argMap,null,false);
-        renderView=renderTemplate(target,controller,webRequest,argMap);
+        renderView=renderTemplate(target,controller,webRequest,argMap,explicitSiteMeshLayout);
       }
  else       if (argMap.containsKey(ARGUMENT_FILE)) {
         renderView=false;

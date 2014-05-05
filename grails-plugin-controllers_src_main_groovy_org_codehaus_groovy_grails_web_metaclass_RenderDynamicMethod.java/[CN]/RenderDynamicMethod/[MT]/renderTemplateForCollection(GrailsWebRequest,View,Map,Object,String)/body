@@ -1,0 +1,23 @@
+{
+  if (colObject instanceof Iterable) {
+    Iterable c=(Iterable)colObject;
+    for (    Object o : c) {
+      if (GrailsStringUtils.isBlank(var)) {
+        binding.put(DEFAULT_ARGUMENT,o);
+      }
+ else {
+        binding.put(var,o);
+      }
+      renderViewForTemplate(webRequest,view,binding);
+    }
+  }
+ else {
+    if (GrailsStringUtils.isBlank(var)) {
+      binding.put(DEFAULT_ARGUMENT,colObject);
+    }
+ else {
+      binding.put(var,colObject);
+    }
+    renderViewForTemplate(webRequest,view,binding);
+  }
+}

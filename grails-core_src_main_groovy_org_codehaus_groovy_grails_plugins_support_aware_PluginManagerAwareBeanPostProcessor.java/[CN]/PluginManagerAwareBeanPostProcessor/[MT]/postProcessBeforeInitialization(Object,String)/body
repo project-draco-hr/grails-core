@@ -1,5 +1,10 @@
 {
-  if (bean instanceof PluginManagerAware) {
+  if (pluginManager == null) {
+    if (beanFactory.containsBean(GrailsPluginManager.BEAN_NAME)) {
+      pluginManager=beanFactory.getBean(GrailsPluginManager.BEAN_NAME,GrailsPluginManager.class);
+    }
+  }
+  if (pluginManager != null && bean instanceof PluginManagerAware) {
     ((PluginManagerAware)bean).setPluginManager(pluginManager);
   }
   return bean;

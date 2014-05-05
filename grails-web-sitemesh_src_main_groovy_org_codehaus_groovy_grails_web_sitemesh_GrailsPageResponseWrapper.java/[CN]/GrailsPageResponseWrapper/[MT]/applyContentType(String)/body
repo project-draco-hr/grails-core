@@ -1,0 +1,12 @@
+{
+  if (type == null) {
+    return;
+  }
+  HttpContentType httpContentType=new HttpContentType(type);
+  if (parserSelector.shouldParsePage(httpContentType.getType())) {
+    activateSiteMesh(httpContentType.getType(),httpContentType.getEncoding());
+  }
+ else {
+    deactivateSiteMesh();
+  }
+}

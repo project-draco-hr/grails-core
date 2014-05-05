@@ -1,18 +1,20 @@
 {
   Object oldPage=request.getAttribute(RequestConstants.PAGE);
   request.removeAttribute(RequestConstants.PAGE);
-  Object oldGspSiteMeshPage=request.getAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE);
+  Object oldGspSiteMeshPage=request.getAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE);
   HttpServletResponse previousResponse=webRequest.getWrappedResponse();
+  HttpServletResponse previousWrappedResponse=WrappedResponseHolder.getWrappedResponse();
   try {
-    request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,new GSPSitemeshPage());
-    GrailsViewBufferingResponse contentBufferingResponse=new GrailsViewBufferingResponse(request,response);
+    request.setAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE,new GSPSitemeshPage());
+    GrailsContentBufferingResponse contentBufferingResponse=createContentBufferingResponse(model,webRequest,request,response);
     webRequest.setWrappedResponse(contentBufferingResponse);
-    innerView.render(model,request,contentBufferingResponse);
+    WrappedResponseHolder.setWrappedResponse(contentBufferingResponse);
+    renderInnerView(model,webRequest,request,response,contentBufferingResponse);
     return contentBufferingResponse.getContent();
   }
   finally {
     if (oldGspSiteMeshPage != null) {
-      request.setAttribute(GrailsPageFilter.GSP_SITEMESH_PAGE,oldGspSiteMeshPage);
+      request.setAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE,oldGspSiteMeshPage);
     }
     if (oldPage != null) {
       request.setAttribute(RequestConstants.PAGE,oldPage);
@@ -20,5 +22,6 @@
     if (previousResponse != null) {
       webRequest.setWrappedResponse(previousResponse);
     }
+    WrappedResponseHolder.setWrappedResponse(previousWrappedResponse);
   }
 }

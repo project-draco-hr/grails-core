@@ -1,0 +1,7 @@
+{
+  if (oldValue != null) {
+    oldValue.update();
+    return oldValue;
+  }
+  return updater.call();
+}

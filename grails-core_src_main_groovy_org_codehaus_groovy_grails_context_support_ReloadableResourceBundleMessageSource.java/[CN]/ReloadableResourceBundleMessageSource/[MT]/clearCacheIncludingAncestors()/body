@@ -1,0 +1,9 @@
+{
+  clearCache();
+  if (getParentMessageSource() instanceof ReloadableResourceBundleMessageSource) {
+    ((ReloadableResourceBundleMessageSource)getParentMessageSource()).clearCacheIncludingAncestors();
+  }
+ else   if (getParentMessageSource() instanceof org.springframework.context.support.ReloadableResourceBundleMessageSource) {
+    ((org.springframework.context.support.ReloadableResourceBundleMessageSource)getParentMessageSource()).clearCacheIncludingAncestors();
+  }
+}

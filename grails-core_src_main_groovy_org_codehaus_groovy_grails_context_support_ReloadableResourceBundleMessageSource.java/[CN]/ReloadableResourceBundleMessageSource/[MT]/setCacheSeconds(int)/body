@@ -1,0 +1,6 @@
+{
+  this.cacheMillis=(cacheSeconds * 1000);
+  if (fileCacheMillis == Long.MIN_VALUE) {
+    this.fileCacheMillis=this.cacheMillis;
+  }
+}

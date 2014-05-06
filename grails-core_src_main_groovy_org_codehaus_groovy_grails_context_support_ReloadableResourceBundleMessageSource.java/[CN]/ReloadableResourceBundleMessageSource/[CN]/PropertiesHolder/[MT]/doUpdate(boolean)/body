@@ -1,0 +1,43 @@
+{
+  if (filename == null) {
+    return false;
+  }
+  if (!initialization && cacheMillis >= 0) {
+    resource=locateResource(filename);
+  }
+  if (resource != null) {
+    long newFileTimestamp;
+    try {
+      newFileTimestamp=resource.lastModified();
+    }
+ catch (    IOException ex) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(resource + " could not be resolved in the file system - assuming that is hasn't changed",ex);
+      }
+      newFileTimestamp=-1;
+    }
+    if (fileCacheMillis >= 0 && newFileTimestamp == fileTimestamp && this.properties != null) {
+      return false;
+    }
+    try {
+      this.properties=loadProperties(resource,filename);
+      this.fileTimestamp=newFileTimestamp;
+      this.cachedMessageFormats.clear();
+    }
+ catch (    IOException ex) {
+      if (logger.isWarnEnabled()) {
+        logger.warn("Could not parse properties file [" + resource.getFilename() + "]",ex);
+      }
+    }
+    return true;
+  }
+ else {
+    if (logger.isDebugEnabled()) {
+      logger.debug("No properties file found for [" + filename + "] - neither plain properties nor XML");
+    }
+    this.properties=new Properties();
+    this.fileTimestamp=-1;
+    this.cachedMessageFormats.clear();
+    return true;
+  }
+}

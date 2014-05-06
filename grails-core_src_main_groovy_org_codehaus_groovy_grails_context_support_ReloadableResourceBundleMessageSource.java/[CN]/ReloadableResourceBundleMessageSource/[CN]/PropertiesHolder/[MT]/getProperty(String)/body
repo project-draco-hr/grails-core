@@ -1,0 +1,6 @@
+{
+  if (this.properties == null) {
+    return null;
+  }
+  return this.properties.getProperty(code);
+}

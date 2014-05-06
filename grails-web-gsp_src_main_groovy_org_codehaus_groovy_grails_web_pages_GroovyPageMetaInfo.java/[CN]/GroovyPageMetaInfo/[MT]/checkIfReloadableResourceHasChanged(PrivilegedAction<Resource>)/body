@@ -1,6 +1,6 @@
 {
-  PrivilegedAction<Resource> checkerCallable=new PrivilegedAction<Resource>(){
-    public Resource run(){
+  Callable<Resource> checkerCallable=new Callable<Resource>(){
+    public Resource call(){
       Resource resource=resourceCallable.run();
       if (resource != null && resource.exists()) {
         long currentLastmodified=establishLastModified(resource);

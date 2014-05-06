@@ -1,0 +1,13 @@
+{
+  return CacheEntry.getValue(cachedProperties,filename,fileCacheMillis,new Callable<PropertiesHolder>(){
+    @Override public PropertiesHolder call() throws Exception {
+      return new PropertiesHolder(filename,resource);
+    }
+  }
+,new Callable<CacheEntry>(){
+    @Override public CacheEntry call() throws Exception {
+      return new PropertiesHolderCacheEntry();
+    }
+  }
+);
+}

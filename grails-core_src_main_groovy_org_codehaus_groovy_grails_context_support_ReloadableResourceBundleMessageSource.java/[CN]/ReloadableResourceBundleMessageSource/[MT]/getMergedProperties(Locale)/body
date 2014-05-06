@@ -1,0 +1,20 @@
+{
+  return CacheEntry.getValue(cachedMergedProperties,locale,cacheMillis,new Callable<PropertiesHolder>(){
+    @Override public PropertiesHolder call() throws Exception {
+      Properties mergedProps=new Properties();
+      PropertiesHolder mergedHolder=new PropertiesHolder(mergedProps);
+      for (int i=basenames.length - 1; i >= 0; i--) {
+        List<Pair<String,Resource>> filenamesAndResources=calculateAllFilenames(basenames[i],locale);
+        for (int j=filenamesAndResources.size() - 1; j >= 0; j--) {
+          Pair<String,Resource> filenameAndResource=filenamesAndResources.get(j);
+          if (filenameAndResource.getbValue() != null) {
+            PropertiesHolder propHolder=getProperties(filenameAndResource.getaValue(),filenameAndResource.getbValue());
+            mergedProps.putAll(propHolder.getProperties());
+          }
+        }
+      }
+      return mergedHolder;
+    }
+  }
+);
+}

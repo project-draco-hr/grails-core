@@ -1,0 +1,25 @@
+{
+  if (!initialized || hasExpired(timeout)) {
+    try {
+      long beforeLockingCreatedMillis=createdMillis;
+      writeLock.lock();
+      if (!initialized || shouldUpdate(beforeLockingCreatedMillis)) {
+        try {
+          valueRef.set(updateValue(valueRef.get(),updater));
+          initialized=true;
+        }
+ catch (        Exception e) {
+          throw new UpdateException(e);
+        }
+        resetTimestamp(true);
+      }
+ else {
+        resetTimestamp(false);
+      }
+    }
+  finally {
+      writeLock.unlock();
+    }
+  }
+  return valueRef.get();
+}

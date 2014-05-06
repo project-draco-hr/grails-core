@@ -9,8 +9,8 @@
   String viewCacheKey=groovyPageLocator.resolveViewFormat(viewName);
   CacheEntry<View> entry=viewCache.get(viewCacheKey);
   final String lookupViewName=viewName;
-  PrivilegedAction<View> updater=new PrivilegedAction<View>(){
-    public View run(){
+  Callable<View> updater=new Callable<View>(){
+    public View call() throws Exception {
       try {
         return createGrailsView(lookupViewName);
       }
@@ -23,14 +23,12 @@
   View view=null;
   if (entry == null) {
     try {
-      view=updater.run();
+      return CacheEntry.getValue(viewCache,viewCacheKey,cacheTimeout,updater);
     }
- catch (    WrappedInitializationException e) {
+ catch (    CacheEntry.UpdateException e) {
       e.rethrow();
+      return null;
     }
-    entry=new CacheEntry<View>(view);
-    viewCache.put(viewCacheKey,entry);
-    return view;
   }
   try {
     view=entry.getValue(cacheTimeout,updater);

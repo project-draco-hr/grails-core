@@ -1,0 +1,11 @@
+{
+  return CacheEntry.getValue(cachedMergedBinaryPluginProperties,locale,cacheMillis,new Callable<PropertiesHolder>(){
+    @Override public PropertiesHolder call() throws Exception {
+      Properties mergedProps=new Properties();
+      PropertiesHolder mergedHolder=new PropertiesHolder(mergedProps);
+      mergeBinaryPluginProperties(locale,mergedProps);
+      return mergedHolder;
+    }
+  }
+);
+}

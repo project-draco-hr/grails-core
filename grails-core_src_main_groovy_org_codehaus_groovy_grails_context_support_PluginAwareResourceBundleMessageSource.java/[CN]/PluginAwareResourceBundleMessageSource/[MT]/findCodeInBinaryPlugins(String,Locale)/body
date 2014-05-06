@@ -1,14 +1,3 @@
 {
-  final GrailsPlugin[] allPlugins=pluginManager.getAllPlugins();
-  for (  GrailsPlugin plugin : allPlugins) {
-    if (plugin instanceof BinaryGrailsPlugin) {
-      BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
-      final Properties binaryPluginProperties=binaryPlugin.getProperties(locale);
-      if (binaryPluginProperties != null) {
-        String result=binaryPluginProperties.getProperty(code);
-        if (result != null)         return result;
-      }
-    }
-  }
-  return null;
+  return getMergedBinaryPluginProperties(locale).getProperty(code);
 }

@@ -1,4 +1,7 @@
 {
+  if (pluginCacheMillis == Long.MIN_VALUE) {
+    pluginCacheMillis=cacheMillis;
+  }
   if (pluginManager == null || localResourceLoader == null) {
     return;
   }

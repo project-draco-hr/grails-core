@@ -1,8 +1,8 @@
 {
   for (  String pluginBaseName : pluginBaseNames) {
-    List<String> filenames=calculateAllFilenames(pluginBaseName,locale);
-    for (    String filename : filenames) {
-      PropertiesHolder holder=getProperties(filename);
+    List<Pair<String,Resource>> filenamesAndResources=calculateAllFilenames(pluginBaseName,locale);
+    for (    Pair<String,Resource> filenameAndResource : filenamesAndResources) {
+      PropertiesHolder holder=getProperties(filenameAndResource.getaValue(),filenameAndResource.getbValue());
       String result=holder.getProperty(code);
       if (result != null)       return result;
     }

@@ -14,7 +14,7 @@
         return new CustomCacheEntry();
       }
     }
-);
+,true);
   }
   return scriptSource == NULL_SCRIPT ? null : scriptSource;
 }

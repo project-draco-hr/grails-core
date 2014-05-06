@@ -1,0 +1,41 @@
+{
+  if (!initialized || hasExpired(timeout)) {
+    boolean lockAcquired=false;
+    try {
+      long beforeLockingCreatedMillis=createdMillis;
+      if (returnExpiredWhileUpdating) {
+        if (!writeLock.tryLock()) {
+          if (initialized) {
+            return getValueWhileUpdating();
+          }
+ else {
+            writeLock.lock();
+          }
+        }
+      }
+ else {
+        writeLock.lock();
+      }
+      lockAcquired=true;
+      if (!initialized || shouldUpdate(beforeLockingCreatedMillis)) {
+        try {
+          setValue(updateValue(getValue(),updater));
+          initialized=true;
+        }
+ catch (        Exception e) {
+          throw new UpdateException(e);
+        }
+        resetTimestamp(true);
+      }
+ else {
+        resetTimestamp(false);
+      }
+    }
+  finally {
+      if (lockAcquired) {
+        writeLock.unlock();
+      }
+    }
+  }
+  return getValue();
+}

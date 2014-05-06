@@ -10,6 +10,9 @@
             return meta == null || isGroovyPageReloadable(resource,meta);
           }
           @Override protected GroovyPageMetaInfo updateValue(          GroovyPageMetaInfo oldValue,          Callable<GroovyPageMetaInfo> updater,          Object cacheRequestObject) throws Exception {
+            if (oldValue != null) {
+              oldValue.removePageMetaClass();
+            }
             Resource resource=(Resource)cacheRequestObject;
             return buildPageMetaInfo(resource,pageName);
           }

@@ -1,0 +1,6 @@
+{
+  metaClassShouldBeRemoved=true;
+  if (pageClass != null) {
+    GroovySystem.getMetaClassRegistry().removeMetaClass(pageClass);
+  }
+}

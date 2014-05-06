@@ -3,9 +3,8 @@
     Map.Entry<String,CacheEntry<GroovyPageMetaInfo>> entry=it.next();
     GroovyPageMetaInfo metaInfo=entry.getValue().getValue();
     if (metaInfo != null) {
-      Class<?> oldPageClass=metaInfo.getPageClass();
-      if (oldPageClass != null)       GroovySystem.getMetaClassRegistry().removeMetaClass(oldPageClass);
-      it.remove();
+      metaInfo.removePageMetaClass();
     }
+    it.remove();
   }
 }

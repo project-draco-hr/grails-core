@@ -1,3 +1,0 @@
-{
-  return !reloadEnabled || (System.currentTimeMillis() - timestamp < GroovyPageMetaInfo.LASTMODIFIED_CHECK_INTERVAL);
-}

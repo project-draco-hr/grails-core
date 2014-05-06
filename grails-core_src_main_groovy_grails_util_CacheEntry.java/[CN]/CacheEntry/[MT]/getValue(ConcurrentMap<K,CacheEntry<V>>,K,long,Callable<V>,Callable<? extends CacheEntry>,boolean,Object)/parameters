@@ -1,0 +1,7 @@
+ConcurrentMap<K,CacheEntry<V>> map
+K key
+long timeoutMillis
+Callable<V> updater
+Callable<? extends CacheEntry> cacheEntryFactory
+boolean returnExpiredWhileUpdating
+Object cacheRequestObject

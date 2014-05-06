@@ -4,6 +4,6 @@
     return false;
   }
  else {
-    return super.shouldUpdate(beforeLockingCreatedMillis);
+    return super.shouldUpdate(beforeLockingCreatedMillis,cacheRequestObject);
   }
 }

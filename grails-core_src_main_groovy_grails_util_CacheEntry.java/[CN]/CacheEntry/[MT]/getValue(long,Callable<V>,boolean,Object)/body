@@ -1,5 +1,5 @@
 {
-  if (!isInitialized() || hasExpired(timeout)) {
+  if (!isInitialized() || hasExpired(timeout,cacheRequestObject)) {
     boolean lockAcquired=false;
     try {
       long beforeLockingCreatedMillis=createdMillis;
@@ -18,9 +18,9 @@
       }
       lockAcquired=true;
       V value;
-      if (!isInitialized() || shouldUpdate(beforeLockingCreatedMillis)) {
+      if (!isInitialized() || shouldUpdate(beforeLockingCreatedMillis,cacheRequestObject)) {
         try {
-          value=updateValue(getValue(),updater);
+          value=updateValue(getValue(),updater,cacheRequestObject);
           setValue(value);
           setInitialized(true);
         }

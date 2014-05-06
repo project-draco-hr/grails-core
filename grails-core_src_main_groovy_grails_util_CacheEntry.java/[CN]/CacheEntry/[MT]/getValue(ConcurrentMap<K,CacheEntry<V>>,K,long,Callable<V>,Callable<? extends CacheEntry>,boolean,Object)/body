@@ -12,5 +12,5 @@
       cacheEntry=previousEntry;
     }
   }
-  return cacheEntry.getValue(timeoutMillis,updater,returnExpiredWhileUpdating);
+  return cacheEntry.getValue(timeoutMillis,updater,returnExpiredWhileUpdating,cacheRequestObject);
 }

@@ -1,11 +1,11 @@
 {
-  if (!initialized || hasExpired(timeout)) {
+  if (!isInitialized() || hasExpired(timeout)) {
     boolean lockAcquired=false;
     try {
       long beforeLockingCreatedMillis=createdMillis;
       if (returnExpiredWhileUpdating) {
         if (!writeLock.tryLock()) {
-          if (initialized) {
+          if (isInitialized()) {
             return getValueWhileUpdating();
           }
  else {
@@ -17,10 +17,12 @@
         writeLock.lock();
       }
       lockAcquired=true;
-      if (!initialized || shouldUpdate(beforeLockingCreatedMillis)) {
+      V value;
+      if (!isInitialized() || shouldUpdate(beforeLockingCreatedMillis)) {
         try {
-          setValue(updateValue(getValue(),updater));
-          initialized=true;
+          value=updateValue(getValue(),updater);
+          setValue(value);
+          setInitialized(true);
         }
  catch (        Exception e) {
           throw new UpdateException(e);
@@ -28,8 +30,10 @@
         resetTimestamp(true);
       }
  else {
+        value=getValue();
         resetTimestamp(false);
       }
+      return value;
     }
   finally {
       if (lockAcquired) {
@@ -37,5 +41,7 @@
       }
     }
   }
-  return getValue();
+ else {
+    return getValue();
+  }
 }

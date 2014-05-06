@@ -8,12 +8,14 @@
   }
  else {
     for (    String basename : this.basenames) {
-      List<String> filenames=calculateAllFilenames(basename,locale);
-      for (      String filename : filenames) {
-        PropertiesHolder propHolder=getProperties(filename);
-        MessageFormat result=propHolder.getMessageFormat(code,locale);
-        if (result != null) {
-          return result;
+      List<Pair<String,Resource>> filenamesAndResources=calculateAllFilenames(basename,locale);
+      for (      Pair<String,Resource> filenameAndResource : filenamesAndResources) {
+        if (filenameAndResource.getbValue() != null) {
+          PropertiesHolder propHolder=getProperties(filenameAndResource.getaValue(),filenameAndResource.getbValue());
+          MessageFormat result=propHolder.getMessageFormat(code,locale);
+          if (result != null) {
+            return result;
+          }
         }
       }
     }

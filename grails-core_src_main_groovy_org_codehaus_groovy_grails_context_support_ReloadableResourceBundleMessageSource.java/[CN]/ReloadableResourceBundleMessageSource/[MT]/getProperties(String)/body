@@ -1,9 +1,0 @@
-{
-synchronized (this.cachedProperties) {
-    PropertiesHolder propHolder=this.cachedProperties.get(filename);
-    if (propHolder != null && (propHolder.getRefreshTimestamp() < 0 || propHolder.getRefreshTimestamp() > System.currentTimeMillis() - this.cacheMillis)) {
-      return propHolder;
-    }
-    return refreshProperties(filename,propHolder);
-  }
-}

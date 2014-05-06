@@ -1,9 +1,7 @@
 {
   logger.debug("Clearing entire resource bundle cache");
-synchronized (this.cachedProperties) {
-    this.cachedProperties.clear();
-  }
-synchronized (this.cachedMergedProperties) {
-    this.cachedMergedProperties.clear();
-  }
+  this.cachedProperties.clear();
+  this.cachedMergedProperties.clear();
+  this.cachedFilenames.clear();
+  this.cachedResources.clear();
 }

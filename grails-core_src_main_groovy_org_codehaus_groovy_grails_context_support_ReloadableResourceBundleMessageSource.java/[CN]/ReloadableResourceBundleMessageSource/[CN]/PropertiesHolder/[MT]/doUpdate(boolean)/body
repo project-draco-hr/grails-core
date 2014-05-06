@@ -2,7 +2,7 @@
   if (filename == null) {
     return false;
   }
-  if (!initialization && !reloadUpdatesOnly) {
+  if (!initialization && cacheMillis >= 0) {
     resource=locateResource(filename);
   }
   if (resource != null) {
@@ -16,7 +16,7 @@
       }
       newFileTimestamp=-1;
     }
-    if (cacheMillis >= 0 && newFileTimestamp == fileTimestamp && this.properties != null) {
+    if (fileCacheMillis >= 0 && newFileTimestamp == fileTimestamp && this.properties != null) {
       return false;
     }
     try {

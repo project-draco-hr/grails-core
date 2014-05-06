@@ -3,7 +3,7 @@
     return null;
   }
   Pair<String,Locale> cacheKey=new Pair<String,Locale>(code,locale);
-  return CacheEntry.getValue(cachedMessageFormats,cacheKey,cacheMillis,new Callable<MessageFormat>(){
+  return CacheEntry.getValue(cachedMessageFormats,cacheKey,-1,new Callable<MessageFormat>(){
     @Override public MessageFormat call() throws Exception {
       String msg=properties.getProperty(code);
       if (msg != null) {

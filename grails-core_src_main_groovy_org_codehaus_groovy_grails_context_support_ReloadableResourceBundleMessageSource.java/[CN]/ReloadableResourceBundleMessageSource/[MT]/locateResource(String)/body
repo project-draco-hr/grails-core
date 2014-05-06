@@ -1,12 +1,8 @@
 {
-  Resource resource=resourceLoader.getResource(filename + PROPERTIES_SUFFIX);
-  if (!resource.exists()) {
-    resource=resourceLoader.getResource(filename + XML_SUFFIX);
+  return CacheEntry.getValue(cachedResources,filename,cacheMillis,new Callable<Resource>(){
+    @Override public Resource call() throws Exception {
+      return locateResourceWithoutCache(filename);
+    }
   }
-  if (resource.exists()) {
-    return resource;
-  }
- else {
-    return null;
-  }
+);
 }

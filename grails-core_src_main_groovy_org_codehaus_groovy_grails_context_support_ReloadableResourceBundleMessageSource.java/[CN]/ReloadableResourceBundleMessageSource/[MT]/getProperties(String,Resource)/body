@@ -1,5 +1,5 @@
 {
-  return CacheEntry.getValue(cachedProperties,filename,cacheMillis,new Callable<PropertiesHolder>(){
+  return CacheEntry.getValue(cachedProperties,filename,fileCacheMillis,new Callable<PropertiesHolder>(){
     @Override public PropertiesHolder call() throws Exception {
       return new PropertiesHolder(filename,resource);
     }

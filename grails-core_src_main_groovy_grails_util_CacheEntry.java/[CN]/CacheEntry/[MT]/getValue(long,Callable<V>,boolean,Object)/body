@@ -6,7 +6,7 @@
       if (returnExpiredWhileUpdating) {
         if (!writeLock.tryLock()) {
           if (isInitialized()) {
-            return getValueWhileUpdating();
+            return getValueWhileUpdating(cacheRequestObject);
           }
  else {
             writeLock.lock();
@@ -22,12 +22,10 @@
         try {
           value=updateValue(getValue(),updater,cacheRequestObject);
           setValue(value);
-          setInitialized(true);
         }
  catch (        Exception e) {
           throw new UpdateException(e);
         }
-        resetTimestamp(true);
       }
  else {
         value=getValue();

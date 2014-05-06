@@ -1,0 +1,10 @@
+{
+  String name;
+  if (cacheable) {
+    name=establishPageName(resource,getPathForResource(resource));
+  }
+ else {
+    name=establishPageName(resource,null);
+  }
+  return name;
+}

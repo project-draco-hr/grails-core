@@ -3,7 +3,7 @@
     classLoader=initGroovyClassLoader(Thread.currentThread().getContextClassLoader());
   }
  else   if (!classLoader.getClass().equals(GroovyPageClassLoader.class)) {
-    classLoader=new GroovyPageClassLoader(classLoader);
+    classLoader=initGroovyClassLoader(classLoader);
   }
   if (!Environment.isDevelopmentMode()) {
     cachedDomainsWithoutPackage=createDomainClassMap();

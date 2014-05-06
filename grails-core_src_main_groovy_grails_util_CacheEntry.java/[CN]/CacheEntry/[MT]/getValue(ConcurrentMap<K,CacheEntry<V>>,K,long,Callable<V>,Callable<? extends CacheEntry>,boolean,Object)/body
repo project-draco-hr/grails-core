@@ -12,5 +12,11 @@
       cacheEntry=previousEntry;
     }
   }
-  return cacheEntry.getValue(timeoutMillis,updater,returnExpiredWhileUpdating,cacheRequestObject);
+  try {
+    return cacheEntry.getValue(timeoutMillis,updater,returnExpiredWhileUpdating,cacheRequestObject);
+  }
+ catch (  UpdateException e) {
+    e.rethrowRuntimeException();
+    return null;
+  }
 }

@@ -26,7 +26,7 @@
       return CacheEntry.getValue(viewCache,viewCacheKey,cacheTimeout,updater);
     }
  catch (    CacheEntry.UpdateException e) {
-      e.rethrow();
+      e.rethrowCause();
       return null;
     }
   }
@@ -34,7 +34,7 @@
     view=entry.getValue(cacheTimeout,updater,true,null);
   }
  catch (  WrappedInitializationException e) {
-    e.rethrow();
+    e.rethrowCause();
   }
   return view;
 }

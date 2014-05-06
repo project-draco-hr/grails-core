@@ -1,7 +1,9 @@
 {
-  boolean compiledScriptSourceInstance=getValue() instanceof GroovyPageCompiledScriptSource;
-  if (compiledScriptSourceInstance) {
-    resetTimestamp();
+  if (getValue() instanceof GroovyPageCompiledScriptSource) {
+    resetTimestamp(true);
+    return false;
   }
-  return !compiledScriptSourceInstance && super.shouldUpdate(beforeLockingCreatedMillis);
+ else {
+    return super.shouldUpdate(beforeLockingCreatedMillis);
+  }
 }

@@ -1,9 +1,0 @@
-{
-  if (getValue() instanceof GroovyPageCompiledScriptSource) {
-    resetTimestamp(true);
-    return false;
-  }
- else {
-    return super.shouldUpdate(beforeLockingCreatedMillis);
-  }
-}

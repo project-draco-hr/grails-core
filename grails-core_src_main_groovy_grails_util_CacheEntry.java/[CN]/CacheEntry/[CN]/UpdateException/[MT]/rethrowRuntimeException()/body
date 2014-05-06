@@ -1,0 +1,6 @@
+{
+  if (getCause() instanceof RuntimeException) {
+    throw (RuntimeException)getCause();
+  }
+  throw this;
+}

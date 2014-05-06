@@ -28,12 +28,5 @@
  catch (  GroovyPagesException e) {
     metaInfo.setCompilationException(e);
   }
-  if (!name.startsWith(GENERATED_GSP_NAME_PREFIX)) {
-    GroovyPageMetaInfo oldMetaInfo=pageCache.put(name,metaInfo);
-    if (oldMetaInfo != null) {
-      Class<?> oldPageClass=oldMetaInfo.getPageClass();
-      if (oldPageClass != null)       GroovySystem.getMetaClassRegistry().removeMetaClass(oldPageClass);
-    }
-  }
   return metaInfo;
 }

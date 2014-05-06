@@ -1,0 +1,22 @@
+{
+  CacheEntry<V> cacheEntry=map.get(key);
+  if (cacheEntry == null) {
+    try {
+      cacheEntry=cacheEntryFactory.call();
+    }
+ catch (    Exception e) {
+      throw new UpdateException(e);
+    }
+    CacheEntry<V> previousEntry=map.putIfAbsent(key,cacheEntry);
+    if (previousEntry != null) {
+      cacheEntry=previousEntry;
+    }
+  }
+  try {
+    return cacheEntry.getValue(timeoutMillis,updater,returnExpiredWhileUpdating,cacheRequestObject);
+  }
+ catch (  UpdateException e) {
+    e.rethrowRuntimeException();
+    return null;
+  }
+}

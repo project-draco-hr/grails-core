@@ -1,6 +1,6 @@
 {
   String templatePath=GrailsStringUtils.isNotEmpty(contextPath) ? GrailsResourceUtils.appendPiecesForUri(contextPath,templateName) : templateName;
-  GroovyPageScriptSource scriptSource;
+  final GroovyPageScriptSource scriptSource;
   if (pluginName == null) {
     scriptSource=groovyPageLocator.findTemplateInBinding(templatePath,pageScope);
   }
@@ -14,41 +14,35 @@
  else {
     cacheKey=scriptSource.getURI();
   }
-  TemplateRendererCacheEntry cacheEntry=templateCache.get(cacheKey);
-  if (cacheEntry != null && cacheEntry.isValid()) {
-    return cacheEntry.template;
-  }
-  Template t=null;
-  try {
-    if (cacheEntry != null) {
-      cacheEntry.getLock().lock();
-      if (cacheEntry.isValid()) {
-        t=cacheEntry.template;
-      }
-    }
-    if (t == null) {
-      if (scriptSource != null) {
-        t=groovyPagesTemplateEngine.createTemplate(scriptSource);
-      }
-      boolean allowCaching=cacheEnabled;
-      if (t == null && scaffoldingTemplateGenerator != null) {
-        t=generateScaffoldedTemplate(webRequest,uri);
-        allowCaching=true;
-      }
-      if (t != null && allowCaching) {
-        if (cacheEntry == null) {
-          templateCache.put(cacheKey,new TemplateRendererCacheEntry(t,reloadEnabled));
+  return CacheEntry.getValue(templateCache,cacheKey,reloadEnabled ? GroovyPageMetaInfo.LASTMODIFIED_CHECK_INTERVAL : -1,null,new Callable<CacheEntry<Template>>(){
+    public CacheEntry<Template> call(){
+      return new CacheEntry<Template>(){
+        boolean allowCaching=cacheEnabled;
+        @Override protected boolean hasExpired(        long timeout,        Object cacheRequestObject){
+          return allowCaching ? super.hasExpired(timeout,cacheRequestObject) : true;
         }
- else {
-          cacheEntry.setTemplate(t);
+        @Override public boolean isInitialized(){
+          return allowCaching ? super.isInitialized() : false;
+        }
+        @Override public void setValue(        Template val){
+          if (allowCaching) {
+            super.setValue(val);
+          }
+        }
+        @Override protected Template updateValue(        Template oldValue,        Callable<Template> updater,        Object cacheRequestObject) throws Exception {
+          Template t=null;
+          if (scriptSource != null) {
+            t=groovyPagesTemplateEngine.createTemplate(scriptSource);
+          }
+          if (t == null && scaffoldingTemplateGenerator != null) {
+            t=generateScaffoldedTemplate(webRequest,uri);
+            allowCaching=true;
+          }
+          return t;
         }
       }
+;
     }
   }
-  finally {
-    if (cacheEntry != null) {
-      cacheEntry.getLock().unlock();
-    }
-  }
-  return t;
+,true,null);
 }

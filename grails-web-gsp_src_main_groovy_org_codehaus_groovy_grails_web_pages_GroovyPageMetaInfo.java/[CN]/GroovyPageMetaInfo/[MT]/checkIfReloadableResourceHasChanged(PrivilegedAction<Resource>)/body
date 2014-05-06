@@ -12,5 +12,5 @@
     }
   }
 ;
-  return shouldReloadCacheEntry.getValue(LASTMODIFIED_CHECK_INTERVAL,checkerCallable);
+  return shouldReloadCacheEntry.getValue(LASTMODIFIED_CHECK_INTERVAL,checkerCallable,true,null);
 }

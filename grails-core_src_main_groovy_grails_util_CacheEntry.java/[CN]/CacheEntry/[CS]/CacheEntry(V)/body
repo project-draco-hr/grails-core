@@ -1,5 +1,3 @@
 {
-  this.valueRef.set(value);
-  initialized=true;
-  resetTimestamp(true);
+  setValue(value);
 }

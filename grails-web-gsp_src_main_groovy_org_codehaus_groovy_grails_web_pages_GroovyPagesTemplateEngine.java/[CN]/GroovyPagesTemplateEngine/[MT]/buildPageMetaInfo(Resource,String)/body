@@ -1,0 +1,9 @@
+{
+  InputStream inputStream=resource.getInputStream();
+  try {
+    return buildPageMetaInfo(inputStream,resource,pageName);
+  }
+  finally {
+    inputStream.close();
+  }
+}

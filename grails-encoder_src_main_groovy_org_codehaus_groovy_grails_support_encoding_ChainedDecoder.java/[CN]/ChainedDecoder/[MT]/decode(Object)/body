@@ -1,0 +1,8 @@
+{
+  if (o == null)   return o;
+  Object decoded=o;
+  for (  Decoder decoder : decoders) {
+    decoded=decoder.decode(decoded);
+  }
+  return decoded;
+}

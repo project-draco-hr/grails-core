@@ -1,0 +1,12 @@
+{
+  int size=encodersOrDecoders.length;
+  codecIdentifiers=new CodecIdentifier[size];
+  String[] encoderNamesArr=new String[size];
+  for (int i=0; i < size; i++) {
+    int targetIndex=reverseOrder ? (size - 1 - i) : i;
+    codecIdentifiers[targetIndex]=encodersOrDecoders[i].getCodecIdentifier();
+    encoderNamesArr[targetIndex]=codecIdentifiers[targetIndex].getCodecName();
+  }
+  this.codecName=StringUtils.collectionToDelimitedString(Arrays.asList(encoderNamesArr),"And");
+  this.codecAlias=StringUtils.collectionToCommaDelimitedString(Arrays.asList(encoderNamesArr));
+}

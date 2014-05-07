@@ -1,0 +1,3 @@
+{
+  encoder.encodeToStream(encoder,new CharArrayCharSequence(new char[]{character}),0,1,target,encoderStateEncoder != null ? new EncodingStateImpl(Collections.singleton(encoderStateEncoder)) : null);
+}

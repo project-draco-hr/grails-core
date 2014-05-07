@@ -1,0 +1,8 @@
+{
+  for (  CodecIdentifier codecIdentifier : codecIdentifiers) {
+    if (codecIdentifier.isEquivalent(other)) {
+      return true;
+    }
+  }
+  return false;
+}

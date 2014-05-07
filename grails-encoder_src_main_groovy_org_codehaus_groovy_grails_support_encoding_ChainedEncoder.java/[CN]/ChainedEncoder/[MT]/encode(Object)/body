@@ -1,0 +1,8 @@
+{
+  if (o == null)   return o;
+  Object encoded=o;
+  for (  StreamingEncoder encoder : encoders) {
+    encoded=encoder.encode(encoded);
+  }
+  return encoded;
+}

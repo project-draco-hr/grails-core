@@ -1,3 +1,5 @@
 {
-  return viewResolver.resolveViewName(addViewPrefix(viewName,controllerName),GrailsWebRequest.lookup(request).getLocale());
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
+  Locale locale=webRequest != null ? webRequest.getLocale() : Locale.getDefault();
+  return viewResolver.resolveViewName(addViewPrefix(viewName,controllerName),locale);
 }

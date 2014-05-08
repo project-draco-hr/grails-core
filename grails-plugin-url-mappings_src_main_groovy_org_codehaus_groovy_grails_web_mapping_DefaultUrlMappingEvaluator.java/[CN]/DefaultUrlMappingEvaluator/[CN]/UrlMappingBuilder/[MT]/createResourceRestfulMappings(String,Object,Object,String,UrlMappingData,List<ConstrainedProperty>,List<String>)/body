@@ -24,6 +24,10 @@
     UrlMapping updateUrlMapping=createUpdateActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(updateUrlMapping);
   }
+  if (includes.contains(ACTION_PATCH)) {
+    UrlMapping patchUrlMapping=createPatchActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
+    configureUrlMapping(patchUrlMapping);
+  }
   if (includes.contains(ACTION_DELETE)) {
     UrlMapping deleteUrlMapping=createDeleteActionResourcesRestfulMapping(controllerName,pluginName,namespace,version,urlData,constrainedPropertyList);
     configureUrlMapping(deleteUrlMapping);

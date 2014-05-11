@@ -6,5 +6,6 @@
   if (cfg == null) {
     cfg=new DefaultConverterConfiguration();
   }
+  setThreadLocalConverterConfiguration(converterClass,cfg);
   return cfg;
 }

@@ -1,6 +1,7 @@
 {
   LOG.debug("Initializing default JSON Converters Configuration...");
   List<ObjectMarshaller<JSON>> marshallers=new ArrayList<ObjectMarshaller<JSON>>();
+  marshallers.addAll(getPreviouslyConfiguredMarshallers(JSON.class));
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.ArrayMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.ByteArrayMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.json.CollectionMarshaller());

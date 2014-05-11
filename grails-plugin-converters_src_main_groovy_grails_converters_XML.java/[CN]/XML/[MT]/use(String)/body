@@ -1,8 +1,8 @@
 {
   if (cfgName == null || "default".equals(cfgName)) {
-    ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,null);
+    ConvertersConfigurationHolder.setThreadLocalConverterConfiguration(XML.class,null);
   }
  else {
-    ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(XML.class,getNamedConfig(cfgName));
+    ConvertersConfigurationHolder.setThreadLocalConverterConfiguration(XML.class,getNamedConfig(cfgName));
   }
 }

@@ -1,11 +1,11 @@
 {
   ConverterConfiguration<JSON> old=ConvertersConfigurationHolder.getThreadLocalConverterConfiguration(JSON.class);
   ConverterConfiguration<JSON> cfg=getNamedConfig(configName);
-  ConvertersConfigurationHolder.setThreadLocalConverterConfiguration(JSON.class,cfg);
+  ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(JSON.class,cfg);
   try {
     return callable.call();
   }
   finally {
-    ConvertersConfigurationHolder.setThreadLocalConverterConfiguration(JSON.class,old);
+    ConvertersConfigurationHolder.setTheadLocalConverterConfiguration(JSON.class,old);
   }
 }

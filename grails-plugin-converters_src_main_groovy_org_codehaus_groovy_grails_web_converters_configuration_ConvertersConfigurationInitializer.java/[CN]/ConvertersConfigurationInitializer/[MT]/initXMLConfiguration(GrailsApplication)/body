@@ -1,7 +1,6 @@
 {
   LOG.debug("Initializing default XML Converters Configuration...");
   List<ObjectMarshaller<XML>> marshallers=new ArrayList<ObjectMarshaller<XML>>();
-  marshallers.addAll(getPreviouslyConfiguredMarshallers(XML.class));
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.Base64ByteArrayMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.ArrayMarshaller());
   marshallers.add(new org.codehaus.groovy.grails.web.converters.marshaller.xml.CollectionMarshaller());

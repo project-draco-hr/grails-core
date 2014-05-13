@@ -1,6 +1,5 @@
 {
   String namespace=taglib.getNamespace();
-  namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,this));
   Set<String> tagsThatReturnObject=tagsThatReturnObjectForNamespace.get(namespace);
   if (tagsThatReturnObject == null) {
     tagsThatReturnObject=new HashSet<String>();

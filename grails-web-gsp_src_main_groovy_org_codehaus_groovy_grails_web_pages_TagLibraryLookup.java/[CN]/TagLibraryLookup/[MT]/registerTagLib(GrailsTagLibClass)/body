@@ -1,36 +1,3 @@
 {
-  String namespace=taglib.getNamespace();
-  Set<String> tagsThatReturnObject=tagsThatReturnObjectForNamespace.get(namespace);
-  if (tagsThatReturnObject == null) {
-    tagsThatReturnObject=new HashSet<String>();
-    tagsThatReturnObjectForNamespace.put(namespace,tagsThatReturnObject);
-  }
-  Map<String,Object> tags=tagNamespaces.get(namespace);
-  if (tags == null) {
-    tags=new HashMap<String,Object>();
-    tagNamespaces.put(namespace,tags);
-  }
-  for (  String tagName : taglib.getTagNames()) {
-    putTagLib(tags,tagName,taglib);
-    tagsThatReturnObject.remove(tagName);
-  }
-  for (  String tagName : taglib.getTagNamesThatReturnObject()) {
-    tagsThatReturnObject.add(tagName);
-  }
-  Map<String,Map<String,Object>> encodeAsForTagNamespace=encodeAsForTagNamespaces.get(namespace);
-  if (encodeAsForTagNamespace == null) {
-    encodeAsForTagNamespace=new HashMap<String,Map<String,Object>>();
-    encodeAsForTagNamespaces.put(namespace,encodeAsForTagNamespace);
-  }
-  Map<String,Object> defaultEncodeAsForTagLib=null;
-  if (taglib.getDefaultEncodeAs() != null) {
-    defaultEncodeAsForTagLib=Collections.unmodifiableMap(WithCodecHelper.makeSettingsCanonical(taglib.getDefaultEncodeAs()));
-  }
-  for (  String tagName : taglib.getTagNames()) {
-    Object codecInfo=taglib.getEncodeAsForTag(tagName);
-    Map<String,Object> codecInfoMap=WithCodecHelper.mergeSettingsAndMakeCanonical(codecInfo,defaultEncodeAsForTagLib);
-    if (codecInfoMap != null) {
-      encodeAsForTagNamespace.put(tagName,codecInfoMap);
-    }
-  }
+  registerTagLib(taglib,false);
 }

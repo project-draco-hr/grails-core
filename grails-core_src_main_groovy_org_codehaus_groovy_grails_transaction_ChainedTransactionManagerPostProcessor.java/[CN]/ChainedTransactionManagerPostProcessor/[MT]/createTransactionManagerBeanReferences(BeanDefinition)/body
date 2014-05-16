@@ -1,0 +1,7 @@
+{
+  ManagedList<RuntimeBeanReference> transactionManagerRefs=new ManagedList<RuntimeBeanReference>();
+  ConstructorArgumentValues constructorValues=chainedTransactionManagerBeanDefinition.getConstructorArgumentValues();
+  constructorValues.addIndexedArgumentValue(0,transactionManagerRefs);
+  transactionManagerRefs.add(new RuntimeBeanReference(PRIMARY_TRANSACTION_MANAGER));
+  return transactionManagerRefs;
+}

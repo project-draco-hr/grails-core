@@ -15,5 +15,10 @@
   if (cNode.isInterface()) {
     throw new RuntimeException("Error processing interface '" + cName + "'.  @Validateable not allowed for interfaces.");
   }
-  new DefaultASTValidateableHelper().injectValidateableCode(cNode);
+  boolean defaultNullable=false;
+  Expression nullable=node.getMember("nullable");
+  if (nullable != null) {
+    defaultNullable=Boolean.parseBoolean(nullable.getText());
+  }
+  new DefaultASTValidateableHelper().injectValidateableCode(cNode,defaultNullable);
 }

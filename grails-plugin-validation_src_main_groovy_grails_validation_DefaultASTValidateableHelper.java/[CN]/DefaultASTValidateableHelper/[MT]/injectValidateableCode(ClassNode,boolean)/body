@@ -3,6 +3,6 @@
   errorsHelper.injectErrorsCode(classNode);
   addConstraintsField(classNode);
   addStaticInitializer(classNode);
-  addGetConstraintsMethod(classNode);
+  addGetConstraintsMethod(classNode,defaultNullable);
   addValidateMethod(classNode);
 }

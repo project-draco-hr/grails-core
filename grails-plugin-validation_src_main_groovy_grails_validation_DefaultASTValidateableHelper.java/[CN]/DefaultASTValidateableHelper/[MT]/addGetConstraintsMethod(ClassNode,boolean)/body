@@ -21,7 +21,7 @@
       final Expression declareConstrainedPropertyExpression=new DeclarationExpression(new VariableExpression(cpName,ClassHelper.OBJECT_TYPE),Token.newSymbol(Types.EQUALS,0,0),constrainedPropertyCtorCallExpression);
       final ArgumentListExpression applyConstraintMethodArgumentList=new ArgumentListExpression();
       applyConstraintMethodArgumentList.addExpression(new ConstantExpression(ConstrainedProperty.NULLABLE_CONSTRAINT));
-      applyConstraintMethodArgumentList.addExpression(new ConstantExpression(false));
+      applyConstraintMethodArgumentList.addExpression(new ConstantExpression(defaultNullable));
       final Expression applyNullableConstraintMethodCallExpression=new MethodCallExpression(new VariableExpression(cpName),"applyConstraint",applyConstraintMethodArgumentList);
       final ArgumentListExpression putMethodArgumentList=new ArgumentListExpression();
       putMethodArgumentList.addExpression(new ConstantExpression(propertyName));

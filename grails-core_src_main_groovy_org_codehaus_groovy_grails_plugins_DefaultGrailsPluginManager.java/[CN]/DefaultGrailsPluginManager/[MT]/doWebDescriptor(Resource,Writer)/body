@@ -1,8 +1,0 @@
-{
-  try {
-    doWebDescriptor(descriptor.getInputStream(),target);
-  }
- catch (  IOException e) {
-    throw new PluginException("Unable to read web.xml [" + descriptor + "]: "+ e.getMessage(),e);
-  }
-}

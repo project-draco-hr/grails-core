@@ -49,16 +49,20 @@
         blockToSendError.addStatement(new ExpressionStatement(sendErrorMethodCall));
         blockToSendError.addStatement(returnStatement);
         final IfStatement ifIsValidRequestMethodStatement=new IfStatement(isValidRequestMethod,new ExpressionStatement(new EmptyExpression()),blockToSendError);
-        final Expression getAttributeMethodCall=new MethodCallExpression(requestPropertyExpression,"getAttribute",new ArgumentListExpression(new ConstantExpression(ALLOWED_METHODS_HANDLED_ATTRIBUTE_NAME)));
-        final Statement ifAttributeHasBeenSetStatement=new IfStatement(new BooleanExpression(getAttributeMethodCall),new ExpressionStatement(new EmptyExpression()),ifIsValidRequestMethodStatement);
-        checkAllowedMethodsBlock.addStatement(ifAttributeHasBeenSetStatement);
+        checkAllowedMethodsBlock.addStatement(ifIsValidRequestMethodStatement);
       }
     }
   }
   final ArgumentListExpression argumentListExpression=new ArgumentListExpression();
   argumentListExpression.addExpression(new ConstantExpression(ALLOWED_METHODS_HANDLED_ATTRIBUTE_NAME));
-  argumentListExpression.addExpression(new ConstantExpression(Boolean.TRUE));
+  argumentListExpression.addExpression(new ConstantExpression(methodNode.getName()));
   final Expression setAttributeMethodCall=new MethodCallExpression(requestPropertyExpression,"setAttribute",argumentListExpression);
-  checkAllowedMethodsBlock.addStatement(new ExpressionStatement(setAttributeMethodCall));
-  return checkAllowedMethodsBlock;
+  final BlockStatement codeToExecuteIfAttributeIsNotSet=new BlockStatement();
+  codeToExecuteIfAttributeIsNotSet.addStatement(new ExpressionStatement(setAttributeMethodCall));
+  codeToExecuteIfAttributeIsNotSet.addStatement(checkAllowedMethodsBlock);
+  final BooleanExpression attributeIsSetBooleanExpression=new BooleanExpression(new MethodCallExpression(requestPropertyExpression,"getAttribute",new ArgumentListExpression(new ConstantExpression(ALLOWED_METHODS_HANDLED_ATTRIBUTE_NAME))));
+  final Statement ifAttributeIsAlreadySetStatement=new IfStatement(attributeIsSetBooleanExpression,new EmptyStatement(),codeToExecuteIfAttributeIsNotSet);
+  final BlockStatement code=new BlockStatement();
+  code.addStatement(ifAttributeIsAlreadySetStatement);
+  return code;
 }

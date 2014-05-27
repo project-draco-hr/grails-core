@@ -1,4 +1,7 @@
 {
-  WebApplicationContext ctx=WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-  return (MultipartResolver)ctx.getBean(DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME);
+  ApplicationContext ctx=WebUtils.findApplicationContext(servletContext);
+  if (ctx != null) {
+    return (MultipartResolver)ctx.getBean(DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME);
+  }
+  return null;
 }

@@ -3,7 +3,7 @@
   boolean disabled=getMultipartDisabled();
   if (!disabled) {
     MultipartResolver resolver=getResolver();
-    if (resolver.isMultipart(request)) {
+    if (resolver != null && resolver.isMultipart(request)) {
       MultipartHttpServletRequest resolvedMultipartRequest=getResolvedRequest(request,resolver);
       paramNames=resolvedMultipartRequest.getParameterNames();
     }

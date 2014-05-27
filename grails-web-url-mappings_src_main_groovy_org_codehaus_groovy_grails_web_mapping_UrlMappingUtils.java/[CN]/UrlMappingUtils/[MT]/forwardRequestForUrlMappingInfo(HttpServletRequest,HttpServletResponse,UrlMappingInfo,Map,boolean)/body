@@ -5,7 +5,7 @@
   final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
   webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
   info.configure(webRequest);
-  passControllerForForwardedRequest(webRequest,info);
+  webRequest.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,WebRequest.SCOPE_REQUEST);
   dispatcher.forward(request,response);
   return forwardUrl;
 }

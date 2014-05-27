@@ -1,8 +1,0 @@
-{
-  String version=currentRequest.getHeader(HttpHeaders.ACCEPT_VERSION);
-  if (version == null && mimeTypeResolver != null) {
-    MimeType mimeType=mimeTypeResolver.resolveResponseMimeType(currentRequest);
-    version=mimeType.getVersion();
-  }
-  return version;
-}

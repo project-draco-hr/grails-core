@@ -1,6 +1,0 @@
-{
-  if (isReadableProperty(AFTER_INTERCEPTOR)) {
-    return getInterceptor(controller,controller.getProperty(AFTER_INTERCEPTOR));
-  }
-  return null;
-}

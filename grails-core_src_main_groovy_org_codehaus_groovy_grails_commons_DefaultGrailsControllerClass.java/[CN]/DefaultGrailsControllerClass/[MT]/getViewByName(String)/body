@@ -1,6 +1,0 @@
-{
-  if (viewNames.containsKey(viewName)) {
-    return viewNames.get(viewName);
-  }
-  return uri + SLASH + viewName;
-}

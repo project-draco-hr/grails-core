@@ -1,5 +1,0 @@
-{
-  super.initStrategies(context);
-  initLocaleResolver(context);
-  layoutViewResolver=WebUtils.lookupViewResolver(context);
-}

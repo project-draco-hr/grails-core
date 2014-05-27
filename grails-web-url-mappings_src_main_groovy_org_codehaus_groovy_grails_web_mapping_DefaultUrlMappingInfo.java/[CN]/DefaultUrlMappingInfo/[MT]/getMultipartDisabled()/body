@@ -1,12 +1,14 @@
 {
-  GrailsApplication app=WebUtils.lookupApplication(servletContext);
-  Object disableMultipart=app.getFlatConfig().get(SETTING_GRAILS_WEB_DISABLE_MULTIPART);
   boolean disabled=false;
-  if (disableMultipart instanceof Boolean) {
-    disabled=(Boolean)disableMultipart;
-  }
- else   if (disableMultipart instanceof String) {
-    disabled=Boolean.valueOf((String)disableMultipart);
+  GrailsApplication app=WebUtils.findApplication(servletContext);
+  if (app != null) {
+    Object disableMultipart=app.getFlatConfig().get(SETTING_GRAILS_WEB_DISABLE_MULTIPART);
+    if (disableMultipart instanceof Boolean) {
+      disabled=(Boolean)disableMultipart;
+    }
+ else     if (disableMultipart instanceof String) {
+      disabled=Boolean.valueOf((String)disableMultipart);
+    }
   }
   return disabled;
 }

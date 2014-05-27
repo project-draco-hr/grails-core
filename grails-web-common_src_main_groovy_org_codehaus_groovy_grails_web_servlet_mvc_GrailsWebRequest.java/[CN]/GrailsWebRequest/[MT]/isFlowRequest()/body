@@ -9,6 +9,5 @@
   String actionName=getActionName();
   if (actionName == null)   actionName=controllerClass.getDefaultAction();
   if (actionName == null)   return false;
-  if (controllerClass.isFlowAction(actionName))   return true;
   return false;
 }

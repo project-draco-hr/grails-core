@@ -1,0 +1,7 @@
+{
+  ApplicationContext wac=findApplicationContext(servletContext);
+  if (wac != null) {
+    return (GrailsApplication)wac.getBean(GrailsApplication.APPLICATION_ID);
+  }
+  return null;
+}

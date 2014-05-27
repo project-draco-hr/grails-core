@@ -1,8 +1,0 @@
-{
-  for (  String uri1 : uris) {
-    if (pathMatcher.match(uri1,uri)) {
-      return true;
-    }
-  }
-  return false;
-}

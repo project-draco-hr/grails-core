@@ -1,6 +1,0 @@
-{
-  if (Environment.getCurrent() == Environment.DEVELOPMENT) {
-    return establishInterceptors(applicationContext);
-  }
-  return getAdaptedInterceptors();
-}

@@ -1,4 +1,9 @@
 {
-  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
-  return evaluateNameForValue(value,webRequest);
+  if (value instanceof CharSequence) {
+    return value.toString().trim();
+  }
+ else {
+    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
+    return evaluateNameForValue(value,webRequest);
+  }
 }

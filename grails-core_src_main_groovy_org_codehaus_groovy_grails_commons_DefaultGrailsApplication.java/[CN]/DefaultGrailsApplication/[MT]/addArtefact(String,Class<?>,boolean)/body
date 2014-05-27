@@ -14,6 +14,10 @@
     addToLoaded(artefactClass);
     if (isInitialised()) {
       initializeArtefacts(artefactType);
+      ApplicationContext context=getMainContext();
+      if (context != null) {
+        context.publishEvent(new ArtefactAdditionEvent(artefactGrailsClass));
+      }
     }
     return artefactGrailsClass;
   }

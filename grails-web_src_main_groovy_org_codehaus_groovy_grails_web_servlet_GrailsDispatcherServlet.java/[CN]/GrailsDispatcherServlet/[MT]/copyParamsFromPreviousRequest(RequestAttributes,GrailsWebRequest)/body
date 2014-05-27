@@ -1,6 +1,0 @@
-{
-  if (!(previousRequestAttributes instanceof GrailsWebRequest)) {
-    return;
-  }
-  requestAttributes.addParametersFrom(((GrailsWebRequest)previousRequestAttributes).getParams());
-}

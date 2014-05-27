@@ -1,0 +1,16 @@
+{
+  Class superClass=getClazz();
+  while (superClass != null && superClass != Object.class && superClass != GroovyObject.class) {
+    for (    Method method : superClass.getMethods()) {
+      if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
+        String methodName=method.getName();
+        ReflectionUtils.makeAccessible(method);
+        methodNames.put(methodName,method);
+      }
+    }
+    superClass=superClass.getSuperclass();
+  }
+  if (!isActionMethod(defaultActionName) && methodNames.size() == 1 && !isReadableProperty("scaffold")) {
+    defaultActionName=methodNames.keySet().iterator().next();
+  }
+}

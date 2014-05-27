@@ -1,4 +1,0 @@
-{
-  this.servletContext=servletContext;
-  this.grailsAttributes=GrailsFactoriesLoader.loadFactoriesWithArguments(GrailsApplicationAttributes.class,getClass().getClassLoader(),servletContext).get(0);
-}

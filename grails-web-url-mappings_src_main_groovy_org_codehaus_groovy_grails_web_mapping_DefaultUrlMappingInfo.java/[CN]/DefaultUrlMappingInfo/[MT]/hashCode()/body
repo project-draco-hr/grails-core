@@ -1,0 +1,13 @@
+{
+  int result=controllerName != null ? (CONTROLLER_PREFIX + controllerName).hashCode() : 0;
+  result=31 * result + (actionName != null ? (ACTION_PREFIX + actionName).hashCode() : 0);
+  result=31 * result + (pluginName != null ? (PLUGIN_PREFIX + pluginName).hashCode() : 0);
+  result=31 * result + (namespace != null ? (NAMESPACE_PREFIX + namespace).hashCode() : 0);
+  result=31 * result + (redirectInfo != null ? redirectInfo.hashCode() : 0);
+  result=31 * result + (id != null ? (ID_PREFIX + id).hashCode() : 0);
+  result=31 * result + (viewName != null ? (VIEW_PREFIX + viewName).hashCode() : 0);
+  result=31 * result + (uri != null ? uri.hashCode() : 0);
+  result=31 * result + (httpMethod != null ? (METHOD_PREFIX + httpMethod).hashCode() : 0);
+  result=31 * result + (version != null ? (VERSION_PREFIX + version).hashCode() : 0);
+  return result;
+}

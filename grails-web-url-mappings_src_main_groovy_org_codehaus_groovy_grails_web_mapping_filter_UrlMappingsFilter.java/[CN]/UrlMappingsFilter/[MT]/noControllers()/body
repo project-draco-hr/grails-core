@@ -1,4 +1,0 @@
-{
-  GrailsClass[] controllers=application.getArtefacts(ControllerArtefactHandler.TYPE);
-  return controllers == null || controllers.length == 0;
-}

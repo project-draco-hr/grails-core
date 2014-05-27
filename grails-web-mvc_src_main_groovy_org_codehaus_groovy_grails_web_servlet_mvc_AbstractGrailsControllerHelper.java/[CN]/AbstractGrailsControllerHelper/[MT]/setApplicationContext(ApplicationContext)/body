@@ -1,4 +1,0 @@
-{
-  this.applicationContext=applicationContext;
-  this.actionResultTransformers=applicationContext.getBeansOfType(ActionResultTransformer.class).values();
-}

@@ -1,4 +1,5 @@
 {
+  GrailsWebUtil.bindMockWebRequest();
   GroovyClassLoader cl=new GrailsAwareClassLoader();
   Class<?> clazz=cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController { \n" + "def beforeInterceptor = [action:this.&before,only:'list']\n" + "def before() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "} ");
   GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);

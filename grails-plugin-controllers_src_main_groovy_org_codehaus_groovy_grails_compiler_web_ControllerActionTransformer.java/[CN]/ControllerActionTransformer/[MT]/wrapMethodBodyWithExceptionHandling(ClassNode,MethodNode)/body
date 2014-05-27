@@ -28,5 +28,12 @@
   tryBlock.addStatement(methodBody);
   final TryCatchStatement tryCatchStatement=new TryCatchStatement(tryBlock,new EmptyStatement());
   tryCatchStatement.addCatch(catchStatement);
+  final ArgumentListExpression argumentListExpression=new ArgumentListExpression();
+  argumentListExpression.addExpression(new ConstantExpression(ALLOWED_METHODS_HANDLED_ATTRIBUTE_NAME));
+  final PropertyExpression requestPropertyExpression=new PropertyExpression(new VariableExpression("this"),"request");
+  final Expression removeAttributeMethodCall=new MethodCallExpression(requestPropertyExpression,"removeAttribute",argumentListExpression);
+  final TryCatchStatement removeAttributeStatement=new TryCatchStatement(new ExpressionStatement(removeAttributeMethodCall),new EmptyStatement());
+  removeAttributeStatement.addCatch(new CatchStatement(new Parameter(ClassHelper.make(Exception.class),"$exceptionRemovingAttribute"),new EmptyStatement()));
+  tryCatchStatement.setFinallyStatement(removeAttributeStatement);
   methodNode.setCode(tryCatchStatement);
 }

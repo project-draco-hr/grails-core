@@ -1,8 +1,0 @@
-{
-  GroovyClassLoader cl=new GrailsAwareClassLoader();
-  Class<?> clazz=cl.parseClass("@grails.artefact.Artefact(\"Controller\") class TestController { \n" + "def beforeInterceptor = [action:this.&before]\n" + "def before() { return 'success' }\n"+ "def list = { return 'test' }\n "+ "def show = { return 'test' }\n "+ "} ");
-  GrailsControllerClass grailsClass=new DefaultGrailsControllerClass(clazz);
-  GroovyObject controller=(GroovyObject)grailsClass.newInstance();
-  assertTrue(grailsClass.isInterceptedBefore(controller,"list"));
-  assertTrue(grailsClass.isInterceptedBefore(controller,"show"));
-}

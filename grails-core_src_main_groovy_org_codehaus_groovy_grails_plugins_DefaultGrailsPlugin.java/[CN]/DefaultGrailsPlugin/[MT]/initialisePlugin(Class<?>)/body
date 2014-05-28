@@ -1,6 +1,9 @@
 {
   pluginGrailsClass=new GrailsPluginClass(clazz);
   plugin=(GroovyObject)pluginGrailsClass.newInstance();
+  if (plugin instanceof GrailsApplicationAware) {
+    ((GrailsApplicationAware)plugin).setGrailsApplication(this.application);
+  }
   pluginBean=new BeanWrapperImpl(plugin);
   evaluatePluginVersion();
   evaluatePluginDependencies();

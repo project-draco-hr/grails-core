@@ -1,8 +1,4 @@
 {
-  if (!pluginBean.isReadableProperty(DO_WITH_APPLICATION_CONTEXT)) {
-    return;
-  }
-  Closure c=(Closure)plugin.getProperty(DO_WITH_APPLICATION_CONTEXT);
-  c.setDelegate(this);
-  c.call(new Object[]{ctx});
+  Object[] args={ctx};
+  invokePluginHook(DO_WITH_APPLICATION_CONTEXT,args,ctx);
 }

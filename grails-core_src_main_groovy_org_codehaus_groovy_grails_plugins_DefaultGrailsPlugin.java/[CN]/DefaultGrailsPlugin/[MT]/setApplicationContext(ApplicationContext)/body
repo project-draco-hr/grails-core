@@ -1,0 +1,9 @@
+{
+  super.setApplicationContext(applicationContext);
+  if (this.plugin instanceof ApplicationContextAware) {
+    ((ApplicationContextAware)plugin).setApplicationContext(applicationContext);
+  }
+  if (this.plugin instanceof ApplicationListener) {
+    ((ConfigurableApplicationContext)applicationContext).addApplicationListener((ApplicationListener)plugin);
+  }
+}

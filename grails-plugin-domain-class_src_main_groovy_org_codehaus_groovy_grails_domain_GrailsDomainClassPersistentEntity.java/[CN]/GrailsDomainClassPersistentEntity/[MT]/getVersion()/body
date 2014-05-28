@@ -1,7 +1,0 @@
-{
-  GrailsDomainClassProperty version=domainClass.getVersion();
-  if (version != null) {
-    return new GrailsDomainClassPersistentProperty(this,version);
-  }
-  return null;
-}

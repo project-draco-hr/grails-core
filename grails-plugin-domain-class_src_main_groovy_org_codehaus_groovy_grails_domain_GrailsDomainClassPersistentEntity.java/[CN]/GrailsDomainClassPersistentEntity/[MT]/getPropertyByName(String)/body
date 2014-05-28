@@ -1,3 +1,0 @@
-{
-  return getIdentity().getName().equals(name) ? getIdentity() : propertiesByName.get(name);
-}

@@ -1,5 +1,0 @@
-{
-  association.setAssociatedEntity(getMappingContext().addPersistentEntity(grailsDomainClassProperty.getReferencedPropertyType()));
-  association.setOwningSide(grailsDomainClassProperty.isOwningSide());
-  association.setReferencedPropertyName(grailsDomainClassProperty.getReferencedPropertyName());
-}

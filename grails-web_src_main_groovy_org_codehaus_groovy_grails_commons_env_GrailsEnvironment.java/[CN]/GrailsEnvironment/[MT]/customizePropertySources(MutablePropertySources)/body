@@ -1,0 +1,5 @@
+{
+  super.customizePropertySources(propertySources);
+  propertySources.addFirst(new GrailsConfigPropertySource());
+  propertySources.addFirst(new PropertiesPropertySource("systemProperties",System.getProperties()));
+}

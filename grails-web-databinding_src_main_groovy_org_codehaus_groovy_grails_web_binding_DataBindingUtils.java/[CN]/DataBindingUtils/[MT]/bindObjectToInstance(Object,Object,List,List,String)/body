@@ -2,7 +2,7 @@
   if (include == null && exclude == null) {
     include=getBindingIncludeList(object);
   }
-  GrailsApplication application=GrailsWebRequest.lookupApplication();
+  GrailsApplication application=Holders.findApplication();
   GrailsDomainClass domain=null;
   if (application != null) {
     domain=(GrailsDomainClass)application.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName());

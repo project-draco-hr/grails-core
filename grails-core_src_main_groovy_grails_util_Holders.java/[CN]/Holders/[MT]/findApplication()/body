@@ -1,0 +1,9 @@
+{
+  for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
+    GrailsApplication grailsApplication=strategy.findGrailsApplication();
+    if (grailsApplication != null) {
+      return grailsApplication;
+    }
+  }
+  return applicationSingleton;
+}

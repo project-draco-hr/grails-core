@@ -1,0 +1,11 @@
+{
+  if (super.containsBeanDefinition(beanName)) {
+    return true;
+  }
+ else   if (getParent() != null && "grailsApplication".equals(beanName)) {
+    return getParent().containsBeanDefinition(beanName);
+  }
+ else {
+    return false;
+  }
+}

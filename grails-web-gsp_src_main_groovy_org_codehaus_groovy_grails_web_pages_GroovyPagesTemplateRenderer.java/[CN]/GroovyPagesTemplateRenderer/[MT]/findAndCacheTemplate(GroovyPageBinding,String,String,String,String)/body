@@ -18,8 +18,9 @@
     public CacheEntry<Template> call(){
       return new CacheEntry<Template>(){
         boolean allowCaching=cacheEnabled;
+        boolean neverExpire=false;
         @Override protected boolean hasExpired(        long timeout,        Object cacheRequestObject){
-          return allowCaching ? super.hasExpired(timeout,cacheRequestObject) : true;
+          return neverExpire ? false : (allowCaching ? super.hasExpired(timeout,cacheRequestObject) : true);
         }
         @Override public boolean isInitialized(){
           return allowCaching ? super.isInitialized() : false;
@@ -35,8 +36,9 @@
             t=groovyPagesTemplateEngine.createTemplate(scriptSource);
           }
           if (t == null && scaffoldingTemplateGenerator != null) {
-            t=generateScaffoldedTemplate(webRequest,uri);
+            t=generateScaffoldedTemplate(GrailsWebRequest.lookup(),uri);
             allowCaching=true;
+            neverExpire=true;
           }
           return t;
         }

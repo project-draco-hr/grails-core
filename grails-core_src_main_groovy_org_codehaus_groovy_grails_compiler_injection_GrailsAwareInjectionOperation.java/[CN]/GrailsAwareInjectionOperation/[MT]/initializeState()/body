@@ -14,6 +14,7 @@
       resources=resolver.getResources(pattern);
     }
     List<ClassInjector> injectors=new ArrayList<>();
+    Set<Class> injectorClasses=new HashSet<>();
     CachingMetadataReaderFactory readerFactory=new CachingMetadataReaderFactory(classLoader);
     for (    org.codehaus.groovy.grails.io.support.Resource resource : resources) {
       try {
@@ -21,7 +22,11 @@
         if (metadataReader.getAnnotationMetadata().hasAnnotation(AstTransformer.class.getName())) {
           String className=metadataReader.getClassMetadata().getClassName();
           Class<?> injectorClass=classLoader.loadClass(className);
-          if (ClassInjector.class.isAssignableFrom(injectorClass))           injectors.add((ClassInjector)injectorClass.newInstance());
+          if (injectorClasses.contains(injectorClass))           continue;
+          if (ClassInjector.class.isAssignableFrom(injectorClass)) {
+            injectorClasses.add(injectorClass);
+            injectors.add((ClassInjector)injectorClass.newInstance());
+          }
         }
       }
  catch (      ClassNotFoundException e) {

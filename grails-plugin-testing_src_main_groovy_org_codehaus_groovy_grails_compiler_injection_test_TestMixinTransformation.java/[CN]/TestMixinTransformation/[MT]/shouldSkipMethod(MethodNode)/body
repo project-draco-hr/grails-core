@@ -1,0 +1,3 @@
+{
+  return declaredMethod.getAnnotations(SKIP_METHOD_CLASS_NODE).size() > 0;
+}

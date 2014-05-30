@@ -1,8 +1,5 @@
 {
   if (!rootDir.exists()) {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Skipping [" + rootDir.getAbsolutePath() + "] because it does not exist");
-    }
     return Collections.emptySet();
   }
   if (!rootDir.isDirectory()) {

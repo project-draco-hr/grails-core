@@ -1,7 +1,4 @@
 {
-  if (logger.isDebugEnabled()) {
-    logger.debug("Searching directory [" + dir.getAbsolutePath() + "] for files matching pattern ["+ fullPattern+ "]");
-  }
   File[] dirContents=dir.listFiles();
   if (dirContents == null) {
     if (logger.isWarnEnabled()) {
@@ -12,12 +9,7 @@
   for (  File content : dirContents) {
     String currPath=content.getAbsolutePath().replace(File.separator,"/");
     if (content.isDirectory() && getPathMatcher().matchStart(fullPattern,currPath + "/")) {
-      if (!content.canRead()) {
-        if (logger.isDebugEnabled()) {
-          logger.debug("Skipping subdirectory [" + dir.getAbsolutePath() + "] because the application is not allowed to read the directory");
-        }
-      }
- else {
+      if (content.canRead()) {
         doRetrieveMatchingFiles(fullPattern,content,result);
       }
     }

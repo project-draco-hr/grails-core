@@ -12,8 +12,5 @@
       result.addAll(doFindPathMatchingFileResources(rootDirResource,subPattern));
     }
   }
-  if (logger.isDebugEnabled()) {
-    logger.debug("Resolved location pattern [" + locationPattern + "] to resources "+ result);
-  }
   return result.toArray(new Resource[result.size()]);
 }

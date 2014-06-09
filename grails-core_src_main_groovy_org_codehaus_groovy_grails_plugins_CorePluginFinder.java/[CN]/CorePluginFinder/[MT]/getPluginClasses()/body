@@ -6,13 +6,11 @@
       loadCorePluginsFromResources(resources);
     }
  else {
-      LOG.warn("WARNING: Grails was unable to load core plugins dynamically. This is normally a problem with the container class loader configuration, see troubleshooting and FAQ for more info. ");
-      loadCorePluginsStatically();
+      throw new IllegalStateException("Grails was unable to load plugins dynamically. This is normally a problem with the container class loader configuration, see troubleshooting and FAQ for more info. ");
     }
   }
  catch (  IOException e) {
-    LOG.warn("WARNING: I/O exception loading core plugin dynamically, attempting static load. This is usually due to deployment onto containers with unusual classloading setups. Message: " + e.getMessage());
-    loadCorePluginsStatically();
+    throw new IllegalStateException("WARNING: I/O exception loading core plugin dynamically, attempting static load. This is usually due to deployment onto containers with unusual classloading setups. Message: " + e.getMessage());
   }
   return foundPluginClasses.toArray(new Class[foundPluginClasses.size()]);
 }

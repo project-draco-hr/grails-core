@@ -10,7 +10,7 @@
         plugin.doWithDynamicMethods(applicationContext);
       }
  catch (      Throwable t) {
-        LOG.error("Error configuring dynamic methods for plugin " + plugin + ": "+ t.getMessage(),t);
+        throw new GrailsConfigurationException("Error configuring dynamic methods for plugin " + plugin + ": "+ t.getMessage(),t);
       }
     }
   }

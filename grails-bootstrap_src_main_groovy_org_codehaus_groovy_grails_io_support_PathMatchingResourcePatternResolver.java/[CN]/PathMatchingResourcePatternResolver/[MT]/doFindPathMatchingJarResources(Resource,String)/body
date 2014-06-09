@@ -28,9 +28,6 @@
     newJarFile=true;
   }
   try {
-    if (logger.isDebugEnabled()) {
-      logger.debug("Looking for matching resources in jar file [" + jarFileUrl + "]");
-    }
     if (!"".equals(rootEntryPath) && !rootEntryPath.endsWith("/")) {
       rootEntryPath=rootEntryPath + "/";
     }

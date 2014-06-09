@@ -1,5 +1,5 @@
 {
-  if (oldMetaClass != null && !(oldMetaClass instanceof MockProxyMetaClass)) {
+  if (oldMetaClass != null && !(oldMetaClass.getClass().getName().equals("groovy.mock.interceptor.MockProxyMetaClass"))) {
     Object current=alteredClasses.get(classToUpdate);
     if (current == null) {
       alteredClasses.put(classToUpdate,oldMetaClass);

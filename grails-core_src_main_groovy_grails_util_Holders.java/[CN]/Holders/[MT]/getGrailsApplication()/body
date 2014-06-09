@@ -1,9 +1,5 @@
 {
-  for (  GrailsApplicationDiscoveryStrategy strategy : applicationDiscoveryStrategies) {
-    GrailsApplication grailsApplication=strategy.findGrailsApplication();
-    if (grailsApplication != null) {
-      return grailsApplication;
-    }
-  }
-  return applicationSingleton;
+  GrailsApplication grailsApplication=findApplication();
+  Assert.notNull(grailsApplication,"GrailsApplication not found");
+  return grailsApplication;
 }

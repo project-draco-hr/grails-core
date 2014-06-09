@@ -1,0 +1,13 @@
+{
+  if (pluginBean.isReadableProperty(methodName)) {
+    Closure c=(Closure)plugin.getProperty(methodName);
+    c.setDelegate(this);
+    c.call(args);
+  }
+ else {
+    MetaClass pluginMetaClass=pluginGrailsClass.getMetaClass();
+    if (!pluginMetaClass.respondsTo(plugin,methodName,args).isEmpty()) {
+      pluginMetaClass.invokeMethod(plugin,methodName,ctx);
+    }
+  }
+}

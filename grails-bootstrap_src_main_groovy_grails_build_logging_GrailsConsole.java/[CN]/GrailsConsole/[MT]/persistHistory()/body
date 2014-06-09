@@ -1,0 +1,9 @@
+{
+  if (history instanceof Flushable) {
+    try {
+      ((Flushable)history).flush();
+    }
+ catch (    IOException e) {
+    }
+  }
+}

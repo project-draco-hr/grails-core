@@ -4,4 +4,11 @@
   }
  catch (  Exception e) {
   }
+  if (terminal instanceof UnixTerminal) {
+    try {
+      new TerminalLineSettings().set("sane");
+    }
+ catch (    Exception e) {
+    }
+  }
 }

@@ -1,0 +1,10 @@
+{
+  for (  Process process : processes) {
+    try {
+      process.destroy();
+    }
+ catch (    Throwable e) {
+    }
+  }
+  processes.clear();
+}

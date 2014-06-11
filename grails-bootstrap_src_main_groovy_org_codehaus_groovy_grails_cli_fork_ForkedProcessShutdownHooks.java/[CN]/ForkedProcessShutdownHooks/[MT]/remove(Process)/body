@@ -1,0 +1,12 @@
+{
+  boolean wasRemoved=processes.remove(process);
+  if (processes.isEmpty() && shutdownHook != null) {
+    try {
+      Runtime.getRuntime().removeShutdownHook(shutdownHook);
+    }
+ catch (    Throwable e) {
+    }
+    shutdownHook=null;
+  }
+  return wasRemoved;
+}

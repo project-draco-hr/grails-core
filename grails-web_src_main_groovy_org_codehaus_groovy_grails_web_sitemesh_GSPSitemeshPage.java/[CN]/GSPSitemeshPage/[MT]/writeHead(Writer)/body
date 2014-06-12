@@ -12,7 +12,7 @@
       }
     }
     String headAsString=headBuffer.toString();
-    out.write(headAsString.replaceFirst("<title(\\s[^>]*)?>(.*?)</title>",""));
+    out.write(headAsString.replaceFirst("(?is)<title(\\s[^>]*)?>(.*?)</title>",""));
   }
  else {
     headBuffer.writeTo(out);

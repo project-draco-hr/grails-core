@@ -12,7 +12,7 @@
   }
   if (isGrailsProject) {
     String[] spockExcludes={"org.codehaus.groovy:groovy-all","junit:junit-dep"};
-    testDependencies=Arrays.asList(new Dependency("org.grails","grails-plugin-testing",grailsVersion,true),new Dependency("org.spockframework","spock-core",spockVersion,true,spockExcludes));
+    testDependencies=Arrays.asList(new Dependency("org.grails","grails-plugin-testing",grailsVersion,true),new Dependency("org.spockframework","spock-core",spockVersion,true,spockExcludes),new Dependency("junit","junit",junitVersion,true));
   }
  else {
     testDependencies=Arrays.asList(new Dependency("org.grails","grails-plugin-testing",grailsVersion,true));

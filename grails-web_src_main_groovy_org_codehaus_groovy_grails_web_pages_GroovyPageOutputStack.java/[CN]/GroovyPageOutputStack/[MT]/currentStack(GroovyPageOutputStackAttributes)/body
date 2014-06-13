@@ -7,9 +7,6 @@
     return outputStack;
   }
   if (attributes.isAllowCreate()) {
-    if (attributes.getTopWriter() == null) {
-      attributes=new GroovyPageOutputStackAttributes.Builder(attributes).topWriter(lookupRequestWriter(attributes.getWebRequest())).build();
-    }
     return createNew(attributes);
   }
   return null;

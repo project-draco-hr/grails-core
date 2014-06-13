@@ -1,7 +1,6 @@
 {
   renameBean(TRANSACTION_MANAGER,PRIMARY_TRANSACTION_MANAGER,registry);
   BeanDefinition beanDefinition=new RootBeanDefinition(ChainedTransactionManager.class);
-  ConstructorArgumentValues constructorValues=beanDefinition.getConstructorArgumentValues();
-  constructorValues.addIndexedArgumentValue(0,new RuntimeBeanReference(PRIMARY_TRANSACTION_MANAGER));
   registry.registerBeanDefinition(TRANSACTION_MANAGER,beanDefinition);
+  return beanDefinition;
 }

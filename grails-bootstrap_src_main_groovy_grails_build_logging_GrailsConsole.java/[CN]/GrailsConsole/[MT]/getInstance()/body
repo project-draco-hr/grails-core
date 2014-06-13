@@ -6,11 +6,7 @@
       if (!Environment.isFork()) {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
           @Override public void run(){
-            try {
-              console.terminal.restore();
-            }
- catch (            Exception e) {
-            }
+            console.beforeShutdown();
           }
         }
 ));

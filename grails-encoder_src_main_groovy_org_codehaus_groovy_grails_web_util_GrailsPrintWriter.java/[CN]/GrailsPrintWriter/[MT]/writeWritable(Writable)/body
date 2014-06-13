@@ -1,4 +1,8 @@
 {
+  if (writable.getClass() == StreamCharBuffer.class) {
+    write((StreamCharBuffer)writable);
+    return;
+  }
   usageFlag=true;
   if (trouble)   return;
   try {

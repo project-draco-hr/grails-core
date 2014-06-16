@@ -14,6 +14,9 @@
         returnValue=valueArray;
       }
     }
+ else     if (returnValue == null && (key instanceof Collection)) {
+      return DefaultGroovyMethods.subMap(wrappedMap,(Collection)key);
+    }
   }
   if ("date.struct".equals(returnValue)) {
     returnValue=lazyEvaluateDateParam(key);

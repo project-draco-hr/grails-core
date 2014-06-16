@@ -1,0 +1,15 @@
+{
+  if (firstPart != null) {
+    EncodingStatePart current=firstPart;
+    int offset=0;
+    char[] buf=StringCharArrayAccessor.getValue(str);
+    while (current != null) {
+      encoder.encodeToWriter(buf,offset,current.len,writer,current.encodingState);
+      offset+=current.len;
+      current=current.next;
+    }
+  }
+ else {
+    super.encodeTo(writer,encoder);
+  }
+}

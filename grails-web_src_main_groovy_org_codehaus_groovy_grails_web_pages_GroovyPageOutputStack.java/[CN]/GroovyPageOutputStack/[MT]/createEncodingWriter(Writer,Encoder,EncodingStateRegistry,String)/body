@@ -3,6 +3,9 @@
   if (out instanceof EncodedAppenderWriterFactory) {
     encodingWriter=((EncodedAppenderWriterFactory)out).getWriterForEncoder(encoder,encodingStateRegistry);
   }
+ else   if (encoder instanceof StreamingEncoder) {
+    encodingWriter=new StreamingEncoderWriter(out,(StreamingEncoder)encoder,encodingStateRegistry);
+  }
  else {
     encodingWriter=new CodecPrintWriter(out,encoder,encodingStateRegistry);
   }

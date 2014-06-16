@@ -1,0 +1,9 @@
+{
+  final EncodingState encodingState=lookupEncodingState(str,off,len);
+  if (shouldEncodeWith(encoder,encodingState)) {
+    encodesToWriter.encodeToWriter(str,off,len,out,encodingState);
+  }
+ else {
+    out.write(str,off,len);
+  }
+}

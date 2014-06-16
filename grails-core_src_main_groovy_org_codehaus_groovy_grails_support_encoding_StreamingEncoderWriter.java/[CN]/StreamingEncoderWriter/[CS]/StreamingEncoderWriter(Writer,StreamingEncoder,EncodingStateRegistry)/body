@@ -1,0 +1,11 @@
+{
+  super(out);
+  this.encoder=encoder;
+  if (encoder instanceof EncodesToWriter) {
+    this.encodesToWriter=((EncodesToWriter)encoder);
+  }
+ else {
+    this.encodesToWriter=new EncodesToWriterAdapter(encoder,true);
+  }
+  this.encodingStateRegistry=encodingStateRegistry;
+}

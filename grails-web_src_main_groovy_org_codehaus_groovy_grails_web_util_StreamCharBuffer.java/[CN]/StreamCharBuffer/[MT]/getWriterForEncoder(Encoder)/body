@@ -1,3 +1,3 @@
 {
-  return getWriterForEncoder(encoder,DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null);
+  return getWriterForEncoder(encoder,DefaultGrailsCodecClass.getEncodingStateRegistryLookup() != null ? DefaultGrailsCodecClass.getEncodingStateRegistryLookup().lookup() : null,false);
 }

@@ -3,9 +3,9 @@
     return;
   }
   if (shouldEncode(encoder,encodingState)) {
-    EncodingState newEncoders=appendEncoders(encoder,encodingState);
+    EncodingState newEncoders=createNewEncodingState(encoder,encodingState);
     if (encoder instanceof StreamingEncoder) {
-      ((StreamingEncoder)encoder).encodeToStream(encoder,new CharArrayCharSequence(b,off,len),0,len,this,newEncoders);
+      ((StreamingEncoder)encoder).encodeToStream(encoder,CharSequences.createCharSequence(b,off,len),0,len,this,newEncoders);
     }
  else {
       encodeAndWrite(encoder,newEncoders,String.valueOf(b,off,len));

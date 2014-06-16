@@ -1,7 +1,8 @@
 {
   try {
     usageFlag=true;
-    getOut().append(csq,start,end);
+    if (csq == null)     appendNullCharSequence();
+ else     CharSequences.writeCharSequence(getOut(),csq,start,end);
   }
  catch (  IOException e) {
     handleIOException(e);

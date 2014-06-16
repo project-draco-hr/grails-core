@@ -1,0 +1,6 @@
+{
+  if (start + count > str.length())   throw new StringIndexOutOfBoundsException(start);
+  this.str=str;
+  this.start=start;
+  this.count=count;
+}

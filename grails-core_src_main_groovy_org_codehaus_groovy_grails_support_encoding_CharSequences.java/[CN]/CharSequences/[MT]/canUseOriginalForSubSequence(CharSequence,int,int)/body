@@ -1,0 +1,5 @@
+{
+  if (start != 0)   return false;
+  final Class<?> csqClass=str.getClass();
+  return (csqClass == String.class || csqClass == StringBuilder.class || csqClass == StringBuffer.class) && count == str.length();
+}

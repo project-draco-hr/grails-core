@@ -1,0 +1,29 @@
+{
+  if (buf == null || len <= 0) {
+    return;
+  }
+  int n=Math.min(buf.length,off + len);
+  int i;
+  int startPos=-1;
+  char prevChar=(char)0;
+  for (i=off; i < n; i++) {
+    char ch=buf[i];
+    if (startPos == -1) {
+      startPos=i;
+    }
+    String escaped=escapeCharacter(ch,prevChar);
+    if (escaped != null) {
+      if (i - startPos > 0) {
+        writer.write(buf,startPos,i - startPos);
+      }
+      if (escaped.length() > 0) {
+        writer.write(escaped);
+      }
+      startPos=-1;
+    }
+    prevChar=ch;
+  }
+  if (startPos > -1 && i - startPos > 0) {
+    writer.write(buf,startPos,i - startPos);
+  }
+}

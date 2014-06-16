@@ -1,0 +1,8 @@
+{
+  if (shouldEncodeWith(encoder,encodingState)) {
+    encoder.encodeToStream(encoder,str,off,len,new WriterEncodedAppender(writer),encodingState);
+  }
+ else {
+    CharSequences.writeCharSequence(writer,str,off,len);
+  }
+}

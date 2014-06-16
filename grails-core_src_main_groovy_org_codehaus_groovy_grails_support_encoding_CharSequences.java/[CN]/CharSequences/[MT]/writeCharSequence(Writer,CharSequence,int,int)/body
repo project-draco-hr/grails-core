@@ -1,0 +1,25 @@
+{
+  final Class<?> csqClass=csq.getClass();
+  if (csqClass == String.class) {
+    target.write((String)csq,start,end - start);
+  }
+ else   if (csqClass == StringBuffer.class) {
+    char[] buf=new char[end - start];
+    ((StringBuffer)csq).getChars(start,end,buf,0);
+    target.write(buf);
+  }
+ else   if (csqClass == StringBuilder.class) {
+    char[] buf=new char[end - start];
+    ((StringBuilder)csq).getChars(start,end,buf,0);
+    target.write(buf);
+  }
+ else   if (csq instanceof CharArrayAccessible) {
+    char[] buf=new char[end - start];
+    ((CharArrayAccessible)csq).getChars(start,end,buf,0);
+    target.write(buf);
+  }
+ else {
+    String str=csq.subSequence(start,end).toString();
+    target.write(str,0,str.length());
+  }
+}

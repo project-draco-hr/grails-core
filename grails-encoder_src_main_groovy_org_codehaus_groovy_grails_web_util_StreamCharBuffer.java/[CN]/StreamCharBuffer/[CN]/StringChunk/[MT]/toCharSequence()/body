@@ -1,0 +1,8 @@
+{
+  if (isSingleBuffer()) {
+    return str;
+  }
+ else {
+    return CharSequences.createCharSequence(str,offset,length);
+  }
+}

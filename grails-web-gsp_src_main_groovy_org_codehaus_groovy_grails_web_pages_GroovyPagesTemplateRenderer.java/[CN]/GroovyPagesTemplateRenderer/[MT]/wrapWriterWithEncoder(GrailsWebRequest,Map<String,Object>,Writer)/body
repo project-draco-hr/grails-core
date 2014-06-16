@@ -8,6 +8,9 @@
       if (out instanceof EncodedAppenderWriterFactory) {
         out=((EncodedAppenderWriterFactory)out).getWriterForEncoder(encoder,webRequest.getEncodingStateRegistry());
       }
+ else       if (encoder instanceof StreamingEncoder) {
+        out=new StreamingEncoderWriter(out,(StreamingEncoder)encoder,webRequest.getEncodingStateRegistry());
+      }
  else {
         out=new CodecPrintWriter(out,encoder,webRequest.getEncodingStateRegistry());
       }

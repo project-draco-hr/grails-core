@@ -1,0 +1,5 @@
+{
+  EncodedAppender encodedAppender=new WriterEncodedAppender(out);
+  encodedAppender.setIgnoreEncodingState(encodingStateRegistry == null);
+  return encodedAppender;
+}

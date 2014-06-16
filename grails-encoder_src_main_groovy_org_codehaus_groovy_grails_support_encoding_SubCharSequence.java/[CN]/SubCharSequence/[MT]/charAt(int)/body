@@ -1,0 +1,4 @@
+{
+  if ((index < 0) || (index + start >= str.length()))   throw new StringIndexOutOfBoundsException(index);
+  return str.charAt(index + start);
+}

@@ -1,18 +1,19 @@
 {
-  if (csq instanceof String || csq instanceof StringBuffer || csq instanceof StringBuilder|| csq instanceof CharArrayAccessible) {
+  final Class<?> csqClass=csq.getClass();
+  if (csqClass == String.class || csqClass == StringBuffer.class || csqClass == StringBuilder.class || csq instanceof CharArrayAccessible) {
     int len=end - start;
     int charsLeft=len;
     int currentOffset=start;
     while (charsLeft > 0) {
       int spaceLeft=allocateSpace(encodingState);
       int writeChars=Math.min(spaceLeft,charsLeft);
-      if (csq instanceof String) {
+      if (csqClass == String.class) {
         allocBuffer.writeString((String)csq,currentOffset,writeChars);
       }
- else       if (csq instanceof StringBuffer) {
+ else       if (csqClass == StringBuffer.class) {
         allocBuffer.writeStringBuffer((StringBuffer)csq,currentOffset,writeChars);
       }
- else       if (csq instanceof StringBuilder) {
+ else       if (csqClass == StringBuilder.class) {
         allocBuffer.writeStringBuilder((StringBuilder)csq,currentOffset,writeChars);
       }
  else       if (csq instanceof CharArrayAccessible) {

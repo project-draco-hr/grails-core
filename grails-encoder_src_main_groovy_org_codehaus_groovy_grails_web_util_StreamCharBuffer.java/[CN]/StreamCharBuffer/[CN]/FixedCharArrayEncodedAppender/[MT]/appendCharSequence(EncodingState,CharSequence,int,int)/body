@@ -1,14 +1,19 @@
 {
   checkEncodingChange(encodingState);
-  if (csq instanceof String) {
+  final Class<?> csqClass=csq.getClass();
+  if (csqClass == String.class) {
     write(encodingState,(String)csq,start,end - start);
   }
- else   if (csq instanceof StringBuffer) {
+ else   if (csqClass == StringBuffer.class) {
     ((StringBuffer)csq).getChars(start,end,buf,count);
     count+=end - start;
   }
- else   if (csq instanceof StringBuilder) {
+ else   if (csqClass == StringBuilder.class) {
     ((StringBuilder)csq).getChars(start,end,buf,count);
+    count+=end - start;
+  }
+ else   if (csq instanceof CharArrayAccessible) {
+    ((CharArrayAccessible)csq).getChars(start,end,buf,count);
     count+=end - start;
   }
  else {

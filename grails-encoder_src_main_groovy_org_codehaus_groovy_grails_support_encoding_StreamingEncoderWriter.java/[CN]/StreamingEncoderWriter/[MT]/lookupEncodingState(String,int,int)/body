@@ -1,0 +1,8 @@
+{
+  if (encodingStateRegistry != null) {
+    return encodingStateRegistry.getEncodingStateFor(str);
+  }
+ else {
+    return null;
+  }
+}

@@ -1,0 +1,8 @@
+{
+  if (canUseOriginalForSubSequence(str,start,count)) {
+    return str;
+  }
+ else {
+    return new SubCharSequence(str,start,count);
+  }
+}

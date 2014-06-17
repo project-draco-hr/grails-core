@@ -1,13 +1,17 @@
 {
   if (useStreamingJavascriptEncoder) {
     writer.write("\"");
-    if (value instanceof String || value instanceof StringBuilder || value instanceof StringBuffer) {
-      javascriptEncoderStateless.encodeToWriter((CharSequence)value,writer);
+    if (value.getClass() == String.class || value.getClass() == StringBuilder.class || value.getClass() == StringBuffer.class) {
+      encodeToWriter((CharSequence)value,writer);
+    }
+ else     if (value instanceof StreamingEncoderWritable) {
+      ((StreamingEncoderWritable)value).encodeTo(writer,javascriptEncoderStateless);
+    }
+ else     if (value instanceof Writable) {
+      ((Writable)value).writeTo(new StreamingEncoderWriter(writer,javascriptEncoder,null));
     }
  else {
-      CodecPrintWriter codecWriter=new CodecPrintWriter(writer,javascriptEncoder,null);
-      codecWriter.print(value);
-      codecWriter.flush();
+      encodeToWriter(value.toString(),writer);
     }
     writer.write("\"");
   }

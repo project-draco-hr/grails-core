@@ -1,0 +1,13 @@
+{
+  super(null);
+  this.encoder=encoder;
+  buffer=new StreamCharBuffer();
+  buffer.setNotifyParentBuffersEnabled(false);
+  allowUnwrappingOut=false;
+  buffer.connectTo(out,false);
+  if (out instanceof EncodedAppenderFactory) {
+    buffer.setWriteDirectlyToConnectedMinSize(0);
+    buffer.setChunkMinSize(0);
+  }
+  setOut(buffer.getWriterForEncoder(encoder,encodingStateRegistry,ignoreEncodingState));
+}

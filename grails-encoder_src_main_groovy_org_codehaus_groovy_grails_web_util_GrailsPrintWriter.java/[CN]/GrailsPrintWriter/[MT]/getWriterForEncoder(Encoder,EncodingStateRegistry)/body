@@ -16,7 +16,12 @@
     }
   }
   if (target != null) {
-    return new CodecPrintWriter(target,encoder,encodingStateRegistry);
+    if (encoder instanceof StreamingEncoder) {
+      return new StreamingEncoderWriter(target,(StreamingEncoder)encoder,encodingStateRegistry);
+    }
+ else {
+      return new CodecPrintWriter(target,encoder,encodingStateRegistry);
+    }
   }
  else {
     return null;

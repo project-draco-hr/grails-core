@@ -1,7 +1,32 @@
 {
-  usageFlag=true;
-  if (value != null) {
-    InvokerHelper.write(this,value);
+  if (trouble || obj == null) {
+    usageFlag=true;
+    return this;
+  }
+  Class<?> clazz=obj.getClass();
+  if (clazz == String.class) {
+    write((String)obj);
+  }
+ else   if (clazz == StreamCharBuffer.class) {
+    write((StreamCharBuffer)obj);
+  }
+ else   if (clazz == GStringImpl.class) {
+    write((Writable)obj);
+  }
+ else   if (obj instanceof Writable) {
+    write((Writable)obj);
+  }
+ else   if (obj instanceof CharSequence) {
+    try {
+      usageFlag=true;
+      CharSequences.writeCharSequence(getOut(),(CharSequence)obj);
+    }
+ catch (    IOException e) {
+      handleIOException(e);
+    }
+  }
+ else {
+    InvokerHelper.write(this,obj);
   }
   return this;
 }

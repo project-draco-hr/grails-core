@@ -1,0 +1,19 @@
+{
+  final Class<?> csqClass=csq.getClass();
+  if (csqClass == String.class) {
+    ((String)csq).getChars(srcBegin,srcEnd,dst,dstBegin);
+  }
+ else   if (csqClass == StringBuffer.class) {
+    ((StringBuffer)csq).getChars(srcBegin,srcEnd,dst,dstBegin);
+  }
+ else   if (csqClass == StringBuilder.class) {
+    ((StringBuilder)csq).getChars(srcBegin,srcEnd,dst,dstBegin);
+  }
+ else   if (csq instanceof CharArrayAccessible) {
+    ((CharArrayAccessible)csq).getChars(srcBegin,srcEnd,dst,dstBegin);
+  }
+ else {
+    String str=csq.subSequence(srcBegin,srcEnd).toString();
+    str.getChars(0,str.length(),dst,dstBegin);
+  }
+}

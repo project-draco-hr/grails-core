@@ -1,0 +1,8 @@
+{
+  AbstractChunk current=firstChunk;
+  while (current != null) {
+    current.encodeTo(writer,encoder);
+    current=current.next;
+  }
+  allocBuffer.encodeTo(writer,encoder);
+}

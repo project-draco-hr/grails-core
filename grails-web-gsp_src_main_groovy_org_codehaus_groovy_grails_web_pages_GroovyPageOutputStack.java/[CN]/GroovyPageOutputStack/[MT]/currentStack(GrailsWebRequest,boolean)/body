@@ -1,6 +1,7 @@
 {
-  if (allowCreate) {
-    return currentStack(request,allowCreate,null,allowCreate,false);
+  GroovyPageOutputStack outputStack=lookupStack(request);
+  if (outputStack == null && allowCreate) {
+    outputStack=currentStack(request,allowCreate,null,allowCreate,false);
   }
-  return lookupStack(request);
+  return outputStack;
 }

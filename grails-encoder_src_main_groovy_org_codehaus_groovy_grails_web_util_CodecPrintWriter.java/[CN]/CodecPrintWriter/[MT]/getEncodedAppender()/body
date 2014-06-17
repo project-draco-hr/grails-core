@@ -1,3 +1,5 @@
 {
-  return ((EncodedAppenderFactory)buffer.getWriter()).getEncodedAppender();
+  EncodedAppender encodedAppender=((EncodedAppenderFactory)buffer.getWriter()).getEncodedAppender();
+  encodedAppender.setIgnoreEncodingState(ignoreEncodingState);
+  return encodedAppender;
 }

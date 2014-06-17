@@ -1,0 +1,6 @@
+{
+  if (srcBegin < 0)   throw new StringIndexOutOfBoundsException(srcBegin);
+  if ((srcEnd < 0) || (srcEnd > 1))   throw new StringIndexOutOfBoundsException(srcEnd);
+  if (srcBegin > srcEnd)   throw new StringIndexOutOfBoundsException("srcBegin > srcEnd");
+  dst[dstBegin]=ch;
+}

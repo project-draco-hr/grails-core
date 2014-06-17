@@ -1,9 +1,0 @@
-{
-  String[] pathElements=path.split("\\" + PATH_SEPARATOR);
-  for (int i=0; i < pathElements.length; i++) {
-    if (pathElements[i].startsWith(fieldMarkerPrefix)) {
-      pathElements[i]=pathElements[i].substring(fieldMarkerPrefix.length());
-    }
-  }
-  return DefaultGroovyMethods.join(pathElements,String.valueOf(PATH_SEPARATOR));
-}

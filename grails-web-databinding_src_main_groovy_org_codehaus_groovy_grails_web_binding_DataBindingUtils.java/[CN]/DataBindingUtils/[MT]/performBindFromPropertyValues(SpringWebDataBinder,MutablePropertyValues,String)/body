@@ -1,8 +1,0 @@
-{
-  if (filter != null) {
-    binder.bind(mutablePropertyValues,filter);
-  }
- else {
-    binder.bind(mutablePropertyValues);
-  }
-}

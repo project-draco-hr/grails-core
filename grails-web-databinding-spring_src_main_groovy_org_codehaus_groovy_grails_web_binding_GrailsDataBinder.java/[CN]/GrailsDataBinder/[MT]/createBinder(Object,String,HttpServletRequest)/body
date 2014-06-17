@@ -1,8 +1,0 @@
-{
-  GrailsDataBinder binder=createBinder(target,objectName);
-  final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
-  initializeFromWebRequest(binder,webRequest);
-  Locale locale=RequestContextUtils.getLocale(request);
-  registerCustomEditors(webRequest,binder,locale);
-  return binder;
-}

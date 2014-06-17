@@ -1,3 +1,0 @@
-{
-  return accessor.isWritableProperty(propertyName) && (accessor.isReadableProperty(propertyName) && accessor.getPropertyValue(propertyName) == null);
-}

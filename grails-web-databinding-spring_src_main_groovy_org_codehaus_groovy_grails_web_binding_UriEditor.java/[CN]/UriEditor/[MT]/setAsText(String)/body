@@ -1,8 +1,0 @@
-{
-  try {
-    setValue(new URI(uriString));
-  }
- catch (  URISyntaxException e) {
-    setValue(null);
-  }
-}

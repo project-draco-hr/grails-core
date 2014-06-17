@@ -1,8 +1,0 @@
-{
-  if (filter != null) {
-    binder.bind(request,filter);
-  }
- else {
-    binder.bind(request);
-  }
-}

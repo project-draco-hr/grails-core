@@ -1,6 +1,0 @@
-{
-  if (metaProperty instanceof ThreadManagedMetaBeanProperty) {
-    return ((ThreadManagedMetaBeanProperty)metaProperty).getGetter().invoke(delegate,MetaClassHelper.EMPTY_ARRAY);
-  }
-  return metaProperty.getProperty(delegate);
-}

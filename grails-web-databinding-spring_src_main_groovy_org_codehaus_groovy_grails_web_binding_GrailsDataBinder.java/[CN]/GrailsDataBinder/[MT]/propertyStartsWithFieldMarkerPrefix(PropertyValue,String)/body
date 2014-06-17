@@ -1,4 +1,0 @@
-{
-  String propertyName=pv.getName().indexOf(PATH_SEPARATOR) > -1 ? GrailsStringUtils.substringAfterLast(pv.getName(),".") : pv.getName();
-  return propertyName.startsWith(fieldMarkerPrefix);
-}

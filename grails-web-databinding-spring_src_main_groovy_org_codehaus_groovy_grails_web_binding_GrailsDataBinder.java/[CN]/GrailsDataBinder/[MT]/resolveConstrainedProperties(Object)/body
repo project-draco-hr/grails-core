@@ -1,3 +1,0 @@
-{
-  return resolveConstrainedProperties(object,(grailsApplication != null) ? ((GrailsDomainClass)grailsApplication.getArtefact(DomainClassArtefactHandler.TYPE,object.getClass().getName())) : null);
-}

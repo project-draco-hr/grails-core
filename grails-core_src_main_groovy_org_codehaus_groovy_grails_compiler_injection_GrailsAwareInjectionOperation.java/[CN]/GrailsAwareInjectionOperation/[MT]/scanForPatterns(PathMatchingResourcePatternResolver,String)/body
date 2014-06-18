@@ -1,0 +1,7 @@
+{
+  List<Resource> results=new ArrayList<Resource>();
+  for (  String pattern : patterns) {
+    results.addAll(Arrays.asList(resolver.getResources(pattern)));
+  }
+  return results.toArray(new Resource[results.size()]);
+}

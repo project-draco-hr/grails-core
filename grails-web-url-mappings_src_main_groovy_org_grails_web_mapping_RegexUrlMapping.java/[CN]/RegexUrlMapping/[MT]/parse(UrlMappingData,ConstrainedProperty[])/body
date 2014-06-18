@@ -1,0 +1,70 @@
+{
+  Assert.notNull(data,"Argument [data] cannot be null");
+  String[] urls=data.getLogicalUrls();
+  urlData=data;
+  patterns=new Pattern[urls.length];
+  for (int i=0; i < urls.length; i++) {
+    String url=urls[i];
+    Integer slashCount=org.springframework.util.StringUtils.countOccurrencesOf(url,"/");
+    List<Pattern> tokenCountPatterns=patternByTokenCount.get(slashCount);
+    if (tokenCountPatterns == null) {
+      tokenCountPatterns=new ArrayList<Pattern>();
+      patternByTokenCount.put(slashCount,tokenCountPatterns);
+    }
+    Pattern pattern=convertToRegex(url);
+    if (pattern == null) {
+      throw new IllegalStateException("Cannot use null pattern in regular expression mapping for url [" + data.getUrlPattern() + "]");
+    }
+    tokenCountPatterns.add(pattern);
+    this.patterns[i]=pattern;
+  }
+  if (constraints != null) {
+    String[] tokens=data.getTokens();
+    int pos=0;
+    int currentToken=0;
+    int tokensLength=tokens.length - 1;
+    int constraintUpperBound=constraints.length;
+    if (data.hasOptionalExtension()) {
+      constraintUpperBound--;
+      constraints[constraintUpperBound].setNullable(true);
+    }
+    for (int i=0; i < constraintUpperBound; i++) {
+      ConstrainedProperty constraint=constraints[i];
+      if (currentToken > tokensLength)       break;
+      String token=tokens[currentToken];
+      int shiftLength=3;
+      pos=token.indexOf(CAPTURED_WILDCARD,pos);
+      while (pos == -1) {
+        boolean isLastToken=currentToken == tokensLength - 1;
+        if (currentToken < tokensLength) {
+          token=tokens[++currentToken];
+          if (isLastToken) {
+            if (token.startsWith(CAPTURED_WILDCARD + '?')) {
+              constraint.setNullable(true);
+            }
+            if (token.endsWith(OPTIONAL_EXTENSION_WILDCARD + '?')) {
+              constraints[constraints.length - 1].setNullable(true);
+            }
+          }
+ else {
+            pos=token.indexOf(CAPTURED_WILDCARD,pos);
+          }
+        }
+ else {
+          break;
+        }
+      }
+      if (pos == -1) {
+        constraint.setNullable(true);
+      }
+ else       if (pos + shiftLength < token.length() && token.charAt(pos + shiftLength) == '?') {
+        constraint.setNullable(true);
+      }
+      pos+=shiftLength;
+      if (token.indexOf(CAPTURED_WILDCARD,pos) == -1) {
+        currentToken++;
+        pos=0;
+      }
+    }
+  }
+}

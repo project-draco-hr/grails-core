@@ -1,0 +1,7 @@
+{
+  StreamCharBuffer currentBuffer=this;
+  for (  Encoder encoder : encoders) {
+    currentBuffer=currentBuffer.encodeToBuffer(encoder,allowSubBuffers,notifyParentBuffersEnabled);
+  }
+  return currentBuffer;
+}

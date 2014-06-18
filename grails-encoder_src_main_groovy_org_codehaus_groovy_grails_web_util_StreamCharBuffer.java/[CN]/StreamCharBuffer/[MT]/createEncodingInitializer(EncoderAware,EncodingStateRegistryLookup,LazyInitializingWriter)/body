@@ -9,6 +9,7 @@
       if (encoder != null) {
         EncodingStateRegistry encodingStateRegistry=encodingStateRegistryLookup.lookup();
         StreamCharBuffer encodeBuffer=new StreamCharBuffer(chunkSize,growProcent,maxChunkSize);
+        encodeBuffer.setAllowSubBuffers(false);
         lazyWriter=encodeBuffer.getWriterForEncoder(encoder,encodingStateRegistry);
         for (        LazyInitializingWriter w : writers) {
           encodeBuffer.connectTo(w,autoFlushMode);

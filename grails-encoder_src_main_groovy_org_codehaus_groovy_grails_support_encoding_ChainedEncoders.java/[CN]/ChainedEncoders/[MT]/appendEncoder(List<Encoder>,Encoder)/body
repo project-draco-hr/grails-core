@@ -1,0 +1,18 @@
+{
+  List<Encoder> nextEncoders;
+  if (encodeToEncoder != null) {
+    if (encoders != null) {
+      List<Encoder> joined=new ArrayList<Encoder>(encoders.size() + 1);
+      joined.addAll(encoders);
+      joined.add(encodeToEncoder);
+      nextEncoders=Collections.unmodifiableList(joined);
+    }
+ else {
+      nextEncoders=Collections.singletonList(encodeToEncoder);
+    }
+  }
+ else {
+    nextEncoders=encoders;
+  }
+  return nextEncoders;
+}

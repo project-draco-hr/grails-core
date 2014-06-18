@@ -1,0 +1,13 @@
+{
+  EncodedAppender target;
+  Encoder lastEncoder;
+  if (encoders != null && encoders.size() > 0) {
+    target=chainAllButLastEncoders(appender,encoders);
+    lastEncoder=encoders.get(0);
+  }
+ else {
+    target=appender;
+    lastEncoder=null;
+  }
+  target.append(lastEncoder,streamEncodeable);
+}

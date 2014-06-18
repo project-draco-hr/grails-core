@@ -1,0 +1,23 @@
+{
+  String[] codecs=codecName.split(",");
+  List<T> codecInstances=new ArrayList<T>(codecs.length);
+  for (int i=0; i < codecs.length; i++) {
+    T codecInstance=map.get(codecs[i]);
+    if (codecInstance != null) {
+      codecInstances.add(codecInstance);
+    }
+  }
+  if (returnType == Encoder.class) {
+    List<StreamingEncoder> streamingEncoders=ChainedEncoders.toStreamingEncoders((List<Encoder>)codecInstances);
+    if (streamingEncoders == null) {
+      throw new RuntimeException("ChainedEncoder only supports StreamingEncoder instances. Couldn't build chained encoder for '" + codecName + "'");
+    }
+ else {
+      return (T)ChainedEncoder.createFor(streamingEncoders);
+    }
+  }
+ else {
+    Collections.reverse(codecInstances);
+    return (T)new ChainedDecoder(codecInstances.toArray(new Decoder[codecInstances.size()]));
+  }
+}

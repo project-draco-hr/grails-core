@@ -12,7 +12,8 @@
   }
  else {
     for (    StreamCharBufferSubChunk chunk : dynamicChunkMap.values()) {
-      if (!chunk.hasCachedSize() && chunk.getSubBuffer().isSizeLarger(minSize - total)) {
+      int remaining=minSize - total;
+      if (!chunk.hasCachedSize() && (chunk.getSourceBuffer().isSizeLarger(remaining) || (chunk.getEncodedBuffer() != chunk.getSourceBuffer() && chunk.getEncodedBuffer().isSizeLarger(remaining)))) {
         return true;
       }
       total+=chunk.size();

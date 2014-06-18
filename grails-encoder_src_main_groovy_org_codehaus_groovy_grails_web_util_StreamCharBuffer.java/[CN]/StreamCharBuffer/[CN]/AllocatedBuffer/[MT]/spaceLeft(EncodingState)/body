@@ -1,4 +1,7 @@
 {
+  if (encodingState == null) {
+    encodingState=EncodingStateImpl.UNDEFINED_ENCODING_STATE;
+  }
   if (this.encodingState != null && (encodingState == null || !this.encodingState.equals(encodingState)) && hasChunk() && !isNotConnectedToEncoderAwareWriters()) {
     addChunk(allocBuffer.createChunk());
     this.encodingState=null;

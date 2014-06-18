@@ -1,0 +1,16 @@
+{
+  if (encoders == null || encoders.isEmpty()) {
+    return null;
+  }
+  List<StreamingEncoder> streamingEncoders=new ArrayList<StreamingEncoder>();
+  for (  Encoder encoder : encoders) {
+    if (!(encoder instanceof StreamingEncoder)) {
+      return null;
+    }
+    StreamingEncoder streamingEncoder=(StreamingEncoder)encoder;
+    if (shouldApplyEncoder(streamingEncoder)) {
+      streamingEncoders.add(streamingEncoder);
+    }
+  }
+  return streamingEncoders;
+}

@@ -1,0 +1,23 @@
+{
+  if (encoders == null || encoders.isEmpty()) {
+    streamEncodeable.encodeTo(appender,null);
+  }
+ else {
+    StreamEncodeable lastStreamEncodeable=streamEncodeable;
+    if (encoders.size() > 1) {
+      StreamCharBuffer buffer;
+      if (streamEncodeable instanceof StreamCharBuffer) {
+        buffer=(StreamCharBuffer)streamEncodeable;
+      }
+ else {
+        buffer=new StreamCharBuffer();
+        streamEncodeable.encodeTo(((StreamCharBufferWriter)buffer.getWriter()).getEncodedAppender(),null);
+      }
+      for (int i=0; i < encoders.size() - 1; i++) {
+        buffer=buffer.encodeToBuffer(encoders.get(i));
+      }
+      lastStreamEncodeable=buffer;
+    }
+    lastStreamEncodeable.encodeTo(appender,encoders.get(encoders.size() - 1));
+  }
+}

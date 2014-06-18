@@ -1,0 +1,3 @@
+{
+  return encoderToApply == null || encoderToApply == NONE_ENCODER || encoderToApply.getClass() == NoneEncoder.class;
+}

@@ -1,3 +1,18 @@
 {
-  streamCharBuffer.writeTo(target);
+  if (encoders == null || hasEncodedBufferAvailable() || !hasOnlyStreamingEncoders()) {
+    getEncodedBuffer().writeTo(target);
+  }
+ else {
+    EncodedAppender appender;
+    if (target instanceof EncodedAppender) {
+      appender=((EncodedAppender)target);
+    }
+ else     if (target instanceof EncodedAppenderFactory) {
+      appender=((EncodedAppenderFactory)target).getEncodedAppender();
+    }
+ else {
+      appender=new WriterEncodedAppender(target);
+    }
+    ChainedEncoders.chainEncode(getSourceBuffer(),appender,encoders);
+  }
 }

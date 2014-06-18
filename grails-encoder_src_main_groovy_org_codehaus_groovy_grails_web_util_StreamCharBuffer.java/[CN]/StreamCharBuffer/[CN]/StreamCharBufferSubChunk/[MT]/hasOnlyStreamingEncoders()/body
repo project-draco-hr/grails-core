@@ -1,0 +1,11 @@
+{
+  if (encoders == null || encoders.isEmpty()) {
+    return false;
+  }
+  for (  Encoder encoder : encoders) {
+    if (!(encoder instanceof StreamingEncoder)) {
+      return false;
+    }
+  }
+  return true;
+}

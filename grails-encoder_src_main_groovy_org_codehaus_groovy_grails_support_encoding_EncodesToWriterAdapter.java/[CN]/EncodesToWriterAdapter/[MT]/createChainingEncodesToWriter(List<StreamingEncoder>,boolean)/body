@@ -1,0 +1,5 @@
+{
+  EncodesToWriterAdapter chained=createChainingEncodesToWriter(getStreamingEncoder(),additionalEncoders,applyAdditionalFirst);
+  chained.setIgnoreEncodingState(isIgnoreEncodingState());
+  return chained;
+}

@@ -1,0 +1,12 @@
+{
+  markUsed();
+  int directChunkMinSize=getDirectChunkMinSize();
+  if (encoders == null && (directChunkMinSize == 0 || (directChunkMinSize != -1 && subBuffer.isSizeLarger(directChunkMinSize)))) {
+    appendCharBufferChunk(null,true,false);
+    startUsingConnectedWritersWriter();
+    subBuffer.writeToImpl(connectedWritersWriter,false,false);
+  }
+ else   if (!appendSubBuffer(subBuffer,encoders)) {
+    ChainedEncoders.chainEncode(subBuffer,this.getEncodedAppender(),encoders);
+  }
+}

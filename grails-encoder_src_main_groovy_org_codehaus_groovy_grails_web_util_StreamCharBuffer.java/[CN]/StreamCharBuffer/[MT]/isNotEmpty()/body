@@ -10,7 +10,7 @@
   }
   if (totalCharsInDynamicChunks == -1) {
     for (    StreamCharBufferSubChunk chunk : dynamicChunkMap.values()) {
-      if (chunk.getSubBuffer().isNotEmpty()) {
+      if (chunk.getSourceBuffer().isNotEmpty()) {
         return true;
       }
     }

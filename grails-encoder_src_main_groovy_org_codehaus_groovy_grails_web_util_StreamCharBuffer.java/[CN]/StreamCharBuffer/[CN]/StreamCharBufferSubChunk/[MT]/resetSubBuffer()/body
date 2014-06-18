@@ -1,0 +1,12 @@
+{
+  if (cachedSize != -1 || encodedBuffer != sourceBuffer) {
+    cachedSize=-1;
+    encodedSourceChangesCounter=-1;
+    if (encodedBuffer != sourceBuffer && encodedBuffer != null) {
+      encodedBuffer.clear();
+      encodeToEncodedBuffer();
+    }
+    return true;
+  }
+  return false;
+}

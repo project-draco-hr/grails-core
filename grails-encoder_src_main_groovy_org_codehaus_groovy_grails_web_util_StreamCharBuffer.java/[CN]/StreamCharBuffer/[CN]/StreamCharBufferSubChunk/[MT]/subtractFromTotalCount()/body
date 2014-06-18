@@ -1,6 +1,4 @@
 {
-  if (totalCharsInDynamicChunks != -1) {
-    totalCharsInDynamicChunks-=size();
-  }
-  dynamicChunkMap.remove(streamCharBuffer.bufferKey);
+  totalCharsInDynamicChunks=-1;
+  dynamicChunkMap.remove(sourceBuffer.bufferKey);
 }

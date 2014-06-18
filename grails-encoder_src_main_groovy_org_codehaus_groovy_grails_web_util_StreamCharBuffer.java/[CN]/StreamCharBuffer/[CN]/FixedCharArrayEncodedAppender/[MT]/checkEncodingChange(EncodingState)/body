@@ -1,5 +1,8 @@
 {
-  if (currentState != null && (encodingState == null || !currentState.equals(encodingState))) {
+  if (encodingState == null) {
+    encodingState=EncodingStateImpl.UNDEFINED_ENCODING_STATE;
+  }
+  if (currentState != null && !currentState.equals(encodingState)) {
     addPart();
   }
   if (currentState == null) {

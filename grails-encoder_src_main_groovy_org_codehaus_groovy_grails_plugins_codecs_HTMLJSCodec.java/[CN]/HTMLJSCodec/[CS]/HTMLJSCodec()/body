@@ -1,4 +1,4 @@
 {
-  encoders=new StreamingEncoder[]{(StreamingEncoder)new BasicXMLEncoder(),(StreamingEncoder)JavaScriptCodec.getENCODER()};
+  encoders=new StreamingEncoder[]{(StreamingEncoder)new HTMLEncoder(),(StreamingEncoder)JavaScriptCodec.getENCODER()};
   decoders=new Decoder[]{JavaScriptCodec.getDECODER(),new HTML4Decoder()};
 }

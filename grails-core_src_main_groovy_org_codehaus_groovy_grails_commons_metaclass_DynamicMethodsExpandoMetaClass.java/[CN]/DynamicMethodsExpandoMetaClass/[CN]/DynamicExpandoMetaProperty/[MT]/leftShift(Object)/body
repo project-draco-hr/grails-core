@@ -1,7 +1,0 @@
-{
-  if (isRegexMethod(propertyName,arg)) {
-    registerDynamicMethodInvocation(propertyName,arg);
-    return this;
-  }
-  return super.leftShift(arg);
-}

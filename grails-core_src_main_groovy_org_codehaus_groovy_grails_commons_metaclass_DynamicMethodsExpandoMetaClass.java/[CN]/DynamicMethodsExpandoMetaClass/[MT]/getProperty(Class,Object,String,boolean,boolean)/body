@@ -1,8 +1,0 @@
-{
-  InvocationCallback callback=new InvocationCallback();
-  Object returnValue=dynamicMethods.getProperty(object,property,callback);
-  if (callback.isInvoked()) {
-    return returnValue;
-  }
-  return super.getProperty(aClass,object,property,b,b1);
-}

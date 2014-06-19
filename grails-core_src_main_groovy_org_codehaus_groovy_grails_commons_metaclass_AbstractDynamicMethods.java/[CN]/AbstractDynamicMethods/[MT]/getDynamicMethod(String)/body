@@ -1,8 +1,0 @@
-{
-  for (  DynamicMethodInvocation methodInvocation : dynamicMethodInvocations) {
-    if (methodInvocation.isMethodMatch(methodSignature)) {
-      return methodInvocation;
-    }
-  }
-  return null;
-}

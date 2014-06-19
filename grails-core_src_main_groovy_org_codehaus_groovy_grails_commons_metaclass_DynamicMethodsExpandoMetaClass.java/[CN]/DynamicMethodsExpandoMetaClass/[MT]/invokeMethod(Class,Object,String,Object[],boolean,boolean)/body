@@ -1,8 +1,0 @@
-{
-  InvocationCallback callback=new InvocationCallback();
-  Object returnValue=dynamicMethods.invokeMethod(target,methodName,arguments,callback);
-  if (callback.isInvoked()) {
-    return returnValue;
-  }
-  return super.invokeMethod(aClass,target,methodName,arguments,b,b1);
-}

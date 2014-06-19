@@ -1,6 +1,0 @@
-{
-  if (bean instanceof GroovyObject) {
-    return ((GroovyObject)bean).getMetaClass();
-  }
-  return GroovySystem.getMetaClassRegistry().getMetaClass(bean.getClass());
-}

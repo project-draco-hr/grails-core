@@ -7,7 +7,7 @@
   }
   AnnotatedNode parent=(AnnotatedNode)astNodes[1];
   AnnotationNode node=(AnnotationNode)astNodes[0];
-  if ((!NEW_VALIDATEABLE_CLASS_NODE.equals(node.getClassNode()) && !ORIGINAL_VALIDATEABLE_CLASS_NODE.equals(node.getClassNode())) || !(parent instanceof ClassNode)) {
+  if (!VALIDATEABLE_CLASS_NODE.equals(node.getClassNode())) {
     return;
   }
   ClassNode cNode=(ClassNode)parent;

@@ -7,7 +7,7 @@
   }
  else {
     initializeCommandObjectParameter(wrapper,commandObjectNode,paramName,source);
-    @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectNode,grails.validation.Validateable.class,org.codehaus.groovy.grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);
+    @SuppressWarnings("unchecked") boolean argumentIsValidateable=GrailsASTUtils.hasAnyAnnotations(commandObjectNode,grails.validation.Validateable.class,grails.persistence.Entity.class,javax.persistence.Entity.class);
     if (!argumentIsValidateable) {
       final ModuleNode commandObjectModule=commandObjectNode.getModule();
       if (commandObjectModule != null) {

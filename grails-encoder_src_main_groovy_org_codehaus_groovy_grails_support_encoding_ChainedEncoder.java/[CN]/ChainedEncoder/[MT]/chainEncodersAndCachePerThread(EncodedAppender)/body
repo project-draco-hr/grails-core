@@ -1,0 +1,9 @@
+{
+  ChainedEncoderCacheItem cacheItem=cacheItemThreadLocal.get();
+  EncodedAppender target=cacheItem.getCached(appender);
+  if (target == null) {
+    target=doChainEncoders(appender);
+    cacheItem.putInCache(appender,target);
+  }
+  return target;
+}

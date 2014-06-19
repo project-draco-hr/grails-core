@@ -1,3 +1,8 @@
 {
-  encoder.encodeToStream(encoder,str,start,end - start,target,encodingState);
+  if (shouldEncode(encoder,encodingState.getPreviousEncodingState())) {
+    encoder.encodeToStream(encoder,str,start,end - start,target,encodingState);
+  }
+ else {
+    target.appendEncoded(null,encodingState,str,start,end - start);
+  }
 }

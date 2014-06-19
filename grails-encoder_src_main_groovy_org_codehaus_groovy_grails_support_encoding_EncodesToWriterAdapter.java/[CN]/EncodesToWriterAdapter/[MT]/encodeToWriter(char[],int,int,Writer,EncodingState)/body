@@ -1,6 +1,6 @@
 {
   if (shouldEncodeWith(encoder,encodingState)) {
-    encoder.encodeToStream(encoder,CharSequences.createCharSequence(buf,off,len),0,len,new WriterEncodedAppender(writer),encodingState);
+    encoder.encodeToStream(encoder,CharSequences.createCharSequence(buf,off,len),0,len,new WriterEncodedAppender(writer),createNewEncodingState(encoder,encodingState));
   }
  else {
     writer.write(buf,off,len);

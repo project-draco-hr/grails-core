@@ -1,0 +1,15 @@
+{
+  if (!hasEncodedBufferAvailable()) {
+    if (encoders == null || sourceBuffer.isEmpty()) {
+      encodedBuffer=sourceBuffer;
+      encodedSourceChangesCounter=sourceBuffer.getBufferChangesCounter();
+    }
+ else {
+      encodedBuffer=new StreamCharBuffer(chunkSize,growProcent,maxChunkSize);
+      encodedBuffer.setAllowSubBuffers(isAllowSubBuffers());
+      encodedBuffer.setNotifyParentBuffersEnabled(getSourceBuffer().isNotifyParentBuffersEnabled());
+      encodeToEncodedBuffer();
+    }
+  }
+  return encodedBuffer;
+}

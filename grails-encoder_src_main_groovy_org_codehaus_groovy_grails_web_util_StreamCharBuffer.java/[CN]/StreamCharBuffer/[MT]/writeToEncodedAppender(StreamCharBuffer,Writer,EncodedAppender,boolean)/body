@@ -1,0 +1,24 @@
+{
+  if (target instanceof EncodedAppenderFactory) {
+    EncodedAppenderFactory eaw=(EncodedAppenderFactory)target;
+    EncodedAppender appender=eaw.getEncodedAppender();
+    if (appender != null) {
+      if (appender == notAllowedAppender) {
+        throw new IllegalArgumentException("Cannot write buffer to itself.");
+      }
+      Encoder encoder=null;
+      if (target instanceof EncoderAware) {
+        encoder=((EncoderAware)target).getEncoder();
+      }
+      if (encoder == null && appender instanceof EncoderAware) {
+        encoder=((EncoderAware)appender).getEncoder();
+      }
+      source.encodeTo(appender,encoder);
+      if (flush) {
+        appender.flush();
+      }
+      return true;
+    }
+  }
+  return false;
+}

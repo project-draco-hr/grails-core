@@ -1,5 +1,5 @@
 {
-  encoders=new HashMap<String,Encoder>();
-  decoders=new HashMap<String,Decoder>();
+  encoders=new ConcurrentHashMap<String,Encoder>();
+  decoders=new ConcurrentHashMap<String,Decoder>();
   registerCodecs();
 }

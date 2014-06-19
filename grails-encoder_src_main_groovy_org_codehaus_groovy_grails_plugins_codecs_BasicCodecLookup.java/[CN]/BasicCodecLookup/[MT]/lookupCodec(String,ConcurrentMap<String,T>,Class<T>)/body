@@ -1,0 +1,17 @@
+{
+  if (codecName != null && codecName.length() > 0) {
+    if (NONE_CODEC_NAME.equalsIgnoreCase(codecName)) {
+      if (returnType == Encoder.class) {
+        return (T)NONE_ENCODER;
+      }
+    }
+ else {
+      T resultObject=map.get(codecName);
+      if (resultObject == null) {
+        resultObject=createCodec(codecName,map,returnType);
+      }
+      return resultObject;
+    }
+  }
+  return null;
+}

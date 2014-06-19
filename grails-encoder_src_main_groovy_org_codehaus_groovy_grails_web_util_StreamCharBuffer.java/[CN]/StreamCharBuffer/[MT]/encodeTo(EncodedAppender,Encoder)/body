@@ -1,4 +1,10 @@
 {
+  if (isPreferSubChunkWhenWritingToOtherBuffer() && appender instanceof StreamCharBufferEncodedAppender) {
+    StreamCharBufferWriter writer=((StreamCharBufferEncodedAppender)appender).getWriter();
+    if (writer.appendSubBuffer(this,encoder != null ? Collections.singletonList(encoder) : null)) {
+      return;
+    }
+  }
   AbstractChunk current=firstChunk;
   while (current != null) {
     current.encodeTo(appender,encoder);

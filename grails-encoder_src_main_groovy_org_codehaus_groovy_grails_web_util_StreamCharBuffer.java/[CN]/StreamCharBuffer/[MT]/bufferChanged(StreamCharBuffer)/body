@@ -1,9 +1,10 @@
 {
+  markBufferChanged();
   StreamCharBufferSubChunk subChunk=dynamicChunkMap.get(buffer.bufferKey);
   if (subChunk == null) {
     return false;
   }
-  if (subChunk.resetSize()) {
+  if (subChunk.resetSubBuffer()) {
     totalCharsInDynamicChunks=-1;
     sizeAtLeast=-1;
     notifyBufferChange();

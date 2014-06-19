@@ -1,4 +1,5 @@
 {
+  markBufferChanged();
   if (!notifyParentBuffersEnabled)   return;
   if (parentBuffers == null) {
     return;

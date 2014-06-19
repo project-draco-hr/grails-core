@@ -1,0 +1,9 @@
+{
+  EncodedAppender target=appender;
+  for (int i=encoders.length - 1; i >= 1; i--) {
+    StreamingEncoder encoder=encoders[i];
+    target=new StreamingEncoderEncodedAppender(encoder,target);
+    target.setIgnoreEncodingState(appender.isIgnoreEncodingState());
+  }
+  return target;
+}

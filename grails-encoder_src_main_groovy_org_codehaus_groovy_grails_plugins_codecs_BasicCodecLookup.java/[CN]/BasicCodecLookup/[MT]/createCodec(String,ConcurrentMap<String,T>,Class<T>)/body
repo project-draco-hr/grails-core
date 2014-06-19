@@ -1,0 +1,10 @@
+{
+  if (codecName.indexOf(',') > -1) {
+    T createdInstance=createChainedCodecInstance(codecName,map,returnType);
+    if (createdInstance != null) {
+      createdInstance=putChainedCodecInstance(codecName,map,createdInstance);
+    }
+    return createdInstance;
+  }
+  return null;
+}

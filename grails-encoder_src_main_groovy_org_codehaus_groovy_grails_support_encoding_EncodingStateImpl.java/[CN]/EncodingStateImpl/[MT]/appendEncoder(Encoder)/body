@@ -12,5 +12,5 @@
     newEncoders.addAll(encoders);
     newEncoders.add(encoder);
   }
-  return new EncodingStateImpl(newEncoders);
+  return new EncodingStateImpl(newEncoders,this);
 }

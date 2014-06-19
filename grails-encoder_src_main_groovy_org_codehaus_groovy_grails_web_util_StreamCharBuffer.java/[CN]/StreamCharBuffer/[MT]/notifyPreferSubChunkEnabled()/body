@@ -1,0 +1,9 @@
+{
+  if (isPreferSubChunkWhenWritingToOtherBuffer() && parentBuffers != null && isNotifyParentBuffersEnabled()) {
+    for (    StreamCharBuffer parentBuffer : getCurrentParentBuffers()) {
+      if (!parentBuffer.isPreferSubChunkWhenWritingToOtherBuffer()) {
+        parentBuffer.setPreferSubChunkWhenWritingToOtherBuffer(true);
+      }
+    }
+  }
+}

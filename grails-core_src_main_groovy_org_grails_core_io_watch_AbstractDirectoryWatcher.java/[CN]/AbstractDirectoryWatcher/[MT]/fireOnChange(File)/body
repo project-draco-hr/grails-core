@@ -1,0 +1,5 @@
+{
+  for (  DirectoryWatcher.FileChangeListener listener : listeners) {
+    listener.onChange(file);
+  }
+}

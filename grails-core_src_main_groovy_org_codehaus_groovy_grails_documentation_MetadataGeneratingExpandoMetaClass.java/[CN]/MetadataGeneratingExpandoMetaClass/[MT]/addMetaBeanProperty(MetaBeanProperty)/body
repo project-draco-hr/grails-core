@@ -1,9 +1,0 @@
-{
-  super.addMetaBeanProperty(mp);
-  if (!MetadataGeneratingMetaClassCreationHandle.isExcludedClass(getJavaClass())) {
-    DocumentationContext context=DocumentationContext.getInstance();
-    if (context != null && context.isActive() && getExpandoProperties().contains(mp)) {
-      context.documentProperty(context.getArtefactType(),getJavaClass(),mp.getName());
-    }
-  }
-}

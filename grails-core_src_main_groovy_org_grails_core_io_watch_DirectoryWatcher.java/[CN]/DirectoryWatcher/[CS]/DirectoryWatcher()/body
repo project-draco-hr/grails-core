@@ -1,0 +1,17 @@
+{
+  setDaemon(true);
+  AbstractDirectoryWatcher directoryWatcherDelegate;
+  if (Boolean.getBoolean(ENABLE_JAVA7_WATCH_SERVICE)) {
+    try {
+      directoryWatcherDelegate=(AbstractDirectoryWatcher)Class.forName("org.grails.core.io.watch.WatchServiceDirectoryWatcher").newInstance();
+    }
+ catch (    Exception e) {
+      LOG.info("Exception while trying to load WatchServiceDirectoryWatcher (this is probably Java 6 and WatchService isn't available). Falling back to PollingDirectoryWatcher.",e);
+      directoryWatcherDelegate=new PollingDirectoryWatcher();
+    }
+  }
+ else {
+    directoryWatcherDelegate=new PollingDirectoryWatcher();
+  }
+  this.directoryWatcherDelegate=directoryWatcherDelegate;
+}

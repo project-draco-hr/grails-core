@@ -1,0 +1,11 @@
+{
+  final ASTNode getErrorsMethod=paramTypeClassNode.getMethod(GET_ERRORS_METHOD_NAME,GrailsArtefactClassInjector.ZERO_PARAMETERS);
+  if (getErrorsMethod == null) {
+    final BlockStatement getErrorsMethodCode=new BlockStatement();
+    final Expression initErrorsMethodCallExpression=new MethodCallExpression(new VariableExpression("this"),INIT_ERRORS_METHOD_NAME,EMPTY_TUPLE);
+    getErrorsMethodCode.addStatement(new ExpressionStatement(initErrorsMethodCallExpression));
+    final Statement returnStatement=new ReturnStatement(ERRORS_EXPRESSION);
+    getErrorsMethodCode.addStatement(returnStatement);
+    paramTypeClassNode.addMethod(new MethodNode(GET_ERRORS_METHOD_NAME,Modifier.PUBLIC,ERRORS_CLASS_NODE,GrailsArtefactClassInjector.ZERO_PARAMETERS,GrailsArtefactClassInjector.EMPTY_CLASS_ARRAY,getErrorsMethodCode));
+  }
+}

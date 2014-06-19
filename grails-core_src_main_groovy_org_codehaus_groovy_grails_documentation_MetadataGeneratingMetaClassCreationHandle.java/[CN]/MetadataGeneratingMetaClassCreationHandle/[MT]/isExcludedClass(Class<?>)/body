@@ -1,3 +1,0 @@
-{
-  return theClass == MetadataGeneratingExpandoMetaClass.class || theClass == ExpandoMetaClass.class || theClass == DocumentationContext.class || theClass == DocumentedMethod.class || theClass == DocumentedProperty.class || theClass == DocumentedElement.class || theClass == Boolean.class || Closure.class.isAssignableFrom(theClass);
-}

@@ -14,7 +14,7 @@
     String escaped=escapeCharacter(ch,prevChar);
     if (escaped != null) {
       if (i - startPos > 0) {
-        writer.append(str,startPos,i - startPos);
+        writer.append(str,startPos,i);
       }
       if (escaped.length() > 0) {
         writer.write(escaped);
@@ -24,6 +24,6 @@
     prevChar=ch;
   }
   if (startPos > -1 && i - startPos > 0) {
-    writer.append(str,startPos,i - startPos);
+    writer.append(str,startPos,i);
   }
 }

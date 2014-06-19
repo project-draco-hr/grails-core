@@ -2,10 +2,11 @@
   boolean hasOptionalExtension=urlData.hasOptionalExtension();
   Map params=new HashMap();
   Errors errors=new MapBindingResult(params,"urlMapping");
+  int groupCount=m.groupCount();
   String lastGroup=null;
-  for (int i=0, count=m.groupCount(); i < count; i++) {
+  for (int i=0; i < groupCount; i++) {
     lastGroup=m.group(i + 1);
-    if (i == tokenCount & hasOptionalExtension) {
+    if (i == groupCount - 1 && hasOptionalExtension) {
       ConstrainedProperty cp=constraints[constraints.length - 1];
       cp.validate(this,lastGroup,errors);
       if (errors.hasErrors()) {

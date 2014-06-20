@@ -20,7 +20,8 @@
     for (    org.codehaus.groovy.grails.io.support.Resource resource : resources) {
       try {
         MetadataReader metadataReader=readerFactory.getMetadataReader(new GrailsResource(resource));
-        if (metadataReader.getAnnotationMetadata().hasAnnotation(AstTransformer.class.getName())) {
+        AnnotationMetadata annotationMetadata=metadataReader.getAnnotationMetadata();
+        if (annotationMetadata.hasAnnotation(AstTransformer.class.getName()) || annotationMetadata.hasAnnotatedMethods(org.codehaus.groovy.grails.compiler.injection.AstTransformer.class.getName())) {
           String className=metadataReader.getClassMetadata().getClassName();
           Class<?> injectorClass=classLoader.loadClass(className);
           if (injectorClasses.contains(injectorClass))           continue;

@@ -18,10 +18,11 @@
     Set<Class> injectorClasses=new HashSet<Class>();
     CachingMetadataReaderFactory readerFactory=new CachingMetadataReaderFactory(classLoader);
     for (    org.codehaus.groovy.grails.io.support.Resource resource : resources) {
+      if (!resource.isReadable() || resource.getFilename().contains("$_"))       continue;
       try {
         MetadataReader metadataReader=readerFactory.getMetadataReader(new GrailsResource(resource));
         AnnotationMetadata annotationMetadata=metadataReader.getAnnotationMetadata();
-        if (annotationMetadata.hasAnnotation(AstTransformer.class.getName()) || annotationMetadata.hasAnnotatedMethods(org.codehaus.groovy.grails.compiler.injection.AstTransformer.class.getName())) {
+        if (annotationMetadata.hasAnnotation(AstTransformer.class.getName()) || annotationMetadata.hasAnnotation(org.codehaus.groovy.grails.compiler.injection.AstTransformer.class.getName())) {
           String className=metadataReader.getClassMetadata().getClassName();
           Class<?> injectorClass=classLoader.loadClass(className);
           if (injectorClasses.contains(injectorClass))           continue;
@@ -38,6 +39,8 @@ catch (      InstantiationException e) {
 catch (      IllegalAccessException e) {
       }
 catch (      IOException e) {
+      }
+catch (      NoClassDefFoundError e) {
       }
     }
     Collections.sort(injectors,new Comparator<ClassInjector>(){

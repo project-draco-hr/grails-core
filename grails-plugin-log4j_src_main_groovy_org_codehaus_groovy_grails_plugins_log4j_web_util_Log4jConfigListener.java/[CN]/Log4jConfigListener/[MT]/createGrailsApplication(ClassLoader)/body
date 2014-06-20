@@ -1,6 +1,6 @@
 {
   try {
-    Class<?> applicationClass=contextClassLoader.loadClass("org.codehaus.groovy.grails.commons.DefaultGrailsApplication");
+    Class<?> applicationClass=contextClassLoader.loadClass("grails.core.DefaultGrailsApplication");
     return applicationClass.newInstance();
   }
  catch (  ClassNotFoundException e) {

@@ -1,6 +1,5 @@
 {
   super(pluginManager);
-  redirect=new RedirectDynamicMethod();
   render=new RenderDynamicMethod();
   withFormMethod=new WithFormMethod();
   forwardMethod=new ForwardMethod();

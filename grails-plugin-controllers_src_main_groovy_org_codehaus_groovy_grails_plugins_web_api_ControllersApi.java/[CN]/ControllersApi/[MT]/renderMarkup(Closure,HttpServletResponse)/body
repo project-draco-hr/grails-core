@@ -1,0 +1,6 @@
+{
+  StreamingMarkupBuilder b=new StreamingMarkupBuilder();
+  b.setEncoding(response.getCharacterEncoding());
+  Writable markup=b.bind(closure);
+  return renderWritable(markup,response);
+}

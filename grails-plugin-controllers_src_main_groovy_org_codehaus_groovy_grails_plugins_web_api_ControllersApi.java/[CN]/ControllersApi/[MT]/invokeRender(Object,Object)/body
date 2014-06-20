@@ -1,3 +1,162 @@
 {
-  return render.invoke(instance,RENDER_METHOD_NAME,args);
+  if (arguments.length == 0) {
+    throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+  }
+  GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
+  HttpServletResponse response=webRequest.getCurrentResponse();
+  boolean renderView=true;
+  GroovyObject controller=(GroovyObject)target;
+  String explicitSiteMeshLayout=null;
+  final Object renderArgument=arguments[0];
+  if (renderArgument instanceof Converter<?>) {
+    renderView=renderConverter((Converter<?>)renderArgument,response);
+  }
+ else   if (renderArgument instanceof Writable) {
+    applyContentType(response,null,renderArgument);
+    Writable writable=(Writable)renderArgument;
+    renderView=renderWritable(writable,response);
+  }
+ else   if (renderArgument instanceof CharSequence) {
+    applyContentType(response,null,renderArgument);
+    CharSequence text=(CharSequence)renderArgument;
+    renderView=renderText(text,response);
+  }
+ else {
+    final Object renderObject=arguments[arguments.length - 1];
+    if (renderArgument instanceof Closure) {
+      setContentType(response,TEXT_HTML,DEFAULT_ENCODING,true);
+      Closure closure=(Closure)renderObject;
+      renderView=renderMarkup(closure,response);
+    }
+ else     if (renderArgument instanceof Map) {
+      Map argMap=(Map)renderArgument;
+      if (argMap.containsKey(ARGUMENT_LAYOUT)) {
+        explicitSiteMeshLayout=String.valueOf(argMap.get(ARGUMENT_LAYOUT));
+      }
+      boolean statusSet=false;
+      if (argMap.containsKey(ARGUMENT_STATUS)) {
+        Object statusObj=argMap.get(ARGUMENT_STATUS);
+        if (statusObj != null) {
+          try {
+            final int statusCode=statusObj instanceof Number ? ((Number)statusObj).intValue() : Integer.parseInt(statusObj.toString());
+            response.setStatus(statusCode);
+            statusSet=true;
+          }
+ catch (          NumberFormatException e) {
+            throw new ControllerExecutionException("Argument [status] of method [render] must be a valid integer.");
+          }
+        }
+      }
+      if (renderObject instanceof Writable) {
+        Writable writable=(Writable)renderObject;
+        applyContentType(response,argMap,renderObject);
+        renderView=renderWritable(writable,response);
+      }
+ else       if (renderObject instanceof Closure) {
+        Closure callable=(Closure)renderObject;
+        applyContentType(response,argMap,renderObject);
+        if (BUILDER_TYPE_JSON.equals(argMap.get(ARGUMENT_BUILDER)) || isJSONResponse(response)) {
+          renderView=renderJSON(callable,response);
+        }
+ else {
+          renderView=renderMarkup(callable,response);
+        }
+      }
+ else       if (renderObject instanceof CharSequence) {
+        applyContentType(response,argMap,renderObject);
+        CharSequence text=(CharSequence)renderObject;
+        renderView=renderText(text,response);
+      }
+ else       if (argMap.containsKey(ARGUMENT_TEXT)) {
+        Object textArg=argMap.get(ARGUMENT_TEXT);
+        applyContentType(response,argMap,textArg);
+        if (textArg instanceof Writable) {
+          Writable writable=(Writable)textArg;
+          renderView=renderWritable(writable,response);
+        }
+ else {
+          CharSequence text=(textArg instanceof CharSequence) ? ((CharSequence)textArg) : textArg.toString();
+          renderView=renderText(text,response);
+        }
+      }
+ else       if (argMap.containsKey(ARGUMENT_VIEW)) {
+        renderView(webRequest,argMap,target,controller);
+      }
+ else       if (argMap.containsKey(ARGUMENT_TEMPLATE)) {
+        applyContentType(response,argMap,null,false);
+        renderView=renderTemplate(target,controller,webRequest,argMap,explicitSiteMeshLayout);
+      }
+ else       if (argMap.containsKey(ARGUMENT_FILE)) {
+        renderView=false;
+        Object o=argMap.get(ARGUMENT_FILE);
+        Object fnO=argMap.get(ARGUMENT_FILE_NAME);
+        String fileName=fnO != null ? fnO.toString() : ((o instanceof File) ? ((File)o).getName() : null);
+        if (o != null) {
+          boolean hasContentType=applyContentType(response,argMap,null,false);
+          if (fileName != null) {
+            if (!hasContentType) {
+              hasContentType=detectContentTypeFromFileName(webRequest,response,argMap,fileName);
+            }
+            if (fnO != null) {
+              response.setHeader(HttpHeaders.CONTENT_DISPOSITION,DISPOSITION_HEADER_PREFIX + fileName);
+            }
+          }
+          if (!hasContentType) {
+            throw new ControllerExecutionException("Argument [file] of render method specified without valid [contentType] argument");
+          }
+          InputStream input=null;
+          try {
+            if (o instanceof File) {
+              File f=(File)o;
+              input=GrailsIOUtils.openStream(f);
+            }
+ else             if (o instanceof InputStream) {
+              input=(InputStream)o;
+            }
+ else             if (o instanceof byte[]) {
+              input=new ByteArrayInputStream((byte[])o);
+            }
+ else {
+              input=GrailsIOUtils.openStream(new File(o.toString()));
+            }
+            IOUtils.copy(input,response.getOutputStream());
+          }
+ catch (          IOException e) {
+            throw new ControllerExecutionException("I/O error copying file to response: " + e.getMessage(),e);
+          }
+ finally {
+            if (input != null) {
+              try {
+                input.close();
+              }
+ catch (              IOException e) {
+              }
+            }
+          }
+        }
+      }
+ else       if (statusSet) {
+        renderView=false;
+      }
+ else {
+        Object object=renderArgument;
+        if (object instanceof JSONElement) {
+          renderView=renderJSON((JSONElement)object,response);
+        }
+ else {
+          try {
+            renderView=renderObject(object,response.getWriter());
+          }
+ catch (          IOException e) {
+          }
+        }
+      }
+    }
+ else {
+      throw new MissingMethodException(METHOD_SIGNATURE,target.getClass(),arguments);
+    }
+  }
+  applySiteMeshLayout(webRequest.getCurrentRequest(),renderView,explicitSiteMeshLayout);
+  webRequest.setRenderView(renderView);
+  return null;
 }

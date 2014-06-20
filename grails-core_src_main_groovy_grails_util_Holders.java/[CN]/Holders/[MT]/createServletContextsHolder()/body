@@ -1,6 +1,6 @@
 {
   try {
-    Class<?> clazz=Holders.class.getClassLoader().loadClass("org.codehaus.groovy.grails.web.context.WebRequestServletHolder");
+    Class<?> clazz=Holders.class.getClassLoader().loadClass("grails.web.context.WebRequestServletHolder");
     servletContexts=(Holder)clazz.newInstance();
   }
  catch (  ClassNotFoundException e) {

@@ -1,0 +1,14 @@
+{
+  boolean previousAllowSubBuffer=encodedBuffer.isAllowSubBuffers();
+  encodedBuffer.setAllowSubBuffers(false);
+  encodedSourceChangesCounter=sourceBuffer.getBufferChangesCounter();
+  try {
+    ChainedEncoders.chainEncode(getSourceBuffer(),encodedBuffer.writer.getEncodedAppender(),encoders);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e);
+  }
+  encodedBuffer.setAllowSubBuffers(previousAllowSubBuffer);
+  encodedBuffer.setPreferSubChunkWhenWritingToOtherBuffer(getSourceBuffer().isPreferSubChunkWhenWritingToOtherBuffer());
+  encodedBuffer.notifyBufferChange();
+}

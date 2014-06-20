@@ -1,6 +1,6 @@
 {
   if (cachedSize == -1) {
-    cachedSize=streamCharBuffer.size();
+    cachedSize=getEncodedBuffer().size();
   }
   return cachedSize;
 }

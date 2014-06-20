@@ -1,0 +1,19 @@
+{
+  this.sourceBuffer=sourceBuffer;
+  this.encoders=encoders;
+  if (encoders == null && hasQuicklyCalcutableSize() && sourceBuffer.hasQuicklyCalcutableSize()) {
+    cachedSize=sourceBuffer.size();
+    if (totalCharsInDynamicChunks == -1) {
+      totalCharsInDynamicChunks=0;
+    }
+    totalCharsInDynamicChunks+=cachedSize;
+  }
+ else {
+    totalCharsInDynamicChunks=-1;
+    cachedSize=-1;
+  }
+  if (encoders == null || sourceBuffer.isEmpty()) {
+    encodedBuffer=sourceBuffer;
+    encodedSourceChangesCounter=sourceBuffer.getBufferChangesCounter();
+  }
+}

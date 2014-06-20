@@ -1,3 +1,12 @@
 {
-  getSubBuffer().encodeTo(writer,encoder);
+  if (hasEncodedBufferAvailable() || !hasOnlyStreamingEncoders() || encoders == null) {
+    getEncodedBuffer().encodeTo(writer,encoder);
+  }
+ else {
+    List<StreamingEncoder> streamingEncoders=new ArrayList<StreamingEncoder>(encoders.size());
+    for (    Encoder e : encoders) {
+      streamingEncoders.add((StreamingEncoder)e);
+    }
+    getSourceBuffer().encodeTo(writer,encoder.createChainingEncodesToWriter(streamingEncoders,true));
+  }
 }

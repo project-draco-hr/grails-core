@@ -1,0 +1,4 @@
+{
+  EncodingStateRegistryLookup encodingStateRegistryLookup=EncodingStateRegistryLookupHolder.getEncodingStateRegistryLookup();
+  return encodingStateRegistryLookup != null ? encodingStateRegistryLookup.lookup() : null;
+}

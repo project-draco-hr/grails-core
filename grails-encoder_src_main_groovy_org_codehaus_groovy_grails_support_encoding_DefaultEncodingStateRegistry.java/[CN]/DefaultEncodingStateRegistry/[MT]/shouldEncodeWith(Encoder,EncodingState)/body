@@ -1,5 +1,5 @@
 {
-  if (encoderToApply == NONE_ENCODER)   return false;
+  if (isNoneEncoder(encoderToApply))   return false;
   if (currentEncodingState != null && currentEncodingState.getEncoders() != null) {
     for (    Encoder encoder : currentEncodingState.getEncoders()) {
       if (isPreviousEncoderSafeOrEqual(encoderToApply,encoder)) {

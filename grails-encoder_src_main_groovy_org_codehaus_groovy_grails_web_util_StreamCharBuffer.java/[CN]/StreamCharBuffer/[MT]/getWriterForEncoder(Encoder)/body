@@ -1,5 +1,3 @@
 {
-  EncodingStateRegistryLookup encodingStateRegistryLookup=EncodingStateRegistryLookupHolder.getEncodingStateRegistryLookup();
-  EncodingStateRegistry encodingStateRegistry=encodingStateRegistryLookup != null ? encodingStateRegistryLookup.lookup() : null;
-  return getWriterForEncoder(encoder,encodingStateRegistry,false);
+  return getWriterForEncoder(encoder,lookupDefaultEncodingStateRegistry());
 }

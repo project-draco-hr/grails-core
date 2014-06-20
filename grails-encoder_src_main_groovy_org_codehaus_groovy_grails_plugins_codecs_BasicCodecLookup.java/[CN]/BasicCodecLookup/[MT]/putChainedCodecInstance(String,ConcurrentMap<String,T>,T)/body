@@ -1,0 +1,9 @@
+{
+  T previousInstance=map.putIfAbsent(codecName,createdInstance);
+  if (previousInstance != null) {
+    return previousInstance;
+  }
+ else {
+    return createdInstance;
+  }
+}

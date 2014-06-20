@@ -1,3 +1,14 @@
 {
-  appender.append(encoder,getSubBuffer());
+  if (appender instanceof StreamCharBufferEncodedAppender && getSourceBuffer().isPreferSubChunkWhenWritingToOtherBuffer() && ((StreamCharBufferEncodedAppender)appender).getWriter().getBuffer().isAllowSubBuffers()) {
+    List<Encoder> nextEncoders=ChainedEncoders.appendEncoder(encoders,encodeToEncoder);
+    ((StreamCharBufferEncodedAppender)appender).getWriter().write(getSourceBuffer(),nextEncoders);
+  }
+ else {
+    if (hasEncodedBufferAvailable() || !hasOnlyStreamingEncoders()) {
+      appender.append(encodeToEncoder,getEncodedBuffer());
+    }
+ else {
+      ChainedEncoders.chainEncode(getSourceBuffer(),appender,ChainedEncoders.appendEncoder(encoders,encodeToEncoder));
+    }
+  }
 }

@@ -1,0 +1,9 @@
+{
+  List<StreamingEncoder> streamingEncoders=toStreamingEncoders(encoders);
+  if (streamingEncoders != null) {
+    chainStreamingEncode(streamEncodeable,appender,streamingEncoders);
+  }
+ else {
+    chainMixedEncode(streamEncodeable,appender,encoders);
+  }
+}

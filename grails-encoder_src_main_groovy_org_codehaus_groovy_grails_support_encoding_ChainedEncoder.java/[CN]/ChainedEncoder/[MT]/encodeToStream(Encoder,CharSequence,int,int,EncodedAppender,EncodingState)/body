@@ -1,9 +1,10 @@
 {
-  EncodedAppender target=appender;
-  for (int i=encoders.length - 1; i >= 1; i--) {
-    StreamingEncoder encoder=encoders[i];
-    target=new StreamingEncoderEncodedAppender(encoder,target);
-  }
+  EncodedAppender target=chainEncodersAndCachePerThread(appender);
   StreamingEncoder encoder=encoders[0];
-  encoder.encodeToStream(encoder,source,offset,len,target,encodingState);
+  if (appender.shouldEncode(encoder,encodingState.getPreviousEncodingState())) {
+    encoder.encodeToStream(encoder,source,offset,len,target,encodingState.getPreviousEncodingState());
+  }
+ else {
+    target.appendEncoded(encoder,encodingState.getPreviousEncodingState(),source,offset,len);
+  }
 }

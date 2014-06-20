@@ -1,0 +1,7 @@
+{
+  Writer out=getOut();
+  if (out instanceof EncoderAware) {
+    return ((EncoderAware)out).getEncoder();
+  }
+  return null;
+}

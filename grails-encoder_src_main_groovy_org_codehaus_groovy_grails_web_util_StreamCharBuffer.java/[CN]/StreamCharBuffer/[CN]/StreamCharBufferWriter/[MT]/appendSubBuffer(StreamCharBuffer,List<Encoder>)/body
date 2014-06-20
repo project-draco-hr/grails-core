@@ -1,0 +1,12 @@
+{
+  if (isAllowSubBuffers() && subBuffer.isPreferSubChunkWhenWritingToOtherBuffer() || subBuffer.isSizeLarger(Math.max(subBufferChunkMinSize,getNewChunkMinSize()))) {
+    if (subBuffer.isPreferSubChunkWhenWritingToOtherBuffer()) {
+      StreamCharBuffer.this.setPreferSubChunkWhenWritingToOtherBuffer(true);
+    }
+    markUsed();
+    appendStreamCharBufferChunk(subBuffer,encoders);
+    subBuffer.addParentBuffer(StreamCharBuffer.this);
+    return true;
+  }
+  return false;
+}

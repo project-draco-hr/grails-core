@@ -1,0 +1,12 @@
+{
+  Writer out=getOut();
+  if (out instanceof EncodedAppenderFactory) {
+    return ((EncodedAppenderFactory)out).getEncodedAppender();
+  }
+ else   if (out instanceof EncodedAppender) {
+    return (EncodedAppender)getOut();
+  }
+ else {
+    return null;
+  }
+}

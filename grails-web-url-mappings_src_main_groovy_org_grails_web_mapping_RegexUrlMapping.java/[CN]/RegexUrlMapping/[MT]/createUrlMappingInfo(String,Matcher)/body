@@ -1,0 +1,66 @@
+{
+  boolean hasOptionalExtension=urlData.hasOptionalExtension();
+  Map params=new HashMap();
+  Errors errors=new MapBindingResult(params,"urlMapping");
+  int groupCount=m.groupCount();
+  String lastGroup=null;
+  for (int i=0; i < groupCount; i++) {
+    lastGroup=m.group(i + 1);
+    if (i == groupCount - 1 && hasOptionalExtension) {
+      ConstrainedProperty cp=constraints[constraints.length - 1];
+      cp.validate(this,lastGroup,errors);
+      if (errors.hasErrors()) {
+        return null;
+      }
+      params.put(cp.getPropertyName(),lastGroup);
+      break;
+    }
+ else {
+      if (lastGroup == null)       continue;
+      int j=lastGroup.indexOf('?');
+      if (j > -1) {
+        lastGroup=lastGroup.substring(0,j);
+      }
+      if (constraints.length > i) {
+        ConstrainedProperty cp=constraints[i];
+        cp.validate(this,lastGroup,errors);
+        if (errors.hasErrors()) {
+          return null;
+        }
+        params.put(cp.getPropertyName(),lastGroup);
+      }
+    }
+  }
+  for (  Object key : parameterValues.keySet()) {
+    params.put(key,parameterValues.get(key));
+  }
+  if (controllerName == null) {
+    controllerName=createRuntimeConstraintEvaluator(GrailsControllerClass.CONTROLLER,constraints);
+  }
+  if (actionName == null) {
+    actionName=createRuntimeConstraintEvaluator(GrailsControllerClass.ACTION,constraints);
+  }
+  if (namespace == null) {
+    namespace=createRuntimeConstraintEvaluator(NAMESPACE,constraints);
+  }
+  if (viewName == null) {
+    viewName=createRuntimeConstraintEvaluator(GrailsControllerClass.VIEW,constraints);
+  }
+  if (redirectInfo == null) {
+    redirectInfo=createRuntimeConstraintEvaluator("redirect",constraints);
+  }
+  DefaultUrlMappingInfo info;
+  if (forwardURI != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(forwardURI,getHttpMethod(),urlData,servletContext);
+  }
+ else   if (viewName != null && controllerName == null) {
+    info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
+  }
+ else {
+    info=new DefaultUrlMappingInfo(redirectInfo,controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,servletContext);
+  }
+  if (parseRequest) {
+    info.setParsingRequest(parseRequest);
+  }
+  return info;
+}

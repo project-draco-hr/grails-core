@@ -1,8 +1,10 @@
 {
   StreamCharBuffer cloned=new StreamCharBuffer();
   cloned.setNotifyParentBuffersEnabled(false);
+  cloned.setAllowSubBuffers(false);
   if (this.size() > 0) {
     cloned.addChunk(readToSingleChunk());
   }
+  cloned.setAllowSubBuffers(true);
   return cloned;
 }

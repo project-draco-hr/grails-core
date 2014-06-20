@@ -1,4 +1,5 @@
 {
-  encodedAppender.append(encoder,c);
+  singleCharBuffer[0]=(char)c;
+  encodedAppender.append(encoder,null,singleCharBuffer,0,1);
   return this;
 }

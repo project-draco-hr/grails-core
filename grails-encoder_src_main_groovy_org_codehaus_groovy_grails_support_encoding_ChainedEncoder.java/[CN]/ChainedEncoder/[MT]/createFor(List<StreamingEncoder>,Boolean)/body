@@ -1,0 +1,22 @@
+{
+  if (encoders == null) {
+    return null;
+  }
+ else   if (encoders.size() == 0) {
+    return DefaultEncodingStateRegistry.NONE_ENCODER;
+  }
+ else   if (encoders.size() == 1) {
+    return encoders.get(0);
+  }
+ else {
+    if (safe == null) {
+      for (      StreamingEncoder encoder : encoders) {
+        if (encoder.isSafe()) {
+          safe=true;
+          break;
+        }
+      }
+    }
+    return new ChainedEncoder(encoders,safe != null ? safe : false);
+  }
+}

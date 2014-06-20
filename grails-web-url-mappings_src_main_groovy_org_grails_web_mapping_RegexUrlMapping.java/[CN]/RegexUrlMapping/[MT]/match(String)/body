@@ -1,9 +1,8 @@
 {
-  Integer slashCount=org.springframework.util.StringUtils.countOccurrencesOf(uri,"/");
   for (  Pattern pattern : patterns) {
     Matcher m=pattern.matcher(uri);
     if (m.matches()) {
-      UrlMappingInfo urlInfo=createUrlMappingInfo(uri,m,slashCount);
+      UrlMappingInfo urlInfo=createUrlMappingInfo(uri,m);
       if (urlInfo != null) {
         return urlInfo;
       }

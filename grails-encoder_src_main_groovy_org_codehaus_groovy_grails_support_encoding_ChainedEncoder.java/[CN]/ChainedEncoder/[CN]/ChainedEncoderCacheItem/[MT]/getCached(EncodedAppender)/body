@@ -1,0 +1,6 @@
+{
+  if (lastAppenderForCached == appender && lastIgnoreEncodingStateForCached == appender.isIgnoreEncodingState()) {
+    return cachedChainedAppender;
+  }
+  return null;
+}

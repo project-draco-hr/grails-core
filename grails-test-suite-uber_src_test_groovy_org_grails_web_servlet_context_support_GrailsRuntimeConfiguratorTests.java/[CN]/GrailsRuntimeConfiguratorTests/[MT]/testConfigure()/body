@@ -19,7 +19,7 @@
   assertNotNull(er);
   ModelAndView mv=er.resolveException(new MockHttpServletRequest(),new MockHttpServletResponse(),null,new Exception());
   assertEquals("/error",mv.getViewName());
-  assertTrue(ctx.getBean(GrailsApplication.MULTIPART_RESOLVER_BEAN) instanceof CommonsMultipartResolver);
+  assertTrue(ctx.getBean(GrailsApplication.MULTIPART_RESOLVER_BEAN) instanceof StandardServletMultipartResolver);
   MessageSource ms=getBean(ctx,GrailsApplication.MESSAGE_SOURCE_BEAN);
   assertNotNull(ms);
   GrailsDomainClass domainClass=getBean(ctx,"TestDomainClass");

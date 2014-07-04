@@ -8,6 +8,6 @@
   }
  catch (  Exception e) {
     LOG.error("Exception thrown instantiating constraint [" + constraintName + "] to class ["+ owningClass+ "]",e);
-    throw new ConstraintException("Exception thrown instantiating  constraint [" + constraintName + "] to class ["+ owningClass+ "]");
+    throw new ConstraintException("Exception thrown instantiating  constraint [" + constraintName + "] to class ["+ owningClass+ "]",e);
   }
 }

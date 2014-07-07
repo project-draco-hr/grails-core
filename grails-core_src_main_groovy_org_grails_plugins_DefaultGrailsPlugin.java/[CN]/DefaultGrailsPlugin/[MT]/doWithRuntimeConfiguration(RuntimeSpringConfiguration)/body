@@ -9,6 +9,7 @@
   BeanBuilder bb=new BeanBuilder(getParentCtx(),springConfig,application.getClassLoader());
   Binding b=new Binding();
   b.setVariable("application",application);
+  b.setVariable(GrailsApplication.APPLICATION_ID,application);
   b.setVariable("manager",getManager());
   b.setVariable("plugin",this);
   b.setVariable("parentCtx",getParentCtx());

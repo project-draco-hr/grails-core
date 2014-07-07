@@ -8,7 +8,7 @@
       Class artefactClass=(Class)artefact;
       if (ArtefactHandler.class.isAssignableFrom(artefactClass)) {
         try {
-          application.registerArtefactHandler((ArtefactHandler)artefactClass.newInstance());
+          ((LegacyGrailsApplication)application).getGrailsApplication().registerArtefactHandler((ArtefactHandler)artefactClass.newInstance());
         }
  catch (        InstantiationException e) {
           LOG.error("Cannot instantiate an Artefact Handler:" + e.getMessage(),e);
@@ -22,7 +22,7 @@ catch (        IllegalAccessException e) {
       }
     }
  else     if (artefact instanceof ArtefactHandler) {
-      application.registerArtefactHandler((ArtefactHandler)artefact);
+      ((LegacyGrailsApplication)application).getGrailsApplication().registerArtefactHandler((ArtefactHandler)artefact);
     }
  else {
       LOG.error("This object is not an ArtefactHandler:" + artefact + "["+ artefact.getClass().getName()+ "]");

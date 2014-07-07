@@ -1,4 +1,25 @@
 {
+  ApplicationContext context=springConfig.getUnrefreshedApplicationContext();
+  AutowireCapableBeanFactory autowireCapableBeanFactory=context.getAutowireCapableBeanFactory();
+  if (autowireCapableBeanFactory instanceof ConfigurableListableBeanFactory) {
+    ConfigurableListableBeanFactory beanFactory=(ConfigurableListableBeanFactory)autowireCapableBeanFactory;
+    ConversionService existingConversionService=beanFactory.getConversionService();
+    ConverterRegistry converterRegistry;
+    if (existingConversionService == null) {
+      GenericConversionService conversionService=new GenericConversionService();
+      converterRegistry=conversionService;
+      beanFactory.setConversionService(conversionService);
+    }
+ else {
+      converterRegistry=(ConverterRegistry)existingConversionService;
+    }
+    converterRegistry.addConverter(new Converter<GrailsApplication,org.codehaus.groovy.grails.commons.GrailsApplication>(){
+      @Override public org.codehaus.groovy.grails.commons.GrailsApplication convert(      GrailsApplication source){
+        return new LegacyGrailsApplication(source);
+      }
+    }
+);
+  }
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {

@@ -17,7 +17,7 @@
     List<ClassInjector> injectors=new ArrayList<ClassInjector>();
     Set<Class> injectorClasses=new HashSet<Class>();
     CachingMetadataReaderFactory readerFactory=new CachingMetadataReaderFactory(classLoader);
-    for (    org.codehaus.groovy.grails.io.support.Resource resource : resources) {
+    for (    Resource resource : resources) {
       if (!resource.isReadable() || resource.getFilename().contains("$_"))       continue;
       try {
         MetadataReader metadataReader=readerFactory.getMetadataReader(new GrailsResource(resource));

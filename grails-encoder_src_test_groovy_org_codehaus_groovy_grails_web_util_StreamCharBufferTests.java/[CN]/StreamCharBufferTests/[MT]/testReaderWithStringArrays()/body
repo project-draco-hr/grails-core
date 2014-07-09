@@ -9,7 +9,7 @@
   writer.write("ABCDE");
   writer.write("67890".toCharArray());
   writer.close();
-  assertEquals("ABCDE12345!1234567ABCDE67890",GrailsIOUtils.toString(charBuffer.getReader()));
-  assertEquals("ABCDE12345!1234567ABCDE67890",GrailsIOUtils.toString(charBuffer.getReader()));
+  assertEquals("ABCDE12345!1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
+  assertEquals("ABCDE12345!1234567ABCDE67890",IOUtils.toString(charBuffer.getReader()));
   assertEquals(28,charBuffer.size());
 }

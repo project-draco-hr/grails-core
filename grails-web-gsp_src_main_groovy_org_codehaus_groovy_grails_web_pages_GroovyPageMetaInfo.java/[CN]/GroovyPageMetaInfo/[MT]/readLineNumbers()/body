@@ -10,6 +10,6 @@
     }
   }
   finally {
-    GrailsIOUtils.closeQuietly(input);
+    IOUtils.closeQuietly(input);
   }
 }

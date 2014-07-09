@@ -4,7 +4,7 @@
     GrailsPluginInfo info=compiler.getPluginSettings().getPluginInfoForName(plugin.getFileSystemShortName());
     if (info != null && info.getDescriptor() != null) {
       try {
-        org.codehaus.groovy.grails.io.support.Resource descriptor=info.getDescriptor();
+        Resource descriptor=info.getDescriptor();
         plugin.setDescriptor(new FileSystemResource(descriptor.getFile()));
         File pluginFile=descriptor.getFile();
         descriptorToPluginMap.put(pluginFile,plugin);

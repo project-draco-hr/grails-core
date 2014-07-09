@@ -7,7 +7,7 @@
       try {
         Reader reader=request.getReader();
         if (reader != null) {
-          String contents=GrailsIOUtils.toString(reader);
+          String contents=IOUtils.toString(reader);
           request.setAttribute(REQUEST_BODY_PARSED,true);
           requestMap.putAll(WebUtils.fromQueryString(contents));
         }

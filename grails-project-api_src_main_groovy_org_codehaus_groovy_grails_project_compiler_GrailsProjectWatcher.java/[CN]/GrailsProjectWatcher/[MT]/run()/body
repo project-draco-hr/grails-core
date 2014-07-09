@@ -3,8 +3,8 @@
   for (  String directory : compiler.getSrcDirectories()) {
     addWatchDirectory(new File(directory),compilerExtensions);
   }
-  org.codehaus.groovy.grails.io.support.Resource[] pluginSourceFiles=compiler.getPluginSettings().getPluginSourceFiles();
-  for (  org.codehaus.groovy.grails.io.support.Resource pluginSourceFile : pluginSourceFiles) {
+  Resource[] pluginSourceFiles=compiler.getPluginSettings().getPluginSourceFiles();
+  for (  Resource pluginSourceFile : pluginSourceFiles) {
     try {
       if (pluginSourceFile.getFile().isDirectory()) {
         addWatchDirectory(pluginSourceFile.getFile(),compilerExtensions);

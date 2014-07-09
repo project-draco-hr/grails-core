@@ -22,7 +22,7 @@
     String pluginPath=GrailsStringUtils.substringAfter(noWebInf,SLASH);
     String pluginName=GrailsStringUtils.substringBefore(pluginPath,SLASH);
     String remainingPath=GrailsStringUtils.substringAfter(pluginPath,SLASH);
-    org.codehaus.groovy.grails.io.support.Resource r=pluginBuildSettings.getPluginDirForName(pluginName);
+    org.grails.io.support.Resource r=pluginBuildSettings.getPluginDirForName(pluginName);
     if (r != null) {
       try {
         return "file:" + r.getFile().getAbsolutePath() + SLASH+ remainingPath;

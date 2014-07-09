@@ -33,7 +33,7 @@
     if (pluginBuildSettings == null) {
       return;
     }
-    final org.codehaus.groovy.grails.io.support.Resource[] pluginDirs=pluginBuildSettings.getPluginDirectories();
+    final org.grails.io.support.Resource[] pluginDirs=pluginBuildSettings.getPluginDirectories();
     final Environment env=Environment.getCurrent();
     final String baseLocation=env.getReloadLocation();
     for (    Object ref : resourceList) {
@@ -42,7 +42,7 @@
         addBaseLocationPattern(resourceListTmp,baseLocation,stringRef);
       }
  else {
-        for (        org.codehaus.groovy.grails.io.support.Resource pluginDir : pluginDirs) {
+        for (        org.grails.io.support.Resource pluginDir : pluginDirs) {
           if (pluginDir == null)           continue;
           String pluginResources=getResourcePatternForBaseLocation(pluginDir.getFile().getCanonicalPath(),stringRef);
           resourceListTmp.add(pluginResources);

@@ -1,6 +1,6 @@
 {
   try {
-    return IOUtils.createXmlSlurper().parseText(source);
+    return SpringIOUtils.createXmlSlurper().parseText(source);
   }
  catch (  Exception e) {
     throw new ConverterException("Error parsing XML",e);

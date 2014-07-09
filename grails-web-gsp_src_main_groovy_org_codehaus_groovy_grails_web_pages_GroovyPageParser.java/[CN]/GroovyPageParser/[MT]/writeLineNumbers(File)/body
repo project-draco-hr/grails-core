@@ -10,6 +10,6 @@
     }
   }
   finally {
-    IOUtils.closeQuietly(dataOut);
+    SpringIOUtils.closeQuietly(dataOut);
   }
 }

@@ -8,6 +8,6 @@
     throw new UrlMappingException("Unable to read mapping file [" + resource.getFilename() + "]: "+ e.getMessage(),e);
   }
  finally {
-    GrailsIOUtils.closeQuietly(inputStream);
+    IOUtils.closeQuietly(inputStream);
   }
 }

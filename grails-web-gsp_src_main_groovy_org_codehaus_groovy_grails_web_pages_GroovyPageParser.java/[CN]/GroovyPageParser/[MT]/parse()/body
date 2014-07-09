@@ -35,6 +35,6 @@
     return byteOutputBuffer.getInputStream();
   }
   finally {
-    IOUtils.closeQuietly(keepGeneratedWriter);
+    SpringIOUtils.closeQuietly(keepGeneratedWriter);
   }
 }

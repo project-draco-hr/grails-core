@@ -3,14 +3,18 @@
   URI uri=classNode.getModule().getContext().getSource().getURI();
   if (uri == null)   return false;
   try {
-    if (!GrailsResourceUtils.isGrailsResource(new UrlResource(uri)))     return false;
+    UrlResource resource=new UrlResource(uri);
+    if (!isArtefactResource(resource))     return false;
   }
- catch (  MalformedURLException e) {
+ catch (  IOException e) {
     return false;
   }
   if (classNode instanceof InnerClassNode)   return false;
   if (!classNode.isEnum() && !classNode.isInterface() && !Modifier.isAbstract(modifiers)) {
-    if (classNode.getName().endsWith(artefactSuffix)) {
+    System.out.println("CLASS NODE IS  " + classNode);
+    String name=classNode.getName();
+    System.out.println("NAME IS " + name);
+    if (name != null && this.artefactSuffix != null && name.endsWith(artefactSuffix)) {
       return true;
     }
   }

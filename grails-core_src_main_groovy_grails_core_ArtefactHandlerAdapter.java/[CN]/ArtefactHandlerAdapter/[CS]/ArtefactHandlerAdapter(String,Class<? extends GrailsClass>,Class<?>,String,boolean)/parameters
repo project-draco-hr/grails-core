@@ -1,5 +1,5 @@
 String type
-Class<?> grailsClassType
+Class<? extends GrailsClass> grailsClassType
 Class<?> grailsClassImpl
 String artefactSuffix
 boolean allowAbstract

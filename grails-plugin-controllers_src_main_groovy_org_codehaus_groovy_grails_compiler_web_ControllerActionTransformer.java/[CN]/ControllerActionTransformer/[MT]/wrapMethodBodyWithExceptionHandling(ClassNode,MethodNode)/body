@@ -23,7 +23,7 @@
   final CatchStatement catchStatement=new CatchStatement(new Parameter(new ClassNode(Exception.class),caughtExceptionArgumentName),catchBlockCode);
   final Statement methodBody=methodNode.getCode();
   BlockStatement tryBlock=new BlockStatement();
-  BlockStatement codeToHandleAllowedMethods=getCodeToHandleAllowedMethods(controllerClassNode,methodNode);
+  BlockStatement codeToHandleAllowedMethods=getCodeToHandleAllowedMethods(controllerClassNode,methodNode.getName());
   tryBlock.addStatement(codeToHandleAllowedMethods);
   tryBlock.addStatement(methodBody);
   final TryCatchStatement tryCatchStatement=new TryCatchStatement(tryBlock,new EmptyStatement());

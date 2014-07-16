@@ -9,7 +9,6 @@
       final List<String> allowedMethodNames=new ArrayList<String>();
       final MapExpression allowedMethodsMapExpression=(MapExpression)initialAllowedMethodsExpression;
       final List<MapEntryExpression> allowedMethodsMapEntryExpressions=allowedMethodsMapExpression.getMapEntryExpressions();
-      final String methodName=methodNode.getName();
       for (      MapEntryExpression allowedMethodsMapEntryExpression : allowedMethodsMapEntryExpressions) {
         final Expression allowedMethodsMapEntryKeyExpression=allowedMethodsMapEntryExpression.getKeyExpression();
         if (allowedMethodsMapEntryKeyExpression instanceof ConstantExpression) {
@@ -55,7 +54,7 @@
   }
   final ArgumentListExpression argumentListExpression=new ArgumentListExpression();
   argumentListExpression.addExpression(new ConstantExpression(ALLOWED_METHODS_HANDLED_ATTRIBUTE_NAME));
-  argumentListExpression.addExpression(new ConstantExpression(methodNode.getName()));
+  argumentListExpression.addExpression(new ConstantExpression(methodName));
   final Expression setAttributeMethodCall=new MethodCallExpression(requestPropertyExpression,"setAttribute",argumentListExpression);
   final BlockStatement codeToExecuteIfAttributeIsNotSet=new BlockStatement();
   codeToExecuteIfAttributeIsNotSet.addStatement(new ExpressionStatement(setAttributeMethodCall));

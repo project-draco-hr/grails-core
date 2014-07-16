@@ -16,6 +16,7 @@
   }
   String artefactType=resolveArtefactType(sourceUnit,node,cNode);
   performInjectionOnArtefactType(sourceUnit,cNode,artefactType);
+  performTraitInjectionOnArtefactType(sourceUnit,cNode,artefactType);
   postProcess(sourceUnit,node,cNode,artefactType);
   markApplied(cNode);
 }

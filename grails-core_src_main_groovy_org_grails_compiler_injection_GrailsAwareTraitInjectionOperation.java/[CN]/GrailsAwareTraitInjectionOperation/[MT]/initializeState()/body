@@ -1,0 +1,26 @@
+{
+  if (classInjectors != null) {
+    return;
+  }
+  classInjectors=new ArrayList<TraitInjector>();
+  BeanDefinitionRegistry registry=new SimpleBeanDefinitionRegistry();
+  ClassPathBeanDefinitionScanner scanner=new ClassPathBeanDefinitionScanner(registry,false);
+  scanner.setIncludeAnnotationConfig(false);
+  scanner.addIncludeFilter(new AssignableTypeFilter(TraitInjector.class));
+  ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  scanner.setResourceLoader(new DefaultResourceLoader(classLoader));
+  scanner.scan(INJECTOR_SCAN_PACKAGE);
+  if (registry.getBeanDefinitionCount() == 0) {
+    classLoader=GrailsAwareInjectionOperation.class.getClassLoader();
+    scanner.setResourceLoader(new DefaultResourceLoader(classLoader));
+    scanner.scan(INJECTOR_SCAN_PACKAGE);
+  }
+  for (  String beanName : registry.getBeanDefinitionNames()) {
+    try {
+      Class<?> injectorClass=classLoader.loadClass(registry.getBeanDefinition(beanName).getBeanClassName());
+      if (TraitInjector.class.isAssignableFrom(injectorClass))       classInjectors.add((TraitInjector)injectorClass.newInstance());
+    }
+ catch (    Exception e) {
+    }
+  }
+}

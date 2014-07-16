@@ -1,0 +1,10 @@
+{
+  for (  TraitInjector injector : injectorsToUse) {
+    Class<?> trait=injector.getTrait();
+    ClassNode traitClassNode=ClassHelper.make(trait);
+    if (!classNode.implementsInterface(traitClassNode)) {
+      classNode.addInterface(traitClassNode);
+      TraitComposer.doExtendTraits(classNode,source,unit);
+    }
+  }
+}

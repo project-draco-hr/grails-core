@@ -1,0 +1,6 @@
+{
+  OutputEncodingStackAttributes.Builder attributesBuilder=new OutputEncodingStackAttributes.Builder();
+  attributesBuilder.inheritPreviousEncoders(true);
+  attributesBuilder.topWriter(newWriter);
+  push(attributesBuilder.build(),checkExisting);
+}

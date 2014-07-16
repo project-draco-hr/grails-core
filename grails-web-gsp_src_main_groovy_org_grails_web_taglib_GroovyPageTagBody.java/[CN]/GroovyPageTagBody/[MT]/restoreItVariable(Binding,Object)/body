@@ -1,4 +1,0 @@
-{
-  Map<String,Object> variablesMap=(currentBinding instanceof AbstractGroovyPageBinding) ? ((AbstractGroovyPageBinding)currentBinding).getVariablesMap() : currentBinding.getVariables();
-  variablesMap.put("it",originalIt);
-}

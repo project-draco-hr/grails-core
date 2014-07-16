@@ -1,0 +1,13 @@
+{
+  Set<String> variableNames=new HashSet<String>();
+  if (parent != null) {
+    if (parent instanceof AbstractTemplateVariableBinding) {
+      variableNames.addAll(((AbstractTemplateVariableBinding)parent).getVariableNames());
+    }
+ else {
+      variableNames.addAll(parent.getVariables().keySet());
+    }
+  }
+  variableNames.addAll(getVariablesMap().keySet());
+  return variableNames;
+}

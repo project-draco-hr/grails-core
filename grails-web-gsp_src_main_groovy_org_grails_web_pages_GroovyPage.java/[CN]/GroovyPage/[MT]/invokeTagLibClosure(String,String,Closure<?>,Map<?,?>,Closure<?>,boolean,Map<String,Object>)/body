@@ -6,7 +6,7 @@
   ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(true);
   boolean encodeAsPushedToStack=false;
   try {
-    Map<String,Object> codecSettings=createCodecSettings(tagNamespace,tagName,attrs,defaultEncodeAs);
+    Map<String,Object> codecSettings=TagOutput.createCodecSettings(tagNamespace,tagName,attrs,defaultEncodeAs);
     if (codecSettings != null) {
       outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,webRequest.getAttributes().getGrailsApplication()).build());
       encodeAsPushedToStack=true;
@@ -16,12 +16,12 @@ switch (tag.getParameterTypes().length) {
 case 1:
       tagresult=tag.call(new Object[]{attrs});
     outputTagResult(returnsObject,tagresult);
-  if (body != null && body != EMPTY_BODY_CLOSURE) {
+  if (body != null && body != TagOutput.EMPTY_BODY_CLOSURE) {
     body.call();
   }
 break;
 case 2:
-tagresult=tag.call(new Object[]{attrs,(body != null) ? body : EMPTY_BODY_CLOSURE});
+tagresult=tag.call(new Object[]{attrs,(body != null) ? body : TagOutput.EMPTY_BODY_CLOSURE});
 outputTagResult(returnsObject,tagresult);
 break;
 }

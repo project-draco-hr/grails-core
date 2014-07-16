@@ -1,0 +1,7 @@
+{
+  OutputEncodingStack outputStack=currentStack(false);
+  if (outputStack != null) {
+    return outputStack.getOutWriter();
+  }
+  return lookupRequestWriter();
+}

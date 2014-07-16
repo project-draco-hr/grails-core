@@ -1,0 +1,39 @@
+{
+  outWriter=new OutputProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.outEncoder,encodingStateRegistry,OutputEncodingSettings.OUT_CODEC_NAME);
+    }
+  }
+);
+  staticWriter=new OutputProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      if (stackEntry.staticEncoder == null) {
+        return stackEntry.unwrappedTarget;
+      }
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.staticEncoder,encodingStateRegistry,OutputEncodingSettings.STATIC_CODEC_NAME);
+    }
+  }
+);
+  expressionWriter=new OutputProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.expressionEncoder,encodingStateRegistry,OutputEncodingSettings.EXPRESSION_CODEC_NAME);
+    }
+  }
+);
+  taglibWriter=new OutputProxyWriter(writerGroup,new DestinationFactory(){
+    public Writer activateDestination() throws IOException {
+      StackEntry stackEntry=stack.peek();
+      return createEncodingWriter(stackEntry.unwrappedTarget,stackEntry.taglibEncoder != null ? stackEntry.taglibEncoder : stackEntry.defaultTaglibEncoder,encodingStateRegistry,OutputEncodingSettings.TAGLIB_CODEC_NAME);
+    }
+  }
+);
+  this.autoSync=attributes.isAutoSync();
+  push(attributes,false);
+  if (!autoSync) {
+    applyWriterThreadLocals(outWriter);
+  }
+  this.encodingStateRegistry=attributes.getWebRequest().getEncodingStateRegistry();
+}

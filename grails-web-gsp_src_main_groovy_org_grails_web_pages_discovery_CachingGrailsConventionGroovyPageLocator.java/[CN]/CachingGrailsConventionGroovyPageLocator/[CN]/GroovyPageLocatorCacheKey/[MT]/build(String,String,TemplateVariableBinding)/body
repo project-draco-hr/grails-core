@@ -1,0 +1,4 @@
+{
+  String pluginNameInCacheKey=(pluginName == null) ? (binding instanceof GroovyPageBinding && ((GroovyPageBinding)binding).getPagePlugin() != null ? ((GroovyPageBinding)binding).getPagePlugin().getName() : null) : pluginName;
+  return new GroovyPageLocatorCacheKey(uri,pluginNameInCacheKey,binding instanceof GroovyPageBinding ? ((GroovyPageBinding)binding).getPluginContextPath() : null);
+}

@@ -1,8 +1,0 @@
-{
-  if (attributes.getTopWriter() == null) {
-    attributes=new GroovyPageOutputStackAttributes.Builder(attributes).topWriter(lookupRequestWriter(attributes.getWebRequest())).build();
-  }
-  GroovyPageOutputStack instance=new GroovyPageOutputStack(attributes);
-  attributes.getWebRequest().setAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,instance,RequestAttributes.SCOPE_REQUEST);
-  return instance;
-}

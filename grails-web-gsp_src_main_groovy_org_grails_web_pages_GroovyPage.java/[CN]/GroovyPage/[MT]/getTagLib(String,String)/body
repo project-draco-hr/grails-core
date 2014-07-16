@@ -1,3 +1,3 @@
 {
-  return lookupCachedTagLib(gspTagLibraryLookup,namespace,tagName);
+  return TagOutput.lookupCachedTagLib(gspTagLibraryLookup,namespace,tagName);
 }

@@ -1,6 +1,0 @@
-{
-  GroovyPageOutputStackAttributes.Builder attributesBuilder=new GroovyPageOutputStackAttributes.Builder();
-  attributesBuilder.inheritPreviousEncoders(true);
-  attributesBuilder.topWriter(newWriter);
-  push(attributesBuilder.build(),checkExisting);
-}

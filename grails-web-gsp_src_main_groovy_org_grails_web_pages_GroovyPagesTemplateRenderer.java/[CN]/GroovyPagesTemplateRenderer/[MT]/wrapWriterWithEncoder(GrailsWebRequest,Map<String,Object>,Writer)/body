@@ -2,7 +2,7 @@
   Object encodeAs=attrs.get(GroovyPage.ENCODE_AS_ATTRIBUTE_NAME);
   if (encodeAs != null) {
     Map<String,Object> codecSettings=WithCodecHelper.makeSettingsCanonical(encodeAs);
-    String codecForTaglibs=(String)codecSettings.get(GroovyPageConfig.TAGLIB_CODEC_NAME);
+    String codecForTaglibs=(String)codecSettings.get(OutputEncodingSettings.TAGLIB_CODEC_NAME);
     if (codecForTaglibs != null) {
       Encoder encoder=WithCodecHelper.lookupEncoder(webRequest.getAttributes().getGrailsApplication(),codecForTaglibs);
       if (out instanceof EncodedAppenderWriterFactory) {

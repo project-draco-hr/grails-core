@@ -23,14 +23,14 @@
       pluginAnnotation="@GrailsPlugin(name='" + pluginInfo.getName() + "', version='"+ pluginInfo.getVersion()+ "')";
     }
   }
-  GroovyPageConfig gspConfig=new GroovyPageConfig(config);
+  OutputEncodingSettings gspConfig=new OutputEncodingSettings(config);
   this.expressionCodecDirectiveValue=expressionCodecName;
   if (expressionCodecDirectiveValue == null) {
-    expressionCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.EXPRESSION_CODEC_NAME);
+    expressionCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.EXPRESSION_CODEC_NAME);
   }
-  staticCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.STATIC_CODEC_NAME);
-  outCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.OUT_CODEC_NAME);
-  taglibCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,GroovyPageConfig.TAGLIB_CODEC_NAME);
+  staticCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.STATIC_CODEC_NAME);
+  outCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.OUT_CODEC_NAME);
+  taglibCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.TAGLIB_CODEC_NAME);
   String gspSource=readStream(in);
   Map<String,String> directives=parseDirectives(gspSource);
   if (isSitemeshPreprocessingEnabled(directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {

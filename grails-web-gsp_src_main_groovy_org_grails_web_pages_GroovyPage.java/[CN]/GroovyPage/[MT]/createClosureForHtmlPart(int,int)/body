@@ -1,4 +1,4 @@
 {
   final String htmlPart=htmlParts[partNumber];
-  setBodyClosure(bodyClosureIndex,new ConstantClosure(htmlPart));
+  setBodyClosure(bodyClosureIndex,new TagOutput.ConstantClosure(htmlPart));
 }

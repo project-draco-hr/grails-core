@@ -1,4 +1,0 @@
-{
-  GroovyPageOutputStack outputStack=(GroovyPageOutputStack)webRequest.getAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
-  return outputStack;
-}

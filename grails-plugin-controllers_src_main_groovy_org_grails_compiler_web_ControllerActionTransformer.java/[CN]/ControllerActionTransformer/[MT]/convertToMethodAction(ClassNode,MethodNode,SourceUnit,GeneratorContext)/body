@@ -15,7 +15,12 @@
   wrapMethodBodyWithExceptionHandling(classNode,methodNode);
   MethodNode method=null;
   if (methodNode.getParameters().length > 0) {
-    method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,addOriginalMethodCall(methodNode,initializeActionParameters(classNode,methodNode,methodNode.getName(),parameters,source,context)));
+    final BlockStatement methodCode=new BlockStatement();
+    final BlockStatement codeToHandleAllowedMethods=getCodeToHandleAllowedMethods(classNode,methodNode.getName());
+    final Statement codeToCallOriginalMethod=addOriginalMethodCall(methodNode,initializeActionParameters(classNode,methodNode,methodNode.getName(),parameters,source,context));
+    methodCode.addStatement(codeToHandleAllowedMethods);
+    methodCode.addStatement(codeToCallOriginalMethod);
+    method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,methodCode);
     GrailsASTUtils.copyAnnotations(methodNode,method);
     annotateActionMethod(classNode,parameters,method);
   }

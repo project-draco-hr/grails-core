@@ -9,11 +9,11 @@
   scanner.addIncludeFilter(new AssignableTypeFilter(TraitInjector.class));
   ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
   scanner.setResourceLoader(new DefaultResourceLoader(classLoader));
-  scanner.scan(INJECTOR_SCAN_PACKAGE);
+  scanner.scan(PACKAGES_TO_SCAN);
   if (registry.getBeanDefinitionCount() == 0) {
     classLoader=GrailsAwareInjectionOperation.class.getClassLoader();
     scanner.setResourceLoader(new DefaultResourceLoader(classLoader));
-    scanner.scan(INJECTOR_SCAN_PACKAGE);
+    scanner.scan(PACKAGES_TO_SCAN);
   }
   for (  String beanName : registry.getBeanDefinitionNames()) {
     try {

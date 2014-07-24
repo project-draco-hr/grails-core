@@ -55,7 +55,7 @@ if (shouldDoDataBinding) {
 }
 }
 }
- catch (InvalidRequestBodyException e) {
+ catch (DataBindingSourceCreationException e) {
 commandObjectInstance=type.newInstance();
 final Object o=GrailsMetaClassUtils.invokeMethodIfExists(commandObjectInstance,"getErrors");
 if (o instanceof BindingResult) {

@@ -2,4 +2,11 @@
   ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",String.class);
   cp.setBlank(true);
   assertTrue("should be blank",cp.isBlank());
+  assertNull("Blank constraint should not be present",cp.getAppliedConstraint("blank"));
+  cp.setBlank(false);
+  assertFalse("should not be blank",cp.isBlank());
+  assertNotNull("Blank constraint should be present",cp.getAppliedConstraint("blank"));
+  cp.setBlank(true);
+  assertTrue("should be blank",cp.isBlank());
+  assertNull("Blank constraint should not be present",cp.getAppliedConstraint("blank"));
 }

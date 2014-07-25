@@ -12,7 +12,6 @@
       GrailsASTUtils.error(source,methodNode,formattedMessage);
     }
   }
-  wrapMethodBodyWithExceptionHandling(classNode,methodNode);
   MethodNode method=null;
   if (methodNode.getParameters().length > 0) {
     final BlockStatement methodCode=new BlockStatement();
@@ -23,9 +22,11 @@
     method=new MethodNode(methodNode.getName(),Modifier.PUBLIC,returnType,ZERO_PARAMETERS,EMPTY_CLASS_ARRAY,methodCode);
     GrailsASTUtils.copyAnnotations(methodNode,method);
     annotateActionMethod(classNode,parameters,method);
+    wrapMethodBodyWithExceptionHandling(classNode,method);
   }
  else {
     annotateActionMethod(classNode,parameters,methodNode);
   }
+  wrapMethodBodyWithExceptionHandling(classNode,methodNode);
   return method;
 }

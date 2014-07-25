@@ -55,7 +55,11 @@ if (shouldDoDataBinding) {
 }
 }
 }
- catch (DataBindingSourceCreationException e) {
+ catch (Exception e) {
+final Method exceptionHandlerMethodFor=getExceptionHandlerMethodFor(controllerInstance,e.getClass());
+if (exceptionHandlerMethodFor != null) {
+throw e;
+}
 commandObjectInstance=type.newInstance();
 final Object o=GrailsMetaClassUtils.invokeMethodIfExists(commandObjectInstance,"getErrors");
 if (o instanceof BindingResult) {

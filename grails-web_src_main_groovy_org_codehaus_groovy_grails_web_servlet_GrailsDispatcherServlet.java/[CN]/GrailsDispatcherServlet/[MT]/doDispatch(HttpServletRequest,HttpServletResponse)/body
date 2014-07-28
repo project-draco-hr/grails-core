@@ -85,6 +85,7 @@
       }
     }
  catch (    ModelAndViewDefiningException ex) {
+      if (WebUtils.isIncludeRequest(request))       throw ex;
       handlerException=ex;
       if (logger.isDebugEnabled()) {
         logger.debug("ModelAndViewDefiningException encountered",ex);
@@ -92,6 +93,7 @@
       mv=ex.getModelAndView();
     }
 catch (    Exception ex) {
+      if (WebUtils.isIncludeRequest(request))       throw ex;
       handlerException=ex;
       Object handler=mappedHandler == null ? null : mappedHandler.getHandler();
       mv=processHandlerException(request,response,handler,ex);

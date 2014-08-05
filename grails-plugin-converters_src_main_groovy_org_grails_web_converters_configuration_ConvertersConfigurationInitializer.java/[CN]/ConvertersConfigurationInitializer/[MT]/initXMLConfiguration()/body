@@ -10,13 +10,13 @@
   marshallers.add(new ProxyUnwrappingMarshaller<XML>());
   marshallers.add(new org.grails.web.converters.marshaller.xml.ToStringBeanMarshaller());
   ProxyHandler proxyHandler=getProxyHandler();
-  GrailsConfig grailsConfig=new GrailsConfig(application);
+  GrailsConfig grailsConfig=new GrailsConfig(grailsApplication);
   boolean includeDomainVersion=includeDomainVersionProperty(grailsConfig,"xml");
   if (grailsConfig.get("grails.converters.xml.default.deep",false)) {
-    marshallers.add(new org.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,application));
+    marshallers.add(new org.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,grailsApplication));
   }
  else {
-    marshallers.add(new org.grails.web.converters.marshaller.xml.DomainClassMarshaller(includeDomainVersion,proxyHandler,application));
+    marshallers.add(new org.grails.web.converters.marshaller.xml.DomainClassMarshaller(includeDomainVersion,proxyHandler,grailsApplication));
   }
   marshallers.add(new org.grails.web.converters.marshaller.xml.GroovyBeanMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.xml.GenericJavaBeanMarshaller());

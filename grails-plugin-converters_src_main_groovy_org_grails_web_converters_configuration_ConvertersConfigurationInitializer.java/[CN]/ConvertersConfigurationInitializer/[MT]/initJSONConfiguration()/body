@@ -7,7 +7,7 @@
   marshallers.add(new org.grails.web.converters.marshaller.json.MapMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.json.EnumMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.ProxyUnwrappingMarshaller<JSON>());
-  GrailsConfig grailsConfig=new GrailsConfig(application);
+  GrailsConfig grailsConfig=new GrailsConfig(grailsApplication);
   if ("javascript".equals(grailsConfig.get("grails.converters.json.date","default",Arrays.asList("javascript","default")))) {
     LOG.debug("Using Javascript JSON Date Marshaller.");
     marshallers.add(new org.grails.web.converters.marshaller.json.JavascriptDateMarshaller());
@@ -21,10 +21,10 @@
   ProxyHandler proxyHandler=getProxyHandler();
   if (grailsConfig.get("grails.converters.json.default.deep",false)) {
     LOG.debug("Using DeepDomainClassMarshaller as default.");
-    marshallers.add(new org.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,application));
+    marshallers.add(new org.grails.web.converters.marshaller.json.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,grailsApplication));
   }
  else {
-    marshallers.add(new org.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion,proxyHandler,application));
+    marshallers.add(new org.grails.web.converters.marshaller.json.DomainClassMarshaller(includeDomainVersion,proxyHandler,grailsApplication));
   }
   marshallers.add(new org.grails.web.converters.marshaller.json.GroovyBeanMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.json.GenericJavaBeanMarshaller());

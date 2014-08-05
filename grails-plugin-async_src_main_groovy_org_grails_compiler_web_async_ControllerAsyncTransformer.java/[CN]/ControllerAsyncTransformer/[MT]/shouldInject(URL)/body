@@ -1,3 +1,0 @@
-{
-  return url != null && ControllerTransformer.CONTROLLER_PATTERN.matcher(url.getFile()).find();
-}

@@ -64,7 +64,7 @@
       property.setBasicCollectionType(true);
     }
   }
- else   if (!Map.class.isAssignableFrom(property.getType())) {
+ else   if (!Collection.class.isAssignableFrom(property.getType()) && !Map.class.isAssignableFrom(property.getType())) {
     property.setPersistent(false);
   }
 }

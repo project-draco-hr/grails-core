@@ -9,17 +9,20 @@
  catch (    UnsupportedEncodingException e) {
     }
   }
-  BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-  String systemBaseDirectory=System.getProperty("base.dir");
-  String basedir=systemBaseDirectory != null ? systemBaseDirectory : ".";
-  if (buildSettings != null) {
-    try {
-      basedir=buildSettings.getBaseDir().getCanonicalPath();
+  if (basePath == null) {
+    BuildSettings buildSettings=BuildSettingsHolder.getSettings();
+    String systemBaseDirectory=System.getProperty("base.dir");
+    String basedir=systemBaseDirectory != null ? systemBaseDirectory : ".";
+    if (buildSettings != null) {
+      try {
+        basedir=buildSettings.getBaseDir().getCanonicalPath();
+      }
+ catch (      IOException e) {
+      }
     }
- catch (    IOException e) {
-    }
+    basePath=basedir + File.separatorChar + GrailsResourceUtils.VIEWS_DIR_PATH;
   }
-  String path=basedir + File.separatorChar + GrailsResourceUtils.VIEWS_DIR_PATH+ location;
+  String path=basePath + location;
   path=makeCanonical(path);
   return new FileSystemResource(path);
 }

@@ -1,0 +1,14 @@
+{
+  if (!(astNodes[0] instanceof AnnotationNode) || !(astNodes[1] instanceof MethodNode)) {
+    throw new RuntimeException("Internal error: wrong types: $node.class / $parent.class");
+  }
+  final MethodNode methodNode=(MethodNode)astNodes[1];
+  final ClassNode declaringClassNode=methodNode.getDeclaringClass();
+  if (declaringClassNode != null) {
+    final List<AnnotationNode> annotations=declaringClassNode.getAnnotations(ClassHelper.make(FreshRuntime.class));
+    if (annotations != null && annotations.size() > 0) {
+      final String message="The [" + methodNode.getName() + "] method in ["+ declaringClassNode.getName()+ "] is marked with @DirtiesRuntime.  "+ "There is no need to mark a test method with @DirtiesRuntime "+ "inside of a test class which is marked with @FreshRuntime.";
+      GrailsASTUtils.warning(source,methodNode,message);
+    }
+  }
+}

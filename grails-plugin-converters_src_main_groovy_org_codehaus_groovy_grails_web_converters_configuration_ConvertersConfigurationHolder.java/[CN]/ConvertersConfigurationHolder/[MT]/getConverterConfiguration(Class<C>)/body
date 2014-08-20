@@ -2,10 +2,13 @@
   ConverterConfiguration<C> cfg=getThreadLocalConverterConfiguration(converterClass);
   if (cfg == null) {
     cfg=getInstance().defaultConfiguration.get(converterClass);
+    if (cfg == null) {
+      cfg=new DefaultConverterConfiguration();
+      ConverterConfiguration<C> existing=getInstance().defaultConfiguration.putIfAbsent(converterClass,cfg);
+      if (existing != null) {
+        cfg=existing;
+      }
+    }
   }
-  if (cfg == null) {
-    cfg=new DefaultConverterConfiguration();
-  }
-  setThreadLocalConverterConfiguration(converterClass,cfg);
   return cfg;
 }

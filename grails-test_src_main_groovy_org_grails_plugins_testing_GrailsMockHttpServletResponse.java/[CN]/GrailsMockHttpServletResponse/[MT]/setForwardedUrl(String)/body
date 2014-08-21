@@ -1,0 +1,12 @@
+{
+  String strippedUrl=forwardedUrl;
+  if (strippedUrl != null) {
+    if (strippedUrl.startsWith("/grails/")) {
+      strippedUrl=strippedUrl.substring(7);
+    }
+    if (strippedUrl.endsWith(".dispatch")) {
+      strippedUrl=strippedUrl.substring(0,strippedUrl.length() - 9);
+    }
+  }
+  super.setForwardedUrl(strippedUrl);
+}

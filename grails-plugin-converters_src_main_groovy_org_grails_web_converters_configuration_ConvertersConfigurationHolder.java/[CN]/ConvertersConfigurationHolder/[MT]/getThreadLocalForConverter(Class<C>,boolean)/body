@@ -1,8 +1,0 @@
-{
-  ThreadLocal<ConverterConfiguration> threadlocal=getInstance().threadLocalConfiguration.get(converter);
-  if (threadlocal == null && create) {
-    threadlocal=new ThreadLocal<ConverterConfiguration>();
-    getInstance().threadLocalConfiguration.put(converter,threadlocal);
-  }
-  return threadlocal;
-}

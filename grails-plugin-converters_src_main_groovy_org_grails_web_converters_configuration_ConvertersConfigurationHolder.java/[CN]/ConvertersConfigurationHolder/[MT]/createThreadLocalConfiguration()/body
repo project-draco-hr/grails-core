@@ -1,0 +1,8 @@
+{
+  return new ThreadLocal<Map<Class<? extends Converter>,ConverterConfiguration>>(){
+    protected Map<java.lang.Class<? extends Converter>,ConverterConfiguration> initialValue(){
+      return new HashMap<Class<? extends Converter>,ConverterConfiguration>();
+    }
+  }
+;
+}

@@ -7,6 +7,10 @@
     return createGrailsView(viewName);
   }
   String viewCacheKey=groovyPageLocator.resolveViewFormat(viewName);
+  String currentControllerKeyPrefix=resolveCurrentControllerKeyPrefixes();
+  if (currentControllerKeyPrefix != null) {
+    viewCacheKey=currentControllerKeyPrefix + ':' + viewCacheKey;
+  }
   CacheEntry<View> entry=viewCache.get(viewCacheKey);
   final String lookupViewName=viewName;
   Callable<View> updater=new Callable<View>(){

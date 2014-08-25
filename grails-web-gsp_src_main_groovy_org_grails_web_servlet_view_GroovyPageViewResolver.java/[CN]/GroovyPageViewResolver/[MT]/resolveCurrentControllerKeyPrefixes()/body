@@ -1,0 +1,13 @@
+{
+  String pluginContextPath=null;
+  String namespace=null;
+  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
+  if (webRequest != null) {
+    namespace=webRequest.getControllerNamespace();
+    pluginContextPath=(webRequest.getAttributes() != null && webRequest.getCurrentRequest() != null) ? webRequest.getAttributes().getPluginContextPath(webRequest.getCurrentRequest()) : null;
+    return (pluginContextPath != null ? pluginContextPath : "-") + "," + (namespace != null ? namespace : "-");
+  }
+ else {
+    return null;
+  }
+}

@@ -1,3 +1,3 @@
 {
-  return !isValidTargetClassNode(classNode) || (!isValidArtefactType() && !isValidArtefactTypeByConvention(classNode));
+  return !isValidTargetClassNode(classNode) || (!isValidArtefactType() && !isValidArtefactTypeByConvention(classNode)) || classesTransformedByThis.contains(classNode.getName());
 }

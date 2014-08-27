@@ -1,6 +1,8 @@
 {
   if (shouldSkipInjection(classNode))   return;
-  KNOWN_TRANSFORMED_CLASSES.add(classNode.getName());
+  final String className=classNode.getName();
+  KNOWN_TRANSFORMED_CLASSES.add(className);
+  classesTransformedByThis.add(className);
   Map<String,ClassNode> genericsPlaceholders=resolveGenericsPlaceHolders(classNode);
   Class instanceImplementation=getInstanceImplementation();
   if (instanceImplementation != null) {

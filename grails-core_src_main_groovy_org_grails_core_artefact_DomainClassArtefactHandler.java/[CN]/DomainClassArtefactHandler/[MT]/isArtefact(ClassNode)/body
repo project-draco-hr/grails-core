@@ -1,0 +1,16 @@
+{
+  if (classNode == null)   return false;
+  if (!isValidArtefactClassNode(classNode,classNode.getModifiers()))   return false;
+  URI uri=classNode.getModule().getContext().getSource().getURI();
+  if (uri != null) {
+    try {
+      return GrailsResourceUtils.isDomainClass(uri.toURL());
+    }
+ catch (    MalformedURLException e) {
+      return super.isArtefact(classNode);
+    }
+  }
+ else {
+    return super.isArtefact(classNode);
+  }
+}

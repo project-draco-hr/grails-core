@@ -9,8 +9,7 @@
  catch (  IOException e) {
     return false;
   }
-  if (classNode instanceof InnerClassNode)   return false;
-  if (!classNode.isEnum() && !classNode.isInterface() && !Modifier.isAbstract(modifiers)) {
+  if (isValidArtefactClassNode(classNode,modifiers)) {
     String name=classNode.getName();
     if (name != null && this.artefactSuffix != null && name.endsWith(artefactSuffix)) {
       return true;

@@ -7,7 +7,7 @@
     return content;
   }
   char[] data=pageResponseWrapper.getContents();
-  if (data != null) {
+  if (data != null && webAppContext.getContentType() != null) {
     return contentProcessor.build(data,webAppContext);
   }
   return null;

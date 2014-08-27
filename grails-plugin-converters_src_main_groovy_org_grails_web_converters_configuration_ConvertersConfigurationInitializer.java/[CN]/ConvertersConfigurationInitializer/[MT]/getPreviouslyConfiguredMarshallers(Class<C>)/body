@@ -1,0 +1,4 @@
+{
+  ConverterConfiguration<C> previousConfiguration=ConvertersConfigurationHolder.getConverterConfiguration(converterClass);
+  return previousConfiguration.getOrderedObjectMarshallers();
+}

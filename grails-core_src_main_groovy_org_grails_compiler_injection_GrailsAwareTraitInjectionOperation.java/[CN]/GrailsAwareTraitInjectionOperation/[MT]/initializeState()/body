@@ -1,8 +1,8 @@
 {
-  if (traitInjectors != null) {
+  if (classInjectors != null) {
     return;
   }
-  traitInjectors=new ArrayList<TraitInjector>();
+  classInjectors=new ArrayList<TraitInjector>();
   BeanDefinitionRegistry registry=new SimpleBeanDefinitionRegistry();
   ClassPathBeanDefinitionScanner scanner=new ClassPathBeanDefinitionScanner(registry,false);
   scanner.setIncludeAnnotationConfig(false);
@@ -18,7 +18,7 @@
   for (  String beanName : registry.getBeanDefinitionNames()) {
     try {
       Class<?> injectorClass=classLoader.loadClass(registry.getBeanDefinition(beanName).getBeanClassName());
-      if (TraitInjector.class.isAssignableFrom(injectorClass))       traitInjectors.add((TraitInjector)injectorClass.newInstance());
+      if (TraitInjector.class.isAssignableFrom(injectorClass))       classInjectors.add((TraitInjector)injectorClass.newInstance());
     }
  catch (    Exception e) {
     }

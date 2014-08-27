@@ -2,7 +2,5 @@
   CompilationUnit unit=super.makeCompileUnit();
   GrailsAwareInjectionOperation operation=new GrailsAwareInjectionOperation();
   unit.addPhaseOperation(operation,Phases.CANONICALIZATION);
-  GrailsAwareTraitInjectionOperation grailsTraitInjector=new GrailsAwareTraitInjectionOperation(unit);
-  unit.addPhaseOperation(grailsTraitInjector,Phases.SEMANTIC_ANALYSIS);
   return unit;
 }

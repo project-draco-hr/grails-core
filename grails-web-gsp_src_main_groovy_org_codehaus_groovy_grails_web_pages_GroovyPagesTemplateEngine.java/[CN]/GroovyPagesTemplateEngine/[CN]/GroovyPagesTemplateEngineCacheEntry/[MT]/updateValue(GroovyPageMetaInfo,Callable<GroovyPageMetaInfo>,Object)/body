@@ -1,0 +1,7 @@
+{
+  if (oldValue != null) {
+    oldValue.removePageMetaClass();
+  }
+  Resource resource=(Resource)cacheRequestObject;
+  return buildPageMetaInfo(resource,pageName);
+}

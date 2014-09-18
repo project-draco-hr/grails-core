@@ -1,0 +1,20 @@
+{
+  new AbstractGrailsArtefactTransformer(){
+    public boolean shouldInject(    final URL url){
+      return true;
+    }
+    @Override public Class<?> getInstanceImplementation(){
+      return DatabindingApi.class;
+    }
+    @Override public Class<?> getStaticImplementation(){
+      return null;
+    }
+    @Override protected boolean requiresAutowiring(){
+      return false;
+    }
+    @Override protected AnnotationNode getMarkerAnnotation(){
+      return new AnnotationNode(new ClassNode(ControllerMethod.class));
+    }
+  }
+.performInjection(source,context,classNode);
+}

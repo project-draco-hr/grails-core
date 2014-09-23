@@ -1,0 +1,10 @@
+{
+  if (path == null) {
+    return null;
+  }
+  int extIndex=path.lastIndexOf(".");
+  if (extIndex == -1) {
+    return null;
+  }
+  return path.substring(extIndex + 1);
+}

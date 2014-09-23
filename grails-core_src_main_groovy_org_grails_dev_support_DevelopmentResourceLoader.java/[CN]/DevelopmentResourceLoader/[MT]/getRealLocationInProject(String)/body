@@ -5,7 +5,8 @@
   if (HAS_SCHEME_PATTERN.matcher(location).matches())   return location;
   if (!location.startsWith(SLASH))   location=SLASH + location;
   if (HAS_SCHEME_PATTERN.matcher(location).matches())   return location;
-  if (BuildSettingsHolder.getSettings().isInlinePluginLocation(new File(location.replaceAll(GRAILS_APP_DIR_PATTERN,"")))) {
+  BuildSettings buildSettings=BuildSettingsHolder.getSettings();
+  if (buildSettings != null && buildSettings.isInlinePluginLocation(new File(location.replaceAll(GRAILS_APP_DIR_PATTERN,"")))) {
     return "file:" + location;
   }
   if (!location.startsWith(GrailsResourceUtils.WEB_INF)) {
@@ -16,8 +17,7 @@
   if (!noWebInf.startsWith(PLUGINS_PREFIX)) {
     return defaultPath;
   }
-  if (application != null) {
-    BuildSettings settings=BuildSettingsHolder.getSettings();
+  if (application != null && buildSettings != null) {
     PluginBuildSettings pluginBuildSettings=GrailsPluginUtils.getPluginBuildSettings();
     String pluginPath=GrailsStringUtils.substringAfter(noWebInf,SLASH);
     String pluginName=GrailsStringUtils.substringBefore(pluginPath,SLASH);
@@ -32,8 +32,8 @@
         return defaultPath;
       }
     }
-    if (settings != null) {
-      return "file:" + settings.getProjectPluginsDir().getAbsolutePath() + SLASH+ pluginName+ SLASH+ remainingPath;
+    if (buildSettings != null) {
+      return "file:" + buildSettings.getProjectPluginsDir().getAbsolutePath() + SLASH+ pluginName+ SLASH+ remainingPath;
     }
   }
   return defaultPath;

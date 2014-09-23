@@ -1,7 +1,7 @@
 {
   extension=removeStartingDotIfPresent(extension);
   List<String> fileExtensions=new ArrayList<String>();
-  if (!StringUtils.hasText(extension)) {
+  if (extension != null && extension.length() > 0) {
     fileExtensions.add("*");
   }
  else {

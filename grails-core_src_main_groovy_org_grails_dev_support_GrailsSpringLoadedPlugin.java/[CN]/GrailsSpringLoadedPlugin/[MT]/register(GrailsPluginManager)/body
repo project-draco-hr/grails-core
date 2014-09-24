@@ -1,0 +1,4 @@
+{
+  Assert.notNull(pluginManager,"Argument pluginManager cannot be null");
+  Plugins.registerGlobalPlugin(new GrailsSpringLoadedPlugin(pluginManager));
+}

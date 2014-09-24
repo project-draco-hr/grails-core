@@ -1,0 +1,6 @@
+{
+  CachedIntrospectionResults.clearClassLoader(clazz.getClassLoader());
+  ClassPropertyFetcher.clearClassPropertyFetcherCache();
+  Introspector.flushFromCaches(clazz);
+  pluginManager.informOfClassChange(clazz);
+}

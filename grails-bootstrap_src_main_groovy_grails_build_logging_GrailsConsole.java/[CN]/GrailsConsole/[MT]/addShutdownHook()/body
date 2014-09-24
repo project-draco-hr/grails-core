@@ -1,0 +1,11 @@
+{
+  if (!Environment.isFork()) {
+    shutdownHookThread=new Thread(new Runnable(){
+      @Override public void run(){
+        beforeShutdown();
+      }
+    }
+);
+    Runtime.getRuntime().addShutdownHook(shutdownHookThread);
+  }
+}

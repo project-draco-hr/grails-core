@@ -1,0 +1,7 @@
+{
+  if (instance != null) {
+    instance.removeShutdownHook();
+    instance.restoreOriginalSystemOutAndErr();
+    instance=null;
+  }
+}

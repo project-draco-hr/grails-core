@@ -1,4 +1,0 @@
-{
-  String contentType=response.getContentType();
-  return contentType != null && (contentType.indexOf("application/json") > -1 || contentType.indexOf("text/json") > -1);
-}

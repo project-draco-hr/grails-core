@@ -1,9 +1,0 @@
-{
-  if (GrailsStringUtils.isBlank(varName)) {
-    binding.put(DEFAULT_ARGUMENT,bean);
-  }
- else {
-    binding.put(varName,bean);
-  }
-  renderViewForTemplate(webRequest,view,binding);
-}

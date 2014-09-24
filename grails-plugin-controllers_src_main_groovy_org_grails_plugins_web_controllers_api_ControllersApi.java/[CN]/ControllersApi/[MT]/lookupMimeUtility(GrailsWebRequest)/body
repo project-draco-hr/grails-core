@@ -1,9 +1,0 @@
-{
-  if (mimeUtility == null) {
-    ApplicationContext applicationContext=webRequest.getApplicationContext();
-    if (applicationContext != null) {
-      mimeUtility=applicationContext.getBean("grailsMimeUtility",MimeUtility.class);
-    }
-  }
-  return mimeUtility;
-}

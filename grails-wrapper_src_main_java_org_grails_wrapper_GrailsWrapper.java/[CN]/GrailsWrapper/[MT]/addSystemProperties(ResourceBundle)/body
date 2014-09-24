@@ -1,9 +1,0 @@
-{
-  String prefix="systemProp.";
-  for (  String key : wrapperBundle.keySet()) {
-    if (key.startsWith(prefix)) {
-      String systemKey=key.substring(prefix.length());
-      System.getProperties().put(systemKey,wrapperBundle.getString(key));
-    }
-  }
-}

@@ -1,3 +1,6 @@
 {
+  if (grailsApplication == null) {
+    return new ConfigObject();
+  }
   return grailsApplication.getConfig();
 }

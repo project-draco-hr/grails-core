@@ -1,0 +1,9 @@
+{
+  path=path.replace("/",".");
+  path=path.replace('\\','.');
+  path=path.substring(0,path.length() - CLASS_EXTENSION.length());
+  if (rootDir != null) {
+    path=path.substring(rootDir.length());
+  }
+  return path;
+}

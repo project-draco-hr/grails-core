@@ -2,6 +2,9 @@
   if (instance != null) {
     instance.removeShutdownHook();
     instance.restoreOriginalSystemOutAndErr();
+    if (instance.getReader() != null) {
+      instance.getReader().shutdown();
+    }
     instance=null;
   }
 }

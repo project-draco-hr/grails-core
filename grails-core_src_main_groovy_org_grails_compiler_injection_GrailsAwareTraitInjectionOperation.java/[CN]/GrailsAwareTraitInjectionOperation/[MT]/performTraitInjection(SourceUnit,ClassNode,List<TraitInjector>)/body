@@ -1,15 +1,14 @@
 {
+  boolean traitsAdded=false;
   for (  TraitInjector injector : injectorsToUse) {
     Class<?> trait=injector.getTrait();
     ClassNode traitClassNode=ClassHelper.make(trait);
     if (!classNode.implementsInterface(traitClassNode)) {
       classNode.addInterface(traitClassNode);
+      traitsAdded=true;
     }
   }
-  if (unit.getPhase() != CompilePhase.SEMANTIC_ANALYSIS.getPhaseNumber()) {
-    if (!EXTEND_TRAIT_CLASSES.contains(classNode.getName())) {
-      TraitComposer.doExtendTraits(classNode,source,unit);
-      EXTEND_TRAIT_CLASSES.add(classNode.getName());
-    }
+  if (traitsAdded && unit.getPhase() != CompilePhase.SEMANTIC_ANALYSIS.getPhaseNumber()) {
+    TraitComposer.doExtendTraits(classNode,source,unit);
   }
 }

@@ -15,6 +15,7 @@
       resources=scanForPatterns(resolver,pattern2,pattern);
     }
     List<ClassInjector> injectors=new ArrayList<ClassInjector>();
+    List<ClassInjector> globalInjectors=new ArrayList<ClassInjector>();
     Set<Class> injectorClasses=new HashSet<Class>();
     CachingMetadataReaderFactory readerFactory=new CachingMetadataReaderFactory(classLoader);
     for (    Resource resource : resources) {
@@ -28,7 +29,11 @@
           if (injectorClasses.contains(injectorClass))           continue;
           if (ClassInjector.class.isAssignableFrom(injectorClass)) {
             injectorClasses.add(injectorClass);
-            injectors.add((ClassInjector)injectorClass.newInstance());
+            ClassInjector classInjector=(ClassInjector)injectorClass.newInstance();
+            injectors.add(classInjector);
+            if (GlobalClassInjector.class.isAssignableFrom(injectorClass)) {
+              globalInjectors.add(classInjector);
+            }
           }
         }
       }
@@ -53,6 +58,7 @@ catch (      NoClassDefFoundError e) {
     }
 );
     classInjectors=injectors.toArray(new ClassInjector[injectors.size()]);
+    globalClassInjectors=globalInjectors.toArray(new ClassInjector[globalInjectors.size()]);
   }
  catch (  IOException e) {
   }

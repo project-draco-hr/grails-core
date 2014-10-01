@@ -4,6 +4,9 @@
     if (classInjector instanceof AllArtefactClassInjector) {
       injectors.add(classInjector);
     }
+ else     if (classInjector instanceof GlobalClassInjector) {
+      injectors.add(classInjector);
+    }
  else     if (classInjector instanceof GrailsArtefactClassInjector) {
       GrailsArtefactClassInjector gace=(GrailsArtefactClassInjector)classInjector;
       if (hasArtefactType(artefactType,gace)) {

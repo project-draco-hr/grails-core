@@ -1,0 +1,8 @@
+{
+  try {
+    view.render(binding,webRequest.getCurrentRequest(),webRequest.getResponse());
+  }
+ catch (  Exception e) {
+    throw new ControllerExecutionException(e.getMessage(),e);
+  }
+}

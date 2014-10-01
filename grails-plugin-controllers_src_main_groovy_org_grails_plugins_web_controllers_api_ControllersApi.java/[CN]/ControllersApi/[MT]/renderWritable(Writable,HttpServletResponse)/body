@@ -1,0 +1,11 @@
+{
+  try {
+    PrintWriter writer=response.getWriter();
+    writable.writeTo(writer);
+    writer.flush();
+  }
+ catch (  IOException e) {
+    throw new ControllerExecutionException(e.getMessage(),e);
+  }
+  return false;
+}

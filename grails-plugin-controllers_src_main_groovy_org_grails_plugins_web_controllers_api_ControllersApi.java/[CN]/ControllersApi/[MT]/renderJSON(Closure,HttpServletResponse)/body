@@ -1,0 +1,8 @@
+{
+  boolean renderView=true;
+  JSONBuilder builder=new JSONBuilder();
+  JSON json=builder.build(callable);
+  json.render(response);
+  renderView=false;
+  return renderView;
+}

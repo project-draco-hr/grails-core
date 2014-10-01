@@ -1,0 +1,14 @@
+{
+  MimeUtility mimeUtility=lookupMimeUtility(webRequest);
+  if (mimeUtility != null) {
+    MimeType mimeType=mimeUtility.getMimeTypeForExtension(GrailsStringUtils.getFilenameExtension(fileName));
+    if (mimeType != null) {
+      String contentType=mimeType.getName();
+      Object encodingObj=argMap.get(ARGUMENT_ENCODING);
+      String encoding=encodingObj != null ? encodingObj.toString() : DEFAULT_ENCODING;
+      setContentType(response,contentType,encoding);
+      return true;
+    }
+  }
+  return false;
+}

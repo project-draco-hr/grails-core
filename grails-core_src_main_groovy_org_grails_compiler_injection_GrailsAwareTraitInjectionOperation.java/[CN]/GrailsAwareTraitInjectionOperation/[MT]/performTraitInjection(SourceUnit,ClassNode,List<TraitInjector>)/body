@@ -7,6 +7,9 @@
     }
   }
   if (unit.getPhase() != CompilePhase.SEMANTIC_ANALYSIS.getPhaseNumber()) {
-    TraitComposer.doExtendTraits(classNode,source,unit);
+    if (!EXTEND_TRAIT_CLASSES.contains(classNode.getName())) {
+      TraitComposer.doExtendTraits(classNode,source,unit);
+      EXTEND_TRAIT_CLASSES.add(classNode.getName());
+    }
   }
 }

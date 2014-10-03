@@ -7,5 +7,5 @@
   appCtx.registerMockBean(GrailsApplication.APPLICATION_ID,grailsApplication);
   appCtx.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
   appCtx.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,appCtx);
-  return GrailsWebUtil.bindMockWebRequest(appCtx);
+  return GrailsWebMockUtil.bindMockWebRequest(appCtx);
 }

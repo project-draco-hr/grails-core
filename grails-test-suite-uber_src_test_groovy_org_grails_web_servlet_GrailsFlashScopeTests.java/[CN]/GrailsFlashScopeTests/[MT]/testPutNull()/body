@@ -1,5 +1,5 @@
 {
-  GrailsWebUtil.bindMockWebRequest();
+  GrailsWebMockUtil.bindMockWebRequest();
   FlashScope fs=new GrailsFlashScope();
   fs.put("test",null);
 }

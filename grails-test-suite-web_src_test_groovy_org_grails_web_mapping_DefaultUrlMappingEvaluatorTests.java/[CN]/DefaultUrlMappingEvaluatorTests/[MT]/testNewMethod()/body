@@ -15,7 +15,7 @@
   assertEquals("(*)?",mapping.getUrlData().getTokens()[2]);
   assertNotNull(mapping.getConstraints());
   assertTrue(makeSureMatchesConstraintExistsOnId(mapping));
-  GrailsWebRequest r=GrailsWebUtil.bindMockWebRequest();
+  GrailsWebRequest r=GrailsWebMockUtil.bindMockWebRequest();
   UrlMappingInfo info=mapping.match("/mycontroller");
   info.configure(r);
   assertEquals("mycontroller",info.getControllerName());

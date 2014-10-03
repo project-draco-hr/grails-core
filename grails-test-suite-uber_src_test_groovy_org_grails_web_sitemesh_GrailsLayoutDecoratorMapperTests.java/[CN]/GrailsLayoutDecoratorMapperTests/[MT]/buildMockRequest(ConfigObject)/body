@@ -28,7 +28,7 @@
   appCtx.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
   appCtx.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,appCtx);
   grailsApplication.setMainContext(appCtx);
-  return GrailsWebUtil.bindMockWebRequest(appCtx,new MockHttpServletRequest(appCtx.getServletContext()){
+  return GrailsWebMockUtil.bindMockWebRequest(appCtx,new MockHttpServletRequest(appCtx.getServletContext()){
     @Override public RequestDispatcher getRequestDispatcher(    String path){
       return null;
     }

@@ -1,5 +1,5 @@
 {
-  GrailsWebUtil.bindMockWebRequest();
+  GrailsWebMockUtil.bindMockWebRequest();
   Map map=new HashMap();
   StringWithError value=new StringWithError("flinstone");
   map.put("fred",value);

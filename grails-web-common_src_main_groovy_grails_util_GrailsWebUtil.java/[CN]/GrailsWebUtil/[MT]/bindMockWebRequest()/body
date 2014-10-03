@@ -1,6 +1,0 @@
-{
-  ServletContext servletContext=new MockServletContext();
-  MockHttpServletRequest request=new MockHttpServletRequest(servletContext);
-  MockHttpServletResponse response=new MockHttpServletResponse();
-  return bindMockWebRequest(servletContext,request,response);
-}

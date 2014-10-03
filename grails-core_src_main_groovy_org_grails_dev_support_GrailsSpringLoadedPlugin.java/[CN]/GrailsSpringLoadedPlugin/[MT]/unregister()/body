@@ -1,0 +1,7 @@
+{
+  List<Plugin> globalPlugins=SpringLoadedPreProcessor.getGlobalPlugins();
+  for (  Plugin globalPlugin : globalPlugins) {
+    Plugins.unregisterGlobalPlugin(globalPlugin);
+  }
+  unregistered=true;
+}

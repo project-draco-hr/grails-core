@@ -1,0 +1,20 @@
+{
+  bindSystemOutAndErr(systemOut,systemErr);
+  redirectSystemOutAndErr(true);
+  System.setProperty(ShutdownHooks.JLINE_SHUTDOWNHOOK,"false");
+  if (isInteractiveEnabled()) {
+    reader=createConsoleReader(systemIn);
+    reader.setBellEnabled(false);
+    reader.setCompletionHandler(new CandidateListCompletionHandler());
+    if (isActivateTerminal()) {
+      terminal=createTerminal();
+    }
+    history=prepareHistory();
+    if (history != null) {
+      reader.setHistory(history);
+    }
+  }
+ else   if (isActivateTerminal()) {
+    terminal=createTerminal();
+  }
+}

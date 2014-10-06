@@ -1,0 +1,9 @@
+{
+  OutputStream ansiWrapped=ansiWrap(printStream);
+  if (ansiWrapped instanceof PrintStream) {
+    return (PrintStream)ansiWrapped;
+  }
+ else {
+    return new PrintStream(ansiWrapped,true);
+  }
+}

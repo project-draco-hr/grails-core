@@ -1,26 +1,5 @@
 {
   cursorMove=1;
-  originalSystemOut=System.out;
-  originalSystemErr=System.err;
-  out=new PrintStream(ansiWrap(originalSystemOut));
-  err=new PrintStream(ansiWrap(originalSystemErr));
-  System.setOut(new GrailsConsolePrintStream(out));
-  System.setErr(new GrailsConsoleErrorPrintStream(err));
-  System.setProperty(ShutdownHooks.JLINE_SHUTDOWNHOOK,"false");
-  if (isInteractiveEnabled()) {
-    reader=createConsoleReader();
-    reader.setBellEnabled(false);
-    reader.setCompletionHandler(new CandidateListCompletionHandler());
-    if (isActivateTerminal()) {
-      terminal=createTerminal();
-    }
-    history=prepareHistory();
-    if (history != null) {
-      reader.setHistory(history);
-    }
-  }
- else   if (isActivateTerminal()) {
-    terminal=createTerminal();
-  }
+  initialize(System.in,System.out,System.err);
   maxIndicatorString=new StringBuilder(indicator).append(indicator).append(indicator).append(indicator).append(indicator);
 }

@@ -2,15 +2,8 @@
   if (instance == null) {
     try {
       final GrailsConsole console=createInstance();
+      console.addShutdownHook();
       setInstance(console);
-      if (!Environment.isFork()) {
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable(){
-          @Override public void run(){
-            console.beforeShutdown();
-          }
-        }
-));
-      }
     }
  catch (    IOException e) {
       throw new RuntimeException("Cannot create grails console: " + e.getMessage(),e);

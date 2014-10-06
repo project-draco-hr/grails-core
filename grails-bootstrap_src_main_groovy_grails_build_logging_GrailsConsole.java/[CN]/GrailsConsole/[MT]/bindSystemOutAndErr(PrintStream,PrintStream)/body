@@ -1,0 +1,6 @@
+{
+  originalSystemOut=systemOut;
+  out=wrapInPrintStream(originalSystemOut);
+  originalSystemErr=systemErr;
+  err=wrapInPrintStream(originalSystemErr);
+}

@@ -1,9 +1,4 @@
 {
   instance=newConsole;
-  if (!(System.out instanceof GrailsConsolePrintStream)) {
-    System.setOut(new GrailsConsolePrintStream(instance.out));
-  }
-  if (!(System.err instanceof GrailsConsoleErrorPrintStream)) {
-    System.setErr(new GrailsConsoleErrorPrintStream(instance.err));
-  }
+  instance.redirectSystemOutAndErr(false);
 }

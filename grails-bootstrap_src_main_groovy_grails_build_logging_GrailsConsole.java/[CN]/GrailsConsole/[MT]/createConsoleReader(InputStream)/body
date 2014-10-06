@@ -1,5 +1,5 @@
 {
-  ConsoleReader consoleReader=new ConsoleReader(System.in,out);
+  ConsoleReader consoleReader=new ConsoleReader(systemIn,out);
   consoleReader.setExpandEvents(false);
   return consoleReader;
 }

@@ -8,7 +8,7 @@
   marshallers.add(new org.grails.web.converters.marshaller.json.MapMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.json.EnumMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.ProxyUnwrappingMarshaller<JSON>());
-  GrailsConfig grailsConfig=new GrailsConfig(grailsApplication);
+  DeprecatedGrailsConfig grailsConfig=new DeprecatedGrailsConfig(grailsApplication);
   if ("javascript".equals(grailsConfig.get("grails.converters.json.date","default",Arrays.asList("javascript","default")))) {
     LOG.debug("Using Javascript JSON Date Marshaller.");
     marshallers.add(new org.grails.web.converters.marshaller.json.JavascriptDateMarshaller());

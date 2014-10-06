@@ -1,0 +1,8 @@
+{
+  if (force || !(System.out instanceof GrailsConsolePrintStream)) {
+    System.setOut(new GrailsConsolePrintStream(out));
+  }
+  if (force || !(System.err instanceof GrailsConsoleErrorPrintStream)) {
+    System.setErr(new GrailsConsoleErrorPrintStream(err));
+  }
+}

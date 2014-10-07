@@ -1,24 +1,6 @@
 {
-  if (Metadata.getCurrent().isWarDeployed()) {
-    localResourceLoader=resourceLoader;
-  }
- else {
-    BuildSettings settings=BuildSettingsHolder.getSettings();
-    String location=null;
-    if (settings != null) {
-      location=settings.getResourcesDir().getPath();
-    }
- else     if (Environment.getCurrent().isReloadEnabled()) {
-      location=Environment.getCurrent().getReloadLocation();
-    }
-    if (location != null) {
-      localResourceLoader=new DevelopmentResourceLoader(application,location);
-    }
- else {
-      localResourceLoader=resourceLoader;
-    }
-  }
-  super.setResourceLoader(localResourceLoader);
+  super.setResourceLoader(resourceLoader);
+  this.localResourceLoader=resourceLoader;
   if (resourceResolver == null) {
     resourceResolver=new PathMatchingResourcePatternResolver(localResourceLoader);
   }

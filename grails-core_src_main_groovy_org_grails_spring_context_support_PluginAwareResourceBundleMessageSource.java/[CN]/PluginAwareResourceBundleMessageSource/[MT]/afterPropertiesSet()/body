@@ -5,15 +5,21 @@
   if (pluginManager == null || localResourceLoader == null) {
     return;
   }
+  Resource[] resources=resourceResolver.getResources("classpath:**/*.properties");
+  List<String> basenames=new ArrayList<String>();
+  for (  Resource resource : resources) {
+    String filename=resource.getFilename();
+    String baseName=GrailsStringUtils.getFileBasename(filename);
+    int i=baseName.indexOf('_');
+    if (i > -1) {
+      baseName=baseName.substring(0,i);
+    }
+    if (!basenames.contains(baseName))     basenames.add(baseName);
+  }
+  setBasenames(basenames.toArray(new String[basenames.size()]));
   for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
     for (    Resource pluginBundle : getPluginBundles(plugin)) {
-      String basePath;
-      if (isInlinePlugin(plugin)) {
-        basePath=getInlinePluginPath(plugin);
-      }
- else {
-        basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
-      }
+      String basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
       final String baseName=GrailsStringUtils.substringBefore(GrailsStringUtils.getFileBasename(pluginBundle.getFilename()),"_");
       String pathToAdd=basePath + GRAILS_APP_I18N_PATH_COMPONENT + baseName;
       if (!pluginBaseNames.contains(pathToAdd)) {

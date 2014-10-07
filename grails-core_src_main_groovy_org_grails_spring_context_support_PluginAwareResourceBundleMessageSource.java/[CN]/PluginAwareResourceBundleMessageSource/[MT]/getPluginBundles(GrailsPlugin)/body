@@ -3,14 +3,7 @@
     return NO_RESOURCES;
   }
   try {
-    String basePath;
-    String inlinePath=getInlinePluginPath(grailsPlugin);
-    if (inlinePath == null) {
-      basePath=WEB_INF_PLUGINS_PATH + grailsPlugin.getFileSystemName();
-    }
- else {
-      basePath=inlinePath;
-    }
+    String basePath=WEB_INF_PLUGINS_PATH + grailsPlugin.getFileSystemName();
     return resourceResolver.getResources(basePath + "/grails-app/i18n/*.properties");
   }
  catch (  IOException e) {

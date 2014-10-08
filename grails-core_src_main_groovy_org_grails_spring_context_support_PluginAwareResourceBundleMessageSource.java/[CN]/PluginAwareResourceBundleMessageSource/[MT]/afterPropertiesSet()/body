@@ -5,7 +5,7 @@
   if (pluginManager == null || localResourceLoader == null) {
     return;
   }
-  Resource[] resources=resourceResolver.getResources("classpath:**/*.properties");
+  Resource[] resources=resourceResolver.getResources("classpath*:**/*.properties");
   List<String> basenames=new ArrayList<String>();
   for (  Resource resource : resources) {
     String filename=resource.getFilename();

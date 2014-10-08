@@ -1,7 +1,0 @@
-{
-  RequestAttributes requestAttributes=RequestContextHolder.getRequestAttributes();
-  if (!(requestAttributes instanceof GrailsWebRequest)) {
-    return ContextLoader.getCurrentWebApplicationContext();
-  }
-  return ((GrailsWebRequest)requestAttributes).getApplicationContext();
-}

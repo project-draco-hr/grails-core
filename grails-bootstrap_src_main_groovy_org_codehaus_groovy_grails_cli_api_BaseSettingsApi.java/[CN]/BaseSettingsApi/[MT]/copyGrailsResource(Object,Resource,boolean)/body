@@ -1,6 +1,0 @@
-{
-  File file=new File(targetFile.toString());
-  if (overwrite || !file.exists()) {
-    SpringIOUtils.copy(resource.getInputStream(),new FileOutputStream(file));
-  }
-}

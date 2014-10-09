@@ -1,6 +1,0 @@
-{
-  Object value=System.getProperty(propName);
-  if (value != null)   return value;
-  value=buildProps.get(propName);
-  return value != null ? value : defaultValue;
-}

@@ -1,4 +1,0 @@
-{
-  String key=getDependencyMgtExtraInfoKeyForVersion(dep.getGroupId(),dep.getArtifactId());
-  return (String)getIvyModuleDescriptor().getExtraInfo().get(key);
-}

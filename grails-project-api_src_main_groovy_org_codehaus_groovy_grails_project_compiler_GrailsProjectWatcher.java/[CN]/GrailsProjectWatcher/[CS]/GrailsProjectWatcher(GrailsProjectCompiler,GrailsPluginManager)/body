@@ -1,8 +1,0 @@
-{
-  this.pluginManager=pluginManager;
-  compilerExtensions=compiler.getCompilerExtensions();
-  this.compiler=compiler;
-  if (isReloadingAgentPresent()) {
-    GrailsPluginManagerReloadPlugin.register();
-  }
-}

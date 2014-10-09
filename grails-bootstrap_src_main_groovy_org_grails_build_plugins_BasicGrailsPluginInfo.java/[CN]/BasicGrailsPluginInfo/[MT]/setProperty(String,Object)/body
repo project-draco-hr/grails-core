@@ -1,8 +1,0 @@
-{
-  try {
-    super.setProperty(property,newValue);
-  }
- catch (  MissingPropertyException e) {
-    attributes.put(property,newValue);
-  }
-}

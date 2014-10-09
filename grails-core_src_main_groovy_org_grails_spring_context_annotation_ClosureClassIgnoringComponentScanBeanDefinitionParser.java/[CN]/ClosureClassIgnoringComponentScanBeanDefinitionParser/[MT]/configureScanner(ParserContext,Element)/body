@@ -23,14 +23,7 @@
   final PathMatchingResourcePatternResolver resourceResolver=new PathMatchingResourcePatternResolver(parentOnlyResourceLoader){
     @Override protected Resource[] findAllClassPathResources(    String location) throws IOException {
       Set<Resource> result=new LinkedHashSet<Resource>(16);
-      @SuppressWarnings("unused") URL classesDir=null;
-      final boolean warDeployed=Metadata.getCurrent().isWarDeployed();
-      if (!warDeployed) {
-        BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-        if (buildSettings != null && buildSettings.getClassesDir() != null) {
-          classesDir=buildSettings.getClassesDir().toURI().toURL();
-        }
-      }
+      @SuppressWarnings("unused") URL classesDir=GrailsApp.getCLASSES_DIR().toURI().toURL();
       String path=location;
       if (path.startsWith("/")) {
         path=path.substring(1);

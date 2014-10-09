@@ -29,11 +29,6 @@
       return;
     }
     List<String> resourceListTmp=new ArrayList<String>();
-    PluginBuildSettings pluginBuildSettings=GrailsPluginUtils.getPluginBuildSettings();
-    if (pluginBuildSettings == null) {
-      return;
-    }
-    final org.grails.io.support.Resource[] pluginDirs=pluginBuildSettings.getPluginDirectories();
     final Environment env=Environment.getCurrent();
     final String baseLocation=env.getReloadLocation();
     for (    Object ref : resourceList) {
@@ -42,11 +37,6 @@
         addBaseLocationPattern(resourceListTmp,baseLocation,stringRef);
       }
  else {
-        for (        org.grails.io.support.Resource pluginDir : pluginDirs) {
-          if (pluginDir == null)           continue;
-          String pluginResources=getResourcePatternForBaseLocation(pluginDir.getFile().getCanonicalPath(),stringRef);
-          resourceListTmp.add(pluginResources);
-        }
         addBaseLocationPattern(resourceListTmp,baseLocation,stringRef);
       }
     }
@@ -58,11 +48,6 @@
     watchedResourcePatterns=new WatchPatternParser().getWatchPatterns(Arrays.asList(watchedResourcePatternReferences));
   }
  catch (  IllegalArgumentException e) {
-    if (GrailsUtil.isDevelopmentEnv()) {
-      LOG.debug("Cannot load plug-in resource watch list from [" + GrailsArrayUtils.toString(watchedResourcePatternReferences) + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try running grails upgrade.: "+ e.getMessage());
-    }
-  }
-catch (  IOException e) {
     if (GrailsUtil.isDevelopmentEnv()) {
       LOG.debug("Cannot load plug-in resource watch list from [" + GrailsArrayUtils.toString(watchedResourcePatternReferences) + "]. This means that the plugin "+ this+ ", will not be able to auto-reload changes effectively. Try running grails upgrade.: "+ e.getMessage());
     }

@@ -1,7 +1,4 @@
 {
-  if (error instanceof ScriptExitException) {
-    return;
-  }
   if ((error instanceof BuildException) && error.getCause() != null) {
     error=error.getCause();
   }

@@ -1,8 +1,0 @@
-{
-  try {
-    return target.getClass().getMethod(name,argTypes).invoke(target,args);
-  }
- catch (  Exception ex) {
-    throw new RuntimeException(ex);
-  }
-}

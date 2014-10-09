@@ -1,14 +1,7 @@
 {
   if (resourceLocator == null) {
     resourceLocator=new DefaultResourceLocator();
-    BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-    String basedir;
-    if (buildSettings != null) {
-      basedir=buildSettings.getBaseDir().getAbsolutePath();
-    }
- else {
-      basedir=".";
-    }
+    String basedir=GrailsApp.getBASE_DIR().getAbsolutePath();
     resourceLocator.setSearchLocation(basedir);
   }
   return resourceLocator;

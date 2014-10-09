@@ -1,6 +1,0 @@
-{
-  AntBuilder ant=(AntBuilder)binding.getVariable("ant");
-  Project project=ant.getProject();
-  project.getBuildListeners().clear();
-  GrailsConsoleAntBuilder.addGrailsConsoleBuildListener(project);
-}

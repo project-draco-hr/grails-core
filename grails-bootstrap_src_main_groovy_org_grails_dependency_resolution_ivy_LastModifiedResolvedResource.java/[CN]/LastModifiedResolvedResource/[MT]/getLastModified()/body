@@ -1,6 +1,0 @@
-{
-  if (lastModified < 0) {
-    return getResource().getLastModified();
-  }
-  return lastModified;
-}

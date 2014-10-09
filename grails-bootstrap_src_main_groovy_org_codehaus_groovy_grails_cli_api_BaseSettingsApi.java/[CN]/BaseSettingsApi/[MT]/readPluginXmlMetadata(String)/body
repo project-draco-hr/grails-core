@@ -1,8 +1,0 @@
-{
-  Resource pluginResource=pluginSettings.getPluginDirForName(pluginName);
-  if (pluginResource != null) {
-    File pluginDir=pluginResource.getFile();
-    return createXmlSlurper().parse(new File(pluginDir,"plugin.xml"));
-  }
-  return null;
-}

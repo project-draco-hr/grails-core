@@ -17,12 +17,6 @@
     }
   }
   GrailsPluginInfo pluginInfo=null;
-  if (filename != null && BuildSettingsHolder.getSettings() != null) {
-    pluginInfo=GrailsPluginUtils.getPluginBuildSettings().getPluginInfoForSource(filename);
-    if (pluginInfo != null) {
-      pluginAnnotation="@GrailsPlugin(name='" + pluginInfo.getName() + "', version='"+ pluginInfo.getVersion()+ "')";
-    }
-  }
   OutputEncodingSettings gspConfig=new OutputEncodingSettings(config);
   this.expressionCodecDirectiveValue=expressionCodecName;
   if (expressionCodecDirectiveValue == null) {

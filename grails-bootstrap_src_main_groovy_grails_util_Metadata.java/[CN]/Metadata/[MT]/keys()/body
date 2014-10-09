@@ -1,9 +1,0 @@
-{
-  Enumeration keysEnum=super.keys();
-  Vector keyList=new Vector();
-  while (keysEnum.hasMoreElements()) {
-    keyList.add(keysEnum.nextElement());
-  }
-  Collections.sort(keyList);
-  return keyList.elements();
-}

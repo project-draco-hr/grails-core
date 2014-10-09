@@ -1,8 +1,0 @@
-{
-  if (originalIn == null) {
-    originalIn=System.in;
-    originalOut=System.out;
-  }
-  this.settings=settings;
-  pluginPathSupport=new PluginPathDiscoverySupport(settings);
-}

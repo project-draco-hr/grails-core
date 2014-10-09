@@ -1,3 +1,0 @@
-{
-  return dependency.containsKey("export") ? Boolean.valueOf(dependency.get("export").toString()) : null;
-}

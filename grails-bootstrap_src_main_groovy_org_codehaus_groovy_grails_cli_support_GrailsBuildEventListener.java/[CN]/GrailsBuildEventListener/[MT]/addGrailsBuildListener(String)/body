@@ -1,8 +1,0 @@
-{
-  try {
-    addGrailsBuildListener(classLoader.loadClass(listenerClassName));
-  }
- catch (  ClassNotFoundException e) {
-    throw new RuntimeException("Could not load grails build listener class",e);
-  }
-}

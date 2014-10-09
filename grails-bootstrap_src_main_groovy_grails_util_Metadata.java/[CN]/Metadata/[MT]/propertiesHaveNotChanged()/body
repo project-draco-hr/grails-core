@@ -1,9 +1,0 @@
-{
-  Metadata allStringValuesMetadata=new Metadata();
-  for (  Map.Entry<Object,Object> entry : entrySet()) {
-    if (entry.getValue() != null) {
-      allStringValuesMetadata.put(entry.getKey().toString(),entry.getValue().toString());
-    }
-  }
-  return allStringValuesMetadata.equals(new Metadata(metadataFile));
-}

@@ -10,16 +10,7 @@
     }
   }
   if (basePath == null) {
-    BuildSettings buildSettings=BuildSettingsHolder.getSettings();
-    String systemBaseDirectory=System.getProperty("base.dir");
-    String basedir=systemBaseDirectory != null ? systemBaseDirectory : ".";
-    if (buildSettings != null) {
-      try {
-        basedir=buildSettings.getBaseDir().getCanonicalPath();
-      }
- catch (      IOException e) {
-      }
-    }
+    String basedir=GrailsApp.getBASE_DIR().getAbsolutePath();
     basePath=basedir + File.separatorChar + GrailsResourceUtils.VIEWS_DIR_PATH;
   }
   String path=basePath + location;

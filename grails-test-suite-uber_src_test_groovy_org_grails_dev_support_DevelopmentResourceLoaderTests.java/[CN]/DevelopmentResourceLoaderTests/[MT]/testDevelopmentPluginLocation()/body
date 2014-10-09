@@ -1,6 +1,0 @@
-{
-  DevelopmentResourceLoader resourceLoader=new DevelopmentResourceLoader(new DefaultGrailsApplication(new Class[0],new GroovyClassLoader()));
-  String realLocation=resourceLoader.getRealLocationInProject("WEB-INF/plugins/test-one-0.1/grails-app/i18n");
-  realLocation=realLocation.replaceAll("^file:.:","file:X:");
-  assertTrue("file:/home/fred/plugins/test-one-0.1/grails-app/i18n".equals(realLocation) || "file:X:\\home\\fred\\plugins/test-one-0.1/grails-app/i18n".equals(realLocation));
-}

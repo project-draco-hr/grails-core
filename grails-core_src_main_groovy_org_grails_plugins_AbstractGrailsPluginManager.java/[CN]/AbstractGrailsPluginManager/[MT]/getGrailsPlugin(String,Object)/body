@@ -3,7 +3,7 @@
     name=GrailsNameUtils.getPropertyNameForLowerCaseHyphenSeparatedName(name);
   }
   GrailsPlugin plugin=plugins.get(name);
-  if (plugin != null && GrailsPluginUtils.isValidVersion(plugin.getVersion(),version.toString())) {
+  if (plugin != null && GrailsVersionUtils.isValidVersion(plugin.getVersion(),version.toString())) {
     return plugin;
   }
   return null;

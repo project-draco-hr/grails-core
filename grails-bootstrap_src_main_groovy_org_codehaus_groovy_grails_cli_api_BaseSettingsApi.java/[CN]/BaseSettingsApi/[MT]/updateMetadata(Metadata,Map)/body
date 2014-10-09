@@ -1,9 +1,0 @@
-{
-  for (  Object key : entries.keySet()) {
-    final Object value=entries.get(key);
-    if (value != null) {
-      metadata.put(key,value.toString());
-    }
-  }
-  metadata.persist();
-}

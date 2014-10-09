@@ -1,8 +1,0 @@
-{
-  String fileName=scriptPath.getName();
-  String scriptFileName=fileName.substring(0,fileName.length() - 7);
-  if (scriptFileName.endsWith("_")) {
-    scriptFileName=scriptFileName.substring(0,scriptFileName.length() - 1);
-  }
-  return scriptFileName;
-}

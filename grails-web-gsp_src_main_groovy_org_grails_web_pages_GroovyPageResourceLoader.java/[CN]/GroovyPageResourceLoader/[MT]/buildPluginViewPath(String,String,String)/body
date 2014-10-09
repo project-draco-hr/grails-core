@@ -1,4 +1,0 @@
-{
-  StringBuilder builder=new StringBuilder("file:").append(pluginBaseDirectory).append(File.separatorChar);
-  return buildPluginViewPathFromBase(pluginName,pathRelativeToPlugin,builder);
-}

@@ -1,3 +1,0 @@
-{
-  return isUseMavenMetadata() && isM2compatible() && getPattern().endsWith(M2_PATTERN);
-}

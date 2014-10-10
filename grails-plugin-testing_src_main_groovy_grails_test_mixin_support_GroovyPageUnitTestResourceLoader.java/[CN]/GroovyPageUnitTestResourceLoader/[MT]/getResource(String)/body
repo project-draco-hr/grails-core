@@ -10,7 +10,7 @@
     }
   }
   if (basePath == null) {
-    String basedir=GrailsApp.getBASE_DIR().getAbsolutePath();
+    String basedir=BuildSettings.BASE_DIR.getAbsolutePath();
     basePath=basedir + File.separatorChar + GrailsResourceUtils.VIEWS_DIR_PATH;
   }
   String path=basePath + location;

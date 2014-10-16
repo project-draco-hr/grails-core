@@ -19,6 +19,12 @@
       }
     }
 );
+    converterRegistry.addConverter(new Converter<ConfigMap.NullSafeNavigator,Object>(){
+      @Override public Object convert(      ConfigMap.NullSafeNavigator source){
+        return null;
+      }
+    }
+);
   }
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {

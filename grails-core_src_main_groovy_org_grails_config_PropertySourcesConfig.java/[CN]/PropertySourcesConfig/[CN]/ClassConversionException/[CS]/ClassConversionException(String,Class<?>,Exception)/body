@@ -1,0 +1,3 @@
+{
+  super(String.format("Could not find/load class %s during attempt to convert to %s",actual,expected.getName()),ex);
+}

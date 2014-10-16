@@ -1,6 +1,6 @@
 {
   String[] allBeanNames=registry.getBeanDefinitionNames();
-  Map<String,ConfigObject> dsConfigs=readDataSourceConfig();
+  Map<String,Map> dsConfigs=readDataSourceConfig();
   for (  String beanName : allBeanNames) {
     BeanDefinition beanDefinition=registry.getBeanDefinition(beanName);
     if (!TRANSACTION_MANAGER.equals(beanName) && !PRIMARY_TRANSACTION_MANAGER.equals(beanName) && isValidTransactionManagerBeanDefinition(beanName,beanDefinition)) {

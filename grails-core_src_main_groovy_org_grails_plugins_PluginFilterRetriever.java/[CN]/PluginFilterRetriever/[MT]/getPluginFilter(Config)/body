@@ -1,0 +1,6 @@
+{
+  Assert.notNull(config);
+  Object includes=config.getProperty(Settings.PLUGIN_INCLUDES,Object.class,null);
+  Object excludes=config.getProperty(Settings.PLUGIN_EXCLUDES,Object.class,null);
+  return getPluginFilter(includes,excludes);
+}

@@ -1,0 +1,5 @@
+{
+  this.propertySources=propertySources;
+  this.propertySourcesPropertyResolver=new PropertySourcesPropertyResolver(propertySources);
+  initializeFromPropertySources(propertySources);
+}

@@ -1,5 +1,5 @@
 {
-  ConfigObject config=grailsApplication.getConfig();
+  Config config=grailsApplication.getConfig();
   if (config != null) {
     props.putAll(config.toProperties());
   }

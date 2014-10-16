@@ -1,6 +1,6 @@
 {
   ArtefactHandler handler=artefactHandlersByName.get(artefactType);
-  if (handler.isArtefact(artefactClass)) {
+  if (handler != null && handler.isArtefact(artefactClass)) {
     GrailsClass artefactGrailsClass=handler.newArtefactClass(artefactClass);
     artefactGrailsClass.setGrailsApplication(this);
     DefaultArtefactInfo info=getArtefactInfo(artefactType,true);

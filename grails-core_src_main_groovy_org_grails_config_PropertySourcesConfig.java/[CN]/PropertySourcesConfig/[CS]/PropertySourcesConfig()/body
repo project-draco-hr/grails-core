@@ -1,0 +1,4 @@
+{
+  this.propertySources=new MutablePropertySources();
+  this.propertySourcesPropertyResolver=new PropertySourcesPropertyResolver(propertySources);
+}

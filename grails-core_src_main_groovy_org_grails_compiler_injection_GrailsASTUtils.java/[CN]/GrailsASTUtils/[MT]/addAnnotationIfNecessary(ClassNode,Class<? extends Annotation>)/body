@@ -1,12 +1,3 @@
 {
-  List<AnnotationNode> annotations=classNode.getAnnotations();
-  ClassNode annotationClassNode=ClassHelper.make(annotationClass);
-  AnnotationNode annotationToAdd=new AnnotationNode(annotationClassNode);
-  if (annotations.isEmpty()) {
-    classNode.addAnnotation(annotationToAdd);
-  }
- else {
-    boolean foundAnn=findAnnotation(annotationClassNode,annotations) != null;
-    if (!foundAnn)     classNode.addAnnotation(annotationToAdd);
-  }
+  addAnnotationOrGetExisting(classNode,annotationClass);
 }

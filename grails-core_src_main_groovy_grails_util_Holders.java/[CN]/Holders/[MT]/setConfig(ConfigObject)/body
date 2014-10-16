@@ -1,4 +1,0 @@
-{
-  configs.set(config);
-  flatConfigs.set(config == null ? null : config.flatten(new LinkedHashMap()));
-}

@@ -1,5 +1,5 @@
 {
-  this.config=config;
-  Holders.setConfig(config);
+  this.config=new PropertySourcesConfig().merge(config);
+  Holders.setConfig(this.config);
   updateFlatConfig();
 }

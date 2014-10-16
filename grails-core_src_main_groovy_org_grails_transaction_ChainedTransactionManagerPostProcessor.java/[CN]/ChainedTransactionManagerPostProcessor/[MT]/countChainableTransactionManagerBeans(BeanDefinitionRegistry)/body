@@ -1,5 +1,5 @@
 {
-  Map<String,ConfigObject> dsConfigs=readDataSourceConfig();
+  Map<String,Map> dsConfigs=readDataSourceConfig();
   int transactionManagerBeanCount=0;
   for (  String beanName : registry.getBeanDefinitionNames()) {
     BeanDefinition beanDefinition=registry.getBeanDefinition(beanName);

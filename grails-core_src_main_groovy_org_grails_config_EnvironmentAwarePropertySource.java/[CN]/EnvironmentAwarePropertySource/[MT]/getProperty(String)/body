@@ -1,0 +1,14 @@
+{
+  if (!propertyNames.contains(name)) {
+    return null;
+  }
+  Environment env=Environment.getCurrent();
+  String key="environments." + env.getName() + '.'+ name;
+  for (  PropertySource propertySource : source) {
+    if (propertySource != this) {
+      Object value=propertySource.getProperty(key);
+      if (value != null)       return value;
+    }
+  }
+  return null;
+}

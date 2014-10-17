@@ -1,0 +1,7 @@
+{
+  Map map=new HashMap();
+  for (  String propertyName : enumerablePropertySource.getPropertyNames()) {
+    map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
+  }
+  configMap.merge(map,true);
+}

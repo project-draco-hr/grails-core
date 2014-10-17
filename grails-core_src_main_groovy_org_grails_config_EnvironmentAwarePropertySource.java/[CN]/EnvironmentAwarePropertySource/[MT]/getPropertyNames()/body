@@ -1,0 +1,18 @@
+{
+  if (propertyNames == null) {
+    propertyNames=new ArrayList<String>();
+    Environment env=Environment.getCurrent();
+    String key="environments." + env.getName();
+    for (    PropertySource propertySource : source) {
+      if ((propertySource != this) && propertySource instanceof EnumerablePropertySource) {
+        EnumerablePropertySource enumerablePropertySource=(EnumerablePropertySource)propertySource;
+        for (        String propertyName : enumerablePropertySource.getPropertyNames()) {
+          if (propertyName.startsWith(key)) {
+            propertyNames.add(propertyName.substring(key.length() + 1));
+          }
+        }
+      }
+    }
+  }
+  return propertyNames.toArray(new String[propertyNames.size()]);
+}

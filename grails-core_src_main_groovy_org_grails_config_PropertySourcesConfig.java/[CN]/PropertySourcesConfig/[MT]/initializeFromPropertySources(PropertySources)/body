@@ -2,11 +2,12 @@
   for (  PropertySource propertySource : propertySources) {
     if (propertySource instanceof EnumerablePropertySource) {
       EnumerablePropertySource enumerablePropertySource=(EnumerablePropertySource)propertySource;
-      Map map=new HashMap();
-      for (      String propertyName : enumerablePropertySource.getPropertyNames()) {
-        map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
-      }
-      configMap.merge(map,true);
+      mergeEnumerablePropertySource(enumerablePropertySource);
     }
+  }
+  EnvironmentAwarePropertySource environmentAwarePropertySource=new EnvironmentAwarePropertySource(propertySources);
+  mergeEnumerablePropertySource(environmentAwarePropertySource);
+  if (propertySources instanceof MutablePropertySources) {
+    ((MutablePropertySources)propertySources).addLast(environmentAwarePropertySource);
   }
 }

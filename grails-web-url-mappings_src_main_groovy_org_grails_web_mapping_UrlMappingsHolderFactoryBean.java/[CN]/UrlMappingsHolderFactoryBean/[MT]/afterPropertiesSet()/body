@@ -4,7 +4,7 @@
   List urlMappings=new ArrayList();
   List excludePatterns=new ArrayList();
   GrailsClass[] mappings=grailsApplication.getArtefacts(UrlMappingsArtefactHandler.TYPE);
-  final DefaultUrlMappingEvaluator mappingEvaluator=new DefaultUrlMappingEvaluator((WebApplicationContext)applicationContext);
+  final DefaultUrlMappingEvaluator mappingEvaluator=new DefaultUrlMappingEvaluator(applicationContext);
   mappingEvaluator.setPluginManager(pluginManager);
   if (mappings.length == 0) {
     urlMappings.addAll(mappingEvaluator.evaluateMappings(DefaultUrlMappings.getMappings()));

@@ -3,7 +3,16 @@
   for (  TraitInjector injector : injectorsToUse) {
     Class<?> trait=injector.getTrait();
     ClassNode traitClassNode=ClassHelper.make(trait);
-    if (!classNode.implementsInterface(traitClassNode)) {
+    boolean implementsTrait=false;
+    boolean traitNotLoaded=false;
+    try {
+      implementsTrait=classNode.implementsInterface(traitClassNode);
+    }
+ catch (    Throwable e) {
+      traitNotLoaded=true;
+    }
+    if (!implementsTrait && !traitNotLoaded) {
+      System.out.println("traitClassNode = " + traitClassNode);
       classNode.addInterface(traitClassNode);
       traitsAdded=true;
     }

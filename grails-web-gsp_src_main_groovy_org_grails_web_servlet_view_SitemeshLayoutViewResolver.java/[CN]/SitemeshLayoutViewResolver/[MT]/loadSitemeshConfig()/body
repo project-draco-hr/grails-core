@@ -24,7 +24,9 @@
 ;
   Config config=new Config(filterConfig);
   Grails5535Factory sitemeshFactory=new Grails5535Factory(config);
-  servletContext.setAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE,sitemeshFactory);
+  if (servletContext != null) {
+    servletContext.setAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE,sitemeshFactory);
+  }
   sitemeshFactory.refresh();
   FactoryHolder.setFactory(sitemeshFactory);
   sitemeshConfigLoaded=true;

@@ -1,4 +1,5 @@
 {
+  if (servletContext == null)   return;
   Factory sitemeshFactory=(Factory)servletContext.getAttribute(FACTORY_SERVLET_CONTEXT_ATTRIBUTE);
   if (sitemeshFactory == null) {
     sitemeshFactory=loadSitemeshConfig();

@@ -1,0 +1,6 @@
+{
+  if (applicationContext instanceof WebApplicationContext) {
+    this.servletContext=((WebApplicationContext)applicationContext).getServletContext();
+  }
+  this.applicationContext=applicationContext;
+}

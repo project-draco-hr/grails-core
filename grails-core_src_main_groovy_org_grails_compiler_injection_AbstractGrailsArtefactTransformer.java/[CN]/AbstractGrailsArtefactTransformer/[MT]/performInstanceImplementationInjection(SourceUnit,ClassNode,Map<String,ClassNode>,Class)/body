@@ -1,5 +1,13 @@
 {
-  ClassNode implementationNode=GrailsASTUtils.replaceGenericsPlaceholders(ClassHelper.make(instanceImplementation),genericsPlaceholders);
+  ClassNode implementationNode;
+  final ConstructorCallExpression constructorCallExpression;
+  try {
+    implementationNode=GrailsASTUtils.replaceGenericsPlaceholders(ClassHelper.make(instanceImplementation),genericsPlaceholders);
+    constructorCallExpression=GrailsASTUtils.hasZeroArgsConstructor(implementationNode) ? new ConstructorCallExpression(implementationNode,ZERO_ARGS) : null;
+  }
+ catch (  Throwable e) {
+    return;
+  }
   String apiInstanceProperty=INSTANCE_PREFIX + instanceImplementation.getSimpleName();
   Expression apiInstance=new VariableExpression(apiInstanceProperty,implementationNode);
   if (requiresStaticLookupMethod()) {
@@ -9,7 +17,6 @@
     ((MethodCallExpression)apiInstance).setMethodTarget(lookupMethod);
   }
  else   if (requiresAutowiring()) {
-    final ConstructorCallExpression constructorCallExpression=GrailsASTUtils.hasZeroArgsConstructor(implementationNode) ? new ConstructorCallExpression(implementationNode,ZERO_ARGS) : null;
     PropertyNode propertyNode=new PropertyNode(apiInstanceProperty,Modifier.PUBLIC,implementationNode,classNode,constructorCallExpression,null,null);
     propertyNode.addAnnotation(AUTO_WIRED_ANNOTATION);
     if (getMarkerAnnotation() != null) {
@@ -18,7 +25,6 @@
     classNode.addProperty(propertyNode);
   }
  else {
-    final ConstructorCallExpression constructorCallExpression=new ConstructorCallExpression(implementationNode,ZERO_ARGS);
     FieldNode fieldNode=classNode.getField(apiInstanceProperty);
     if (fieldNode == null || (Modifier.isPrivate(fieldNode.getModifiers()) && !fieldNode.getDeclaringClass().equals(classNode))) {
       fieldNode=new FieldNode(apiInstanceProperty,PRIVATE_STATIC_MODIFIER,implementationNode,classNode,constructorCallExpression);

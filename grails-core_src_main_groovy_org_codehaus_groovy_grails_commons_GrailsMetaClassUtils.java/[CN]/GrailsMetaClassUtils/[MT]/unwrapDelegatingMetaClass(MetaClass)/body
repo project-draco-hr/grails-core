@@ -1,0 +1,7 @@
+{
+  int counter=0;
+  while (metaClass instanceof DelegatingMetaClass && counter++ < MAX_DELEGATE_LEVELS) {
+    metaClass=((DelegatingMetaClass)metaClass).getAdaptee();
+  }
+  return metaClass;
+}

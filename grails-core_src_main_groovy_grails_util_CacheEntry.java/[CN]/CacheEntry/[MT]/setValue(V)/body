@@ -1,5 +1,11 @@
 {
-  valueRef.set(val);
-  setInitialized(true);
-  resetTimestamp(true);
+  try {
+    writeLock.lock();
+    valueRef.set(val);
+    setInitialized(true);
+    resetTimestamp(true);
+  }
+  finally {
+    writeLock.unlock();
+  }
 }

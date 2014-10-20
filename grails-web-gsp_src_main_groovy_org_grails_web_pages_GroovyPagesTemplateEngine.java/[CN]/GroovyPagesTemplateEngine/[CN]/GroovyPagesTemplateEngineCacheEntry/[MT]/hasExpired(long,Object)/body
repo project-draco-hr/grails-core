@@ -1,0 +1,5 @@
+{
+  GroovyPageMetaInfo meta=getValue();
+  Resource resource=(Resource)cacheRequestObject;
+  return meta == null || isGroovyPageReloadable(resource,meta);
+}

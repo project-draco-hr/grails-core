@@ -1,3 +1,9 @@
 {
-  return valueRef.get();
+  try {
+    readLock.lock();
+    return valueRef.get();
+  }
+  finally {
+    readLock.unlock();
+  }
 }

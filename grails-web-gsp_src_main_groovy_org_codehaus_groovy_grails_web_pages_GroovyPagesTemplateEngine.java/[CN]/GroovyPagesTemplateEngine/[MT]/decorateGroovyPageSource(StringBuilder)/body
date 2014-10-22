@@ -1,0 +1,6 @@
+{
+  for (  GroovyPageSourceDecorator groovyPageSourceDecorator : groovyPageSourceDecorators) {
+    source=groovyPageSourceDecorator.decorate(source);
+  }
+  return source;
+}

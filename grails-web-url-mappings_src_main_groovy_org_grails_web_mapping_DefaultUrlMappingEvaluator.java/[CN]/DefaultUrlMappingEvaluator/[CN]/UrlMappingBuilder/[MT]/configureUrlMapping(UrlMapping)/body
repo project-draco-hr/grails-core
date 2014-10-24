@@ -14,6 +14,6 @@
   if (urlMapping.getActionName() != null) {
     parameterValues.put("action",urlMapping.getActionName());
   }
-  urlMapping.setParameterValues(parameterValues);
+  urlMapping.setParameterValues(new LinkedHashMap(parameterValues));
   urlMappings.add(urlMapping);
 }

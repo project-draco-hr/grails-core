@@ -1,0 +1,34 @@
+{
+  Map<CachedClass,List<MetaMethod>> map=new HashMap<CachedClass,List<MetaMethod>>();
+  ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
+  try {
+    Enumeration<URL> resources=classLoader.getResources(ExtensionModuleScanner.MODULE_META_INF_FILE);
+    while (resources.hasMoreElements()) {
+      URL url=resources.nextElement();
+      if (url.getPath().contains("groovy-all")) {
+        continue;
+      }
+      Properties properties=new Properties();
+      InputStream inStream=null;
+      try {
+        inStream=url.openStream();
+        properties.load(inStream);
+        ((MetaClassRegistryImpl)GroovySystem.getMetaClassRegistry()).registerExtensionModuleFromProperties(properties,classLoader,map);
+      }
+ catch (      IOException e) {
+        throw new GroovyRuntimeException("Unable to load module META-INF descriptor",e);
+      }
+ finally {
+        if (inStream != null) {
+          inStream.close();
+        }
+      }
+    }
+  }
+ catch (  IOException ignored) {
+  }
+  for (  Map.Entry<CachedClass,List<MetaMethod>> moduleMethods : map.entrySet()) {
+    CachedClass cls=moduleMethods.getKey();
+    cls.addNewMopMethods(moduleMethods.getValue());
+  }
+}

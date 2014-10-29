@@ -2,5 +2,6 @@
   super(other);
   if (other instanceof GrailsTransactionAttribute) {
     this.inheritRollbackOnly=((GrailsTransactionAttribute)other).inheritRollbackOnly;
+    this.unbindResources=((GrailsTransactionAttribute)other).unbindResources;
   }
 }

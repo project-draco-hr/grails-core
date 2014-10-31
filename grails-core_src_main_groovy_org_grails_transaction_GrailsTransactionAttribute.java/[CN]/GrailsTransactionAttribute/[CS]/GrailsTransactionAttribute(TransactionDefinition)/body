@@ -1,0 +1,8 @@
+{
+  super();
+  setPropagationBehavior(other.getPropagationBehavior());
+  setIsolationLevel(other.getIsolationLevel());
+  setTimeout(other.getTimeout());
+  setReadOnly(other.isReadOnly());
+  setName(other.getName());
+}

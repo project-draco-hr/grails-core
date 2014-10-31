@@ -4,5 +4,6 @@
   }
   Class<?>[] classes=populateAllClasses();
   configureLoadedClasses(classes);
+  initialiseGroovyExtensionModules();
   initialised=true;
 }

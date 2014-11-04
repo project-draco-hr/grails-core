@@ -1,0 +1,24 @@
+{
+  List<AnnotationNode> annotations=classNode.getAnnotations();
+  ClassNode annotationClassNode=ClassHelper.make(annotationClass);
+  AnnotationNode annotationToAdd=new AnnotationNode(annotationClassNode);
+  if (annotations.isEmpty()) {
+    classNode.addAnnotation(annotationToAdd);
+  }
+ else {
+    AnnotationNode existing=findAnnotation(annotationClassNode,annotations);
+    if (existing != null) {
+      annotationToAdd=existing;
+    }
+ else {
+      classNode.addAnnotation(annotationToAdd);
+    }
+  }
+  if (members != null && !members.isEmpty()) {
+    for (    Map.Entry<String,Object> memberEntry : members.entrySet()) {
+      Object value=memberEntry.getValue();
+      annotationToAdd.setMember(memberEntry.getKey(),value instanceof Expression ? (Expression)value : new ConstantExpression(value));
+    }
+  }
+  return annotationToAdd;
+}

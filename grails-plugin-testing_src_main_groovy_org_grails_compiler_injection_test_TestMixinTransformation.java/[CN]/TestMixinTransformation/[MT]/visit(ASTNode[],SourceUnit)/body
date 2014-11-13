@@ -1,6 +1,6 @@
 {
   if (!(astNodes[0] instanceof AnnotationNode) || !(astNodes[1] instanceof AnnotatedNode)) {
-    throw new RuntimeException("Internal error: wrong types: $node.class / $parent.class");
+    throw new RuntimeException("Internal error: wrong types: " + astNodes[0].getClass() + " / "+ astNodes[1].getClass());
   }
   AnnotatedNode parent=(AnnotatedNode)astNodes[1];
   AnnotationNode annotationNode=(AnnotationNode)astNodes[0];

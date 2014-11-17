@@ -1,4 +1,8 @@
 {
-  mockCodecArtefacts.put(HTMLCodec.class.getName(),new DefaultGrailsCodecClass(HTMLCodec.class));
-  mockCodecArtefacts.put(CodecWithClosureProperties.class.getName(),new DefaultGrailsCodecClass(CodecWithClosureProperties.class));
+  DefaultGrailsCodecClass htmlCodec=new DefaultGrailsCodecClass(HTMLCodec.class);
+  htmlCodec.afterPropertiesSet();
+  mockCodecArtefacts.put(HTMLCodec.class.getName(),htmlCodec);
+  DefaultGrailsCodecClass codecWithClosureProperties=new DefaultGrailsCodecClass(CodecWithClosureProperties.class);
+  codecWithClosureProperties.afterPropertiesSet();
+  mockCodecArtefacts.put(CodecWithClosureProperties.class.getName(),codecWithClosureProperties);
 }

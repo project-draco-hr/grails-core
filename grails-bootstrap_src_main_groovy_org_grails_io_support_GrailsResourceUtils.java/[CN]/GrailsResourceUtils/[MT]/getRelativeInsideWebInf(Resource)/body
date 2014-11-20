@@ -16,9 +16,6 @@
     }
   }
  catch (  IOException e) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Error reading URL whilst resolving relative path within WEB-INF from [" + resource + "]: "+ e.getMessage(),e);
-    }
     return null;
   }
   return null;

@@ -1,9 +1,6 @@
 {
   File[] dirContents=dir.listFiles();
   if (dirContents == null) {
-    if (logger.isWarnEnabled()) {
-      logger.warn("Could not retrieve contents of directory [" + dir.getAbsolutePath() + "]");
-    }
     return;
   }
   for (  File content : dirContents) {

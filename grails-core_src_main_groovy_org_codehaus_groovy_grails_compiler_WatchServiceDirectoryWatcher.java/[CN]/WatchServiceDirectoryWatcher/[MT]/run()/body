@@ -28,19 +28,21 @@
  else {
             List<String> fileExtensions=watchKeyToExtensionsMap.get(watchKey);
             if (fileExtensions == null) {
-              throw new IllegalStateException("No file extensions list found for path not being watched");
+              LOG.debug("WatchService receieved an event for a file/directory that it's not interested in.");
             }
-            if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-              addWatchDirectory(child,fileExtensions);
-            }
-            if (isValidFileToMonitor(childFile,fileExtensions)) {
+ else {
               if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
-                fireOnNew(childFile);
+                addWatchDirectory(child,fileExtensions);
               }
- else               if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
-                fireOnChange(childFile);
-              }
- else               if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+              if (isValidFileToMonitor(childFile,fileExtensions)) {
+                if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+                  fireOnNew(childFile);
+                }
+ else                 if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+                  fireOnChange(childFile);
+                }
+ else                 if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+                }
               }
             }
           }

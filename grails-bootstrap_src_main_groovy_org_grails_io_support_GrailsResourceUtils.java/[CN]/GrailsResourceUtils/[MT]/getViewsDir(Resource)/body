@@ -5,9 +5,6 @@
     return new UrlResource(appDir.getURL().toString() + "/views");
   }
  catch (  IOException e) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Error reading URL whilst resolving views dir from [" + resource + "]: "+ e.getMessage(),e);
-    }
     return null;
   }
 }

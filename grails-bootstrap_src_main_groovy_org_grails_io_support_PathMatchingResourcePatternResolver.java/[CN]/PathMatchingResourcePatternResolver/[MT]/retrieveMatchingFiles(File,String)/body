@@ -3,15 +3,9 @@
     return Collections.emptySet();
   }
   if (!rootDir.isDirectory()) {
-    if (logger.isWarnEnabled()) {
-      logger.warn("Skipping [" + rootDir.getAbsolutePath() + "] because it does not denote a directory");
-    }
     return Collections.emptySet();
   }
   if (!rootDir.canRead()) {
-    if (logger.isWarnEnabled()) {
-      logger.warn("Cannot search for matching files underneath directory [" + rootDir.getAbsolutePath() + "] because the application is not allowed to read the directory");
-    }
     return Collections.emptySet();
   }
   String fullPattern=rootDir.getAbsolutePath().replace(File.separator,"/");

@@ -13,9 +13,6 @@
     return null;
   }
 catch (  IOException e) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Error reading URL whilst resolving app dir from [" + resource + "]: "+ e.getMessage(),e);
-    }
     return null;
   }
 }

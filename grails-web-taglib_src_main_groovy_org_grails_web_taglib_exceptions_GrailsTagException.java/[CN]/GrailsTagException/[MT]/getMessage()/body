@@ -1,3 +1,6 @@
 {
-  return "[" + getFileName() + ":"+ getLineNumber()+ "] "+ super.getMessage();
+  if (fileName != null) {
+    return "[" + getFileName() + ":"+ getLineNumber()+ "] "+ super.getMessage();
+  }
+  return super.getMessage();
 }

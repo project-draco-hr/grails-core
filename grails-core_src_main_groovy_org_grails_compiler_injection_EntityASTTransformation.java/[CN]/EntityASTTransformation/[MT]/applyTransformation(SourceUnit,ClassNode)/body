@@ -21,15 +21,6 @@
     }
   }
   if (compilationUnit != null) {
-    GrailsAwareTraitInjectionOperation grailsTraitInjector=new GrailsAwareTraitInjectionOperation(compilationUnit);
-    List<TraitInjector> traitInjectors=grailsTraitInjector.getTraitInjectors();
-    List<TraitInjector> injectorsToUse=new ArrayList<TraitInjector>();
-    for (    TraitInjector injector : traitInjectors) {
-      List<String> artefactTypes=Arrays.asList(injector.getArtefactTypes());
-      if (artefactTypes.contains(DomainClassArtefactHandler.TYPE)) {
-        injectorsToUse.add(injector);
-      }
-    }
-    grailsTraitInjector.performTraitInjection(sourceUnit,classNode,injectorsToUse);
+    GrailsAwareTraitInjectionOperation.processTraitsForNode(sourceUnit,classNode,DomainClassArtefactHandler.TYPE,compilationUnit);
   }
 }

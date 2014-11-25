@@ -1,0 +1,8 @@
+{
+  int i=className.lastIndexOf(".");
+  String packageName="";
+  if (i > -1) {
+    packageName=className.substring(0,i);
+  }
+  return packageName;
+}

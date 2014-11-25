@@ -1,0 +1,6 @@
+{
+  if (path != null && path.startsWith("/")) {
+    path=path.substring(1);
+  }
+  return new FileSystemResource(path);
+}

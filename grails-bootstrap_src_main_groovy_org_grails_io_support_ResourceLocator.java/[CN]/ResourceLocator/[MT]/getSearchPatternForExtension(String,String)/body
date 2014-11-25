@@ -1,0 +1,10 @@
+{
+  List<String> searchPatterns=new ArrayList<String>();
+  for (  String extension : extensions) {
+    String filename=classNameWithPathSeparator + extension;
+    for (    String classSearchDirectory : classSearchDirectories) {
+      searchPatterns.add(classSearchDirectory + FILE_SEPARATOR + filename);
+    }
+  }
+  return searchPatterns;
+}

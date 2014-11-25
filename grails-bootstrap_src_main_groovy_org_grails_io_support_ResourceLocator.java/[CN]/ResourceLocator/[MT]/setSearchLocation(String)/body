@@ -1,0 +1,5 @@
+{
+  ResourceLoader resourceLoader=getDefaultResourceLoader();
+  patchMatchingResolver=new PathMatchingResourcePatternResolver(resourceLoader);
+  initializeForSearchLocation(searchLocation);
+}

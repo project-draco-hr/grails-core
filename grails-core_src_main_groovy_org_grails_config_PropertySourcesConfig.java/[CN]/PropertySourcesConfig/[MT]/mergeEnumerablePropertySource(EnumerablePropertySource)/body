@@ -1,5 +1,5 @@
 {
-  Map map=new HashMap();
+  Map map=new LinkedHashMap();
   for (  String propertyName : enumerablePropertySource.getPropertyNames()) {
     map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
   }

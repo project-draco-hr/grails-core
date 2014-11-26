@@ -1,11 +1,17 @@
 {
   final Resource descriptorResource=descriptor.getResource();
-  final Resource viewsPropertiesResource;
+  Resource viewsPropertiesResource=null;
   try {
     viewsPropertiesResource=descriptorResource.createRelative(VIEWS_PROPERTIES);
   }
  catch (  IOException e) {
-    return;
+  }
+  if (viewsPropertiesResource == null || !viewsPropertiesResource.exists()) {
+    try {
+      viewsPropertiesResource=descriptorResource.createRelative(RELATIVE_VIEWS_PROPERTIES);
+    }
+ catch (    IOException e) {
+    }
   }
   if (viewsPropertiesResource == null || !viewsPropertiesResource.exists()) {
     return;

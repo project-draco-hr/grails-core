@@ -1,0 +1,9 @@
+{
+  if (printStream instanceof GrailsConsolePrintStream) {
+    return ((GrailsConsolePrintStream)printStream).getTargetOut();
+  }
+  if (printStream instanceof GrailsConsoleErrorPrintStream) {
+    return ((GrailsConsoleErrorPrintStream)printStream).getTargetOut();
+  }
+  return printStream;
+}

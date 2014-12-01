@@ -1,6 +1,6 @@
 {
   if (cls != null && (cls.getName().equals(CONFIG_FILE) || cls.getName().equals(GrailsApplication.DATA_SOURCE_CLASS))) {
-    ConfigSlurper configSlurper=ConfigurationHelper.getConfigSlurper(Environment.getCurrent().getName(),application);
+    ConfigSlurper configSlurper=getConfigSlurper(application);
     ConfigObject c;
     try {
       c=configSlurper.parse(file.toURI().toURL());

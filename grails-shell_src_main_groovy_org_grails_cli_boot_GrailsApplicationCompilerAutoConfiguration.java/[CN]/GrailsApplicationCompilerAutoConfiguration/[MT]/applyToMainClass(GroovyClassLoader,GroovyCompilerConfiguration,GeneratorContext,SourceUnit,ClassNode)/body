@@ -1,0 +1,13 @@
+{
+  ClassNode applicationClassNode=new ClassNode("Application",Modifier.PUBLIC,ClassHelper.make("grails.boot.config.GrailsAutoConfiguration"));
+  AnnotationNode enableAutoAnnotation=new AnnotationNode(ENABLE_AUTO_CONFIGURATION_CLASS_NODE);
+  try {
+    enableAutoAnnotation.addMember("exclude",new ClassExpression(ClassHelper.make("org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration")));
+  }
+ catch (  Throwable e) {
+  }
+  applicationClassNode.addAnnotation(enableAutoAnnotation);
+  applicationClassNode.setModule(source.getAST());
+  source.getAST().getClasses().add(0,applicationClassNode);
+  classNode.addAnnotation(new AnnotationNode(ClassHelper.make("org.grails.boot.internal.EnableAutoConfiguration")));
+}

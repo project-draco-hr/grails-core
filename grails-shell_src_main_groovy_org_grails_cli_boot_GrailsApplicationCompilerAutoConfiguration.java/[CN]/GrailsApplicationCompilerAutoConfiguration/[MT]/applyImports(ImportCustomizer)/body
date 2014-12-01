@@ -1,0 +1,4 @@
+{
+  imports.addStarImports(DEFAULT_IMPORTS);
+  new SpringMvcCompilerAutoConfiguration().applyImports(imports);
+}

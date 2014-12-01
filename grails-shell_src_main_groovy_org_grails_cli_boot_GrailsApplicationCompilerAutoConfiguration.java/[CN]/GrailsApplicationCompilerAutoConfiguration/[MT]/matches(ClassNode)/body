@@ -1,0 +1,5 @@
+{
+  boolean matches=AstUtils.hasAtLeastOneAnnotation(classNode,"grails.persistence.Entity","grails.rest.Resource","Resource","grails.artefact.Artefact","grails.web.Controller");
+  if (matches)   lastMatch=classNode;
+  return matches;
+}

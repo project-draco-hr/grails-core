@@ -1,0 +1,15 @@
+{
+  AnnotationNode annotationNode=new AnnotationNode(new ClassNode(Grab.class));
+  annotationNode.addMember("group",new ConstantExpression(group));
+  annotationNode.addMember("module",new ConstantExpression(module));
+  annotationNode.addMember("version",new ConstantExpression(version));
+  if (classifier != null) {
+    annotationNode.addMember("classifier",new ConstantExpression(classifier));
+  }
+  if (type != null) {
+    annotationNode.addMember("type",new ConstantExpression(type));
+  }
+  annotationNode.addMember("transitive",new ConstantExpression(transitive));
+  annotationNode.addMember("initClass",new ConstantExpression(false));
+  return annotationNode;
+}

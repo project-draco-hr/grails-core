@@ -8,7 +8,7 @@
   request.setRequestURI("/");
   ServletContext context=webRequest.getServletContext();
   GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
-  Config c=new Config(new MockServletConfig(context));
+  com.opensymphony.module.sitemesh.Config c=new com.opensymphony.module.sitemesh.Config(new MockServletConfig(context));
   m.init(c,null,null);
   HTMLPageParser parser=new HTMLPageParser();
   String html="<html><head><title>Foo title</title></head><body>here is the body</body></html>";

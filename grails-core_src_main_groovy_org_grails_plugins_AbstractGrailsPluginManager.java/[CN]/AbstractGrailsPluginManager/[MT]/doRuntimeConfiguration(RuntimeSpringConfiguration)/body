@@ -19,8 +19,8 @@
       }
     }
 );
-    converterRegistry.addConverter(new Converter<ConfigMap.NullSafeNavigator,Object>(){
-      @Override public Object convert(      ConfigMap.NullSafeNavigator source){
+    converterRegistry.addConverter(new Converter<NavigableMap.NullSafeNavigator,Object>(){
+      @Override public Object convert(      NavigableMap.NullSafeNavigator source){
         return null;
       }
     }

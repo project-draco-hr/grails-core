@@ -12,7 +12,7 @@
   GroovyObject controller=(GroovyObject)gcl.parseClass("class TestController {\n" + "def controllerName = 'test'\n" + "def actionUri = '/test/testAction'\n"+ "static layout = 'mylayout'\n"+ "}").newInstance();
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controller);
   GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
-  Config c=new Config(new MockServletConfig(context));
+  com.opensymphony.module.sitemesh.Config c=new com.opensymphony.module.sitemesh.Config(new MockServletConfig(context));
   m.init(c,null,null);
   HTMLPageParser parser=new HTMLPageParser();
   String html="<html><head><title>Test title</title></head><body>here is the body</body></html>";

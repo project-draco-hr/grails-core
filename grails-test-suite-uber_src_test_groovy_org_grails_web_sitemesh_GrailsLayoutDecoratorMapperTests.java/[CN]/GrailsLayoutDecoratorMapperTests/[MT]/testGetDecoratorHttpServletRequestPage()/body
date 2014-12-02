@@ -8,7 +8,7 @@
   request.setRequestURI("orders/list");
   ServletContext context=webRequest.getServletContext();
   GrailsLayoutDecoratorMapper m=new GrailsLayoutDecoratorMapper();
-  Config c=new Config(new MockServletConfig(context));
+  com.opensymphony.module.sitemesh.Config c=new com.opensymphony.module.sitemesh.Config(new MockServletConfig(context));
   m.init(c,null,null);
   HTMLPageParser parser=new HTMLPageParser();
   String html="<html><head><title>Test title</title><meta name=\"layout\" content=\"test\"></meta></head><body>here is the body</body></html>";

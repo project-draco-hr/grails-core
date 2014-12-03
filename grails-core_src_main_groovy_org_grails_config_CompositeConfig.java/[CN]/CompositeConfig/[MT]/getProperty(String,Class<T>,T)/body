@@ -1,0 +1,4 @@
+{
+  T v=getProperty(key,targetType);
+  return v != null ? v : defaultValue;
+}

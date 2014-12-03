@@ -1,7 +1,12 @@
 {
-  Map map=new LinkedHashMap();
+  Map<String,Object> map=new LinkedHashMap<String,Object>();
   for (  String propertyName : enumerablePropertySource.getPropertyNames()) {
-    map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
+    if (prefix != null) {
+      map.put(prefix + '.' + propertyName,enumerablePropertySource.getProperty(propertyName));
+    }
+ else {
+      map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
+    }
   }
   configMap.merge(map,true);
 }

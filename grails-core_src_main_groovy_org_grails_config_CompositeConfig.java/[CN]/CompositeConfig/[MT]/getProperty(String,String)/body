@@ -1,0 +1,4 @@
+{
+  String v=getProperty(key,String.class);
+  return !GrailsStringUtils.isBlank(v) ? v : defaultValue;
+}

@@ -1,0 +1,13 @@
+{
+  String path=pluginClass.getResource("").toString();
+  int i=path.indexOf("jar!");
+  if (i > -1) {
+    path=path.substring(0,i + 4);
+    try {
+      return new UrlResource(new URL(path + PLUGIN_YML_PATH));
+    }
+ catch (    MalformedURLException e) {
+    }
+  }
+  return null;
+}

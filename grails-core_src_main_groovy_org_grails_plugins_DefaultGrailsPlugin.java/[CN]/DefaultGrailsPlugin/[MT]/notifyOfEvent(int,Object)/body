@@ -2,14 +2,29 @@
   @SuppressWarnings("unchecked") Map<String,Object> event=CollectionUtils.<String,Object>newMap(PLUGIN_CHANGE_EVENT_SOURCE,source,PLUGIN_CHANGE_EVENT_PLUGIN,plugin,PLUGIN_CHANGE_EVENT_APPLICATION,application,PLUGIN_CHANGE_EVENT_MANAGER,getManager(),PLUGIN_CHANGE_EVENT_CTX,applicationContext);
 switch (eventKind) {
 case EVENT_ON_CHANGE:
-    notifyOfEvent(event);
+    if (plugin instanceof Plugin) {
+      ((Plugin)plugin).onChange(event);
+    }
+ else {
+      notifyOfEvent(event);
+    }
   getManager().informObservers(getName(),event);
 break;
 case EVENT_ON_SHUTDOWN:
+if (plugin instanceof Plugin) {
+((Plugin)plugin).onShutdown(event);
+}
+ else {
 invokeOnShutdownEventListener(event);
+}
 break;
 case EVENT_ON_CONFIG_CHANGE:
+if (plugin instanceof Plugin) {
+((Plugin)plugin).onConfigChange(event);
+}
+ else {
 invokeOnConfigChangeListener(event);
+}
 break;
 default :
 notifyOfEvent(event);

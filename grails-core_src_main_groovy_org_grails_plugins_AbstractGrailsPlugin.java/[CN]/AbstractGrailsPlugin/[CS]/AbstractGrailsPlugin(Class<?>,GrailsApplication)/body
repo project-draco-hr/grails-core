@@ -3,4 +3,25 @@
   Assert.isTrue(pluginClass.getName().endsWith(TRAILING_NAME),"Argument [pluginClass] with value [" + pluginClass + "] is not a Grails plugin (class name must end with 'GrailsPlugin')");
   this.application=new LegacyGrailsApplication(application);
   this.pluginClass=pluginClass;
+  Resource resource=readPluginConfiguration(pluginClass);
+  if (resource != null && resource.exists()) {
+    YamlPropertySourceLoader propertySourceLoader=new YamlPropertySourceLoader();
+    try {
+      PropertySource<?> propertySource=propertySourceLoader.load("plugin.yml",resource,null);
+      MutablePropertySources propertySources=new MutablePropertySources();
+      propertySources.addFirst(propertySource);
+      CompositeConfig composite=new CompositeConfig();
+      String prefix="grails.plugins." + GrailsNameUtils.getLogicalPropertyName(pluginClass.getName(),TRAILING_NAME);
+      composite.addFirst(new PrefixedConfig(prefix,application.getConfig()));
+      composite.addLast(new PropertySourcesConfig(propertySources));
+      composite.addLast(new PropertySourcesConfig(propertySources,prefix));
+      this.config=composite;
+    }
+ catch (    IOException e) {
+      this.config=application.getConfig();
+    }
+  }
+ else {
+    this.config=application.getConfig();
+  }
 }

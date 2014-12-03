@@ -1,0 +1,6 @@
+{
+  for (  Config config : configs) {
+    if (config.containsKey(key))     return true;
+  }
+  return false;
+}

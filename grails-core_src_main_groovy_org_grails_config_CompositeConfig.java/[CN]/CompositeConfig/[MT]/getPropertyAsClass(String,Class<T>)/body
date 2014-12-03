@@ -2,14 +2,14 @@
   String className=getProperty(key,String.class);
   if (!GrailsStringUtils.isBlank(className)) {
     try {
-      Class<T> clazz=(Class<T>)ClassUtils.forName((String)className,classLoader);
+      Class<T> clazz=(Class<T>)ClassUtils.forName((String)className,Thread.currentThread().getContextClassLoader());
       if (clazz != targetType) {
-        throw new ClassConversionException(clazz,targetType);
+        throw new PropertySourcesConfig.ClassConversionException(clazz,targetType);
       }
       return clazz;
     }
  catch (    Exception e) {
-      throw new ClassConversionException(className,targetType,e);
+      throw new PropertySourcesConfig.ClassConversionException(className,targetType,e);
     }
   }
  else {

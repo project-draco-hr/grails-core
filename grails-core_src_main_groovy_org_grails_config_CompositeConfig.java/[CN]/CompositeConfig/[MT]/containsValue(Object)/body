@@ -1,0 +1,6 @@
+{
+  for (  Config config : configs) {
+    if (config.containsValue(value))     return true;
+  }
+  return false;
+}

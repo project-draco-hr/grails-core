@@ -1,0 +1,7 @@
+{
+  for (  Config config : configs) {
+    T v=config.getProperty(key,targetType);
+    if (v != null)     return v;
+  }
+  return null;
+}

@@ -1,0 +1,7 @@
+{
+  Set<String> entries=new HashSet<String>();
+  for (  Config config : configs) {
+    entries.addAll(config.keySet());
+  }
+  return entries;
+}

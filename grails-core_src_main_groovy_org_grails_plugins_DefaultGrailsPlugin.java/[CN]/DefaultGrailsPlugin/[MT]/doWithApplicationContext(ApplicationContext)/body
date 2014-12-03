@@ -1,4 +1,9 @@
 {
-  Object[] args={ctx};
-  invokePluginHook(DO_WITH_APPLICATION_CONTEXT,args,ctx);
+  if (plugin instanceof Plugin) {
+    ((Plugin)plugin).doWithApplicationContext();
+  }
+ else {
+    Object[] args={ctx};
+    invokePluginHook(DO_WITH_APPLICATION_CONTEXT,args,ctx);
+  }
 }

@@ -1,0 +1,8 @@
+{
+  for (  Config config : configs) {
+    if (!config.isEmpty()) {
+      return false;
+    }
+  }
+  return true;
+}

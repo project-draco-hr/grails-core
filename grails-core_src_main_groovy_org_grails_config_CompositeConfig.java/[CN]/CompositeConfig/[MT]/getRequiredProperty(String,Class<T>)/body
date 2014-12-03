@@ -1,0 +1,7 @@
+{
+  T value=getProperty(key,targetType);
+  if (value == null) {
+    throw new IllegalStateException("Value for key [$key] cannot be resolved");
+  }
+  return value;
+}

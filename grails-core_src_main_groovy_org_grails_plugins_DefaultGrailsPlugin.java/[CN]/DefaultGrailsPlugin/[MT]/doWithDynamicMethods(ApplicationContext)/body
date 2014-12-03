@@ -1,4 +1,9 @@
 {
-  Object[] args={ctx};
-  invokePluginHook(DO_WITH_DYNAMIC_METHODS,args,ctx);
+  if (plugin instanceof Plugin) {
+    ((Plugin)plugin).doWithDynamicMethods();
+  }
+ else {
+    Object[] args={ctx};
+    invokePluginHook(DO_WITH_DYNAMIC_METHODS,args,ctx);
+  }
 }

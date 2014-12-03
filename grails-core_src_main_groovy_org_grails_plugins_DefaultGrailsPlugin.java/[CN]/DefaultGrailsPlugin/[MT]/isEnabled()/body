@@ -1,3 +1,8 @@
 {
-  return STATUS_ENABLED.equals(status);
+  if (plugin instanceof Plugin) {
+    return ((Plugin)plugin).isEnabled();
+  }
+ else {
+    return STATUS_ENABLED.equals(status);
+  }
 }

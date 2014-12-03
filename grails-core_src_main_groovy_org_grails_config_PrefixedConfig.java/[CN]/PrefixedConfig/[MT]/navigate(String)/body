@@ -1,0 +1,6 @@
+{
+  List<String> tokens=new ArrayList<String>();
+  tokens.addAll(Arrays.asList(prefixTokens));
+  tokens.addAll(Arrays.asList(path));
+  return delegate.navigate(tokens.toArray(new String[tokens.size()]));
+}

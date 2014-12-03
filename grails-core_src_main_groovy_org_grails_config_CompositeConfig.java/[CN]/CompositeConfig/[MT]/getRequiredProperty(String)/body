@@ -1,0 +1,7 @@
+{
+  String value=getProperty(key);
+  if (GrailsStringUtils.isBlank(value)) {
+    throw new IllegalStateException("Value for key [$key] cannot be resolved");
+  }
+  return value;
+}

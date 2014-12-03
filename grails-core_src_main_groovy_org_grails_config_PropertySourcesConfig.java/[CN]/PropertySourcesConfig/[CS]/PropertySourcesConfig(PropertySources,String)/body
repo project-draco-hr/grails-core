@@ -1,0 +1,6 @@
+{
+  this.propertySources=propertySources;
+  this.propertySourcesPropertyResolver=new PropertySourcesPropertyResolver(propertySources);
+  this.prefix=prefix;
+  initializeFromPropertySources(propertySources);
+}

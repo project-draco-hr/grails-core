@@ -1,0 +1,7 @@
+{
+  Collection<Object> values=new ArrayList<Object>();
+  for (  Config config : configs) {
+    values.addAll(config.values());
+  }
+  return values;
+}

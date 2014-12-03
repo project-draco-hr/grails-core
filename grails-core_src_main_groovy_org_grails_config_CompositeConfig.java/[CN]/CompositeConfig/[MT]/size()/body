@@ -1,0 +1,7 @@
+{
+  int size=0;
+  for (  Config config : configs) {
+    size+=config.size();
+  }
+  return size;
+}

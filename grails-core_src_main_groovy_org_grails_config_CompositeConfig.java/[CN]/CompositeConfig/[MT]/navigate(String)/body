@@ -1,0 +1,7 @@
+{
+  for (  Config c : configs) {
+    Object v=c.navigate(path);
+    if (v != null)     return v;
+  }
+  return null;
+}

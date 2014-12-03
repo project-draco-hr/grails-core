@@ -1,0 +1,5 @@
+{
+  this.prefix=prefix;
+  this.prefixTokens=prefix.split("\\.");
+  this.delegate=delegate;
+}

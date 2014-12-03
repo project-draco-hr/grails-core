@@ -2,7 +2,13 @@
   if (!pluginBean.isReadableProperty(ARTEFACTS)) {
     return;
   }
-  List l=(List)plugin.getProperty(ARTEFACTS);
+  List l;
+  if (plugin instanceof Plugin) {
+    l=((Plugin)plugin).getArtefacts();
+  }
+ else {
+    l=(List)plugin.getProperty(ARTEFACTS);
+  }
   for (  Object artefact : l) {
     if (artefact instanceof Class) {
       Class artefactClass=(Class)artefact;

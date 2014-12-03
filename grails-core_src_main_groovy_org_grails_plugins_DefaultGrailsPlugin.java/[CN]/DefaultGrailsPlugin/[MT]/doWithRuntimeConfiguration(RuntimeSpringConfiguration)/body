@@ -1,20 +1,29 @@
 {
-  if (!pluginBean.isReadableProperty(DO_WITH_SPRING)) {
-    return;
+  if (plugin instanceof Plugin) {
+    Closure c=((Plugin)plugin).doWithSpring();
+    if (c != null) {
+      BeanBuilder bb=new BeanBuilder(getParentCtx(),springConfig,application.getClassLoader());
+      bb.invokeMethod("beans",new Object[]{c});
+    }
   }
-  if (LOG.isDebugEnabled()) {
-    LOG.debug("Plugin " + this + " is participating in Spring configuration...");
+ else {
+    if (!pluginBean.isReadableProperty(DO_WITH_SPRING)) {
+      return;
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Plugin " + this + " is participating in Spring configuration...");
+    }
+    Closure c=(Closure)plugin.getProperty(DO_WITH_SPRING);
+    BeanBuilder bb=new BeanBuilder(getParentCtx(),springConfig,application.getClassLoader());
+    Binding b=new Binding();
+    b.setVariable("application",application);
+    b.setVariable(GrailsApplication.APPLICATION_ID,application);
+    b.setVariable("manager",getManager());
+    b.setVariable("plugin",this);
+    b.setVariable("parentCtx",getParentCtx());
+    b.setVariable("resolver",getResolver());
+    bb.setBinding(b);
+    c.setDelegate(bb);
+    bb.invokeMethod("beans",new Object[]{c});
   }
-  Closure c=(Closure)plugin.getProperty(DO_WITH_SPRING);
-  BeanBuilder bb=new BeanBuilder(getParentCtx(),springConfig,application.getClassLoader());
-  Binding b=new Binding();
-  b.setVariable("application",application);
-  b.setVariable(GrailsApplication.APPLICATION_ID,application);
-  b.setVariable("manager",getManager());
-  b.setVariable("plugin",this);
-  b.setVariable("parentCtx",getParentCtx());
-  b.setVariable("resolver",getResolver());
-  bb.setBinding(b);
-  c.setDelegate(bb);
-  bb.invokeMethod("beans",new Object[]{c});
 }

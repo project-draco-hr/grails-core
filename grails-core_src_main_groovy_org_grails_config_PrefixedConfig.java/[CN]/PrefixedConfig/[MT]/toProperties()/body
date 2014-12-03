@@ -1,0 +1,6 @@
+{
+  Map<String,Object> flattened=flatten();
+  Properties properties=new Properties();
+  properties.putAll(flattened);
+  return properties;
+}

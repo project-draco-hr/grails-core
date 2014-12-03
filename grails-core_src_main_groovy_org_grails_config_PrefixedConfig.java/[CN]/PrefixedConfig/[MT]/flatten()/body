@@ -1,0 +1,8 @@
+{
+  Map<String,Object> flattened=delegate.flatten();
+  Map<String,Object> map=new LinkedHashMap<String,Object>(flattened.size());
+  for (  String key : flattened.keySet()) {
+    map.put(formulateKey(key),flattened.get(key));
+  }
+  return map;
+}

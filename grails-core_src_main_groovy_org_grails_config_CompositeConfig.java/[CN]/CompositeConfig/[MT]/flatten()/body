@@ -1,0 +1,7 @@
+{
+  Map<String,Object> flattened=new LinkedHashMap<String,Object>();
+  for (  Config c : configs) {
+    flattened.putAll(c.flatten());
+  }
+  return flattened;
+}

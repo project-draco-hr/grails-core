@@ -1,0 +1,7 @@
+{
+  Properties properties=new Properties();
+  for (  Config c : configs) {
+    properties.putAll(c.toProperties());
+  }
+  return properties;
+}

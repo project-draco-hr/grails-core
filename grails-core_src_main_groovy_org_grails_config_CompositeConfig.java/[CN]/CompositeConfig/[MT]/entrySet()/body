@@ -1,0 +1,7 @@
+{
+  Set<Map.Entry<String,Object>> entries=new HashSet<Map.Entry<String,Object>>();
+  for (  Config config : configs) {
+    entries.addAll(config.entrySet());
+  }
+  return entries;
+}

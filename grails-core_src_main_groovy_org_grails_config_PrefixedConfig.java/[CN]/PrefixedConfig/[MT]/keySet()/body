@@ -1,0 +1,8 @@
+{
+  Set<String> keys=delegate.keySet();
+  Set<String> newKeys=new HashSet<String>();
+  for (  String key : keys) {
+    newKeys.add(formulateKey(key));
+  }
+  return newKeys;
+}

@@ -3,7 +3,7 @@
   GroovyPageParser parser;
   String path=getPathForResource(res);
   try {
-    String gspSource=GrailsIOUtils.toString(inputStream,GroovyPageParser.getGspEncoding());
+    String gspSource=IOUtils.toString(inputStream,GroovyPageParser.getGspEncoding());
     parser=new GroovyPageParser(name,path,path,decorateGroovyPageSource(new StringBuilder(gspSource)).toString());
     if (grailsApplication != null) {
       Map<String,Object> config=grailsApplication.getFlatConfig();

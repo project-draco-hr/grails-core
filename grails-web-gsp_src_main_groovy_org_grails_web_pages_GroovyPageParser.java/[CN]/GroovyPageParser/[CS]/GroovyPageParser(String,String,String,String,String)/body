@@ -1,0 +1,32 @@
+{
+  Map<?,?> config=Holders.getFlatConfig();
+  if (config != null) {
+    Object sitemeshPreprocessEnabled=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
+    if (sitemeshPreprocessEnabled != null) {
+      final boolean enableSitemeshPreprocessing=GrailsStringUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim());
+      setEnableSitemeshPreprocessing(enableSitemeshPreprocessing);
+    }
+  }
+  GrailsPluginInfo pluginInfo=null;
+  OutputEncodingSettings gspConfig=new OutputEncodingSettings(config);
+  this.expressionCodecDirectiveValue=expressionCodecName;
+  if (expressionCodecDirectiveValue == null) {
+    expressionCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.EXPRESSION_CODEC_NAME);
+  }
+  staticCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.STATIC_CODEC_NAME);
+  outCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.OUT_CODEC_NAME);
+  taglibCodecDirectiveValue=gspConfig.getCodecSettings(pluginInfo,OutputEncodingSettings.TAGLIB_CODEC_NAME);
+  Map<String,String> directives=parseDirectives(gspSource);
+  if (isSitemeshPreprocessingEnabled(directives.get(SITEMESH_PREPROCESS_DIRECTIVE))) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Preprocessing " + uri + " for sitemesh. Replacing head, title, meta and body elements with sitemesh:capture*.");
+    }
+    gspSource=sitemeshPreprocessor.addGspSitemeshCapturing(gspSource);
+    sitemeshPreprocessMode=true;
+  }
+  scan=new GroovyPageScanner(gspSource,uri);
+  pageName=uri;
+  environment=Environment.getCurrent();
+  makeName(name);
+  makeSourceName(filename);
+}

@@ -1,0 +1,3 @@
+{
+  return applicationContext != null && !plugin.isEnabled(applicationContext.getEnvironment().getActiveProfiles());
+}

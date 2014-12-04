@@ -2,6 +2,7 @@
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {
+      if (isPluginDisabledForProfile(plugin))       continue;
       for (      Class<?> artefact : plugin.getProvidedArtefacts()) {
         String shortName=GrailsNameUtils.getShortName(artefact);
         if (!isAlreadyRegistered(app,artefact,shortName)) {

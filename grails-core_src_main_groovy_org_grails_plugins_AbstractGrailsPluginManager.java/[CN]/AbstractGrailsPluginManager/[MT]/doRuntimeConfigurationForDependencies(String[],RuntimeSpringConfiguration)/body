@@ -8,7 +8,7 @@
     if (pluginDependencies.length > 0) {
       doRuntimeConfigurationForDependencies(pluginDependencies,springConfig);
     }
-    if (!current.isEnabled(applicationContext.getEnvironment().getActiveProfiles()))     continue;
+    if (isPluginDisabledForProfile(current))     continue;
     current.doWithRuntimeConfiguration(springConfig);
   }
 }

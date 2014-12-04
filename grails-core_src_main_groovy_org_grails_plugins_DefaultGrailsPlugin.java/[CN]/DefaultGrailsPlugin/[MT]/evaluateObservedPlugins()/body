@@ -1,6 +1,6 @@
 {
   if (pluginBean.isReadableProperty(OBSERVE)) {
-    Object observeProperty=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,OBSERVE);
+    Object observeProperty=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(pluginBean,plugin,OBSERVE);
     if (observeProperty instanceof Collection) {
       Collection observeList=(Collection)observeProperty;
       observedPlugins=new String[observeList.size()];

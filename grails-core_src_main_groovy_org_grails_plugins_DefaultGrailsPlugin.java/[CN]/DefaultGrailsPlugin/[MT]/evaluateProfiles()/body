@@ -1,5 +1,5 @@
 {
-  Object result=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,PROFILES);
+  Object result=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(pluginBean,plugin,PROFILES);
   if (result instanceof Collection) {
     profiles=(Collection)result;
   }

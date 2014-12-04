@@ -1,7 +1,7 @@
 {
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {
-    if (!plugin.isEnabled(applicationContext.getEnvironment().getActiveProfiles()))     continue;
+    if (isPluginDisabledForProfile(plugin))     continue;
     if (plugin.supportsCurrentScopeAndEnvironment()) {
       plugin.doWithApplicationContext(ctx);
     }

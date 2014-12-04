@@ -1,12 +1,12 @@
 {
   if (pluginBean.isReadableProperty(PLUGIN_LOAD_AFTER_NAMES)) {
-    List loadAfterNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,PLUGIN_LOAD_AFTER_NAMES);
+    List loadAfterNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(pluginBean,plugin,PLUGIN_LOAD_AFTER_NAMES);
     if (loadAfterNamesList != null) {
       loadAfterNames=(String[])loadAfterNamesList.toArray(new String[loadAfterNamesList.size()]);
     }
   }
   if (pluginBean.isReadableProperty(PLUGIN_LOAD_BEFORE_NAMES)) {
-    List loadBeforeNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,PLUGIN_LOAD_BEFORE_NAMES);
+    List loadBeforeNamesList=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(pluginBean,plugin,PLUGIN_LOAD_BEFORE_NAMES);
     if (loadBeforeNamesList != null) {
       loadBeforeNames=(String[])loadBeforeNamesList.toArray(new String[loadBeforeNamesList.size()]);
     }

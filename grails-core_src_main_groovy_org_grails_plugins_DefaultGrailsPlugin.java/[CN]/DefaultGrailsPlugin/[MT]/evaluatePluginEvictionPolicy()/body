@@ -2,7 +2,7 @@
   if (!pluginBean.isReadableProperty(EVICT)) {
     return;
   }
-  List pluginsToEvict=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,EVICT);
+  List pluginsToEvict=(List)GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(pluginBean,plugin,EVICT);
   if (pluginsToEvict == null) {
     return;
   }

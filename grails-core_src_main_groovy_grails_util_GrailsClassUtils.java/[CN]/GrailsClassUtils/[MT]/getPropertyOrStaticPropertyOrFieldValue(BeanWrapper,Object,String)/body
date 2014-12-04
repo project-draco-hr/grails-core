@@ -1,0 +1,13 @@
+{
+  if (ref.isReadableProperty(name)) {
+    return ref.getPropertyValue(name);
+  }
+  if (isPublicField(obj,name)) {
+    return getFieldValue(obj,name);
+  }
+  Class<?> clazz=obj.getClass();
+  if (isStaticProperty(clazz,name)) {
+    return getStaticPropertyValue(clazz,name);
+  }
+  return null;
+}

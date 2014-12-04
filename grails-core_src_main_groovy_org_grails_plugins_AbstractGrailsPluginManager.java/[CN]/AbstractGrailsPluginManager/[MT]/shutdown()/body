@@ -2,6 +2,7 @@
   checkInitialised();
   try {
     for (    GrailsPlugin plugin : pluginList) {
+      if (!plugin.isEnabled(applicationContext.getEnvironment().getActiveProfiles()))       continue;
       if (plugin.supportsCurrentScopeAndEnvironment()) {
         plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_SHUTDOWN,plugin);
       }

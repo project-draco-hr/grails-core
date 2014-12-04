@@ -28,7 +28,7 @@
   }
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {
-    if (plugin.supportsCurrentScopeAndEnvironment()) {
+    if (plugin.supportsCurrentScopeAndEnvironment() && plugin.isEnabled(context.getEnvironment().getActiveProfiles())) {
       plugin.doWithRuntimeConfiguration(springConfig);
     }
   }

@@ -1,0 +1,9 @@
+{
+  if (profiles == null)   return true;
+ else {
+    for (    String activeProfile : activeProfiles) {
+      if (profiles.contains(activeProfile))       return true;
+    }
+  }
+  return false;
+}

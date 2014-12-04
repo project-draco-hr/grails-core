@@ -6,8 +6,10 @@
       ExpandoMetaClass emc=new ExpandoMetaClass(c,true,true);
       emc.initialize();
     }
+    ApplicationContext ctx=applicationContext;
     for (    GrailsPlugin plugin : pluginList) {
-      plugin.doWithDynamicMethods(applicationContext);
+      if (!plugin.isEnabled(ctx.getEnvironment().getActiveProfiles()))       continue;
+      plugin.doWithDynamicMethods(ctx);
     }
   }
 }

@@ -12,6 +12,7 @@
   }
   GrailsPlugin plugin=getGrailsPlugin(pluginName);
   if (plugin != null) {
+    if (!plugin.isEnabled(applicationContext.getEnvironment().getActiveProfiles()))     return;
     plugin.notifyOfEvent(GrailsPlugin.EVENT_ON_CHANGE,aClass);
   }
 }

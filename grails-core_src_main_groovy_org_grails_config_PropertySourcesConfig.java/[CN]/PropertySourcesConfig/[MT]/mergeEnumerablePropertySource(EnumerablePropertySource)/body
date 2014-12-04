@@ -8,5 +8,6 @@
       map.put(propertyName,enumerablePropertySource.getProperty(propertyName));
     }
   }
-  configMap.putAll(map);
+  configMap.merge(map,true);
+  configMap.merge(map);
 }

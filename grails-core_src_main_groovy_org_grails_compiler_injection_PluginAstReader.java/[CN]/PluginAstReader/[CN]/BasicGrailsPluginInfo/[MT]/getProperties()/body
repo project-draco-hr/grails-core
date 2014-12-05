@@ -1,0 +1,7 @@
+{
+  Map props=new HashMap();
+  props.putAll(attributes);
+  props.put(NAME,name);
+  props.put(VERSION,version);
+  return props;
+}

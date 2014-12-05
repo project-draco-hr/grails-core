@@ -1,0 +1,7 @@
+{
+  String className=classNode.getNameWithoutPackage();
+  if (className.endsWith("GrailsPlugin")) {
+    visitContents(className,classNode);
+  }
+  return pluginInfo;
+}

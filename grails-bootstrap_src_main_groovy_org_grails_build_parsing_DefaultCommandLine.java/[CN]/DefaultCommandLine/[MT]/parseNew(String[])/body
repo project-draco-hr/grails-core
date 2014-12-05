@@ -1,0 +1,8 @@
+{
+  DefaultCommandLine defaultCommandLine=new DefaultCommandLine();
+  defaultCommandLine.systemProperties.putAll(systemProperties);
+  defaultCommandLine.undeclaredOptions.putAll(undeclaredOptions);
+  defaultCommandLine.declaredOptions.putAll(declaredOptions);
+  CommandLineParser parser=new CommandLineParser();
+  return parser.parse(defaultCommandLine,args);
+}

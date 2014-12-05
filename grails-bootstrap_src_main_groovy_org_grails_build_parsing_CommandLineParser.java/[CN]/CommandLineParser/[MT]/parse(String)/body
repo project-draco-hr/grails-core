@@ -1,5 +1,4 @@
 {
   DefaultCommandLine cl=createCommandLine();
-  parseInternal(cl,args,true);
-  return cl;
+  return parse(cl,args);
 }

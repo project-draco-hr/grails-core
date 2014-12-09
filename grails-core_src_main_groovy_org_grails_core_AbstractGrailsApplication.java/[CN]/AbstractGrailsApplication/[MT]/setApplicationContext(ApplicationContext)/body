@@ -9,4 +9,5 @@
     this.config=newConfig;
   }
   this.parentContext=applicationContext;
+  ((ConfigurableApplicationContext)applicationContext).addApplicationListener(this);
 }

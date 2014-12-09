@@ -1,15 +1,3 @@
 {
-  mainContext=context;
-  if (mainContext == null) {
-    return;
-  }
-  if (!mainContext.containsBean("pluginManager")) {
-    return;
-  }
-  if (mainContext instanceof ConfigurableApplicationContext) {
-    if (!((ConfigurableApplicationContext)mainContext).isActive()) {
-      return;
-    }
-  }
-  mainContext.getBean("pluginManager",GrailsPluginManager.class).setApplicationContext(context);
+  this.parentContext=context;
 }

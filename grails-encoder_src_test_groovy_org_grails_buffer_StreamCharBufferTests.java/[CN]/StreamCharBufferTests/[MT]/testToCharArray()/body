@@ -1,6 +1,6 @@
 {
   StreamCharBuffer charBuffer=createTestInstance();
-  char[] result=charBuffer.readAsCharArray();
+  char[] result=charBuffer.toCharArray();
   assertTrue(Arrays.equals(testbuffer,result));
   assertEquals(testbuffer.length,charBuffer.size());
 }

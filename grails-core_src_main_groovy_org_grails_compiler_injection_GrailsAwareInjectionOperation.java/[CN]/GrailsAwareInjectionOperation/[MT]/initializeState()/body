@@ -14,38 +14,49 @@
       resolver=new PathMatchingResourcePatternResolver(classLoader);
       resources=scanForPatterns(resolver,pattern2,pattern);
     }
-    List<ClassInjector> injectors=new ArrayList<ClassInjector>();
-    List<ClassInjector> globalInjectors=new ArrayList<ClassInjector>();
-    Set<Class> injectorClasses=new HashSet<Class>();
-    CachingMetadataReaderFactory readerFactory=new CachingMetadataReaderFactory(classLoader);
+    final List<ClassInjector> injectors=new ArrayList<ClassInjector>();
+    final List<ClassInjector> globalInjectors=new ArrayList<ClassInjector>();
+    final Set<Class> injectorClasses=new HashSet<Class>();
     for (    Resource resource : resources) {
       if (!resource.isReadable() || resource.getFilename().contains("$_"))       continue;
+      InputStream inputStream=resource.getInputStream();
       try {
-        MetadataReader metadataReader=readerFactory.getMetadataReader(new GrailsResource(resource));
-        AnnotationMetadata annotationMetadata=metadataReader.getAnnotationMetadata();
-        if (annotationMetadata.hasAnnotation(AstTransformer.class.getName()) || annotationMetadata.hasAnnotation(org.codehaus.groovy.grails.compiler.injection.AstTransformer.class.getName())) {
-          String className=metadataReader.getClassMetadata().getClassName();
-          Class<?> injectorClass=classLoader.loadClass(className);
-          if (injectorClasses.contains(injectorClass))           continue;
-          if (ClassInjector.class.isAssignableFrom(injectorClass)) {
-            injectorClasses.add(injectorClass);
-            ClassInjector classInjector=(ClassInjector)injectorClass.newInstance();
-            injectors.add(classInjector);
-            if (GlobalClassInjector.class.isAssignableFrom(injectorClass)) {
-              globalInjectors.add(classInjector);
+        final ClassReader classReader=new ClassReader(inputStream);
+        final String astTransformerClassName=AstTransformer.class.getSimpleName();
+        final ClassLoader finalClassLoader=classLoader;
+        classReader.accept(new ClassVisitor(Opcodes.ASM4){
+          @Override public AnnotationVisitor visitAnnotation(          String desc,          boolean visible){
+            try {
+              if (visible && desc.contains(astTransformerClassName)) {
+                Class<?> injectorClass=finalClassLoader.loadClass(classReader.getClassName().replace('/','.'));
+                if (injectorClasses.contains(injectorClass))                 return super.visitAnnotation(desc,true);
+                if (ClassInjector.class.isAssignableFrom(injectorClass)) {
+                  injectorClasses.add(injectorClass);
+                  ClassInjector classInjector=(ClassInjector)injectorClass.newInstance();
+                  injectors.add(classInjector);
+                  if (GlobalClassInjector.class.isAssignableFrom(injectorClass)) {
+                    globalInjectors.add(classInjector);
+                  }
+                }
+              }
             }
+ catch (            ClassNotFoundException e) {
+            }
+catch (            InstantiationException e) {
+            }
+catch (            IllegalAccessException e) {
+            }
+            return super.visitAnnotation(desc,visible);
           }
         }
+,ClassReader.SKIP_CODE);
       }
- catch (      ClassNotFoundException e) {
-      }
-catch (      InstantiationException e) {
-      }
-catch (      IllegalAccessException e) {
-      }
-catch (      IOException e) {
+ catch (      IOException e) {
       }
 catch (      NoClassDefFoundError e) {
+      }
+ finally {
+        inputStream.close();
       }
     }
     Collections.sort(injectors,new Comparator<ClassInjector>(){

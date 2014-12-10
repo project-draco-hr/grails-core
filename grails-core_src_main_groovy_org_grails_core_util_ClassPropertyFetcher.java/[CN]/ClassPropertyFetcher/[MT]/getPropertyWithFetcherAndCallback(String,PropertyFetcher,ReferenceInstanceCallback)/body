@@ -4,7 +4,6 @@
       return fetcher.get(referenceInstanceCallback);
     }
  catch (    Exception e) {
-      log.warn("Error fetching property's " + name + " value from class "+ clazz.getName(),e);
     }
   }
   return null;

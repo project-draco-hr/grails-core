@@ -1,0 +1,4 @@
+{
+  TypeDescriptor existing=this.typeDescriptorCache.putIfAbsent(pd,td);
+  return (existing != null ? existing : td);
+}

@@ -1,0 +1,20 @@
+{
+  CachedIntrospectionResults results=strongClassCache.get(beanClass);
+  if (results != null) {
+    return results;
+  }
+  results=softClassCache.get(beanClass);
+  if (results != null) {
+    return results;
+  }
+  results=new CachedIntrospectionResults(beanClass);
+  ConcurrentMap<Class<?>,CachedIntrospectionResults> classCacheToUse;
+  if (ClassUtils.isCacheSafe(beanClass,CachedIntrospectionResults.class.getClassLoader()) || isClassLoaderAccepted(beanClass.getClassLoader())) {
+    classCacheToUse=strongClassCache;
+  }
+ else {
+    classCacheToUse=softClassCache;
+  }
+  CachedIntrospectionResults existing=classCacheToUse.putIfAbsent(beanClass,results);
+  return (existing != null ? existing : results);
+}

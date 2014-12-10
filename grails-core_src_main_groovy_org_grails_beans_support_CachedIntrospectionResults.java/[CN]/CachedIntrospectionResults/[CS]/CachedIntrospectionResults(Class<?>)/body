@@ -1,0 +1,28 @@
+{
+  try {
+    BeanInfo beanInfo=null;
+    for (    BeanInfoFactory beanInfoFactory : beanInfoFactories) {
+      beanInfo=beanInfoFactory.getBeanInfo(beanClass);
+      if (beanInfo != null) {
+        break;
+      }
+    }
+    if (beanInfo == null) {
+      beanInfo=(shouldIntrospectorIgnoreBeaninfoClasses ? Introspector.getBeanInfo(beanClass,Introspector.IGNORE_ALL_BEANINFO) : Introspector.getBeanInfo(beanClass));
+    }
+    this.beanInfo=beanInfo;
+    this.propertyDescriptorCache=new LinkedHashMap<String,PropertyDescriptor>();
+    PropertyDescriptor[] pds=this.beanInfo.getPropertyDescriptors();
+    for (    PropertyDescriptor pd : pds) {
+      if (Class.class.equals(beanClass) && ("classLoader".equals(pd.getName()) || "protectionDomain".equals(pd.getName()))) {
+        continue;
+      }
+      pd=buildGenericTypeAwarePropertyDescriptor(beanClass,pd);
+      this.propertyDescriptorCache.put(pd.getName(),pd);
+    }
+    this.typeDescriptorCache=new ConcurrentReferenceHashMap<PropertyDescriptor,TypeDescriptor>();
+  }
+ catch (  IntrospectionException ex) {
+    throw new FatalBeanException("Failed to obtain BeanInfo for class [" + beanClass.getName() + "]",ex);
+  }
+}

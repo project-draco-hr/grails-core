@@ -1,0 +1,8 @@
+{
+  for (  ClassLoader acceptedLoader : acceptedClassLoaders) {
+    if (isUnderneathClassLoader(classLoader,acceptedLoader)) {
+      return true;
+    }
+  }
+  return false;
+}

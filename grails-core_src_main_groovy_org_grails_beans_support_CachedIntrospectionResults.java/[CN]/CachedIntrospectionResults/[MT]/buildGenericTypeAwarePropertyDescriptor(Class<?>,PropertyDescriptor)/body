@@ -1,0 +1,8 @@
+{
+  try {
+    return new GenericTypeAwarePropertyDescriptor(beanClass,pd.getName(),pd.getReadMethod(),pd.getWriteMethod(),pd.getPropertyEditorClass());
+  }
+ catch (  IntrospectionException ex) {
+    throw new FatalBeanException("Failed to re-introspect class [" + beanClass.getName() + "]",ex);
+  }
+}

@@ -12,7 +12,7 @@
  else {
         GrailsTagLibClass current=tag2libMap.get(tagName);
         if (!taglibClass.equals(current)) {
-          LOG.info("There are conflicting tags: " + taglibClass.getFullName() + "."+ tagName+ " vs. "+ current.getFullName()+ "."+ tagName+ ". The former will take precedence.");
+          LogFactory.getLog(TagLibArtefactHandler.class).info("There are conflicting tags: " + taglibClass.getFullName() + "."+ tagName+ " vs. "+ current.getFullName()+ "."+ tagName+ ". The former will take precedence.");
           tag2libMap.put(tagName,taglibClass);
         }
       }

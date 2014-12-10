@@ -6,7 +6,15 @@
         private Object o;
         public Object getReferenceInstance(){
           if (o == null) {
-            o=BeanUtils.instantiate(c);
+            try {
+              o=c.newInstance();
+            }
+ catch (            InstantiationException e) {
+              throw new RuntimeException("Could not instantiate instance: " + e.getMessage(),e);
+            }
+catch (            IllegalAccessException e) {
+              throw new RuntimeException("Could not instantiate instance: " + e.getMessage(),e);
+            }
           }
           return o;
         }

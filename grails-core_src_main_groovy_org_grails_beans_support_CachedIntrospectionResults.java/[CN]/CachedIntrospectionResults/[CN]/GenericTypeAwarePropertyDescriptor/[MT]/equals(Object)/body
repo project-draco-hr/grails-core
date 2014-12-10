@@ -1,0 +1,10 @@
+{
+  if (this == other) {
+    return true;
+  }
+  if (!(other instanceof GenericTypeAwarePropertyDescriptor)) {
+    return false;
+  }
+  GenericTypeAwarePropertyDescriptor otherPd=(GenericTypeAwarePropertyDescriptor)other;
+  return (getBeanClass().equals(otherPd.getBeanClass()) && equals(this,otherPd));
+}

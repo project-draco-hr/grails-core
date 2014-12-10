@@ -1,0 +1,39 @@
+{
+  super(propertyName,null,null);
+  if (beanClass == null) {
+    throw new IntrospectionException("Bean class must not be null");
+  }
+  this.beanClass=beanClass;
+  Method readMethodToUse=BridgeMethodResolver.findBridgedMethod(readMethod);
+  Method writeMethodToUse=BridgeMethodResolver.findBridgedMethod(writeMethod);
+  if (writeMethodToUse == null && readMethodToUse != null) {
+    Method candidate=ClassUtils.getMethodIfAvailable(this.beanClass,"set" + StringUtils.capitalize(getName()),(Class<?>[])null);
+    if (candidate != null && candidate.getParameterTypes().length == 1) {
+      writeMethodToUse=candidate;
+    }
+  }
+  this.readMethod=readMethodToUse;
+  this.writeMethod=writeMethodToUse;
+  if (this.writeMethod != null) {
+    if (this.readMethod == null) {
+      Set<Method> ambiguousCandidates=new HashSet<Method>();
+      for (      Method method : beanClass.getMethods()) {
+        if (method.getName().equals(writeMethodToUse.getName()) && !method.equals(writeMethodToUse) && !method.isBridge()) {
+          ambiguousCandidates.add(method);
+        }
+      }
+      if (!ambiguousCandidates.isEmpty()) {
+        this.ambiguousWriteMethods=ambiguousCandidates;
+      }
+    }
+    this.writeMethodParameter=new MethodParameter(this.writeMethod,0);
+    GenericTypeResolver.resolveParameterType(this.writeMethodParameter,this.beanClass);
+  }
+  if (this.readMethod != null) {
+    this.propertyType=GenericTypeResolver.resolveReturnType(this.readMethod,this.beanClass);
+  }
+ else   if (this.writeMethodParameter != null) {
+    this.propertyType=this.writeMethodParameter.getParameterType();
+  }
+  this.propertyEditorClass=propertyEditorClass;
+}

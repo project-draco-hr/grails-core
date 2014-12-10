@@ -69,7 +69,7 @@
       }
     }
   }
-  propertyDescriptors=BeanUtils.getPropertyDescriptors(clazz);
+  propertyDescriptors=getPropertyDescriptors(clazz);
   for (  PropertyDescriptor desc : propertyDescriptors) {
     Method readMethod=desc.getReadMethod();
     if (readMethod != null) {

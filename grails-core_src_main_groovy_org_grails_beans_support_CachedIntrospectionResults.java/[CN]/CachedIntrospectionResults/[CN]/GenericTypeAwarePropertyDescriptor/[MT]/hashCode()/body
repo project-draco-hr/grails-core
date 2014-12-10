@@ -1,0 +1,6 @@
+{
+  int hashCode=getBeanClass().hashCode();
+  hashCode=29 * hashCode + ObjectUtils.nullSafeHashCode(getReadMethod());
+  hashCode=29 * hashCode + ObjectUtils.nullSafeHashCode(getWriteMethod());
+  return hashCode;
+}

@@ -3,13 +3,7 @@
     return false;
   }
   if (isArtefactClass(aClass)) {
-    if (log.isDebugEnabled()) {
-      log.debug("[" + aClass.getName() + "] is a "+ type+ " class.");
-    }
     return true;
-  }
-  if (log.isDebugEnabled()) {
-    log.debug("[" + aClass.getName() + "] is not a "+ type+ " class.");
   }
   return false;
 }

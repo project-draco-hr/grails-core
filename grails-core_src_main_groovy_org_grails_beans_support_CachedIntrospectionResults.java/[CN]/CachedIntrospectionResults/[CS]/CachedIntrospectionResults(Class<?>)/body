@@ -1,12 +1,6 @@
 {
   try {
-    BeanInfo beanInfo=null;
-    for (    BeanInfoFactory beanInfoFactory : beanInfoFactories) {
-      beanInfo=beanInfoFactory.getBeanInfo(beanClass);
-      if (beanInfo != null) {
-        break;
-      }
-    }
+    BeanInfo beanInfo=new ExtendedBeanInfo(Introspector.getBeanInfo(beanClass));
     if (beanInfo == null) {
       beanInfo=(shouldIntrospectorIgnoreBeaninfoClasses ? Introspector.getBeanInfo(beanClass,Introspector.IGNORE_ALL_BEANINFO) : Introspector.getBeanInfo(beanClass));
     }

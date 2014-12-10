@@ -1,0 +1,3 @@
+{
+  return String.format("%s[name=%s, propertyType=%s, readMethod=%s, writeMethod=%s]",getClass().getSimpleName(),getName(),getPropertyType(),this.readMethod,this.writeMethod);
+}

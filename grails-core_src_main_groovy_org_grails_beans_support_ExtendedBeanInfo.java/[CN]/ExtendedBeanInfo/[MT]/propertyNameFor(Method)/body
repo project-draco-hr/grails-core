@@ -1,0 +1,3 @@
+{
+  return Introspector.decapitalize(method.getName().substring(3,method.getName().length()));
+}

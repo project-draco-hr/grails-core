@@ -1,0 +1,9 @@
+{
+  super(propertyName,null,null,null,null);
+  this.readMethod=readMethod;
+  this.writeMethod=writeMethod;
+  this.propertyType=findPropertyType(readMethod,writeMethod);
+  this.indexedReadMethod=indexedReadMethod;
+  this.indexedWriteMethod=indexedWriteMethod;
+  this.indexedPropertyType=findIndexedPropertyType(propertyName,this.propertyType,indexedReadMethod,indexedWriteMethod);
+}

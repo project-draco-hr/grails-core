@@ -1,0 +1,12 @@
+{
+  this.delegate=delegate;
+  for (  PropertyDescriptor pd : delegate.getPropertyDescriptors()) {
+    this.propertyDescriptors.add(pd instanceof IndexedPropertyDescriptor ? new SimpleIndexedPropertyDescriptor((IndexedPropertyDescriptor)pd) : new SimplePropertyDescriptor(pd));
+  }
+  MethodDescriptor[] methodDescriptors=delegate.getMethodDescriptors();
+  if (methodDescriptors != null) {
+    for (    Method method : findCandidateWriteMethods(methodDescriptors)) {
+      handleCandidateWriteMethod(method);
+    }
+  }
+}

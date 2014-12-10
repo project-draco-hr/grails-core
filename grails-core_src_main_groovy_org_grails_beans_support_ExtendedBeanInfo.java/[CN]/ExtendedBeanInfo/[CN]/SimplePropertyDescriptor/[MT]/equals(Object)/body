@@ -1,0 +1,3 @@
+{
+  return (this == other || (other instanceof PropertyDescriptor && CachedIntrospectionResults.equals(this,(PropertyDescriptor)other)));
+}

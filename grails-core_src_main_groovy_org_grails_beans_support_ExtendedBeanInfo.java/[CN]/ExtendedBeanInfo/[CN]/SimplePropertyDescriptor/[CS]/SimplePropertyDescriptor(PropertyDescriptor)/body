@@ -1,0 +1,4 @@
+{
+  this(original.getName(),original.getReadMethod(),original.getWriteMethod());
+  copyNonMethodProperties(original,this);
+}

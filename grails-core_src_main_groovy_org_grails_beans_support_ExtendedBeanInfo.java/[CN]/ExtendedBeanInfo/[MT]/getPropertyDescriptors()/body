@@ -1,0 +1,3 @@
+{
+  return this.propertyDescriptors.toArray(new PropertyDescriptor[this.propertyDescriptors.size()]);
+}

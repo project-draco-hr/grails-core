@@ -6,5 +6,5 @@
     return false;
   }
   GenericTypeAwarePropertyDescriptor otherPd=(GenericTypeAwarePropertyDescriptor)other;
-  return (getBeanClass().equals(otherPd.getBeanClass()) && equals(this,otherPd));
+  return (getBeanClass().equals(otherPd.getBeanClass()) && CachedIntrospectionResults.equals(this,otherPd));
 }

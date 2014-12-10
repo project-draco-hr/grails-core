@@ -1,0 +1,10 @@
+{
+  if (this.indexedPropertyType == null) {
+    try {
+      this.indexedPropertyType=findIndexedPropertyType(getName(),getPropertyType(),this.indexedReadMethod,this.indexedWriteMethod);
+    }
+ catch (    IntrospectionException ex) {
+    }
+  }
+  return this.indexedPropertyType;
+}

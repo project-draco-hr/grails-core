@@ -1,0 +1,10 @@
+{
+  if (this.propertyType == null) {
+    try {
+      this.propertyType=findPropertyType(this.readMethod,this.writeMethod);
+    }
+ catch (    IntrospectionException ex) {
+    }
+  }
+  return this.propertyType;
+}

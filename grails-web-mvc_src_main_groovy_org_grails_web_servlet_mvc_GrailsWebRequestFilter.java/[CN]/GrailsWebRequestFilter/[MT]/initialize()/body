@@ -1,9 +1,0 @@
-{
-  ApplicationContext appCtx=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-  if (appCtx != null) {
-    paramListenerBeans=appCtx.getBeansOfType(ParameterCreationListener.class).values();
-  }
- else {
-    logger.warn("appCtx not found in servletContext");
-  }
-}

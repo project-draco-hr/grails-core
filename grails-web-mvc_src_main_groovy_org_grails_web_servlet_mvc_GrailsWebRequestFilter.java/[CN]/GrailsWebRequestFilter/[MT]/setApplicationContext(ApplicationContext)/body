@@ -1,0 +1,3 @@
+{
+  paramListenerBeans=applicationContext.getBeansOfType(ParameterCreationListener.class).values();
+}

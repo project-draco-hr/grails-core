@@ -1,4 +1,5 @@
 {
+  cl.setRawArguments(args);
   for (  String arg : args) {
     if (arg == null)     continue;
     String trimmed=arg.trim();

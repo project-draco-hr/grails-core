@@ -1,0 +1,6 @@
+{
+  MutablePropertySources mutablePropertySources=new MutablePropertySources();
+  mutablePropertySources.addFirst(new MapPropertySource("test",mapPropertySource));
+  this.propertySources=mutablePropertySources;
+  this.propertySourcesPropertyResolver=new PropertySourcesPropertyResolver(propertySources);
+}

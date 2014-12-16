@@ -1,0 +1,7 @@
+{
+  Object o=parent.get(key);
+  if (o instanceof Map) {
+    return (Map)o;
+  }
+  return new LinkedHashMap();
+}

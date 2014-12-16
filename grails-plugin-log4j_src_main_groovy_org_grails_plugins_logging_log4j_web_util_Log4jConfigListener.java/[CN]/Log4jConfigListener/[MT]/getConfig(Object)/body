@@ -1,9 +1,0 @@
-{
-  try {
-    Method getConfigMethod=grailsApplication.getClass().getMethod("getConfig",new Class[0]);
-    return (ConfigObject)getConfigMethod.invoke(grailsApplication);
-  }
- catch (  Throwable e) {
-    return null;
-  }
-}

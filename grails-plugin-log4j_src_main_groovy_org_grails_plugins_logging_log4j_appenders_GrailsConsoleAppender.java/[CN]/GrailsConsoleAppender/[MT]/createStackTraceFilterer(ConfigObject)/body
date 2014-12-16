@@ -1,9 +1,0 @@
-{
-  try {
-    stackTraceFilterer=(StackTraceFilterer)GrailsResourceUtils.instantiateFromConfig(config,"grails.logging.stackTraceFiltererClass",DefaultStackTraceFilterer.class.getName());
-  }
- catch (  Throwable t) {
-    LogLog.error("Problem instantiating StackTraceFilter class, using default: " + t.getMessage());
-    stackTraceFilterer=new DefaultStackTraceFilterer();
-  }
-}

@@ -1,5 +1,0 @@
-{
-  if (Environment.getCurrent() != Environment.DEVELOPMENT) {
-    LogManager.shutdown();
-  }
-}

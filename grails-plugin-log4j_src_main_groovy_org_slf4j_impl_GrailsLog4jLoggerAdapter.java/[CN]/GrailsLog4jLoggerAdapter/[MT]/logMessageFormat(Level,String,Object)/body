@@ -1,6 +1,0 @@
-{
-  if (log4jLogger.isEnabledFor(level)) {
-    FormattingTuple ft=getMessageFormat(format,args);
-    log4jLogger.log(FQCN,level,ft.getMessage(),ft.getThrowable());
-  }
-}

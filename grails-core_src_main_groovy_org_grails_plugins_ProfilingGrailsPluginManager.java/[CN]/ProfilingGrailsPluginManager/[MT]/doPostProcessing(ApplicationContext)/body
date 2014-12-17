@@ -1,15 +1,14 @@
 {
   long time=System.currentTimeMillis();
-  GrailsConsole console=GrailsConsole.getInstance();
-  console.addStatus("doWithApplicationContext started");
+  System.out.println("doWithApplicationContext started");
   checkInitialised();
   for (  GrailsPlugin plugin : pluginList) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {
       long pluginTime=System.currentTimeMillis();
-      console.addStatus("doWithApplicationContext for plugin [" + plugin.getName() + "] started");
+      System.out.println("doWithApplicationContext for plugin [" + plugin.getName() + "] started");
       plugin.doWithApplicationContext(ctx);
-      console.addStatus("doWithApplicationContext for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
+      System.out.println("doWithApplicationContext for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
     }
   }
-  console.addStatus("doWithApplicationContext took " + (System.currentTimeMillis() - time));
+  System.out.println("doWithApplicationContext took " + (System.currentTimeMillis() - time));
 }

@@ -1,0 +1,6 @@
+{
+  super.setManager(manager);
+  if (plugin instanceof Plugin) {
+    ((Plugin)plugin).setPluginManager(manager);
+  }
+}

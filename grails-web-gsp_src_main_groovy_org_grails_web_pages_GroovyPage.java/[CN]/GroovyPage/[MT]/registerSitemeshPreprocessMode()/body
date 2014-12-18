@@ -1,9 +1,0 @@
-{
-  if (request == null) {
-    return;
-  }
-  GSPSitemeshPage page=(GSPSitemeshPage)request.getAttribute(GrailsLayoutView.GSP_SITEMESH_PAGE);
-  if (page != null) {
-    page.setUsed(true);
-  }
-}

@@ -1,0 +1,19 @@
+{
+  int i=path.indexOf("grails-app/");
+  if (i > -1) {
+    return path.substring(i + 11);
+  }
+ else {
+    try {
+      File baseDir=BuildSettings.BASE_DIR;
+      String basePath=baseDir != null ? baseDir.getCanonicalPath() : null;
+      if (basePath != null) {
+        String canonicalPath=new File(path).getCanonicalPath();
+        return canonicalPath.substring(basePath.length());
+      }
+    }
+ catch (    IOException e) {
+    }
+  }
+  return null;
+}

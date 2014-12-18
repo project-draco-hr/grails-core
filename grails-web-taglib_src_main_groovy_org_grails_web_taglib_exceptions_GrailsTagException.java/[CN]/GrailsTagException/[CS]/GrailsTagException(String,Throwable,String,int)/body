@@ -1,5 +1,6 @@
 {
   super(message,cause);
-  this.fileName=fileName;
+  String path=GrailsResourceUtils.getPathFromBaseDir(fileName);
+  this.fileName=path != null ? path : fileName;
   this.lineNumber=lineNumber;
 }

@@ -1,4 +1,4 @@
 {
   final String sample=sourceUnit.getSample(node.getLineNumber(),node.getColumnNumber(),new Janitor());
-  GrailsConsole.getInstance().warning(warningMessage + "\n\n" + sample);
+  System.err.println("WARNING: " + warningMessage + "\n\n"+ sample);
 }

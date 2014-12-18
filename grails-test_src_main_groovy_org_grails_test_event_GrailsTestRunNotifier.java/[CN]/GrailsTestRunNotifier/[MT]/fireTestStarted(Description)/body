@@ -1,8 +1,0 @@
-{
-  int progress=++this.progress;
-  if (progress > total) {
-    total=progress;
-  }
-  console.indicateProgress(progress,total);
-  super.fireTestStarted(description);
-}

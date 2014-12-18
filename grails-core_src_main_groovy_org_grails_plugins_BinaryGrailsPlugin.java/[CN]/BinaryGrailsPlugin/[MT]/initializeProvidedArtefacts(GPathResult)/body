@@ -11,8 +11,8 @@
           try {
             artefacts.add(classLoader.loadClass(className));
           }
- catch (          ClassNotFoundException e) {
-            LOG.error("Class not found loading plugin resource [" + className + "]. Resource skipped.",e);
+ catch (          Throwable e) {
+            throw new PluginException("Failed to initialize class [" + className + "] from plugin ["+ getName()+ "] : "+ e.getMessage(),e);
           }
         }
       }

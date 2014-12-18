@@ -5,5 +5,5 @@
   constructorArgs.addExpression(BODY_EXPRESSION);
   arguments.addExpression(new CastExpression(ClassHelper.make(Map.class),ATTRS_EXPRESSION)).addExpression(new ConstructorCallExpression(new ClassNode(TagOutput.ConstantClosure.class),constructorArgs));
   methodBody.addStatement(new ExpressionStatement(new MethodCallExpression(new VariableExpression("this"),tagName,arguments)));
-  classNode.addMethod(new MethodNode(tagName,Modifier.PUBLIC,OBJECT_CLASS,MAP_CHARSEQUENCE_PARAMETERS,null,methodBody));
+  classNode.addMethod(new MethodNode(tagName,Modifier.PUBLIC,GrailsASTUtils.OBJECT_CLASS_NODE,MAP_CHARSEQUENCE_PARAMETERS,null,methodBody));
 }

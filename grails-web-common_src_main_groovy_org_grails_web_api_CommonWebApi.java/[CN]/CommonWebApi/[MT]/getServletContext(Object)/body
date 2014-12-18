@@ -1,6 +1,0 @@
-{
-  if (servletContext == null) {
-    servletContext=currentRequestAttributes().getServletContext();
-  }
-  return servletContext;
-}

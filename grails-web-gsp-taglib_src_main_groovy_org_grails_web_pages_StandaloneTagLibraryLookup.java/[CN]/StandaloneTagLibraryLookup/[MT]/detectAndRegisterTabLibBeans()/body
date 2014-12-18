@@ -2,7 +2,7 @@
   if (tagLibInstancesSet == null) {
     tagLibInstancesSet=new LinkedHashSet<Object>();
   }
-  Collection<Object> detectedInstances=((ListableBeanFactory)applicationContext).getBeansWithAnnotation(TagLib.class).values();
+  Collection<Object> detectedInstances=applicationContext.getBeansWithAnnotation(TagLib.class).values();
   for (  Object instance : detectedInstances) {
     if (!tagLibInstancesSet.contains(instance)) {
       tagLibInstancesSet.add(instance);

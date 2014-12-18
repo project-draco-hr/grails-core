@@ -1,0 +1,21 @@
+{
+  List<PropertyNode> tags=findTags(classNode);
+  PropertyNode namespaceProperty=classNode.getProperty(NAMESPACE_PROPERTY);
+  String namespace=TagOutput.DEFAULT_NAMESPACE;
+  if (namespaceProperty != null && namespaceProperty.isStatic()) {
+    Expression initialExpression=namespaceProperty.getInitialExpression();
+    if (initialExpression instanceof ConstantExpression) {
+      namespace=initialExpression.getText();
+    }
+  }
+  addGetTagLibNamespaceMethod(classNode,namespace);
+  MethodCallExpression tagLibraryLookupMethodCall=new MethodCallExpression(new VariableExpression("this",ClassHelper.make(TagLibrary.class)),"getTagLibraryLookup",ZERO_ARGS);
+  for (  PropertyNode tag : tags) {
+    String tagName=tag.getName();
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName);
+    addAttributesAndStringBodyMethod(classNode,tagName);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,false);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,true,false);
+    addAttributesAndBodyMethod(classNode,tagLibraryLookupMethodCall,tagName,false,false);
+  }
+}

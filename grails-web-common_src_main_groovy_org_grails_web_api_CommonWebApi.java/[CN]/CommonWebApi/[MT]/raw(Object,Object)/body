@@ -1,9 +1,0 @@
-{
-  Encoder encoder=getRawEncoder(instance);
-  if (encoder != null) {
-    return encoder.encode(value);
-  }
- else {
-    return InvokerHelper.invokeMethod(value,"encodeAsRaw",null);
-  }
-}

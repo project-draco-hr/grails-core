@@ -1,7 +1,0 @@
-{
-  if (rawEncoder == null) {
-    GrailsApplication application=getGrailsApplication(instance);
-    rawEncoder=getRawEncoder(application);
-  }
-  return rawEncoder;
-}

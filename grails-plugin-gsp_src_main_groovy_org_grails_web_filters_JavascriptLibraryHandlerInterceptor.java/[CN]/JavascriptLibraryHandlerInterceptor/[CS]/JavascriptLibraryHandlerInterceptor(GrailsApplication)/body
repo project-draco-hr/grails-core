@@ -1,7 +1,0 @@
-{
-  Object lib=application.getFlatConfig().get("grails.views.javascript.library");
-  if (lib instanceof CharSequence) {
-    library=lib.toString();
-    log.debug("Using [{}] as the default Ajax provider.",library);
-  }
-}

@@ -1,7 +1,6 @@
 {
   long time=System.currentTimeMillis();
-  GrailsConsole console=GrailsConsole.getInstance();
-  console.addStatus("doWithDynamicMethods started");
+  System.out.println("doWithDynamicMethods started");
   checkInitialised();
   MetaClassRegistry registry=GroovySystem.getMetaClassRegistry();
   for (  Class<?> COMMON_CLASS : COMMON_CLASSES) {
@@ -11,15 +10,14 @@
     if (plugin.supportsCurrentScopeAndEnvironment()) {
       try {
         long pluginTime=System.currentTimeMillis();
-        console.addStatus("doWithDynamicMethods for plugin [" + plugin.getName() + "] started");
+        System.out.println("doWithDynamicMethods for plugin [" + plugin.getName() + "] started");
         plugin.doWithDynamicMethods(applicationContext);
-        console.addStatus("doWithDynamicMethods for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
+        System.out.println("doWithDynamicMethods for plugin [" + plugin.getName() + "] took "+ (System.currentTimeMillis() - pluginTime));
       }
  catch (      Throwable t) {
-        console.error(t);
-        console.error("Error configuring dynamic methods for plugin " + plugin + ": "+ t.getMessage());
+        throw new GrailsConfigurationException("Error configuring dynamic methods for plugin " + plugin + ": "+ t.getMessage(),t);
       }
     }
   }
-  console.addStatus("doWithDynamicMethods took " + (System.currentTimeMillis() - time));
+  System.out.println("doWithDynamicMethods took " + (System.currentTimeMillis() - time));
 }

@@ -6,7 +6,7 @@
     boolean implementsTrait=false;
     boolean traitNotLoaded=false;
     try {
-      implementsTrait=classNode.implementsInterface(traitClassNode);
+      implementsTrait=classNode.declaresInterface(traitClassNode);
     }
  catch (    Throwable e) {
       traitNotLoaded=true;

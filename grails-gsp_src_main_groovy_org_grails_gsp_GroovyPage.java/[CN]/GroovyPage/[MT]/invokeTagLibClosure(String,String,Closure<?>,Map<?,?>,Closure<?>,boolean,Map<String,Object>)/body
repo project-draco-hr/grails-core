@@ -8,7 +8,7 @@
   try {
     Map<String,Object> codecSettings=TagOutput.createCodecSettings(tagNamespace,tagName,attrs,defaultEncodeAs);
     if (codecSettings != null) {
-      outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,webRequest.getAttributes().getGrailsApplication()).build());
+      outputStack.push(WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,outputContext.getGrailsApplication()).build());
       encodeAsPushedToStack=true;
     }
     Object tagresult=null;

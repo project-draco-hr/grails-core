@@ -1,0 +1,31 @@
+{
+  OutputEncodingStackAttributes.Builder attributesBuilder=new OutputEncodingStackAttributes.Builder();
+  if (metaInfo != null) {
+    setJspTags(metaInfo.getJspTags());
+    setJspTagLibraryResolver(metaInfo.getJspTagLibraryResolver());
+    setGspTagLibraryLookup(metaInfo.getTagLibraryLookup());
+    setHtmlParts(metaInfo.getHtmlParts());
+    setPluginContextPath(metaInfo.getPluginPath());
+    attributesBuilder.outEncoder(metaInfo.getOutEncoder());
+    attributesBuilder.staticEncoder(metaInfo.getStaticEncoder());
+    attributesBuilder.expressionEncoder(metaInfo.getExpressionEncoder());
+    attributesBuilder.defaultTaglibEncoder(metaInfo.getTaglibEncoder());
+  }
+  attributesBuilder.allowCreate(true).topWriter(target).autoSync(false).pushTop(true);
+  attributesBuilder.outputContext(outputContext);
+  attributesBuilder.inheritPreviousEncoders(false);
+  outputStack=OutputEncodingStack.currentStack(attributesBuilder.build());
+  out=outputStack.getOutWriter();
+  staticOut=outputStack.getStaticWriter();
+  expressionOut=outputStack.getExpressionWriter();
+  this.outputContext=outputContext;
+  if (outputContext != null) {
+    outputContext.setCurrentWriter(out);
+    GrailsApplication grailsApplication=outputContext.getGrailsApplication();
+    if (grailsApplication != null) {
+      rawEncoder=WithCodecHelper.lookupEncoder(grailsApplication,"Raw");
+    }
+  }
+  setVariableDirectly(OUT,out);
+  setVariableDirectly(EXPRESSION_OUT,expressionOut);
+}

@@ -8,7 +8,7 @@
   GrailsConventionGroovyPageLocator pageLocator=new GrailsConventionGroovyPageLocator();
   pageLocator.setApplicationContext(appCtx);
   GroovyPagesTemplateEngine gpte=new GroovyPagesTemplateEngine();
-  gpte.setServletContext(appCtx.getServletContext());
+  gpte.setResourceLoader(appCtx);
   gpte.setApplicationContext(appCtx);
   gpte.afterPropertiesSet();
   GroovyPageViewResolver grailsViewResolver=new GroovyPageViewResolver();

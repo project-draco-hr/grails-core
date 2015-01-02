@@ -1,5 +1,0 @@
-{
-  GrailsWebRequest webRequest=getWebRequest();
-  String uri=getCurrentRequestUri(webRequest.getCurrentRequest());
-  return createTemplate(uri);
-}

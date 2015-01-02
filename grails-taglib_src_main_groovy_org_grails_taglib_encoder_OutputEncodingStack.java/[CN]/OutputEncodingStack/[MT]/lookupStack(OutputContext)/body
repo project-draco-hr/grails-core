@@ -1,0 +1,4 @@
+{
+  OutputEncodingStack outputStack=(OutputEncodingStack)outputContext.getCurrentOutputEncodingStack();
+  return outputStack;
+}

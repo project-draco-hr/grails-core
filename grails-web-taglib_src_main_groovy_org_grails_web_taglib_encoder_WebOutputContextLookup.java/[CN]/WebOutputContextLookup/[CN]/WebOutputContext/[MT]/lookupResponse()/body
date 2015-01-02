@@ -1,0 +1,4 @@
+{
+  HttpServletResponse wrapped=WrappedResponseHolder.getWrappedResponse();
+  return wrapped != null ? wrapped : lookupWebRequest().getCurrentResponse();
+}

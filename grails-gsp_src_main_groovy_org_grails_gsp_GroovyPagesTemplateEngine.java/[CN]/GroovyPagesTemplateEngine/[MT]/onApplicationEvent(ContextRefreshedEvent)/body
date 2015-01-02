@@ -1,5 +1,0 @@
-{
-  if (servletContext != null && servletContext.getAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT) == null) {
-    servletContext.setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,event.getApplicationContext());
-  }
-}

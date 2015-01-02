@@ -1,5 +1,5 @@
 {
-  OutputEncodingStack outputStack=lookupStack(attributes.getWebRequest());
+  OutputEncodingStack outputStack=lookupStack(attributes.getOutputContext());
   if (outputStack != null) {
     if (attributes.isPushTop()) {
       outputStack.push(attributes,false);

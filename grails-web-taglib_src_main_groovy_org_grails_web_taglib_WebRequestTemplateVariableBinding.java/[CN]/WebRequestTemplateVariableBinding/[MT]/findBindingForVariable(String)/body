@@ -1,0 +1,13 @@
+{
+  Binding binding=super.findBindingForVariable(name);
+  if (binding == null) {
+    if (webRequest.getCurrentRequest().getAttribute(name) != null) {
+      requestAttributeVariables.add(name);
+      binding=this;
+    }
+  }
+  if (binding == null && lazyRequestBasedValuesMap.containsKey(name)) {
+    binding=this;
+  }
+  return binding;
+}

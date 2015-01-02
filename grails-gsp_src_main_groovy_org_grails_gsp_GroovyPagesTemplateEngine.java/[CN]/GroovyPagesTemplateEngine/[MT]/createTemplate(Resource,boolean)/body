@@ -1,7 +1,6 @@
 {
   if (resource == null) {
-    GrailsWebRequest webRequest=getWebRequest();
-    throw new GroovyPagesException("No Groovy page found for URI: " + getCurrentRequestUri(webRequest.getCurrentRequest()));
+    throw new GroovyPagesException("Resource is null. No Groovy page found.");
   }
   final String pageName=establishPageName(resource,cacheable);
   try {

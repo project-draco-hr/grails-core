@@ -1,8 +1,8 @@
 {
   if (attributes.getTopWriter() == null) {
-    attributes=new OutputEncodingStackAttributes.Builder(attributes).topWriter(lookupRequestWriter(attributes.getWebRequest())).build();
+    attributes=new OutputEncodingStackAttributes.Builder(attributes).topWriter(lookupCurrentWriter(attributes.getOutputContext())).build();
   }
   OutputEncodingStack instance=new OutputEncodingStack(attributes);
-  attributes.getWebRequest().setAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,instance,RequestAttributes.SCOPE_REQUEST);
+  attributes.getOutputContext().setCurrentOutputEncodingStack(instance);
   return instance;
 }

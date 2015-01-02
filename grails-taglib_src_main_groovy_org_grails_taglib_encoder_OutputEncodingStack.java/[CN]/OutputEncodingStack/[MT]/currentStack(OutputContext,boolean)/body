@@ -1,0 +1,7 @@
+{
+  OutputEncodingStack outputStack=lookupStack(outputContext);
+  if (outputStack == null && allowCreate) {
+    outputStack=currentStack(outputContext,allowCreate,null,allowCreate,false);
+  }
+  return outputStack;
+}

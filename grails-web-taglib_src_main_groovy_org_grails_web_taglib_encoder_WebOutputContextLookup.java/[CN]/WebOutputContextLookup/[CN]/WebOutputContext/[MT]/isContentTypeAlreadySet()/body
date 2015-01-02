@@ -1,0 +1,4 @@
+{
+  HttpServletResponse response=lookupResponse();
+  return response.isCommitted() || response.getContentType() != null;
+}

@@ -1,0 +1,6 @@
+{
+  if (EncodingStateRegistryLookupHolder.getEncodingStateRegistryLookup() == null) {
+    EncodingStateRegistryLookupHolder.setEncodingStateRegistryLookup(this);
+  }
+  return outputContextThreadLocal.get();
+}

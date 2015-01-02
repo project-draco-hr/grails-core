@@ -1,8 +1,0 @@
-{
-  if (webRequest != null && webRequest.isActive()) {
-    OutputEncodingStack.currentStack(webRequest).push(capturedOut);
-  }
- else {
-    OutputEncodingStack.currentStack().push(capturedOut);
-  }
-}

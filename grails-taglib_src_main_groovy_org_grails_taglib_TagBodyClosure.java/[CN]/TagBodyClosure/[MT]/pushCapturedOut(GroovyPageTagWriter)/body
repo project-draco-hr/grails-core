@@ -1,0 +1,8 @@
+{
+  if (outputContext != null) {
+    OutputEncodingStack.currentStack(outputContext).push(capturedOut);
+  }
+ else {
+    OutputEncodingStack.currentStack().push(capturedOut);
+  }
+}

@@ -3,7 +3,7 @@
   request.setAttribute(GroovyPagesServlet.SERVLET_INSTANCE,this);
   String pageName=(String)request.getAttribute(GrailsApplicationAttributes.GSP_TO_RENDER);
   if (GrailsStringUtils.isBlank(pageName)) {
-    pageName=groovyPagesTemplateEngine.getCurrentRequestUri(request);
+    pageName=getCurrentRequestUri(request);
   }
   boolean isNotInclude=!WebUtils.isIncludeRequest(request);
   if (isNotInclude && isSecurePath(pageName)) {

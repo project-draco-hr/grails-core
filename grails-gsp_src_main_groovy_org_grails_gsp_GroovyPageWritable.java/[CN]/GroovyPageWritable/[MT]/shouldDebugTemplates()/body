@@ -1,3 +1,0 @@
-{
-  return request != null && request.getParameter("debugTemplates") != null && Environment.getCurrent() == Environment.DEVELOPMENT;
-}

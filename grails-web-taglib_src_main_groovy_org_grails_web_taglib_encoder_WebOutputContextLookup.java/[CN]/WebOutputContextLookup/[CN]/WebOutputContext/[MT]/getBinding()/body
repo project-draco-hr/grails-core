@@ -1,0 +1,3 @@
+{
+  return (AbstractTemplateVariableBinding)lookupWebRequest().getAttribute(GrailsApplicationAttributes.PAGE_SCOPE,RequestAttributes.SCOPE_REQUEST);
+}

@@ -1,0 +1,68 @@
+{
+  GroovyObject tagLib=lookupCachedTagLib(gspTagLibraryLookup,namespace,tagName);
+  if (tagLib == null) {
+    throw new GrailsTagException("Tag [" + tagName + "] does not exist. No corresponding tag library found.");
+  }
+  if (!(attrs instanceof GroovyPageAttributes)) {
+    attrs=new GroovyPageAttributes(attrs,false);
+  }
+  ((GroovyPageAttributes)attrs).setGspTagSyntaxCall(false);
+  Closure actualBody=createOutputCapturingClosure(tagLib,body,outputContext);
+  final GroovyPageTagWriter tagOutput=new GroovyPageTagWriter();
+  OutputEncodingStack outputStack=null;
+  try {
+    outputStack=OutputEncodingStack.currentStack(outputContext,false);
+    if (outputStack == null) {
+      outputStack=OutputEncodingStack.currentStack(outputContext,true,tagOutput,true,true);
+    }
+    Map<String,Object> defaultEncodeAs=gspTagLibraryLookup.getEncodeAsForTag(namespace,tagName);
+    Map<String,Object> codecSettings=createCodecSettings(namespace,tagName,attrs,defaultEncodeAs);
+    OutputEncodingStackAttributes.Builder builder=WithCodecHelper.createOutputStackAttributesBuilder(codecSettings,outputContext.getGrailsApplication());
+    builder.topWriter(tagOutput);
+    outputStack.push(builder.build());
+    Object tagLibProp=tagLib.getProperty(tagName);
+    if (tagLibProp instanceof Closure) {
+      Closure tag=(Closure)((Closure)tagLibProp).clone();
+      Object bodyResult;
+switch (tag.getParameterTypes().length) {
+case 1:
+        bodyResult=tag.call(new Object[]{attrs});
+      if (actualBody != null && actualBody != EMPTY_BODY_CLOSURE) {
+        Object bodyResult2=actualBody.call();
+        if (bodyResult2 != null) {
+          if (actualBody instanceof ConstantClosure) {
+            outputStack.getStaticWriter().print(bodyResult2);
+          }
+ else {
+            outputStack.getTaglibWriter().print(bodyResult2);
+          }
+        }
+      }
+    break;
+case 2:
+  bodyResult=tag.call(new Object[]{attrs,actualBody});
+break;
+default :
+throw new GrailsTagException("Tag [" + tagName + "] does not specify expected number of params in tag library ["+ tagLib.getClass().getName()+ "]");
+}
+Encoder taglibEncoder=outputStack.getTaglibEncoder();
+boolean returnsObject=gspTagLibraryLookup.doesTagReturnObject(namespace,tagName);
+if (returnsObject && bodyResult != null && !(bodyResult instanceof Writer)) {
+if (taglibEncoder != null) {
+bodyResult=taglibEncoder.encode(bodyResult);
+}
+return bodyResult;
+}
+if (taglibEncoder != null) {
+return taglibEncoder.encode(tagOutput.getBuffer());
+}
+ else {
+return tagOutput.getBuffer();
+}
+}
+throw new GrailsTagException("Tag [" + tagName + "] does not exist in tag library ["+ tagLib.getClass().getName()+ "]");
+}
+  finally {
+if (outputStack != null) outputStack.pop();
+}
+}

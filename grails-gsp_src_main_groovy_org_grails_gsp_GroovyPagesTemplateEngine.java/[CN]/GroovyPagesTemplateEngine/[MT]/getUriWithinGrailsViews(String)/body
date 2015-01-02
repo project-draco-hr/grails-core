@@ -10,7 +10,7 @@
  else {
     tokens=new String[]{relativeUri};
   }
-  buf.append(GrailsApplicationAttributes.PATH_TO_VIEWS);
+  buf.append(DefaultGroovyPageLocator.PATH_TO_WEB_INF_VIEWS);
   for (  String token : tokens) {
     buf.append('/').append(token);
   }

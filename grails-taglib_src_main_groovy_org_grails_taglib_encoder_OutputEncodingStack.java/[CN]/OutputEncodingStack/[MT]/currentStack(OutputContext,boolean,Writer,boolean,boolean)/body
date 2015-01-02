@@ -1,0 +1,3 @@
+{
+  return currentStack(new OutputEncodingStackAttributes.Builder().outputContext(outputContext).allowCreate(allowCreate).topWriter(topWriter).autoSync(autoSync).pushTop(pushTop).build());
+}

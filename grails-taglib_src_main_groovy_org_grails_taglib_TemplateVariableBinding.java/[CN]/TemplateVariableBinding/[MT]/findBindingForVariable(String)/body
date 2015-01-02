@@ -1,0 +1,18 @@
+{
+  if (cachedParentVariableNames.contains(name)) {
+    if (parent instanceof AbstractTemplateVariableBinding) {
+      return ((AbstractTemplateVariableBinding)parent).findBindingForVariable(name);
+    }
+    return parent;
+  }
+  if (getVariablesMap().containsKey(name)) {
+    return this;
+  }
+  if (parent instanceof AbstractTemplateVariableBinding) {
+    return ((AbstractTemplateVariableBinding)parent).findBindingForVariable(name);
+  }
+  if (parent != null && parent.getVariables().containsKey(name)) {
+    return parent;
+  }
+  return null;
+}

@@ -35,5 +35,6 @@
   if (!autoSync) {
     applyWriterThreadLocals(outWriter);
   }
-  this.encodingStateRegistry=attributes.getWebRequest().getEncodingStateRegistry();
+  this.encodingStateRegistry=attributes.getOutputContext().getEncodingStateRegistry();
+  this.outputContext=attributes.getOutputContext() != null ? attributes.getOutputContext() : OutputContextLookupHelper.lookupOutputContext();
 }

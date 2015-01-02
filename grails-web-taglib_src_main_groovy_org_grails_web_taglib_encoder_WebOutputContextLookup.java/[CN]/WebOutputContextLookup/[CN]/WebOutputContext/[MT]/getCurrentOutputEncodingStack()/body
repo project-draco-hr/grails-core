@@ -1,0 +1,3 @@
+{
+  return (OutputEncodingStack)lookupWebRequest().getAttribute(ATTRIBUTE_NAME_OUTPUT_STACK,RequestAttributes.SCOPE_REQUEST);
+}

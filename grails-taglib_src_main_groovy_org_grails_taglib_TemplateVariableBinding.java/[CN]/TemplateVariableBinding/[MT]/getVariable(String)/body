@@ -1,0 +1,18 @@
+{
+  Object val=getVariablesMap().get(name);
+  if (val == null && !getVariablesMap().containsKey(name)) {
+    if ("variables".equals(name))     return getVariables();
+    if ("metaClass".equals(name))     return getMetaClass();
+    Binding variableBinding=findBindingForVariable(name);
+    if (variableBinding != null) {
+      val=variableBinding.getVariable(name);
+      if (val != null) {
+        if (!(variableBinding instanceof AbstractTemplateVariableBinding) || ((AbstractTemplateVariableBinding)variableBinding).isVariableCachingAllowed(name)) {
+          getVariablesMap().put(name,val);
+          cachedParentVariableNames.add(name);
+        }
+      }
+    }
+  }
+  return val;
+}

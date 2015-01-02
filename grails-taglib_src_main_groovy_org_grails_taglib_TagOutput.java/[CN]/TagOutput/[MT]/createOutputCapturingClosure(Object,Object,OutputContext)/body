@@ -1,0 +1,12 @@
+{
+  if (body1 == null) {
+    return EMPTY_BODY_CLOSURE;
+  }
+  if (body1 instanceof ConstantClosure || body1 instanceof TagBodyClosure) {
+    return (Closure<?>)body1;
+  }
+  if (body1 instanceof Closure) {
+    return new TagBodyClosure(wrappedInstance,outputContext,(Closure<?>)body1);
+  }
+  return new ConstantClosure(body1);
+}

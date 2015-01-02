@@ -1,0 +1,6 @@
+{
+  if (outputContext != null) {
+    return outputContext.getCurrentWriter();
+  }
+  return null;
+}

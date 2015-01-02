@@ -1,8 +1,9 @@
 {
+  OutputContext outputContext=outputContextLookup.lookupOutputContext();
   try {
-    return doWriteTo(out);
+    return doWriteTo(outputContext,out);
   }
   finally {
-    doCleanUp(out);
+    doCleanUp(outputContext,out);
   }
 }

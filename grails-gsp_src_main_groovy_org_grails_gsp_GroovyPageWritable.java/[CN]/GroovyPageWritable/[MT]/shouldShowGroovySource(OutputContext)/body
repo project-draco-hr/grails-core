@@ -1,0 +1,3 @@
+{
+  return isShowSource() && Environment.getCurrent() == Environment.DEVELOPMENT && metaInfo.getGroovySource() != null;
+}

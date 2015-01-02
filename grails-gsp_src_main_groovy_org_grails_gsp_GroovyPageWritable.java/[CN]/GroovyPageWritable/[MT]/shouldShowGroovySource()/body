@@ -1,3 +1,0 @@
-{
-  return request != null && request.getParameter("showSource") != null && (Environment.getCurrent() == Environment.DEVELOPMENT) && metaInfo.getGroovySource() != null;
-}

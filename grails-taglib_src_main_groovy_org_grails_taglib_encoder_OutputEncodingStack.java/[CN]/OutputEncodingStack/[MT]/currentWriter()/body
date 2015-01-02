@@ -3,5 +3,5 @@
   if (outputStack != null) {
     return outputStack.getOutWriter();
   }
-  return lookupRequestWriter();
+  return lookupCurrentWriter();
 }

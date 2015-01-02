@@ -1,8 +1,0 @@
-{
-  if (webRequest != null && webRequest.isActive()) {
-    OutputEncodingStack.currentStack(webRequest).pop();
-  }
- else {
-    OutputEncodingStack.currentStack().pop();
-  }
-}

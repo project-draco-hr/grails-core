@@ -1,6 +1,5 @@
 {
-  GrailsWebRequest webRequest=GrailsWebRequest.lookup();
-  if (webRequest != null) {
-    webRequest.setOut(writer);
+  if (outputContext != null) {
+    outputContext.setCurrentWriter(writer);
   }
 }

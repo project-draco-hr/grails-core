@@ -1,0 +1,4 @@
+{
+  OutputContext outputContext=OutputContextLookupHelper.lookupOutputContext();
+  return lookupCurrentWriter(outputContext);
+}

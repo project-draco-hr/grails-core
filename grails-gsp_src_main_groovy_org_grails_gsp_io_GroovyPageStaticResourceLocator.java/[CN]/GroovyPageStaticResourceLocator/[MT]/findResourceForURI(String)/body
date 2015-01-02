@@ -1,7 +1,7 @@
 {
   Resource resource=super.findResourceForURI(uri);
   if (resource == null || !resource.exists()) {
-    TemplateVariableBinding binding=findBindingInWebRequest();
+    AbstractTemplateVariableBinding binding=findBindingInOutputContext();
     if (binding instanceof GroovyPageBinding) {
       GrailsPlugin pagePlugin=((GroovyPageBinding)binding).getPagePlugin();
       if (pagePlugin != null && pluginManager != null) {

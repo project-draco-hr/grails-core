@@ -1,0 +1,7 @@
+{
+  OutputContext outputContext=OutputContextLookupHelper.lookupOutputContext();
+  if (outputContext != null) {
+    return outputContext.getBinding();
+  }
+  return null;
+}

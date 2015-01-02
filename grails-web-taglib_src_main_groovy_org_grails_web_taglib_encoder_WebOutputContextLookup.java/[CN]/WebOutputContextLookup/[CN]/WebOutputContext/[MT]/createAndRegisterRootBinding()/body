@@ -1,0 +1,5 @@
+{
+  AbstractTemplateVariableBinding binding=new WebRequestTemplateVariableBinding(lookupWebRequest());
+  setBinding(binding);
+  return binding;
+}

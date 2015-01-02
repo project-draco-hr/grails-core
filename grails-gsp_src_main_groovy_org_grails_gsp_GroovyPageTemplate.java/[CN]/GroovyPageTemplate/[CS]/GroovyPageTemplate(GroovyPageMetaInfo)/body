@@ -1,3 +1,3 @@
 {
-  this.metaInfo=metaInfo;
+  this(metaInfo,OutputContextLookupHelper.getOutputContextLookup());
 }

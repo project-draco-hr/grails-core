@@ -1,0 +1,6 @@
+{
+  if (getVariablesMap().containsKey(name)) {
+    return this;
+  }
+  return null;
+}

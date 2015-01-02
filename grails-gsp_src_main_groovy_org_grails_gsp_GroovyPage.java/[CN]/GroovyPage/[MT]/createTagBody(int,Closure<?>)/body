@@ -1,4 +1,4 @@
 {
-  TagBodyClosure tagBody=new TagBodyClosure(this,webRequest,bodyClosure,true);
+  TagBodyClosure tagBody=new TagBodyClosure(this,outputContext,bodyClosure,true);
   setBodyClosure(bodyClosureIndex,tagBody);
 }

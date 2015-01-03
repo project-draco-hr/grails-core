@@ -8,7 +8,7 @@
     output=parseCode("myTest4",src);
   }
   finally {
-    RequestContextHolder.setRequestAttributes(null);
+    RequestContextHolder.resetRequestAttributes();
   }
   String expected=makeImports() + "\n" + "class myTest4 extends GroovyPage {\n"+ "public String getGroovyPageFileName() { \"myTest4\" }\n"+ "public Object run() {\n"+ "Writer out = getOut()\n"+ "Writer expressionOut = getExpressionOut()\n"+ "registerSitemeshPreprocessMode()\n"+ "printHtmlPart(0)\n"+ "}\n"+ GSP_FOOTER;
   assertEquals(trimAndRemoveCR(expected),trimAndRemoveCR(output.generatedGsp));

@@ -1,3 +1,3 @@
 {
-  RequestContextHolder.setRequestAttributes(null);
+  RequestContextHolder.resetRequestAttributes();
 }

@@ -1,0 +1,6 @@
+{
+  shutdownOperations.add(runnable);
+  if (preserveForNextShutdown) {
+    preservedShutdownOperations.add(runnable);
+  }
+}

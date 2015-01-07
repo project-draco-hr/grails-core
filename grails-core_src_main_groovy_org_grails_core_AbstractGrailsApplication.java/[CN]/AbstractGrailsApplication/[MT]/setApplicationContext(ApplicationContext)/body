@@ -6,7 +6,7 @@
     if (this.config != null) {
       newConfig.merge(this.config);
     }
-    this.config=newConfig;
+    setConfig(newConfig);
   }
   this.parentContext=applicationContext;
   if (applicationContext instanceof ConfigurableApplicationContext) {

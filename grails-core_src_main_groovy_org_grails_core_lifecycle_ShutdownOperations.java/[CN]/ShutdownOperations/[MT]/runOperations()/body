@@ -11,6 +11,6 @@
   }
   finally {
     shutdownOperations.clear();
-    shutdownOperations.add(DEFAULT_SHUTDOWN_OPERATION);
+    shutdownOperations.addAll(preservedShutdownOperations);
   }
 }

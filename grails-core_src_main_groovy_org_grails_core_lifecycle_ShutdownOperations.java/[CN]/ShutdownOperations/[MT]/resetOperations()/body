@@ -1,0 +1,5 @@
+{
+  shutdownOperations.clear();
+  preservedShutdownOperations.clear();
+  addOperation(DEFAULT_SHUTDOWN_OPERATION,true);
+}

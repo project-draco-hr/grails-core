@@ -55,7 +55,7 @@
         }
       }
       if (pos == -1) {
-        constraint.setNullable(true);
+        constraint.setNullable(false);
       }
  else       if (pos + shiftLength < token.length() && token.charAt(pos + shiftLength) == '?') {
         constraint.setNullable(true);

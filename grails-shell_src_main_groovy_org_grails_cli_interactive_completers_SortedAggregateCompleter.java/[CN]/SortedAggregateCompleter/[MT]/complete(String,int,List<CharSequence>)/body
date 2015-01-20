@@ -1,0 +1,19 @@
+{
+  checkNotNull(candidates);
+  List<Completion> completions=new ArrayList<Completion>(completers.size());
+  int max=-1;
+  for (  Completer completer : completers) {
+    Completion completion=new Completion(candidates);
+    completion.complete(completer,buffer,cursor);
+    max=Math.max(max,completion.cursor);
+    completions.add(completion);
+  }
+  SortedSet<CharSequence> allCandidates=new TreeSet<>();
+  for (  Completion completion : completions) {
+    if (completion.cursor == max) {
+      allCandidates.addAll(completion.candidates);
+    }
+  }
+  candidates.addAll(allCandidates);
+  return max;
+}

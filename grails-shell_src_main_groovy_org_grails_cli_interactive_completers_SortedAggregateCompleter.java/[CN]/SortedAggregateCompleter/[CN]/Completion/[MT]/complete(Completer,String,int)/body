@@ -1,0 +1,4 @@
+{
+  checkNotNull(completer);
+  this.cursor=completer.complete(buffer,cursor,candidates);
+}

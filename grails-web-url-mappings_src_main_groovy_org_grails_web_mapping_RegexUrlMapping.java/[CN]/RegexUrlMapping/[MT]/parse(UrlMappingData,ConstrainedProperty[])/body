@@ -54,10 +54,7 @@
           break;
         }
       }
-      if (pos == -1) {
-        constraint.setNullable(true);
-      }
- else       if (pos + shiftLength < token.length() && token.charAt(pos + shiftLength) == '?') {
+      if (pos != -1 && pos + shiftLength < token.length() && token.charAt(pos + shiftLength) == '?') {
         constraint.setNullable(true);
       }
       pos+=shiftLength;

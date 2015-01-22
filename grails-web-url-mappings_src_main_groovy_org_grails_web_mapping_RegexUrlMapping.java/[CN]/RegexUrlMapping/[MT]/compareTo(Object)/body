@@ -20,6 +20,14 @@
   if (thisStaticTokenCount == 0 && otherStaticTokenCount > 0) {
     return -1;
   }
+  final int thisStaticAndWildcardTokenCount=getStaticAndWildcardTokenCount(this);
+  final int otherStaticAndWildcardTokenCount=getStaticAndWildcardTokenCount(other);
+  if (otherStaticAndWildcardTokenCount == 0 && thisStaticAndWildcardTokenCount > 0) {
+    return 1;
+  }
+  if (thisStaticAndWildcardTokenCount == 0 && otherStaticAndWildcardTokenCount > 0) {
+    return -1;
+  }
   final int staticDiff=thisStaticTokenCount - otherStaticTokenCount;
   if (staticDiff != 0)   return staticDiff;
   String[] thisTokens=getUrlData().getTokens();

@@ -1,0 +1,6 @@
+{
+  List<Dependencies> managedDependencies=new ArrayList<Dependencies>();
+  managedDependencies.add(new GrailsDependencies(dependencies.getDependencyResolutionContext().getManagedDependencies()));
+  managedDependencies.add(getAdditionalDependencies());
+  dependencies.getDependencyResolutionContext().setManagedDependencies(ManagedDependencies.get(managedDependencies));
+}

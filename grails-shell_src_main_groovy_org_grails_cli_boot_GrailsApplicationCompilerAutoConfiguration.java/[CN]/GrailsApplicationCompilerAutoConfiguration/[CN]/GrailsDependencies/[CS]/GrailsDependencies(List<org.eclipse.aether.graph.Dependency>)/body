@@ -1,0 +1,11 @@
+{
+  for (  org.eclipse.aether.graph.Dependency dependency : dependencies) {
+    String groupId=dependency.getArtifact().getGroupId();
+    String artifactId=dependency.getArtifact().getArtifactId();
+    String version=dependency.getArtifact().getVersion();
+    List<org.springframework.boot.dependency.tools.Dependency.Exclusion> exclusions=new ArrayList<org.springframework.boot.dependency.tools.Dependency.Exclusion>();
+    org.springframework.boot.dependency.tools.Dependency value=new org.springframework.boot.dependency.tools.Dependency(groupId,artifactId,version,exclusions);
+    groupAndArtifactToDependency.put(groupId + ":" + artifactId,value);
+    artifactToGroupAndArtifact.put(artifactId,groupId + ":" + artifactId);
+  }
+}

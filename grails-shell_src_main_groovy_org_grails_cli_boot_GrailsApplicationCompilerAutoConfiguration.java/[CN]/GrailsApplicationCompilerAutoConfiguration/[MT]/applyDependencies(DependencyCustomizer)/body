@@ -1,4 +1,5 @@
 {
+  addManagedDependencies(dependencies);
   if (lastMatch != null) {
     lastMatch.addAnnotation(createGrabAnnotation("org.grails","grails-dependencies",Environment.class.getPackage().getImplementationVersion(),null,"pom",true));
     lastMatch.addAnnotation(createGrabAnnotation("org.grails","grails-web-boot",Environment.class.getPackage().getImplementationVersion(),null,null,true));

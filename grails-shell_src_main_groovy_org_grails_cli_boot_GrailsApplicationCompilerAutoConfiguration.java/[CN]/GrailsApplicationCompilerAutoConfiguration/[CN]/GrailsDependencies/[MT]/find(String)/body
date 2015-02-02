@@ -1,0 +1,7 @@
+{
+  String groupAndArtifact=artifactToGroupAndArtifact.get(artifactId);
+  if (groupAndArtifact == null) {
+    return null;
+  }
+  return groupAndArtifactToDependency.get(groupAndArtifact);
+}

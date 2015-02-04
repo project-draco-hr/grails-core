@@ -1,37 +1,19 @@
 {
-  String tagKey=tagNameKey(namespace,tagName);
-  if (resolveTagLibraries.containsKey(tagKey)) {
-    return applicationContext.getBean(resolveTagLibraries.get(tagKey),GroovyObject.class);
-  }
-  List<Class> tagLibraryClasses=tagClassesByNamespace.get(namespace);
-  if (tagLibraryClasses != null) {
-    for (    Class tagLibraryClass : tagLibraryClasses) {
-      GrailsTagLibClass tagLib=tagClassToTagLibMap.get(tagLibraryClass);
-      if (tagLib == null) {
-        tagLib=(GrailsTagLibClass)grailsApplication.addArtefact(TagLibArtefactHandler.TYPE,tagLibraryClass);
-        tagClassToTagLibMap.put(tagLibraryClass,tagLib);
+  GroovyObject tagLibrary=super.lookupTagLibrary(namespace,tagName);
+  if (tagLibrary == null) {
+    String tagKey=tagNameKey(namespace,tagName);
+    GrailsTagLibClass taglibClass=lazyLoadableTagLibs.get(tagKey);
+    if (taglibClass != null) {
+      if (!applicationContext.containsBean(taglibClass.getFullName())) {
+        GenericBeanDefinition bd=new GenericBeanDefinition();
+        bd.setBeanClass(taglibClass.getClazz());
+        bd.setAutowireCandidate(true);
+        bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_NAME);
+        ((GenericApplicationContext)applicationContext).getDefaultListableBeanFactory().registerBeanDefinition(taglibClass.getFullName(),bd);
       }
-      String tagLibraryClassName=tagLibraryClass.getName();
-      if (tagLib == null || !tagLib.hasTag(tagName)) {
-        continue;
-      }
-      if (!applicationContext.containsBean(tagLibraryClassName)) {
-        registerTagLib(tagLib);
-        if (tagLib.hasTag(tagName)) {
-          GenericBeanDefinition bd=new GenericBeanDefinition();
-          bd.setBeanClass(tagLibraryClass);
-          bd.setAutowireCandidate(true);
-          bd.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_NAME);
-          ((GenericApplicationContext)applicationContext).getDefaultListableBeanFactory().registerBeanDefinition(tagLibraryClassName,bd);
-          resolveTagLibraries.put(tagKey,tagLib.getFullName());
-          return applicationContext.getBean(tagLibraryClassName,GroovyObject.class);
-        }
-      }
- else {
-        resolveTagLibraries.put(tagKey,tagLib.getFullName());
-        return applicationContext.getBean(tagLibraryClassName,GroovyObject.class);
-      }
+      registerTagLib(taglibClass);
+      tagLibrary=super.lookupTagLibrary(namespace,tagName);
     }
   }
-  return null;
+  return tagLibrary;
 }

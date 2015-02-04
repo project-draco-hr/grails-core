@@ -1,8 +1,0 @@
-{
-  super.registerTagLib(taglib);
-  String ns=taglib.getNamespace();
-  for (  String tagName : taglib.getTagNames()) {
-    String key=tagNameKey(ns,tagName);
-    resolveTagLibraries.put(key,taglib.getFullName());
-  }
-}

@@ -1,0 +1,10 @@
+{
+  GrailsTagLibClass grailsTagLibClass=new DefaultGrailsTagLibClass(tagLibClass);
+  if (!hasNamespace(grailsTagLibClass.getNamespace())) {
+    registerNamespaceDispatcher(grailsTagLibClass.getNamespace());
+  }
+  for (  String tagName : grailsTagLibClass.getTagNames()) {
+    String tagKey=tagNameKey(grailsTagLibClass.getNamespace(),tagName);
+    lazyLoadableTagLibs.put(tagKey,grailsTagLibClass);
+  }
+}

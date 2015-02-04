@@ -1,22 +1,6 @@
 {
-  List<Class> providedArtefacts=(List<Class>)new GroovyPagesGrailsPlugin().getProvidedArtefacts();
-  tagClassesByNamespace.put(GrailsTagLibClass.DEFAULT_NAMESPACE,new ArrayList<Class>());
-  namespaceDispatchers.put(GrailsTagLibClass.DEFAULT_NAMESPACE,new NamespacedTagDispatcher(GrailsTagLibClass.DEFAULT_NAMESPACE,GroovyPage.class,grailsApplication,this));
-  for (  Class providedArtefact : providedArtefacts) {
-    if (!grailsApplication.isArtefactOfType(TagLibArtefactHandler.TYPE,providedArtefact))     continue;
-    Object value=GrailsClassUtils.getStaticPropertyValue(providedArtefact,GrailsTagLibClass.NAMESPACE_FIELD_NAME);
-    if (value != null) {
-      String namespace=value.toString();
-      List<Class> classes=tagClassesByNamespace.get(namespace);
-      if (classes == null) {
-        classes=new ArrayList<Class>();
-        tagClassesByNamespace.put(namespace,classes);
-      }
-      classes.add(providedArtefact);
-      namespaceDispatchers.put(namespace,new NamespacedTagDispatcher(namespace,GroovyPage.class,grailsApplication,this));
-    }
- else {
-      tagClassesByNamespace.get(GrailsTagLibClass.DEFAULT_NAMESPACE).add(providedArtefact);
-    }
+  super.registerTagLibraries();
+  for (  Class providedArtefact : tagLibClasses) {
+    registerLazyLoadableTagLibClass(providedArtefact);
   }
 }

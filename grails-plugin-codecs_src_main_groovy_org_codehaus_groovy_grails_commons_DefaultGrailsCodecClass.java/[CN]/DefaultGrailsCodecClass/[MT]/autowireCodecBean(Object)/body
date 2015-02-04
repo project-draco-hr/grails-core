@@ -1,5 +1,8 @@
 {
   if (existingBean != null && grailsApplication != null && grailsApplication.getMainContext() != null) {
-    grailsApplication.getMainContext().getAutowireCapableBeanFactory().autowireBeanProperties(existingBean,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
+    AutowireCapableBeanFactory beanFactory=grailsApplication.getMainContext().getAutowireCapableBeanFactory();
+    beanFactory.autowireBeanProperties(existingBean,AutowireCapableBeanFactory.AUTOWIRE_BY_NAME,false);
+    existingBean=beanFactory.initializeBean(existingBean,"codec");
   }
+  return existingBean;
 }

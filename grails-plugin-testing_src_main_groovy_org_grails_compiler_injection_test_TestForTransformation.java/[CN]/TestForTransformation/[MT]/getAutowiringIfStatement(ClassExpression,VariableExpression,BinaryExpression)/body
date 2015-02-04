@@ -1,5 +1,5 @@
 {
-  VariableExpression appCtxVar=new VariableExpression("applicationContext",ClassHelper.make(GrailsWebApplicationContext.class));
+  VariableExpression appCtxVar=new VariableExpression("applicationContext",ClassHelper.make(ApplicationContext.class));
   BooleanExpression applicationContextCheck=new BooleanExpression(new BinaryExpression(new BinaryExpression(fieldExpression,GrailsASTUtils.EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION),Token.newSymbol("&&",0,0),new BinaryExpression(appCtxVar,GrailsASTUtils.NOT_EQUALS_OPERATOR,GrailsASTUtils.NULL_EXPRESSION)));
   BlockStatement performAutowireBlock=new BlockStatement();
   ArgumentListExpression arguments=new ArgumentListExpression();

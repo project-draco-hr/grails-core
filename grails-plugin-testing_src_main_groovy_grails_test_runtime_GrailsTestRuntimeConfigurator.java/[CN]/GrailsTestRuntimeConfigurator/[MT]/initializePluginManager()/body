@@ -1,8 +1,0 @@
-{
-  if (parent.containsBean(GrailsPluginManager.BEAN_NAME)) {
-    super.initializePluginManager();
-  }
- else {
-    this.pluginManager=new NoOpGrailsPluginManager();
-  }
-}

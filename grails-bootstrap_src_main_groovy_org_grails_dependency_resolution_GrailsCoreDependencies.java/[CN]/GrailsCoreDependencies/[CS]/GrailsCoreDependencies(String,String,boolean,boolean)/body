@@ -15,7 +15,7 @@
     testDependencies=Arrays.asList(new Dependency("org.grails","grails-plugin-testing",grailsVersion,true),new Dependency("org.spockframework","spock-core",spockVersion,true,spockExcludes),new Dependency("cglib","cglib-nodep",cglibVersion,true),new Dependency("junit","junit",junitVersion,true));
   }
  else {
-    testDependencies=Arrays.asList(new Dependency("junit","junit","4.11",true),new Dependency("org.grails","grails-plugin-testing",grailsVersion,true));
+    testDependencies=Arrays.asList(new Dependency("junit","junit",junitVersion,true),new Dependency("org.grails","grails-plugin-testing",grailsVersion,true));
   }
   String[] loggingExcludes={"javax.mail:mail","javax.jms:jms","com.sun.jdmk:jmxtools","com.sun.jmx:jmxri"};
   runtimeDependencies=Arrays.asList(new Dependency("com.h2database","h2",h2Version,true),new Dependency("org.grails","grails-resources",grailsVersion,true));

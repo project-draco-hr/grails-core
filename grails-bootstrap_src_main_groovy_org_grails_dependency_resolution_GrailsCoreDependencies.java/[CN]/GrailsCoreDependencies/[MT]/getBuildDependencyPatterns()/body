@@ -1,7 +1,0 @@
-{
-  Collection<String> dependencies=new ArrayList<String>();
-  for (  Dependency buildDependency : buildDependencies) {
-    dependencies.add(buildDependency.getPattern());
-  }
-  return dependencies;
-}

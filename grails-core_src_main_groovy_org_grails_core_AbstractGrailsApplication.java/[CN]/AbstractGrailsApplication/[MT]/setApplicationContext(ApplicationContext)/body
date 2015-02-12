@@ -1,13 +1,4 @@
 {
-  org.springframework.core.env.Environment environment=applicationContext.getEnvironment();
-  if (environment instanceof ConfigurableEnvironment) {
-    MutablePropertySources propertySources=((ConfigurableEnvironment)environment).getPropertySources();
-    PropertySourcesConfig newConfig=new PropertySourcesConfig(propertySources);
-    if (this.config != null) {
-      newConfig.merge(this.config);
-    }
-    setConfig(newConfig);
-  }
   this.parentContext=applicationContext;
   if (applicationContext instanceof ConfigurableApplicationContext) {
     ((ConfigurableApplicationContext)applicationContext).addApplicationListener(this);

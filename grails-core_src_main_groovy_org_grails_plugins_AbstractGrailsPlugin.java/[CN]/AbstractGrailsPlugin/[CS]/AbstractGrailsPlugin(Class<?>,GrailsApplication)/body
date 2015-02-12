@@ -12,16 +12,11 @@
       propertySources.addFirst(propertySource);
       CompositeConfig composite=new CompositeConfig();
       String prefix="grails.plugins." + GrailsNameUtils.getLogicalPropertyName(pluginClass.getName(),TRAILING_NAME);
-      composite.addFirst(new PrefixedConfig(prefix,application.getConfig()));
       composite.addLast(new PropertySourcesConfig(propertySources));
       composite.addLast(new PropertySourcesConfig(propertySources,prefix));
       this.config=composite;
     }
  catch (    IOException e) {
-      this.config=application.getConfig();
     }
-  }
- else {
-    this.config=application.getConfig();
   }
 }

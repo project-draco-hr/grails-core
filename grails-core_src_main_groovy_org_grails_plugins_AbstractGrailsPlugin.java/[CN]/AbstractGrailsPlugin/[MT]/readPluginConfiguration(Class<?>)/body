@@ -9,5 +9,12 @@
  catch (    MalformedURLException e) {
     }
   }
+ else {
+    URL resource=getClass().getResource(PLUGIN_YML_PATH);
+    if (resource != null) {
+      isBase=true;
+      return new UrlResource(resource);
+    }
+  }
   return null;
 }

@@ -9,14 +9,6 @@
     }
  else {
       this.config=new PropertySourcesConfig();
-      if (ClassUtils.isPresent("Config",classLoader)) {
-        try {
-          ConfigObject co=new ConfigSlurper().parse(ClassUtils.forName("Config",classLoader));
-          this.config.merge(co);
-        }
- catch (        ClassNotFoundException e) {
-        }
-      }
     }
     setConfig(this.config);
   }

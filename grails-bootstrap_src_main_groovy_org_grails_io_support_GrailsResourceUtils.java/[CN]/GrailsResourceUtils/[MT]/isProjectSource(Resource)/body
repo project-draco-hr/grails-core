@@ -1,0 +1,9 @@
+{
+  try {
+    String file=r.getURL().getFile();
+    return isProjectSource(file) || file.endsWith("GrailsPlugin.groovy");
+  }
+ catch (  IOException e) {
+    return false;
+  }
+}

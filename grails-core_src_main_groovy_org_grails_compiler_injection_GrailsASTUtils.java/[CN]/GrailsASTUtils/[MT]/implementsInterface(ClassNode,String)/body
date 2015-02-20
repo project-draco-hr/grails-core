@@ -1,0 +1,9 @@
+{
+  ClassNode currentClassNode=classNode;
+  while (currentClassNode != null && !currentClassNode.getName().equals(OBJECT_CLASS)) {
+    ClassNode[] interfaces=currentClassNode.getInterfaces();
+    if (implementsInterfaceInternal(interfaces,interfaceName))     return true;
+    currentClassNode=currentClassNode.getSuperClass();
+  }
+  return false;
+}

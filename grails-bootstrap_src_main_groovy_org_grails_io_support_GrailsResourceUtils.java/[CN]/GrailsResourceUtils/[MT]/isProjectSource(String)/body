@@ -1,0 +1,9 @@
+{
+  for (  Pattern grailsAppResourcePattern : patterns) {
+    Matcher m=grailsAppResourcePattern.matcher(path);
+    if (m.find()) {
+      return true;
+    }
+  }
+  return false;
+}

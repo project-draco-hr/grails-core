@@ -3,6 +3,5 @@
   mappings.setDelegate(builder);
   mappings.call();
   builder.urlDefiningMode=false;
-  configureUrlMappingDynamicObjects(go);
   return builder.getUrlMappings();
 }

@@ -1,12 +1,7 @@
 {
-  try {
-    String[] argArray=Commandline.translateCommandline(args);
-    DefaultCommandLine cl=createCommandLine();
-    cl.setCommandName(commandName);
-    parseInternal(cl,argArray,false);
-    return cl;
-  }
- catch (  BuildException e) {
-    throw new ParseException(e);
-  }
+  String[] argArray=translateCommandline(args);
+  DefaultCommandLine cl=createCommandLine();
+  cl.setCommandName(commandName);
+  parseInternal(cl,argArray,false);
+  return cl;
 }

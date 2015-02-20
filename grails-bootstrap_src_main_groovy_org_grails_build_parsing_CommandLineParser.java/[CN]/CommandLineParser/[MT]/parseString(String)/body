@@ -1,8 +1,3 @@
 {
-  try {
-    return parse(Commandline.translateCommandline(string));
-  }
- catch (  BuildException e) {
-    throw new ParseException(e);
-  }
+  return parse(translateCommandline(string));
 }

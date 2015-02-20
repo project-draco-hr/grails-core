@@ -1,5 +1,0 @@
-{
-  if (pluginManager != null) {
-    ControllerDynamicMethods.registerCommonWebProperties(GrailsMetaClassUtils.getExpandoMetaClass(object.getClass()),null);
-  }
-}

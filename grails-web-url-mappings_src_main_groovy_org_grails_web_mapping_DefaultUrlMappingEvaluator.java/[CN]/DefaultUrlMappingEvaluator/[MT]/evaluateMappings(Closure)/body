@@ -9,6 +9,5 @@
     closure.call(applicationContext);
   }
   builder.urlDefiningMode=false;
-  configureUrlMappingDynamicObjects(closure);
   return builder.getUrlMappings();
 }

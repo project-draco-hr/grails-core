@@ -1,3 +1,10 @@
 {
-  return isSubclassOf(childClass,superClass.getName()) || implementsInterface(childClass,superClass.getName());
+  ClassNode currentSuper=childClass;
+  while (currentSuper != null) {
+    if (currentSuper.equals(superClass)) {
+      return true;
+    }
+    currentSuper=currentSuper.getSuperClass();
+  }
+  return false;
 }

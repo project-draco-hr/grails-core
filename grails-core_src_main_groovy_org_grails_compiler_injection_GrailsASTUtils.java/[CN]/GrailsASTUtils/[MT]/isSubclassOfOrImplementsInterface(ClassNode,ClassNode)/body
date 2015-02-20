@@ -1,0 +1,4 @@
+{
+  String superClassName=superClass.getName();
+  return isSubclassOfOrImplementsInterface(childClass,superClassName);
+}

@@ -1,0 +1,3 @@
+{
+  return isSubclassOf(childClass,superClassName) || implementsInterface(childClass,superClassName);
+}

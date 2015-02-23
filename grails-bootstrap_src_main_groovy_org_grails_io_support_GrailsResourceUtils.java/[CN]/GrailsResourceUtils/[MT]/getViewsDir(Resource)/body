@@ -1,10 +1,6 @@
 {
   if (resource == null)   return null;
-  try {
-    Resource appDir=getAppDir(resource);
-    return new UrlResource(appDir.getURL().toString() + "/views");
-  }
- catch (  IOException e) {
-    return null;
-  }
+  Resource appDir=getAppDir(resource);
+  if (appDir == null)   return null;
+  return appDir.createRelative("views");
 }

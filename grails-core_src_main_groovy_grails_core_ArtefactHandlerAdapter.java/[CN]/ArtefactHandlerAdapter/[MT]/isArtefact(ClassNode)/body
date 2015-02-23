@@ -1,9 +1,9 @@
 {
   int modifiers=classNode.getModifiers();
-  URI uri=classNode.getModule().getContext().getSource().getURI();
-  if (uri == null)   return false;
+  URL url=GrailsASTUtils.getSourceUrl(classNode);
+  if (url == null)   return false;
   try {
-    UrlResource resource=new UrlResource(uri);
+    UrlResource resource=new UrlResource(url);
     if (!isArtefactResource(resource))     return false;
   }
  catch (  IOException e) {

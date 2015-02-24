@@ -1,0 +1,16 @@
+{
+  URL url=null;
+  final String filename=source.getName();
+  if (filename == null) {
+    return null;
+  }
+  Resource resource=new FileSystemResource(filename);
+  if (resource.exists()) {
+    try {
+      url=resource.getURL();
+    }
+ catch (    IOException e) {
+    }
+  }
+  return url;
+}

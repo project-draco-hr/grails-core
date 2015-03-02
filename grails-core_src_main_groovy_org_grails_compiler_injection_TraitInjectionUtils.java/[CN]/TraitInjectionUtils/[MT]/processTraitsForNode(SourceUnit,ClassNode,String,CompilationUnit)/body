@@ -1,6 +1,5 @@
 {
-  final GrailsAwareTraitInjectionOperation grailsTraitInjector=new GrailsAwareTraitInjectionOperation(compilationUnit);
-  final List<TraitInjector> traitInjectors=grailsTraitInjector.getTraitInjectors();
+  final List<TraitInjector> traitInjectors=getTraitInjectors();
   final List<TraitInjector> injectorsToUse=new ArrayList<TraitInjector>();
   for (  final TraitInjector injector : traitInjectors) {
     final List<String> artefactTypes=Arrays.asList(injector.getArtefactTypes());
@@ -10,12 +9,12 @@
   }
   try {
     if (injectorsToUse.size() > 0) {
-      grailsTraitInjector.performTraitInjection(sourceUnit,cNode,injectorsToUse);
+      doInjectionInternal(compilationUnit,sourceUnit,cNode,injectorsToUse);
     }
   }
  catch (  RuntimeException e) {
     try {
-      System.err.println("Error occurred calling Trait injector [" + grailsTraitInjector.getClass().getName() + "]: "+ e.getMessage());
+      System.err.println("Error occurred calling Trait injector [" + TraitInjectionUtils.class.getName() + "]: "+ e.getMessage());
       e.printStackTrace();
     }
  catch (    Throwable t) {

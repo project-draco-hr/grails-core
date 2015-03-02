@@ -8,10 +8,5 @@
     operation=new GrailsAwareInjectionOperation(classInjectors);
   }
   cu.addPhaseOperation(operation,Phases.CANONICALIZATION);
-  if (traitInjectors != null) {
-    GrailsAwareTraitInjectionOperation grailsTraitInjector=new GrailsAwareTraitInjectionOperation(cu);
-    grailsTraitInjector.setTraitInjectors(Arrays.asList(traitInjectors));
-    cu.addPhaseOperation(grailsTraitInjector,Phases.SEMANTIC_ANALYSIS);
-  }
   return cu;
 }

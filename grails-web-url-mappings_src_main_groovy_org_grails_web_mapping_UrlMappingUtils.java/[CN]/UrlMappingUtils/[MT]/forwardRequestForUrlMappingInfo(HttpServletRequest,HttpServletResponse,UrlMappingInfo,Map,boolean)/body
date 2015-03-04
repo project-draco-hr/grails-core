@@ -7,6 +7,7 @@
   info.configure(webRequest);
   webRequest.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,WebRequest.SCOPE_REQUEST);
   webRequest.removeAttribute(UrlMappingsHandlerMapping.MATCHED_REQUEST,WebRequest.SCOPE_REQUEST);
+  webRequest.removeAttribute("grailsWebRequestFilter" + OncePerRequestFilter.ALREADY_FILTERED_SUFFIX,WebRequest.SCOPE_REQUEST);
   dispatcher.forward(request,response);
   return forwardUrl;
 }

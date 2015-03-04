@@ -6,6 +6,7 @@
   webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);
   info.configure(webRequest);
   webRequest.removeAttribute(GrailsApplicationAttributes.GRAILS_CONTROLLER_CLASS_AVAILABLE,WebRequest.SCOPE_REQUEST);
+  webRequest.removeAttribute(UrlMappingsHandlerMapping.MATCHED_REQUEST,WebRequest.SCOPE_REQUEST);
   dispatcher.forward(request,response);
   return forwardUrl;
 }

@@ -13,12 +13,10 @@
     }
   }
  else {
-    forwardUrl.append(WebUtils.GRAILS_SERVLET_PATH);
     forwardUrl.append(WebUtils.SLASH).append(info.getControllerName());
     if (!GrailsStringUtils.isBlank(info.getActionName())) {
       forwardUrl.append(WebUtils.SLASH).append(info.getActionName());
     }
-    forwardUrl.append(WebUtils.GRAILS_DISPATCH_EXTENSION);
   }
   final Map parameters=info.getParameters();
   if (parameters != null && !parameters.isEmpty() && includeParams) {

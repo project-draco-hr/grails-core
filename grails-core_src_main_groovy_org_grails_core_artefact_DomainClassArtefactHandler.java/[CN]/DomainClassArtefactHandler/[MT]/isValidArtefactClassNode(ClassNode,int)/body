@@ -1,0 +1,3 @@
+{
+  return !classNode.isEnum() && !(classNode instanceof InnerClassNode);
+}

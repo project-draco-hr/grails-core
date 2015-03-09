@@ -1,3 +1,6 @@
 {
-  return createJstlView(viewName);
+  if (resolveJspView) {
+    return createJstlView(viewName);
+  }
+  return null;
 }

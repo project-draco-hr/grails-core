@@ -3,7 +3,7 @@
   final List<AnnotationNode> annotations=classNode.getAnnotations(ENHANCED_CLASS_NODE);
   if (annotations.isEmpty()) {
     enhancedAnnotationNode=new AnnotationNode(ENHANCED_CLASS_NODE);
-    enhancedAnnotationNode.setMember("version",new ConstantExpression(GrailsUtil.getGrailsVersion()));
+    enhancedAnnotationNode.setMember("version",new ConstantExpression(getGrailsVersion()));
     classNode.addAnnotation(enhancedAnnotationNode);
   }
  else {

@@ -1,7 +1,4 @@
 {
-  if (isNotValidStringType()) {
-    throw new MissingPropertyException("Matches constraint only applies to a String property",MATCHES_CONSTRAINT,owningClass);
-  }
   MatchesConstraint c=(MatchesConstraint)appliedConstraints.get(MATCHES_CONSTRAINT);
-  return c == null ? null : c.getRegex();
+  return (!isValidStringType() || c == null) ? null : c.getRegex();
 }

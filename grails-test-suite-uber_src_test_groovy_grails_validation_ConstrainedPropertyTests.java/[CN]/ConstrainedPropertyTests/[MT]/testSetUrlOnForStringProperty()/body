@@ -1,0 +1,10 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",Integer.class);
+  try {
+    cp.setUrl(true);
+    fail("The call to setUrl(true) on a ConstrainedProperty associated with an Integer property should throw an IllegalStateException.");
+  }
+ catch (  IllegalStateException expected) {
+    assertEquals("URL constraint can only be applied to String properties",expected.getMessage());
+  }
+}

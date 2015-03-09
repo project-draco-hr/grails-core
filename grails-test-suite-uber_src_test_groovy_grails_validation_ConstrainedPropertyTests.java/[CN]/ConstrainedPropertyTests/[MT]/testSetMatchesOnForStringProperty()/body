@@ -1,0 +1,10 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",Integer.class);
+  try {
+    cp.setMatches("some regex");
+    fail("The call to setMatches(...) on a ConstrainedProperty associated with an Integer property should throw an IllegalStateException.");
+  }
+ catch (  IllegalStateException expected) {
+    assertEquals("Matches constraint can only be applied to String properties",expected.getMessage());
+  }
+}

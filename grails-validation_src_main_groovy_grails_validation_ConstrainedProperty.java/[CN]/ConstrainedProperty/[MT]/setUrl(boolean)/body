@@ -1,6 +1,6 @@
 {
-  if (isNotValidStringType()) {
-    throw new MissingPropertyException("URL constraint can only be applied to a String property",URL_CONSTRAINT,owningClass);
+  if (!isValidStringType()) {
+    throw new IllegalStateException("URL constraint can only be applied to String properties");
   }
   Constraint c=appliedConstraints.get(URL_CONSTRAINT);
   if (url) {

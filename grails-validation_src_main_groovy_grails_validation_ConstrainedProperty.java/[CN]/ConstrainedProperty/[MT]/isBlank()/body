@@ -1,4 +1,7 @@
 {
+  if (!isValidStringType()) {
+    return false;
+  }
   Object cons=appliedConstraints.get(BLANK_CONSTRAINT);
   return cons == null || (Boolean)((BlankConstraint)cons).getParameter();
 }

@@ -1,0 +1,10 @@
+{
+  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",Integer.class);
+  try {
+    cp.setCreditCard(true);
+    fail("The call to setCreditCard(true) on a ConstrainedProperty associated with an Integer property should throw an IllegalStateException.");
+  }
+ catch (  IllegalStateException expected) {
+    assertEquals("CreditCard constraint can only be applied to String properties",expected.getMessage());
+  }
+}

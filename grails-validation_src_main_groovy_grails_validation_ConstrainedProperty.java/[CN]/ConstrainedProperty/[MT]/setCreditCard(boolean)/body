@@ -1,6 +1,6 @@
 {
-  if (isNotValidStringType()) {
-    throw new MissingPropertyException("CreditCard constraint only applies to a String property",CREDIT_CARD_CONSTRAINT,owningClass);
+  if (!isValidStringType()) {
+    throw new IllegalStateException("CreditCard constraint can only be applied to String properties");
   }
   Constraint c=appliedConstraints.get(CREDIT_CARD_CONSTRAINT);
   if (creditCard) {

@@ -1,6 +1,3 @@
 {
-  if (isNotValidStringType()) {
-    throw new MissingPropertyException("URL constraint can only be applied to a String property",URL_CONSTRAINT,owningClass);
-  }
-  return appliedConstraints.containsKey(URL_CONSTRAINT);
+  return isValidStringType() && appliedConstraints.containsKey(URL_CONSTRAINT);
 }

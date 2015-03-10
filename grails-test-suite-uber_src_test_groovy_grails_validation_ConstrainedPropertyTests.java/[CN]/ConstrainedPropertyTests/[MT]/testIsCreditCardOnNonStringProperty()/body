@@ -1,4 +1,0 @@
-{
-  ConstrainedProperty cp=new ConstrainedProperty(ConstrainedPropertyTests.class,"testProperty",Integer.class);
-  assertFalse(cp.isCreditCard());
-}

@@ -1,6 +1,6 @@
 {
   if (!isValidStringType()) {
-    throw new IllegalStateException("Blank constraint can only be applied to String properties");
+    throw new ConstraintException("Blank constraint can only be applied to String properties");
   }
   if (!blank) {
     Constraint c=appliedConstraints.get(BLANK_CONSTRAINT);

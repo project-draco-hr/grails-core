@@ -1,6 +1,6 @@
 {
   if (!isValidStringType()) {
-    throw new IllegalStateException("Email constraint can only be applied to String properties");
+    throw new ConstraintException("Email constraint can only be applied to String properties");
   }
   Constraint c=appliedConstraints.get(EMAIL_CONSTRAINT);
   if (email) {

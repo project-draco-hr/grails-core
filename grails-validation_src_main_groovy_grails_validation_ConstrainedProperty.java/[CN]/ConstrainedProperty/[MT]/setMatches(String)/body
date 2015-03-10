@@ -1,6 +1,6 @@
 {
   if (!isValidStringType()) {
-    throw new IllegalStateException("Matches constraint can only be applied to String properties");
+    throw new ConstraintException("Matches constraint can only be applied to String properties");
   }
   Constraint c=appliedConstraints.get(MATCHES_CONSTRAINT);
   if (regex == null) {

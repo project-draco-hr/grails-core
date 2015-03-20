@@ -1,7 +1,7 @@
 {
-  if (o instanceof String) {
+  if (o instanceof CharSequence) {
     List list=new ArrayList();
-    list.add(o);
+    list.add(o instanceof String ? o : o.toString());
     o=list;
   }
   return (List)o;

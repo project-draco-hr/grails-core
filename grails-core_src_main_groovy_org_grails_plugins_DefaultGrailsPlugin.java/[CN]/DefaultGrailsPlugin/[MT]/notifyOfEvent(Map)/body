@@ -1,5 +1,8 @@
 {
-  if (onChangeListener != null) {
+  if (plugin instanceof Plugin) {
+    ((Plugin)plugin).onChange(event);
+  }
+ else   if (onChangeListener != null) {
     invokeOnChangeListener(event);
   }
 }

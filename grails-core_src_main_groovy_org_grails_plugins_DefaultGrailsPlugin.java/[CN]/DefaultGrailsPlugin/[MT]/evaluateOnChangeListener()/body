@@ -11,7 +11,7 @@
   final Metadata metadata=Metadata.getCurrent();
   final boolean warDeployed=metadata.isWarDeployed();
   final boolean reloadEnabled=Environment.getCurrent().isReloadEnabled();
-  if (!((reloadEnabled || !warDeployed) && onChangeListener != null)) {
+  if (!((reloadEnabled || !warDeployed))) {
     return;
   }
   Object referencedResources=GrailsClassUtils.getPropertyOrStaticPropertyOrFieldValue(plugin,WATCHED_RESOURCES);

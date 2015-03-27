@@ -4,7 +4,7 @@
     Environment env=Environment.getCurrent();
     String key="environments." + env.getName();
     for (    PropertySource propertySource : source) {
-      if ((propertySource != this) && propertySource instanceof EnumerablePropertySource) {
+      if ((propertySource != this) && !propertySource.getName().contains("plugin") && propertySource instanceof EnumerablePropertySource) {
         EnumerablePropertySource enumerablePropertySource=(EnumerablePropertySource)propertySource;
         for (        String propertyName : enumerablePropertySource.getPropertyNames()) {
           if (propertyName.startsWith(key)) {

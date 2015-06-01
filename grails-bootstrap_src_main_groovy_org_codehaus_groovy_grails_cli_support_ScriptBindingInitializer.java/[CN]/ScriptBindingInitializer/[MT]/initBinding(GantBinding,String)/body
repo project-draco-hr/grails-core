@@ -8,9 +8,6 @@
   final GrailsConsole grailsConsole=GrailsConsole.getInstance();
   final File basedir=buildSettings.getBaseDir();
   BaseSettingsApi cla=initBinding(binding,buildSettings,classLoader,grailsConsole,interactive);
-  if (scriptName.equals("RunApp")) {
-    cla.enableUaa();
-  }
   binding.setVariable("Ant",binding.getVariable("ant"));
   setUIListener(binding);
   try {

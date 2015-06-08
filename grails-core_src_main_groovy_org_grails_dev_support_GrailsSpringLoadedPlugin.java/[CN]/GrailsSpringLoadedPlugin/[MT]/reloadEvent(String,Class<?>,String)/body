@@ -1,5 +1,6 @@
 {
   CachedIntrospectionResults.clearClassLoader(clazz.getClassLoader());
+  org.grails.beans.support.CachedIntrospectionResults.clearClassLoader(clazz.getClassLoader());
   ClassPropertyFetcher.clearClassPropertyFetcherCache();
   Introspector.flushFromCaches(clazz);
   pluginManager.informOfClassChange(clazz);

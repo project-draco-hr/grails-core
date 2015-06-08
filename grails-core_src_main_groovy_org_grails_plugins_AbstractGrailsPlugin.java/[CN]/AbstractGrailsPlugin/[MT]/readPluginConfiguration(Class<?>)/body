@@ -1,20 +1,8 @@
 {
-  String path=pluginClass.getResource("").toString();
-  int i=path.indexOf("jar!");
-  if (i > -1) {
-    path=path.substring(0,i + 4);
-    try {
-      return new UrlResource(new URL(path + PLUGIN_YML_PATH));
-    }
- catch (    MalformedURLException e) {
-    }
-  }
- else {
-    URL resource=getClass().getResource(PLUGIN_YML_PATH);
-    if (resource != null) {
-      isBase=true;
-      return new UrlResource(resource);
-    }
+  final URL urlToPluginYml=IOUtils.findResourceRelativeToClass(pluginClass,PLUGIN_YML_PATH);
+  Resource urlResource=urlToPluginYml != null ? new UrlResource(urlToPluginYml) : null;
+  if (urlResource != null && urlResource.exists()) {
+    return urlResource;
   }
   return null;
 }

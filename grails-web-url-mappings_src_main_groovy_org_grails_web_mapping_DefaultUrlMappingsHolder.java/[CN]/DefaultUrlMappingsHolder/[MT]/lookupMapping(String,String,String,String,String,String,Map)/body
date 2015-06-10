@@ -1,6 +1,6 @@
 {
   final UrlMappingsListKey lookupKey=new UrlMappingsListKey(controller,action,namespace,pluginName,httpMethod,version);
-  SortedSet mappingKeysSet=mappingsListLookup.get(lookupKey);
+  Collection mappingKeysSet=mappingsListLookup.get(lookupKey);
   final String actionName=lookupKey.action;
   boolean secondAttempt=false;
   final boolean isIndexAction=GrailsControllerClass.INDEX_ACTION.equals(actionName);

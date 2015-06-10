@@ -1,8 +1,11 @@
 {
-  SortedSet<UrlMappingKey> mappingsList=lookup.get(key);
+  List<UrlMappingKey> mappingsList=lookup.get(key);
   if (null == mappingsList) {
-    mappingsList=new TreeSet<UrlMappingKey>();
+    mappingsList=new ArrayList<UrlMappingKey>();
     lookup.put(key,mappingsList);
   }
-  mappingsList.add(mapping);
+  if (!mappingsList.contains(mapping)) {
+    mappingsList.add(mapping);
+    Collections.sort(mappingsList);
+  }
 }

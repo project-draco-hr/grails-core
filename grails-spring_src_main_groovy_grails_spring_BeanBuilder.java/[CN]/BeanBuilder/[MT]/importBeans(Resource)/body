@@ -1,0 +1,14 @@
+{
+  if (resource.getFilename().endsWith(".groovy")) {
+    loadBeans(resource);
+  }
+ else   if (resource.getFilename().endsWith(".xml")) {
+    SimpleBeanDefinitionRegistry beanRegistry=new SimpleBeanDefinitionRegistry();
+    XmlBeanDefinitionReader beanReader=new XmlBeanDefinitionReader(beanRegistry);
+    beanReader.loadBeanDefinitions(resource);
+    String[] beanNames=beanRegistry.getBeanDefinitionNames();
+    for (    String beanName : beanNames) {
+      springConfig.addBeanDefinition(beanName,beanRegistry.getBeanDefinition(beanName));
+    }
+  }
+}

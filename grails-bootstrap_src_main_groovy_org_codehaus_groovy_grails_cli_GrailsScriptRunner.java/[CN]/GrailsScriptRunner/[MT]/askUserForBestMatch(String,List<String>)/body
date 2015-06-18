@@ -9,7 +9,7 @@
   while (true) {
     String selection=console.userInput("Please make a selection or enter Q to quit: ");
     if ("Q".equalsIgnoreCase(selection)) {
-      System.exit(0);
+      GrailsConsole.getInstance().cleanlyExit(0);
     }
     try {
       int number=Integer.parseInt(selection);

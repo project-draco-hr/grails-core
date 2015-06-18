@@ -1,3 +1,6 @@
 {
+  if (isAnsiEnabled()) {
+    out.print(ansi().reset().toString());
+  }
   out.flush();
 }

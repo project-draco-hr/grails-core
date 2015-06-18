@@ -6,6 +6,5 @@
  else {
     grailsConsole.error(error,t);
   }
-  grailsConsole.flush();
-  System.exit(1);
+  grailsConsole.cleanlyExit(1);
 }

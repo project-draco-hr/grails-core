@@ -4,6 +4,6 @@
   grailsConsole.error(buildResolveReport.getResolveError().getMessage());
   grailsConsole.addStatus("Run 'grails dependency-report' for further information.");
   if (exitOnResolveError) {
-    System.exit(1);
+    GrailsConsole.getInstance().cleanlyExit(1);
   }
 }

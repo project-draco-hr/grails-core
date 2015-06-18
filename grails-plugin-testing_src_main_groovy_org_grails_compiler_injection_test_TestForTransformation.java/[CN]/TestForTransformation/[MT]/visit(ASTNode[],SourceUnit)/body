@@ -16,5 +16,4 @@
   boolean isJunit=!junit3Test && !spockTest;
   if (!junit3Test && !spockTest && !isJunit)   return;
   handleTestForAnnotation(classNode,source,node,junit3Test);
-  addEnableEMCStatement(classNode);
 }

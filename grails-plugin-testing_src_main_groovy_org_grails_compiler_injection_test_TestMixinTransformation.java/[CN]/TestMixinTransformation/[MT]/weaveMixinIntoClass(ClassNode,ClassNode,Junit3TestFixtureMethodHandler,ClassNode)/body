@@ -1,4 +1,10 @@
 {
+  System.out.println("mixinClassNode = " + mixinClassNode.getName());
+  System.out.println("applicationClassNode = " + applicationClassNode);
+  if (mixinClassNode.getName().equals(IntegrationTestMixin.class.getName())) {
+    new IntegrationTestMixinTransformation().weaveIntegrationTestMixin(classNode,applicationClassNode);
+    return;
+  }
   final String fieldName='$' + GrailsNameUtils.getPropertyName(mixinClassNode.getName());
   boolean implementsTestRuntimeAwareMixin=GrailsASTUtils.findInterface(mixinClassNode,ClassHelper.make(TestRuntimeAwareMixin.class)) != null;
   FieldNode mixinFieldNode=null;

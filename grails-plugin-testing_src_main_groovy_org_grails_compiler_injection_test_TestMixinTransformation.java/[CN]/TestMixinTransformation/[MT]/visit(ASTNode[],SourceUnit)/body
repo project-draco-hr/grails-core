@@ -7,8 +7,13 @@
   if (!MY_TYPE.equals(annotationNode.getClassNode()) || !(parent instanceof ClassNode)) {
     return;
   }
+  String mainClass=MainClassFinder.searchMainClass(source.getSource().getURI());
+  System.out.println("mainClass = " + mainClass);
+  ClassNode applicationClassNode=null;
+  if (mainClass != null) {
+    applicationClassNode=ClassHelper.make(mainClass);
+  }
   ClassNode classNode=(ClassNode)parent;
   ListExpression values=getListOfClasses(annotationNode);
-  weaveTestMixins(classNode,values);
-  addEnableEMCStatement(classNode);
+  weaveTestMixins(classNode,values,applicationClassNode);
 }

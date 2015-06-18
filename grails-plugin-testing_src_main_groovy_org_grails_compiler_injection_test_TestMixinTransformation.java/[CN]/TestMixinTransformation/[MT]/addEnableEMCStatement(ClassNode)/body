@@ -1,9 +1,0 @@
-{
-  if (classNode.redirect().getNodeMetaData(EMC_STATEMENT_ADDED_KEY) != Boolean.TRUE) {
-    List<Statement> statements=new ArrayList<Statement>();
-    ClassNode emcClassNode=ClassHelper.make(ExpandoMetaClass.class);
-    statements.add(new ExpressionStatement(GrailsASTUtils.applyDefaultMethodTarget(new MethodCallExpression(new ClassExpression(emcClassNode),"enableGlobally",MethodCallExpression.NO_ARGUMENTS),emcClassNode)));
-    classNode.addStaticInitializerStatements(statements,true);
-    classNode.redirect().setNodeMetaData(EMC_STATEMENT_ADDED_KEY,Boolean.TRUE);
-  }
-}

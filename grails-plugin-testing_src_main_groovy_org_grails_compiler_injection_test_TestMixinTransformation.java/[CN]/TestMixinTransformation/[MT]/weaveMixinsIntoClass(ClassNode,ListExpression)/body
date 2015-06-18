@@ -1,16 +1,3 @@
 {
-  if (values == null) {
-    return;
-  }
-  Junit3TestFixtureMethodHandler junit3MethodHandler=isJunit3Test(classNode) ? new Junit3TestFixtureMethodHandler(classNode) : null;
-  for (  Expression current : values.getExpressions()) {
-    if (current instanceof ClassExpression) {
-      ClassExpression ce=(ClassExpression)current;
-      ClassNode mixinClassNode=ce.getType();
-      weaveMixinIntoClass(classNode,mixinClassNode,junit3MethodHandler);
-    }
-  }
-  if (junit3MethodHandler != null) {
-    junit3MethodHandler.postProcessClassNode();
-  }
+  weaveMixinsIntoClass(classNode,values,null);
 }

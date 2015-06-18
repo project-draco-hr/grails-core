@@ -8,7 +8,6 @@
     return;
   }
   String mainClass=MainClassFinder.searchMainClass(source.getSource().getURI());
-  System.out.println("mainClass = " + mainClass);
   ClassNode applicationClassNode=null;
   if (mainClass != null) {
     applicationClassNode=ClassHelper.make(mainClass);

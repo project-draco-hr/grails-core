@@ -1,6 +1,4 @@
 {
-  System.out.println("mixinClassNode = " + mixinClassNode.getName());
-  System.out.println("applicationClassNode = " + applicationClassNode);
   if (mixinClassNode.getName().equals(IntegrationTestMixin.class.getName())) {
     new IntegrationTestMixinTransformation().weaveIntegrationTestMixin(classNode,applicationClassNode);
     return;

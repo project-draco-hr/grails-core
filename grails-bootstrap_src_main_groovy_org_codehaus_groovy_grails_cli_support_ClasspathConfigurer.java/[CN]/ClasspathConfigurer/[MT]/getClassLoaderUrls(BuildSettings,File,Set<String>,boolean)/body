@@ -12,7 +12,7 @@
   if (!dependenciesExternallyConfigured && buildDependencies.isEmpty()) {
     GrailsConsole.getInstance().error("Required Grails build dependencies were not found. This is normally due to internet connectivity issues (such as a misconfigured proxy) or missing repositories in grails-app/conf/BuildConfig.groovy. Please verify your configuration to continue.");
     cleanResolveCache(settings);
-    System.exit(1);
+    GrailsConsole.getInstance().cleanlyExit(1);
   }
   addDependenciesToURLs(excludes,urls,buildDependencies);
   addDependenciesToURLs(excludes,urls,settings.getProvidedDependencies());

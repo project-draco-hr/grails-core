@@ -19,7 +19,7 @@
   }
  catch (  ParseException e) {
     console.error("Error processing command line arguments: " + e.getMessage());
-    System.exit(1);
+    console.cleanlyExit(1);
     return;
   }
   ScriptAndArgs script=processArgumentsAndReturnScriptName(commandLine);
@@ -45,7 +45,7 @@
   }
   if (commandLine.hasOption(CommandLine.VERSION_ARGUMENT)) {
     console.log("Grails version: " + build.getGrailsVersion());
-    System.exit(0);
+    console.cleanlyExit(0);
   }
   if (commandLine.hasOption(CommandLine.HELP_ARGUMENT)) {
     if (commandLine.getCommandName() != null) {
@@ -54,7 +54,7 @@
  else {
       console.log("The '-help' option is deprecated; use 'grails help'");
     }
-    System.exit(0);
+    console.cleanlyExit(0);
   }
   boolean resolveDeps=commandLine.hasOption(CommandLine.REFRESH_DEPENDENCIES_ARGUMENT);
   if (resolveDeps) {
@@ -91,8 +91,7 @@
     console.verbose("Base Directory: " + build.getBaseDir().getPath());
     try {
       int exitCode=scriptRunner.executeCommand(commandLine,script.name,script.env);
-      GrailsConsole.getInstance().flush();
-      System.exit(exitCode);
+      GrailsConsole.getInstance().cleanlyExit(exitCode);
     }
  catch (    ScriptNotFoundException ex) {
       String msg="Script not found: " + ex.getScriptName();

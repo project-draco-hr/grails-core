@@ -9,7 +9,7 @@
   }
  catch (  Exception e) {
     console.error("There was an error loading the BuildConfig: " + e.getMessage(),e);
-    System.exit(1);
+    console.cleanlyExit(1);
   }
  finally {
     System.setProperty("disable.grails.plugin.transform","false");

@@ -1,6 +1,7 @@
 {
   if (traitInjectors == null) {
     traitInjectors=GrailsFactoriesLoader.loadFactories(TraitInjector.class);
+    traitInjectors=TraitInjectionSupport.resolveTraitInjectors(traitInjectors);
   }
   return Collections.unmodifiableList(traitInjectors);
 }

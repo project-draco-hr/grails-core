@@ -1,0 +1,7 @@
+{
+  FastClass.Generator gen=new FastClass.Generator();
+  gen.setType(superClass);
+  gen.setClassLoader(superClass.getClassLoader());
+  gen.setUseCache(!Environment.isReloadingAgentEnabled());
+  return gen.create();
+}

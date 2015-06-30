@@ -1,7 +1,7 @@
 {
   Class superClass=getClazz();
-  FastClass fastClass=FastClass.create(superClass);
-  while (superClass != null && superClass != Object.class && superClass != GroovyObject.class) {
+  FastClass fastClass=GrailsClassUtils.fastClass(superClass);
+  while (superClass != Object.class && superClass != GroovyObject.class) {
     for (    Method method : superClass.getMethods()) {
       if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
         String methodName=method.getName();
@@ -10,7 +10,7 @@
       }
     }
     superClass=superClass.getSuperclass();
-    fastClass=FastClass.create(superClass);
+    fastClass=GrailsClassUtils.fastClass(superClass);
   }
   if (!isActionMethod(defaultActionName) && methodNames.size() == 1 && !isReadableProperty("scaffold")) {
     defaultActionName=methodNames.keySet().iterator().next();

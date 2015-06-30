@@ -8,6 +8,11 @@
     if (current.exists()) {
       location=current.getParentFile().getAbsolutePath();
     }
+ else {
+      current=new File(".","settings.gradle");
+      if (current.exists()) {
+      }
+    }
   }
   return location;
 }

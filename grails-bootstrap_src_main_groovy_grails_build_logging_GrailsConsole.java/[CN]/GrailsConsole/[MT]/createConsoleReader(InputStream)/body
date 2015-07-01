@@ -1,5 +1,13 @@
 {
-  ConsoleReader consoleReader=new ConsoleReader(systemIn,out);
-  consoleReader.setExpandEvents(false);
-  return consoleReader;
+  final PrintStream nullOutput=new PrintStream(new ByteArrayOutputStream());
+  final PrintStream originalOut=Log.getOutput();
+  try {
+    Log.setOutput(nullOutput);
+    ConsoleReader consoleReader=new ConsoleReader(systemIn,out);
+    consoleReader.setExpandEvents(false);
+    return consoleReader;
+  }
+  finally {
+    Log.setOutput(originalOut);
+  }
 }

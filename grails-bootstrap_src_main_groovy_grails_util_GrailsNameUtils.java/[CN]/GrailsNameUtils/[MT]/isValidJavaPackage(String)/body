@@ -1,0 +1,10 @@
+{
+  if (isBlank(packageName))   return false;
+  final String[] parts=packageName.split("\\.");
+  for (  String part : parts) {
+    if (!isValidJavaIdentifier(part)) {
+      return false;
+    }
+  }
+  return true;
+}

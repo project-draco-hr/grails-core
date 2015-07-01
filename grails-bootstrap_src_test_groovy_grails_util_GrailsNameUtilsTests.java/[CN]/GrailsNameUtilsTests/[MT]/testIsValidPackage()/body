@@ -1,0 +1,4 @@
+{
+  assertTrue(GrailsNameUtils.isValidJavaPackage("jax.demo.bar"));
+  assertFalse(GrailsNameUtils.isValidJavaPackage("jax.demo.2015"));
+}

@@ -1,0 +1,13 @@
+{
+  if (isBlank(name))   return false;
+  final char[] chars=name.toCharArray();
+  if (!Character.isJavaIdentifierStart(chars[0])) {
+    return false;
+  }
+  for (  char c : chars) {
+    if (!Character.isJavaIdentifierPart(c)) {
+      return false;
+    }
+  }
+  return true;
+}

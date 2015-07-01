@@ -1,5 +1,5 @@
 {
-  List<Plugin> globalPlugins=SpringLoadedPreProcessor.getGlobalPlugins();
+  List<Plugin> globalPlugins=new ArrayList<Plugin>(SpringLoadedPreProcessor.getGlobalPlugins());
   for (  Plugin globalPlugin : globalPlugins) {
     Plugins.unregisterGlobalPlugin(globalPlugin);
   }

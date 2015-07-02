@@ -3,5 +3,11 @@
   org.grails.beans.support.CachedIntrospectionResults.clearClassLoader(clazz.getClassLoader());
   ClassPropertyFetcher.clearClassPropertyFetcherCache();
   Introspector.flushFromCaches(clazz);
+  ClassInjector[] classInjectors=GrailsAwareInjectionOperation.getClassInjectors();
+  for (  ClassInjector classInjector : classInjectors) {
+    if (classInjector instanceof AbstractGrailsArtefactTransformer) {
+      ((AbstractGrailsArtefactTransformer)classInjector).clearCachedState();
+    }
+  }
   pluginManager.informOfClassChange(clazz);
 }

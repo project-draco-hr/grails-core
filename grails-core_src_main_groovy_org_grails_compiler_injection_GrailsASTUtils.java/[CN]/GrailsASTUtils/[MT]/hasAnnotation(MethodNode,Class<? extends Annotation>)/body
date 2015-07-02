@@ -1,0 +1,3 @@
+{
+  return !methodNode.getAnnotations(new ClassNode(annotationClass)).isEmpty();
+}

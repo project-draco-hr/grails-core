@@ -28,11 +28,21 @@
  else {
             List<String> fileExtensions=watchKeyToExtensionsMap.get(watchKey);
             if (fileExtensions == null) {
-              LOG.debug("WatchService receieved an event for a file/directory that it's not interested in.");
+              LOG.debug("WatchService received an event for a file/directory that it's not interested in.");
             }
  else {
               if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
                 addWatchDirectory(child,fileExtensions);
+                if (childFile.isDirectory() && childFile.exists()) {
+                  final File[] files=childFile.listFiles();
+                  if (files != null) {
+                    for (                    File newFile : files) {
+                      if (isValidFileToMonitor(newFile,fileExtensions)) {
+                        fireOnNew(newFile);
+                      }
+                    }
+                  }
+                }
               }
               if (isValidFileToMonitor(childFile,fileExtensions)) {
                 if (kind == StandardWatchEventKinds.ENTRY_CREATE) {

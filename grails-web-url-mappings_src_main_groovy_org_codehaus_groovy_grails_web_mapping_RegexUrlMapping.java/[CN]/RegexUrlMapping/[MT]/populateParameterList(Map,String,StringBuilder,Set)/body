@@ -2,6 +2,7 @@
   boolean addedParams=false;
   usedParams.add("controller");
   usedParams.add("action");
+  usedParams.add("namespace");
   if (encoding == null) {
     encoding=DEFAULT_ENCODING;
   }

@@ -1,4 +1,4 @@
 {
-  String reloadingLocation=getReloadLocationInternal();
-  return hasLocation(reloadingLocation);
+  getReloadLocation();
+  return hasLocation(reloadLocation);
 }

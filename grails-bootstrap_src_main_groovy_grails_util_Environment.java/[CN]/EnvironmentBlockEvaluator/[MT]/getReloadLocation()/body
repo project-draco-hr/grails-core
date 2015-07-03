@@ -1,6 +1,10 @@
 {
+  if (this.reloadLocation != null) {
+    return this.reloadLocation;
+  }
   String location=getReloadLocationInternal();
   if (hasLocation(location)) {
+    reloadLocation=location;
     return location;
   }
   return ".";

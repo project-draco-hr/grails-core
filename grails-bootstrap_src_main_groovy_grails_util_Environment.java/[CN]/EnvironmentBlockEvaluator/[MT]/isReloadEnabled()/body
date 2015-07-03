@@ -1,6 +1,6 @@
 {
   final boolean reloadOverride=Boolean.getBoolean(RELOAD_ENABLED);
-  final String reloadLocation=getReloadLocationInternal();
+  getReloadLocation();
   final boolean reloadLocationSpecified=hasLocation(reloadLocation);
   return this == DEVELOPMENT && reloadLocationSpecified || reloadOverride && reloadLocationSpecified;
 }

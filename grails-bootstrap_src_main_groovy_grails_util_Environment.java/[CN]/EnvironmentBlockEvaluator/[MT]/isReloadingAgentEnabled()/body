@@ -1,9 +1,13 @@
 {
+  if (reloadingAgentEnabled != null) {
+    return reloadingAgentEnabled;
+  }
   try {
     Class.forName("org.springsource.loaded.TypeRegistry");
-    return Environment.getCurrent().isReloadEnabled();
+    reloadingAgentEnabled=Environment.getCurrent().isReloadEnabled();
   }
  catch (  ClassNotFoundException e) {
-    return false;
+    reloadingAgentEnabled=false;
   }
+  return reloadingAgentEnabled;
 }

@@ -1,5 +1,3 @@
 {
-  this(params,urlData,servletContext);
-  this.viewName=viewName;
-  Assert.notNull(viewName,"Argument [viewName] cannot be null or blank");
+  this(viewName,params,urlData,WebUtils.findApplication(servletContext));
 }

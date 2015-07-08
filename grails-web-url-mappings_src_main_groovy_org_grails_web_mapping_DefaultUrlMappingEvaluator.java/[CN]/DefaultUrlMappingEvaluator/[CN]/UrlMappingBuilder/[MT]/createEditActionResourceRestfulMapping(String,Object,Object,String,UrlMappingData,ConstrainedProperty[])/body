@@ -1,4 +1,4 @@
 {
   UrlMappingData editMappingData=urlData.createRelative("/edit");
-  return new RegexUrlMapping(editMappingData,controllerName,ACTION_EDIT,namespace,pluginName,null,HttpMethod.GET.toString(),version,constraintArray,servletContext);
+  return new RegexUrlMapping(editMappingData,controllerName,ACTION_EDIT,namespace,pluginName,null,HttpMethod.GET.toString(),version,constraintArray,grailsApplication);
 }

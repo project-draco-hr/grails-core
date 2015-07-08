@@ -1,6 +1,6 @@
 {
-  if (applicationContext instanceof WebApplicationContext) {
-    this.servletContext=((WebApplicationContext)applicationContext).getServletContext();
-  }
   this.applicationContext=applicationContext;
+  if (applicationContext != null) {
+    this.grailsApplication=applicationContext.getBean(GrailsApplication.class);
+  }
 }

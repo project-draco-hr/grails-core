@@ -1,6 +1,6 @@
 {
   if (responseCode == urlData.getResponseCode()) {
-    return new DefaultUrlMappingInfo(null,controllerName,actionName,namespace,pluginName,viewName,parameterValues,urlData,servletContext);
+    return new DefaultUrlMappingInfo(null,controllerName,actionName,namespace,pluginName,viewName,parameterValues,urlData,grailsApplication);
   }
   return null;
 }

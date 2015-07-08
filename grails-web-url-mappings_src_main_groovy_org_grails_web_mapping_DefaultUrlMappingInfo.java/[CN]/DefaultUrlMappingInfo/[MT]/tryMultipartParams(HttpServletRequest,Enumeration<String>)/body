@@ -1,8 +1,8 @@
 {
   Enumeration<String> paramNames=originalParams;
-  boolean disabled=getMultipartDisabled();
+  boolean disabled=isMultipartDisabled();
   if (!disabled) {
-    MultipartResolver resolver=getResolver();
+    MultipartResolver resolver=getMultipartResolver();
     if (resolver != null && resolver.isMultipart(request)) {
       MultipartHttpServletRequest resolvedMultipartRequest=getResolvedRequest(request,resolver);
       paramNames=resolvedMultipartRequest.getParameterNames();

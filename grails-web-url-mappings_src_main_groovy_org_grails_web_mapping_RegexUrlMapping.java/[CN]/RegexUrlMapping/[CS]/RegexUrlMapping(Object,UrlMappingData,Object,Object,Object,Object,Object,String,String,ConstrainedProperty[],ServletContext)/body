@@ -1,10 +1,3 @@
 {
-  super(redirectInfo,controllerName,actionName,namespace,pluginName,viewName,constraints != null ? constraints : new ConstrainedProperty[0],servletContext);
-  if (httpMethod != null) {
-    this.httpMethod=httpMethod;
-  }
-  if (version != null) {
-    this.version=version;
-  }
-  parse(data,constraints);
+  this(redirectInfo,data,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints,WebUtils.findApplication(servletContext));
 }

@@ -1,0 +1,9 @@
+{
+  if (grailsApplication != null) {
+    ApplicationContext ctx=grailsApplication.getMainContext();
+    if (ctx != null) {
+      return (MultipartResolver)ctx.getBean(DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME);
+    }
+  }
+  return null;
+}

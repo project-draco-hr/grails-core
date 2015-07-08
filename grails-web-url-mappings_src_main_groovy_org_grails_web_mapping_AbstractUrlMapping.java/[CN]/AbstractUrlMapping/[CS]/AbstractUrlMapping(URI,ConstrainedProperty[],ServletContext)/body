@@ -1,5 +1,3 @@
 {
-  this.forwardURI=uri;
-  this.constraints=constraints;
-  this.servletContext=servletContext;
+  this(uri,constraints,WebUtils.findApplication(servletContext));
 }

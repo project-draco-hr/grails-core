@@ -2,10 +2,10 @@
   setParams(params);
   id=getParams().get(ID_PARAM);
   this.urlData=urlData;
-  this.servletContext=servletContext;
+  this.grailsApplication=grailsApplication;
   ApplicationContext applicationContext=null;
-  if (servletContext != null) {
-    applicationContext=WebUtils.findApplicationContext(servletContext);
+  if (grailsApplication != null) {
+    applicationContext=grailsApplication.getMainContext();
   }
   if (applicationContext != null && applicationContext.containsBean(UrlConverter.BEAN_NAME)) {
     urlConverter=applicationContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class);

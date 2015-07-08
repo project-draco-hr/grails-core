@@ -1,5 +1,5 @@
 {
   UrlMappingData saveActionUrlMappingData=urlData.createRelative(UrlMapping.OPTIONAL_EXTENSION_WILDCARD + UrlMapping.QUESTION_MARK);
   List<ConstrainedProperty> saveUrlMappingConstraints=createFormatOnlyConstraints(constrainedList);
-  return new RegexUrlMapping(saveActionUrlMappingData,controllerName,ACTION_SAVE,namespace,pluginName,null,HttpMethod.POST.toString(),version,saveUrlMappingConstraints.toArray(new ConstrainedProperty[saveUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(saveActionUrlMappingData,controllerName,ACTION_SAVE,namespace,pluginName,null,HttpMethod.POST.toString(),version,saveUrlMappingConstraints.toArray(new ConstrainedProperty[saveUrlMappingConstraints.size()]),grailsApplication);
 }

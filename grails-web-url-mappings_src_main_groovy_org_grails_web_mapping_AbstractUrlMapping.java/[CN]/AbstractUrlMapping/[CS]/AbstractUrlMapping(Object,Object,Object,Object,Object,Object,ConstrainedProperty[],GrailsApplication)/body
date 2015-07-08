@@ -1,0 +1,10 @@
+{
+  this.controllerName=controllerName;
+  this.actionName=actionName;
+  this.namespace=namespace;
+  this.pluginName=pluginName;
+  this.constraints=constraints;
+  this.viewName=viewName;
+  setGrailsApplication(grailsApplication);
+  this.redirectInfo=redirectInfo;
+}

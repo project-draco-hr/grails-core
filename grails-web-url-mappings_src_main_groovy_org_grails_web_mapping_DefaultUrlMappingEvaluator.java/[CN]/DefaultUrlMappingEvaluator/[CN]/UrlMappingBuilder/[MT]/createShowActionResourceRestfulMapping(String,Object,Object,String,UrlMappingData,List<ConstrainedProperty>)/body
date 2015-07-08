@@ -1,5 +1,5 @@
 {
   UrlMappingData showUrlMappingData=createFormatOnlyUrlMappingData(urlData);
   List<ConstrainedProperty> showUrlMappingConstraints=createFormatOnlyConstraints(constrainedList);
-  return new RegexUrlMapping(showUrlMappingData,controllerName,ACTION_SHOW,namespace,pluginName,null,HttpMethod.GET.toString(),version,showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(showUrlMappingData,controllerName,ACTION_SHOW,namespace,pluginName,null,HttpMethod.GET.toString(),version,showUrlMappingConstraints.toArray(new ConstrainedProperty[showUrlMappingConstraints.size()]),grailsApplication);
 }

@@ -1,5 +1,5 @@
 {
   UrlMappingData updateUrlMappingData=createFormatOnlyUrlMappingData(urlData);
   List<ConstrainedProperty> updateUrlMappingConstraints=createFormatOnlyConstraints(constrainedList);
-  return new RegexUrlMapping(updateUrlMappingData,controllerName,ACTION_UPDATE,namespace,pluginName,null,HttpMethod.PUT.toString(),version,updateUrlMappingConstraints.toArray(new ConstrainedProperty[updateUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(updateUrlMappingData,controllerName,ACTION_UPDATE,namespace,pluginName,null,HttpMethod.PUT.toString(),version,updateUrlMappingConstraints.toArray(new ConstrainedProperty[updateUrlMappingConstraints.size()]),grailsApplication);
 }

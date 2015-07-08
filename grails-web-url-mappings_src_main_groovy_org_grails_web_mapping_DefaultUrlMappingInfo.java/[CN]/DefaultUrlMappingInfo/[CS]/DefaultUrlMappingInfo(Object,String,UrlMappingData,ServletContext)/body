@@ -1,6 +1,3 @@
 {
-  this(Collections.EMPTY_MAP,data,servletContext);
-  this.uri=uri;
-  this.httpMethod=httpMethod;
-  Assert.notNull(uri,"Argument [uri] cannot be null or blank");
+  this(uri,httpMethod,data,WebUtils.findApplication(servletContext));
 }

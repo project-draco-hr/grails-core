@@ -1,4 +1,4 @@
 {
   UrlMappingData createMappingData=urlData.createRelative("/create");
-  return new RegexUrlMapping(createMappingData,controllerName,ACTION_CREATE,namespace,pluginName,null,HttpMethod.GET.toString(),version,constraintArray,servletContext);
+  return new RegexUrlMapping(createMappingData,controllerName,ACTION_CREATE,namespace,pluginName,null,HttpMethod.GET.toString(),version,constraintArray,grailsApplication);
 }

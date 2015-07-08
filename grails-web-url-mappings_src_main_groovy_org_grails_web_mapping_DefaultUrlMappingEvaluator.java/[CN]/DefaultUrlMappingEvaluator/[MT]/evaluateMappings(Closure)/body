@@ -1,5 +1,5 @@
 {
-  UrlMappingBuilder builder=new UrlMappingBuilder(null,servletContext);
+  UrlMappingBuilder builder=new UrlMappingBuilder(null);
   closure.setDelegate(builder);
   closure.setResolveStrategy(Closure.DELEGATE_FIRST);
   if (closure.getParameterTypes().length == 0) {

@@ -1,5 +1,5 @@
 {
-  UrlMappingBuilder builder=new UrlMappingBuilder(binding,servletContext);
+  UrlMappingBuilder builder=new UrlMappingBuilder(binding);
   mappings.setDelegate(builder);
   mappings.call();
   builder.urlDefiningMode=false;

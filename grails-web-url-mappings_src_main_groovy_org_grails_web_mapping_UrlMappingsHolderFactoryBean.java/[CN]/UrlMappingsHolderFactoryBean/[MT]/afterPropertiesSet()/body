@@ -36,7 +36,8 @@
     defaultUrlMappingsHolder.setUrlCreatorMaxWeightedCacheCapacity(urlCreatorCacheSize);
   }
   defaultUrlMappingsHolder.initialize();
-  final GrailsControllerUrlMappings grailsControllerUrlMappings=new GrailsControllerUrlMappings(grailsApplication,defaultUrlMappingsHolder);
+  UrlConverter urlConverter=applicationContext.containsBean(UrlConverter.BEAN_NAME) ? applicationContext.getBean(UrlConverter.BEAN_NAME,UrlConverter.class) : null;
+  final GrailsControllerUrlMappings grailsControllerUrlMappings=new GrailsControllerUrlMappings(grailsApplication,defaultUrlMappingsHolder,urlConverter);
   ((ConfigurableApplicationContext)applicationContext).addApplicationListener(new ApplicationListener<ArtefactAdditionEvent>(){
     @Override public void onApplicationEvent(    ArtefactAdditionEvent event){
       GrailsClass artefact=event.getArtefact();

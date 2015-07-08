@@ -1,3 +1,6 @@
 {
-  return propertySourcesPropertyResolver.resolvePlaceholders(text);
+  if (!GrailsStringUtils.isBlank(text)) {
+    return propertySourcesPropertyResolver.resolvePlaceholders(text);
+  }
+  return text;
 }

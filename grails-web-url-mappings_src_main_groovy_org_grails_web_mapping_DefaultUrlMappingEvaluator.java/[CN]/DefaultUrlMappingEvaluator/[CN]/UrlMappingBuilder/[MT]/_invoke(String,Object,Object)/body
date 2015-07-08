@@ -35,7 +35,7 @@
           UrlMapping urlMapping;
           if (mappingInfo.getUri() != null) {
             try {
-              urlMapping=new RegexUrlMapping(urlData,new URI(mappingInfo.getUri().toString()),constraints,sc);
+              urlMapping=new RegexUrlMapping(urlData,new URI(mappingInfo.getUri().toString()),constraints,grailsApplication);
             }
  catch (            URISyntaxException e) {
               throw new UrlMappingException("Cannot map to invalid URI: " + e.getMessage(),e);

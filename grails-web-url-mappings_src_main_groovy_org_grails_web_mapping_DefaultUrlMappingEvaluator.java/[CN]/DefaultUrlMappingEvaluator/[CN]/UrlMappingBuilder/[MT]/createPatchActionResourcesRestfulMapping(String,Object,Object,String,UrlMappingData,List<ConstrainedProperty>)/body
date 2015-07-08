@@ -1,5 +1,5 @@
 {
   UrlMappingData patchUrlMappingData=createRelativeUrlDataWithIdAndFormat(urlData);
   List<ConstrainedProperty> patchUrlMappingConstraints=createConstraintsWithIdAndFormat(constrainedList);
-  return new RegexUrlMapping(patchUrlMappingData,controllerName,ACTION_PATCH,namespace,pluginName,null,HttpMethod.PATCH.toString(),version,patchUrlMappingConstraints.toArray(new ConstrainedProperty[patchUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(patchUrlMappingData,controllerName,ACTION_PATCH,namespace,pluginName,null,HttpMethod.PATCH.toString(),version,patchUrlMappingConstraints.toArray(new ConstrainedProperty[patchUrlMappingConstraints.size()]),grailsApplication);
 }

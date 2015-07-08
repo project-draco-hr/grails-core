@@ -1,0 +1,5 @@
+{
+  super(null,controllerName,actionName,namespace,pluginName,viewName,constraints,grailsApplication);
+  this.urlData=(ResponseCodeMappingData)urlData;
+  Assert.isTrue(constraints == null || constraints.length == 0,"Constraints can't be used for response code url mapping");
+}

@@ -1,5 +1,5 @@
 {
   UrlMappingData deleteUrlMappingData=createFormatOnlyUrlMappingData(urlData);
   List<ConstrainedProperty> deleteUrlMappingConstraints=createFormatOnlyConstraints(constrainedList);
-  return new RegexUrlMapping(deleteUrlMappingData,controllerName,ACTION_DELETE,namespace,pluginName,null,HttpMethod.DELETE.toString(),version,deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(deleteUrlMappingData,controllerName,ACTION_DELETE,namespace,pluginName,null,HttpMethod.DELETE.toString(),version,deleteUrlMappingConstraints.toArray(new ConstrainedProperty[deleteUrlMappingConstraints.size()]),grailsApplication);
 }

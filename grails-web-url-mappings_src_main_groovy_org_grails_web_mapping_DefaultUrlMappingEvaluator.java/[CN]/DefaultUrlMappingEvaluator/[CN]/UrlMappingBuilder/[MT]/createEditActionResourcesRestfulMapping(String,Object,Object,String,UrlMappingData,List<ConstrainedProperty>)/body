@@ -2,5 +2,5 @@
   UrlMappingData editUrlMappingData=urlData.createRelative('/' + CAPTURING_WILD_CARD + "/edit");
   List<ConstrainedProperty> editUrlMappingConstraints=new ArrayList<ConstrainedProperty>(constrainedList);
   editUrlMappingConstraints.add(new ConstrainedProperty(UrlMapping.class,"id",String.class));
-  return new RegexUrlMapping(editUrlMappingData,controllerName,ACTION_EDIT,namespace,pluginName,null,HttpMethod.GET.toString(),version,editUrlMappingConstraints.toArray(new ConstrainedProperty[editUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(editUrlMappingData,controllerName,ACTION_EDIT,namespace,pluginName,null,HttpMethod.GET.toString(),version,editUrlMappingConstraints.toArray(new ConstrainedProperty[editUrlMappingConstraints.size()]),grailsApplication);
 }

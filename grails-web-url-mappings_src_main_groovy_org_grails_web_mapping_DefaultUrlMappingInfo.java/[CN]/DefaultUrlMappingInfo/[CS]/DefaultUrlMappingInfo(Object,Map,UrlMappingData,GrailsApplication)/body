@@ -1,0 +1,5 @@
+{
+  this(params,urlData,grailsApplication);
+  this.viewName=viewName;
+  Assert.notNull(viewName,"Argument [viewName] cannot be null or blank");
+}

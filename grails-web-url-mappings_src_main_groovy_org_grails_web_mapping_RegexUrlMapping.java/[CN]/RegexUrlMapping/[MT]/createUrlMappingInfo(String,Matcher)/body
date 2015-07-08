@@ -51,13 +51,13 @@
   }
   DefaultUrlMappingInfo info;
   if (forwardURI != null && controllerName == null) {
-    info=new DefaultUrlMappingInfo(forwardURI,getHttpMethod(),urlData,servletContext);
+    info=new DefaultUrlMappingInfo(forwardURI,getHttpMethod(),urlData,grailsApplication);
   }
  else   if (viewName != null && controllerName == null) {
-    info=new DefaultUrlMappingInfo(viewName,params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(viewName,params,urlData,grailsApplication);
   }
  else {
-    info=new DefaultUrlMappingInfo(redirectInfo,controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,servletContext);
+    info=new DefaultUrlMappingInfo(redirectInfo,controllerName,actionName,namespace,pluginName,getViewName(),getHttpMethod(),getVersion(),params,urlData,grailsApplication);
   }
   if (parseRequest) {
     info.setParsingRequest(parseRequest);

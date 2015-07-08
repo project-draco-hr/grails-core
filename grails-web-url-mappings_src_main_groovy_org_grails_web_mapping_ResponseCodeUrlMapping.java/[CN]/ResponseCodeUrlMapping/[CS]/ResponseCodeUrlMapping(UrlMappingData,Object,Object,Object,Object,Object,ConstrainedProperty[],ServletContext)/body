@@ -1,5 +1,3 @@
 {
-  super(null,controllerName,actionName,namespace,pluginName,viewName,constraints,servletContext);
-  this.urlData=(ResponseCodeMappingData)urlData;
-  Assert.isTrue(constraints == null || constraints.length == 0,"Constraints can't be used for response code url mapping");
+  this(null,controllerName,actionName,namespace,pluginName,viewName,constraints,WebUtils.findApplication(servletContext));
 }

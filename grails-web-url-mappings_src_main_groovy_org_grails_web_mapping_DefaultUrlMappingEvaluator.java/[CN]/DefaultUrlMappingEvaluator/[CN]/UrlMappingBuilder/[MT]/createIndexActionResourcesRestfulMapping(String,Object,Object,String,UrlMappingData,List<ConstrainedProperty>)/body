@@ -1,5 +1,5 @@
 {
   UrlMappingData indexActionUrlMappingData=urlData.createRelative(UrlMapping.OPTIONAL_EXTENSION_WILDCARD + UrlMapping.QUESTION_MARK);
   List<ConstrainedProperty> indexUrlMappingConstraints=createFormatOnlyConstraints(constrainedList);
-  return new RegexUrlMapping(indexActionUrlMappingData,controllerName,ACTION_INDEX,namespace,pluginName,null,HttpMethod.GET.toString(),version,indexUrlMappingConstraints.toArray(new ConstrainedProperty[indexUrlMappingConstraints.size()]),servletContext);
+  return new RegexUrlMapping(indexActionUrlMappingData,controllerName,ACTION_INDEX,namespace,pluginName,null,HttpMethod.GET.toString(),version,indexUrlMappingConstraints.toArray(new ConstrainedProperty[indexUrlMappingConstraints.size()]),grailsApplication);
 }

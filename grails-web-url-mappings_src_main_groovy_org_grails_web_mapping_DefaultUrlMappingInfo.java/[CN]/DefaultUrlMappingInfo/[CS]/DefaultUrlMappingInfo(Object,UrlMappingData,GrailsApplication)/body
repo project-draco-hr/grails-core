@@ -1,0 +1,5 @@
+{
+  this(Collections.EMPTY_MAP,data,grailsApplication);
+  this.uri=uri;
+  Assert.notNull(uri,"Argument [uri] cannot be null or blank");
+}

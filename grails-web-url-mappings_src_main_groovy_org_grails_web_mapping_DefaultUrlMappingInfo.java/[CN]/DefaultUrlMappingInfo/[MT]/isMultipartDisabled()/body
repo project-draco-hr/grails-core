@@ -1,0 +1,6 @@
+{
+  if (grailsApplication != null) {
+    return grailsApplication.getConfig().getProperty(SETTING_GRAILS_WEB_DISABLE_MULTIPART,Boolean.class,false);
+  }
+  return false;
+}

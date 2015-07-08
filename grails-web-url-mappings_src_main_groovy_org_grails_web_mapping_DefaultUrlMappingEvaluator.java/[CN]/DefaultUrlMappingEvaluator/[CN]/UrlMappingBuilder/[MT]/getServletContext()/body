@@ -1,3 +1,7 @@
 {
-  return sc;
+  final ApplicationContext ctx=getApplicationContext();
+  if (ctx instanceof WebApplicationContext) {
+    return ((WebApplicationContext)ctx).getServletContext();
+  }
+  return null;
 }

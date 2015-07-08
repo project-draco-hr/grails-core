@@ -1,3 +1,3 @@
 {
-  this.servletContext=servletContext;
+  this(WebApplicationContextUtils.getWebApplicationContext(servletContext));
 }

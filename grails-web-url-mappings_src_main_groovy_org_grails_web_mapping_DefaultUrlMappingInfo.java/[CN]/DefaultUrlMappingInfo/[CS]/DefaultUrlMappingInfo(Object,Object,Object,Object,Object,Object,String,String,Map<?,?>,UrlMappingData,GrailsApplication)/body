@@ -1,0 +1,15 @@
+{
+  this(params,urlData,grailsApplication);
+  Assert.isTrue(redirectInfo != null || controllerName != null || viewName != null,"URL mapping must either provide redirect information, a controller or a view name to map to!");
+  Assert.notNull(params,"Argument [params] cannot be null");
+  this.controllerName=controllerName;
+  this.actionName=actionName;
+  this.pluginName=pluginName;
+  this.namespace=namespace;
+  this.httpMethod=httpMethod;
+  this.version=version;
+  this.redirectInfo=redirectInfo;
+  if (actionName == null) {
+    this.viewName=viewName;
+  }
+}

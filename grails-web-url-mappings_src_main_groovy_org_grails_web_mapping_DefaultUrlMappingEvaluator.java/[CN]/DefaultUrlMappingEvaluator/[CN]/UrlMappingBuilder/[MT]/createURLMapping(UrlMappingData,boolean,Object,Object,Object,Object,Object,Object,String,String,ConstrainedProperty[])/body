@@ -1,6 +1,6 @@
 {
   if (!isResponseCode) {
-    return new RegexUrlMapping(redirectInfo,urlData,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints,sc);
+    return new RegexUrlMapping(redirectInfo,urlData,controllerName,actionName,namespace,pluginName,viewName,httpMethod,version,constraints,grailsApplication);
   }
-  return new ResponseCodeUrlMapping(urlData,controllerName,actionName,namespace,pluginName,viewName,null,sc);
+  return new ResponseCodeUrlMapping(urlData,controllerName,actionName,namespace,pluginName,viewName,null,grailsApplication);
 }

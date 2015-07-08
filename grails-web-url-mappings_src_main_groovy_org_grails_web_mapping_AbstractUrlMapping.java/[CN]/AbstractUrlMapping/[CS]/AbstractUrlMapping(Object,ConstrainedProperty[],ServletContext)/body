@@ -1,5 +1,3 @@
 {
-  this.viewName=viewName;
-  this.constraints=constraints;
-  this.servletContext=servletContext;
+  this(viewName,constraints,WebUtils.findApplication(servletContext));
 }

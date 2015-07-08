@@ -1,0 +1,10 @@
+{
+  super(redirectInfo,controllerName,actionName,namespace,pluginName,viewName,constraints != null ? constraints : new ConstrainedProperty[0],grailsApplication);
+  if (httpMethod != null) {
+    this.httpMethod=httpMethod;
+  }
+  if (version != null) {
+    this.version=version;
+  }
+  parse(data,constraints);
+}

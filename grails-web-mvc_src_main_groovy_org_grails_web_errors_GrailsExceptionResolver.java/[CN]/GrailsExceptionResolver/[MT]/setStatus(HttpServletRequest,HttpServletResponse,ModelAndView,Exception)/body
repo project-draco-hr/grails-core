@@ -1,5 +1,7 @@
 {
   response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
   request.setAttribute(WebUtils.ERROR_STATUS_CODE_ATTRIBUTE,HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-  mv.addObject(WebUtils.EXCEPTION_ATTRIBUTE,new GrailsWrappedRuntimeException(servletContext,e));
+  final GrailsWrappedRuntimeException gwre=new GrailsWrappedRuntimeException(servletContext,e);
+  mv.addObject(WebUtils.ERROR_EXCEPTION_ATTRIBUTE,gwre);
+  mv.addObject(WebUtils.EXCEPTION_ATTRIBUTE,gwre);
 }

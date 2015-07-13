@@ -7,7 +7,8 @@
   String uri=webRequest.getAttributes().getTemplateUri(templateName,webRequest.getRequest());
   String contextPath=getStringValue(attrs,"contextPath");
   String pluginName=getStringValue(attrs,"plugin");
-  Template t=findAndCacheTemplate(pageScope,templateName,contextPath,pluginName,uri);
+  final Object controller=webRequest.getAttribute(GrailsApplicationAttributes.CONTROLLER,GrailsWebRequest.SCOPE_REQUEST);
+  Template t=findAndCacheTemplate(controller,pageScope,templateName,contextPath,pluginName,uri);
   if (t == null) {
     throw new GrailsTagException("Template not found for name [" + templateName + "] and path ["+ uri+ "]");
   }

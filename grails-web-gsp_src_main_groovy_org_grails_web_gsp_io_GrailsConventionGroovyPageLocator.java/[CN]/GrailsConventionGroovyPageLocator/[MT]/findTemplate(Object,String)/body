@@ -1,4 +1,17 @@
 {
   String controllerName=getNameForController(controller);
-  return findPage(uriService.getTemplateURI(controllerName,templateName));
+  GroovyPageScriptSource scriptSource=null;
+  final String templateURI=uriService.getTemplateURI(controllerName,templateName);
+  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controller.getClass().getName()) : null;
+  if (controllerArtefact instanceof GrailsControllerClass) {
+    GrailsControllerClass gcc=(GrailsControllerClass)controllerArtefact;
+    String namespace=gcc.getNamespace();
+    if (namespace != null) {
+      scriptSource=findPage("/" + namespace + templateURI);
+    }
+  }
+  if (scriptSource == null) {
+    scriptSource=findPage(templateURI);
+  }
+  return scriptSource;
 }

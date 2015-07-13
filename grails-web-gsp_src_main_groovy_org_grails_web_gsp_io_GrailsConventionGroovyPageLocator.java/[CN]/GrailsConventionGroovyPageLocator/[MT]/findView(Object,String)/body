@@ -5,16 +5,14 @@
   String controllerName=getNameForController(controller);
   String viewNameWithFormat=resolveViewFormat(viewName);
   GroovyPageScriptSource scriptSource=null;
-  if (grailsApplication != null) {
-    Object controllerArtefact=grailsApplication.getArtefact("Controller",controller.getClass().getName());
-    if (controllerArtefact instanceof GrailsControllerClass) {
-      GrailsControllerClass gcc=(GrailsControllerClass)controllerArtefact;
-      String namespace=gcc.getNamespace();
-      if (namespace != null) {
-        scriptSource=findPage("/" + namespace + uriService.getViewURI(controllerName,viewNameWithFormat));
-        if (scriptSource == null) {
-          scriptSource=findPage("/" + namespace + uriService.getViewURI(controllerName,viewName));
-        }
+  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controller.getClass().getName()) : null;
+  if (controllerArtefact instanceof GrailsControllerClass) {
+    GrailsControllerClass gcc=(GrailsControllerClass)controllerArtefact;
+    String namespace=gcc.getNamespace();
+    if (namespace != null) {
+      scriptSource=findPage("/" + namespace + uriService.getViewURI(controllerName,viewNameWithFormat));
+      if (scriptSource == null) {
+        scriptSource=findPage("/" + namespace + uriService.getViewURI(controllerName,viewName));
       }
     }
   }

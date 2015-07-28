@@ -3,5 +3,5 @@
   if (o == null) {
     throw new JSONException("JSONObject[" + quote(key) + "] not found.");
   }
-  return o;
+  return o instanceof Null ? null : o;
 }

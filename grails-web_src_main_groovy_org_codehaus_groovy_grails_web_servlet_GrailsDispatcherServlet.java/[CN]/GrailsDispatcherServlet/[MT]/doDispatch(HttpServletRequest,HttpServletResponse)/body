@@ -125,7 +125,6 @@ catch (    Exception ex) {
             logger.error("Internal server error - problem rendering error view",e2);
           }
           requestAttributes.setRenderView(false);
-          return;
         }
       }
     }

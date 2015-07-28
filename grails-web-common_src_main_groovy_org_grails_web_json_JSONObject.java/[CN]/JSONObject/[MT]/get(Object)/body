@@ -1,3 +1,4 @@
 {
-  return myHashMap.get(o);
+  Object value=myHashMap.get(o);
+  return value instanceof Null ? null : value;
 }

@@ -30,7 +30,7 @@ if (s.equalsIgnoreCase("false")) {
 return Boolean.FALSE;
 }
 if (s.equalsIgnoreCase("null")) {
-return JSONObject.NULL;
+return null;
 }
 if (s.startsWith("new Date(")) {
 try {

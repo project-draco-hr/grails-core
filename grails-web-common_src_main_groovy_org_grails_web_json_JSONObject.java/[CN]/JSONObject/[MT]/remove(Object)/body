@@ -1,4 +1,3 @@
 {
-  Object value=myHashMap.remove(o);
-  return value instanceof Null ? null : value;
+  return myHashMap.remove(o);
 }

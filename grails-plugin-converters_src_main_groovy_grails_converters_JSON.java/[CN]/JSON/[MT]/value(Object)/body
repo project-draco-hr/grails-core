@@ -1,7 +1,7 @@
 {
   o=config.getProxyHandler().unwrapIfProxy(o);
   try {
-    if (o == null || o.equals(JSONObject.NULL)) {
+    if (o == null) {
       writer.valueNull();
     }
  else     if (o instanceof CharSequence) {

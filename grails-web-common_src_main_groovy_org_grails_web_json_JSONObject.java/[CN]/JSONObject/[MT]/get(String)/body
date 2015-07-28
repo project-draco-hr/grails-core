@@ -1,7 +1,6 @@
 {
-  Object o=opt(key);
-  if (o == null) {
+  if (!myHashMap.containsKey(key)) {
     throw new JSONException("JSONObject[" + quote(key) + "] not found.");
   }
-  return o instanceof Null ? null : o;
+  return opt(key);
 }

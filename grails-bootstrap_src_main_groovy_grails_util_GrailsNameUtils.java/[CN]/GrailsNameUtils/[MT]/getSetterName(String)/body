@@ -1,3 +1,4 @@
 {
-  return PROPERTY_SET_PREFIX + propertyName.substring(0,1).toUpperCase() + propertyName.substring(1);
+  final String suffix=getSuffixForGetterOrSetter(propertyName);
+  return PROPERTY_SET_PREFIX + suffix;
 }

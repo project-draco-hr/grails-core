@@ -1,0 +1,10 @@
+{
+  final String suffix;
+  if (propertyName.length() > 1 && Character.isLowerCase(propertyName.charAt(0)) && Character.isUpperCase(propertyName.charAt(1))) {
+    suffix=propertyName;
+  }
+ else {
+    suffix=Character.toUpperCase(propertyName.charAt(0)) + propertyName.substring(1);
+  }
+  return suffix;
+}

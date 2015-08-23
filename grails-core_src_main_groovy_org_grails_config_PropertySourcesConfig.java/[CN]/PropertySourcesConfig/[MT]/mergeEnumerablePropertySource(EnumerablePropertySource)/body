@@ -2,6 +2,9 @@
   Map<String,Object> map=new LinkedHashMap<String,Object>();
   for (  String propertyName : enumerablePropertySource.getPropertyNames()) {
     Object value=enumerablePropertySource.getProperty(propertyName);
+    if (value instanceof ConfigObject) {
+      if (((ConfigObject)value).isEmpty())       continue;
+    }
     if (value instanceof CharSequence) {
       value=resolvePlaceholders(value.toString());
     }

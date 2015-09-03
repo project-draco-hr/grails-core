@@ -5,7 +5,8 @@
   String controllerName=getNameForController(controller);
   String viewNameWithFormat=resolveViewFormat(viewName);
   GroovyPageScriptSource scriptSource=null;
-  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controller.getClass().getName()) : null;
+  final String controllerClassName=GrailsNameUtils.getFullClassName(controller.getClass());
+  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controllerClassName) : null;
   if (controllerArtefact instanceof GrailsControllerClass) {
     GrailsControllerClass gcc=(GrailsControllerClass)controllerArtefact;
     String namespace=gcc.getNamespace();

@@ -1,0 +1,7 @@
+{
+  final int i=className.indexOf('$');
+  if (i > -1) {
+    className=className.substring(0,i);
+  }
+  return className;
+}

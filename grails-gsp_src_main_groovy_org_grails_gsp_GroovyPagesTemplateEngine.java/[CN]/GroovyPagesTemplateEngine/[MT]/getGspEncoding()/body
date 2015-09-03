@@ -1,10 +1,3 @@
 {
-  Map<?,?> config=Holders.getFlatConfig();
-  if (config != null) {
-    Object gspEnc=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_ENCODING);
-    if ((gspEnc != null) && (gspEnc.toString().trim().length() > 0)) {
-      return gspEnc.toString();
-    }
-  }
-  return System.getProperty("file.encoding","us-ascii");
+  return this.gspEncoding;
 }

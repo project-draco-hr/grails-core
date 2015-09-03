@@ -1,6 +1,6 @@
 {
-  List<Dependencies> managedDependencies=new ArrayList<Dependencies>();
-  managedDependencies.add(new GrailsDependencies(dependencies.getDependencyResolutionContext().getManagedDependencies()));
-  managedDependencies.add(getAdditionalDependencies());
-  dependencies.getDependencyResolutionContext().setManagedDependencies(ManagedDependencies.get(managedDependencies));
+  final List<org.eclipse.aether.graph.Dependency> current=dependencies.getDependencyResolutionContext().getManagedDependencies();
+  final DependencyResolutionContext resolutionContext=dependencies.getDependencyResolutionContext();
+  resolutionContext.addDependencyManagement(new GrailsDependencies(current));
+  resolutionContext.addDependencyManagement(getAdditionalDependencies());
 }

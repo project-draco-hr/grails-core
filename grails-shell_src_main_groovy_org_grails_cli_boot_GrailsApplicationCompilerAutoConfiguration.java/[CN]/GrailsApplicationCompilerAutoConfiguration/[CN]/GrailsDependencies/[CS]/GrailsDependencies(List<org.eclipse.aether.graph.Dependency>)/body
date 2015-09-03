@@ -3,8 +3,9 @@
     String groupId=dependency.getArtifact().getGroupId();
     String artifactId=dependency.getArtifact().getArtifactId();
     String version=dependency.getArtifact().getVersion();
-    List<org.springframework.boot.dependency.tools.Dependency.Exclusion> exclusions=new ArrayList<org.springframework.boot.dependency.tools.Dependency.Exclusion>();
-    org.springframework.boot.dependency.tools.Dependency value=new org.springframework.boot.dependency.tools.Dependency(groupId,artifactId,version,exclusions);
+    List<Dependency.Exclusion> exclusions=new ArrayList<Dependency.Exclusion>();
+    Dependency value=new Dependency(groupId,artifactId,version,exclusions);
+    this.dependencies.add(value);
     groupAndArtifactToDependency.put(groupId + ":" + artifactId,value);
     artifactToGroupAndArtifact.put(artifactId,groupId + ":" + artifactId);
   }

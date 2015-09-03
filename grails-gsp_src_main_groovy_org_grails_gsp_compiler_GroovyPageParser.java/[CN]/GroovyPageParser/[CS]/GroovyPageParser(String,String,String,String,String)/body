@@ -1,7 +1,11 @@
 {
-  Config config=Holders.getConfig();
+  Map<?,?> config=Holders.getFlatConfig();
   if (config != null) {
-    setEnableSitemeshPreprocessing(config.getProperty(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS,Boolean.class,true));
+    Object sitemeshPreprocessEnabled=config.get(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS);
+    if (sitemeshPreprocessEnabled != null) {
+      final boolean enableSitemeshPreprocessing=GrailsStringUtils.toBoolean(String.valueOf(sitemeshPreprocessEnabled).trim());
+      setEnableSitemeshPreprocessing(enableSitemeshPreprocessing);
+    }
   }
   GrailsPluginInfo pluginInfo=null;
   OutputEncodingSettings gspConfig=new OutputEncodingSettings(config);

@@ -1,3 +1,4 @@
 {
-  return GrailsNameUtils.getLogicalPropertyName(controller.getClass().getName(),ControllerArtefactHandler.TYPE);
+  final Class<?> cls=controller.getClass();
+  return GrailsNameUtils.getLogicalPropertyName(GrailsNameUtils.getFullClassName(cls),ControllerArtefactHandler.TYPE);
 }

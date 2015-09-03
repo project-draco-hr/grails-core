@@ -2,7 +2,8 @@
   String controllerName=getNameForController(controller);
   GroovyPageScriptSource scriptSource=null;
   final String templateURI=uriService.getTemplateURI(controllerName,templateName);
-  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controller.getClass().getName()) : null;
+  final String fullClassName=GrailsNameUtils.getFullClassName(controller.getClass());
+  Object controllerArtefact=grailsApplication != null ? grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,fullClassName) : null;
   if (controllerArtefact instanceof GrailsControllerClass) {
     GrailsControllerClass gcc=(GrailsControllerClass)controllerArtefact;
     String namespace=gcc.getNamespace();

@@ -6,7 +6,7 @@
     }
     return findPageInBinding(pluginName,uriService.getTemplateURI(webRequest.getControllerName(),templateName),binding);
   }
-  final GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,controller.getClass().getName());
+  final GrailsControllerClass controllerClass=(GrailsControllerClass)grailsApplication.getArtefact(ControllerArtefactHandler.TYPE,GrailsNameUtils.getFullClassName(controller.getClass()));
   String templateURI;
   final String ns=controllerClass.getNamespace();
   GroovyPageScriptSource scriptSource=null;

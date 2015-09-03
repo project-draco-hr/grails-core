@@ -1,9 +1,9 @@
 {
   if (grailsApplication != null) {
-    Map config=grailsApplication.getFlatConfig();
-    Object viewDir=config.get("grails.gsp.view.dir");
+    Config config=grailsApplication.getConfig();
+    String viewDir=config.getProperty(Settings.GSP_VIEWS_DIR);
     if (viewDir != null) {
-      basePath=viewDir.toString();
+      basePath=viewDir;
     }
   }
 }

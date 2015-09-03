@@ -1,4 +1,0 @@
-{
-  WebApplicationContext wac=WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-  return wac.getBean(name);
-}

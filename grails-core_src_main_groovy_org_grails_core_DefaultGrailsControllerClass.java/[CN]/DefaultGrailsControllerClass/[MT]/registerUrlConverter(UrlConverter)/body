@@ -1,0 +1,5 @@
+{
+  for (  String actionName : actions.keySet()) {
+    actions.put(urlConverter.toUrlElement(actionName),actions.get(actionName));
+  }
+}

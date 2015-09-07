@@ -1,10 +1,12 @@
 {
-  if (cls != null && (cls.getName().equals(CONFIG_FILE) || cls.getName().equals(GrailsApplication.DATA_SOURCE_CLASS))) {
+  if (file.getName().equals(CONFIG_FILE)) {
     ConfigSlurper configSlurper=getConfigSlurper(application);
     ConfigObject c;
     try {
       c=configSlurper.parse(file.toURI().toURL());
       application.getConfig().merge(c);
+      final Map flat=c.flatten();
+      application.getConfig().merge(flat);
       application.configChanged();
       informPluginsOfConfigChange();
     }

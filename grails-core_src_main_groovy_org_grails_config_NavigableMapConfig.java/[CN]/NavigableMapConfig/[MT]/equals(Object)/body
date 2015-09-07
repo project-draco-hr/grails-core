@@ -1,0 +1,6 @@
+{
+  if (obj instanceof NavigableMapConfig) {
+    return this.configMap.equals(((NavigableMapConfig)obj).configMap);
+  }
+  return false;
+}

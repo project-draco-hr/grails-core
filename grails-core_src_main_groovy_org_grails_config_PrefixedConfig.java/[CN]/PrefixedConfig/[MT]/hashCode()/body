@@ -1,0 +1,5 @@
+{
+  int result=prefix != null ? prefix.hashCode() : 0;
+  result=31 * result + (delegate != null ? delegate.hashCode() : 0);
+  return result;
+}

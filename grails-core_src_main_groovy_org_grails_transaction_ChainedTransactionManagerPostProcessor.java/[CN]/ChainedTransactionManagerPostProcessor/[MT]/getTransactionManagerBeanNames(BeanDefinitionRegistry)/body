@@ -1,0 +1,11 @@
+{
+  if (transactionManagerBeanNames == null) {
+    if (registry instanceof ListableBeanFactory) {
+      transactionManagerBeanNames=((ListableBeanFactory)registry).getBeanNamesForType(PlatformTransactionManager.class);
+    }
+ else {
+      transactionManagerBeanNames=registry.getBeanDefinitionNames();
+    }
+  }
+  return transactionManagerBeanNames;
+}

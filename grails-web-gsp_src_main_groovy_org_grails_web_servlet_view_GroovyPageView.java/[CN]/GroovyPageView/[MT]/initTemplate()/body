@@ -1,13 +1,13 @@
 {
   if (template == null) {
     if (scriptSource == null) {
-      template=templateEngine.createTemplate(getUrl());
+      template=(GroovyPageTemplate)templateEngine.createTemplate(getUrl());
     }
  else {
-      template=templateEngine.createTemplate(scriptSource);
+      template=(GroovyPageTemplate)templateEngine.createTemplate(scriptSource);
     }
   }
-  if (template instanceof GroovyPageTemplate) {
-    ((GroovyPageTemplate)template).setAllowSettingContentType(true);
+  if (template != null) {
+    template.setAllowSettingContentType(true);
   }
 }

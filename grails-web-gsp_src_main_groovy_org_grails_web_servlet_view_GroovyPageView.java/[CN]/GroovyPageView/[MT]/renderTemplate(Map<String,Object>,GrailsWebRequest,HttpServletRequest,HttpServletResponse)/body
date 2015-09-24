@@ -3,7 +3,9 @@
   GSPResponseWriter out=null;
   try {
     out=createResponseWriter(webRequest,response);
-    template.make(model).writeTo(out);
+    final GroovyPageWritable writable=template.make(model);
+    writable.setShowSource(developmentMode && request.getParameter("showSource") != null);
+    writable.writeTo(out);
   }
  catch (  Exception e) {
     out.setError();

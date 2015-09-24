@@ -1,9 +1,11 @@
 {
   try {
     parentResources.push(new ParentResource(null,uri,true));
+    pushNewMetaMappingInfo();
     mappings.call();
   }
   finally {
+    mappingInfoDeque.pop();
     parentResources.pop();
   }
 }

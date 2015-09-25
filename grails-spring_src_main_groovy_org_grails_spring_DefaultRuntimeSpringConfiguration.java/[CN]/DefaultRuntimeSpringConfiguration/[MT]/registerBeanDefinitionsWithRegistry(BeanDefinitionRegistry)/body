@@ -11,9 +11,6 @@
       }
     }
     final String beanName=key.toString();
-    if (registry.containsBeanDefinition(beanName)) {
-      removeBeanDefinition(registry,beanName);
-    }
     registry.registerBeanDefinition(beanName,bd);
   }
 }

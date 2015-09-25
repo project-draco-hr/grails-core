@@ -10,9 +10,6 @@
         }
       }
     }
-    if (registry.containsBeanDefinition(beanName)) {
-      removeBeanDefinition(registry,beanName);
-    }
     registry.registerBeanDefinition(beanName,bc.getBeanDefinition());
   }
 }

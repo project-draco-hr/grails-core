@@ -3,7 +3,7 @@
     return false;
   }
   Set<String> previousChildBeans=new LinkedHashSet<String>();
-  for (  String bdName : registry.getBeanDefinitionNames()) {
+  for (  String bdName : getTransactionManagerBeanNames(registry)) {
     if (!oldName.equals(bdName)) {
       BeanDefinition bd=registry.getBeanDefinition(bdName);
       if (oldName.equals(bd.getParentName())) {

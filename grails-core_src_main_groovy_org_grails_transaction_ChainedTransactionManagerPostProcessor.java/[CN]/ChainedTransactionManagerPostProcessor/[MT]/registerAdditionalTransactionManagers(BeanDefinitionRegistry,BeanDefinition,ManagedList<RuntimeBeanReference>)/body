@@ -1,11 +1,10 @@
 {
-  String[] allBeanNames=registry.getBeanDefinitionNames();
-  Map<String,Map> dsConfigs=readDataSourceConfig();
+  String[] allBeanNames=getTransactionManagerBeanNames(registry);
   for (  String beanName : allBeanNames) {
     BeanDefinition beanDefinition=registry.getBeanDefinition(beanName);
     if (!TRANSACTION_MANAGER.equals(beanName) && !PRIMARY_TRANSACTION_MANAGER.equals(beanName) && isValidTransactionManagerBeanDefinition(beanName,beanDefinition)) {
       String suffix=resolveDataSourceSuffix(beanName);
-      if (!isNotTransactional(dsConfigs,suffix)) {
+      if (!isNotTransactional(suffix)) {
         transactionManagerRefs.add(new RuntimeBeanReference(beanName));
       }
     }

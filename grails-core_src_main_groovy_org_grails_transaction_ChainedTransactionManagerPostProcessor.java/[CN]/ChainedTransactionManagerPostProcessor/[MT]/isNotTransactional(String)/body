@@ -1,0 +1,15 @@
+{
+  if (suffix == null || config == null) {
+    return false;
+  }
+  Boolean transactional=config.getProperty(DATA_SOURCES_PREFIX + suffix + "."+ TRANSACTIONAL,Boolean.class,null);
+  if (transactional == null) {
+    transactional=config.getProperty(DATA_SOURCES_PREFIX + suffix + "."+ READONLY,Boolean.class,null);
+  }
+  if (transactional != null) {
+    return !transactional;
+  }
+ else {
+    return false;
+  }
+}

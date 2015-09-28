@@ -72,17 +72,15 @@
         mv=ha.handle(processedRequest,response,handler);
         if (processedRequest.getAttribute(GrailsApplicationAttributes.ASYNC_STARTED) != null) {
           processedRequest.setAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,mv);
+          triggerPostInterceptors(response,processedRequest,mv,handler,interceptors);
+          triggerAfterCompletion(mappedHandler,interceptorIndex,processedRequest,response,handlerException);
           return;
         }
         if ((ha instanceof AnnotationMethodHandlerAdapter || ha instanceof RequestMappingHandlerAdapter) && mv != null && !mv.hasView()) {
           mv.setViewName(getDefaultViewName(request));
         }
       }
-      if (interceptors != null) {
-        for (int i=interceptors.length - 1; i >= 0; i--) {
-          interceptors[i].postHandle(processedRequest,response,handler,mv);
-        }
-      }
+      triggerPostInterceptors(response,processedRequest,mv,handler,interceptors);
     }
  catch (    ModelAndViewDefiningException ex) {
       if (WebUtils.isIncludeRequest(request))       throw ex;

@@ -2,7 +2,11 @@
   RequestAttributes reqAttrs=RequestContextHolder.getRequestAttributes();
   if (reqAttrs != null) {
     GrailsWebRequest webRequest=(GrailsWebRequest)reqAttrs;
-    webRequest.getRequest().removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+    try {
+      webRequest.getRequest().removeAttribute(GrailsApplicationAttributes.WEB_REQUEST);
+    }
+ catch (    Throwable e) {
+    }
     RequestContextHolder.resetRequestAttributes();
   }
 }

@@ -1,6 +1,6 @@
 {
   Resource appDir=GrailsResourceUtils.getAppDir(new UrlResource(TEST_CONTROLLER_URL));
-  assertEquals("file:/test/grails/app/grails-app",appDir.getURL().toString());
+  assertEquals(toFileUrl("/test/grails/app/grails-app"),appDir.getURL().toString());
   appDir=GrailsResourceUtils.getAppDir(new UrlResource(TEST_URL));
-  assertEquals("file:/test/grails/app/grails-app",appDir.getURL().toString());
+  assertEquals(toFileUrl("/test/grails/app/grails-app"),appDir.getURL().toString());
 }

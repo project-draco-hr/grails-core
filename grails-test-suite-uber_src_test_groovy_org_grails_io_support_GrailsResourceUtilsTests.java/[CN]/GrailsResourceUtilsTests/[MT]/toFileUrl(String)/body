@@ -1,0 +1,11 @@
+{
+  if (path == null)   return path;
+  String url=null;
+  try {
+    url=new File(path).toURI().toURL().toString();
+  }
+ catch (  MalformedURLException e) {
+    url=path;
+  }
+  return url;
+}

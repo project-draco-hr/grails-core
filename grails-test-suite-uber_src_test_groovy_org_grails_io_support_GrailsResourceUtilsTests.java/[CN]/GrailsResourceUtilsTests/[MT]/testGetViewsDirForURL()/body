@@ -1,6 +1,6 @@
 {
   Resource viewsDir=GrailsResourceUtils.getViewsDir(new UrlResource(TEST_CONTROLLER_URL));
-  assertEquals("file:/test/grails/app/grails-app/views",viewsDir.getURL().toString());
+  assertEquals(toFileUrl("/test/grails/app/grails-app/views"),viewsDir.getURL().toString());
   viewsDir=GrailsResourceUtils.getViewsDir(new UrlResource(TEST_URL));
-  assertEquals("file:/test/grails/app/grails-app/views",viewsDir.getURL().toString());
+  assertEquals(toFileUrl("/test/grails/app/grails-app/views"),viewsDir.getURL().toString());
 }

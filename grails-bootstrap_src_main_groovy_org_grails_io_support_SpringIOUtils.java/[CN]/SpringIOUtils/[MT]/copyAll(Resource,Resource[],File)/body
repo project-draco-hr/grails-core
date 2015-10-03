@@ -1,0 +1,8 @@
+{
+  final URL baseUrl=base.getURL();
+  for (  Resource resource : resources) {
+    final InputStream input=resource.getInputStream();
+    final File target=new File(targetDir,resource.getURL().toString().substring(baseUrl.toString().length()));
+    copy(new BufferedInputStream(input),new BufferedOutputStream(new FileOutputStream(target)));
+  }
+}

@@ -1,5 +1,6 @@
 {
   cl.setRawArguments(args);
+  String lastWasOption=null;
   for (  String arg : args) {
     if (arg == null)     continue;
     String trimmed=arg.trim();
@@ -8,9 +9,14 @@
         trimmed=trimmed.substring(1,trimmed.length() - 1);
       }
       if (trimmed.charAt(0) == '-') {
-        processOption(cl,trimmed);
+        lastWasOption=processOption(cl,trimmed);
       }
  else {
+        if (lastWasOption != null) {
+          cl.addUndeclaredOption(lastWasOption,trimmed);
+          lastWasOption=null;
+          continue;
+        }
         if (firstArgumentIsCommand && ENV_ARGS.containsKey(trimmed)) {
           cl.setEnvironment(ENV_ARGS.get(trimmed));
         }

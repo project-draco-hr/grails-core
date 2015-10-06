@@ -1,10 +1,10 @@
 {
   if (arg.length() < 2) {
-    return;
+    return null;
   }
   if (arg.charAt(1) == 'D' && arg.contains("=")) {
     processSystemArg(cl,arg);
-    return;
+    return null;
   }
   arg=(arg.charAt(1) == '-' ? arg.substring(2,arg.length()) : arg.substring(1,arg.length())).trim();
   if (arg.contains("=")) {
@@ -18,7 +18,7 @@
  else {
       cl.addUndeclaredOption(name,value);
     }
-    return;
+    return null;
   }
   validateOptionName(arg);
   if (declaredOptions.containsKey(arg)) {
@@ -27,4 +27,5 @@
  else {
     cl.addUndeclaredOption(arg);
   }
+  return arg;
 }

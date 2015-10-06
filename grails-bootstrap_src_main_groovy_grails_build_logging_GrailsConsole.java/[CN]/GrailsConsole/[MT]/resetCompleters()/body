@@ -1,0 +1,13 @@
+{
+  final ConsoleReader reader=getReader();
+  if (reader != null) {
+    Collection<Completer> completers=reader.getCompleters();
+    for (    Completer completer : completers) {
+      reader.removeCompleter(completer);
+    }
+    completers=reader.getCompleters();
+    for (    Completer completer : completers) {
+      reader.removeCompleter(completer);
+    }
+  }
+}

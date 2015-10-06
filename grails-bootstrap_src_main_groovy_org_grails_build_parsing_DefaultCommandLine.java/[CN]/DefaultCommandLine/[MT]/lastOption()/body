@@ -1,0 +1,10 @@
+{
+  final Iterator<Map.Entry<String,Object>> i=undeclaredOptions.entrySet().iterator();
+  while (i.hasNext()) {
+    Map.Entry<String,Object> next=i.next();
+    if (!i.hasNext()) {
+      return next;
+    }
+  }
+  return null;
+}

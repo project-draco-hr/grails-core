@@ -1,10 +1,23 @@
 {
   Expression value=annotationNode.getMember("value");
-  if (value != null && (value instanceof ConstantExpression)) {
-    ConstantExpression ce=(ConstantExpression)value;
-    return ce.getText();
+  if (value != null) {
+    if (value instanceof ConstantExpression) {
+      ConstantExpression ce=(ConstantExpression)value;
+      return ce.getText();
+    }
+    if (value instanceof PropertyExpression) {
+      PropertyExpression pe=(PropertyExpression)value;
+      Expression objectExpression=pe.getObjectExpression();
+      if (objectExpression instanceof ClassExpression) {
+        ClassExpression ce=(ClassExpression)objectExpression;
+        try {
+          Field field=ce.getType().getTypeClass().getDeclaredField(pe.getPropertyAsString());
+          return (String)field.get(null);
+        }
+ catch (        Exception e) {
+        }
+      }
+    }
   }
- else {
-    throw new RuntimeException("Class [" + classNode.getName() + "] contains an invalid @Artefact annotation. No artefact found for value specified.");
-  }
+  throw new RuntimeException("Class [" + classNode.getName() + "] contains an invalid @Artefact annotation. No artefact found for value specified.");
 }

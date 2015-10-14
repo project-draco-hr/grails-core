@@ -5,7 +5,6 @@
   if (defaultActionName == null) {
     defaultActionName=INDEX_ACTION;
   }
-  final String t=getStaticPropertyValue(SCOPE,String.class);
-  this.scope=t != null ? t : SCOPE_SINGLETON;
   methodStrategy(actions);
+  this.scope=getStaticPropertyValue(SCOPE,String.class);
 }

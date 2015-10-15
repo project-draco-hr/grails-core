@@ -1,12 +1,17 @@
 {
   Object originalValue=configMap.get(key);
-  if (originalValue != null && !targetType.isInstance(originalValue)) {
-    if (!(originalValue instanceof NavigableMap)) {
-      try {
-        T value=conversionService.convert(originalValue,targetType);
-        return DefaultGroovyMethods.asBoolean(value) ? value : defaultValue;
-      }
- catch (      ConversionException e) {
+  if (originalValue != null) {
+    if (targetType.isInstance(originalValue)) {
+      return (T)originalValue;
+    }
+ else {
+      if (!(originalValue instanceof NavigableMap)) {
+        try {
+          T value=conversionService.convert(originalValue,targetType);
+          return DefaultGroovyMethods.asBoolean(value) ? value : defaultValue;
+        }
+ catch (        ConversionException e) {
+        }
       }
     }
   }

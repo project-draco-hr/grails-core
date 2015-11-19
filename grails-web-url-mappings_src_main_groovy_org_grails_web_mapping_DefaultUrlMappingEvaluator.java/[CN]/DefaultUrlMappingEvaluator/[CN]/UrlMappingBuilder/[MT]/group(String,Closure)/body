@@ -1,6 +1,6 @@
 {
   try {
-    parentResources.push(new ParentResource(null,uri,true));
+    parentResources.push(new ParentResource(null,uri,true,true));
     pushNewMetaMappingInfo();
     mappings.call();
   }

@@ -1,9 +1,14 @@
 {
-  if (parentResources.isEmpty()) {
+  if (parentResources.isEmpty() || inGroupConstratins) {
     return uri;
   }
-  StringBuilder uriBuilder=new StringBuilder();
   ParentResource parentResource=parentResources.peek();
+  if (CONSTRAINTS.equals(uri) && parentResource.isGroup) {
+    inGroupConstratins=true;
+    return uri;
+  }
+  inGroupConstratins=false;
+  StringBuilder uriBuilder=new StringBuilder();
   if (parentResource.isSingle) {
     uriBuilder.append(parentResource.uri);
   }

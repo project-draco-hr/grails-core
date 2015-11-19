@@ -116,7 +116,7 @@
         }
       }
     }
- else     if (!urlDefiningMode && CONSTRAINTS.equals(mappedURI)) {
+ else     if ((!urlDefiningMode || (parentResources.size() > 0 && parentResources.peek().isGroup)) && CONSTRAINTS.equals(mappedURI)) {
       ConstrainedPropertyBuilder builder=new ConstrainedPropertyBuilder(this);
       if (args.length > 0 && (args[0] instanceof Closure)) {
         Closure callable=(Closure)args[0];

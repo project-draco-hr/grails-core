@@ -1,0 +1,6 @@
+{
+  if (parentResource != null) {
+    uri=parentResource.uri.concat(uri);
+  }
+  super.group(uri,mappings);
+}

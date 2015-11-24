@@ -3,5 +3,10 @@
     traitInjectors=GrailsFactoriesLoader.loadFactories(TraitInjector.class);
     traitInjectors=TraitInjectionSupport.resolveTraitInjectors(traitInjectors);
   }
-  return Collections.unmodifiableList(traitInjectors);
+  if (traitInjectors != null) {
+    return Collections.unmodifiableList(traitInjectors);
+  }
+ else {
+    return Collections.emptyList();
+  }
 }

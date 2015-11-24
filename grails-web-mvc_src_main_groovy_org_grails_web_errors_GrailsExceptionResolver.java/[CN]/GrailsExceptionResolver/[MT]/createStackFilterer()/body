@@ -1,6 +1,7 @@
 {
   try {
-    stackFilterer=(StackTraceFilterer)GrailsClassUtils.instantiateFromFlatConfig(grailsApplication.getFlatConfig(),"grails.logging.stackTraceFiltererClass",DefaultStackTraceFilterer.class.getName());
+    Class filtererClass=grailsApplication.getConfig().getProperty(Settings.SETTING_LOGGING_STACKTRACE_FILTER_CLASS,Class.class,DefaultStackTraceFilterer.class);
+    stackFilterer=BeanUtils.instantiateClass(filtererClass,StackTraceFilterer.class);
   }
  catch (  Throwable t) {
     logger.error("Problem instantiating StackTracePrinter class, using default: " + t.getMessage());

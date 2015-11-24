@@ -1,3 +1,6 @@
 {
-  return configMap.toFlatConfig();
+  if (LOG.isWarnEnabled()) {
+    LOG.warn("A plugin or your application called the flatten() method which can degrade startup performance");
+  }
+  return configMap;
 }

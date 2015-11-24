@@ -3,6 +3,6 @@
     flatConfig=new LinkedHashMap();
   }
  else {
-    flatConfig=config.flatten();
+    flatConfig=config;
   }
 }

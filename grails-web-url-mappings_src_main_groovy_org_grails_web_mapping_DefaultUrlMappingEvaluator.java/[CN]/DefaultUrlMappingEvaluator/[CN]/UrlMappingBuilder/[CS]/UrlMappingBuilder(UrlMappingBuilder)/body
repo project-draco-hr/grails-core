@@ -1,0 +1,11 @@
+{
+  this(parent.binding);
+  urlDefiningMode=parent.urlDefiningMode;
+  previousConstraints=parent.previousConstraints;
+  urlMappings=parent.urlMappings;
+  parameterValues=parent.parameterValues;
+  exception=parent.exception;
+  parseRequest=parent.parseRequest;
+  parentResources=parent.parentResources;
+  mappingInfoDeque=parent.mappingInfoDeque;
+}

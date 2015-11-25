@@ -1,0 +1,10 @@
+{
+  Object o=config.get(key);
+  if (o instanceof NavigableMap.NullSafeNavigator) {
+    return null;
+  }
+ else   if (o instanceof ConfigObject) {
+    return null;
+  }
+  return o;
+}

@@ -1,0 +1,7 @@
+{
+  MutablePropertySources mutablePropertySources=new MutablePropertySources();
+  mutablePropertySources.addFirst(propertySource);
+  this.propertySources=mutablePropertySources;
+  this.propertySourcesPropertyResolver=new PropertySourcesPropertyResolver(propertySources);
+  initializeFromPropertySources(propertySources);
+}

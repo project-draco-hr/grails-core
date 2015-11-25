@@ -2,24 +2,17 @@
   Content content=obtainContent(model,webRequest,request,response);
   if (content != null) {
     beforeDecorating(content,model,webRequest,request,response);
-switch (request.getDispatcherType()) {
-case INCLUDE:
-      break;
-case ASYNC:
-case ERROR:
-case FORWARD:
-case REQUEST:
-    SpringMVCViewDecorator decorator=(SpringMVCViewDecorator)groovyPageLayoutFinder.findLayout(request,content);
-  if (decorator != null) {
-    decorator.render(content,model,request,response,webRequest.getServletContext());
-    return;
+    if (!WebUtils.isIncludeRequest(request)) {
+      SpringMVCViewDecorator decorator=(SpringMVCViewDecorator)groovyPageLayoutFinder.findLayout(request,content);
+      if (decorator != null) {
+        decorator.render(content,model,request,response,webRequest.getServletContext());
+        return;
+      }
+    }
+    PrintWriter writer=response.getWriter();
+    content.writeOriginal(writer);
+    if (!response.isCommitted()) {
+      writer.flush();
+    }
   }
-break;
-}
-PrintWriter writer=response.getWriter();
-content.writeOriginal(writer);
-if (!response.isCommitted()) {
-writer.flush();
-}
-}
 }

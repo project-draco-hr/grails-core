@@ -9,6 +9,16 @@
  catch (    Exception pce) {
     }
     try {
+      saxParserFactory.setFeature("http://xml.org/sax/features/external-general-entities",false);
+    }
+ catch (    Exception pce) {
+    }
+    try {
+      saxParserFactory.setFeature("http://xml.org/sax/features/external-parameter-entities",false);
+    }
+ catch (    Exception pce) {
+    }
+    try {
       saxParserFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,true);
     }
  catch (    Exception e) {

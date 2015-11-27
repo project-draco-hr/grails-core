@@ -8,9 +8,10 @@
   if (resource != null && resource.exists()) {
     YamlPropertySourceLoader propertySourceLoader=new YamlPropertySourceLoader();
     try {
-      this.propertySource=propertySourceLoader.load(GrailsNameUtils.getLogicalPropertyName(pluginClass.getSimpleName(),"GrailsPlugin") + "-plugin.yml",resource,null,false);
+      this.propertySource=propertySourceLoader.load(GrailsNameUtils.getLogicalPropertyName(pluginClass.getSimpleName(),"GrailsPlugin") + "-plugin.yml",resource,null,false,Arrays.asList("dataSource"));
     }
  catch (    IOException e) {
+      LOG.warn("Error loading plugin.yml for plugin: " + pluginClass.getName() + ": "+ e.getMessage(),e);
     }
   }
 }

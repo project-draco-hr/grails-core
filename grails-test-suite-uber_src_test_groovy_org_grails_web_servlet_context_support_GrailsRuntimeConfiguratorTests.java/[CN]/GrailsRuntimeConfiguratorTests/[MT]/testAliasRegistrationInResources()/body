@@ -2,7 +2,7 @@
   GroovyClassLoader gcl=new GroovyClassLoader();
   gcl.parseClass("beans = {\n" + "   foo(HashMap)\n" + "   springConfig.addAlias 'bar', 'foo'\n"+ "   springConfig.addAlias 'grapp', 'grailsApplication'\n"+ "}","resources.groovy");
   GrailsApplication app=new DefaultGrailsApplication(new Class[0],gcl);
-  app.getMetadata().getConfigMap().put(Metadata.APPLICATION_NAME,getClass().getName());
+  app.getMetadata().put(Metadata.APPLICATION_NAME,getClass().getName());
   MockApplicationContext parent=new MockApplicationContext();
   parent.registerMockBean(GrailsApplication.APPLICATION_ID,app);
   GrailsRuntimeConfigurator conf=new GrailsRuntimeConfigurator(app,parent);

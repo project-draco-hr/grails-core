@@ -2,10 +2,31 @@
   if (pluginCacheMillis == Long.MIN_VALUE) {
     pluginCacheMillis=cacheMillis;
   }
-  if (pluginManager == null || localResourceLoader == null) {
+  if (localResourceLoader == null) {
     return;
   }
-  Resource[] resources=resourceResolver.getResources("classpath*:**/*.properties");
+  Resource[] resources;
+  if (Environment.isDevelopmentMode()) {
+    File[] propertiesFiles=new File(BuildSettings.BASE_DIR,GRAILS_APP_I18N_PATH_COMPONENT).listFiles(new FilenameFilter(){
+      @Override public boolean accept(      File dir,      String name){
+        return name.endsWith(".properties");
+      }
+    }
+);
+    if (propertiesFiles != null && propertiesFiles.length > 0) {
+      List<Resource> resourceList=new ArrayList<Resource>(propertiesFiles.length);
+      for (      File propertiesFile : propertiesFiles) {
+        resourceList.add(new FileSystemResource(propertiesFile));
+      }
+      resources=resourceList.toArray(new Resource[resourceList.size()]);
+    }
+ else {
+      resources=new Resource[0];
+    }
+  }
+ else {
+    resources=resourceResolver.getResources("classpath*:**/*.properties");
+  }
   List<String> basenames=new ArrayList<String>();
   for (  Resource resource : resources) {
     String filename=resource.getFilename();
@@ -17,14 +38,4 @@
     if (!basenames.contains(baseName))     basenames.add(baseName);
   }
   setBasenames(basenames.toArray(new String[basenames.size()]));
-  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
-    for (    Resource pluginBundle : getPluginBundles(plugin)) {
-      String basePath=WEB_INF_PLUGINS_PATH.substring(1) + plugin.getFileSystemName();
-      final String baseName=GrailsStringUtils.substringBefore(GrailsStringUtils.getFileBasename(pluginBundle.getFilename()),"_");
-      String pathToAdd=basePath + GRAILS_APP_I18N_PATH_COMPONENT + baseName;
-      if (!pluginBaseNames.contains(pathToAdd)) {
-        pluginBaseNames.add(pathToAdd);
-      }
-    }
-  }
 }

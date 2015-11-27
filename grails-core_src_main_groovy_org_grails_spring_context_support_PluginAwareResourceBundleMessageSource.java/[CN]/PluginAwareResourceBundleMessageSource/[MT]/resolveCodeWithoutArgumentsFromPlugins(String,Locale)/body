@@ -7,9 +7,7 @@
     }
   }
  else {
-    String result=findMessageInSourcePlugins(code,locale);
-    if (result != null)     return result;
-    result=findCodeInBinaryPlugins(code,locale);
+    String result=findCodeInBinaryPlugins(code,locale);
     if (result != null)     return result;
   }
   return null;

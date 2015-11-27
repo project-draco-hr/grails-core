@@ -13,12 +13,7 @@
       if (value instanceof CharSequence) {
         value=resolvePlaceholders(value.toString());
       }
-      if (prefix != null) {
-        map.put(prefix + '.' + propertyName,value);
-      }
- else {
-        map.put(propertyName,value);
-      }
+      map.put(propertyName,value);
     }
     configMap.merge(map,true);
   }

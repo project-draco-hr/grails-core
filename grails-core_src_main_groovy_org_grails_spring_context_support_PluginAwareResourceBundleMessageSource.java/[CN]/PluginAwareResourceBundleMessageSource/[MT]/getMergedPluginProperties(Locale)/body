@@ -4,16 +4,6 @@
       Properties mergedProps=new Properties();
       PropertiesHolder mergedHolder=new PropertiesHolder(mergedProps);
       mergeBinaryPluginProperties(locale,mergedProps);
-      for (      String basename : pluginBaseNames) {
-        List<Pair<String,Resource>> filenamesAndResources=calculateAllFilenames(basename,locale);
-        for (int j=filenamesAndResources.size() - 1; j >= 0; j--) {
-          Pair<String,Resource> filenameAndResource=filenamesAndResources.get(j);
-          if (filenameAndResource.getbValue() != null) {
-            PropertiesHolder propHolder=getProperties(filenameAndResource.getaValue(),filenameAndResource.getbValue());
-            mergedProps.putAll(propHolder.getProperties());
-          }
-        }
-      }
       return mergedHolder;
     }
   }

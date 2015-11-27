@@ -1,4 +1,4 @@
 {
   final HttpServletRequest currentRequest=getCurrentRequest();
-  return renderView && !getCurrentResponse().isCommitted() && currentRequest.getAttribute(REDIRECT_CALLED) == null && currentRequest.getAttribute(FORWARD_CALLED) == null;
+  return renderView && !getCurrentResponse().isCommitted() && currentRequest.getAttribute(REDIRECT_CALLED) == null;
 }

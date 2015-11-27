@@ -4,7 +4,7 @@
     if (!handler.preHandle(request,response,o)) {
       return false;
     }
-    if (request.getAttribute(ForwardMethod.CALLED) != null) {
+    if (request.getAttribute(GrailsApplicationAttributes.FORWARD_ISSUED) != null) {
       return false;
     }
   }

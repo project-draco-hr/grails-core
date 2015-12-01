@@ -19,12 +19,23 @@
       return null;
     }
   }
-  weaveMixinClass(classNode,DomainClassUnitTestMixin.class);
-  if (isClassUnderTest) {
-    testForMethod=addClassUnderTestMethod(classNode,value,DOMAIN_TYPE);
+  Class<?> domainClassPresent=null;
+  try {
+    domainClassPresent=Class.forName("org.grails.plugins.domain.DomainClassGrailsPlugin",true,TestForTransformation.class.getClassLoader());
   }
+ catch (  ClassNotFoundException e) {
+  }
+catch (  NoClassDefFoundError e) {
+  }
+  if (domainClassPresent != null) {
+    weaveMixinClass(classNode,DomainClassUnitTestMixin.class);
+    if (isClassUnderTest) {
+      testForMethod=addClassUnderTestMethod(classNode,value,DOMAIN_TYPE);
+    }
  else {
-    addMockCollaboratorToSetup(classNode,value,DOMAIN_TYPE);
+      addMockCollaboratorToSetup(classNode,value,DOMAIN_TYPE);
+    }
+    return testForMethod;
   }
-  return testForMethod;
+  return null;
 }

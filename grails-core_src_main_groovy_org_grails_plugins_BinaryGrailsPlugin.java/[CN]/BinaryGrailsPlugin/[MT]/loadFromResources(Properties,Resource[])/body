@@ -1,0 +1,15 @@
+{
+  for (  Resource messageResource : resources) {
+    InputStream inputStream=messageResource.getInputStream();
+    try {
+      properties.load(inputStream);
+    }
+  finally {
+      try {
+        inputStream.close();
+      }
+ catch (      IOException e) {
+      }
+    }
+  }
+}

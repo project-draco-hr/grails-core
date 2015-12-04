@@ -1,20 +1,34 @@
 {
-  final Resource descriptorResource=descriptor.getResource();
-  final Resource i18nDir;
-  try {
-    i18nDir=descriptorResource.createRelative("grails-app/i18n");
-  }
- catch (  IOException e) {
-    return null;
-  }
-  if (i18nDir == null) {
-    return null;
-  }
-  Properties properties=new Properties();
-  final String defaultName=getBaseMessagesProperties();
-  attemptLoadProperties(descriptorResource,properties,defaultName);
-  for (  String filename : calculateFilenamesForLocale(defaultName,locale)) {
-    attemptLoadProperties(descriptorResource,properties,filename);
+  URL url=IOUtils.findJarResource(pluginClass);
+  Properties properties=null;
+  if (url != null) {
+    StaticResourceLoader resourceLoader=new StaticResourceLoader();
+    resourceLoader.setBaseResource(new UrlResource(url));
+    ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver(resourceLoader);
+    try {
+      Resource[] resources=resolver.getResources('*' + PROPERTIES_EXTENSION);
+      resources=filterResources(resources,locale);
+      properties=new Properties();
+      Arrays.sort(resources,new Comparator<Resource>(){
+        @Override public int compare(        Resource o1,        Resource o2){
+          String f1=o1.getFilename();
+          String f2=o2.getFilename();
+          int firstUnderscoreCount=StringUtils.countOccurrencesOf(f1,"_");
+          int secondUnderscoreCount=StringUtils.countOccurrencesOf(f2,"_");
+          if (firstUnderscoreCount == secondUnderscoreCount) {
+            return 0;
+          }
+ else {
+            return firstUnderscoreCount > secondUnderscoreCount ? 1 : -1;
+          }
+        }
+      }
+);
+      loadFromResources(properties,resources);
+    }
+ catch (    IOException e) {
+      return null;
+    }
   }
   return properties;
 }

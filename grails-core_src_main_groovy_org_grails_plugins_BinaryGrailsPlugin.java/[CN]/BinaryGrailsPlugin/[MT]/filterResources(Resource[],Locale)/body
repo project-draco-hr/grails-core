@@ -1,0 +1,21 @@
+{
+  List<Resource> finalResources=new ArrayList<Resource>(resources.length);
+  for (  Resource resource : resources) {
+    String fn=resource.getFilename();
+    if (fn.indexOf(UNDERSCORE) > -1) {
+      if (fn.endsWith(UNDERSCORE + locale.toString() + PROPERTIES_EXTENSION)) {
+        finalResources.add(resource);
+      }
+ else       if (fn.endsWith(UNDERSCORE + locale.getLanguage() + UNDERSCORE+ locale.getCountry()+ PROPERTIES_EXTENSION)) {
+        finalResources.add(resource);
+      }
+ else       if (fn.endsWith(UNDERSCORE + locale.getLanguage() + PROPERTIES_EXTENSION)) {
+        finalResources.add(resource);
+      }
+    }
+ else {
+      finalResources.add(resource);
+    }
+  }
+  return finalResources.toArray(new Resource[finalResources.size()]);
+}

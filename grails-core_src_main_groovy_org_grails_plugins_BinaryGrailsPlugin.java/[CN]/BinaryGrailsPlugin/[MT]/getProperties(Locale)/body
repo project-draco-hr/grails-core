@@ -1,9 +1,9 @@
 {
-  URL url=IOUtils.findJarResource(pluginClass);
+  Resource url=findPluginJar();
   Properties properties=null;
   if (url != null) {
     StaticResourceLoader resourceLoader=new StaticResourceLoader();
-    resourceLoader.setBaseResource(new UrlResource(url));
+    resourceLoader.setBaseResource(url);
     ResourcePatternResolver resolver=new PathMatchingResourcePatternResolver(resourceLoader);
     try {
       Resource[] resources=resolver.getResources('*' + PROPERTIES_EXTENSION);

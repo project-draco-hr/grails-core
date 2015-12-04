@@ -1,0 +1,7 @@
+{
+  URL url=IOUtils.findJarResource(pluginClass);
+  if (url != null) {
+    return new UrlResource(url);
+  }
+  return null;
+}

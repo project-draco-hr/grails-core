@@ -1,0 +1,11 @@
+{
+  boolean previousState=isInCollection;
+  this.isInCollection=true;
+  try {
+    callable.setDelegate(this);
+    callable.call();
+  }
+  finally {
+    isInCollection=previousState;
+  }
+}

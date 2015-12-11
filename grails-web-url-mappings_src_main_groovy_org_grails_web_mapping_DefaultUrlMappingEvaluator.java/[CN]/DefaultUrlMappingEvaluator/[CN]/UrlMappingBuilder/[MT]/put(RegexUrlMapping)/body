@@ -1,0 +1,6 @@
+{
+  urlMappings.remove(regexUrlMapping);
+  RegexUrlMapping newMapping=new RegexUrlMapping(regexUrlMapping,HttpMethod.PUT);
+  urlMappings.add(newMapping);
+  return newMapping;
+}

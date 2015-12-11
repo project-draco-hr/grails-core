@@ -1,0 +1,4 @@
+{
+  arguments.put(UrlMapping.HTTP_METHOD,HttpMethod.PUT);
+  return (UrlMapping)_invoke(uri,new Object[]{arguments,callable},this);
+}

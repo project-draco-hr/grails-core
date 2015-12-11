@@ -8,8 +8,9 @@
     if (mappedURI.startsWith(SLASH) || isResponseCode) {
       parameterValues=new HashMap<String,Object>();
       Map variables=binding != null ? binding.getVariables() : null;
+      boolean hasParent=!parentResources.isEmpty();
       try {
-        if (parentResources.isEmpty()) {
+        if (!hasParent) {
           urlDefiningMode=false;
         }
         args=args != null && args.length > 0 ? args : new Object[]{Collections.EMPTY_MAP};
@@ -111,7 +112,7 @@
         if (binding != null) {
           variables.clear();
         }
-        if (parentResources.isEmpty()) {
+        if (!hasParent) {
           urlDefiningMode=true;
         }
       }

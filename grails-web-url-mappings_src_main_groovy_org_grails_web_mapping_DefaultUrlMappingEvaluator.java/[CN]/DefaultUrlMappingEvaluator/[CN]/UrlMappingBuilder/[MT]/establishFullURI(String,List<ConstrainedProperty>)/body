@@ -14,8 +14,11 @@
   }
  else {
     if (parentResource.controllerName != null) {
-      uriBuilder.append(parentResource.uri).append(SLASH).append(CAPTURING_WILD_CARD);
-      constrainedList.add(new ConstrainedProperty(UrlMapping.class,parentResource.controllerName + "Id",String.class));
+      uriBuilder.append(parentResource.uri);
+      if (!isInCollection) {
+        uriBuilder.append(SLASH).append(CAPTURING_WILD_CARD);
+        constrainedList.add(new ConstrainedProperty(UrlMapping.class,parentResource.controllerName + "Id",String.class));
+      }
     }
   }
   uriBuilder.append(uri);

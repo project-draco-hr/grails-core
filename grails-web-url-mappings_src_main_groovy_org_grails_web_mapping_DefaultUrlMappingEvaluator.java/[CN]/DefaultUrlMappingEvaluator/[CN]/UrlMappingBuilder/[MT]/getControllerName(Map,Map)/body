@@ -1,3 +1,9 @@
 {
-  return getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,GrailsControllerClass.CONTROLLER,getMetaMappingInfo().getController());
+  Object fromBinding=getVariableFromNamedArgsOrBinding(namedArguments,bindingVariables,GrailsControllerClass.CONTROLLER,getMetaMappingInfo().getController());
+  if (fromBinding == null && !parentResources.isEmpty()) {
+    return parentResources.peekLast().controllerName;
+  }
+ else {
+    return fromBinding;
+  }
 }

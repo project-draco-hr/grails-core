@@ -1,5 +1,3 @@
 {
-  this.includeVersion=includeVersion;
-  this.proxyHandler=proxyHandler;
-  this.application=application;
+  this(includeVersion,false,proxyHandler,application);
 }

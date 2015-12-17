@@ -11,9 +11,9 @@
   marshallers.add(new ProxyUnwrappingMarshaller<XML>());
   marshallers.add(new org.grails.web.converters.marshaller.xml.ToStringBeanMarshaller());
   ProxyHandler proxyHandler=getProxyHandler();
-  DeprecatedGrailsConfig grailsConfig=new DeprecatedGrailsConfig(grailsApplication);
+  Config grailsConfig=grailsApplication.getConfig();
   boolean includeDomainVersion=includeDomainVersionProperty(grailsConfig,"xml");
-  if (grailsConfig.get("grails.converters.xml.default.deep",false)) {
+  if (grailsConfig.getProperty(SETTING_CONVERTERS_XML_DEEP,Boolean.class,false)) {
     marshallers.add(new org.grails.web.converters.marshaller.xml.DeepDomainClassMarshaller(includeDomainVersion,proxyHandler,grailsApplication));
   }
  else {
@@ -22,13 +22,13 @@
   marshallers.add(new org.grails.web.converters.marshaller.xml.GroovyBeanMarshaller());
   marshallers.add(new org.grails.web.converters.marshaller.xml.GenericJavaBeanMarshaller());
   DefaultConverterConfiguration<XML> cfg=new DefaultConverterConfiguration<XML>(marshallers,proxyHandler);
-  cfg.setEncoding(grailsConfig.get("grails.converters.encoding","UTF-8"));
-  String defaultCirRefBehaviour=grailsConfig.get("grails.converters.default.circular.reference.behaviour","DEFAULT");
-  cfg.setCircularReferenceBehaviour(Converter.CircularReferenceBehaviour.valueOf(grailsConfig.get("grails.converters.xml.circular.reference.behaviour",defaultCirRefBehaviour,Converter.CircularReferenceBehaviour.allowedValues())));
-  Boolean defaultPrettyPrint=grailsConfig.get("grails.converters.default.pretty.print",false);
-  Boolean prettyPrint=grailsConfig.get("grails.converters.xml.pretty.print",defaultPrettyPrint);
+  cfg.setEncoding(grailsConfig.getProperty(SETTING_CONVERTERS_ENCODING,"UTF-8"));
+  String defaultCirRefBehaviour=grailsConfig.getProperty(SETTING_CONVERTERS_CIRCULAR_REFERENCE_BEHAVIOUR,"DEFAULT");
+  cfg.setCircularReferenceBehaviour(Converter.CircularReferenceBehaviour.valueOf(grailsConfig.getProperty("grails.converters.xml.circular.reference.behaviour",String.class,defaultCirRefBehaviour,Converter.CircularReferenceBehaviour.allowedValues())));
+  Boolean defaultPrettyPrint=grailsConfig.getProperty(SETTING_CONVERTERS_PRETTY_PRINT,Boolean.class,false);
+  Boolean prettyPrint=grailsConfig.getProperty("grails.converters.xml.pretty.print",Boolean.class,defaultPrettyPrint);
   cfg.setPrettyPrint(prettyPrint);
-  cfg.setCacheObjectMarshallerByClass(grailsConfig.get("grails.converters.xml.cacheObjectMarshallerSelectionByClass",true));
+  cfg.setCacheObjectMarshallerByClass(grailsConfig.getProperty("grails.converters.xml.cacheObjectMarshallerSelectionByClass",Boolean.class,true));
   registerObjectMarshallersFromApplicationContext(cfg,XML.class);
   ConvertersConfigurationHolder.setDefaultConfiguration(XML.class,new ChainedConverterConfiguration<XML>(cfg,proxyHandler));
 }

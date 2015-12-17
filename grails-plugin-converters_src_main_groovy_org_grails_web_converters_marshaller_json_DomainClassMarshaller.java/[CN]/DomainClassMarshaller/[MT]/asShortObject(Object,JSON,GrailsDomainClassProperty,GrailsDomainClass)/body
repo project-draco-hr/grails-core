@@ -11,7 +11,11 @@
   }
   JSONWriter writer=json.getWriter();
   writer.object();
-  writer.key("class").value(referencedDomainClass.getFullName());
-  writer.key("id").value(idValue);
+  if (isIncludeClass()) {
+    writer.key("class").value(referencedDomainClass.getFullName());
+  }
+  if (idValue != null) {
+    writer.key("id").value(idValue);
+  }
   writer.endObject();
 }

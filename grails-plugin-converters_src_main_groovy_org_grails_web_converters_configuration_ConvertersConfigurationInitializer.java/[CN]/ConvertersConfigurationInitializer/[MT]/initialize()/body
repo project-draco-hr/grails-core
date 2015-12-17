@@ -1,5 +1,7 @@
 {
-  LOG.debug("Initializing Converters Default Configurations...");
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Initializing Converters Default Configurations...");
+  }
   initJSONConfiguration();
   initXMLConfiguration();
   initDeepJSONConfiguration();

@@ -1,0 +1,7 @@
+{
+  T value=getProperty(key,targetType,defaultValue);
+  if (!allowedValues.contains(value)) {
+    throw new GrailsConfigurationException("Invalid configuration value [$value] for key [${key}]. Possible values $allowedValues");
+  }
+  return value;
+}

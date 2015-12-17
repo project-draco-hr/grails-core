@@ -1,7 +1,11 @@
 {
   try {
-    parentResources.push(new ParentResource(null,uri,true,true));
+    ParentResource parentResource=new ParentResource(null,uri,true,true);
+    parentResources.push(parentResource);
     pushNewMetaMappingInfo();
+    UrlGroupMappingRecursionBuilder builder=new UrlGroupMappingRecursionBuilder(this,parentResource);
+    mappings.setDelegate(builder);
+    mappings.setResolveStrategy(Closure.DELEGATE_FIRST);
     mappings.call();
     inGroupConstraints=false;
   }

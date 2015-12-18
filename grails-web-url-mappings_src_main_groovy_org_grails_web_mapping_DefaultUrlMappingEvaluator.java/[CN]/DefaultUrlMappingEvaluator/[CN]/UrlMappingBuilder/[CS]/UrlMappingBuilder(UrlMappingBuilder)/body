@@ -2,6 +2,7 @@
   this(parent.binding);
   urlDefiningMode=parent.urlDefiningMode;
   previousConstraints=parent.previousConstraints;
+  inGroupConstraints=parent.inGroupConstraints;
   urlMappings=parent.urlMappings;
   parameterValues=parent.parameterValues;
   exception=parent.exception;

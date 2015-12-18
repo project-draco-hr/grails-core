@@ -1,5 +1,6 @@
 {
   for (  String actionName : new ArrayList<String>(actions.keySet())) {
+    actionUriToViewName.put(urlConverter.toUrlElement(actionName),actionName);
     actions.put(urlConverter.toUrlElement(actionName),actions.remove(actionName));
   }
 }

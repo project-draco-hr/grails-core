@@ -1,0 +1,4 @@
+{
+  String actionName=actionUriToViewName.get(actionUri);
+  return actionName != null ? actionName : actionUri;
+}

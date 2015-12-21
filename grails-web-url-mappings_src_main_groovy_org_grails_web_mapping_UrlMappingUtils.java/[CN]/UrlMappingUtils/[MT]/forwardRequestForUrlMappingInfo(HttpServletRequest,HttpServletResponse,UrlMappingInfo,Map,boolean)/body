@@ -1,6 +1,6 @@
 {
-  org.springframework.web.util.WebUtils.exposeRequestAttributes(request,model);
   String forwardUrl=buildDispatchUrlForMapping(info,includeParams);
+  org.springframework.web.util.WebUtils.exposeRequestAttributes(request,model);
   RequestDispatcher dispatcher=request.getRequestDispatcher(forwardUrl);
   final GrailsWebRequest webRequest=GrailsWebRequest.lookup(request);
   webRequest.removeAttribute(GrailsApplicationAttributes.MODEL_AND_VIEW,0);

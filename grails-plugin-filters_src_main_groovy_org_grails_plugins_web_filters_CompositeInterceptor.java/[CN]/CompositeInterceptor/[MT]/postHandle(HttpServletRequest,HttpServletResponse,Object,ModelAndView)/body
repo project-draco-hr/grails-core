@@ -1,6 +1,0 @@
-{
-  if (log.isDebugEnabled())   log.debug("postHandle " + request + ", "+ response+ ", "+ o+ ", "+ modelAndView);
-  for (  HandlerInterceptor handler : handlersReversed) {
-    handler.postHandle(request,response,o,modelAndView);
-  }
-}

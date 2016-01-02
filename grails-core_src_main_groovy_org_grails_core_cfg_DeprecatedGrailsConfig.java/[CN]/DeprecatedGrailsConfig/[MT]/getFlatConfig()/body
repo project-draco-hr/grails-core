@@ -1,6 +1,6 @@
 {
   if (grailsApplication == null) {
-    return Collections.EMPTY_MAP;
+    return Collections.emptyMap();
   }
   return grailsApplication.getFlatConfig();
 }

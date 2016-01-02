@@ -7,7 +7,7 @@
   final List<DataBindingSource> dataBindingSources=collectionBindingSource.getDataBindingSources();
   for (  final DataBindingSource dataBindingSource : dataBindingSources) {
     final T newObject=targetType.newInstance();
-    bindObjectToDomainInstance(domain,newObject,dataBindingSource,getBindingIncludeList(newObject),Collections.EMPTY_LIST,null);
+    bindObjectToDomainInstance(domain,newObject,dataBindingSource,getBindingIncludeList(newObject),Collections.emptyList(),null);
     collectionToPopulate.add(newObject);
   }
 }

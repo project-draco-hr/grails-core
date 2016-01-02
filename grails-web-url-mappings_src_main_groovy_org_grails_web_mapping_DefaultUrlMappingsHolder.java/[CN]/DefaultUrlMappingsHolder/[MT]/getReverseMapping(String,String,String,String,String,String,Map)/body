@@ -1,5 +1,5 @@
 {
-  if (params == null)   params=Collections.EMPTY_MAP;
+  if (params == null)   params=Collections.emptyMap();
   if (urlCreatorCache != null) {
     UrlCreatorCache.ReverseMappingKey key=urlCreatorCache.createKey(controller,action,namespace,pluginName,httpMethod,params);
     UrlCreator creator=urlCreatorCache.lookup(key);

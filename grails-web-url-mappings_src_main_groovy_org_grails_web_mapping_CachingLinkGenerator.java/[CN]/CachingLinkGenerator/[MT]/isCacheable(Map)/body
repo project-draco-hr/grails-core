@@ -1,7 +1,10 @@
 {
-  Object urlAttr=attrs.get(URL_ATTRIBUTE);
+  if (attrs.get(LinkGenerator.ATTRIBUTE_PARAMS) instanceof GrailsParameterMap) {
+    return false;
+  }
+  Object urlAttr=attrs.get(ATTRIBUTE_URL);
   if (urlAttr instanceof Map) {
     return isCacheable((Map)urlAttr);
   }
-  return attrs.get(UrlMapping.CONTROLLER) != null || attrs.get(UrlMapping.ACTION) != null || urlAttr != null || attrs.get(URI_ATTRIBUTE) != null;
+  return attrs.get(UrlMapping.CONTROLLER) != null || attrs.get(UrlMapping.ACTION) != null || urlAttr != null || attrs.get(ATTRIBUTE_URI) != null;
 }

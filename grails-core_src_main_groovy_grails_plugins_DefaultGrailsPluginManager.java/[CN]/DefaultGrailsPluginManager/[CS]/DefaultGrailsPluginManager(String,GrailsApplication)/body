@@ -1,7 +1,7 @@
 {
   super(application);
   Assert.notNull(application,"Argument [application] cannot be null!");
-  resolver=new PathMatchingResourcePatternResolver();
+  resolver=CachingPathMatchingResourcePatternResolver.INSTANCE;
   try {
     pluginResources=resolver.getResources(resourcePath);
   }

@@ -1,12 +1,19 @@
 {
   Class superClass=getClazz();
+  MethodHandles.Lookup lookup=MethodHandles.lookup();
   while (superClass != Object.class && superClass != GroovyObject.class) {
-    FastClass fastClass=GrailsClassUtils.fastClass(superClass);
     for (    Method method : superClass.getMethods()) {
       if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
         String methodName=method.getName();
         ReflectionUtils.makeAccessible(method);
-        methodNames.put(methodName,fastClass.getMethod(method));
+        MethodHandle mh;
+        try {
+          mh=lookup.findVirtual(superClass,methodName,MethodType.methodType(method.getReturnType()));
+          methodNames.put(methodName,mh);
+        }
+ catch (        NoSuchMethodException|IllegalAccessException e) {
+          throw new GrailsConfigurationException("Cannot find invokable controller action: " + methodName,e);
+        }
       }
     }
     superClass=superClass.getSuperclass();

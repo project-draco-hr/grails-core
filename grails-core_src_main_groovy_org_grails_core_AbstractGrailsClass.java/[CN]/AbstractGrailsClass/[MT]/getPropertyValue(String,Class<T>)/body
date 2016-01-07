@@ -1,7 +1,4 @@
 {
   T value=classPropertyFetcher.getPropertyValue(propName,type);
-  if (value == null) {
-    return getGroovyProperty(propName,type,false);
-  }
   return returnOnlyIfInstanceOf(value,type);
 }

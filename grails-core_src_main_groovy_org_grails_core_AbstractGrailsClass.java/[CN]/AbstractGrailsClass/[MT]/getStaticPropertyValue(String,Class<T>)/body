@@ -1,7 +1,4 @@
 {
   T value=classPropertyFetcher.getStaticPropertyValue(propName,type);
-  if (value == null) {
-    return getGroovyProperty(propName,type,true);
-  }
   return value;
 }

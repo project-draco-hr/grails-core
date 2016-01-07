@@ -1,19 +1,20 @@
 {
   if (initialized)   return;
   initialized=true;
-  Integer orderSetting=getPropertyOrStaticPropertyOrFieldValue("order",Integer.class);
+  Integer orderSetting=getStaticPropertyValue("order",Integer.class);
   if (orderSetting != null) {
     order=orderSetting;
   }
+  Object instance=getReferenceInstance();
   if (Encoder.class.isAssignableFrom(getClazz())) {
-    encoder=(Encoder)getReferenceInstance();
+    encoder=(Encoder)instance;
     encoder=(Encoder)autowireCodecBean(encoder);
     if (encoder instanceof Ordered) {
       order=((Ordered)encoder).getOrder();
     }
   }
   if (Decoder.class.isAssignableFrom(getClazz())) {
-    decoder=(Decoder)getReferenceInstance();
+    decoder=(Decoder)instance;
     decoder=(Decoder)autowireCodecBean(decoder);
     if (decoder instanceof Ordered) {
       order=((Ordered)decoder).getOrder();
@@ -22,15 +23,15 @@
   if (encoder == null && decoder == null) {
     CodecFactory codecFactory=null;
     if (CodecFactory.class.isAssignableFrom(getClazz())) {
-      codecFactory=(CodecFactory)getReferenceInstance();
+      codecFactory=(CodecFactory)instance;
       codecFactory=(CodecFactory)autowireCodecBean(codecFactory);
     }
     if (codecFactory == null) {
-      codecFactory=getPropertyOrStaticPropertyOrFieldValue("codecFactory",CodecFactory.class);
+      codecFactory=getStaticPropertyValue("codecFactory",CodecFactory.class);
       codecFactory=(CodecFactory)autowireCodecBean(codecFactory);
     }
     if (codecFactory == null) {
-      codecFactory=new ClosureCodecFactory();
+      codecFactory=new ClosureCodecFactory(instance);
     }
     encoder=codecFactory.getEncoder();
     decoder=codecFactory.getDecoder();

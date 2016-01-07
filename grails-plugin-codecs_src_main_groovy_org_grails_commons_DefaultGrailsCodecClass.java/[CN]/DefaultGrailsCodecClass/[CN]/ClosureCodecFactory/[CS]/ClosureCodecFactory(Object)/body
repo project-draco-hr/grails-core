@@ -1,4 +1,5 @@
 {
+  this.codecInstance=codecInstance;
   Closure<Object> encoderClosure=getMethodOrClosureMethod(getClazz(),"encode");
   if (encoderClosure != null) {
     encoder=new ClosureEncoder(getName(),encoderClosure);

@@ -1,10 +1,10 @@
 {
   try {
-    AbstractConverter<?> converter=(AbstractConverter<?>)converterClass.newInstance();
+    T converter=converterClass.newInstance();
     if (converter instanceof ApplicationContextAware && applicationContext != null) {
       ((ApplicationContextAware)converter).setApplicationContext(applicationContext);
     }
-    converter.setTarget(target);
+    ((AbstractConverter)converter).setTarget(target);
     return converter;
   }
  catch (  Exception e) {

@@ -1,9 +1,14 @@
 {
+  if (KNOWN_PATHS.containsKey(path)) {
+    return KNOWN_PATHS.get(path);
+  }
   for (  Pattern grailsAppResourcePattern : grailsAppResourcePatterns) {
     Matcher m=grailsAppResourcePattern.matcher(path);
     if (m.find()) {
+      KNOWN_PATHS.put(path,true);
       return true;
     }
   }
+  KNOWN_PATHS.put(path,false);
   return false;
 }

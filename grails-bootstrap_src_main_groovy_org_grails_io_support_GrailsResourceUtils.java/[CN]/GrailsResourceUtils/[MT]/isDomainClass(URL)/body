@@ -1,4 +1,4 @@
 {
   if (url == null)   return false;
-  return DOMAIN_PATH_PATTERN.matcher(url.getFile()).find();
+  return KNOWN_DOMAIN_CLASSES.get(url.getFile());
 }

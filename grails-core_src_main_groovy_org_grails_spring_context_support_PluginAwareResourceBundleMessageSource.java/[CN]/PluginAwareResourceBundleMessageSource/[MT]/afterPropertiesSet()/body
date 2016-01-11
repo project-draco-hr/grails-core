@@ -35,7 +35,7 @@
     if (i > -1) {
       baseName=baseName.substring(0,i);
     }
-    if (!basenames.contains(baseName))     basenames.add(baseName);
+    if (!basenames.contains(baseName) && !baseName.equals(""))     basenames.add(baseName);
   }
   setBasenames(basenames.toArray(new String[basenames.size()]));
 }

@@ -1,0 +1,10 @@
+{
+switch (state) {
+case TYPE:
+    buff.append(String.valueOf(ch,start,length));
+  break;
+case RESOURCE:
+buff.append(String.valueOf(ch,start,length));
+break;
+}
+}

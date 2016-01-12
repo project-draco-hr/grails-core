@@ -1,0 +1,10 @@
+{
+  if (localName.equals("type")) {
+    state=PluginParseState.TYPE;
+    buff=new StringBuilder();
+  }
+ else   if (localName.equals("resource")) {
+    state=PluginParseState.RESOURCE;
+    buff=new StringBuilder();
+  }
+}

@@ -1,5 +1,0 @@
-{
-  if (!(viewResolver instanceof GrailsViewResolver)) {
-    setViewResolver(event.getApplicationContext().getBean(GrailsViewResolver.class));
-  }
-}

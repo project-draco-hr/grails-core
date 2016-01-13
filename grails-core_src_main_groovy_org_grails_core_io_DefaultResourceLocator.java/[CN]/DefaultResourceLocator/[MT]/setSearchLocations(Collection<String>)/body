@@ -1,5 +1,5 @@
 {
-  patchMatchingResolver=new PathMatchingResourcePatternResolver(getDefaultResourceLoader());
+  patchMatchingResolver=new CachingPathMatchingResourcePatternResolver(getDefaultResourceLoader());
   for (  String searchLocation : searchLocations) {
     initializeForSearchLocation(searchLocation);
   }

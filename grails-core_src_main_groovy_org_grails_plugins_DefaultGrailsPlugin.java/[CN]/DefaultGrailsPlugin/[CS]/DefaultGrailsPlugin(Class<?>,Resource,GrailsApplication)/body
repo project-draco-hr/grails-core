@@ -2,7 +2,7 @@
   super(pluginClass,application);
   dependencies=Collections.emptyMap();
   pluginDescriptor=resource;
-  resolver=new PathMatchingResourcePatternResolver();
+  resolver=CachingPathMatchingResourcePatternResolver.INSTANCE;
   try {
     initialisePlugin(pluginClass);
   }

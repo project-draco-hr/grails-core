@@ -1,0 +1,3 @@
+{
+  return this.taskList.toArray(new TaskInfo[this.taskList.size()]);
+}

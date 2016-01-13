@@ -1,7 +1,3 @@
 {
-  GrailsPlugin plugin=getGrailsPlugin(name);
-  if (plugin != null && !plugin.isBasePlugin()) {
-    return plugin.getPluginPath();
-  }
-  return BLANK;
+  return getPluginPath(name,false);
 }

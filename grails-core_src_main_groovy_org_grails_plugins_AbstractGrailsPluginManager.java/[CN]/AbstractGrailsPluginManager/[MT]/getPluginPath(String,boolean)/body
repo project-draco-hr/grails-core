@@ -1,0 +1,12 @@
+{
+  GrailsPlugin plugin=getGrailsPlugin(name);
+  if (plugin != null && !plugin.isBasePlugin()) {
+    if (forceCamelCase) {
+      return plugin.getPluginPathCamelCase();
+    }
+ else {
+      return plugin.getPluginPath();
+    }
+  }
+  return BLANK;
+}

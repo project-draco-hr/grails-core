@@ -1,4 +1,3 @@
 {
-  SAXParserFactory factory=createParserFactory();
-  return new XmlSlurper(factory.newSAXParser());
+  return new XmlSlurper(newSAXParser());
 }

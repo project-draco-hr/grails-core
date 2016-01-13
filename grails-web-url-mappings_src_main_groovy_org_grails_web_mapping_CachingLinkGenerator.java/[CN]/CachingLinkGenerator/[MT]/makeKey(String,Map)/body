@@ -2,8 +2,8 @@
   StringBuilder sb=new StringBuilder();
   sb.append(prefix);
   if (getConfiguredServerBaseURL() == null && isAbsolute(attrs)) {
-    if (attrs.get(BASE) != null) {
-      sb.append(attrs.get(BASE));
+    if (attrs.get(ATTRIBUTE_BASE) != null) {
+      sb.append(attrs.get(ATTRIBUTE_BASE));
     }
  else {
       GrailsWebRequest webRequest=GrailsWebRequest.lookup();

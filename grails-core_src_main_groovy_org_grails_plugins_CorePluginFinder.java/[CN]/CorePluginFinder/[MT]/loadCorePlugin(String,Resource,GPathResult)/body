@@ -1,7 +1,0 @@
-{
-  Class<?> pluginClass=attemptCorePluginClassLoad(pluginClassName);
-  if (pluginClass != null) {
-    addPlugin(pluginClass);
-    binaryDescriptors.put(pluginClass,new BinaryGrailsPluginDescriptor(resource,result));
-  }
-}

@@ -1,0 +1,6 @@
+{
+  stopWatch.complete();
+  if (LOG.isDebugEnabled()) {
+    LOG.debug(stopWatch.prettyPrint());
+  }
+}

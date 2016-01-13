@@ -1,12 +1,4 @@
 {
-  if (map == null)   return false;
-  if (map.containsKey(key)) {
-    Object o=map.get(key);
-    if (o == null)     return false;
-    if (o instanceof Boolean) {
-      return (Boolean)o;
-    }
-    return Boolean.valueOf(o.toString());
-  }
-  return false;
+  boolean defaultValue=false;
+  return getBooleanFromMap(key,map,defaultValue);
 }

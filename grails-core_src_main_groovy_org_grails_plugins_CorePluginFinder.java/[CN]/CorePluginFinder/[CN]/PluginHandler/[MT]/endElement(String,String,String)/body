@@ -1,0 +1,11 @@
+{
+switch (state) {
+case TYPE:
+    pluginTypes.add(buff.toString());
+  break;
+case RESOURCE:
+pluginClasses.add(buff.toString());
+break;
+}
+state=PluginParseState.PARSING;
+}

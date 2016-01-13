@@ -1,0 +1,11 @@
+{
+  this.codecInstance=codecInstance;
+  Closure<Object> encoderClosure=getMethodOrClosureMethod(getClazz(),"encode");
+  if (encoderClosure != null) {
+    encoder=new ClosureEncoder(getName(),encoderClosure);
+  }
+  Closure<Object> decoderClosure=getMethodOrClosureMethod(getClazz(),"decode");
+  if (decoderClosure != null) {
+    decoder=new ClosureDecoder(getName(),decoderClosure);
+  }
+}

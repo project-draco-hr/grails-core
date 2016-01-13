@@ -1,0 +1,14 @@
+{
+  if (clazz == String.class) {
+    return toString();
+  }
+ else   if (clazz == char[].class) {
+    return toCharArray();
+  }
+ else   if (clazz == Boolean.class || clazz == boolean.class) {
+    return asBoolean();
+  }
+ else {
+    return StringGroovyMethods.asType(toString(),clazz);
+  }
+}

@@ -5,12 +5,9 @@
   if (o instanceof GrailsDomainClassProperty) {
     if (!super.equals(o)) {
       GrailsDomainClassProperty otherProp=(GrailsDomainClassProperty)o;
-      boolean namesMatch=otherProp.getName().equals(getName());
-      boolean typesMatch=otherProp.getReferencedPropertyType().equals(getReferencedPropertyType());
       Class<?> myActualClass=getDomainClass().getClazz();
       Class<?> otherActualClass=otherProp.getDomainClass().getClazz();
-      boolean classMatch=otherActualClass.isAssignableFrom(myActualClass) || myActualClass.isAssignableFrom(otherActualClass);
-      return namesMatch && typesMatch && classMatch;
+      return otherProp.getName().equals(getName()) && otherProp.getReferencedPropertyType().equals(getReferencedPropertyType()) && (otherActualClass.isAssignableFrom(myActualClass) || myActualClass.isAssignableFrom(otherActualClass));
     }
     return true;
   }

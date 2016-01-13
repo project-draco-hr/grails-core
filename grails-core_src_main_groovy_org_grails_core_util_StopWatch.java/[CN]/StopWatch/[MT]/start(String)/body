@@ -1,0 +1,7 @@
+{
+  this.lastTaskInfo=new TaskInfo(taskName,System.currentTimeMillis());
+  this.runningTasks.push(lastTaskInfo);
+  ++this.taskCount;
+  this.running=true;
+  this.currentTaskName=taskName;
+}

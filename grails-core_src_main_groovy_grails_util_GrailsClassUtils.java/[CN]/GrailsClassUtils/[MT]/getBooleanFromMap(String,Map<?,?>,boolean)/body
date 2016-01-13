@@ -1,0 +1,14 @@
+{
+  if (map == null)   return defaultValue;
+  if (map.containsKey(key)) {
+    Object o=map.get(key);
+    if (o == null) {
+      return defaultValue;
+    }
+    if (o instanceof Boolean) {
+      return (Boolean)o;
+    }
+    return Boolean.valueOf(o.toString());
+  }
+  return defaultValue;
+}

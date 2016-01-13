@@ -1,6 +1,6 @@
 {
   super(application);
-  resolver=new PathMatchingResourcePatternResolver();
+  resolver=CachingPathMatchingResourcePatternResolver.INSTANCE;
   List<Resource> resourceList=new ArrayList<Resource>();
   for (  String resourcePath : pluginResources) {
     try {

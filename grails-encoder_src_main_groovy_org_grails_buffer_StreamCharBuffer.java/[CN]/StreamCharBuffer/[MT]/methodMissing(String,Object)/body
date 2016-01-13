@@ -1,0 +1,4 @@
+{
+  String str=this.toString();
+  return InvokerHelper.invokeMethod(str,name,args);
+}

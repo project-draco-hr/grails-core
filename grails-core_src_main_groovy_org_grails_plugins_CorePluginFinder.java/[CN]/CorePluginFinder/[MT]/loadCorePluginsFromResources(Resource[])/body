@@ -1,27 +1,18 @@
 {
   LOG.debug("Attempting to load [" + resources.length + "] core plugins");
   try {
-    XmlSlurper slurper=SpringIOUtils.createXmlSlurper();
+    SAXParser saxParser=SpringIOUtils.newSAXParser();
     for (    Resource resource : resources) {
       InputStream input=null;
       try {
         input=resource.getInputStream();
-        final GPathResult result=slurper.parse(input);
-        GPathResult pluginClass=(GPathResult)result.getProperty("type");
-        if (pluginClass.size() == 1) {
-          final String pluginClassName=pluginClass.text();
-          if (StringUtils.hasText(pluginClassName)) {
-            loadCorePlugin(pluginClassName,resource,result);
-          }
-        }
- else {
-          final Iterator iterator=pluginClass.nodeIterator();
-          while (iterator.hasNext()) {
-            Node node=(Node)iterator.next();
-            final String pluginClassName=node.text();
-            if (StringUtils.hasText(pluginClassName)) {
-              loadCorePlugin(pluginClassName,resource,result);
-            }
+        PluginHandler ph=new PluginHandler();
+        saxParser.parse(input,ph);
+        for (        String pluginType : ph.pluginTypes) {
+          Class<?> pluginClass=attemptCorePluginClassLoad(pluginType);
+          if (pluginClass != null) {
+            addPlugin(pluginClass);
+            binaryDescriptors.put(pluginClass,new BinaryGrailsPluginDescriptor(resource,ph.pluginClasses));
           }
         }
       }

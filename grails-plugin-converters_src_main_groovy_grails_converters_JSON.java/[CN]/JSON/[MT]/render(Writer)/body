@@ -1,9 +1,5 @@
 {
   prepareRender(out);
-  try {
-    value(target);
-  }
-  finally {
-    finalizeRender(out);
-  }
+  value(target);
+  finalizeRender(out);
 }

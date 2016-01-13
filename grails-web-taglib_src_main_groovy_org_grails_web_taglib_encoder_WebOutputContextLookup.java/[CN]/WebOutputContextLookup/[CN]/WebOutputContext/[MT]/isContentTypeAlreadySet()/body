@@ -1,4 +1,5 @@
 {
-  HttpServletResponse response=lookupResponse();
-  return response.isCommitted() || response.getContentType() != null;
+  GrailsWebRequest webRequest=lookupWebRequest();
+  HttpServletResponse response=webRequest.getResponse();
+  return response.isCommitted() || (response.getContentType() != null && webRequest.getRequest().getAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE) == null);
 }

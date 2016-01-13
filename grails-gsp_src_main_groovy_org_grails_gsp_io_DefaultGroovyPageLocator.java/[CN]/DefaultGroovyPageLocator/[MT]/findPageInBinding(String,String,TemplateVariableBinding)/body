@@ -4,5 +4,9 @@
   if (scriptSource == null) {
     scriptSource=findResourceScriptSource(uri);
   }
+  if (scriptSource == null) {
+    contextPath=resolveContextPath(pluginName,uri,binding,true);
+    scriptSource=findPageInBinding(GrailsResourceUtils.appendPiecesForUri(contextPath,uri),binding);
+  }
   return scriptSource;
 }

@@ -1,0 +1,3 @@
+{
+  return PLUGINS_PATH + '/' + GrailsNameUtils.getPropertyNameForLowerCaseHyphenSeparatedName(getName())+ '-'+ getVersion();
+}

@@ -1,17 +1,3 @@
 {
-  String contextPath=null;
-  if (uri.startsWith("/plugins/")) {
-    contextPath=BLANK;
-  }
- else   if (pluginName != null && pluginManager != null) {
-    contextPath=pluginManager.getPluginPath(pluginName);
-  }
- else   if (binding instanceof GroovyPageBinding) {
-    String pluginContextPath=((GroovyPageBinding)binding).getPluginContextPath();
-    contextPath=pluginContextPath != null ? pluginContextPath : BLANK;
-  }
- else {
-    contextPath=BLANK;
-  }
-  return contextPath;
+  return resolveContextPath(pluginName,uri,binding,false);
 }

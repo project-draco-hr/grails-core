@@ -3,4 +3,5 @@
   for (  HandlerInterceptor handler : handlersReversed) {
     handler.postHandle(request,response,o,modelAndView);
   }
+  request.removeAttribute(GrailsApplicationAttributes.FORWARD_ISSUED);
 }

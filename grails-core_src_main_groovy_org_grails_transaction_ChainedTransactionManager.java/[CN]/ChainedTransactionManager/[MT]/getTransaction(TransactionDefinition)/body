@@ -1,6 +1,6 @@
 {
   MultiTransactionStatus mts=new MultiTransactionStatus(transactionManagers.get(0));
-  if (!synchronizationManager.isSynchronizationActive()) {
+  if (!synchronizationManager.isSynchronizationActive() && canCreateTransaction(definition)) {
     synchronizationManager.initSynchronization();
     mts.setNewSynchonization();
   }

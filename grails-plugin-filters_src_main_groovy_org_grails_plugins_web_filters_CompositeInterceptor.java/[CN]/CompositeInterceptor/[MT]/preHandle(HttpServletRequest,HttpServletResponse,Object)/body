@@ -4,7 +4,8 @@
     if (!handler.preHandle(request,response,o)) {
       return false;
     }
-    if (request.getAttribute(GrailsApplicationAttributes.FORWARD_ISSUED) != null) {
+    if (request.getAttribute(GrailsApplicationAttributes.FORWARD_ISSUED) != null && !WebUtils.isForwardOrInclude(request)) {
+      request.removeAttribute(GrailsApplicationAttributes.FORWARD_ISSUED);
       return false;
     }
   }

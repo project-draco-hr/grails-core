@@ -6,18 +6,16 @@
   if (value != null) {
     return value;
   }
-  if (value == null) {
-    value=gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupNamespaceDispatcher(property) : null;
-    if (value == null && jspTags.containsKey(property)) {
-      TagLibraryResolver tagResolver=getTagLibraryResolver();
-      String uri=(String)jspTags.get(property);
-      if (uri != null) {
-        value=tagResolver.resolveTagLibrary(uri);
-      }
+  value=gspTagLibraryLookup != null ? gspTagLibraryLookup.lookupNamespaceDispatcher(property) : null;
+  if (value == null && jspTags.containsKey(property)) {
+    TagLibraryResolver tagResolver=getTagLibraryResolver();
+    String uri=(String)jspTags.get(property);
+    if (uri != null) {
+      value=tagResolver.resolveTagLibrary(uri);
     }
-    if (value != null) {
-      setVariableDirectly(property,value);
-    }
+  }
+  if (value != null) {
+    setVariableDirectly(property,value);
   }
   return value;
 }

@@ -1,5 +1,5 @@
 {
-  List includeList=Collections.EMPTY_LIST;
+  List includeList=Collections.emptyList();
   try {
     final Class<? extends Object> objectClass=object.getClass();
     if (CLASS_TO_BINDING_INCLUDE_LIST.containsKey(objectClass)) {

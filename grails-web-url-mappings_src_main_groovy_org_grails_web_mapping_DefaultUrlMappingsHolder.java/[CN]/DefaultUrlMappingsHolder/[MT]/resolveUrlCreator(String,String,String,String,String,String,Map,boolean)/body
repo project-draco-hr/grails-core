@@ -11,7 +11,7 @@
     }
   }
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
-    UrlMappingKey lookupKey=new UrlMappingKey(controller,action,namespace,pluginName,httpMethod,version,Collections.EMPTY_SET);
+    UrlMappingKey lookupKey=new UrlMappingKey(controller,action,namespace,pluginName,httpMethod,version,Collections.<String>emptySet());
     mapping=mappingsLookup.get(lookupKey);
     if (mapping == null) {
       lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;

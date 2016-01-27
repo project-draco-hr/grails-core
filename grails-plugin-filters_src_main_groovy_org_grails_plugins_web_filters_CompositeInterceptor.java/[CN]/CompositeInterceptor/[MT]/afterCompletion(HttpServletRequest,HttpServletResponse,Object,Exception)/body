@@ -1,6 +1,0 @@
-{
-  if (log.isDebugEnabled())   log.debug("afterCompletion " + request + ", "+ response+ ", "+ o+ ", "+ e);
-  for (  HandlerInterceptor handler : handlersReversed) {
-    handler.afterCompletion(request,response,o,e);
-  }
-}

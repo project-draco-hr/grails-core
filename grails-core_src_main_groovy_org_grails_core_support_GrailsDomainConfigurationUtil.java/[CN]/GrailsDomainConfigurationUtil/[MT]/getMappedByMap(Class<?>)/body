@@ -2,7 +2,7 @@
   ClassPropertyFetcher cpf=ClassPropertyFetcher.forClass(domainClass);
   Map<?,?> mappedByMap=cpf.getPropertyValue(GrailsDomainClassProperty.MAPPED_BY,Map.class);
   if (mappedByMap == null) {
-    return Collections.EMPTY_MAP;
+    return Collections.emptyMap();
   }
   return mappedByMap;
 }

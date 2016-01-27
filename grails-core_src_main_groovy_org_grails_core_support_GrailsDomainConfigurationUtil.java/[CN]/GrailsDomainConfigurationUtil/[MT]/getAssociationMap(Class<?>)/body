@@ -2,7 +2,7 @@
   ClassPropertyFetcher cpf=ClassPropertyFetcher.forClass(domainClass);
   Map<?,?> associationMap=cpf.getPropertyValue(GrailsDomainClassProperty.HAS_MANY,Map.class);
   if (associationMap == null) {
-    associationMap=Collections.EMPTY_MAP;
+    associationMap=Collections.emptyMap();
   }
   return associationMap;
 }

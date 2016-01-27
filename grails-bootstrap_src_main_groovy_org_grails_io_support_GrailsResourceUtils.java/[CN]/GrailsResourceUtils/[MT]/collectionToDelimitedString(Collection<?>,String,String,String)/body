@@ -1,5 +1,5 @@
 {
-  if (coll != null && coll.isEmpty()) {
+  if (coll == null || coll.isEmpty()) {
     return "";
   }
   StringBuilder sb=new StringBuilder();

@@ -6,12 +6,19 @@
   this.pluginClass=pluginClass;
   Resource resource=readPluginConfiguration(pluginClass);
   if (resource != null && resource.exists()) {
-    YamlPropertySourceLoader propertySourceLoader=new YamlPropertySourceLoader();
+    final String filename=resource.getFilename();
     try {
-      this.propertySource=propertySourceLoader.load(GrailsNameUtils.getLogicalPropertyName(pluginClass.getSimpleName(),"GrailsPlugin") + "-plugin.yml",resource,null,false,DEFAULT_CONFIG_IGNORE_LIST);
+      if (filename.equals(PLUGIN_YML)) {
+        YamlPropertySourceLoader propertySourceLoader=new YamlPropertySourceLoader();
+        this.propertySource=propertySourceLoader.load(GrailsNameUtils.getLogicalPropertyName(pluginClass.getSimpleName(),"GrailsPlugin") + "-" + PLUGIN_YML,resource,null,true,DEFAULT_CONFIG_IGNORE_LIST);
+      }
+ else       if (filename.equals(PLUGIN_GROOVY)) {
+        GroovyConfigPropertySourceLoader propertySourceLoader=new GroovyConfigPropertySourceLoader();
+        this.propertySource=propertySourceLoader.load(GrailsNameUtils.getLogicalPropertyName(pluginClass.getSimpleName(),"GrailsPlugin") + "-" + PLUGIN_GROOVY,resource,null,DEFAULT_CONFIG_IGNORE_LIST);
+      }
     }
  catch (    IOException e) {
-      LOG.warn("Error loading plugin.yml for plugin: " + pluginClass.getName() + ": "+ e.getMessage(),e);
+      LOG.warn("Error loading " + filename + " for plugin: "+ pluginClass.getName()+ ": "+ e.getMessage(),e);
     }
   }
 }

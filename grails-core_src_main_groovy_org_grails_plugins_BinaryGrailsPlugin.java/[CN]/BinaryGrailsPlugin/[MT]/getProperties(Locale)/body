@@ -1,5 +1,5 @@
 {
-  Resource url=findPluginJar();
+  Resource url=this.baseResourcesResource;
   Properties properties=null;
   if (url != null) {
     StaticResourceLoader resourceLoader=new StaticResourceLoader();

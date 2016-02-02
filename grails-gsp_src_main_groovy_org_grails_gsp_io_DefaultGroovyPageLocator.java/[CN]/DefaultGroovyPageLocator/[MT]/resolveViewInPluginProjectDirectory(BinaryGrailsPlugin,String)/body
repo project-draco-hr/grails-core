@@ -1,0 +1,8 @@
+{
+  File projectDirectory=binaryPlugin.getProjectDirectory();
+  File f=new File(projectDirectory,"grails-app/views" + uri);
+  if (f.exists()) {
+    return new GroovyPageResourceScriptSource(uri,new FileSystemResource(f));
+  }
+  return null;
+}

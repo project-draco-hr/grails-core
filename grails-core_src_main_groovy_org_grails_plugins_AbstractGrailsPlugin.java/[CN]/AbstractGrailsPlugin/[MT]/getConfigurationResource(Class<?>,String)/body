@@ -1,0 +1,4 @@
+{
+  final URL urlToConfig=IOUtils.findResourceRelativeToClass(pluginClass,path);
+  return urlToConfig != null ? new UrlResource(urlToConfig) : null;
+}

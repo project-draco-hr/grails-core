@@ -1,0 +1,9 @@
+{
+  Map<String,GrailsDomainClassProperty> indexed=new HashMap<>();
+  if (properties != null) {
+    for (    GrailsDomainClassProperty p : properties) {
+      indexed.put(p.getName(),p);
+    }
+  }
+  return indexed;
+}

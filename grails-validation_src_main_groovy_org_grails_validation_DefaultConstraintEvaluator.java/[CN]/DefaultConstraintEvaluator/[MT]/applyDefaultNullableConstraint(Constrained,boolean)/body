@@ -1,4 +1,6 @@
 {
-  boolean isCollection=Collection.class.isAssignableFrom(cp.getPropertyType()) || Map.class.isAssignableFrom(cp.getPropertyType());
-  cp.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,isCollection || defaultNullable);
+  if (!constrained.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
+    boolean isCollection=Collection.class.isAssignableFrom(constrained.getPropertyType()) || Map.class.isAssignableFrom(constrained.getPropertyType());
+    constrained.applyConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT,isCollection || defaultNullable);
+  }
 }

@@ -1,3 +1,5 @@
 {
-  applyDefaultNullableConstraint(cp,false);
+  if (canApplyNullableConstraint(domainClassProperty.getName(),domainClassProperty,constrained)) {
+    applyDefaultNullableConstraint(constrained,false);
+  }
 }

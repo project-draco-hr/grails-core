@@ -1,0 +1,12 @@
+{
+  ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(theClass);
+  for (  Closure<?> c : constraintsClosureList) {
+    c=(Closure<?>)c.clone();
+    c.setResolveStrategy(Closure.DELEGATE_ONLY);
+    c.setDelegate(delegate);
+    c.call();
+  }
+  Map<String,Constrained> constraintMap=delegate.getConstrainedProperties();
+  applySharedConstraints(delegate,constraintMap);
+  return evaluateConstraints(constraintMap,theClass,domainClassProperties,defaultNullable);
+}

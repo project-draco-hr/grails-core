@@ -1,0 +1,45 @@
+{
+  if (constraintMap.isEmpty() && AnnotationDomainClassArtefactHandler.isJPADomainClass(theClass)) {
+    return constraintMap;
+  }
+  boolean isDomainClass=DomainClassArtefactHandler.isDomainClass(theClass);
+  Map<String,GrailsDomainClassProperty> domainClassPropertyMap=indexPropertiesByPropertyName(domainClassProperties);
+  Map<String,Method> constrainablePropertyMap=getConstrainablePropertyMap(theClass);
+  for (  String propertyName : constrainablePropertyMap.keySet()) {
+    GrailsDomainClassProperty domainClassProperty=domainClassPropertyMap.get(propertyName);
+    boolean isPersistentProperty=domainClassProperty != null;
+    if (isDomainClass) {
+      if (isAssociationIdProperty(propertyName,domainClassPropertyMap))       continue;
+      if (isPersistentProperty) {
+        if (!canPropertyBeConstrained(domainClassProperty))         continue;
+        if (domainClassProperty.isDerived()) {
+          if (constraintMap.remove(propertyName) != null) {
+            LOG.warn("Derived domainClassProperties may not be constrained. Property [" + propertyName + "] of domain class "+ theClass.getName()+ " will not be checked during validation.");
+            continue;
+          }
+        }
+      }
+ else {
+        continue;
+      }
+    }
+    Constrained constrained=constraintMap.get(propertyName);
+    if (constrained == null) {
+      if (defaultConstraints.isEmpty() && defaultNullable)       continue;
+      ConstrainedProperty constrainedProperty=new ConstrainedProperty(theClass,propertyName,constrainablePropertyMap.get(propertyName).getReturnType());
+      constrainedProperty.setOrder(constraintMap.size() + 1);
+      constraintMap.put(propertyName,constrainedProperty);
+      constrained=constrainedProperty;
+    }
+    if (isDomainClass && isPersistentProperty) {
+      applyDefaultConstraints(domainClassProperty,constrained,defaultConstraints);
+    }
+    if (isDomainClass && isPersistentProperty) {
+      applyDefaultNullableConstraint(domainClassProperty,constrained);
+    }
+ else {
+      applyDefaultNullableConstraint(constrained,defaultNullable);
+    }
+  }
+  return constraintMap;
+}

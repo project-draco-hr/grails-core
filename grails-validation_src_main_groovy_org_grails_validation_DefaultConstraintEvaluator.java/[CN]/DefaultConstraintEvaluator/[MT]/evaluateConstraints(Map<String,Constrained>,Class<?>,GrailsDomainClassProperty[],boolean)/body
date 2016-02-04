@@ -7,7 +7,7 @@
   Map<String,Method> constrainablePropertyMap=getConstrainablePropertyMap(theClass);
   for (  String propertyName : constrainablePropertyMap.keySet()) {
     GrailsDomainClassProperty domainClassProperty=domainClassPropertyMap.get(propertyName);
-    boolean isPersistentProperty=domainClassProperty != null;
+    boolean isPersistentProperty=isDomainClass && domainClassProperty != null;
     if (isDomainClass) {
       if (isAssociationIdProperty(propertyName,domainClassPropertyMap))       continue;
       if (isPersistentProperty) {
@@ -19,9 +19,6 @@
           }
         }
       }
- else {
-        continue;
-      }
     }
     Constrained constrained=constraintMap.get(propertyName);
     if (constrained == null) {
@@ -31,10 +28,10 @@
       constraintMap.put(propertyName,constrainedProperty);
       constrained=constrainedProperty;
     }
-    if (isDomainClass && isPersistentProperty) {
+    if (isPersistentProperty) {
       applyDefaultConstraints(domainClassProperty,constrained,defaultConstraints);
     }
-    if (isDomainClass && isPersistentProperty) {
+    if (isPersistentProperty) {
       applyDefaultNullableConstraint(domainClassProperty,constrained);
     }
  else {

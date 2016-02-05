@@ -8,5 +8,5 @@
   }
   Map<String,Constrained> constraintMap=delegate.getConstrainedProperties();
   applySharedConstraints(delegate,constraintMap);
-  return evaluateConstraints(constraintMap,theClass,domainClassProperties,defaultNullable);
+  return constraintMap;
 }

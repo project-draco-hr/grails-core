@@ -1,0 +1,11 @@
+{
+  List<Closure> constraintsClosures=new ArrayList<>();
+  if (!useOnlyAdHocConstraints) {
+    constraintsClosures.addAll(retrieveConstraintsClosures(theClass));
+  }
+  if (adHocConstraintsClosures != null) {
+    constraintsClosures.addAll(Arrays.asList(adHocConstraintsClosures));
+  }
+  Map<String,Constrained> constraintMap=evaluateConstraintsMap(constraintsClosures,theClass);
+  return evaluateConstraints(constraintMap,theClass,domainClassProperties,defaultNullable);
+}

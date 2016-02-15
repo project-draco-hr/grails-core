@@ -1,0 +1,3 @@
+{
+  return !Modifier.isStatic(method.getModifiers()) && Modifier.isPublic(method.getModifiers()) && isGetter(method.getName(),method.getParameterTypes());
+}

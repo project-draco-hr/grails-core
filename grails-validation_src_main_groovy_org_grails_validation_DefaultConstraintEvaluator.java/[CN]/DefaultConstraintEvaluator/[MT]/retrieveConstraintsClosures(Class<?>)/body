@@ -1,0 +1,17 @@
+{
+  List<Closure> constraintsClosureList=new ArrayList<>();
+  for (  Object aClassChain : GrailsDomainConfigurationUtil.getSuperClassChain(theClass)) {
+    Class<?> clazz=(Class<?>)aClassChain;
+    Closure<?> c=(Closure<?>)GrailsClassUtils.getStaticFieldValue(clazz,ConstraintsEvaluator.PROPERTY_NAME);
+    if (c == null) {
+      c=getConstraintsFromScript(theClass);
+    }
+    if (c != null) {
+      constraintsClosureList.add(c);
+    }
+ else {
+      LOG.debug("User-defined constraints not found on class [" + clazz + "], applying default constraints");
+    }
+  }
+  return constraintsClosureList;
+}

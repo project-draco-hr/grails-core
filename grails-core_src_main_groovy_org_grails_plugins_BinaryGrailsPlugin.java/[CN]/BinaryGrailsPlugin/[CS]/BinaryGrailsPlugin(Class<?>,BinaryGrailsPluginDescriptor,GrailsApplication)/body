@@ -7,12 +7,11 @@
   }
   this.baseResource=new UrlResource(rootResource);
   try {
-    this.baseResourceString=baseResource.getURL().toString();
+    this.isJar=ResourceUtils.isJarURL(baseResource.getURL());
   }
  catch (  IOException e) {
     throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass,e);
   }
-  this.isJar=baseResourceString.startsWith("jar:");
   this.projectDirectory=isJar ? null : IOUtils.findApplicationDirectoryFile(pluginClass);
   URL rootResourcesURL=IOUtils.findRootResourcesURL(pluginClass);
   if (rootResourcesURL == null) {

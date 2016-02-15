@@ -1,56 +1,5 @@
 {
-  boolean javaEntity=theClass.isAnnotationPresent(Entity.class);
-  LinkedList<?> classChain=getSuperClassChain(theClass);
-  Class<?> clazz;
-  ConstrainedPropertyBuilder delegate=new ConstrainedPropertyBuilder(theClass);
-  for (  Object aClassChain : classChain) {
-    clazz=(Class<?>)aClassChain;
-    Closure<?> c=(Closure<?>)GrailsClassUtils.getStaticFieldValue(clazz,ConstraintsEvaluator.PROPERTY_NAME);
-    if (c == null) {
-      c=getConstraintsFromScript(theClass);
-    }
-    if (c != null) {
-      c=(Closure<?>)c.clone();
-      c.setResolveStrategy(Closure.DELEGATE_ONLY);
-      c.setDelegate(delegate);
-      c.call();
-    }
- else {
-      LOG.debug("User-defined constraints not found on class [" + clazz + "], applying default constraints");
-    }
-  }
-  Map<String,Constrained> constrainedProperties=delegate.getConstrainedProperties();
-  if (properties != null && !(constrainedProperties.isEmpty() && javaEntity)) {
-    for (    GrailsDomainClassProperty p : properties) {
-      if (canPropertyBeConstrained(p)) {
-        if (p.isDerived()) {
-          if (constrainedProperties.remove(p.getName()) != null) {
-            LOG.warn("Derived properties may not be constrained. Property [" + p.getName() + "] of domain class "+ theClass.getName()+ " will not be checked during validation.");
-          }
-        }
- else {
-          final String propertyName=p.getName();
-          Constrained cp=constrainedProperties.get(propertyName);
-          if (cp == null) {
-            ConstrainedProperty constrainedProperty=new ConstrainedProperty(p.getDomainClass().getClazz(),propertyName,p.getType());
-            cp=constrainedProperty;
-            constrainedProperty.setOrder(constrainedProperties.size() + 1);
-            constrainedProperties.put(propertyName,cp);
-          }
-          applyDefaultConstraints(propertyName,p,cp,defaultConstraints);
-        }
-      }
-    }
-  }
-  if (properties == null || properties.length == 0) {
-    final Set<Entry<String,Constrained>> entrySet=constrainedProperties.entrySet();
-    for (    Entry<String,Constrained> entry : entrySet) {
-      final Constrained constrainedProperty=entry.getValue();
-      if (!constrainedProperty.hasAppliedConstraint(ConstrainedProperty.NULLABLE_CONSTRAINT)) {
-        applyDefaultNullableConstraint(constrainedProperty,defaultNullable);
-      }
-    }
-  }
-  applySharedConstraints(delegate,constrainedProperties);
-  return constrainedProperties;
+  List<Closure> constraintsClosures=retrieveConstraintsClosures(theClass);
+  Map<String,Constrained> constraintMap=evaluateConstraintsMap(constraintsClosures,theClass);
+  return evaluateConstraints(constraintMap,theClass,domainClassProperties,defaultNullable);
 }

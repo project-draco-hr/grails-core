@@ -1,0 +1,8 @@
+{
+  assertTrue(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("getName",null)));
+  assertFalse(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("setName",null)));
+  assertFalse(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("getSurname",null)));
+  assertFalse(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("getNewYear",null)));
+  assertFalse(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("getFilename",String.class)));
+  assertFalse(GrailsClassUtils.isPropertyGetter(ClassHavingPropertyGetters.class.getDeclaredMethod("getTitle",null)));
+}

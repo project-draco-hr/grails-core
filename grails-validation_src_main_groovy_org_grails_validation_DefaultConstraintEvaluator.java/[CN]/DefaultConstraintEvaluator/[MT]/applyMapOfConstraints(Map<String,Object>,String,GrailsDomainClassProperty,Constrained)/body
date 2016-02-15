@@ -2,14 +2,14 @@
   for (  Map.Entry<String,Object> entry : constraints.entrySet()) {
     String constraintName=entry.getKey();
     Object constrainingValue=entry.getValue();
-    if (!cp.hasAppliedConstraint(constraintName) && cp.supportsContraint(constraintName)) {
+    if (!constrained.hasAppliedConstraint(constraintName) && constrained.supportsContraint(constraintName)) {
       if (ConstrainedProperty.NULLABLE_CONSTRAINT.equals(constraintName)) {
-        if (isConstrainableProperty(p,propertyName)) {
-          cp.applyConstraint(constraintName,constrainingValue);
+        if (isConstrainableProperty(domainClassProperty,propertyName)) {
+          constrained.applyConstraint(constraintName,constrainingValue);
         }
       }
  else {
-        cp.applyConstraint(constraintName,constrainingValue);
+        constrained.applyConstraint(constraintName,constrainingValue);
       }
     }
   }

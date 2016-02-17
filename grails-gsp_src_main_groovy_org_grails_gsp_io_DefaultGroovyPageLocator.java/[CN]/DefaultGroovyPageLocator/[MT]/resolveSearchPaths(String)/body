@@ -11,7 +11,7 @@
     }
   }
  else {
-    searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri(SLASHED_VIEWS_DIR_PATH,uri),GrailsResourceUtils.appendPiecesForUri(PATH_TO_WEB_INF_VIEWS,uri),uri,GrailsResourceUtils.CLASSPATH_URL_PREFIX + uri);
+    searchPaths=CollectionUtils.newList(GrailsResourceUtils.appendPiecesForUri(SLASHED_VIEWS_DIR_PATH,uri),uri);
   }
   return searchPaths;
 }

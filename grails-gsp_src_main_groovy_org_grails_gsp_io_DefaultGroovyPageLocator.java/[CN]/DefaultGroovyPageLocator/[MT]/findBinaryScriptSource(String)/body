@@ -2,7 +2,9 @@
   if (pluginManager == null) {
     return null;
   }
-  for (  GrailsPlugin plugin : pluginManager.getAllPlugins()) {
+  List<GrailsPlugin> allPlugins=Arrays.asList(pluginManager.getAllPlugins());
+  Collections.reverse(allPlugins);
+  for (  GrailsPlugin plugin : allPlugins) {
     if (!(plugin instanceof BinaryGrailsPlugin)) {
       continue;
     }

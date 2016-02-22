@@ -5,14 +5,18 @@
     for (    Method method : superClass.getMethods()) {
       if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
         String methodName=method.getName();
-        ReflectionUtils.makeAccessible(method);
-        MethodHandle mh;
-        try {
-          mh=lookup.findVirtual(superClass,methodName,MethodType.methodType(method.getReturnType()));
-          methodNames.put(methodName,mh);
+        if (Environment.isDevelopmentMode()) {
+          methodNames.put(methodName,new ReflectionInvoker(method));
         }
- catch (        NoSuchMethodException|IllegalAccessException e) {
-          throw new GrailsConfigurationException("Cannot find invokable controller action: " + methodName,e);
+ else {
+          MethodHandle mh;
+          try {
+            mh=lookup.findVirtual(superClass,methodName,MethodType.methodType(method.getReturnType()));
+            methodNames.put(methodName,new MethodHandleInvoker(mh));
+          }
+ catch (          NoSuchMethodException|IllegalAccessException e) {
+            methodNames.put(methodName,new ReflectionInvoker(method));
+          }
         }
       }
     }

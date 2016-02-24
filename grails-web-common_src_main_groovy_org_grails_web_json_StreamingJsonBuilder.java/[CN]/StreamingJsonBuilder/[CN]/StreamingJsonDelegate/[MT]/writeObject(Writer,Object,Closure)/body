@@ -1,5 +1,0 @@
-{
-  writer.write(OPEN_BRACE);
-  curryDelegateAndGetContent(writer,closure,object);
-  writer.write(CLOSE_BRACE);
-}

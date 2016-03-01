@@ -1,8 +1,15 @@
 {
-  final URL urlToPluginYml=IOUtils.findResourceRelativeToClass(pluginClass,PLUGIN_YML_PATH);
-  Resource urlResource=urlToPluginYml != null ? new UrlResource(urlToPluginYml) : null;
-  if (urlResource != null && urlResource.exists()) {
-    return urlResource;
+  Resource ymlResource=getConfigurationResource(pluginClass,PLUGIN_YML_PATH);
+  Resource groovyResource=getConfigurationResource(pluginClass,PLUGIN_GROOVY_PATH);
+  Boolean groovyResourceExists=groovyResource != null && groovyResource.exists();
+  if (ymlResource != null && ymlResource.exists()) {
+    if (groovyResourceExists) {
+      throw new RuntimeException("A plugin may define a plugin.yml or a plugin.groovy, but not both");
+    }
+    return ymlResource;
+  }
+  if (groovyResourceExists) {
+    return groovyResource;
   }
   return null;
 }

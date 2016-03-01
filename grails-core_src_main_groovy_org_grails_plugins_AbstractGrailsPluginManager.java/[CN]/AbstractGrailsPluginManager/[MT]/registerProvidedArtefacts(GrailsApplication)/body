@@ -1,6 +1,8 @@
 {
   checkInitialised();
-  for (  GrailsPlugin plugin : pluginList) {
+  ArrayList<GrailsPlugin> plugins=new ArrayList<GrailsPlugin>(pluginList);
+  Collections.reverse(plugins);
+  for (  GrailsPlugin plugin : plugins) {
     if (plugin.supportsCurrentScopeAndEnvironment()) {
       if (isPluginDisabledForProfile(plugin))       continue;
       for (      Class<?> artefact : plugin.getProvidedArtefacts()) {

@@ -1,0 +1,13 @@
+{
+  boolean isPersistentProperty=(domainClassPropertyMap.get(propertyName) != null);
+  if (isPersistentProperty) {
+    return false;
+  }
+  if (propertyName.endsWith("Id")) {
+    GrailsDomainClassProperty associationProperty=domainClassPropertyMap.get(propertyName.replaceFirst("Id$",""));
+    if (associationProperty != null && associationProperty.isAssociation()) {
+      return true;
+    }
+  }
+  return false;
+}

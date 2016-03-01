@@ -1,0 +1,9 @@
+{
+  if (defaultConstraints.containsKey("*")) {
+    final Object o=defaultConstraints.get("*");
+    if (o instanceof Map) {
+      Map<String,Object> globalConstraints=(Map<String,Object>)o;
+      applyMapOfConstraints(globalConstraints,domainClassProperty.getName(),domainClassProperty,constrained);
+    }
+  }
+}

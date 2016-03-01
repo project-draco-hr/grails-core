@@ -1,6 +1,23 @@
 {
   super(pluginClass,application);
   this.descriptor=descriptor;
+  URL rootResource=IOUtils.findRootResource(pluginClass);
+  if (rootResource == null) {
+    throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass);
+  }
+  this.baseResource=new UrlResource(rootResource);
+  try {
+    this.isJar=ResourceUtils.isJarURL(baseResource.getURL());
+  }
+ catch (  IOException e) {
+    throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass,e);
+  }
+  this.projectDirectory=isJar ? null : IOUtils.findApplicationDirectoryFile(pluginClass);
+  URL rootResourcesURL=IOUtils.findRootResourcesURL(pluginClass);
+  if (rootResourcesURL == null) {
+    throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass);
+  }
+  this.baseResourcesResource=new UrlResource(rootResourcesURL);
   if (descriptor != null) {
     initializeProvidedArtefacts(descriptor.getProvidedlassNames());
     initializeViewMap(descriptor);

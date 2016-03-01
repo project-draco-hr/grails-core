@@ -1,0 +1,10 @@
+{
+  Config grailsConfig;
+  if (grailsApplication != null) {
+    grailsConfig=grailsApplication.getConfig();
+  }
+ else {
+    grailsConfig=new PropertySourcesConfig();
+  }
+  return grailsConfig;
+}

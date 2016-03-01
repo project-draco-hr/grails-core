@@ -1,0 +1,28 @@
+{
+  Class superClass=getClazz();
+  MethodHandles.Lookup lookup=MethodHandles.lookup();
+  while (superClass != Object.class && superClass != GroovyObject.class) {
+    for (    Method method : superClass.getMethods()) {
+      if (Modifier.isPublic(method.getModifiers()) && method.getAnnotation(Action.class) != null) {
+        String methodName=method.getName();
+        if (Environment.isDevelopmentMode()) {
+          methodNames.put(methodName,new ReflectionInvoker(method));
+        }
+ else {
+          MethodHandle mh;
+          try {
+            mh=lookup.findVirtual(superClass,methodName,MethodType.methodType(method.getReturnType()));
+            methodNames.put(methodName,new MethodHandleInvoker(mh));
+          }
+ catch (          NoSuchMethodException|IllegalAccessException e) {
+            methodNames.put(methodName,new ReflectionInvoker(method));
+          }
+        }
+      }
+    }
+    superClass=superClass.getSuperclass();
+  }
+  if (!isActionMethod(defaultActionName) && methodNames.size() == 1 && !isReadableProperty("scaffold")) {
+    defaultActionName=methodNames.keySet().iterator().next();
+  }
+}

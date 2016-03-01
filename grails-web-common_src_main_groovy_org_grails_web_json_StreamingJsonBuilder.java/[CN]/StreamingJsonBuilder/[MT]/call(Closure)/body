@@ -1,6 +1,0 @@
-{
-  writer.write(OPEN_BRACE);
-  StreamingJsonDelegate.cloneDelegateAndGetContent(writer,c);
-  writer.write(CLOSE_BRACE);
-  return null;
-}

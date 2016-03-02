@@ -1,0 +1,51 @@
+{
+  Set<String> ignoredProperties=new HashSet<>();
+  ignoredProperties.add(GrailsDomainClassProperty.CLASS);
+  ignoredProperties.add(GrailsDomainClassProperty.META_CLASS);
+  ignoredProperties.add(GrailsDomainClassProperty.ERRORS);
+  if (isDomainClass) {
+    ignoredProperties.add(GrailsDomainConfigurationUtil.PROPERTIES_PROPERTY);
+    ignoredProperties.add(GrailsDomainClassProperty.IDENTITY);
+    ignoredProperties.add(GrailsDomainClassProperty.VERSION);
+    ignoredProperties.add(GrailsDomainClassProperty.DIRTY_PROPERTY_NAMES);
+    ignoredProperties.add(GrailsDomainClassProperty.DIRTY);
+    ignoredProperties.add(GrailsDomainClassProperty.ATTACHED);
+    final Object transients=GrailsClassUtils.getStaticPropertyValue(theClass,GrailsDomainClassProperty.TRANSIENT);
+    if (transients instanceof List) {
+      ignoredProperties.addAll((List)transients);
+    }
+    final PropertyDescriptor[] propertyDescriptors=BeanUtils.getPropertyDescriptors(theClass);
+    for (    PropertyDescriptor descriptor : propertyDescriptors) {
+      final Method readMethod=descriptor.getReadMethod();
+      final Method writeMethod=descriptor.getWriteMethod();
+      if (readMethod == null) {
+        ignoredProperties.add(descriptor.getName());
+      }
+ else       if (writeMethod == null || (Modifier.isTransient(readMethod.getModifiers()))) {
+        PersistenceMethod annotation=readMethod.getAnnotation(PersistenceMethod.class);
+        if (annotation == null) {
+          ignoredProperties.add(descriptor.getName());
+        }
+      }
+    }
+  }
+  Field[] declaredFields=theClass.getDeclaredFields();
+  for (  Field field : declaredFields) {
+    if (Modifier.isTransient(field.getModifiers())) {
+      ignoredProperties.add(field.getName());
+    }
+  }
+  Map<String,Method> propertyMap=new HashMap<>();
+  for (  Object aClassChain : GrailsDomainConfigurationUtil.getSuperClassChain(theClass)) {
+    Class<?> clazz=(Class<?>)aClassChain;
+    for (    Method method : clazz.getDeclaredMethods()) {
+      if (GrailsClassUtils.isPropertyGetter(method)) {
+        String propertyName=GrailsClassUtils.getPropertyForGetter(method.getName());
+        if (!ignoredProperties.contains(propertyName)) {
+          propertyMap.put(propertyName,method);
+        }
+      }
+    }
+  }
+  return propertyMap;
+}

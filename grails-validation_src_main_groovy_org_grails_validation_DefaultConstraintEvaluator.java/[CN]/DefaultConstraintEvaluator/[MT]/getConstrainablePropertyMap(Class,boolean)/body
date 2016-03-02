@@ -1,32 +1,33 @@
 {
-  List<String> ignoredProperties=new ArrayList<>();
+  Set<String> ignoredProperties=new HashSet<>();
   ignoredProperties.add(GrailsDomainClassProperty.CLASS);
   ignoredProperties.add(GrailsDomainClassProperty.META_CLASS);
   ignoredProperties.add(GrailsDomainClassProperty.ERRORS);
-  if (DomainClassArtefactHandler.isDomainClass(theClass)) {
+  if (isDomainClass) {
     ignoredProperties.add(GrailsDomainConfigurationUtil.PROPERTIES_PROPERTY);
     ignoredProperties.add(GrailsDomainClassProperty.IDENTITY);
     ignoredProperties.add(GrailsDomainClassProperty.VERSION);
     ignoredProperties.add(GrailsDomainClassProperty.DIRTY_PROPERTY_NAMES);
     ignoredProperties.add(GrailsDomainClassProperty.DIRTY);
     ignoredProperties.add(GrailsDomainClassProperty.ATTACHED);
-  }
-  final Object transients=GrailsClassUtils.getStaticPropertyValue(theClass,GrailsDomainClassProperty.TRANSIENT);
-  if (transients instanceof List) {
-    ignoredProperties.addAll((List)transients);
-  }
-  try {
-    final BeanInfo beanInfo=Introspector.getBeanInfo(theClass);
-    final PropertyDescriptor[] propertyDescriptors=beanInfo.getPropertyDescriptors();
+    final Object transients=GrailsClassUtils.getStaticPropertyValue(theClass,GrailsDomainClassProperty.TRANSIENT);
+    if (transients instanceof List) {
+      ignoredProperties.addAll((List)transients);
+    }
+    final PropertyDescriptor[] propertyDescriptors=BeanUtils.getPropertyDescriptors(theClass);
     for (    PropertyDescriptor descriptor : propertyDescriptors) {
       final Method readMethod=descriptor.getReadMethod();
-      if (readMethod != null && Modifier.isTransient(readMethod.getModifiers())) {
+      final Method writeMethod=descriptor.getWriteMethod();
+      if (readMethod == null) {
         ignoredProperties.add(descriptor.getName());
       }
+ else       if (writeMethod == null || (Modifier.isTransient(readMethod.getModifiers()))) {
+        PersistenceMethod annotation=readMethod.getAnnotation(PersistenceMethod.class);
+        if (annotation == null) {
+          ignoredProperties.add(descriptor.getName());
+        }
+      }
     }
-  }
- catch (  IntrospectionException e) {
-    LOG.error("An error occurred introspecting properties",e);
   }
   Field[] declaredFields=theClass.getDeclaredFields();
   for (  Field field : declaredFields) {

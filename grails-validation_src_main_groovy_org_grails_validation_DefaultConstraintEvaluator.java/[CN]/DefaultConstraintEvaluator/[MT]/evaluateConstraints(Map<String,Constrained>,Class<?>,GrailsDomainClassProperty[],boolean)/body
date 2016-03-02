@@ -4,7 +4,7 @@
   }
   boolean isDomainClass=DomainClassArtefactHandler.isDomainClass(theClass);
   Map<String,GrailsDomainClassProperty> domainClassPropertyMap=indexPropertiesByPropertyName(domainClassProperties);
-  Map<String,Method> constrainablePropertyMap=getConstrainablePropertyMap(theClass);
+  Map<String,Method> constrainablePropertyMap=getConstrainablePropertyMap(theClass,isDomainClass);
   for (  String propertyName : constrainablePropertyMap.keySet()) {
     GrailsDomainClassProperty domainClassProperty=domainClassPropertyMap.get(propertyName);
     boolean isPersistentProperty=isDomainClass && domainClassProperty != null;
@@ -18,6 +18,9 @@
             continue;
           }
         }
+      }
+ else {
+        continue;
       }
     }
     Constrained constrained=constraintMap.get(propertyName);

@@ -1,5 +1,5 @@
 {
   super(clazz,SERVICE);
-  Object tmpTransactional=getPropertyOrStaticPropertyOrFieldValue(TRANSACTIONAL,Boolean.class);
-  transactional=tmpTransactional == null || tmpTransactional.equals(Boolean.TRUE);
+  Boolean tmpTransactional=getPropertyOrStaticPropertyOrFieldValue(TRANSACTIONAL,Boolean.class);
+  transactional=Boolean.TRUE.equals(tmpTransactional);
 }

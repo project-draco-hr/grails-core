@@ -9,8 +9,10 @@
   }
   try {
     WebUtils.storeGrailsWebRequest(webRequest);
-    FlashScope fs=webRequest.getAttributes().getFlashScope(request);
-    fs.next();
+    if (!Boolean.TRUE.equals(request.getAttribute(GrailsApplicationAttributes.FORWARD_ISSUED))) {
+      FlashScope fs=webRequest.getAttributes().getFlashScope(request);
+      fs.next();
+    }
     filterChain.doFilter(request,response);
   }
   finally {

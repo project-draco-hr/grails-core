@@ -9,7 +9,7 @@
   }
   try {
     WebUtils.storeGrailsWebRequest(webRequest);
-    if (!Boolean.TRUE.equals(request.getAttribute(GrailsApplicationAttributes.FORWARD_ISSUED))) {
+    if (WebUtils.isForward(request)) {
       FlashScope fs=webRequest.getAttributes().getFlashScope(request);
       fs.next();
     }

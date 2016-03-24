@@ -1,4 +1,4 @@
 {
-  FieldNode logVariable=new FieldNode(LOG_PROPERTY,Modifier.STATIC | Modifier.PRIVATE,new ClassNode(Log.class),classNode,new MethodCallExpression(new ClassExpression(new ClassNode(LogFactory.class)),"getLog",new ArgumentListExpression(new ConstantExpression(logName))));
+  FieldNode logVariable=new FieldNode(LOG_PROPERTY,Modifier.STATIC | Modifier.PRIVATE,new ClassNode(Logger.class),classNode,new MethodCallExpression(new ClassExpression(new ClassNode(LoggerFactory.class)),"getLogger",new ArgumentListExpression(new ConstantExpression(logName))));
   classNode.addField(logVariable);
 }

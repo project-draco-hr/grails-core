@@ -13,6 +13,15 @@
     throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass,e);
   }
   this.projectDirectory=isJar ? null : IOUtils.findApplicationDirectoryFile(pluginClass);
+  if (BuildSettings.BASE_DIR != null && projectDirectory != null) {
+    try {
+      if (projectDirectory.getCanonicalPath().startsWith(BuildSettings.BASE_DIR.getCanonicalPath())) {
+        isBase=true;
+      }
+    }
+ catch (    IOException e) {
+    }
+  }
   URL rootResourcesURL=IOUtils.findRootResourcesURL(pluginClass);
   if (rootResourcesURL == null) {
     throw new PluginException("Cannot evaluate plugin location for plugin " + pluginClass);

@@ -1,0 +1,4 @@
+{
+  GroovyPagesUriSupport uriSupport=new DefaultGroovyPagesUriService();
+  assertNull(uriSupport.getLogicalControllerName(new FooInterceptor()));
+}

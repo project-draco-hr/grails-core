@@ -1,4 +1,4 @@
 {
-  controllerHashCode=System.identityHashCode(controller.getClass());
+  controllerHashCode=controller.getClass().hashCode();
   controllerClassName=controller.getClass().getName();
 }

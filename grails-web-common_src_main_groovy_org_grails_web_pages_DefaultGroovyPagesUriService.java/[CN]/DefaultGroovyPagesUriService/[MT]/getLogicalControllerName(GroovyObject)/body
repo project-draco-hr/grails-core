@@ -3,7 +3,7 @@
   String name=controllerNameCache.get(key);
   if (name == null) {
     name=super.getLogicalControllerName(controller);
-    String prevname=controllerNameCache.putIfAbsent(key,name);
+    String prevname=name != null ? controllerNameCache.putIfAbsent(key,name) : null;
     if (prevname != null) {
       return prevname;
     }

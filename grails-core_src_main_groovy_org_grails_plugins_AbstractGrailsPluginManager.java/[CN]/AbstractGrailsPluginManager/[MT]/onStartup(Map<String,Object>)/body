@@ -1,0 +1,7 @@
+{
+  for (  GrailsPlugin plugin : pluginList) {
+    if (plugin.getInstance() instanceof Plugin) {
+      ((Plugin)plugin.getInstance()).onStartup(event);
+    }
+  }
+}

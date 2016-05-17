@@ -7,12 +7,12 @@
     int lastSlash=pattern.lastIndexOf('/');
     String urlRoot=lastSlash > -1 ? pattern.substring(0,lastSlash) : pattern;
     String urlEnd=lastSlash > -1 ? pattern.substring(lastSlash,pattern.length()) : "";
-    pattern="^" + urlRoot.replace("(\\.(*))","\\.?([^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/]+$2").replaceAll("([^\\*])\\*$","$1[^/]+").replaceAll("\\*\\*",".*");
+    pattern="^" + urlRoot.replace("(\\.(*))","(\\.[^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/]+?$2").replaceAll("([^\\*])\\*$","$1[^/]+?").replaceAll("\\*\\*",".*");
     if ("/(*)(\\.(*))".equals(urlEnd)) {
       pattern+="/([^/]+)\\.([^/.]+)?";
     }
  else {
-      pattern+=urlEnd.replace("(\\.(*))","\\.?([^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/]+$2").replaceAll("([^\\*])\\*$","$1[^/]+").replaceAll("\\*\\*",".*").replaceAll("\\(\\[\\^\\/\\]\\+\\)\\\\\\.","([^/.]+)\\\\.").replaceAll("\\(\\[\\^\\/\\]\\+\\)\\?\\\\\\.","([^/.]+)\\?\\\\.");
+      pattern+=urlEnd.replace("(\\.(*))","(\\.[^/]+)?").replaceAll("([^\\*])\\*([^\\*])","$1[^/]+?$2").replaceAll("([^\\*])\\*$","$1[^/]+?").replaceAll("\\*\\*",".*").replaceAll("\\(\\[\\^\\/\\]\\+\\)\\\\\\.","([^/.]+?)\\\\.").replaceAll("\\(\\[\\^\\/\\]\\+\\)\\?\\\\\\.","([^/.]+?)\\?\\\\.");
     }
     pattern+="/??$";
     regex=Pattern.compile(pattern);

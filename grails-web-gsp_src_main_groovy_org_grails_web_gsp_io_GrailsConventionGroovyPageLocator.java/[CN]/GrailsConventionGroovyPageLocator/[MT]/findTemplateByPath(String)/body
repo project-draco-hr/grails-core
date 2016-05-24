@@ -1,3 +1,3 @@
 {
-  return findPage(uriService.getAbsoluteTemplateURI(uri));
+  return findPage(uriService.getAbsoluteTemplateURI(uri,true));
 }

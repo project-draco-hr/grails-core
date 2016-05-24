@@ -1,6 +1,6 @@
 {
   if (templateName.startsWith(SLASH_STR)) {
-    return getAbsoluteTemplateURI(templateName);
+    return getAbsoluteTemplateURI(templateName,includeExtension);
   }
   FastStringWriter buf=new FastStringWriter();
   String pathToTemplate=BLANK;

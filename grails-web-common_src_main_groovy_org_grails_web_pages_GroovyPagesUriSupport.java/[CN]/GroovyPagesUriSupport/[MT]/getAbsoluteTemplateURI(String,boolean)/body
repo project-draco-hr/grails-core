@@ -12,7 +12,10 @@
     buf.append(SLASH_UNDR);
     buf.append(templateName.substring(1,templateName.length()));
   }
-  String uri=buf.append(EXTENSION).toString();
+  if (includeExtension) {
+    buf.append(EXTENSION);
+  }
+  String uri=buf.toString();
   buf.close();
   return uri;
 }

@@ -2,7 +2,7 @@
   for (  Resource messageResource : resources) {
     InputStream inputStream=messageResource.getInputStream();
     try {
-      properties.load(inputStream);
+      properties.load(new InputStreamReader(inputStream,Charset.forName(System.getProperty("file.encoding",DEFAULT_PROPERTIES_ENCODING))));
     }
   finally {
       try {

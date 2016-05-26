@@ -1,0 +1,14 @@
+{
+  setEnableSitemeshPreprocessing(config.getProperty(GroovyPageParser.CONFIG_PROPERTY_GSP_SITEMESH_PREPROCESS,Boolean.class,true));
+  setExpressionCodecDirectiveValue(config.getProperty(OutputEncodingSettings.CONFIG_PROPERTY_GSP_CODECS + '.' + OutputEncodingSettings.EXPRESSION_CODEC_NAME,String.class,config.getProperty(OutputEncodingSettings.CONFIG_PROPERTY_DEFAULT_CODEC,String.class,OutputEncodingSettings.getDefaultValue(OutputEncodingSettings.EXPRESSION_CODEC_NAME))));
+  setStaticCodecDirectiveValue(config.getProperty(OutputEncodingSettings.CONFIG_PROPERTY_GSP_CODECS + '.' + OutputEncodingSettings.STATIC_CODEC_NAME,String.class,OutputEncodingSettings.getDefaultValue(OutputEncodingSettings.STATIC_CODEC_NAME)));
+  setTaglibCodecDirectiveValue(config.getProperty(OutputEncodingSettings.CONFIG_PROPERTY_GSP_CODECS + '.' + OutputEncodingSettings.TAGLIB_CODEC_NAME,String.class,OutputEncodingSettings.getDefaultValue(OutputEncodingSettings.TAGLIB_CODEC_NAME)));
+  setOutCodecDirectiveValue(config.getProperty(OutputEncodingSettings.CONFIG_PROPERTY_GSP_CODECS + '.' + OutputEncodingSettings.OUT_CODEC_NAME,String.class,OutputEncodingSettings.getDefaultValue(OutputEncodingSettings.OUT_CODEC_NAME)));
+  Object keepDirObj=config.getProperty(GroovyPageParser.CONFIG_PROPERTY_GSP_KEEPGENERATED_DIR,Object.class);
+  if (keepDirObj instanceof File) {
+    setKeepGeneratedDirectory((File)keepDirObj);
+  }
+ else   if (keepDirObj != null) {
+    setKeepGeneratedDirectory(new File(String.valueOf(keepDirObj)));
+  }
+}

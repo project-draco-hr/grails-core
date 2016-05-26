@@ -1,6 +1,9 @@
 {
-  if (viewName != null && viewName.startsWith(SLASH_STR)) {
+  if (viewName != null && (viewName.startsWith(SLASH_STR))) {
     return getAbsoluteViewURIInternal(viewName,buf,includeSuffix);
+  }
+ else   if (viewName.startsWith(RELATIVE_STRING)) {
+    return getRelativeViewURIInternal(viewName,buf,includeSuffix);
   }
   if (viewPathPrefix != null) {
     buf.append(SLASH).append(viewPathPrefix);

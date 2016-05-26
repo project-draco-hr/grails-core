@@ -2,6 +2,7 @@
   GroovyObject controller=(GroovyObject)new GroovyClassLoader().parseClass("class FooController { }").newInstance();
   GroovyPagesUriSupport uriSupport=new GroovyPagesUriSupport();
   assertEquals("/foo/bar.gsp",uriSupport.getViewURI(controller,"bar"));
+  assertEquals("/bar.gsp",uriSupport.getViewURI(controller,"../bar"));
   assertEquals("/bar/foo.gsp",uriSupport.getViewURI(controller,"/bar/foo"));
   assertEquals("/foo/bar/foo.gsp",uriSupport.getViewURI(controller,"bar/foo"));
 }

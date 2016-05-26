@@ -1,7 +1,3 @@
 {
-  Config config=Holders.getConfig();
-  if (config != null) {
-    return config.getProperty(GroovyPageParser.CONFIG_PROPERTY_GSP_ENCODING,System.getProperty("file.encoding","us-ascii"));
-  }
-  return System.getProperty("file.encoding","us-ascii");
+  return this.gspEncoding;
 }

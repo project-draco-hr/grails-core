@@ -1,0 +1,8 @@
+{
+  String tmp=viewName.substring(RELATIVE_STRING.length() - 1,viewName.length());
+  buf.append(tmp);
+  if (includeSuffix) {
+    buf.append(SUFFIX);
+  }
+  return buf.toString();
+}

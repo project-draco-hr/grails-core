@@ -1,5 +1,7 @@
 {
   if (applicationContext.containsBean(GrailsApplication.APPLICATION_ID)) {
     this.grailsApplication=applicationContext.getBean(GrailsApplication.APPLICATION_ID,GrailsApplication.class);
+    Config config=grailsApplication.getConfig();
+    this.gspEncoding=config.getProperty(GroovyPageParser.CONFIG_PROPERTY_GSP_ENCODING,System.getProperty("file.encoding",GroovyPageParser.DEFAULT_ENCODING));
   }
 }

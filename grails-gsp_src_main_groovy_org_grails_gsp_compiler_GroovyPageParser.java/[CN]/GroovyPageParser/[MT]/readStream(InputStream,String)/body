@@ -1,6 +1,6 @@
 {
   if (gspEncoding == null) {
-    gspEncoding=getGspEncoding();
+    gspEncoding=DEFAULT_ENCODING;
   }
   return IOUtils.toString(in,gspEncoding);
 }

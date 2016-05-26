@@ -11,7 +11,7 @@
     buf.append(viewName.substring(1,viewName.length()));
   }
   if (includeSuffix) {
-    buf.append(SUFFIX).toString();
+    buf.append(SUFFIX);
   }
   return buf.toString();
 }

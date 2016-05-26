@@ -1,0 +1,10 @@
+{
+  String tmp=templateName.substring(RELATIVE_STRING.length(),templateName.length());
+  FastStringWriter buf=new FastStringWriter();
+  buf.append("/_");
+  buf.append(tmp);
+  if (includeSuffix) {
+    buf.append(SUFFIX);
+  }
+  return buf.toString();
+}

@@ -1,7 +1,3 @@
 {
-  Config config=Holders.getConfig();
-  if (config != null) {
-    return config.getProperty(Settings.GSP_VIEW_ENCODING,DEFAULT_ENCODING);
-  }
   return DEFAULT_ENCODING;
 }

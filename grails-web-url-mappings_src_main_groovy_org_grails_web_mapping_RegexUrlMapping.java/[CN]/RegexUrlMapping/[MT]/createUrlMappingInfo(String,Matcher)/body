@@ -12,7 +12,13 @@
       if (errors.hasErrors()) {
         return null;
       }
-      params.put(cp.getPropertyName(),lastGroup);
+      String propertyName=cp.getPropertyName();
+      if (lastGroup != null) {
+        if (FORMAT_PARAMETER.equals(propertyName) && lastGroup.startsWith(".")) {
+          lastGroup=lastGroup.substring(1);
+        }
+      }
+      params.put(propertyName,lastGroup);
       break;
     }
  else {
@@ -27,7 +33,11 @@
         if (errors.hasErrors()) {
           return null;
         }
-        params.put(cp.getPropertyName(),lastGroup);
+        String propertyName=cp.getPropertyName();
+        if (FORMAT_PARAMETER.equals(propertyName) && lastGroup.startsWith(".")) {
+          lastGroup=lastGroup.substring(1);
+        }
+        params.put(propertyName,lastGroup);
       }
     }
   }

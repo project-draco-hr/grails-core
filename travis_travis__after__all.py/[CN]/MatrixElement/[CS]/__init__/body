@@ -1,0 +1,5 @@
+def __init__(self, json_raw):
+    self.is_finished = (json_raw['finished_at'] is not None)
+    self.is_succeeded = (json_raw['result'] == 0)
+    self.number = json_raw['number']
+    self.is_leader = is_leader(self.number)

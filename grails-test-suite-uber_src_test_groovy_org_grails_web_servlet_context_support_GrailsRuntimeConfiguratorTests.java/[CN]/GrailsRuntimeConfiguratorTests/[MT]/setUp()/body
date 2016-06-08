@@ -1,7 +1,0 @@
-{
-  ExpandoMetaClass.enableGlobally();
-  Holders.setConfig(null);
-  Holders.setGrailsApplication(null);
-  Holders.setPluginManager(null);
-  super.setUp();
-}

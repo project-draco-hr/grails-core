@@ -1,0 +1,13 @@
+def wait_others_to_finish():
+
+    def others_finished():
+        '\n        Dumps others to finish\n        Leader cannot finish, it is working now\n        :return: tuple(True or False, List of not finished jobs)\n        '
+        snapshot = matrix_snapshot()
+        finished = [el.is_finished for el in snapshot if (not el.is_leader)]
+        return (reduce((lambda a, b: (a and b)), finished), [el.number for el in snapshot if ((not el.is_leader) and (not el.is_finished))])
+    while True:
+        (finished, waiting_list) = others_finished()
+        if finished:
+            break
+        log.info('Leader waits for minions {0}...'.format(waiting_list))
+        time.sleep(polling_interval)

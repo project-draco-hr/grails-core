@@ -1,0 +1,25 @@
+{
+  if (log.isTraceEnabled()) {
+    log.trace("Applying rules to determine whether transaction should rollback on $ex");
+  }
+  RollbackRuleAttribute winner=null;
+  int deepest=Integer.MAX_VALUE;
+  List<RollbackRuleAttribute> rollbackRules=getRollbackRules();
+  if (rollbackRules != null) {
+    for (    RollbackRuleAttribute rule : rollbackRules) {
+      int depth=rule.getDepth(ex);
+      if (depth >= 0 && depth < deepest) {
+        deepest=depth;
+        winner=rule;
+      }
+    }
+  }
+  if (log.isTraceEnabled()) {
+    log.trace("Winning rollback rule is: $winner");
+  }
+  if (winner == null) {
+    log.trace("No relevant rollback rule found: applying default rules");
+    return true;
+  }
+  return !(winner instanceof NoRollbackRuleAttribute);
+}

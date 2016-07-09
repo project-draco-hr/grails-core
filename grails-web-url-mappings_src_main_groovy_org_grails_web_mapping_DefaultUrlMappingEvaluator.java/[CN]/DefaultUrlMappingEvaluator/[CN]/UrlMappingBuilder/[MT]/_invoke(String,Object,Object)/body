@@ -69,8 +69,15 @@
             mappingInfo.setPlugin(namedArguments.get(UrlMapping.PLUGIN).toString());
           }
           UrlMappingData urlData=createUrlMappingData(uri,isResponseCode);
-          if (namedArguments.containsKey(RESOURCE)) {
-            Object controller=namedArguments.get(RESOURCE);
+          if (namedArguments.containsKey(RESOURCE) || namedArguments.containsKey(SINGLE)) {
+            Object controller;
+            if (namedArguments.containsKey(RESOURCE)) {
+              GrailsUtil.deprecated("The ${RESOURCE} syntax is deprecated and will be removed in a future release. Use ${SINGLE} instead.");
+              controller=namedArguments.get(RESOURCE);
+            }
+ else {
+              controller=namedArguments.get(SINGLE);
+            }
             String controllerName=controller.toString();
             mappingInfo.setController(controllerName);
             parentResources.push(new ParentResource(controllerName,uri,true));

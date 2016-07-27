@@ -60,6 +60,27 @@
       }
     }
   }
+  if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
+    Set<String> lookupParams=new HashSet<String>(DEFAULT_NAMESPACE_PARAMS);
+    Set<String> paramKeys=new HashSet<String>(params.keySet());
+    paramKeys.removeAll(lookupParams);
+    lookupParams.addAll(paramKeys);
+    UrlMappingKey lookupKey=new UrlMappingKey(null,null,null,pluginName,httpMethod,version,lookupParams);
+    mapping=mappingsLookup.get(lookupKey);
+    if (mapping == null) {
+      lookupKey.httpMethod=UrlMapping.ANY_HTTP_METHOD;
+      mapping=mappingsLookup.get(lookupKey);
+    }
+    if (mapping == null) {
+      lookupParams.removeAll(paramKeys);
+      UrlMappingKey lookupKeyModifiedParams=new UrlMappingKey(null,null,null,pluginName,httpMethod,version,lookupParams);
+      mapping=mappingsLookup.get(lookupKeyModifiedParams);
+      if (mapping == null) {
+        lookupKeyModifiedParams.httpMethod=UrlMapping.ANY_HTTP_METHOD;
+        mapping=mappingsLookup.get(lookupKeyModifiedParams);
+      }
+    }
+  }
   UrlCreator creator=null;
   if (mapping == null || (mapping instanceof ResponseCodeUrlMapping)) {
     if (useDefault) {

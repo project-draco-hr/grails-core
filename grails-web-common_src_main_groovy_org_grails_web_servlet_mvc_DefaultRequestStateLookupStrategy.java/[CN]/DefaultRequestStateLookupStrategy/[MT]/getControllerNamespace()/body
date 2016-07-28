@@ -1,0 +1,7 @@
+{
+  final GrailsWebRequest req=getWebRequest();
+  if (req != null) {
+    return req.getControllerNamespace();
+  }
+  return null;
+}

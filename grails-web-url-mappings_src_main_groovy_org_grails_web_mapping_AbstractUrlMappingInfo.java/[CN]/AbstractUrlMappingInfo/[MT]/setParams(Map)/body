@@ -1,6 +1,6 @@
 {
   Collection keys=newParams.keySet();
-  keys=DefaultGroovyMethods.toList(keys);
+  keys=new ArrayList(keys);
   Collections.sort((List)keys,new Comparator(){
     public int compare(    Object leftKey,    Object rightKey){
       Object leftValue=newParams.get(leftKey);

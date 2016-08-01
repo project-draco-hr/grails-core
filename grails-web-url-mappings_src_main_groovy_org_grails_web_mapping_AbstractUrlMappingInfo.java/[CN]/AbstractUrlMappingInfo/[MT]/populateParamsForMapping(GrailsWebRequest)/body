@@ -8,13 +8,8 @@
     if (param instanceof Closure) {
       param=evaluateNameForValue(param);
     }
-    if (param instanceof String) {
-      try {
-        param=URLDecoder.decode((String)param,encoding);
-      }
- catch (      UnsupportedEncodingException e) {
-        param=evaluateNameForValue(param);
-      }
+    if (param instanceof CharSequence) {
+      param=param.toString();
     }
     dispatchParams.put(name,param);
   }

@@ -10,6 +10,9 @@
   gspSpringView.setScriptSource(scriptSource);
   try {
     gspSpringView.afterPropertiesSet();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Initialized GSP view for URI [{}]",gspView);
+    }
   }
  catch (  Exception e) {
     throw new RuntimeException("Error initializing GroovyPageView",e);

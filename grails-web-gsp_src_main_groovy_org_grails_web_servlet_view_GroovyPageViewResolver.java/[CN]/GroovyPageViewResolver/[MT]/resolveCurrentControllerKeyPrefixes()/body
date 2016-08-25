@@ -1,6 +1,6 @@
 {
-  String pluginContextPath=null;
-  String namespace=null;
+  String pluginContextPath;
+  String namespace;
   GrailsWebRequest webRequest=GrailsWebRequest.lookup();
   if (webRequest != null) {
     namespace=webRequest.getControllerNamespace();

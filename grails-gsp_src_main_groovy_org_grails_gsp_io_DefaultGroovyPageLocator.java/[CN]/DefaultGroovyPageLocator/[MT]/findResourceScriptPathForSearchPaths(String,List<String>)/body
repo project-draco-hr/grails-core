@@ -3,19 +3,32 @@
     for (    String searchPath : searchPaths) {
       String gspClassName=precompiledGspMap.get(searchPath);
       if (gspClassName != null && !reloadedPrecompiledGspClassNames.contains(gspClassName)) {
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Found pre-compiled GSP template [{}] for path [{}]",gspClassName,searchPath);
+        }
         Class<GroovyPage> gspClass=null;
         try {
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Loading GSP template [{}]",gspClassName);
+          }
           gspClass=(Class<GroovyPage>)Class.forName(gspClassName,true,Thread.currentThread().getContextClassLoader());
         }
  catch (        ClassNotFoundException e) {
           LOG.warn("Cannot load class " + gspClassName + ". Resuming on non-precompiled implementation.",e);
         }
         if (gspClass != null) {
-          return createGroovyPageCompiledScriptSource(uri,searchPath,gspClass);
+          GroovyPageCompiledScriptSource groovyPageCompiledScriptSource=createGroovyPageCompiledScriptSource(uri,searchPath,gspClass);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Returning new GSP script source for class [{}]",gspClassName);
+          }
+          return groovyPageCompiledScriptSource;
         }
       }
     }
   }
-  Resource foundResource=findResource(searchPaths);
-  return foundResource == null ? null : new GroovyPageResourceScriptSource(uri,foundResource);
+ else {
+    Resource foundResource=findResource(searchPaths);
+    return foundResource == null ? null : new GroovyPageResourceScriptSource(uri,foundResource);
+  }
+  return null;
 }

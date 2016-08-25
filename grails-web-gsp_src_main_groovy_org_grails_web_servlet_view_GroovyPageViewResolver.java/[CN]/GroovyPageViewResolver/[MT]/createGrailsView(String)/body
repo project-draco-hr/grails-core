@@ -7,9 +7,15 @@
   }
   GroovyPageScriptSource scriptSource;
   if (controller == null) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Locating GSP view for path {}",viewName);
+    }
     scriptSource=groovyPageLocator.findViewByPath(viewName);
   }
  else {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Locating GSP view for controller {} and path {}",controller,viewName);
+    }
     scriptSource=groovyPageLocator.findView(controller,viewName);
   }
   if (scriptSource != null) {

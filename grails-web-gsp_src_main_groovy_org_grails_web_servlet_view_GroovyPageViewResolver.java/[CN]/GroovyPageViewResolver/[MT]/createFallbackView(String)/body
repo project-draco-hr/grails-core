@@ -1,5 +1,8 @@
 {
   if (resolveJspView) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("No GSP view found, falling back to locating JSTL view for name [{}]",viewName);
+    }
     return createJstlView(viewName);
   }
   return null;

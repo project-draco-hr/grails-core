@@ -1,3 +1,6 @@
 {
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Rendering inner view for layout and model {}",model);
+  }
   innerView.render(model,request,contentBufferingResponse);
 }

@@ -26,9 +26,6 @@
       }
     }
   }
- else {
-    Resource foundResource=findResource(searchPaths);
-    return foundResource == null ? null : new GroovyPageResourceScriptSource(uri,foundResource);
-  }
-  return null;
+  Resource foundResource=findResource(searchPaths);
+  return foundResource == null ? null : new GroovyPageResourceScriptSource(uri,foundResource);
 }

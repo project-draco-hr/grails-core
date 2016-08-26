@@ -9,8 +9,14 @@
       continue;
     }
     BinaryGrailsPlugin binaryPlugin=(BinaryGrailsPlugin)plugin;
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Searching plugin [{}] for GSP view [{}]",plugin.getName(),uri);
+    }
     GroovyPageScriptSource scriptSource=resolveViewInBinaryPlugin(binaryPlugin,uri);
     if (scriptSource != null) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Found GSP view [{}] in plugin [{}]",uri,plugin.getName());
+      }
       return scriptSource;
     }
  else     if (binaryPlugin.getProjectDirectory() != null) {

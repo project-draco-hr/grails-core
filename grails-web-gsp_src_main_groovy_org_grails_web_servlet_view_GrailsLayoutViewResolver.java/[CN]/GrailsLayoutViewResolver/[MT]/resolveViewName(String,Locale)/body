@@ -1,4 +1,7 @@
 {
+  if (LOG.isDebugEnabled()) {
+    LOG.debug("Resolving view for name {} and locale {}",viewName,locale);
+  }
   View innerView=innerViewResolver.resolveViewName(viewName,locale);
   if (innerView == null) {
     return null;
@@ -7,6 +10,9 @@
     return innerView;
   }
  else {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Creating layout view name {} and locale {}",viewName,locale);
+    }
     return createLayoutView(innerView);
   }
 }

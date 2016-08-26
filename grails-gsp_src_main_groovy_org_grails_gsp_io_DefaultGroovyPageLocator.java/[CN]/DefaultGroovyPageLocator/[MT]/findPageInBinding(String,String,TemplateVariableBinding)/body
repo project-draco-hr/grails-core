@@ -1,6 +1,26 @@
 {
+  GroovyPageScriptSource scriptSource=null;
   String contextPath=resolveContextPath(pluginName,uri,binding);
-  GroovyPageScriptSource scriptSource=findPageInBinding(GrailsResourceUtils.appendPiecesForUri(contextPath,uri),binding);
+  String fullURI=GrailsResourceUtils.appendPiecesForUri(contextPath,uri);
+  if (pluginManager != null) {
+    GrailsPlugin grailsPlugin=pluginManager.getGrailsPlugin(pluginName);
+    if (grailsPlugin instanceof BinaryGrailsPlugin) {
+      BinaryGrailsPlugin binaryGrailsPlugin=(BinaryGrailsPlugin)grailsPlugin;
+      File projectDirectory=binaryGrailsPlugin.getProjectDirectory();
+      if (projectDirectory != null) {
+        File f=new File(projectDirectory,GrailsResourceUtils.VIEWS_DIR_PATH + uri);
+        if (f.exists()) {
+          scriptSource=new GroovyPageResourceScriptSource(uri,new FileSystemResource(f));
+        }
+      }
+ else {
+        scriptSource=resolveViewInBinaryPlugin(binaryGrailsPlugin,uri);
+      }
+    }
+  }
+  if (scriptSource == null) {
+    scriptSource=findPageInBinding(fullURI,binding);
+  }
   if (scriptSource == null) {
     scriptSource=findResourceScriptSource(uri);
   }

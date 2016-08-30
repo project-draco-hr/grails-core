@@ -1,11 +1,8 @@
 {
   int minLineNumber=0;
-  if (method.getAnnotations(ClassHelper.make(Traits.TraitBridge.class)).size() > 0) {
-    List<AnnotationNode> annotations=method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode());
-    if (annotations.size() > 0 && method.getParameters().length > 0) {
-      method.getAnnotations().removeAll(annotations);
-      --minLineNumber;
-    }
+  if (isTraitMethod(method) && hasAnnotation(method,Action.class) && hasParameters(method)) {
+    removeAnnotation(method,Action.class);
+    --minLineNumber;
   }
   return !method.isStatic() && method.isPublic() && !method.isAbstract()&& method.getAnnotations(ACTION_ANNOTATION_NODE.getClassNode()).isEmpty()&& method.getAnnotations(new ClassNode(ControllerMethod.class)).isEmpty()&& method.getLineNumber() >= minLineNumber && !method.getName().startsWith("$") && !method.getReturnType().getName().equals(VOID_TYPE) && !isExceptionHandlingMethod(method);
 }

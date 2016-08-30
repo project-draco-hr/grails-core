@@ -1,5 +1,5 @@
 {
-  String classSource="package org.codehaus.groovy.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   static constraints = {\n"+ "      name(nullable: false, validator : { 'called' })\n"+ "   }"+ "}";
-  String descendentSource="package org.codehaus.groovy.grails.validation\n" + "class TestB extends Test {\n" + "   static constraints = {\n"+ "      name(size:5..20)\n"+ "   }"+ "}";
+  String classSource="package org.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   static constraints = {\n"+ "      name(nullable: false, validator : { 'called' })\n"+ "   }"+ "}";
+  String descendentSource="package org.grails.validation\n" + "class TestB extends Test {\n" + "   static constraints = {\n"+ "      name(size:5..20)\n"+ "   }"+ "}";
   ensureConstraintsPresent(new String[]{classSource,descendentSource},1,3);
 }

@@ -1,6 +1,0 @@
-{
-  Assert.isTrue(StringUtils.hasText(logicalName),"Argument [logicalName] cannot be null or blank");
-  String className=logicalName.substring(0,1).toUpperCase() + logicalName.substring(1);
-  if (trailingName != null)   className=className + trailingName;
-  return className;
-}

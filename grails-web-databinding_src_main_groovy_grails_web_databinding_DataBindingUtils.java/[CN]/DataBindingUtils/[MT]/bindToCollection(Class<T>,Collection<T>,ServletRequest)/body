@@ -1,5 +1,5 @@
 {
-  final GrailsApplication grailsApplication=GrailsWebRequest.lookupApplication();
+  final GrailsApplication grailsApplication=Holders.findApplication();
   final CollectionDataBindingSource collectionDataBindingSource=createCollectionDataBindingSource(grailsApplication,targetType,request);
   bindToCollection(targetType,collectionToPopulate,collectionDataBindingSource);
 }

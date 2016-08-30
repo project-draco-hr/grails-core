@@ -1,7 +1,7 @@
 {
   GrailsApplicationAttributes attrs=new DefaultGrailsApplicationAttributes(new MockServletContext());
   GroovyClassLoader gcl=new GroovyClassLoader();
-  Class<?> controllerClass=gcl.parseClass("class TestController {\n" + "def " + ControllerDynamicMethods.CONTROLLER_URI_PROPERTY + " = '/test'\n"+ "def "+ ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY+ " = 'test'\n"+ "}");
+  Class<?> controllerClass=gcl.parseClass("class TestController {\n" + "def controllerUri = '/test'\n" + "def controllerName = 'test'\n"+ "}");
   MockHttpServletRequest request=new MockHttpServletRequest();
   request.setAttribute(GrailsApplicationAttributes.CONTROLLER,controllerClass.newInstance());
   assertEquals("/WEB-INF/grails-app/views/test/aView.gsp",attrs.getViewUri("aView",request));

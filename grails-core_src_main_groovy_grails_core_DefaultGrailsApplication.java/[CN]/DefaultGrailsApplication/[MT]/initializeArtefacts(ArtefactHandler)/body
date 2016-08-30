@@ -2,7 +2,7 @@
   if (handler == null) {
     return;
   }
-  org.codehaus.groovy.grails.commons.ArtefactInfo info=getArtefactInfo(handler.getType());
+  ArtefactInfo info=getArtefactInfo(handler.getType());
   if (info != null) {
     handler.initialize(info);
   }

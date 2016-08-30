@@ -1,4 +1,4 @@
 {
-  String classSource="package org.codehaus.groovy.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   static constraints = {\n"+ "      name(nullable: false, validator : { 'called' })\n"+ "   }"+ "}";
+  String classSource="package org.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ "   String name\n"+ "   static constraints = {\n"+ "      name(nullable: false, validator : { 'called' })\n"+ "   }"+ "}";
   ensureConstraintsPresent(new String[]{classSource},0,2);
 }

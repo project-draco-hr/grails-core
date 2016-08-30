@@ -1,6 +1,0 @@
-{
-  if (grailsApplication == null) {
-    return new PropertySourcesConfig();
-  }
-  return grailsApplication.getConfig();
-}

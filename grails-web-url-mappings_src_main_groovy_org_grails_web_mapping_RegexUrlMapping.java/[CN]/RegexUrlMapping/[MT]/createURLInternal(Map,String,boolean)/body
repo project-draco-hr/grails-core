@@ -4,7 +4,7 @@
   if (includeContextPath) {
     GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.getRequestAttributes();
     if (webRequest != null) {
-      contextPath=webRequest.getAttributes().getApplicationUri(webRequest.getCurrentRequest());
+      contextPath=webRequest.getContextPath();
     }
   }
   if (paramValues == null)   paramValues=Collections.emptyMap();

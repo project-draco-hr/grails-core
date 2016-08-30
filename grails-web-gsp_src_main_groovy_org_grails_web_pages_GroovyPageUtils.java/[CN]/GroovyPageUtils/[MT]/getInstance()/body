@@ -1,9 +1,0 @@
-{
-  try {
-    GrailsWebRequest webRequest=(GrailsWebRequest)RequestContextHolder.currentRequestAttributes();
-    return (GroovyPagesUriSupport)webRequest.getAttributes().getGroovyPagesUriService();
-  }
- catch (  IllegalStateException e) {
-    return new GroovyPagesUriSupport();
-  }
-}

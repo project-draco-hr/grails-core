@@ -1,9 +1,9 @@
 {
   org.grails.io.support.Resource descriptor=getDescriptor();
-  if (application == null || descriptor == null) {
+  if (grailsApplication == null || descriptor == null) {
     return;
   }
-  ClassLoader parent=application.getClassLoader();
+  ClassLoader parent=grailsApplication.getClassLoader();
   GroovyClassLoader gcl=new GroovyClassLoader(parent);
   try {
     initialisePlugin(gcl.parseClass(descriptor.getFile()));

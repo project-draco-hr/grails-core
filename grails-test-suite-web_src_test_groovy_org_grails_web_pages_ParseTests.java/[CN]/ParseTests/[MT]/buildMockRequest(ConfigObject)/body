@@ -3,7 +3,6 @@
   appCtx.registerMockBean(GroovyPagesUriService.BEAN_ID,new DefaultGroovyPagesUriService());
   DefaultGrailsApplication grailsApplication=new DefaultGrailsApplication();
   grailsApplication.setConfig(config);
-  Holders.setConfig(new PropertySourcesConfig().merge(config));
   appCtx.registerMockBean(GrailsApplication.APPLICATION_ID,grailsApplication);
   appCtx.getServletContext().setAttribute(GrailsApplicationAttributes.APPLICATION_CONTEXT,appCtx);
   appCtx.getServletContext().setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,appCtx);

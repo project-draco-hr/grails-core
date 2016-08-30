@@ -25,7 +25,7 @@
       String viewName=view.toString();
       final String viewClassName=viewsProperties.getProperty(viewName);
       try {
-        final Class<?> viewClass=application.getClassLoader().loadClass(viewClassName);
+        final Class<?> viewClass=grailsApplication.getClassLoader().loadClass(viewClassName);
         precompiledViewMap.put(viewName,viewClass);
       }
  catch (      Throwable e) {

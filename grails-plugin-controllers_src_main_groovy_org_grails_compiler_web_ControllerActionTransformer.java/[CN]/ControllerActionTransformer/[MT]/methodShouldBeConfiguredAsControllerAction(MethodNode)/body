@@ -1,6 +1,6 @@
 {
   int minLineNumber=0;
-  if (isTraitMethod(method) && hasAnnotation(method,Action.class) && hasParameters(method)) {
+  if (isInheritedFromTrait(method) && hasAnnotation(method,Action.class) && hasParameters(method)) {
     removeAnnotation(method,Action.class);
     --minLineNumber;
   }

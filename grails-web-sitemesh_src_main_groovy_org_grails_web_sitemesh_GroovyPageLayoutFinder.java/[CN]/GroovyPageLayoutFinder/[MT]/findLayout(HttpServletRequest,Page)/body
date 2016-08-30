@@ -20,7 +20,7 @@
         String actionUri=webRequest.getAttributes().getControllerActionUri(request);
         if (controllerName != null && actionUri != null) {
           if (LOG.isDebugEnabled()) {
-            LOG.debug("Found controller in request, location layout for controller [" + controllerName + "] and action ["+ actionUri+ "]");
+            LOG.debug("Found controller in request, locating layout for controller [" + controllerName + "] and action ["+ actionUri+ "]");
           }
           LayoutCacheKey cacheKey=null;
           boolean cachedIsNull=false;
@@ -37,6 +37,9 @@
           if (d == null && !cachedIsNull) {
             d=resolveDecorator(request,controller,controllerName,actionUri);
             if (cacheEnabled) {
+              if (LOG.isDebugEnabled() && d != null) {
+                LOG.debug("Caching resolved layout {} for controller {} and action {}",d.getPage(),controllerName,actionUri);
+              }
               layoutDecoratorCache.put(cacheKey,new DecoratorCacheValue(d));
             }
           }

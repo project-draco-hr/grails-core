@@ -3,7 +3,7 @@
   if (controllerName == null || controllerName.length() == 0) {
     GroovyObject controller=getController(request);
     if (controller != null) {
-      controllerName=(String)controller.getProperty(ControllerDynamicMethods.CONTROLLER_NAME_PROPERTY);
+      controllerName=(String)controller.getProperty("controllerName");
       request.setAttribute(GrailsApplicationAttributes.CONTROLLER_NAME_ATTRIBUTE,controllerName);
       if (controller instanceof GrailsControllerClass) {
         String namespace=((GrailsControllerClass)controller).getNamespace();

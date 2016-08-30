@@ -1,6 +1,6 @@
 {
   GroovyClassLoader gcl=new GroovyClassLoader();
-  Class<?> groovyClass=gcl.parseClass("package org.codehaus.groovy.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ " String name\n"+ "}");
+  Class<?> groovyClass=gcl.parseClass("package org.grails.validation\n" + "class Test {\n" + "   Long id\n"+ "   Long version\n"+ " String name\n"+ "}");
   GrailsDomainClass domainClass=new DefaultGrailsDomainClass(groovyClass);
   Map constraints=domainClass.getConstrainedProperties();
   assertNotNull(constraints);

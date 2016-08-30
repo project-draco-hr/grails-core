@@ -1,7 +1,0 @@
-{
-  T val=(T)getMandatory(key);
-  if (!allowedValues.contains(val)) {
-    throw new GrailsConfigurationException(String.format("Configuration value for key %s is not one of the allowed values (%s)",key,DefaultGroovyMethods.inspect(allowedValues)));
-  }
-  return val;
-}

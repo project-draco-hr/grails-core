@@ -5,11 +5,11 @@
     Plugin p=(Plugin)plugin;
     p.setApplicationContext(applicationContext);
     p.setPlugin(this);
-    p.setGrailsApplication(((LegacyGrailsApplication)application).getGrailsApplication());
+    p.setGrailsApplication(grailsApplication);
     p.setPluginManager(manager);
   }
  else   if (plugin instanceof GrailsApplicationAware) {
-    ((GrailsApplicationAware)plugin).setGrailsApplication(((LegacyGrailsApplication)this.application).getGrailsApplication());
+    ((GrailsApplicationAware)plugin).setGrailsApplication(grailsApplication);
   }
   pluginBean=new BeanWrapperImpl(plugin);
   evaluatePluginVersion();

@@ -1,5 +1,5 @@
 {
-  Object enc=GrailsWebUtil.currentFlatConfiguration().get("grails.views.gsp.encoding");
+  Object enc=GrailsWebUtil.currentConfiguration().get("grails.views.gsp.encoding");
   if ((enc == null) || (enc.toString().trim().length() == 0)) {
     enc=System.getProperty("file.encoding","us-ascii");
   }

@@ -1,8 +1,0 @@
-{
-  return super.getValue(timeout,new Callable<T>(){
-    @Override public T call() throws Exception {
-      return updater.run();
-    }
-  }
-,false,null);
-}

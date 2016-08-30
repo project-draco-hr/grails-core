@@ -1,6 +1,0 @@
-{
-  Binding b=new Binding();
-  b.setVariable("node",result);
-  Writable w=(Writable)new GroovyShell(b).evaluate("new groovy.xml.StreamingMarkupBuilder().bind {" + " mkp.declareNamespace(\"\":  \"http://java.sun.com/xml/ns/j2ee\");" + " mkp.yield node}");
-  w.writeTo(output);
-}

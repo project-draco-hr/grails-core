@@ -1,9 +1,0 @@
-{
-  if (StringUtils.hasText(trailingName)) {
-    String shortName=getShortName(name);
-    if (shortName.indexOf(trailingName) > -1) {
-      return shortName.substring(0,shortName.length() - trailingName.length());
-    }
-  }
-  return name;
-}

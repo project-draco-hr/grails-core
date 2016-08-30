@@ -1,7 +1,7 @@
 {
   List<Class> artefacts=new ArrayList<Class>();
   if (!classNames.isEmpty()) {
-    final ClassLoader classLoader=application.getClassLoader();
+    final ClassLoader classLoader=grailsApplication.getClassLoader();
     for (    String className : classNames) {
       try {
         artefacts.add(classLoader.loadClass(className));

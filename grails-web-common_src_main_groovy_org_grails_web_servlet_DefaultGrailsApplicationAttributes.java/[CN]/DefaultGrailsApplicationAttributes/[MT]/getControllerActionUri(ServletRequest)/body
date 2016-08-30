@@ -1,4 +1,4 @@
 {
   GroovyObject controller=getController(request);
-  return (String)controller.getProperty(ControllerDynamicMethods.ACTION_URI_PROPERTY);
+  return (String)controller.getProperty("actionUri");
 }

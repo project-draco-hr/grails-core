@@ -1,7 +1,6 @@
 {
   Assert.notNull(pluginClass,"Argument [pluginClass] cannot be null");
   Assert.isTrue(pluginClass.getName().endsWith(TRAILING_NAME),"Argument [pluginClass] with value [" + pluginClass + "] is not a Grails plugin (class name must end with 'GrailsPlugin')");
-  this.application=new LegacyGrailsApplication(application);
   this.grailsApplication=application;
   this.pluginClass=pluginClass;
   Resource resource=readPluginConfiguration(pluginClass);

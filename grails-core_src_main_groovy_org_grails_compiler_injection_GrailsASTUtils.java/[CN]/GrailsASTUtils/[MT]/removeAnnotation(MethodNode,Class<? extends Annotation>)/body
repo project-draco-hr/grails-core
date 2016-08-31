@@ -1,0 +1,10 @@
+{
+  List<AnnotationNode> annotations=methodNode.getAnnotations(new ClassNode(annotationClass));
+  if (annotations.size() > 0) {
+    methodNode.getAnnotations().removeAll(annotations);
+    return true;
+  }
+ else {
+    return false;
+  }
+}

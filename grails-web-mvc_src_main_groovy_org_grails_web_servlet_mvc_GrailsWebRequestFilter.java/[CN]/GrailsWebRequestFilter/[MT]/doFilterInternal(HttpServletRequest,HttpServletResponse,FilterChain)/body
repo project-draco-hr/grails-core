@@ -1,5 +1,6 @@
 {
   LocaleContextHolder.setLocale(request.getLocale());
+  response=new OutputAwareHttpServletResponse(response);
   boolean isIncludeOrForward=WebUtils.isForward(request) || WebUtils.isInclude(request);
   GrailsWebRequest previous=isIncludeOrForward ? GrailsWebRequest.lookup(request) : null;
   GrailsWebRequest webRequest=new GrailsWebRequest(request,response,getServletContext());
